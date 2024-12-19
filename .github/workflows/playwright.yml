@@ -77,31 +77,14 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
-      - name: Run Chromium Tests
-        run: pnpm run e2e:playwright:chromium --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run Tests
+        run: pnpm run e2e:playwright --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: report-chromium-${{ matrix.shardIndex }}
+          name: blob-report-${{ matrix.shardIndex }}
           path: ./apps/playwright/playwright-report/
-          retention-days: 30
-
-      - name: Run Webkit Tests
-        run: pnpm run e2e:playwright:webkit --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: report-webkit-${{ matrix.shardIndex }}
-          path: ./apps/playwright/playwright-report/
-          retention-days: 30
-
-      - name: Check status of containers
-        if: failure()
-        run: docker compose ps
-
-      - name: "Check logs: web server container"
-        if: failure()
-        run: docker compose logs webserver
+          retention-days: 1
 
   merge-reports:
     # Merge reports after playwright-tests, even if some shards have failed
@@ -127,16 +110,16 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        path: ./all-reports
-        pattern: report-*
+        path: all-blob-reports
+        pattern: blob-report-*
         merge-multiple: true
 
     - name: Merge into HTML Report
-      run: npx playwright merge-reports --reporter html ./all-reports
+      run: npx playwright merge-reports --reporter html ./all-blob-reports
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
       with:
         name: html-report--attempt-${{ github.run_attempt }}
-        path: ./playwright-report
+        path: playwright-report
         retention-days: 14

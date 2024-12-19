@@ -21,7 +21,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? [["line"], ["html", { open: "never" }]]
+    ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000), // 1 minute
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 10000) }, // 10 seconds
