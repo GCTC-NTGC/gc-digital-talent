@@ -9182,6 +9182,10 @@
     "defaultMessage": "Modifiez les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
+  "ifqj46": {
+    "defaultMessage": "Le Programme d'apprentissage en TI pour les personnes autochtones a pour but d'aider à éliminer les obstacles en matière d'emploi pour les personnes autochtones dans le domaine numérique au sein du gouvernement du Canada. Devenez un partenaire de recrutement dès aujourd'hui et découvrez comment vous pouvez renforcer votre équipe en embauchant des talents autochtones en informatique et aider à bâtir à une fonction publique plus inclusive. Votre participation contribue à l'objectif plus large de promouvoir l'inclusion, l'équité et la réconciliation au Canada.",
+    "description": "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card"
+  },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
     "description": "Support form success title"
@@ -9597,6 +9601,10 @@
   "kvxHHl": {
     "defaultMessage": "Français essentiel",
     "description": "French essential language requirement"
+  },
+  "kyM6sV": {
+    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
+    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
   },
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
@@ -12173,6 +12181,10 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
+  "zVGzWa": {
+    "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
+    "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
   },
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
