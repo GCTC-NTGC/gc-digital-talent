@@ -292,14 +292,6 @@ const useMainNavLinks = () => {
       subMenu
     />
   );
-  const Teams = (
-    <NavItem
-      key="teams"
-      href={paths.teamTable()}
-      title={intl.formatMessage(pageTitles.teams)}
-      subMenu
-    />
-  );
 
   const SignIn = (
     <NavItem
@@ -439,7 +431,6 @@ const useMainNavLinks = () => {
           Departments,
           Skills,
           SkillFamilies,
-          Teams,
         ],
       };
     default:

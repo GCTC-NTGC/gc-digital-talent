@@ -18,10 +18,9 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
-import adminMessages from "~/messages/adminMessages";
 
 import accessors from "../Table/accessors";
-import { expiryCell, statusCell, viewTeamLinkCell } from "./cells";
+import { expiryCell, statusCell } from "./cells";
 import sortStatus from "./sortStatus";
 
 const isSuspended = (
@@ -131,22 +130,6 @@ const PoolStatusTable = ({ userQuery }: PoolStatusTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
-      {
-        id: "team",
-        header: intl.formatMessage(adminMessages.team),
-        sortingFn: normalizedText,
-        cell: ({ row: { original: poolCandidate } }) =>
-          viewTeamLinkCell(
-            paths.teamView(
-              poolCandidate.pool.team?.id ? poolCandidate.pool.team?.id : "",
-            ),
-            poolCandidate.pool.team?.displayName,
-            intl,
-          ),
-      },
-    ),
     columnHelper.accessor(
       ({ pool: { publishingGroup } }) =>
         getLocalizedName(publishingGroup?.label, intl),

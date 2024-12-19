@@ -180,15 +180,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {
-      label: intl.formatMessage(pageTitles.teams),
-      href: adminRoutes.teamTable(),
-      roles: [
-        ROLE_NAME.PoolOperator,
-        ROLE_NAME.CommunityManager,
-        ROLE_NAME.PlatformAdmin,
-      ],
-    },
-    {
       label: intl.formatMessage(pageTitles.trainingOpportunities),
       href: adminRoutes.trainingOpportunitiesIndex(),
       roles: [ROLE_NAME.PlatformAdmin],
