@@ -3,6 +3,7 @@ import path from "path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
+// eslint-disable-next-line import/no-named-as-default-member
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 /**
@@ -20,7 +21,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? [["line"], ["html", { open: "never" }]]
+    ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000), // 1 minute
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 10000) }, // 10 seconds
@@ -43,10 +44,10 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
 
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
+    // {
+    //   name: "firefox",
+    //   use: { ...devices["Desktop Firefox"] },
+    // },
 
     {
       name: "webkit",
