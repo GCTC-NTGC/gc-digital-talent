@@ -21,6 +21,9 @@ jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
     timeoutInMinutes: 30
+    env:
+      GCKEY_USERNAME: $(GCKEY_USERNAME)
+      GCKEY_PASSWORD: $(GCKEY_PASSWORD)
     steps:
       - checkout: self
         clean: true
