@@ -93,7 +93,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
             ($notifyAllUsers ? 1 : 0);
 
         if ($optionTypesCount != 1) {
-            throw new \Error('Must filter users using exactly one of the option types');
+            throw new \InvalidArgumentException('Must filter users using exactly one of the option types');
         }
 
         if (count($emailAddresses) > 0) {
@@ -108,7 +108,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
             return User::query();
         }
 
-        throw new \Error('Unexpected function end point for options: '.json_encode($options));
+        throw new \InvalidArgumentException('Unexpected function end point for options: '.json_encode($options));
     }
 
     private function builderFromEmailAddresses(array $requestedEmailAddresses): Builder
@@ -134,7 +134,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
         $allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
         foreach ($notificationFamilies as $notificationFamily) {
             if (! in_array($notificationFamily, $allNotificationFamilies)) {
-                throw new \Error('Invalid notification family: '.$notificationFamily);
+                throw new \InvalidArgumentException('Invalid notification family: '.$notificationFamily);
             }
         }
 
