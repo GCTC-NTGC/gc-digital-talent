@@ -20,13 +20,13 @@ return new class extends Migration
             $table->boolean('career_planning_exec_interest')->nullable();
             $table->jsonb('career_planning_exec_coaching_status')->nullable();
             $table->jsonb('career_planning_exec_coaching_interest')->nullable();
-            $table->string('career_planning_about_you')->nullable();
-            $table->string('career_planning_career_goals')->nullable();
-            $table->string('career_planning_learning_goals')->nullable();
-            $table->string('career_planning_work_style')->nullable();
+            $table->text('career_planning_about_you')->nullable();
+            $table->text('career_planning_career_goals')->nullable();
+            $table->text('career_planning_learning_goals')->nullable();
+            $table->text('career_planning_work_style')->nullable();
 
             $table->string('dream_role_title')->nullable();
-            $table->string('dream_role_additional_information')->nullable();
+            $table->text('dream_role_additional_information')->nullable();
 
             $table->foreignUuid('dream_role_community_id')
                 ->nullable()
