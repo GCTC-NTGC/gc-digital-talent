@@ -17,6 +17,7 @@ final class RevertPlaceCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->placed_at = null;
         $candidate->placed_department_id = null;
+        $candidate->suspended_at = null;
 
         $candidate->save();
 
