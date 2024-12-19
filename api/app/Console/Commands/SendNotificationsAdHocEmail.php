@@ -101,7 +101,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
         }
 
         if (count($notificationFamilies) > 0) {
-            return $this->builderFromNotifictionFamilies($notificationFamilies);
+            return $this->builderFromNotificationFamilies($notificationFamilies);
         }
 
         if ($notifyAllUsers) {
@@ -128,7 +128,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
         return $builder;
     }
 
-    private function builderFromNotifictionFamilies(array $notificationFamilies): Builder
+    private function builderFromNotificationFamilies(array $notificationFamilies): Builder
     {
         // Check for bad notification families
         $allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
