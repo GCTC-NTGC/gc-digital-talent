@@ -169,7 +169,6 @@ test.describe("Authenticated", () => {
       "/en/admin/settings/skill-families",
       "/en/admin/talent-requests",
       "/en/admin/communities",
-      "/en/admin/teams",
     ];
 
     const processOperatorAllowedPaths = [
@@ -221,7 +220,6 @@ test.describe("Authenticated", () => {
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
-      "/en/admin/teams",
     ];
 
     const communityRecruiterAllowedPaths = [
@@ -275,7 +273,6 @@ test.describe("Authenticated", () => {
       "/en/admin/settings/departments",
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
-      "/en/admin/teams",
     ];
 
     const communityAdminAllowedPaths = [
