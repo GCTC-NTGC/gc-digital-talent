@@ -3,6 +3,7 @@ import path from "path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
+// eslint-disable-next-line import/no-named-as-default-member
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 /**
