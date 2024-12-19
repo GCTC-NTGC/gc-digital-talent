@@ -83,7 +83,7 @@ jobs:
         if: always()
         with:
           name: blob-report-${{ matrix.shardIndex }}
-          path: ./apps/playwright/playwright-report/
+          path: blob-report
           retention-days: 1
 
   merge-reports:
