@@ -106,11 +106,6 @@ describe("Render dashboard page", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: "Teams",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
@@ -188,11 +183,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Skills",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Teams",
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -277,11 +267,6 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
-        name: "Teams",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
       screen.getByRole("link", {
         name: "Users",
       }),
@@ -360,11 +345,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Skills",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Teams",
       }),
     ).not.toBeInTheDocument();
     expect(
