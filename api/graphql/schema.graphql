@@ -113,6 +113,9 @@ type User {
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
+  # Employee profile info
+  employeeProfile: EmployeeProfile @hasOne @canQuery(ability: "view")
+
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
@@ -146,6 +149,35 @@ type User {
   poolBookmarks: [Pool] @belongsToMany
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+}
+
+type EmployeeProfile {
+  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_organization_type_interest")
+  moveInterest: [LocalizedMoveInterest!]
+    @rename(attribute: "career_planning_move_interest")
+  mentorshipStatus: [LocalizedMentorship!]
+    @rename(attribute: "career_planning_mentorship_status")
+  mentorshipInterest: [LocalizedMentorship!]
+    @rename(attribute: "career_planning_mentorship_interest")
+  execInterest: Boolean @rename(attribute: "career_planning_exec_interest")
+  execCoachingStatus: [LocalizedExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_status")
+  execCoachingInterest: [LocalizedExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_interest")
+  aboutYou: String @rename(attribute: "career_planning_about_you")
+  careerGoals: String @rename(attribute: "career_planning_career_goals")
+  learningGoals: String @rename(attribute: "career_planning_learning_goals")
+  workStyle: String @rename(attribute: "career_planning_work_style")
+  dreamRoleTitle: String @rename(attribute: "dream_role_title")
+  dreamRoleAdditionalInformation: String
+    @rename(attribute: "dream_role_additional_information")
+  dreamRoleCommunity: Community @belongsTo
+  dreamRoleClassification: Classification @belongsTo
+  dreamRoleWorkStream: WorkStream @belongsTo
+  dreamRoleDepartments: [Department!] @belongsToMany
+
+  userPublicProfile: UserPublicProfile
 }
 
 interface Notification {
@@ -1408,6 +1440,35 @@ input UpdateUserAsUserInput @validator {
   awardExperiences: AwardExperienceHasMany
 }
 
+input UpdateEmployeeProfileInput @validator {
+  organizationTypeInterest: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_organization_type_interest")
+  moveInterest: [MoveInterest!]
+    @rename(attribute: "career_planning_move_interest")
+  mentorshipStatus: [Mentorship!]
+    @rename(attribute: "career_planning_mentorship_status")
+  mentorshipInterest: [Mentorship!]
+    @rename(attribute: "career_planning_mentorship_interest")
+  execInterest: Boolean @rename(attribute: "career_planning_exec_interest")
+  execCoachingStatus: [ExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_status")
+  execCoachingInterest: [ExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_interest")
+  aboutYou: String @rename(attribute: "career_planning_about_you")
+  careerGoals: String @rename(attribute: "career_planning_career_goals")
+  learningGoals: String @rename(attribute: "career_planning_learning_goals")
+  workStyle: String @rename(attribute: "career_planning_work_style")
+  dreamRoleTitle: String @rename(attribute: "dream_role_title")
+  dreamRoleAdditionalInformation: String
+    @rename(attribute: "dream_role_additional_information")
+  dreamRoleCommunity: CommunityBelongsTo
+  dreamRoleClassification: ClassificationBelongsTo
+  dreamRoleWorkStream: WorkStreamBelongsTo
+  dreamRoleDepartments: DepartmentBelongsToMany
+
+  userPublicProfile: UserPublicProfile
+}
+
 input LocalizedStringInput {
   en: String
   fr: String
@@ -2144,6 +2205,13 @@ type Mutation {
     @guard
     @update(model: "User")
     @canModel(ability: "updateRoles", model: "User", injectArgs: true)
+  updateEmployeeProfile(
+    id: UUID!
+    employeeProfile: UpdateEmployeeProfileInput! @spread
+  ): EmployeeProfile
+    @guard
+    @update(model: "EmployeeProfile")
+    @canFind(ability: "update", find: "id", model: "EmployeeProfile")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
