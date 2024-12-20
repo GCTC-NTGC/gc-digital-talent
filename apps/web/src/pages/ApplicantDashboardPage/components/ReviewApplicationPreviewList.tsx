@@ -182,8 +182,8 @@ const ReviewApplicationDialog = ({
       </Dialog.Trigger>
       <Dialog.Content
         onCloseAutoFocus={(e) => {
-          e.preventDefault();
           if (focusOnRecruitment.current) {
+            e.preventDefault();
             document.getElementById(`${application.id}-test`)?.focus();
           }
 
