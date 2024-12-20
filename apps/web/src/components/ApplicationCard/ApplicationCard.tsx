@@ -5,12 +5,7 @@ import { useMutation } from "urql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Chip, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  PoolCandidateStatus,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   getApplicationStatusChip,
@@ -47,6 +42,18 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
     }
     suspendedAt
     submittedAt
+    removedAt
+    finalDecisionAt
+    finalDecision {
+      value
+    }
+    assessmentStatus {
+      currentStep
+      assessmentStepStatuses {
+        step
+      }
+      overallAssessmentStatus
+    }
     pool {
       id
       closingDate
@@ -73,6 +80,12 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
         group
         level
       }
+      areaOfSelection {
+        value
+      }
+      screeningQuestions {
+        id
+      }
     }
   }
 `);
@@ -96,21 +109,20 @@ const ApplicationCard = ({
     application.status?.value,
     application.pool.closingDate,
   );
-  const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
   const isApplicantQualified = isQualifiedStatus(application.status?.value);
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
-  const statusChip = isDraftExpired
-    ? getApplicationStatusChip(
-        PoolCandidateStatus.DraftExpired,
-        application.suspendedAt,
-        intl,
-      )
-    : getApplicationStatusChip(
-        application.status?.value,
-        application.suspendedAt,
-        intl,
-      );
+  const statusChip = getApplicationStatusChip(
+    application.submittedAt,
+    application.pool.closingDate,
+    application.removedAt,
+    application.finalDecisionAt,
+    application.finalDecision?.value,
+    application.pool.areaOfSelection?.value,
+    application.assessmentStatus,
+    application.pool.screeningQuestions,
+    intl,
+  );
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
     intl,

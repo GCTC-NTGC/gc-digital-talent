@@ -23,6 +23,8 @@ import {
   AssessmentStep,
   FinalDecision,
   LocalizedFinalDecision,
+  Pool,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -99,6 +101,32 @@ export const isExpired = (
     return true;
   }
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
+};
+
+export const isDisqualifiedFinalDecision = (
+  status: Maybe<FinalDecision> | undefined,
+): boolean => {
+  return status
+    ? [
+        FinalDecision.Disqualified,
+        FinalDecision.DisqualifiedPending,
+        FinalDecision.DisqualifiedRemoved,
+      ].includes(status)
+    : false;
+};
+
+export const isQualifiedFinalDecision = (
+  status: Maybe<FinalDecision> | undefined,
+): boolean => {
+  return status
+    ? [
+        FinalDecision.Qualified,
+        FinalDecision.QualifiedExpired,
+        FinalDecision.QualifiedPending,
+        FinalDecision.QualifiedPlaced,
+        FinalDecision.QualifiedRemoved,
+      ].includes(status)
+    : false;
 };
 
 export const formatSubmittedAt = (
@@ -235,6 +263,110 @@ export const getCandidateStatusChip = (
 };
 
 /* Applicant facing statuses */
+
+const applicationStatusLabels = defineMessages({
+  EXPIRED: {
+    defaultMessage: "Expired",
+    id: "GIC6EK",
+    description: "Expired status",
+  },
+  DRAFT: {
+    defaultMessage: "Draft",
+    id: "QDjfw4",
+    description: "Status label for a draft application",
+  },
+  RECEIVED: {
+    defaultMessage: "Received",
+    id: "IH+bPG",
+    description: "Status label for a submitted (but not reviewed) application",
+  },
+  UNDER_REVIEW: {
+    defaultMessage: "Under review",
+    id: "l2xs1C",
+    description: "Status label for an application under review",
+  },
+  PENDING_ASSESSMENT: {
+    defaultMessage: "Pending assessment",
+    id: "wHnlD+",
+    description: "Status label for a reviewed application awaiting assessment",
+  },
+  UNDER_ASSESSMENT: {
+    defaultMessage: "Under assessment",
+    id: "heFiZt",
+    description: "Status label for an application under assessment",
+  },
+  UNSUCCESSFUL: {
+    defaultMessage: "Unsuccessful",
+    id: "PcyEiH",
+    description: "Status label for a disqualified application",
+  },
+  SUCCESSFUL: {
+    defaultMessage: "Successful",
+    id: "ma/D52",
+    description: "Status label for a qualified application",
+  },
+});
+
+const applicationStatusDescriptions = defineMessages({
+  EXPIRED: {
+    defaultMessage: "The deadline to apply for this opportunity has passed.",
+    id: "0Zl+om",
+    description:
+      "Status description for a draft application to an expired poster",
+  },
+  DRAFT: {
+    defaultMessage:
+      "A draft application has been started but not submitted. You can continue a draft and submit it any time before the application deadline.",
+    id: "ryJuIZ",
+    description: "Status description for a draft application",
+  },
+  RECEIVED: {
+    defaultMessage:
+      "Your application has been successfully submitted and is awaiting review. We'll notify you when HR staff begin the review process.",
+    id: "pD/j43",
+    description:
+      "Status description for a submitted (but not reviewed) application",
+  },
+  UNDER_REVIEW: {
+    defaultMessage:
+      "Your application is actively being reviewed by HR staff. We'll notify you when next steps are required.",
+    id: "fNmDzT",
+    description: "Status description for an application under review",
+  },
+  PENDING_ASSESSMENT: {
+    defaultMessage:
+      "Your application was successfully screened in and you are now queued for further assessment. Depending on the volume of applications received, there may be a delay of up to several months before HR staff will reach out with next steps.",
+    id: "Lp5bvi",
+    description:
+      "Status description for a reviewed application awaiting assessment",
+  },
+  UNDER_ASSESSMENT: {
+    defaultMessage:
+      "Your application was successfully screened in and merit criteria are now being assessed. You will be contacted directly about each required assessment. We will also notify you when your application status changes based on the results.",
+    id: "Six9YX",
+    description: "Status description for an application under assessment",
+  },
+  UNSUCCESSFUL_PUBLIC: {
+    defaultMessage:
+      "Unfortunately, your application was unsuccessful. Due to the high volume of applications, we're unable to provide specific feedback why an application was rejected.",
+    id: "Fa30+B",
+    description:
+      "Status description for a disqualified application to a public pool",
+  },
+  UNSUCCESSFUL_EMPLOYEE: {
+    defaultMessage:
+      "Unfortunately your application was unsuccessful. For opportunities internal to the Government of Canada, you may request an informal conversation about this decision. If you'd like to discuss this application, please reach out to the functional community.",
+    id: "l3ZVez",
+    description:
+      "Status description for a disqualified application to an employee-only pool",
+  },
+  SUCCESSFUL: {
+    defaultMessage:
+      "Your application has been approved and you've passed the required assessments. Depending on the type of process you applied to, HR staff or potential hiring managers will be in touch with next steps.",
+    id: "DMcW46",
+    description: "Status description for a qualified application",
+  },
+});
 
 // Map combined statuses to their labels
 const combinedStatusLabels = defineMessages({
@@ -385,42 +517,110 @@ export interface StatusChipWithDescription extends StatusChip {
  * Returns a status chip for displaying to applicants. General information about application status.
  */
 export const getApplicationStatusChip = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-  suspendedAt: PoolCandidate["suspendedAt"],
+  submittedAt: PoolCandidate["submittedAt"],
+  closingDate: Pool["closingDate"],
+  removedAt: PoolCandidate["removedAt"],
+  finalDecisionAt: PoolCandidate["finalDecisionAt"],
+  finalDecision: Maybe<FinalDecision> | undefined,
+  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
+  assessmentStatus: PoolCandidate["assessmentStatus"],
+  screeningQuestions: Pool["screeningQuestions"],
   intl: IntlShape,
 ): StatusChipWithDescription => {
-  const statusLabelMessage = derivedStatusLabel(status, suspendedAt);
-  const label = statusLabelMessage
-    ? intl.formatMessage(statusLabelMessage)
-    : "";
+  // Draft applications
+  if (!submittedAt) {
+    if (closingDate && isPast(parseDateTimeUtc(closingDate))) {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.EXPIRED),
+        description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
+      };
+    } else {
+      return {
+        color: "primary",
+        label: intl.formatMessage(applicationStatusLabels.DRAFT),
+        description: intl.formatMessage(applicationStatusDescriptions.DRAFT),
+      };
+    }
+  }
 
-  if (isNotPlacedStatus(status)) {
+  // Disqualified applications
+  if (
+    removedAt ||
+    (finalDecisionAt && isDisqualifiedFinalDecision(finalDecision))
+  ) {
+    if (areaOfSelection === PoolAreaOfSelection.Employees) {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
+        ),
+      };
+    } else {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
+        ),
+      };
+    }
+  }
+
+  // Qualified applications
+  if (finalDecisionAt && isQualifiedFinalDecision(finalDecision)) {
     return {
       color: "success",
-      label,
+      label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
+      description: intl.formatMessage(applicationStatusDescriptions.SUCCESSFUL),
     };
   }
-  if (isPlacedStatus(status)) {
+
+  // Partially assessed applications
+  const currentStep = assessmentStatus?.currentStep
+    ? assessmentStatus?.currentStep
+    : 0;
+  const poolHasScreeningQuestions = screeningQuestions
+    ? screeningQuestions?.length > 0
+    : false;
+  if (currentStep === 2 && poolHasScreeningQuestions) {
     return {
       color: "secondary",
-      label,
+      label: intl.formatMessage(applicationStatusLabels.UNDER_REVIEW),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.UNDER_REVIEW,
+      ),
     };
   }
-  if (status === PoolCandidateStatus.Expired || isScreenedOutStatus(status)) {
+  if (
+    (currentStep === 3 && poolHasScreeningQuestions) ||
+    (currentStep === 2 && !poolHasScreeningQuestions)
+  ) {
     return {
-      color: "black",
-      label,
+      color: "secondary",
+      label: intl.formatMessage(applicationStatusLabels.PENDING_ASSESSMENT),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.PENDING_ASSESSMENT,
+      ),
     };
   }
-  if (isInactiveStatus(status)) {
+  if (
+    (currentStep > 3 && poolHasScreeningQuestions) ||
+    (currentStep > 2 && !poolHasScreeningQuestions)
+  ) {
     return {
-      color: "warning",
-      label,
+      color: "secondary",
+      label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.UNDER_ASSESSMENT,
+      ),
     };
   }
   return {
-    color: "primary",
-    label,
+    color: "secondary",
+    label: intl.formatMessage(applicationStatusLabels.RECEIVED),
+    description: intl.formatMessage(applicationStatusDescriptions.RECEIVED),
   };
 };
 
