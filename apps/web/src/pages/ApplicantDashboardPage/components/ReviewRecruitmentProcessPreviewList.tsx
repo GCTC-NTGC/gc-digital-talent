@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 
 import {
   graphql,
-  PoolSkillType,
   ReviewRecruitmentProcessPreviewListFragment,
 } from "@gc-digital-talent/graphql";
 import {
@@ -15,7 +14,6 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  Accordion,
   Button,
   Dialog,
   Link,
@@ -25,7 +23,6 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 
@@ -34,7 +31,6 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/poolCandidate";
-import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 import { RecruitmentDate } from "./MetadataDate";
