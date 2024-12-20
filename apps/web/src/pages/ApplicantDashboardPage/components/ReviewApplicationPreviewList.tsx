@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { differenceInDays } from "date-fns/differenceInDays";
+import { useRef, useState } from "react";
 
 import {
   graphql,
@@ -139,6 +140,8 @@ const ReviewApplicationDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const application = applicationQuery;
   const pool = application?.pool;
 
@@ -169,12 +172,24 @@ const ReviewApplicationDialog = ({
     isExpiredStatus;
 
   const isSuccessfulStatus = true;
+
+  const focusOnRecruitment = useRef(false);
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <PreviewList.Button label={poolName} />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content
+        onCloseAutoFocus={(e) => {
+          e.preventDefault();
+          if (focusOnRecruitment.current) {
+            document.getElementById(`${application.id}-test`)?.focus();
+          }
+
+          focusOnRecruitment.current = false;
+        }}
+      >
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
@@ -378,17 +393,20 @@ const ReviewApplicationDialog = ({
           </div>
           <Dialog.Footer data-h2-gap="base(0 x1)">
             {isSuccessfulStatus && (
-              <Link
-                href={`#${application.id}-test`}
+              <Button
                 mode="solid"
                 color="secondary"
+                onClick={() => {
+                  setIsOpen(false);
+                  focusOnRecruitment.current = true;
+                }}
               >
                 {intl.formatMessage({
                   defaultMessage: "View recruitment process",
                   id: "CMD0wo",
                   description: "Label for view recruitment process link",
                 })}
-              </Link>
+              </Button>
             )}
             <Link
               href={paths.application(application.id)}

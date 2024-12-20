@@ -87,10 +87,6 @@ export const DashboardPage = () => {
           <ReviewRecruitmentProcessPreviewList
             recruitmentProcesses={recruitmentProcesses}
           />
-          <a href="#here">Here</a>
-          <button type="button" id="here">
-            Here
-          </button>
         </>
       )}
     </Pending>
