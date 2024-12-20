@@ -489,6 +489,24 @@ const qualifiedRecruitmentStatusLabels = defineMessages({
     id: "Jprv7e",
     description: "Status label for a qualified application open for hiring",
   },
+  NOT_INTERESTED: {
+    defaultMessage: "Not interested",
+    id: "3QGPJe",
+    description:
+      "Status label for a qualified application the candidate has marked not interested",
+  },
+  HIRED: {
+    defaultMessage: "Hired",
+    id: "IJL2jN",
+    description: "Status label for a qualified application that has been hired",
+  },
+  EXPIRED: applicationStatusLabels.EXPIRED,
+  REMOVED: {
+    defaultMessage: "Removed",
+    id: "wCrJ6C",
+    description:
+      "Status label for a qualified application that has been removed",
+  },
 });
 
 const qualifiedRecruitmentStatusDescriptions = defineMessages({
@@ -499,6 +517,34 @@ const qualifiedRecruitmentStatusDescriptions = defineMessages({
     description:
       "Status description for a qualified application open for hiring",
   },
+  NOT_INTERESTED: {
+    defaultMessage:
+      "You've indicated that you aren't interested in receiving job opportunities related to this recruitment process. You can change this status at the end of this dialog.",
+    id: "7toBNM",
+    description:
+      "Status description for a qualified application the candidate has marked not interested",
+  },
+  HIRED: {
+    defaultMessage:
+      "You've accepted a job thanks to this recruitment process. You'll no longer receive job opportunities related to this process. If you wish to continue receiving referrals, you can let us know by editing your status at the end of this dialog.",
+    id: "lWpblC",
+    description:
+      "Status description for a qualified application that has been hired",
+  },
+  EXPIRED: {
+    defaultMessage:
+      'Recruitment processes usually retain talent for a limited amount of time, after which candidates need to be re-evaluated. If you\'re interested in similar roles, apply to opportunities on the "Browse jobs" page.',
+    id: "mkfk2A",
+    description:
+      "Status description for a qualified application that has expired",
+  },
+  REMOVED: {
+    defaultMessage:
+      "You've been removed from this recruitment process by HR staff due to unresponsiveness or another relevant reason. If you feel this was an error, please reach out to the functional community.",
+    id: "b55ox1",
+    description:
+      "Status description for a qualified application that has been removed",
+  },
 });
 
 /**
@@ -506,10 +552,54 @@ const qualifiedRecruitmentStatusDescriptions = defineMessages({
  * in new opportunities for a qualified application.
  */
 export const getQualifiedRecruitmentStatusChip = (
-  status: Maybe<PoolCandidateStatus> | undefined,
   suspendedAt: PoolCandidate["suspendedAt"],
+  placedAt: PoolCandidate["placedAt"],
+  expiryDate: PoolCandidate["expiryDate"],
+  removedAt: PoolCandidate["removedAt"],
   intl: IntlShape,
 ): StatusChipWithDescription => {
+  if (suspendedAt) {
+    if (placedAt) {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
+        description: intl.formatMessage(
+          qualifiedRecruitmentStatusDescriptions.HIRED,
+        ),
+      };
+    } else {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(
+          qualifiedRecruitmentStatusLabels.NOT_INTERESTED,
+        ),
+        description: intl.formatMessage(
+          qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
+        ),
+      };
+    }
+  }
+
+  if (expiryDate && isPast(parseDateTimeUtc(expiryDate))) {
+    return {
+      color: "black",
+      label: intl.formatMessage(qualifiedRecruitmentStatusLabels.EXPIRED),
+      description: intl.formatMessage(
+        qualifiedRecruitmentStatusDescriptions.EXPIRED,
+      ),
+    };
+  }
+
+  if (removedAt) {
+    return {
+      color: "error",
+      label: intl.formatMessage(qualifiedRecruitmentStatusLabels.REMOVED),
+      description: intl.formatMessage(
+        qualifiedRecruitmentStatusDescriptions.REMOVED,
+      ),
+    };
+  }
+
   return {
     color: "success",
     label: intl.formatMessage(qualifiedRecruitmentStatusLabels.OPEN_TO_JOBS),

@@ -44,6 +44,9 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
       }
     }
     suspendedAt
+    placedAt
+    expiryDate
+    removedAt
     pool {
       id
       publishingGroup {

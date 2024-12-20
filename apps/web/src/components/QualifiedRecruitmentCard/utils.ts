@@ -91,8 +91,10 @@ export const getQualifiedRecruitmentInfo = (
 ): QualifiedRecruitmentInfo => {
   return {
     statusChip: getQualifiedRecruitmentStatusChip(
-      candidate.status?.value,
       candidate.suspendedAt,
+      candidate.placedAt,
+      candidate.expiryDate,
+      candidate.removedAt,
       intl,
     ),
     availability: getAvailabilityInfo(candidate, intl),
