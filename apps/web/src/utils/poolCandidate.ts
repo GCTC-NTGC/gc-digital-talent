@@ -10,7 +10,11 @@ import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  localizeSalaryRange,
+} from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -23,6 +27,7 @@ import {
   AssessmentStep,
   FinalDecision,
   LocalizedFinalDecision,
+  Classification,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -431,4 +436,23 @@ export const priorityWeightAfterVerification = (
 
   // final fallback - last (Other)
   return 40;
+};
+
+/**
+ * Get the salary range of a classification
+ * @param locale
+ * @param classification
+ * @returns
+ */
+export const getSalaryRange = (
+  locale: string,
+  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
+) => {
+  if (!classification) return null;
+
+  return localizeSalaryRange(
+    classification.minSalary,
+    classification.maxSalary,
+    locale,
+  );
 };
