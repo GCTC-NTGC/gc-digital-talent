@@ -57,9 +57,9 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
     pool {
       id
       closingDate
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -130,13 +130,13 @@ const ApplicationCard = ({
     application.submittedAt,
   );
   const applicationTitle = getShortPoolTitleHtml(intl, {
-    stream: application.pool.stream,
+    workStream: application.pool.workStream,
     name: application.pool.name,
     publishingGroup: application.pool.publishingGroup,
     classification: application.pool.classification,
   });
   const applicationTitleString = getShortPoolTitleLabel(intl, {
-    stream: application.pool.stream,
+    workStream: application.pool.workStream,
     name: application.pool.name,
     publishingGroup: application.pool.publishingGroup,
     classification: application.pool.classification,

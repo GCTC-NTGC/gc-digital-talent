@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,8 +37,8 @@ class Skill extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
         'keywords' => 'array',
     ];
 

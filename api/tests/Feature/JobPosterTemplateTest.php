@@ -13,6 +13,7 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -301,18 +302,21 @@ class JobPosterTemplateTest extends TestCase
 
         return [
             'referenceId' => $template->reference_id,
-            'name' => $template->name,
-            'description' => $template->description,
+            'name' => Arr::only($template->name, ['en', 'fr']),
+            'description' => Arr::only($template->description, ['en', 'fr']),
             'supervisoryStatus' => $template->supervisory_status,
             'stream' => $template->stream,
-            'tasks' => $template->tasks,
-            'workDescription' => $template->work_description,
-            'keywords' => $template->keywords,
-            'essentialBehaviouralSkillsNotes' => $template->essential_behavioural_skills_notes,
-            'essentialTechnicalSkillsNotes' => $template->essential_technical_skills_notes,
-            'nonessentialTechnicalSkillsNotes' => $template->nonessential_technical_skills_notes,
+            'tasks' => Arr::only($template->tasks, ['en', 'fr']),
+            'workDescription' => Arr::only($template->work_description, ['en', 'fr']),
+            'keywords' => Arr::only($template->keywords, ['en', 'fr']),
+            'essentialBehaviouralSkillsNotes' => Arr::only($template->essential_behavioural_skills_notes, ['en', 'fr']),
+            'essentialTechnicalSkillsNotes' => Arr::only($template->essential_technical_skills_notes, ['en', 'fr']),
+            'nonessentialTechnicalSkillsNotes' => Arr::only($template->nonessential_technical_skills_notes, ['en', 'fr']),
             'classification' => [
                 'connect' => $template->classification->id,
+            ],
+            'workStream' => [
+                'connect' => $template->workStream->id,
             ],
             'skills' => [
                 'connect' => $template->skills->map(function ($skill) {

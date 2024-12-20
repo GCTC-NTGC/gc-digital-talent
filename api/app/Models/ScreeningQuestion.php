@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +32,7 @@ class ScreeningQuestion extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'question' => 'array',
+        'question' => LocalizedString::class,
     ];
 
     /**

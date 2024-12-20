@@ -48,7 +48,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Illuminate\Support\Carbon $suspended_at
+ * @property ?\Carbon\Carbon $suspended_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
@@ -310,7 +310,7 @@ class PoolCandidate extends Model
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
-                $query->whereIn('stream', $streams);
+                $query->whereWorkStreamsIn($streams);
             });
 
         return $query;

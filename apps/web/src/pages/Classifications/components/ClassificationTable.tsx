@@ -146,8 +146,8 @@ export const ClassificationTable = ({
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage:
-            'Use the "Create Classification" button to get started.',
-          id: "Tl2FNA",
+            'Use the "Create classification" button to get started.',
+          id: "KHmf+e",
           description: "Instructions for adding a classification item.",
         }),
       }}

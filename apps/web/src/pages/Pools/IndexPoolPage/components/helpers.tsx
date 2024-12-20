@@ -16,6 +16,7 @@ import {
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
+  PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -32,11 +33,11 @@ import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "stream">,
+  pool: Pick<Pool, "name" | "workStream">,
   intl: IntlShape,
 ) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool?.workStream?.name, intl, true)}`;
 }
 
 export function viewCell(
@@ -173,7 +174,6 @@ export function getOrderByClause(
     ["id", "id"],
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
-    ["stream", "stream"],
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
@@ -260,6 +260,20 @@ export function getTeamDisplayNameSort(
   };
 }
 
+export function getWorkStreamNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolWorkStreamNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "workStream");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
 export function getOrderByColumnSort(
   sortingRules?: SortingState,
 ): OrderByColumnInput | undefined {
@@ -296,7 +310,7 @@ export function transformFormValuesToFilterInput(
   return {
     publishingGroups: data.publishingGroups,
     statuses: data.statuses,
-    streams: data.streams,
+    workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
       const [group, level] = classification.split("-");
       return { group, level: Number(level) };
@@ -310,7 +324,7 @@ export function transformPoolFilterInputToFormValues(
   return {
     publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
-    streams: unpackMaybes(input?.streams),
+    workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(
       (c) => `${c.group}-${c.level}`,
     ),

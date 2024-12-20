@@ -15,7 +15,11 @@ import {
   useControllableState,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
+import {
+  EmploymentCategory,
+  Skill,
+  WorkExperienceGovEmployeeType,
+} from "@gc-digital-talent/graphql";
 
 import { AnyExperience } from "~/types/experience";
 import {
@@ -165,6 +169,53 @@ const ExperienceCard = ({
         data-h2-color="base(black.light)"
       >
         <span>{typeMessage}</span>
+        {isWorkExperience(experience) &&
+          experience.employmentCategory?.value ===
+            EmploymentCategory.GovernmentOfCanada && (
+            <>
+              <span aria-hidden>&bull;</span>
+              <span>
+                {intl.formatMessage({
+                  defaultMessage: "Government of Canada",
+                  id: "OKqOVT",
+                  description:
+                    "Label for goc employment category on work experience card metadata",
+                })}
+              </span>
+            </>
+          )}
+        {isWorkExperience(experience) &&
+          experience.employmentCategory?.value ===
+            EmploymentCategory.GovernmentOfCanada &&
+          experience.govEmploymentType?.value ===
+            WorkExperienceGovEmployeeType.Contractor && (
+            <>
+              <span aria-hidden>&bull;</span>
+              <span>
+                {intl.formatMessage({
+                  defaultMessage: "Contractor",
+                  id: "dpZ2B9",
+                  description:
+                    "Label for contractor employment type on work experience card metadata",
+                })}
+              </span>
+            </>
+          )}
+        {isWorkExperience(experience) &&
+          experience.employmentCategory?.value ===
+            EmploymentCategory.CanadianArmedForces && (
+            <>
+              <span aria-hidden>&bull;</span>
+              <span>
+                {intl.formatMessage({
+                  defaultMessage: "Canadian Armed Forces",
+                  id: "dBpcNA",
+                  description:
+                    "Label for caf employment category on work experience card metadata",
+                })}
+              </span>
+            </>
+          )}
         {date && (
           <>
             <span aria-hidden>&bull;</span>
