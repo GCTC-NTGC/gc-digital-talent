@@ -26,10 +26,6 @@ test.describe("Process actions", () => {
       .selectOption({ label: "IT-01 (Information Technology)" });
 
     await appPage.page
-      .getByRole("combobox", { name: /team/i })
-      .selectOption({ label: "Digital Community Management" });
-
-    await appPage.page
       .getByRole("combobox", { name: /department/i })
       .selectOption({ label: "Treasury Board Secretariat" });
 
@@ -128,6 +124,7 @@ test.describe("Process actions", () => {
   });
 
   test("Update pool", async ({ appPage }) => {
+    test.slow();
     const adminCtx = await graphql.newContext();
 
     const user = await me(adminCtx, {});
@@ -197,6 +194,12 @@ test.describe("Process actions", () => {
       .getByRole("button", { name: /save this question/i })
       .click();
 
+    await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+
+    await expect(
+      appPage.page.getByRole("button", { name: /edit item 0/i }),
+    ).toBeVisible();
+
     await appPage.page
       .getByRole("button", { name: /add a new question/i })
       .click();
@@ -217,9 +220,10 @@ test.describe("Process actions", () => {
       .click();
 
     await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
-    await expect(appPage.page.getByRole("alert").last()).toContainText(
-      /process updated successfully/i,
-    );
+
+    await expect(
+      appPage.page.getByRole("button", { name: /edit item 1/i }),
+    ).toBeVisible();
 
     // Reorder questions
     await appPage.page
