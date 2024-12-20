@@ -83,7 +83,7 @@ import Tabs from "./components/Tabs";
 import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
-import Well, { WellProps } from "./components/Well";
+import Well, { WellProps, WellColor } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
@@ -127,6 +127,7 @@ export type {
   TocListProps,
   TocSidebarProps,
   WellProps,
+  WellColor,
 };
 
 export {
