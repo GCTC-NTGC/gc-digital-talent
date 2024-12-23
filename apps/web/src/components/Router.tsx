@@ -232,6 +232,11 @@ const createRoute = (locale: Locales) =>
                     ),
                 },
                 {
+                  path: "employee-profile",
+                  lazy: () =>
+                    import("../pages/EmployeeProfile/EmployeeProfilePage"),
+                },
+                {
                   path: "personal-information",
                   lazy: () =>
                     import("../pages/Profile/ProfilePage/ProfilePage"),
