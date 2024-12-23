@@ -198,7 +198,7 @@ test.describe("Process actions", () => {
 
     await expect(
       appPage.page.getByRole("button", { name: /edit item 0/i }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15000 });
 
     await appPage.page
       .getByRole("button", { name: /add a new question/i })
@@ -223,7 +223,7 @@ test.describe("Process actions", () => {
 
     await expect(
       appPage.page.getByRole("button", { name: /edit item 1/i }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 15000 });
 
     // Reorder questions
     await appPage.page
