@@ -1,9 +1,15 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
@@ -14,6 +20,16 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
+import StatusItem from "~/components/StatusItem/StatusItem";
+
+import messages from "./messages";
+
+const SECTION_ID = {
+  CAREER_PLANNING: "career-planning-section",
+  TALENT_MOBILITY: "talent-mobility-section",
+  DREAM_ROLE: "dream-role-section",
+  GOALS_WORK_STYLE: "goals-work-style-section",
+};
 
 const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
@@ -69,6 +85,90 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
     <>
       <SEO title={pageTitle} description={subtitle} />
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <TableOfContents.Wrapper data-h2-padding-top="base(x3)">
+          <TableOfContents.Navigation>
+            <TableOfContents.List
+              data-h2-padding-left="base(x.5)"
+              data-h2-list-style-type="base(none)"
+            >
+              <TableOfContents.ListItem>
+                <StatusItem
+                  asListItem={false}
+                  title={intl.formatMessage(messages.careerPlanning)}
+                  status="success"
+                  scrollTo={SECTION_ID.CAREER_PLANNING}
+                />
+                <TableOfContents.List
+                  data-h2-padding-left="base(x.5)"
+                  data-h2-list-style-type="base(none)"
+                >
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.talentMobility)}
+                      status="success"
+                      scrollTo={SECTION_ID.TALENT_MOBILITY}
+                    />
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.dreamRole)}
+                      status="success"
+                      scrollTo={SECTION_ID.DREAM_ROLE}
+                    />
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.goalsWorkStyle)}
+                      status="success"
+                      scrollTo={SECTION_ID.GOALS_WORK_STYLE}
+                    />
+                  </TableOfContents.ListItem>
+                </TableOfContents.List>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+          <TableOfContents.Content>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x3 0)"
+            >
+              <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
+                <Heading
+                  level="h2"
+                  Icon={ChartBarSquareIcon}
+                  color="secondary"
+                  data-h2-margin-top="base(0)"
+                >
+                  {intl.formatMessage(messages.careerPlanning)}
+                </Heading>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "We'd like to learn more about the career path you'd like to follow. Providing information about preferences and aspirations will help talent managers make more informed decisions when you've been nominated for a promotion, lateral movement, or professional development opportunity.",
+                    id: "6KS1jD",
+                    description:
+                      "Lead-in text explaining the users career plan",
+                  })}
+                </p>
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={SECTION_ID.TALENT_MOBILITY}
+              ></TableOfContents.Section>
+              <TableOfContents.Section
+                id={SECTION_ID.DREAM_ROLE}
+              ></TableOfContents.Section>
+              <TableOfContents.Section
+                id={SECTION_ID.GOALS_WORK_STYLE}
+              ></TableOfContents.Section>
+            </div>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
+      </div>
     </>
   );
 };
