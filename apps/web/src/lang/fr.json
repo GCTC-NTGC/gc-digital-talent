@@ -1859,6 +1859,10 @@
     "defaultMessage": "artisanat confectionné à la main de fleurs et de feuilles perlées.",
     "description": "Description of a decorative image of some beaded artwork"
   },
+  "7dOILY": {
+    "defaultMessage": "EX-03 : Chef de file du numérique",
+    "description": "EX-03 classification label including titles"
+  },
   "7ejG4K": {
     "defaultMessage": "Vous avez le droit d’accéder à vos renseignements personnels, de les corriger et de les protéger en vertu de la Loi sur la protection des renseignements personnels et de déposer une plainte auprès du Commissariat à la protection de la vie privée du Canada quant à la façon dont vos renseignements personnels sont traités.",
     "description": "Paragraph for privacy policy page"
@@ -3267,6 +3271,10 @@
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
+  "EbG039": {
+    "defaultMessage": "Chef de file du numérique E X 4",
+    "description": "EX-04 classification aria label including titles"
+  },
   "Ed+xy1": {
     "defaultMessage": "Décision disqualifiée",
     "description": "Disqualified decision input"
@@ -3706,6 +3714,10 @@
   "Gw0uTQ": {
     "defaultMessage": "Gérez vos demandes de talents et établissez votre profil de gestionnaire.",
     "description": "Subtitle for the 'Manager dashboard' page"
+  },
+  "GwhSUZ": {
+    "defaultMessage": "EX-04 : Chef de file du numérique",
+    "description": "EX-04 classification label including titles"
   },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
@@ -8317,6 +8329,10 @@
   "e4eYvU": {
     "defaultMessage": "Cote de sécurité",
     "description": "Label for pool advertisement security clearance requirement"
+  },
+  "e4nq4j": {
+    "defaultMessage": "Chef de file du numérique E X 3",
+    "description": "EX-03 classification aria label including titles"
   },
   "e5BoL+": {
     "defaultMessage": "Cette bibliothèque contient une série de modèles pour des emplois courants dans les collectivités soutenues par Talents numériques du GC. Les modèles comprennent des informations suggérées et des recommandations pour des éléments tels que le titre du poste, les tâches courantes, les compétences essentielles et les compétences optionnelles. Parcourez la liste complète ou utilisez la barre de recherche et les filtres pour trouver des modèles qui correspondent aux spécificités du poste.",
