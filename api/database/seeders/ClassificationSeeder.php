@@ -257,6 +257,14 @@ class ClassificationSeeder extends Seeder
                 ]
             ),
             array_merge(
+                $exGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 193896,
+                    'max_salary' => 228114,
+                ]
+            ),
+            array_merge(
                 $crGroup,
                 [
                     'level' => 4,
