@@ -234,7 +234,6 @@ type GeneralQuestion {
   pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
-  # generalQuestionResponses: [GeneralQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
 type ScreeningQuestion {
