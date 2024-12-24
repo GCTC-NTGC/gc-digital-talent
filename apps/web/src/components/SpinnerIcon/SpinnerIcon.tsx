@@ -1,4 +1,4 @@
-import { m, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "motion/react";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 
 import { IconProps } from "@gc-digital-talent/ui";
