@@ -285,8 +285,8 @@ const AdvancedFilters = () => {
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "Conditions of employment / Operational requirements",
-                id: "laGCzG",
+                  "Conditions of employment or operational requirements",
+                id: "H/zqKa",
                 description:
                   "Heading for operational requirements section of the search form.",
               })}

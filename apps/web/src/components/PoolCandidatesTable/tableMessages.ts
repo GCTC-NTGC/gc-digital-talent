@@ -7,8 +7,8 @@ const messages = defineMessages({
     id: "/LGiVB",
   },
   candidateName: {
-    defaultMessage: "Candidate Name",
-    id: "p/Qp/u",
+    defaultMessage: "Candidate name",
+    id: "awEvCF",
     description: "Title displayed on the Pool Candidates table name column.",
   },
   skillCount: {
@@ -23,10 +23,10 @@ const messages = defineMessages({
       "Title displayed on the Pool Candidates table Current Location column.",
   },
   dateReceived: {
-    defaultMessage: "Date Received",
-    id: "3eNQnt",
+    defaultMessage: "Date received",
+    id: "fI0idr",
     description:
-      "Title displayed on the Pool Candidates table Date Received column.",
+      "Title displayed on the Pool Candidates table Date received column.",
   },
   rowSelection: {
     defaultMessage: "Row Selection",
