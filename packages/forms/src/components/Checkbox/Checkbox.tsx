@@ -1,6 +1,6 @@
 import get from "lodash/get";
 import { useFormContext } from "react-hook-form";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import { ReactNode, Fragment } from "react";
 
 import Field from "../Field";

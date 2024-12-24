@@ -1,4 +1,4 @@
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m } from "motion/react";
 import { useFormContext } from "react-hook-form";
 
 import firstNationsOn from "~/assets/img/first-nations-true.webp";

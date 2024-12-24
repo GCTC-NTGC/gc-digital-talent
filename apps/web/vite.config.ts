@@ -84,7 +84,7 @@ export default defineConfig(({ command }) => ({
             "@microsoft/applicationinsights-react-js",
             "@microsoft/applicationinsights-web",
           ],
-          framer: ["framer-motion"],
+          motion: ["motion"],
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
           router: ["react-router", "react-router"],

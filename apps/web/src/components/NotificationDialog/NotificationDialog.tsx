@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { AnimatePresence, m, usePresence } from "framer-motion";
+import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";

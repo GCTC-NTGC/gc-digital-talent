@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { m } from "framer-motion";
+import { m } from "motion/react";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
