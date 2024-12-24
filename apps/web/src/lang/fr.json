@@ -2552,7 +2552,7 @@
     "description": "Placeholder text for user name input in the delete user dialog"
   },
   "B6SqfX": {
-    "defaultMessage": "Sauvegarder le changement d’état",
+    "defaultMessage": "Sauvegardez le changement d'état",
     "description": "Button label displayed that saves the users status selection."
   },
   "B6XXtf": {
@@ -5316,7 +5316,7 @@
     "description": "Title for the websites inclusivity and equity page"
   },
   "PD7anu": {
-    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Title for the HR advisor email block in the manager info section of the single search request view."
   },
   "PDGUT2": {
@@ -5400,7 +5400,7 @@
     "description": "Title for link to page to create a training opportunity (imperative in French)"
   },
   "Pe1kas": {
-    "defaultMessage": "Notes sur les demandes",
+    "defaultMessage": "Notes sur cette demande",
     "description": "Label displayed on the search request form request notes field."
   },
   "PerY/b": {
@@ -6623,7 +6623,7 @@
     "description": "Status for an application that has been hired with a term contract"
   },
   "VrLfLw": {
-    "defaultMessage": "Courriel du conseiller/ère en RH",
+    "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Input label asking for the HR advisor's email address."
   },
   "Vs8wOD": {
@@ -7383,7 +7383,7 @@
     "description": "Link text to start a new talent request"
   },
   "ZNne50": {
-    "defaultMessage": "Enregistrer les notes",
+    "defaultMessage": "Enregistrez les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
   },
   "ZOEHxi": {
@@ -8731,7 +8731,7 @@
     "description": "Opening paragraph for accessibility statement"
   },
   "fzuAHN": {
-    "defaultMessage": "Enregistrer les notes",
+    "defaultMessage": "Enregistrez les notes",
     "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
