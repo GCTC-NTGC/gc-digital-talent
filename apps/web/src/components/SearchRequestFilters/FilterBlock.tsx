@@ -59,9 +59,6 @@ const FilterBlock = ({ title, content }: FilterBlockProps) => {
         data-h2-font-weight="base(600)"
       >
         <span data-h2-display="base(inline)">{title}</span>
-        <span data-h2-display="base(none) p-tablet(inline)">
-          {intl.formatMessage(commonMessages.dividingColon)}
-        </span>
       </p>
       <FilterBlockContent content={content} />
     </div>
