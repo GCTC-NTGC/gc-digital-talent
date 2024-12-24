@@ -499,6 +499,12 @@ export const getClassificationSalaryRangeUrl = (
         fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
       };
       break;
+    case "EX":
+      localizedUrl = {
+        en: "https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-unrepresented-senior-excluded-employees/ex.html#EXcurrent",
+        fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/services/remuneration/taux-remuneration/taux-remuneration-employes-non-representes-exclus-niveaux-superieurs/ex.htm#EXcurrent",
+      };
+      break;
     default:
       break;
   }
