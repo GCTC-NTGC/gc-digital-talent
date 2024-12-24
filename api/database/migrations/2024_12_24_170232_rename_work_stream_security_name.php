@@ -14,6 +14,7 @@ return new class extends Migration
             ->where('key', 'SECURITY')
             ->update(['name->fr' => 'Sécurité']);
     }
+
     /**
      * Reverse the migrations.
      */
