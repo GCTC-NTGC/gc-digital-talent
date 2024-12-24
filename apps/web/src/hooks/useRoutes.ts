@@ -283,6 +283,9 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    // Employee profile
+    employeeProfile: () => `${applicantUrl}/employee-profile`,
+
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
