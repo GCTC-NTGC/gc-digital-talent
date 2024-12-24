@@ -63,6 +63,7 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
+        'employeeProfile' => 'employeeProfile',
         'applicantProfile' => 'applicantProfile',
         'draftPool' => 'draftPool',
         'publishedPool' => 'publishedPool',
@@ -241,6 +242,15 @@ return [
         'update-own-applicantProfile' => [
             'en' => 'Update Own Applicant Profile',
             'fr' => 'Mettre à jour son propre profil de candidat',
+        ],
+
+        'view-own-employeeProfile' => [
+            'en' => 'View any Employee Profile',
+            'fr' => 'Visionner tout profil de candidat',
+        ],
+        'update-own-employeeProfile' => [
+            'en' => 'Update any Employee Profile',
+            'fr' => 'Visionner tout profil de candidat',
         ],
 
         'view-team-draftPool' => [
@@ -878,6 +888,9 @@ return [
                 'any' => ['view'],
             ],
             'user' => [
+                'own' => ['view', 'update'],
+            ],
+            'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
             'publishedPool' => [
