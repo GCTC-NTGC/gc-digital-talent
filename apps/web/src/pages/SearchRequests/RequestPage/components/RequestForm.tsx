@@ -473,8 +473,8 @@ export const RequestForm = ({
                 id="department"
                 name="department"
                 label={intl.formatMessage({
-                  defaultMessage: "Department / Hiring organization",
-                  id: "P7ItrT",
+                  defaultMessage: "Department or hiring organization",
+                  id: "OgbLp1",
                   description:
                     "Label for department select input in the request form",
                 })}

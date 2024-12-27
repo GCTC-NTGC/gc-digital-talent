@@ -252,10 +252,10 @@ const UserTable = ({ title }: UserTableProps) => {
       {
         id: "candidateName",
         header: intl.formatMessage({
-          defaultMessage: "Candidate Name",
-          id: "NeNnAP",
+          defaultMessage: "Candidate name",
+          id: "uLncuU",
           description:
-            "Title displayed on the User table Candidate Name column.",
+            "Title displayed on the User table Candidate name column.",
         }),
         cell: ({ row: { original: user } }) =>
           getFullNameHtml(user.firstName, user.lastName, intl),

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 import omit from "lodash/omit";
 import {
   DetailedHTMLProps,

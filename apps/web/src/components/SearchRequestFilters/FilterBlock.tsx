@@ -5,8 +5,6 @@ import isArray from "lodash/isArray";
 import { ReactNode } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
-
 interface FilterBlockProps {
   title: string;
   content?: Maybe<string | ReactNode> | Maybe<string[]>;
@@ -49,8 +47,6 @@ const FilterBlockContent = ({
 };
 
 const FilterBlock = ({ title, content }: FilterBlockProps) => {
-  const intl = useIntl();
-
   return (
     <div data-h2-padding="base(0, 0, x1, 0)">
       <p
@@ -59,9 +55,6 @@ const FilterBlock = ({ title, content }: FilterBlockProps) => {
         data-h2-font-weight="base(600)"
       >
         <span data-h2-display="base(inline)">{title}</span>
-        <span data-h2-display="base(none) p-tablet(inline)">
-          {intl.formatMessage(commonMessages.dividingColon)}
-        </span>
       </p>
       <FilterBlockContent content={content} />
     </div>
