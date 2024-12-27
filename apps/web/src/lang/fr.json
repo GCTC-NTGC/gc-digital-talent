@@ -7114,10 +7114,6 @@
     "defaultMessage": "Niveau",
     "description": "Label displayed on Work Experience form for classification level input"
   },
-  "Y96JXz": {
-    "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
-    "description": "Subtitle for the find a skill dialog within an experience"
-  },
   "Y9N3Fw": {
     "defaultMessage": "Y a-t-il d’autres exigences (p. ex., travail par postes, service de garde 24 heures sur 24, 7 jours sur 7, selon les besoins, heures supplémentaires, etc.) pour ce contrat?",
     "description": "Label for _has other requirements_ fieldset in the _digital services contracting questionnaire_"
@@ -12029,10 +12025,6 @@
   "xJfPRe": {
     "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
     "description": "Subtitle for the self skill evaluation page"
-  },
-  "xLIImd": {
-    "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
-    "description": "Lead in text for list of skills linked to a specific experience"
   },
   "xM6U6U": {
     "defaultMessage": "Sans objet (s. o.)",

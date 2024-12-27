@@ -361,8 +361,8 @@ const ExperienceCard = ({
                 >
                   {intl.formatMessage({
                     defaultMessage:
-                      "The following skills have been linked to this experience through your skills showcase or job applications. You link new skills by editing this experience or adding the skill to your library in the showcase.",
-                    id: "xLIImd",
+                      "The following skills have been linked to this experience through your skill showcase or job applications. You link new skills by editing this experience or adding the skill to your library in the showcase.",
+                    id: "BFb/CA",
                     description:
                       "Lead in text for list of skills linked to a specific experience",
                   })}

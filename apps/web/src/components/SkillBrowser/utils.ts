@@ -113,8 +113,8 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
       }),
       subtitle: intl.formatMessage({
         defaultMessage:
-          "The skill you choose will also be added to your skills showcase if it's not already there.",
-        id: "Y96JXz",
+          "The skill you choose will also be added to your skill showcase if it's not already there.",
+        id: "FR5Zj/",
         description:
           "Subtitle for the find a skill dialog within an experience",
       }),
