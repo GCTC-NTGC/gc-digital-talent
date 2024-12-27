@@ -735,6 +735,10 @@
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
   },
+  "1fmUv1": {
+    "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page description for the top technical skills page"
+  },
   "1hNh9g": {
     "defaultMessage": "Préambule",
     "description": "Heading for the Preamble section on the digital services contracting questionnaire"
@@ -8293,10 +8297,6 @@
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
-  },
-  "e0QYLO": {
-    "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page description for the top technical skills page"
   },
   "e12pvi": {
     "defaultMessage": "Profil",
