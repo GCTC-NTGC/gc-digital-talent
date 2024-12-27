@@ -146,8 +146,8 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
               </p>
               <Link color="secondary" mode="solid" href={paths.skillShowcase()}>
                 {intl.formatMessage({
-                  defaultMessage: "Visit your showcase",
-                  id: "Y3rbFp",
+                  defaultMessage: "Visit your skill showcase",
+                  id: "iru4oU",
                   description: "Link text to the skill showcase page.",
                 })}
               </Link>
