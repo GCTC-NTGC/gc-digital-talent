@@ -5203,6 +5203,10 @@
     "defaultMessage": "Ajouter une compétence",
     "description": "Label for skill dialog trigger on experience skills section."
   },
+  "OgbLp1": {
+    "defaultMessage": "Ministère ou organisation d'embauche",
+    "description": "Label for department select input in the request form"
+  },
   "OgizOq": {
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
@@ -5286,10 +5290,6 @@
   "P6jGb4": {
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
     "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "P7ItrT": {
-    "defaultMessage": "Ministère/organisation d’embauche",
-    "description": "Label for department select input in the request form"
   },
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
