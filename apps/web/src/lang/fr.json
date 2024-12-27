@@ -127,6 +127,10 @@
     "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "+gnEgg": {
+    "defaultMessage": "Trouvez une compétence et ajoutez-la à votre portfolio",
+    "description": "Title for the find a skill dialog within the skill portfolio"
+  },
   "+hRCVl": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
@@ -1344,7 +1348,7 @@
     "description": "Message displayed to users to sign in to the application"
   },
   "4nP41q": {
-    "defaultMessage": "Sauvegarder et ajouter cette compétence",
+    "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
   "4p0QdF": {
@@ -1498,6 +1502,10 @@
   "5UBJy7": {
     "defaultMessage": "Ajouter un besoin en personnel",
     "description": "Button text to add a new personnel requirement"
+  },
+  "5WEzE3": {
+    "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
+    "description": "Subtitle for the find a skill dialog within the skill portfolio"
   },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
@@ -5507,10 +5515,6 @@
     "defaultMessage": "Tableau de bord du gestionnaire",
     "description": "Title for the 'Manager dashboard' page"
   },
-  "Q9c+Kg": {
-    "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
-    "description": "Title for the find a skill dialog within the skill showcase"
-  },
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
     "description": "Message displayed for training opportunity not found."
@@ -7041,10 +7045,6 @@
   "XovI8x": {
     "defaultMessage": "Téléchargez toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
-  },
-  "XpiMeF": {
-    "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
-    "description": "Subtitle for the find a skill dialog within the skill library"
   },
   "XrRt6V": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
