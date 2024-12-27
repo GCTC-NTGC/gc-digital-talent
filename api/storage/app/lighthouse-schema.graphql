@@ -1554,7 +1554,6 @@ input UpdateEmployeeProfileInput {
   dreamRoleClassification: ClassificationBelongsTo
   dreamRoleWorkStream: WorkStreamBelongsTo
   dreamRoleDepartments: DepartmentBelongsToMany
-  userPublicProfile: UserPublicProfile
 }
 
 input LocalizedStringInput {
