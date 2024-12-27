@@ -237,8 +237,8 @@ const UpdateSkillShowcase = ({
         mode: "placeholder" as ButtonLinkMode,
         label: intl.formatMessage(
           {
-            defaultMessage: "Add a new item ({numOfSkills}/{maxSkills})",
-            id: "XzGOuV",
+            defaultMessage: "Add a skill ({numOfSkills}/{maxSkills})",
+            id: "vY031f",
             description:
               "Label for skill dialog trigger on skills showcase section.",
           },

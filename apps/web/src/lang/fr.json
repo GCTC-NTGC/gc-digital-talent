@@ -7062,10 +7062,6 @@
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label for not represented community"
   },
-  "XzGOuV": {
-    "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
-    "description": "Label for skill dialog trigger on skills showcase section."
-  },
   "XzyFuo": {
     "defaultMessage": "Soyez informé des prochaines échéances de candidature, des changements de statut, etc.",
     "description": "Subtitle for application updates checklist"
@@ -11737,6 +11733,10 @@
   "vXcg28": {
     "defaultMessage": "Voir tout",
     "description": "Filter by option on instructor training page."
+  },
+  "vY031f": {
+    "defaultMessage": "Ajoutez une compétence ({numOfSkills}/{maxSkills})",
+    "description": "Label for skill dialog trigger on skills showcase section."
   },
   "vYi5/y": {
     "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
