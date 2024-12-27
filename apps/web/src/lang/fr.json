@@ -4595,6 +4595,10 @@
     "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
     "description": "Describes selecting additional requirements for a process."
   },
+  "LN3sPI": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve behavioural skills page"
+  },
   "LOVZi6": {
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
@@ -8125,10 +8129,6 @@
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
-  },
-  "dSfDu1": {
-    "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page blurb for the improve behavioural skills page"
   },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
