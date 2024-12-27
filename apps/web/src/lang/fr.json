@@ -2319,6 +2319,10 @@
     "defaultMessage": "Activez le mode lumière",
     "description": "Button text to set theme mode to light"
   },
+  "9nwXXJ": {
+    "defaultMessage": "Vous pouvez lier de nouvelles compétences en modifiant cette expérience ou en ajoutant la compétence à votre portfolio de compétences. Les compétences ajoutées à cette expérience dans le cadre d'une demande d'emploi apparaissent également ici.",
+    "description": "Lead in text for list of skills linked to a specific experience"
+  },
   "9o9XhC": {
     "defaultMessage": "Hors site, quel que soit le lieu",
     "description": "Any offsite personnel work location"
@@ -7329,6 +7333,10 @@
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
+  },
+  "Z5Cv3U": {
+    "defaultMessage": "Cette compétence sera aussi ajoutée à votre portfolio de compétences si elle ne s'y trouve pas déjà.",
+    "description": "Subtitle for the find a skill dialog within an experience"
   },
   "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
