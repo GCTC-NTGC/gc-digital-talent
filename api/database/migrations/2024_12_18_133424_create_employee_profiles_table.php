@@ -85,6 +85,6 @@ return new class extends Migration
             $table->dropColumn('dream_role_work_stream_id');
         });
 
-        Schema::dropIfExists('user_dream_role_department');
+        Schema::dropIfExists('department_user_dream_role');
     }
 };
