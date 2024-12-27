@@ -2707,6 +2707,10 @@
     "defaultMessage": "Anglais seulement",
     "description": "English only personnel language"
   },
+  "BurFgV": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve technical skills page"
+  },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
@@ -4634,10 +4638,6 @@
   "LYCaEd": {
     "defaultMessage": "Expiré",
     "description": "Simplified status label for expired recruitments"
-  },
-  "Lb3ppn": {
-    "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page blurb for the improve technical skills page"
   },
   "LbtstO": {
     "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
