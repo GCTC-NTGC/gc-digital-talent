@@ -114,7 +114,7 @@ type User {
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Employee profile info
-  employeeProfile: EmployeeProfile @hasOne @canQuery(ability: "view")
+  employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
