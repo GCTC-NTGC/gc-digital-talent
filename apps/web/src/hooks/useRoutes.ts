@@ -112,15 +112,6 @@ const getRoutes = (lang: Locales) => {
     userUpdate: (userId: string) =>
       [adminUrl, "users", userId, "edit"].join("/"),
 
-    // Admin - Teams
-    teamTable: () => [adminUrl, "teams"].join("/"),
-    teamCreate: () => [adminUrl, "teams", "create"].join("/"),
-    teamView: (teamId: string) => [adminUrl, "teams", teamId].join("/"),
-    teamMembers: (teamId: string) =>
-      [adminUrl, "teams", teamId, "members"].join("/"),
-    teamUpdate: (teamId: string) =>
-      [adminUrl, "teams", teamId, "edit"].join("/"),
-
     // Admin - Search Requests
     searchRequestTable: () => [adminUrl, "talent-requests"].join("/"),
     searchRequestView: (id: string) =>

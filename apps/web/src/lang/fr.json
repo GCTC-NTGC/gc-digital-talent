@@ -95,10 +95,6 @@
     "defaultMessage": "Résultats de l’évaluation",
     "description": "Title for assessment results"
   },
-  "+agJAH": {
-    "defaultMessage": "Mes rôles",
-    "description": "Label displayed for the table's My Roles column header."
-  },
   "+cBKDC": {
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
@@ -322,10 +318,6 @@
   "/dy2CX": {
     "defaultMessage": "Disqualifié(e)",
     "description": "Message displayed when candidate has been disqualified"
-  },
-  "/esEW+": {
-    "defaultMessage": "Vous êtes sur le point de retirer <strong>{userName}</strong> de l’équipe <strong>{teamName}</strong>.",
-    "description": "Help text for the remove team membership dialog"
   },
   "/fglL0": {
     "defaultMessage": "Femme",
@@ -607,10 +599,6 @@
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
   },
-  "147mtW": {
-    "defaultMessage": "Chercher les équipes",
-    "description": "Label for the teams table search input"
-  },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
@@ -626,10 +614,6 @@
   "19wJhE": {
     "defaultMessage": "Français seulement",
     "description": "French only personnel language"
-  },
-  "1BEtoY": {
-    "defaultMessage": "Nom du gestionnaire",
-    "description": "Label for the user select field on team membership form"
   },
   "1C9UWI": {
     "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est l’équipe qui soutient le programme.",
@@ -911,10 +895,6 @@
     "defaultMessage": "Énoncé sur l’accessibilité",
     "description": "Title for the websites accessibility statement"
   },
-  "2iL6MI": {
-    "defaultMessage": "Créez une équipe",
-    "description": "Link text to create a team in the admin portal"
-  },
   "2iXmbY": {
     "defaultMessage": "Agencement <link>acceptable</link> d’études, de formation et/ou d’expérience",
     "description": "Descriptive text explaining valid a applied work experience for the EX classification group."
@@ -938,10 +918,6 @@
   "2n0e2i": {
     "defaultMessage": "Trier les expériences par ordre de",
     "description": "Label for selector to choose experience sort options"
-  },
-  "2ni0ia": {
-    "defaultMessage": "La mise à jour de l’équipe a été réussie!",
-    "description": "Message displayed after a team is updated"
   },
   "2ohWuK": {
     "defaultMessage": "Oui, l’évaluation de l’anglais a été effectuée",
@@ -1287,10 +1263,6 @@
     "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 10 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
     "description": "Helper message indicating what general questions are and how they differ from screening questions"
   },
-  "4Washm": {
-    "defaultMessage": "Rôles des membres",
-    "description": "Title displayed for the team members table roles column."
-  },
   "4X6cKU": {
     "defaultMessage": "Il est probable qu’une nouvelle version de cette annonce soit publiée à l’avenir, alors n’hésitez pas à revenir pour obtenir de plus amples informations.",
     "description": "Second paragraph for the closed early pool deadlines dialog"
@@ -1450,10 +1422,6 @@
   "5A0a7w": {
     "defaultMessage": "Modifiez la liste des questions de sélection",
     "description": "Edit link text for screening questions section of the application review page."
-  },
-  "5C8xs4": {
-    "defaultMessage": "Sélectionnez une équipe",
-    "description": "Placeholder text for team selection input"
   },
   "5Cwvgi": {
     "defaultMessage": "Alors que les standards de niveau AA des <wcagLink>Règles pour l’accessibilité des contenus Web 2.1 (WCAG 2.1)</wcagLink> représente un niveau de base pour la conformité, les évaluations des utilisateurs réels nous permettent d’aller au-delà des exigences minimales. L’accessibilité est prise en compte à chaque étape du cycle de conception et de développement de nos produits. Nous voulons nous assurer que tout le monde connaît une expérience agréable sur notre plateforme.",
@@ -1743,10 +1711,6 @@
     "defaultMessage": "<red>Cette annonce a été fermée prématurément.</red>",
     "description": "Message on advertisement poster that it was closed early."
   },
-  "6rb9mg": {
-    "defaultMessage": "Membres de l’équipe",
-    "description": "Page title for the view team members page"
-  },
   "6sjsDa": {
     "defaultMessage": "Impossible de créer de nouveaux postes indéterminés dans les délais requis",
     "description": "Unable to create new indeterminate positions operations consideration"
@@ -1846,10 +1810,6 @@
   "7MMfLQ": {
     "defaultMessage": "Améliorer la coordination des possibilités de formation et de perfectionnement pour la collectivité du numérique du GC",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
-  },
-  "7Mbt01": {
-    "defaultMessage": "Le retrait du membre de l’équipe a échoué",
-    "description": "Alert displayed to user when an error occurs while removing a team member"
   },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
@@ -1978,10 +1938,6 @@
   "86Y8lx": {
     "defaultMessage": "Votre nom",
     "description": "Support form name field label"
-  },
-  "86qwfg": {
-    "defaultMessage": "De l'équipe suivante : <strong>{teamDisplayName}</strong>",
-    "description": "Follow in text for the team being updated"
   },
   "86rJAg": {
     "defaultMessage": "Les chefs d’équipe sont chargés de superviser le travail et les équipes de projet afin de faciliter la prestation de services aux clients et aux intervenants.",
@@ -2359,10 +2315,6 @@
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
   },
-  "9vluO2": {
-    "defaultMessage": "Ajouter un membre",
-    "description": "Header for the add member to team form"
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -2410,10 +2362,6 @@
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
-  },
-  "AKQeBC": {
-    "defaultMessage": "Membre ajouté avec succès",
-    "description": "Alert displayed to user when a team member's roles have been updated"
   },
   "ALIgEC": {
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
@@ -2807,10 +2755,6 @@
     "defaultMessage": "Paramètres du système",
     "description": "Nav menu trigger for system settings links sub menu"
   },
-  "COJ3St": {
-    "defaultMessage": "Sélectionnez une équipe",
-    "description": "Placeholder displayed for team selection input."
-  },
   "CPHTk9": {
     "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
     "description": "Error message when a user does not meet a pools language requirements"
@@ -2890,10 +2834,6 @@
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
-  },
-  "CkrBWY": {
-    "defaultMessage": "Créer une équipe",
-    "description": "Page title for the create team page"
   },
   "Cl3GCt": {
     "defaultMessage": "Titre du contrat",
@@ -3171,10 +3111,6 @@
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
   },
-  "DyHeaZ": {
-    "defaultMessage": "Retirer le membre",
-    "description": "Label for the dialog to remove a users team membership"
-  },
   "DyHuZi": {
     "defaultMessage": "Enregistrer la décision",
     "description": "Submit message for job placement dialog"
@@ -3343,10 +3279,6 @@
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
   },
-  "Ezh14X": {
-    "defaultMessage": "Équipes",
-    "description": "Title for the index team page"
-  },
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
@@ -3371,10 +3303,6 @@
     "defaultMessage": "Modifier {skillName}",
     "description": "Edit a skill"
   },
-  "F7nP5o": {
-    "defaultMessage": "Sélectionnez un ou plusieurs ministères",
-    "description": "Placeholder text for the team departments input"
-  },
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
@@ -3386,10 +3314,6 @@
   "FBSOkb": {
     "defaultMessage": "Publié",
     "description": "Title displayed on the Pool table published at column"
-  },
-  "FBx3Q4": {
-    "defaultMessage": "Ajoutez un membre",
-    "description": "Label for the add member to team form"
   },
   "FDGVHB": {
     "defaultMessage": "L’information des ministères ne s’avère pas nécessaire; réduction des exigences en matière de collecte pour les ministères",
@@ -4223,10 +4147,6 @@
     "defaultMessage": "Afficher {pageSize}",
     "description": "Button text to change the number of items that show up on each page"
   },
-  "JgwpTg": {
-    "defaultMessage": "Vous êtes sur le point de supprimer ce membre : <strong>{userName}</strong>",
-    "description": "Lead in text for the remove role from user dialog"
-  },
   "JhBsgc": {
     "defaultMessage": "Questions supplémentaires",
     "description": "Title of additional questions"
@@ -4671,10 +4591,6 @@
     "defaultMessage": "Postulez le ou avant le {closingDate}",
     "description": "Message to apply to the pool before deadline"
   },
-  "LocjmN": {
-    "defaultMessage": "Retourner aux équipes",
-    "description": "Button text to return to the table of teams page"
-  },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
     "description": "Verify your contact email text"
@@ -4831,10 +4747,6 @@
     "defaultMessage": "Entreprise ou organisme",
     "description": "Label for the contracting firm or agency text field"
   },
-  "MejjjQ": {
-    "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une équipe ou en modifier une qui existe déjà.",
-    "description": "Descriptive text about the list of teams in the admin portal."
-  },
   "MgK9E0": {
     "defaultMessage": "Divers",
     "description": "Various language requirement"
@@ -4907,10 +4819,6 @@
     "defaultMessage": "Bassins",
     "description": "Title for pools"
   },
-  "Mz61q/": {
-    "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
-    "description": "Help text for user field on the add member to team form"
-  },
   "Mz7sON": {
     "defaultMessage": "Gérez vos compétences",
     "description": "Title for editing a users skills"
@@ -4946,10 +4854,6 @@
   "N6DlK/": {
     "defaultMessage": "Modifiez les compétences techniques de haut niveau",
     "description": "Link text for editing a users top technical skills"
-  },
-  "N6Qn5a": {
-    "defaultMessage": "Retirez de l'équipe<hidden> dans {team}</hidden>",
-    "description": "Button label for the form to remove a team role from a user"
   },
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
@@ -5827,14 +5731,6 @@
     "defaultMessage": "Ajoutez une compétence",
     "description": "Button text to open the skill dialog and add a skill"
   },
-  "RSkJQR": {
-    "defaultMessage": "Brève description de l'équipe (en français)",
-    "description": "Label for team description in French language"
-  },
-  "RTf/0v": {
-    "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
-    "description": "Text notifying user which role will be removed from the user"
-  },
   "RW0Ukc": {
     "defaultMessage": "Volets",
     "description": "Title for streams"
@@ -5846,10 +5742,6 @@
   "RXOgrq": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message for closing date on a process advertisement."
-  },
-  "RYd/pl": {
-    "defaultMessage": "Ajouter un rôle dans l'équipe",
-    "description": "Header for the form to add a team membership to a user"
   },
   "RZIivj": {
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
@@ -5886,10 +5778,6 @@
   "Re8emH": {
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
-  },
-  "Rg0SpL": {
-    "defaultMessage": "Renseignements de base",
-    "description": "Basic information"
   },
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
@@ -5946,10 +5834,6 @@
   "S02Y/P": {
     "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>IT-03</abbreviation>)",
     "description": "Title for the 'IT-03 Advisor' classification"
-  },
-  "S2Hv5s": {
-    "defaultMessage": "Créez l'équipe",
-    "description": "Button text for the create team form submit button"
   },
   "S2if5C": {
     "defaultMessage": "Questionnaire sauvegardé avec succès.",
@@ -6319,10 +6203,6 @@
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
   },
-  "U0XNwt": {
-    "defaultMessage": "Utilisez le bouton « Créez une équipe » pour commencer.",
-    "description": "Instructions for adding a team item."
-  },
   "U0qb7j": {
     "defaultMessage": "Les candidatures qui ne sont plus actives s'affichent ici.",
     "description": "Text displayed in past applications section when empty."
@@ -6546,10 +6426,6 @@
     "defaultMessage": "Étant donné que les plateformes de médias sociaux et leurs serveurs sont gérés par un tiers, les comptes de médias sociaux sont sujets à des interruptions de service qui échappent au contrôle du gouvernement du Canada. Le gouvernement du Canada n’assume donc aucune responsabilité en cas de non-disponibilité des plateformes.",
     "description": "Paragraph for content and frequency section"
   },
-  "VJYI6K": {
-    "defaultMessage": "Équipe {teamId} non trouvée.",
-    "description": "Message displayed for team not found."
-  },
   "VKvAfu": {
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Les personnes souhaitant déposer leur candidature devront disposer des compétences sélectionnées ici. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
     "description": "Describes selecting essentials skills for a process."
@@ -6614,10 +6490,6 @@
     "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",
     "description": "An item in a list of points about cert exams"
   },
-  "Vf+lsG": {
-    "defaultMessage": "Nom de l’équipe (Français)",
-    "description": "Label for the French team display name input"
-  },
   "Vfa3Ek": {
     "defaultMessage": "Compétence mise à jour avec succès! ",
     "description": "Message displayed when a user updates a skill"
@@ -6661,10 +6533,6 @@
   "Vw7bLe": {
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
-  },
-  "VxJ5Dz": {
-    "defaultMessage": "Membres de l’équipe",
-    "description": "Title for the list of team members page"
   },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",
@@ -7266,10 +7134,6 @@
     "defaultMessage": "Annulez et revenez aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
-  "YjMfWZ": {
-    "defaultMessage": "Nom de l’équipe (Français)",
-    "description": "Name of an organization/team in French field."
-  },
   "Yln61n": {
     "defaultMessage": "<strong>Télécopieur :</strong> 613-996-9661",
     "description": "Fax contact info"
@@ -7314,17 +7178,9 @@
     "defaultMessage": "Justification",
     "description": "Label for justification radio group in the screening decision dialog."
   },
-  "Yy27PD": {
-    "defaultMessage": "Chercher les membres de l’équipe",
-    "description": "Label for the team members table search input"
-  },
   "YyHN1i": {
     "defaultMessage": "N'importe quelle langue (français ou anglais)",
     "description": "No preference for language ability - will accept English or French"
-  },
-  "Z+JxTc": {
-    "defaultMessage": "Chercher les rôles",
-    "description": "Label for the team roles table search input"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -7365,10 +7221,6 @@
   "ZGpncy": {
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
-  },
-  "ZHDOB5": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans l'équipe » pour commencer.",
-    "description": "Instructions for adding team membership to a user."
   },
   "ZIDY0W": {
     "defaultMessage": "Considérations relatives aux opérations",
@@ -7437,10 +7289,6 @@
   "Zewopw": {
     "defaultMessage": "Trois types de possibilités d’apprentissage",
     "description": "Heading for section describing learning opportunities"
-  },
-  "ZfCeq/": {
-    "defaultMessage": "Voir les membres de l’équipe",
-    "description": "Link text the list of team members page"
   },
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
@@ -7657,10 +7505,6 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
-  },
-  "b+KdqW": {
-    "defaultMessage": "Renseignements sur l'équipe",
-    "description": "Title for team information page"
   },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
@@ -7945,10 +7789,6 @@
   "cO535E": {
     "defaultMessage": "Erreur : échec de la mise à jour du compte.",
     "description": "Message displayed to user if account fails to get updated."
-  },
-  "cOJVBW": {
-    "defaultMessage": "Rôles des membres",
-    "description": "Label for the input to add roles to a user's team membership"
   },
   "cP9CaK": {
     "defaultMessage": "Établir un lien entre une expérience et {skillName}",
@@ -8414,10 +8254,6 @@
     "defaultMessage": "Objet de la demande",
     "description": "Talent request - request purpose title"
   },
-  "eZHoNJ": {
-    "defaultMessage": "Rôles dans des équipes",
-    "description": "Heading for updating a users team roles"
-  },
   "eZYP/W": {
     "defaultMessage": "Gérer votre parcours professionnel",
     "description": "Titles for a page section to manage your career timeline"
@@ -8790,10 +8626,6 @@
     "defaultMessage": "Identification de la demande copiée",
     "description": "Button text to indicate that a specific application’s ID has been copied"
   },
-  "gBKyL2": {
-    "defaultMessage": "Sauvegarder l’information relative à l’équipe",
-    "description": "Button text for the update team form submit button"
-  },
   "gChYmW": {
     "defaultMessage": "Annonce à l’échelle du site",
     "description": "Page title for the update sitewide announcement page"
@@ -8938,10 +8770,6 @@
     "defaultMessage": "Veuillez préciser les autres exigences",
     "description": "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_"
   },
-  "guzGyX": {
-    "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
-    "description": "Alert displayed to user when a team member is removed"
-  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
@@ -8961,10 +8789,6 @@
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
-  },
-  "h486wf": {
-    "defaultMessage": "Erreur : La mise à jour de l’équipe a échoué",
-    "description": "Messaged displayed after updating team fails"
   },
   "h4E9+K": {
     "defaultMessage": "De quelle manière sera vérifié le statut?",
@@ -9197,10 +9021,6 @@
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
     "description": "Heading for closing the accordion with available employment equity options."
-  },
-  "i0IT1I": {
-    "defaultMessage": "Annuler et retourner aux équipes",
-    "description": "Link text to cancel updating a team"
   },
   "i0N7DM": {
     "defaultMessage": "Télécharger les renseignements complets",
@@ -9597,10 +9417,6 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
-  },
-  "jfED66": {
-    "defaultMessage": "Vous êtes sur le point de modifier les rôles de ce ou cette membre : <strong>{userDisplayName}</strong>",
-    "description": "Lead in text for the add role to user form."
   },
   "jiJ8qo": {
     "defaultMessage": "Poursuivez l'ébauche",
@@ -10006,10 +9822,6 @@
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
   },
-  "mBeY2F": {
-    "defaultMessage": "Créer une équipe à partir de zéro",
-    "description": "Descriptive text for the create team page in the admin portal."
-  },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
@@ -10246,10 +10058,6 @@
     "defaultMessage": "En savoir plus sur les compétences",
     "description": "Link for the 'learn about skills' card"
   },
-  "n4pt+y": {
-    "defaultMessage": "Nom de l’équipe (Anglais)",
-    "description": "Label for the English team display name input"
-  },
   "n4pwef": {
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
@@ -10422,10 +10230,6 @@
     "defaultMessage": "Établissement",
     "description": "Label displayed on education form for institution input"
   },
-  "o1M2Kc": {
-    "defaultMessage": "Il ou elle perdra tous les rôles suivants au sein de l’équipe ",
-    "description": "Lead text for the list of roles the user will lose"
-  },
   "o4EnIo": {
     "defaultMessage": "Ce processus est programmé pour se clôturer automatiquement le : ",
     "description": "Third paragraph for publish process dialog"
@@ -10445,10 +10249,6 @@
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
     "description": "Label for the English - What to expect textarea in the edit pool page."
-  },
-  "o7SM7j": {
-    "defaultMessage": "Créer<hidden> des équipes</hidden>",
-    "description": "Breadcrumb title for the create team page link."
   },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
@@ -10509,10 +10309,6 @@
   "oURESC": {
     "defaultMessage": " J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
     "description": "Label displayed on Personal Experience form for disclaimer checkbox"
-  },
-  "oVgVhK": {
-    "defaultMessage": "Modifier les rôles dans l'équipe {userName}",
-    "description": "Label for the form to edit a users team membership"
   },
   "oWPn6I": {
     "defaultMessage": "Autorité mandataire (français)",
@@ -10890,10 +10686,6 @@
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
     "description": "Second language level (reading, writing, oral interaction) label"
   },
-  "qPxrKm": {
-    "defaultMessage": "Modifier ou retirer les permissions d’adhésion.",
-    "description": "Help text for the edit team membership form"
-  },
   "qQZQj+": {
     "defaultMessage": "L'adéquation des compétences en détail",
     "description": "Heading displayed on the candidate skill match dialog."
@@ -11078,10 +10870,6 @@
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
   },
-  "rdYjIb": {
-    "defaultMessage": "Nom de l’équipe (Anglais)",
-    "description": "Name of an organization/team in English field."
-  },
   "rfDHc0": {
     "defaultMessage": "(Aucun changement)",
     "description": "Null state, nothing changed yet."
@@ -11158,14 +10946,6 @@
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
-  "s57oJd": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un membre » pour commencer.",
-    "description": "Instructions for adding a member to a team."
-  },
-  "s5hTYo": {
-    "defaultMessage": "Rôles dans l'équipe",
-    "description": "Label for the input to select role of a team role"
-  },
   "s7Uy7q": {
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",
     "description": "Support services contract commodity"
@@ -11221,10 +11001,6 @@
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
-  },
-  "sSGgnI": {
-    "defaultMessage": "Brève description de l'équipe (en anglais)",
-    "description": "Label for team description in English language"
   },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
@@ -11718,10 +11494,6 @@
     "defaultMessage": "Analyste subalterne P M 2",
     "description": "PM-02 classification aria label including titles"
   },
-  "vSMCIR": {
-    "defaultMessage": "Modifier les renseignements de l'équipe",
-    "description": "Title for the edit team page"
-  },
   "vUtN1U": {
     "defaultMessage": "Rechercher les membres du processus",
     "description": "Label for the process team members table search input"
@@ -11774,10 +11546,6 @@
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
   },
-  "vkOyl3": {
-    "defaultMessage": "Retirer de l'équipe<hidden> dans {team}</hidden>",
-    "description": "Header for the form to remove a team role from a user"
-  },
   "vm9mFv": {
     "defaultMessage": "Veuillez passer en revue le code et essayer de le saisir à nouveau.",
     "description": "Error message when the code is not valid."
@@ -11813,10 +11581,6 @@
   "w1aZlG": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
     "description": "Application self-declaration intro paragraph 1"
-  },
-  "w2BYFi": {
-    "defaultMessage": "Vous êtes sur le point d’ajouter des rôles à l’utilisateur suivant : <strong>{userName}</strong>",
-    "description": "Lead in text for the add role to user form."
   },
   "w3BYPV": {
     "defaultMessage": "Passez en revue votre parcours professionnel",
@@ -11869,10 +11633,6 @@
   "wJnIJx": {
     "defaultMessage": "Groupe",
     "description": "Label displayed on classification group input"
-  },
-  "wKXLmR": {
-    "defaultMessage": "Ajoutez un rôle dans l'équipe",
-    "description": "Label for the button to add a role to a user"
   },
   "wLVo1I": {
     "defaultMessage": "Courriel du gouvernement",
