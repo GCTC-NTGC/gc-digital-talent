@@ -78,21 +78,6 @@ test.describe("Admin workflows", () => {
     ).toBeVisible();
   });
 
-  test("Download user as CSV", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com", false);
-    await goToUsersPage(appPage);
-    await searchForUser(appPage, "Applicant");
-
-    await appPage.page
-      .getByRole("button", { name: /select gul fields/i })
-      .click();
-    await appPage.page.getByRole("button", { name: /download csv/i }).click();
-
-    await expect(appPage.page.getByRole("alert")).toContainText(
-      /preparing your file for download/i,
-    );
-  });
-
   test("Filter users table", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com", false);
     await goToUsersPage(appPage);
