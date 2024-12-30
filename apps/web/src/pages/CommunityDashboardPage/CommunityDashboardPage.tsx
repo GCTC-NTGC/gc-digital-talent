@@ -134,11 +134,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Job templates library",
-        id: "MySfL/",
-        description: "Label for link to job templates library",
-      }),
+      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },

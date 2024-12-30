@@ -147,6 +147,10 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
+  "+nQpv5": {
+    "defaultMessage": "Modèles d'offres d'emploi",
+    "description": "Title for the page showing list of job advertisement templates"
+  },
   "+o1lWq": {
     "defaultMessage": "Ce poste requiert de pouvoir travailler en français. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
     "description": "French essential language requirement description"
@@ -4786,10 +4790,6 @@
   "Mxu+IY": {
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
-  },
-  "MySfL/": {
-    "defaultMessage": "Bibliothèque de modèles d'emplois",
-    "description": "Label for link to job templates library"
   },
   "Myfw+L": {
     "defaultMessage": "Bassins",
