@@ -138,3 +138,17 @@ export function jumpPastExpiryDate(accessToken: string): Date {
   const newDate = new Date(expiry + 1 * 1000);
   return newDate;
 }
+
+/**
+ * Helper to assert auth tokens exist
+ *
+ * @param AuthCookies The current auth cookies
+ */
+export function expectAuthCookies(cookies: AuthCookies) {
+  expect(cookies).toEqual(
+    expect.objectContaining({
+      apiSession: expect.objectContaining({ name: "api_session" }),
+      xsrf: expect.objectContaining({ name: "XSRF-TOKEN" }),
+    }),
+  );
+}
