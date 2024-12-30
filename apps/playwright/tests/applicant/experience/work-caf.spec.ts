@@ -1,10 +1,6 @@
-import { WorkExperience } from "@gc-digital-talent/graphql";
-
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
-import graphql from "~/utils/graphql";
-import { me } from "~/utils/user";
 
 test.describe("CAF work experience", () => {
   const uniqueTestId = Date.now().valueOf();
