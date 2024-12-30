@@ -6,35 +6,34 @@ import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { me } from "~/utils/user";
 
-test.describe("Edit experiences", () => {
-  const uniqueTestId = Date.now().valueOf();
-  test("Can edit work experience", async ({ appPage }) => {
-    const role = `Test edit work experience (${uniqueTestId})`;
-    const experiencePage = new ExperiencePage(appPage.page);
-    await loginBySub(experiencePage.page, "applicant@test.com");
+const uniqueTestId = Date.now().valueOf();
 
-    await experiencePage.addCafWorkExperience({
-      role,
-      startDate: "2001-01",
-    });
+test("Can edit work experience", async ({ appPage }) => {
+  const role = `Test edit work experience (${uniqueTestId})`;
+  const experiencePage = new ExperiencePage(appPage.page);
+  await loginBySub(experiencePage.page, "applicant@test.com");
 
-    await expect(experiencePage.page.getByRole("alert")).toContainText(
-      /successfully added experience/i,
-    );
+  await experiencePage.addCafWorkExperience({
+    role,
+    startDate: "2001-01",
+  });
 
-    await experiencePage.goToIndex();
+  await expect(experiencePage.page.getByRole("alert")).toContainText(
+    /successfully added experience/i,
+  );
 
-    const applicantCtx = await graphql.newContext("applicant@test.com");
-    const applicant = await me(applicantCtx, {});
+  await experiencePage.goToIndex();
 
-    const workExperience = applicant.experiences?.find(
-      (ex: WorkExperience) => ex?.role === role,
-    );
+  const applicantCtx = await graphql.newContext("applicant@test.com");
+  const applicant = await me(applicantCtx, {});
 
-    await experiencePage.editWorkExperience(`${workExperience?.id}`, {
-      role,
-      startDate: "2001-01",
-      endDate: "2200-01",
-    });
+  const workExperience = applicant.experiences?.find(
+    (ex: WorkExperience) => ex?.role === role,
+  );
+
+  await experiencePage.editWorkExperience(`${workExperience?.id}`, {
+    role,
+    startDate: "2001-01",
+    endDate: "2200-01",
   });
 });
