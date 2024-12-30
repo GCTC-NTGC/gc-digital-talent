@@ -64,7 +64,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -145,7 +145,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -226,7 +226,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -307,7 +307,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
