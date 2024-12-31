@@ -812,8 +812,8 @@
     "description": "Experience requirement, On the job."
   },
   "2FrqUn": {
-    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
-    "description": "title for community dashboard on the talent cloud admin portal."
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
+    "description": "Title for community dashboard on the talent cloud admin portal."
   },
   "2HGCCF": {
     "defaultMessage": "Nous utilisons également cette information pour vous offrir une expérience plus contextualisée, y compris des recommandations de possibilités fondées sur votre situation de l'emploi, votre classification, et plus encore.",
@@ -7711,8 +7711,8 @@
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "bw4CAS": {
-    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
-    "description": "title for applicant dashboard on the talent cloud admin portal."
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
+    "description": "Title for applicant dashboard on the talent cloud admin portal."
   },
   "bwoJyk": {
     "defaultMessage": "Informations sur la possibilité de formation",
@@ -11407,8 +11407,8 @@
     "description": "Talent portal strategy item 4 content"
   },
   "utS0s1": {
-    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
-    "description": "title for admin dashboard on the talent cloud admin portal."
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
+    "description": "Title for admin dashboard on the talent cloud admin portal."
   },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",
