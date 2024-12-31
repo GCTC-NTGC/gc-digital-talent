@@ -132,6 +132,9 @@ class Pool extends Model
         'department_id',
         'community_id',
         'work_stream_id',
+        'security_clearance',
+        'advertisement_location',
+        'opportunity_length',
     ];
 
     /**
