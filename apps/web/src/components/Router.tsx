@@ -536,6 +536,13 @@ const createRoute = (locale: Locales) =>
                       "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
                     ),
                 },
+                {
+                  path: "certification-exam-vouchers",
+                  lazy: () =>
+                    import(
+                      "../pages/CertificationExamVouchersPage/CertificationExamVouchersPage"
+                    ),
+                },
               ],
             },
             {
