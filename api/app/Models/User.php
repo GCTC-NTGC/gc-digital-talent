@@ -352,7 +352,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification()->first();
 
-        $leadingZero = $classification->level < 10 ? "0" : "";
+        $leadingZero = $classification->level < 10 ? '0' : '';
 
         return $classification->group.'-'.$leadingZero.$classification->level;
     }
