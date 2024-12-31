@@ -149,7 +149,7 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
   }
   switch (stringifyText) {
     // Regex that matches all IT classifications with levels
-    case /[IT]-0\d/.exec(stringifyText)?.input:
+    case /[IT]-[0-9]\d/.exec(stringifyText)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
@@ -165,7 +165,7 @@ export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
         </abbr>
       );
     // Regex that matches all AS classifications with levels
-    case /[AS]-0\d/.exec(stringifyText)?.input:
+    case /[AS]-[0-9]\d/.exec(stringifyText)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
