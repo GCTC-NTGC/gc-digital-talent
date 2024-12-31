@@ -6,11 +6,15 @@ use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\ExecCoaching;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
+use App\Enums\Mentorship;
+use App\Enums\MoveInterest;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
+use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Models\AwardExperience;
@@ -205,6 +209,43 @@ class UserFactory extends Factory
                 'department' => $randomDepartment ? $randomDepartment->id : null,
 
             ];
+        });
+    }
+
+    public function withEmployeeProfile()
+    {
+        return $this->afterCreating(function (User $user) {
+            $community = Community::inRandomOrder()->first();
+            if (is_null($community)) {
+                $community = Community::factory()->withWorkStreams()->create();
+            }
+            $classification = Classification::inRandomOrder()->first();
+            if (is_null($classification)) {
+                $classification = Classification::factory()->create();
+            }
+            $workStream = $this->faker->randomElement($community->workStreams);
+            $departments = Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get();
+
+            $user->employeeProfile->dreamRoleDepartments()->sync($departments);
+
+            $user->employeeProfile()->update([
+                'career_planning_organization_type_interest' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
+                'career_planning_move_interest' => $this->faker->randomElements(array_column(MoveInterest::cases(), 'name'), null),
+                'career_planning_mentorship_status' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
+                'career_planning_mentorship_interest' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
+                'career_planning_exec_interest' => $this->faker->boolean(),
+                'career_planning_exec_coaching_status' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
+                'career_planning_exec_coaching_interest' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
+                'career_planning_about_you' => $this->faker->paragraph(),
+                'career_planning_career_goals' => $this->faker->paragraph(),
+                'career_planning_learning_goals' => $this->faker->paragraph(),
+                'career_planning_work_style' => $this->faker->paragraph(),
+                'dream_role_title' => $this->faker->words(3, true),
+                'dream_role_additional_information' => $this->faker->paragraph(),
+                'dream_role_community_id' => $community->id,
+                'dream_role_classification_id' => $classification->id,
+                'dream_role_work_stream_id' => $workStream->id,
+            ]);
         });
     }
 
