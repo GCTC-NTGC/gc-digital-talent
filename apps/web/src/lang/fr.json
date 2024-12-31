@@ -811,6 +811,10 @@
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
   },
+  "2FrqUn": {
+    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
+    "description": "title for community dashboard on the talent cloud admin portal."
+  },
   "2HGCCF": {
     "defaultMessage": "Nous utilisons également cette information pour vous offrir une expérience plus contextualisée, y compris des recommandations de possibilités fondées sur votre situation de l'emploi, votre classification, et plus encore.",
     "description": "Message after main heading in employee information page - paragraph 2."
@@ -7706,6 +7710,10 @@
     "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
+  "bw4CAS": {
+    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
+    "description": "title for applicant dashboard on the talent cloud admin portal."
+  },
   "bwoJyk": {
     "defaultMessage": "Informations sur la possibilité de formation",
     "description": "Heading for the opportunity form information section"
@@ -11397,6 +11405,10 @@
   "utLdbN": {
     "defaultMessage": "Vise à lancer le programme au début de 2024.",
     "description": "Talent portal strategy item 4 content"
+  },
+  "utS0s1": {
+    "defaultmessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
+    "description": "title for admin dashboard on the talent cloud admin portal."
   },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",
