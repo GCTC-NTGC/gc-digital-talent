@@ -43,11 +43,6 @@ export const Component = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const signUpUrl = {
-    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2oraxj700k8d1ec6dumq39e",
-    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2oraxj700k8d1ec6dumq39e",
-  } as const;
-
   const navigarUrl = {
     en: "https://navigar.ca/",
     fr: "https://navigar.ca/fr/",
@@ -576,13 +571,13 @@ export const Component = () => {
                         data-h2-font-weight="base(bold)"
                         color="secondary"
                         external
-                        href={signUpUrl[locale]}
+                        href={paths.certificationExamVouchers()}
                       >
                         {intl.formatMessage({
-                          defaultMessage:
-                            "Sign up for updates<hidden> about certification exam vouchers</hidden>",
-                          id: "bjcr+t",
-                          description: "A link to sign up for updates",
+                          defaultMessage: "Request a voucher",
+                          id: "erzpFY",
+                          description:
+                            "Link text to request a voucher (infinitive)",
                         })}
                       </Link>
                     </div>
