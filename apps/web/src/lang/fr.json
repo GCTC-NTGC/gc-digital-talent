@@ -1631,6 +1631,10 @@
     "defaultMessage": "Vos options en matière d'équité",
     "description": "Title for the subsection for viewing/selecting employment equity"
   },
+  "6KS1jD": {
+    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
+    "description": "Lead-in text explaining the users career plan"
+  },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
     "description": "Message before skills list in application education page."
@@ -3842,6 +3846,10 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
+  },
+  "HwW7BZ": {
+    "defaultMessage": "Votre profil d'employée ou d'employé",
+    "description": "Page title for a users employee profile"
   },
   "HxZIwt": {
     "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
@@ -8518,6 +8526,10 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
+  "f1reMg": {
+    "defaultMessage": "Poste de rêve",
+    "description": "Title for a users dream role information"
+  },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
@@ -10610,6 +10622,10 @@
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
   },
+  "p3vIKK": {
+    "defaultMessage": "Préférences en matière de mobilité des talents",
+    "description": "Title for a users talent mobility preferences"
+  },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of technical skills"
@@ -10846,6 +10862,10 @@
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
   },
+  "q8vDUx": {
+    "defaultMessage": "Gérez vos renseignements d'employée ou d'employé du gouvernement, y compris vos préférences en matière de mobilité des talents et les façons de travailler.",
+    "description": "Description of the employee profile page"
+  },
   "qA8+f5": {
     "defaultMessage": "En attente",
     "description": "Message displayed when candidate was unsuccessful but put on hold"
@@ -10921,6 +10941,10 @@
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
     "description": "Message displayed to user after pool is duplicated"
+  },
+  "qZKabV": {
+    "defaultMessage": "Objectifs et style de travail",
+    "description": "Title for a users goals and work style"
   },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
@@ -12413,6 +12437,10 @@
   "zMa59V": {
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
     "description": "Paragraph for privacy policy page"
+  },
+  "zN7MBv": {
+    "defaultMessage": "Planification de carrière",
+    "description": "Title for a users career plan"
   },
   "zNgDex": {
     "defaultMessage": "Zone de sélection",
