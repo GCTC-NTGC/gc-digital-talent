@@ -47,6 +47,31 @@ const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
   return tokenIsKnownToBeExpired;
 };
 
+const refreshToken = async (auth: ReturnType<typeof useAuthentication>) => {
+  await auth.refreshTokenSet();
+};
+
+const scheduleTokenRefresh = (auth: ReturnType<typeof useAuthentication>) => {
+  const token = localStorage.getItem(ACCESS_TOKEN);
+  if (token) {
+    const decoded = jwtDecode(token);
+    const expiresAt = decoded.exp ? decoded.exp * 1000 : 0;
+    const refreshBefore = expiresAt ? expiresAt - Date.now() - 30000 : 0; // Refresh 30 seconds before expiry
+    if (refreshBefore > 0) {
+      setTimeout(() => {
+        refreshToken(auth).catch((error) => {
+          // use logger
+          useLogger().error(`Failed to refresh token: ${error}`);
+        });
+      }, refreshBefore);
+    } else {
+      (auth).catch((error) => {
+          urefreshTokenseLogger().error(`Failed to refresh token: ${error}`);
+      });
+    }
+  }
+};
+
 const ClientProvider = ({
   client,
   children,
@@ -64,6 +89,11 @@ const ClientProvider = ({
   useEffect(() => {
     authRef.current = authContext;
   }, [authContext]);
+
+  useEffect(() => {
+    // Schedule token refresh on component mount
+    scheduleTokenRefresh(authContext);
+  });
 
   const internalClient = useMemo(() => {
     return (
@@ -157,11 +187,7 @@ const ClientProvider = ({
               async refreshAuth() {
                 // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
                 // let's try to use a refresh token to get new tokens
-
-                const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-                if (refreshToken) {
-                  await authRef.current.refreshTokenSet();
-                }
+                await refreshToken(authRef.current);
               },
             };
           }),
