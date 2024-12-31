@@ -39,6 +39,10 @@
     "defaultMessage": "Certificat numérique",
     "description": "Title of the 'Digital certificate credential' subsection"
   },
+  "+BeD0v": {
+    "defaultMessage": "l'analyse opérationnelle;",
+    "description": "Second item in list of certification topics section"
+  },
   "+C20lR": {
     "defaultMessage": "Vous n’avez pas de besoins en matière de personnel.",
     "description": "Message that appears when there are no screening messages for a pool"
@@ -607,6 +611,10 @@
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
   },
+  "15nKPJ": {
+    "defaultMessage": "Vous pouvez demander un bon pour de nombreux domaines de certification des TI, notamment :",
+    "description": "First paragraph of certification topics section"
+  },
   "16iCWc": {
     "defaultMessage": "Vétéran",
     "description": "Label for veteran chip on view candidate page"
@@ -759,6 +767,10 @@
     "defaultMessage": "<strong>{role}</strong> à {group}",
     "description": "Role with group, HTML"
   },
+  "1uoeR6": {
+    "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait. ",
+    "description": "First paragraph of apply and complete your profile section"
+  },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
@@ -806,6 +818,10 @@
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
+  },
+  "2B+d2V": {
+    "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
+    "description": "Second item in list of eligibility requirements section"
   },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
@@ -1294,6 +1310,10 @@
   "4cN/oN": {
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
+  },
+  "4ddL8K": {
+    "defaultMessage": "Vous avez un compte Navigar actif.",
+    "description": "Third item in list of eligibility requirements section"
   },
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
@@ -2087,6 +2107,10 @@
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
     "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
   },
+  "8umYON": {
+    "defaultMessage": "Prochaines étapes",
+    "description": "Title for what to expect section"
+  },
   "8v/v3u": {
     "defaultMessage": "Compétences requises",
     "description": "Label for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
@@ -2258,6 +2282,10 @@
   "9g11GN": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
+  },
+  "9gU2in": {
+    "defaultMessage": "Nous répondrons à votre demande dans les sept jours ouvrables. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
+    "description": "First paragraph of what to expect section"
   },
   "9gpVCX": {
     "defaultMessage": "Prêt à être embauché",
@@ -2742,6 +2770,10 @@
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
+  },
+  "CHIy5L": {
+    "defaultMessage": "Le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> peut vous aider à acquérir la certification en payant le coût des examens.",
+    "description": "Second paragraph of certification exam vouchers section"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -3663,6 +3695,10 @@
     "defaultMessage": "EX-04 : Chef de file du numérique",
     "description": "EX-04 classification label including titles"
   },
+  "GxrfIv": {
+    "defaultMessage": "l'architecture intégrée;",
+    "description": "Fifth item in list of certification topics section"
+  },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
@@ -3826,6 +3862,10 @@
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
     "description": "Comments or contributions list title"
+  },
+  "I2kLuc": {
+    "defaultMessage": "Pour toute question concernant les bons pour examens de certification, veuillez contacter <mailLink>icommunity-icollectivite@tbs-sct.gc.ca<mailLink>.",
+    "description": "Second paragraph of what to expect section"
   },
   "I5q1n6": {
     "defaultMessage": "Soumettre aux fins de publication",
@@ -4098,6 +4138,10 @@
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
+  },
+  "JIvR0C": {
+    "defaultMessage": "Bons pour examens de certification",
+    "description": "Title for the certification exam vouchers page"
   },
   "JO2yLA": {
     "defaultMessage": "Lieu de travail",
@@ -5575,6 +5619,10 @@
     "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Description for the IT Apprenticehip program for Indigenous peoples"
   },
+  "Qn8C+Z": {
+    "defaultMessage": "Domaines de certification",
+    "description": "Title for certification topics section"
+  },
   "QnfjbI": {
     "defaultMessage": "constituent de l’usurpation d’identité, de la publicité ou un pourriel",
     "description": "Comments or contributions list item"
@@ -6142,6 +6190,10 @@
   "TiutAx": {
     "defaultMessage": "Raison de l’octroi de contrats",
     "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
+  },
+  "Tj1iyN": {
+    "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d'entrainement dirigés par un instructeur ou une instructrice</hidden>",
+    "description": "A link to sign up for updates"
   },
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
@@ -7078,6 +7130,10 @@
     "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
   },
+  "YZtE49": {
+    "defaultMessage": "Obtenez une attestation de vos compétences liées à des domaines clés des TI.",
+    "description": "Page subtitle for certification exam vouchers page"
+  },
   "YaDJN+": {
     "defaultMessage": "Supprimer la notification",
     "description": "Button text to confirm deleting a notification"
@@ -7194,6 +7250,10 @@
     "defaultMessage": "Cette compétence sera aussi ajoutée à votre portfolio de compétences si elle ne s'y trouve pas déjà.",
     "description": "Subtitle for the find a skill dialog within an experience"
   },
+  "Z8uO3k": {
+    "defaultMessage": "Les bons pour examens",
+    "description": "Title for certification exam vouchers section"
+  },
   "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
     "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
@@ -7293,6 +7353,10 @@
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
+  },
+  "ZiCXd1": {
+    "defaultMessage": "la gestion de projets de TI;",
+    "description": "First item in list of certification topics section"
   },
   "ZoZNDf": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
@@ -8166,6 +8230,10 @@
     "defaultMessage": "Embauché à titre d’employé pour une période déterminée",
     "description": "Title of the 'Hired as a term employee' subsection"
   },
+  "e6PlO0": {
+    "defaultMessage": "l'informatique en nuage;",
+    "description": "Third item in list of certification topics section"
+  },
   "e6hj69": {
     "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
     "description": "Paragraph one, description of the managers community"
@@ -8233,6 +8301,10 @@
   "eP8dfW": {
     "defaultMessage": "Voir l’utilisateur",
     "description": "Title for the user information page"
+  },
+  "eQkmhS": {
+    "defaultMessage": "Vous êtes actuellement un membre du personnel du gouvernement du Canada du groupe TI représenté par l'Institut professionnel de la fonction publique du Canada (IPFPC).",
+    "description": "First item in list of eligibility requirements section"
   },
   "eRbVle": {
     "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
@@ -8333,6 +8405,10 @@
   "eqX3mk": {
     "defaultMessage": "Retirer {skillName}",
     "description": "Remove a skill"
+  },
+  "erzpFY": {
+    "defaultMessage": "Demander un bon",
+    "description": "Link text to request a voucher (infinitive)"
   },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
@@ -8549,6 +8625,10 @@
   "fxPLAl": {
     "defaultMessage": "Modification du profil linguistique",
     "description": "Button text to start editing language profile"
+  },
+  "fxhdQd": {
+    "defaultMessage": "Formulaire de demande et profil",
+    "description": "Title for apply and complete your profile section"
   },
   "fyidgo": {
     "defaultMessage": "Retirer le rôle<hidden> {role}</hidden>",
@@ -8909,6 +8989,10 @@
   "hSmKjD": {
     "defaultMessage": "Absolument! Votre temps est précieux. Les apprentis recevront une rémunération et des avantages sociaux à titre d’employés du gouvernement du Canada. Au départ, les apprenti(e)s gagneront entre 29 $ et 33 $ de l’heure. Le salaire exact est déterminé au moment de l’embauche, et dépend de la convention collective en vigueur au sein de l’organisation qui les embauche. Les apprentis seront employés à temps plein, pour un total de 37,5 heures par semaine.",
     "description": "Learn more dialog question four paragraph one"
+  },
+  "hSoZzH": {
+    "defaultMessage": "la cybersécurité;",
+    "description": "Fourth item in list of certification topics section"
   },
   "hTJgV2": {
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
@@ -9954,6 +10038,10 @@
     "defaultMessage": "Pas certain",
     "description": "The unsure option to answer a question"
   },
+  "mcibCA": {
+    "defaultMessage": "Conditions d'admissibilité",
+    "description": "Title for eligibility requirements section"
+  },
   "md/sEi": {
     "defaultMessage": "Choisissez parmi une variété de compétences et déterminez le niveau requis des candidats",
     "description": "Subtitle for the find a skill dialog within a pool"
@@ -10318,6 +10406,10 @@
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
   },
+  "oc4iCB": {
+    "defaultMessage": "Vous avez terminé votre préparation, notamment les modules de formation préalable, et vous êtes prêt ou prête à faire l'examen.",
+    "description": "Fourth item in list of eligibility requirements section"
+  },
   "ocTGYr": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'create a community' form"
@@ -10341,6 +10433,10 @@
   "oiaUxW": {
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
+  },
+  "okQrE7": {
+    "defaultMessage": "le réseautage.",
+    "description": "Seventh item in list of certification topics section"
   },
   "okRYhl": {
     "defaultMessage": "Ce que nous entendons",
@@ -10853,6 +10949,10 @@
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
+  },
+  "rYYqbv": {
+    "defaultMessage": "Les fonctionnaires du gouvernement du Canada travaillant en TI pourraient profiter des bons pour examens de certification attestant les compétences reconnues par l'industrie. Ces bons vous aideront à accroître vos qualifications et à faire progresser votre carrière.",
+    "description": "First paragraph of certification exam vouchers section"
   },
   "rZ0GyE": {
     "defaultMessage": "Modifications apportées aux procédures obligatoires en 2024",
@@ -11958,6 +12058,10 @@
     "defaultMessage": "Création du ministère réussie!",
     "description": "Message displayed to user after department is created successfully."
   },
+  "yGtIgV": {
+    "defaultMessage": "Demandez un bon",
+    "description": "Link text to request a voucher"
+  },
   "yGwPBd": {
     "defaultMessage": "Afin d’améliorer la fonctionnalité des sites Web du gouvernement du Canada, certains fichiers (tels que les bibliothèques à code source ouvert, les images et les scripts) peuvent être téléchargés automatiquement vers votre navigateur à l’aide d’un serveur tiers ou d’un réseau de diffusion de contenu de confiance. La diffusion de ces fichiers vise à offrir une expérience utilisateur transparente en diminuant les temps de réponse et en évitant le téléchargement de ces fichiers par chaque visiteur. Le cas échéant, les énoncés de protection des renseignements personnels traitant spécifiquement de ces fichiers se trouvent dans notre <privacyPolicyLink>Avis de confidentialité</privacyPolicyLink>.",
     "description": "Paragraph describing using files section"
@@ -12094,6 +12198,10 @@
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais du groupe de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skill families 'key' field."
   },
+  "yu4wqa": {
+    "defaultMessage": "Dites-nous quel examen vous aimeriez passer et nous évaluerons votre demande.",
+    "description": "Second paragraph of certification topics section"
+  },
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
@@ -12217,6 +12325,10 @@
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
     "description": "Heading for the education requirement option secondary school diploma."
+  },
+  "zeLVU6": {
+    "defaultMessage": "DevOps;",
+    "description": "Sixth item in list of certification topics section"
   },
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
