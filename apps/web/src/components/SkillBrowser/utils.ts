@@ -131,10 +131,10 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
           "Button text to open the skill dialog and add a skill to the users library",
       }),
       title: intl.formatMessage({
-        defaultMessage: "Find and add a new skill to your library",
-        id: "iMtZOR",
+        defaultMessage: "Find and add a new skill to your portfolio",
+        id: "ZoZNDf",
         description:
-          "Title for the find a skill dialog within the skill library",
+          "Title for the find a skill dialog within the skill portfolio",
       }),
       subtitle: intl.formatMessage({
         defaultMessage:

@@ -7294,6 +7294,10 @@
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
   },
+  "ZoZNDf": {
+    "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
+    "description": "Title for the find a skill dialog within the skill portfolio"
+  },
   "ZpYj8o": {
     "defaultMessage": "Créer un ministère",
     "description": "Page title for the department creation page"
@@ -9125,10 +9129,6 @@
   "iMJCf8": {
     "defaultMessage": "Cet utilisateur n’a mis aucune compétence en évidence.",
     "description": "Message displayed when a user has no top skills in their showcase"
-  },
-  "iMtZOR": {
-    "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre bibliothèque",
-    "description": "Title for the find a skill dialog within the skill library"
   },
   "iN2H6J": {
     "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
