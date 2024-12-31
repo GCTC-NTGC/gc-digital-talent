@@ -43,6 +43,11 @@ export const Component = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
+  const signUpUrl = {
+    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm4ww5k8l00bbaxduytwfcrjk",
+    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm4ww5k8l00bbaxduytwfcrjk",
+  } as const;
+
   const navigarUrl = {
     en: "https://navigar.ca/",
     fr: "https://navigar.ca/fr/",
@@ -465,6 +470,8 @@ export const Component = () => {
                         <Link
                           mode="text"
                           data-h2-font-weight="base(bold)"
+                          data-h2-padding-bottom="base(x1)"
+                          data-h2-display="base(block)"
                           color="secondary"
                           external
                           href={paths.instructorLedTraining()}
@@ -472,6 +479,21 @@ export const Component = () => {
                           {intl.formatMessage({
                             defaultMessage: "Browse training opportunities",
                             id: "alKxbI",
+                            description: "A link to sign up for updates",
+                          })}
+                        </Link>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          data-h2-display="base(block)"
+                          color="secondary"
+                          external
+                          href={signUpUrl[locale]}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Sign up for updates<hidden> about instructor-led classes and bootcamps</hidden>",
+                            id: "Tj1iyN",
                             description: "A link to sign up for updates",
                           })}
                         </Link>
