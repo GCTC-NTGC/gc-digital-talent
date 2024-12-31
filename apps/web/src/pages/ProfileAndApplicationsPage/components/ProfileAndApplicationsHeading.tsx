@@ -225,7 +225,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   const skillShowcaseUrl = paths.skillShowcase();
-  const skillLibraryUrl = paths.skillPortfolio();
+  const skillPortfolioUrl = paths.skillPortfolio();
 
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
@@ -234,12 +234,12 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
     user.improveBehaviouralSkillsRanking?.length &&
     user.improveTechnicalSkillsRanking?.length;
 
-  const skillLibraryCount = user.userSkills?.length ?? 0;
+  const skillPortfolioCount = user.userSkills?.length ?? 0;
 
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
-  const skillLibraryStatus = skillLibraryCount ? "success" : "error";
+  const skillPortfolioStatus = skillPortfolioCount ? "success" : "error";
   const topSkillsStatus = hasTopSkills ? "success" : "error";
   const skillsToImproveStatus = hasSkillsToImprove ? "success" : "error";
 
@@ -554,14 +554,14 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
         <HeroCard
           color="quaternary"
           title={intl.formatMessage(navigationMessages.skillPortfolio)}
-          href={`${skillLibraryUrl}#manage`}
+          href={`${skillPortfolioUrl}#manage`}
         >
           <StatusItem
             layout="hero"
             title={intl.formatMessage(navigationMessages.skillPortfolio)}
-            itemCount={skillLibraryCount}
-            status={skillLibraryStatus}
-            href={`${skillLibraryUrl}#manage`}
+            itemCount={skillPortfolioCount}
+            status={skillPortfolioStatus}
+            href={`${skillPortfolioUrl}#manage`}
           />
           <StatusItem
             layout="hero"

@@ -123,6 +123,10 @@
     "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "+gnEgg": {
+    "defaultMessage": "Trouvez une compétence et ajoutez-la à votre portfolio",
+    "description": "Title for the find a skill dialog within the skill portfolio"
+  },
   "+hRCVl": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
@@ -718,6 +722,10 @@
   "1fMzyo": {
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
+  },
+  "1fmUv1": {
+    "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page description for the top technical skills page"
   },
   "1hNh9g": {
     "defaultMessage": "Préambule",
@@ -1320,7 +1328,7 @@
     "description": "Message displayed to users to sign in to the application"
   },
   "4nP41q": {
-    "defaultMessage": "Sauvegarder et ajouter cette compétence",
+    "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
   "4p0QdF": {
@@ -1470,6 +1478,10 @@
   "5UBJy7": {
     "defaultMessage": "Ajouter un besoin en personnel",
     "description": "Button text to add a new personnel requirement"
+  },
+  "5WEzE3": {
+    "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
+    "description": "Subtitle for the find a skill dialog within the skill portfolio"
   },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
@@ -2267,6 +2279,10 @@
     "defaultMessage": "Activez le mode lumière",
     "description": "Button text to set theme mode to light"
   },
+  "9nwXXJ": {
+    "defaultMessage": "Vous pouvez lier de nouvelles compétences en modifiant cette expérience ou en ajoutant la compétence à votre portfolio de compétences. Les compétences ajoutées à cette expérience dans le cadre d'une demande d'emploi apparaissent également ici.",
+    "description": "Lead in text for list of skills linked to a specific experience"
+  },
   "9o9XhC": {
     "defaultMessage": "Hors site, quel que soit le lieu",
     "description": "Any offsite personnel work location"
@@ -2646,6 +2662,10 @@
   "BuXxS9": {
     "defaultMessage": "Anglais seulement",
     "description": "English only personnel language"
+  },
+  "BurFgV": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve technical skills page"
   },
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
@@ -3479,6 +3499,10 @@
     "defaultMessage": "Cherchez-vous votre candidature au Programme d’apprentissage en TI pour les Autochtones?",
     "description": "First paragraph for profile and applications notification welcoming an IAP user"
   },
+  "G6LNg7": {
+    "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page blurb for the top behavioural skills page"
+  },
   "G6PxDn": {
     "defaultMessage": "Cette section met l'accent sur la gestion générale du compte et sur les informations relatives à la manière dont nous établissons un lien avec votre CléGC.",
     "description": "Subtitle for account management section on account settings page."
@@ -3818,6 +3842,10 @@
   "I8jlr2": {
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
+  },
+  "I9e48q": {
+    "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
+    "description": "Description on what the skills showcase is."
   },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
@@ -4204,7 +4232,7 @@
     "description": "Heading for checklist section in application education page."
   },
   "K73zGq": {
-    "defaultMessage": "Si vos compétences principales mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Ces compétences ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
+    "defaultMessage": "Si vos principales compétences mettent en évidence vos points forts, cette section vous permet de nous donner un aperçu des compétences que vous vous efforcez d’améliorer. Ces compétences ne doivent pas nécessairement être des faiblesses. Si vous souhaitez améliorer une compétence grâce à l’expérience ou à la formation, mentionnez-la ici.",
     "description": "Description of the skills to improve section and how to use it."
   },
   "K8CPir": {
@@ -4503,6 +4531,10 @@
     "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
     "description": "Describes selecting additional requirements for a process."
   },
+  "LN3sPI": {
+    "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
+    "description": "Page blurb for the improve behavioural skills page"
+  },
   "LOVZi6": {
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
@@ -4538,10 +4570,6 @@
   "LYCaEd": {
     "defaultMessage": "Expiré",
     "description": "Simplified status label for expired recruitments"
-  },
-  "Lb3ppn": {
-    "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page blurb for the improve technical skills page"
   },
   "LbtstO": {
     "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
@@ -5079,10 +5107,6 @@
     "defaultMessage": "Modifier une collectivité",
     "description": "Page title for the edit community page."
   },
-  "OY6KVG": {
-    "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page blurb for the top behavioural skills page"
-  },
   "OaF7ls": {
     "defaultMessage": "Supprimer un utilisateur",
     "description": "Heading for section to delete a user"
@@ -5410,10 +5434,6 @@
   "Q914Cl": {
     "defaultMessage": "Tableau de bord du gestionnaire",
     "description": "Title for the 'Manager dashboard' page"
-  },
-  "Q9c+Kg": {
-    "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
-    "description": "Title for the find a skill dialog within the skill showcase"
   },
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
@@ -6910,10 +6930,6 @@
     "defaultMessage": "Téléchargez toutes compétences (CSV)",
     "description": "Text label for button to download a csv file of all skills."
   },
-  "XpiMeF": {
-    "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
-    "description": "Subtitle for the find a skill dialog within the skill library"
-  },
   "XrRt6V": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Success message for updating expiry date"
@@ -6925,10 +6941,6 @@
   "Xvvcsg": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
     "description": "Label for not represented community"
-  },
-  "XzGOuV": {
-    "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
-    "description": "Label for skill dialog trigger on skills showcase section."
   },
   "XzyFuo": {
     "defaultMessage": "Soyez informé des prochaines échéances de candidature, des changements de statut, etc.",
@@ -6950,10 +6962,6 @@
     "defaultMessage": "Associer une expérience",
     "description": "Button text to open the form allowing a user to link an experience to a skill"
   },
-  "Y3rbFp": {
-    "defaultMessage": "Visitez votre démonstration",
-    "description": "Link text to the skill showcase page."
-  },
   "Y555u5": {
     "defaultMessage": "Bilingue intermédiaire (B B B)",
     "description": "Bilingual intermediate language requirement"
@@ -6973,10 +6981,6 @@
   "Y7Qop6": {
     "defaultMessage": "Niveau",
     "description": "Label displayed on Work Experience form for classification level input"
-  },
-  "Y96JXz": {
-    "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
-    "description": "Subtitle for the find a skill dialog within an experience"
   },
   "Y9N3Fw": {
     "defaultMessage": "Y a-t-il d’autres exigences (p. ex., travail par postes, service de garde 24 heures sur 24, 7 jours sur 7, selon les besoins, heures supplémentaires, etc.) pour ce contrat?",
@@ -7186,6 +7190,10 @@
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
   },
+  "Z5Cv3U": {
+    "defaultMessage": "Cette compétence sera aussi ajoutée à votre portfolio de compétences si elle ne s'y trouve pas déjà.",
+    "description": "Subtitle for the find a skill dialog within an experience"
+  },
   "Z9W+O2": {
     "defaultMessage": "Postulez dès aujourd'hui pour entamer votre parcours de carrière en TI.",
     "description": "Meta tag description for IT Apprenticeship Program for Indigenous Peoples site"
@@ -7285,6 +7293,10 @@
   "ZgeBBn": {
     "defaultMessage": "La <relationsLink>Commission des relations de travail et de l’emploi dans le secteur public fédéral</relationsLink> traite les plaintes de certains employés de la fonction publique fédérale, membres de la Gendarmerie royale du Canada et employés du Parlement.",
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<"
+  },
+  "ZoZNDf": {
+    "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
+    "description": "Title for the find a skill dialog within the skill portfolio"
   },
   "ZpYj8o": {
     "defaultMessage": "Créer un ministère",
@@ -7830,10 +7842,6 @@
     "defaultMessage": "Note spéciale pour ce processus",
     "description": "Heading for a special note in pool advertisement."
   },
-  "ccR/uJ": {
-    "defaultMessage": "Votre démonstration de vos compétences vous permet de conserver des listes de compétences tirées de votre bibliothèque qui présentent une histoire davantage ciblée de vos forces et de vos domaines d’intérêt. Bien que votre bibliothèque agisse en tant qu’endroit central à partir duquel vous pouvez gérer toutes les compétences que vous ajoutez à votre profil, les démonstrations que vous complétez sont jumelées à vos demandes d’emploi afin d’aider les recruteurs et les gestionnaires à brosser un tableau complet de votre talent.",
-    "description": "Description on what the skills showcase is."
-  },
   "ccwY2r": {
     "defaultMessage": "Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>Talents numériques du GC</link>.",
     "description": "Description for the digital Services contracting form, paragraph 2"
@@ -7887,7 +7895,7 @@
     "description": "Page title for the application skills introduction page"
   },
   "cqJw3g": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
+    "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
   },
   "cweZUH": {
@@ -7965,10 +7973,6 @@
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
-  },
-  "dSfDu1": {
-    "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page blurb for the improve behavioural skills page"
   },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
@@ -8137,10 +8141,6 @@
   "e/nr9L": {
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
-  },
-  "e0QYLO": {
-    "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
-    "description": "Page description for the top technical skills page"
   },
   "e12pvi": {
     "defaultMessage": "Profil",
@@ -9130,10 +9130,6 @@
     "defaultMessage": "Cet utilisateur n’a mis aucune compétence en évidence.",
     "description": "Message displayed when a user has no top skills in their showcase"
   },
-  "iMtZOR": {
-    "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre bibliothèque",
-    "description": "Title for the find a skill dialog within the skill library"
-  },
   "iN2H6J": {
     "defaultMessage": "La durée sélectionnée sera comparée à celle choisie par les candidats dans leur dossier de candidature. Ne modifiez cette option que si l'offre d'emploi a une durée déterminée.",
     "description": "Message describing the employment duration filter in the search form."
@@ -9234,6 +9230,10 @@
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
     "description": "Description displayed on the job poster template 'key tasks' section."
   },
+  "iru4oU": {
+    "defaultMessage": "Visitez votre vitrine de compétences",
+    "description": "Link text to the skill showcase page."
+  },
   "iruU4c": {
     "defaultMessage": "10 millions de dollars à 15 millions de dollars",
     "description": "Contract value range between ten-million and fifteen-million"
@@ -9325,10 +9325,6 @@
   "jDvQEV": {
     "defaultMessage": "Modifier {sectionTitle}",
     "description": "Button text to start editing a specific section"
-  },
-  "jH5V6M": {
-    "defaultMessage": "Retourner à la bibliothèque des compétences",
-    "description": "Link text to navigate from skill showcase to the skill library page"
   },
   "jH5egG": {
     "defaultMessage": "Comment j’ai utilisé",
@@ -10033,6 +10029,10 @@
   "mt4AkL": {
     "defaultMessage": "Candidat(e) precedent(e)",
     "description": "Link label to view previous candidate on view pool candidate page"
+  },
+  "mwVSMJ": {
+    "defaultMessage": "Retourner au portfolio de compétences",
+    "description": "Link text to navigate from skill showcase to the skill portfolio page"
   },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
@@ -11510,6 +11510,10 @@
     "defaultMessage": "Voir tout",
     "description": "Filter by option on instructor training page."
   },
+  "vY031f": {
+    "defaultMessage": "Ajoutez une compétence ({numOfSkills}/{maxSkills})",
+    "description": "Label for skill dialog trigger on skills showcase section."
+  },
   "vYi5/y": {
     "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
     "description": "Body message for digital initiative managers section."
@@ -11790,10 +11794,6 @@
     "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
     "description": "Subtitle for the self skill evaluation page"
   },
-  "xLIImd": {
-    "defaultMessage": "Les compétences suivantes ont été liées à cette expérience par l’entremise des compétences que vous avez démontrées ou dans le cadre de vos demandes d’emploi. Vous pouvez lier vos compétences en modifier cette expérience ou en ajouter la compétence à votre bibliothèque dans la présente mise en évidence. ",
-    "description": "Lead in text for list of skills linked to a specific experience"
-  },
   "xM6U6U": {
     "defaultMessage": "Sans objet (s. o.)",
     "description": "Not applicable contract supply method"
@@ -11859,7 +11859,7 @@
     "description": "Header for the form to remove a community role from a user"
   },
   "xkJAuq": {
-    "defaultMessage": "Ajouter cette compétence",
+    "defaultMessage": "Ajoutez cette compétence",
     "description": "Button text to select a specific skill in the skill dialog"
   },
   "xle+7f": {
