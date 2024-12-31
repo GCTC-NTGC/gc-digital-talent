@@ -3839,6 +3839,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
   },
+  "I9e48q": {
+    "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
+    "description": "Description on what the skills showcase is."
+  },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
     "description": "Label for full name"
@@ -6018,10 +6022,6 @@
   "T5QT/C": {
     "defaultMessage": "la gestion des données pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
-  },
-  "T5XCAS": {
-    "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
-    "description": "Description on what the skills showcase is."
   },
   "T74kMc": {
     "defaultMessage": "Ressources",

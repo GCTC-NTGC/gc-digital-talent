@@ -139,8 +139,8 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Your skill showcase allows you to curate lists of skills from your portfolio that present a more focused and personalized story about your strength and areas of interest. While your skills portfolio serves as a central place to manage all the skills you add to your profile, the showcase is paired with your job applications. It's shared with recruiters and managers to give them a fuller picture of your talents.",
-                  id: "T5XCAS",
+                    "Your skill showcase allows you to curate lists of skills from your portfolio that present a more focused and personalized story about your strengths and areas of interest. While your skills portfolio serves as a central place to manage all the skills you add to your profile, the showcase is paired with your job applications. It's shared with recruiters and managers to give them a fuller picture of your talents.",
+                  id: "I9e48q",
                   description: "Description on what the skills showcase is.",
                 })}
               </p>
