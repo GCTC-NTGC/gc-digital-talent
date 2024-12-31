@@ -8810,10 +8810,6 @@
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
     "description": "Description of the Office of the Chief Information Officer"
   },
-  "h7f4Om": {
-    "defaultMessage": "Hiver 2024‑2025",
-    "description": "Statement that something will be available in the future"
-  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"

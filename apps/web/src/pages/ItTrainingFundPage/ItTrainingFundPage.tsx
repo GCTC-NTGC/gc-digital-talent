@@ -531,10 +531,10 @@ export const Component = () => {
                     >
                       <p data-h2-font-weight="base(bold)">
                         {intl.formatMessage({
-                          defaultMessage: "Coming in winter 2024-25",
-                          id: "h7f4Om",
+                          defaultMessage: "Available now",
+                          id: "L6MPML",
                           description:
-                            "Statement that something will be available in the future",
+                            "Statement that something is available now",
                         })}
                       </p>
                       <ul
