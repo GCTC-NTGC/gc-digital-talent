@@ -70,7 +70,7 @@ class AuthController extends Controller
 
     public function authCallback(Request $request)
     {
-        //pull the original nonce and state from  beginning to compare with returned values
+        // pull the original nonce and state from  beginning to compare with returned values
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
 
@@ -109,7 +109,7 @@ class AuthController extends Controller
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
-        //grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
+        // grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
         $tokenNonce = $token->claims()->get('nonce');
         throw_unless(
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
