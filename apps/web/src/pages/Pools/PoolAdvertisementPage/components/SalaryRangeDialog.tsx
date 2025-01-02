@@ -33,8 +33,8 @@ const DeadlineDialog = () => {
           color="secondary"
           icon={InformationCircleIcon}
           aria-label={intl.formatMessage({
-            defaultMessage: "Learn about how salary ranges work.",
-            id: "IKZDBI",
+            defaultMessage: "Learn more about salary ranges",
+            id: "AAisdi",
             description:
               "Info button label for pool application salary range details.",
           })}

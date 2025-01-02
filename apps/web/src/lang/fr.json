@@ -2363,6 +2363,10 @@
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
   },
+  "AAisdi": {
+    "defaultMessage": "En savoir plus sur les échelles salariales",
+    "description": "Info button label for pool application salary range details."
+  },
   "AAvLM5": {
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
@@ -3898,10 +3902,6 @@
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
-  },
-  "IKZDBI": {
-    "defaultMessage": "Découvrez le fonctionnement des fourchettes de salaires.",
-    "description": "Info button label for pool application salary range details."
   },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
