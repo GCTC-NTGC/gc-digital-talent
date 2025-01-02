@@ -66,7 +66,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicant can create
      */
-    public function test_applicant_can_create_own()
+    public function testApplicantCanCreateOwn()
     {
 
         $this->actingAs($this->applicant, 'api')
@@ -104,7 +104,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicant can update own
      */
-    public function test_applicant_can_update_own()
+    public function testApplicantCanUpdateOwn()
     {
         $communityInterestId = $this->applicant->employeeProfile->communityInterests[0]?->id;
 
@@ -135,7 +135,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicant can delete own
      */
-    public function test_applicant_can_delete_own()
+    public function testApplicantCanDeleteOwn()
     {
         $communityInterest = $this->applicant->employeeProfile->communityInterests()->first();
 
@@ -161,7 +161,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicants cannot create for another
      */
-    public function test_applicant_cannot_create_for_other_user()
+    public function testApplicantCannotCreateForOtherUser()
     {
         $otherId = User::factory()->create()->id;
 
@@ -177,7 +177,7 @@ class communityInterestTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function test_community_exists_validation()
+    public function testCommunityExistsValidation()
     {
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
@@ -190,7 +190,7 @@ class communityInterestTest extends TestCase
             ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_NOT_FOUND);
     }
 
-    public function test_unique_validation()
+    public function testUniqueValidation()
     {
         $community = $this->applicant->employeeProfile->communityInterests()->first()->community->id;
 
@@ -205,7 +205,7 @@ class communityInterestTest extends TestCase
             ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_INTEREST_EXISTS);
     }
 
-    public function test_work_stream_in_community_validation()
+    public function testWorkStreamInCommunityValidation()
     {
         $community = Community::factory()->withWorkStreams()->create(); // No work streams
         $workStream = WorkStream::factory()->create([
