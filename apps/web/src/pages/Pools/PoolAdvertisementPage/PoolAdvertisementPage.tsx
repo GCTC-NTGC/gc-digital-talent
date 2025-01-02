@@ -48,7 +48,6 @@ import {
 
 import {
   formatClassificationString,
-  getClassificationSalaryRangeUrl,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
@@ -76,6 +75,7 @@ import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
 import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
+import SalaryRangeDialog from "./components/SalaryRangeDialog";
 
 interface SectionContent {
   id: string;
@@ -340,10 +340,6 @@ export const PoolPoster = ({
     classification: pool.classification,
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
-  const salaryRangeUrl = getClassificationSalaryRangeUrl(
-    locale,
-    classification,
-  );
   const workLocation = pool.isRemote
     ? intl.formatMessage({
         defaultMessage: "Remote, hybrid or on-site",
@@ -710,23 +706,7 @@ export const PoolPoster = ({
                       locale,
                     ) ?? notAvailable
                   }
-                  suffix={
-                    salaryRangeUrl && (
-                      <Link
-                        mode="icon_only"
-                        external
-                        newTab
-                        href={salaryRangeUrl}
-                        icon={InformationCircleIcon}
-                        aria-label={`${intl.formatMessage({
-                          defaultMessage: "Salary range information",
-                          id: "IvJ9Xd",
-                          description:
-                            "Link text to more information about classification salary range",
-                        })} ${intl.formatMessage(uiMessages.newTab)}`}
-                      />
-                    )
-                  }
+                  suffix={<SalaryRangeDialog />}
                 />
                 <DataRow
                   label={
