@@ -811,6 +811,10 @@
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
   },
+  "2FrqUn": {
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
+    "description": "Title for community dashboard on the talent cloud admin portal."
+  },
   "2HGCCF": {
     "defaultMessage": "Nous utilisons également cette information pour vous offrir une expérience plus contextualisée, y compris des recommandations de possibilités fondées sur votre situation de l'emploi, votre classification, et plus encore.",
     "description": "Message after main heading in employee information page - paragraph 2."
@@ -7706,6 +7710,10 @@
     "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
     "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
+  "bw4CAS": {
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
+    "description": "Title for applicant dashboard on the talent cloud admin portal."
+  },
   "bwoJyk": {
     "defaultMessage": "Informations sur la possibilité de formation",
     "description": "Heading for the opportunity form information section"
@@ -9682,10 +9690,6 @@
     "defaultMessage": "Évaluer",
     "description": "Talent portal strategy item 3 heading"
   },
-  "lIwJp4": {
-    "defaultMessage": "Bon retour, {name}",
-    "description": "Title for dashboard on the talent cloud admin portal."
-  },
   "lKoKu0": {
     "defaultMessage": "42 postes de cadres supérieurs et autres postes de dirigeants ont été pourvus au cours de cet exercice, ce qui a permis de doubler les affectations réalisées au cours de l’exercice financier précédent (2022-2023) et de promouvoir la gestion des talents numériques. Veuillez prendre note que les talents numériques sont ciblés lors des tables rondes annuelles interministérielles sur la gestion des talents.",
     "description": "Description of executive referral services"
@@ -11401,6 +11405,10 @@
   "utLdbN": {
     "defaultMessage": "Vise à lancer le programme au début de 2024.",
     "description": "Talent portal strategy item 4 content"
+  },
+  "utS0s1": {
+    "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
+    "description": "Title for admin dashboard on the talent cloud admin portal."
   },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",

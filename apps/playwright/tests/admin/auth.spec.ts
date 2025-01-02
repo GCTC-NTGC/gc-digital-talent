@@ -326,7 +326,7 @@ test.describe("Login", () => {
     await appPage.waitForGraphqlResponse("AdminDashboard_Query");
     await expect(
       appPage.page.getByRole("heading", {
-        name: /welcome back, dale monroe/i,
+        name: /welcome back/i,
       }),
     ).toBeVisible();
   });

@@ -247,13 +247,14 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
     <Hero
       title={intl.formatMessage(
         {
-          defaultMessage: "Welcome back, {firstName}",
-          id: "Q/f5AF",
+          defaultMessage:
+            "Welcome back<hidden> to your applicant dashboard</hidden>, {name}",
+          id: "bw4CAS",
           description:
-            "Title displayed in the hero section of the Search page.",
+            "Title for applicant dashboard on the talent cloud admin portal.",
         },
         {
-          firstName: user.firstName,
+          name: user.firstName,
         },
       )}
       subtitle={intl.formatMessage(
