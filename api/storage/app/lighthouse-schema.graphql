@@ -429,7 +429,7 @@ type Mutation {
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(id: UUID!, communityInterest: UpdateCommunityInterestInput!): CommunityInterest
-  deleteCommunityInterest(id: ID!): CommunityInterest
+  deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User

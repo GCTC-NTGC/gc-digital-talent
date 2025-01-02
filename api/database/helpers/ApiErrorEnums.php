@@ -46,6 +46,8 @@ class ApiErrorEnums
     // Employee profile validation
     const COMMUNITY_NOT_FOUND = 'CommunityNotFound';
 
+    const COMMUNITY_INTEREST_EXISTS = 'CommunityInterestExists';
+
     const CLASSIFICATION_NOT_FOUND = 'ClassificationNotFound';
 
     const DEPARTMENT_NOT_FOUND = 'DepartmentNotFound';

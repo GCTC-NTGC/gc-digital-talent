@@ -66,7 +66,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicant can create
      */
-    public function testApplicantCanCreateOwn()
+    public function test_applicant_can_create_own()
     {
 
         $this->actingAs($this->applicant, 'api')
@@ -104,7 +104,7 @@ class communityInterestTest extends TestCase
     /**
      * Test applicant can update own
      */
-    public function testApplicantCanUpdateOwn()
+    public function test_applicant_can_update_own()
     {
         $communityInterestId = $this->applicant->employeeProfile->communityInterests[0]?->id;
 
@@ -133,9 +133,35 @@ class communityInterestTest extends TestCase
     }
 
     /**
+     * Test applicant can delete own
+     */
+    public function test_applicant_can_delete_own()
+    {
+        $communityInterest = $this->applicant->employeeProfile->communityInterests()->first();
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation DeleteCommunityInterest($id: UUID!) {
+                    deleteCommunityInterest(id: $id) {
+                        id
+                    }
+                }
+            GRAPHQL, [
+                'id' => $communityInterest->id,
+            ])
+            ->assertJson([
+                'data' => [
+                    'deleteCommunityInterest' => ['id' => $communityInterest->id],
+                ],
+            ]);
+
+        $this->assertDatabaseMissing('community_interests', ['id' => $communityInterest->id]);
+    }
+
+    /**
      * Test applicants cannot create for another
      */
-    public function testApplicantCannotCreateForOtherUser()
+    public function test_applicant_cannot_create_for_other_user()
     {
         $otherId = User::factory()->create()->id;
 
@@ -151,7 +177,7 @@ class communityInterestTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testCommunityExistsValidation()
+    public function test_community_exists_validation()
     {
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
@@ -164,7 +190,22 @@ class communityInterestTest extends TestCase
             ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_NOT_FOUND);
     }
 
-    public function testWorkStreamInCommunityValidation()
+    public function test_unique_validation()
+    {
+        $community = $this->applicant->employeeProfile->communityInterests()->first()->community->id;
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->createMutation, [
+                'communityInterest' => [
+                    ...$this->input,
+                    'userId' => $this->applicant->id,
+                    'community' => ['connect' => $community],
+                ],
+            ])
+            ->assertGraphQLValidationError('communityInterest.community.connect', ApiErrorEnums::COMMUNITY_INTEREST_EXISTS);
+    }
+
+    public function test_work_stream_in_community_validation()
     {
         $community = Community::factory()->withWorkStreams()->create(); // No work streams
         $workStream = WorkStream::factory()->create([
