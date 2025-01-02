@@ -56,7 +56,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
                         $user->notify($notification);
                         $successCount++;
                     } catch (\Throwable $e) {
-                        $this->error("Failed to send notification to user $user->id: ".$e->getMessage());
+                        $this->error("Failed to queue notification for user $user->id: ".$e->getMessage());
                         $failureCount++;
                     } finally {
                         $progressBar->advance();
@@ -65,7 +65,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
             });
             $this->newLine();
 
-            $this->info("Success: $successCount Failure: $failureCount");
+            $this->info("Notifications queued.  Success: $successCount Failure: $failureCount");
             if ($failureCount > 0) {
                 return Command::FAILURE;
             } else {
