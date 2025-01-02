@@ -70,4 +70,11 @@ class EmployeeProfile extends Model
     {
         return $this->hasOne(User::class, 'id')->select(['email', 'firstName', 'lastName']);
     }
+
+    /** @return BelongsToMany<CommunityInterest, $this> */
+    public function communityInterests(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityInterest::class)
+            ->withPivot(['job_interest', 'training_interest', 'additional_information']);
+    }
 }

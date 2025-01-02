@@ -21,6 +21,7 @@ use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityExperience;
+use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
@@ -246,6 +247,16 @@ class UserFactory extends Factory
                 'dream_role_classification_id' => $classification->id,
                 'dream_role_work_stream_id' => $workStream->id,
             ]);
+        });
+    }
+
+    public function withCommunityInterests(int $limit = 3, int $workStreamLimit = 3)
+    {
+        $count = $this->faker->numberBetween(1, $limit);
+        $workStreamCount = $this->faker->numberBetween(1, $workStreamLimit);
+
+        return $this->afterCreating(function (User $user) use ($count, $workStreamCount) {
+            CommunityInterest::factory($count)->withWorkStreams($workStreamCount)->create(['user_id' => $user->id]);
         });
     }
 
