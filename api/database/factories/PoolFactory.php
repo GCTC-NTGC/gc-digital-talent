@@ -99,9 +99,9 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            //slice first set of skills as essential skills
+            // slice first set of skills as essential skills
             $essentialSkills = $skills->slice(0, $essentialCount);
-            //slice next set of  skills as non essential skills
+            // slice next set of  skills as non essential skills
             $nonEssentialSkills = $skills->slice($essentialCount, $nonEssentialCount);
             $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL->name);
             $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL->name);

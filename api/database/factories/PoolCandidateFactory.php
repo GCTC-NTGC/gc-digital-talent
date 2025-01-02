@@ -165,13 +165,13 @@ class PoolCandidateFactory extends Factory
             // attach either a work or education experience to a pool candidate to meet minimum criteria
             if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
             $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
-                //Ensure user has at least one education experience
+                // Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
             } elseif ($poolCandidate->education_requirement_option === EducationRequirementOption::APPLIED_WORK->name) {
-                //Ensure user has at least one work experience
+                // Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
                 ]);
