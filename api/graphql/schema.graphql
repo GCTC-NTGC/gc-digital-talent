@@ -151,6 +151,15 @@ type User {
     @canResolved(ability: "view") # Search requests submitted by a user
 }
 
+type CommunityInterest {
+  id: UUID!
+  community: Community! @belongsTo
+  workStreams: [WorkStream!] @belongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+}
+
 type EmployeeProfile {
   organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_organization_type_interest")
@@ -176,6 +185,8 @@ type EmployeeProfile {
   dreamRoleClassification: Classification @belongsTo
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
+
+  communityInterests: [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -1466,6 +1477,23 @@ input UpdateEmployeeProfileInput @validator {
   dreamRoleDepartments: DepartmentBelongsToMany
 }
 
+input CreateCommunityInterestInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  community: CommunityBelongsTo!
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+}
+
+input UpdateCommunityInterestInput @validator {
+  community: CommunityBelongsTo
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+}
+
 input LocalizedStringInput {
   en: String
   fr: String
@@ -2209,6 +2237,23 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
+  createCommunityInterest(
+    communityInterest: CreateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateCommunityInterest(
+    id: UUID!
+    communityInterest: UpdateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+  deleteCommunityInterest(id: ID! @whereKey): CommunityInterest
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard

@@ -18,9 +18,15 @@ class CommunityInterestPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, array $args): bool
     {
-        return $user->isAbleTo('update-own-employeeProfile');
+
+        $targetUserId = isset($args['user_id']) ? $args['user_id'] : null;
+        if ($targetUserId) {
+            return $user->isAbleTo('update-own-employeeProfile') && $user->id === $targetUserId;
+        }
+
+        return false;
     }
 
     /**

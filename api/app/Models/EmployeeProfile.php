@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -71,10 +72,9 @@ class EmployeeProfile extends Model
         return $this->hasOne(User::class, 'id')->select(['email', 'firstName', 'lastName']);
     }
 
-    /** @return BelongsToMany<CommunityInterest, $this> */
-    public function communityInterests(): BelongsToMany
+    /** @return HasMany<CommunityInterest, $this> */
+    public function communityInterests(): HasMany
     {
-        return $this->belongsToMany(CommunityInterest::class)
-            ->withPivot(['job_interest', 'training_interest', 'additional_information']);
+        return $this->hasMany(CommunityInterest::class, 'user_id');
     }
 }
