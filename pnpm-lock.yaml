@@ -1152,8 +1152,8 @@ importers:
         specifier: ^11.15.0
         version: 11.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-csv-downloader:
-        specifier: ^3.2.0
-        version: 3.2.0(react@18.3.1)
+        specifier: ^3.3.0
+        version: 3.3.0(react@18.3.1)
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
@@ -6715,11 +6715,11 @@ packages:
     peerDependencies:
       react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
-  react-csv-downloader@3.2.0:
-    resolution: {integrity: sha512-63vl4zWCht70dHEbuTkO7gdb1Xk9zZwIClLBPv1+o9Gf3rkjX4vT5B5yikBQtGnLId+wP1wY+yleaNQUvuBWGw==}
+  react-csv-downloader@3.3.0:
+    resolution: {integrity: sha512-JjaLf3TZBKca4Ap/Wi0PbfV/QFCmHlTnKLBP5PEiUvvHiMhNL0KWBylRdVHva1jTKNeUxUyLisWXG1+JV8oavw==}
     engines: {npm: '>=7.0.0'}
     peerDependencies:
-      react: ^16.6.3 || ^17.0.0 || ^18.0.0
+      react: ^16.6.3 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-docgen-typescript@2.2.2:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
@@ -14254,7 +14254,7 @@ snapshots:
       '@babel/runtime': 7.26.0
       react: 18.3.1
 
-  react-csv-downloader@3.2.0(react@18.3.1):
+  react-csv-downloader@3.3.0(react@18.3.1):
     dependencies:
       file-saver: 2.0.5
       react: 18.3.1
