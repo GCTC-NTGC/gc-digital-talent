@@ -5,7 +5,6 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import ChatBubbleLeftEllipsisIcon from "@heroicons/react/24/outline/ChatBubbleLeftEllipsisIcon";
 import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
@@ -324,7 +323,7 @@ export const Component = () => {
           </div>
           <div data-h2-text-align="base(center)">
             <Link
-              icon={ChatBubbleLeftEllipsisIcon}
+              icon={TicketIcon}
               color="quaternary"
               mode="cta"
               href={requestAVoucherUrl[locale]}
