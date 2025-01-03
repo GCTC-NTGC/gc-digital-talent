@@ -15,7 +15,6 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-import hero4Landscape from "~/assets/img/hero-4-landscape.webp";
 
 const itLink = (href: string, chunks: ReactNode) => {
   return (
@@ -80,7 +79,6 @@ export const Component = () => {
             color: "quaternary",
           },
         ]}
-        imgPath={hero4Landscape}
       />
       <div data-h2-padding="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
