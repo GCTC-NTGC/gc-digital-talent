@@ -358,7 +358,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification()->first();
 
-        return $classification->group.'-0'.$classification->level;
+        $leadingZero = $classification->level < 10 ? '0' : '';
+
+        return $classification->group.'-'.$leadingZero.$classification->level;
     }
 
     public function getDepartment()

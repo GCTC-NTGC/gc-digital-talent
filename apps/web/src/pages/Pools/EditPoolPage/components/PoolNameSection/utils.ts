@@ -91,7 +91,7 @@ export const getClassificationOptions = (
 ): Option[] => {
   return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
     value: id,
-    label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+    label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
   }));
 };
 

@@ -110,7 +110,7 @@ const GovernmentInformationSection = ({
                 </span>
                 <span data-h2-font-weight="base(700)">
                   {wrapAbbr(
-                    `${currentClassification?.group}-${currentClassification?.level}`,
+                    `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                     intl,
                   )}
                 </span>
