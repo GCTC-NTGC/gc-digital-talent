@@ -145,7 +145,7 @@ export const Component = () => {
             </p>
             <p data-h2-margin-bottom="base(x.5)">
               <ul>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "IT project management",
                     id: "ZiCXd1",
@@ -153,7 +153,7 @@ export const Component = () => {
                       "First item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "business analysis",
                     id: "awyksR",
@@ -161,7 +161,7 @@ export const Component = () => {
                       "Second item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "cloud computing",
                     id: "vYigGH",
@@ -169,7 +169,7 @@ export const Component = () => {
                       "Third item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "cyber security",
                     id: "9oUpdh",
@@ -177,7 +177,7 @@ export const Component = () => {
                       "Fourth item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "enterprise architecture",
                     id: "yOii5k",
@@ -185,7 +185,7 @@ export const Component = () => {
                       "Fifth item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "DevOps",
                     id: "zeLVU6",
@@ -193,7 +193,7 @@ export const Component = () => {
                       "Sixth item in list of certification topics section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "networking",
                     id: "+UjXSM",
@@ -227,7 +227,7 @@ export const Component = () => {
             </Heading>
             <p data-h2-margin-bottom="base(x.5)">
               <ul>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "You're currently an IT-classified Government of Canada employee represented by PIPSC",
@@ -236,7 +236,7 @@ export const Component = () => {
                       "First item in list of eligibility requirements section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "You have a GC Digital Talent profile",
                     id: "2B+d2V",
@@ -244,7 +244,7 @@ export const Component = () => {
                       "Second item in list of eligibility requirements section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage: "You have an active Navigar account",
                     id: "4ddL8K",
@@ -252,7 +252,7 @@ export const Component = () => {
                       "Third item in list of eligibility requirements section",
                   })}
                 </li>
-                <li>
+                <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
                       "You've completed any preparatory work such as prerequisite training modules and are ready to take the certification exam",
