@@ -91,6 +91,7 @@ class UserTestSeeder extends Seeder
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->withEmployeeProfile()
+            ->withCommunityInterests()
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
