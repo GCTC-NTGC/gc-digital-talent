@@ -114,7 +114,10 @@ const FormFields = ({
     ]);
 
   const groupOptions = getGroupOptions([...classifications], intl);
-  const levelOptions = getLevelOptions([...classifications], groupSelection);
+  const levelOptions = getLevelOptions(
+    [...classifications],
+    groupSelection,
+  ).sort((a, b) => a.value - b.value);
   const hasPriorityEntitlement = priorityEntitlement === "yes";
   const isGovEmployee = govEmployee === "yes";
   const isPlaced =
@@ -272,6 +275,7 @@ const FormFields = ({
                     uiMessages.nullSelectionOptionLevel,
                   )}
                   options={levelOptions}
+                  doNotSort
                 />
               </div>
             )}
