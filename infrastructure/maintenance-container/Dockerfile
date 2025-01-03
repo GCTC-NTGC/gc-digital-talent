@@ -2,7 +2,7 @@
 FROM node:20.11.0 AS node
 
 # base
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # install apt packages
 # first install software-properties-common to get add-apt-repository
