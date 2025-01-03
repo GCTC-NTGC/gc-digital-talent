@@ -4,6 +4,7 @@ namespace App\Services;
 
 use DateInterval;
 use Exception;
+use DateTimeImmutable;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -34,6 +35,7 @@ class OpenIdBearerTokenService
     private string $configUri;
 
     private DateInterval $allowableClockSkew;
+    private DateInterval $staleThreshold;
 
     public function fastSigner(): Configuration
     {
@@ -47,12 +49,13 @@ class OpenIdBearerTokenService
         );
     }
 
-    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
+    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew, DateInterval $staleThreshold)
     {
         $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
+        $this->staleThreshold = $staleThreshold;
     }
 
     // get a configuration property from the openid configuration json document
@@ -138,6 +141,40 @@ class OpenIdBearerTokenService
 
     }
 
+    private function isTokenStale(UnencryptedToken $token): bool
+    {
+        $issuedAt = $token->claims()->get('iat', null);
+        if (!$issuedAt) {
+            Log::warning('Token missing iat claim for staleness check');
+            return true; // Treat missing `iat` as stale
+        }
+
+        $issuedAtDateTime = (new DateTimeImmutable())->setTimestamp($issuedAt);
+        $staleThresholdTime = $this->clock->now()->sub($this->staleThreshold);
+
+        return $issuedAtDateTime < $staleThresholdTime;
+    }
+
+     private function isTokenRefreshing(UnencryptedToken $token): bool
+    {
+        // Extract a unique identifier for the token, such as 'jti' or 'kid'
+        $tokenId = $token->claims()->get('jti', null);
+        if (!$tokenId) {
+            Log::warning('Token missing jti claim for refresh check');
+            return false;
+        }
+
+        // Check if the token is flagged as being refreshed
+        return Cache::get("token_refreshing:{$tokenId}", false);
+    }
+
+    private function waitForTokenRefresh(int $waitTimeInSeconds = 5): void
+{
+    Log::debug("Waiting for token refresh to complete for {$waitTimeInSeconds} seconds...");
+    sleep($waitTimeInSeconds); // Simple wait
+    Log::debug('Finished waiting for token refresh.');
+}
+
     // call the introspection endpoint to check if the OP considers the access token still valid
     public function verifyJwtWithIntrospection(string $accessToken)
     {
@@ -189,13 +226,28 @@ class OpenIdBearerTokenService
     public function validateAndGetClaims(string $bearerToken)
     {
         $unsecuredToken = $this->unsecuredConfig->parser()->parse($bearerToken);
-
         $keyId = strval($unsecuredToken->headers()->get('kid'));
         $config = $this->getConfiguration($keyId);
 
         $token = $config->parser()->parse($bearerToken);
-
         assert($token instanceof UnencryptedToken);
+
+        // Check if the token is stale
+        if ($this->isTokenStale($token)) {
+            throw new UnauthorizedException('Token is stale and cannot be introspected', 401);
+        }
+
+        // Check if the token is being refreshed
+        if ($this->isTokenRefreshing($token)) {
+
+            // Wait for the token to be refreshed
+            $this->waitForTokenRefresh();
+
+            // Re-parse the token with the new configuration
+            $token = $config->parser()->parse($bearerToken);
+            assert($token instanceof UnencryptedToken);
+        }
+
         $config->setValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
             new RelatedTo($token->claims()->get('sub')),
