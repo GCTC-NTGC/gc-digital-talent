@@ -603,6 +603,10 @@
     "defaultMessage": "Note spéciale (anglais)",
     "description": "Label for a process' English special note"
   },
+  "11/un8": {
+    "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
+    "description": "List of conditions for starting at a higher rate, item 3"
+  },
   "13fSK+": {
     "defaultMessage": "La date de soumission est dépassée",
     "description": "Status for an application that where the recruitment has expired"
@@ -654,6 +658,10 @@
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
+  },
+  "1JtwAU": {
+    "defaultMessage": "La plupart des nouveaux membres du personnel commencent au premier échelon de l’échelle applicable. <strong>Pour commencer à un échelon plus élevé</strong>, le ou la gestionnaire d’embauche doit justifier pourquoi un salaire plus élevé que le premier échelon est jugé nécessaire pour recruter une personne ayant les compétences requises. Il ou elle devra expliquer comment le poste répond à l’une des trois conditions suivantes : ",
+    "description": "Second paragraph for the pool application salary ranges dialog"
   },
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
@@ -1438,6 +1446,10 @@
   "56jSOM": {
     "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Hero subtitle for IAP manager homepage"
+  },
+  "57DYUv": {
+    "defaultMessage": "nous rencontrons des <strong>difficultés exceptionnelles à pourvoir le poste</strong> avec des candidats qualifiés, possiblement parce que le premier échelon de l’échelle salariale n’est pas concurrentiel;",
+    "description": "List of conditions for starting at a higher rate, item 2"
   },
   "58+Hom": {
     "defaultMessage": "Modèles d'offres d'emploi",
@@ -2386,6 +2398,10 @@
   "AANjDd": {
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
+  },
+  "AAisdi": {
+    "defaultMessage": "En savoir plus sur les échelles salariales",
+    "description": "Info button label for pool application salary range details."
   },
   "AAvLM5": {
     "defaultMessage": "Type d’études",
@@ -4031,10 +4047,6 @@
     "defaultMessage": "Erreur : impossible d’annuler le statut de la décision finale",
     "description": "Message displayed when an error reverting final decision status of pool candidate"
   },
-  "IvJ9Xd": {
-    "defaultMessage": "Information sur l'échelle salariale",
-    "description": "Link text to more information about classification salary range"
-  },
   "Ivvi/F": {
     "defaultMessage": "Avez-vous utilisé certaines techniques ou approches spéciales?",
     "description": "Question about techniques used for a skill"
@@ -4362,6 +4374,10 @@
   "KXy+Ei": {
     "defaultMessage": "AC",
     "description": "Short form code representing 'veteran'"
+  },
+  "KYXYsD": {
+    "defaultMessage": "Les échelles salariales de tous les postes de la fonction publique fédérale sont <link>publiquement accessibles</link>. Les annonces d’emploi indiquent l’échelle complète pour un poste donné.",
+    "description": "First paragraph for the pool application salary ranges dialog"
   },
   "KZtBcM": {
     "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
@@ -5343,6 +5359,10 @@
     "defaultMessage": "Créer<hidden> un regroupement de compétences</hidden>",
     "description": "Breadcrumb title for the create skill family page link."
   },
+  "PROKKo": {
+    "defaultMessage": "Vous trouverez les échelles salariales et les échelons de la plupart des emplois du gouvernement du Canada dans <link1>les conventions collectives</link1>. Pour les postes non syndiqués, les échelles salariales sont disponibles sur le <link2>site Web du Secrétariat du Conseil du Trésor du Canada</link2>.",
+    "description": "Fourth paragraph for the pool application salary ranges dialog"
+  },
   "PS/LFb": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
@@ -6182,6 +6202,10 @@
   "TfbBB7": {
     "defaultMessage": "Collectivité {communityId} introuvable.",
     "description": "Message displayed for community not found."
+  },
+  "TgjkyB": {
+    "defaultMessage": "Après votre embauche, vous monterez d’un échelon dans l’échelle salariale chaque année, à la date anniversaire de votre entrée en fonction. Vous changerez d’échelon jusqu’à ce que vous atteigniez l’échelon maximal. Une fois que vous aurez atteint l’échelon le plus élevé, votre salaire ne changera que si votre convention collective change ou si vous acceptez un nouveau poste à un niveau supérieur.",
+    "description": "Third paragraph for the pool application salary ranges dialog"
   },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
@@ -10958,6 +10982,10 @@
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
   },
+  "rdxU+x": {
+    "defaultMessage": "Échelle salariale",
+    "description": "Heading for the salary ranges dialog"
+  },
   "rfDHc0": {
     "defaultMessage": "(Aucun changement)",
     "description": "Null state, nothing changed yet."
@@ -12241,6 +12269,10 @@
   "z8b14H": {
     "defaultMessage": "contiennent des renseignements personnels",
     "description": "Comments or contributions list item"
+  },
+  "zA8GrW": {
+    "defaultMessage": "il y a une <strong>pénurie de travailleurs qualifiés</strong> dans ce domaine, selon des enquêtes locales ou régionales du marché du travail menées par des organisations reconnues;",
+    "description": "List of conditions for starting at a higher rate, item 1"
   },
   "zACLaV": {
     "defaultMessage": "Position dans le groupe requis non autorisée en raison d’une restriction de classification",
