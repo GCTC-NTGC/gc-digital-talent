@@ -110,10 +110,9 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## PHP
 
-We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 22.04 does not come with PHP 8.3 in its repositories so add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install it with some extensions.
+We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 24.04 comes with PHP 8.3 but we require some additional extensions to be installed.
 
 ```
-LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
 ```
 
@@ -128,7 +127,7 @@ The PHP version should match the value of `require.php` in [api/composer.json](h
 
 ## Composer
 
-We user [Composer](https://getcomposer.org/) to manage our PHP project.
+We use [Composer](https://getcomposer.org/) to manage our PHP project.
 
 ```
 sudo apt-get install composer
