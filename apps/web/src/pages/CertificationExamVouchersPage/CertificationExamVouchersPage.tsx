@@ -156,32 +156,32 @@ export const Component = () => {
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Business analysis",
-                    id: "+BeD0v",
+                    defaultMessage: "business analysis",
+                    id: "awyksR",
                     description:
                       "Second item in list of certification topics section",
                   })}
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Cloud computing",
-                    id: "e6PlO0",
+                    defaultMessage: "cloud computing",
+                    id: "vYigGH",
                     description:
                       "Third item in list of certification topics section",
                   })}
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Cyber security",
-                    id: "hSoZzH",
+                    defaultMessage: "cyber security",
+                    id: "9oUpdh",
                     description:
                       "Fourth item in list of certification topics section",
                   })}
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Enterprise architecture",
-                    id: "GxrfIv",
+                    defaultMessage: "enterprise architecture",
+                    id: "yOii5k",
                     description:
                       "Fifth item in list of certification topics section",
                   })}
@@ -196,8 +196,8 @@ export const Component = () => {
                 </li>
                 <li>
                   {intl.formatMessage({
-                    defaultMessage: "Networking",
-                    id: "okQrE7",
+                    defaultMessage: "networking",
+                    id: "+UjXSM",
                     description:
                       "Seventh item in list of certification topics section",
                   })}

@@ -39,10 +39,6 @@
     "defaultMessage": "Certificat numérique",
     "description": "Title of the 'Digital certificate credential' subsection"
   },
-  "+BeD0v": {
-    "defaultMessage": "l'analyse opérationnelle;",
-    "description": "Second item in list of certification topics section"
-  },
   "+C20lR": {
     "defaultMessage": "Vous n’avez pas de besoins en matière de personnel.",
     "description": "Message that appears when there are no screening messages for a pool"
@@ -94,6 +90,10 @@
   "+SoiCw": {
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
+  },
+  "+UjXSM": {
+    "defaultMessage": "le réseautage.",
+    "description": "Seventh item in list of certification topics section"
   },
   "+Xn2ke": {
     "defaultMessage": "Résultats de l’évaluation",
@@ -2315,6 +2315,10 @@
     "defaultMessage": "Hors site, quel que soit le lieu",
     "description": "Any offsite personnel work location"
   },
+  "9oUpdh": {
+    "defaultMessage": "la cybersécurité;",
+    "description": "Fourth item in list of certification topics section"
+  },
   "9pYlYz": {
     "defaultMessage": "Volet",
     "description": "Label for a process' stream"
@@ -3694,10 +3698,6 @@
   "GwhSUZ": {
     "defaultMessage": "EX-04 : Chef de file du numérique",
     "description": "EX-04 classification label including titles"
-  },
-  "GxrfIv": {
-    "defaultMessage": "l'architecture intégrée;",
-    "description": "Fifth item in list of certification topics section"
   },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
@@ -7570,6 +7570,10 @@
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the Pool Candidates table name column."
   },
+  "awyksR": {
+    "defaultMessage": "l'analyse opérationnelle;",
+    "description": "Second item in list of certification topics section"
+  },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
@@ -8229,10 +8233,6 @@
   "e5xrSy": {
     "defaultMessage": "Embauché à titre d’employé pour une période déterminée",
     "description": "Title of the 'Hired as a term employee' subsection"
-  },
-  "e6PlO0": {
-    "defaultMessage": "l'informatique en nuage;",
-    "description": "Third item in list of certification topics section"
   },
   "e6hj69": {
     "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
@@ -8989,10 +8989,6 @@
   "hSmKjD": {
     "defaultMessage": "Absolument! Votre temps est précieux. Les apprentis recevront une rémunération et des avantages sociaux à titre d’employés du gouvernement du Canada. Au départ, les apprenti(e)s gagneront entre 29 $ et 33 $ de l’heure. Le salaire exact est déterminé au moment de l’embauche, et dépend de la convention collective en vigueur au sein de l’organisation qui les embauche. Les apprentis seront employés à temps plein, pour un total de 37,5 heures par semaine.",
     "description": "Learn more dialog question four paragraph one"
-  },
-  "hSoZzH": {
-    "defaultMessage": "la cybersécurité;",
-    "description": "Fourth item in list of certification topics section"
   },
   "hTJgV2": {
     "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
@@ -10434,10 +10430,6 @@
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
   },
-  "okQrE7": {
-    "defaultMessage": "le réseautage.",
-    "description": "Seventh item in list of certification topics section"
-  },
   "okRYhl": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Title of a quotes section"
@@ -11610,6 +11602,10 @@
     "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
     "description": "Body message for digital initiative managers section."
   },
+  "vYigGH": {
+    "defaultMessage": "l'informatique en nuage;",
+    "description": "Third item in list of certification topics section"
+  },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'database management' IT work stream"
@@ -12105,6 +12101,10 @@
   "yNPkM8": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les gestionnaires",
     "description": "Aria label for download guidance for managers plain text link."
+  },
+  "yOii5k": {
+    "defaultMessage": "l'architecture intégrée;",
+    "description": "Fifth item in list of certification topics section"
   },
   "yUSG9Z": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
