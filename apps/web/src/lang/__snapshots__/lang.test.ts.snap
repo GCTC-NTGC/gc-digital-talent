@@ -101,6 +101,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Request a voucher",
+    "fr": [
+      "Demander un bon",
+      "Demandez un bon"
+    ]
+  },
+  {
     "en": "Skill requirements",
     "fr": [
       "Exigences relatives aux compétences",
