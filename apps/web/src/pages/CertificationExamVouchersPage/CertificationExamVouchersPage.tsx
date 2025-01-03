@@ -111,8 +111,8 @@ export const Component = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "<link>The IT Community Training and Development Fund</link> helps you become certified by paying for your certification exams.",
-                  id: "CHIy5L",
+                    "The <link>IT Community Training and Development Fund</link> helps you become certified by paying for your certification exams.",
+                  id: "gIvlZk",
                   description:
                     "Second paragraph of certification exam vouchers section",
                 },
