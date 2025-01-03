@@ -148,7 +148,9 @@ const ClientProvider = ({
                 const didError = res
                   ? res.status === 401 ||
                     error.graphQLErrors.some(
-                      (e) => e.extensions?.category === "authentication",
+                      (e) =>
+                        e.extensions?.category === "authentication" ||
+                        e.extensions?.reason === "token_validation", // the auth provider says the token is invalid - maybe just a refresh is needed
                     )
                   : false;
 
