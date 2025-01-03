@@ -33,18 +33,21 @@ import {
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
-import { apiHost, apiUri } from "../../constants";
+import { allowableClockSkewSeconds, apiHost, apiUri } from "../../constants";
 
-const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
-  let tokenIsKnownToBeExpired = false;
+const isTokenProbablyExpired = (accessToken: string | null): boolean => {
+  let tokenProbablyExpired = false;
   if (accessToken) {
     const decoded = jwtDecode<JwtPayload>(accessToken);
     if (decoded.exp) {
-      tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
+      const tokenExpiryDateSeconds = decoded.exp;
+      const safeTokenExpiryDateSeconds =
+        tokenExpiryDateSeconds - allowableClockSkewSeconds; // allow for the client's machine to be a bit off
+      tokenProbablyExpired = Date.now() > safeTokenExpiryDateSeconds * 1000; // JWT expiry date in seconds to milliseconds
     }
   }
 
-  return tokenIsKnownToBeExpired;
+  return tokenProbablyExpired;
 };
 
 const ClientProvider = ({
@@ -141,7 +144,7 @@ const ClientProvider = ({
               },
               willAuthError() {
                 const accessToken = localStorage.getItem(ACCESS_TOKEN);
-                return isTokenKnownToBeExpired(accessToken);
+                return isTokenProbablyExpired(accessToken);
               },
               didAuthError(error) {
                 const res = error.response as Response | null;
@@ -179,5 +182,5 @@ export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
-  isTokenKnownToBeExpired,
+  isTokenProbablyExpired,
 };
