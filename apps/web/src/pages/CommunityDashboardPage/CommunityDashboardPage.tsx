@@ -39,7 +39,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
+import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
@@ -218,7 +218,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         title={intl.formatMessage(pageTitles.dashboard)}
         description={intl.formatMessage(subTitle)}
       />
-      <AdminHero
+      <Hero
         title={intl.formatMessage(
           {
             defaultMessage:
