@@ -427,6 +427,9 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
+  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
+  updateCommunityInterest(id: UUID!, communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
@@ -646,6 +649,15 @@ type User {
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
 }
 
+type CommunityInterest {
+  id: UUID!
+  community: Community!
+  workStreams: [WorkStream!]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
+}
+
 type EmployeeProfile {
   organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
   moveInterest: [LocalizedMoveInterest!]
@@ -664,6 +676,7 @@ type EmployeeProfile {
   dreamRoleClassification: Classification
   dreamRoleWorkStream: WorkStream
   dreamRoleDepartments: [Department!]
+  communityInterests: [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
 
@@ -1554,6 +1567,22 @@ input UpdateEmployeeProfileInput {
   dreamRoleClassification: ClassificationBelongsTo
   dreamRoleWorkStream: WorkStreamBelongsTo
   dreamRoleDepartments: DepartmentBelongsToMany
+}
+
+input CreateCommunityInterestInput {
+  userId: UUID!
+  community: CommunityBelongsTo!
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
+}
+
+input UpdateCommunityInterestInput {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
 }
 
 input LocalizedStringInput {
