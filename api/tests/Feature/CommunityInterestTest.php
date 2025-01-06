@@ -8,7 +8,6 @@ use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -87,7 +86,11 @@ class communityInterestTest extends TestCase
                         ...$this->input,
                         'userId' => $this->applicant->id,
                         'community' => ['connect' => $this->communityId],
-                        'workStreams' => ['sync' => $this->workStreamIds],
+                        'workStreams' => [
+                            'sync' => [
+                                $this->workStreamIds[0],
+                            ],
+                        ],
                     ],
                 ])
             ->assertJson([
@@ -95,7 +98,7 @@ class communityInterestTest extends TestCase
                     'createCommunityInterest' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
-                        'workStreams' => Arr::map($this->workStreamIds, fn ($id) => ['id' => $id]),
+                        'workStreams' => ['id' => $this->workStreamIds[0]],
                     ],
                 ],
             ]);
