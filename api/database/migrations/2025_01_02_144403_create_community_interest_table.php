@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignUuid('community_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->unique(['user_id', 'community_id']);
             $table->boolean('job_interest')->nullable();
             $table->boolean('training_interest')->nullable();
             $table->text('additional_information')->nullable();
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->foreignUuid('work_stream_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->unique(['community_interest_id', 'work_stream_id']);
         });
     }
 
