@@ -45,7 +45,7 @@ const ApplicantFilters = ({
   const classificationsFromBrowserHistory = selectedClassifications?.map(
     (classification) =>
       wrapAbbr(
-        `${classification?.group}-${classification?.level < 10 ? "0" : ""}${classification?.level}`,
+        `${classification?.group}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
         intl,
       ),
   );
