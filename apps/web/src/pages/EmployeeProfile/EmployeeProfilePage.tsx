@@ -52,7 +52,13 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   if (
     !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
   ) {
-    throw new UnauthorizedError();
+    throw new UnauthorizedError(
+      intl.formatMessage({
+        defaultMessage: "Not a verified employee",
+        id: "Ljv0T9",
+        description: "Error message for unauthorized employee access",
+      }),
+    );
   }
 
   const pageTitle = intl.formatMessage({
