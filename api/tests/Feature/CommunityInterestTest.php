@@ -14,7 +14,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-class communityInterestTest extends TestCase
+class CommunityInterestTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
