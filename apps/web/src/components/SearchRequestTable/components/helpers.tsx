@@ -18,7 +18,7 @@ export function classificationAccessor(
 ) {
   return classifications
     ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-${level < 10 ? "0" : ""}${c.level}`)
+    ?.map((c) => `${c.group}-${c.level < 10 ? "0" : ""}${c.level}`)
     ?.join(", ");
 }
 
