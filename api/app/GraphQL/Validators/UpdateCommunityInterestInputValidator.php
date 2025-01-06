@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Models\CommunityInterest;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
@@ -16,11 +17,10 @@ final class UpdateCommunityInterestInputValidator extends Validator
      */
     public function rules(): array
     {
-        $communityId = $this->arg('community.connect');
+        $communityId = CommunityInterest::with('community')->find($this->arg('id'))?->community?->id;
         $workStreams = $communityId ? WorkStream::where('community_id', $communityId)->get('id')->pluck('id') : [];
 
         return [
-            'community.connect' => ['uuid', 'exists:communities,id'],
             'workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreams)],
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],

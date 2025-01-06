@@ -1487,7 +1487,6 @@ input CreateCommunityInterestInput @validator {
 }
 
 input UpdateCommunityInterestInput @validator {
-  community: CommunityBelongsTo
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
