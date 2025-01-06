@@ -8,7 +8,6 @@ import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import { ReactNode } from "react";
 
 import {
-  Locales,
   commonMessages,
   getLocalizedName,
   navigationMessages,
@@ -466,44 +465,3 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
-
-export const getClassificationSalaryRangeUrl = (
-  locale: Locales,
-  classification?: Maybe<Pick<Classification, "group">>,
-): string | null => {
-  let localizedUrl: Record<Locales, string> | null = null;
-  switch (classification?.group) {
-    case "CS":
-    case "IT":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
-      };
-      break;
-    case "AS":
-    case "PM":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    case "EC":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
-      };
-      break;
-    case "CR":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    default:
-      break;
-  }
-
-  if (localizedUrl) return localizedUrl[locale];
-
-  return null;
-};

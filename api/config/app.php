@@ -197,7 +197,7 @@ return [
         \Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider::class,
         \Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
         \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
-        //\Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,
+        // \Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,
         MLL\GraphiQL\GraphiQLServiceProvider::class,
         \Laravel\Tinker\TinkerServiceProvider::class,
 

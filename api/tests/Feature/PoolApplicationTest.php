@@ -538,7 +538,7 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitClosingDate(): void
     {
-        //Closed Pool
+        // Closed Pool
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->subDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements

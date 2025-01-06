@@ -335,6 +335,8 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           }
         }
       }
+      workEmail
+      isWorkEmailVerified
     }
     pool {
       id

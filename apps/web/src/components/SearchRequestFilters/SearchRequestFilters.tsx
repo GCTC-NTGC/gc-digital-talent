@@ -230,8 +230,8 @@ const ApplicantFilters = ({
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "cMsRgt",
+                "Conditions of employment or operational requirements",
+              id: "SNxTm+",
               description:
                 "Title for operational requirements section on summary of filters section",
             })}
@@ -430,8 +430,8 @@ const SearchRequestFilters = ({
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage:
-                    "Conditions of employment / Operational requirements",
-                  id: "cMsRgt",
+                    "Conditions of employment or operational requirements",
+                  id: "SNxTm+",
                   description:
                     "Title for operational requirements section on summary of filters section",
                 })}

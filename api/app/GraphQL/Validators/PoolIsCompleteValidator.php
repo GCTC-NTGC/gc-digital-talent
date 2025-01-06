@@ -34,7 +34,7 @@ final class PoolIsCompleteValidator extends Validator
             'opportunity_length' => ['required', 'string'],
 
             // Closing date
-            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay],
+            'closing_date' => ['required', /* 'date_format:Y-m-d H:i:s', */ 'after:'.$endOfDay],
 
             // Your Impact and Work tasks
             'your_impact.en' => ['required', 'string'],

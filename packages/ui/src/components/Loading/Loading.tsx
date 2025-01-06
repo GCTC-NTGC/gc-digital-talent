@@ -1,4 +1,4 @@
-import { m, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "motion/react";
 import { HTMLProps, ReactNode } from "react";
 
 export interface LoadingProps extends HTMLProps<HTMLDivElement> {

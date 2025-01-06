@@ -98,9 +98,9 @@ const TopTechnicalSkills = ({
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
-      "Show managers the 10 technical skills that best represent your expertise and skill set. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren't already in your library will be added for you automatically.",
+      "Show managers the 10 technical skills that best represent your expertise and skill set. You can edit them at any time and are free to order the skills however you like. Skills that you add here that aren't already in your portfolio will be added for you automatically.",
     description: "Page description for the top technical skills page",
-    id: "e0QYLO",
+    id: "1fmUv1",
   });
 
   const pageInfo = {

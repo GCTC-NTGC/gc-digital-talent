@@ -3,20 +3,6 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
-    "en": "Create team",
-    "fr": [
-      "Créez une équipe",
-      "Créez l'équipe"
-    ]
-  },
-  {
-    "en": "Membership roles",
-    "fr": [
-      "Rôles des membres",
-      "Rôles dans l'équipe"
-    ]
-  },
-  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -45,13 +31,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add member",
-    "fr": [
-      "Ajouter un membre",
-      "Ajoutez un membre"
-    ]
-  },
-  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
@@ -73,17 +52,17 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add member",
+    "fr": [
+      "Ajouter un membre",
+      "Ajoutez un membre"
+    ]
+  },
+  {
     "en": "Apply now",
     "fr": [
       "Postulez dès-maintenant",
       "Présentez votre demande"
-    ]
-  },
-  {
-    "en": "Remove membership<hidden> in {team}</hidden>",
-    "fr": [
-      "Retirez de l'équipe<hidden> dans {team}</hidden>",
-      "Retirer de l'équipe<hidden> dans {team}</hidden>"
     ]
   },
   {
@@ -98,13 +77,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Créez une collectivité",
       "Créer une collectivité"
-    ]
-  },
-  {
-    "en": "Add team role",
-    "fr": [
-      "Ajouter un rôle dans l'équipe",
-      "Ajoutez un rôle dans l'équipe"
     ]
   },
   {
@@ -126,6 +98,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajouter un rôle dans la collectivité",
       "Ajoutez un rôle dans la collectivité"
+    ]
+  },
+  {
+    "en": "Request a voucher",
+    "fr": [
+      "Demander un bon",
+      "Demandez un bon"
     ]
   },
   {
