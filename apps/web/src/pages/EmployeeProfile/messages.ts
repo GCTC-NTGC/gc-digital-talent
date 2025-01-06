@@ -6,10 +6,10 @@ export default defineMessages({
     id: "zN7MBv",
     description: "Title for a users career plan",
   },
-  talentMobility: {
-    defaultMessage: "Talent mobility preferences",
-    id: "p3vIKK",
-    description: "Title for a users talent mobility preferences",
+  careerDevelopment: {
+    defaultMessage: "Career development preferences",
+    id: "okKbgd",
+    description: "Title for a users career development preferences",
   },
   dreamRole: {
     defaultMessage: "Dream role",

@@ -26,7 +26,7 @@ import messages from "./messages";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
-  TALENT_MOBILITY: "talent-mobility-section",
+  CAREER_DEVELOPMENT: "career-development-section",
   DREAM_ROLE: "dream-role-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
@@ -62,15 +62,15 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   }
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Your empoloyee profile",
-    id: "HwW7BZ",
+    defaultMessage: "Your employee profile",
+    id: "u+lXsz",
     description: "Page title for a users employee profile",
   });
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Manage your government employee information, including talent mobility preferences and work styles.",
-    id: "q8vDUx",
+      "Manage your government employee information, including career development preferences and work styles.",
+    id: "+RDFZH",
     description: "Description of the employee profile page",
   });
 
@@ -116,9 +116,9 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
-                      title={intl.formatMessage(messages.talentMobility)}
+                      title={intl.formatMessage(messages.careerDevelopment)}
                       status="success"
-                      scrollTo={SECTION_ID.TALENT_MOBILITY}
+                      scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -167,7 +167,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                 </p>
               </TableOfContents.Section>
               <TableOfContents.Section
-                id={SECTION_ID.TALENT_MOBILITY}
+                id={SECTION_ID.CAREER_DEVELOPMENT}
               ></TableOfContents.Section>
               <TableOfContents.Section
                 id={SECTION_ID.DREAM_ROLE}

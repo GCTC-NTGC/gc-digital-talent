@@ -87,6 +87,10 @@
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
   },
+  "+RDFZH": {
+    "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
+    "description": "Description of the employee profile page"
+  },
   "+SoiCw": {
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
@@ -3846,10 +3850,6 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
-  },
-  "HwW7BZ": {
-    "defaultMessage": "Votre profil d'employée ou d'employé",
-    "description": "Page title for a users employee profile"
   },
   "HxZIwt": {
     "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
@@ -10554,6 +10554,10 @@
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
   },
+  "okKbgd": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for a users career development preferences"
+  },
   "okRYhl": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Title of a quotes section"
@@ -10621,10 +10625,6 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
-  },
-  "p3vIKK": {
-    "defaultMessage": "Préférences en matière de mobilité des talents",
-    "description": "Title for a users talent mobility preferences"
   },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
@@ -10861,10 +10861,6 @@
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
-  },
-  "q8vDUx": {
-    "defaultMessage": "Gérez vos renseignements d'employée ou d'employé du gouvernement, y compris vos préférences en matière de mobilité des talents et les façons de travailler.",
-    "description": "Description of the employee profile page"
   },
   "qA8+f5": {
     "defaultMessage": "En attente",
@@ -11493,6 +11489,10 @@
   "txq9ha": {
     "defaultMessage": "50 000 $ à 1 million de dollars",
     "description": "Contract value range between fifty-thousand and one-million"
+  },
+  "u+lXsz": {
+    "defaultMessage": "Votre profil d'employée ou d'employé",
+    "description": "Page title for a users employee profile"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
