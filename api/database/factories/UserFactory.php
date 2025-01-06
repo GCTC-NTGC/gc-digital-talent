@@ -31,6 +31,7 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class UserFactory extends Factory
 {
@@ -256,7 +257,11 @@ class UserFactory extends Factory
         $workStreamCount = $this->faker->numberBetween(1, $workStreamLimit);
 
         return $this->afterCreating(function (User $user) use ($count, $workStreamCount) {
-            CommunityInterest::factory($count)->withWorkStreams($workStreamCount)->create(['user_id' => $user->id]);
+            CommunityInterest::factory()->withWorkStreams($workStreamCount)->count($count)
+                ->state(new Sequence(fn () => ['community_id' => Community::factory()->withWorkStreams()->create()]))
+                ->create([
+                    'user_id' => $user->id,
+                ]);
         });
     }
 

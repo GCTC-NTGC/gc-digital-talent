@@ -98,7 +98,7 @@ class CommunityInterestTest extends TestCase
                     'createCommunityInterest' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
-                        'workStreams' => ['id' => $this->workStreamIds[0]],
+                        'workStreams' => [['id' => $this->workStreamIds[0]]],
                     ],
                 ],
             ]);
