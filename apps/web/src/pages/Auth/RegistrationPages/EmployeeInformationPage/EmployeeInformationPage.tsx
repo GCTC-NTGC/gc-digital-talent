@@ -139,7 +139,8 @@ export const EmployeeInformationFormFields = ({
         value: iterator.level,
         label: iterator.level.toString(),
       };
-    });
+    })
+    .sort((a, b) => a.value - b.value);
 
   const isGovEmployee = govEmployee === "yes";
 
@@ -345,6 +346,7 @@ export const EmployeeInformationFormFields = ({
                   uiMessages.nullSelectionOptionLevel,
                 )}
                 options={levelOptions}
+                doNotSort
               />
             </div>
           </>
