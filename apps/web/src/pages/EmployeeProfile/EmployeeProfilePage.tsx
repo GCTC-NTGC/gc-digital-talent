@@ -82,7 +82,11 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
       },
       {
         url: paths.employeeProfile(),
-        label: pageTitle,
+        label: intl.formatMessage({
+          defaultMessage: "Employee profile",
+          id: "FThj7q",
+          description: "Short title for a users employee profile",
+        }),
       },
     ],
   });
