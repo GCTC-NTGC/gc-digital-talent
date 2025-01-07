@@ -1,4 +1,4 @@
-import { ReactNode, useId } from "react";
+import { ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import { useIntl } from "react-intl";
@@ -38,7 +38,7 @@ const StateIcon = ({ state }: { state: BaseItemProps["state"] }) => {
 export interface BaseItemProps {
   title: ReactNode;
   accessibleLabel: string;
-  description: string;
+  description: ReactNode;
   state?: "incomplete" | "complete";
 }
 
@@ -49,7 +49,6 @@ const BaseItem = ({
   state,
 }: BaseItemProps) => {
   const intl = useIntl();
-  const descriptionId = useId();
   const extraStateStyles =
     state === "incomplete"
       ? {
@@ -91,15 +90,10 @@ const BaseItem = ({
         // icon extends margin + icons size: x0.75 + x0.75 = x1.5
         // item margin is base(x1) l-tablet(x1.5)
         data-h2-padding-right="base(x0.5) l-tablet(0)"
-        aria-describedby={descriptionId}
       >
         {title}
       </div>
-      <p
-        data-h2-color="base(black.light)"
-        data-h2-font-size="base(caption)"
-        id={descriptionId}
-      >
+      <p data-h2-color="base(black.light)" data-h2-font-size="base(caption)">
         {description}
       </p>
     </div>
