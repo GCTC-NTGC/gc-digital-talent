@@ -48,7 +48,7 @@ class ApplicationPage extends AppPage {
       .fill("QA Testing");
 
     await this.page
-      .getByRole("textbox", { name: /institution/i })
+      .getByRole("combobox", { name: /institution/i })
       .fill("Playwright University");
 
     const startDate = this.page.getByRole("group", {
