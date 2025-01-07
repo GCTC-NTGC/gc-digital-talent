@@ -87,6 +87,10 @@
     "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste. La capacité linguistique sélectionnée sera comparée à celle choisie par les candidats dans leur demande. À noter, les candidats qui ont sélectionné Bilingue peuvent ne pas avoir des résultats d’évaluation de langue seconde du gouvernement du Canada.",
     "description": "Message describing the work language ability filter in the search form."
   },
+  "+RDFZH": {
+    "defaultMessage": "Gérez vos renseignements d’employée ou d’employé du gouvernement, y compris vos préférences en matière de développement de carrière et les façons de travailler.",
+    "description": "Description of the employee profile page"
+  },
   "+SoiCw": {
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
@@ -1650,6 +1654,10 @@
   "6Ji7g2": {
     "defaultMessage": "Vos options en matière d'équité",
     "description": "Title for the subsection for viewing/selecting employment equity"
+  },
+  "6KS1jD": {
+    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
+    "description": "Lead-in text explaining the users career plan"
   },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
@@ -3435,6 +3443,10 @@
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
   },
+  "FThj7q": {
+    "defaultMessage": "Profil d'employé(e)",
+    "description": "Short title for a users employee profile"
+  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -4658,6 +4670,10 @@
   "LjYzkS": {
     "defaultMessage": "Postulez le ou avant le {closingDate}",
     "description": "Message to apply to the pool before deadline"
+  },
+  "Ljv0T9": {
+    "defaultMessage": "Pas une employée ou un employé vérifié",
+    "description": "Error message for unauthorized employee access"
   },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
@@ -8462,6 +8478,10 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
+  "f1reMg": {
+    "defaultMessage": "Poste de rêve",
+    "description": "Title for a users dream role information"
+  },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
@@ -10458,6 +10478,10 @@
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
   },
+  "okKbgd": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for a users career development preferences"
+  },
   "okRYhl": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Title of a quotes section"
@@ -10829,6 +10853,10 @@
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
     "description": "Message displayed to user after pool is duplicated"
+  },
+  "qZKabV": {
+    "defaultMessage": "Objectifs et style de travail",
+    "description": "Title for a users goals and work style"
   },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
@@ -11369,6 +11397,10 @@
   "txq9ha": {
     "defaultMessage": "50 000 $ à 1 million de dollars",
     "description": "Contract value range between fifty-thousand and one-million"
+  },
+  "u+lXsz": {
+    "defaultMessage": "Votre profil d'employée ou d'employé",
+    "description": "Page title for a users employee profile"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
@@ -12329,6 +12361,10 @@
   "zMa59V": {
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
     "description": "Paragraph for privacy policy page"
+  },
+  "zN7MBv": {
+    "defaultMessage": "Planification de carrière",
+    "description": "Title for a users career plan"
   },
   "zNgDex": {
     "defaultMessage": "Zone de sélection",
