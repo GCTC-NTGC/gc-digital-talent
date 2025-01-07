@@ -133,7 +133,7 @@ const Display = ({
           >
             {!!currentClassification?.group && !!currentClassification?.level
               ? wrapAbbr(
-                  `${currentClassification?.group}-${currentClassification?.level}`,
+                  `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                   intl,
                 )
               : notProvided}

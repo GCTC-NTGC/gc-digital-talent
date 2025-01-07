@@ -27,6 +27,7 @@ class UserTestSeeder extends Seeder
             ->asApplicant()
             ->asRequestResponder()
             ->asCommunityManager()
+            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
@@ -89,6 +90,8 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->withEmployeeProfile()
+            ->withCommunityInterests()
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',

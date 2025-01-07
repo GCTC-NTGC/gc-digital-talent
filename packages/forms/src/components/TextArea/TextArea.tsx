@@ -7,7 +7,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import Field from "../Field";
 import WordCounter from "../WordCounter";
 import type { CommonInputProps } from "../../types";
-import { countNumberOfWords, sanitizeString } from "../../utils";
+import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
@@ -65,7 +65,6 @@ const TextArea = ({
     if (whitespaceTrim) {
       inputValue = inputValue.trim();
     }
-    inputValue = sanitizeString(inputValue);
     setValue(name, inputValue);
   };
 

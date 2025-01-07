@@ -52,14 +52,13 @@ class Classification extends Model
     {
         /** @disregard P1003 Not using values */
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['group'].'-'.sprintf('%02d', $attributes['level']),
-
+            get: fn (mixed $value, array $attributes) => $attributes['group'].'-'.($attributes['level'] < 10 ? '0' : '').$attributes['level'],
         );
     }
 
     /**
      * Used to limit the results for the search page input
-     * to IT up to level 5 and PM up to level 6 and CR level 4
+     * to IT up to level 5; PM up to level 6; CR level 4; EX level 3, EX level 4.
      *
      * TODO: Update in #9483 to derive from new column
      */
@@ -75,6 +74,10 @@ class Classification extends Model
             $query->where('group', 'PM')->where('level', '<=', 6);
         })->orWhere(function ($query) {
             $query->where('group', 'CR')->where('level', '=', 4);
+        })->orWhere(function ($query) {
+            $query->where('group', 'EX')->where('level', '=', 3);
+        })->orWhere(function ($query) {
+            $query->where('group', 'EX')->where('level', '=', 4);
         });
     }
 }

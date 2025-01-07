@@ -4,3 +4,4 @@ export const protectedUrl =
   typeof API_PROTECTED_URI !== "undefined"
     ? API_PROTECTED_URI
     : "/admin/graphql";
+export const allowableClockSkewSeconds = 20;

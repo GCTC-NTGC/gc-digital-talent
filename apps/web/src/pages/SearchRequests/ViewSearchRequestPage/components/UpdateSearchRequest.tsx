@@ -154,8 +154,8 @@ const UpdateSearchRequestForm = ({
             <p data-h2-padding="base(x.5, 0, x.5, 0)">
               {intl.formatMessage({
                 defaultMessage:
-                  "These notes are available to all managers of this pool, but not to candidates.",
-                id: "VkBcGJ",
+                  "These notes are only available here and will not be shared with the candidates.",
+                id: "t79/r1",
                 description:
                   "Description for the notes about this request section of the single search request view.",
               })}

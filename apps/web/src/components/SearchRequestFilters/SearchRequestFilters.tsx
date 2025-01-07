@@ -44,14 +44,20 @@ const ApplicantFilters = ({
   // else set values if filters prop is of ApplicantFilterInput type
   const classificationsFromBrowserHistory = selectedClassifications?.map(
     (classification) =>
-      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
+      wrapAbbr(
+        `${classification?.group}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
+        intl,
+      ),
   );
 
   const classifications = applicantFilter?.qualifiedClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
-      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
+      wrapAbbr(
+        `${classification?.group}-${classification?.level < 10 ? "0" : ""}${classification?.level}`,
+        intl,
+      ),
     );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
@@ -230,8 +236,8 @@ const ApplicantFilters = ({
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "cMsRgt",
+                "Conditions of employment or operational requirements",
+              id: "SNxTm+",
               description:
                 "Title for operational requirements section on summary of filters section",
             })}
@@ -270,7 +276,7 @@ const SearchRequestFilters = ({
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
       (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${classification?.level}`,
+        `${classification?.group.toLocaleUpperCase()}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
     );
 
   const pools: Pool[] | undefined = poolCandidateFilter
@@ -430,8 +436,8 @@ const SearchRequestFilters = ({
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage:
-                    "Conditions of employment / Operational requirements",
-                  id: "cMsRgt",
+                    "Conditions of employment or operational requirements",
+                  id: "SNxTm+",
                   description:
                     "Title for operational requirements section on summary of filters section",
                 })}
