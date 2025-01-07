@@ -4675,10 +4675,6 @@
     "defaultMessage": "Pas une employée ou un employé vérifié",
     "description": "Error message for unauthorized employee access"
   },
-  "LocjmN": {
-    "defaultMessage": "Retourner aux équipes",
-    "description": "Button text to return to the table of teams page"
-  },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
     "description": "Verify your contact email text"
