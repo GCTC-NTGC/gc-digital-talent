@@ -85,11 +85,13 @@ const AwardFields = ({
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             list="organizationSuggestions"
           />
-          <datalist id="organizationSuggestions">
-            {organizationSuggestions.map((suggestion) => {
-              return <option key={suggestion} value={suggestion}></option>;
-            })}
-          </datalist>
+          {!!organizationSuggestions && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select
