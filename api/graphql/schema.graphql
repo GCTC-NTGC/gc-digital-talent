@@ -548,6 +548,18 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  developmentPrograms: [DevelopmentProgram!] @hasMany
+}
+
+type DevelopmentProgram {
+  id: UUID!
+  name: LocalizedString
+  descriptionForProfile: LocalizedString
+    @rename(attribute: "description_for_profile")
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+  community: Community @belongsTo
+  eligibleClassifications: [Classification!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {

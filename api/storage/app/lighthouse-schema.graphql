@@ -963,6 +963,16 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
+  developmentPrograms: [DevelopmentProgram!]
+}
+
+type DevelopmentProgram {
+  id: UUID!
+  name: LocalizedString
+  descriptionForProfile: LocalizedString
+  descriptionForNominations: LocalizedString
+  community: Community
+  eligibleClassifications: [Classification!]
 }
 
 type Team implements HasRoleAssignments {

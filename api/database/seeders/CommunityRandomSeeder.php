@@ -17,12 +17,9 @@ class CommunityRandomSeeder extends Seeder
     {
         Community::factory()
             ->count(2)
-            ->afterCreating(function (Community $community) {
-                DevelopmentProgram::factory()
-                    ->withEligibleClassifications()
-                    ->for($community)
-                    ->create();
-            })
+            ->has(DevelopmentProgram::factory()
+                ->withEligibleClassifications()
+                ->count(3))
             ->create();
 
     }
