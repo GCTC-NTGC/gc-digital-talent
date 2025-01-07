@@ -38,14 +38,14 @@ type Story = StoryObj<typeof Toast>;
 const Template = () => {
   useEffect(() => {
     setTimeout(() => {
-      toast.info("Toast text", { autoClose: false });
+      toast.info("Toast info text", { autoClose: false });
       toast.info(
-        "Toast text sentence one. Toast text sentence two. Toast text sentence three.",
+        "Toast info with three sentences. Text sentence two. Toast text sentence three.",
         { autoClose: false },
       );
-      toast.success("Toast text", { autoClose: false });
-      toast.warning("Toast text", { autoClose: false });
-      toast.error("Toast text", { autoClose: false });
+      toast.success("Toast success text", { autoClose: false });
+      toast.warning("Toast warning text", { autoClose: false });
+      toast.error("Toast error text", { autoClose: false });
     }, 100);
   }, []);
   return <Toast />;
