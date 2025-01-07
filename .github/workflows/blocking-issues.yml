@@ -8,7 +8,7 @@ on:
 
 jobs:
   blocking_issues:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Checks for blocking issues
 
     steps:
