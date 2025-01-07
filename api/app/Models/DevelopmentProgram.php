@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $name
  * @property array $description_for_profile
  * @property array $description_for_nominations
- * @property string $communityid
+ * @property string $community_id
  */
 class DevelopmentProgram extends Model
 {
@@ -41,7 +41,7 @@ class DevelopmentProgram extends Model
     }
 
     /** @return BelongsToMany<Classification, $this> */
-    public function classifications(): BelongsToMany
+    public function eligibleClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class);
     }

@@ -40,13 +40,13 @@ class DevelopmentProgramFactory extends Factory
         ];
     }
 
-    public function withClassifications(?int $min = 1, ?int $max = 3)
+    public function withEligibleClassifications(?int $min = 1, ?int $max = 3)
     {
         $count = $this->faker->numberBetween($min, $max);
 
         return $this->afterCreating(function (DevelopmentProgram $program) use ($count) {
             $classifications = Classification::inRandomOrder()->limit($count)->get();
-            $program->classifications()->sync($classifications);
+            $program->eligibleClassifications()->sync($classifications);
         });
     }
 }
