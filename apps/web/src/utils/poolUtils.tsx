@@ -84,7 +84,7 @@ export const formatClassificationString = ({
   group,
   level,
 }: formatClassificationStringProps): string => {
-  return `${group}-0${level}`;
+  return `${group}-${level < 10 ? "0" : ""}${level}`;
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
@@ -456,7 +456,7 @@ export function getClassificationName(
   { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
-  const groupLevelStr = `${group}-0${level}`;
+  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
 
   if (!name) {
     return groupLevelStr;

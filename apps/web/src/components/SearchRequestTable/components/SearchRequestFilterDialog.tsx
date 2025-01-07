@@ -129,7 +129,7 @@ const SearchRequestFilterDialog = ({
           label={intl.formatMessage(adminMessages.classifications)}
           options={classifications.map((classification) => ({
             value: classification.id,
-            label: `${classification.group}-0${classification.level}`,
+            label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
           }))}
         />
         <Combobox
