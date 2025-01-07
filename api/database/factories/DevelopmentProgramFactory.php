@@ -16,7 +16,7 @@ class DevelopmentProgramFactory extends Factory
      */
     protected $model = DevelopmentProgram::class;
 
-    private static function toLocalizedArray(string $str): array
+    private static function toFakeLocalizedString(string $str): array
     {
         return ['en' => $str.' EN', 'fr' => $str.' FR'];
     }
@@ -29,14 +29,11 @@ class DevelopmentProgramFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this::toLocalizedArray($this->faker->company()),
-            'description_for_profile' => $this::toLocalizedArray($this->faker->sentence()),
-            'description_for_nominations' => $this::toLocalizedArray($this->faker->sentence()),
+            'name' => $this::toFakeLocalizedString($this->faker->company()),
+            'description_for_profile' => $this::toFakeLocalizedString($this->faker->sentence()),
+            'description_for_nominations' => $this::toFakeLocalizedString($this->faker->sentence()),
             'community_id' => function () {
-                $community = Community::inRandomOrder()->first();
-                if (! $community) {
-                    $community = Community::factory()->withWorkStreams()->create();
-                }
+                $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
                 return $community->id;
             },
