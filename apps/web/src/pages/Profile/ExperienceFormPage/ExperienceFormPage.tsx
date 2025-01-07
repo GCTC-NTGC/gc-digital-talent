@@ -51,10 +51,7 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isWorkExperience,
+  organizationSuggestionsFromExperiences,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -758,27 +755,8 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
 
   const myExperiences = unpackMaybes(data?.me?.experiences);
-  const experiencesWithoutPersonal = myExperiences.filter(
-    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
-  );
-  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
-    if (isAwardExperience(exp)) {
-      return exp.issuedBy;
-    }
-    if (isCommunityExperience(exp)) {
-      return exp.organization;
-    }
-    if (isEducationExperience(exp)) {
-      return exp.institution;
-    }
-    if (isWorkExperience(exp)) {
-      return exp.organization;
-    }
-    return undefined;
-  });
-  const organizationsForAutocompleteFiltered: string[] = unpackMaybes(
-    organizationsForAutocomplete,
-  );
+  const organizationsForAutocomplete =
+    organizationSuggestionsFromExperiences(myExperiences);
 
   const experienceType = experience
     ? deriveExperienceType(experience)
@@ -794,7 +772,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceType={experienceType}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
-          organizationSuggestions={organizationsForAutocompleteFiltered}
+          organizationSuggestions={organizationsForAutocomplete}
         />
       ) : (
         <ThrowNotFound
