@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\AwardExperience;
+use App\Models\Community;
 use App\Models\CommunityExperience;
+use App\Models\CommunityInterest;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -72,6 +74,12 @@ class UserRandomSeeder extends Seeder
 
         // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
+        // The two community interests pre-seeded in UserTestSeeder don't have development programs
+        CommunityInterest::factory()
+            ->for($applicant)
+            ->for(Community::whereHas('developmentPrograms')->get('id')->pluck('id')->first())
+            ->withDevelopmentProgramInterests()
+            ->create();
         $this->seedPoolCandidate($applicant, $publishedPools->random());
         $this->seedExperienceForPoolWithEssentialSkills($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;

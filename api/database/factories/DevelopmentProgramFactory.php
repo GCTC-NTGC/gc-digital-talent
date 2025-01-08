@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
+use Database\Helpers\FactoryHelpers;
+use ErrorException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DevelopmentProgramFactory extends Factory
@@ -16,11 +18,6 @@ class DevelopmentProgramFactory extends Factory
      */
     protected $model = DevelopmentProgram::class;
 
-    private static function toFakeLocalizedString(string $str): array
-    {
-        return ['en' => $str.' EN', 'fr' => $str.' FR'];
-    }
-
     /**
      * Define the model's default state.
      *
@@ -29,15 +26,26 @@ class DevelopmentProgramFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this::toFakeLocalizedString($this->faker->company()),
-            'description_for_profile' => $this::toFakeLocalizedString($this->faker->sentence()),
-            'description_for_nominations' => $this::toFakeLocalizedString($this->faker->sentence()),
+            'name' => FactoryHelpers::toFakeLocalizedString($this->faker->company()),
+            'description_for_profile' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
+            'description_for_nominations' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
             'community_id' => function () {
                 $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
                 return $community->id;
             },
         ];
+    }
+
+    public function configure()
+    {
+        return $this
+            ->afterMaking(function (DevelopmentProgram $model) {
+                // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
+                if (is_null($model->community_id)) {
+                    throw new ErrorException('community_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent community.');
+                }
+            });
     }
 
     public function withEligibleClassifications(?int $min = 1, ?int $max = 3)

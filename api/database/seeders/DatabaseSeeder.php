@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             JobPosterTemplateSeeder::class,
 
             // convenient test data
+            CommunityTestSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
