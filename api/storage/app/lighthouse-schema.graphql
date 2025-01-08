@@ -83,6 +83,11 @@ type LocalizedDeadlineStatus {
   label: LocalizedString!
 }
 
+type LocalizedDevelopmentProgramParticipationStatus {
+  value: DevelopmentProgramParticipationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -656,6 +661,14 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+}
+
+type DevelopmentProgramInterest {
+  developmentProgram: DevelopmentProgram!
+  communityInterest: CommunityInterest!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 type EmployeeProfile {
@@ -2952,6 +2965,13 @@ enum CourseLanguage {
 enum DeadlineStatus {
   PUBLISHED
   EXPIRED
+}
+
+enum DevelopmentProgramParticipationStatus {
+  NOT_INTERESTED
+  INTERESTED
+  ENROLLED
+  COMPLETED
 }
 
 enum AdvertisementType {

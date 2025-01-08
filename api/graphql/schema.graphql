@@ -158,6 +158,15 @@ type CommunityInterest {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+}
+
+# A pivot table for employees to express interest in the development programs of a community.
+type DevelopmentProgramInterest {
+  developmentProgram: DevelopmentProgram! @belongsTo
+  communityInterest: CommunityInterest! @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 type EmployeeProfile {
