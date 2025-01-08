@@ -626,7 +626,7 @@ type User {
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
-  employeeProfile: EmployeeProfile
+  employeeProfile: EmployeeProfile!
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
