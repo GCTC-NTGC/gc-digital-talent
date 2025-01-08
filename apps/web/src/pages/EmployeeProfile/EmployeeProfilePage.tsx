@@ -23,6 +23,7 @@ import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
+import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -36,6 +37,9 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     isGovEmployee
     workEmail
     isWorkEmailVerified
+    employeeProfile {
+      ...EmployeeProfileGoalsWorkStyle
+    }
   }
 `);
 
@@ -174,9 +178,11 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               <TableOfContents.Section
                 id={SECTION_ID.DREAM_ROLE}
               ></TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.GOALS_WORK_STYLE}
-              ></TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
+                <GoalsWorkStyleSection
+                  employeeProfileQuery={user?.employeeProfile}
+                />
+              </TableOfContents.Section>
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
