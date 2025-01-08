@@ -103,9 +103,13 @@ const EducationFields = ({
             name="institution"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            list="organizationSuggestions"
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
           />
-          {!!organizationSuggestions && (
+          {organizationSuggestions.length > 0 && (
             <datalist id="organizationSuggestions">
               {organizationSuggestions.map((suggestion) => {
                 return <option key={suggestion} value={suggestion}></option>;
