@@ -22,7 +22,7 @@ import {
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   AllExperienceFormValues,
@@ -916,7 +916,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
 };
 
 /**
- * Returns array of organization or similar names pulled from all experiences except personal
+ * Returns a unique array of organization or similar names pulled from all experiences except personal
  *
  * @param experiences SimpleAnyExperience
  * @return string[]
@@ -946,5 +946,5 @@ export const organizationSuggestionsFromExperiences = (
     organizationsForAutocomplete,
   );
 
-  return organizationsForAutocompleteFiltered;
+  return uniqueItems(organizationsForAutocompleteFiltered);
 };
