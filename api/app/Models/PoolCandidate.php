@@ -963,6 +963,10 @@ class PoolCandidate extends Model
             $isApplicationScreening = $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
 
+            if ($stepResults->isEmpty()) {
+                continue;
+            }
+
             foreach ($step->poolSkills as $poolSkill) {
                 $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
                 $decision = $result?->assessment_decision;
