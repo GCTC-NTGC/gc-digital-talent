@@ -38,7 +38,10 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const AwardFields = ({ labels }: SubExperienceFormProps) => {
+const AwardFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const todayDate = new Date();
   const [{ data }] = useQuery({ query: AwardOptions_Query });
@@ -80,7 +83,19 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             name="issuedBy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
           />
+          {organizationSuggestions.length > 0 && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select

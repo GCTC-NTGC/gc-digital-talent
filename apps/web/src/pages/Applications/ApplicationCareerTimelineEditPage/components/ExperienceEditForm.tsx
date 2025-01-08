@@ -37,11 +37,13 @@ type ExperienceExperienceFormValues =
 interface EditExperienceFormProps {
   applicationId: Scalars["ID"]["output"];
   experience: AnyExperience;
+  organizationSuggestions: string[];
 }
 
 const EditExperienceForm = ({
   applicationId,
   experience,
+  organizationSuggestions,
 }: EditExperienceFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -141,7 +143,10 @@ const EditExperienceForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <ErrorSummary experienceType={experienceType} />
-        <ExperienceDetails experienceType={experienceType} />
+        <ExperienceDetails
+          experienceType={experienceType}
+          organizationSuggestions={organizationSuggestions}
+        />
         <TasksAndResponsibilities experienceType={experienceType} />
         <Separator />
         <div
