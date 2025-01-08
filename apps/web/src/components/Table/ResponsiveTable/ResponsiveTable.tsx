@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
+import debounce from "lodash/debounce";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -13,7 +14,7 @@ import isEmpty from "lodash/isEmpty";
 import { ReactNode, useEffect, useId, useMemo } from "react";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
-import { Loading } from "@gc-digital-talent/ui";
+import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
 import SearchForm from "./SearchForm";
@@ -91,6 +92,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const { announce } = useAnnouncer();
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedColumns = useMemo(() => {
@@ -319,6 +321,27 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       total: table.getFilteredRowModel().rows.length,
     };
   }
+
+  const totalRows = pagination?.total;
+  const debouncedAnnouncement = debounce((count: number) => {
+    announce(
+      intl.formatMessage(
+        {
+          defaultMessage: "{count} items found.",
+          id: "5ySBS0",
+          description:
+            "Message announced to assistive technology when number of items in a table changes",
+        },
+        { count },
+      ),
+    );
+  }, 300);
+
+  useEffect(() => {
+    debouncedAnnouncement(totalRows ?? 0);
+    // Note, exhaustive-deps causes over announcing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalRows]);
 
   return (
     <>
