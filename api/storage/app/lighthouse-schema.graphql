@@ -665,6 +665,7 @@ type CommunityInterest {
 }
 
 type DevelopmentProgramInterest {
+  id: UUID!
   developmentProgram: DevelopmentProgram!
   communityInterest: CommunityInterest!
   participationStatus: DevelopmentProgramParticipationStatus
@@ -1599,6 +1600,7 @@ input CreateCommunityInterestInput {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
 }
 
 input UpdateCommunityInterestInput {
@@ -1606,6 +1608,29 @@ input UpdateCommunityInterestInput {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+}
+
+input CreateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+}
+
+input UpdateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+  update: [UpdateDevelopmentProgramInterestInput!]
+  delete: [UUID!]
+}
+
+input CreateDevelopmentProgramInterestInput {
+  developmentProgramId: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
+}
+
+input UpdateDevelopmentProgramInterestInput {
+  id: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 input LocalizedStringInput {

@@ -163,9 +163,11 @@ type CommunityInterest {
 
 # A pivot table for employees to express interest in the development programs of a community.
 type DevelopmentProgramInterest {
+  id: UUID!
   developmentProgram: DevelopmentProgram! @belongsTo
   communityInterest: CommunityInterest! @belongsTo
   participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
 }
 
@@ -1505,6 +1507,7 @@ input CreateCommunityInterestInput @validator {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -1512,6 +1515,31 @@ input UpdateCommunityInterestInput @validator {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+}
+
+input CreateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+}
+
+input UpdateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+  update: [UpdateDevelopmentProgramInterestInput!]
+  delete: [UUID!]
+}
+
+input CreateDevelopmentProgramInterestInput {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input UpdateDevelopmentProgramInterestInput {
+  id: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 input LocalizedStringInput {
