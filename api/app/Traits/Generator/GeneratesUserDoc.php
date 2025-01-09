@@ -37,6 +37,7 @@ use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Element\Section;
 
 trait GeneratesUserDoc
@@ -342,7 +343,7 @@ trait GeneratesUserDoc
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $this->localizeEnum($experience->caf_force,
                             CafForce::class),
                     ),
@@ -362,12 +363,12 @@ trait GeneratesUserDoc
                 );
             } elseif ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
                 /** @var Department | null $department */
-                $department = Department::find($experience->department_id);
+                $department = $experience->department_id ? Department::find($experience->department_id) : null;
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $department ? $department->name[$this->lang] : Lang::get('common.not_found', [], $this->lang),
                     ),
                     $headingRank
