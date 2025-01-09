@@ -161,8 +161,8 @@ importers:
         specifier: ^9.3.0
         version: 9.3.0
       '@formatjs/cli':
-        specifier: ^6.3.14
-        version: 6.3.14
+        specifier: ^6.3.15
+        version: 6.3.15
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -766,8 +766,8 @@ importers:
         version: link:../graphql
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.3.14
-        version: 6.3.14
+        specifier: ^6.3.15
+        version: 6.3.15
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1802,18 +1802,6 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@esbuild/linux-ia32@0.23.0':
-    resolution: {integrity: sha512-P7O5Tkh2NbgIm2R6x1zGJJsnacDzTFcRWZyTTMgFdVit6E98LTxO+v8LCCLWRvPrjdzXHx9FEOA8oAZPyApWUA==}
-    engines: {node: '>=18'}
-    cpu: [ia32]
-    os: [linux]
-
-  '@esbuild/linux-ia32@0.24.2':
-    resolution: {integrity: sha512-sfv0tGPQhcZOgTKO3oBE9xpHuUqguHvSo4jl+wjnKwFpapx+vUDcawbwPNuBIAYdRAvIDBfZVvXprIj3HA+Ugw==}
-    engines: {node: '>=18'}
-    cpu: [ia32]
-    os: [linux]
-
   '@esbuild/linux-loong64@0.23.0':
     resolution: {integrity: sha512-InQwepswq6urikQiIC/kkx412fqUZudBO4SYKu0N+tGhXRWUqAx+Q+341tFV6QdBifpjYgUndV1hhMq3WeJi7A==}
     engines: {node: '>=18'}
@@ -2013,8 +2001,8 @@ packages:
   '@floating-ui/utils@0.2.4':
     resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
 
-  '@formatjs/cli@6.3.14':
-    resolution: {integrity: sha512-jvoerjlZ8qFMZuVA2S/mBf3vldPnZCgUYt6yhEr+8xokdAGY4hK59OmK3sYVKQLg+P4L9GqXOWotVfDiYxmr2Q==}
+  '@formatjs/cli@6.3.15':
+    resolution: {integrity: sha512-2H2xwKSRCgb43LAGU6bFPZI7a6U6Nn1C/bb9bgEdUKULzvphJxrrUoE+rUWyDByUGcZmuV2ZySWCoeSbWGCoUQ==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -8452,12 +8440,6 @@ snapshots:
   '@esbuild/linux-arm@0.24.2':
     optional: true
 
-  '@esbuild/linux-ia32@0.23.0':
-    optional: true
-
-  '@esbuild/linux-ia32@0.24.2':
-    optional: true
-
   '@esbuild/linux-loong64@0.23.0':
     optional: true
 
@@ -8581,7 +8563,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.4': {}
 
-  '@formatjs/cli@6.3.14': {}
+  '@formatjs/cli@6.3.15': {}
 
   '@formatjs/ecma402-abstract@2.3.1':
     dependencies:
@@ -11874,7 +11856,6 @@ snapshots:
       '@esbuild/freebsd-x64': 0.23.0
       '@esbuild/linux-arm': 0.23.0
       '@esbuild/linux-arm64': 0.23.0
-      '@esbuild/linux-ia32': 0.23.0
       '@esbuild/linux-loong64': 0.23.0
       '@esbuild/linux-mips64el': 0.23.0
       '@esbuild/linux-ppc64': 0.23.0
@@ -11901,7 +11882,6 @@ snapshots:
       '@esbuild/freebsd-x64': 0.24.2
       '@esbuild/linux-arm': 0.24.2
       '@esbuild/linux-arm64': 0.24.2
-      '@esbuild/linux-ia32': 0.24.2
       '@esbuild/linux-loong64': 0.24.2
       '@esbuild/linux-mips64el': 0.24.2
       '@esbuild/linux-ppc64': 0.24.2
