@@ -117,10 +117,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
-      (pagination?.total ?? 0) /
-      (state.pagination?.pageSize ??
-        INITIAL_STATE.paginationState.pageSize),
-    )
+        (pagination?.total ?? 0) /
+          (state.pagination?.pageSize ??
+            INITIAL_STATE.paginationState.pageSize),
+      )
     : undefined;
 
   const table = useReactTable({
