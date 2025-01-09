@@ -101,6 +101,7 @@ class WorkExperience extends Experience
 
             return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $caf_force);
         }
+
         return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
     }
 
