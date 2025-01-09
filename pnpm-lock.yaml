@@ -498,8 +498,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(typescript@5.7.2)
       eslint-plugin-formatjs:
-        specifier: ^5.2.8
-        version: 5.2.8(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))(typescript@5.7.2)
+        specifier: ^5.2.9
+        version: 5.2.9(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))(typescript@5.7.2)
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.31.0(@typescript-eslint/parser@8.17.0(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)
@@ -1802,18 +1802,6 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@esbuild/linux-ia32@0.23.0':
-    resolution: {integrity: sha512-P7O5Tkh2NbgIm2R6x1zGJJsnacDzTFcRWZyTTMgFdVit6E98LTxO+v8LCCLWRvPrjdzXHx9FEOA8oAZPyApWUA==}
-    engines: {node: '>=18'}
-    cpu: [ia32]
-    os: [linux]
-
-  '@esbuild/linux-ia32@0.24.2':
-    resolution: {integrity: sha512-sfv0tGPQhcZOgTKO3oBE9xpHuUqguHvSo4jl+wjnKwFpapx+vUDcawbwPNuBIAYdRAvIDBfZVvXprIj3HA+Ugw==}
-    engines: {node: '>=18'}
-    cpu: [ia32]
-    os: [linux]
-
   '@esbuild/linux-loong64@0.23.0':
     resolution: {integrity: sha512-InQwepswq6urikQiIC/kkx412fqUZudBO4SYKu0N+tGhXRWUqAx+Q+341tFV6QdBifpjYgUndV1hhMq3WeJi7A==}
     engines: {node: '>=18'}
@@ -2047,14 +2035,29 @@ packages:
   '@formatjs/ecma402-abstract@2.3.1':
     resolution: {integrity: sha512-Ip9uV+/MpLXWRk03U/GzeJMuPeOXpJBSB5V1tjA6kJhvqssye5J5LoYLc7Z5IAHb7nR62sRoguzrFiVCP/hnzw==}
 
+  '@formatjs/ecma402-abstract@2.3.2':
+    resolution: {integrity: sha512-6sE5nyvDloULiyOMbOTJEEgWL32w+VHkZQs8S02Lnn8Y/O5aQhjOEXwWzvR7SsBE/exxlSpY2EsWZgqHbtLatg==}
+
   '@formatjs/fast-memoize@2.2.5':
     resolution: {integrity: sha512-6PoewUMrrcqxSoBXAOJDiW1m+AmkrAj0RiXnOMD59GRaswjXhm3MDhgepXPBgonc09oSirAJTsAggzAGQf6A6g==}
+
+  '@formatjs/fast-memoize@2.2.6':
+    resolution: {integrity: sha512-luIXeE2LJbQnnzotY1f2U2m7xuQNj2DA8Vq4ce1BY9ebRZaoPB1+8eZ6nXpLzsxuW5spQxr7LdCg+CApZwkqkw==}
 
   '@formatjs/icu-messageformat-parser@2.9.7':
     resolution: {integrity: sha512-cuEHyRM5VqLQobANOjtjlgU7+qmk9Q3fDQuBiRRJ3+Wp3ZoZhpUPtUfuimZXsir6SaI2TaAJ+SLo9vLnV5QcbA==}
 
+  '@formatjs/icu-messageformat-parser@2.9.8':
+    resolution: {integrity: sha512-hZlLNI3+Lev8IAXuwehLoN7QTKqbx3XXwFW1jh0AdIA9XJdzn9Uzr+2LLBspPm/PX0+NLIfykj/8IKxQqHUcUQ==}
+
   '@formatjs/icu-skeleton-parser@1.8.11':
     resolution: {integrity: sha512-8LlHHE/yL/zVJZHAX3pbKaCjZKmBIO6aJY1mkVh4RMSEu/2WRZ4Ysvv3kKXJ9M8RJLBHdnk1/dUQFdod1Dt7Dw==}
+
+  '@formatjs/icu-skeleton-parser@1.8.12':
+    resolution: {integrity: sha512-QRAY2jC1BomFQHYDMcZtClqHR55EEnB96V7Xbk/UiBodsuFc5kujybzt87+qj1KqmJozFhk6n4KiT1HKwAkcfg==}
+
+  '@formatjs/intl-localematcher@0.5.10':
+    resolution: {integrity: sha512-af3qATX+m4Rnd9+wHcjJ4w2ijq+rAVP3CCinJQvFv1kgSu1W6jypUmvleJxcewdxmutM8dmIRZFxO/IQBZmP2Q==}
 
   '@formatjs/intl-localematcher@0.5.9':
     resolution: {integrity: sha512-8zkGu/sv5euxbjfZ/xmklqLyDGQSxsLqg8XOq88JW3cmJtzhCP8EtSJXlaKZnVO4beEaoiT9wj4eIoCQ9smwxA==}
@@ -2069,6 +2072,14 @@ packages:
 
   '@formatjs/ts-transformer@3.13.26':
     resolution: {integrity: sha512-SLvuvGg8wwxubV9ahiP4/a7quFQha56IHDo9N/+bxp+nlw+xyV6BWrQcJqK1x2M0m0U7PLQff3rPnbahfSlrgg==}
+    peerDependencies:
+      ts-jest: '>=27'
+    peerDependenciesMeta:
+      ts-jest:
+        optional: true
+
+  '@formatjs/ts-transformer@3.13.27':
+    resolution: {integrity: sha512-v+xoxyuxQmF8YI9ir8h/EPUbLJOwN+jnGS0/xUSv2JKIIJ2LsGvo1sRqVStXd5hZ/Yzi2m1cuAR8vk90L/hu9A==}
     peerDependencies:
       ts-jest: '>=27'
     peerDependenciesMeta:
@@ -4780,8 +4791,8 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-formatjs@5.2.8:
-    resolution: {integrity: sha512-X2vgGsXwoBCAYvo8w59JScuo8foP5cbLz1FkSNeav2fGwBqe9WMvWDFt5V9IJDd895GffHnnX5Zy+Tjl5dDl1g==}
+  eslint-plugin-formatjs@5.2.9:
+    resolution: {integrity: sha512-AEDMe69eURQ99lFe0qbokKZHN5ManeDnGDdsRfauvU4Dxjnolyz4qF4NEp8zly00XGSKhplCiIyILWvcKgyY9A==}
     peerDependencies:
       eslint: '9'
 
@@ -8452,12 +8463,6 @@ snapshots:
   '@esbuild/linux-arm@0.24.2':
     optional: true
 
-  '@esbuild/linux-ia32@0.23.0':
-    optional: true
-
-  '@esbuild/linux-ia32@0.24.2':
-    optional: true
-
   '@esbuild/linux-loong64@0.23.0':
     optional: true
 
@@ -8590,7 +8595,18 @@ snapshots:
       decimal.js: 10.4.3
       tslib: 2.8.0
 
+  '@formatjs/ecma402-abstract@2.3.2':
+    dependencies:
+      '@formatjs/fast-memoize': 2.2.6
+      '@formatjs/intl-localematcher': 0.5.10
+      decimal.js: 10.4.3
+      tslib: 2.8.0
+
   '@formatjs/fast-memoize@2.2.5':
+    dependencies:
+      tslib: 2.8.0
+
+  '@formatjs/fast-memoize@2.2.6':
     dependencies:
       tslib: 2.8.0
 
@@ -8600,9 +8616,24 @@ snapshots:
       '@formatjs/icu-skeleton-parser': 1.8.11
       tslib: 2.8.0
 
+  '@formatjs/icu-messageformat-parser@2.9.8':
+    dependencies:
+      '@formatjs/ecma402-abstract': 2.3.2
+      '@formatjs/icu-skeleton-parser': 1.8.12
+      tslib: 2.8.0
+
   '@formatjs/icu-skeleton-parser@1.8.11':
     dependencies:
       '@formatjs/ecma402-abstract': 2.3.1
+      tslib: 2.8.0
+
+  '@formatjs/icu-skeleton-parser@1.8.12':
+    dependencies:
+      '@formatjs/ecma402-abstract': 2.3.2
+      tslib: 2.8.0
+
+  '@formatjs/intl-localematcher@0.5.10':
+    dependencies:
       tslib: 2.8.0
 
   '@formatjs/intl-localematcher@0.5.9':
@@ -8622,6 +8653,18 @@ snapshots:
   '@formatjs/ts-transformer@3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))':
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.9.7
+      '@types/json-stable-stringify': 1.0.36
+      '@types/node': 22.10.3
+      chalk: 4.1.2
+      json-stable-stringify: 1.2.1
+      tslib: 2.8.0
+      typescript: 5.7.2
+    optionalDependencies:
+      ts-jest: 29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2)
+
+  '@formatjs/ts-transformer@3.13.27(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))':
+    dependencies:
+      '@formatjs/icu-messageformat-parser': 2.9.8
       '@types/json-stable-stringify': 1.0.36
       '@types/node': 22.10.3
       chalk: 4.1.2
@@ -11874,7 +11917,6 @@ snapshots:
       '@esbuild/freebsd-x64': 0.23.0
       '@esbuild/linux-arm': 0.23.0
       '@esbuild/linux-arm64': 0.23.0
-      '@esbuild/linux-ia32': 0.23.0
       '@esbuild/linux-loong64': 0.23.0
       '@esbuild/linux-mips64el': 0.23.0
       '@esbuild/linux-ppc64': 0.23.0
@@ -11901,7 +11943,6 @@ snapshots:
       '@esbuild/freebsd-x64': 0.24.2
       '@esbuild/linux-arm': 0.24.2
       '@esbuild/linux-arm64': 0.24.2
-      '@esbuild/linux-ia32': 0.24.2
       '@esbuild/linux-loong64': 0.24.2
       '@esbuild/linux-mips64el': 0.24.2
       '@esbuild/linux-ppc64': 0.24.2
@@ -11986,10 +12027,10 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-formatjs@5.2.8(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))(typescript@5.7.2):
+  eslint-plugin-formatjs@5.2.9(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))(typescript@5.7.2):
     dependencies:
-      '@formatjs/icu-messageformat-parser': 2.9.7
-      '@formatjs/ts-transformer': 3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))
+      '@formatjs/icu-messageformat-parser': 2.9.8
+      '@formatjs/ts-transformer': 3.13.27(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.3))(typescript@5.7.2))
       '@types/eslint': 9.6.1
       '@types/picomatch': 3.0.1
       '@typescript-eslint/utils': 8.17.0(eslint@8.57.0)(typescript@5.7.2)
