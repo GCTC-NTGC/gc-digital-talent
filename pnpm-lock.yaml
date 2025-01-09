@@ -968,8 +968,8 @@ importers:
         version: 6.3.4
     devDependencies:
       '@formatjs/ts-transformer':
-        specifier: ^3.13.26
-        version: 3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))
+        specifier: ^3.13.27
+        version: 3.13.27(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -2084,6 +2084,14 @@ packages:
 
   '@formatjs/ts-transformer@3.13.26':
     resolution: {integrity: sha512-SLvuvGg8wwxubV9ahiP4/a7quFQha56IHDo9N/+bxp+nlw+xyV6BWrQcJqK1x2M0m0U7PLQff3rPnbahfSlrgg==}
+    peerDependencies:
+      ts-jest: '>=27'
+    peerDependenciesMeta:
+      ts-jest:
+        optional: true
+
+  '@formatjs/ts-transformer@3.13.27':
+    resolution: {integrity: sha512-v+xoxyuxQmF8YI9ir8h/EPUbLJOwN+jnGS0/xUSv2JKIIJ2LsGvo1sRqVStXd5hZ/Yzi2m1cuAR8vk90L/hu9A==}
     peerDependencies:
       ts-jest: '>=27'
     peerDependenciesMeta:
@@ -8660,9 +8668,21 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  '@formatjs/ts-transformer@3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))':
+  '@formatjs/ts-transformer@3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))':
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.9.7
+      '@types/json-stable-stringify': 1.0.36
+      '@types/node': 22.10.5
+      chalk: 4.1.2
+      json-stable-stringify: 1.2.1
+      tslib: 2.8.0
+      typescript: 5.7.2
+    optionalDependencies:
+      ts-jest: 29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2)
+
+  '@formatjs/ts-transformer@3.13.27(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))':
+    dependencies:
+      '@formatjs/icu-messageformat-parser': 2.9.8
       '@types/json-stable-stringify': 1.0.36
       '@types/node': 22.10.5
       chalk: 4.1.2
@@ -12030,7 +12050,7 @@ snapshots:
   eslint-plugin-formatjs@5.2.8(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))(typescript@5.7.2):
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.9.7
-      '@formatjs/ts-transformer': 3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))
+      '@formatjs/ts-transformer': 3.13.26(ts-jest@29.2.3(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(jest@29.7.0(@types/node@22.10.5))(typescript@5.7.2))
       '@types/eslint': 9.6.1
       '@types/picomatch': 3.0.1
       '@typescript-eslint/utils': 8.17.0(eslint@8.57.0)(typescript@5.7.2)
