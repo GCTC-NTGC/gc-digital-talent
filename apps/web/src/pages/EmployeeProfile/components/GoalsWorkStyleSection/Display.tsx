@@ -42,7 +42,6 @@ const Display = ({
         </Well>
       )}
       <ToggleForm.FieldDisplay
-        hasError={!aboutYou}
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
         {aboutYou ? (
@@ -52,7 +51,6 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        hasError={!careerGoals}
         label={intl.formatMessage(employeeProfileMessages.careerGoals)}
       >
         {careerGoals ? (
@@ -62,7 +60,6 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        hasError={!learningGoals}
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
         {learningGoals ? (
@@ -72,7 +69,6 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        hasError={!workStyle}
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
         {workStyle ? (
