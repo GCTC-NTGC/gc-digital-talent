@@ -493,10 +493,6 @@ class CandidateAssessmentStatusTest extends TestCase
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $steps[0]->id,
-                                    'decision' => null,
-                                ],
-                                [
                                     'step' => $steps[1]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
@@ -599,10 +595,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => null,
                                 ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
-                                ],
                             ],
                         ],
                     ],
@@ -631,10 +623,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
-                                ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
                                 ],
                             ],
                         ],
@@ -900,10 +888,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => null,
                                 ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
-                                ],
                             ],
                         ],
                     ],
@@ -931,10 +915,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
-                                ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
                                 ],
                             ],
                         ],

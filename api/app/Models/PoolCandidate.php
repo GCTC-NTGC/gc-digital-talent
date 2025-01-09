@@ -954,7 +954,7 @@ class PoolCandidate extends Model
             'user.userSkills',
         ]);
 
-        foreach ($this->pool->assessmentSteps as $step) {
+        foreach ($this->pool->assessmentSteps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
             $hasOnHold = false;
@@ -962,10 +962,6 @@ class PoolCandidate extends Model
 
             $isApplicationScreening = $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
-
-            if ($stepResults->isEmpty()) {
-                continue;
-            }
 
             foreach ($step->poolSkills as $poolSkill) {
                 $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
@@ -1067,17 +1063,19 @@ class PoolCandidate extends Model
             }
 
             if ($hasToAssess) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => null,
-                ];
+                if (! $stepResults->isEmpty()) {
+                    $decisions[] = [
+                        'step' => $stepId,
+                        'decision' => null,
+                    ];
+                }
 
                 continue;
             }
 
             // Candidate has been assessed and was not unsuccessful so continue to next step
 
-            $previousStepsNotPassed = Arr::where($decisions, function ($decision) {
+            $previousStepsNotPassed = count($decisions) < $index || Arr::where($decisions, function ($decision) {
                 return is_null($decision['decision']) ||
                     $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
             });
@@ -1104,7 +1102,7 @@ class PoolCandidate extends Model
         $totalSteps = $this->pool->assessmentSteps->count();
         $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
-        if ($currentStep >= $totalSteps) {
+        if ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
