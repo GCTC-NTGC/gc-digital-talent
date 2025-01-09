@@ -43,7 +43,10 @@ const EducationOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const EducationFields = ({ labels }: SubExperienceFormProps) => {
+const EducationFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const todayDate = new Date();
   const [{ data }] = useQuery({ query: EducationOptions_Query });
@@ -100,7 +103,19 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             name="institution"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
           />
+          {organizationSuggestions.length > 0 && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select

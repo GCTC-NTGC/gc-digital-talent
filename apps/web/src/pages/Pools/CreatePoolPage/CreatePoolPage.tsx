@@ -156,10 +156,12 @@ export const CreatePoolForm = ({
 
   // recycled from EditPool
   const classificationOptions: Option[] = classifications.map(
-    ({ id, group, level, name }) => ({
-      value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }),
+    ({ id, group, level, name }) => {
+      return {
+        value: id,
+        label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
+      };
+    },
   );
 
   const departmentOptions: Option[] = departments.map(({ id, name }) => ({

@@ -38,7 +38,7 @@ const StateIcon = ({ state }: { state: BaseItemProps["state"] }) => {
 export interface BaseItemProps {
   title: ReactNode;
   accessibleLabel: string;
-  description: string;
+  description: ReactNode;
   state?: "incomplete" | "complete";
 }
 

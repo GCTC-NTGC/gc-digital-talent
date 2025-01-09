@@ -22,6 +22,7 @@ import {
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   AllExperienceFormValues,
@@ -912,4 +913,38 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
     icon: icons.get(experienceType) ?? defaults.icon,
     date: getExperienceDate(experience, intl),
   };
+};
+
+/**
+ * Returns a unique array of organization or similar names pulled from all experiences except personal
+ *
+ * @param experiences SimpleAnyExperience
+ * @return string[]
+ */
+export const organizationSuggestionsFromExperiences = (
+  experiences: SimpleAnyExperience[],
+): string[] => {
+  const experiencesWithoutPersonal = experiences.filter(
+    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
+  );
+  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
+    if (isAwardExperience(exp)) {
+      return exp.issuedBy;
+    }
+    if (isCommunityExperience(exp)) {
+      return exp.organization;
+    }
+    if (isEducationExperience(exp)) {
+      return exp.institution;
+    }
+    if (isWorkExperience(exp)) {
+      return exp.organization;
+    }
+    return undefined;
+  });
+  const organizationsForAutocompleteFiltered: string[] = unpackMaybes(
+    organizationsForAutocomplete,
+  );
+
+  return uniqueItems(organizationsForAutocompleteFiltered);
 };

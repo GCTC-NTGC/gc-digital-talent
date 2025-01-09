@@ -31,6 +31,7 @@ const TemplateExperienceFormForm: StoryFn<typeof ExperienceForm> = ({
     userId={userId}
     experienceType={experienceType}
     skillsQuery={skillsQuery}
+    organizationSuggestions={[]}
   />
 );
 

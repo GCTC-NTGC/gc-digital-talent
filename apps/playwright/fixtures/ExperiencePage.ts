@@ -62,7 +62,7 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("textbox", { name: /organization/i })
+      .getByLabel("Organization *", { exact: true })
       .fill(input.organization ?? "test org");
 
     await this.page
@@ -539,7 +539,7 @@ class ExperiencePage extends AppPage {
       .fill(input.title ?? "test role");
 
     await this.page
-      .getByRole("textbox", { name: /organization/i })
+      .getByLabel("Group / Organization / Community *", { exact: true })
       .fill(input?.organization ?? "test org");
 
     await this.page
@@ -577,7 +577,7 @@ class ExperiencePage extends AppPage {
       .selectOption({ label: "Me" });
 
     await this.page
-      .getByRole("textbox", { name: /organization/i })
+      .getByLabel("Issuing organization *", { exact: true })
       .fill(input?.issuedBy ?? "test org");
 
     await this.page
@@ -607,7 +607,7 @@ class ExperiencePage extends AppPage {
       .fill(input?.areaOfStudy ?? "test area of study");
 
     await this.page
-      .getByRole("textbox", { name: /institution/i })
+      .getByLabel("Institution *", { exact: true })
       .fill(input?.areaOfStudy ?? "test institution");
 
     await this.page

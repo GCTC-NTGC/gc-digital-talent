@@ -15,7 +15,10 @@ import {
   CommunityFormValues,
 } from "~/types/experience";
 
-const CommunityFields = ({ labels }: SubExperienceFormProps) => {
+const CommunityFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const todayDate = new Date();
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
@@ -55,7 +58,19 @@ const CommunityFields = ({ labels }: SubExperienceFormProps) => {
             name="organization"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
           />
+          {organizationSuggestions.length > 0 && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Input

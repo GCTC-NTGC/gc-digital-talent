@@ -37,9 +37,13 @@ type ExperienceExperienceFormValues =
   };
 interface AddExperienceFormProps {
   applicationId: Scalars["ID"]["output"];
+  organizationSuggestions: string[];
 }
 
-const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
+const AddExperienceForm = ({
+  applicationId,
+  organizationSuggestions,
+}: AddExperienceFormProps) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const navigate = useNavigate();
@@ -157,7 +161,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             },
           ]}
         />
-        <ExperienceDetails />
+        <ExperienceDetails organizationSuggestions={organizationSuggestions} />
         <TasksAndResponsibilities />
         <Separator />
         <div

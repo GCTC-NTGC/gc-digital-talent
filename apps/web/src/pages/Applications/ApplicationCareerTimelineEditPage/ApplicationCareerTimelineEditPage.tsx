@@ -10,6 +10,7 @@ import { GetPageNavInfo } from "~/types/applicationStep";
 import { AnyExperience } from "~/types/experience";
 import applicationMessages from "~/messages/applicationMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -87,6 +88,11 @@ const ApplicationCareerTimelineEdit = ({
     stepOrdinal: currentStepOrdinal,
   });
 
+  const applicationExperiences = unpackMaybes(application.user.experiences);
+  const organizationsForAutocomplete = organizationSuggestionsFromExperiences(
+    applicationExperiences,
+  );
+
   return (
     <>
       <Heading
@@ -107,6 +113,7 @@ const ApplicationCareerTimelineEdit = ({
       <EditExperienceForm
         applicationId={application.id}
         experience={experience}
+        organizationSuggestions={organizationsForAutocomplete}
       />
     </>
   );
