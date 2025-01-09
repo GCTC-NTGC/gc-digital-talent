@@ -664,7 +664,10 @@ const getWorkExperienceDefaultValues = (
     if (expectedEndDate) {
       currentRole = endDate >= strToFormDate(new Date().toISOString());
     }
+  } else {
+    currentRole = true;
   }
+
   return {
     role,
     organization,
