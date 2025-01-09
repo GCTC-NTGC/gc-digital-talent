@@ -10,7 +10,6 @@ import {
   ThrowNotFound,
   useAnnouncer,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   PoolLayoutFragment,
@@ -58,12 +57,9 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
+    community {
+      name {
+        localized
       }
     }
     classification {
@@ -132,9 +128,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   });
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
-  const subTitle = pool.team
-    ? getLocalizedName(pool.team?.displayName, intl)
-    : currentPage?.subtitle;
+  const subTitle = pool.community?.name?.localized ?? currentPage?.subtitle;
 
   const heroTitleValue = heroTitle({ currentPage, intl, pool });
   const heroSubtitleValue = heroSubtitle({ currentPage, subTitle });
