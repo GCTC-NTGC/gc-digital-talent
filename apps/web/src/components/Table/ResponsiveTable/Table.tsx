@@ -110,6 +110,8 @@ const Row = (props: RowProps) => (
   />
 );
 
+type AriaSort = "ascending" | "descending" | "none" | undefined;
+
 type CellHTMLProps = DetailedHTMLProps<
   HTMLAttributes<HTMLTableCellElement>,
   HTMLTableCellElement
@@ -123,6 +125,12 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
   const isRowSelect = header.column.columnDef.meta?.isRowSelect;
   const shouldShrink = header.column.columnDef.meta?.shrink;
   const sortingLocked = header.column.columnDef.meta?.sortingLocked;
+  const sortDirection = header.column.getIsSorted();
+  let ariaSort: AriaSort = "none";
+  if (sortDirection) {
+    ariaSort = sortDirection === "asc" ? "ascending" : "descending";
+  }
+
   return (
     <th
       role="columnheader"
@@ -132,6 +140,9 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
       data-h2-font-size="base(caption)"
       data-h2-vertical-align="base(middle)"
       data-h2-font-weight="base(400)"
+      {...(header.column.getCanSort() && {
+        "aria-sort": ariaSort,
+      })}
       {...(!isRowSelect &&
         !shouldShrink && {
           "data-h2-min-width": "base(x8)",
