@@ -92,14 +92,15 @@ class WorkExperience extends Experience
         if ($this->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
             /** @var Department | null $department */
             $department = $this->department_id ? Department::find($this->department_id) : null;
+
             return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $department ? $department->name[$lang] : Lang::get('common.not_found', [], $lang));
         }
 
         if ($this->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
             $caf_force = $this->caf_force ? CafForce::localizedString($this->caf_force)[$lang] : Lang::get('common.not_found', [], $lang);
+
             return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $caf_force);
         }
-
         return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
     }
 
