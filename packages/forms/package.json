@@ -60,6 +60,6 @@
     "react-hook-form": "^7.54.2",
     "react-intl": "^7.0.4",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }
