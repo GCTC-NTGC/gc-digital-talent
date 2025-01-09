@@ -37,7 +37,6 @@ use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Element\Section;
 
 trait GeneratesUserDoc
