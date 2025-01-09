@@ -11,7 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
-import { ReactNode, useEffect, useId, useMemo } from "react";
+import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
@@ -93,6 +93,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const id = useId();
   const intl = useIntl();
   const { announce } = useAnnouncer();
+  const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedColumns = useMemo(() => {
@@ -116,10 +117,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
   const manualPageSize = !pagination?.internal
     ? Math.ceil(
-        (pagination?.total ?? 0) /
-          (state.pagination?.pageSize ??
-            INITIAL_STATE.paginationState.pageSize),
-      )
+      (pagination?.total ?? 0) /
+      (state.pagination?.pageSize ??
+        INITIAL_STATE.paginationState.pageSize),
+    )
     : undefined;
 
   const table = useReactTable({
@@ -322,7 +323,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     };
   }
 
-  const totalRows = pagination?.total;
+  const totalRows = paginationAdjusted?.total;
   const debouncedAnnouncement = debounce((count: number) => {
     announce(
       intl.formatMessage(
@@ -338,7 +339,14 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   }, 300);
 
   useEffect(() => {
-    debouncedAnnouncement(totalRows ?? 0);
+    const hasItems = typeof totalRows !== "undefined" && totalRows !== null;
+    if (hasItems && !hasUpdatedRows.current) {
+      hasUpdatedRows.current = true;
+      return;
+    }
+    if (hasItems && hasUpdatedRows.current) {
+      debouncedAnnouncement(totalRows ?? 0);
+    }
     // Note, exhaustive-deps causes over announcing
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows]);
