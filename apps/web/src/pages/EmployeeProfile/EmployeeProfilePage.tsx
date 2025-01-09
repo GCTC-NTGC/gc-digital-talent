@@ -11,7 +11,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { UnauthorizedError } from "@gc-digital-talent/helpers";
+import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -52,6 +52,10 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   const paths = useRoutes();
   const user = getFragment(EmployeeProfile_Fragment, userQuery);
   const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
+
+  if (!user.employeeProfile) {
+    throw new NotFoundError();
+  }
 
   if (
     !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
@@ -180,7 +184,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               ></TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
-                  employeeProfileQuery={user?.employeeProfile}
+                  employeeProfileQuery={user.employeeProfile}
                 />
               </TableOfContents.Section>
             </div>
