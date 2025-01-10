@@ -4707,6 +4707,10 @@
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
   },
+  "LwruRb": {
+    "defaultMessage": "Trier",
+    "description": "Hint to let users know a table column can be sorted"
+  },
   "LxRoWB": {
     "defaultMessage": "Création de la collectivité réussie!",
     "description": "Message displayed after a community is created"
