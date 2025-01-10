@@ -232,6 +232,11 @@ const createRoute = (locale: Locales) =>
                     ),
                 },
                 {
+                  path: "employee-profile",
+                  lazy: () =>
+                    import("../pages/EmployeeProfile/EmployeeProfilePage"),
+                },
+                {
                   path: "personal-information",
                   lazy: () =>
                     import("../pages/Profile/ProfilePage/ProfilePage"),
@@ -534,6 +539,13 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import(
                       "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
+                    ),
+                },
+                {
+                  path: "certification-exam-vouchers",
+                  lazy: () =>
+                    import(
+                      "../pages/CertificationExamVouchersPage/CertificationExamVouchersPage"
                     ),
                 },
               ],

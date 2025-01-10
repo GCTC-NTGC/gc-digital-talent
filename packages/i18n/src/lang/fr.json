@@ -524,7 +524,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
-    "defaultMessage": "Démonstration de compétences",
+    "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
   },
   "Mco0Km": {
@@ -826,6 +826,10 @@
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
+  },
+  "ZhOciS": {
+    "defaultMessage": "Modèles d'offres d'emploi",
+    "description": "Name of job advertisement templates page"
   },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
@@ -1134,6 +1138,10 @@
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
+  },
+  "nICORU": {
+    "defaultMessage": "Sélectionnez un groupe",
+    "description": "Null selection og group for select input."
   },
   "nMX0n8": {
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",

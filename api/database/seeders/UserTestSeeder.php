@@ -90,6 +90,8 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->withEmployeeProfile()
+            ->withCommunityInterests()
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',

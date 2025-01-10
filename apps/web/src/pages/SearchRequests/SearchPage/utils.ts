@@ -25,7 +25,7 @@ export const getClassificationLabel = (
   labels: Record<string, MessageDescriptor>,
   intl: IntlShape,
 ) => {
-  const key = `${group}-0${level}`;
+  const key = `${group}-${level < 10 ? "0" : ""}${level}`;
   return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
 };
 

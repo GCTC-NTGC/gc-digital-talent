@@ -113,6 +113,11 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedExecCoaching {
+  value: ExecCoaching!
+  label: LocalizedString!
+}
+
 type LocalizedExternalRoleSeniority {
   value: ExternalRoleSeniority!
   label: LocalizedString!
@@ -163,8 +168,23 @@ type LocalizedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedMentorship {
+  value: Mentorship!
+  label: LocalizedString!
+}
+
+type LocalizedMoveInterest {
+  value: MoveInterest!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement {
   value: OperationalRequirement!
+  label: LocalizedString!
+}
+
+type LocalizedOrganizationTypeInterest {
+  value: OrganizationTypeInterest!
   label: LocalizedString!
 }
 
@@ -406,6 +426,10 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
+  updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
+  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
+  updateCommunityInterest(id: UUID!, communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
@@ -602,6 +626,7 @@ type User {
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
+  employeeProfile: EmployeeProfile
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -622,6 +647,37 @@ type User {
   enabledInAppNotifications: [NotificationFamily]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+}
+
+type CommunityInterest {
+  id: UUID!
+  community: Community!
+  workStreams: [WorkStream!]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
+}
+
+type EmployeeProfile {
+  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
+  moveInterest: [LocalizedMoveInterest!]
+  mentorshipStatus: [LocalizedMentorship!]
+  mentorshipInterest: [LocalizedMentorship!]
+  execInterest: Boolean
+  execCoachingStatus: [LocalizedExecCoaching!]
+  execCoachingInterest: [LocalizedExecCoaching!]
+  aboutYou: String
+  careerGoals: String
+  learningGoals: String
+  workStyle: String
+  dreamRoleTitle: String
+  dreamRoleAdditionalInformation: String
+  dreamRoleCommunity: Community
+  dreamRoleClassification: Classification
+  dreamRoleWorkStream: WorkStream
+  dreamRoleDepartments: [Department!]
+  communityInterests: [CommunityInterest!]
+  userPublicProfile: UserPublicProfile
 }
 
 interface Notification {
@@ -1491,6 +1547,42 @@ input UpdateUserAsUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+}
+
+input UpdateEmployeeProfileInput {
+  organizationTypeInterest: [OrganizationTypeInterest!]
+  moveInterest: [MoveInterest!]
+  mentorshipStatus: [Mentorship!]
+  mentorshipInterest: [Mentorship!]
+  execInterest: Boolean
+  execCoachingStatus: [ExecCoaching!]
+  execCoachingInterest: [ExecCoaching!]
+  aboutYou: String
+  careerGoals: String
+  learningGoals: String
+  workStyle: String
+  dreamRoleTitle: String
+  dreamRoleAdditionalInformation: String
+  dreamRoleCommunity: CommunityBelongsTo
+  dreamRoleClassification: ClassificationBelongsTo
+  dreamRoleWorkStream: WorkStreamBelongsTo
+  dreamRoleDepartments: DepartmentBelongsToMany
+}
+
+input CreateCommunityInterestInput {
+  userId: UUID!
+  community: CommunityBelongsTo!
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
+}
+
+input UpdateCommunityInterestInput {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
 }
 
 input LocalizedStringInput {
@@ -3074,6 +3166,11 @@ enum EvaluatedLanguageAbility {
   NOT_ASSESSED
 }
 
+enum ExecCoaching {
+  COACHING
+  LEARNING
+}
+
 enum ExternalRoleSeniority {
   INTERN_COOP
   JUNIOR
@@ -3160,6 +3257,17 @@ enum LanguageAbility {
   BILINGUAL
 }
 
+enum Mentorship {
+  MENTOR
+  MENTEE
+}
+
+enum MoveInterest {
+  ABOVE_LEVEL
+  AT_LEVEL
+  BELOW_LEVEL
+}
+
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
@@ -3179,6 +3287,13 @@ enum OperationalRequirement {
   DRIVERS_LICENSE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
+}
+
+enum OrganizationTypeInterest {
+  CURRENT
+  OTHER_DEPARTMENT
+  OTHER_AGENCY
+  OTHER_CROWN_CORP
 }
 
 enum OverallAssessmentStatus {

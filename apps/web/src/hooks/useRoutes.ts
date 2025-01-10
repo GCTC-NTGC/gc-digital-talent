@@ -274,6 +274,9 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    // Employee profile
+    employeeProfile: () => `${applicantUrl}/employee-profile`,
+
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
@@ -315,6 +318,8 @@ const getRoutes = (lang: Locales) => {
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
     instructorLedTraining: () =>
       [baseUrl, "it-training-fund", "instructor-led-training"].join("/"),
+    certificationExamVouchers: () =>
+      [baseUrl, "it-training-fund", "certification-exam-vouchers"].join("/"),
 
     // Training Opportunities (Admin)
     trainingOpportunitiesIndex: () =>

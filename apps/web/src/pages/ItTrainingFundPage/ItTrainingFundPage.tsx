@@ -44,8 +44,8 @@ export const Component = () => {
   const paths = useRoutes();
 
   const signUpUrl = {
-    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2oraxj700k8d1ec6dumq39e",
-    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2oraxj700k8d1ec6dumq39e",
+    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm4ww5k8l00bbaxduytwfcrjk",
+    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm4ww5k8l00bbaxduytwfcrjk",
   } as const;
 
   const navigarUrl = {
@@ -470,6 +470,8 @@ export const Component = () => {
                         <Link
                           mode="text"
                           data-h2-font-weight="base(bold)"
+                          data-h2-padding-bottom="base(x1)"
+                          data-h2-display="base(block)"
                           color="secondary"
                           external
                           href={paths.instructorLedTraining()}
@@ -477,6 +479,21 @@ export const Component = () => {
                           {intl.formatMessage({
                             defaultMessage: "Browse training opportunities",
                             id: "alKxbI",
+                            description: "A link to sign up for updates",
+                          })}
+                        </Link>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          data-h2-display="base(block)"
+                          color="secondary"
+                          external
+                          href={signUpUrl[locale]}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Sign up for updates<hidden> about instructor-led classes and bootcamps</hidden>",
+                            id: "Tj1iyN",
                             description: "A link to sign up for updates",
                           })}
                         </Link>
@@ -531,10 +548,10 @@ export const Component = () => {
                     >
                       <p data-h2-font-weight="base(bold)">
                         {intl.formatMessage({
-                          defaultMessage: "Coming in winter 2024-25",
-                          id: "h7f4Om",
+                          defaultMessage: "Available now",
+                          id: "L6MPML",
                           description:
-                            "Statement that something will be available in the future",
+                            "Statement that something is available now",
                         })}
                       </p>
                       <ul
@@ -576,13 +593,13 @@ export const Component = () => {
                         data-h2-font-weight="base(bold)"
                         color="secondary"
                         external
-                        href={signUpUrl[locale]}
+                        href={paths.certificationExamVouchers()}
                       >
                         {intl.formatMessage({
-                          defaultMessage:
-                            "Sign up for updates<hidden> about certification exam vouchers</hidden>",
-                          id: "bjcr+t",
-                          description: "A link to sign up for updates",
+                          defaultMessage: "Request a voucher",
+                          id: "erzpFY",
+                          description:
+                            "Link text to request a voucher (infinitive)",
                         })}
                       </Link>
                     </div>

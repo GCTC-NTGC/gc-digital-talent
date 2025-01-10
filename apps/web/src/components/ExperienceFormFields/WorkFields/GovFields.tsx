@@ -164,9 +164,10 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     .map((iterator) => {
       return {
         value: iterator.id.toString(), // change the value to id for the query
-        label: iterator.level.toString(),
+        label: iterator.level,
       };
-    });
+    })
+    .sort((a, b) => a.label - b.label);
 
   /**
    * Reset classification level when group changes
@@ -336,7 +337,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   label={labels.classificationGroup}
                   name="classificationGroup"
                   nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOptionLevel,
+                    uiMessages.nullSelectionOptionGroup,
                   )}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -356,6 +357,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                     uiMessages.nullSelectionOptionLevel,
                   )}
                   options={levelOptions}
+                  doNotSort
                 />
               </div>
             </>

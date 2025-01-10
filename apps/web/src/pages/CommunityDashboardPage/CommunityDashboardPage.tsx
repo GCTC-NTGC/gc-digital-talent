@@ -39,7 +39,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
+import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
@@ -134,11 +134,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Job templates library",
-        id: "MySfL/",
-        description: "Label for link to job templates library",
-      }),
+      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
@@ -222,13 +218,14 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         title={intl.formatMessage(pageTitles.dashboard)}
         description={intl.formatMessage(subTitle)}
       />
-      <AdminHero
+      <Hero
         title={intl.formatMessage(
           {
-            defaultMessage: "Welcome back, {name}",
-            id: "lIwJp4",
+            defaultMessage:
+              "Welcome back<hidden> to your community dashboard</hidden>, {name}",
+            id: "2FrqUn",
             description:
-              "Title for dashboard on the talent cloud admin portal.",
+              "Title for community dashboard on the talent cloud admin portal.",
           },
           {
             name: currentUser

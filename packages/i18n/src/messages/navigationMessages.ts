@@ -141,6 +141,11 @@ const navigationMessages = defineMessages({
     id: "dK8pdO",
     description: "Name of job template page",
   },
+  jobAdvertisementTemplates: {
+    defaultMessage: "Job advertisement templates",
+    id: "ZhOciS",
+    description: "Name of job advertisement templates page",
+  },
   announcements: {
     defaultMessage: "Announcements",
     id: "Md1J9+",

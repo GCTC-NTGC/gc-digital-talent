@@ -96,9 +96,9 @@ const ImproveBehaviouralSkills = ({
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
-      "Help managers understand where you'd like to improve behavioural skills. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren't already in your library will be added for you automatically. ",
+      "Help managers understand which behavioural skills you’d like to improve. You can edit them at any time and are free to order the skills however you like. Skills that you add here that aren't already in your portfolio will be added for you automatically.",
     description: "Page blurb for the improve behavioural skills page",
-    id: "dSfDu1",
+    id: "LN3sPI",
   });
 
   const pageInfo = {

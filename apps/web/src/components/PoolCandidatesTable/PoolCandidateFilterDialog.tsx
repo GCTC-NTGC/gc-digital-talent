@@ -206,7 +206,7 @@ const PoolCandidateFilterDialog = ({
           label={intl.formatMessage(adminMessages.classifications)}
           options={classifications.map(({ group, level }) => ({
             value: `${group}-${level}`,
-            label: `${group}-0${level}`,
+            label: `${group}-${level < 10 ? "0" : ""}${level}`,
           }))}
         />
         <Combobox

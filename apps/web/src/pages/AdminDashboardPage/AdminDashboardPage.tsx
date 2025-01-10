@@ -134,11 +134,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Job templates library",
-        id: "MySfL/",
-        description: "Label for link to job templates library",
-      }),
+      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
@@ -225,10 +221,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       <Hero
         title={intl.formatMessage(
           {
-            defaultMessage: "Welcome back, {name}",
-            id: "lIwJp4",
+            defaultMessage:
+              "Welcome back<hidden> to your admin dashboard</hidden>, {name}",
+            id: "utS0s1",
             description:
-              "Title for dashboard on the talent cloud admin portal.",
+              "Title for admin dashboard on the talent cloud admin portal.",
           },
           {
             name: currentUser

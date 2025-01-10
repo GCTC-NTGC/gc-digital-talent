@@ -76,4 +76,15 @@ export default defineMessages({
     id: "V95g4E",
     description: "Title for the index training opportunities page",
   },
+  certificationExamVouchers: {
+    defaultMessage: "Certification exam vouchers",
+    id: "JIvR0C",
+    description: "Title for the certification exam vouchers page",
+  },
+  jobAdvertisementTemplates: {
+    defaultMessage: "Job advertisement templates",
+    id: "+nQpv5",
+    description:
+      "Title for the page showing list of job advertisement templates",
+  },
 });

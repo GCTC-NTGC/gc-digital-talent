@@ -8,7 +8,6 @@ import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import { ReactNode } from "react";
 
 import {
-  Locales,
   commonMessages,
   getLocalizedName,
   navigationMessages,
@@ -85,7 +84,7 @@ export const formatClassificationString = ({
   group,
   level,
 }: formatClassificationStringProps): string => {
-  return `${group}-0${level}`;
+  return `${group}-${level < 10 ? "0" : ""}${level}`;
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
@@ -457,7 +456,7 @@ export function getClassificationName(
   { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
-  const groupLevelStr = `${group}-0${level}`;
+  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
 
   if (!name) {
     return groupLevelStr;
@@ -466,50 +465,3 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
-
-export const getClassificationSalaryRangeUrl = (
-  locale: Locales,
-  classification?: Maybe<Pick<Classification, "group">>,
-): string | null => {
-  let localizedUrl: Record<Locales, string> | null = null;
-  switch (classification?.group) {
-    case "CS":
-    case "IT":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
-      };
-      break;
-    case "AS":
-    case "PM":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    case "EC":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
-      };
-      break;
-    case "CR":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    case "EX":
-      localizedUrl = {
-        en: "https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-unrepresented-senior-excluded-employees/ex.html#EXcurrent",
-        fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/services/remuneration/taux-remuneration/taux-remuneration-employes-non-representes-exclus-niveaux-superieurs/ex.htm#EXcurrent",
-      };
-      break;
-    default:
-      break;
-  }
-
-  if (localizedUrl) return localizedUrl[locale];
-
-  return null;
-};

@@ -88,7 +88,7 @@ export function classificationAccessor(
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
-    ? `${classification.group}-0${classification.level}`
+    ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
     : "";
 }
 
@@ -99,7 +99,7 @@ export function classificationCell(
 
   return (
     <Chip color="primary">
-      {`${classification.group}-0${classification.level}`}
+      {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
     </Chip>
   );
 }

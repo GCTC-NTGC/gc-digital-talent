@@ -239,7 +239,7 @@ export const getLevelOptions = (
     .filter((x) => x.group === groupSelection)
     .map((iterator) => {
       return {
-        value: iterator.level.toString(),
+        value: iterator.level,
         label: iterator.level.toString(),
       };
     });

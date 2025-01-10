@@ -87,7 +87,10 @@ const EducationRequirementsSection = ({
   });
   const classificationGroup = pool.classification?.group;
   const classificationAbbr = pool.classification
-    ? wrapAbbr(`${classificationGroup}-0${pool.classification.level}`, intl)
+    ? wrapAbbr(
+        `${classificationGroup}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
+        intl,
+      )
     : "";
 
   return (

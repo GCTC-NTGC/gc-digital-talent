@@ -1,7 +1,7 @@
 import { useIntl, defineMessage, MessageDescriptor } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   FieldLabels,
@@ -41,15 +41,22 @@ const WorkFieldOptions_Query = graphql(/* GraphQL */ `
 const EmploymentCategoryFields = ({
   employmentCategory,
   labels,
+  organizationSuggestions,
 }: {
   employmentCategory: EmploymentCategory;
   labels: FieldLabels;
+  organizationSuggestions: string[];
 }) => {
   switch (employmentCategory) {
     case EmploymentCategory.CanadianArmedForces:
       return <CafFields labels={labels} />;
     case EmploymentCategory.ExternalOrganization:
-      return <ExternalFields labels={labels} />;
+      return (
+        <ExternalFields
+          labels={labels}
+          organizationSuggestions={organizationSuggestions}
+        />
+      );
     case EmploymentCategory.GovernmentOfCanada:
       return <GovFields labels={labels} />;
     default:
@@ -84,7 +91,10 @@ const employmentCategoryDescriptions: Record<
   }),
 };
 
-const WorkFields = ({ labels }: SubExperienceFormProps) => {
+const WorkFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery<WorkFieldOptionsQuery>({
     query: WorkFieldOptions_Query,
@@ -92,6 +102,9 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
 
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
+  const prevEmploymentCategory = useRef<EmploymentCategory | null | undefined>(
+    formState.defaultValues?.employmentCategory,
+  );
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
   }>({
@@ -118,7 +131,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 
-    if (formState.dirtyFields.employmentCategory) {
+    if (prevEmploymentCategory.current !== watchEmploymentCategory) {
       resetDirtyField("team"); // both external and goc
 
       // external fields
@@ -146,7 +159,9 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("currentRole");
       resetDirtyField("endDate");
     }
-  }, [formState.dirtyFields, watchEmploymentCategory, resetField]);
+
+    prevEmploymentCategory.current = watchEmploymentCategory;
+  }, [watchEmploymentCategory, resetField]);
 
   return (
     <div>
@@ -183,6 +198,7 @@ const WorkFields = ({ labels }: SubExperienceFormProps) => {
             <EmploymentCategoryFields
               employmentCategory={watchEmploymentCategory}
               labels={labels}
+              organizationSuggestions={organizationSuggestions}
             />
           </div>
         </div>

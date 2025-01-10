@@ -19,7 +19,7 @@ import {
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-const TEXT_AREA_MAX_WORDS_EN = 160;
+const TEXT_AREA_MAX_WORDS_EN = 400;
 
 const getSkillArgs = (
   skillId: Scalars["ID"]["output"],

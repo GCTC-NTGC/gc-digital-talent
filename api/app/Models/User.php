@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
@@ -303,6 +304,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    public function employeeProfile(): HasOne
+    {
+        return $this->hasOne(EmployeeProfile::class, 'id');
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -352,7 +358,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification()->first();
 
-        return $classification->group.'-0'.$classification->level;
+        $leadingZero = $classification->level < 10 ? '0' : '';
+
+        return $classification->group.'-'.$leadingZero.$classification->level;
     }
 
     public function getDepartment()

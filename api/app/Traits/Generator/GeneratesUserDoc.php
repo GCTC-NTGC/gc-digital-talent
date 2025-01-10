@@ -342,7 +342,7 @@ trait GeneratesUserDoc
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $this->localizeEnum($experience->caf_force,
                             CafForce::class),
                     ),
@@ -362,12 +362,12 @@ trait GeneratesUserDoc
                 );
             } elseif ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
                 /** @var Department | null $department */
-                $department = Department::find($experience->department_id);
+                $department = $experience->department_id ? Department::find($experience->department_id) : null;
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $department ? $department->name[$this->lang] : Lang::get('common.not_found', [], $this->lang),
                     ),
                     $headingRank
@@ -451,14 +451,14 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generate a users skills showcase
+     * Generate a user's skill showcase
      *
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function skillsShowcase(Section $section, User $user, $headingRank = 3)
+    protected function skillShowcase(Section $section, User $user, $headingRank = 3)
     {
-        $section->addTitle($this->localizeHeading('skills_showcase'), $headingRank);
+        $section->addTitle($this->localizeHeading('skill_showcase'), $headingRank);
         $subHeadingRank = $headingRank + 2;
 
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
@@ -498,7 +498,7 @@ trait GeneratesUserDoc
         $this->dei($section, $user, $headingRank + 2);
 
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
-        $this->skillsShowcase($section, $user, $headingRank + 1);
+        $this->skillShowcase($section, $user, $headingRank + 1);
 
         $section->addPageBreak();
     }
