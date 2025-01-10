@@ -5879,6 +5879,10 @@
     "defaultMessage": "femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
+  "SLYAoc": {
+    "defaultMessage": "{total, plural, =0 {0 résultats trouvés} =1 {1 résultat trouvé} other { # résultats trouvés}}",
+    "description": "Message announced to assistive technology when number of items in a table changes"
+  },
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
     "description": "Title for the user profile page"
