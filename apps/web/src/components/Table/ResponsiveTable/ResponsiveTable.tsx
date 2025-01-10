@@ -329,8 +329,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       intl.formatMessage(
         {
           defaultMessage:
-            "{total, plural, =0 {0 results found} =1 {1 result found} other {# result found}}",
-          id: "uZYkk1",
+            "{total, plural, =0 {0 results found} =1 {1 result found} other {# results found}}",
+          id: "SLYAoc",
           description:
             "Message announced to assistive technology when number of items in a table changes",
         },
