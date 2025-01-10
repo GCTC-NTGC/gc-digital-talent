@@ -11514,6 +11514,10 @@
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
   },
+  "uZYkk1": {
+    "defaultMessage": "{total, plural, =0 {0 résultats trouvés} =1 {1 résultat trouvé} other { # résultats trouvés}}",
+    "description": "Message announced to assistive technology when number of items in a table changes"
+  },
   "uZuEHk": {
     "defaultMessage": "Sélectionnez cette option si l'emploi était dans l'Armée canadienne, dans l'Aviation royale canadienne ou dans la Marine royale canadienne, dans la Force régulière ou dans la Force de réserve.",
     "description": "Description for the caf employment category option in work experience"

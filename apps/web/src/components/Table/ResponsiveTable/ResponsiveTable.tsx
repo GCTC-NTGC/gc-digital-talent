@@ -328,8 +328,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     announce(
       intl.formatMessage(
         {
-          defaultMessage: "{count} items found.",
-          id: "5ySBS0",
+          defaultMessage:
+            "{total, plural, =0 {0 results found} =1 {1 result found} other {# result found}}",
+          id: "uZYkk1",
           description:
             "Message announced to assistive technology when number of items in a table changes",
         },
