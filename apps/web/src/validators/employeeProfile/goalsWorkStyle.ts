@@ -12,7 +12,7 @@ export function hasAllEmptyFields({
   return !aboutYou && !careerGoals && !learningGoals && !workStyle;
 }
 
-export function hasOneEmptyField({
+export function hasAnyEmptyFields({
   aboutYou,
   careerGoals,
   learningGoals,

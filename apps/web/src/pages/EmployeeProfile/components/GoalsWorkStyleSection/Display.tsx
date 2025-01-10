@@ -7,7 +7,7 @@ import { Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import { hasOneEmptyField } from "~/validators/employeeProfile/goalsWorkStyle";
+import { hasAnyEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
 
 interface DisplayProps {
   employeeProfile: EmployeeProfileGoalsWorkStyleFragment;
@@ -25,7 +25,7 @@ const Display = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
     >
-      {hasOneEmptyField({
+      {hasAnyEmptyFields({
         aboutYou,
         careerGoals,
         learningGoals,
