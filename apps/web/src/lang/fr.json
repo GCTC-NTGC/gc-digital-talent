@@ -4827,10 +4827,6 @@
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
   },
-  "Myfw+L": {
-    "defaultMessage": "Bassins",
-    "description": "Title for pools"
-  },
   "Mz7sON": {
     "defaultMessage": "Gérez vos compétences",
     "description": "Title for editing a users skills"
@@ -7185,6 +7181,10 @@
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
+  },
+  "Z0G1WA": {
+    "defaultMessage": "Processus",
+    "description": "Title for processes"
   },
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
