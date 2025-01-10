@@ -639,14 +639,41 @@ const getWorkExperienceDefaultValues = (
     cafForce,
     cafRank,
   } = experience;
+
+  const isIndeterminate =
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate;
+  const indeterminateActing =
+    isIndeterminate && govPositionType?.value === GovPositionType.Acting;
+  const indeterminateAssignment =
+    isIndeterminate && govPositionType?.value === GovPositionType.Assignment;
+  const indeterminateSecondment =
+    isIndeterminate && govPositionType?.value === GovPositionType.Secondment;
+
+  const expectedEndDate =
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Student ||
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual ||
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term ||
+    indeterminateActing ||
+    indeterminateAssignment ||
+    indeterminateSecondment;
+
+  let currentRole = false;
+
+  if (endDate) {
+    currentRole = false;
+    if (expectedEndDate) {
+      currentRole = endDate >= strToFormDate(new Date().toISOString());
+    }
+  } else {
+    currentRole = true;
+  }
+
   return {
     role,
     organization,
     team: division,
     startDate,
-    currentRole: endDate
-      ? endDate >= strToFormDate(new Date().toISOString()) // today's date
-      : true,
+    currentRole,
     endDate,
     employmentCategory: employmentCategory?.value,
     extSizeOfOrganization: extSizeOfOrganization?.value,

@@ -89,7 +89,22 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         }
 
         if (isset($snapshot['experiences'])) {
-            $experiences = Experience::hydrateSnapshot($snapshot['experiences']);
+            $snapshotExperiences = $snapshot['experiences'];
+
+            // the snapshot stores the department and classification models connected by relation
+            // to render with GeneratesUserDoc, map the model to a string with the appropriate property name
+            foreach ($snapshotExperiences as &$experience) {
+                if ($experience['__typename'] === 'WorkExperience') {
+                    if (isset($experience['department'])) {
+                        $experience['departmentId'] = $experience['department']['id'];
+                    }
+                    if (isset($experience['classification'])) {
+                        $experience['classificationId'] = $experience['classification']['id'];
+                    }
+                }
+            }
+
+            $experiences = Experience::hydrateSnapshot($snapshotExperiences);
             $this->experiences($section, collect($experiences), false, 2);
         }
 

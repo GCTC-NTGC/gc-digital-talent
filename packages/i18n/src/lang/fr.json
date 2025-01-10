@@ -1139,6 +1139,10 @@
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
   },
+  "nICORU": {
+    "defaultMessage": "Sélectionnez un groupe",
+    "description": "Null selection og group for select input."
+  },
   "nMX0n8": {
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",
     "description": "Message to user when no experiences of that type exist."
