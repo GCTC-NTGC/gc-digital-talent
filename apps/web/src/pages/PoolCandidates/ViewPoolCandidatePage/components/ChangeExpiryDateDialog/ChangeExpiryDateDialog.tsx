@@ -131,8 +131,8 @@ const ChangeExpiryDateDialog = ({
           mode="inline"
           aria-label={intl.formatMessage(
             {
-              defaultMessage: "Edit expiry date: {date}",
-              id: "1lqx4S",
+              defaultMessage: "Expiry date: {date}. Edit.",
+              id: "z4xCCg",
               description: "Button text to edit an expiry date",
             },
             { date: formattedDate },
