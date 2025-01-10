@@ -4643,10 +4643,6 @@
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
   },
-  "LvHCvn": {
-    "defaultMessage": "Langue de communication préférée :",
-    "description": "Display text for the preferred communication language field on users"
-  },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
@@ -10193,10 +10189,6 @@
   "nnMYWr": {
     "defaultMessage": "Préférences relatives au travail",
     "description": "Name of Work preferences page"
-  },
-  "nok2sR": {
-    "defaultMessage": "Nom :",
-    "description": "Display text for the name field on users"
   },
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
