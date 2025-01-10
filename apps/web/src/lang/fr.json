@@ -267,10 +267,6 @@
     "defaultMessage": "Retirer la compétence {name} de l’expérience",
     "description": "Aria-label for remove skill button from experience"
   },
-  "/LGiVB": {
-    "defaultMessage": "Statut de la candidature ",
-    "description": "Candidacy status label"
-  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -11801,6 +11797,10 @@
   "xSSp8E": {
     "defaultMessage": "aucune date d’échéance fournie",
     "description": "Message for when an expiration date has not been provided"
+  },
+  "xUz0TV": {
+    "defaultMessage": "Statut de la candidature",
+    "description": "Candidacy status label"
   },
   "xV43au": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
