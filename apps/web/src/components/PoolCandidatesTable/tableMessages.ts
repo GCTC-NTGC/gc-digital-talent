@@ -17,8 +17,8 @@ const messages = defineMessages({
     description: "Title displayed on the candidate skill count column.",
   },
   currentLocation: {
-    defaultMessage: "Current Location",
-    id: "1sPszf",
+    defaultMessage: "Current location",
+    id: "9wfkY1",
     description:
       "Title displayed on the Pool Candidates table Current Location column.",
   },

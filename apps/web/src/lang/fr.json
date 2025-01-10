@@ -759,10 +759,6 @@
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
   },
-  "1sPszf": {
-    "defaultMessage": "Lieu actuel",
-    "description": "Title displayed on the Pool Candidates table Current Location column."
-  },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
@@ -2354,6 +2350,10 @@
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
+  },
+  "9wfkY1": {
+    "defaultMessage": "Lieu actuel",
+    "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
