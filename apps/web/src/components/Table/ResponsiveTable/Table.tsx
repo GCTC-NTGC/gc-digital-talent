@@ -119,14 +119,15 @@ type CellHTMLProps = DetailedHTMLProps<
 
 type HeadCellProps<T> = {
   header: Header<T, unknown>;
+  id: string;
 } & CellHTMLProps;
 
-const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
+const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
   const isRowSelect = header.column.columnDef.meta?.isRowSelect;
   const shouldShrink = header.column.columnDef.meta?.shrink;
   const sortingLocked = header.column.columnDef.meta?.sortingLocked;
   const sortDirection = header.column.getIsSorted();
-  let ariaSort: AriaSort = "none";
+  let ariaSort: AriaSort = undefined;
   if (sortDirection) {
     ariaSort = sortDirection === "asc" ? "ascending" : "descending";
   }
@@ -151,7 +152,7 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
       {...rest}
     >
       {header.isPlaceholder ? null : (
-        <SortButton column={header.column} locked={sortingLocked}>
+        <SortButton tableId={id} column={header.column} locked={sortingLocked}>
           {flexRender(header.column.columnDef.header, header.getContext())}
         </SortButton>
       )}

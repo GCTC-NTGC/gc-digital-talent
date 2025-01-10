@@ -320,6 +320,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     };
   }
 
+  const canSort = table
+    .getFlatHeaders()
+    .some((header) => header.column.getCanSort());
+
   return (
     <>
       <Table.Controls add={add}>
@@ -353,7 +357,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Table.HeadRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <Table.HeadCell key={header.id} header={header} />
+                      <Table.HeadCell key={header.id} id={id} header={header} />
                     ))}
                   </Table.HeadRow>
                 ))}
@@ -396,6 +400,15 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             />
           )}
         </>
+      )}
+      {canSort && (
+        <span id={`sortHint-${id}`} data-h2-display="base(none)">
+          {intl.formatMessage({
+            defaultMessage: "Sort",
+            id: "LwruRb",
+            description: "Hint to let users know a table column can be sorted",
+          })}
+        </span>
       )}
     </>
   );
