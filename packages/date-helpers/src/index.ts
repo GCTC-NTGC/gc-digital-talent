@@ -46,11 +46,16 @@ export const formatDate = ({
 }: FormatDateOptions): string => {
   const strLocale = getLocale(intl);
   const locale: Locale = strLocale === "fr" ? fr : en;
+  let localTz;
+  if (window.Intl && typeof window.Intl === "object") {
+    localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+  const formatTz = timeZone ?? localTz;
 
   // A date formatting function that can use time zones optionally
   const result = format(date, formatString, {
     locale,
-    in: timeZone ? tz(timeZone) : undefined,
+    in: formatTz ? tz(formatTz) : undefined,
   });
 
   return result;
