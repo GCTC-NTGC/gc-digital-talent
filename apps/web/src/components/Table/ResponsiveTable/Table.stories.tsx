@@ -73,7 +73,7 @@ const columns = [
       id: "preferredCommunication",
       header: "Preferred communication language",
       meta: {
-        mobileHeader: "Preferred Communication",
+        mobileHeader: "Preferred communication",
       },
     },
   ),
