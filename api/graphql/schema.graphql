@@ -1528,14 +1528,14 @@ input UpdateDevelopmentProgramInterestHasMany {
   delete: [UUID!]
 }
 
-input CreateDevelopmentProgramInterestInput {
+input CreateDevelopmentProgramInterestInput @validator {
   developmentProgramId: UUID! @rename(attribute: "development_program_id")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
 }
 
-input UpdateDevelopmentProgramInterestInput {
+input UpdateDevelopmentProgramInterestInput @validator {
   id: UUID!
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")

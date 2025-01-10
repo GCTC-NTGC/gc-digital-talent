@@ -28,6 +28,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
+            'interestInDevelopmentPrograms.create.*.developmentProgramId' => [Rule::exists('development_programs', 'id')->where('community_id', $communityId)],
         ];
     }
 
@@ -38,6 +39,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'community.connect.unique' => ApiErrorEnums::COMMUNITY_INTEREST_EXISTS,
             'workStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
             'workStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
+            'interestInDevelopmentPrograms.create.*.developmentProgramId' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
         ];
     }
 }
