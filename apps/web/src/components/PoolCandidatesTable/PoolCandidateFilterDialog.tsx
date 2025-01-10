@@ -71,13 +71,6 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
-        en
-        fr
-      }
-    }
     statuses: localizedEnumStrings(enumName: "PoolCandidateStatus") {
       value
       label {
@@ -115,6 +108,12 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    workStreams {
+      id
+      name {
+        localized
+      }
+    }
   }
 `);
 
@@ -136,6 +135,7 @@ const PoolCandidateFilterDialog = ({
   const classifications = unpackMaybes(data?.classifications);
   const skills = unpackMaybes(data?.skills);
   const communities = unpackMaybes(data?.communities);
+  const workStreams = unpackMaybes(data?.workStreams);
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
     value,
@@ -214,7 +214,10 @@ const PoolCandidateFilterDialog = ({
           name="stream"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={localizedEnumToOptions(data?.streams, intl)}
+          options={workStreams.map((workStream) => ({
+            value: workStream.id,
+            label: workStream.name?.localized,
+          }))}
         />
         <Combobox
           id="poolCandidateStatus"
