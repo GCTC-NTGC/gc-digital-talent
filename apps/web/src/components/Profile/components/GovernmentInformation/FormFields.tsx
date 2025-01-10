@@ -251,11 +251,9 @@ const FormFields = ({
                 id="currentClassificationGroup"
                 label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a group",
-                  id: "9Upe1V",
-                  description: "Null selection for form.",
-                })}
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOptionGroup,
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

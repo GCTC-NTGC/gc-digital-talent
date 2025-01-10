@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\CafForce;
+use App\Enums\EmploymentCategory;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,7 +85,24 @@ class WorkExperience extends Experience
 
     public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
+        if ($this->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
+        }
+
+        if ($this->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
+            /** @var Department | null $department */
+            $department = $this->department_id ? Department::find($this->department_id) : null;
+
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $department ? $department->name[$lang] : Lang::get('common.not_found', [], $lang));
+        }
+
+        if ($this->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            $caf_force = $this->caf_force ? CafForce::localizedString($this->caf_force)[$lang] : Lang::get('common.not_found', [], $lang);
+
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $caf_force);
+        }
+
+        return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
     }
 
     // extends dateRange, check if the end date is in the future and append a message if needed
