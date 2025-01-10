@@ -131,6 +131,11 @@ const uiMessages = defineMessages({
     id: "xEkbvy",
     description: "Null selection of level for select input",
   },
+  nullSelectionOptionGroup: {
+    defaultMessage: "Select a group",
+    id: "nICORU",
+    description: "Null selection og group for select input.",
+  },
 });
 
 export default uiMessages;

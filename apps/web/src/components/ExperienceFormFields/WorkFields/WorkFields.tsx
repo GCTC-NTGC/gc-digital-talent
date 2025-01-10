@@ -1,7 +1,7 @@
 import { useIntl, defineMessage, MessageDescriptor } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   FieldLabels,
@@ -102,6 +102,9 @@ const WorkFields = ({
 
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
+  const prevEmploymentCategory = useRef<EmploymentCategory | null | undefined>(
+    formState.defaultValues?.employmentCategory,
+  );
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
   }>({
@@ -128,7 +131,7 @@ const WorkFields = ({
       resetField(name, { keepDirty: false, defaultValue: null });
     };
 
-    if (formState.dirtyFields.employmentCategory) {
+    if (prevEmploymentCategory.current !== watchEmploymentCategory) {
       resetDirtyField("team"); // both external and goc
 
       // external fields
@@ -156,7 +159,9 @@ const WorkFields = ({
       resetDirtyField("currentRole");
       resetDirtyField("endDate");
     }
-  }, [formState.dirtyFields, watchEmploymentCategory, resetField]);
+
+    prevEmploymentCategory.current = watchEmploymentCategory;
+  }, [watchEmploymentCategory, resetField]);
 
   return (
     <div>
