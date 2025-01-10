@@ -58,14 +58,14 @@ const SortButton = <T,>({
         <span data-h2-visually-hidden="base(invisible)">
           {sortDirection === "asc"
             ? intl.formatMessage({
-                defaultMessage: " (Ascending)",
-                id: "90E1fF",
+                defaultMessage: "Ascending",
+                id: "RGHXLW",
                 description:
                   "Message added to indicate a table column is sorted in ascending order",
               })
             : intl.formatMessage({
-                defaultMessage: " (Descending)",
-                id: "uKD+km",
+                defaultMessage: "Descending",
+                id: "zIv0jm",
                 description:
                   "Message added to indicate a table column is sorted in descending order",
               })}

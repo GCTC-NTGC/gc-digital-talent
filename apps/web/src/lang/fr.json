@@ -2147,10 +2147,6 @@
     "defaultMessage": "Conditions favorables",
     "description": "Heading for the directives digital enabling conditions component"
   },
-  "90E1fF": {
-    "defaultMessage": "(Ordre croissant)",
-    "description": "Message added to indicate a table column is sorted in ascending order"
-  },
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
     "description": "Required skill level column header for tables"
@@ -5774,6 +5770,10 @@
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
+  },
+  "RGHXLW": {
+    "defaultMessage": "Ordre croissant",
+    "description": "Message added to indicate a table column is sorted in ascending order"
   },
   "RGl+Dr": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes",
@@ -11474,10 +11474,6 @@
     "defaultMessage": "Le contrat comporte-t-il des exigences particulières en matière de personnel?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
   },
-  "uKD+km": {
-    "defaultMessage": "(Ordre décroissant)",
-    "description": "Message added to indicate a table column is sorted in descending order"
-  },
   "uLncuU": {
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the User table Candidate name column."
@@ -12341,6 +12337,10 @@
   "zH8887": {
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
+  },
+  "zIv0jm": {
+    "defaultMessage": "Ordre décroissant",
+    "description": "Message added to indicate a table column is sorted in descending order"
   },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",
