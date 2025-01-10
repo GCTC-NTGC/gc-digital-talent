@@ -952,8 +952,8 @@ const PoolCandidatesTable = ({
           handleSearchStateChange(newState);
         },
         overrideAllTableMsg: intl.formatMessage({
-          defaultMessage: "Full Profile",
-          id: "rN333X",
+          defaultMessage: "Full profile",
+          id: "803us1",
           description:
             "Text in table search form column dropdown when no column is selected.",
         }),
