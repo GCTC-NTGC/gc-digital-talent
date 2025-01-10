@@ -334,7 +334,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
           description:
             "Message announced to assistive technology when number of items in a table changes",
         },
-        { count },
+        { total: count },
       ),
     );
   }, 300);
