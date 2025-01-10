@@ -337,7 +337,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   label={labels.classificationGroup}
                   name="classificationGroup"
                   nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOptionLevel,
+                    uiMessages.nullSelectionOptionGroup,
                   )}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
