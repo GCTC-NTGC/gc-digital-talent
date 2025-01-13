@@ -260,9 +260,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <CardBasic data-h2-min-width="base(x14.5)">
-                <ul>
+                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {recruitmentCollectionSorted.map((item) => (
-                    <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <li key={item.label}>
                       <Link color="primary" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
@@ -286,9 +286,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
             </Heading>
             <CardBasic data-h2-min-width="base(x14.5)">
-              <ul>
+              <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                 {resourcesCollectionSorted.map((item) => (
-                  <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                  <li key={item.label}>
                     <Link color="secondary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
@@ -312,9 +312,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <CardBasic data-h2-min-width="base(x14.5)">
-                <ul>
+                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {administrationCollectionSorted.map((item) => (
-                    <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <li key={item.label}>
                       <Link color="error" mode="inline" href={item.href}>
                         {item.label}
                       </Link>

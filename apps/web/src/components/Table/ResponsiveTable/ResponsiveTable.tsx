@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
+import debounce from "lodash/debounce";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -10,10 +11,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
-import { ReactNode, useEffect, useId, useMemo } from "react";
+import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
-import { Loading } from "@gc-digital-talent/ui";
+import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
 import SearchForm from "./SearchForm";
@@ -91,6 +92,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const { announce } = useAnnouncer();
+  const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedColumns = useMemo(() => {
@@ -319,6 +322,35 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       total: table.getFilteredRowModel().rows.length,
     };
   }
+
+  const totalRows = paginationAdjusted?.total;
+  const debouncedAnnouncement = debounce((count: number) => {
+    announce(
+      intl.formatMessage(
+        {
+          defaultMessage:
+            "{total, plural, =0 {0 results found} =1 {1 result found} other {# results found}}",
+          id: "SLYAoc",
+          description:
+            "Message announced to assistive technology when number of items in a table changes",
+        },
+        { total: count },
+      ),
+    );
+  }, 300);
+
+  useEffect(() => {
+    const hasItems = typeof totalRows !== "undefined" && totalRows !== null;
+    if (hasItems && !hasUpdatedRows.current) {
+      hasUpdatedRows.current = true;
+      return;
+    }
+    if (hasItems && hasUpdatedRows.current) {
+      debouncedAnnouncement(totalRows ?? 0);
+    }
+    // Note, exhaustive-deps causes over announcing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalRows]);
 
   return (
     <>

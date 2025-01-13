@@ -51,6 +51,7 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
+  organizationSuggestionsFromExperiences,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -300,6 +301,7 @@ interface ExperienceFormProps {
   experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
+  organizationSuggestions: string[];
 }
 
 export const ExperienceForm = ({
@@ -309,6 +311,7 @@ export const ExperienceForm = ({
   experienceType,
   skillsQuery,
   userId,
+  organizationSuggestions,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -553,7 +556,10 @@ export const ExperienceForm = ({
                 )}
 
                 <TableOfContents.Section id="experience-details">
-                  <ExperienceDetails experienceType={experienceType} />
+                  <ExperienceDetails
+                    organizationSuggestions={organizationSuggestions}
+                    experienceType={experienceType}
+                  />
                 </TableOfContents.Section>
 
                 <TableOfContents.Section id="additional-details">
@@ -748,6 +754,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const experience =
     data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
 
+  const myExperiences = unpackMaybes(data?.me?.experiences);
+  const organizationsForAutocomplete =
+    organizationSuggestionsFromExperiences(myExperiences);
+
   const experienceType = experience
     ? deriveExperienceType(experience)
     : state?.experienceType;
@@ -762,6 +772,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceType={experienceType}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
+          organizationSuggestions={organizationsForAutocomplete}
         />
       ) : (
         <ThrowNotFound
