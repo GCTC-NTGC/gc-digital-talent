@@ -3371,6 +3371,10 @@
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
     "description": "Label for _contract value_ fieldset in the _digital services contracting questionnaire_"
   },
+  "FMPqfb": {
+    "defaultMessage": "Titre du poste (anglais)",
+    "description": "Label for process English title"
+  },
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
@@ -5467,10 +5471,6 @@
     "defaultMessage": "Ce candidat a revendiqué un <strong>statut prioritaire</strong> et a soumis le numéro suivant : <strong>{priorityNumber}</strong>.",
     "description": "Message for a candidates priority status claim"
   },
-  "QISMlC": {
-    "defaultMessage": "Titre spécifique (anglais)",
-    "description": "Label for a process' English title"
-  },
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
@@ -6910,10 +6910,6 @@
     "defaultMessage": "11 à 30",
     "description": "Contract FTE range between eleven and thirty"
   },
-  "XiODnT": {
-    "defaultMessage": "Titre du poste (EN)",
-    "description": "Label for a pool advertisements specific English title"
-  },
   "XkA6s1": {
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
     "description": "A _what to expect_ point on the sign up page"
@@ -7645,10 +7641,6 @@
   "bjwTpe": {
     "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d'abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil, lequel nous permet de confirmer votre situation d'emploi, votre classification, votre appartenance à un groupe visé par l'équité en matière d'emploi et l'expérience requise. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil.",
     "description": "First paragraph of apply and share section"
-  },
-  "bkAzZm": {
-    "defaultMessage": "Titre du poste (FR)",
-    "description": "Label for a pool advertisements specific French title"
   },
   "blGYmQ": {
     "defaultMessage": "Autres renseignements",
@@ -9802,10 +9794,6 @@
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
   },
-  "m7ppfC": {
-    "defaultMessage": "Titre spécifique (français)",
-    "description": "Label for a process' French title"
-  },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
@@ -10781,6 +10769,10 @@
   "r7lf0k": {
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
+  },
+  "r9cJmW": {
+    "defaultMessage": "Titre du poste (français)",
+    "description": "Label for process French title"
   },
   "rCpVpZ": {
     "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",

@@ -405,24 +405,14 @@ const PoolNameSection = ({
                   id="specificTitleEn"
                   name="specificTitleEn"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Job title (EN)",
-                    id: "XiODnT",
-                    description:
-                      "Label for a pool advertisements specific English title",
-                  })}
+                  label={intl.formatMessage(processMessages.titleEn)}
                   disabled={formDisabled}
                 />
                 <Input
                   id="specificTitleFr"
                   name="specificTitleFr"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Job title (FR)",
-                    id: "bkAzZm",
-                    description:
-                      "Label for a pool advertisements specific French title",
-                  })}
+                  label={intl.formatMessage(processMessages.titleFr)}
                   disabled={formDisabled}
                 />
               </div>

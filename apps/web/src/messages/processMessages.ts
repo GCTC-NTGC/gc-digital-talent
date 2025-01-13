@@ -22,14 +22,14 @@ const messages = defineMessages({
     description: "Label for a process' opportunity employment duration",
   },
   titleEn: {
-    defaultMessage: "Specific title (English)",
-    id: "QISMlC",
-    description: "Label for a process' English title",
+    defaultMessage: "Job title (English)",
+    id: "FMPqfb",
+    description: "Label for process English title",
   },
   titleFr: {
-    defaultMessage: "Specific title (French)",
-    id: "m7ppfC",
-    description: "Label for a process' French title",
+    defaultMessage: "Job title (French)",
+    id: "r9cJmW",
+    description: "Label for process French title",
   },
   processNumber: {
     defaultMessage: "Process number",
