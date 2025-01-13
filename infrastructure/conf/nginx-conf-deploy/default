@@ -1,4 +1,9 @@
 
+map $request_uri $csp_header {
+    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' data:; report-uri /api/csp-report/; report-to csp;";
+    ~^/robots.txt "default-src 'self'; style-src-attr 'unsafe-inline';";
+}
+
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
@@ -23,7 +28,7 @@ server {
     sub_filter_once off;
 
     add_header Reporting-Endpoints csp="/api/csp-report";
-    add_header Content-Security-Policy-Report-Only "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' data:; report-uri /api/csp-report/; report-to csp;" always;
+    add_header Content-Security-Policy-Report-Only $csp_header always;
 
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent {
