@@ -211,10 +211,6 @@
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
   },
-  "/2Vhvl": {
-    "defaultMessage": "Sécurité de la TI",
-    "description": "Label for the 'security' IT work stream"
-  },
   "/3mqz9": {
     "defaultMessage": "Renseignements sur la demande",
     "description": "Heading for the request information section of the single search request view."
@@ -282,10 +278,6 @@
   "/Oq5UR": {
     "defaultMessage": "Date prévue de début du contrat",
     "description": "Label for _contract start date_ field in the _digital services contracting questionnaire_"
-  },
-  "/R/S8P": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la <abbreviation>TI</abbreviation> et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la <abbreviation>TI</abbreviation> et des processus de gouvernance.",
-    "description": "Title for the 'planning and reporting' IT work stream"
   },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
@@ -1643,10 +1635,6 @@
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Pour ajouter ou modifier une expérience dans votre parcours professionnel, revenez à la section <careerTimelineLink>Passez en revue votre parcours professionnel</careerTimelineLink>.",
     "description": "Lead in paragraph for adding experiences to a users skills"
   },
-  "6G1ESr": {
-    "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'infrastructure operations' IT work stream"
-  },
   "6IitrN": {
     "defaultMessage": "Vos cinq principales compétences comportementales",
     "description": "Page title for the top behavioural skills page"
@@ -1851,10 +1839,6 @@
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
   },
-  "7KJGSu": {
-    "defaultMessage": "Ce volet comprend la programmation, la conception et le développement de systèmes, l’analyse des activités, la configuration, les tests et la mise en œuvre.",
-    "description": "Title for the 'software solutions' IT work stream"
-  },
   "7MMfLQ": {
     "defaultMessage": "Améliorer la coordination des possibilités de formation et de perfectionnement pour la collectivité du numérique du GC",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
@@ -1986,10 +1970,6 @@
   "86Y8lx": {
     "defaultMessage": "Votre nom",
     "description": "Support form name field label"
-  },
-  "86rJAg": {
-    "defaultMessage": "Les chefs d’équipe sont chargés de superviser le travail et les équipes de projet afin de faciliter la prestation de services aux clients et aux intervenants.",
-    "description": "Description for the 'IT-03 Advisor' classification, paragraph 1"
   },
   "87FqAO": {
     "defaultMessage": "En savoir plus",
@@ -2259,10 +2239,6 @@
     "defaultMessage": "Organisation",
     "description": "Label displayed on Work Experience form for organization input"
   },
-  "9Upe1V": {
-    "defaultMessage": "Sélectionnez un groupe",
-    "description": "Null selection for form."
-  },
   "9VPBwR": {
     "defaultMessage": "Homme danseur en régalia traditionnelle.",
     "description": "Indigenous Apprenticeship lower back image text alternative"
@@ -2435,10 +2411,6 @@
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
   },
-  "AR+sqf": {
-    "defaultMessage": "Gestion de bases de données de la TI",
-    "description": "Label for the 'database management' IT work stream"
-  },
   "ARFz8L": {
     "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
@@ -2514,10 +2486,6 @@
   "AjVbZs": {
     "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
-  },
-  "AlRcyu": {
-    "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'project portfolio management' IT work stream"
   },
   "Ao/+Ba": {
     "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
@@ -2727,10 +2695,6 @@
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
   },
-  "BxJSsB": {
-    "defaultMessage": "Ce volet comprend le développement et la maintenance de modèles de données, la conception de bases de données, la planification des capacités, la gestion des performances et la garantie de l’intégrité des données.",
-    "description": "Title for the 'database management' IT work stream"
-  },
   "C+hP/v": {
     "defaultMessage": "Candidature retirée",
     "description": "Status for an application that has been withdrawn"
@@ -2914,10 +2878,6 @@
   "CoUFQ5": {
     "defaultMessage": "Notes mises à jour pour le candidat dans le {poolName}",
     "description": "Toast notification for successful update of candidates notes in specified pool"
-  },
-  "Cq+1U7": {
-    "defaultMessage": "Ce volet comprend le travail à temps plein sur des projets importants et formels qui nécessitent le partage et l’application rigoureuse de compétences et de connaissances en matière de gestion de projets de la TI.",
-    "description": "Title for the 'project portfolio management' IT work stream"
   },
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
@@ -3198,10 +3158,6 @@
   "E3lQMA": {
     "defaultMessage": "Sélectionnez tous les facteurs qui ont influencé la décision d’établir le contrat.",
     "description": "Label for _operations considerations_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "E3loNV": {
-    "defaultMessage": "Planification et établissement de rapports en matière de <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'planning and reporting' IT work stream"
   },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
@@ -3707,10 +3663,6 @@
     "defaultMessage": "Méthode d’invitation à soumissionner",
     "description": "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_"
   },
-  "GtZyhK": {
-    "defaultMessage": "Technicien (<abbreviation>IT-01</abbreviation>)",
-    "description": "Title for the 'IT-01 Technician' classification"
-  },
   "GurdF+": {
     "defaultMessage": "Un grade d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économie, en sociologie ou en statistique.",
     "description": "Description for the `just education` option for EC education requirements"
@@ -3754,10 +3706,6 @@
   "H6FgWU": {
     "defaultMessage": "Inscription",
     "description": "Breadcrumb for the registration pages"
-  },
-  "H8cs1r": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'business line advisory services' IT work stream"
   },
   "HBljcn": {
     "defaultMessage": "Nom (anglais)",
@@ -3878,10 +3826,6 @@
   "I+GYIo": {
     "defaultMessage": "Par exemple, l’entrepreneur :",
     "description": "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_"
-  },
-  "I/fGUN": {
-    "defaultMessage": "Analyste (<abbreviation>IT-02</abbreviation>)",
-    "description": "Title for the 'IT-02 Analyst' classification"
   },
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
@@ -4195,10 +4139,6 @@
     "defaultMessage": "ᓀᐦᐃᔭᐍᐏᐣ nēhiyawēwin (Cris des Plaines)",
     "description": "Name of Plains Cree language"
   },
-  "Jdo3br": {
-    "defaultMessage": "Présenter sa candidature pour les opportunités de techniciens<hidden> {name}</hidden>",
-    "description": "Invitation to apply for the 'IT-01 Technician' classification"
-  },
   "Jehcen": {
     "defaultMessage": "Le BDPI a-t-il confirmé qu’il n’y a pas de talents préqualifiés disponibles dans une bassin de talents coordonnée par le BDPI qui pourraient répondre au besoin dans le délai imparti?",
     "description": "Label for _OCIO confirmed talent shortage_ field in the _digital services contracting questionnaire_"
@@ -4462,10 +4402,6 @@
   "Kp3Bqu": {
     "defaultMessage": "Critères essentiels",
     "description": "Essential criteria heading"
-  },
-  "KpNUo0": {
-    "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>IT-04</abbreviation>)",
-    "description": "Title for the 'IT-04 Manager' classification"
   },
   "KqAp09": {
     "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
@@ -4951,10 +4887,6 @@
     "defaultMessage": "Organisation émettrice",
     "description": "Label displayed on award form for organization section"
   },
-  "NHjbIl": {
-    "defaultMessage": "Planification et établissement de rapports en matière de TI",
-    "description": "Label for the 'planning and reporting' IT work stream"
-  },
   "NJIdH1": {
     "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
@@ -5246,10 +5178,6 @@
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
-  },
-  "OqglGZ": {
-    "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
-    "description": "Title for the 'enterprise architecture' IT work stream"
   },
   "Ot2eBH": {
     "defaultMessage": "Renseignements généraux",
@@ -5587,10 +5515,6 @@
     "defaultMessage": "Commencez à ajouter des exigences en utilisant le bouton suivant.",
     "description": "Instructions on how to add a question when there are none"
   },
-  "QSTaWO": {
-    "defaultMessage": "Solutions logicielles de la TI",
-    "description": "Label for the 'software solutions' IT work stream"
-  },
   "QSbP/J": {
     "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
     "description": "Subtitle for job placement dialog"
@@ -5923,10 +5847,6 @@
     "defaultMessage": "Survol de l’ensemble des compétences et des évaluations prévues pour ce processus.",
     "description": "introduction to the skill summary section in the assessment plan builder"
   },
-  "S02Y/P": {
-    "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>IT-03</abbreviation>)",
-    "description": "Title for the 'IT-03 Advisor' classification"
-  },
   "S2if5C": {
     "defaultMessage": "Questionnaire sauvegardé avec succès.",
     "description": "Message displayed to user if the questionnaire was saved successfully."
@@ -5962,6 +5882,10 @@
   "SK20us": {
     "defaultMessage": "femme.",
     "description": "Statement for when someone indicates they are a woman"
+  },
+  "SLYAoc": {
+    "defaultMessage": "{total, plural, =0 {0 résultats trouvés} =1 {1 résultat trouvé} other { # résultats trouvés}}",
+    "description": "Message announced to assistive technology when number of items in a table changes"
   },
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
@@ -6238,10 +6162,6 @@
   "Tj1iyN": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d'entrainement dirigés par un instructeur ou une instructrice</hidden>",
     "description": "A link to sign up for updates"
-  },
-  "Tjd942": {
-    "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'software solutions' IT work stream"
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -6962,10 +6882,6 @@
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
   },
-  "Xdmhoo": {
-    "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la <abbreviation>TI</abbreviation> et les relations avec les clients et fournisseurs.",
-    "description": "Title for the 'infrastructure operations' IT work stream"
-  },
   "XdynkW": {
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
@@ -7186,10 +7102,6 @@
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
   },
-  "YbkM7u": {
-    "defaultMessage": "Architecture intégrée de la TI",
-    "description": "Label for the 'enterprise architecture' IT work stream"
-  },
   "Yc2A2Q": {
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
@@ -7349,10 +7261,6 @@
   "ZNne50": {
     "defaultMessage": "Enregistrez les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
-  },
-  "ZOEHxi": {
-    "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la TI",
-    "description": "Label for the 'business line advisory services' IT work stream"
   },
   "ZP1qNK": {
     "defaultMessage": "Nous allons étiqueter les questions de manière à ce que vous sachiez comment vos réponses seront évaluées.",
@@ -7598,10 +7506,6 @@
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
   },
-  "aq2pSe": {
-    "defaultMessage": "description pour {name}",
-    "description": "Link text suffix to read more of the description for a skill"
-  },
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
@@ -7653,10 +7557,6 @@
   "bDnBF9": {
     "defaultMessage": "Création d’une réserve de talents numériques préqualifiés à l’échelle du gouvernement, en fonction des besoins des ministères",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
-  },
-  "bF/ZqD": {
-    "defaultMessage": "Les techniciens fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
-    "description": "Description for the 'IT-01 Technician' classification"
   },
   "bGi9fO": {
     "defaultMessage": "Création réussie de la compétence!",
@@ -7825,10 +7725,6 @@
   "by9soK": {
     "defaultMessage": "S’agit-il d’un contrat pluriannuel?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "bz6geU": {
-    "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
-    "description": "Title for the 'security' IT work stream"
   },
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
@@ -8190,10 +8086,6 @@
     "defaultMessage": "Ajoutez des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
   },
-  "doatZI": {
-    "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
-    "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
-  },
   "dotl8X": {
     "defaultMessage": "Recherche par mot-clé",
     "description": "Label for keyword search input"
@@ -8305,10 +8197,6 @@
   "eCkRlc": {
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
     "description": "Blurb for career timeline section of the application review page."
-  },
-  "eFNBND": {
-    "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'enterprise architecture' IT work stream"
   },
   "eFvsOG": {
     "defaultMessage": "Sélection des compétences",
@@ -8661,10 +8549,6 @@
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
     "description": "Button text to indicate that a specific application’s ID has been copied"
-  },
-  "ftyyhv": {
-    "defaultMessage": "Présenter sa candidature pour les opportunités de chefs d’équipe et conseillers<hidden> {name}</hidden>",
-    "description": "Invitation to apply for the 'IT-03 Advisor' classification"
   },
   "fvsYkj": {
     "defaultMessage": "Qu’est-ce que j’apprendrai dans le cadre de ce programme d’apprentissage?",
@@ -9186,10 +9070,6 @@
     "defaultMessage": "CR-04 : Commis",
     "description": "CR-04 classification label including titles"
   },
-  "i8DgUB": {
-    "defaultMessage": "Opérations d’infrastructure de la TI",
-    "description": "Label for the 'infrastructure operations' IT work stream"
-  },
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
     "description": "Link text to go to the homepage from a 404"
@@ -9205,10 +9085,6 @@
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
     "description": "Sub-heading for language requirements dialog"
-  },
-  "iA1BBF": {
-    "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en <abbreviation>TI</abbreviation> qui soutiennent les opérations du GC.",
-    "description": "Title for the 'business line advisory services' IT work stream"
   },
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
@@ -9538,10 +9414,6 @@
     "defaultMessage": "{stream} demande",
     "description": "Link text to view an application to a specific pool stream"
   },
-  "je6zFF": {
-    "defaultMessage": "Présenter sa candidature pour les opportunités d’analystes<hidden> {name}</hidden>",
-    "description": "Invitation to apply for the 'IT-02 Analyst' classification"
-  },
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
@@ -9777,10 +9649,6 @@
   "lB/SWR": {
     "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche.",
     "description": "Alert displayed to the user when they updated something to appear in search results again."
-  },
-  "lCHx90": {
-    "defaultMessage": "Gestion de portefeuilles de projets de la TI",
-    "description": "Label for the 'project portfolio management' IT work stream"
   },
   "lDRl7g": {
     "defaultMessage": "Type de produit",
@@ -10642,10 +10510,6 @@
     "defaultMessage": "Ajouter une nouvelle question ({currentCount}/{maxCount})",
     "description": "Button text to add a new screening question"
   },
-  "pPVkYX": {
-    "defaultMessage": "Les analystes fournissent des services techniques, des conseils, des analyses et des recherches dans leur domaine d’expertise, afin de soutenir la prestation de services aux clients et aux intervenants.",
-    "description": "Description for the 'IT-02 Analyst' classification"
-  },
   "pQGDiR": {
     "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
     "description": "Describes selecting a advertisement details for a process."
@@ -11290,10 +11154,6 @@
     "defaultMessage": "Sélectionnez une classification",
     "description": "Placeholder displayed on the pool form classification field."
   },
-  "tDetPq": {
-    "defaultMessage": "Les conseillers principaux sont des travailleurs individuels qui fournissent des conseils techniques spécialisés et une orientation stratégique en vue de la fourniture de solutions et de services.",
-    "description": "Description for the 'IT-04 Manager' classification, paragraph 2"
-  },
   "tDwAB0": {
     "defaultMessage": "manipuler et effectuer des calculs à partir du jeu de données",
     "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -11441,10 +11301,6 @@
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
-  },
-  "uD7QTb": {
-    "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
-    "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
   },
   "uEporM": {
     "defaultMessage": "Les procédures obligatoires ont changé",
@@ -11674,10 +11530,6 @@
     "defaultMessage": "l'informatique en nuage;",
     "description": "Third item in list of certification topics section"
   },
-  "vbEXnp": {
-    "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'database management' IT work stream"
-  },
   "vbiWgW": {
     "defaultMessage": "Politiques connexes",
     "description": "Heading for the related policies card"
@@ -11826,6 +11678,10 @@
     "defaultMessage": "la science des données et analyse pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "wUqfbl": {
+    "defaultMessage": "Placement professionnel : {placement}. Modifiez.",
+    "description": "Button text to edit the placement of a candidate"
+  },
   "wUujPy": {
     "defaultMessage": "la technologie de l'information;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -11889,10 +11745,6 @@
   "ww+trY": {
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
-  },
-  "wzoCfb": {
-    "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
-    "description": "Title for the 'security' IT work stream"
   },
   "x+kUrO": {
     "defaultMessage": "Conseillers en ressources humaines",
@@ -12098,10 +11950,6 @@
     "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 5 compétences comportementales ou relationnelles</strong> dans lesquelles ils excellent le plus.",
     "description": "Description of a users top behavioural skills"
   },
-  "yBlzbT": {
-    "defaultMessage": "Présenter sa candidature pour les opportunités gestionnaires et conseillers<hidden> {name}</hidden>",
-    "description": "Invitation to apply for the 'IT-04 Manager' classification"
-  },
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
     "description": "Error message after failed submission for the application review page."
@@ -12285,6 +12133,10 @@
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
+  },
+  "z4xCCg": {
+    "defaultMessage": "Date d'expiration : {date}. Modifiez.",
+    "description": "Button text to edit an expiry date"
   },
   "z59tbA": {
     "defaultMessage": "Tout le tableau",
