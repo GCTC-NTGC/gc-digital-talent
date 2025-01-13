@@ -4280,7 +4280,7 @@
     "description": "Alert displayed to user when a community member was added to a community"
   },
   "KEm64j": {
-    "defaultMessage": "Détails de la publicité",
+    "defaultMessage": "Détails de l'annonce",
     "description": "Sub title for advertisement details"
   },
   "KFdDjj": {
@@ -4440,7 +4440,7 @@
     "description": "Heading for section for the group-specific resources section."
   },
   "Kyf9At": {
-    "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
+    "defaultMessage": "Définissez les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
   },
   "L0eho2": {
@@ -11639,7 +11639,7 @@
     "description": "Second paragraph about the program"
   },
   "wO1c70": {
-    "defaultMessage": "Cette section demande des renseignements sur le recrutement standard, tels que la classification, le titre du poste et la date de clôture",
+    "defaultMessage": "Cette section demande des renseignements standards sur le recrutement, tels que la classification, le titre du poste et la date de clôture.",
     "description": "Sub title for basic information"
   },
   "wORNl0": {
@@ -11999,7 +11999,7 @@
     "description": "Label for submitting an application"
   },
   "yM04jy": {
-    "defaultMessage": "Information relative à l'annonce",
+    "defaultMessage": "Informations relatives à l'annonce",
     "description": "Title for advertisement information of a process"
   },
   "yMs04A": {
