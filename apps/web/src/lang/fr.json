@@ -2943,6 +2943,10 @@
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative novatrice du gouvernement du Canada qui offre une voie d’accès à l’emploi dans la fonction publique fédérale aux personnes autochtones passionnées par les technologies de l’information.",
     "description": "Paragraph 1 of the 'About the program' section"
   },
+  "D3so/C": {
+    "defaultMessage": "Vous n'avez pas encore rempli ces renseignements",
+    "description": "Null message on sections for edit pool page."
+  },
   "D5Hqhf": {
     "defaultMessage": "Cercle de soutien",
     "description": "Title of the 'Circle of Support' subsection"
@@ -11877,10 +11881,6 @@
   "xp1dWY": {
     "defaultMessage": "Pénurie de talents disponibles ou qualifiés",
     "description": "Shortage of talent contracting rationale"
-  },
-  "xsIcls": {
-    "defaultMessage": "Vous n'avez pas encore rempli ces renseignements",
-    "description": "Null message on sections for edit pool page."
   },
   "xtNiNu": {
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
