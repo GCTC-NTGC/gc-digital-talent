@@ -289,8 +289,8 @@ const PoolNameSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This section covers the process' basics, including classification, job title, and closing date.",
-    id: "pQGDiR",
+      "This section covers the process's basics, including classification, job title, and closing date.",
+    id: "7Yacsa",
     description: "Describes selecting a advertisement details for a process.",
   });
 

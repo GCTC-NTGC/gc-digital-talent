@@ -1855,6 +1855,10 @@
     "defaultMessage": "artisanat confectionné à la main de fleurs et de feuilles perlées.",
     "description": "Description of a decorative image of some beaded artwork"
   },
+  "7Yacsa": {
+    "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
+    "description": "Describes selecting a advertisement details for a process."
+  },
   "7dOILY": {
     "defaultMessage": "EX-03 : Chef de file du numérique",
     "description": "EX-03 classification label including titles"
@@ -10497,10 +10501,6 @@
   "pPUC7o": {
     "defaultMessage": "Ajouter une nouvelle question ({currentCount}/{maxCount})",
     "description": "Button text to add a new screening question"
-  },
-  "pQGDiR": {
-    "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
-    "description": "Describes selecting a advertisement details for a process."
   },
   "pR/Xr2": {
     "defaultMessage": "Processus désarchivé avec succès!",
