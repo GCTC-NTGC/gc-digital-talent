@@ -5,11 +5,11 @@ import {
   allModes,
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
+import { Link } from "@gc-digital-talent/ui";
 
 import toast from "../../toast";
 import Toast from "./Toast";
 import "./toast.css";
-import { Link } from "@gc-digital-talent/ui";
 
 const meta = {
   component: Toast,
