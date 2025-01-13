@@ -139,8 +139,8 @@ const commonMessages = defineMessages({
     description: "Title displayed telephone",
   },
   preferredCommunicationLanguage: {
-    defaultMessage: "Preferred Communication Language",
-    id: "Ho94JY",
+    defaultMessage: "Preferred communication language",
+    id: "XiECLl",
     description: "Title displayed preferred communication language",
   },
   workingLanguageAbility: {

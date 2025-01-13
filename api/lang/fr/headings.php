@@ -9,7 +9,7 @@ return [
     'notes' => 'Notes',
     'current_province' => 'Province actuelle',
     'current_city' => 'Ville',
-    'current_location' => 'Emplacement actuel',
+    'current_location' => 'Lieu actuel',
     'date_received' => 'Date de réception',
     'expiry_date' => 'Date d\'expiration',
     'archival_date' => 'Date d\'archivage',

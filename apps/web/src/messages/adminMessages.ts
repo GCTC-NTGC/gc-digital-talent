@@ -56,10 +56,10 @@ const messages = defineMessages({
     id: "LOjdrP",
     description: "Title for community",
   },
-  pools: {
-    defaultMessage: "Pools",
-    id: "Myfw+L",
-    description: "Title for pools",
+  processes: {
+    defaultMessage: "Processes",
+    id: "Z0G1WA",
+    description: "Title for processes",
   },
   poolCandidates: {
     defaultMessage: "Pool candidates",

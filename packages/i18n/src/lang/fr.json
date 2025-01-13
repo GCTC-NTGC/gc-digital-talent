@@ -423,10 +423,6 @@
     "defaultMessage": "Systèmes d'ordinateurs",
     "description": "Full name of abbreviation for CS"
   },
-  "Ho94JY": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Title displayed preferred communication language"
-  },
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
@@ -794,6 +790,10 @@
   "XZl6Ks": {
     "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
+  },
+  "XiECLl": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed preferred communication language"
   },
   "XpK4rL": {
     "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
