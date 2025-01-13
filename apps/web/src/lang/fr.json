@@ -7502,10 +7502,6 @@
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
   },
-  "aq2pSe": {
-    "defaultMessage": "description pour {name}",
-    "description": "Link text suffix to read more of the description for a skill"
-  },
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
