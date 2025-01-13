@@ -9,6 +9,7 @@ import {
 import toast from "../../toast";
 import Toast from "./Toast";
 import "./toast.css";
+import { Link } from "@gc-digital-talent/ui";
 
 const meta = {
   component: Toast,
@@ -35,17 +36,28 @@ export default meta;
 
 type Story = StoryObj<typeof Toast>;
 
+const ToastWithLink = () => (
+  <>
+    Toast info with{" "}
+    <Link href="https://talent.canada.ca" newTab>
+      link
+    </Link>
+  </>
+);
+
 const Template = () => {
   useEffect(() => {
     setTimeout(() => {
       toast.info("Toast info text", { autoClose: false });
+      toast.info(<ToastWithLink />, {
+        autoClose: false,
+      });
       toast.info(
         "Toast info with three sentences. Text sentence two. Toast text sentence three.",
         { autoClose: false },
       );
       toast.success("Toast success text", { autoClose: false });
       toast.warning("Toast warning text", { autoClose: false });
-      toast.error("Toast error text", { autoClose: false });
     }, 100);
   }, []);
   return <Toast />;
