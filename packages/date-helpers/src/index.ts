@@ -35,6 +35,18 @@ export {
 export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 
 /**
+ * Attempts to get the users local timezone
+ */
+export const getLocalTimezone = (): string | undefined => {
+  let localTz;
+  if (window.Intl && typeof window.Intl === "object") {
+    localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+
+  return localTz;
+};
+
+/**
  * Format a date in given format and locale, optionally in a different time zone
  * @returns String in the given format
  */
@@ -46,10 +58,7 @@ export const formatDate = ({
 }: FormatDateOptions): string => {
   const strLocale = getLocale(intl);
   const locale: Locale = strLocale === "fr" ? fr : en;
-  let localTz;
-  if (window.Intl && typeof window.Intl === "object") {
-    localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  }
+  const localTz = getLocalTimezone();
   const formatTz = timeZone ?? localTz;
 
   // A date formatting function that can use time zones optionally

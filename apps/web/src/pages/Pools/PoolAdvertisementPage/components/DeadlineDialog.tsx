@@ -3,7 +3,7 @@ import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIc
 import { ReactNode } from "react";
 
 import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
-import { formatDate } from "@gc-digital-talent/date-helpers";
+import { formatDate, getLocalTimezone } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -30,8 +30,7 @@ interface DeadlineDialogProps {
 const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
   const intl = useIntl();
   const routes = useRoutes();
-  // https://stackoverflow.com/a/34602679
-  const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localTimeZone = getLocalTimezone();
 
   return (
     <Dialog.Root>
