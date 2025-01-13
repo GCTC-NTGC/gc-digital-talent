@@ -1167,6 +1167,7 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
   workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
