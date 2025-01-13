@@ -17,7 +17,7 @@ final class CreateDevelopmentProgramInterestInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'developmentProgramId' => ['uuid', 'required', 'exists:App\Models\DevelopmentProgram,id'],
+            // developmentProgramId validated in the Create/UpdateCommunityInterestInputValidator
             'participationStatus' => [Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
             'completionDate' => [
                 'date',
@@ -30,7 +30,6 @@ final class CreateDevelopmentProgramInterestInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'developmentProgramId.exists' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_FOUND,
             'completionDate.required_if' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
             'completionDate.prohibited_unless' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED,
         ];
