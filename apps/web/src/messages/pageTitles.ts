@@ -87,4 +87,9 @@ export default defineMessages({
     description:
       "Title for the page showing list of job advertisement templates",
   },
+  workStreams: {
+    defaultMessage: "Work Streams",
+    id: "cgKjDf",
+    description: "Title for the index work streams page",
+  },
 });

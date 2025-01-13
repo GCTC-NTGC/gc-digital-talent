@@ -1,0 +1,241 @@
+import { useIntl } from "react-intl";
+import { useQuery } from "urql";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  Pending,
+  NotFound,
+  Heading,
+  Link,
+  CardBasic,
+  CardSeparator,
+} from "@gc-digital-talent/ui";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
+import Hero from "~/components/Hero";
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import adminMessages from "~/messages/adminMessages";
+
+export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
+  fragment WorkStreamForm on WorkStream {
+    id
+    name {
+      en
+      fr
+    }
+    plainLanguageName {
+      en
+      fr
+    }
+    community {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+interface ViewWorkStreamProps {
+  query: FragmentType<typeof WorkStreamView_Fragment>;
+}
+
+export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const workStream = getFragment(WorkStreamView_Fragment, query);
+
+  return (
+    <>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-justify-content="base(center) p-tablet(flex-start)"
+      >
+        <Heading
+          level="h2"
+          color="primary"
+          Icon={IdentificationIcon}
+          data-h2-margin="base(0, 0, x1.5, 0)"
+          data-h2-font-weight="base(400)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Work stream information",
+            id: "nGy9DA",
+            description: "Heading for the 'view a work stream' form",
+          })}
+        </Heading>
+      </div>
+      <CardBasic>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
+          data-h2-gap="base(x1)"
+        >
+          <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+            {workStream.name?.en}
+          </FieldDisplay>
+          <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+            {workStream.name?.fr}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Plain language alternative (English)",
+              id: "yW8bEZ",
+              description: "Label for plain language alt english input",
+            })}
+          >
+            {workStream.plainLanguageName?.en}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Plain language alternative (French)",
+              id: "OKCVhm",
+              description: "Label for plain language alt french input",
+            })}
+          >
+            {workStream.plainLanguageName?.fr}
+          </FieldDisplay>
+          <div data-h2-grid-column="p-tablet(span 2)">
+            <FieldDisplay label={intl.formatMessage(adminMessages.community)}>
+              {getLocalizedName(workStream.community?.name, intl)}
+            </FieldDisplay>
+          </div>
+        </div>
+        <CardSeparator />
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(center) p-tablet(flex-start)"
+        >
+          <Link
+            href={paths.workStreamUpdate(workStream.id)}
+            data-h2-font-weight="base(bold)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Edit work stream information",
+              id: "fqEh4+",
+              description: "Link to edit the currently viewed work stream",
+            })}
+          </Link>
+        </div>
+      </CardBasic>
+    </>
+  );
+};
+
+interface RouteParams extends Record<string, string> {
+  workStreamId: Scalars["ID"]["output"];
+}
+
+const WorkStream_Query = graphql(/* GraphQL */ `
+  query ViewWorkStreamPage($id: UUID!) {
+    workStream(id: $id) {
+      name {
+        en
+        fr
+      }
+      ...WorkStreamForm
+    }
+  }
+`);
+
+const ViewWorkStreamPage = () => {
+  const intl = useIntl();
+  const routes = useRoutes();
+  const { workStreamId } = useRequiredParams<RouteParams>("workStreamId");
+  const [{ data: workStreamData, fetching, error }] = useQuery({
+    query: WorkStream_Query,
+    variables: { id: workStreamId },
+  });
+
+  const workStreamName = getLocalizedName(
+    workStreamData?.workStream?.name,
+    intl,
+  );
+
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitles.workStreams),
+        url: routes.workStreamTable(),
+      },
+      {
+        label: workStreamName,
+        url: routes.workStreamView(workStreamId),
+      },
+    ],
+  });
+
+  const navTabs = [
+    {
+      url: routes.workStreamView(workStreamId),
+      label: intl.formatMessage({
+        defaultMessage: "Work stream information",
+        id: "mBaKVv",
+        description: "Nav tab label for work stream information",
+      }),
+    },
+  ];
+
+  return (
+    <>
+      <SEO title={workStreamName} />
+      <Hero
+        title={
+          fetching ? intl.formatMessage(commonMessages.loading) : workStreamName
+        }
+        crumbs={navigationCrumbs}
+        navTabs={navTabs}
+      />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x3, 0)">
+          <Pending fetching={fetching} error={error}>
+            {workStreamData?.workStream ? (
+              <ViewWorkStream query={workStreamData?.workStream} />
+            ) : (
+              <NotFound
+                headingMessage={intl.formatMessage(commonMessages.notFound)}
+              >
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Work stream {workStreamId} not found.",
+                      id: "PzQ0E1",
+                      description:
+                        "Message displayed for work stream not found.",
+                    },
+                    { workStreamId },
+                  )}
+                </p>
+              </NotFound>
+            )}
+          </Pending>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <ViewWorkStreamPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUpdateWorkStreamPage";
+
+export default ViewWorkStreamPage;
