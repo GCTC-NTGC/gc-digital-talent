@@ -434,7 +434,7 @@ const PoolNameSection = ({
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"
-                  label={intl.formatMessage(processMessages.opportunityLength)}
+                  label={intl.formatMessage(processMessages.employmentDuration)}
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}

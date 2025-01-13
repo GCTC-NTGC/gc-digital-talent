@@ -423,10 +423,6 @@
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
   },
-  "08rkLr": {
-    "defaultMessage": "Durée de la possibilité",
-    "description": "Label for a process' opportunity employment duration"
-  },
   "094835": {
     "defaultMessage": "Je cherche à...",
     "description": "Support form subject field label"
@@ -530,6 +526,10 @@
   "0YpfAG": {
     "defaultMessage": "Placement de talents",
     "description": "Title for candidates tab for a process"
+  },
+  "0Z7Ux8": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Label for process employment duration"
   },
   "0aU6BD": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",

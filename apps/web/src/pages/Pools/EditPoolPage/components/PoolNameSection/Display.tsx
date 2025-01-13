@@ -136,7 +136,7 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!opportunityLength}
-          label={intl.formatMessage(processMessages.opportunityLength)}
+          label={intl.formatMessage(processMessages.employmentDuration)}
         >
           {getLocalizedName(opportunityLength?.label, intl)}
         </ToggleForm.FieldDisplay>
