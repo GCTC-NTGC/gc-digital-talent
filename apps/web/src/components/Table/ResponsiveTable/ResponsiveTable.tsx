@@ -326,6 +326,34 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const canSort = table
     .getFlatHeaders()
     .some((header) => header.column.getCanSort());
+  const totalRows = paginationAdjusted?.total;
+  const debouncedAnnouncement = debounce((count: number) => {
+    announce(
+      intl.formatMessage(
+        {
+          defaultMessage:
+            "{total, plural, =0 {0 results found} =1 {1 result found} other {# results found}}",
+          id: "SLYAoc",
+          description:
+            "Message announced to assistive technology when number of items in a table changes",
+        },
+        { total: count },
+      ),
+    );
+  }, 300);
+
+  useEffect(() => {
+    const hasItems = typeof totalRows !== "undefined" && totalRows !== null;
+    if (hasItems && !hasUpdatedRows.current) {
+      hasUpdatedRows.current = true;
+      return;
+    }
+    if (hasItems && hasUpdatedRows.current) {
+      debouncedAnnouncement(totalRows ?? 0);
+    }
+    // Note, exhaustive-deps causes over announcing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalRows]);
 
   return (
     <>
