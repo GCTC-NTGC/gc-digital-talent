@@ -83,11 +83,6 @@ type LocalizedDeadlineStatus {
   label: LocalizedString!
 }
 
-type LocalizedDevelopmentProgramParticipationStatus {
-  value: DevelopmentProgramParticipationStatus!
-  label: LocalizedString!
-}
-
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
