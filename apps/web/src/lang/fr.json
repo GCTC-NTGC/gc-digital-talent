@@ -11678,6 +11678,10 @@
     "defaultMessage": "la science des données et analyse pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "wUqfbl": {
+    "defaultMessage": "Placement professionnel : {placement}. Modifiez.",
+    "description": "Button text to edit the placement of a candidate"
+  },
   "wUujPy": {
     "defaultMessage": "la technologie de l'information;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -12129,6 +12133,10 @@
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
+  },
+  "z4xCCg": {
+    "defaultMessage": "Date d'expiration : {date}. Modifiez.",
+    "description": "Button text to edit an expiry date"
   },
   "z59tbA": {
     "defaultMessage": "Tout le tableau",
