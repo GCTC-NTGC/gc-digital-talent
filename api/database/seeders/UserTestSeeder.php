@@ -78,18 +78,6 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
-            ->create([
-                'first_name' => 'Fang',
-                'last_name' => 'Dupont',
-                'email' => 'pool@test.com',
-                'sub' => 'pool@test.com',
-            ]);
-
-        User::factory()
-            ->asApplicant()
             ->withSkillsAndExperiences()
             ->withEmployeeProfile()
             ->withCommunityInterests([$testCommunityId])
