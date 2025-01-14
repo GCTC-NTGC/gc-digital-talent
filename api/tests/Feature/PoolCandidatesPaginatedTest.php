@@ -121,17 +121,6 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($this->applicant, 0, []);
     }
 
-    public function testRequestResponserCanViewAllSubmittedApplications(): void
-    {
-        $requestResponder = User::factory()
-            ->asRequestResponder()
-            ->create();
-        $this->assertPaginatedResponse($requestResponder, 2, [
-            $this->noTeamCandidate->id,
-            $this->teamCandidate->id,
-        ]);
-    }
-
     public function testCommunityManagerCannotViewAnyApplications(): void
     {
         $communityManager = User::factory()

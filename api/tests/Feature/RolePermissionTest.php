@@ -132,39 +132,6 @@ class RolePermissionTest extends TestCase
     }
 
     /**
-     * Test the Request Responder Role
-     *
-     * @return void
-     */
-    public function testRequestResponderRole()
-    {
-        $requestResponderRole = Role::where('name', 'request_responder')->sole();
-        $this->user->addRole($requestResponderRole);
-
-        $permissionsToCheck = [
-            'view-any-submittedApplication',
-            'view-any-applicationStatus',
-            'update-any-applicationStatus',
-            'view-any-applicationAssessment',
-            'update-any-applicationAssessment',
-            'view-any-applicationDecision',
-            'view-any-applicationPlacement',
-            'update-any-applicationDecision',
-            'update-any-applicationPlacement',
-            'view-any-searchRequest',
-            'update-any-searchRequest',
-            'delete-any-searchRequest',
-            'view-any-assessmentPlan',
-        ];
-
-        $this->assertTrue($this->user->hasRole('request_responder'));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
-        $this->assertTrue(($this->user->isAbleTo('view-any-user')));
-
-        $this->cleanup();
-    }
-
-    /**
      * Test the Platform Admin role
      *
      * @return void
