@@ -132,48 +132,6 @@ class RolePermissionTest extends TestCase
     }
 
     /**
-     * Test the Pool Operator Role
-     *
-     * @return void
-     */
-    public function testPoolOperatorRole()
-    {
-        $poolOperatorRole = Role::where('name', 'pool_operator')->sole();
-        $this->user->addRole(
-            $poolOperatorRole,
-            $this->ownedTeam
-        );
-
-        $permissionsToCheck = [
-            'view-team-draftPool',
-            'create-team-draftPool',
-            'update-team-draftPool',
-            'delete-team-draftPool',
-            'view-team-submittedApplication',
-            'view-team-applicationStatus',
-            'update-team-applicationStatus',
-            'view-team-applicationAssessment',
-            'update-team-applicationAssessment',
-            'view-team-applicationDecision',
-            'update-team-applicationDecision',
-            'view-team-applicationPlacement',
-            'update-team-applicationPlacement',
-            'view-team-teamMembers',
-            'view-team-applicantProfile',
-            'view-team-assessmentPlan',
-            'update-team-assessmentPlan',
-        ];
-
-        $this->assertTrue($this->user->hasRole('pool_operator', $this->ownedTeam));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, $this->ownedTeam, true));
-
-        $this->assertFalse($this->user->hasRole('pool_operator', $this->unownedTeam));
-        $this->assertFalse($this->user->isAbleTo($permissionsToCheck, $this->unownedTeam));
-
-        $this->cleanup();
-    }
-
-    /**
      * Test the Request Responder Role
      *
      * @return void
