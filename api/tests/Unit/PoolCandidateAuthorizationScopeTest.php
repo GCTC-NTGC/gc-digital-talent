@@ -116,23 +116,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         ], $candidateIds->toArray());
     }
 
-    // a pool operator should be able to view submitted candidates in their team's pools
-    public function testViewAsPoolOperator(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asProcessOperator($this->teamA->name)
-                    ->create()
-            );
-
-        // the pools in team A only have one submitted candidate
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->candidateSubmitted2A->id,
-        ], $candidateIds->toArray());
-    }
-
     // a request responder should be able to view submitted candidates in any team
     public function testViewAsRequestResponder(): void
     {

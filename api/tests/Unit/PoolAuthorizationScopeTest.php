@@ -79,24 +79,6 @@ class PoolAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $poolIds->toArray());
     }
 
-    // a pool operator should be able to admin just their team's pools
-    public function testAdminAsPoolOperator(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asProcessOperator($this->team1->name)
-                ->create());
-
-        // just the four team1 pools, not team2
-        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolDraft1->id,
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-        ], $poolIds->toArray());
-    }
-
     // a request responder should be able to admin all the pools
     public function testAdminAsRequestResponder(): void
     {
@@ -192,27 +174,6 @@ class PoolAuthorizationScopeTest extends TestCase
         // three published from both teams
         $poolIds = Pool::authorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-            $this->poolPublished2->id,
-            $this->poolClosed2->id,
-            $this->poolArchived2->id,
-        ], $poolIds->toArray());
-    }
-
-    // an pool operator should be able to view team draft pools and any published pool
-    public function testViewAsPoolOperator(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asProcessOperator($this->team1->name)
-                ->create());
-
-        // draft pool from team 1 and three published pools from both teams
-        $poolIds = Pool::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolDraft1->id,
             $this->poolPublished1->id,
             $this->poolClosed1->id,
             $this->poolArchived1->id,

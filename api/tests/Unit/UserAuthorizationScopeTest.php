@@ -114,23 +114,6 @@ class UserAuthorizationScopeTest extends TestCase
         ], $userIds->toArray());
     }
 
-    // an pool operator should be able to view themselves and any users with submitted candidates in their pools
-    public function testViewAsPoolOperator(): void
-    {
-        $poolOperator = User::factory()
-            ->asProcessOperator($this->teamA->name)
-            ->create();
-        Auth::shouldReceive('user')
-            ->andReturn($poolOperator);
-
-        // can also see the user with an application submitted to team 1's pool
-        $userIds = User::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $poolOperator->id,
-            $this->user1->id,
-        ], $userIds->toArray());
-    }
-
     // a request responder should be able to view any user
     public function testViewAsRequestResponder(): void
     {
@@ -196,23 +179,6 @@ class UserAuthorizationScopeTest extends TestCase
 
         $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
-            $this->user1->id,
-        ], $userIds->toArray());
-    }
-
-    // an pool operator should be able to view themselves and any users with submitted candidates in their pools
-    public function testViewBasicAsPoolOperator(): void
-    {
-        $poolOperator = User::factory()
-            ->asProcessOperator($this->pool1->legacyTeam->name)
-            ->create();
-        Auth::shouldReceive('user')
-            ->andReturn($poolOperator);
-
-        // can also see the user with an application submitted to team 1's pool
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $poolOperator->id,
             $this->user1->id,
         ], $userIds->toArray());
     }
