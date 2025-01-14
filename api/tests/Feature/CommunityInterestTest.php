@@ -50,7 +50,7 @@ class CommunityInterestTest extends TestCase
         $this->applicant = User::factory()
             ->asGuest()
             ->asApplicant()
-            ->withCommunityInterests()
+            ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())
             ->create([
                 'email' => 'community-interested-user@test.com',
                 'sub' => 'community-interested-user@test.com',

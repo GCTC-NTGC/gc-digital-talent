@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Models\DevelopmentProgram;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
@@ -18,6 +19,7 @@ final class CreateCommunityInterestInputValidator extends Validator
     {
         $communityId = $this->arg('community.connect');
         $workStreams = $communityId ? WorkStream::where('community_id', $communityId)->get('id')->pluck('id') : [];
+        $developmentProgramIds = $communityId ? DevelopmentProgram::where('community_id', $communityId)->get('id')->pluck('id') : [];
 
         return [
             'userId' => ['uuid', 'required', 'exists:users,id'],
@@ -28,6 +30,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
+            'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
         ];
     }
 
@@ -38,6 +41,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'community.connect.unique' => ApiErrorEnums::COMMUNITY_INTEREST_EXISTS,
             'workStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
             'workStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
+            'interestInDevelopmentPrograms.create.*.developmentProgramId.in' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
         ];
     }
 }
