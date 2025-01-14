@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -317,5 +318,48 @@ class PoolCandidatePolicy
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->community->team);
 
         return $teamPermission || $legacyTeamPermission || $communityPermission;
+    }
+
+    /**
+     * Parent function to handle assessing status update authorization
+     * Branches depending on input status
+     *
+     * @param  array{id: ?string, expiry_date: ?string, pool_candidate_status: ?string }  $args
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updatePoolCandidateStatusParent(User $user, PoolCandidate $poolCandidate, $args)
+    {
+        $inputStatus = $args['pool_candidate_status'] ?? null;
+
+        if ($inputStatus) {
+
+            $placedStatuses = PoolCandidateStatus::placedGroup();
+            $draftOrExpired = [
+                PoolCandidateStatus::DRAFT->name,
+                PoolCandidateStatus::DRAFT_EXPIRED->name,
+                PoolCandidateStatus::EXPIRED->name,
+            ];
+
+            if (in_array($inputStatus, $placedStatuses)) {
+                return $this->updatePlacement($user, $poolCandidate);
+            }
+
+            if (in_array($inputStatus, $draftOrExpired)) {
+                return $this->updateStatus($user, $poolCandidate);
+            }
+
+            return $this->updateDecision($user, $poolCandidate);
+        }
+
+        $inputExpiryDate = $args['expiry_date'] ?? null;
+
+        // attempting to update just the expiry date, which falls to updateStatus()
+        if ($inputExpiryDate) {
+
+            return $this->updateStatus($user, $poolCandidate);
+
+        }
+
+        return false;
     }
 }
