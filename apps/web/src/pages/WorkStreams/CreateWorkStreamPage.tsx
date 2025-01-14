@@ -36,6 +36,14 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
 
+const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
+  mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
+    createWorkStream(workStream: $workStream) {
+      id
+    }
+  }
+`);
+
 interface FormValues {
   key?: InputMaybe<Scalars["String"]["input"]>;
   name: LocalizedStringInput;
@@ -59,41 +67,46 @@ const formValuesToSubmitData = (data: FormValues): CreateWorkStreamInput => {
 };
 
 interface CreateWorkStreamProps {
-  handleCreateWorkStream: (
-    data: CreateWorkStreamInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
   communityOptions: OptGroupOrOption[];
 }
 
 export const CreateWorkStreamForm = ({
-  handleCreateWorkStream,
   communityOptions,
 }: CreateWorkStreamProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [, executeMutation] = useMutation(CreateWorkStream_Mutation);
+
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: creating work stream failed",
+        id: "R+PiXo",
+        description: "Messaged displayed after creating work stream fails",
+      }),
+    );
+  };
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleCreateWorkStream(formValuesToSubmitData(data))
-      .then(async (id) => {
-        await navigate(paths.workStreamView(id));
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work stream created successfully!",
-            id: "bPN0EF",
-            description: "Message displayed after a work stream is created",
-          }),
-        );
+    return executeMutation({ workStream: formValuesToSubmitData(data) })
+      .then(async (result) => {
+        if (result.data?.createWorkStream) {
+          await navigate(
+            paths.workStreamView(result.data?.createWorkStream.id),
+          );
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Work stream created successfully!",
+              id: "bPN0EF",
+              description: "Message displayed after a work stream is created",
+            }),
+          );
+        } else {
+          handleError();
+        }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: creating work stream failed",
-            id: "R+PiXo",
-            description: "Messaged displayed after creating work stream fails",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   return (
@@ -230,28 +243,12 @@ const CreateWorkStream_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
-  mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
-    createWorkStream(workStream: $workStream) {
-      id
-    }
-  }
-`);
-
 const CreateWorkStreamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [{ data: createWorkStreamOptions }] = useQuery({
     query: CreateWorkStream_Query,
   });
-  const [, executeMutation] = useMutation(CreateWorkStream_Mutation);
-  const handleCreateWorkStream = (data: CreateWorkStreamInput) =>
-    executeMutation({ workStream: data }).then((result) => {
-      if (result.data?.createWorkStream?.id) {
-        return result.data.createWorkStream.id;
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -289,10 +286,7 @@ const CreateWorkStreamPage = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
-          <CreateWorkStreamForm
-            handleCreateWorkStream={handleCreateWorkStream}
-            communityOptions={communityOptions}
-          />
+          <CreateWorkStreamForm communityOptions={communityOptions} />
         </div>
       </Hero>
     </>

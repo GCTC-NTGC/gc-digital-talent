@@ -47,6 +47,14 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
+const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
+    updateWorkStream(id: $id, workStream: $workStream) {
+      id
+    }
+  }
+`);
+
 export const WorkStreamForm_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamForm on WorkStream {
     id
@@ -118,13 +126,27 @@ export const UpdateWorkStreamForm = ({
   });
   const { handleSubmit } = methods;
 
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: updating work stream failed",
+        id: "uNKq32",
+        description:
+          "Message displayed to user after work stream fails to get updated.",
+      }),
+    );
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleWorkStreamUpdate(
-      initialWorkStream.id,
-      formValuesToSubmitData(data),
-    )
-      .then(async () => {
-        await navigate(paths.workStreamView(initialWorkStream.id));
+    return executeMutation({
+      id: workStream.id,
+      workStream: formValuesToSubmitData(data),
+    })
+      .then(async (result) => {
+        if (result.data?.updateWorkStream) {
+          await navigate(
+            paths.workStreamView(result.data?.updateWorkStream.id),
+          );
         toast.success(
           intl.formatMessage({
             defaultMessage: "Work stream updated successfully!",
@@ -133,17 +155,11 @@ export const UpdateWorkStreamForm = ({
               "Message displayed to user after work stream is updated successfully.",
           }),
         );
+        } else {
+          handleError();
+        }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating work stream failed",
-            id: "uNKq32",
-            description:
-              "Message displayed to user after work stream fails to get updated.",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   return (
