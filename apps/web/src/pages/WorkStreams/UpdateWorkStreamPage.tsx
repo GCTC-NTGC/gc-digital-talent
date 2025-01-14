@@ -169,19 +169,14 @@ export const UpdateWorkStreamForm = ({
         label: workStream.name?.localized,
         url: paths.workStreamView(workStream.id),
       },
-      ...(workStream.id
-        ? [
-            {
-              label: intl.formatMessage({
-                defaultMessage: "Edit<hidden> work stream</hidden>",
-                id: "da/TLc",
-                description:
-                  "Breadcrumb title for the edit work stream page link.",
-              }),
-              url: paths.workStreamUpdate(workStream.id),
-            },
-          ]
-        : []),
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Edit<hidden> work stream</hidden>",
+          id: "da/TLc",
+          description: "Breadcrumb title for the edit work stream page link.",
+        }),
+        url: paths.workStreamUpdate(workStream.id),
+      },
     ],
   });
 
