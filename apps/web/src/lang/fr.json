@@ -167,6 +167,10 @@
     "defaultMessage": "Ce poste requiert de pouvoir travailler en français. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
     "description": "French essential language requirement description"
   },
+  "+qkjh+": {
+    "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
+    "description": "Describes selecting additional requirements for a process."
+  },
   "+rZvoD": {
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
     "description": "Text for first sign up -> create step."
@@ -4546,10 +4550,6 @@
   "LIpK1v": {
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
-  },
-  "LKZV/V": {
-    "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
-    "description": "Describes selecting additional requirements for a process."
   },
   "LN3sPI": {
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",

@@ -146,8 +146,8 @@ const CoreRequirementsSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This section covers requirements such as remote work, on-site locations, language and security.",
-    id: "LKZV/V",
+      "This section covers requirements such as remote work, on-site locations, language, and security.",
+    id: "+qkjh+",
     description: "Describes selecting additional requirements for a process.",
   });
 
