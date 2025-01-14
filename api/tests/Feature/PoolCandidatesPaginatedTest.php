@@ -121,14 +121,6 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->assertPaginatedResponse($this->applicant, 0, []);
     }
 
-    public function testCommunityManagerCannotViewAnyApplications(): void
-    {
-        $communityManager = User::factory()
-            ->asCommunityManager()
-            ->create();
-        $this->assertPaginatedResponse($communityManager, 0, []);
-    }
-
     public function testProcessOperatorCanViewPoolApplications(): void
     {
         $processOperator = User::factory()

@@ -202,33 +202,6 @@ class RolePermissionTest extends TestCase
     }
 
     /**
-     * Test the Community Manager Role
-     *
-     * @return void
-     */
-    public function testCommunityManagerRole()
-    {
-        $communityManager = Role::where('name', 'community_manager')->sole();
-        $this->user->addRole($communityManager);
-
-        $permissionsToCheck = [
-            'view-any-userBasicInfo',
-            'view-any-pool',
-            'publish-any-draftPool',
-            'view-any-teamMembers',
-            'create-any-team',
-            'update-any-team',
-            'delete-any-team',
-            'assign-any-teamRole',
-        ];
-
-        $this->assertTrue($this->user->hasRole('community_manager'));
-        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
-
-        $this->cleanup();
-    }
-
-    /**
      * Test the Process Operator Role
      *
      * @return void
