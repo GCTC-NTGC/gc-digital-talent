@@ -3,6 +3,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
+  "+/ZsxX": {
+    "defaultMessage": "Ces informations permettent aux candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
+    "description": "Describes the 'what to expect after applying' section of a process' advertisement."
+  },
   "+2PPS3": {
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
@@ -11725,10 +11729,6 @@
   "wvxZxx": {
     "defaultMessage": "portent atteinte à la propriété intellectuelle ou à un droit de propriété",
     "description": "Comments or contributions list item"
-  },
-  "ww+trY": {
-    "defaultMessage": "Ces informations permettent aux candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
-    "description": "Describes the 'what to expect after applying' section of a process' advertisement."
   },
   "x+kUrO": {
     "defaultMessage": "Conseillers en ressources humaines",
