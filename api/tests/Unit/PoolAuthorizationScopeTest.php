@@ -79,28 +79,6 @@ class PoolAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $poolIds->toArray());
     }
 
-    // a request responder should be able to admin all the pools
-    public function testAdminAsRequestResponder(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asRequestResponder()
-                ->create());
-
-        // four from team 1 and four from team 2
-        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolDraft1->id,
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-            $this->poolDraft2->id,
-            $this->poolPublished2->id,
-            $this->poolClosed2->id,
-            $this->poolArchived2->id,
-        ], $poolIds->toArray());
-    }
-
     // a community manager should be able to admin all the pools
     public function testAdminAsCommunityManager(): void
     {
@@ -169,26 +147,6 @@ class PoolAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
                 ->asApplicant()
-                ->create());
-
-        // three published from both teams
-        $poolIds = Pool::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-            $this->poolPublished2->id,
-            $this->poolClosed2->id,
-            $this->poolArchived2->id,
-        ], $poolIds->toArray());
-    }
-
-    // a request responder should be able to view any published pool (like anyone can)
-    public function testViewAsRequestResponder(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asRequestResponder()
                 ->create());
 
         // three published from both teams

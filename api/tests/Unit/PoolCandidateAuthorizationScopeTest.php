@@ -116,24 +116,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         ], $candidateIds->toArray());
     }
 
-    // a request responder should be able to view submitted candidates in any team
-    public function testViewAsRequestResponder(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asRequestResponder()
-                    ->create()
-            );
-
-        // there is one submitted candidate in each team's pool
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->candidateSubmitted1B->id,
-            $this->candidateSubmitted2A->id,
-        ], $candidateIds->toArray());
-    }
-
     // community manager role doesn't grant any candidate permissions - nothing viewable
     public function testViewAsCommunityManager(): void
     {
