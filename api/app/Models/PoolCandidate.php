@@ -48,7 +48,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Carbon\Carbon $suspended_at
+ * @property ?\Illuminate\Support\Carbon $suspended_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
