@@ -940,6 +940,7 @@ class PoolCandidate extends Model
      *               else mark nothing and continue, since the result doesn't actually matter
      *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
      *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     *       no decision for steps that are TO ASSESS but have no results so we can tell when they've been started
      */
     public function computeAssessmentStatus()
     {
@@ -1063,6 +1064,8 @@ class PoolCandidate extends Model
             }
 
             if ($hasToAssess) {
+                // Don't add the step if it has no results yet to allow differentiating between
+                // not started and in progress steps
                 if (! $stepResults->isEmpty()) {
                     $decisions[] = [
                         'step' => $stepId,
