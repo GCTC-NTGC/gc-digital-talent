@@ -2748,7 +2748,7 @@
     "description": "Text displayed in the applications in progress section when empty."
   },
   "C9jYms": {
-    "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour un candidat qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'il peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
+    "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidates et candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
     "description": "Second paragraph for pool closing date dialog"
   },
   "CBedVL": {
