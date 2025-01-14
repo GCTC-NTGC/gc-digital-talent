@@ -57,7 +57,7 @@ test("Create pool", async ({ appPage }) => {
     .fill(`${PROCESS_TITLE} (FR)`);
 
   await appPage.page
-    .getByRole("combobox", { name: /length of opportunity/i })
+    .getByRole("combobox", { name: /employment duration/i })
     .selectOption({ label: "Various" });
 
   await appPage.page
