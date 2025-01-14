@@ -214,7 +214,7 @@ class PoolPolicyTest extends TestCase
     /**
      * Assert that the following can view a draft pool:
      *
-     * pool operator, platform admin
+     * community manager, platform admin
      *
      * @return void
      */
@@ -230,7 +230,7 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->applicantUser->can('view', $this->teamPool));
         $this->assertFalse($this->requestResponderUser->can('view', $this->teamPool));
 
-        // Pool operator cannot view other teams draft pools
+        // community manager cannot view other teams draft pools
         $this->unOwnedPool->published_at = null;
         $this->unOwnedPool->save();
     }
@@ -256,7 +256,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operators, community recruiters, and community admins can create pools
+     * Assert that only community recruiters, and community admins can create pools
      *
      * @return void
      */
@@ -277,7 +277,7 @@ class PoolPolicyTest extends TestCase
         $this->assertFalse($this->adminUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->processOperatorUser->can('create', [Pool::class, $createPoolInput]));
 
-        // Pool operator cannot create pools for other teams, and community roles cannot do so for other communities
+        // community manager cannot create pools for other teams, and community roles cannot do so for other communities
         $createOtherPoolInput = [
             'team_id' => $this->otherTeam->id,
             'community_id' => $this->otherCommunity->id,
@@ -287,7 +287,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operators, community recruiters, and community admins can duplicate pools
+     * Assert that only community recruiters, and community admins can duplicate pools
      *
      * @return void
      */
@@ -309,7 +309,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert pool operator, process operator, community recruiter, community admin can update draft
+     * Assert process operator, community recruiter, community admin can update draft
      *
      * @return void
      */
@@ -449,7 +449,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that pool operator, community recruiter, community admin can delete a draft pool
+     * Assert that community recruiter, community admin can delete a draft pool
      *
      * @return void
      */
@@ -497,7 +497,7 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operator, community recruiter, community admin can archive and un-archive a pool
+     * Assert that only community recruiter, community admin can archive and un-archive a pool
      *
      * @return void
      */
