@@ -118,7 +118,7 @@ export const WorkStreamTable = ({
       }}
       sort={{
         internal: true,
-        initialState: [{ id: "community", desc: false }],
+        initialState: [{ id: "name", desc: false }],
       }}
       search={{
         internal: true,
