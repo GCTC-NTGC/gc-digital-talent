@@ -499,7 +499,7 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        // Assert an unassociated pool operator cannot query candidate notes
+        // Assert an unassociated process operator cannot query candidate notes
         $this->actingAs($this->unAssociatedTeamUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
@@ -619,7 +619,7 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert an unassociated pool operator cannot query candidate status
+        // Assert an unassociated process operator cannot query candidate status
         $this->actingAs($this->unAssociatedTeamUser, 'api')
             ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
