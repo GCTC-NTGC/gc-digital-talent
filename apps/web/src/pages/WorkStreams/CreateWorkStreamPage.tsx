@@ -186,7 +186,7 @@ export const CreateWorkStreamForm = ({
                 }}
               />
               <div data-h2-grid-column="p-tablet(span 2)">
-                <p>
+                <p id="plainLanguageNameHelp">
                   {intl.formatMessage({
                     defaultMessage:
                       "We recommend adding an alternative name using plain language for non-government users.",
@@ -207,6 +207,7 @@ export const CreateWorkStreamForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                aria-describedby="plainLanguageNameHelp"
               />
               <Input
                 id="plainLanguageName.fr"
@@ -220,6 +221,7 @@ export const CreateWorkStreamForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                aria-describedby="plainLanguageNameHelp"
               />
               <div data-h2-grid-column="p-tablet(span 2)">
                 <Select
