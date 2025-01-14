@@ -49,11 +49,11 @@ test("Create pool", async ({ appPage }) => {
     .selectOption({ label: "IT-04 (Information Technology)" });
 
   await appPage.page
-    .getByRole("textbox", { name: /job title \(en\)/i })
+    .getByRole("textbox", { name: /job title \(english\)/i })
     .fill(`${PROCESS_TITLE} (EN)`);
 
   await appPage.page
-    .getByRole("textbox", { name: /job title \(fr\)/i })
+    .getByRole("textbox", { name: /job title \(french\)/i })
     .fill(`${PROCESS_TITLE} (FR)`);
 
   await appPage.page
@@ -78,7 +78,7 @@ test("Create pool", async ({ appPage }) => {
     .click();
 
   const closingDate = appPage.page.getByRole("group", {
-    name: /end date/i,
+    name: /closing date/i,
   });
   await closingDate.getByRole("spinbutton", { name: /year/i }).fill("2500");
   await closingDate
