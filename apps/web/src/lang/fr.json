@@ -539,6 +539,10 @@
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
   },
+  "0c/3Iw": {
+    "defaultMessage": "Vos objectifs et votre style de travail",
+    "description": "Title for goals and work style section"
+  },
   "0cevfA": {
     "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
     "description": "Lead in text for the add role to user form."
@@ -2318,6 +2322,10 @@
   "9oUpdh": {
     "defaultMessage": "la cybersécurité;",
     "description": "Fourth item in list of certification topics section"
+  },
+  "9pYZOU": {
+    "defaultMessage": "Comment vous travaillez le mieux",
+    "description": "Label for a employee profile work style field"
   },
   "9pYlYz": {
     "defaultMessage": "Volet",
@@ -4791,6 +4799,10 @@
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
   },
+  "MptxTu": {
+    "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
+    "description": "Describes the goals and work style section of employee profile"
+  },
   "MsLKAj": {
     "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
@@ -4974,6 +4986,10 @@
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
+  },
+  "NlcepR": {
+    "defaultMessage": "Vos objectifs de carrière",
+    "description": "Label for a employee profile career goals field"
   },
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
@@ -5263,6 +5279,10 @@
     "defaultMessage": "Filtrer les expériences par type",
     "description": "Label for selector to choose experience filter options"
   },
+  "PEH7og": {
+    "defaultMessage": "Cette section contient des questions facultatives qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "description": "Message for unanswered optional questions in this section"
+  },
   "PFoM2I": {
     "defaultMessage": "Éducation et certificats",
     "description": "Title for education experience section"
@@ -5354,6 +5374,10 @@
   "Pjfjeg": {
     "defaultMessage": "Présentation de {showing} sur {total} modèles disponibles",
     "description": "Number of job poster templates being displayed in the list"
+  },
+  "PkE/Ir": {
+    "defaultMessage": "Sauvegardez les objectifs et le style de travail ",
+    "description": "Text on a button to save goals and work style form"
   },
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
@@ -9278,6 +9302,10 @@
     "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
   },
+  "j5Fwi6": {
+    "defaultMessage": "Vos objectifs d'apprentissage",
+    "description": "Label for a employee profile learning goals field"
+  },
   "j5cMN5": {
     "defaultMessage": "Pourquoi cette offre d’emploi n’est-elle plus disponible?",
     "description": "Heading for the closed early pool deadlines dialog"
@@ -10490,6 +10518,10 @@
     "defaultMessage": "Télécharger le profil complet",
     "description": "Button label for downloading a full user profile"
   },
+  "pKTmqM": {
+    "defaultMessage": "Échec de la mise à jour des informations sur les objectifs et le style de travail",
+    "description": "Message displayed when a user fails to updates employee profile information"
+  },
   "pLef1V": {
     "defaultMessage": "Dissimuler les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
@@ -11182,6 +11214,10 @@
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
   },
+  "tSvuK1": {
+    "defaultMessage": "À propos de vous",
+    "description": "Label for a employee profile about you field"
+  },
   "tUIvbq": {
     "defaultMessage": "Adresse courriel non validée",
     "description": "The email address has not been verified to be owned by user"
@@ -11565,6 +11601,10 @@
   "vmj/E4": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
     "description": "English Positions message"
+  },
+  "voMSDe": {
+    "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
+    "description": "Message displayed when a user successfully updates employee profile information"
   },
   "vweW8X": {
     "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
