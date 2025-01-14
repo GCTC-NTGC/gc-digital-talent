@@ -43,7 +43,10 @@ const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ExternalFields = ({ labels }: SubExperienceFormProps) => {
+const ExternalFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery<ExternalWorkFieldOptionsQuery>({
     query: ExternalWorkFieldOptions_Query,
@@ -69,7 +72,19 @@ const ExternalFields = ({ labels }: SubExperienceFormProps) => {
               name="organization"
               type="text"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
+              list={
+                organizationSuggestions.length
+                  ? "organizationSuggestions"
+                  : undefined
+              }
             />
+            {organizationSuggestions.length > 0 && (
+              <datalist id="organizationSuggestions">
+                {organizationSuggestions.map((suggestion) => {
+                  return <option key={suggestion} value={suggestion}></option>;
+                })}
+              </datalist>
+            )}
           </div>
           <div data-h2-flex-item="base(1of1)">
             <Input

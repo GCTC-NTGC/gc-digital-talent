@@ -134,7 +134,7 @@ test.describe("Talent search", () => {
     await expectNoCandidate(appPage.page);
 
     await classificationFilter.selectOption({
-      value: `${classification.group}-0${classification.level}`,
+      value: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
     });
 
     const streamFilter = appPage.page.getByRole("combobox", {
@@ -221,7 +221,7 @@ test.describe("Talent search", () => {
     await expect(
       appPage.page.getByText(
         new RegExp(
-          `${classification.group}-0${classification.level}: search pool`,
+          `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}: search pool`,
           "i",
         ),
       ),

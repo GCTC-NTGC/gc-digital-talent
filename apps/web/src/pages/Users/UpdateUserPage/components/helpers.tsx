@@ -12,12 +12,9 @@ import {
   PoolAssignment,
   PoolTeamable,
   Teamable,
-  TeamAssignment,
   TeamTeamable,
   UpdateUserRolesFunc,
 } from "../types";
-import EditTeamRoleDialog from "./EditTeamRoleDialog";
-import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
 import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
 import EditProcessRoleDialog from "./EditProcessRoleDialog";
@@ -55,50 +52,6 @@ export function actionCell(
       onUpdateUserRoles={onUpdateUserRoles}
     />
   );
-}
-
-export function teamActionCell(
-  teamAssignment: TeamAssignment,
-  user: Pick<User, "id" | "firstName" | "lastName">,
-  onUpdateUserRoles: UpdateUserRolesFunc,
-  availableRoles: Role[],
-) {
-  return (
-    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
-      <EditTeamRoleDialog
-        initialRoles={teamAssignment.roles}
-        user={user}
-        team={teamAssignment.team}
-        onEditRoles={onUpdateUserRoles}
-        allRoles={availableRoles}
-      />
-      <RemoveTeamRoleDialog
-        roles={teamAssignment.roles}
-        user={user}
-        team={teamAssignment.team}
-        onRemoveRoles={onUpdateUserRoles}
-      />
-    </div>
-  );
-}
-
-export function teamCell(displayName: string, href: string) {
-  return (
-    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
-      {displayName}
-    </Link>
-  );
-}
-
-export function teamRolesAccessor(
-  teamAssignment: TeamAssignment,
-  intl: IntlShape,
-) {
-  return teamAssignment.roles
-    .map((role) => getLocalizedName(role.displayName, intl), true)
-    .filter(notEmpty)
-    .sort((a, b) => a.localeCompare(b))
-    .join();
 }
 
 export function communityActionCell(

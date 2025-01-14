@@ -52,6 +52,12 @@ class SupportController extends Controller
         if ($request->input('user_agent')) {
             $parameters['custom_fields']['cf_user_agent'] = (string) $request->input('user_agent');
         }
+        if ($request->cookie('ai_user')) {
+            $parameters['custom_fields']['cf_application_insights_user_id'] = (string) $request->cookie('ai_user');
+        }
+        if ($request->cookie('ai_session')) {
+            $parameters['custom_fields']['cf_application_insights_session_id'] = (string) $request->cookie('ai_session');
+        }
         if ($request->input('user_id')) {
             $parameters['unique_external_id'] = (string) $request->input('user_id');
         }

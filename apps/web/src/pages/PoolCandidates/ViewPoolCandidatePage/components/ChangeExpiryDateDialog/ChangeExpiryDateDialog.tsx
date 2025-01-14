@@ -117,15 +117,28 @@ const ChangeExpiryDateDialog = ({
     description: "Title for the change expiry date dialog",
   });
 
+  const formattedDate =
+    formatDate({
+      date: formDateStringToDate(application.expiryDate),
+      formatString: DATE_FORMAT_STRING,
+      intl,
+    }) || title;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline">
-          {formatDate({
-            date: formDateStringToDate(application.expiryDate),
-            formatString: DATE_FORMAT_STRING,
-            intl,
-          }) || title}
+        <Button
+          mode="inline"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Expiry date: {date}. Edit.",
+              id: "z4xCCg",
+              description: "Button text to edit an expiry date",
+            },
+            { date: formattedDate },
+          )}
+        >
+          {formattedDate}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

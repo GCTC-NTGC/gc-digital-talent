@@ -410,7 +410,11 @@ const GettingStarted = () => {
             new Error(notificationResult.error?.toString()),
           );
         });
+      } else {
+        return Promise.reject(new Error(generalResult.error?.toString()));
       }
+
+      return null;
     });
 
   const onSubmit = async (

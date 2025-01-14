@@ -94,9 +94,9 @@ const ImproveTechnicalSkills = ({
 
   const pageBlurb = intl.formatMessage({
     defaultMessage:
-      "Help managers understand which technical skills you'd be interested in training for. You can edit this showcase at any time and are free to order the skills however you like. Skills that you add to the showcase that aren't already in your library will be added for you automatically.",
+      "Help managers understand which technical skills you'd be interested in training for. You can edit them at any time and are free to order the skills however you like. Skills that you add here that aren't already in your portfolio will be added for you automatically.",
     description: "Page blurb for the improve technical skills page",
-    id: "Lb3ppn",
+    id: "BurFgV",
   });
 
   const pageInfo = {

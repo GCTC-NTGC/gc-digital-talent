@@ -21,12 +21,14 @@ class UserTestSeeder extends Seeder
 
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
+        $testCommunityId = Community::select('id')->where('key', 'test-community')->sole()->id;
 
         // shared auth users for testing
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
             ->asCommunityManager()
+            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
@@ -89,6 +91,8 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->withEmployeeProfile()
+            ->withCommunityInterests([$testCommunityId])
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',

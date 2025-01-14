@@ -232,6 +232,11 @@ const createRoute = (locale: Locales) =>
                     ),
                 },
                 {
+                  path: "employee-profile",
+                  lazy: () =>
+                    import("../pages/EmployeeProfile/EmployeeProfilePage"),
+                },
+                {
                   path: "personal-information",
                   lazy: () =>
                     import("../pages/Profile/ProfilePage/ProfilePage"),
@@ -536,6 +541,13 @@ const createRoute = (locale: Locales) =>
                       "../pages/InstructorLedTrainingPage/InstructorLedTrainingPage"
                     ),
                 },
+                {
+                  path: "certification-exam-vouchers",
+                  lazy: () =>
+                    import(
+                      "../pages/CertificationExamVouchersPage/CertificationExamVouchersPage"
+                    ),
+                },
               ],
             },
             {
@@ -624,46 +636,6 @@ const createRoute = (locale: Locales) =>
                           lazy: () =>
                             import(
                               "../pages/Communities/UpdateCommunityPage/UpdateCommunityPage"
-                            ),
-                        },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  path: "teams",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Teams/IndexTeamPage/IndexTeamPage"),
-                    },
-                    {
-                      path: "create",
-                      lazy: () =>
-                        import("../pages/Teams/CreateTeamPage/CreateTeamPage"),
-                    },
-                    {
-                      path: ":teamId",
-                      lazy: () => import("../pages/Teams/TeamLayout"),
-                      children: [
-                        {
-                          index: true,
-                          lazy: () =>
-                            import("../pages/Teams/ViewTeamPage/ViewTeamPage"),
-                        },
-                        {
-                          path: "edit",
-                          lazy: () =>
-                            import(
-                              "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
-                            ),
-                        },
-                        {
-                          path: "members",
-                          lazy: () =>
-                            import(
-                              "../pages/Teams/TeamMembersPage/TeamMembersPage"
                             ),
                         },
                       ],

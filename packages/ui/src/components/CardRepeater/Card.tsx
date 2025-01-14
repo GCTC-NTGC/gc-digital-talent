@@ -1,4 +1,4 @@
-import { m, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "motion/react";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";

@@ -25,10 +25,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       <Hero
         title={intl.formatMessage(
           {
-            defaultMessage: "Welcome back, {name}",
-            id: "lIwJp4",
+            defaultMessage:
+              "Welcome back<hidden> to your applicant dashboard</hidden>, {name}",
+            id: "bw4CAS",
             description:
-              "Title for dashboard on the talent cloud admin portal.",
+              "Title for applicant dashboard on the talent cloud admin portal.",
           },
           {
             name: currentUser

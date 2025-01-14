@@ -16,7 +16,6 @@ import {
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getDCM } from "./teams";
 import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
@@ -77,16 +76,17 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   ctx,
   { userId, ...opts },
 ) => {
+  const communities = await getCommunities(ctx, {});
+  const firstCommunity = communities[0];
+
   let teamId = opts.teamId;
   if (!teamId) {
-    const team = await getDCM(ctx, {});
-    teamId = team?.id;
+    teamId = firstCommunity?.teamIdForRoleAssignment ?? "";
   }
 
   let communityId = opts.communityId;
   if (!communityId) {
-    const communities = await getCommunities(ctx, {});
-    communityId = communities[0].id;
+    communityId = firstCommunity.id ?? "";
   }
 
   let classificationId = opts.classificationId;

@@ -49,7 +49,6 @@ import {
   ownerNameAccessor,
   poolNameAccessor,
   viewCell,
-  viewTeamLinkCell,
   transformPoolInput,
   getTeamDisplayNameSort,
   getOrderByClause,
@@ -360,19 +359,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.team?.displayName, intl, true),
-      {
-        id: "team",
-        header: intl.formatMessage(adminMessages.team),
-        cell: ({ row: { original: pool } }) =>
-          viewTeamLinkCell(
-            paths.teamView(pool.team?.id ? pool.team?.id : ""),
-            pool.team?.displayName,
-            intl,
-          ),
-      },
-    ),
     columnHelper.accessor((row) => ownerNameAccessor(row), {
       id: "ownerName",
       // Note: Being removed with communities

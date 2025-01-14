@@ -10,7 +10,6 @@ import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useInputStyles from "../../hooks/useInputStyles";
-import { sanitizeString } from "../../utils";
 
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
@@ -61,7 +60,6 @@ const Input = ({
     if (whitespaceTrim) {
       inputValue = inputValue.trim();
     }
-    inputValue = sanitizeString(inputValue);
     setValue(name, inputValue);
   };
 

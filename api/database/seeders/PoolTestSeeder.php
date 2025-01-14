@@ -157,7 +157,7 @@ class PoolTestSeeder extends Seeder
 
             ]);
 
-        //IT -04
+        // IT -04
         Pool::factory()
             ->withPoolSkills(2, 2)
             ->withQuestions(3, 3)

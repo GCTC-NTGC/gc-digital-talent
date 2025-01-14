@@ -1,43 +1,68 @@
-import type { StoryFn, Meta } from "@storybook/react";
-import { faker } from "@faker-js/faker/locale/en";
+import { useEffect } from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  allModes,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
+import { Link } from "@gc-digital-talent/ui";
 
 import toast from "../../toast";
 import Toast from "./Toast";
 import "./toast.css";
 
-interface StoryArgs {
-  text: string;
-  longText: string;
-}
-
-faker.seed(0);
-
-export default {
+const meta = {
   component: Toast,
+  argTypes: {
+    disableTransition: { control: "boolean" },
+    autoClose: { control: "boolean" },
+  },
   args: {
-    text: "Toast text",
-    longText: faker.lorem.sentences(3),
+    disableTransition: true,
+    autoClose: false,
   },
   decorators: [OverlayOrDialogDecorator],
-} as Meta;
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+      delay: 1500,
+    },
+  },
+} satisfies Meta<typeof Toast>;
+export default meta;
 
-const Template: StoryFn<StoryArgs> = (args) => {
-  const { text, longText } = args;
+type Story = StoryObj<typeof Toast>;
 
-  toast.info(text);
-  toast.info(longText);
-  toast.success(text);
-  toast.warning(text);
-  toast.error(text);
+const ToastWithLink = () => (
+  <>
+    Toast info with{" "}
+    <Link href="https://talent.canada.ca" newTab>
+      link
+    </Link>
+  </>
+);
 
-  // avoid animations with Chromatic snapshots
-  return (
-    <div>
-      <Toast disableTransition autoClose={false} />
-    </div>
-  );
+const Template = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      toast.info("Toast info text", { autoClose: false });
+      toast.info(<ToastWithLink />, {
+        autoClose: false,
+      });
+      toast.info(
+        "Toast info with three sentences. Text sentence two. Toast text sentence three.",
+        { autoClose: false },
+      );
+      toast.success("Toast success text", { autoClose: false });
+      toast.warning("Toast warning text", { autoClose: false });
+    }, 100);
+  }, []);
+  return <Toast />;
 };
 
-export const Default = Template.bind({});
+export const Default: Story = {
+  render: () => <Template />,
+};

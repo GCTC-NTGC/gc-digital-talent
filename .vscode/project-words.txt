@@ -41,6 +41,7 @@ Laratrust
 Laravel
 Lcobucci
 licences
+MENTEE
 Métis
 Mi'kmaw
 Michif

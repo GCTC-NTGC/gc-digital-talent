@@ -330,8 +330,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         id: "requestedDate",
         enableColumnFilter: false,
         header: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "r2gD/4",
+          defaultMessage: "Date received",
+          id: "m0Qcow",
           description:
             "Title displayed on the search request table requested date column.",
         }),

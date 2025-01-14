@@ -55,7 +55,7 @@ class UserAuthorizationScopeTest extends TestCase
             ->for($this->platformAdmin)
             ->published()
             ->create([
-                //legacy_team
+                // legacy_team
                 'team_id' => $this->teamA->id,
             ]);
 
@@ -63,7 +63,7 @@ class UserAuthorizationScopeTest extends TestCase
             ->for($this->platformAdmin)
             ->published()
             ->create([
-                //legacy_team
+                // legacy_team
                 'team_id' => $this->teamB->id,
             ]);
 

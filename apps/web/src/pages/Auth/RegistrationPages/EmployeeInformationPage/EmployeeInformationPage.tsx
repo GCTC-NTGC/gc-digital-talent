@@ -136,10 +136,11 @@ export const EmployeeInformationFormFields = ({
     .filter((x) => x.group === groupSelection)
     .map((iterator) => {
       return {
-        value: iterator.level.toString(),
+        value: iterator.level,
         label: iterator.level.toString(),
       };
-    });
+    })
+    .sort((a, b) => a.value - b.value);
 
   const isGovEmployee = govEmployee === "yes";
 
@@ -345,6 +346,7 @@ export const EmployeeInformationFormFields = ({
                   uiMessages.nullSelectionOptionLevel,
                 )}
                 options={levelOptions}
+                doNotSort
               />
             </div>
           </>

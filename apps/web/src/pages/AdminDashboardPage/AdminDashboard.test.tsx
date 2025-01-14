@@ -64,7 +64,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -102,11 +102,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.getByRole("link", {
         name: "Skills",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
-        name: "Teams",
       }),
     ).toBeInTheDocument();
     expect(
@@ -150,7 +145,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -188,11 +183,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Skills",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Teams",
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -236,7 +226,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -274,11 +264,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Skills",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Teams",
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -322,7 +307,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -360,11 +345,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Skills",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Teams",
       }),
     ).not.toBeInTheDocument();
     expect(

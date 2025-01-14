@@ -423,10 +423,6 @@
     "defaultMessage": "Systèmes d'ordinateurs",
     "description": "Full name of abbreviation for CS"
   },
-  "Ho94JY": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Title displayed preferred communication language"
-  },
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
@@ -524,7 +520,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
-    "defaultMessage": "Démonstration de compétences",
+    "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
   },
   "Mco0Km": {
@@ -795,6 +791,10 @@
     "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
   },
+  "XiECLl": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed preferred communication language"
+  },
   "XpK4rL": {
     "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -826,6 +826,10 @@
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
+  },
+  "ZhOciS": {
+    "defaultMessage": "Modèles d'offres d'emploi",
+    "description": "Name of job advertisement templates page"
   },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
@@ -1134,6 +1138,10 @@
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
+  },
+  "nICORU": {
+    "defaultMessage": "Sélectionnez un groupe",
+    "description": "Null selection og group for select input."
   },
   "nMX0n8": {
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",

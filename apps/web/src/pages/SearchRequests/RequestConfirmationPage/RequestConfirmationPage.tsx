@@ -73,7 +73,7 @@ export const Component = () => {
 
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+    contentRef: componentRef,
     pageStyle: printStyles,
     documentTitle: intl.formatMessage({
       defaultMessage: "Request submitted",
@@ -153,7 +153,11 @@ export const Component = () => {
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(row)"
           >
-            <Button mode="solid" color="secondary" onClick={handlePrint}>
+            <Button
+              mode="solid"
+              color="secondary"
+              onClick={() => handlePrint()}
+            >
               {intl.formatMessage({
                 defaultMessage: "Print this information",
                 id: "idu0MU",

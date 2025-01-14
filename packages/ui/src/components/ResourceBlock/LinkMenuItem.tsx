@@ -1,4 +1,5 @@
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import { useId } from "react";
 
 import Link, { LinkProps } from "../Link";
 import DropdownMenu from "../DropdownMenu";
@@ -22,7 +23,10 @@ const LinkMenuItem = ({
   description,
   state,
 }: LinkMenuItemProps) => {
+  const descriptionId = useId();
   const selectedLink = links.find((link) => link.isSelected) ?? links?.[0];
+
+  const wrappedDescription = <div id={descriptionId}>{description}</div>;
 
   const dropdown = (
     <DropdownMenu.Root>
@@ -33,6 +37,7 @@ const LinkMenuItem = ({
           color="black"
           data-h2-height="base(x0.85)"
           data-h2-transform="base:children[svg](rotate(0deg)) base:selectors[[data-state='open']]:children[svg](rotate(180deg))"
+          aria-describedby={descriptionId}
         >
           {selectedLink?.title}
         </Button>
@@ -54,7 +59,7 @@ const LinkMenuItem = ({
     <BaseItem
       title={dropdown}
       accessibleLabel={accessibleLabel ?? selectedLink.title}
-      description={description}
+      description={wrappedDescription}
       state={state}
     />
   );

@@ -19,8 +19,8 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "jest": "^29.7.0",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^7.0.4",
-    "react-router": "^7.0.2"
+    "react-intl": "^7.1.0",
+    "react-router": "^7.1.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
