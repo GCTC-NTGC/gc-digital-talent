@@ -1387,6 +1387,10 @@
     "defaultMessage": "Pour en savoir plus et présenter une demande <hidden>pour {trainingOpportunityTitle}</hidden>",
     "description": "Button label to open a training opportunities dialog"
   },
+  "4tGRa+": {
+    "defaultMessage": "Lieu précis (français)",
+    "description": "Label for a pool advertisements specific French Location"
+  },
   "4tIdsX": {
     "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
     "description": "Filename for skills CSV file download"
@@ -2362,10 +2366,6 @@
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
-  },
-  "A2VzLX": {
-    "defaultMessage": "Lieu précis (anglais)",
-    "description": "Label for a pool advertisements specific English Location"
   },
   "A2stXT": {
     "defaultMessage": "Gérer une question d’ordre général",
@@ -5271,10 +5271,6 @@
     "defaultMessage": "Éducation et certificats",
     "description": "Title for education experience section"
   },
-  "PH+6C9": {
-    "defaultMessage": "Lieu précis (français)",
-    "description": "Label for a pool advertisements specific French Location"
-  },
   "PH5Lah": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
@@ -7553,6 +7549,10 @@
   "bDnBF9": {
     "defaultMessage": "Création d’une réserve de talents numériques préqualifiés à l’échelle du gouvernement, en fonction des besoins des ministères",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
+  },
+  "bEY1qp": {
+    "defaultMessage": "Lieu précis (anglais)",
+    "description": "Label for a pool advertisements specific English Location"
   },
   "bGi9fO": {
     "defaultMessage": "Création réussie de la compétence!",

@@ -331,6 +331,10 @@
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
   },
+  "CYirJF": {
+    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
+    "description": "Error message that advertisement locations must be filled in English and French."
+  },
   "ChFxsM": {
     "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
     "description": "The work region of Canada described as Atlantic."
@@ -846,10 +850,6 @@
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
-  },
-  "aMkZ80": {
-    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
-    "description": "Error message that advertisement locations must be filled in English and French."
   },
   "aTHtqQ": {
     "defaultMessage": "Obtention d’un diplôme",
