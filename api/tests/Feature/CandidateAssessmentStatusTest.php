@@ -97,7 +97,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator('assessment-status')
+            ->asProcessOperator('assessment-status')
             ->asRequestResponder()
             ->asAdmin()
             ->create();

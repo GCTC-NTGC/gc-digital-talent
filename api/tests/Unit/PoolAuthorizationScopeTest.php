@@ -84,7 +84,7 @@ class PoolAuthorizationScopeTest extends TestCase
     {
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
-                ->asPoolOperator($this->team1->name)
+                ->asProcessOperator($this->team1->name)
                 ->create());
 
         // just the four team1 pools, not team2
@@ -206,7 +206,7 @@ class PoolAuthorizationScopeTest extends TestCase
     {
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
-                ->asPoolOperator($this->team1->name)
+                ->asProcessOperator($this->team1->name)
                 ->create());
 
         // draft pool from team 1 and three published pools from both teams

@@ -122,7 +122,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(
                 User::factory()
-                    ->asPoolOperator($this->teamA->name)
+                    ->asProcessOperator($this->teamA->name)
                     ->create()
             );
 

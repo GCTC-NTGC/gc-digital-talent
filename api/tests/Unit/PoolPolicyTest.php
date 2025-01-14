@@ -72,7 +72,7 @@ class PoolPolicyTest extends TestCase
 
         $this->poolOperatorUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'pool-operator-user@test.com',
                 'sub' => 'pool-operator-user@test.com',

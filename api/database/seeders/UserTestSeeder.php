@@ -30,7 +30,6 @@ class UserTestSeeder extends Seeder
             ->asCommunityManager()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->asAdmin()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([

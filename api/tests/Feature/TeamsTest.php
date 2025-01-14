@@ -70,14 +70,14 @@ class TeamsTest extends TestCase
             ]);
 
         $this->poolOperator1 = User::factory()
-            ->asPoolOperator($this->team1->name)
+            ->asProcessOperator($this->team1->name)
             ->create([
                 'email' => 'poolOperator1@test.com',
                 'sub' => 'poolOperator1@test.com',
             ]);
 
         $this->poolOperator2 = User::factory()
-            ->asPoolOperator($this->team2->name)
+            ->asProcessOperator($this->team2->name)
             ->create([
                 'email' => 'poolOperator2@test.com',
                 'sub' => 'poolOperator2@test.com',

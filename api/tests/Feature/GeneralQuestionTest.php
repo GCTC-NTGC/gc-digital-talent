@@ -59,7 +59,7 @@ class GeneralQuestionTest extends TestCase
         ]); // this seeds 3 questions onto the pool
         $this->teamUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',

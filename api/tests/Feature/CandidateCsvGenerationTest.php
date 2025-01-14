@@ -51,7 +51,7 @@ class CandidateCsvGenerationTest extends TestCase
 
         $adminUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator('candidate-csv-team')
+            ->asProcessOperator('candidate-csv-team')
             ->asRequestResponder()
             ->asAdmin()
             ->create();
@@ -86,7 +86,7 @@ class CandidateCsvGenerationTest extends TestCase
 
         $adminUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator('candidate-csv-team')
+            ->asProcessOperator('candidate-csv-team')
             ->asRequestResponder()
             ->asAdmin()
             ->create();

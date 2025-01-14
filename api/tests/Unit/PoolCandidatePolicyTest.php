@@ -77,7 +77,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->otherCommunity = Community::factory()->create(['name' => ['en' => 'suspicious-team EN', 'fr' => 'suspicious-team FR']]);
 
         $this->poolOperatorUser = User::factory()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'pool-operator-user@test.com',
                 'sub' => 'pool-operator-user@test.com',

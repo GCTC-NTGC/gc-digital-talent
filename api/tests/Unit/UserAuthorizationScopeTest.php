@@ -118,7 +118,7 @@ class UserAuthorizationScopeTest extends TestCase
     public function testViewAsPoolOperator(): void
     {
         $poolOperator = User::factory()
-            ->asPoolOperator($this->teamA->name)
+            ->asProcessOperator($this->teamA->name)
             ->create();
         Auth::shouldReceive('user')
             ->andReturn($poolOperator);
@@ -204,7 +204,7 @@ class UserAuthorizationScopeTest extends TestCase
     public function testViewBasicAsPoolOperator(): void
     {
         $poolOperator = User::factory()
-            ->asPoolOperator($this->pool1->legacyTeam->name)
+            ->asProcessOperator($this->pool1->legacyTeam->name)
             ->create();
         Auth::shouldReceive('user')
             ->andReturn($poolOperator);

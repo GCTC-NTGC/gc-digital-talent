@@ -99,7 +99,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->poolOperatorUser = User::factory()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'email' => 'pool-operator-user@test.com',
                 'sub' => 'pool-operator-user@test.com',

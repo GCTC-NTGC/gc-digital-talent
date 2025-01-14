@@ -60,7 +60,7 @@ class PoolTest extends TestCase
         ]);
 
         $this->poolOperator = User::factory()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->team->name)
             ->create([
                 'sub' => 'operator@test.com',
             ]);
