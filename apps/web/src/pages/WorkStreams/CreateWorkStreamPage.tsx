@@ -12,11 +12,7 @@ import {
   Select,
   Submit,
 } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  errorMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
   Scalars,
@@ -278,13 +274,13 @@ const CreateWorkStream_Query = graphql(/* GraphQL */ `
       name {
         en
         fr
+        localized
       }
     }
   }
 `);
 
 const CreateWorkStreamPage = () => {
-  const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: CreateWorkStream_Query,
   });
@@ -292,7 +288,7 @@ const CreateWorkStreamPage = () => {
   const communityOptions: OptGroupOrOption[] =
     unpackMaybes(lookupData?.communities).map(({ id, name }) => ({
       value: id,
-      label: getLocalizedName(name, intl),
+      label: name?.localized,
     })) ?? [];
 
   return (

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   NotFound,
@@ -30,11 +30,12 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 
 export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
-  fragment WorkStreamForm on WorkStream {
+  fragment WorkStreamView on WorkStream {
     id
     name {
       en
       fr
+      localized
     }
     plainLanguageName {
       en
@@ -46,6 +47,7 @@ export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
       name {
         en
         fr
+        localized
       }
     }
   }
@@ -60,7 +62,8 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
   const paths = useRoutes();
   const workStream = getFragment(WorkStreamView_Fragment, query);
 
-  const pageTitle = getLocalizedName(workStream.name, intl);
+  const pageTitle =
+    workStream.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -143,7 +146,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
             </FieldDisplay>
             <div data-h2-grid-column="p-tablet(span 2)">
               <FieldDisplay label={intl.formatMessage(adminMessages.community)}>
-                {getLocalizedName(workStream.community?.name, intl)}
+                {workStream.community?.name?.localized}
               </FieldDisplay>
             </div>
           </div>
@@ -176,11 +179,7 @@ interface RouteParams extends Record<string, string> {
 const WorkStream_Query = graphql(/* GraphQL */ `
   query ViewWorkStreamPage($id: UUID!) {
     workStream(id: $id) {
-      name {
-        en
-        fr
-      }
-      ...WorkStreamForm
+      ...WorkStreamView
     }
   }
 `);

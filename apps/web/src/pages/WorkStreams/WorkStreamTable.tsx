@@ -4,7 +4,7 @@ import { OperationContext, useQuery } from "urql";
 import { useLocation } from "react-router";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
@@ -24,10 +24,12 @@ export const WorkStreamTableRow_Fragment = graphql(/* GraphQL */ `
     name {
       en
       fr
+      localized
     }
     plainLanguageName {
       en
       fr
+      localized
     }
     community {
       id
@@ -35,6 +37,7 @@ export const WorkStreamTableRow_Fragment = graphql(/* GraphQL */ `
       name {
         en
         fr
+        localized
       }
     }
   }
@@ -63,40 +66,34 @@ export const WorkStreamTable = ({
       enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
     }),
-    columnHelper.accessor((row) => getLocalizedName(row.name, intl), {
+    columnHelper.accessor((row) => row.name?.localized, {
       id: "name",
       sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
       cell: ({ row: { original: workStream } }) => (
         <Link href={paths.workStreamView(workStream.id)}>
-          {getLocalizedName(workStream.name, intl)}
+          {workStream.name?.localized}
         </Link>
       ),
       meta: {
         isRowTitle: true,
       },
     }),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.plainLanguageName, intl),
-      {
-        id: "plainLanguageName",
-        sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Plain language alternative",
-          id: "ax3wZp",
-          description:
-            "Column header for plain language name in work streams table",
-        }),
-      },
-    ),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.community?.name, intl),
-      {
-        id: "community",
-        sortingFn: normalizedText,
-        header: intl.formatMessage(adminMessages.community),
-      },
-    ),
+    columnHelper.accessor((row) => row.plainLanguageName?.localized, {
+      id: "plainLanguageName",
+      sortingFn: normalizedText,
+      header: intl.formatMessage({
+        defaultMessage: "Plain language alternative",
+        id: "ax3wZp",
+        description:
+          "Column header for plain language name in work streams table",
+      }),
+    }),
+    columnHelper.accessor((row) => row.community?.name?.localized, {
+      id: "community",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.community),
+    }),
   ] as ColumnDef<WorkStreamTableRowFragment>[];
 
   const { pathname, search, hash } = useLocation();

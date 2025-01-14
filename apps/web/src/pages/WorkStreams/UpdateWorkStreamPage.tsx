@@ -15,7 +15,6 @@ import {
   errorMessages,
   commonMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -55,12 +54,13 @@ const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const WorkStreamForm_Fragment = graphql(/* GraphQL */ `
-  fragment WorkStreamForm on WorkStream {
+export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
+  fragment WorkStreamUpdate on WorkStream {
     id
     name {
       en
       fr
+      localized
     }
     plainLanguageName {
       en
@@ -100,7 +100,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateWorkStreamInput => {
 };
 
 interface UpdateWorkStreamProps {
-  query: FragmentType<typeof WorkStreamForm_Fragment>;
+  query: FragmentType<typeof WorkStreamUpdate_Fragment>;
   communityOptions: OptGroupOrOption[];
 }
 
@@ -112,7 +112,7 @@ export const UpdateWorkStreamForm = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const [, executeMutation] = useMutation(UpdateWorkStream_Mutation);
-  const workStream = getFragment(WorkStreamForm_Fragment, query);
+  const workStream = getFragment(WorkStreamUpdate_Fragment, query);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -159,8 +159,6 @@ export const UpdateWorkStreamForm = ({
       .catch(handleError);
   };
 
-  const workStreamName = getLocalizedName(workStream.name, intl);
-
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -168,7 +166,7 @@ export const UpdateWorkStreamForm = ({
         url: paths.workStreamTable(),
       },
       {
-        label: workStreamName,
+        label: workStream.name?.localized,
         url: paths.workStreamView(workStream.id),
       },
       ...(workStream.id
@@ -313,17 +311,14 @@ interface RouteParams extends Record<string, string> {
 const WorkStream_Query = graphql(/* GraphQL */ `
   query WorkStream($id: UUID!) {
     workStream(id: $id) {
-      name {
-        en
-        fr
-      }
-      ...WorkStreamForm
+      ...WorkStreamUpdate
     }
     communities {
       id
       name {
         en
         fr
+        localized
       }
     }
   }
@@ -342,7 +337,7 @@ const UpdateWorkStreamPage = () => {
   const communityOptions: OptGroupOrOption[] =
     unpackMaybes(workStreamData?.communities).map(({ id, name }) => ({
       value: id,
-      label: getLocalizedName(name, intl),
+      label: name?.localized,
     })) ?? [];
 
   return (
