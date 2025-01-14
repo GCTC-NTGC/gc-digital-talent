@@ -85,10 +85,10 @@ const CreateApplication = () => {
     path: string,
     toastFunction: () => void,
   ): Promise<void> => {
-    if (navigateWithToastCounter.current > 0) return; // we've already started navigation
+    navigateWithToastCounter.current += 1;
+    if (navigateWithToastCounter.current > 1) return; // we've already started navigation
     await navigate(path, { replace: true });
     toastFunction();
-    navigateWithToastCounter.current += 1;
   };
 
   // If a "me" object came back then we've checked.

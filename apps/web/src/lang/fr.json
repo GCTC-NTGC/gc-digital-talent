@@ -267,10 +267,6 @@
     "defaultMessage": "Retirer la compétence {name} de l’expérience",
     "description": "Aria-label for remove skill button from experience"
   },
-  "/LGiVB": {
-    "defaultMessage": "Statut de la candidature ",
-    "description": "Candidacy status label"
-  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -762,10 +758,6 @@
   "1q/MmU": {
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
-  },
-  "1sPszf": {
-    "defaultMessage": "Lieu actuel",
-    "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
@@ -1943,6 +1935,10 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 advisor description"
   },
+  "803us1": {
+    "defaultMessage": "Profil intégral",
+    "description": "Text in table search form column dropdown when no column is selected."
+  },
   "80DOGy": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on the pool candidate form end date field."
@@ -2130,10 +2126,6 @@
   "8yB2Bm": {
     "defaultMessage": "Conditions favorables",
     "description": "Heading for the directives digital enabling conditions component"
-  },
-  "90E1fF": {
-    "defaultMessage": "(Ordre croissant)",
-    "description": "Message added to indicate a table column is sorted in ascending order"
   },
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
@@ -2358,6 +2350,10 @@
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
+  },
+  "9wfkY1": {
+    "defaultMessage": "Lieu actuel",
+    "description": "Title displayed on the Pool Candidates table Current Location column."
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
@@ -4647,13 +4643,13 @@
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
   },
-  "LvHCvn": {
-    "defaultMessage": "Langue de communication préférée :",
-    "description": "Display text for the preferred communication language field on users"
-  },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
     "description": "Title for Minimum experience or equivalent education"
+  },
+  "LwruRb": {
+    "defaultMessage": "Trier",
+    "description": "Hint to let users know a table column can be sorted"
   },
   "LxRoWB": {
     "defaultMessage": "Création de la collectivité réussie!",
@@ -4842,10 +4838,6 @@
   "Mxu+IY": {
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
-  },
-  "Myfw+L": {
-    "defaultMessage": "Bassins",
-    "description": "Title for pools"
   },
   "Mz7sON": {
     "defaultMessage": "Gérez vos compétences",
@@ -5722,6 +5714,10 @@
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
+  },
+  "RGHXLW": {
+    "defaultMessage": "Ordre croissant",
+    "description": "Message added to indicate a table column is sorted in ascending order"
   },
   "RGl+Dr": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes",
@@ -7218,6 +7214,10 @@
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
+  "Z0G1WA": {
+    "defaultMessage": "Processus",
+    "description": "Title for processes"
+  },
   "Z3h103": {
     "defaultMessage": "<hidden>Change language to </hidden>English",
     "description": "Title for the language toggle link."
@@ -7525,10 +7525,6 @@
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
-  },
-  "aq2pSe": {
-    "defaultMessage": "description pour {name}",
-    "description": "Link text suffix to read more of the description for a skill"
   },
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
@@ -10222,10 +10218,6 @@
     "defaultMessage": "Préférences relatives au travail",
     "description": "Name of Work preferences page"
   },
-  "nok2sR": {
-    "defaultMessage": "Nom :",
-    "description": "Display text for the name field on users"
-  },
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
@@ -10854,10 +10846,6 @@
     "defaultMessage": "Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
   },
-  "rN333X": {
-    "defaultMessage": "Profil intégral",
-    "description": "Text in table search form column dropdown when no column is selected."
-  },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
@@ -11370,10 +11358,6 @@
     "defaultMessage": "Le contrat comporte-t-il des exigences particulières en matière de personnel?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
   },
-  "uKD+km": {
-    "defaultMessage": "(Ordre décroissant)",
-    "description": "Message added to indicate a table column is sorted in descending order"
-  },
   "uLncuU": {
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the User table Candidate name column."
@@ -11491,7 +11475,7 @@
     "description": "Heading for section describing investing in future talent"
   },
   "v9A5Cb": {
-    "defaultMessage": "Emplacement actuel",
+    "defaultMessage": "Lieu actuel",
     "description": "Legend for users current location"
   },
   "v9mTgX": {
@@ -11722,6 +11706,10 @@
     "defaultMessage": "la science des données et analyse pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "wUqfbl": {
+    "defaultMessage": "Placement professionnel : {placement}. Modifiez.",
+    "description": "Button text to edit the placement of a candidate"
+  },
   "wUujPy": {
     "defaultMessage": "la technologie de l'information;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -11853,6 +11841,10 @@
   "xSSp8E": {
     "defaultMessage": "aucune date d’échéance fournie",
     "description": "Message for when an expiration date has not been provided"
+  },
+  "xUz0TV": {
+    "defaultMessage": "Statut de la candidature",
+    "description": "Candidacy status label"
   },
   "xV43au": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les conseillers en RH",
@@ -12174,6 +12166,10 @@
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
   },
+  "z4xCCg": {
+    "defaultMessage": "Date d'expiration : {date}. Modifiez.",
+    "description": "Button text to edit an expiry date"
+  },
   "z59tbA": {
     "defaultMessage": "Tout le tableau",
     "description": "Default text in table search form column dropdown when no column is selected"
@@ -12229,6 +12225,10 @@
   "zH8887": {
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
+  },
+  "zIv0jm": {
+    "defaultMessage": "Ordre décroissant",
+    "description": "Message added to indicate a table column is sorted in descending order"
   },
   "zJKngJ": {
     "defaultMessage": "Gérer votre expérience et les processus de recrutement pour lesquels vous êtes qualifié(e).",

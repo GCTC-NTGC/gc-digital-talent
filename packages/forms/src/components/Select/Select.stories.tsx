@@ -70,8 +70,8 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     {
       id: 3,
       label: {
-        en: "Pools",
-        fr: "Bassins",
+        en: "Processes",
+        fr: "Processus",
       },
       options: pools.map(({ id, name }) => ({
         value: id,
