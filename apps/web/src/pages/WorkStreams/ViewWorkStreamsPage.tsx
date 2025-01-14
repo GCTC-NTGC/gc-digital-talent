@@ -32,6 +32,7 @@ import adminMessages from "~/messages/adminMessages";
 export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamView on WorkStream {
     id
+    key
     name {
       en
       fr
@@ -147,6 +148,12 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
             <div data-h2-grid-column="p-tablet(span 2)">
               <FieldDisplay label={intl.formatMessage(adminMessages.community)}>
                 {workStream.community?.name?.localized}
+              </FieldDisplay>
+            </div>
+            <div data-h2-grid-column="p-tablet(span 2)">
+              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                {workStream.key ??
+                  intl.formatMessage(commonMessages.notProvided)}
               </FieldDisplay>
             </div>
           </div>

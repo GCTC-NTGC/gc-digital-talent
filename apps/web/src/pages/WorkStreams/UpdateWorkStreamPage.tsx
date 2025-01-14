@@ -45,6 +45,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 
 const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
   mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
@@ -57,6 +58,7 @@ const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
 export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamUpdate on WorkStream {
     id
+    key
     name {
       en
       fr
@@ -78,7 +80,6 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  key?: InputMaybe<Scalars["String"]["input"]>;
   name?: InputMaybe<LocalizedStringInput>;
   plainLanguageName?: InputMaybe<LocalizedStringInput>;
   community: string;
@@ -273,6 +274,12 @@ export const UpdateWorkStreamForm = ({
                     }}
                     options={communityOptions}
                   />
+                </div>
+                <div data-h2-grid-column="p-tablet(span 2)">
+                  <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                    {workStream.key ??
+                      intl.formatMessage(commonMessages.notProvided)}
+                  </FieldDisplay>
                 </div>
               </div>
               <CardSeparator />

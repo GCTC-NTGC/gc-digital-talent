@@ -47,7 +47,7 @@ const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  key?: InputMaybe<Scalars["String"]["input"]>;
+  key: InputMaybe<Scalars["String"]["input"]>;
   name: LocalizedStringInput;
   plainLanguageName?: InputMaybe<LocalizedStringInput>;
   community: string;
@@ -56,6 +56,7 @@ interface FormValues {
 const formValuesToSubmitData = (data: FormValues): CreateWorkStreamInput => {
   const communityId = data.community;
   return {
+    key: data.key,
     name: {
       en: data.name?.en,
       fr: data.name?.fr,
@@ -231,6 +232,34 @@ export const CreateWorkStreamForm = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   options={communityOptions}
+                />
+              </div>
+              <div data-h2-grid-column="p-tablet(span 2)">
+                <Input
+                  id="key"
+                  name="key"
+                  label={intl.formatMessage(adminMessages.key)}
+                  context={intl.formatMessage({
+                    defaultMessage:
+                      "The 'key' is a string that uniquely identifies a work stream. It should be based on the work streams English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular work stream, so it cannot be changed later.",
+                    id: "uWZgYM",
+                    description:
+                      "Additional context describing the purpose of the work streams 'key' field.",
+                  })}
+                  type="text"
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                    pattern: {
+                      value: /^[a-z]+(_[a-z]+)*$/,
+                      message: intl.formatMessage({
+                        defaultMessage:
+                          "Please use only lowercase letters and underscores.",
+                        id: "3owqTQ",
+                        description:
+                          "Description for rule pattern on key field",
+                      }),
+                    },
+                  }}
                 />
               </div>
             </div>
