@@ -60,79 +60,111 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
   const paths = useRoutes();
   const workStream = getFragment(WorkStreamView_Fragment, query);
 
+  const pageTitle = getLocalizedName(workStream.name, intl);
+
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitles.workStreams),
+        url: paths.workStreamTable(),
+      },
+      {
+        label: pageTitle,
+        url: paths.workStreamView(workStream.id),
+      },
+    ],
+  });
+
+  const navTabs = [
+    {
+      url: paths.workStreamView(workStream.id),
+      label: intl.formatMessage({
+        defaultMessage: "Work stream information",
+        id: "mBaKVv",
+        description: "Nav tab label for work stream information",
+      }),
+    },
+  ];
   return (
     <>
+      <SEO title={pageTitle} />
+      <Hero title={pageTitle} crumbs={navigationCrumbs} navTabs={navTabs} />
       <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
+        data-h2-margin="base(x3 0)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <Heading
-          level="h2"
-          color="primary"
-          Icon={IdentificationIcon}
-          data-h2-margin="base(0, 0, x1.5, 0)"
-          data-h2-font-weight="base(400)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Work stream information",
-            id: "nGy9DA",
-            description: "Heading for the 'view a work stream' form",
-          })}
-        </Heading>
-      </div>
-      <CardBasic>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
-          data-h2-gap="base(x1)"
-        >
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
-            {workStream.name?.en}
-          </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
-            {workStream.name?.fr}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Plain language alternative (English)",
-              id: "yW8bEZ",
-              description: "Label for plain language alt english input",
-            })}
-          >
-            {workStream.plainLanguageName?.en}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Plain language alternative (French)",
-              id: "OKCVhm",
-              description: "Label for plain language alt french input",
-            })}
-          >
-            {workStream.plainLanguageName?.fr}
-          </FieldDisplay>
-          <div data-h2-grid-column="p-tablet(span 2)">
-            <FieldDisplay label={intl.formatMessage(adminMessages.community)}>
-              {getLocalizedName(workStream.community?.name, intl)}
-            </FieldDisplay>
-          </div>
-        </div>
-        <CardSeparator />
         <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
-          <Link
-            href={paths.workStreamUpdate(workStream.id)}
-            data-h2-font-weight="base(bold)"
+          <Heading
+            level="h2"
+            color="primary"
+            Icon={IdentificationIcon}
+            data-h2-margin="base(0, 0, x1.5, 0)"
+            data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
-              defaultMessage: "Edit work stream information",
-              id: "fqEh4+",
-              description: "Link to edit the currently viewed work stream",
+              defaultMessage: "Work stream information",
+              id: "nGy9DA",
+              description: "Heading for the 'view a work stream' form",
             })}
-          </Link>
+          </Heading>
         </div>
-      </CardBasic>
+        <CardBasic>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
+            data-h2-gap="base(x1)"
+          >
+            <FieldDisplay label={intl.formatMessage(adminMessages.nameEn)}>
+              {workStream.name?.en}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
+              {workStream.name?.fr}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Plain language alternative (English)",
+                id: "yW8bEZ",
+                description: "Label for plain language alt english input",
+              })}
+            >
+              {workStream.plainLanguageName?.en}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Plain language alternative (French)",
+                id: "OKCVhm",
+                description: "Label for plain language alt french input",
+              })}
+            >
+              {workStream.plainLanguageName?.fr}
+            </FieldDisplay>
+            <div data-h2-grid-column="p-tablet(span 2)">
+              <FieldDisplay label={intl.formatMessage(adminMessages.community)}>
+                {getLocalizedName(workStream.community?.name, intl)}
+              </FieldDisplay>
+            </div>
+          </div>
+          <CardSeparator />
+          <div
+            data-h2-display="base(flex)"
+            data-h2-justify-content="base(center) p-tablet(flex-start)"
+          >
+            <Link
+              href={paths.workStreamUpdate(workStream.id)}
+              data-h2-font-weight="base(bold)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit work stream information",
+                id: "fqEh4+",
+                description: "Link to edit the currently viewed work stream",
+              })}
+            </Link>
+          </div>
+        </CardBasic>
+      </div>
     </>
   );
 };
@@ -155,78 +187,31 @@ const WorkStream_Query = graphql(/* GraphQL */ `
 
 const ViewWorkStreamPage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { workStreamId } = useRequiredParams<RouteParams>("workStreamId");
   const [{ data: workStreamData, fetching, error }] = useQuery({
     query: WorkStream_Query,
     variables: { id: workStreamId },
   });
 
-  const workStreamName = getLocalizedName(
-    workStreamData?.workStream?.name,
-    intl,
-  );
-
-  const navigationCrumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitles.workStreams),
-        url: routes.workStreamTable(),
-      },
-      {
-        label: workStreamName,
-        url: routes.workStreamView(workStreamId),
-      },
-    ],
-  });
-
-  const navTabs = [
-    {
-      url: routes.workStreamView(workStreamId),
-      label: intl.formatMessage({
-        defaultMessage: "Work stream information",
-        id: "mBaKVv",
-        description: "Nav tab label for work stream information",
-      }),
-    },
-  ];
-
   return (
-    <>
-      <SEO title={workStreamName} />
-      <Hero
-        title={
-          fetching ? intl.formatMessage(commonMessages.loading) : workStreamName
-        }
-        crumbs={navigationCrumbs}
-        navTabs={navTabs}
-      />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <Pending fetching={fetching} error={error}>
-            {workStreamData?.workStream ? (
-              <ViewWorkStream query={workStreamData?.workStream} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Work stream {workStreamId} not found.",
-                      id: "PzQ0E1",
-                      description:
-                        "Message displayed for work stream not found.",
-                    },
-                    { workStreamId },
-                  )}
-                </p>
-              </NotFound>
+    <Pending fetching={fetching} error={error}>
+      {workStreamData?.workStream ? (
+        <ViewWorkStream query={workStreamData?.workStream} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Work stream {workStreamId} not found.",
+                id: "PzQ0E1",
+                description: "Message displayed for work stream not found.",
+              },
+              { workStreamId },
             )}
-          </Pending>
-        </div>
-      </div>
-    </>
+          </p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
