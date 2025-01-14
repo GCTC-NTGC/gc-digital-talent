@@ -1879,6 +1879,10 @@
     "defaultMessage": "Ajouté aux favoris",
     "description": "Title displayed on the Pool Candidates table bookmark column"
   },
+  "7gTBjD": {
+    "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidates et candidats. Les compétences sélectionnées ici sont nécessaires pour qu'une personne candidate soit prise en considération pour le poste. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
+    "description": "Describes selecting essentials skills for a process."
+  },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
@@ -6433,10 +6437,6 @@
   "VIZAgj": {
     "defaultMessage": "Étant donné que les plateformes de médias sociaux et leurs serveurs sont gérés par un tiers, les comptes de médias sociaux sont sujets à des interruptions de service qui échappent au contrôle du gouvernement du Canada. Le gouvernement du Canada n’assume donc aucune responsabilité en cas de non-disponibilité des plateformes.",
     "description": "Paragraph for content and frequency section"
-  },
-  "VKvAfu": {
-    "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Les personnes souhaitant déposer leur candidature devront disposer des compétences sélectionnées ici. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
-    "description": "Describes selecting essentials skills for a process."
   },
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
