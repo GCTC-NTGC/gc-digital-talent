@@ -412,7 +412,7 @@
     "description": "Message for when a candidate has no claims to be verified"
   },
   "07p+1J": {
-    "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link> communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
+    "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link>communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
     "description": "Third paragraph for pool closing date dialog"
   },
   "07sCDh": {
