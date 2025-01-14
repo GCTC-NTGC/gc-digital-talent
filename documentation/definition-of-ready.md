@@ -13,7 +13,6 @@
     - who is allowed to take specific actions on the page?
   - Accessibility is considered, including but not limited to:
     - hidden text is defined, eg alt text, text to disambiguate links, aria text
-    - alternatives to hidden text have been considered
     - keyboard navigation has been considered
     - announcing changes to page has been considered
 - If this updates backend:
