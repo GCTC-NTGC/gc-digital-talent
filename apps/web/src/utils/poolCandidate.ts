@@ -440,10 +440,12 @@ export const getApplicationStatusChip = (
   const currentStep = assessmentStatus?.currentStep
     ? assessmentStatus?.currentStep
     : 0;
-  const poolHasScreeningQuestions = screeningQuestions
-    ? screeningQuestions?.length > 0
-    : false;
-  if (currentStep === 2 && poolHasScreeningQuestions) {
+  const numberOfScreeningSteps =
+    screeningQuestions && screeningQuestions?.length > 0 ? 2 : 1;
+  const numberOfStepStatuses =
+    assessmentStatus?.assessmentStepStatuses?.length ?? 0;
+
+  if (currentStep <= numberOfScreeningSteps && numberOfStepStatuses > 0) {
     return {
       color: "secondary",
       label: intl.formatMessage(applicationStatusLabels.UNDER_REVIEW),
@@ -452,30 +454,26 @@ export const getApplicationStatusChip = (
       ),
     };
   }
-  if (
-    (currentStep === 3 && poolHasScreeningQuestions) ||
-    (currentStep === 2 && !poolHasScreeningQuestions)
-  ) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(applicationStatusLabels.PENDING_ASSESSMENT),
-      description: intl.formatMessage(
-        applicationStatusDescriptions.PENDING_ASSESSMENT,
-      ),
-    };
+  if (currentStep > numberOfScreeningSteps) {
+    if (numberOfStepStatuses <= numberOfScreeningSteps) {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(applicationStatusLabels.PENDING_ASSESSMENT),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.PENDING_ASSESSMENT,
+        ),
+      };
+    } else {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNDER_ASSESSMENT,
+        ),
+      };
+    }
   }
-  if (
-    (currentStep > 3 && poolHasScreeningQuestions) ||
-    (currentStep > 2 && !poolHasScreeningQuestions)
-  ) {
-    return {
-      color: "secondary",
-      label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
-      description: intl.formatMessage(
-        applicationStatusDescriptions.UNDER_ASSESSMENT,
-      ),
-    };
-  }
+
   return {
     color: "secondary",
     label: intl.formatMessage(applicationStatusLabels.RECEIVED),
