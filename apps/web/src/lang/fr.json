@@ -5419,10 +5419,6 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
   },
-  "Q2uL2b": {
-    "defaultMessage": "Cette question aide les candidats à comprendre ce que signifie le fait dans un bassin « pool » de recrutement, et ce à quoi ils pourraient s’attendre en tant que candidats qui se qualifient.",
-    "description": "Describes the 'what to expect after admission' section of a process' advertisement."
-  },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
@@ -12189,6 +12185,10 @@
   "zKCAjY": {
     "defaultMessage": "Salaire maximal",
     "description": "Label for classification maximum salary display"
+  },
+  "zLuuVe": {
+    "defaultMessage": "Ces informations aident les candidates et candidats à comprendre ce que signifie être admis dans un processus de recrutement et ce à quoi ils pourraient s'attendre en tant que candidates et candidats qualifiés.",
+    "description": "Describes the 'what to expect after admission' section of a process' advertisement."
   },
   "zMZQLY": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
