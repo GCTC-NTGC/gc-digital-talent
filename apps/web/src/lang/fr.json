@@ -5759,10 +5759,6 @@
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
     "description": "Button text to duplicate a process"
   },
-  "RahVQS": {
-    "defaultMessage": "Questions communes",
-    "description": "Title for common questions"
-  },
   "Raho+z": {
     "defaultMessage": "Questionnaire",
     "description": "Heading for the Questionnaire section on the digital services contracting questionnaire"
@@ -10961,6 +10957,10 @@
   "sGPKUt": {
     "defaultMessage": "Consulter la Directive",
     "description": "Link text to read the directive on digital talent"
+  },
+  "sGT8ER": {
+    "defaultMessage": "Informations complémentaires",
+    "description": "Title for common questions"
   },
   "sICXeM": {
     "defaultMessage": "Date d'expiration",
