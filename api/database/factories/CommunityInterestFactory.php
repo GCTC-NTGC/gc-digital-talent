@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\DevelopmentProgramInterest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -50,6 +51,22 @@ class CommunityInterestFactory extends Factory
             $workStreams = $model->community->workStreams()->limit($count)->get()->pluck('id');
 
             $model->workStreams()->attach($workStreams);
+        });
+    }
+
+    /**
+     * Create many development program relationships from the parent community
+     */
+    public function withDevelopmentProgramInterests(int $limit = 3)
+    {
+        return $this->afterCreating(function (CommunityInterest $communityInterest) use ($limit) {
+            $developmentPrograms = $communityInterest->community->developmentPrograms()->limit($limit)->get();
+            foreach ($developmentPrograms as $developmentProgram) {
+                DevelopmentProgramInterest::factory()
+                    ->for($communityInterest)
+                    ->for($developmentProgram)
+                    ->create();
+            }
         });
     }
 }

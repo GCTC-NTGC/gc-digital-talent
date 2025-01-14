@@ -144,4 +144,13 @@ class Community extends Model
     {
         return $this->team?->id;
     }
+
+    /** A community has 0..* associated development programs
+     *
+     * @return HasMany<DevelopmentProgram, $this>
+     */
+    public function developmentPrograms(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgram::class);
+    }
 }

@@ -25,6 +25,7 @@ class CiSeeder extends Seeder
             JobPosterTemplateSeeder::class,
 
             // convenient test data
+            CommunityTestSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
         ]);
