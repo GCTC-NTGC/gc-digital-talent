@@ -329,11 +329,12 @@ const UpdateWorkStreamPage = () => {
     },
   );
 
-  const communityOptions: OptGroupOrOption[] =
-    unpackMaybes(workStreamData?.communities).map(({ id, name }) => ({
-      value: id,
-      label: name?.localized,
-    })) ?? [];
+  const communityOptions: OptGroupOrOption[] = unpackMaybes(
+    workStreamData?.communities,
+  ).map(({ id, name }) => ({
+    value: id,
+    label: name?.localized,
+  }));
 
   return (
     <Pending fetching={fetching} error={error}>
