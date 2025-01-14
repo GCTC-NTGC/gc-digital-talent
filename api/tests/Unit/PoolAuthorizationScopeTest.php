@@ -79,28 +79,6 @@ class PoolAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([], $poolIds->toArray());
     }
 
-    // a community manager should be able to admin all the pools
-    public function testAdminAsCommunityManager(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asCommunityManager()
-                ->create());
-
-        // four from team 1 and four from team 2
-        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolDraft1->id,
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-            $this->poolDraft2->id,
-            $this->poolPublished2->id,
-            $this->poolClosed2->id,
-            $this->poolArchived2->id,
-        ], $poolIds->toArray());
-    }
-
     // a platform admin should be able to admin all the pools
     public function testAdminAsPlatformAdmin(): void
     {
@@ -155,28 +133,6 @@ class PoolAuthorizationScopeTest extends TestCase
             $this->poolPublished1->id,
             $this->poolClosed1->id,
             $this->poolArchived1->id,
-            $this->poolPublished2->id,
-            $this->poolClosed2->id,
-            $this->poolArchived2->id,
-        ], $poolIds->toArray());
-    }
-
-    // a community manager should be able to view all the pools
-    public function testViewAsCommunityManager(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(User::factory()
-                ->asCommunityManager()
-                ->create());
-
-        // four from team 1 and four from team 2
-        $poolIds = Pool::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->poolDraft1->id,
-            $this->poolPublished1->id,
-            $this->poolClosed1->id,
-            $this->poolArchived1->id,
-            $this->poolDraft2->id,
             $this->poolPublished2->id,
             $this->poolClosed2->id,
             $this->poolArchived2->id,

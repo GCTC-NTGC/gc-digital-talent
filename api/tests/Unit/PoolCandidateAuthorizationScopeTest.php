@@ -116,20 +116,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         ], $candidateIds->toArray());
     }
 
-    // community manager role doesn't grant any candidate permissions - nothing viewable
-    public function testViewAsCommunityManager(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asCommunityManager()
-                    ->create()
-            );
-
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([], $candidateIds->toArray());
-    }
-
     // a platform admin should be able to view submitted candidates in any team
     public function testViewAsPlatformAdmin(): void
     {

@@ -114,21 +114,6 @@ class UserAuthorizationScopeTest extends TestCase
         ], $userIds->toArray());
     }
 
-    // the community manager role has no special privileges - can just see themselves
-    public function testViewAsCommunityManager(): void
-    {
-        $communityManager = User::factory()
-            ->asCommunityManager()
-            ->create();
-        Auth::shouldReceive('user')
-            ->andReturn($communityManager);
-
-        $userIds = User::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $communityManager->id,
-        ], $userIds->toArray());
-    }
-
     // a platform admin should be able to view any user
     public function testViewAsPlatformAdmin(): void
     {
@@ -162,24 +147,6 @@ class UserAuthorizationScopeTest extends TestCase
         $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->user1->id,
-        ], $userIds->toArray());
-    }
-
-    // a community manager can see any basic info
-    public function testViewBasicAsCommunityManager(): void
-    {
-        $communityManager = User::factory()
-            ->asCommunityManager()
-            ->create();
-        Auth::shouldReceive('user')
-            ->andReturn($communityManager);
-
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->platformAdmin->id,
-            $this->user1->id,
-            $this->user2->id,
-            $communityManager->id,
         ], $userIds->toArray());
     }
 
