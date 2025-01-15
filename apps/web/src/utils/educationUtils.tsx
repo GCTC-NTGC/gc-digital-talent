@@ -198,6 +198,7 @@ export const getEducationRequirementOptions = (
           ),
         },
       ];
+    case "AS":
     case "PM":
       return [
         {
