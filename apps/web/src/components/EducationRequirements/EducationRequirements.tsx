@@ -3,6 +3,7 @@ import { HTMLProps, ReactNode } from "react";
 
 import { Link, Heading, HeadingLevel, CardBasic } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 import {
@@ -12,6 +13,7 @@ import {
   foreignDegreeLink,
   postSecondaryLink,
 } from "~/utils/educationUtils";
+import { ClassificationGroup } from "~/types/classificationGroup";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
@@ -65,7 +67,7 @@ const Or = (props: HTMLProps<HTMLDivElement>) => {
 
 interface EducationRequirementsProps {
   isIAP: boolean;
-  classificationGroup?: string;
+  classificationGroup: ClassificationGroup;
   headingAs?: HeadingLevel;
 }
 
@@ -280,7 +282,7 @@ const EducationRequirements = ({
           </CardBasic>
         </Wrapper>
       );
-    default:
+    case "IT":
       return (
         <Wrapper>
           <CardBasic>
@@ -352,6 +354,8 @@ const EducationRequirements = ({
           </CardBasic>
         </Wrapper>
       );
+    default:
+      return assertUnreachable(classificationGroup); // exhaustive switch
   }
 };
 
