@@ -174,7 +174,8 @@ export const convertDateTimeToDate = (
 export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
   let dateWithTimezone: string = d;
   // 1970-01-01 00:00:00 = 19 chars
-  if (d.length <= 19 && !dateWithTimezone.includes("+")) {
+  // 1970-01-01 = 10 chars
+  if (d.length <= 19 && d.length > 10 && !dateWithTimezone.includes("+")) {
     dateWithTimezone = `${d}+00:00`;
   }
   return parseISO(dateWithTimezone);
