@@ -6,8 +6,10 @@ import { Locales } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
+import { ClassificationGroup } from "~/types/classificationGroup";
 
 export const foreignDegreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =
@@ -93,7 +95,7 @@ const appliedWorkListMessages = (isIAP = false) => [
 export const getEducationRequirementOptions = (
   intl: IntlShape,
   locale: Locales,
-  classificationGroup?: string,
+  classificationGroup: ClassificationGroup,
   isIAP = false,
 ): Radio[] => {
   switch (classificationGroup) {
@@ -198,6 +200,7 @@ export const getEducationRequirementOptions = (
           ),
         },
       ];
+    case "AS":
     case "PM":
       return [
         {
@@ -277,7 +280,7 @@ export const getEducationRequirementOptions = (
           ),
         },
       ];
-    default:
+    case "IT":
       return [
         {
           value: EducationRequirementOption.AppliedWork,
@@ -349,5 +352,7 @@ export const getEducationRequirementOptions = (
           ),
         },
       ];
+    default:
+      return assertUnreachable(classificationGroup); // exhaustive switch
   }
 };
