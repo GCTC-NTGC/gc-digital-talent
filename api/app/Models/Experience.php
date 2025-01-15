@@ -285,6 +285,10 @@ class Experience extends Model
         );
     }
 
+    /**
+     * @param  mixed  $snapshot  the snapshot
+     * @return array array of experiences
+     */
     public static function hydrateSnapshot(mixed $snapshot): Model|array
     {
         $experiences = [];

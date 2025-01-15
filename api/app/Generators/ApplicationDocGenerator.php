@@ -46,7 +46,22 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
-        $experiences = isset($snapshot['experiences']) ? Experience::hydrateSnapshot($snapshot['experiences']) : [];
+        $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
+
+        // the snapshot stores the department and classification models connected by relation
+        // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
+        foreach ($snapshotExperiences as &$experience) {
+            if ($experience['__typename'] === 'WorkExperience') {
+                if (isset($experience['department'])) {
+                    $experience['departmentId'] = $experience['department']['id'];
+                }
+                if (isset($experience['classification'])) {
+                    $experience['classificationId'] = $experience['classification']['id'];
+                }
+            }
+        }
+        $experiences = Experience::hydrateSnapshot($snapshotExperiences);
+
         $section->addTitle($user->getFullName(), 2);
 
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
@@ -88,23 +103,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             });
         }
 
-        if (isset($snapshot['experiences'])) {
-            $snapshotExperiences = $snapshot['experiences'];
-
-            // the snapshot stores the department and classification models connected by relation
-            // to render with GeneratesUserDoc, map the model to a string with the appropriate property name
-            foreach ($snapshotExperiences as &$experience) {
-                if ($experience['__typename'] === 'WorkExperience') {
-                    if (isset($experience['department'])) {
-                        $experience['departmentId'] = $experience['department']['id'];
-                    }
-                    if (isset($experience['classification'])) {
-                        $experience['classificationId'] = $experience['classification']['id'];
-                    }
-                }
-            }
-
-            $experiences = Experience::hydrateSnapshot($snapshotExperiences);
+        if ($experiences && count($experiences) > 0) {
             $this->experiences($section, collect($experiences), false, 2);
         }
 
