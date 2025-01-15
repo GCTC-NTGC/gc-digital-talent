@@ -58,13 +58,11 @@ export const formatDate = ({
 }: FormatDateOptions): string => {
   const strLocale = getLocale(intl);
   const locale: Locale = strLocale === "fr" ? fr : en;
-  const localTz = getLocalTimezone();
-  const formatTz = timeZone ?? localTz;
 
   // A date formatting function that can use time zones optionally
   const result = format(date, formatString, {
     locale,
-    in: formatTz ? tz(formatTz) : undefined,
+    in: timeZone ? tz(timeZone) : undefined,
   });
 
   return result;
@@ -168,8 +166,14 @@ export const convertDateTimeToDate = (
 };
 
 // Parse an API scalar DateTime as UTC to a native Date object
-export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date =>
-  parseISO(d, { in: tz("UTC") });
+export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
+  let dateWithTimezone: string = d;
+  // 1970-01-01 00:00:00 = 19 chars
+  if (d.length <= 19 && !dateWithTimezone.includes("+")) {
+    dateWithTimezone = `${d}+00:00`;
+  }
+  return parseISO(dateWithTimezone);
+};
 
 /**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
