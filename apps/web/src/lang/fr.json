@@ -635,10 +635,6 @@
     "defaultMessage": "Le Bureau des initiatives autochtones (BIA) est l’équipe qui soutient le programme.",
     "description": "Paragraph 4 of the 'About the program' section"
   },
-  "1E0RiD": {
-    "defaultMessage": "Numéro du processus",
-    "description": "Label for a pools process number"
-  },
   "1FwczA": {
     "defaultMessage": "Marquer comme lue",
     "description": "Button text to mark all notifications as read"

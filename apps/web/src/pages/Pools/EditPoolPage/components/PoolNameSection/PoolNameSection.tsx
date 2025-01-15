@@ -449,11 +449,7 @@ const PoolNameSection = ({
                   id="processNumber"
                   name="processNumber"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Process Number",
-                    id: "1E0RiD",
-                    description: "Label for a pools process number",
-                  })}
+                  label={intl.formatMessage(processMessages.processNumber)}
                   context={intl.formatMessage({
                     defaultMessage:
                       "This process number is obtained from your HR shop",
