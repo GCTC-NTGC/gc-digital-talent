@@ -35,18 +35,6 @@ export {
 export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 
 /**
- * Attempts to get the users local timezone
- */
-export const getLocalTimezone = (): string | undefined => {
-  let localTz;
-  if (window.Intl && typeof window.Intl === "object") {
-    localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  }
-
-  return localTz;
-};
-
-/**
  * Format a date in given format and locale, optionally in a different time zone
  * @returns String in the given format
  */
