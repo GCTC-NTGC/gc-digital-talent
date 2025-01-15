@@ -165,7 +165,12 @@ export const convertDateTimeToDate = (
   return d.substring(0, DATE_FORMAT_STRING.length);
 };
 
-// Parse an API scalar DateTime as UTC to a native Date object
+/**
+ * Parse an API scalar DateTime as UTC to a native Date object
+ *
+ * Adds a timezone offest if we think it does not exist
+ * to support parsing the date into users local timezone properly
+ */
 export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
   let dateWithTimezone: string = d;
   // 1970-01-01 00:00:00 = 19 chars
