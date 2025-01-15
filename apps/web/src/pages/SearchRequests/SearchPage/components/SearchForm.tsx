@@ -25,9 +25,11 @@ import {
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
+import { isClassificationGroup } from "~/types/classificationGroup";
 
 import { formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
@@ -61,7 +63,14 @@ export const SearchForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const logger = useLogger();
   const { defaultValues, initialFilters } = useInitialFilters();
+
+  classifications.forEach(({ group }) => {
+    if (!isClassificationGroup(group)) {
+      logger.error(`Unexpected classification: ${group}`);
+    }
+  });
 
   const [applicantFilter, setApplicantFilter] =
     useState<ApplicantFilterInput>(initialFilters);
