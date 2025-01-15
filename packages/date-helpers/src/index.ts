@@ -36,6 +36,8 @@ export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 
 /**
  * Format a date in given format and locale, optionally in a different time zone
+ * If not timezone is provided, users local timezone will be used
+ *
  * @returns String in the given format
  */
 export const formatDate = ({
