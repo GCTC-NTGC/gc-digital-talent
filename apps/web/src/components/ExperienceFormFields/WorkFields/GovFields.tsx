@@ -111,17 +111,6 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     name: "govContractorType",
   });
 
-  // If the government employee type is "Term",
-  // then remove the "Substantive" option from the govPositionTypes
-  const allPositionTypes = localizedEnumToOptions(data?.govPositionTypes, intl);
-  const conditionalPositionTypes =
-    watchGovEmploymentType === WorkExperienceGovEmployeeType.Term
-      ? allPositionTypes.filter(
-          (positionType) =>
-            positionType.value !== String(GovPositionType.Substantive),
-        )
-      : allPositionTypes;
-
   const departmentOptions = unpackMaybes(data?.departments).map(
     ({ id, name }) => ({
       value: id,
@@ -216,8 +205,13 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationLevel");
     }
 
-    if (watchGovEmploymentType) {
-      resetDirtyField("govPositionType");
+    /**
+     * Wipe position type field if employment type changes, setting it to null rather than just reset incase the user default is bad
+     */
+    if (
+      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
+    ) {
+      resetField("govPositionType", { keepDirty: false, defaultValue: null });
     }
 
     if (watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor) {
@@ -272,15 +266,14 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          {(watchGovEmploymentType ===
-            WorkExperienceGovEmployeeType.Indeterminate ||
-            watchGovEmploymentType === WorkExperienceGovEmployeeType.Term) && (
+          {watchGovEmploymentType ===
+            WorkExperienceGovEmployeeType.Indeterminate && (
             <div data-h2-flex-item="base(1of1)">
               <RadioGroup
                 idPrefix="govPositionType"
                 name="govPositionType"
                 legend={labels.positionType}
-                items={conditionalPositionTypes}
+                items={localizedEnumToOptions(data?.govPositionTypes, intl)}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
