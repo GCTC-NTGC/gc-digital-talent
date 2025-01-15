@@ -16,6 +16,7 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
+  FinalDecision,
   PoolCandidateStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
@@ -86,6 +87,10 @@ describe("ApplicationCard", () => {
           status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           expiryDate: FAR_FUTURE_DATE,
           suspendedAt: new Date().toUTCString(),
+          finalDecisionAt: FAR_PAST_DATE,
+          finalDecision: {
+            value: FinalDecision.QualifiedPlaced,
+          },
         },
         ApplicationCard_Fragment,
       ),
@@ -111,8 +116,8 @@ describe("ApplicationCard", () => {
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
 
-    const hiredCasualLabel = screen.queryByText("Hired (Casual)");
-    expect(hiredCasualLabel).toBeInTheDocument();
+    const successfulLabel = screen.queryByText("Successful");
+    expect(successfulLabel).toBeInTheDocument();
   });
 
   it("should have proper label if the application is draft but the pool is expired", () => {
@@ -122,15 +127,19 @@ describe("ApplicationCard", () => {
         {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.DraftExpired),
-          expiryDate: FAR_PAST_DATE,
+          pool: {
+            ...mockApplication.pool,
+            closingDate: FAR_PAST_DATE,
+          },
+          submittedAt: null,
         },
         ApplicationCard_Fragment,
       ),
     });
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(2);
-    const qualifiedLabel = screen.queryByText("Submission date passed");
+    const expiredLabel = screen.queryByText("Expired");
 
-    expect(qualifiedLabel).toBeInTheDocument();
+    expect(expiredLabel).toBeInTheDocument();
   });
 });

@@ -279,10 +279,6 @@
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
-  "/Sobod": {
-    "defaultMessage": "Embauché (Période indéterminée)",
-    "description": "Status for an application that has been hired with an indeterminate contract"
-  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -523,10 +519,6 @@
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de Talents numériques du GC. À partir d’ici, il est possible de recruter et gérer des talents, trouver des ressources et ajuster les paramètres de la plateforme.",
     "description": "Subtitle for the admin dashboard page"
   },
-  "0YZeO0": {
-    "defaultMessage": "Embauché(e) (occasionnel)",
-    "description": "Status for an application that has been hired with a casual contract"
-  },
   "0YpfAG": {
     "defaultMessage": "Placement de talents",
     "description": "Title for candidates tab for a process"
@@ -598,10 +590,6 @@
   "11/un8": {
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
-  },
-  "13fSK+": {
-    "defaultMessage": "La date de soumission est dépassée",
-    "description": "Status for an application that where the recruitment has expired"
   },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
@@ -1262,10 +1250,6 @@
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
-  },
-  "4TmwRU": {
-    "defaultMessage": "Candidature reçue",
-    "description": "Status for an application that has been submitted"
   },
   "4UYBKD": {
     "defaultMessage": "Des exemples de ces contrats peuvent inclure, sans toutefois s'y limiter :",
@@ -2211,10 +2195,6 @@
     "defaultMessage": "{date} - Aujourd’hui",
     "description": "A date range that goes to the present day"
   },
-  "9Pxjw5": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that where applicant is being assessed"
-  },
   "9QJRRw": {
     "defaultMessage": "Erreur : le signet du candidat n’a pas été mis à jour.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a candidate."
@@ -2278,10 +2258,6 @@
   "9gU2in": {
     "defaultMessage": "Nous répondrons à votre demande dans les sept jours ouvrables. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
     "description": "First paragraph of what to expect section"
-  },
-  "9gpVCX": {
-    "defaultMessage": "Prêt à être embauché",
-    "description": "Status for an application where user user is ready to hire"
   },
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
@@ -2694,10 +2670,6 @@
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
-  },
-  "C+hP/v": {
-    "defaultMessage": "Candidature retirée",
-    "description": "Status for an application that has been withdrawn"
   },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
@@ -4254,10 +4226,6 @@
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
-  },
-  "KA/hfo": {
-    "defaultMessage": "Pause",
-    "description": "Status for an application to an advertisement that is unavailable"
   },
   "KCaMch": {
     "defaultMessage": "Gérer <a1>vos renseignements personnels</a1>, <a2>votre parcours professionnel</a2>, <a3>vos compétences</a3>, et <a4>faire le suivi de vos candidatures</a4>.",
@@ -6287,10 +6255,6 @@
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
-  "UZWLKn": {
-    "defaultMessage": "En attente d’évaluation des compétences",
-    "description": "Status for an application that is having skills reviewed"
-  },
   "UanJxB": {
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"
@@ -6517,10 +6481,6 @@
   "VmMnkU": {
     "defaultMessage": "Préavis d'attribution de contrat",
     "description": "Advance contract award notice contract solicitation procedure"
-  },
-  "VplMpm": {
-    "defaultMessage": "Embauché (Période déterminée)",
-    "description": "Status for an application that has been hired with a term contract"
   },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
@@ -7454,10 +7414,6 @@
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
     "description": "Error message when there aren't any skills to select"
   },
-  "aagbij": {
-    "defaultMessage": "En cours de révision",
-    "description": "Status for an application that is being reviewed"
-  },
   "ac1z9L": {
     "defaultMessage": "Quelles tâches ou activités avez-vous effectuées en rapport avec cette compétence?",
     "description": "Question about related tasks to a skill"
@@ -7725,10 +7681,6 @@
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
     "description": "Description of how we use GCKey for authentication."
-  },
-  "c+6rQB": {
-    "defaultMessage": "N’est pas intéressé",
-    "description": "Status for when the user has suspended an application"
   },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
@@ -10553,10 +10505,6 @@
   "peTSHR": {
     "defaultMessage": "Notes sur cette demande",
     "description": "Heading for the notes about this request section of the single search request view."
-  },
-  "pf3KKo": {
-    "defaultMessage": "Poursuivre l’ébauche",
-    "description": "Link text to continue a application draft"
   },
   "pgPBbf": {
     "defaultMessage": "51 à 100",

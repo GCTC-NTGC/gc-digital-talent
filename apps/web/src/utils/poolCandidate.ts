@@ -107,11 +107,9 @@ export const isDisqualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status
-    ? [
-        FinalDecision.Disqualified,
-        FinalDecision.DisqualifiedPending,
-        FinalDecision.DisqualifiedRemoved,
-      ].includes(status)
+    ? [FinalDecision.Disqualified, FinalDecision.DisqualifiedRemoved].includes(
+        status,
+      )
     : false;
 };
 
@@ -122,7 +120,6 @@ export const isQualifiedFinalDecision = (
     ? [
         FinalDecision.Qualified,
         FinalDecision.QualifiedExpired,
-        FinalDecision.QualifiedPending,
         FinalDecision.QualifiedPlaced,
         FinalDecision.QualifiedRemoved,
       ].includes(status)
