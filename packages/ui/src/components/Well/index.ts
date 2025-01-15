@@ -1,4 +1,4 @@
-import Well, { type WellProps } from "./Well";
+import Well, { type WellProps, type WellColor } from "./Well";
 
 export default Well;
-export type { WellProps };
+export type { WellProps, WellColor };

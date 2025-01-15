@@ -1,8 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
-type Color = "default" | "primary" | "success" | "warning" | "error";
+export type WellColor = "default" | "primary" | "success" | "warning" | "error";
 
-const colorMap = new Map<Color, Record<string, string>>([
+const colorMap = new Map<WellColor, Record<string, string>>([
   [
     "default",
     {
@@ -48,7 +48,7 @@ const colorMap = new Map<Color, Record<string, string>>([
 export interface WellProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: ReactNode;
-  color?: Color;
+  color?: WellColor;
   fontSize?: "caption" | "body";
 }
 

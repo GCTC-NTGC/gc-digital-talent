@@ -304,6 +304,31 @@ const commonMessages = defineMessages({
     id: "i+8teP",
     description: "Title for description",
   },
+  received: {
+    defaultMessage: "Received",
+    id: "SD8i+/",
+    description: "Title for received",
+  },
+  deadlineToApply: {
+    defaultMessage: "Deadline to apply",
+    id: "ZoYqEo",
+    description: "Title for deadline to apply",
+  },
+  awarded: {
+    defaultMessage: "Awarded",
+    id: "J0I91S",
+    description: "Title for awarded",
+  },
+  expires: {
+    defaultMessage: "Expires",
+    id: "eQ8bTh",
+    description: "Title for expires",
+  },
+  close: {
+    defaultMessage: "Close",
+    id: "fhpH9E",
+    description: "Title for close",
+  },
 });
 
 export default commonMessages;
