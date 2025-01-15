@@ -168,7 +168,7 @@ export const convertDateTimeToDate = (
 /**
  * Parse an API scalar DateTime as UTC to a native Date object
  *
- * Adds a timezone offest if we think it does not exist
+ * Adds a timezone offset if we think it does not exist
  * to support parsing the date into users local timezone properly
  */
 export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
