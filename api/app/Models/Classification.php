@@ -82,6 +82,6 @@ class Classification extends Model
             $query->where('group', 'AS')->where('level', '=', 3);
         })->orWhere(function ($query) {
             $query->where('group', 'AS')->where('level', '=', 5);
-    });
+        });
     }
 }
