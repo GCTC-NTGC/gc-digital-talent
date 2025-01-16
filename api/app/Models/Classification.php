@@ -58,7 +58,7 @@ class Classification extends Model
 
     /**
      * Used to limit the results for the search page input
-     * to IT up to level 5; PM up to level 6; CR level 4; EX level 3, EX level 4.
+     * to IT up to level 5; PM up to level 6; CR level 4; EX level 3, EX level 4; AS level 3, AS level 5.
      *
      * TODO: Update in #9483 to derive from new column
      */
@@ -78,6 +78,10 @@ class Classification extends Model
             $query->where('group', 'EX')->where('level', '=', 3);
         })->orWhere(function ($query) {
             $query->where('group', 'EX')->where('level', '=', 4);
-        });
+        })->orWhere(function ($query) {
+            $query->where('group', 'AS')->where('level', '=', 3);
+        })->orWhere(function ($query) {
+            $query->where('group', 'AS')->where('level', '=', 5);
+    });
     }
 }
