@@ -42,11 +42,16 @@ import {
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import { isIAPPool } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
 
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
@@ -345,6 +350,7 @@ export const ScreeningDecisionDialog = ({
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const logger = useLogger();
   const dialogType = useDialogType(
     educationRequirement ? undefined : { type: assessmentStep?.type },
   );
@@ -386,7 +392,16 @@ export const ScreeningDecisionDialog = ({
     getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
       .length > 0;
 
-  const classificationGroup = poolCandidate.pool.classification?.group;
+  let classificationGroup: ClassificationGroup;
+
+  if (isClassificationGroup(poolCandidate.pool.classification?.group)) {
+    classificationGroup = poolCandidate.pool.classification?.group;
+  } else {
+    logger.error(
+      `Unexpected classification: ${poolCandidate.pool.classification?.group}`,
+    );
+    classificationGroup = "IT";
+  }
 
   const educationRequirementOption = getEducationRequirementOptions(
     intl,

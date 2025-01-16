@@ -27,10 +27,10 @@ test.describe("Update pool", () => {
       .getByRole("button", { name: /edit advertisement details/i })
       .click();
     await appPage.page
-      .getByRole("textbox", { name: /job title \(en\)/i })
+      .getByRole("textbox", { name: /job title \(english\)/i })
       .fill("Update pool test (EN)");
     await appPage.page
-      .getByRole("textbox", { name: /job title \(fr\)/i })
+      .getByRole("textbox", { name: /job title \(french\)/i })
       .fill("Update pool test (FR)");
     await appPage.page
       .getByRole("combobox", { name: /work stream/i })
@@ -54,7 +54,7 @@ test.describe("Update pool", () => {
       .click();
 
     const closingDate = appPage.page.getByRole("group", {
-      name: /end date/i,
+      name: /closing date/i,
     });
     await closingDate.getByRole("spinbutton", { name: /year/i }).fill("2500");
     await closingDate

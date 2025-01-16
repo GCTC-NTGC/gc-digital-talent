@@ -125,8 +125,8 @@ const WhatToExpectAdmissionSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      'This question helps applicants understand what it means to be in a recruitment "pool" and what they should expect as qualified candidates.',
-    id: "Q2uL2b",
+      "This information helps applicants understand what it means to be in a recruitment process and what they should expect as qualified candidates.",
+    id: "zLuuVe",
     description:
       "Describes the 'what to expect after admission' section of a process' advertisement.",
   });

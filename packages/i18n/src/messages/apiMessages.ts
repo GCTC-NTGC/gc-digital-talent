@@ -279,8 +279,8 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
   PoolLocationRequired: {
     defaultMessage:
-      "You must fill Specific Location in English and French if advertisement is not remote.",
-    id: "aMkZ80",
+      "You must fill Specific location in English and French if advertisement is not remote.",
+    id: "CYirJF",
     description:
       "Error message that advertisement locations must be filled in English and French.",
   },

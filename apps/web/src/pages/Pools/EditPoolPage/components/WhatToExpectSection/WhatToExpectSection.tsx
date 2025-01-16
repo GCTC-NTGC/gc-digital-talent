@@ -119,8 +119,8 @@ const WhatToExpectSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This information lets applicants know what they can expect after they apply, such as further exams, meeting with managers directly and possible timelines.",
-    id: "ww+trY",
+      "This information lets applicants know what they can expect after they apply, such as further exams, meeting with managers directly, and possible timelines.",
+    id: "+/ZsxX",
     description:
       "Describes the 'what to expect after applying' section of a process' advertisement.",
   });
