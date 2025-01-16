@@ -656,6 +656,15 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+}
+
+type DevelopmentProgramInterest {
+  id: UUID!
+  developmentProgram: DevelopmentProgram!
+  communityInterest: CommunityInterest!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 type EmployeeProfile {
@@ -963,6 +972,16 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
+  developmentPrograms: [DevelopmentProgram!]
+}
+
+type DevelopmentProgram {
+  id: UUID!
+  name: LocalizedString
+  descriptionForProfile: LocalizedString
+  descriptionForNominations: LocalizedString
+  community: Community
+  eligibleClassifications: [Classification!]
 }
 
 type Team implements HasRoleAssignments {
@@ -1576,6 +1595,7 @@ input CreateCommunityInterestInput {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
 }
 
 input UpdateCommunityInterestInput {
@@ -1583,6 +1603,29 @@ input UpdateCommunityInterestInput {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
+  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+}
+
+input CreateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+}
+
+input UpdateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+  update: [UpdateDevelopmentProgramInterestInput!]
+  delete: [UUID!]
+}
+
+input CreateDevelopmentProgramInterestInput {
+  developmentProgramId: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
+}
+
+input UpdateDevelopmentProgramInterestInput {
+  id: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 input LocalizedStringInput {
@@ -2942,6 +2985,13 @@ enum CourseLanguage {
 enum DeadlineStatus {
   PUBLISHED
   EXPIRED
+}
+
+enum DevelopmentProgramParticipationStatus {
+  NOT_INTERESTED
+  INTERESTED
+  ENROLLED
+  COMPLETED
 }
 
 enum AdvertisementType {
