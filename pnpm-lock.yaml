@@ -1053,8 +1053,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@18.3.1)
       react-toastify:
-        specifier: ^11.0.2
-        version: 11.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^11.0.3
+        version: 11.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.3.0
@@ -6912,8 +6912,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
 
-  react-toastify@11.0.2:
-    resolution: {integrity: sha512-GjHuGaiXMvbls3ywqv8XdWONwrcO4DXCJIY1zVLkHU73gEElKvTTXNI5Vom3s/k/M8hnkrfsqgBSX3OwmlonbA==}
+  react-toastify@11.0.3:
+    resolution: {integrity: sha512-cbPtHJPfc0sGqVwozBwaTrTu1ogB9+BLLjd4dDXd863qYLj7DGrQ2sg5RAChjFUB4yc3w8iXOtWcJqPK/6xqRQ==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -14602,7 +14602,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  react-toastify@11.0.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-toastify@11.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       clsx: 2.1.1
       react: 18.3.1
