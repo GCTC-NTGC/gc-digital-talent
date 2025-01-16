@@ -148,7 +148,7 @@ describe("parse DateTime UTC to native Date tests", () => {
   });
 });
 
-describe.only("format date in different timezones", () => {
+describe("format date in different timezones", () => {
   const f = formatDate;
   const intlCache = createIntlCache();
   const intl = createIntl(
