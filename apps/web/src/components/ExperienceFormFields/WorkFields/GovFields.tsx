@@ -205,13 +205,8 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationLevel");
     }
 
-    /**
-     * Wipe position type field if employment type changes, setting it to null rather than just reset incase the user default is bad
-     */
-    if (
-      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
-    ) {
-      resetField("govPositionType", { keepDirty: false, defaultValue: null });
+    if (watchGovEmploymentType) {
+      resetDirtyField("govPositionType");
     }
 
     if (watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor) {

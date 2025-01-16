@@ -6,6 +6,7 @@ import {
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
+  GovEmployeeType,
   graphql,
 } from "@gc-digital-talent/graphql";
 
@@ -158,10 +159,20 @@ export const useExperienceMutations = (
     id: string,
     values: ExperienceDetailsSubmissionData,
   ): ExperienceMutationArgs => {
+    // users may have invalid WorkExperience state with govEmploymentType TERM and non-null govPositionType
+    let massagedValues = values;
+    if (
+      experienceType === "work" &&
+      !!massagedValues.govEmploymentType &&
+      massagedValues.govEmploymentType !== GovEmployeeType.Indeterminate
+    ) {
+      massagedValues.govPositionType = null;
+    }
+
     return {
       id,
       ...(!!experienceType && {
-        [args[experienceType]]: values,
+        [args[experienceType]]: massagedValues,
       }),
     } as ExperienceMutationArgs;
   };
