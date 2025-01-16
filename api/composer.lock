@@ -4732,16 +4732,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.47.1",
+            "version": "v6.48.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "3b4f85e1190dc2cdf32e89eabbe3139e8af5634c"
+                "reference": "2f0cd99c95e8bcf633fed746c8d5289912a05018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/3b4f85e1190dc2cdf32e89eabbe3139e8af5634c",
-                "reference": "3b4f85e1190dc2cdf32e89eabbe3139e8af5634c",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/2f0cd99c95e8bcf633fed746c8d5289912a05018",
+                "reference": "2f0cd99c95e8bcf633fed746c8d5289912a05018",
                 "shasum": ""
             },
             "require": {
@@ -4806,6 +4806,7 @@
                         "Nuwave\\Lighthouse\\LighthouseServiceProvider",
                         "Nuwave\\Lighthouse\\Async\\AsyncServiceProvider",
                         "Nuwave\\Lighthouse\\Auth\\AuthServiceProvider",
+                        "Nuwave\\Lighthouse\\Bind\\BindServiceProvider",
                         "Nuwave\\Lighthouse\\Cache\\CacheServiceProvider",
                         "Nuwave\\Lighthouse\\GlobalId\\GlobalIdServiceProvider",
                         "Nuwave\\Lighthouse\\OrderBy\\OrderByServiceProvider",
@@ -4858,7 +4859,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-01-08T13:18:57+00:00"
+            "time": "2025-01-09T15:51:14+00:00"
         },
         {
             "name": "phpoffice/math",
