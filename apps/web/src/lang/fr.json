@@ -1151,6 +1151,10 @@
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
   },
+  "40Z3LU": {
+    "defaultMessage": "AS-03 : Conseiller(ère) ou analyste",
+    "description": "AS-03 classification label including titles"
+  },
   "436DA5": {
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
@@ -6890,6 +6894,10 @@
     "defaultMessage": "Les renseignements personnels recueillis par le truchement de Talents numériques du GC sont décrits dans le fichier de <personalInfoLink>renseignements personnels du Nuage de talents (SCT PPU 095)</personalInfoLink>.",
     "description": "Paragraph for privacy policy page"
   },
+  "XZ8zbg": {
+    "defaultMessage": "Conseiller(ère) ou analyste A S 3",
+    "description": "AS-03 classification aria label including titles"
+  },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
@@ -8638,6 +8646,10 @@
     "defaultMessage": "Rapports obligatoires",
     "description": "Heading for section for the downloadable forms section"
   },
+  "g7zCg/": {
+    "defaultMessage": "AS-05 : Conseiller(ère) principal(e) ou analyste",
+    "description": "AS-05 classification label including titles"
+  },
   "g8Ur9z": {
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
@@ -10077,6 +10089,10 @@
   "n92mcX": {
     "defaultMessage": "Responsables de l’approvisionnement",
     "description": "Title for procurement officer resource card"
+  },
+  "n9Q5yf": {
+    "defaultMessage": "Conseiller(ère) principal(e) ou analyste A S 5",
+    "description": "AS-05 classification aria label including titles"
   },
   "n9YPWe": {
     "defaultMessage": "Statut du bassin",
