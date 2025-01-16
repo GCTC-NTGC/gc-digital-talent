@@ -14,6 +14,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 interface StatusInfo {
   Icon: IconType;
@@ -38,6 +39,12 @@ const useStatusInfo = (
     return defaultStatusInfo;
   }
 
+  const date = formatDate({
+    date: parseDateTimeUtc(completionDate),
+    formatString: "MMMM yyyy",
+    intl,
+  });
+
   const infoMap = new Map<DevelopmentProgramParticipationStatus, StatusInfo>([
     [
       DevelopmentProgramParticipationStatus.Interested,
@@ -46,9 +53,9 @@ const useStatusInfo = (
         iconStyles: { "data-h2-color": "base(primary)" },
         message: intl.formatMessage({
           defaultMessage: "Interested in this program",
-          id: "djZmfA",
+          id: "ytcZ7A",
           description:
-            "Message diaplayed when a user is interested in a development program",
+            "Message displayed when a user is interested in a development program",
         }),
       },
     ],
@@ -58,10 +65,10 @@ const useStatusInfo = (
         Icon: XCircleIcon,
         iconStyles: { "data-h2-color": "base(gray.lighter)" },
         message: intl.formatMessage({
-          defaultMessage: "Interested in this program",
-          id: "djZmfA",
+          defaultMessage: "Not interested",
+          id: "9TIkDp",
           description:
-            "Message diaplayed when a user is interested in a development program",
+            "Message displayed when a user is not interested in a development program",
         }),
       },
     ],
@@ -70,12 +77,15 @@ const useStatusInfo = (
       {
         Icon: PauseCircleIcon,
         iconStyles: { "data-h2-color": "base(primary)" },
-        message: intl.formatMessage({
-          defaultMessage: "Interested in this program",
-          id: "djZmfA",
-          description:
-            "Message diaplayed when a user is interested in a development program",
-        }),
+        message: intl.formatMessage(
+          {
+            defaultMessage: "Currently enrolled, expected completion in {date}",
+            id: "fFihbX",
+            description:
+              "Message displayed when a user is enrolled in a development program",
+          },
+          { date },
+        ),
       },
     ],
     [
@@ -83,12 +93,17 @@ const useStatusInfo = (
       {
         Icon: CheckCircleIcon,
         iconStyles: { "data-h2-color": "base(success)" },
-        message: intl.formatMessage({
-          defaultMessage: "Interested in this program",
-          id: "djZmfA",
-          description:
-            "Message diaplayed when a user is interested in a development program",
-        }),
+        message: intl.formatMessage(
+          {
+            defaultMessage: "Completed in {date}",
+            id: "RXFGuE",
+            description:
+              "Message when a user has completed a development program",
+          },
+          {
+            date,
+          },
+        ),
       },
     ],
   ]);
@@ -147,7 +162,7 @@ const DevelopopmentProgramInterestItem = ({
                 "data-h2-color": "base(error)",
               }
             : {
-                "data-h2-color": "base(black.light))",
+                "data-h2-color": "base(black.light)",
               })}
         >
           {message}
