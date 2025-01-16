@@ -160,7 +160,7 @@ export const useExperienceMutations = (
     values: ExperienceDetailsSubmissionData,
   ): ExperienceMutationArgs => {
     // users may have invalid WorkExperience state with govEmploymentType TERM and non-null govPositionType
-    let massagedValues = values;
+    const massagedValues = values;
     if (
       experienceType === "work" &&
       !!massagedValues.govEmploymentType &&
