@@ -9,12 +9,19 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 
 import BoolCheckIcon from "./BoolCheckIcon";
+import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
 
 export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDialog on CommunityInterest {
     id
     community {
       workStreams {
+        id
+        name {
+          localized
+        }
+      }
+      developmentPrograms {
         id
         name {
           localized
@@ -29,12 +36,9 @@ export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
     }
     interestInDevelopmentPrograms {
       developmentProgram {
-        name {
-          localized
-        }
+        id
       }
-      participationStatus
-      completionDate
+      ...CommunityInterestDialogDevelopmentProgramInterest
     }
     jobInterest
     trainingInterest
@@ -64,6 +68,9 @@ const CommunityInterestDialog = ({
   const title = communityInterest.community?.name?.localized ?? notAvailable;
   const communityWorkStreams = unpackMaybes(
     communityInterest.community.workStreams,
+  );
+  const communityDevelopmentPrograms = unpackMaybes(
+    communityInterest?.community.developmentPrograms,
   );
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,
@@ -196,6 +203,45 @@ const CommunityInterestDialog = ({
             </>
           )}
           <Separator orientation="horizontal" decorative space="sm" />
+          {communityDevelopmentPrograms.length > 0 && (
+            <>
+              <p
+                data-h2-font-weight="base(700)"
+                data-h2-margin-bottom="base(x.25)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Leadership and professional development options",
+                  id: "UfwS5s",
+                  description:
+                    "Label for users interest in development programs for a community",
+                })}
+              </p>
+              <ul
+                data-h2-list-style="base(none)"
+                data-h2-padding-left="base(0)"
+              >
+                {communityDevelopmentPrograms.map((developmentProgram) => {
+                  const interestedProgram =
+                    communityInterest?.interestInDevelopmentPrograms?.find(
+                      (interest) =>
+                        interest?.developmentProgram?.id ===
+                        developmentProgram.id,
+                    );
+                  return (
+                    <DevelopmentProgramInterestItem
+                      key={developmentProgram.id}
+                      developmentProgramInterestQuery={interestedProgram}
+                      label={
+                        developmentProgram?.name?.localized ?? notAvailable
+                      }
+                    />
+                  );
+                })}
+              </ul>
+              <Separator orientation="horizontal" decorative space="sm" />
+            </>
+          )}
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage({
               defaultMessage: "Additional information",
