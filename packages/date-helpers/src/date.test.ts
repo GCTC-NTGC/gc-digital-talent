@@ -148,7 +148,7 @@ describe("parse DateTime UTC to native Date tests", () => {
   });
 });
 
-describe("format date in different timezones", () => {
+describe.only("format date in different timezones", () => {
   const f = formatDate;
   const intlCache = createIntlCache();
   const intl = createIntl(
@@ -158,7 +158,7 @@ describe("format date in different timezones", () => {
     intlCache,
   );
 
-  test("it formats with timezone provided", () => {
+  test("it formats with timezone UTC provided", () => {
     register("US/Eastern");
     const actual = f({
       date: parseDateTimeUtc("2022-01-01 00:00:00+00:00"),
@@ -167,6 +167,19 @@ describe("format date in different timezones", () => {
     });
 
     expect(actual).toBe("2021-12-31 19:00:00");
+  });
+
+  test("it formats with timzone Eastern provide", () => {
+    // NOTE: This is odd but +5 is actually -5
+    // REF: https://www.npmjs.com/package/timezone-mock#:~:text=Etc/GMT%2B5%20timezone%20is%20equivalent%20to%20US%20Eastern%20Standard%20Time%20(UTC%2D5).
+    register("Etc/GMT+5");
+    const actual = f({
+      date: parseDateTimeUtc("2022-01-01 00:00:00-05:00"),
+      formatString: DATETIME_FORMAT_STRING,
+      intl,
+    });
+
+    expect(actual).toBe("2022-01-01 00:00:00");
   });
 
   test("it formats with no timezone provided", () => {
