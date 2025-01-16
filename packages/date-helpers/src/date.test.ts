@@ -5,10 +5,13 @@
 import { createIntl, createIntlCache } from "react-intl";
 import { parseISO } from "date-fns";
 import { tz } from "@date-fns/tz";
+import { register } from "timezone-mock";
 
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
+  DATETIME_FORMAT_STRING,
+  formatDate,
   parseDateTimeUtc,
   relativeClosingDate,
 } from "./index";
@@ -142,5 +145,38 @@ describe("parse DateTime UTC to native Date tests", () => {
     const expectedValue = new Date("2000-01-01T00:00:00.000Z");
 
     expect(actualValue?.valueOf()).toBe(expectedValue.valueOf());
+  });
+});
+
+describe("format date in different timezones", () => {
+  const f = formatDate;
+  const intlCache = createIntlCache();
+  const intl = createIntl(
+    {
+      locale: "en",
+    },
+    intlCache,
+  );
+
+  test("it formats with timezone provided", () => {
+    register("US/Eastern");
+    const actual = f({
+      date: parseDateTimeUtc("2022-01-01 00:00:00+00:00"),
+      formatString: DATETIME_FORMAT_STRING,
+      intl,
+    });
+
+    expect(actual).toBe("2021-12-31 19:00:00");
+  });
+
+  test("it formats with no timezone provided", () => {
+    register("US/Pacific");
+    const actual = f({
+      date: parseDateTimeUtc("2022-01-01 00:00:00"),
+      formatString: DATETIME_FORMAT_STRING,
+      intl,
+    });
+
+    expect(actual).toBe("2021-12-31 16:00:00");
   });
 });
