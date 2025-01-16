@@ -2326,11 +2326,7 @@ type Mutation {
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(
-      ability: "updatePoolCandidateStatusParent"
-      find: "id"
-      injectArgs: true
-    )
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard

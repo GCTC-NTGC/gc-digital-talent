@@ -189,7 +189,7 @@ class PoolCandidatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updateStatus(User $user, PoolCandidate $poolCandidate)
+    public function updateStatusLegacy(User $user, PoolCandidate $poolCandidate)
     {
         if ($user->isAbleTo('update-any-applicationStatus')) {
             return true;
@@ -327,7 +327,7 @@ class PoolCandidatePolicy
      * @param  array{id: ?string, expiry_date: ?string, pool_candidate_status: ?string }  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updatePoolCandidateStatusParent(User $user, PoolCandidate $poolCandidate, $args)
+    public function updateStatus(User $user, PoolCandidate $poolCandidate, $args)
     {
         $inputStatus = $args['pool_candidate_status'] ?? null;
 
@@ -345,7 +345,7 @@ class PoolCandidatePolicy
             }
 
             if (in_array($inputStatus, $draftOrExpired)) {
-                return $this->updateStatus($user, $poolCandidate);
+                return $this->updateStatusLegacy($user, $poolCandidate);
             }
 
             return $this->updateDecision($user, $poolCandidate);
@@ -353,10 +353,10 @@ class PoolCandidatePolicy
 
         $inputExpiryDate = $args['expiry_date'] ?? null;
 
-        // attempting to update just the expiry date, which falls to updateStatus()
+        // attempting to update just the expiry date, which falls to updateStatusLegacy()
         if ($inputExpiryDate) {
 
-            return $this->updateStatus($user, $poolCandidate);
+            return $this->updateStatusLegacy($user, $poolCandidate);
 
         }
 
