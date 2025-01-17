@@ -120,7 +120,7 @@ const CommunityInterestDialogDevelopmentProgram_Fragment = graphql(
   `,
 );
 
-interface DevelopopmentProgramInterestItemProps {
+interface DevelpmentProgramInterestItemProps {
   label: string;
   developmentProgramInterestQuery?: FragmentType<
     typeof CommunityInterestDialogDevelopmentProgram_Fragment
@@ -130,7 +130,7 @@ interface DevelopopmentProgramInterestItemProps {
 const DevelopopmentProgramInterestItem = ({
   label,
   developmentProgramInterestQuery,
-}: DevelopopmentProgramInterestItemProps) => {
+}: DevelpmentProgramInterestItemProps) => {
   const developmentProgramInterest = getFragment(
     CommunityInterestDialogDevelopmentProgram_Fragment,
     developmentProgramInterestQuery,
