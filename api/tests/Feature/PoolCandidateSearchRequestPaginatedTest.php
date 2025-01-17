@@ -44,8 +44,9 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
+        $community = Community::factory()->create();
         $this->communityRecruiter = User::factory()
-            ->asRequestResponder()
+            ->asCommunityRecruiter($community->id)
             ->create([
                 'email' => 'community-recruiter@test.com',
                 'sub' => 'community-recruiter@test.com',
@@ -519,14 +520,6 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter([$community->id])
             ->create();
-
-        // community recruiter sees both requests
-        $this->actingAs($this->communityRecruiter, 'api')
-            ->graphQL($this->searchRequestQuery, [
-                'where' => [],
-            ])->assertJsonFragment(['count' => 2])
-            ->assertJsonFragment(['id' => $communityRequest->id])
-            ->assertJsonFragment(['id' => $otherCommunityRequest->id]);
 
         // community recruiter only sees the request attached to their community
         $this->actingAs($communityRecruiter, 'api')
