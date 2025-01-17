@@ -41,10 +41,10 @@ class ActivityLogTest extends TestCase
                 'email' => 'base-user@test.com',
                 'sub' => 'base-user@test.com',
             ]);
-
+        $community = Community::factory()->create(['name' => 'test-team']);
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
+            ->asCommunityRecruiter($community->id)
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
