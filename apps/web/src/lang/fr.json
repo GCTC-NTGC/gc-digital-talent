@@ -880,8 +880,8 @@
     "description": "Message displayed for user not found."
   },
   "2cZySB": {
-    "defaultMessage": "Télécharger CSV sans évaluations",
-    "description": "Button label for download candidate csv without ROD data."
+    "defaultMessage": "Télécharger CSV des candidatures",
+    "description": "Button label for download CSV of candidate profiles."
   },
   "2dkgQe": {
     "defaultMessage": "Nombre approximatif de candidats",
@@ -2736,8 +2736,8 @@
     "description": "Card title for a nav role switcher"
   },
   "C1jirU": {
-    "defaultMessage": "Télécharger CSV avec évaluations",
-    "description": "Button label for download candidate csv with ROD data."
+    "defaultMessage": "Télécharger CSV des profils",
+    "description": "Button label for download csv of candidate applications with ROD data."
   },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
