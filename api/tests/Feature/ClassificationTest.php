@@ -61,7 +61,6 @@ class ClassificationTest extends TestCase
             'guest',
             'base_user',
             'process_operator',
-            'request_responder',
         ]);
 
         $this->adminUser = User::create([
