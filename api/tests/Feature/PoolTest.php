@@ -1732,7 +1732,6 @@ class PoolTest extends TestCase
     // test mutation createPool(...)
     public function testCreatePool()
     {
-        // $community = Community::factory()->create();
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
