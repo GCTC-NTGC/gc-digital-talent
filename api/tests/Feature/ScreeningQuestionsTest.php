@@ -32,8 +32,6 @@ class ScreeningQuestionsTest extends TestCase
 
     protected $applicantUser;
 
-    protected $responderUser;
-
     protected $communityManager;
 
     protected $pool;
@@ -129,13 +127,6 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
             ]);
-        $this->responderUser = User::factory()
-            ->asApplicant()
-            ->asRequestResponder()
-            ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
-            ]);
         $this->communityManager = User::factory()
             ->asApplicant()
             ->asCommunityManager()
@@ -184,11 +175,6 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->responderUser, 'api')->graphQL(
-            $this->createOrUpdateScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
         $this->actingAs($this->communityManager, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
@@ -218,11 +204,6 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->responderUser, 'api')->graphQL(
-            $this->queryScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertSuccessful();
         $this->actingAs($this->communityManager, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
