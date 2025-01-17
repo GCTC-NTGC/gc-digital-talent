@@ -40,7 +40,6 @@ class UserRoleTest extends TestCase
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
-            ->asCommunityManager()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
