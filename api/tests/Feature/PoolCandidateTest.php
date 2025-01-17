@@ -11,7 +11,6 @@ use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,15 +32,13 @@ class PoolCandidateTest extends TestCase
 
     protected $applicantUser;
 
-    protected $requestResponderUser;
+    protected $communityRecruiterUser;
 
-    protected $teamUser;
+    protected $communityUser;
 
-    protected $unAssociatedTeamUser;
+    protected $unAssociatedCommunityUser;
 
-    protected $team;
-
-    protected $teamName = 'application-test-team';
+    protected $community;
 
     protected $pool;
 
@@ -53,17 +50,14 @@ class PoolCandidateTest extends TestCase
 
         $this->bootRefreshesSchemaCache();
 
-        $this->team = Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
+        $this->community = Community::factory()->create();
 
         $this->pool = Pool::factory()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'platform-admin-user@test.com',
@@ -77,30 +71,30 @@ class PoolCandidateTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->requestResponderUser = User::factory()
-            ->asRequestResponder()
+        $this->communityRecruiterUser = User::factory()
+            ->asCommunityRecruiter($this->community->id)
             ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
+                'email' => 'community-recruiter-user@test.com',
+                'sub' => 'community-recruiter-user@test.com',
             ]);
 
-        $this->teamUser = User::factory()
+        $this->communityUser = User::factory()
             ->asApplicant()
-            ->asProcessOperator($this->team->name)
+            ->asProcessOperator($this->community->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'community-user@test.com',
+                'sub' => 'community-user@test.com',
             ]);
 
-        // Team and users not associated with the Pool we are testing against
-        $unAssociatedTeam = Team::factory()->create();
+        // Community and users not associated with the Pool we are testing against
+        $unAssociatedCommunity = Community::factory()->create();
 
-        $this->unAssociatedTeamUser = User::factory()
+        $this->unAssociatedCommunityUser = User::factory()
             ->asApplicant()
-            ->asProcessOperator($unAssociatedTeam->name)
+            ->asProcessOperator($unAssociatedCommunity->id)
             ->create([
-                'email' => 'unassociated-team-user@test.com',
-                'sub' => 'unassociated-team-user@test.com',
+                'email' => 'unassociated-community-user@test.com',
+                'sub' => 'unassociated-community-user@test.com',
             ]);
     }
 
@@ -129,17 +123,6 @@ class PoolCandidateTest extends TestCase
         $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateOne->save();
 
-        // Assert candidate 1 is DRAFT, despite being set as EXPIRED, the null submitted_at forces an override
-        // $this->actingAs($this->teamUser, "api")
-        // ->graphQL($query, ['id' => $candidateOne->id])
-        //     ->assertJson([
-        //         "data" => [
-        //             "poolCandidate" => [
-        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT,
-        //             ]
-        //         ]
-        //     ]);
-
         // 2
         // not submitted, expiry date in the past, DRAFT EXPIRED
         $candidateTwo = PoolCandidate::factory()->create([
@@ -152,17 +135,6 @@ class PoolCandidateTest extends TestCase
         $candidateTwo->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateTwo->save();
 
-        // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
-        // $this->actingAs($this->teamUser, "api")
-        // ->graphQL($query, ['id' => $candidateTwo->id])
-        //     ->assertJson([
-        //         "data" => [
-        //             "poolCandidate" => [
-        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
-        //             ]
-        //         ]
-        //     ]);
-
         // 3
         // expired and submitted applicant that has a PLACED status
         $candidateThree = PoolCandidate::factory()->create([
@@ -173,7 +145,7 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, ['id' => $candidateThree->id])
             ->assertJson([
                 'data' => [
@@ -187,23 +159,13 @@ class PoolCandidateTest extends TestCase
 
         // 4
         // expired and submitted applicant that lacks a PLACED status
+        // Declared but not used.
         $candidateFour = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.past_date'),
             'pool_id' => $this->pool->id,
         ]);
-
-        // Assert candidate 2 is DRAFT_EXPIRED, despite being set as EXPIRED, the null submitted_at forces an override
-        // $this->actingAs($this->teamUser, "api")
-        // ->graphQL($query, ['id' => $candidateFour->id])
-        //     ->assertJson([
-        //         "data" => [
-        //             "poolCandidate" => [
-        //                 "status" => ApiEnums::CANDIDATE_STATUS_DRAFT_EXPIRED,
-        //             ]
-        //         ]
-        //     ]);
 
         // 5
         // unexpired and submitted
@@ -215,7 +177,7 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // Assert candidate 5 is NEW_APPLICATION as it was set
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, ['id' => $candidateFive->id])
             ->assertJson([
                 'data' => [
@@ -237,7 +199,7 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // Assert candidate 6 is APPLICATION_REVIEW as it was set
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, ['id' => $candidateSix->id])
             ->assertJson([
                 'data' => [
@@ -314,7 +276,7 @@ class PoolCandidateTest extends TestCase
         ]);
 
         // Assert skill count matches the number of skills in the subset and orders by skill count in ascending order
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
@@ -343,7 +305,7 @@ class PoolCandidateTest extends TestCase
             ]);
 
         // Assert skill count matches the number of skills in the subset and orders by skill count in descending order
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByDesc,
                 'where' => [
@@ -372,7 +334,7 @@ class PoolCandidateTest extends TestCase
             ]);
 
         // Assert no skill count when no overlapping
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
@@ -391,13 +353,13 @@ class PoolCandidateTest extends TestCase
             ]);
 
         // Assert no skill count when no skills requested
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
             ])->assertJsonFragment(['skillCount' => null]);
 
         // Assert skill count only matches one skill overlapping (user two does not exist in the subset)
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($query, [
                 'orderBy' => $orderByAsc,
                 'where' => [
@@ -452,8 +414,8 @@ class PoolCandidateTest extends TestCase
             }
          ';
 
-        // Assert team member can view notes
-        $this->actingAs($this->teamUser, 'api')
+        // Assert community member can view notes
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertJson([
                 'data' => [
@@ -463,8 +425,8 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert request responder can view notes
-        $this->actingAs($this->requestResponderUser, 'api')
+        // Assert community recruiter can view notes
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertJson([
                 'data' => [
@@ -500,7 +462,7 @@ class PoolCandidateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Assert an unassociated process operator cannot query candidate notes
-        $this->actingAs($this->unAssociatedTeamUser, 'api')
+        $this->actingAs($this->unAssociatedCommunityUser, 'api')
             ->graphQL($notesQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
@@ -531,12 +493,12 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesMutation, $notesVariables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        $this->actingAs($this->unAssociatedTeamUser, 'api')
+        $this->actingAs($this->unAssociatedCommunityUser, 'api')
             ->graphQL($notesMutation, $notesVariables)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        // Assert team member can update notes
-        $this->actingAs($this->teamUser, 'api')
+        // Assert community member can update notes
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($notesMutation, $notesVariables)
             ->assertJson([
                 'data' => [
@@ -567,8 +529,8 @@ class PoolCandidateTest extends TestCase
             }
          ';
 
-        // Assert team member can view status
-        $this->actingAs($this->teamUser, 'api')
+        // Assert community member can view status
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertJson([
                 'data' => [
@@ -580,8 +542,8 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert request responder can view status
-        $this->actingAs($this->requestResponderUser, 'api')
+        // Assert community recruiter can view status
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertJson([
                 'data' => [
@@ -620,7 +582,7 @@ class PoolCandidateTest extends TestCase
             ]);
 
         // Assert an unassociated process operator cannot query candidate status
-        $this->actingAs($this->unAssociatedTeamUser, 'api')
+        $this->actingAs($this->unAssociatedCommunityUser, 'api')
             ->graphQL($statusQuery, ['id' => $candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
