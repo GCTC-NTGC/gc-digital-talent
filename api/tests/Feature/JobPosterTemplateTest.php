@@ -89,7 +89,6 @@ class JobPosterTemplateTest extends TestCase
         $this->baseUser = User::factory()
             ->asApplicant()
             ->asCommunityRecruiter($community->id)
-            ->asCommunityManager()
             ->create();
 
         $this->adminUser = User::factory()
