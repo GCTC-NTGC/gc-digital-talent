@@ -194,6 +194,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         ROLE_NAME.PlatformAdmin,
       ],
     },
+    {
+      label: intl.formatMessage(pageTitles.workStreams),
+      href: adminRoutes.workStreamTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
     (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),

@@ -20,7 +20,7 @@ class WorkStreamPolicy
      */
     public function view(?User $user, WorkStream $workStream): bool
     {
-        return false;
+        return true;
     }
 
     /**

@@ -333,6 +333,14 @@ const getRoutes = (lang: Locales) => {
         "/",
       ),
 
+    // Admin - Work Streams
+    workStreamTable: () => [adminUrl, "settings", "work-streams"].join("/"),
+    workStreamCreate: () =>
+      [adminUrl, "settings", "work-streams", "create"].join("/"),
+    workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
+    workStreamUpdate: (workStreamId: string) =>
+      [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
+
     /**
      * Deprecated
      *
