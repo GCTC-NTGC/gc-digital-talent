@@ -52,7 +52,6 @@ class WorkStreamTest extends TestCase
         $this->nonAdmin = User::factory()
             ->asGuest()
             ->asApplicant()
-            ->asRequestResponder()
             ->asCommunityManager()
             ->asManager()
             ->create([
