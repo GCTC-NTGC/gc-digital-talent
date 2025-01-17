@@ -7,7 +7,6 @@ use App\Jobs\GenerateUserFile;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
