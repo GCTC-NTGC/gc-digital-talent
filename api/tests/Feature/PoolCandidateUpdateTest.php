@@ -47,8 +47,6 @@ class PoolCandidateUpdateTest extends TestCase
 
     protected $processOperatorUser;
 
-    protected $requestResponderUser;
-
     protected $communityRecruiterUser;
 
     protected $adminUser;
@@ -100,20 +98,6 @@ class PoolCandidateUpdateTest extends TestCase
             ->create([
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
-            ]);
-
-        $this->communityRecruiterUser = User::factory()
-            ->asProcessOperator($this->pool->id)
-            ->create([
-                'email' => 'process-operator-user@test.com',
-                'sub' => 'process-operator-user@test.com',
-            ]);
-
-        $this->requestResponderUser = User::factory()
-            ->asRequestResponder()
-            ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
             ]);
 
         $this->communityRecruiterUser = User::factory()
@@ -320,8 +304,8 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ]);
 
-        // request responder can't add a step
-        $this->actingAs($this->requestResponderUser, 'api')
+        // community recruiter can't add a step
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
                 'errors' => [
@@ -746,7 +730,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert removing as admin succeeds
-        $response = $this->actingAs($this->requestResponderUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->removeMutationDocument, $variables)
             ->assertSuccessful();
 
@@ -782,7 +766,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $variables['id'] = $candidate->id;
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
                 ->assertJsonFragment([
                     'status' => [
@@ -814,7 +798,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $variables['id'] = $candidate->id;
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
                 ->assertGraphQLErrorMessage($error);
         }
@@ -839,7 +823,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert reinstating as admin succeeds
-        $this->actingAs($this->requestResponderUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
             ->assertSuccessful()
             ->assertJsonFragment([
@@ -863,7 +847,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'user_id' => $this->applicantUser->id,
             ]);
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertJsonFragment([
                     'status' => [
@@ -896,7 +880,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'user_id' => $this->applicantUser->id,
             ]);
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertGraphQLErrorMessage('CandidateUnexpectedStatus');
         }
