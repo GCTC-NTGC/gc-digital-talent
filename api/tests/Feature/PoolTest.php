@@ -1600,7 +1600,7 @@ class PoolTest extends TestCase
             ->graphQL($mutation, $vars)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        // Community Manager can edit
+        // community admin can edit
         $this->actingAs($this->communityAdmin, 'api')
             ->graphQL($mutation, $vars)
             ->assertExactJson([
