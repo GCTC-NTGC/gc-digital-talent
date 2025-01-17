@@ -52,18 +52,17 @@ const DownloadCandidateCsvButton = ({
       <DropdownMenu.Content align="end" collisionPadding={2}>
         <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
           {intl.formatMessage({
-            defaultMessage: "Download CSV without assessments",
+            defaultMessage: "Download CSV of profiles",
             id: "2cZySB",
-            description:
-              "Button label for download candidate csv without ROD data.",
+            description: "Button label for download CSV of candidate profiles.",
           })}
         </DropdownMenu.Item>
         <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
           {intl.formatMessage({
-            defaultMessage: "Download CSV with assessments",
+            defaultMessage: "Download CSV of applications",
             id: "C1jirU",
             description:
-              "Button label for download candidate csv with ROD data.",
+              "Button label for download csv of candidate applications with ROD data.",
           })}
         </DropdownMenu.Item>
       </DropdownMenu.Content>
