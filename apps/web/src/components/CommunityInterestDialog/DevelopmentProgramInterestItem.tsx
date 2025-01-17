@@ -16,6 +16,18 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
+const hasEnrolled = (
+  status?: Maybe<DevelopmentProgramParticipationStatus>,
+): boolean => {
+  return (
+    !!status &&
+    [
+      DevelopmentProgramParticipationStatus.Enrolled,
+      DevelopmentProgramParticipationStatus.Completed,
+    ].includes(status)
+  );
+};
+
 interface StatusInfo {
   Icon: IconType;
   iconStyles: Record<string, string>;
@@ -35,15 +47,17 @@ const useStatusInfo = (
     },
     message: intl.formatMessage(commonMessages.missingInformation),
   };
-  if (!status || !completionDate) {
+  if (!status || (!completionDate && hasEnrolled(status))) {
     return defaultStatusInfo;
   }
 
-  const date = formatDate({
-    date: parseDateTimeUtc(completionDate),
-    formatString: "MMMM yyyy",
-    intl,
-  });
+  const date = completionDate
+    ? formatDate({
+        date: parseDateTimeUtc(completionDate),
+        formatString: "MMMM yyyy",
+        intl,
+      })
+    : intl.formatMessage(commonMessages.notAvailable);
 
   const infoMap = new Map<DevelopmentProgramParticipationStatus, StatusInfo>([
     [
