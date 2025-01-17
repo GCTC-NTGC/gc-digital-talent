@@ -46,7 +46,7 @@ class GenericJobTitleTest extends TestCase
             'guest',
             'base_user',
             'process_operator',
-            'request_responder',
+            'community_recruiter',
         ]);
 
         $this->adminUser = User::create([
