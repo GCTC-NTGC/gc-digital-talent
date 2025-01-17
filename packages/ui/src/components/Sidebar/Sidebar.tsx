@@ -9,16 +9,16 @@ const Sidebar = ({ children, ...rest }: SidebarProps) => (
     <div
       data-h2-height="base(100%)"
       data-h2-position="base(relative)"
-      data-h2-margin-top="p-tablet(-x3)"
+      data-h2-margin-top="l-tablet(-x3)"
       data-h2-margin-bottom="base(x1)"
     >
       <div
         data-h2-position="base(sticky)"
         data-h2-location="base(x5, auto, auto, auto)"
-        data-h2-height="p-tablet(80vh)"
-        data-h2-overflow="p-tablet(auto)"
-        data-h2-padding-top="p-tablet(x3)"
-        data-h2-padding-right="p-tablet(x.5)"
+        data-h2-height="l-tablet(80vh)"
+        data-h2-overflow="l-tablet(auto)"
+        data-h2-padding-top="l-tablet(x3)"
+        data-h2-padding-right="l-tablet(x.5)"
       >
         {children}
       </div>
