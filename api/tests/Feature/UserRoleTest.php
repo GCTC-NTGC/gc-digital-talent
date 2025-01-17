@@ -39,7 +39,6 @@ class UserRoleTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->asCommunityManager()
             ->create([
