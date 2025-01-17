@@ -141,7 +141,7 @@ interface DevelopmentProgramInterestItemProps {
   >;
 }
 
-const DevelopopmentProgramInterestItem = ({
+const DevelopmentProgramInterestItem = ({
   label,
   developmentProgramInterestQuery,
 }: DevelopmentProgramInterestItemProps) => {
@@ -186,4 +186,4 @@ const DevelopopmentProgramInterestItem = ({
   );
 };
 
-export default DevelopopmentProgramInterestItem;
+export default DevelopmentProgramInterestItem;
