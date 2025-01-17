@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,11 +24,9 @@ class ScreeningQuestionsTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $team;
+    protected $community;
 
-    protected $teamName = 'test-team';
-
-    protected $teamUser;
+    protected $communityRecruiter;
 
     protected $adminUser;
 
@@ -36,7 +34,7 @@ class ScreeningQuestionsTest extends TestCase
 
     protected $responderUser;
 
-    protected $communityUser;
+    protected $communityManager;
 
     protected $pool;
 
@@ -101,16 +99,15 @@ class ScreeningQuestionsTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
-        $this->team = Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
+        $this->community = Community::factory()->create([
+            'key' => 'test-community']);
         Skill::factory()->count(3)->create();
         $this->pool = Pool::factory()->draft()->withPoolSkills(2, 2)->create([
-            'team_id' => $this->team->id,
+            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
         $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'team_id' => $this->team->id,
+            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
         ]);
         $this->adminUser = User::factory()
             ->asApplicant()
@@ -119,9 +116,9 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
-        $this->teamUser = User::factory()
+        $this->communityRecruiter = User::factory()
             ->asApplicant()
-            ->asProcessOperator($this->team->name)
+            ->asCommunityRecruiter($this->community->id)
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',
@@ -139,7 +136,7 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'request-responder-user@test.com',
                 'sub' => 'request-responder-user@test.com',
             ]);
-        $this->communityUser = User::factory()
+        $this->communityManager = User::factory()
             ->asApplicant()
             ->asCommunityManager()
             ->create([
@@ -171,8 +168,8 @@ class ScreeningQuestionsTest extends TestCase
             ],
         ];
 
-        // assert only pool operator may set the screening questions (use the mutation)
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        // assert only community recruiter may set the screening questions (use the mutation)
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -192,7 +189,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -206,7 +203,7 @@ class ScreeningQuestionsTest extends TestCase
         ];
 
         // assert all except applicant may query screening questions -> assessment step
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )
@@ -226,7 +223,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertSuccessful();
-        $this->actingAs($this->communityUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )
