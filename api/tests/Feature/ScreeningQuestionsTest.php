@@ -166,9 +166,9 @@ class ScreeningQuestionsTest extends TestCase
         )
             ->assertSuccessful();
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
-                $this->createOrUpdateScreeningQuestionAssessmentStep,
-                $variables
-            )
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            $variables
+        )
             ->assertSuccessful();
         $this->actingAs($this->adminUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,

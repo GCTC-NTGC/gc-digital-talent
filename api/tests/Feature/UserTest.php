@@ -19,7 +19,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Role;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;

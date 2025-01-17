@@ -46,16 +46,15 @@ class CandidateCsvGenerationTest extends TestCase
             ]);
 
         $this->adminUser = User::factory()
-        ->asApplicant()
-        ->asCommunityRecruiter($this->community->id)
-        ->asAdmin()
-        ->create();
+            ->asApplicant()
+            ->asCommunityRecruiter($this->community->id)
+            ->asAdmin()
+            ->create();
 
         $this->candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
         ]);
-
 
     }
 
