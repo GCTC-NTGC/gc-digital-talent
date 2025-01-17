@@ -47,7 +47,6 @@ class ApplicantTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
