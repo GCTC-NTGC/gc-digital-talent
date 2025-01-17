@@ -15,15 +15,24 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import FindANewCommunity from "../sections/FindANewCommunity";
-import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import FindANewCommunity, {
+  SubformValues as FindANewCommunitySubformValues,
+} from "../sections/FindANewCommunity";
+import TrainingAndDevelopmentOpportunities, {
+  SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues,
+} from "../sections/TrainingAndDevelopmentOpportunities";
 import AdditionalInformation from "../sections/AdditionalInformation";
 
 const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterest_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
+    ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
   }
 `);
+
+export interface FormValues
+  extends FindANewCommunitySubformValues,
+    TrainingAndDevelopmentOpportunitiesSubformValues {}
 
 interface CreateCommunityInterestProps {
   query: FragmentType<typeof CreateCommunityInterest_Fragment>;
@@ -42,7 +51,10 @@ const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
           optionsQuery={data}
           formDisabled={false} /* TODO: should be dynamic from urql */
         />
-        <TrainingAndDevelopmentOpportunities />
+        <TrainingAndDevelopmentOpportunities
+          optionsQuery={data}
+          formDisabled={false} /* TODO: should be dynamic from urql */
+        />
         <AdditionalInformation />
       </BasicForm>
     </CardBasic>

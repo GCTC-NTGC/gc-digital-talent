@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { ComponentProps } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
@@ -17,6 +17,8 @@ import {
   graphql,
   Maybe,
 } from "@gc-digital-talent/graphql";
+
+import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
 
 export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   fragment FindANewCommunityOptions_Fragment on Query {
@@ -35,7 +37,7 @@ export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface FormValues {
+export interface SubformValues {
   functionalCommunity: Maybe<string>;
   interestInJobOpportunities: Maybe<string>;
   interestInTrainingOpportunities: Maybe<string>;
@@ -58,7 +60,6 @@ const FindANewCommunity = ({
   );
 
   const { watch } = useFormContext<FormValues>();
-  const form = useWatch();
   const [selectedFunctionalCommunity] = watch(["functionalCommunity"]);
 
   const communityOptions: ComponentProps<typeof Select>["options"] =
@@ -87,7 +88,6 @@ const FindANewCommunity = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1.25)"
     >
-      {JSON.stringify(form)}
       {/* heading and description */}
       <div
         data-h2-display="base(flex)"
