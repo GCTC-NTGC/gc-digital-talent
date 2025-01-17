@@ -32,7 +32,7 @@ class ScreeningQuestionsTest extends TestCase
 
     protected $applicantUser;
 
-    protected $communityManager;
+    protected $communityAdmin;
 
     protected $pool;
 
@@ -118,8 +118,8 @@ class ScreeningQuestionsTest extends TestCase
             ->asApplicant()
             ->asCommunityRecruiter($this->community->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'community-recruiter-user@test.com',
+                'sub' => 'community-recruiter-user@test.com',
             ]);
         $this->applicantUser = User::factory()
             ->asApplicant()
@@ -127,12 +127,12 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
             ]);
-        $this->communityManager = User::factory()
+        $this->communityAdmin = User::factory()
             ->asApplicant()
-            ->asCommunityManager()
+            ->asCommunityAdmin($this->community->id)
             ->create([
-                'email' => 'community-user@test.com',
-                'sub' => 'community-user@test.com',
+                'email' => 'community-admin-user@test.com',
+                'sub' => 'community-admin-user@test.com',
             ]);
     }
 
@@ -159,11 +159,16 @@ class ScreeningQuestionsTest extends TestCase
             ],
         ];
 
-        // assert only community recruiter may set the screening questions (use the mutation)
+        // assert only community recruiter or community admin may set the screening questions (use the mutation)
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
+            ->assertSuccessful();
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+                $this->createOrUpdateScreeningQuestionAssessmentStep,
+                $variables
+            )
             ->assertSuccessful();
         $this->actingAs($this->adminUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
@@ -171,11 +176,6 @@ class ScreeningQuestionsTest extends TestCase
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
         $this->actingAs($this->applicantUser, 'api')->graphQL(
-            $this->createOrUpdateScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityManager, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -204,7 +204,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )
