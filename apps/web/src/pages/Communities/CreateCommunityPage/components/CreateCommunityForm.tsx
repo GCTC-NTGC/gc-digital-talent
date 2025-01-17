@@ -116,6 +116,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             id="name.en"
             label={intl.formatMessage(adminMessages.nameEn)}
             name="name.en"
+            autoComplete="off"
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),
@@ -125,6 +126,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             id="name.fr"
             label={intl.formatMessage(adminMessages.nameFr)}
             name="name.fr"
+            autoComplete="off"
             type="text"
             rules={{
               required: intl.formatMessage(errorMessages.required),

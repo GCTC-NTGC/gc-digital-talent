@@ -170,6 +170,7 @@ const CommunityForm = ({
             <Input
               id="nameEn"
               name="nameEn"
+              autoComplete="off"
               label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
@@ -179,6 +180,7 @@ const CommunityForm = ({
             <Input
               id="nameFr"
               name="nameFr"
+              autoComplete="off"
               label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
