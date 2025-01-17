@@ -24,8 +24,6 @@ class UserPolicyTest extends TestCase
 
     protected $otherApplicant;
 
-    protected $requestResponder;
-
     protected $platformAdmin;
 
     protected $processOperator;
@@ -67,13 +65,6 @@ class UserPolicyTest extends TestCase
                 'sub' => 'other-applicant-user@test.com',
             ]);
 
-        $this->requestResponder = User::factory()
-            ->asRequestResponder()
-            ->create([
-                'email' => 'request-responder@test.com',
-                'sub' => 'request-responder@test.com',
-            ]);
-
         $this->team = Team::factory()->create([
             'name' => 'test-team',
         ]);
@@ -101,7 +92,7 @@ class UserPolicyTest extends TestCase
     }
 
     /**
-     * Only Platform Admin and Request Responder should be able to viewAny
+     * Only Platform Admin should be able to viewAny
      *
      * @return void
      */
@@ -109,7 +100,6 @@ class UserPolicyTest extends TestCase
     {
         $this->assertFalse($this->guest->can('viewAny', User::class));
         $this->assertFalse($this->applicant->can('viewAny', User::class));
-        $this->assertTrue($this->requestResponder->can('viewAny', User::class));
         $this->assertTrue($this->platformAdmin->can('viewAny', User::class));
 
         $this->assertFalse($this->processOperator->can('viewAny', User::class));
@@ -118,7 +108,7 @@ class UserPolicyTest extends TestCase
     }
 
     /**
-     * Platform Admin, own user, and Request Responder can always view. Others situational
+     * Platform Admin, own user, can always view. Others situational
      *
      * @return void
      */
@@ -127,7 +117,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('view', $this->applicant));
         $this->assertTrue($this->applicant->can('view', $this->applicant));
         $this->assertFalse($this->otherApplicant->can('view', $this->applicant));
-        $this->assertTrue($this->requestResponder->can('view', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('view', $this->applicant));
 
         // cannot view regular user
@@ -160,7 +149,6 @@ class UserPolicyTest extends TestCase
     {
         $this->assertFalse($this->guest->can('viewBasicInfo', $this->applicant));
         $this->assertFalse($this->applicant->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('viewBasicInfo', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('viewBasicInfo', $this->applicant));
 
         $this->assertFalse($this->processOperator->can('viewBasicInfo', $this->applicant));
@@ -178,7 +166,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('update', $this->applicant));
         $this->assertTrue($this->applicant->can('update', $this->applicant));
         $this->assertFalse($this->otherApplicant->can('update', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('update', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('update', $this->applicant));
 
         $this->assertFalse($this->processOperator->can('update', $this->applicant));
@@ -195,7 +182,6 @@ class UserPolicyTest extends TestCase
     {
         $this->assertFalse($this->guest->can('updateSub', $this->applicant));
         $this->assertFalse($this->applicant->can('updateSub', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('updateSub', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('updateSub', $this->applicant));
 
         $this->assertFalse($this->processOperator->can('updateSub', $this->applicant));
@@ -212,7 +198,6 @@ class UserPolicyTest extends TestCase
     {
         $this->assertFalse($this->guest->can('delete', $this->applicant));
         $this->assertFalse($this->applicant->can('delete', $this->applicant));
-        $this->assertFalse($this->requestResponder->can('delete', $this->applicant));
         $this->assertTrue($this->platformAdmin->can('delete', $this->applicant));
         $this->assertFalse($this->platformAdmin->can('delete', $this->platformAdmin));
 
@@ -252,8 +237,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -307,8 +290,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -373,8 +354,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
@@ -463,8 +442,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->requestResponder->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
 
