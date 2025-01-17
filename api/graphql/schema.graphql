@@ -541,7 +541,6 @@ type WorkStream {
   key: String
   name: LocalizedString
   plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
-  community: Community @belongsTo
 }
 
 type Community implements HasRoleAssignments {
@@ -558,6 +557,7 @@ type Community implements HasRoleAssignments {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   developmentPrograms: [DevelopmentProgram!] @hasMany
+  workStreams: [WorkStream!] @hasMany
 }
 
 type DevelopmentProgram {

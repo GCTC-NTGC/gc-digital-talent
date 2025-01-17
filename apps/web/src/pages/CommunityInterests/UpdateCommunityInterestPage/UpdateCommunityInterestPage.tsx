@@ -2,15 +2,31 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
+import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+
+import FindANewCommunity from "../sections/FindANewCommunity";
+import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import AdditionalInformation from "../sections/AdditionalInformation";
+import { messages } from "./messages";
+
+const UpdateCommunityInterest = () => {
+  return (
+    <CardBasic>
+      <FindANewCommunity />
+      <TrainingAndDevelopmentOpportunities />
+      <AdditionalInformation />
+    </CardBasic>
+  );
+};
 
 export interface UpdateCommunityInterestPageProps {
   currentUser?: User | null;
@@ -20,29 +36,43 @@ export const UpdateCommunityInterestPage = ({
   currentUser,
 }: UpdateCommunityInterestPageProps) => {
   const intl = useIntl();
+  const routes = useRoutes();
+
+  const formattedLongPageTitle = intl.formatMessage(messages.longPageTitle);
+  const formattedShortPageTitle = intl.formatMessage(messages.shortPageTitle);
+  const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: routes.applicantDashboard(),
+      },
+
+      {
+        label: intl.formatMessage(messages.shortPageTitle),
+        url: routes.updateCommunityInterest("TODO"),
+      },
+    ],
+  });
 
   return (
     <>
-      <SEO title={""} description={""} />
-      <Hero
-        title={intl.formatMessage(
-          {
-            defaultMessage: "Hello, {name}",
-            id: "lLeH+o",
-            description: "Hellow world message",
-          },
-          {
-            name: currentUser
-              ? getFullNameHtml(
-                  currentUser.firstName,
-                  currentUser.lastName,
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notAvailable),
-          },
-        )}
-        subtitle={""}
+      <SEO
+        title={formattedShortPageTitle}
+        description={formattedPageSubtitle}
       />
+      <Hero
+        title={formattedLongPageTitle}
+        subtitle={formattedPageSubtitle}
+        crumbs={crumbs}
+        centered
+        overlap
+      >
+        <div data-h2-margin-bottom="base(x3)">
+          <UpdateCommunityInterest />
+        </div>
+      </Hero>
     </>
   );
 };

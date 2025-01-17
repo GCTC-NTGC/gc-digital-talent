@@ -2,76 +2,104 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
+import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { User, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { BasicForm } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
-import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-export interface CreateCommunityInterestPageProps {
-  currentUser?: User | null;
-}
+import { messages } from "./messages";
+import FindANewCommunity from "../sections/FindANewCommunity";
+import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import AdditionalInformation from "../sections/AdditionalInformation";
 
-export const CreateCommunityInterestPage = ({
-  currentUser,
-}: CreateCommunityInterestPageProps) => {
-  const intl = useIntl();
-
-  return (
-    <>
-      <SEO title={""} description={""} />
-      <Hero
-        title={intl.formatMessage(
-          {
-            defaultMessage: "Hello, {name}",
-            id: "lLeH+o",
-            description: "Hellow world message",
-          },
-          {
-            name: currentUser
-              ? getFullNameHtml(
-                  currentUser.firstName,
-                  currentUser.lastName,
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notAvailable),
-          },
-        )}
-        subtitle={""}
-      />
-    </>
-  );
-};
-
-const CreateCommunityInterest_Query = graphql(/* GraphQL */ `
-  query CreateCommunityInterest_Query {
-    me {
-      id
-      firstName
-      lastName
-    }
+const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
+  fragment CreateCommunityInterest_Fragment on Query {
+    ...FindANewCommunityOptions_Fragment
   }
 `);
 
-export const CreateCommunityInterestPageApi = () => {
+interface CreateCommunityInterestProps {
+  query: FragmentType<typeof CreateCommunityInterest_Fragment>;
+}
+
+const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
+  const data = getFragment(CreateCommunityInterest_Fragment, query);
+  return (
+    <CardBasic
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x5)"
+    >
+      <BasicForm onSubmit={() => console.log("submitted")}>
+        <FindANewCommunity
+          optionsQuery={data}
+          formDisabled={false} /* TODO: should be dynamic from urql */
+        />
+        <TrainingAndDevelopmentOpportunities />
+        <AdditionalInformation />
+      </BasicForm>
+    </CardBasic>
+  );
+};
+
+const CreateCommunityInterestPage_Query = graphql(/* GraphQL */ `
+  query CreateCommunityInterestPage_Query {
+    ...CreateCommunityInterest_Fragment
+  }
+`);
+
+export const CreateCommunityInterestPage = () => {
   const [{ data, fetching, error }] = useQuery({
-    query: CreateCommunityInterest_Query,
+    query: CreateCommunityInterestPage_Query,
+  });
+  const intl = useIntl();
+  const routes = useRoutes();
+
+  const formattedPageTitle = intl.formatMessage(messages.pageTitle);
+  const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: routes.applicantDashboard(),
+      },
+
+      {
+        label: intl.formatMessage(messages.pageTitle),
+        url: routes.createCommunityInterest(),
+      },
+    ],
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <CreateCommunityInterestPage currentUser={data?.me} />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
+      <Hero
+        title={formattedPageTitle}
+        subtitle={formattedPageSubtitle}
+        crumbs={crumbs}
+        centered
+        overlap
+      >
+        <div data-h2-margin-bottom="base(x3)">
+          {data && <CreateCommunityInterest query={data} />}
+        </div>
+      </Hero>
     </Pending>
   );
 };
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CreateCommunityInterestPageApi />
+    <CreateCommunityInterestPage />
   </RequireAuth>
 );
 
