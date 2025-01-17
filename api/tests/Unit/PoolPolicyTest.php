@@ -22,8 +22,6 @@ class PoolPolicyTest extends TestCase
 
     protected $processOperatorUser;
 
-    protected $requestResponderUser;
-
     protected $communityRecruiterUser;
 
     protected $communityManagerUser;
@@ -67,14 +65,6 @@ class PoolPolicyTest extends TestCase
         $this->team = Team::factory()->create(['name' => 'test-team']);
         $this->community = Community::factory()->create();
         $this->otherCommunity = Community::factory()->create();
-
-        $this->requestResponderUser = User::factory()
-            ->asApplicant()
-            ->asRequestResponder()
-            ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
-            ]);
 
         $this->communityManagerUser = User::factory()
             ->asApplicant()
@@ -139,7 +129,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('viewAny', Pool::class));
         $this->assertFalse($this->applicantUser->can('viewAny', Pool::class));
-        $this->assertFalse($this->requestResponderUser->can('viewAny', Pool::class));
         $this->assertFalse($this->processOperatorUser->can('viewAny', Pool::class));
         $this->assertFalse($this->communityRecruiterUser->can('viewAny', Pool::class));
         $this->assertFalse($this->communityAdminUser->can('viewAny', Pool::class));
@@ -154,7 +143,6 @@ class PoolPolicyTest extends TestCase
     {
         $this->assertTrue($this->guestUser->can('viewAnyPublished', Pool::class));
         $this->assertTrue($this->applicantUser->can('viewAnyPublished', Pool::class));
-        $this->assertTrue($this->requestResponderUser->can('viewAnyPublished', Pool::class));
         $this->assertTrue($this->communityManagerUser->can('viewAnyPublished', Pool::class));
         $this->assertTrue($this->adminUser->can('viewAnyPublished', Pool::class));
 
@@ -185,7 +173,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('view', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('view', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('view', $this->teamPool));
 
         // Below roles cannot view other team's draft pools
         $this->assertFalse($this->processOperatorUser->can('view', $this->unOwnedPool));
@@ -203,7 +190,6 @@ class PoolPolicyTest extends TestCase
 
         // All can view other teams pools if they are published
         $this->assertTrue($this->guestUser->can('view', $this->unOwnedPool));
-        $this->assertTrue($this->requestResponderUser->can('view', $this->unOwnedPool));
         $this->assertTrue($this->communityManagerUser->can('view', $this->unOwnedPool));
         $this->assertTrue($this->adminUser->can('view', $this->unOwnedPool));
         $this->assertTrue($this->processOperatorUser->can('view', $this->unOwnedPool));
@@ -228,7 +214,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('view', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('view', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('view', $this->teamPool));
 
         // community manager cannot view other teams draft pools
         $this->unOwnedPool->published_at = null;
@@ -247,7 +232,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertTrue($this->guestUser->can('view', $this->teamPool));
         $this->assertTrue($this->applicantUser->can('view', $this->teamPool));
-        $this->assertTrue($this->requestResponderUser->can('view', $this->teamPool));
         $this->assertTrue($this->communityManagerUser->can('view', $this->teamPool));
         $this->assertTrue($this->adminUser->can('view', $this->teamPool));
         $this->assertTrue($this->processOperatorUser->can('view', $this->teamPool));
@@ -272,7 +256,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->applicantUser->can('create', [Pool::class, $createPoolInput]));
-        $this->assertFalse($this->requestResponderUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->communityManagerUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->adminUser->can('create', [Pool::class, $createPoolInput]));
         $this->assertFalse($this->processOperatorUser->can('create', [Pool::class, $createPoolInput]));
@@ -298,7 +281,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('duplicate', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('duplicate', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('duplicate', $this->teamPool));
         $this->assertFalse($this->communityManagerUser->can('duplicate', $this->teamPool));
         $this->assertFalse($this->adminUser->can('duplicate', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('duplicate', $this->teamPool));
@@ -324,7 +306,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('updateDraft', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('updateDraft', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('updateDraft', $this->teamPool));
         $this->assertFalse($this->communityManagerUser->can('updateDraft', $this->teamPool));
         $this->assertFalse($this->adminUser->can('updateDraft', $this->teamPool));
 
@@ -353,7 +334,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('publish', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('publish', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('publish', $this->teamPool));
         $this->assertFalse($this->adminUser->can('publish', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('publish', $this->teamPool));
         $this->assertFalse($this->communityRecruiterUser->can('publish', $this->teamPool));
@@ -379,7 +359,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('changePoolClosingDate', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('changePoolClosingDate', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('changePoolClosingDate', $this->teamPool));
         $this->assertFalse($this->adminUser->can('changePoolClosingDate', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('changePoolClosingDate', $this->teamPool));
         $this->assertFalse($this->communityRecruiterUser->can('changePoolClosingDate', $this->teamPool));
@@ -414,7 +393,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('updatePublished', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('updatePublished', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('updatePublished', $this->teamPool));
         $this->assertFalse($this->adminUser->can('updatePublished', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('updatePublished', $this->teamPool));
         $this->assertFalse($this->communityRecruiterUser->can('updatePublished', $this->teamPool));
@@ -437,7 +415,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('closePool', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('closePool', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('closePool', $this->teamPool));
         $this->assertFalse($this->adminUser->can('closePool', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('closePool', $this->teamPool));
         $this->assertFalse($this->communityRecruiterUser->can('closePool', $this->teamPool));
@@ -465,7 +442,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('deleteDraft', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->communityManagerUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('deleteDraft', $this->teamPool));
@@ -488,7 +464,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('deleteDraft', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->communityManagerUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->adminUser->can('deleteDraft', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('deleteDraft', $this->teamPool));
@@ -508,7 +483,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('archiveAndUnarchive', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('archiveAndUnarchive', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('archiveAndUnarchive', $this->teamPool));
         $this->assertFalse($this->communityManagerUser->can('archiveAndUnarchive', $this->teamPool));
         $this->assertFalse($this->adminUser->can('archiveAndUnarchive', $this->teamPool));
         $this->assertFalse($this->processOperatorUser->can('archiveAndUnarchive', $this->teamPool));
@@ -526,7 +500,6 @@ class PoolPolicyTest extends TestCase
      */
     public function testViewAssessmentPlan()
     {
-        $this->assertTrue($this->requestResponderUser->can('viewAssessmentPlan', $this->teamPool));
         $this->assertTrue($this->adminUser->can('viewAssessmentPlan', $this->teamPool));
         $this->assertTrue($this->communityManagerUser->can('viewAssessmentPlan', $this->teamPool));
         $this->assertTrue($this->processOperatorUser->can('viewAssessmentPlan', $this->teamPool));
@@ -557,7 +530,6 @@ class PoolPolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('viewTeamMembers', $this->teamPool));
         $this->assertFalse($this->applicantUser->can('viewTeamMembers', $this->teamPool));
-        $this->assertFalse($this->requestResponderUser->can('viewTeamMembers', $this->teamPool));
 
         // Cannot view other team's members
         $this->assertFalse($this->processOperatorUser->can('viewTeamMembers', $this->unOwnedPool));
