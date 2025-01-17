@@ -47,7 +47,7 @@ class PoolTest extends TestCase
 
     protected $baseUser;
 
-    protected $communityManager;
+    protected $communityAdmin;
 
     protected function setUp(): void
     {
@@ -65,8 +65,8 @@ class PoolTest extends TestCase
                 'sub' => 'community-recruiter@test.com',
             ]);
 
-        $this->communityManager = User::factory()
-            ->asCommunityManager($this->community->id)
+        $this->communityAdmin = User::factory()
+            ->asCommunityAdmin($this->community->id)
             ->create([
                 'email' => 'community-manager@test.com',
                 'sub' => 'community-manager@test.com',
@@ -583,7 +583,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation PublishPool($id: ID!) {
@@ -601,7 +601,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -824,7 +824,7 @@ class PoolTest extends TestCase
 
         // Note: Default factory has no pool skills attached to Screening question step
         // assert cannot publish due to assessment steps missing skills
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -845,7 +845,7 @@ class PoolTest extends TestCase
         }
 
         // assessment plan now marked as complete
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     query pool($id: UUID!) {
@@ -866,7 +866,7 @@ class PoolTest extends TestCase
         ]);
 
         // assessment plan now marked as complete
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     query pool($id: UUID!) {
@@ -887,7 +887,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert can now publish as all steps have attached skills
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -974,7 +974,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert cannot publish due to the one pool skill lacking an assessment
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -1037,7 +1037,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert successful now that all pool skills have an assessment
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                                 mutation PublishPool($id: ID!) {
@@ -1601,7 +1601,7 @@ class PoolTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Community Manager can edit
-        $this->actingAs($this->communityManager, 'api')
+        $this->actingAs($this->communityAdmin, 'api')
             ->graphQL($mutation, $vars)
             ->assertExactJson([
                 'data' => [
