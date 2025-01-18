@@ -276,7 +276,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/open to jobs/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.getByText(/you are open to opportunities from this recruitment/i),
     ).toBeInTheDocument();
@@ -328,7 +328,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/open to jobs/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -396,7 +396,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/open to jobs/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -464,7 +464,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/open to jobs/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,

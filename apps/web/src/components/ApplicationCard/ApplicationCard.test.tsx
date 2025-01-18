@@ -116,7 +116,7 @@ describe("ApplicationCard", () => {
       expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
     );
 
-    const successfulLabel = screen.queryByText("Successful");
+    const successfulLabel = screen.queryByText("Qualified in process");
     expect(successfulLabel).toBeInTheDocument();
   });
 

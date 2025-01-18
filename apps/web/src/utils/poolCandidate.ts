@@ -282,9 +282,9 @@ const applicationStatusLabels = defineMessages({
     id: "l2xs1C",
     description: "Status label for an application under review",
   },
-  PENDING_ASSESSMENT: {
-    defaultMessage: "Pending assessment",
-    id: "wHnlD+",
+  APPLICATION_REVIEWED: {
+    defaultMessage: "Application reviewed",
+    id: "AawFeJ",
     description: "Status label for a reviewed application awaiting assessment",
   },
   UNDER_ASSESSMENT: {
@@ -294,73 +294,73 @@ const applicationStatusLabels = defineMessages({
   },
   UNSUCCESSFUL: {
     defaultMessage: "Unsuccessful",
-    id: "PcyEiH",
-    description: "Status label for a disqualified application",
+    id: "TIAla1",
+    description:
+      "Message displayed when candidate has not passed an assessment step",
   },
   SUCCESSFUL: {
-    defaultMessage: "Successful",
-    id: "ma/D52",
+    defaultMessage: "Qualified in process",
+    id: "kolwAf",
     description: "Status label for a qualified application",
   },
 });
 
 const applicationStatusDescriptions = defineMessages({
   EXPIRED: {
-    defaultMessage: "The deadline to apply for this opportunity has passed.",
-    id: "0Zl+om",
+    defaultMessage: "The deadline for this opportunity has passed.",
+    id: "CeKPRS",
     description:
       "Status description for a draft application to an expired poster",
   },
   DRAFT: {
     defaultMessage:
-      "A draft application has been started but not submitted. You can continue a draft and submit it any time before the application deadline.",
-    id: "ryJuIZ",
+      "A draft application has been started but not submitted. You can continue working on your draft and submit it any time before the application deadline. You won't be able to edit your application once it's submitted.",
+    id: "QQyMxc",
     description: "Status description for a draft application",
   },
   RECEIVED: {
     defaultMessage:
-      "Your application has been successfully submitted and is awaiting review. We'll notify you when HR staff begin the review process.",
-    id: "pD/j43",
+      "Your application has been submitted and is awaiting review. You can't edit your application anymore.",
+    id: "l0EXuk",
     description:
       "Status description for a submitted (but not reviewed) application",
   },
   UNDER_REVIEW: {
-    defaultMessage:
-      "Your application is actively being reviewed by HR staff. We'll notify you when next steps are required.",
-    id: "fNmDzT",
+    defaultMessage: "We're currently reviewing your application.",
+    id: "ptrg8W",
     description: "Status description for an application under review",
   },
-  PENDING_ASSESSMENT: {
+  APPLICATION_REVIEWED: {
     defaultMessage:
-      "Your application was successfully screened in and you are now queued for further assessment. Depending on the volume of applications received, there may be a delay of up to several months before HR staff will reach out with next steps.",
-    id: "Lp5bvi",
+      "Your application has passed the first step in the review process. This means you've been approved to proceed to the next phase of assessment. However, we're unable to provide a timeline because of the volume of applications and other factors.",
+    id: "yx06ue",
     description:
       "Status description for a reviewed application awaiting assessment",
   },
   UNDER_ASSESSMENT: {
     defaultMessage:
-      "Your application was successfully screened in and merit criteria are now being assessed. You will be contacted directly about each required assessment. We will also notify you when your application status changes based on the results.",
-    id: "Six9YX",
+      "Your application has passed the first step in the review process. You're now at the stage when additional testing is being conducted. Depending on the process, this may involve several steps of evaluation such as interviews, exams, and reference checks.",
+    id: "cZJski",
     description: "Status description for an application under assessment",
   },
   UNSUCCESSFUL_PUBLIC: {
     defaultMessage:
-      "Unfortunately, your application was unsuccessful. Due to the high volume of applications, we're unable to provide specific feedback why an application was rejected.",
-    id: "Fa30+B",
+      "Your application was unsuccessful. Due to the high volume of applications, we're unable to provide specific feedback on why your application was rejected. The two most common reasons people receive this result are a lack of details in the initial application related to skills demonstration or a failure to pass a technical assessment.",
+    id: "Ct7EHx",
     description:
       "Status description for a disqualified application to a public pool",
   },
   UNSUCCESSFUL_EMPLOYEE: {
     defaultMessage:
-      "Unfortunately your application was unsuccessful. For opportunities internal to the Government of Canada, you may request an informal conversation about this decision. If you'd like to discuss this application, please reach out to the functional community.",
-    id: "l3ZVez",
+      "Your application was unsuccessful. For job opportunities internal to the Government of Canada, you may request an informal conversation about this decision. To proceed with this, please reach out to the department or recruitment team responsible for advertising the job.",
+    id: "8lxSJM",
     description:
       "Status description for a disqualified application to an employee-only pool",
   },
   SUCCESSFUL: {
     defaultMessage:
-      "Your application has been approved and you've passed the required assessments. Depending on the type of process you applied to, HR staff or potential hiring managers will be in touch with next steps.",
-    id: "DMcW46",
+      "You've applied for a role, you've been assessed, and you've been deemed qualified for this role. There may be other candidates who have also applied for this position and are now at the same step in the process as you. If a hiring manager has an opportunity for you, you may be approached with an employment offer.",
+    id: "7e88Z0",
     description: "Status description for a qualified application",
   },
 });
@@ -459,9 +459,9 @@ export const getApplicationStatusChip = (
     if (numberOfStepStatuses <= numberOfScreeningSteps) {
       return {
         color: "secondary",
-        label: intl.formatMessage(applicationStatusLabels.PENDING_ASSESSMENT),
+        label: intl.formatMessage(applicationStatusLabels.APPLICATION_REVIEWED),
         description: intl.formatMessage(
-          applicationStatusDescriptions.PENDING_ASSESSMENT,
+          applicationStatusDescriptions.APPLICATION_REVIEWED,
         ),
       };
     } else {
@@ -484,8 +484,8 @@ export const getApplicationStatusChip = (
 
 const qualifiedRecruitmentStatusLabels = defineMessages({
   OPEN_TO_JOBS: {
-    defaultMessage: "Open to jobs",
-    id: "Jprv7e",
+    defaultMessage: "Open to job offers",
+    id: "p4kAoz",
     description: "Status label for a qualified application open for hiring",
   },
   NOT_INTERESTED: {

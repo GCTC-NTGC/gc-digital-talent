@@ -1055,6 +1055,10 @@
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
   },
+  "3QGPJe": {
+    "defaultMessage": "Non intéressé(e)",
+    "description": "Status label for a qualified application the candidate has marked not interested"
+  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -1843,6 +1847,10 @@
     "defaultMessage": "EX-03 : Chef de file du numérique",
     "description": "EX-03 classification label including titles"
   },
+  "7e88Z0": {
+    "defaultMessage": "Votre candidature a été évaluée et correspond aux exigences de ce poste. Il se peut que d'autres candidats aient également postulé ce poste et se trouvent à la même étape du processus que vous. Si un responsable du recrutement a une possibilité professionnelle à vous proposer, il se peut qu'il vous présente une offre d'emploi.",
+    "description": "Status description for a qualified application"
+  },
   "7ejG4K": {
     "defaultMessage": "Vous avez le droit d’accéder à vos renseignements personnels, de les corriger et de les protéger en vertu de la Loi sur la protection des renseignements personnels et de déposer une plainte auprès du Commissariat à la protection de la vie privée du Canada quant à la façon dont vos renseignements personnels sont traités.",
     "description": "Paragraph for privacy policy page"
@@ -1894,6 +1902,10 @@
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
+  },
+  "7toBNM": {
+    "defaultMessage": "Vous avez indiqué que vous ne souhaitez pas recevoir d'offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
+    "description": "Status description for a qualified application the candidate has marked not interested"
   },
   "7tpJaQ": {
     "defaultMessage": "Une CléGC est un justificatif d'identité central qui n'est pas géré par l'équipe des Talents numériques du GC. Le gouvernement du Canada l'offre pour que vous puissiez communiquer de manière sécuritaire avec de nombreux programmes et services gouvernementaux accessibles en ligne.",
@@ -2066,6 +2078,10 @@
   "8kMPLB": {
     "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
+  },
+  "8lxSJM": {
+    "defaultMessage": "Votre candidature n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez contacter le service ou l'équipe de recrutement responsable de la publication de l'offre d'emploi.",
+    "description": "Status description for a disqualified application to an employee-only pool"
   },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
@@ -2414,6 +2430,10 @@
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
+  },
+  "AawFeJ": {
+    "defaultMessage": "Candidature examinée",
+    "description": "Status label for a reviewed application awaiting assessment"
   },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
@@ -2827,6 +2847,10 @@
     "defaultMessage": "Au Canada et aux États-Unis",
     "description": "GCKey answer for who to contact about GCKey, Canada and United States area for phone number"
   },
+  "CeKPRS": {
+    "defaultMessage": "La date limite pour présenter une candidature est passée.",
+    "description": "Status description for a draft application to an expired poster"
+  },
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -2854,6 +2878,10 @@
   "CsPyAD": {
     "defaultMessage": "Afficher les résultats {currentPageStartIndex} - {currentPageEndIndex} de {total}",
     "description": "Description of how many items are being displayed out of the total value"
+  },
+  "Ct7EHx": {
+    "defaultMessage": "Votre candidature n'a pas été retenue. En raison du nombre élevé de candidatures, nous ne sommes pas en mesure de fournir des informations précises sur les raisons ayant mené au rejet de votre candidature. Les deux raisons les plus fréquentes pour lesquelles les personnes reçoivent ce résultat sont un manque de détails dans la candidature initiale portant sur la démonstration des compétences ou un échec à une évaluation technique.",
+    "description": "Status description for a disqualified application to a public pool"
   },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créez une collectivité » pour commencer.",
@@ -3334,6 +3362,10 @@
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
     "description": "Label for _contract value_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "FN037Z": {
+    "defaultMessage": "Vous avez accepté un poste grâce à ce processus de recrutement. Vous ne recevrez plus d'offres d'emploi liées à ce processus.",
+    "description": "Status description for a qualified application that has been hired"
   },
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
@@ -3843,6 +3875,10 @@
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
   },
+  "IH+bPG": {
+    "defaultMessage": "Reçue",
+    "description": "Status label for a submitted (but not reviewed) application"
+  },
   "IHyNL8": {
     "defaultMessage": "Ajouter un membre",
     "description": "Title for the add member to community form"
@@ -3858,6 +3894,10 @@
   "IIZNzj": {
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
     "description": "Indigenous Apprenticeship ulu image text alternative"
+  },
+  "IJL2jN": {
+    "defaultMessage": "Embauché(e)",
+    "description": "Status label for a qualified application that has been hired"
   },
   "IJlJF1": {
     "defaultMessage": "Vos rôles",
@@ -5419,6 +5459,10 @@
     "defaultMessage": "Femme autochtone qui échange virtuellement avec un apprentis par l'entremise d'un portable.",
     "description": "Description of a decorative image of a woman and a laptop"
   },
+  "QDjfw4": {
+    "defaultMessage": "Ébauche",
+    "description": "Status label for a draft application"
+  },
   "QF/z5s": {
     "defaultMessage": "Copier {title} l'URL dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
@@ -5466,6 +5510,10 @@
   "QQXvOh": {
     "defaultMessage": "Notre engagement à l’égard de l’accessibilité",
     "description": "Title for the accessibility commitment section."
+  },
+  "QQyMxc": {
+    "defaultMessage": "Une ébauche de candidature a été entamée, mais n'a pas été soumise. Vous pouvez continuer à travailler sur votre candidature et la soumettre à tout moment avant la date limite. Vous ne pourrez pas modifier votre candidature une fois qu'elle aura été soumise.",
+    "description": "Status description for a draft application"
   },
   "QRI/bf": {
     "defaultMessage": "Modifiez votre expérience",
@@ -6036,7 +6084,7 @@
     "description": "Label for the expiry date input"
   },
   "TIAla1": {
-    "defaultMessage": "Non réussi",
+    "defaultMessage": "Non réussie",
     "description": "Message displayed when candidate has not passed an assessment step"
   },
   "TJzeDj": {
@@ -7790,6 +7838,10 @@
     "defaultMessage": "Les apprentis qui participent au programme disent que ça « change une vie », que ça représente « une occasion d’avoir une meilleure vie grâce à la technologie » et qu’« il n’y a aucun obstacle à la réussite de ce programme ».",
     "description": "Third paragraph about the program"
   },
+  "cZJski": {
+    "defaultMessage": "Votre candidature a franchi la première étape du processus d'examen. Vous en êtes maintenant à l'étape des tests supplémentaires. Selon le processus, il peut s'agir de plusieurs autres étapes d'évaluation telles que des entrevues, des examens et des vérifications de références.",
+    "description": "Status description for an application under assessment"
+  },
   "cZmuts": {
     "defaultMessage": "À la prochaine fois!",
     "description": "Title for the page users land on after successful logout."
@@ -8910,6 +8962,10 @@
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
     "description": "Learn more dialog question ten paragraph one"
   },
+  "heFiZt": {
+    "defaultMessage": "En cours d'évaluation",
+    "description": "Status label for an application under assessment"
+  },
   "heME90": {
     "defaultMessage": "Si « {choice} » est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>bassin de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
     "description": "introduction paragraph 1 to needing more information about the talent search"
@@ -9534,6 +9590,10 @@
     "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
     "description": "Error message when a file no longer exists"
   },
+  "kolwAf": {
+    "defaultMessage": "Qualifié(e) dans le processus",
+    "description": "Status label for a qualified application"
+  },
   "kqOTFT": {
     "defaultMessage": "Niveau de compréhension",
     "description": "Label displayed on the language information form reading comprehension field."
@@ -9566,6 +9626,10 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
+  "l0EXuk": {
+    "defaultMessage": "Votre candidature a été soumise et est en attente d'examen. Vous ne pouvez plus modifier votre candidature.",
+    "description": "Status description for a submitted (but not reviewed) application"
+  },
   "l1f8zy": {
     "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
     "description": "Lead-in text to list of pools managers can request candidates from"
@@ -9573,6 +9637,10 @@
   "l1hUeU": {
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi",
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
+  },
+  "l2xs1C": {
+    "defaultMessage": "En cours d'examen",
+    "description": "Status label for an application under review"
   },
   "l4d7/6": {
     "defaultMessage": "Aucun possibilité de formation n'est actuellement affiché. Revenez plus tard.",
@@ -9937,6 +10005,10 @@
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
+  },
+  "ml+1LK": {
+    "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
+    "description": "Status description for a qualified application open for hiring"
   },
   "mm1X02": {
     "defaultMessage": "Compétences techniques facultatives",
@@ -10366,6 +10438,10 @@
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of technical skills"
   },
+  "p4kAoz": {
+    "defaultMessage": "Ouvert(e) aux offres d'emploi",
+    "description": "Status label for a qualified application open for hiring"
+  },
   "p5qn9H": {
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",
     "description": "Message on education requirements card on the application review page."
@@ -10553,6 +10629,10 @@
   "ptOxLJ": {
     "defaultMessage": "Information sur le bassin",
     "description": "Title for pool information"
+  },
+  "ptrg8W": {
+    "defaultMessage": "Nous examinons actuellement votre candidature.",
+    "description": "Status description for an application under review"
   },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
@@ -12061,6 +12141,10 @@
   "ywkgJx": {
     "defaultMessage": "Détails",
     "description": "Support form details field label"
+  },
+  "yx06ue": {
+    "defaultMessage": "Votre candidature a franchi la première étape du processus d'examen. Elle est maintenant en attente de l'étape suivante d'évaluation. Cependant, nous ne sommes pas en mesure de fournir un délai de traitement en raison du nombre de candidatures et d'autres facteurs.",
+    "description": "Status description for a reviewed application awaiting assessment"
   },
   "yypk6/": {
     "defaultMessage": "Ajouter au nouveau bassin",
