@@ -45,6 +45,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import {
   formatClassificationString,
@@ -63,6 +64,10 @@ import ApplicationLink, {
   ApplicationLinkProps,
 } from "~/components/ApplicationLink/ApplicationLink";
 import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
 
 import Text from "./components/Text";
 import DataRow from "./components/DataRow";
@@ -309,6 +314,7 @@ export const PoolPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const logger = useLogger();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = useState<string[]>([]);
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
@@ -492,7 +498,14 @@ export const PoolPoster = ({
     },
   };
 
-  const classificationGroup = pool.classification?.group;
+  let classificationGroup: ClassificationGroup;
+
+  if (isClassificationGroup(pool.classification?.group)) {
+    classificationGroup = pool.classification.group;
+  } else {
+    logger.error(`Unexpected classification: ${pool.classification?.group}`);
+    classificationGroup = "IT";
+  }
 
   return (
     <>

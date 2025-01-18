@@ -90,40 +90,40 @@ class ClassificationSeeder extends Seeder
                 $asGroup,
                 [
                     'level' => 1,
-                    'min_salary' => 43514,
-                    'max_salary' => 49351,
+                    'min_salary' => 61786,
+                    'max_salary' => 69106,
                 ]
             ),
             array_merge(
                 $asGroup,
                 [
                     'level' => 2,
-                    'min_salary' => 48323,
-                    'max_salary' => 53416,
+                    'min_salary' => 68849,
+                    'max_salary' => 74180,
                 ]
             ),
             array_merge(
                 $asGroup,
                 [
                     'level' => 3,
-                    'min_salary' => 53139,
-                    'max_salary' => 56390,
+                    'min_salary' => 73798,
+                    'max_salary' => 79511,
                 ]
             ),
             array_merge(
                 $asGroup,
                 [
                     'level' => 4,
-                    'min_salary' => 56951,
-                    'max_salary' => 61594,
+                    'min_salary' => 79511,
+                    'max_salary' => 87108,
                 ]
             ),
             array_merge(
                 $asGroup,
                 [
                     'level' => 5,
-                    'min_salary' => 67981,
-                    'max_salary' => 73495,
+                    'min_salary' => 96235,
+                    'max_salary' => 104044,
                 ]
             ),
             // https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15#toc44294244301

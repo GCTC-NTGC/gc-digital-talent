@@ -16,20 +16,20 @@ const messages = defineMessages({
     id: "9pYlYz",
     description: "Label for a process' stream",
   },
-  opportunityLength: {
-    defaultMessage: "Length of opportunity",
-    id: "08rkLr",
-    description: "Label for a process' opportunity employment duration",
+  employmentDuration: {
+    defaultMessage: "Employment duration",
+    id: "0Z7Ux8",
+    description: "Label for process employment duration",
   },
   titleEn: {
-    defaultMessage: "Specific title (English)",
-    id: "QISMlC",
-    description: "Label for a process' English title",
+    defaultMessage: "Job title (English)",
+    id: "FMPqfb",
+    description: "Label for process English title",
   },
   titleFr: {
-    defaultMessage: "Specific title (French)",
-    id: "m7ppfC",
-    description: "Label for a process' French title",
+    defaultMessage: "Job title (French)",
+    id: "r9cJmW",
+    description: "Label for process French title",
   },
   processNumber: {
     defaultMessage: "Process number",

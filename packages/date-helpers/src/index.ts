@@ -36,6 +36,10 @@ export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 
 /**
  * Format a date in given format and locale, optionally in a different time zone
+ * If no timezone is provided, the timezone will be priority based:
+ *    1. If the timezone is included in the date object (Date, TZDate) that will be used
+ *    2. Otherwise, the users local timezone will be used
+ *
  * @returns String in the given format
  */
 export const formatDate = ({
@@ -153,9 +157,21 @@ export const convertDateTimeToDate = (
   return d.substring(0, DATE_FORMAT_STRING.length);
 };
 
-// Parse an API scalar DateTime as UTC to a native Date object
-export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date =>
-  parseISO(d, { in: tz("UTC") });
+/**
+ * Parse an API scalar DateTime as UTC to a native Date object
+ *
+ * Adds a timezone offset if we think it does not exist
+ * to support parsing the date into users local timezone properly
+ */
+export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
+  let dateWithTimezone: string = d;
+  // 1970-01-01 00:00:00 = 19 chars
+  // 1970-01-01 = 10 chars
+  if (d.length <= 19 && d.length > 10 && !dateWithTimezone.includes("+")) {
+    dateWithTimezone = `${d}+00:00`;
+  }
+  return parseISO(dateWithTimezone);
+};
 
 /**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
