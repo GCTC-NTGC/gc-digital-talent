@@ -6112,7 +6112,7 @@
     "description": "Label for the expiry date input"
   },
   "TIAla1": {
-    "defaultMessage": "Non réussie",
+    "defaultMessage": "Non retenue",
     "description": "Message displayed when candidate has not passed an assessment step"
   },
   "TJzeDj": {
