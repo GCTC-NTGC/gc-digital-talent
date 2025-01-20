@@ -68,8 +68,8 @@ class PoolTest extends TestCase
         $this->communityAdmin = User::factory()
             ->asCommunityAdmin($this->community->id)
             ->create([
-                'email' => 'community-manager@test.com',
-                'sub' => 'community-manager@test.com',
+                'email' => 'community-admin@test.com',
+                'sub' => 'community-admin@test.com',
             ]);
 
         $this->adminUser = User::factory()
