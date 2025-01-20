@@ -21,7 +21,12 @@ import FindANewCommunity, {
 import TrainingAndDevelopmentOpportunities, {
   SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues,
 } from "../sections/TrainingAndDevelopmentOpportunities";
-import AdditionalInformation from "../sections/AdditionalInformation";
+import AdditionalInformation, {
+  SubformValues as AdditionalInformationSubformValues,
+} from "../sections/AdditionalInformation";
+import ReviewAndSubmit, {
+  SubformValues as ReviewAndSubmitSubformValues,
+} from "../sections/ReviewAndSubmit";
 
 const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterest_Fragment on Query {
@@ -32,7 +37,9 @@ const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
 
 export interface FormValues
   extends FindANewCommunitySubformValues,
-    TrainingAndDevelopmentOpportunitiesSubformValues {}
+    TrainingAndDevelopmentOpportunitiesSubformValues,
+    AdditionalInformationSubformValues,
+    ReviewAndSubmitSubformValues {}
 
 interface CreateCommunityInterestProps {
   query: FragmentType<typeof CreateCommunityInterest_Fragment>;
@@ -55,7 +62,12 @@ const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
           optionsQuery={data}
           formDisabled={false} /* TODO: should be dynamic from urql */
         />
-        <AdditionalInformation />
+        <AdditionalInformation
+          formDisabled={false} /* TODO: should be dynamic from urql */
+        />
+        <ReviewAndSubmit
+          formDisabled={false} /* TODO: should be dynamic from urql */
+        />
       </BasicForm>
     </CardBasic>
   );

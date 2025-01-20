@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { CardSeparator, Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -69,7 +69,6 @@ const TrainingAndDevelopmentOpportunities = ({
   );
 
   const { watch, register } = useFormContext<FormValues>();
-  const form = useWatch();
   const [selectedFunctionalCommunity] = watch(["functionalCommunity"]);
 
   const developmentPrograms =
@@ -98,7 +97,6 @@ const TrainingAndDevelopmentOpportunities = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1.25)"
     >
-      <pre>{JSON.stringify(form, null, 2)}</pre>
       {/* heading and description */}
       <div
         data-h2-display="base(flex)"
