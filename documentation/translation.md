@@ -14,7 +14,7 @@ For contextual descriptions of images, there are additional resources available 
 
 ## Tools
 
-The i18n subproject contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
+The i18n sub-project contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
 
 ### Bulk Translation
 

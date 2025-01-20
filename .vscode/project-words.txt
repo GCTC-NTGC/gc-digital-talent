@@ -64,6 +64,8 @@ Spatie
 spinbutton
 Staudenmeir
 subcomponents
+subproject
+subprojects
 subquery
 TALENTSEARCH
 tanstack
