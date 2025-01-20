@@ -936,6 +936,40 @@ const createRoute = (locale: Locales) =>
                       lazy: () =>
                         import("../pages/AnnouncementsPage/AnnouncementsPage"),
                     },
+                    {
+                      path: "work-streams",
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import("../pages/WorkStreams/IndexWorkStreamPage"),
+                        },
+                        {
+                          path: "create",
+                          lazy: () =>
+                            import("../pages/WorkStreams/CreateWorkStreamPage"),
+                        },
+                        {
+                          path: ":workStreamId",
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/WorkStreams/ViewWorkStreamsPage"
+                                ),
+                            },
+                            {
+                              path: "edit",
+                              lazy: () =>
+                                import(
+                                  "../pages/WorkStreams/UpdateWorkStreamPage"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
                   ],
                 },
                 {
