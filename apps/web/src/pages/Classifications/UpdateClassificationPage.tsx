@@ -193,6 +193,7 @@ export const UpdateClassificationForm = ({
                 <Input
                   id="name_en"
                   name="name.en"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameEn)}
                   type="text"
                   rules={{
@@ -202,6 +203,7 @@ export const UpdateClassificationForm = ({
                 <Input
                   id="name_fr"
                   name="name.fr"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameFr)}
                   type="text"
                   rules={{
