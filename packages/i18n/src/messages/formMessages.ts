@@ -168,8 +168,8 @@ const formMessages = defineMessages({
       "Default placeholder shown when Select field has nothing actively selected.",
   },
   loading: {
-    defaultMessage: "Loading...",
-    id: "ylHC90",
+    defaultMessage: "Loading…",
+    id: "jubxvJ",
     description:
       "Message shown in options dropdown when Select field is loading options.",
   },

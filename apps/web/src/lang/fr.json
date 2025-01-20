@@ -431,10 +431,6 @@
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
   },
-  "094835": {
-    "defaultMessage": "Je cherche à...",
-    "description": "Support form subject field label"
-  },
   "09ijOa": {
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
@@ -678,10 +674,6 @@
   "1MtuHa": {
     "defaultMessage": "Veuillez préciser le facteur",
     "description": "Label for _other operations considerations_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "1PVIbX": {
-    "defaultMessage": "Je consens à travailler dans...",
-    "description": "Legend for work regions check list in work preferences form"
   },
   "1Q/4Yb": {
     "defaultMessage": "Publier une annonce",
@@ -5207,6 +5199,10 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
+  "OhN2Ud": {
+    "defaultMessage": "Je consens à travailler dans…",
+    "description": "Legend for work regions check list in work preferences form"
+  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -7469,6 +7465,10 @@
   "aH4Suk": {
     "defaultMessage": "Un plan en lien avec talents pour l’initiative numérique a-t-il été soumis précédemment pour cette initiative?",
     "description": "Label for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "aHpCQS": {
+    "defaultMessage": "Je cherche à…",
+    "description": "Support form subject field label"
   },
   "aIEKtJ": {
     "defaultMessage": "Informations sur la compétence",
