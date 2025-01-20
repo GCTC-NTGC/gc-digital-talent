@@ -922,4 +922,69 @@ class CandidateAssessmentStatusTest extends TestCase
                 ],
             ]);
     }
+
+    /**
+     * This regression test ensures that if all skills are assessed as Successful,
+     * except for a single skill in the final step which is Unsuccessful,
+     * then the overall status is Disqualified.
+     */
+    public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
+    {
+        $stepOne = $this->pool->assessmentSteps->first();
+        $stepTwo = AssessmentStep::factory()
+            ->afterCreating(function (AssessmentStep $step) {
+                $step->poolSkills()->sync([$this->poolSkill->id]);
+            })->create([
+                'pool_id' => $this->pool->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $stepTwo->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, $this->queryVars)
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $stepOne->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                                [
+                                    'step' => $stepTwo->id,
+                                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                                ],
+                            ],
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
+                            'currentStep' => 2,
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }
