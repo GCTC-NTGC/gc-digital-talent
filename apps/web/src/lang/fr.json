@@ -268,7 +268,7 @@
     "description": "Legend for the Education Requirement filter radio group"
   },
   "/K1/1n": {
-    "defaultMessage": "Groupe de classifications actuel ",
+    "defaultMessage": "Groupe de classifications actuel",
     "description": "Label displayed on classification group input"
   },
   "/K8/eG": {
@@ -420,7 +420,7 @@
     "description": "Message for when a candidate has no claims to be verified"
   },
   "07p+1J": {
-    "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link>communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
+    "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link>communiquer avec notre équipe</link> pour obtenir de plus amples renseignements.",
     "description": "Third paragraph for pool closing date dialog"
   },
   "07sCDh": {
@@ -780,7 +780,7 @@
     "description": "Role with group, HTML"
   },
   "1uoeR6": {
-    "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait. ",
+    "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait.",
     "description": "First paragraph of apply and complete your profile section"
   },
   "1xI8uo": {
@@ -948,7 +948,7 @@
     "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
-    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer. ",
+    "defaultMessage": "Utilisez le bouton « Modifiez » pour commencer.",
     "description": "Null message on sections for edit pool page."
   },
   "2n0e2i": {
@@ -1724,7 +1724,7 @@
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
   "6ceoYt": {
-    "defaultMessage": "Mises à jour des procédures obligatoires ",
+    "defaultMessage": "Mises à jour des procédures obligatoires",
     "description": "Heading for the mandatory procedures card"
   },
   "6cr+Qy": {
@@ -2168,7 +2168,7 @@
     "description": "Required skill level column header for tables"
   },
   "93zCaS": {
-    "defaultMessage": "Reflète la spécialisation nécessaire ",
+    "defaultMessage": "Reflète la spécialisation nécessaire",
     "description": "Text for education accepted information context in screening decision dialog"
   },
   "953EAy": {
@@ -2500,7 +2500,7 @@
     "description": "Describes selecting asset skills for a process."
   },
   "Af4zOR": {
-    "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte. ",
+    "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
     "description": "Describing where to go to manage notification settings"
   },
   "AfSlkm": {
@@ -4128,7 +4128,7 @@
     "description": "Message for the english positions option"
   },
   "JBavNE": {
-    "defaultMessage": "Confirmation du besoin d’une note spéciale ",
+    "defaultMessage": "Confirmation du besoin d’une note spéciale",
     "description": "Label for input confirmation of need for special note on edit pool."
   },
   "JCX6jN": {
@@ -5064,7 +5064,7 @@
     "description": "No assessments for a skill"
   },
   "O5dDCM": {
-    "defaultMessage": "Aller à la page suivante ",
+    "defaultMessage": "Aller à la page suivante",
     "description": "Aria label for next page button in pagination nav"
   },
   "O8U5Sz": {
@@ -5120,7 +5120,7 @@
     "description": "Label for goc employment category on work experience card metadata"
   },
   "OM75j3": {
-    "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences. ",
+    "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences.",
     "description": "Lead in text for a users skill showcase for admins."
   },
   "ONrdDg": {
@@ -5408,7 +5408,7 @@
     "description": "Number of job poster templates being displayed in the list"
   },
   "PkE/Ir": {
-    "defaultMessage": "Sauvegardez les objectifs et le style de travail ",
+    "defaultMessage": "Sauvegardez les objectifs et le style de travail",
     "description": "Text on a button to save goals and work style form"
   },
   "PmDeul": {
@@ -6563,7 +6563,7 @@
     "description": "An item in a list of points about cert exams"
   },
   "Vfa3Ek": {
-    "defaultMessage": "Compétence mise à jour avec succès! ",
+    "defaultMessage": "Compétence mise à jour avec succès!",
     "description": "Message displayed when a user updates a skill"
   },
   "VhqbdZ": {
@@ -8631,7 +8631,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "ftg8sT": {
-    "defaultMessage": "L’identification de votre demande {title} a été copiée ",
+    "defaultMessage": "L’identification de votre demande {title} a été copiée",
     "description": "Button text to indicate that a specific application’s ID has been copied"
   },
   "fvsYkj": {
@@ -10143,7 +10143,7 @@
     "description": "Heading for table of a users other applications and recruitments"
   },
   "n+tkit": {
-    "defaultMessage": "Aller à la première page ",
+    "defaultMessage": "Aller à la première page",
     "description": "Label for first page button in pagination nav"
   },
   "n2bW9s": {
@@ -10607,7 +10607,7 @@
     "description": "Subtitle for the individual pool page"
   },
   "pPOGwF": {
-    "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
+    "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis",
     "description": "IAP Requirement list item one"
   },
   "pPOT4g": {
@@ -10867,7 +10867,7 @@
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
   "qtCt+G": {
-    "defaultMessage": "Aller à la dernière page ",
+    "defaultMessage": "Aller à la dernière page",
     "description": "Label for last page button in pagination nav"
   },
   "quxa4Q": {
@@ -10935,7 +10935,7 @@
     "description": "Support form toast message error"
   },
   "rQ3Gbb": {
-    "defaultMessage": "Erreur : échec de la création de la compétence ",
+    "defaultMessage": "Erreur : échec de la création de la compétence",
     "description": "Message displayed to user after skill family fails to get created."
   },
   "rQ61eh": {
@@ -11795,7 +11795,7 @@
     "description": "Link text to direct users to the profile page when anonymous"
   },
   "wSlABO": {
-    "defaultMessage": "Modifier un groupe de compétences ",
+    "defaultMessage": "Modifier un groupe de compétences",
     "description": "Page title for the skill family edit page"
   },
   "wTAdQe": {
@@ -12103,7 +12103,7 @@
     "description": "Paragraph describing using files section"
   },
   "yGy+to": {
-    "defaultMessage": "Aller à la page précédente ",
+    "defaultMessage": "Aller à la page précédente",
     "description": "Aria label for previous page button in pagination nav"
   },
   "yGyjXK": {

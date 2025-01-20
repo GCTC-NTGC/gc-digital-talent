@@ -300,7 +300,7 @@
     "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
   "AvBSV+": {
-    "defaultMessage": "Oh non... ",
+    "defaultMessage": "Oh non...",
     "description": "Title displayed for a table error loading state."
   },
   "BXxvCZ": {
