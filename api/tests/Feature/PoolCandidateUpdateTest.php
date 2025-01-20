@@ -45,10 +45,6 @@ class PoolCandidateUpdateTest extends TestCase
 
     protected $candidateUser;
 
-    protected $processOperatorUser;
-
-    protected $communityRecruiterUser;
-
     protected $adminUser;
 
     protected $community;
@@ -56,6 +52,12 @@ class PoolCandidateUpdateTest extends TestCase
     protected $pool;
 
     protected $poolCandidate;
+
+    protected $processOperatorUser;
+
+    protected $communityRecruiterUser;
+
+    protected $communityAdminUser;
 
     protected $unauthorizedMessage;
 
@@ -100,13 +102,6 @@ class PoolCandidateUpdateTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->communityRecruiterUser = User::factory()
-            ->asCommunityRecruiter($this->community->id)
-            ->create([
-                'email' => 'community-recruiter-user@test.com',
-                'sub' => 'community-recruiter-user@test.com',
-            ]);
-
         $this->adminUser = User::factory()
             ->asAdmin()
             ->create([
@@ -119,6 +114,24 @@ class PoolCandidateUpdateTest extends TestCase
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
+            ]);
+
+        $this->processOperatorUser = User::factory()
+            ->asProcessOperator($this->pool->id)
+            ->create([
+                'email' => 'process-operator-user@test.com',
+            ]);
+
+        $this->communityRecruiterUser = User::factory()
+            ->asCommunityRecruiter($this->community->id)
+            ->create([
+                'email' => 'community-recruiter-user@test.com',
+            ]);
+
+        $this->communityAdminUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->create([
+                'email' => 'community-admin-user@test.com',
             ]);
 
         $this->poolCandidate = PoolCandidate::factory()->create([
@@ -150,7 +163,6 @@ class PoolCandidateUpdateTest extends TestCase
                 placedDepartment {
                     id
                 }
-                suspendedAt
             }
         }
     ';
@@ -166,7 +178,6 @@ class PoolCandidateUpdateTest extends TestCase
                 placedDepartment {
                     id
                 }
-                suspendedAt
             }
         }
     ';
@@ -553,7 +564,6 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->poolCandidate->placed_department_id = $department->id;
         $this->poolCandidate->placed_at = config('constants.far_past_date');
-        $this->poolCandidate->suspended_at = config('constants.far_past_date');
         $this->poolCandidate->save();
 
         // cannot execute mutation due to candidate not being placed
@@ -581,7 +591,6 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
-        assertNull($response['suspendedAt']);
     }
 
     public function testQualifyCandidateMutation(): void
@@ -1133,5 +1142,145 @@ class PoolCandidateUpdateTest extends TestCase
                 'placed_at',
             ],
         ];
+    }
+
+    // test policy correctly allows sample manual status updates to work, when expected and fail otherwise
+    public function testManualStatusUpdatePolicy(): void
+    {
+        $past = config('constants.past_datetime');
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->submitted_at = $past;
+        $this->poolCandidate->save();
+
+        // process operator
+        // can set to SCREENED IN, QUALIFIED, REMOVED only
+        // cannot set PLACED TERM, or DRAFT
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
+            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::SCREENED_IN->name,
+                ],
+            ]);
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                ],
+            ]);
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::REMOVED->name,
+                ],
+            ]);
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
+            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        // community recruiter
+        // can set to SCREENED IN, QUALIFIED, REMOVED, PLACED TERM only
+        // cannot set DRAFT
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
+            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::SCREENED_IN->name,
+                ],
+            ]);
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                ],
+            ]);
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::REMOVED->name,
+                ],
+            ]);
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::PLACED_TERM->name,
+                ],
+            ]);
+
+        // community admin
+        // can set to SCREENED IN, QUALIFIED, REMOVED, PLACED TERM only
+        // cannot set DRAFT
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
+            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::SCREENED_IN->name,
+                ],
+            ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                ],
+            ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::REMOVED->name,
+                ],
+            ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => PoolCandidateStatus::PLACED_TERM->name,
+                ],
+            ]);
     }
 }

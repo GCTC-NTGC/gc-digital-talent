@@ -146,8 +146,8 @@ const CoreRequirementsSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This section covers requirements such as remote work, on-site locations, language and security.",
-    id: "LKZV/V",
+      "This section covers requirements such as remote work, on-site locations, language, and security.",
+    id: "+qkjh+",
     description: "Describes selecting additional requirements for a process.",
   });
 
@@ -219,8 +219,8 @@ const CoreRequirementsSection = ({
                       name="specificLocationEn"
                       type="text"
                       label={intl.formatMessage({
-                        defaultMessage: "Specific Location (English)",
-                        id: "A2VzLX",
+                        defaultMessage: "Specific location (English)",
+                        id: "bEY1qp",
                         description:
                           "Label for a pool advertisements specific English Location",
                       })}
@@ -244,8 +244,8 @@ const CoreRequirementsSection = ({
                       name="specificLocationFr"
                       type="text"
                       label={intl.formatMessage({
-                        defaultMessage: "Specific Location (French)",
-                        id: "PH+6C9",
+                        defaultMessage: "Specific location (French)",
+                        id: "4tGRa+",
                         description:
                           "Label for a pool advertisements specific French Location",
                       })}

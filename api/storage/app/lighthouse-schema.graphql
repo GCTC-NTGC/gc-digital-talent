@@ -331,6 +331,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   trainingOpportunity(id: UUID!): TrainingOpportunity
@@ -2950,6 +2951,7 @@ enum CandidateExpiryFilter {
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
+  INELIGIBLE
   OTHER
 }
 

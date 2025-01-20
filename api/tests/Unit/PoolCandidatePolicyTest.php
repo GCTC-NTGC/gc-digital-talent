@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\Community;
 use App\Models\Pool;
@@ -232,19 +233,19 @@ class PoolCandidatePolicyTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateStatus()
+    public function testUpdateStatusLegacy()
     {
         // Ensure candidate is not draft
         $this->poolCandidate->submitted_at = config('constants.past_date');
         $this->poolCandidate->save();
 
-        $this->assertFalse($this->guestUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->candidateUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->applicantUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->adminUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->processOperatorUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->communityRecruiterUser->can('updateStatus', $this->poolCandidate));
-        $this->assertFalse($this->communityAdminUser->can('updateStatus', $this->poolCandidate));
+        $this->assertFalse($this->guestUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->processOperatorUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->communityRecruiterUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->communityAdminUser->can('updateStatusLegacy', $this->poolCandidate));
     }
 
     /**
@@ -584,5 +585,136 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('updatePlacement', $this->unOwnedPoolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('updatePlacement', $this->unOwnedPoolCandidate));
         $this->assertFalse($this->communityAdminUser->can('updatePlacement', $this->unOwnedPoolCandidate));
+    }
+
+    /**
+     * Assert that the policy method references the correct subsequent method for a given input status
+     * testing pool operator, process operator, community recruiter, community admin
+     *
+     * @return void
+     */
+    public function testUpdateStatus()
+    {
+        // test all the statuses
+        // grouped similar statuses to condense this blob
+
+        $draftOrExpiredStatuses = [
+            PoolCandidateStatus::DRAFT->name,
+            PoolCandidateStatus::DRAFT_EXPIRED->name,
+            PoolCandidateStatus::EXPIRED->name,
+        ];
+        foreach ($draftOrExpiredStatuses as $draftOrExpiredStatus) {
+            $this->assertFalse($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
+            $this->assertFalse($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
+            $this->assertFalse($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
+        }
+
+        $placedStatuses = [
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+        ];
+        foreach ($placedStatuses as $placedStatus) {
+            $this->assertFalse($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+            $this->assertTrue($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+            $this->assertTrue($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+        }
+
+        $initialStatuses = [
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+        ];
+        foreach ($initialStatuses as $initialStatus) {
+            $this->assertTrue($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
+            $this->assertTrue($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
+            $this->assertTrue($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
+        }
+
+        $screeningStatuses = [
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+        ];
+        foreach ($screeningStatuses as $screeningStatus) {
+            $this->assertTrue($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
+            $this->assertTrue($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
+            $this->assertTrue($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
+        }
+
+        $qualifiedStatuses = [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+        ];
+        foreach ($qualifiedStatuses as $qualifiedStatus) {
+            $this->assertTrue($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
+            $this->assertTrue($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
+            $this->assertTrue($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
+        }
+
+        // test REMOVED
+        $this->assertTrue($this->processOperatorUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+        $this->assertTrue($this->communityRecruiterUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+        $this->assertTrue($this->communityAdminUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+    }
+
+    /**
+     * Assert that the policy method handles expiry date input
+     * testing pool operator, process operator, community recruiter, community admin
+     *
+     * @return void
+     */
+    public function testUpdatePoolCandidateStatusParentOnlyExpiry()
+    {
+        // test policy again with just an expiry date
+        $this->assertFalse($this->processOperatorUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
+        $this->assertFalse($this->communityRecruiterUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
+        $this->assertFalse($this->communityAdminUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['expiry_date' => '2000-01-01']]));
     }
 }

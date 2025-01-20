@@ -19,8 +19,6 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-use function PHPUnit\Framework\assertEqualsCanonicalizing;
-
 class PoolCandidateTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -812,36 +810,5 @@ class PoolCandidateTest extends TestCase
                 ],
             ])->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityCandidate->id]);
-    }
-
-    // test scopeAvailable
-    public function testScopeAvailable(): void
-    {
-        PoolCandidate::truncate();
-        $candidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            'expiry_date' => null,
-            'suspended_at' => null,
-        ]);
-
-        $suspendedCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            'expiry_date' => null,
-            'suspended_at' => config('constants.far_past_datetime'),
-        ]);
-
-        $expiredCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            'expiry_date' => config('constants.past_date'),
-            'suspended_at' => null,
-        ]);
-
-        $queryBuilder = PoolCandidate::query();
-        $candidateIds = PoolCandidate::scopeAvailable($queryBuilder)->get()->pluck('id')->toArray();
-
-        // suspended and expired not present
-        assertEqualsCanonicalizing([
-            $candidate->id,
-        ], $candidateIds);
     }
 }

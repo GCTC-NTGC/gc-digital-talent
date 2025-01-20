@@ -1728,7 +1728,6 @@ class UserTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        // group one
         PoolCandidate::factory()->count(8)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1739,7 +1738,6 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        // group two
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1751,7 +1749,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // Should appear in searches, but in pool 2.
-        // group three
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1763,7 +1760,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // Expired in pool - should not appear in searches
-        // group four
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => '2000-01-01',
@@ -1774,13 +1770,11 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        // Already placed - should appear in searches
-        // group five
+        // Already placed - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            'suspended_at' => null,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1788,7 +1782,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // User status inactive - should not appear in searches
-        // group six
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1818,8 +1811,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                // contains groups one, two, and five
-                'countApplicants' => 15, // including base admin user
+                'countApplicants' => 14, // including base admin user
             ],
         ]);
 
@@ -1841,8 +1833,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                // counts groups one and five, filtered out two due to added language
-                'countApplicants' => 10, // including base admin user
+                'countApplicants' => 9, // including base admin user
             ],
         ]);
     }

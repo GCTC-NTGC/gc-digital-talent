@@ -166,6 +166,7 @@ export function sortCandidateRemovalReason(
     [
       CandidateRemovalReason.RequestedToBeWithdrawn,
       CandidateRemovalReason.NotResponsive,
+      CandidateRemovalReason.Ineligible,
       CandidateRemovalReason.Other,
     ],
     removalReasons,

@@ -22,13 +22,13 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import {
   hasEmptyRequiredFields,
   hasInvalidRequiredFields,
 } from "~/validators/process/closingDate";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
@@ -68,7 +68,6 @@ const ClosingDateSection = ({
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
-  const experienceFormLabels = getExperienceFormLabels(intl);
   const pool = getFragment(EditPoolClosingDate_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const invalidRequired = hasInvalidRequiredFields(pool);
@@ -169,7 +168,7 @@ const ClosingDateSection = ({
               <div data-h2-margin-bottom="base(x1)">
                 <DateInput
                   id="endDate"
-                  legend={experienceFormLabels.endDate}
+                  legend={intl.formatMessage(processMessages.closingDate)}
                   name="endDate"
                   disabled={formDisabled}
                   rules={{
