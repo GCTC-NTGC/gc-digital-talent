@@ -5,11 +5,11 @@ namespace Tests\Feature;
 use App\Enums\AssessmentStepType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,9 +29,9 @@ class AssessmentStepTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $teamUser;
+    protected $communityUser;
 
-    protected $team;
+    protected $community;
 
     protected $pool;
 
@@ -40,17 +40,18 @@ class AssessmentStepTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
-        $this->team = Team::factory()->create();
+        $this->community = Community::factory()->create(['name' => 'test-community']);
         $this->pool = Pool::factory()->draft()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
-        $this->teamUser = User::factory()
+        $this->communityUser = User::factory()
             ->asApplicant()
-            ->asProcessOperator($this->team->name)
+            ->asCommunityRecruiter($this->community->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'community-user@test.com',
+                'sub' => 'community-user@test.com',
             ]);
+
     }
 
     protected $createAssessmentStep =
@@ -122,7 +123,7 @@ class AssessmentStepTest extends TestCase
     // test creating an assessment
     public function testCreatingAssessmentStep(): void
     {
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->createAssessmentStep,
                 [
@@ -158,7 +159,7 @@ class AssessmentStepTest extends TestCase
             ]
         );
 
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->updateAssessmentStep,
                 [
@@ -193,7 +194,7 @@ class AssessmentStepTest extends TestCase
         );
         assertNotNull(AssessmentStep::all()->find($assessment->id));
 
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->deleteAssessmentStep,
                 [
@@ -225,7 +226,7 @@ class AssessmentStepTest extends TestCase
         $poolSkillIds = PoolSkill::all()->pluck('id')->toArray();
 
         // create an AssessmentStep and sync it to both the pool's skills
-        $response = $this->actingAs($this->teamUser, 'api')
+        $response = $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->createAssessmentStep,
                 [
@@ -258,7 +259,7 @@ class AssessmentStepTest extends TestCase
         assertNotNull($this->pool->assessmentSteps->find($assessmentStep->id));
 
         // delete the assessment step
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->deleteAssessmentStep,
                 [
@@ -276,7 +277,7 @@ class AssessmentStepTest extends TestCase
     // test that you cannot add screening or application related assessment steps
     public function testAssessmentStepTypeValidation(): void
     {
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->communityUser, 'api')
             ->graphQL(
                 $this->createAssessmentStep,
                 [
@@ -298,13 +299,13 @@ class AssessmentStepTest extends TestCase
     {
         Skill::factory()->count(3)->create();
         $testPool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
         $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
         $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 
         // fails if no pool skills attached
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
@@ -332,7 +333,7 @@ class AssessmentStepTest extends TestCase
             ]);
 
         // successful now that pool skills is non-null
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
@@ -377,12 +378,12 @@ class AssessmentStepTest extends TestCase
     {
         Skill::factory()->count(3)->create();
         $testPool = Pool::factory()->draft()->withPoolSkills(2, 2)->withQuestions(2, 2)->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
         AssessmentStep::truncate();
         $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             [
                 'poolId' => $testPool->id,
