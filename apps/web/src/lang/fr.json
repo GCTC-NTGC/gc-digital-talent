@@ -543,6 +543,10 @@
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement à long terme sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has future impact on other departments_ fieldset in the _digital services contracting questionnaire_"
   },
+  "0bf24C": {
+    "defaultMessage": "Informations sur le volet de travail",
+    "description": "Heading for the 'create a work stream' form"
+  },
   "0c/3Iw": {
     "defaultMessage": "Vos objectifs et votre style de travail",
     "description": "Title for goals and work style section"
@@ -550,6 +554,10 @@
   "0cevfA": {
     "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
     "description": "Lead in text for the add role to user form."
+  },
+  "0cieq3": {
+    "defaultMessage": "Le volet de travail a été mis à jour avec succès!",
+    "description": "Message displayed to user after work stream is updated successfully."
   },
   "0cy9n/": {
     "defaultMessage": "Informations sur le groupe de compétences",
@@ -1039,6 +1047,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3D8drd": {
+    "defaultMessage": "Informations sur le volet de travail",
+    "description": "Heading for the 'update a work stream' form"
+  },
   "3FAEil": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees with departmental preference. Has an asterisk for fine print."
@@ -1274,6 +1286,10 @@
   "4SNVtn": {
     "defaultMessage": "{poolCandidateName} possède 0 des 0 compétences",
     "description": "Aria-label for the title displayed on the candidate skill count column."
+  },
+  "4SdmnS": {
+    "defaultMessage": "Modifier un volet de travail",
+    "description": "Page title for the work stream edit page"
   },
   "4TmwRU": {
     "defaultMessage": "Candidature reçue",
@@ -2202,6 +2218,10 @@
   "9EnhFG": {
     "defaultMessage": "Afin d'offrir une occasion équitable à toutes les personnes au Canada de postuler un poste, les dates limites se terminent à <strong>23 h 59, heure du Pacifique</strong>, à la date que vous avez choisie. Lorsqu'ils sont montrés aux candidates et candidats, nous leur demandons de présenter leur demande au plus tard à la date que vous avez choisie afin d'éviter toute confusion concernant les fuseaux horaires.",
     "description": "First paragraph for the pool closing date dialog"
+  },
+  "9HEVBb": {
+    "defaultMessage": "Utilisez le bouton « Créez un volet de travail » pour commencer.",
+    "description": "Instructions for adding a work stream item."
   },
   "9IMcqY": {
     "defaultMessage": "En fin de compte, il revient au comité de sélection ou au gestionnaire de déterminer le nombre approprié de méthodes d’évaluation. Si vous en avez plus de {maxSteps}, sélectionnez « évaluation supplémentaire » en dernier ressort, puis communiquez avec notre équipe. Nous pouvons vous expliquer la façon dont ces évaluations supplémentaires peuvent être gérées sur la plateforme.",
@@ -5091,6 +5111,10 @@
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
   },
+  "OKCVhm": {
+    "defaultMessage": "Texte de rechange en langage clair (français)",
+    "description": "Label for plain language alt french input"
+  },
   "OKqOVT": {
     "defaultMessage": "Gouvernement du Canada",
     "description": "Label for goc employment category on work experience card metadata"
@@ -5427,6 +5451,10 @@
     "defaultMessage": "Sélectionner une classification pour afficher les exigences en matière de formation.",
     "description": "Null message for education requirement section"
   },
+  "PzQ0E1": {
+    "defaultMessage": "Le volet de travail {workStreamId} n'a pas été trouvé.",
+    "description": "Message displayed for work stream not found."
+  },
   "Q+7LUo": {
     "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
     "description": "Title for the find a skill dialog within an experience"
@@ -5675,6 +5703,10 @@
     "defaultMessage": "Cette annonce n’exige pas d’une section « À propos de nous ».",
     "description": "Message displayed when there is no about us for a process advertisement."
   },
+  "R+PiXo": {
+    "defaultMessage": "Erreur : La création du volet de travail a échoué.",
+    "description": "Messaged displayed after creating work stream fails"
+  },
   "R/z71a": {
     "defaultMessage": "Information sur la demande",
     "description": "Heading for the information of an application"
@@ -5818,6 +5850,10 @@
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
     "description": "Label for the candidates current assessment step"
+  },
+  "RjKlKz": {
+    "defaultMessage": "Créez un volet de travail",
+    "description": "Text to create a work stream"
   },
   "Rk1i9Q": {
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
@@ -6214,6 +6250,10 @@
   "Tvsi5A": {
     "defaultMessage": "Gestionnaires de l'initiative numérique",
     "description": "Title for group-specific resource card"
+  },
+  "TwR8/e": {
+    "defaultMessage": "Créer<hidden> un volet de travail</hidden>",
+    "description": "Breadcrumb title for the create work stream page link."
   },
   "TxVbLI": {
     "defaultMessage": "Filtre de classification",
@@ -7542,6 +7582,10 @@
     "defaultMessage": "l'analyse opérationnelle;",
     "description": "Second item in list of certification topics section"
   },
+  "ax3wZp": {
+    "defaultMessage": "Texte de rechange en langage clair",
+    "description": "Column header for plain language name in work streams table"
+  },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
@@ -7617,6 +7661,10 @@
   "bOAF9o": {
     "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "Title for adding a new experience"
+  },
+  "bPN0EF": {
+    "defaultMessage": "Le volet de travail a été créé avec succès!",
+    "description": "Message displayed after a work stream is created"
   },
   "bQ4iDW": {
     "defaultMessage": "Résultats des candidates et candidats",
@@ -8030,6 +8078,10 @@
     "defaultMessage": "Les exigences linguistiques des postes bilingues sont résumées au moyen de l’une des lettres pour chacune des compétences. La première lettre renvoie au niveau requis pour la <strong>Lecture</strong>, la deuxième pour <strong>l’écriture</strong> et la troisième pour  <strong>l’expression orale</strong>.",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "da/TLc": {
+    "defaultMessage": "Modifier<hidden> le volet de travail</hidden>",
+    "description": "Breadcrumb title for the edit work stream page link."
+  },
   "db3ZDX": {
     "defaultMessage": "Bon retour!",
     "description": "Heading at the top of the sign in page for applicant profiles"
@@ -8281,6 +8333,10 @@
   "eWVgyx": {
     "defaultMessage": "Objet de la demande",
     "description": "Talent request - request purpose title"
+  },
+  "eZT5Vr": {
+    "defaultMessage": "Nous recommandons d'ajouter un nom de rechange en langage clair pour les utilisateurs non gouvernementaux.",
+    "description": "Suggestion for the next work stream input."
   },
   "eZYP/W": {
     "defaultMessage": "Gérer votre parcours professionnel",
@@ -8546,9 +8602,17 @@
     "defaultMessage": "Province, territoire ou région",
     "description": "Label for current province or territory field"
   },
+  "fo51DL": {
+    "defaultMessage": "Créer un volet de travail",
+    "description": "Page title for the work stream creation page"
+  },
   "fpm0Bt": {
     "defaultMessage": "Compétences techniques essentielles",
     "description": "Short title of the 'essential technical skills' section of the job poster template page"
+  },
+  "fqEh4+": {
+    "defaultMessage": "Modifiez les informations sur le volet de travail",
+    "description": "Link to edit the currently viewed work stream"
   },
   "fqa45V": {
     "defaultMessage": "Définition du niveau",
@@ -9450,6 +9514,10 @@
     "defaultMessage": "Poursuivez l'ébauche",
     "description": "Link text to continue a specific application that is in draft state."
   },
+  "jkY75T": {
+    "defaultMessage": "Créez le volet de travail",
+    "description": "Button text to create a work stream"
+  },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
@@ -9597,6 +9665,10 @@
   "kfzKrV": {
     "defaultMessage": "Signaler une page manquante",
     "description": "Link text to go report a missing page on the 404"
+  },
+  "kh9KTx": {
+    "defaultMessage": "Annulez et revenez aux volets de travail",
+    "description": "Link text to cancel updating a work stream"
   },
   "kiH9nz": {
     "defaultMessage": "Sélectionnez<hidden> une langue autochtone </hidden>",
@@ -9837,6 +9909,10 @@
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
+  },
+  "mBaKVv": {
+    "defaultMessage": "Informations sur les volets de travail",
+    "description": "Nav tab label for work stream information"
   },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
@@ -10117,6 +10193,10 @@
   "nGx7Xt": {
     "defaultMessage": "Mesures",
     "description": "Title displayed for actions column"
+  },
+  "nGy9DA": {
+    "defaultMessage": "Informations sur les volets de travail",
+    "description": "Heading for the 'view a work stream' form"
   },
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -11366,6 +11446,10 @@
     "defaultMessage": "Le contrat comporte-t-il des exigences particulières en matière de personnel?",
     "description": "Label for _contract amendable_ fieldset in the _digital services contracting questionnaire_"
   },
+  "uK9/a4": {
+    "defaultMessage": "Volets de travail",
+    "description": "Title for the index work streams page"
+  },
   "uLncuU": {
     "defaultMessage": "Nom du (de la) candidat(e)",
     "description": "Title displayed on the User table Candidate name column."
@@ -11373,6 +11457,10 @@
   "uMU2Yg": {
     "defaultMessage": "Votre incidence (français)",
     "description": "Label for a process' French impact"
+  },
+  "uNKq32": {
+    "defaultMessage": "Erreur : la mise à jour du volet de travail a échoué.",
+    "description": "Message displayed to user after work stream fails to get updated."
   },
   "uOTYlH": {
     "defaultMessage": "Vous n'avez pas encore de profil? En suivant le processus de demande d'emploi, vous obtiendrez toutes les informations dont vous avez besoin.",
@@ -11393,6 +11481,10 @@
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
+  },
+  "uWZgYM": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un volet de travail. Elle devrait être fondée sur le nom anglais du volet de travail et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the work streams 'key' field."
   },
   "uWdGeZ": {
     "defaultMessage": "Expérience professionnelle",
@@ -12065,6 +12157,10 @@
   "yVOpEI": {
     "defaultMessage": "Télécharger le guide",
     "description": "Link text for guidance resource download"
+  },
+  "yW8bEZ": {
+    "defaultMessage": "Texte de rechange en langage clair (anglais)",
+    "description": "Label for plain language alt english input"
   },
   "yWen8A": {
     "defaultMessage": "Format",
