@@ -589,7 +589,7 @@ class PoolCandidatePolicyTest extends TestCase
 
     /**
      * Assert that the policy method references the correct subsequent method for a given input status
-     * testing pool operator, process operator, community recruiter, community admin
+     * testing process operator, community recruiter, community admin
      *
      * @return void
      */
@@ -700,7 +700,7 @@ class PoolCandidatePolicyTest extends TestCase
 
     /**
      * Assert that the policy method handles expiry date input
-     * testing pool operator, process operator, community recruiter, community admin
+     * testing process operator, community recruiter, community admin
      *
      * @return void
      */
