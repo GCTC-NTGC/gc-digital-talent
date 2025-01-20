@@ -425,11 +425,7 @@ export const getApplicationStatusChip = (
   }
 
   // Qualified applications
-  if (
-    (finalDecisionAt && isQualifiedFinalDecision(finalDecision)) ||
-    assessmentStatus?.overallAssessmentStatus ===
-      OverallAssessmentStatus.Qualified
-  ) {
+  if (finalDecisionAt && isQualifiedFinalDecision(finalDecision)) {
     return {
       color: "success",
       label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
