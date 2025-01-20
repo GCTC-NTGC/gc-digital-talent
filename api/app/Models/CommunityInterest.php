@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class CommunityInterest
@@ -28,5 +29,11 @@ class CommunityInterest extends Model
     public function workStreams(): BelongsToMany
     {
         return $this->belongsToMany(WorkStream::class);
+    }
+
+    /** @return HasMany<DevelopmentProgramInterest, $this> */
+    public function interestInDevelopmentPrograms(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgramInterest::class);
     }
 }

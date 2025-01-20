@@ -11,7 +11,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { UnauthorizedError } from "@gc-digital-talent/helpers";
+import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -23,6 +23,7 @@ import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
+import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -36,6 +37,9 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     isGovEmployee
     workEmail
     isWorkEmailVerified
+    employeeProfile {
+      ...EmployeeProfileGoalsWorkStyle
+    }
   }
 `);
 
@@ -48,6 +52,10 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   const paths = useRoutes();
   const user = getFragment(EmployeeProfile_Fragment, userQuery);
   const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
+
+  if (!user.employeeProfile) {
+    throw new NotFoundError();
+  }
 
   if (
     !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
@@ -174,9 +182,11 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               <TableOfContents.Section
                 id={SECTION_ID.DREAM_ROLE}
               ></TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.GOALS_WORK_STYLE}
-              ></TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
+                <GoalsWorkStyleSection
+                  employeeProfileQuery={user.employeeProfile}
+                />
+              </TableOfContents.Section>
             </div>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

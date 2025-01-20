@@ -4,7 +4,6 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
-use App\Enums\GovPositionType;
 use App\Enums\WorkExperienceGovEmployeeType;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -62,8 +61,12 @@ final class CreateUpdateWorkExperienceValidator extends Validator
             'workExperience.govPositionType' => [
                 Rule::requiredIf(
                     (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name ||
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
+                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
+                    )
+                ),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('workExperience.govEmploymentType') !== WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -71,7 +74,6 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                         $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
                     )
                 ),
-                $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name ? Rule::notIn(GovPositionType::SUBSTANTIVE->name) : null,
             ],
             'workExperience.govContractorRoleSeniority' => [
                 Rule::requiredIf(
