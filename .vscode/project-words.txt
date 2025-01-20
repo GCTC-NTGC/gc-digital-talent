@@ -33,6 +33,7 @@ GCNOTIFY
 gctalent
 heroicons
 ilike
+inclusivity
 Inclusivity
 inuk
 Inuk
