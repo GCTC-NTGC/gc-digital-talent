@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Community;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,11 +22,9 @@ class GeneralQuestionTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $teamUser;
+    protected $processOperator;
 
-    protected $team;
-
-    protected $teamName = 'application-test-team';
+    protected $community;
 
     protected $pool;
 
@@ -51,26 +49,25 @@ class GeneralQuestionTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
-        $this->team = Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
+        $this->community = Community::factory()->create(['name' => 'test-community-application']);
         $this->pool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(3, 1)->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]); // this seeds 3 questions onto the pool
-        $this->teamUser = User::factory()
+        $this->processOperator = User::factory()
             ->asApplicant()
-            ->asProcessOperator($this->team->name)
+            ->asProcessOperator($this->pool->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'process-operator@test.com',
+                'sub' => 'process-operator@test.com',
             ]);
+
     }
 
     public function testCreatingGeneralQuestions(): void
     {
         // create a question and assert it appears in the response
 
-        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'generalQuestions' => [
@@ -100,7 +97,7 @@ class GeneralQuestionTest extends TestCase
 
         // update a question and assert it changed in the response
 
-        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'generalQuestions' => [
@@ -131,7 +128,7 @@ class GeneralQuestionTest extends TestCase
 
         // delete a question and assert it isn't present in the response
 
-        $this->actingAs($this->teamUser, 'api')->graphQL($this->updatePoolMutation, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updatePoolMutation, [
             'id' => $this->pool->id,
             'pool' => [
                 'generalQuestions' => [
