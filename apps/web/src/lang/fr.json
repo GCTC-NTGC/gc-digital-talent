@@ -1635,6 +1635,10 @@
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
   },
+  "6+MKIv": {
+    "defaultMessage": "Gérer et visualiser l’information relative à votre processus.",
+    "description": "Subtitle for the individual pool page"
+  },
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
@@ -10601,10 +10605,6 @@
   "pLef1V": {
     "defaultMessage": "Dissimuler les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
-  },
-  "pM43Xu": {
-    "defaultMessage": "Gérer et visualiser l’information relative à votre processus.",
-    "description": "Subtitle for the individual pool page"
   },
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis",
