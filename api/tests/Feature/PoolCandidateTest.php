@@ -80,10 +80,10 @@ class PoolCandidateTest extends TestCase
 
         $this->communityUser = User::factory()
             ->asApplicant()
-            ->asProcessOperator($this->community->id)
+            ->asCommunityAdmin($this->community->id)
             ->create([
-                'email' => 'community-user@test.com',
-                'sub' => 'community-user@test.com',
+                'email' => 'community-admin@test.com',
+                'sub' => 'community-admin@test.com',
             ]);
 
         // Community and users not associated with the Pool we are testing against
@@ -91,10 +91,10 @@ class PoolCandidateTest extends TestCase
 
         $this->unAssociatedCommunityUser = User::factory()
             ->asApplicant()
-            ->asProcessOperator($unAssociatedCommunity->id)
+            ->asCommunityAdmin($unAssociatedCommunity->id)
             ->create([
-                'email' => 'unassociated-community-user@test.com',
-                'sub' => 'unassociated-community-user@test.com',
+                'email' => 'unassociated-community-admin@test.com',
+                'sub' => 'unassociated-community-admin@test.com',
             ]);
     }
 
