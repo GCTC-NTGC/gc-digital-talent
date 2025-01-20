@@ -22,7 +22,7 @@ class GeneralQuestionResponsesTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $communityUser;
+    protected $processOperator;
 
     protected $community;
 
@@ -55,12 +55,12 @@ class GeneralQuestionResponsesTest extends TestCase
         $this->pool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
             'community_id' => $this->community->id,
         ]);
-        $this->communityUser = User::factory()
+        $this->processOperator = User::factory()
             ->asApplicant()
-            ->asCommunityRecruiter($this->community->id)
+            ->asProcessOperator($this->pool->id)
             ->create([
-                'email' => 'community-user@test.com',
-                'sub' => 'community-user@test.com',
+                'email' => 'process-operator@test.com',
+                'sub' => 'process-operator@test.com',
             ]);
 
         $this->questionId = $this->pool->generalQuestions()->pluck('id')->toArray()[0];
@@ -70,12 +70,12 @@ class GeneralQuestionResponsesTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'user_id' => $this->communityUser->id,
+            'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
 
         // assert response is successfully created
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
@@ -94,7 +94,7 @@ class GeneralQuestionResponsesTest extends TestCase
         ]);
 
         // assert attempting to create another response to the same question fails
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
@@ -117,11 +117,11 @@ class GeneralQuestionResponsesTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'user_id' => $this->communityUser->id,
+            'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
 
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
@@ -142,7 +142,7 @@ class GeneralQuestionResponsesTest extends TestCase
         $createdResponseId = GeneralQuestionResponse::sole()['id'];
 
         // assert updating works
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
@@ -163,11 +163,11 @@ class GeneralQuestionResponsesTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'user_id' => $this->communityUser->id,
+            'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
 
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
@@ -188,7 +188,7 @@ class GeneralQuestionResponsesTest extends TestCase
         $createdResponseId = GeneralQuestionResponse::sole()['id'];
 
         // assert deleting works
-        $this->actingAs($this->communityUser, 'api')->graphQL($this->updateApplication, [
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
             'id' => $application->id,
             'application' => [
                 'generalQuestionResponses' => [
