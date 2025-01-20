@@ -156,7 +156,7 @@
     "description": "Message that appears when a required skill has no experiences linked to it"
   },
   "+lxGIT": {
-    "defaultMessage": "Suivre, « aimer » et s’abonner",
+    "defaultMessage": "Suivre, « aimer » et s’abonner",
     "description": "Heading for following section"
   },
   "+mCsoW": {
@@ -4876,7 +4876,7 @@
     "description": "intro to request a new code"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajoutez un rôle dans la collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mxu+IY": {
@@ -10015,7 +10015,7 @@
     "description": "Label for _hr_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
   "mSdBi1": {
-    "defaultMessage": "La décision du gouvernement du Canada de « suivre », « d'aimer » ou de « s'abonner » à un autre compte de médias sociaux ne signifie pas qu'il approuve ce compte, cette voie de communication, cette page ou ce site, et il en est de même pour le partage (retransmission, republication ou lien) de contenu provenant d'un autre utilisateur.",
+    "defaultMessage": "La décision du gouvernement du Canada de « suivre », « d'aimer » ou de « s'abonner » à un autre compte de médias sociaux ne signifie pas qu'il approuve ce compte, cette voie de communication, cette page ou ce site, et il en est de même pour le partage (retransmission, republication ou lien) de contenu provenant d'un autre utilisateur.",
     "description": "Paragraph for following section"
   },
   "mTsq+x": {
@@ -12379,7 +12379,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "zcr51k": {
-    "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
+    "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
     "description": "Paragraph describing trademark notice section"
   },
   "zdGy4D": {
