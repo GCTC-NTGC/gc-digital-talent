@@ -26,8 +26,6 @@ class UserTestSeeder extends Seeder
         // shared auth users for testing
         User::factory()
             ->asApplicant()
-            ->asRequestResponder()
-            ->asCommunityManager()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->asAdmin()
             ->withSkillsAndExperiences()
@@ -53,7 +51,6 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asCommunityManager()
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
@@ -65,7 +62,6 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
