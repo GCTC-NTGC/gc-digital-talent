@@ -48,6 +48,8 @@ import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
+import { CsvType } from "../PoolCandidatesTable/types";
+
 import {
   bookmarkCell,
   bookmarkHeader,
@@ -77,7 +79,6 @@ import {
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
-
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
@@ -631,10 +632,27 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = (withROD?: boolean) => {
-    downloadCsv({ ids: selectedRows, withROD })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+  const handleCsvDownload = (type?: CsvType, withROD?: boolean) => {
+    if (type == CsvType.ProfileCsv) {
+      downloadCsv({ ids: selectedRows, withROD: false })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    } else if (type == CsvType.ApplicationCsv) {
+      downloadCsv({ ids: selectedRows, withROD: true })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    } else
+      downloadCsv({
+        ids: selectedRows,
+        where: addSearchToPoolCandidateFilterInput(
+          filterState,
+          searchState?.term,
+          searchState?.type,
+        ),
+        withROD: withROD,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
   };
 
   const handleDocDownload = (anonymous: boolean) => {
