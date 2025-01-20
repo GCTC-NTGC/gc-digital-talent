@@ -539,6 +539,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 ->causedBy(Auth::user())
                 ->performedOn($user)
                 ->withProperties($properties)
+                ->event('roleAdded')
                 ->log('roleAdded');
         });
 
@@ -556,6 +557,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 ->causedBy(Auth::user())
                 ->performedOn($user)
                 ->withProperties($properties)
+                ->event('roleAdded')
                 ->log('roleRemoved');
         });
     }
