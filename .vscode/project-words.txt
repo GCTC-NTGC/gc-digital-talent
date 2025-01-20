@@ -68,6 +68,7 @@ subquery
 TALENTSEARCH
 tanstack
 teamable
+telework
 Telework
 TELEWORK
 testid
