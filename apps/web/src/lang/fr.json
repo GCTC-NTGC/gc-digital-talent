@@ -900,7 +900,7 @@
     "description": "Message displayed for user not found."
   },
   "2cZySB": {
-    "defaultMessage": " Télécharger CSV sans évaluations",
+    "defaultMessage": "Télécharger CSV sans évaluations",
     "description": "Button label for download candidate csv without ROD data."
   },
   "2dkgQe": {
@@ -8015,7 +8015,7 @@
     "description": "Aria label for system notification icons in notification settings."
   },
   "d8CQJr": {
-    "defaultMessage": " Création réussie du groupe de compétences!",
+    "defaultMessage": "Création réussie du groupe de compétences!",
     "description": "Message displayed to user after skill family is created successfully."
   },
   "d8j/Sr": {
@@ -10291,7 +10291,7 @@
     "description": "Message displayed to users to sign out of the application"
   },
   "nmx1ym": {
-    "defaultMessage": " Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
+    "defaultMessage": "Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
     "description": "Description for the goc employment category option in work experience"
   },
   "nn9B4R": {
@@ -10407,7 +10407,7 @@
     "description": "Competitive contract solicitation procedure"
   },
   "oURESC": {
-    "defaultMessage": " J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
+    "defaultMessage": "J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
     "description": "Label displayed on Personal Experience form for disclaimer checkbox"
   },
   "oWPn6I": {
@@ -10935,7 +10935,7 @@
     "description": "Support form toast message error"
   },
   "rQ3Gbb": {
-    "defaultMessage": " Erreur : échec de la création de la compétence ",
+    "defaultMessage": "Erreur : échec de la création de la compétence ",
     "description": "Message displayed to user after skill family fails to get created."
   },
   "rQ61eh": {
@@ -11635,7 +11635,7 @@
     "description": "Title at organization"
   },
   "vW/JGo": {
-    "defaultMessage": " Cette page offre un aperçu complet de l’historique de vos notifications. À partir de cette page, vous pouvez consulter, épingler et supprimer des notifications de votre compte. Si vous souhaitez gérer les notifications que vous recevez et leur format, vous pouvez le faire à partir de la page des paramètres de votre compte.",
+    "defaultMessage": "Cette page offre un aperçu complet de l’historique de vos notifications. À partir de cette page, vous pouvez consulter, épingler et supprimer des notifications de votre compte. Si vous souhaitez gérer les notifications que vous recevez et leur format, vous pouvez le faire à partir de la page des paramètres de votre compte.",
     "description": "Description of the list of a users notifications"
   },
   "vXcg28": {
