@@ -524,6 +524,40 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $user->update(['email' => $newWorkEmail]);
             }
         });
+
+        static::roleAdded(function (User $user, string $role, $team) {
+            if (! $role) {
+                return;
+            }
+
+            $properties = ['role' => $role];
+            if ($team) {
+                $properties['team'] = $team;
+            }
+
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($user)
+                ->withProperties($properties)
+                ->log('roleAdded');
+        });
+
+        static::roleRemoved(function (User $user, string $role, $team) {
+            if (! $role) {
+                return;
+            }
+
+            $properties = ['role' => $role];
+            if ($team) {
+                $properties['team'] = $team;
+            }
+
+            activity()
+                ->causedBy(Auth::user())
+                ->performedOn($user)
+                ->withProperties($properties)
+                ->log('roleRemoved');
+        });
     }
 
     /**
