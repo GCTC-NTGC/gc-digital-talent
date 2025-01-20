@@ -930,26 +930,20 @@ class CandidateAssessmentStatusTest extends TestCase
      */
     public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
     {
-        $stepOne = $this->pool->assessmentSteps->first();
-        $stepTwo = AssessmentStep::factory()
-            ->afterCreating(function (AssessmentStep $step) {
-                $step->poolSkills()->sync([$this->poolSkill->id]);
-            })->create([
-                'pool_id' => $this->pool->id,
-            ]);
+        $steps = $this->pool->assessmentSteps;
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::EDUCATION)
             ->create([
-                'assessment_step_id' => $stepOne->id,
+                'assessment_step_id' => $steps[0]->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
-
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::SKILL)
             ->create([
-                'assessment_step_id' => $stepOne->id,
+                'assessment_step_id' => $steps[0]->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
                 'pool_skill_id' => $this->poolSkill->id,
@@ -958,7 +952,7 @@ class CandidateAssessmentStatusTest extends TestCase
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::SKILL)
             ->create([
-                'assessment_step_id' => $stepTwo->id,
+                'assessment_step_id' => $steps[1]->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
                 'pool_skill_id' => $this->poolSkill->id,
@@ -972,11 +966,11 @@ class CandidateAssessmentStatusTest extends TestCase
                         'assessmentStatus' => [
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $stepOne->id,
+                                    'step' => $steps[0]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                                 [
-                                    'step' => $stepTwo->id,
+                                    'step' => $steps[1]->id,
                                     'decision' => AssessmentDecision::UNSUCCESSFUL->name,
                                 ],
                             ],
