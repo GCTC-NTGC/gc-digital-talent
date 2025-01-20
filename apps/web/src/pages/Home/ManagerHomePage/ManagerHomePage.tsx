@@ -193,9 +193,9 @@ const ManagerHomePage = () => {
                 mode: "solid",
                 label: intl.formatMessage({
                   defaultMessage: "Hire an IT apprentice",
-                  id: "22KlYO",
+                  id: "TjvnvR",
                   description:
-                    "Link text to the IT Apprenticehip program for Indigenous peoples page",
+                    "Link text to the IT Apprenticeship Program for Indigenous Peoples page",
                 }),
               },
             ]}

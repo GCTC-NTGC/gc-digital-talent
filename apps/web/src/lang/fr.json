@@ -803,10 +803,6 @@
     "defaultMessage": "Cette section porte sur les renseignements qui fournissent à la candidate ou au candidat le contexte du type de travail qu'il fera, avec qui il travaillera et l'incidence du rôle sur les Canadiens et Canadiennes.",
     "description": "Sub title for basic information"
   },
-  "22KlYO": {
-    "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
-    "description": "Link text to the IT Apprenticehip program for Indigenous peoples page"
-  },
   "23/pqm": {
     "defaultMessage": "Aucune compétence n'a été liée à des expériences.",
     "description": "Null state for when no skills have been linked to any experiences"
@@ -6222,6 +6218,10 @@
   "Tj1iyN": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d'entrainement dirigés par un instructeur ou une instructrice</hidden>",
     "description": "A link to sign up for updates"
+  },
+  "TjvnvR": {
+    "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
+    "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
