@@ -228,37 +228,40 @@ const FindANewCommunity = ({
               disabled={formDisabled}
             />
             {/* workstream section */}
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x0.5)"
-            >
-              <span>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Please select any of the work streams described below that you would consider working within.",
-                  id: "gEtMPC",
-                  description:
-                    "Introduction for a work stream referral preferences input",
-                })}
-              </span>
-              <Checklist
-                idPrefix="workStreamPreferences"
-                name="workStreamPreferences"
-                legend={intl.formatMessage({
-                  defaultMessage:
-                    "Preferred work streams for job opportunities",
-                  id: "loImp5",
-                  description:
-                    "Label for the input for selecting work stream referral preferences",
-                })}
-                items={workStreamOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                disabled={formDisabled}
-              />
-            </div>
+            {workStreamOptions.length ? (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x0.5)"
+              >
+                <span>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please select any of the work streams described below that you would consider working within.",
+                    id: "gEtMPC",
+                    description:
+                      "Introduction for a work stream referral preferences input",
+                  })}
+                </span>
+                <Checklist
+                  idPrefix="workStreamPreferences"
+                  name="workStreamPreferences"
+                  legend={intl.formatMessage({
+                    defaultMessage:
+                      "Preferred work streams for job opportunities",
+                    id: "loImp5",
+                    description:
+                      "Label for the input for selecting work stream referral preferences",
+                  })}
+                  items={workStreamOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  disabled={formDisabled}
+                />
+              </div>
+            ) : // no workstreams
+            null}
           </>
         ) : (
           // no community selected

@@ -69,7 +69,7 @@ const TrainingAndDevelopmentOpportunities = ({
   );
 
   const { watch, register } = useFormContext<FormValues>();
-  const [selectedFunctionalCommunity] = watch(["functionalCommunity"]);
+  const selectedFunctionalCommunity = watch("functionalCommunity");
 
   const developmentPrograms =
     optionsData.communities.find(
@@ -149,10 +149,15 @@ const TrainingAndDevelopmentOpportunities = ({
             >
               {/* titles */}
               <div>
-                <p data-h2-font-weight="base(bold)">
+                <Heading
+                  level="h3"
+                  size="h6"
+                  data-h2-font-weight="base(bold)"
+                  data-h2-margin="base(0)"
+                >
                   {developmentProgram.name?.localized ??
                     intl.formatMessage(commonMessages.notProvided)}
-                </p>
+                </Heading>
                 <p>
                   {developmentProgram.descriptionForProfile?.localized ??
                     intl.formatMessage(commonMessages.notProvided)}

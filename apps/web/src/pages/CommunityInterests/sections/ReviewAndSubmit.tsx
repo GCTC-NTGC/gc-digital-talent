@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 
 import { CardSeparator, Heading } from "@gc-digital-talent/ui";
-import { Checkbox } from "@gc-digital-talent/forms";
+import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { Maybe } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -115,6 +115,22 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
           }}
           disabled={formDisabled}
           boundingBox
+        />
+      </div>
+      <CardSeparator space="none" />
+      {/* submit button */}
+      <div
+        data-h2-display="base(flex)"
+        data-h2-justify-content="base(flex-end)"
+        data-h2-gap="base(x1)"
+      >
+        <Submit
+          disabled={formDisabled}
+          text={intl.formatMessage({
+            defaultMessage: "Save and submit",
+            id: "JGC9Pp",
+            description: "Text for the submit button",
+          })}
         />
       </div>
     </div>

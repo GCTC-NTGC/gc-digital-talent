@@ -1,6 +1,6 @@
-/* eslint-disable import/no-unused-modules */
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useFormContext } from "react-hook-form";
 
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -47,28 +47,39 @@ interface CreateCommunityInterestProps {
 
 const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
   const data = getFragment(CreateCommunityInterest_Fragment, query);
+  const { watch } = useFormContext<FormValues>();
+  const selectedFunctionalCommunity = watch("functionalCommunity");
+
   return (
     <CardBasic
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x5)"
     >
-      <BasicForm onSubmit={() => console.log("submitted")}>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x2)"
+      >
         <FindANewCommunity
           optionsQuery={data}
           formDisabled={false} /* TODO: should be dynamic from urql */
         />
-        <TrainingAndDevelopmentOpportunities
-          optionsQuery={data}
-          formDisabled={false} /* TODO: should be dynamic from urql */
-        />
-        <AdditionalInformation
-          formDisabled={false} /* TODO: should be dynamic from urql */
-        />
-        <ReviewAndSubmit
-          formDisabled={false} /* TODO: should be dynamic from urql */
-        />
-      </BasicForm>
+        {selectedFunctionalCommunity && (
+          <>
+            <TrainingAndDevelopmentOpportunities
+              optionsQuery={data}
+              formDisabled={false} /* TODO: should be dynamic from urql */
+            />
+            <AdditionalInformation
+              formDisabled={false} /* TODO: should be dynamic from urql */
+            />
+            <ReviewAndSubmit
+              formDisabled={false} /* TODO: should be dynamic from urql */
+            />
+          </>
+        )}
+      </div>
     </CardBasic>
   );
 };
@@ -114,7 +125,11 @@ export const CreateCommunityInterestPage = () => {
         overlap
       >
         <div data-h2-margin-bottom="base(x3)">
-          {data && <CreateCommunityInterest query={data} />}
+          {!!data && (
+            <BasicForm onSubmit={() => console.log("submitted")}>
+              <CreateCommunityInterest query={data} />
+            </BasicForm>
+          )}
         </div>
       </Hero>
     </Pending>
