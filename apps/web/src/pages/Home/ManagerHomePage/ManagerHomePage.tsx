@@ -183,9 +183,9 @@ const ManagerHomePage = () => {
             color="tertiary"
             title={intl.formatMessage({
               defaultMessage: "Hire Indigenous talent",
-              id: "P06ncG",
+              id: "IDhld2",
               description:
-                "Heading for the IT Apprenticehip program for Indigenous peoples section",
+                "Heading for the IT Apprenticeship Program for Indigenous Peoples section",
             })}
             links={[
               {
@@ -204,9 +204,9 @@ const ManagerHomePage = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "Support career pathways for First Nations, Inuit and Métis apprentices with a passion for IT and help create a more diverse, equitable and inclusive public service. Hire through the IT Apprenticeship Program for Indigenous Peoples.",
-                id: "Qm8QWW",
+                id: "1ru8HO",
                 description:
-                  "Description for the IT Apprenticehip program for Indigenous peoples",
+                  "Description for the IT Apprenticeship Program for Indigenous Peoples",
               })}
             </p>
           </CardFlat>

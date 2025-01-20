@@ -771,6 +771,10 @@
     "defaultMessage": "À vous de découvrir",
     "description": "Heading for featured items on the homepage"
   },
+  "1ru8HO": {
+    "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
+    "description": "Description for the IT Apprenticeship Program for Indigenous Peoples"
+  },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
@@ -3915,6 +3919,10 @@
     "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
     "description": "Option for when a skill was only used in the past"
   },
+  "IDhld2": {
+    "defaultMessage": "Embaucher des talents autochtones",
+    "description": "Heading for the IT Apprenticeship Program for Indigenous Peoples section"
+  },
   "IEp0sR": {
     "defaultMessage": "Un grade est quand même requis. Cependant, la spécialisation en économie, en sociologie ou en statistique peut également être formée d’un agencement acceptable d’études, de formation ou d’expérience.",
     "description": "Description for the `other education with specialization` option for EC education requirements"
@@ -5259,10 +5267,6 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
-  "P06ncG": {
-    "defaultMessage": "Embaucher des talents autochtones",
-    "description": "Heading for the IT Apprenticehip program for Indigenous peoples section"
-  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -5626,10 +5630,6 @@
   "QlCJM8": {
     "defaultMessage": "Dans cette étape, des questions de présélection et des questions générales peuvent vous être posées. Vos réponses aux <strong>questions de présélection seront évaluées</strong> dans le cadre de votre candidature. Assurez-vous de donner des réponses réfléchies et détaillées qui vous représentent vraiment ainsi que votre expérience.",
     "description": "Application step for additional questions, introduction description, paragraph one"
-  },
-  "Qm8QWW": {
-    "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
-    "description": "Description for the IT Apprenticehip program for Indigenous peoples"
   },
   "Qn8C+Z": {
     "defaultMessage": "Domaines de certification",
