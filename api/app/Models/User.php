@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
@@ -106,7 +107,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasFactory;
     use HasLocalizedEnums;
     use HasRelationships;
-    use HasRolesAndPermissions;
+    use HasRolesAndPermissions {
+        roles as baseRoles;
+    }
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
@@ -204,6 +207,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * Extends Laratrust roles relationship to
+     * support timestamp updating.
+     */
+    public function roles(): MorphToMany
+    {
+        return $this->baseRoles()->withTimestamps();
     }
 
     /**
