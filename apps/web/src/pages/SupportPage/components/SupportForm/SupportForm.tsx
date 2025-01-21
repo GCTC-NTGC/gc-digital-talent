@@ -14,7 +14,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
-import { useLogger } from "@gc-digital-talent/logger";
+import { Logger, useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -22,6 +22,20 @@ import {
   API_SUPPORT_ENDPOINT,
   TALENTSEARCH_SUPPORT_EMAIL,
 } from "~/constants/talentSearchConstants";
+
+class SupportResponseError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "SupportResponseError";
+  }
+}
+
+class InvalidEmailError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "InvalidEmailError";
+  }
+}
 
 interface FormValues {
   user_id: string;
@@ -287,6 +301,7 @@ const defaultErrorMessage = defineMessage({
   id: "rNVDaA",
   description: "Support form toast message error",
 });
+
 const emailErrorMessage = defineMessage({
   defaultMessage:
     "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
@@ -294,55 +309,69 @@ const emailErrorMessage = defineMessage({
   description: "Support form toast message error",
 });
 
+async function submitTicket(values: FormValues, logger: Logger): Promise<void> {
+  const response = await fetch(API_SUPPORT_ENDPOINT, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  });
+
+  const body = await response.json();
+  if (response.ok) {
+    logger.info("Ticket successfully submitted");
+    return;
+  } else {
+    logger.error(`Failed to submit ticket: ${JSON.stringify(body)}`);
+
+    const errorCode = `${response.status} - ${response.statusText}`;
+    let error = new SupportResponseError(errorCode);
+    if (
+      body?.serviceResponse === "error" &&
+      body?.errorDetail === "invalid_email"
+    ) {
+      error = new InvalidEmailError(errorCode);
+    }
+
+    return Promise.reject(error);
+  }
+}
+
 const SupportFormApi = () => {
   const intl = useIntl();
   const logger = useLogger();
-  const handleCreateTicket = async (data: FormValues) => {
-    const response = await fetch(API_SUPPORT_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      logger.info("Ticket successfully submitted");
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Ticket created successfully!",
-          id: "jHuiRm",
-          description: "Support form toast message success",
-        }),
-      );
-      return;
-    }
+  const handleCreateTicket = async (formValues: FormValues) => {
+    return await submitTicket(formValues, logger)
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Ticket created successfully!",
+            id: "jHuiRm",
+            description: "Support form toast message success",
+          }),
+        );
+        return;
+      })
+      .catch((err) => {
+        // default error message if we don't recognize the error
+        let errorMessage = defaultErrorMessage;
+        if (err.name === "InvalidEmailError") {
+          errorMessage = emailErrorMessage;
+        }
+        toast.error(
+          <>
+            {intl.formatMessage(errorMessage, {
+              anchorTag,
+              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+              errorCode: err?.message,
+            })}
+          </>,
+          { autoClose: 20000 },
+        );
 
-    // we didn't get an OK so let's take a closer look at the response
-    const responseBody = (await response.json()) as Record<string, unknown>;
-    const errorCode = `${response.status} - ${response.statusText}`;
-    logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
-
-    // default error message if we don't recognize the error
-    let errorMessage = defaultErrorMessage;
-
-    if (
-      responseBody?.serviceResponse === "error" &&
-      responseBody?.errorDetail === "invalid_email"
-    ) {
-      errorMessage = emailErrorMessage;
-    }
-
-    toast.error(
-      <>
-        {intl.formatMessage(errorMessage, {
-          anchorTag,
-          emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
-          errorCode,
-        })}
-      </>,
-      { autoClose: 20000 },
-    );
-    throw new Error(errorCode);
+        return Promise.reject(error);
+      });
   };
 
   const [{ data, fetching, error }] = useQuery({
