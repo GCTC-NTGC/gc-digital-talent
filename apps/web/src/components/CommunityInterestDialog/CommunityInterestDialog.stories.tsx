@@ -17,7 +17,11 @@ export default meta;
 
 const mockCommunityInterests = fakeCommunityInterests(1);
 const communityInterestQuery = makeFragmentData(
-  mockCommunityInterests[0],
+  {
+    ...mockCommunityInterests[0],
+    jobInterest: false,
+    trainingInterest: true,
+  },
   CommunityInterestDialog_Fragment,
 );
 
