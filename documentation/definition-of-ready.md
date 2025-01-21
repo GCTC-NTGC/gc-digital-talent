@@ -20,4 +20,4 @@
     - new queries and mutations are protected by a policy check
     - changes to schema are carefully considered from a security perspective, especially new relationships between types
   - Useful tests have been considered
-  - For changes to data model, datafam has been consulted and success metrics have been considered
+  - For changes to data model, the datafam Slack channel has been consulted and success metrics have been considered
