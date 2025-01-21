@@ -2491,10 +2491,6 @@
     "defaultMessage": "Êtes-vous certain(e)?",
     "description": "Delete confirmation"
   },
-  "ActH9H": {
-    "defaultMessage": "<hidden>Consulter l’équipe : </hidden>{teamName}",
-    "description": "Text for a link to the Team table"
-  },
   "AdRTuc": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de mise en correspondance de qualité avec les gestionnaires. Il s’agit généralement de compétences pouvant être acquises sur le tas et qui ne sont pas nécessaires pour être accepté dans le bassin.",
     "description": "Describes selecting asset skills for a process."
