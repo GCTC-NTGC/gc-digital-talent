@@ -1,7 +1,23 @@
 # Definition of Ready
 
-- Approved by stakeholders
-- Wireframes with copy and all possible states and views
-- Accessibility considerations
-- URLs for new pages defined
-- Mobile views
+- Significant changes shared with stakeholders
+- Acceptance criteria are clear and comprehensive
+- If this updates UI:
+  - Wireframes with copy and all possible states and views
+  - URLs defined for new pages
+  - Mobile views are provided
+  - Comments/questions in Figma have been resolved
+  - Updates to existing components have been made their own tickets, and are flagged as out of scope in other tickets.
+  - Security is considered:
+    - who is allowed to interact with the page?
+    - who is allowed to take specific actions on the page?
+  - Accessibility is considered, including but not limited to:
+    - hidden text is defined, eg alt text, text to disambiguate links, aria text
+    - keyboard navigation has been considered
+    - announcing changes to page has been considered
+- If this updates backend:
+  - Security is considered:
+    - new queries and mutations are protected by a policy check
+    - changes to schema are carefully considered from a security perspective, especially new relationships between types
+  - Useful tests have been considered
+  - For changes to data model, the datafam Slack channel has been consulted and success metrics have been considered
