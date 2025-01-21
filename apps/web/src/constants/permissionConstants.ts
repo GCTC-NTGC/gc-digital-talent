@@ -125,6 +125,14 @@ const permissionConstants = () => {
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.ProcessOperator,
   ];
+  const viewAdminDashboard: RoleName[] = [
+    ROLE_NAME.PoolOperator,
+    ROLE_NAME.RequestResponder,
+    ROLE_NAME.CommunityManager,
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.PlatformAdmin,
+  ];
 
   return {
     viewCandidates,
@@ -151,6 +159,7 @@ const permissionConstants = () => {
     isApplicant,
     viewCommunityDashboard,
     viewManagerDashboard,
+    viewAdminDashboard,
   };
 };
 

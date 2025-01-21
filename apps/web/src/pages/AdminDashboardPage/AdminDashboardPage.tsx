@@ -365,8 +365,8 @@ export const AdminDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCommunityDashboard}>
-    <DashboardPage />
+  <RequireAuth roles={permissionConstants().viewAdminDashboard}>
+    <AdminDashboardPageApi />
   </RequireAuth>
 );
 
