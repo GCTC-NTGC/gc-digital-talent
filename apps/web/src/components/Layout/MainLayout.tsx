@@ -1,13 +1,11 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 
 import Layout from "./Layout";
-
-export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
 export const Component = () => {
   const intl = useIntl();

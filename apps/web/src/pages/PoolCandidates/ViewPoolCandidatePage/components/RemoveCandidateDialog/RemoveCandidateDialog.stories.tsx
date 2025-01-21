@@ -15,6 +15,7 @@ import {
 
 import RemoveCandidateDialog, {
   RemoveCandidateDialog_Fragment,
+  RemoveCandidateOptions_Fragment,
 } from "./RemoveCandidateDialog";
 
 const mockCandidates = fakePoolCandidates(1);
@@ -23,22 +24,19 @@ const mockCandidateFragment = makeFragmentData(
   RemoveCandidateDialog_Fragment,
 );
 
+const optionsFragment = makeFragmentData(
+  { removalReasons: fakeLocalizedEnum(CandidateRemovalReason) },
+  RemoveCandidateOptions_Fragment,
+);
+
 const meta = {
   title: "Components/Remove Candidate Dialog",
   component: RemoveCandidateDialog,
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     removalQuery: mockCandidateFragment,
+    optionsQuery: optionsFragment,
     defaultOpen: true,
-  },
-  parameters: {
-    apiResponses: {
-      RemoveCandidateOptions: {
-        data: {
-          removalReasons: fakeLocalizedEnum(CandidateRemovalReason),
-        },
-      },
-    },
   },
 } satisfies Meta<typeof RemoveCandidateDialog>;
 export default meta;

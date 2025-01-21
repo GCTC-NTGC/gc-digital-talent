@@ -41,9 +41,9 @@ import IconLabel from "./IconLabel";
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -188,7 +188,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
-        `${pool.classification.group}-0${pool.classification.level}`,
+        `${pool.classification.group}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
         intl,
       )
     : "";
@@ -258,7 +258,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
             {getShortPoolTitleHtml(intl, {
-              stream: pool.stream,
+              workStream: pool.workStream,
               name: pool.name,
               publishingGroup: pool.publishingGroup,
               classification: pool.classification,

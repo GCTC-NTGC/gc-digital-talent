@@ -22,10 +22,12 @@ class DatabaseSeeder extends Seeder
             SkillFamilySeeder::class,
             SkillSeeder::class,
             CommunitySeeder::class,
+            WorkStreamSeeder::class,
             TeamSeeder::class,
             JobPosterTemplateSeeder::class,
 
             // convenient test data
+            CommunityTestSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
@@ -39,6 +41,8 @@ class DatabaseSeeder extends Seeder
             SearchRequestRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
+            TrainingOpportunityRandomSeeder::class,
+            CommunityRandomSeeder::class,
         ]);
     }
 }

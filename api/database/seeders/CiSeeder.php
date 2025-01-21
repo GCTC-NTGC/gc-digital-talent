@@ -20,10 +20,12 @@ class CiSeeder extends Seeder
             SkillFamilySeeder::class,
             SkillSeeder::class,
             CommunitySeeder::class,
+            WorkStreamSeeder::class,
             TeamSeeder::class,
             JobPosterTemplateSeeder::class,
 
             // convenient test data
+            CommunityTestSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
         ]);

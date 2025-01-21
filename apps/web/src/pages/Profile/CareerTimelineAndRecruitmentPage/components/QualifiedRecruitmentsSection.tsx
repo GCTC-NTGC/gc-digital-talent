@@ -77,8 +77,8 @@ const QualifiedRecruitmentsSection = ({
       <Link href={paths.browsePools()}>
         {intl.formatMessage({
           defaultMessage:
-            "You can get started by applying to available targeted or ongoing recruitment processes.",
-          id: "z7FpHz",
+            "You can get started by applying to available recruitment processes.",
+          id: "SP8yeX",
           description:
             "Message to user when no qualified recruitments have been attached to profile, paragraph two.",
         })}

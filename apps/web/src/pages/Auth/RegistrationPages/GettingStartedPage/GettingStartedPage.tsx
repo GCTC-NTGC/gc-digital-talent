@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
@@ -32,7 +28,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
@@ -295,7 +291,7 @@ export const GettingStartedForm = ({
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
-        simpleCrumbs
+        overlap
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <div
@@ -415,7 +411,11 @@ const GettingStarted = () => {
             new Error(notificationResult.error?.toString()),
           );
         });
+      } else {
+        return Promise.reject(new Error(generalResult.error?.toString()));
       }
+
+      return null;
     });
 
   const onSubmit = async (
@@ -466,14 +466,14 @@ const GettingStarted = () => {
   useEffect(() => {
     if (shouldNavigate) {
       if (verifyEmail) {
-        navigate({
+        void navigate({
           pathname: paths.emailVerification(),
           search: from
             ? createSearchParams({ from, emailAddress: email }).toString()
             : "",
         });
       } else {
-        navigate({
+        void navigate({
           pathname: paths.employeeInformation(),
           search: from ? createSearchParams({ from }).toString() : "",
         });

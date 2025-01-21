@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button } from "@gc-digital-talent/ui";
@@ -88,12 +88,12 @@ const StepNavigation = ({
     return false;
   };
 
-  const handleNavigation = (values: ProfileActionFormValues) => {
+  const handleNavigation = async (values: ProfileActionFormValues) => {
     const hasDirtySections = checkDirtySections();
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        navigate(paths.profileAndApplications({ fromIapDraft: isIAP }));
+        await navigate(paths.profileAndApplications({ fromIapDraft: isIAP }));
         return true;
       }
 
@@ -104,9 +104,9 @@ const StepNavigation = ({
             insertSubmittedStep: ApplicationStep.ReviewYourProfile,
           },
         })
-          .then((res) => {
+          .then(async (res) => {
             if (res.data) {
-              navigate(nextStepPath);
+              await navigate(nextStepPath);
             }
           })
           .catch(() => {

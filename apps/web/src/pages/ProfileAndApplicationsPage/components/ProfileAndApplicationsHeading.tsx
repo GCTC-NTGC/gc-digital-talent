@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UsersIcon from "@heroicons/react/20/solid/UsersIcon";
@@ -21,7 +21,7 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes, {
   FromIapDraftQueryKey,
   FromIapSuccessQueryKey,
@@ -225,7 +225,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const workExperiences = notEmptyExperiences?.filter(isWorkExperience) || [];
 
   const skillShowcaseUrl = paths.skillShowcase();
-  const skillLibraryUrl = paths.skillPortfolio();
+  const skillPortfolioUrl = paths.skillPortfolio();
 
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
@@ -234,27 +234,27 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
     user.improveBehaviouralSkillsRanking?.length &&
     user.improveTechnicalSkillsRanking?.length;
 
-  const skillLibraryCount = user.userSkills?.length ?? 0;
+  const skillPortfolioCount = user.userSkills?.length ?? 0;
 
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
-  const skillLibraryStatus = skillLibraryCount ? "success" : "error";
+  const skillPortfolioStatus = skillPortfolioCount ? "success" : "error";
   const topSkillsStatus = hasTopSkills ? "success" : "error";
   const skillsToImproveStatus = hasSkillsToImprove ? "success" : "error";
 
   return (
     <Hero
-      centered
       title={intl.formatMessage(
         {
-          defaultMessage: "Welcome back, {firstName}",
-          id: "Q/f5AF",
+          defaultMessage:
+            "Welcome back<hidden> to your applicant dashboard</hidden>, {name}",
+          id: "bw4CAS",
           description:
-            "Title displayed in the hero section of the Search page.",
+            "Title for applicant dashboard on the talent cloud admin portal.",
         },
         {
-          firstName: user.firstName,
+          name: user.firstName,
         },
       )}
       subtitle={intl.formatMessage(
@@ -284,6 +284,8 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             ),
         },
       )}
+      overlap
+      centered
     >
       {searchParams.get(FromIapDraftQueryKey) === "true" && (
         <Alert.Root
@@ -553,14 +555,14 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
         <HeroCard
           color="quaternary"
           title={intl.formatMessage(navigationMessages.skillPortfolio)}
-          href={`${skillLibraryUrl}#manage`}
+          href={`${skillPortfolioUrl}#manage`}
         >
           <StatusItem
             layout="hero"
             title={intl.formatMessage(navigationMessages.skillPortfolio)}
-            itemCount={skillLibraryCount}
-            status={skillLibraryStatus}
-            href={`${skillLibraryUrl}#manage`}
+            itemCount={skillPortfolioCount}
+            status={skillPortfolioStatus}
+            href={`${skillPortfolioUrl}#manage`}
           />
           <StatusItem
             layout="hero"

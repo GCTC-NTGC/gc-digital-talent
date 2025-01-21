@@ -61,13 +61,13 @@ const uiMessages = defineMessages({
     description: "Text that appears in links that open in a new tab.",
   },
   closeMenu: {
-    defaultMessage: "Close Menu",
-    id: "+ZPD1J",
+    defaultMessage: "Close menu",
+    id: "AiFpbo",
     description: "Text label for button that closes side menu.",
   },
   openMenu: {
-    defaultMessage: "Open Menu",
-    id: "KMSWLW",
+    defaultMessage: "Open menu",
+    id: "e6YQ8t",
     description: "Text label for button that opens side menu.",
   },
   onThisPage: {
@@ -130,6 +130,11 @@ const uiMessages = defineMessages({
     defaultMessage: "Select a level",
     id: "xEkbvy",
     description: "Null selection of level for select input",
+  },
+  nullSelectionOptionGroup: {
+    defaultMessage: "Select a group",
+    id: "nICORU",
+    description: "Null selection og group for select input.",
   },
 });
 

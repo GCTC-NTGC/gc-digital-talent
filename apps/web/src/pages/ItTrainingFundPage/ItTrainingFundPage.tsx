@@ -7,13 +7,14 @@ import { ReactNode } from "react";
 import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import image1 from "~/assets/img/it-training-fund-1.webp";
 import image2 from "~/assets/img/it-training-fund-2.webp";
 import image3 from "~/assets/img/it-training-fund-3.webp";
 import SEO from "~/components/SEO/SEO";
+import pageTitles from "~/messages/pageTitles";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -28,11 +29,7 @@ const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   );
 };
 
-const pageTitle = defineMessage({
-  defaultMessage: "IT Community Training and Development Fund",
-  id: "wOITol",
-  description: "page title for the IT training fund page",
-});
+const pageTitle = defineMessage(pageTitles.itTrainingFund);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -47,8 +44,8 @@ export const Component = () => {
   const paths = useRoutes();
 
   const signUpUrl = {
-    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm2oraxj700k8d1ec6dumq39e",
-    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm2oraxj700k8d1ec6dumq39e",
+    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm4ww5k8l00bbaxduytwfcrjk",
+    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm4ww5k8l00bbaxduytwfcrjk",
   } as const;
 
   const navigarUrl = {
@@ -91,6 +88,7 @@ export const Component = () => {
                 size="h2"
                 color="primary"
                 data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Investing in the future of IT talent",
@@ -120,6 +118,7 @@ export const Component = () => {
                 size="h2"
                 color="tertiary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -252,6 +251,7 @@ export const Component = () => {
                 size="h2"
                 color="quaternary"
                 data-h2-margin="base(0)"
+                data-h2-font-weight="base(400)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Three types of learning opportunities",
@@ -427,10 +427,10 @@ export const Component = () => {
                       >
                         <p data-h2-font-weight="base(bold)">
                           {intl.formatMessage({
-                            defaultMessage: "Coming in winter 2024-25",
-                            id: "h7f4Om",
+                            defaultMessage: "Available now",
+                            id: "L6MPML",
                             description:
-                              "Statement that something will be available in the future",
+                              "Statement that something is available now",
                           })}
                         </p>
                         <ul
@@ -470,14 +470,30 @@ export const Component = () => {
                         <Link
                           mode="text"
                           data-h2-font-weight="base(bold)"
+                          data-h2-padding-bottom="base(x1)"
+                          data-h2-display="base(block)"
+                          color="secondary"
+                          external
+                          href={paths.instructorLedTraining()}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Browse training opportunities",
+                            id: "alKxbI",
+                            description: "A link to sign up for updates",
+                          })}
+                        </Link>
+                        <Link
+                          mode="text"
+                          data-h2-font-weight="base(bold)"
+                          data-h2-display="base(block)"
                           color="secondary"
                           external
                           href={signUpUrl[locale]}
                         >
                           {intl.formatMessage({
                             defaultMessage:
-                              "Sign up for updates<hidden>about instructor-led classes and bootcamps</hidden>",
-                            id: "uuE/zT",
+                              "Sign up for updates<hidden> about instructor-led classes and bootcamps</hidden>",
+                            id: "Tj1iyN",
                             description: "A link to sign up for updates",
                           })}
                         </Link>
@@ -532,10 +548,10 @@ export const Component = () => {
                     >
                       <p data-h2-font-weight="base(bold)">
                         {intl.formatMessage({
-                          defaultMessage: "Coming in winter 2024-25",
-                          id: "h7f4Om",
+                          defaultMessage: "Available now",
+                          id: "L6MPML",
                           description:
-                            "Statement that something will be available in the future",
+                            "Statement that something is available now",
                         })}
                       </p>
                       <ul
@@ -577,13 +593,13 @@ export const Component = () => {
                         data-h2-font-weight="base(bold)"
                         color="secondary"
                         external
-                        href={signUpUrl[locale]}
+                        href={paths.certificationExamVouchers()}
                       >
                         {intl.formatMessage({
-                          defaultMessage:
-                            "Sign up for updates<hidden> about certification exam vouchers</hidden>",
-                          id: "bjcr+t",
-                          description: "A link to sign up for updates",
+                          defaultMessage: "Request a voucher",
+                          id: "erzpFY",
+                          description:
+                            "Link text to request a voucher (infinitive)",
                         })}
                       </Link>
                     </div>

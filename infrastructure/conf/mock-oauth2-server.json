@@ -1,5 +1,6 @@
 {
   "interactiveLogin": true,
+  "rotateRefreshToken": true,
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",

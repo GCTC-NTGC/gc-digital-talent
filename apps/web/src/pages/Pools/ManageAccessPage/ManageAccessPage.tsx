@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
@@ -29,6 +29,12 @@ import { ManageAccessPageFragment, PoolTeamMember } from "./components/types";
 import { ManageAccessPage_PoolFragment } from "./components/operations";
 import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 
+const pageTitle = defineMessage({
+  defaultMessage: "Process members",
+  id: "wYohzF",
+  description: "Page title for the manage process members page",
+});
+
 const columnHelper = createColumnHelper<PoolTeamMember>();
 
 interface ManageAccessPoolProps {
@@ -50,12 +56,6 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
     () => groupRoleAssignmentsByUser(pool.roleAssignments ?? []),
     [pool.roleAssignments],
   );
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Process members",
-    id: "wYohzF",
-    description: "Page title for the manage process members page",
-  });
 
   let columns = [
     columnHelper.accessor(
@@ -106,9 +106,8 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
 
   return (
     <>
-      <SEO title={pageTitle} />
       <Table
-        caption={pageTitle}
+        caption={intl.formatMessage(pageTitle)}
         data={data}
         columns={columns}
         sort={{
@@ -160,6 +159,7 @@ interface RouteParams extends Record<string, string> {
 }
 
 const ManageAccessPoolPage = () => {
+  const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [{ data, fetching, error }] = useQuery({
     query: ManageAccessPage_PoolQuery,
@@ -169,11 +169,14 @@ const ManageAccessPoolPage = () => {
   const pool = data?.pool;
 
   return (
-    <AdminContentWrapper>
-      <Pending fetching={fetching} error={error}>
-        {pool ? <ManageAccessPool poolQuery={pool} /> : <ThrowNotFound />}
-      </Pending>
-    </AdminContentWrapper>
+    <>
+      <SEO title={intl.formatMessage(pageTitle)} />
+      <AdminContentWrapper table>
+        <Pending fetching={fetching} error={error}>
+          {pool ? <ManageAccessPool poolQuery={pool} /> : <ThrowNotFound />}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

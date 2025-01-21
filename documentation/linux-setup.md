@@ -4,7 +4,7 @@ Sometimes it may be preferable to perform local environment maintenance directly
 
 ## Operating system
 
-This guide is written for [Ubuntu 22.04](https://releases.ubuntu.com/jammy/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work when using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
+This guide is written for [Ubuntu 24.04](https://releases.ubuntu.com/noble/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work when using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
 
 Double check:
 
@@ -110,11 +110,10 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## PHP
 
-We use [PHP](https://www.php.net/) version 8.2 to run the backend app. Ubuntu 22.04 does not come with PHP 8.2 in its repositories so add the [Ondrej PPA](https://launchpad.net/~ondrej/+archive/ubuntu/php/) and install it with some extensions.
+We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 24.04 comes with PHP 8.3 but we require some additional extensions to be installed.
 
 ```
-LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
-sudo apt-get install php8.2 php8.2-mbstring php8.2-xml php8.2-pgsql php8.2-zip php8.2-curl php8.2-bcmath php8.2-gd php8.2-dom php8.2-intl
+sudo apt-get install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
 ```
 
 Double check:
@@ -128,7 +127,7 @@ The PHP version should match the value of `require.php` in [api/composer.json](h
 
 ## Composer
 
-We user [Composer](https://getcomposer.org/) to manage our PHP project.
+We use [Composer](https://getcomposer.org/) to manage our PHP project.
 
 ```
 sudo apt-get install composer

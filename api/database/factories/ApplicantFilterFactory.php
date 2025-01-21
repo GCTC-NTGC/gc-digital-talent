@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
-use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
@@ -95,21 +94,35 @@ class ApplicantFilterFactory extends Factory
             )->get();
             $filter->pools()->saveMany($pools);
             $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
-            $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
-                array_column(PoolStream::cases(), 'name'),
-            ) : [$pools[0]->stream];
+            $streams = $pools->map(fn ($pool) => $pool->workStream);
+            $filter->workStreams()->saveMany($streams);
 
             $ATIP = Community::where('key', 'atip')->first();
             $digital = Community::where('key', 'digital')->first();
 
-            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $stream) && $ATIP?->id) {
+            $isATIP = $streams->contains(fn ($stream) => $stream->key === 'ACCESS_INFORMATION_PRIVACY');
+
+            if ($isATIP && $ATIP?->id) {
                 $filter->community_id = $ATIP->id;
             } elseif ($digital?->id) {
                 $filter->community_id = $digital->id;
             }
 
-            $filter->qualified_streams = $stream;
             $filter->save();
+        });
+    }
+
+    /**
+     * Create an ApplicantFilter with specific work streams
+     *
+     * @var \Illuminate\Support\Collection<array-key, \App\Models\WorkStream>
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withWorkStreams(array $workStreams)
+    {
+        return $this->afterCreating(function (ApplicantFilter $filter) use ($workStreams) {
+            $filter->workStreams()->saveMany($workStreams);
         });
     }
 }

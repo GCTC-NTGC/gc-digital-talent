@@ -64,6 +64,40 @@ class CandidateCsvGenerationTest extends TestCase
             ', ['ids' => [$candidate->id]]);
 
         Queue::assertPushed(GenerateUserFile::class);
+    }
 
+    public function testCandidateCsvGeneratedWithROD()
+    {
+
+        Queue::fake();
+
+        $team = Team::factory()->create([
+            'name' => 'candidate-csv-team',
+        ]);
+
+        $pool = Pool::factory()->published()->create([
+            'team_id' => $team->id,
+        ]);
+
+        $candidate = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+        ]);
+
+        $adminUser = User::factory()
+            ->asApplicant()
+            ->asPoolOperator('candidate-csv-team')
+            ->asRequestResponder()
+            ->asAdmin()
+            ->create();
+
+        $this->actingAs($adminUser, 'api')
+            ->graphQL(/** GraphQL */ '
+                mutation DownloadPoolCandidatesCsv($ids: [UUID!]!, $withROD: Boolean) {
+                    downloadPoolCandidatesCsv(ids: $ids, withROD: $withROD)
+                }
+            ', ['ids' => [$candidate->id], 'withROD' => true]);
+
+        Queue::assertPushed(GenerateUserFile::class);
     }
 }

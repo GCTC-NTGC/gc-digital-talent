@@ -3,14 +3,24 @@
 namespace App\ValueObjects;
 
 use App\Enums\ArmedForcesStatus;
+use App\Enums\CafEmploymentType;
+use App\Enums\CafForce;
+use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EducationRequirementOption;
+use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\ExternalRoleSeniority;
+use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovContractorRoleSeniority;
+use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Models\Pool;
@@ -49,6 +59,16 @@ class ProfileSnapshot implements Castable
                 'preferredLanguageForExam' => Language::class,
                 'verbalLevel' => EvaluatedLanguageAbility::class,
                 'writtenLevel' => EvaluatedLanguageAbility::class,
+                'employmentCategory' => EmploymentCategory::class,
+                'extSizeOfOrganization' => ExternalSizeOfOrganization::class,
+                'extRoleSeniority' => ExternalRoleSeniority::class,
+                'govEmploymentType' => WorkExperienceGovEmployeeType::class,
+                'govPositionType' => GovPositionType::class,
+                'govContractorRoleSeniority' => GovContractorRoleSeniority::class,
+                'govContractorType' => GovContractorType::class,
+                'cafEmploymentType' => CafEmploymentType::class,
+                'cafForce' => CafForce::class,
+                'cafRank' => CafRank::class,
             ];
 
             $iterator = new RecursiveArrayIterator($snapshot);
@@ -99,6 +119,7 @@ class ProfileSnapshot implements Castable
                 ])->findOrFail($value['userId']);
 
                 // collect skills attached to the Pool to pass into resource collection
+                /** @var Pool $pool */
                 $pool = Pool::with(['poolSkills'])->findOrFail($value['poolId']);
                 $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 

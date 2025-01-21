@@ -119,10 +119,15 @@ class JobPosterTemplateSeeder extends Seeder
                 ->where('level', $templateModel->classification->level)
                 ->sole();
 
+            $streamObject = DB::table('work_streams')
+                ->where('key', $templateModel->stream->value)
+                ->sole();
+
             JobPosterTemplate::updateOrCreate(
                 ['reference_id' => $templateModel->referenceId],
                 [
                     'stream' => $templateModel->stream->value,
+                    'work_stream_id' => $streamObject?->id,
                     'classification_id' => $classificationObject->id,
                     'supervisory_status' => $templateModel->supervisoryStatus,
                     'name' => [

@@ -24,9 +24,9 @@ const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }

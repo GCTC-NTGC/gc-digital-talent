@@ -15,11 +15,12 @@ import {
 } from "@gc-digital-talent/auth";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
+import useReturnPath from "~/hooks/useReturnPath";
 
 const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
@@ -32,6 +33,7 @@ export const Component = () => {
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
+  const returnPath = useReturnPath(paths.profileAndApplications());
 
   const logoutReason = localStorage.getItem(
     LOGOUT_REASON_KEY,
@@ -195,14 +197,16 @@ export const Component = () => {
           <AlertDialog.Title>
             {intl.formatMessage(authMessages.signOut)}
           </AlertDialog.Title>
-          <p data-h2-font-size="base(h5, 1)">
-            {intl.formatMessage({
-              defaultMessage: "Are you sure you would like to sign out?",
-              id: "mNNgEF",
-              description:
-                "Question displayed when authenticated user lands on /logged-out.",
-            })}
-          </p>
+          <AlertDialog.Description>
+            <p data-h2-font-size="base(h5, 1)">
+              {intl.formatMessage({
+                defaultMessage: "Are you sure you would like to sign out?",
+                id: "mNNgEF",
+                description:
+                  "Question displayed when authenticated user lands on /logged-out.",
+              })}
+            </p>
+          </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Action>
               <Button
@@ -216,11 +220,7 @@ export const Component = () => {
               </Button>
             </AlertDialog.Action>
             <AlertDialog.Cancel>
-              <Link
-                color="warning"
-                mode="inline"
-                href={paths.profileAndApplications()}
-              >
+              <Link color="warning" mode="inline" href={returnPath}>
                 {intl.formatMessage(commonMessages.cancel)}
               </Link>
             </AlertDialog.Cancel>

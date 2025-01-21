@@ -99,24 +99,25 @@ class PoolCandidateSearchRequest extends Model
             ->dontSubmitEmptyLogs();
     }
 
-    /**
-     * Model relations
-     */
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsTo<PoolCandidateFilter, $this> */
     public function poolCandidateFilter(): BelongsTo
     {
         return $this->belongsTo(PoolCandidateFilter::class);
     }
 
+    /** @return BelongsTo<ApplicantFilter, $this> */
     public function applicantFilter(): BelongsTo
     {
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
@@ -145,18 +146,15 @@ class PoolCandidateSearchRequest extends Model
         return $query;
     }
 
-    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    public static function scopeWorkStreams(Builder $query, ?array $streams): Builder
     {
         if (empty($streams)) {
             return $query;
         }
 
-        // streams is an array of PoolStream enums
-        $query->whereHas('applicantFilter', function ($query) use ($streams) {
-            $query->where(function ($query) use ($streams) {
-                foreach ($streams as $index => $stream) {
-                    $query->orWhereJsonContains('qualified_streams', $stream);
-                }
+        $query->whereHas('applicantFilter', function ($filterQuery) use ($streams) {
+            $filterQuery->whereHas('workStreams', function ($workStreamQuery) use ($streams) {
+                $workStreamQuery->whereIn('applicant_filter_work_stream.work_stream_id', $streams);
             });
         });
 

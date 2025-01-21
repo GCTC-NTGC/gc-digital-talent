@@ -10,14 +10,18 @@ import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
 import EducationFields from "./EducationFields";
 import PersonalFields from "./PersonalFields";
-import WorkFields from "./WorkFields";
+import WorkFields from "./WorkFields/WorkFields";
 import NullExperienceType from "./NullExperienceType";
 
 interface ExperienceDetailsProps {
   experienceType?: ExperienceType;
+  organizationSuggestions: string[];
 }
 
-const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
+const ExperienceDetails = ({
+  experienceType,
+  organizationSuggestions,
+}: ExperienceDetailsProps) => {
   const intl = useIntl();
   const type = useWatch<AllExperienceFormValues>({
     name: "experienceType",
@@ -50,11 +54,31 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
                 description: "Help text for the experience details section",
               })}
             </p>
-            {derivedType === "award" && <AwardFields labels={labels} />}
-            {derivedType === "community" && <CommunityFields labels={labels} />}
-            {derivedType === "education" && <EducationFields labels={labels} />}
+            {derivedType === "award" && (
+              <AwardFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
+            {derivedType === "community" && (
+              <CommunityFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
+            {derivedType === "education" && (
+              <EducationFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
             {derivedType === "personal" && <PersonalFields labels={labels} />}
-            {derivedType === "work" && <WorkFields labels={labels} />}
+            {derivedType === "work" && (
+              <WorkFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
           </>
         ) : (
           <NullExperienceType />

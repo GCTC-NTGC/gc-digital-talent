@@ -3,11 +3,11 @@ import { defineMessage, useIntl } from "react-intl";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 import UserTable from "./components/UserTable";
 
@@ -37,12 +37,12 @@ export const IndexUserPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <AdminHero
+      <Hero
         title={formattedPageTitle}
         subtitle={formattedSubTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
+        crumbs={navigationCrumbs}
       />
-      <AdminContentWrapper>
+      <AdminContentWrapper table>
         <UserTable title={formattedPageTitle} />
       </AdminContentWrapper>
     </>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
@@ -124,7 +124,8 @@ const usePoolMutations = (returnPath?: string) => {
   const paths = useRoutes();
   const navigate = useNavigate();
 
-  const navigateBack = () => navigate(returnPath ?? paths.poolTable());
+  const navigateBack = async () =>
+    await navigate(returnPath ?? paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
     useMutation(UpdatePool_Mutation);
@@ -227,9 +228,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const publish = async (id: string) => {
     await executePublishMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.publishPool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process published successfully!",
@@ -260,9 +261,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const close = async (id: string, reason: string) => {
     await executeCloseMutation({ id, reason })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.closePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process closed successfully!",
@@ -293,9 +294,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const deletePool = async (id: string) => {
     await executeDeleteMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.deletePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process deleted successfully!",
@@ -326,9 +327,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const archivePool = async (id: string) => {
     await executeArchiveMutation({ id })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.archivePool) {
-          navigateBack();
+          await navigateBack();
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process archived successfully!",
@@ -364,7 +365,7 @@ const usePoolMutations = (returnPath?: string) => {
     departmentId: string | undefined,
   ) => {
     await executeDuplicateMutation({ id, teamId, pool: { departmentId } })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(
             intl.formatMessage({
@@ -373,7 +374,7 @@ const usePoolMutations = (returnPath?: string) => {
               description: "Message displayed to user after pool is duplicated",
             }),
           );
-          navigate(paths.poolUpdate(result.data.duplicatePool.id));
+          await navigate(paths.poolUpdate(result.data.duplicatePool.id));
         } else {
           handleDuplicateError();
         }

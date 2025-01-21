@@ -2,13 +2,13 @@ import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
   candidacyStatus: {
-    defaultMessage: "Candidacy Status",
+    defaultMessage: "Candidacy status",
     description: "Candidacy status label",
-    id: "/LGiVB",
+    id: "xUz0TV",
   },
   candidateName: {
-    defaultMessage: "Candidate Name",
-    id: "p/Qp/u",
+    defaultMessage: "Candidate name",
+    id: "awEvCF",
     description: "Title displayed on the Pool Candidates table name column.",
   },
   skillCount: {
@@ -17,16 +17,16 @@ const messages = defineMessages({
     description: "Title displayed on the candidate skill count column.",
   },
   currentLocation: {
-    defaultMessage: "Current Location",
-    id: "1sPszf",
+    defaultMessage: "Current location",
+    id: "9wfkY1",
     description:
       "Title displayed on the Pool Candidates table Current Location column.",
   },
   dateReceived: {
-    defaultMessage: "Date Received",
-    id: "3eNQnt",
+    defaultMessage: "Date received",
+    id: "fI0idr",
     description:
-      "Title displayed on the Pool Candidates table Date Received column.",
+      "Title displayed on the Pool Candidates table Date received column.",
   },
   rowSelection: {
     defaultMessage: "Row Selection",

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { AnimatePresence, m, usePresence } from "framer-motion";
+import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
@@ -80,7 +80,7 @@ const DialogPortalWithPresence = ({
         data-h2-background-color="base:all(black.light)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
-        data-h2-z-index="base(9997)"
+        data-h2-z-index="base(97)"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
@@ -102,7 +102,7 @@ const DialogPortalWithPresence = ({
           data-h2-margin="base(x.5 x.5 x.5 auto)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(9998)"
+          data-h2-z-index="base(98)"
         >
           <div data-h2-padding="base(x1)">
             <div

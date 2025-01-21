@@ -43,6 +43,27 @@ class ApiErrorEnums
 
     const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';
 
+    // Employee profile validation
+    const COMMUNITY_NOT_FOUND = 'CommunityNotFound';
+
+    const COMMUNITY_INTEREST_EXISTS = 'CommunityInterestExists';
+
+    const CLASSIFICATION_NOT_FOUND = 'ClassificationNotFound';
+
+    const DEPARTMENT_NOT_FOUND = 'DepartmentNotFound';
+
+    const WORK_STREAM_NOT_FOUND = 'WorkStreamNotFound';
+
+    const WORK_STREAM_NOT_IN_COMMUNITY = 'WorkStreamNotInCommunity';
+
+    const DEVELOPMENT_PROGRAM_NOT_FOUND = 'DevelopmentProgramNotFound';
+
+    const DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED = 'DevelopmentProgramCompletionDateRequired';
+
+    const DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED = 'DevelopmentProgramCompletionDateProhibited';
+
+    const DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY = 'DevelopmentProgramNotValidForCommunity';
+
     // Localized Enums
     const ENUM_NOT_FOUND = 'EnumNotFound';
 

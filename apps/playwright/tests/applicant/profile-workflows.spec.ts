@@ -1,45 +1,37 @@
 import { test, expect } from "~/fixtures";
+import { loginBySub } from "~/utils/auth";
 
 test.describe("User Profile", () => {
-  test("Edit profile", async ({ applicantPage }) => {
-    await applicantPage.page.goto("/en/applicant/personal-information");
-    await applicantPage.waitForGraphqlResponse("ProfileUser");
+  test("Edit profile", async ({ appPage }) => {
+    await loginBySub(appPage.page, "applicant@test.com");
+    await appPage.page.goto("/en/applicant/personal-information");
+    await appPage.waitForGraphqlResponse("ProfileUser");
 
     // Edit personal info
-    await applicantPage.page
-      .getByRole("button", { name: /edit personal/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /edit personal/i }).click();
 
-    await applicantPage.waitForGraphqlResponse(
-      "PersonalInformationFormOptions",
-    );
-    await applicantPage.page
+    await appPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("123-456-7890");
-    await applicantPage.page
-      .getByRole("button", { name: /save changes/i })
-      .click();
-    await applicantPage.waitForGraphqlResponse("UpdateUserAsUser");
-    await expect(applicantPage.page.getByRole("alert").last()).toContainText(
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.waitForGraphqlResponse("UpdateUserAsUser");
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /information updated successfully/i,
     );
-    await expect(applicantPage.page.getByText("123-456-7890")).toBeVisible();
+    await expect(appPage.page.getByText("123-456-7890")).toBeVisible();
 
     // Edit work preferences
-    await applicantPage.page
+    await appPage.page
       .getByRole("button", { name: /edit work preferences/i })
       .click();
-    await applicantPage.waitForGraphqlResponse("WorkPreferencesOptions");
-    await applicantPage.page
+    await appPage.page
       .getByRole("textbox", { name: /please indicate if there is a city/i })
       .fill("Test locations");
-    await applicantPage.page
-      .getByRole("button", { name: /save changes/i })
-      .click();
-    await applicantPage.waitForGraphqlResponse("UpdateUserAsUser");
-    await expect(applicantPage.page.getByRole("alert").last()).toContainText(
+    await appPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.waitForGraphqlResponse("UpdateUserAsUser");
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /work preferences updated successfully/i,
     );
-    await expect(applicantPage.page.getByText(/test locations/i)).toBeVisible();
+    await expect(appPage.page.getByText(/test locations/i)).toBeVisible();
   });
 });

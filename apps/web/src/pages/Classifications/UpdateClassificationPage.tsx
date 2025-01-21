@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -10,8 +10,8 @@ import {
   NotFound,
   CardBasic,
   Heading,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
@@ -41,6 +41,7 @@ import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
 
 import messages from "./messages";
+import { getClassificationLevels } from "./helpers";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
@@ -137,9 +138,9 @@ export const UpdateClassificationForm = ({
       id: classification.id,
       classification: input,
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateClassification) {
-          navigate(paths.classificationView(classification.id));
+          await navigate(paths.classificationView(classification.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Classification updated successfully!",
@@ -192,6 +193,7 @@ export const UpdateClassificationForm = ({
                 <Input
                   id="name_en"
                   name="name.en"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameEn)}
                   type="text"
                   rules={{
@@ -201,6 +203,7 @@ export const UpdateClassificationForm = ({
                 <Input
                   id="name_fr"
                   name="name.fr"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameFr)}
                   type="text"
                   rules={{
@@ -231,17 +234,8 @@ export const UpdateClassificationForm = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  options={[
-                    { value: 1, label: "1" },
-                    { value: 2, label: "2" },
-                    { value: 3, label: "3" },
-                    { value: 4, label: "4" },
-                    { value: 5, label: "5" },
-                    { value: 6, label: "6" },
-                    { value: 7, label: "7" },
-                    { value: 8, label: "8" },
-                    { value: 9, label: "9" },
-                  ]}
+                  options={getClassificationLevels()}
+                  doNotSort
                   disabled
                 />
                 <Input
@@ -254,6 +248,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form min salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
@@ -274,6 +269,7 @@ export const UpdateClassificationForm = ({
                       "Label displayed for the classification form max salary field.",
                   })}
                   type="number"
+                  min="0"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
@@ -285,9 +281,7 @@ export const UpdateClassificationForm = ({
                   }}
                 />
               </div>
-              <div data-h2-margin="base(0 -x1)">
-                <Separator decorative orientation="horizontal" space="sm" />
-              </div>
+              <CardSeparator />
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"

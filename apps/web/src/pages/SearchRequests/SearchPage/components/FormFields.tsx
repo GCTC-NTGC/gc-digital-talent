@@ -12,9 +12,15 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
+  getLocalizedName,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import { Classification, Skill, graphql } from "@gc-digital-talent/graphql";
+import {
+  Classification,
+  Skill,
+  WorkStream,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { NullSelection } from "~/types/searchRequest";
@@ -29,13 +35,6 @@ import { classificationAriaLabels, classificationLabels } from "../labels";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {
-    poolStreams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
-        en
-        fr
-      }
-    }
     languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
       value
       label {
@@ -56,9 +55,14 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 interface FormFieldsProps {
   classifications: Pick<Classification, "group" | "level">[];
   skills: Skill[];
+  workStreams: WorkStream[];
 }
 
-const FormFields = ({ classifications, skills }: FormFieldsProps) => {
+const FormFields = ({
+  classifications,
+  skills,
+  workStreams,
+}: FormFieldsProps) => {
   const intl = useIntl();
   const [{ data }] = useQuery({
     query: SearchRequestOptions_Query,
@@ -74,11 +78,15 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     ),
   }));
 
+  const workStreamOptions = workStreams.map((workStream) => ({
+    value: workStream.id,
+    label: getLocalizedName(workStream.name, intl),
+  }));
+
   const languageAbilityOptions = localizedEnumToOptions(
     data?.languageAbilities,
     intl,
   );
-  const streamOptions = localizedEnumToOptions(data?.poolStreams, intl);
   const sortedWorkRegions = sortWorkRegion(unpackMaybes(data?.workRegions));
   const workRegionOptions = localizedEnumToOptions(sortedWorkRegions, intl);
 
@@ -133,7 +141,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
               id: "QJ5uDV",
               description: "Placeholder for stream filter in search form.",
             })}
-            options={streamOptions}
+            options={workStreamOptions}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -179,12 +187,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
       >
         <RadioGroup
           idPrefix="languageAbility"
-          legend={intl.formatMessage({
-            defaultMessage: "Language",
-            id: "sk9CeW",
-            description:
-              "Legend for the Working Language Ability radio buttons",
-          })}
+          legend={intl.formatMessage(commonMessages.language)}
           name="languageAbility"
           items={[
             {

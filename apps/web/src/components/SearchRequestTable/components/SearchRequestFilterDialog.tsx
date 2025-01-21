@@ -53,9 +53,9 @@ const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -129,15 +129,18 @@ const SearchRequestFilterDialog = ({
           label={intl.formatMessage(adminMessages.classifications)}
           options={classifications.map((classification) => ({
             value: classification.id,
-            label: `${classification.group}-0${classification.level}`,
+            label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
           }))}
         />
         <Combobox
-          id="streams"
-          name="streams"
+          id="workStreams"
+          name="workStreams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={localizedEnumToOptions(data?.streams, intl)}
+          options={unpackMaybes(data?.workStreams).map((workStream) => ({
+            value: workStream.id,
+            label: getLocalizedName(workStream?.name, intl),
+          }))}
         />
       </div>
     </FilterDialog>

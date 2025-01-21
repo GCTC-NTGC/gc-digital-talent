@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import flourishTopLight from "~/assets/img/support_top_light.webp";

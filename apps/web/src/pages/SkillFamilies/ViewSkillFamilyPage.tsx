@@ -10,8 +10,8 @@ import {
   CardBasic,
   Chips,
   Chip,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   Scalars,
@@ -67,6 +67,18 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
 
   const pageTitle = getLocalizedName(skillFamily.name, intl);
   const subTitle = intl.formatMessage(messages.skillFamilyInfo);
+
+  const skillObjectsLocalized: { id: string; name: string }[] | undefined =
+    skillFamily.skills?.map((skill) => {
+      return { id: skill.id, name: getLocalizedName(skill.name, intl) };
+    });
+  const skillObjectsLocalizedSorted = skillObjectsLocalized
+    ? skillObjectsLocalized.sort((a, b) => {
+        const aName = a.name;
+        const bName = b.name;
+        return aName.localeCompare(bName);
+      })
+    : undefined;
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -138,20 +150,12 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <div data-h2-grid-column="p-tablet(1 / 3)">
-              <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Skills in this family",
-                  id: "A7fDb8",
-                  description:
-                    "Label for display of skills within a specific family",
-                })}
-              >
-                {skillFamily?.skills?.length ? (
+              <FieldDisplay label={intl.formatMessage(messages.skillsInFamily)}>
+                {skillObjectsLocalizedSorted &&
+                skillObjectsLocalizedSorted.length > 0 ? (
                   <Chips>
-                    {skillFamily.skills?.map((skill) => (
-                      <Chip key={skill.id}>
-                        {getLocalizedName(skill.name, intl)}
-                      </Chip>
+                    {skillObjectsLocalizedSorted.map((skillObject) => (
+                      <Chip key={skillObject.id}>{skillObject.name}</Chip>
                     ))}
                   </Chips>
                 ) : (
@@ -164,9 +168,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
           </div>
-          <div data-h2-margin="base(0 -x1)">
-            <Separator decorative orientation="horizontal" space="sm" />
-          </div>
+          <CardSeparator />
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -219,8 +221,8 @@ const ViewSkillFamilyPage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                id: "ZWnKEJ",
+                defaultMessage: "Skill family {skillFamilyId} not found.",
+                id: "asjJwj",
                 description: "Message displayed for skillFamily not found.",
               },
               { skillFamilyId },

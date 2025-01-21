@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^PHPDoc tag @var with type callable\(\)\: GraphQL\\Type\\Definition\\Type&GraphQL\\Type\\Definition\\NamedType is not subtype of native type Closure\(\)\: GraphQL\\Type\\Definition\\EnumType\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: app/Providers/GraphQLServiceProvider.php
+
+		-
+			message: '#^Trait App\\Traits\\ExperienceFactoryWithSkills is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: app/Traits/ExperienceFactoryWithSkills.php

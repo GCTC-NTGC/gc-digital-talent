@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { Chip, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
@@ -19,6 +19,8 @@ interface GovernmentInformationSectionProps {
     | "currentClassification"
     | "hasPriorityEntitlement"
     | "priorityNumber"
+    | "workEmail"
+    | "isWorkEmailVerified"
   >;
 }
 
@@ -34,6 +36,8 @@ const GovernmentInformationSection = ({
     currentClassification,
     hasPriorityEntitlement,
     priorityNumber,
+    workEmail,
+    isWorkEmailVerified,
   } = user;
 
   return (
@@ -106,8 +110,49 @@ const GovernmentInformationSection = ({
                 </span>
                 <span data-h2-font-weight="base(700)">
                   {wrapAbbr(
-                    `${currentClassification?.group}-${currentClassification?.level}`,
+                    `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                     intl,
+                  )}
+                </span>
+              </p>
+            </div>
+          )}
+          {workEmail && (
+            <div data-h2-flex-item="base(1of1)">
+              <p>
+                <span data-h2-display="base(block)">
+                  {intl.formatMessage({
+                    defaultMessage: "Work email",
+                    id: "tj9Dz3",
+                    description: "Work email label",
+                  })}
+                </span>
+                <span
+                  data-h2-font-weight="base(700)"
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(row)"
+                  data-h2-gap="base(x0.5)"
+                  data-h2-align-items="base(end)"
+                >
+                  <span>{workEmail}</span>
+                  {isWorkEmailVerified ? (
+                    <Chip color="success">
+                      {intl.formatMessage({
+                        defaultMessage: "Verified",
+                        id: "GMglI5",
+                        description:
+                          "The email address has been verified to be owned by user",
+                      })}
+                    </Chip>
+                  ) : (
+                    <Chip color="error">
+                      {intl.formatMessage({
+                        defaultMessage: "Unverified",
+                        id: "tUIvbq",
+                        description:
+                          "The email address has not been verified to be owned by user",
+                      })}
+                    </Chip>
                   )}
                 </span>
               </p>

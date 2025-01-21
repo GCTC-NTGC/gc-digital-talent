@@ -1,6 +1,13 @@
-import { Locator, type Page } from "@playwright/test";
+import { Locator, type Page, expect } from "@playwright/test";
 
-import { InputMaybe, WorkExperienceInput } from "@gc-digital-talent/graphql";
+import {
+  InputMaybe,
+  WorkExperienceInput,
+  PersonalExperienceInput,
+  CommunityExperienceInput,
+  AwardExperienceInput,
+  EducationExperienceInput,
+} from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
 
@@ -34,7 +41,12 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("ExperienceFormData");
   }
 
-  async addWorkExperience(input: WorkExperienceInput) {
+  async edit(id: string) {
+    await this.page.goto(`/en/applicant/career-timeline/${id}/edit`);
+    await this.waitForGraphqlResponse("ExperienceFormData");
+  }
+
+  async addExternalWorkExperience(input: WorkExperienceInput) {
     await this.create();
     await this.typeLocator.selectOption("work");
 
@@ -43,14 +55,33 @@ class ExperiencePage extends AppPage {
       .fill(input.role ?? "test role");
 
     await this.page
-      .getByRole("textbox", { name: /organization/i })
-      .fill(input?.organization ?? "test org");
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /This was a role with an external organization/i,
+      })
+      .click();
 
-    if (input.division) {
-      await this.page
-        .getByRole("textbox", { name: /team, group, or division/i })
-        .fill(input.division);
-    }
+    await this.page
+      .getByLabel("Organization *", { exact: true })
+      .fill(input.organization ?? "test org");
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    await this.page
+      .getByRole("group", { name: /size of the organization/i })
+      .getByRole("radio", {
+        name: /1-35 employees/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /seniority of the role/i })
+      .getByRole("radio", {
+        name: /intern or co-op/i,
+      })
+      .click();
 
     await this.fillDate(input.startDate);
 
@@ -70,19 +101,569 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("CreateWorkExperience");
   }
 
+  async addGovStudentWorkExperience(input: WorkExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("work");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the government of canada/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /student/i,
+      })
+      .click();
+
+    await this.fillDate(input.startDate);
+
+    await this.page
+      .getByRole("checkbox", { name: /i am currently active in this role/i })
+      .click();
+
+    // Ensure label changes to "Expected end date" when currently active in the role is selected
+    await expect(
+      this.page.getByRole("group", { name: /end date/i }),
+    ).toContainText("Expected end date");
+
+    await this.fillDate(input.endDate, true);
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateWorkExperience");
+  }
+
+  async addGovCasualWorkExperience(input: WorkExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("work");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the government of canada/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /casual/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /group/i })
+      .selectOption({ label: "IT" });
+    await this.page
+      .getByRole("combobox", { name: /level/i })
+      .selectOption({ label: "1" });
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /casual/i,
+      })
+      .click();
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateWorkExperience");
+  }
+
+  async addGovTermOrIndeterminateWorkExperience(input: WorkExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("work");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the government of canada/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    // Set the employment type to "Term"
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /^term$/i,
+      })
+      .click();
+
+    // Ensure position type group disappears when employment type is "Term"
+    await expect(
+      this.page.getByRole("group", { name: /position type/i }),
+    ).toBeHidden();
+
+    // Change the employment type to "Indeterminate"
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /^indeterminate$/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /position type/i })
+      .getByRole("radio", {
+        name: /substantive/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /group/i })
+      .selectOption({ label: "IT" });
+    await this.page
+      .getByRole("combobox", { name: /level/i })
+      .selectOption({ label: "1" });
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateWorkExperience");
+  }
+
+  async addGovContractorWorkExperience(input: WorkExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("work");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the government of canada/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    // Set the employment type to "Term"
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /contractor/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /seniority of the role/i })
+      .getByRole("radio", {
+        name: /intern or co-op/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /contractor type/i })
+      .getByRole("radio", {
+        name: /self-employed/i,
+      })
+      .click();
+
+    // Ensure contracting firm or agency text input isn't rendered
+    await expect(
+      this.page.getByRole("textbox", { name: /contracting firm or agency/i }),
+    ).toBeHidden();
+
+    await this.page
+      .getByRole("group", { name: /contractor type/i })
+      .getByRole("radio", {
+        name: /firm or agency/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("textbox", { name: /contracting firm or agency/i })
+      .fill("test contracting firm");
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateWorkExperience");
+  }
+
+  async addCafWorkExperience(input: WorkExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("work");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the canadian armed forces/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /regular force/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /military force/i })
+      .getByRole("radio", {
+        name: /canadian army/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /rank category/i })
+      .getByRole("radio", {
+        name: /general or flag officer/i,
+      })
+      .click();
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateWorkExperience");
+  }
+
+  async editWorkExperience(id: string, input: WorkExperienceInput) {
+    await this.edit(id);
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.role ?? "edit test role");
+
+    await this.page
+      .getByRole("group", { name: /employment category/i })
+      .getByRole("radio", {
+        name: /this was a role with the government of canada/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await this.page
+      .getByRole("textbox", { name: /team, group, or division/i })
+      .fill(input.division ?? "test team");
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /casual/i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("combobox", { name: /group/i })
+      .selectOption({ label: "IT" });
+    await this.page
+      .getByRole("combobox", { name: /level/i })
+      .selectOption({ label: "1" });
+
+    await this.page
+      .getByRole("group", { name: /employment type/i })
+      .getByRole("radio", {
+        name: /casual/i,
+      })
+      .click();
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("UpdateWorkExperience");
+  }
+
+  async addPersonalExperience(input: PersonalExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("personal");
+
+    await this.page
+      .getByRole("textbox", { name: /short title for this experience/i })
+      .fill(input.title ?? "test short title");
+
+    await this.page
+      .getByRole("textbox", { name: /experience description/i })
+      .fill(input.description ?? "test description");
+
+    await this.page
+      .getByRole("checkbox", {
+        name: /i agree to share this information with verified government of canada hiring managers and hr advisors who have access to this platform./i,
+      })
+      .click();
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", {
+          name: /i am currently active in this experience/i,
+        })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreatePersonalExperience");
+  }
+
+  async addCommunityExperience(input: CommunityExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("community");
+
+    await this.page
+      .getByRole("textbox", { name: /my role/i })
+      .fill(input.title ?? "test role");
+
+    await this.page
+      .getByLabel("Group / Organization / Community *", { exact: true })
+      .fill(input?.organization ?? "test org");
+
+    await this.page
+      .getByRole("textbox", { name: /project/i })
+      .fill(input?.project ?? "test project");
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", { name: /i am currently active in this role/i })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateCommunityExperience");
+  }
+
+  async addAwardExperience(input: AwardExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("award");
+
+    await this.page
+      .getByRole("textbox", { name: /award title/i })
+      .fill(input.title ?? "test award title");
+
+    await this.page
+      .getByRole("combobox", { name: /awarded to/i })
+      .selectOption({ label: "Me" });
+
+    await this.page
+      .getByLabel("Issuing organization *", { exact: true })
+      .fill(input?.issuedBy ?? "test org");
+
+    await this.page
+      .getByRole("combobox", { name: /award scope/i })
+      .selectOption({ label: "Local" });
+
+    await this.fillDate(input.awardedDate, false, /date awarded/i);
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateAwardExperience");
+  }
+
+  async addEducationExperience(input: EducationExperienceInput) {
+    await this.create();
+    await this.typeLocator.selectOption("education");
+
+    await this.page
+      .getByRole("combobox", { name: /type of education/i })
+      .selectOption({ label: "PhD" });
+
+    await this.page
+      .getByRole("textbox", { name: /area of study/i })
+      .fill(input?.areaOfStudy ?? "test area of study");
+
+    await this.page
+      .getByLabel("Institution *", { exact: true })
+      .fill(input?.areaOfStudy ?? "test institution");
+
+    await this.page
+      .getByRole("combobox", { name: /status/i })
+      .selectOption({ label: "Audited" });
+
+    await this.page
+      .getByRole("textbox", { name: /thesis title/i })
+      .fill(input?.thesisTitle ?? "test thesis title");
+
+    await this.fillDate(input.startDate);
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("checkbox", {
+          name: /i am currently active in this education/i,
+        })
+        .click();
+    } else {
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.page
+      .getByRole("textbox", { name: /additional details/i })
+      .fill(input.details ?? "test details");
+
+    await this.save();
+    await this.waitForGraphqlResponse("CreateEducationExperience");
+  }
+
+  async linkSkillToExperience(input: {
+    experienceType: string;
+    skill: string;
+  }) {
+    await this.create();
+    await this.typeLocator.selectOption(input.experienceType);
+
+    await this.page.getByRole("button", { name: "Add a skill" }).click();
+
+    await this.page.getByRole("combobox", { name: "Skill *" }).click();
+
+    await this.page
+      .getByRole("combobox", { name: "Skill *" })
+      .fill(input.skill);
+
+    await this.page.getByRole("option", { name: input.skill }).click();
+
+    await this.page.getByRole("button", { name: /add this skill/i }).click();
+  }
+
   async save() {
     await this.page.getByRole("button", { name: /save and return/i }).click();
   }
 
-  async fillDate(d?: InputMaybe<string>, end?: boolean) {
+  async fillDate(d?: InputMaybe<string>, end?: boolean, label?: RegExp) {
     if (end && !d) {
       return;
     }
 
     const dArr = d?.split("-");
     if (dArr) {
+      const startOrEnd = end ? /end date/i : /start date/i;
       const input = this.page.getByRole("group", {
-        name: end ? /end date/i : /start date/i,
+        name: label ?? startOrEnd,
       });
 
       await input.getByRole("spinbutton", { name: /year/i }).fill(dArr[0]);

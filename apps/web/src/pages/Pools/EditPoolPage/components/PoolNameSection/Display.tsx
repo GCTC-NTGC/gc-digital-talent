@@ -29,7 +29,7 @@ const Display = ({
     selectionLimitations: poolSelectionLimitations,
     classification,
     department,
-    stream,
+    workStream,
     name,
     processNumber,
     publishingGroup,
@@ -105,10 +105,10 @@ const Display = ({
             : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
-          hasError={!stream}
+          hasError={!workStream}
           label={intl.formatMessage(processMessages.stream)}
         >
-          {getLocalizedName(stream?.label, intl)}
+          {getLocalizedName(workStream?.name, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!name?.en}
@@ -136,7 +136,7 @@ const Display = ({
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!opportunityLength}
-          label={intl.formatMessage(processMessages.opportunityLength)}
+          label={intl.formatMessage(processMessages.employmentDuration)}
         >
           {getLocalizedName(opportunityLength?.label, intl)}
         </ToggleForm.FieldDisplay>

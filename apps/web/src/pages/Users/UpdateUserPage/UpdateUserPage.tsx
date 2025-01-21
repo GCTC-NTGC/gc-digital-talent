@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useMutation, useQuery } from "urql";
@@ -13,11 +13,7 @@ import {
   Checkbox,
 } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import {
-  emptyToNull,
-  unpackMaybes,
-  workEmailDomainRegex,
-} from "@gc-digital-talent/helpers";
+import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   UpdateUserRolesInput,
@@ -28,6 +24,8 @@ import {
   User,
   graphql,
   UpdateUserDataQuery as UpdateUserDataQueryType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -40,7 +38,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useReturnPath from "~/hooks/useReturnPath";
 
 import UserRoleTable from "./components/IndividualRoleTable";
-import TeamRoleTable from "./components/TeamRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
 import UpdateUserSubForm from "./components/UpdateUserSubForm";
 import {
@@ -53,8 +50,8 @@ import {
 import CommunityRoleTable from "./components/CommunityRoleTable";
 import ProcessRoleTable from "./components/ProcessRoleTable";
 
-const UpdateUserOptions_Query = graphql(/* GraphQL */ `
-  query UpdateUserOptions {
+export const UpdateUserOptions_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
       label {
@@ -95,6 +92,7 @@ type FormValues = Pick<
 > & { isGovEmployee: string };
 interface UpdateUserFormProps {
   initialUser: PartialUser;
+  formOptionsQuery: FragmentType<typeof UpdateUserOptions_Fragment>;
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
@@ -103,12 +101,13 @@ interface UpdateUserFormProps {
 
 export const UpdateUserForm = ({
   initialUser,
+  formOptionsQuery,
   handleUpdateUser,
 }: UpdateUserFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ data }] = useQuery({ query: UpdateUserOptions_Query });
+  const formOptions = getFragment(UpdateUserOptions_Fragment, formOptionsQuery);
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -155,8 +154,8 @@ export const UpdateUserForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))
-      .then(() => {
-        navigate(navigateTo);
+      .then(async () => {
+        await navigate(navigateTo);
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -178,7 +177,10 @@ export const UpdateUserForm = ({
       });
   };
 
-  const languageOptions = localizedEnumToOptions(data?.languages, intl);
+  const languageOptions = localizedEnumToOptions(
+    unpackMaybes(formOptions?.languages),
+    intl,
+  );
 
   return (
     <section data-h2-wrapper="base(left, s)">
@@ -297,18 +299,6 @@ export const UpdateUserForm = ({
             label={intl.formatMessage(commonMessages.workEmail)}
             type="email"
             name="workEmail"
-            rules={{
-              pattern: {
-                value: workEmailDomainRegex,
-                message: intl.formatMessage({
-                  defaultMessage:
-                    "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
-                  id: "BLOt/e",
-                  description:
-                    "Description for rule pattern on work email field",
-                }),
-              },
-            }}
           />
           <div data-h2-align-self="base(flex-start)">
             <Submit />
@@ -410,7 +400,7 @@ const UpdateUserPage = () => {
   const availableRoles = unpackMaybes(data?.roles);
 
   return (
-    <AdminContentWrapper>
+    <>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Update user",
@@ -418,74 +408,71 @@ const UpdateUserPage = () => {
           description: "Page title for the user edit page",
         })}
       />
-      <Pending fetching={fetching} error={error}>
-        {data?.user ? (
-          <>
-            <UpdateUserForm
-              initialUser={data.user}
-              handleUpdateUser={handleUpdateUser}
-            />
-            <UpdateUserSubForm
-              authInfo={data.user?.authInfo}
-              onUpdateSub={handleUpdateUserSub}
-            />
-            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage(adminMessages.rolesAndPermissions)}
-            </Heading>
-            <UserRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <TeamRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <CommunityRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <ProcessRoleTable
-              user={data.user}
-              authInfo={data.user?.authInfo}
-              availableRoles={availableRoles}
-              onUpdateUserRoles={handleUpdateUserRoles}
-            />
-            <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
-              {intl.formatMessage({
-                defaultMessage: "Advanced tools",
-                id: "KoKXUw",
-                description: "Heading for making major changes to a user",
-              })}
-            </Heading>
-            <DeleteUserSection
-              user={data.user}
-              onDeleteUser={handleDeleteUser}
-            />
-          </>
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "User {userId} not found.",
-                  id: "0SoKjt",
-                  description: "Message displayed for user not found.",
-                },
-                { userId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {data?.user ? (
+            <>
+              <UpdateUserForm
+                formOptionsQuery={data}
+                initialUser={data.user}
+                handleUpdateUser={handleUpdateUser}
+              />
+              <UpdateUserSubForm
+                authInfo={data.user?.authInfo}
+                onUpdateSub={handleUpdateUserSub}
+              />
+              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage(adminMessages.rolesAndPermissions)}
+              </Heading>
+              <UserRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <CommunityRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <ProcessRoleTable
+                user={data.user}
+                authInfo={data.user?.authInfo}
+                availableRoles={availableRoles}
+                onUpdateUserRoles={handleUpdateUserRoles}
+              />
+              <Heading level="h2" size="h3" data-h2-font-weight="base(700)">
+                {intl.formatMessage({
+                  defaultMessage: "Advanced tools",
+                  id: "KoKXUw",
+                  description: "Heading for making major changes to a user",
+                })}
+              </Heading>
+              <DeleteUserSection
+                user={data.user}
+                onDeleteUser={handleDeleteUser}
+              />
+            </>
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "User {userId} not found.",
+                    id: "0SoKjt",
+                    description: "Message displayed for user not found.",
+                  },
+                  { userId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

@@ -17,5 +17,10 @@ return [
     'status' => 'Status',
     'present' => 'Present',
     'at' => 'at',
+    'with' => 'with',
     'not_provided' => 'Not provided',
+    'not_sure' => 'Not sure',
+    'expected_end_date' => '(Expected end date)',
+    'not_found' => 'Not found',
+    'step' => 'Step',
 ];

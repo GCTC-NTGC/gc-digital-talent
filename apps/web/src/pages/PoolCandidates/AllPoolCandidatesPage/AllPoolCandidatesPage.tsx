@@ -9,11 +9,11 @@ import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
@@ -37,11 +37,8 @@ export const AllPoolCandidatesPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <AdminContentWrapper table>
         <PoolCandidatesTable
           title={formattedPageTitle}
           initialFilterInput={{

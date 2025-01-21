@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";

@@ -30,7 +30,7 @@ trait GeneratesFile
             return '';
         }
 
-        /** @use \App\Traits\HasLocalization $enum */
+        /** @use \App\Traits\HasLocalization<UnitEnum> $enum */
         return $enum::localizedString($value, $subKey)[$this->lang] ?? '';
     }
 

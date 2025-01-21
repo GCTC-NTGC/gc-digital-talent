@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
@@ -36,6 +37,7 @@ use Laravel\Scout\Searchable;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -90,7 +92,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
- * @property Collection<\App\Models\Notification> $notifications
+ * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ *
+ * @method Builder|static authorizedToView()
+ * @method static Builder|static query()
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -206,78 +211,89 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return $this?->preferred_lang ?? 'en';
+        return $this->preferred_lang ?? 'en';
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
+    /** @return BelongsToMany<Pool, $this> */
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
+    /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department')
             ->select(['id', 'name', 'department_number']);
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'current_classification');
     }
 
-    // All the relationships for experiences
+    /** @return HasMany<AwardExperience, $this> */
     public function awardExperiences(): HasMany
     {
         return $this->hasMany(AwardExperience::class);
     }
 
+    /** @return HasMany<CommunityExperience, $this> */
     public function communityExperiences(): HasMany
     {
         return $this->hasMany(CommunityExperience::class);
     }
 
+    /** @return HasMany<EducationExperience, $this> */
     public function educationExperiences(): HasMany
     {
         return $this->hasMany(EducationExperience::class);
     }
 
+    /** @return HasMany<PersonalExperience, $this> */
     public function personalExperiences(): HasMany
     {
         return $this->hasMany(PersonalExperience::class);
     }
 
+    /** @return HasMany<WorkExperience, $this> */
     public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
     }
 
+    /** @return HasMany<Experience, $this> */
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
     }
 
-    // A relationship to the custom roleAssignments pivot model
+    /** @return HasMany<RoleAssignment, $this> */
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);
     }
 
+    /** @return HasMany<UserSkill, $this> */
     public function userSkills(): HasMany
     {
         return $this->hasMany(UserSkill::class, 'user_id');
     }
 
-    public function skills()
+    public function skills(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
     }
@@ -286,6 +302,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
+    public function employeeProfile(): HasOne
+    {
+        return $this->hasOne(EmployeeProfile::class, 'id');
     }
 
     // This method will add the specified skills to UserSkills if they don't exist yet.
@@ -337,7 +358,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification()->first();
 
-        return $classification->group.'-0'.$classification->level;
+        $leadingZero = $classification->level < 10 ? '0' : '';
+
+        return $classification->group.'-'.$leadingZero.$classification->level;
     }
 
     public function getDepartment()
@@ -464,17 +487,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             // We only need to run this if the user is being soft deleted
             if (! $user->isForceDeleting()) {
                 // Cascade delete to child models
-                foreach ($user->poolCandidates() as $candidate) {
-                    $candidate->delete();
-                }
+                $user->poolCandidates()->delete();
 
                 // Modify the email(s) to allow use by another user
-                $newContactEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newContactEmail]);
+                $user->email = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 if (! is_null($user->work_email)) {
-                    $newWorkEmail = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
-                    $user->update(['email' => $newWorkEmail]);
+                    $user->work_email = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 }
+                $user->save();
             }
             $user->searchable();
         });
@@ -767,7 +787,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 }
 
                 if (array_key_exists('qualifiedStreams', $filters)) {
-                    $query->streams($filters['qualifiedStreams']);
+                    $query->whereWorkStreamsIn($filters['qualifiedStreams']);
                 }
             });
 
@@ -1145,6 +1165,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         // otherwise: use the regular authorized to view scope
+        /** @var Builder<User> $query */
         $query->authorizedToView();
     }
 
@@ -1169,7 +1190,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      * Mark the given user's email as verified.
      * Part of the MustVerifyEmail contract.
      *
-     * @return bool
+     * @return void
      */
     public function markEmailAsVerified(EmailType $emailType)
     {

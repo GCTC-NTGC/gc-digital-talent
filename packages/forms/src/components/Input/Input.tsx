@@ -10,12 +10,11 @@ import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useInputStyles from "../../hooks/useInputStyles";
-import { sanitizeString } from "../../utils";
 
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
     /** Set the type of the input. */
-    type: "text" | "number" | "email" | "tel" | "password" | "search";
+    type: "text" | "number" | "email" | "tel" | "password" | "search" | "url";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
     maxLength?: number;
@@ -61,7 +60,6 @@ const Input = ({
     if (whitespaceTrim) {
       inputValue = inputValue.trim();
     }
-    inputValue = sanitizeString(inputValue);
     setValue(name, inputValue);
   };
 

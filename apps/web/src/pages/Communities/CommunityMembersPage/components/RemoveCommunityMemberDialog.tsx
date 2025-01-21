@@ -1,10 +1,20 @@
-import { useState } from "react";
+import {
+  useState,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+} from "react";
 import { useIntl } from "react-intl";
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useMutation } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
-import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Button,
+  Chip,
+  Chips,
+  DropdownMenu,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -23,17 +33,18 @@ import { CommunityMember } from "~/utils/communityUtils";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 import { ContextType } from "./types";
 
-interface RemoveCommunityMemberDialogProps {
+type RemoveCommunityMemberDialogProps = ComponentPropsWithoutRef<
+  typeof DropdownMenu.Item
+> & {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-}
+};
 
-const RemoveCommunityMemberDialog = ({
-  user,
-  community,
-  hasPlatformAdmin,
-}: RemoveCommunityMemberDialogProps) => {
+const RemoveCommunityMemberDialog = forwardRef<
+  ElementRef<typeof DropdownMenu.Item>,
+  RemoveCommunityMemberDialogProps
+>(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const [{ fetching }, executeMutation] = useMutation(
@@ -100,23 +111,21 @@ const RemoveCommunityMemberDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button
-          color="error"
-          aria-label={intl.formatMessage(
-            {
-              defaultMessage: "Remove {userName} from {communityName}",
-              id: "AKI35i",
-              description:
-                "Aria label for the dialog trigger to remove a user from a community",
-            },
-            {
-              userName,
-              communityName,
-            },
-          )}
-          icon={TrashIcon}
-          mode="icon_only"
-        />
+        <DropdownMenu.Item
+          ref={forwardedRef}
+          onSelect={(event) => {
+            event.preventDefault();
+            onSelect?.(event);
+          }}
+          {...rest}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Remove member",
+            id: "wsKhRd",
+            description:
+              "Label for the dialog to remove a users community membership",
+          })}
+        </DropdownMenu.Item>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -171,6 +180,6 @@ const RemoveCommunityMemberDialog = ({
       </Dialog.Content>
     </Dialog.Root>
   );
-};
+});
 
 export default RemoveCommunityMemberDialog;

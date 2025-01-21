@@ -34,17 +34,17 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 import { orderRoles } from "../Communities/CommunityMembersPage/helpers";
 
 const subTitle = defineMessage({
   defaultMessage:
-    "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
-  id: "7nxtBm",
+    "This is the administrator hub of GC Digital Talent. Here you can recruit and manage talent, find resources, and adjust platform settings.",
+  id: "0Wx0kW",
   description: "Subtitle for the admin dashboard page",
 });
 
@@ -129,11 +129,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [],
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Job templates library",
-        id: "MySfL/",
-        description: "Label for link to job templates library",
-      }),
+      label: intl.formatMessage(navigationMessages.jobAdvertisementTemplates),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
@@ -175,14 +171,24 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: permissionConstants().managePlatformData,
     },
     {
-      label: intl.formatMessage(pageTitles.teams),
-      href: adminRoutes.teamTable(),
-      roles: permissionConstants().viewTeams,
+      label: intl.formatMessage(pageTitles.trainingOpportunities),
+      href: adminRoutes.trainingOpportunitiesIndex(),
+      roles: permissionConstants().managePlatformData,
     },
     {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
       roles: permissionConstants().viewUsers,
+    },
+    {
+      label: intl.formatMessage(pageTitles.communities),
+      href: adminRoutes.communityTable(),
+      roles: permissionConstants().viewCommunities,
+    },
+    {
+      label: intl.formatMessage(pageTitles.workStreams),
+      href: adminRoutes.workStreamTable(),
+      roles: permissionConstants().managePlatformData,
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
@@ -208,13 +214,14 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         title={intl.formatMessage(pageTitles.dashboard)}
         description={intl.formatMessage(subTitle)}
       />
-      <AdminHero
+      <Hero
         title={intl.formatMessage(
           {
-            defaultMessage: "Welcome back, {name}",
-            id: "lIwJp4",
+            defaultMessage:
+              "Welcome back<hidden> to your admin dashboard</hidden>, {name}",
+            id: "utS0s1",
             description:
-              "Title for dashboard on the talent cloud admin portal.",
+              "Title for admin dashboard on the talent cloud admin portal.",
           },
           {
             name: currentUser
@@ -249,9 +256,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <CardBasic data-h2-min-width="base(x14.5)">
-                <ul>
+                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {recruitmentCollectionSorted.map((item) => (
-                    <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <li key={item.label}>
                       <Link color="primary" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
@@ -275,9 +282,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
             </Heading>
             <CardBasic data-h2-min-width="base(x14.5)">
-              <ul>
+              <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                 {resourcesCollectionSorted.map((item) => (
-                  <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                  <li key={item.label}>
                     <Link color="secondary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
@@ -301,9 +308,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <CardBasic data-h2-min-width="base(x14.5)">
-                <ul>
+                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {administrationCollectionSorted.map((item) => (
-                    <li key={item.label} data-h2-margin-bottom="base(x.5)">
+                    <li key={item.label}>
                       <Link color="error" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
@@ -345,7 +352,7 @@ const AdminDashboard_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const DashboardPageApi = () => {
+export const AdminDashboardPageApi = () => {
   const [{ data, fetching, error }] = useQuery({
     query: AdminDashboard_Query,
   });
@@ -359,10 +366,8 @@ export const DashboardPageApi = () => {
 
 export const Component = () => (
   <RequireAuth roles={permissionConstants().managePlatformData}>
-    <DashboardPageApi />
+    <DashboardPage />
   </RequireAuth>
 );
 
 Component.displayName = "AdminDashboardPage";
-
-export default DashboardPageApi;

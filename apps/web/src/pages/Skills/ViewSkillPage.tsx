@@ -8,9 +8,10 @@ import {
   NotFound,
   Heading,
   Link,
-  CardSectioned,
   Chip,
   Chips,
+  CardSeparator,
+  CardBasic,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -72,6 +73,21 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
   const skill = getFragment(SkillView_Fragment, query);
 
   const skillFamilies = skill.families ?? [];
+  const skillFamilyObjectsLocalized: { id: string; name: string }[] =
+    skillFamilies.map((skillFamily) => {
+      return {
+        id: skillFamily.id,
+        name: getLocalizedName(skillFamily.name, intl),
+      };
+    });
+  const skillFamilyObjectsLocalizedSorted = skillFamilyObjectsLocalized.sort(
+    (a, b) => {
+      const aName = a.name;
+      const bName = b.name;
+      return aName.localeCompare(bName);
+    },
+  );
+
   return (
     <>
       <div
@@ -83,6 +99,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
           color="primary"
           Icon={IdentificationIcon}
           data-h2-margin="base(0, 0, x1.5, 0)"
+          data-h2-font-weight="base(400)"
         >
           {intl.formatMessage({
             defaultMessage: "Skill information",
@@ -91,8 +108,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
           })}
         </Heading>
       </div>
-      <CardSectioned.Root>
-        <CardSectioned.Item
+      <CardBasic>
+        <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
           data-h2-gap="base(x1)"
@@ -144,9 +161,9 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
             >
               {skillFamilies.length > 0 ? (
                 <Chips>
-                  {skillFamilies.map((family) => (
-                    <Chip key={family.id} color="primary">
-                      {getLocalizedName(family.name, intl)}
+                  {skillFamilyObjectsLocalizedSorted.map((skillFamily) => (
+                    <Chip key={skillFamily.id} color="primary">
+                      {skillFamily.name}
                     </Chip>
                   ))}
                 </Chips>
@@ -160,9 +177,9 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
               {skill.key}
             </FieldDisplay>
           </div>
-        </CardSectioned.Item>
-
-        <CardSectioned.Item
+        </div>
+        <CardSeparator />
+        <div
           data-h2-display="base(flex)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
@@ -176,8 +193,8 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
               description: "Link to edit the currently viewed skill",
             })}
           </Link>
-        </CardSectioned.Item>
-      </CardSectioned.Root>
+        </div>
+      </CardBasic>
     </>
   );
 };

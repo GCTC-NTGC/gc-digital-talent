@@ -1,16 +1,29 @@
-import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import type { Meta, StoryObj } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
+import { action } from "@storybook/addon-actions";
+
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 
 import TableOfContents from ".";
 
-export default {
-  component: TableOfContents.Wrapper,
-};
-
 faker.seed(0);
+
+const meta = {
+  component: TableOfContents.Wrapper,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
+} satisfies Meta<typeof TableOfContents.Wrapper>;
+
+export default meta;
+
 const items = [
   {
     id: "item-1",
@@ -40,8 +53,8 @@ const items = [
   },
 ];
 
-const TemplateTableOfContents: StoryFn = () => {
-  return (
+export const Default: StoryObj<typeof TableOfContents.Wrapper> = {
+  render: () => (
     <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
@@ -68,7 +81,7 @@ const TemplateTableOfContents: StoryFn = () => {
           mode="solid"
           color="secondary"
           block
-          onClick={() => action("Button Clicked")}
+          onClick={() => action("Button clicked")()}
         >
           {faker.lorem.word()}
         </Button>
@@ -102,7 +115,5 @@ const TemplateTableOfContents: StoryFn = () => {
         ))}
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
-  );
+  ),
 };
-
-export const SideMenu = TemplateTableOfContents.bind({});

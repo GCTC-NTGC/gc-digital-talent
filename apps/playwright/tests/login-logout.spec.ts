@@ -337,7 +337,7 @@ test.describe("Login and logout", () => {
     // confirm login in first page context
     await expect(
       pageOne.getByRole("heading", {
-        name: "Welcome back, Gul",
+        name: /welcome back/i,
         level: 1,
       }),
     ).toBeVisible();
@@ -347,7 +347,7 @@ test.describe("Login and logout", () => {
     await pageTwo.goto("/en/");
     await pageTwo.getByRole("button", { name: "your account" }).click();
     await expect(
-      pageTwo.getByRole("button", { name: /sign out/i }),
+      pageTwo.getByRole("link", { name: /sign out/i }),
     ).toBeVisible();
 
     // simulate logged out in first page context

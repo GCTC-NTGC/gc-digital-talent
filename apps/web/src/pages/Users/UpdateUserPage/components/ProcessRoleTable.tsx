@@ -184,9 +184,8 @@ const ProcessRoleTable = ({
         }}
         nullMessage={{
           description: intl.formatMessage({
-            defaultMessage:
-              'Use the "Add process roles" button to get started.',
-            id: "hryX4G",
+            defaultMessage: 'Use the "Add process role" button to get started.',
+            id: "JCZlxS",
             description:
               "Instructions for adding process membership to a user.",
           }),

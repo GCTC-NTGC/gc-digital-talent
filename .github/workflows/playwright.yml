@@ -8,8 +8,11 @@ on:
       - "**.md"
 
   pull_request:
-    paths-ignore:
-      - "**.md"
+    paths:
+      - .github/workflows/*playwright*.yml
+      - apps/**
+      - packages/**
+      - api/**
   merge_group:
     branches: [main]
 # Concurrency is used to cancel other currently-running jobs, to preserve
@@ -28,7 +31,12 @@ concurrency:
 jobs:
   playwright:
     name: Playwright
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     env:
       # Use native docker command within docker compose
       COMPOSE_DOCKER_CLI_BUILD: 1
@@ -69,28 +77,49 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
-      - name: Run Chromium Tests
-        run: pnpm run e2e:playwright:chromium
+      - name: Run Tests
+        run: pnpm run e2e:playwright --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: chromium-report
-          path: ./apps/playwright/playwright-report/
-          retention-days: 30
+          name: blob-report-${{ matrix.shardIndex }}
+          path: ./apps/playwright/blob-report
+          retention-days: 1
 
-      - name: Run Webkit Tests
-        run: pnpm run e2e:playwright:webkit
-      - uses: actions/upload-artifact@v4
-        if: always()
+  merge-reports:
+    # Merge reports after playwright-tests, even if some shards have failed
+    if: ${{ !cancelled() }}
+    needs: [playwright]
+    runs-on: ubuntu-24.04
+    env:
+      PNPM_VERSION: "9.12.3"
+    steps:
+      - uses: pnpm/action-setup@v4
         with:
-          name: webkit-report
-          path: ./apps/playwright/playwright-report/
-          retention-days: 30
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
 
-      - name: Check status of containers
-        if: failure()
-        run: docker compose ps
+      # Fix some issue with cache in setup-node
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: "Check logs: web server container"
-        if: failure()
-        run: docker compose logs webserver
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14

@@ -11,10 +11,6 @@
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
   },
-  "+ZPD1J": {
-    "defaultMessage": "Fermer le menu",
-    "description": "Text label for button that closes side menu."
-  },
   "/62GQm": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de complexité faible à modérée sous une supervision minimale et des tâches de complexité plus élevée sous une supervision et un mentorat modérés. Généralement associée à des postes intermédiaires.",
     "description": "The technical skill level definition for intermediate"
@@ -39,6 +35,10 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
+  "/pptJd": {
+    "defaultMessage": "Commis aux écritures et aux règlements",
+    "description": "Full name of abbreviation for CR"
+  },
   "/pzsYm": {
     "defaultMessage": "Profil du (de la) candidat(e)",
     "description": "Name of Applicant profile page"
@@ -50,10 +50,6 @@
   "/sSeis": {
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
-  },
-  "/zFaLD": {
-    "defaultMessage": "Parcourir la bibliothèque de compétences",
-    "description": "Name of skill library page"
   },
   "09LIbL": {
     "defaultMessage": "Date",
@@ -151,6 +147,10 @@
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
   },
+  "3SDRDg": {
+    "defaultMessage": "Parcourir la bibliothèque de compétences",
+    "description": "Name of skill library page"
+  },
   "3agw4G": {
     "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
@@ -202,6 +202,10 @@
   "5hXz/z": {
     "defaultMessage": "Sélectionnez un mois",
     "description": "Placeholder for a month select field"
+  },
+  "5xaEhL": {
+    "defaultMessage": "Titre",
+    "description": "Label for toggling a heading in the rich text editor"
   },
   "6/U6rm": {
     "defaultMessage": "Décision finale relative à l’évaluation",
@@ -256,7 +260,7 @@
     "description": "Error message for when an error occurs during role assignment"
   },
   "9RXifp": {
-    "defaultMessage": "Familles de compétences",
+    "defaultMessage": "Groupes de compétences",
     "description": "Name of skill families page"
   },
   "9aW0M6": {
@@ -279,9 +283,17 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
   },
+  "AFPD79": {
+    "defaultMessage": "Bilingue",
+    "description": "Label for bilingual"
+  },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
+  },
+  "AiFpbo": {
+    "defaultMessage": "Fermer le menu",
+    "description": "Text label for button that closes side menu."
   },
   "AlECuf": {
     "defaultMessage": "Le statut du candidat est irrégulier.",
@@ -318,6 +330,10 @@
   "CGNfbu": {
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
+  },
+  "CYirJF": {
+    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
+    "description": "Error message that advertisement locations must be filled in English and French."
   },
   "ChFxsM": {
     "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
@@ -411,10 +427,6 @@
     "defaultMessage": "Systèmes d'ordinateurs",
     "description": "Full name of abbreviation for CS"
   },
-  "Ho94JY": {
-    "defaultMessage": "Langue de communication préférée",
-    "description": "Title displayed preferred communication language"
-  },
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
@@ -479,10 +491,6 @@
     "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
     "description": "Message showing number of matching items from all available options in combobox menu"
   },
-  "KMSWLW": {
-    "defaultMessage": "Ouvrir le menu",
-    "description": "Text label for button that opens side menu."
-  },
   "Ko0JX/": {
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
     "description": "The behavioural skill level definition for expert"
@@ -516,7 +524,7 @@
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
   "MBnBcY": {
-    "defaultMessage": "Démonstration de compétences",
+    "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
   },
   "Mco0Km": {
@@ -776,7 +784,7 @@
     "description": "Error message that the pool advertisement must have an expiry date."
   },
   "XTuwjA": {
-    "defaultMessage": "Cette chaîne de clés de famille de compétences est déjà utilisée",
+    "defaultMessage": "Cette chaîne de clés de groupe de compétences est déjà utilisée",
     "description": "Error message that the given skill family key is already in use."
   },
   "XUR5dD": {
@@ -786,6 +794,10 @@
   "XZl6Ks": {
     "defaultMessage": "Modifiez cette section",
     "description": "Text to trigger edit of section action"
+  },
+  "XiECLl": {
+    "defaultMessage": "Langue de communication préférée",
+    "description": "Title displayed preferred communication language"
   },
   "XpK4rL": {
     "defaultMessage": "Être disponible, disposé(e) et apte à transporter, soulever et déposer de l'équipement pouvant peser jusqu'à 20 kg.",
@@ -819,6 +831,10 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
+  "ZhOciS": {
+    "defaultMessage": "Modèles d'offres d'emploi",
+    "description": "Name of job advertisement templates page"
+  },
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
@@ -834,10 +850,6 @@
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
-  },
-  "aMkZ80": {
-    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
-    "description": "Error message that advertisement locations must be filled in English and French."
   },
   "aTHtqQ": {
     "defaultMessage": "Obtention d’un diplôme",
@@ -906,6 +918,10 @@
   "dxjUnU": {
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
+  },
+  "e6YQ8t": {
+    "defaultMessage": "Ouvrir le menu",
+    "description": "Text label for button that opens side menu."
   },
   "eBNZxB": {
     "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
@@ -983,6 +999,10 @@
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
   },
+  "i+8teP": {
+    "defaultMessage": "Description",
+    "description": "Title for description"
+  },
   "i3Jl6C": {
     "defaultMessage": " : ",
     "description": "Dividing colon with trailing space"
@@ -1042,6 +1062,10 @@
   "jy7itR": {
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
+  },
+  "k3i6lU": {
+    "defaultMessage": "Langue",
+    "description": "Legend for a language input or title"
   },
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
@@ -1114,6 +1138,10 @@
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
+  },
+  "nICORU": {
+    "defaultMessage": "Sélectionnez un groupe",
+    "description": "Null selection og group for select input."
   },
   "nMX0n8": {
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",

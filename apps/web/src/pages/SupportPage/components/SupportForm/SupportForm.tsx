@@ -2,7 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useLocation, Location } from "react-router-dom";
+import { useLocation, Location, useSearchParams } from "react-router";
 import { useQuery } from "urql";
 import { ReactNode, useState } from "react";
 
@@ -30,6 +30,7 @@ interface FormValues {
   description: string;
   subject: string;
   previous_url: string;
+  user_agent: string;
 }
 
 interface SupportFormProps {
@@ -48,6 +49,15 @@ const anchorTag = (chunks: ReactNode) => (
   // eslint-disable-next-line react/forbid-elements
   <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
 );
+
+const availableSubjects = ["bug", "feedback", "question"];
+function defaultSubject(subject?: string | null): string {
+  if (subject && availableSubjects.includes(subject)) {
+    return subject;
+  }
+
+  return "";
+}
 
 const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
@@ -117,15 +127,20 @@ const SupportForm = ({
 }: SupportFormProps) => {
   const intl = useIntl();
   const location = useLocation() as Location<LocationState>;
+  const [params] = useSearchParams();
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
+  const userAgent = window?.navigator.userAgent ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
+      subject: defaultSubject(params.get("subject")),
+      description: params.get("description") ?? "",
       user_id: currentUser?.id ?? "",
       name: currentUser
         ? getFullNameLabel(currentUser.firstName, currentUser.lastName, intl)
         : "",
       email: currentUser?.email ?? "",
       previous_url: previousUrl || "",
+      user_agent: userAgent || "",
     },
   });
   const { handleSubmit } = methods;

@@ -1,11 +1,7 @@
 import { createPath, parsePath, Path } from "history";
 import type { IntlShape } from "react-intl";
 
-import type {
-  LocalizedString,
-  Maybe,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedString, Maybe } from "@gc-digital-talent/graphql";
 
 import { Locales } from "../types";
 import { commonMessages } from "../messages";
@@ -78,30 +74,6 @@ export const getLocalizedName = (
   }
 
   return name[locale] ?? notAvailable;
-};
-
-export interface LocalizedArray {
-  __typename?: "LocalizedString";
-  en?: Maybe<Scalars["String"][]>;
-  fr?: Maybe<Scalars["String"][]>;
-}
-
-export const getLocalizedArray = (
-  name: Maybe<LocalizedArray>,
-  intl: IntlShape,
-  emptyNotFound = false,
-): string => {
-  const locale = getLocale(intl);
-
-  const notAvailable = emptyNotFound
-    ? ""
-    : intl.formatMessage(commonMessages.notAvailable);
-
-  if (!name?.[locale]) {
-    return notAvailable;
-  }
-
-  return name[locale]?.join(", ") ?? notAvailable;
 };
 
 export const localizeCurrency = (

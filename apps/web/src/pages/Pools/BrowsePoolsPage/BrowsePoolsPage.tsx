@@ -22,7 +22,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -32,7 +32,6 @@ import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
-import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 
 const getFlourishStyles = (isTop: boolean) => ({
@@ -65,7 +64,6 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
 
       ...ActiveRecruitmentSectionPool
     }
-    ...OngoingRecruitmentSection
   }
 `);
 
@@ -109,15 +107,8 @@ export const Component = () => {
         p.publishingGroup?.value === PublishingGroup.ExecutiveJobs),
   );
 
-  const ongoingRecruitmentPools = pools.filter(
-    (p) =>
-      p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      p.publishingGroup?.value === PublishingGroup.ItJobsOngoing, // and which are meant to be published on the IT Jobs page
-  );
-
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
-  const areOpportunitiesShowing =
-    activeRecruitmentPools.length || ongoingRecruitmentPools.length;
+  const areOpportunitiesShowing = activeRecruitmentPools.length;
 
   const profileLink = {
     href: loggedIn ? paths.profile() : paths.login(),
@@ -166,14 +157,6 @@ export const Component = () => {
           <div>
             <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           </div>
-          {ongoingRecruitmentPools.length > 0 && (
-            <div>
-              <OngoingRecruitmentSection
-                pools={ongoingRecruitmentPools}
-                query={data}
-              />
-            </div>
-          )}
           <CardBasic data-h2-margin="base(x1, 0, 0, 0)">
             <div
               data-h2-display="p-tablet(flex)"

@@ -10,6 +10,7 @@ enum CandidateRemovalReason
 
     case REQUESTED_TO_BE_WITHDRAWN;
     case NOT_RESPONSIVE;
+    case INELIGIBLE;
     case OTHER;
 
     public static function getLangFilename(): string

@@ -42,22 +42,26 @@ class PoolSkill extends Model
         });
     }
 
+    /** @return BelongsTo<Skill, $this> */
     public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class)->withTrashed();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return BelongsToMany<AssessmentStep, $this> */
     public function assessmentSteps(): BelongsToMany
     {
         return $this->belongsToMany(AssessmentStep::class, 'assessment_step_pool_skill')
             ->withTimestamps();
     }
 
+    /** @return HasMany<AssessmentResult, $this> */
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);

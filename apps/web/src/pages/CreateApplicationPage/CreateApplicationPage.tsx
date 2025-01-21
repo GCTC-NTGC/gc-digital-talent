@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";
@@ -81,11 +81,14 @@ const CreateApplication = () => {
   const navigateWithToastCounter = useRef<number>(0);
 
   // Start navigation and pop a toast.  Increment the ref to ensure we only do this once.
-  const navigateWithToast = (path: string, toastFunction: () => void): void => {
-    if (navigateWithToastCounter.current > 0) return; // we've already started navigation
-    navigate(path, { replace: true });
-    toastFunction();
+  const navigateWithToast = async (
+    path: string,
+    toastFunction: () => void,
+  ): Promise<void> => {
     navigateWithToastCounter.current += 1;
+    if (navigateWithToastCounter.current > 1) return; // we've already started navigation
+    await navigate(path, { replace: true });
+    toastFunction();
   };
 
   // If a "me" object came back then we've checked.
@@ -104,15 +107,17 @@ const CreateApplication = () => {
   )?.applicationId;
   // An existing application was found for this pool.  No need to create a new one - let's go.
   if (existingApplicationIdToThisPool) {
-    navigateWithToast(paths.application(existingApplicationIdToThisPool), () =>
-      toast.info(
-        intl.formatMessage({
-          defaultMessage: "You already have an application to this pool.",
-          id: "fY0W2V",
-          description:
-            "Notification when a user attempts to apply to a pool when they already have an application there.",
-        }),
-      ),
+    void navigateWithToast(
+      paths.application(existingApplicationIdToThisPool),
+      () =>
+        toast.info(
+          intl.formatMessage({
+            defaultMessage: "You already have an application to this pool.",
+            id: "fY0W2V",
+            description:
+              "Notification when a user attempts to apply to a pool when they already have an application there.",
+          }),
+        ),
     );
   }
 
@@ -134,7 +139,9 @@ const CreateApplication = () => {
     if (!poolId) {
       redirectPath = paths.browsePools();
     }
-    navigateWithToast(redirectPath, () => toast.error(genericErrorMessage));
+    void navigateWithToast(redirectPath, () =>
+      toast.error(genericErrorMessage),
+    );
   }
 
   if (
@@ -145,14 +152,14 @@ const CreateApplication = () => {
   ) {
     mutationCounter.current += 1;
     executeMutation({ userId, poolId })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createApplication) {
           const { id } = result.data.createApplication;
           const newPath = paths.application(id);
           // Redirect user to the application if it exists
           // Toast success or error
           if (!result.error) {
-            navigateWithToast(newPath, () =>
+            await navigateWithToast(newPath, () =>
               toast.success(
                 intl.formatMessage({
                   defaultMessage: "Application created",
@@ -168,7 +175,7 @@ const CreateApplication = () => {
             const message = intl.formatMessage(
               messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
             );
-            navigateWithToast(newPath, () => toast.error(message));
+            await navigateWithToast(newPath, () => toast.error(message));
           }
         } else if (result.error?.message) {
           const messageDescriptor = tryFindMessageDescriptor(
@@ -177,10 +184,12 @@ const CreateApplication = () => {
           const errorMessage = intl.formatMessage(
             messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
           );
-          navigateWithToast(redirectPath, () => toast.error(errorMessage));
+          await navigateWithToast(redirectPath, () =>
+            toast.error(errorMessage),
+          );
         } else {
           // Fallback to generic message
-          navigateWithToast(redirectPath, () =>
+          await navigateWithToast(redirectPath, () =>
             toast.error(genericErrorMessage),
           );
         }

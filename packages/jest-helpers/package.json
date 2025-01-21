@@ -19,20 +19,20 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "jest": "^29.7.0",
     "react-helmet-async": "^2.0.5",
-    "react-intl": "^6.8.7",
-    "react-router-dom": "^6.28.0"
+    "react-intl": "^7.1.0",
+    "react-router": "^7.1.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.0",
     "@types/jest-axe": "^3.5.9",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "eslint": "^8.57.0",
     "jest-axe": "^9.0.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   }
 }

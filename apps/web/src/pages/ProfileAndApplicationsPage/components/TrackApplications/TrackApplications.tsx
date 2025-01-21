@@ -78,8 +78,8 @@ const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
         <p data-h2-margin="base(x.5, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "Applications to talent pool and ongoing recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
-            id: "igTx2a",
+              "Applications to recruitment opportunities can be managed and tracked here. You’ll be able to see submission deadlines, your application’s status over time, and past applications.",
+            id: "/61ANw",
             description:
               "Description for the track applications section on the profile and applications, paragraph one.",
           })}

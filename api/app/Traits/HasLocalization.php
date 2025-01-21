@@ -24,6 +24,7 @@ trait HasLocalization
         return [
             'en' => Lang::get($key, [], 'en'),
             'fr' => Lang::get($key, [], 'fr'),
+            'localized' => __($key),
         ];
     }
 

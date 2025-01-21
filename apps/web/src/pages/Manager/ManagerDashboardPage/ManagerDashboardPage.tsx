@@ -22,7 +22,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import SEO from "~/components/SEO/SEO";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import useMainNavLinks from "~/components/NavMenu/useMainNavLinks";
@@ -191,7 +191,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                     data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_talent_searches">
-                      <Accordion.Trigger>
+                      <Accordion.Trigger as="h3">
                         {intl.formatMessage(
                           {
                             defaultMessage: "Your talent requests ({count})",
@@ -240,6 +240,7 @@ const ManagerDashboard = ({ userQuery }: ManagerDashboardProps) => {
                                   <PoolCandidateSearchRequestPreviewListItem
                                     key={request.id}
                                     poolCandidateSearchRequestQuery={request}
+                                    headingAs="h4"
                                   />
                                 ),
                               )}

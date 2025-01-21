@@ -1,4 +1,4 @@
-import { Params, useParams } from "react-router-dom";
+import { Params, useParams } from "react-router";
 import { useIntl } from "react-intl";
 
 import {

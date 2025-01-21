@@ -1,5 +1,5 @@
 import { useIntl, defineMessage } from "react-intl";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
@@ -15,7 +15,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import IapContactDialog from "~/components/Dialog/IapContactDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -113,7 +113,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   // that has not been submitted yet, or the last step
   useEffect(() => {
     if (empty(currentPage)) {
-      navigate(nextStepToSubmit.mainPage.link.url, {
+      void navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
       });
     }

@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -35,7 +35,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import UserSkillFormFields from "~/components/UserSkillFormFields/UserSkillFormFields";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
@@ -143,9 +143,6 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
     id
     __typename
     details
-    user {
-      id
-    }
     ... on AwardExperience {
       title
       issuedBy
@@ -189,6 +186,90 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       division
       startDate
       endDate
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -281,6 +362,90 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         division
         startDate
         endDate
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          group
+          level
+        }
+        department {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
       }
       skills {
         id
@@ -355,7 +520,7 @@ export const UpdateUserSkillForm = ({
   );
   const mutating = creating || updating || deleting;
 
-  const handleSuccess = (msg?: ReactNode) => {
+  const handleSuccess = async (msg?: ReactNode) => {
     toast.success(
       msg ??
         intl.formatMessage({
@@ -364,7 +529,7 @@ export const UpdateUserSkillForm = ({
           description: "Message displayed when a user updates a skill",
         }),
     );
-    navigate(returnPath);
+    await navigate(returnPath);
   };
 
   const handleError = (msg?: ReactNode) => {

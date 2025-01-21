@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { Link } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";

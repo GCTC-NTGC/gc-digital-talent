@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
@@ -193,7 +193,7 @@ const UpdateSkillShowcase = ({
           }
           throw new Error("No data returned");
         })
-      : // otherwise, create new userSkill
+      : // otherwise, create userSkill
         executeCreateMutation({
           userId,
           skillId: skillId ?? "",
@@ -237,8 +237,8 @@ const UpdateSkillShowcase = ({
         mode: "placeholder" as ButtonLinkMode,
         label: intl.formatMessage(
           {
-            defaultMessage: "Add a new item ({numOfSkills}/{maxSkills})",
-            id: "XzGOuV",
+            defaultMessage: "Add a skill ({numOfSkills}/{maxSkills})",
+            id: "vY031f",
             description:
               "Label for skill dialog trigger on skills showcase section.",
           },

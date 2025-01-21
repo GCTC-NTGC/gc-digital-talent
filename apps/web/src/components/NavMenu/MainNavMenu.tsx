@@ -286,7 +286,7 @@ const MainNavMenu = () => {
           data-h2-position="base(fixed)"
           data-h2-bottom="base(x.75)"
           data-h2-right="base(x.75)"
-          data-h2-z-index="base(9999)"
+          data-h2-z-index="base(10)"
           data-h2-display="base(flex)"
           data-h2-gap="base(x.5)"
         >

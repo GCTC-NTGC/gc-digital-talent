@@ -71,9 +71,9 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     closingDate
     processNumber
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -123,7 +123,7 @@ export const ViewPool = ({
   const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -190,7 +190,12 @@ export const ViewPool = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <div data-h2-wrapper="base(left, large, 0)">
-        <Heading level="h2" Icon={UserGroupIcon} color="primary">
+        <Heading
+          level="h2"
+          Icon={UserGroupIcon}
+          color="primary"
+          data-h2-margin-top="base(0)"
+        >
           {pageTitle}
         </Heading>
         <p data-h2-margin="base(x1 0)">

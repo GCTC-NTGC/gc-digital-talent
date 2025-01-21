@@ -35,8 +35,6 @@ class AwardExperience extends Experience
 
     /**
      * Default values for attributes
-     *
-     * @var array an array with attribute as key and default as value
      */
     protected $attributes = [
         'experience_type' => AwardExperience::class,

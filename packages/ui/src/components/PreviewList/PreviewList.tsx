@@ -1,5 +1,5 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
-import { ReactElement, ReactNode } from "react";
+import { forwardRef, ReactElement, ReactNode } from "react";
 
 import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
 import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
@@ -43,13 +43,21 @@ const actionProps = {
   "data-h2-margin-right": "base(x1) p-tablet(x1.5)",
 } satisfies ButtonLinkProps;
 
-interface ButtonProps {
+interface ButtonProps extends BaseButtonProps {
   onClick?: BaseButtonProps["onClick"];
   label: string;
 }
 
-const Button = ({ onClick, label }: ButtonProps) => (
-  <BaseButton {...actionProps} onClick={onClick} aria-label={label} />
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ onClick, label, ...rest }: ButtonProps, ref) => (
+    <BaseButton
+      ref={ref}
+      {...actionProps}
+      onClick={onClick}
+      aria-label={label}
+      {...rest}
+    />
+  ),
 );
 
 interface LinkProps {

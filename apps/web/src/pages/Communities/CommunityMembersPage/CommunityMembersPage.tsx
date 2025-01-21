@@ -1,14 +1,19 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
+import {
+  CommunityMembersTeamQuery,
+  getFragment,
+  graphql,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -18,16 +23,24 @@ import {
   checkRole,
 } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
+import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
+
+const pageTitle = defineMessage({
+  defaultMessage: "Community members",
+  id: "mEh+iY",
+  description: "Page title for the view community members page",
+});
 
 const columnHelper = createColumnHelper<CommunityMember>();
 
@@ -55,13 +68,9 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     [community.roleAssignments],
   );
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Community members",
-    id: "mEh+iY",
-    description: "Page title for the view community members page",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
 
-  let columns = [
+  const columns = [
     columnHelper.accessor(
       (member) => getFullNameLabel(member.firstName, member.lastName, intl),
       {
@@ -81,38 +90,39 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
       header: intl.formatMessage({
-        defaultMessage: "Membership roles",
-        id: "9s7Ctc",
-        description:
-          "Title displayed for the community members table roles column.",
+        defaultMessage: "Community roles",
+        id: "6UiKYE",
+        description: "Label for the input to select role of a community role",
       }),
       cell: ({ row: { original: member } }) => roleCell(member.roles, intl),
     }),
   ] as ColumnDef<CommunityMember>[];
 
   if (canAdmin) {
-    columns = [
+    columns.splice(
+      1,
+      0,
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
         cell: ({ row: { original: member } }) =>
-          actionCell(member, community, hasPlatformAdmin),
+          actionCell(member, community, hasPlatformAdmin, intl),
+
         meta: {
           hideMobileHeader: true,
           shrink: true,
         },
       }),
-      ...columns,
-    ];
+    );
   }
 
   const data = useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} />
       <Table
-        caption={pageTitle}
+        caption={formattedPageTitle}
         data={data}
         columns={columns}
         sort={{
@@ -125,11 +135,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         }}
         search={{
           internal: true,
-          label: intl.formatMessage({
-            defaultMessage: "Search community members",
-            id: "33oume",
-            description: "Label for the community members table search input",
-          }),
+          label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
         {...(canAdmin && {
           add: {
@@ -165,31 +171,70 @@ interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
 }
 
-const CommunityMembersPage = () => {
+interface CommunityMembersPageProps {
+  community: NonNullable<CommunityMembersTeamQuery["community"]>;
+}
+
+const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+
+  const { communityId } = useRequiredParams<RouteParams>("communityId");
+
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+
+  const {
+    communityName,
+    navigationCrumbs: baseCrumbs,
+    navTabs,
+  } = useOutletContext<ContextType>();
+
+  const crumbs = [
+    ...(baseCrumbs ?? []),
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Manage access",
+        id: "J0i4xY",
+        description: "Title for members page",
+      }),
+      url: paths.communityManageAccess(communityId),
+    },
+  ];
+
+  return (
+    <>
+      <SEO title={formattedPageTitle} />
+      <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-padding="base(x2, 0)">
+          <CommunityMembers communityQuery={community} />
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
+const CommunityMembersPageApiWrapper = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityMembersTeam_Query,
     variables: { communityId },
   });
-
-  const community = data?.community;
-
   return (
-    <AdminContentWrapper>
-      <Pending fetching={fetching} error={error}>
-        {community ? (
-          <CommunityMembers communityQuery={community} />
-        ) : (
-          <ThrowNotFound />
-        )}
-      </Pending>
-    </AdminContentWrapper>
+    <Pending fetching={fetching} error={error}>
+      {data?.community ? (
+        <CommunityMembersPage community={data.community} />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
   );
 };
 
 export const Component = () => (
   <RequireAuth roles={permissionConstants().viewCommunityMembers}>
-    <CommunityMembersPage />
+    <CommunityMembersPageApiWrapper />
   </RequireAuth>
 );
 

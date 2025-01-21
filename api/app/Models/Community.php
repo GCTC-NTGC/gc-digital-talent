@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string $key
  * @property array $name
  * @property array $description
+ * @property array $mandate_authority
  */
 class Community extends Model
 {
@@ -25,13 +27,15 @@ class Community extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
+        'mandate_authority' => LocalizedString::class,
     ];
 
     protected $fillable = [
         'name',
         'description',
+        'mandate_authority',
     ];
 
     public $guarded = [];
@@ -51,32 +55,37 @@ class Community extends Model
         });
     }
 
-    /**
-     * Search requests
-     */
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
-    /**
-     * ApplicationFilters
-     */
+    /** @return HasMany<ApplicantFilter, $this> */
     public function applicantFilters(): HasMany
     {
         return $this->hasMany(ApplicantFilter::class);
     }
 
+    /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }
 
+    /** @return HasMany<WorkStream, $this> */
+    public function workStreams(): HasMany
+    {
+        return $this->hasMany(WorkStream::class);
+    }
+
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs
@@ -134,5 +143,14 @@ class Community extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
+    }
+
+    /** A community has 0..* associated development programs
+     *
+     * @return HasMany<DevelopmentProgram, $this>
+     */
+    public function developmentPrograms(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgram::class);
     }
 }

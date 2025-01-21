@@ -1,7 +1,7 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -136,10 +136,9 @@ export const ClassificationTable = ({
         linkProps: {
           href: paths.classificationCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create new classification",
-            id: "AktnIU",
-            description:
-              "Heading displayed above the Create Classification form.",
+            defaultMessage: "Create classification",
+            id: "NW7sCE",
+            description: "Button text to create classification",
           }),
           from: `${pathname}${search}${hash}`,
         },
@@ -147,8 +146,8 @@ export const ClassificationTable = ({
       nullMessage={{
         description: intl.formatMessage({
           defaultMessage:
-            'Use the "Create Classification" button to get started.',
-          id: "Tl2FNA",
+            'Use the "Create classification" button to get started.',
+          id: "KHmf+e",
           description: "Instructions for adding a classification item.",
         }),
       }}

@@ -3,6 +3,7 @@ import { Editor } from "@tiptap/react";
 import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
 import ArrowUturnLeftIcon from "@heroicons/react/20/solid/ArrowUturnLeftIcon";
 import ArrowUturnRightIcon from "@heroicons/react/20/solid/ArrowUturnRightIcon";
+import H3Icon from "@heroicons/react/20/solid/H3Icon";
 
 import { richTextMessages } from "@gc-digital-talent/i18n";
 
@@ -11,9 +12,10 @@ import LinkDialog from "./LinkDialog";
 
 interface MenuBarProps {
   editor: Editor | null;
+  allowHeadings?: boolean;
 }
 
-const MenuBar = ({ editor }: MenuBarProps) => {
+const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
   const intl = useIntl();
   const readOnly = !editor?.isEditable;
 
@@ -38,6 +40,18 @@ const MenuBar = ({ editor }: MenuBarProps) => {
           {intl.formatMessage(richTextMessages.bulletList)}
         </MenuButton>
         <LinkDialog editor={editor} />
+        {allowHeadings && (
+          <MenuButton
+            active={editor?.isActive("heading") ?? false}
+            onClick={() =>
+              editor?.chain().focus().toggleHeading({ level: 3 }).run()
+            }
+            disabled={readOnly || !editor?.can().toggleHeading({ level: 3 })}
+            icon={H3Icon}
+          >
+            {intl.formatMessage(richTextMessages.heading)}
+          </MenuButton>
+        )}
       </div>
       <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
         <MenuButton

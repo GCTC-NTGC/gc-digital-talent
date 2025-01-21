@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +32,7 @@ class ScreeningQuestion extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'question' => 'array',
+        'question' => LocalizedString::class,
     ];
 
     /**
@@ -50,16 +51,19 @@ class ScreeningQuestion extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
     }
 
+    /** @return BelongsTo<AssessmentStep, $this> */
     public function assessmentStep(): BelongsTo
     {
         return $this->belongsTo(AssessmentStep::class);
     }
 
+    /** @return HasMany<ScreeningQuestionResponse, $this> */
     public function screeningQuestionResponses(): HasMany
     {
         return $this->hasMany(ScreeningQuestionResponse::class);

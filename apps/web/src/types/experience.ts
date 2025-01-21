@@ -25,6 +25,16 @@ import {
   Scalars,
   WorkExperienceInput,
   WorkExperience,
+  EmploymentCategory,
+  ExternalSizeOfOrganization,
+  ExternalRoleSeniority,
+  GovEmployeeType,
+  CafForce,
+  CafRank,
+  CafEmploymentType,
+  GovPositionType,
+  GovContractorRoleSeniority,
+  GovContractorType,
 } from "@gc-digital-talent/graphql";
 
 export type ExperienceType =
@@ -87,9 +97,24 @@ export type PersonalFormValues = FormValueDateRange & {
 };
 
 export type WorkFormValues = FormValueDateRange & {
-  role: string;
-  organization: string;
-  team?: string;
+  role: string | null;
+  organization: string | null;
+  team?: string | null;
+  employmentCategory?: EmploymentCategory | null;
+  extSizeOfOrganization?: ExternalSizeOfOrganization | null;
+  extRoleSeniority?: ExternalRoleSeniority | null;
+  department?: string | null;
+  classificationGroup: string | null;
+  classificationLevel: string | null;
+  govEmploymentType?: GovEmployeeType | null;
+  govPositionType?: GovPositionType | null;
+  govContractorRoleSeniority?: GovContractorRoleSeniority | null;
+  govContractorType?: GovContractorType | null;
+  contractorFirmAgencyName?: string | null;
+  cafEmploymentType?: CafEmploymentType | null;
+  cafForce?: CafForce | null;
+  cafRank?: CafRank | null;
+  currentRole?: boolean | null;
 };
 
 export type AllExperienceFormValues = AwardFormValues &
@@ -124,19 +149,32 @@ export interface ExperienceDetailsSubmissionData {
   awardedScope?: AwardedScope;
   description?: string;
   details?: string;
-  division?: string;
+  division?: string | null;
   currentRole?: boolean;
   endDate?: Scalars["Date"]["input"] | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
-  role?: string;
+  role?: string | null;
   startDate?: Scalars["Date"]["input"];
   status?: EducationStatus;
   thesisTitle?: string;
-  title?: string;
+  title?: string | null;
   type?: EducationType;
+  employmentCategory?: EmploymentCategory | null;
+  extSizeOfOrganization?: ExternalSizeOfOrganization | null;
+  extRoleSeniority?: ExternalRoleSeniority | null;
+  departmentId?: string | null;
+  classificationId?: string | null;
+  govEmploymentType?: GovEmployeeType | null;
+  govPositionType?: GovPositionType | null;
+  govContractorRoleSeniority?: GovContractorRoleSeniority | null;
+  govContractorType?: GovContractorType | null;
+  contractorFirmAgencyName?: string | null;
+  cafEmploymentType?: CafEmploymentType | null;
+  cafForce?: CafForce | null;
+  cafRank?: CafRank | null;
   skills?: {
     sync?:
       | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
@@ -201,5 +239,19 @@ export interface ExperienceDetailsDefaultValues {
   thesisTitle?: string;
   title?: string;
   educationType?: EducationType;
+  employmentCategory?: EmploymentCategory;
+  extSizeOfOrganization?: ExternalSizeOfOrganization;
+  extRoleSeniority?: ExternalRoleSeniority;
+  department?: string;
+  classificationGroup?: string;
+  classificationLevel?: string;
+  govEmploymentType?: GovEmployeeType;
+  govPositionType?: GovPositionType;
+  govContractorRoleSeniority?: GovContractorRoleSeniority;
+  govContractorType?: GovContractorType;
+  contractorFirmAgencyName?: string;
+  cafEmploymentType?: CafEmploymentType;
+  cafForce?: CafForce;
+  cafRank?: CafRank;
   skills?: FormSkills;
 }

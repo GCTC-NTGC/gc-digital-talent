@@ -639,6 +639,7 @@ class PoolCandidateTest extends TestCase
                                 name {
                                     en
                                     fr
+                                    localized
                                 }
                             }
                         }

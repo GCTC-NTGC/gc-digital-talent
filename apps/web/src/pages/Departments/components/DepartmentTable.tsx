@@ -1,6 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -16,6 +16,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 
@@ -91,18 +92,14 @@ export const DepartmentTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search by keyword",
-          id: "PYMFoh",
-          description: "Label for the keyword search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
           href: paths.departmentCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create new department",
-            id: "c7d3np",
+            defaultMessage: "Create department",
+            id: "WIbjog",
             description: "Heading displayed above the Create Department form.",
           }),
           from: currentUrl,
@@ -110,9 +107,8 @@ export const DepartmentTable = ({
       }}
       nullMessage={{
         description: intl.formatMessage({
-          defaultMessage:
-            'Use the "Create new department" button to get started.',
-          id: "VpqH38",
+          defaultMessage: 'Use the "Create department" button to get started.',
+          id: "kiJviy",
           description: "Instructions for adding a department item.",
         }),
       }}

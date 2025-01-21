@@ -79,8 +79,8 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
     return {
       ...defaults,
       trigger: intl.formatMessage({
-        defaultMessage: "Add a new skill",
-        id: "ZYqWBR",
+        defaultMessage: "Add skill",
+        id: "RSUgO3",
         description: "Button text to open the skill dialog and add a skill",
       }),
       title: intl.formatMessage({
@@ -113,8 +113,8 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
       }),
       subtitle: intl.formatMessage({
         defaultMessage:
-          "The skill you choose will also be added to your skills showcase if it's not already there.",
-        id: "Y96JXz",
+          "This skill will also be added to your skills portfolio if it's not already there.",
+        id: "Z5Cv3U",
         description:
           "Subtitle for the find a skill dialog within an experience",
       }),
@@ -131,17 +131,17 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
           "Button text to open the skill dialog and add a skill to the users library",
       }),
       title: intl.formatMessage({
-        defaultMessage: "Find and add a new skill to your library",
-        id: "iMtZOR",
+        defaultMessage: "Find and add a new skill to your portfolio",
+        id: "ZoZNDf",
         description:
-          "Title for the find a skill dialog within the skill library",
+          "Title for the find a skill dialog within the skill portfolio",
       }),
       subtitle: intl.formatMessage({
         defaultMessage:
-          "Search through our database of skills and link on to your profile.",
-        id: "XpiMeF",
+          "Search through our database of skills and link one to your profile.",
+        id: "5WEzE3",
         description:
-          "Subtitle for the find a skill dialog within the skill library",
+          "Subtitle for the find a skill dialog within the skill portfolio",
       }),
       submit: intl.formatMessage({
         defaultMessage: "Save and add this skill",
@@ -161,10 +161,10 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
           "Button text to open the skill dialog and add a skill to the users library",
       }),
       title: intl.formatMessage({
-        defaultMessage: "Find and add a skill to your showcase",
-        id: "Q9c+Kg",
+        defaultMessage: "Find and add a skill to your portfolio",
+        id: "+gnEgg",
         description:
-          "Title for the find a skill dialog within the skill showcase",
+          "Title for the find a skill dialog within the skill portfolio",
       }),
       subtitle: intl.formatMessage({
         defaultMessage:

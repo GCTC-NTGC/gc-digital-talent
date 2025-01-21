@@ -84,7 +84,7 @@ services:
   #
   mock-auth:
     # See: https://github.com/navikt/mock-oauth2-server#standalone-server
-    image: ghcr.io/navikt/mock-oauth2-server:2.1.1
+    image: ghcr.io/navikt/mock-oauth2-server:2.1.5
     volumes:
       - ./infrastructure/conf:/app/conf
     # Container shuts down with exit code 143 instead of the standard "0", so
@@ -101,7 +101,7 @@ services:
       #   (for which subject/sub will be something like `admin@test.com`).
       JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
       # Uncomment for direct access without proxy.
-      # We override default port 8080 sincer already used by adminer container.
+      # We override default port 8080 since it is already used by adminer container.
       #SERVER_PORT: 8081
     # Uncomment for direct access without proxy.
     #ports:

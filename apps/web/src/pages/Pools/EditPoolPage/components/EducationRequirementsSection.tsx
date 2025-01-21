@@ -10,11 +10,16 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
 
 import { SectionProps } from "../types";
 
@@ -85,9 +90,21 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
-  const classificationGroup = pool.classification?.group;
+  const logger = useLogger();
+
+  let classificationGroup: ClassificationGroup;
+
+  if (isClassificationGroup(pool.classification?.group)) {
+    classificationGroup = pool.classification.group;
+  } else {
+    logger.error(`Unexpected classification: ${pool.classification?.group}`);
+    classificationGroup = "IT";
+  }
   const classificationAbbr = pool.classification
-    ? wrapAbbr(`${classificationGroup}-0${pool.classification.level}`, intl)
+    ? wrapAbbr(
+        `${classificationGroup}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
+        intl,
+      )
     : "";
 
   return (

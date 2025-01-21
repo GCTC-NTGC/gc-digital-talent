@@ -44,6 +44,21 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
+type LocalizedCafEmploymentType {
+  value: CafEmploymentType!
+  label: LocalizedString!
+}
+
+type LocalizedCafForce {
+  value: CafForce!
+  label: LocalizedString!
+}
+
+type LocalizedCafRank {
+  value: CafRank!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateExpiryFilter {
   value: CandidateExpiryFilter!
   label: LocalizedString!
@@ -64,6 +79,21 @@ type LocalizedCitizenshipStatus {
   label: LocalizedString!
 }
 
+type LocalizedCourseFormat {
+  value: CourseFormat!
+  label: LocalizedString!
+}
+
+type LocalizedCourseLanguage {
+  value: CourseLanguage!
+  label: LocalizedString!
+}
+
+type LocalizedDeadlineStatus {
+  value: DeadlineStatus!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -79,6 +109,11 @@ type LocalizedEducationType {
   label: LocalizedString!
 }
 
+type LocalizedEmploymentCategory {
+  value: EmploymentCategory!
+  label: LocalizedString!
+}
+
 type LocalizedEstimatedLanguageAbility {
   value: EstimatedLanguageAbility!
   label: LocalizedString!
@@ -89,13 +124,38 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedExternalRoleSeniority {
+  value: ExternalRoleSeniority!
+  label: LocalizedString!
+}
+
+type LocalizedExternalSizeOfOrganization {
+  value: ExternalSizeOfOrganization!
+  label: LocalizedString!
+}
+
 type LocalizedFinalDecision {
   value: FinalDecision!
   label: LocalizedString!
 }
 
+type LocalizedGovContractorRoleSeniority {
+  value: GovContractorRoleSeniority!
+  label: LocalizedString!
+}
+
+type LocalizedGovContractorType {
+  value: GovContractorType!
+  label: LocalizedString!
+}
+
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
+  label: LocalizedString!
+}
+
+type LocalizedGovPositionType {
+  value: GovPositionType!
   label: LocalizedString!
 }
 
@@ -219,6 +279,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedWorkExperienceGovEmployeeType {
+  value: WorkExperienceGovEmployeeType!
+  label: LocalizedString!
+}
+
 type LocalizedWorkRegion {
   value: WorkRegion!
   label: LocalizedString!
@@ -238,7 +303,7 @@ scalar Boolean
 
 """
 The `Int` scalar type represents non-fractional signed whole numeric
-values. Int can represent values between -(2^31) and 2^31 - 1. 
+values. Int can represent values between -(2^31) and 2^31 - 1.
 """
 scalar Int
 
@@ -321,6 +386,15 @@ type NotificationPaginator {
 
   "A list of Notification items."
   data: [Notification!]!
+}
+
+"A paginated list of TrainingOpportunity items."
+type TrainingOpportunityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TrainingOpportunity items."
+  data: [TrainingOpportunity!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -642,6 +716,26 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum CafEmploymentType {
+  REGULAR_FORCE
+  RESERVE_FORCE
+}
+
+enum CafForce {
+  CANADIAN_ARMY
+  ROYAL_CANADIAN_AIR_FORCE
+  ROYAL_CANADIAN_NAVY
+}
+
+enum CafRank {
+  GENERAL_FLAG_OFFICER
+  SENIOR_OFFICER
+  JUNIOR_OFFICER
+  SUBORDINATE_OFFICER
+  WARRANT_PETTY_SENIOR_NCO
+  JUNIOR_NON_COMMISSIONED
+}
+
 enum CandidateExpiryFilter {
   ACTIVE
   EXPIRED
@@ -672,6 +766,22 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CourseFormat {
+  ON_SITE
+  VIRTUAL
+}
+
+enum CourseLanguage {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
+enum DeadlineStatus {
+  PUBLISHED
+  EXPIRED
+}
+
 enum AdvertisementType {
   INTERNAL
   EXTERNAL
@@ -680,7 +790,7 @@ enum AdvertisementType {
 enum AdvertisingPlatform {
   GCJOBS
   GCCONNEX
-  GCXCHNAGE
+  GCXCHANGE
   GC_COLLAB
   FACEBOOK
   LINKEDIN
@@ -872,6 +982,12 @@ enum EmailType {
   WORK
 }
 
+enum EmploymentCategory {
+  EXTERNAL_ORGANIZATION
+  GOVERNMENT_OF_CANADA
+  CANADIAN_ARMED_FORCES
+}
+
 enum EstimatedLanguageAbility {
   BEGINNER
   INTERMEDIATE
@@ -886,6 +1002,24 @@ enum EvaluatedLanguageAbility {
   E
   P
   NOT_ASSESSED
+}
+
+enum ExternalRoleSeniority {
+  INTERN_COOP
+  JUNIOR
+  INTERMEDIATE
+  SENIOR
+  TEAM_LEAD_MANAGER
+  EXECUTIVE
+  SENIOR_EXECUTIVE
+  SELF_EMPLOYED
+}
+
+enum ExternalSizeOfOrganization {
+  ONE_TO_THIRTY_FIVE
+  THIRTY_SIX_TO_ONE_HUNDRED
+  ONE_HUNDRED_ONE_TO_ONE_THOUSAND
+  ONE_THOUSAND_PLUS
 }
 
 enum FinalDecision {
@@ -909,7 +1043,22 @@ enum GenericJobTitleKey {
   TECHNICAL_ADVISOR_IT03
   SENIOR_ADVISOR_IT04
   MANAGER_IT04
-  EXECUTIVE_EX03
+  DIGITAL_LEADER_EX_03
+}
+
+enum GovContractorRoleSeniority {
+  INTERN_COOP
+  JUNIOR
+  INTERMEDIATE
+  SENIOR
+  TEAM_LEAD_MANAGER
+  EXECUTIVE
+  SENIOR_EXECUTIVE
+}
+
+enum GovContractorType {
+  SELF_EMPLOYED
+  FIRM_OR_AGENCY
 }
 
 enum GovEmployeeType {
@@ -917,6 +1066,13 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
+}
+
+enum GovPositionType {
+  SUBSTANTIVE
+  ACTING
+  SECONDMENT
+  ASSIGNMENT
 }
 
 enum IndigenousCommunity {
@@ -1120,6 +1276,14 @@ enum SupervisoryStatus {
 enum WhenSkillUsed {
   CURRENT
   PAST
+}
+
+enum WorkExperienceGovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+  CONTRACTOR
 }
 
 enum WorkRegion {

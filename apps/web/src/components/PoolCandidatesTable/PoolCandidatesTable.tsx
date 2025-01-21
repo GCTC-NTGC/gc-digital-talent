@@ -76,6 +76,7 @@ import {
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
+import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -194,9 +195,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               group
               level
             }
-            stream {
-              value
-              label {
+            workStream {
+              id
+              name {
                 en
                 fr
               }
@@ -411,8 +412,9 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesCsv(
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
+    $withROD: Boolean
   ) {
-    downloadPoolCandidatesCsv(ids: $ids, where: $where)
+    downloadPoolCandidatesCsv(ids: $ids, where: $where, withROD: $withROD)
   }
 `);
 
@@ -448,7 +450,7 @@ const defaultState = {
     },
     poolCandidateStatus: [],
     priorityWeight: [],
-    publishingGroups: [PublishingGroup.ItJobs, PublishingGroup.ItJobsOngoing],
+    publishingGroups: [PublishingGroup.ItJobs],
   },
 };
 
@@ -623,13 +625,14 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
+      withROD: !!currentPool,
     })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = () => {
-    downloadCsv({ ids: selectedRows })
+  const handleCsvDownload = (withROD?: boolean) => {
+    downloadCsv({ ids: selectedRows, withROD })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -715,7 +718,7 @@ const PoolCandidatesTable = ({
           columnHelper.accessor(
             ({ poolCandidate: { pool } }) =>
               getFullPoolTitleLabel(intl, {
-                stream: pool.stream,
+                workStream: pool.workStream,
                 name: pool.name,
                 publishingGroup: pool.publishingGroup,
                 classification: pool.classification,
@@ -734,7 +737,7 @@ const PoolCandidatesTable = ({
                 processCell(
                   {
                     id: pool.id,
-                    stream: pool.stream,
+                    workStream: pool.workStream,
                     name: pool.name,
                     publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
@@ -949,8 +952,8 @@ const PoolCandidatesTable = ({
           handleSearchStateChange(newState);
         },
         overrideAllTableMsg: intl.formatMessage({
-          defaultMessage: "Full Profile",
-          id: "rN333X",
+          defaultMessage: "Full profile",
+          id: "803us1",
           description:
             "Text in table search form column dropdown when no column is selected.",
         }),
@@ -996,11 +999,28 @@ const PoolCandidatesTable = ({
           onClick: handleCsvDownloadAll,
           downloading: downloadingCsv,
         },
-        csv: {
-          enable: true,
-          onClick: handleCsvDownload,
-          downloading: downloadingCsv,
-        },
+        csv: currentPool
+          ? {
+              enable: true,
+              component: (
+                <DownloadCandidateCsvButton
+                  inTable
+                  disabled={
+                    !hasSelectedRows ||
+                    downloadingZip ||
+                    downloadingDoc ||
+                    downloadingAsyncFile
+                  }
+                  isDownloading={downloadingCsv}
+                  onClick={handleCsvDownload}
+                />
+              ),
+            }
+          : {
+              enable: true,
+              onClick: () => handleCsvDownload(),
+              downloading: downloadingCsv,
+            },
         doc: {
           enable: true,
           component: (

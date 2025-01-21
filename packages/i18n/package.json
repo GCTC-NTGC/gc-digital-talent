@@ -27,23 +27,23 @@
     "@gc-digital-talent/graphql": "workspace:*"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.3.8",
+    "@formatjs/cli": "^6.3.15",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.13",
     "eslint": "^8.57.0",
     "history": "^5.3.0",
     "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
-    "json-stable-stringify": "^1.1.1",
+    "json-stable-stringify": "^1.2.1",
     "react": "^18.3.1",
-    "react-intl": "^6.8.7",
-    "react-router-dom": "^6.28.0",
+    "react-intl": "^7.1.0",
+    "react-router": "^7.1.1",
     "tsconfig": "workspace:*",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.2",
     "yargs": "^17.7.2"
   }
 }

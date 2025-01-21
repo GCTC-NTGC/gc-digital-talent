@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
 import {
   Checklist,
@@ -16,13 +15,13 @@ import {
   getOperationalRequirement,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
-const WorkPreferencesOptions_Query = graphql(/* GraphQL */ `
-  query WorkPreferencesOptions {
+const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment WorkPreferencesFormOptions on Query {
     workRegions: localizedEnumStrings(enumName: "WorkRegion") {
       value
       label {
@@ -42,9 +41,14 @@ const WorkPreferencesOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const FormFields = ({ labels }: FormFieldProps) => {
+const FormFields = ({
+  labels,
+  optionsQuery,
+}: FormFieldProps<
+  FragmentType<typeof WorkPreferencesFormOptions_Fragment>
+>) => {
   const intl = useIntl();
-  const [{ data }] = useQuery({ query: WorkPreferencesOptions_Query });
+  const data = getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery);
   useDirtyFields("work");
 
   return (

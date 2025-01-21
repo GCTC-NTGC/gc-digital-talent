@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -21,6 +21,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $user_id
  * @property \Illuminate\Support\Carbon $start_date
  * @property ?\Illuminate\Support\Carbon $end_date
+ * @property ?\Illuminate\Support\Carbon $awarded_date
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  */
@@ -69,11 +70,13 @@ class Experience extends Model
         return new $type;
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /** @return BelongsToMany<UserSkill, $this> */
     public function userSkills(): BelongsToMany
     {
         return $this->belongsToMany(UserSkill::class, 'experience_skill', 'experience_id')
@@ -83,7 +86,7 @@ class Experience extends Model
             ->as('experience_skill');
     }
 
-    public function skills(): HasManyThrough
+    public function skills(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
@@ -91,6 +94,7 @@ class Experience extends Model
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
+    /** @return HasMany<ExperienceSkill, $this> */
     public function experienceSkills(): HasMany
     {
         return $this->hasMany(ExperienceSkill::class);
@@ -215,7 +219,6 @@ class Experience extends Model
     {
         $format = 'MMM Y';
         if ($this->attributes['experience_type'] === AwardExperience::class) {
-            /** @var AwardExperience $this */
             return $this->awarded_date->locale($lang)->isoFormat($format);
         }
 
@@ -282,6 +285,10 @@ class Experience extends Model
         );
     }
 
+    /**
+     * @param  mixed  $snapshot  the snapshot
+     * @return array array of experiences
+     */
     public static function hydrateSnapshot(mixed $snapshot): Model|array
     {
         $experiences = [];
@@ -302,7 +309,7 @@ class Experience extends Model
                     'details' => 'details',
                 ];
 
-                $model = $hydrationModel::make([]);
+                $model = new $hydrationModel;
                 $experiences[] = self::hydrateFields($experience, $fields, $model);
             }
         }

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -17,6 +17,7 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isEducationExperience } from "~/utils/experienceUtils";
@@ -24,6 +25,10 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -88,6 +93,7 @@ const ApplicationEducation = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const logger = useLogger();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
@@ -171,7 +177,7 @@ const ApplicationEducation = ({
           }),
         },
       })
-        .then((res) => {
+        .then(async (res) => {
           if (!res.error) {
             toast.success(
               intl.formatMessage({
@@ -182,7 +188,9 @@ const ApplicationEducation = ({
                   "Message displayed to users when saving education requirement is successful.",
               }),
             );
-            navigate(formValues.action === "continue" ? nextStep : cancelPath);
+            await navigate(
+              formValues.action === "continue" ? nextStep : cancelPath,
+            );
           }
         })
         .catch(() => {
@@ -207,6 +215,15 @@ const ApplicationEducation = ({
       );
     }
   };
+
+  let classificationGroupTyped: ClassificationGroup;
+
+  if (isClassificationGroup(classificationGroup)) {
+    classificationGroupTyped = classificationGroup;
+  } else {
+    logger.error(`Unexpected classification: ${classificationGroup}`);
+    classificationGroupTyped = "IT";
+  }
 
   return (
     <>
@@ -263,7 +280,7 @@ const ApplicationEducation = ({
             items={getEducationRequirementOptions(
               intl,
               locale,
-              classificationGroup,
+              classificationGroupTyped,
               isIAP,
             )}
             rules={{

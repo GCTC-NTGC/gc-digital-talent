@@ -23,6 +23,7 @@ scalar UUID @scalar(class: "UUID")
 type LocalizedString {
   en: String
   fr: String
+  localized: String
 }
 
 type LocalizedEnumString {
@@ -112,6 +113,9 @@ type User {
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
+  # Employee profile info
+  employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
+
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
@@ -145,6 +149,57 @@ type User {
   poolBookmarks: [Pool] @belongsToMany
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+}
+
+type CommunityInterest {
+  id: UUID!
+  community: Community! @belongsTo
+  workStreams: [WorkStream!] @belongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+}
+
+# A pivot table for employees to express interest in the development programs of a community.
+type DevelopmentProgramInterest {
+  id: UUID!
+  developmentProgram: DevelopmentProgram! @belongsTo
+  communityInterest: CommunityInterest! @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+type EmployeeProfile {
+  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_organization_type_interest")
+  moveInterest: [LocalizedMoveInterest!]
+    @rename(attribute: "career_planning_move_interest")
+  mentorshipStatus: [LocalizedMentorship!]
+    @rename(attribute: "career_planning_mentorship_status")
+  mentorshipInterest: [LocalizedMentorship!]
+    @rename(attribute: "career_planning_mentorship_interest")
+  execInterest: Boolean @rename(attribute: "career_planning_exec_interest")
+  execCoachingStatus: [LocalizedExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_status")
+  execCoachingInterest: [LocalizedExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_interest")
+  aboutYou: String @rename(attribute: "career_planning_about_you")
+  careerGoals: String @rename(attribute: "career_planning_career_goals")
+  learningGoals: String @rename(attribute: "career_planning_learning_goals")
+  workStyle: String @rename(attribute: "career_planning_work_style")
+  dreamRoleTitle: String @rename(attribute: "dream_role_title")
+  dreamRoleAdditionalInformation: String
+    @rename(attribute: "dream_role_additional_information")
+  dreamRoleCommunity: Community @belongsTo
+  dreamRoleClassification: Classification @belongsTo
+  dreamRoleWorkStream: WorkStream @belongsTo
+  dreamRoleDepartments: [Department!] @belongsToMany
+
+  communityInterests: [CommunityInterest!] @belongsToMany
+
+  userPublicProfile: UserPublicProfile
 }
 
 interface Notification {
@@ -233,7 +288,6 @@ type GeneralQuestion {
   pool: Pool @belongsTo
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
-  # generalQuestionResponses: [GeneralQuestionResponse] @hasMany # TODO: uncomment this and add sensible permission check
 }
 
 type ScreeningQuestion {
@@ -277,7 +331,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  stream: LocalizedPoolStream
+  workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -484,11 +538,20 @@ type Department {
     @canResolved(ability: "view")
 }
 
+type WorkStream {
+  id: UUID!
+  key: String
+  name: LocalizedString
+  plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
+  community: Community @belongsTo
+}
+
 type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -496,6 +559,18 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  developmentPrograms: [DevelopmentProgram!] @hasMany
+}
+
+type DevelopmentProgram {
+  id: UUID!
+  name: LocalizedString
+  descriptionForProfile: LocalizedString
+    @rename(attribute: "description_for_profile")
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+  community: Community @belongsTo
+  eligibleClassifications: [Classification!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -580,8 +655,7 @@ type ApplicantFilter {
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  qualifiedStreams: [LocalizedPoolStream]
-    @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
+  workStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -653,7 +727,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -676,6 +749,28 @@ type WorkExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  employmentCategory: LocalizedEmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: LocalizedExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: LocalizedExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: LocalizedWorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: LocalizedGovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: LocalizedGovContractorType
+    @rename(attribute: "gov_contractor_type")
+  contractorFirmAgencyName: String
+    @rename(attribute: "contractor_firm_agency_name")
+  cafEmploymentType: LocalizedCafEmploymentType
+    @rename(attribute: "caf_employment_type")
+  cafForce: LocalizedCafForce @rename(attribute: "caf_force")
+  cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
+  classification: Classification @with(relation: "classification")
+  department: Department @with(relation: "department")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -750,7 +845,6 @@ type JobPosterTemplate {
   description: LocalizedString
   supervisoryStatus: LocalizedSupervisoryStatus
     @rename(attribute: "supervisory_status")
-  stream: LocalizedPoolStream
   workDescription: LocalizedString @rename(attribute: "work_description")
   tasks: LocalizedString
   keywords: LocalizedKeywords
@@ -762,6 +856,7 @@ type JobPosterTemplate {
     @rename(attribute: "nonessential_technical_skills_notes")
 
   classification: Classification @belongsTo
+  workStream: WorkStream @belongsTo
   skills: [JobPosterTemplateSkill!] @belongsToMany(model: "Skill")
 }
 
@@ -823,7 +918,7 @@ input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
   team: String @scope
-  streams: [PoolStream!] @scope
+  workStreams: [UUID!] @scope(name: "whereWorkStreamsIn")
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
@@ -837,9 +932,20 @@ input PoolTeamDisplayNameOrderByInput {
   order: SortOrder!
 }
 
+input PoolWorkStreamNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 input PoolBookmarksOrderByInput {
   column: String!
   order: SortOrder!
+}
+
+input OrderByColumnInput {
+  column: String!
+  order: SortOrder!
+  nulls: NullsOption
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -856,7 +962,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  workStreams: [IdInput] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
 }
 
@@ -884,7 +990,7 @@ input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
-  streams: [PoolStream] @scope
+  workStreams: [UUID] @scope
   fullName: String @scope
   email: String @scope
   id: ID @scope
@@ -911,6 +1017,24 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+}
+
+type TrainingOpportunity {
+  id: UUID!
+  title: LocalizedString
+  courseLanguage: LocalizedCourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  registrationDeadlineStatus: LocalizedDeadlineStatus
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedString
+  applicationUrl: LocalizedString @rename(attribute: "application_url")
+  courseFormat: LocalizedCourseFormat @rename(attribute: "course_format")
+}
+
+input TrainingOpportunitiesFilterInput {
+  hidePassedRegistrationDeadline: Boolean @scope
+  opportunityLanguage: CourseLanguage @scope
 }
 
 input SitewideAnnouncementInput {
@@ -972,6 +1096,8 @@ type Query {
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderByWorkStreamName: PoolWorkStreamNameOrderByInput @scope
+    orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1008,6 +1134,13 @@ type Query {
           { relation: "pool", columns: ["process_number"] }
         ]
       )
+      @with(
+        relations: [
+          "user:id,first_name,last_name,email,preferred_lang"
+          "pool:id,process_number"
+          "skills:id,name"
+        ]
+      ) # Limit fields for eager loading
   ): [PoolCandidateWithSkillCount]!
     @guard
     @paginate(
@@ -1057,6 +1190,8 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
+  workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1066,6 +1201,16 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
+  trainingOpportunitiesPaginated(
+    where: TrainingOpportunitiesFilterInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [TrainingOpportunity]
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      model: "App\\Models\\TrainingOpportunity"
+    )
 
   localizedEnumStrings(
     enumName: String!
@@ -1180,8 +1325,7 @@ input CreateUserInput {
 """
 When updating a User, all fields are optional
 """
-input UpdateUserAsAdminInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
@@ -1261,8 +1405,7 @@ input UpdateUserRolesInput {
   roleAssignmentsInput: RoleAssignmentHasMany!
 }
 
-input UpdateUserAsUserInput
-  @validator(class: "App\\GraphQL\\Validators\\UpdateUserInputValidator") {
+input UpdateUserAsUserInput @validator {
   id: ID
   # Personal info
   email: Email @lowerCase
@@ -1331,6 +1474,75 @@ input UpdateUserAsUserInput
   awardExperiences: AwardExperienceHasMany
 }
 
+input UpdateEmployeeProfileInput @validator {
+  organizationTypeInterest: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_organization_type_interest")
+  moveInterest: [MoveInterest!]
+    @rename(attribute: "career_planning_move_interest")
+  mentorshipStatus: [Mentorship!]
+    @rename(attribute: "career_planning_mentorship_status")
+  mentorshipInterest: [Mentorship!]
+    @rename(attribute: "career_planning_mentorship_interest")
+  execInterest: Boolean @rename(attribute: "career_planning_exec_interest")
+  execCoachingStatus: [ExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_status")
+  execCoachingInterest: [ExecCoaching!]
+    @rename(attribute: "career_planning_exec_coaching_interest")
+  aboutYou: String @rename(attribute: "career_planning_about_you")
+  careerGoals: String @rename(attribute: "career_planning_career_goals")
+  learningGoals: String @rename(attribute: "career_planning_learning_goals")
+  workStyle: String @rename(attribute: "career_planning_work_style")
+  dreamRoleTitle: String @rename(attribute: "dream_role_title")
+  dreamRoleAdditionalInformation: String
+    @rename(attribute: "dream_role_additional_information")
+  dreamRoleCommunity: CommunityBelongsTo
+  dreamRoleClassification: ClassificationBelongsTo
+  dreamRoleWorkStream: WorkStreamBelongsTo
+  dreamRoleDepartments: DepartmentBelongsToMany
+}
+
+input CreateCommunityInterestInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  community: CommunityBelongsTo!
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+}
+
+input UpdateCommunityInterestInput @validator {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+}
+
+input CreateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+}
+
+input UpdateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+  update: [UpdateDevelopmentProgramInterestInput!]
+  delete: [UUID!]
+}
+
+input CreateDevelopmentProgramInterestInput @validator {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input UpdateDevelopmentProgramInterestInput @validator {
+  id: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
 input LocalizedStringInput {
   en: String
   fr: String
@@ -1352,8 +1564,12 @@ input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
   level: Int!
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input ClassificationBelongsToMany {
@@ -1373,8 +1589,12 @@ input CreatePoolCandidateAsAdminInput {
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
-  minSalary: Int @rename(attribute: "min_salary")
-  maxSalary: Int @rename(attribute: "max_salary")
+  minSalary: Int
+    @rename(attribute: "min_salary")
+    @rules(apply: ["numeric", "min:0"])
+  maxSalary: Int
+    @rename(attribute: "max_salary")
+    @rules(apply: ["numeric", "min:0", "gte:minSalary"])
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -1413,16 +1633,41 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input PoolBelongsToMany {
-  sync: [ID!]
-}
-
 input DepartmentBelongsTo {
   connect: ID
   disconnect: Boolean
 }
 
 input DepartmentBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput!
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo!
+}
+
+input UpdateWorkStreamInput {
+  key: String
+  name: LocalizedStringInput
+  plainLanguageName: LocalizedStringInput
+    @rename(attribute: "plain_language_name")
+  community: CommunityBelongsTo
+}
+
+input WorkStreamBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input WorkStreamBelongsToMany {
+  sync: [ID!]
+}
+
+input PoolBelongsToMany {
   sync: [ID!]
 }
 
@@ -1454,12 +1699,14 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
 input CreateApplicantFilterInput {
@@ -1477,7 +1724,7 @@ input CreateApplicantFilterInput {
   citizenship: CitizenshipStatus
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
-  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  workStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
 }
 
@@ -1571,6 +1818,25 @@ input WorkExperienceInput {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: UpdateExperienceSkills @spread
+  employmentCategory: EmploymentCategory
+    @rename(attribute: "employment_category")
+  extSizeOfOrganization: ExternalSizeOfOrganization
+    @rename(attribute: "ext_size_of_organization")
+  extRoleSeniority: ExternalRoleSeniority
+    @rename(attribute: "ext_role_seniority")
+  govEmploymentType: WorkExperienceGovEmployeeType
+    @rename(attribute: "gov_employment_type")
+  govPositionType: GovPositionType @rename(attribute: "gov_position_type")
+  govContractorRoleSeniority: GovContractorRoleSeniority
+    @rename(attribute: "gov_contractor_role_seniority")
+  govContractorType: GovContractorType @rename(attribute: "gov_contractor_type")
+  cafEmploymentType: CafEmploymentType @rename(attribute: "caf_employment_type")
+  contractorFirmAgencyName: String
+    @rename(attribute: "contractor_firm_agency_name")
+  cafForce: CafForce @rename(attribute: "caf_force")
+  cafRank: CafRank @rename(attribute: "caf_rank")
+  classificationId: String @rename(attribute: "classification_id")
+  departmentId: String @rename(attribute: "department_id")
 }
 input PersonalExperienceInput {
   title: String
@@ -1702,7 +1968,7 @@ input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
   department: DepartmentBelongsTo
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
   closingDate: DateTime
@@ -1804,6 +2070,28 @@ input UpdateAssessmentResultInput
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
+}
+input CreateTrainingOpportunityInput {
+  title: LocalizedStringInput!
+  courseLanguage: CourseLanguage! @rename(attribute: "course_language")
+  registrationDeadline: Date! @rename(attribute: "registration_deadline")
+  trainingStart: Date! @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput!
+  applicationUrl: LocalizedStringInput! @rename(attribute: "application_url")
+  courseFormat: CourseFormat! @rename(attribute: "course_format")
+}
+
+input UpdateTrainingOpportunityInput {
+  id: UUID!
+  title: LocalizedStringInput
+  courseLanguage: CourseLanguage @rename(attribute: "course_language")
+  registrationDeadline: Date @rename(attribute: "registration_deadline")
+  trainingStart: Date @rename(attribute: "training_start")
+  trainingEnd: Date @rename(attribute: "training_end")
+  description: LocalizedStringInput
+  applicationUrl: LocalizedStringInput @rename(attribute: "application_url")
+  courseFormat: CourseFormat @rename(attribute: "course_format")
 }
 
 input PoolSkillBelongsToMany {
@@ -1933,6 +2221,7 @@ input CreateJobPosterTemplateInput @validator {
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
   stream: PoolStream!
+  workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
   keywords: LocalizedKeywordsInput
@@ -1952,7 +2241,7 @@ input UpdateJobPosterTemplateInput @validator {
   name: LocalizedStringInput
   description: LocalizedStringInput
   supervisoryStatus: SupervisoryStatus @rename(attribute: "supervisory_status")
-  stream: PoolStream
+  workStream: WorkStreamBelongsTo
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput
   keywords: LocalizedStringInput
@@ -1990,6 +2279,30 @@ type Mutation {
     @guard
     @update(model: "User")
     @canModel(ability: "updateRoles", model: "User", injectArgs: true)
+  updateEmployeeProfile(
+    id: UUID!
+    employeeProfile: UpdateEmployeeProfileInput! @spread
+  ): EmployeeProfile
+    @guard
+    @update(model: "EmployeeProfile")
+    @canFind(ability: "update", find: "id", model: "EmployeeProfile")
+  createCommunityInterest(
+    communityInterest: CreateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateCommunityInterest(
+    id: UUID!
+    communityInterest: UpdateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+  deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
@@ -2141,7 +2454,12 @@ type Mutation {
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @create @canModel(ability: "create", injectArgs: true)
+  ): WorkExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
@@ -2161,7 +2479,13 @@ type Mutation {
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @update @guard @canFind(ability: "update", find: "id")
+  ): WorkExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateWorkExperienceValidator"
+    )
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
@@ -2300,6 +2624,16 @@ type Mutation {
     @guard
     @canFind(ability: "delete", find: "id")
 
+  # Work stream mutations
+  createWorkStream(workStream: CreateWorkStreamInput! @spread): WorkStream
+    @create
+    @guard
+    @canModel(ability: "create")
+  updateWorkStream(
+    id: UUID!
+    workStream: UpdateWorkStreamInput! @spread
+  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
+
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
     @create
@@ -2392,10 +2726,18 @@ type Mutation {
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
 
+  createTrainingOpportunity(
+    createTrainingOpportunity: CreateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @create @guard @canModel(ability: "create")
+  updateTrainingOpportunity(
+    updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
+  ): TrainingOpportunity @update @guard @canModel(ability: "update")
+
   # CSV file downloads
   downloadPoolCandidatesCsv(
     ids: [UUID!]
     where: PoolCandidateSearchInput
+    withROD: Boolean
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
 

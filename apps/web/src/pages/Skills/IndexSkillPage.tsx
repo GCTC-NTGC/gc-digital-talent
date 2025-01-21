@@ -7,6 +7,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import permissionConstants from "~/constants/permissionConstants";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import SkillTableApi from "./components/SkillTable";
 
@@ -29,11 +30,9 @@ export const IndexSkillPage = () => {
     <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
-      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-padding="base(x3, 0)">
-          <SkillTableApi title={formattedPageTitle} addButton />
-        </div>
-      </div>
+      <AdminContentWrapper table>
+        <SkillTableApi title={formattedPageTitle} addButton />
+      </AdminContentWrapper>
     </>
   );
 };

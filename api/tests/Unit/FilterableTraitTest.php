@@ -126,7 +126,7 @@ class FilterableTraitTest extends TestCase
     public static function applyProvider()
     {
         return [
-            'does not apply non-existant scopes' => [
+            'does not apply non-existent scopes' => [
                 ['not_real' => 'value'],
                 [],
                 ['not_real' => false],

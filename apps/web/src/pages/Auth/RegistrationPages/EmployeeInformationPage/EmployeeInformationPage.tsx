@@ -1,8 +1,4 @@
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { useFormContext } from "react-hook-form";
@@ -39,7 +35,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
@@ -140,10 +136,11 @@ export const EmployeeInformationFormFields = ({
     .filter((x) => x.group === groupSelection)
     .map((iterator) => {
       return {
-        value: iterator.level.toString(),
+        value: iterator.level,
         label: iterator.level.toString(),
       };
-    });
+    })
+    .sort((a, b) => a.value - b.value);
 
   const isGovEmployee = govEmployee === "yes";
 
@@ -349,6 +346,7 @@ export const EmployeeInformationFormFields = ({
                   uiMessages.nullSelectionOptionLevel,
                 )}
                 options={levelOptions}
+                doNotSort
               />
             </div>
           </>
@@ -528,7 +526,7 @@ export const EmployeeInformationForm = ({
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
         crumbs={crumbs}
-        simpleCrumbs
+        overlap
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <div
@@ -620,7 +618,7 @@ const EmployeeInformation = () => {
       return;
     }
     await handleUpdateEmployee(meId, input)
-      .then(() => {
+      .then(async () => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully updated.",
@@ -631,9 +629,9 @@ const EmployeeInformation = () => {
         );
         if (skipVerification) {
           const navigationTarget = from ?? paths.profileAndApplications();
-          navigate(navigationTarget);
+          await navigate(navigationTarget);
         } else {
-          navigate({
+          await navigate({
             pathname: paths.workEmailVerification(),
             search: from ? createSearchParams({ from }).toString() : "",
           });

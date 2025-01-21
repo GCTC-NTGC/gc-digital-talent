@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 
 import {
@@ -30,7 +30,6 @@ import messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
-  descriptionCell,
   familiesAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
@@ -210,18 +209,7 @@ const SkillTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        cell: ({ row: { original: skill } }) =>
-          descriptionCell(
-            intl,
-            getLocalizedName(skill.name, intl),
-            getLocalizedName(skill.description, intl),
-          ),
-        header: intl.formatMessage({
-          defaultMessage: "Description",
-          id: "9yGJ6k",
-          description:
-            "Title displayed for the skill table Description column.",
-        }),
+        header: intl.formatMessage(commonMessages.description),
       },
     ),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
@@ -287,11 +275,7 @@ const SkillTable = ({
       }}
       search={{
         internal: true,
-        label: intl.formatMessage({
-          defaultMessage: "Search by keyword",
-          id: "PYMFoh",
-          description: "Label for the keyword search input",
-        }),
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={
         addButton
@@ -299,8 +283,8 @@ const SkillTable = ({
               linkProps: {
                 href: paths.skillCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create new skill",
-                  id: "q5j7GV",
+                  defaultMessage: "Create skill",
+                  id: "71mPNh",
                   description: "Title for Create skill",
                 }),
                 from: currentUrl,

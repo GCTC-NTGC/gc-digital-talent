@@ -140,6 +140,7 @@ export function transformFormValuesToUserFilterInput(
 export function transformUserFilterInputToFormValues(
   input: UserFilterInput | undefined,
 ): FormValues {
+  const positionDuration = input?.applicantFilter?.positionDuration;
   return {
     languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion:
@@ -148,11 +149,11 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.operationalRequirements?.filter(notEmpty) ?? [],
     skills:
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    employmentDuration: input?.applicantFilter?.positionDuration?.includes(
-      PositionDuration.Temporary,
-    )
-      ? "TERM"
-      : "INDETERMINATE",
+    employmentDuration: !positionDuration?.length
+      ? ""
+      : positionDuration.includes(PositionDuration.Temporary)
+        ? "TERM"
+        : "INDETERMINATE",
     govEmployee: input?.isGovEmployee ? "true" : "",
     profileComplete: input?.isProfileComplete ? "true" : "",
     pools:

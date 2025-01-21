@@ -133,9 +133,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage({
                 defaultMessage: "Browse for other opportunities",
-                id: "nc5GGm",
-                description:
-                  "Link text to the ongoing recruitments section on the browse page",
+                id: "M+5+nP",
+                description: "Link text for browse jobs page",
               })}
             </Link>
           </li>

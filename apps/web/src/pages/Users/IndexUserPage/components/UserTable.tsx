@@ -252,10 +252,10 @@ const UserTable = ({ title }: UserTableProps) => {
       {
         id: "candidateName",
         header: intl.formatMessage({
-          defaultMessage: "Candidate Name",
-          id: "NeNnAP",
+          defaultMessage: "Candidate name",
+          id: "uLncuU",
           description:
-            "Title displayed on the User table Candidate Name column.",
+            "Title displayed on the User table Candidate name column.",
         }),
         cell: ({ row: { original: user } }) =>
           getFullNameHtml(user.firstName, user.lastName, intl),
@@ -479,8 +479,8 @@ const UserTable = ({ title }: UserTableProps) => {
           handleSearchStateChange({ term, type });
         },
         overrideAllTableMsg: intl.formatMessage({
-          defaultMessage: "Full Profile",
-          id: "rN333X",
+          defaultMessage: "Full profile",
+          id: "803us1",
           description:
             "Text in table search form column dropdown when no column is selected.",
         }),

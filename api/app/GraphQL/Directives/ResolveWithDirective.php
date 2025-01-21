@@ -34,14 +34,14 @@ GRAPHQL;
     /**
      * $value can be a scalar, an array of scalars, an ArgumentSet, or an array of argument sets.
      * ArgumentSets represent nested input types.
-     * This function will leave scalars and arrays of scalars alone, and convert ArgumetnSets into named php arrays.
+     * This function will leave scalars and arrays of scalars alone, and convert ArgumentSets into named php arrays.
      *
      * @param  mixed|\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet|array<\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
-     * @return void
+     * @return mixed
      */
     public function toPlainValue($value)
     {
-        $arg = new Argument();
+        $arg = new Argument;
         $arg->value = $value;
 
         return $arg->toPlain();

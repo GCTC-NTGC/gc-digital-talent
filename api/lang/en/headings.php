@@ -67,7 +67,7 @@ return [
     'career_timeline' => 'Career timeline',
     'screening_questions' => 'Screening questions',
     'general_questions' => 'General questions',
-    'skills_showcase' => 'Skills showcase',
+    'skill_showcase' => 'Skill showcase',
     'top_skills' => 'Top skills',
     'skills_to_improve' => 'Skills to improve',
     'signature' => 'Signature',
@@ -77,4 +77,8 @@ return [
     'screening_question' => 'Screening question',
     'education_requirement' => 'Education requirement',
     'requirement_selection' => 'Requirement selection',
+    'decision' => 'Decision',
+    'decision_details' => 'Decision details',
+    'decision_notes' => 'Decision notes',
+    'final_decision' => 'Final decision',
 ];

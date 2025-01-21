@@ -1834,7 +1834,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9, //including base admin user
+                'countApplicants' => 9, // including base admin user
             ],
         ]);
     }

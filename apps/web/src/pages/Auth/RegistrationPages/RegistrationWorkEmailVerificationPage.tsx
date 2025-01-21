@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -41,14 +41,14 @@ const RegistrationWorkEmailVerificationPage = () => {
     ],
   });
 
-  const handleVerificationSuccess = (): void => {
+  const handleVerificationSuccess = async (): Promise<void> => {
     const navigationTarget = from ?? paths.profileAndApplications();
-    navigate(navigationTarget);
+    await navigate(navigationTarget);
   };
 
-  const handleSkip = (): void => {
+  const handleSkip = async (): Promise<void> => {
     const navigationTarget = from ?? paths.profileAndApplications();
-    navigate(navigationTarget);
+    await navigate(navigationTarget);
   };
 
   return (
@@ -56,7 +56,7 @@ const RegistrationWorkEmailVerificationPage = () => {
       title={intl.formatMessage(messages.title)}
       subtitle={intl.formatMessage(messages.subtitle)}
       crumbs={crumbs}
-      simpleCrumbs
+      overlap
     >
       <div
         data-h2-padding="base(x2) "

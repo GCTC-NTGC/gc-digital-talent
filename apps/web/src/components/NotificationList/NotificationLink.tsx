@@ -1,5 +1,5 @@
 import { ElementRef, forwardRef, MouseEventHandler, ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 
 import { Scalars } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
@@ -27,9 +27,9 @@ const NotificationLink = forwardRef<
     event.stopPropagation();
 
     markAsRead()
-      .then(() => {
+      .then(async () => {
         onRead?.();
-        navigate(href);
+        await navigate(href);
       })
       .catch((err) => logger.error(String(err)));
   };

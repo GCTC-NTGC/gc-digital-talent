@@ -102,9 +102,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolYourImpact
 
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -260,8 +260,8 @@ export const EditPoolForm = ({
   const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Create a new recruitment",
-    id: "lNKpJl",
+    defaultMessage: "Create a recruitment",
+    id: "RcRh+P",
     description: "Title for advertisement information of a process",
   });
 
@@ -277,7 +277,7 @@ export const EditPoolForm = ({
       areaOfSelection: pool.areaOfSelection,
       classification: pool.classification,
       department: pool.department,
-      stream: pool.stream,
+      workStream: pool.workStream,
       name: pool.name,
       processNumber: pool.processNumber,
       publishingGroup: pool.publishingGroup,
@@ -315,7 +315,7 @@ export const EditPoolForm = ({
         areaOfSelection: pool.areaOfSelection,
         classification: pool.classification,
         department: pool.department,
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
@@ -370,7 +370,7 @@ export const EditPoolForm = ({
     educationRequirements: {
       id: "education-requirements",
       hasError: educationRequirementIsNull({
-        stream: pool.stream,
+        workStream: pool.workStream,
         name: pool.name,
         processNumber: pool.processNumber,
         publishingGroup: pool.publishingGroup,
@@ -471,8 +471,8 @@ export const EditPoolForm = ({
         whatToExpectAdmission: pool.whatToExpectAdmission,
       }), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
-        defaultMessage: "Common questions",
-        id: "RahVQS",
+        defaultMessage: "More information",
+        id: "sGT8ER",
         description: "Title for common questions",
       }),
       subtitle: intl.formatMessage({

@@ -21,13 +21,13 @@ import Board from "./components/Board/Board";
 import {
   CardBasic,
   CardFlat,
-  CardSectioned,
   type CardBasicProps,
   type CardFlatProps,
 } from "./components/Card";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
+import CardSeparator from "./components/CardSeparator";
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
@@ -52,6 +52,7 @@ import Link, {
   type MenuLinkProps,
 } from "./components/Link";
 import Loading, { type LoadingProps } from "./components/Loading";
+import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
 import { getNavLinkStyling } from "./components/NavMenu";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
@@ -65,17 +66,6 @@ import PreviewList, {
 import ResourceBlock from "./components/ResourceBlock";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
-import SideMenu, {
-  ExternalSideMenuItem,
-  SideMenuButton,
-  SideMenuItem,
-  SideMenuContentWrapper,
-  SideMenuCategory,
-  SideMenuItemChildren,
-  commonStyles,
-  type SideMenuProps,
-  type SideMenuItemProps,
-} from "./components/SideMenu";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
@@ -120,13 +110,12 @@ export type {
   ScrollToLinkProps,
   ScrollLinkClickFunc,
   MenuLinkProps,
+  MetadataItemProps,
   LoadingProps,
   PendingProps,
   PreviewMetaData,
   ChipProps,
   SidebarProps,
-  SideMenuProps,
-  SideMenuItemProps,
   SpoilerProps,
   StepperProps,
   StepType,
@@ -152,8 +141,8 @@ export {
   Button,
   CardBasic,
   CardFlat,
-  CardSectioned,
   CardRepeater,
+  CardSeparator,
   Chips,
   Chip,
   Collapsible,
@@ -169,6 +158,7 @@ export {
   DownloadCsv,
   ScrollToLink,
   MenuLink,
+  Metadata,
   NavMenu,
   NavMenuWrapper,
   NavTabs,
@@ -181,15 +171,7 @@ export {
   ThrowNotFound,
   ScrollArea,
   Separator,
-  SideMenu,
-  ExternalSideMenuItem,
   Sidebar,
-  SideMenuButton,
-  SideMenuItem,
-  SideMenuCategory,
-  SideMenuContentWrapper,
-  SideMenuItemChildren,
-  commonStyles,
   Spoiler,
   Stepper,
   Switch,

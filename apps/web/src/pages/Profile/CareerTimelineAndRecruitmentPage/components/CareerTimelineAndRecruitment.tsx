@@ -16,7 +16,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
@@ -43,10 +43,6 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
     id
     details
-    user {
-      id
-      email
-    }
     skills {
       id
       key
@@ -124,6 +120,90 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       division
       startDate
       endDate
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -146,9 +226,6 @@ const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         fr
       }
       publishingGroup {
-        value
-      }
-      stream {
         value
       }
     }

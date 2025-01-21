@@ -47,6 +47,41 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "46pgKa",
       description: "PM-04 classification label including titles",
     },
+    "PM-05": {
+      defaultMessage: "PM-05: Senior Analyst",
+      id: "sapiL3",
+      description: "PM-05 classification label including titles",
+    },
+    "PM-06": {
+      defaultMessage: "PM-06: Manager",
+      id: "s+m6Sr",
+      description: "PM-06 classification label including titles",
+    },
+    "CR-04": {
+      defaultMessage: "CR-04: Clerk",
+      id: "i7nfvV",
+      description: "CR-04 classification label including titles",
+    },
+    "EX-03": {
+      defaultMessage: "EX-03: Digital Leader",
+      id: "7dOILY",
+      description: "EX-03 classification label including titles",
+    },
+    "EX-04": {
+      defaultMessage: "EX-04: Digital Leader",
+      id: "GwhSUZ",
+      description: "EX-04 classification label including titles",
+    },
+    "AS-03": {
+      defaultMessage: "AS-03: Advisor or Analyst",
+      id: "40Z3LU",
+      description: "AS-03 classification label including titles",
+    },
+    "AS-05": {
+      defaultMessage: "AS-05: Senior Advisor or Analyst",
+      id: "g7zCg/",
+      description: "AS-05 classification label including titles",
+    },
   });
 
 export const classificationAriaLabels: Record<string, MessageDescriptor> =
@@ -95,5 +130,40 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Analyst P M 4",
       id: "g54x1Z",
       description: "PM-04 classification aria label including titles",
+    },
+    "PM-05": {
+      defaultMessage: "Senior Analyst P M 5",
+      id: "SM7PIR",
+      description: "PM-05 classification aria label including titles",
+    },
+    "PM-06": {
+      defaultMessage: "Manager P M 6",
+      id: "AH2U9S",
+      description: "PM-06 classification aria label including titles",
+    },
+    "CR-04": {
+      defaultMessage: "Clerk C R 4",
+      id: "UA37iG",
+      description: "CR-04 classification aria label including titles",
+    },
+    "EX-03": {
+      defaultMessage: "Digital Leader E X 3",
+      id: "e4nq4j",
+      description: "EX-03 classification aria label including titles",
+    },
+    "EX-04": {
+      defaultMessage: "Digital Leader E X 4",
+      id: "EbG039",
+      description: "EX-04 classification aria label including titles",
+    },
+    "AS-03": {
+      defaultMessage: "Advisor or Analyst A S 3",
+      id: "XZ8zbg",
+      description: "AS-03 classification aria label including titles",
+    },
+    "AS-05": {
+      defaultMessage: "Senior Advisor or Analyst A S 5",
+      id: "n9Q5yf",
+      description: "AS-05 classification aria label including titles",
     },
   });

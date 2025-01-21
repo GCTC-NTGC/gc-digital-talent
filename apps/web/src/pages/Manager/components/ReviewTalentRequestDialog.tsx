@@ -7,6 +7,7 @@ import {
   Chip,
   Dialog,
   Pending,
+  PreviewList,
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -54,8 +55,8 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        qualifiedStreams {
-          label {
+        workStreams {
+          name {
             fr
             en
           }
@@ -125,7 +126,7 @@ const ReviewTalentRequestDialogContent = ({
   const classifications = unpackMaybes(
     request.applicantFilter?.qualifiedClassifications,
   );
-  const workStreams = unpackMaybes(request.applicantFilter?.qualifiedStreams);
+  const workStreams = unpackMaybes(request.applicantFilter?.workStreams);
   const equityDescriptions = equitySelectionsToDescriptions(
     request.applicantFilter?.equity,
     intl,
@@ -188,7 +189,7 @@ const ReviewTalentRequestDialogContent = ({
             {workStreams.length > 0
               ? deriveSingleString(
                   workStreams,
-                  (stream) => getLocalizedName(stream.label, intl),
+                  (workStream) => getLocalizedName(workStream.name, intl),
                   locale,
                 )
               : nullMessage}
@@ -369,15 +370,13 @@ const ReviewTalentRequestDialogContent = ({
 };
 
 interface ReviewTalentRequestDialogProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
+  title: string;
 }
 
 const ReviewTalentRequestDialog = ({
-  open,
-  setOpen,
   id,
+  title,
 }: ReviewTalentRequestDialogProps) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
@@ -389,7 +388,10 @@ const ReviewTalentRequestDialog = ({
   });
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root>
+      <Dialog.Trigger asChild>
+        <PreviewList.Button label={title} />
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
@@ -418,13 +420,11 @@ const ReviewTalentRequestDialog = ({
             )}
           </Pending>
           <Dialog.Footer>
-            <Button
-              color="warning"
-              mode="inline"
-              onClick={() => setOpen(false)}
-            >
-              {intl.formatMessage(commonMessages.cancel)}
-            </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(commonMessages.cancel)}
+              </Button>
+            </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

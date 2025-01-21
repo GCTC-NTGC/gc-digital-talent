@@ -50,6 +50,7 @@ class SyncPoolOperatorWithProcessOperator extends Command
             // go through each pool and add a process operator
             foreach ($uniquePoolIdsToSync as $poolId) {
 
+                /** @var Pool $pool */
                 $pool = Pool::findOrFail($poolId);
                 $pool->addProcessOperators($poolUser->id);
             }

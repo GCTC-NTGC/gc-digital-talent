@@ -141,7 +141,7 @@ export const getExperienceSkills = (
  * Get sorted skill levels
  *
  * Note: Codegen is sorting the enum alphabetically
- * We use this to sort them back into the proper oder
+ * We use this to sort them back into the proper order
  *
  * @returns SkillLevel[]
  */

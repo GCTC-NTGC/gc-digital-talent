@@ -1,5 +1,4 @@
 import { IntlShape, useIntl } from "react-intl";
-import { useState } from "react";
 
 import {
   FragmentType,
@@ -8,7 +7,7 @@ import {
   PreviewListItemFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList } from "@gc-digital-talent/ui";
+import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -58,16 +57,17 @@ function buildTitle(request: PreviewListItemFragment, intl: IntlShape): string {
 }
 
 interface PoolCandidateSearchRequestPreviewListItemProps {
+  headingAs?: HeadingLevel;
   poolCandidateSearchRequestQuery: FragmentType<
     typeof PreviewListItemPoolCandidateSearchRequest_Fragment
   >;
 }
 
 const PoolCandidateSearchRequestPreviewListItem = ({
+  headingAs,
   poolCandidateSearchRequestQuery,
 }: PoolCandidateSearchRequestPreviewListItemProps) => {
   const intl = useIntl();
-  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const request = getFragment(
     PreviewListItemPoolCandidateSearchRequest_Fragment,
     poolCandidateSearchRequestQuery,
@@ -135,17 +135,8 @@ const PoolCandidateSearchRequestPreviewListItem = ({
       <PreviewList.Item
         title={title}
         metaData={metaDataProps}
-        action={
-          <PreviewList.Button
-            label={title}
-            onClick={() => setDialogOpen(true)}
-          />
-        }
-      />
-      <ReviewTalentRequestDialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        id={request.id}
+        action={<ReviewTalentRequestDialog title={title} id={request.id} />}
+        headingAs={headingAs}
       />
     </>
   );

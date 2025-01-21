@@ -11,8 +11,8 @@ let singleChannel: BroadcastChannel | undefined;
  *
  * @returns
  */
-const getChannel = () => {
-  if (!singleChannel) {
+const getChannel = (): BroadcastChannel | undefined => {
+  if (!singleChannel && "BroadcastChannel" in window) {
     singleChannel = new BroadcastChannel("logoutChannel");
   }
 
@@ -26,7 +26,7 @@ const useLogoutChannel = (onLogout: () => void) => {
   const isSubscribed = useRef(false);
 
   useEffect(() => {
-    if (!isSubscribed.current) {
+    if (!isSubscribed.current && channel) {
       channel.onmessage = (event) => {
         if (event.data === LOGOUT_MESSAGE) {
           onLogout();
@@ -35,7 +35,7 @@ const useLogoutChannel = (onLogout: () => void) => {
     }
 
     return () => {
-      if (isSubscribed.current) {
+      if (isSubscribed.current && channel) {
         channel.close();
         isSubscribed.current = false;
       }

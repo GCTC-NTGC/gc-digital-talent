@@ -1,5 +1,5 @@
 import { HelmetProvider } from "react-helmet-async";
-import { MotionConfig, LazyMotion, domAnimation } from "framer-motion";
+import { MotionConfig, LazyMotion, domAnimation } from "motion/react";
 import { ReactNode } from "react";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";

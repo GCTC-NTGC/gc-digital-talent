@@ -27,6 +27,7 @@ export interface SectionProps<P = void> {
   ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 }
 
-export interface FormFieldProps {
+export interface FormFieldProps<TOptions = object> {
   labels: FieldLabels;
+  optionsQuery?: TOptions;
 }

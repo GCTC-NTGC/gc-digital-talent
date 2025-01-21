@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -17,8 +17,8 @@ import {
   Pending,
   Heading,
   CardBasic,
-  Separator,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   Skill,
@@ -129,9 +129,11 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return executeMutation({ skillFamily: formValuesToSubmitData(data) })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createSkillFamily) {
-          navigate(paths.skillFamilyView(result.data.createSkillFamily.id));
+          await navigate(
+            paths.skillFamilyView(result.data.createSkillFamily.id),
+          );
           toast.success(
             intl.formatMessage({
               defaultMessage: "Skill family created successfully!",
@@ -182,6 +184,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   <Input
                     id="name_en"
                     name="name.en"
+                    autoComplete="off"
                     label={intl.formatMessage(adminMessages.nameEn)}
                     type="text"
                     rules={{
@@ -191,6 +194,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                   <Input
                     id="name_fr"
                     name="name.fr"
+                    autoComplete="off"
                     label={intl.formatMessage(adminMessages.nameFr)}
                     type="text"
                     rules={{
@@ -270,9 +274,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                     }}
                   />
                 </div>
-                <div data-h2-margin="base(0 -x1)">
-                  <Separator decorative orientation="horizontal" space="sm" />
-                </div>
+                <CardSeparator />
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x1)"

@@ -1,16 +1,17 @@
 # aliased image used in build
-FROM node:20.11.0 as node
+FROM node:20.11.0 AS node
 
 # base
-FROM ubuntu:23.10
+FROM ubuntu:24.04
 
 # install apt packages
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php8.2 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath php-gd \
-  && apt-get install --yes --no-install-recommends git postgresql-client
+  && apt-get install -y php8.3 php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd \
+  && apt-get install --yes --no-install-recommends git postgresql-client \
+  && apt-get clean
 
 # install node from official image
 # https://gist.github.com/BretFisher/da34530726ff8076b83b583e527e91ed

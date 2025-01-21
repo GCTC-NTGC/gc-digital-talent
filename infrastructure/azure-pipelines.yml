@@ -22,13 +22,13 @@ resources:
       type: git
       ref: refs/heads/main
 variables:
-  phpVersion: "8.2"
+  phpVersion: "8.3"
 
 jobs:
   - job: build_artifact
     displayName: Build artifact
     pool:
-      vmImage: ubuntu-22.04
+      vmImage: ubuntu-24.04
     steps:
       - checkout: self
         clean: true
@@ -50,8 +50,6 @@ jobs:
           # Vite requires build-time variable to have the VITE_ prefix
           VITE_API_URI: /graphql
           VITE_API_PROTECTED_URI: /admin/graphql
-          VITE_API_SUPPORT_ENDPOINT: /api/support/tickets
-          VITE_TALENTSEARCH_SUPPORT_EMAIL: support-soutien@talent.canada.ca
 
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"

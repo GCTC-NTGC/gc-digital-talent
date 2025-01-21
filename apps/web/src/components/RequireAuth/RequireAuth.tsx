@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { ReactNode, useEffect } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
@@ -51,7 +51,7 @@ const RequireAuth = ({
       loginSearchParams.append("from", location.pathname);
       const personality = searchParams.get("personality");
       if (personality) loginSearchParams.append("personality", personality);
-      navigate(
+      void navigate(
         {
           pathname: loginRedirectPath,
           search: loginSearchParams.toString(),

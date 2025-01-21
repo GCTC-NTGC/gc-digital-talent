@@ -16,7 +16,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -167,10 +167,10 @@ export const SkillShowcase = ({
               block={false}
             >
               {intl.formatMessage({
-                defaultMessage: "Return to skill library",
-                id: "jH5V6M",
+                defaultMessage: "Return to skill portfolio",
+                id: "mwVSMJ",
                 description:
-                  "Link text to navigate from skill showcase to the skill library page",
+                  "Link text to navigate from skill showcase to the skill portfolio page",
               })}
             </Link>
           </TableOfContents.Navigation>

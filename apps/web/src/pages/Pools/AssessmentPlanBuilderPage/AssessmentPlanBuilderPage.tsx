@@ -98,43 +98,37 @@ export const AssessmentPlanBuilder = ({
   });
 
   return (
-    <>
-      <SEO
-        title={intl.formatMessage(pageTitle)}
-        description={intl.formatMessage(pageSubtitle)}
-      />
-      <TableOfContents.Wrapper>
-        <TableOfContents.Navigation>
-          <TableOfContents.List>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink
-                id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
-              >
-                {intl.formatMessage(organizeSectionTitle)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
-                {intl.formatMessage(skillSummarySectionTitle)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-          </TableOfContents.List>
-          <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
-            {intl.formatMessage({
-              defaultMessage: "Back to process details",
-              id: "nPPUMW",
-              description: "Link text to go back to the process details page",
-            })}
-          </Link>
-        </TableOfContents.Navigation>
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink
+              id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+            >
+              {intl.formatMessage(organizeSectionTitle)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+              {intl.formatMessage(skillSummarySectionTitle)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+        </TableOfContents.List>
+        <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+          {intl.formatMessage({
+            defaultMessage: "Back to process details",
+            id: "nPPUMW",
+            description: "Link text to go back to the process details page",
+          })}
+        </Link>
+      </TableOfContents.Navigation>
 
-        <TableOfContents.Content>
-          <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
-          <SkillSummarySection poolQuery={pool} />
-          <Separator space="lg" />
-        </TableOfContents.Content>
-      </TableOfContents.Wrapper>
-    </>
+      <TableOfContents.Content>
+        <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
+        <SkillSummarySection poolQuery={pool} />
+        <Separator space="lg" />
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
 
@@ -240,14 +234,20 @@ export const AssessmentPlanBuilderPage = () => {
   };
 
   return (
-    <AdminContentWrapper>
-      <Pending
-        fetching={queryFetching || !authorization.isLoaded}
-        error={queryError}
-      >
-        {content()}
-      </Pending>
-    </AdminContentWrapper>
+    <>
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
+      <AdminContentWrapper>
+        <Pending
+          fetching={queryFetching || !authorization.isLoaded}
+          error={queryError}
+        >
+          {content()}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

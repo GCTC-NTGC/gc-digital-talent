@@ -67,6 +67,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId].join("/"),
     communityManageAccess: (communityId: string) =>
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
+    communityUpdate: (communityId: string) =>
+      [adminUrl, "communities", communityId, "edit"].join("/"),
 
     // Admin - Pools
     poolTable: () => [adminUrl, "pools"].join("/"),
@@ -109,15 +111,6 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>
       [adminUrl, "users", userId, "edit"].join("/"),
-
-    // Admin - Teams
-    teamTable: () => [adminUrl, "teams"].join("/"),
-    teamCreate: () => [adminUrl, "teams", "create"].join("/"),
-    teamView: (teamId: string) => [adminUrl, "teams", teamId].join("/"),
-    teamMembers: (teamId: string) =>
-      [adminUrl, "teams", teamId, "members"].join("/"),
-    teamUpdate: (teamId: string) =>
-      [adminUrl, "teams", teamId, "edit"].join("/"),
 
     // Admin - Search Requests
     searchRequestTable: () => [adminUrl, "talent-requests"].join("/"),
@@ -281,6 +274,9 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    // Employee profile
+    employeeProfile: () => `${applicantUrl}/employee-profile`,
+
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
@@ -320,6 +316,30 @@ const getRoutes = (lang: Locales) => {
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
+    instructorLedTraining: () =>
+      [baseUrl, "it-training-fund", "instructor-led-training"].join("/"),
+    certificationExamVouchers: () =>
+      [baseUrl, "it-training-fund", "certification-exam-vouchers"].join("/"),
+
+    // Training Opportunities (Admin)
+    trainingOpportunitiesIndex: () =>
+      [adminUrl, "training-opportunities"].join("/"),
+    trainingOpportunityCreate: () =>
+      [adminUrl, "training-opportunities", "create"].join("/"),
+    trainingOpportunityView: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId].join("/"),
+    trainingOpportunityUpdate: (trainingOpportunityId: string) =>
+      [adminUrl, "training-opportunities", trainingOpportunityId, "edit"].join(
+        "/",
+      ),
+
+    // Admin - Work Streams
+    workStreamTable: () => [adminUrl, "settings", "work-streams"].join("/"),
+    workStreamCreate: () =>
+      [adminUrl, "settings", "work-streams", "create"].join("/"),
+    workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
+    workStreamUpdate: (workStreamId: string) =>
+      [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
 
     /**
      * Deprecated

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\PoolBuilder;
+use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -10,6 +11,7 @@ use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,9 +46,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $opportunity_length
  * @property ?string $closing_reason
  * @property ?string $change_justification
+ * @property ?string $status
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
+ * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
  * @property \Illuminate\Support\Carbon $created_at
@@ -68,15 +72,15 @@ class Pool extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
         'operational_requirements' => 'array',
-        'key_tasks' => 'array',
-        'advertisement_location' => 'array',
-        'your_impact' => 'array',
-        'what_to_expect' => 'array',
-        'special_note' => 'array',
-        'what_to_expect_admission' => 'array',
-        'about_us' => 'array',
+        'key_tasks' => LocalizedString::class,
+        'advertisement_location' => LocalizedString::class,
+        'your_impact' => LocalizedString::class,
+        'what_to_expect' => LocalizedString::class,
+        'special_note' => LocalizedString::class,
+        'what_to_expect_admission' => LocalizedString::class,
+        'about_us' => LocalizedString::class,
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
@@ -127,6 +131,7 @@ class Pool extends Model
         'process_number',
         'department_id',
         'community_id',
+        'work_stream_id',
     ];
 
     /**
@@ -155,7 +160,7 @@ class Pool extends Model
      *
      * i.e Pool::query()->wherePublished();
      */
-    public function newEloquentBuilder($query): PoolBuilder
+    public function newEloquentBuilder($query): Builder
     {
         return new PoolBuilder($query);
     }
@@ -178,11 +183,13 @@ class Pool extends Model
         return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
+    /** @return BelongsTo<Team, $this> */
     public function legacyTeam(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id');
     }
 
+    /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {
         return $this->morphOne(Team::class, 'teamable');
@@ -190,17 +197,21 @@ class Pool extends Model
 
     /**
      * Get the department that owns the pool.
+     *
+     * @return BelongsTo<Department, $this>
      */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
     }
 
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
     public function roleAssignments(): HasManyThrough
     {
         // I think this only works because we use UUIDs
@@ -208,21 +219,31 @@ class Pool extends Model
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function classification(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }
 
+    /** @return BelongsTo<WorkStream, $this> */
+    public function workStream(): BelongsTo
+    {
+        return $this->belongsTo(WorkStream::class);
+    }
+
+    /** @return HasMany<PoolCandidate, $this> */
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
     }
 
+    /** @return HasMany<PoolCandidate, $this> */
     public function publishedPoolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->notDraft();
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function essentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
@@ -231,6 +252,7 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::ESSENTIAL->name);
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function nonessentialSkills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'pool_skill')
@@ -239,11 +261,13 @@ class Pool extends Model
             ->wherePivot('type', PoolSkillType::NONESSENTIAL->name);
     }
 
+    /** @return HasMany<PoolSkill, $this> */
     public function poolSkills(): HasMany
     {
         return $this->hasMany(PoolSkill::class);
     }
 
+    /** @return HasMany<AssessmentStep, $this> */
     public function assessmentSteps(): HasMany
     {
         return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
@@ -323,11 +347,13 @@ class Pool extends Model
         $screeningStep->poolSkills()->sync($technicalSkills);
     }
 
+    /** @returns HasMany<GeneralQuestion, $this> */
     public function generalQuestions(): HasMany
     {
         return $this->hasMany(GeneralQuestion::class)->select(['id', 'question', 'pool_id', 'sort_order']);
     }
 
+    /** @returns HasMany<ScreeningQuestion, $this> */
     public function screeningQuestions(): HasMany
     {
         return $this->hasMany(ScreeningQuestion::class);

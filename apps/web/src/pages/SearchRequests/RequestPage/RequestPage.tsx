@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import {
   ApplicantFilterInput,
   Classification,
 } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import { FormValues as SearchFormValues } from "~/types/searchRequest";
 
 import CreateRequest from "./components/RequestForm";
@@ -31,7 +31,6 @@ export const Component = () => {
   return (
     <div data-h2-padding-bottom="base(x1) p-tablet(x3)">
       <Hero
-        centered
         title={intl.formatMessage({
           defaultMessage: "Find digital talent",
           id: "9Jkoms",
@@ -43,6 +42,8 @@ export const Component = () => {
           description:
             "Subtitle displayed on hero for Search and Request pages.",
         })}
+        centered
+        overlap
       >
         <div
           data-h2-background-color="base(foreground)"

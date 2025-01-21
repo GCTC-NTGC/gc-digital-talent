@@ -16,7 +16,7 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
         User::with([
             'department',
             'currentClassification',
-            'experiences' => ['userSkills' => ['skill']],
+            'experiences' => ['userSkills', 'userSkills.skill'],
             'userSkills' => ['skill'],
         ])
             ->whereIn('id', $this->ids)

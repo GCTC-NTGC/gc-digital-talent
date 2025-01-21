@@ -10,6 +10,7 @@ use App\Enums\SupervisoryStatus;
 use App\Models\Classification;
 use App\Models\JobPosterTemplate;
 use App\Models\Skill;
+use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,6 +37,12 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
+        $poolStream = $this->faker->randomElement(PoolStream::cases())->name;
+        $workStream = WorkStream::where('key', $poolStream)->first();
+        if (! $workStream) {
+            $workStream = WorkStream::factory()->create();
+        }
+
         $keyTasks = collect();
         for ($i = 0; $i < $this->faker->numberBetween(2, 10); $i++) {
             $keyTasks->add($this->faker->sentence());
@@ -49,7 +56,8 @@ class JobPosterTemplateFactory extends Factory
 
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
-            'stream' => $this->faker->randomElement(PoolStream::cases())->name,
+            'stream' => $poolStream,
+            'work_stream_id' => $workStream->id,
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
             'name' => [

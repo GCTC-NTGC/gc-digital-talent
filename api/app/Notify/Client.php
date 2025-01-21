@@ -417,15 +417,4 @@ class Client
         return Http::withHeaders($this->buildHeaders($headers))
             ->post(self::BASE_URL.$endpoint, $payload);
     }
-
-    /**
-     * GET
-     *
-     * Make a GET request to the GC Notify API
-     */
-    private function get(string $endpoint, array $payload, array $headers = []): Response
-    {
-        return Http::withHeaders($this->buildHeaders($headers))
-            ->get(self::BASE_URL.$endpoint, $payload);
-    }
 }

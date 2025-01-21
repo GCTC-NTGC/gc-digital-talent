@@ -43,11 +43,14 @@ const EducationOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const EducationFields = ({ labels }: SubExperienceFormProps) => {
+const EducationFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const todayDate = new Date();
   const [{ data }] = useQuery({ query: EducationOptions_Query });
-  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
+  // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch<EducationFormValues>({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch<EducationFormValues>({ name: "startDate" });
@@ -100,7 +103,19 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             name="institution"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
           />
+          {organizationSuggestions.length > 0 && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <Select

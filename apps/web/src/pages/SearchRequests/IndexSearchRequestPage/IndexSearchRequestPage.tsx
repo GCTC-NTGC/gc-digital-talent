@@ -4,11 +4,11 @@ import SEO from "~/components/SEO/SEO";
 import SearchRequestTable from "~/components/SearchRequestTable/SearchRequestTable";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import AdminHero from "~/components/HeroDeprecated/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import permissionConstants from "~/constants/permissionConstants";
+import Hero from "~/components/Hero";
 
 export const IndexSearchRequestPage = () => {
   const intl = useIntl();
@@ -28,11 +28,8 @@ export const IndexSearchRequestPage = () => {
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <AdminHero
-        title={formattedPageTitle}
-        nav={{ mode: "crumbs", items: navigationCrumbs }}
-      />
-      <AdminContentWrapper>
+      <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
+      <AdminContentWrapper table>
         <SearchRequestTable title={formattedPageTitle} />
       </AdminContentWrapper>
     </>

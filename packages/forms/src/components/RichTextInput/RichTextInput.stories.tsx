@@ -73,6 +73,7 @@ const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
         data-h2-padding="base(x1)"
         data-h2-shadow="base(larger)"
         data-h2-background-color="base(foreground)"
+        data-h2-margin-top="base:children[>*:first-child](0)"
       >
         <RichTextRenderer node={htmlToRichTextJSON(output)} />
       </div>
@@ -129,4 +130,10 @@ LongContent.args = {
   <p>Aenean id suscipit sapien. Praesent at mollis risus. Phasellus imperdiet, ante ac egestas viverra, turpis dolor porta augue, at pellentesque enim odio eget libero. Integer volutpat accumsan interdum. Curabitur fermentum dapibus dolor. Ut malesuada ante sit amet odio sagittis, eget convallis odio posuere. Sed vitae turpis nec diam maximus varius.</p>
   <p>Etiam sagittis urna lobortis, volutpat augue eu, molestie lacus. Praesent finibus lorem ut quam imperdiet fringilla. Duis accumsan facilisis erat, id blandit mi rhoncus eu. Sed tempor, justo eu pharetra molestie, sem justo laoreet urna, nec sagittis libero ipsum blandit lacus. Proin at libero et turpis dictum convallis. Aliquam ut pharetra dolor, pellentesque consequat sem. Phasellus dictum quam purus, fermentum ornare augue iaculis vel. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum pellentesque leo ac diam rutrum congue. Pellentesque at rutrum nibh.</p>
   `,
+};
+
+export const WithHeading = Template.bind({});
+WithHeading.args = {
+  defaultValue: `<h3>A heading 3</h3>${defaultContent}`,
+  allowHeadings: true,
 };

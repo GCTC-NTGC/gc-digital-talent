@@ -31,6 +31,7 @@ final class DuplicatePool
 
         $newPool->save();
 
+        /** @var iterable $skillsToSync */
         $skillsToSync = $pool->poolSkills->map(function (PoolSkill $poolSkill) {
             return [
                 'skill_id' => $poolSkill->skill->id,

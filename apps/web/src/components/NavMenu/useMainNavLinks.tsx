@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
+import { useLocation } from "react-router";
 
-import { getNavLinkStyling, NavMenu } from "@gc-digital-talent/ui";
+import { LinkProps, NavMenu } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
@@ -11,14 +12,13 @@ import {
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
-import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
 import permissionConstants from "~/constants/permissionConstants";
+import pageTitles from "~/messages/pageTitles";
 
-import SignOutConfirmation from "../SignOutConfirmation/SignOutConfirmation";
-import LogoutButton from "../Layout/LogoutButton";
 import navMenuMessages from "./messages";
 import useNavContext from "../NavContext/useNavContext";
 import {
@@ -27,19 +27,22 @@ import {
   NAV_ROLES_BY_PRIVILEGE,
 } from "../NavContext/NavContextContainer";
 
-const NavItem = ({
-  href,
-  title,
-  subMenu,
-  ...rest
-}: {
+interface NavItemProps {
   href: string;
   title: string;
   subMenu?: boolean;
-}) => {
+  state?: LinkProps["state"];
+}
+
+const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
   return (
     <NavMenu.Item {...rest}>
-      <NavMenu.Link href={href} type={subMenu ? "subMenuLink" : "link"}>
+      <NavMenu.Link
+        type={subMenu ? "subMenuLink" : "link"}
+        // NOTE: Comes from react-router
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        {...{ state, href }}
+      >
         {title}
       </NavMenu.Link>
     </NavMenu.Item>
@@ -52,8 +55,7 @@ const NavItem = ({
 const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const permissions = permissionConstants();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const { pathname } = useLocation();
 
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
@@ -77,7 +79,7 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ViewUsers = hasRole(permissions.viewUsers, roleAssignments) ? (
+  const ViewUsers = hasRole(permissionConstants.viewUsers, roleAssignments) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -126,7 +128,10 @@ const useMainNavLinks = () => {
     />
   );
 
-  const Processes = hasRole(permissions.viewProcesses, roleAssignments) ? (
+  const Processes = hasRole(
+    permissionConstants.viewProcesses,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="adminProcesses"
       href={paths.poolTable()}
@@ -134,7 +139,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Requests = hasRole(permissions.viewRequests, roleAssignments) ? (
+  const Requests = hasRole(
+    permissionConstants.viewRequests,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="requests"
       href={paths.searchRequestTable()}
@@ -142,7 +150,10 @@ const useMainNavLinks = () => {
     />
   ) : null;
 
-  const Candidates = hasRole(permissions.viewCandidates, roleAssignments) ? (
+  const Candidates = hasRole(
+    permissionConstants.viewCandidates,
+    roleAssignments,
+  ) ? (
     <NavItem
       key="candidates"
       href={paths.poolCandidates()}
@@ -223,17 +234,14 @@ const useMainNavLinks = () => {
     />
   );
 
-  const JobTemplates = hasRole(
-    permissions.viewJobTemplates,
-    roleAssignments,
-  ) ? (
+  const JobTemplates = (
     <NavItem
       key="jobTemplate"
       href={paths.jobPosterTemplates()}
       title={intl.formatMessage(navigationMessages.jobTemplates)}
       subMenu
     />
-  ) : null;
+  );
 
   const Announcements = (
     <NavItem
@@ -249,6 +257,14 @@ const useMainNavLinks = () => {
       key="classifications"
       href={paths.classificationTable()}
       title={intl.formatMessage(navigationMessages.classifications)}
+      subMenu
+    />
+  );
+  const Communities = (
+    <NavItem
+      key="communities"
+      href={paths.communityTable()}
+      title={intl.formatMessage(pageTitles.communities)}
       subMenu
     />
   );
@@ -293,14 +309,14 @@ const useMainNavLinks = () => {
     />
   );
 
-  const logoutBtnStyling = getNavLinkStyling("subMenuLink", isSmallScreen);
-
   const SignOut = (
-    <SignOutConfirmation key="sign-out">
-      <LogoutButton {...logoutBtnStyling}>
-        {intl.formatMessage(authMessages.signOut)}
-      </LogoutButton>
-    </SignOutConfirmation>
+    <NavItem
+      key="signOut"
+      href={paths.loggedOut()}
+      title={intl.formatMessage(authMessages.signOut)}
+      state={{ from: pathname }}
+      subMenu
+    />
   );
 
   const getRoleName: Record<string, string> = {
@@ -411,6 +427,7 @@ const useMainNavLinks = () => {
         systemSettings: [
           Announcements,
           Classifications,
+          Communities,
           Departments,
           Skills,
           SkillFamilies,

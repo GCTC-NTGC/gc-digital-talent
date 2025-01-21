@@ -42,4 +42,18 @@ describe("message files", () => {
       stringify(messagesWithMultipleFrStrings, { space: "  " }),
     ).toMatchSnapshot();
   });
+  it("should have no quotes in french strings", () => {
+    const frMessages: Record<string, { defaultMessage: string }> = {
+      ...rawWebFrMessages,
+      ...rawI18nFrMessages,
+    };
+
+    const messagesArr = Object.keys(frMessages).map(
+      (messageId) => frMessages[messageId]?.defaultMessage,
+    );
+
+    expect(messagesArr).toEqual(
+      expect.not.arrayContaining([expect.stringMatching(new RegExp(/"|“|”/g))]),
+    );
+  });
 });

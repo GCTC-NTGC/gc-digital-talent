@@ -84,9 +84,9 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -188,7 +188,7 @@ const UserCandidatesTable = ({
     columnHelper.accessor(
       ({ pool }) =>
         getFullPoolTitleLabel(intl, {
-          stream: pool.stream,
+          workStream: pool.workStream,
           name: pool.name,
           publishingGroup: pool.publishingGroup,
           classification: pool.classification,
@@ -205,7 +205,7 @@ const UserCandidatesTable = ({
           processCell(
             {
               id: pool.id,
-              stream: pool.stream,
+              workStream: pool.workStream,
               name: pool.name,
               publishingGroup: pool.publishingGroup,
               classification: pool.classification,

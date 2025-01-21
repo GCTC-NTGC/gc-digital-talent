@@ -56,14 +56,40 @@ export default defineMessages({
     id: "3NW70Q",
     description: "Title for the index search request page",
   },
-  teams: {
-    defaultMessage: "Teams",
-    id: "Ezh14X",
-    description: "Title for the index team page",
-  },
   users: {
     defaultMessage: "All users",
     id: "bVQ/rm",
     description: "Title for the index user page",
+  },
+  itTrainingFund: {
+    defaultMessage: "IT Community Training and Development Fund",
+    id: "ye4m17",
+    description: "Title for the IT training fund page",
+  },
+  instructorLedTraining: {
+    defaultMessage: "Instructor-led training opportunities",
+    id: "V4W5oL",
+    description: "Title for the instructor led training page",
+  },
+  trainingOpportunities: {
+    defaultMessage: "Training opportunities",
+    id: "V95g4E",
+    description: "Title for the index training opportunities page",
+  },
+  certificationExamVouchers: {
+    defaultMessage: "Certification exam vouchers",
+    id: "JIvR0C",
+    description: "Title for the certification exam vouchers page",
+  },
+  jobAdvertisementTemplates: {
+    defaultMessage: "Job advertisement templates",
+    id: "+nQpv5",
+    description:
+      "Title for the page showing list of job advertisement templates",
+  },
+  workStreams: {
+    defaultMessage: "Work streams",
+    id: "uK9/a4",
+    description: "Title for the index work streams page",
   },
 });

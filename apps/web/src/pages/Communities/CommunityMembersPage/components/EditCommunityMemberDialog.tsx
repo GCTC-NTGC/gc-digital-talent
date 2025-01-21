@@ -1,11 +1,15 @@
-import { useState } from "react";
+import {
+  useState,
+  ComponentPropsWithoutRef,
+  ElementRef,
+  forwardRef,
+} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { useMutation } from "urql";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -27,17 +31,18 @@ import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
-interface EditCommunityMemberDialogProps {
+type EditCommunityMemberDialogProps = ComponentPropsWithoutRef<
+  typeof DropdownMenu.Item
+> & {
   user: CommunityMember;
   community: CommunityMembersPageCommunityFragmentType;
   hasPlatformAdmin: boolean;
-}
+};
 
-const EditCommunityMemberDialog = ({
-  user,
-  community,
-  hasPlatformAdmin,
-}: EditCommunityMemberDialogProps) => {
+const EditCommunityMemberDialog = forwardRef<
+  ElementRef<typeof DropdownMenu.Item>,
+  EditCommunityMemberDialogProps
+>(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching } = useAvailableRoles();
@@ -119,24 +124,21 @@ const EditCommunityMemberDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button
-          color="secondary"
-          aria-label={intl.formatMessage(
-            {
-              defaultMessage:
-                "Edit community roles of {userName} in {communityName}",
-              id: "WY3oiC",
-              description:
-                "Aria label for the dialog trigger to edit user community membership",
-            },
-            {
-              userName,
-              communityName: getLocalizedName(community.name, intl),
-            },
-          )}
-          icon={PencilSquareIcon}
-          mode="icon_only"
-        />
+        <DropdownMenu.Item
+          ref={forwardedRef}
+          onSelect={(event) => {
+            event.preventDefault();
+            onSelect?.(event);
+          }}
+          {...rest}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Edit community roles",
+            id: "PsGkXc",
+            description:
+              "Label for the form to edit a users community membership",
+          })}
+        </DropdownMenu.Item>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -216,6 +218,6 @@ const EditCommunityMemberDialog = ({
       </Dialog.Content>
     </Dialog.Root>
   );
-};
+});
 
 export default EditCommunityMemberDialog;

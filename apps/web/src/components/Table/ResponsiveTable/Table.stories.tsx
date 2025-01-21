@@ -71,9 +71,9 @@ const columns = [
     (row) => (row.preferredLang?.value === Language.Fr ? "French" : "English"),
     {
       id: "preferredCommunication",
-      header: "Preferred Communication Language",
+      header: "Preferred communication language",
       meta: {
-        mobileHeader: "Preferred Communication",
+        mobileHeader: "Preferred communication",
       },
     },
   ),

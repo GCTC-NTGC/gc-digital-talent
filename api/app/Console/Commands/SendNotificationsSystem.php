@@ -19,7 +19,10 @@ class SendNotificationsSystem extends Command
      */
     protected $signature = 'send-notifications:system
                             {viewGroup : The group of views to render the notification with}
-                            {emailAddress? : The email address of the user to send to}';
+                            {emailAddress? : The email address of the user to send to}
+                            {--channelEmail : Enable sending via the email channel}
+                            {--channelApp : Enable sending via the app channel}
+                            ';
 
     /**
      * The console command description.
@@ -33,6 +36,10 @@ class SendNotificationsSystem extends Command
      *
      * @var mixed
      */
+    private $channelEmail = false;
+
+    private $channelApp = false;
+
     private $emailSubject = ['en' => '', 'fr' => ''];
 
     private $emailContent = ['en' => '', 'fr' => ''];
@@ -53,38 +60,54 @@ class SendNotificationsSystem extends Command
 
         $viewGroup = $this->argument('viewGroup');
 
-        // find the views in api/resources/views/
-        $this->emailSubject = [
-            'en' => $viewGroup.'.email_subject_en',
-            'fr' => $viewGroup.'.email_subject_fr',
-        ];
-        $this->emailContent = [
-            'en' => $viewGroup.'.email_content_en',
-            'fr' => $viewGroup.'.email_subject_fr',
-        ];
-        $this->inAppMessage = [
-            'en' => $viewGroup.'.in_app_message_en',
-            'fr' => $viewGroup.'.in_app_message_fr',
-        ];
-        $this->inAppHref = [
-            'en' => $viewGroup.'.in_app_href_en',
-            'fr' => $viewGroup.'.in_app_href_fr',
-        ];
+        $this->channelEmail = $this->option('channelEmail');
 
-        collect([
-            $this->emailSubject['en'],
-            $this->emailSubject['fr'],
-            $this->emailContent['en'],
-            $this->emailContent['fr'],
-            $this->inAppMessage['en'],
-            $this->inAppMessage['fr'],
-            $this->inAppHref['en'],
-            $this->inAppHref['fr'],
-        ])->each(function ($viewName) {
-            if (! View::exists($viewName)) {
-                throw new Error('View not found: '.$viewName);
+        $this->channelApp = $this->option('channelApp');
+
+        if (! $this->channelEmail && ! $this->channelApp) {
+            $this->error('No channels selected.');
+
+            return Command::FAILURE;
+        }
+
+        $configuredViews = [];
+
+        // find the views in api/resources/views/
+        if ($this->channelEmail) {
+            $this->emailSubject = [
+                'en' => $viewGroup.'.email_subject_en',
+                'fr' => $viewGroup.'.email_subject_fr',
+            ];
+            $this->emailContent = [
+                'en' => $viewGroup.'.email_content_en',
+                'fr' => $viewGroup.'.email_subject_fr',
+            ];
+            $configuredViews[] = $this->emailSubject['en'];
+            $configuredViews[] = $this->emailSubject['fr'];
+            $configuredViews[] = $this->emailContent['en'];
+            $configuredViews[] = $this->emailContent['fr'];
+        }
+
+        if ($this->channelApp) {
+            $this->inAppMessage = [
+                'en' => $viewGroup.'.in_app_message_en',
+                'fr' => $viewGroup.'.in_app_message_fr',
+            ];
+            $this->inAppHref = [
+                'en' => $viewGroup.'.in_app_href_en',
+                'fr' => $viewGroup.'.in_app_href_fr',
+            ];
+            $configuredViews[] = $this->inAppMessage['en'];
+            $configuredViews[] = $this->inAppMessage['fr'];
+            $configuredViews[] = $this->inAppHref['en'];
+            $configuredViews[] = $this->inAppHref['fr'];
+        }
+
+        foreach ($configuredViews as $configuredView) {
+            if (! View::exists($configuredView)) {
+                throw new Error('View not found: '.$configuredView);
             }
-        });
+        }
 
         $singleEmailAddress = $this->argument('emailAddress');
         if (! is_null($singleEmailAddress)) {
@@ -93,7 +116,14 @@ class SendNotificationsSystem extends Command
             $this->sendNotification($user, $successCount, $failureCount);
         } else {
             // no email address provided - will send to everyone
-            $confirmedEveryone = $this->confirm('This will send the notification to every user.  Do you wish to continue?');
+            $confirmedEveryone = $this->confirm(
+                sprintf(
+                    'This will send the notification to every user via %s%s%s. Do you wish to continue?',
+                    $this->channelEmail ? 'email' : '',
+                    $this->channelEmail && $this->channelApp ? ', ' : '',
+                    $this->channelApp ? 'in-app' : ''
+                )
+            );
             if (! $confirmedEveryone) {
                 $this->warn('Abort');
 
@@ -119,6 +149,8 @@ class SendNotificationsSystem extends Command
     {
         try {
             $notification = new SystemNotification(
+                $this->channelEmail,
+                $this->channelApp,
                 $this->emailSubject['en'],
                 $this->emailSubject['fr'],
                 $this->emailContent['en'],

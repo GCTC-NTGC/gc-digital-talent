@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 
 import {
   Input,
@@ -12,14 +11,14 @@ import {
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
-const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
-  query PersonalInformationFormOptions {
+const PersonalInformationFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment PersonalInformationFormOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value
       label {
@@ -30,9 +29,17 @@ const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const FormFields = ({ labels }: FormFieldProps) => {
+const FormFields = ({
+  labels,
+  optionsQuery,
+}: FormFieldProps<
+  FragmentType<typeof PersonalInformationFormOptions_Fragment>
+>) => {
   const intl = useIntl();
-  const [{ data }] = useQuery({ query: PersonalInformationFormOptions_Query });
+  const data = getFragment(
+    PersonalInformationFormOptions_Fragment,
+    optionsQuery,
+  );
   useDirtyFields("personal");
 
   const languageOptions = localizedEnumToOptions(data?.languages, intl);

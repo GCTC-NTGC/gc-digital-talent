@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
@@ -60,8 +60,8 @@ const Display = ({
         description: "affirm no entitlement",
       });
 
-  const handleVerifyNowClick = () => {
-    navigate(routes.verifyWorkEmail());
+  const handleVerifyNowClick = async () => {
+    await navigate(routes.verifyWorkEmail());
   };
 
   const emailVerificationComponents = isWorkEmailVerified ? (
@@ -133,7 +133,7 @@ const Display = ({
           >
             {!!currentClassification?.group && !!currentClassification?.level
               ? wrapAbbr(
-                  `${currentClassification?.group}-${currentClassification?.level}`,
+                  `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                   intl,
                 )
               : notProvided}

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";

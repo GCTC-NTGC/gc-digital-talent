@@ -59,7 +59,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
       data-h2-gap="base(0, x.5)"
       data-h2-color="base(black)"
       data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
-      data-h2-margin="base(x1, 0)"
+      data-h2-margin-top="base(x1)"
     >
       <p>
         <span data-h2-font-size="base(caption)">

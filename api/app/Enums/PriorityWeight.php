@@ -19,7 +19,8 @@ enum PriorityWeight
             self::PRIORITY_ENTITLEMENT->name => 10,
             self::VETERAN->name => 20,
             self::CITIZEN_OR_PERMANENT_RESIDENT->name => 30,
-            self::OTHER->name => 40
+            self::OTHER->name => 40,
+            default => 40
         };
     }
 

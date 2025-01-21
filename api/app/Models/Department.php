@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
  * Class Department
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Department extends Model
 {
     use HasFactory;
+    use HasJsonRelationships;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -30,17 +33,16 @@ class Department extends Model
      * The attributes that should be case.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
     ];
 
-    /**
-     * Model relations
-     */
+    /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    /** @return BelongsToMany<Team, $this> */
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'team_department');
@@ -66,10 +68,8 @@ class Department extends Model
         return $query;
     }
 
-    /**
-     * Get the pools for the department.
-     */
-    public function pools()
+    /** @return HasMany<Pool, $this> */
+    public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
     }

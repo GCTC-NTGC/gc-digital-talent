@@ -25,7 +25,7 @@ export const getClassificationLabel = (
   labels: Record<string, MessageDescriptor>,
   intl: IntlShape,
 ) => {
-  const key = `${group}-0${level}`;
+  const key = `${group}-${level < 10 ? "0" : ""}${level}`;
   return !hasKey(labels, key) ? key : intl.formatMessage(labels[key]);
 };
 
@@ -104,7 +104,7 @@ export const dataToFormValues = (
   data: ApplicantFilterInput,
   selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
 ): FormValues => {
-  const stream = data?.qualifiedStreams?.find(notEmpty);
+  const stream = data?.workStreams?.find(notEmpty);
 
   return {
     classification: getCurrentClassification(selectedClassifications),
@@ -117,7 +117,7 @@ export const dataToFormValues = (
     ],
     educationRequirement: data.hasDiploma ? "has_diploma" : "no_diploma",
     skills: data.skills?.filter(notEmpty).map((s) => s.id) ?? [],
-    stream: stream ?? "",
+    stream: stream?.id ?? "",
     locationPreferences: data.locationPreferences?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
@@ -172,6 +172,6 @@ export const formValuesToData = (
       ? durationSelectionToEnum(values.employmentDuration)
       : undefined,
     locationPreferences: values.locationPreferences ?? [],
-    qualifiedStreams: values.stream ? [values.stream] : undefined,
+    workStreams: values.stream ? [{ id: values.stream }] : undefined,
   };
 };

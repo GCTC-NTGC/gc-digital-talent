@@ -2,7 +2,7 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import {
   forwardRef,
   ElementRef,
@@ -14,7 +14,7 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
-import OurLink from "../Link/Link";
+import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
 import getButtonStyle, {
   ButtonStyleInterface,
 } from "../../utils/button/getButtonStyles";
@@ -134,6 +134,7 @@ type LinkProps = ComponentPropsWithoutRef<
   icon?: IconType;
   mode?: ButtonLinkMode;
   ariaLabel?: string;
+  state?: BaseLinkProps["state"];
 };
 
 const Link = forwardRef<
@@ -141,7 +142,17 @@ const Link = forwardRef<
   LinkProps
 >(
   (
-    { children, href, type = "link", color, icon, mode, ariaLabel, ...rest },
+    {
+      children,
+      href,
+      type = "link",
+      color,
+      icon,
+      mode,
+      ariaLabel,
+      state,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const { pathname } = useLocation();
@@ -183,6 +194,9 @@ const Link = forwardRef<
           href={href}
           icon={icon}
           mode={mode}
+          // Comes from react-router
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          state={state}
           data-h2-text-decoration="base:selectors[[data-active]](none) base:selectors[[data-active] > span](none)"
           data-h2-font-weight="base:selectors[[data-active]](700)"
           {...linkColor}

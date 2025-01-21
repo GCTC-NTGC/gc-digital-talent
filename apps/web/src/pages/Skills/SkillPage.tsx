@@ -6,7 +6,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

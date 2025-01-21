@@ -6,13 +6,10 @@ import {
   fakeClassifications,
   fakePools,
   fakeLocalizedEnum,
+  fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
-import {
-  LanguageAbility,
-  PoolStream,
-  WorkRegion,
-} from "@gc-digital-talent/graphql";
+import { LanguageAbility, WorkRegion } from "@gc-digital-talent/graphql";
 
 import { SearchForm } from "./SearchForm";
 
@@ -21,6 +18,7 @@ faker.seed(0);
 const mockPools = fakePools(10);
 const poolResponse = fakePools(3);
 const mockClassifications = fakeClassifications();
+const mockWorkStreams = fakeWorkStreams();
 const skills = getStaticSkills();
 
 export default {
@@ -29,13 +27,13 @@ export default {
   args: {
     pools: mockPools,
     classifications: mockClassifications,
+    workStreams: mockWorkStreams,
     skills,
   },
 } as Meta<typeof SearchForm>;
 
 const SearchRequestOptions = {
   data: {
-    poolStreams: fakeLocalizedEnum(PoolStream),
     languageAbilities: fakeLocalizedEnum(LanguageAbility),
     workRegions: fakeLocalizedEnum(WorkRegion),
   },

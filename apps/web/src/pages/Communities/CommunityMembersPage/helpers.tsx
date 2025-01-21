@@ -1,9 +1,10 @@
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
+import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Chip, Chips } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { Button, DropdownMenu, Link } from "@gc-digital-talent/ui";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
   Role,
@@ -32,24 +33,46 @@ export const actionCell = (
   user: CommunityMember,
   community: CommunityMembersPageCommunityFragmentType,
   hasPlatformAdmin: boolean,
-) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-gap="base(x.25)"
-  >
-    <EditCommunityMemberDialog
-      user={user}
-      community={community}
-      hasPlatformAdmin={hasPlatformAdmin}
-    />
-    <RemoveCommunityMemberDialog
-      user={user}
-      community={community}
-      hasPlatformAdmin={hasPlatformAdmin}
-    />
-  </div>
-);
+  intl: IntlShape,
+) => {
+  return (
+    <>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button
+            icon={EllipsisVerticalIcon}
+            mode="icon_only"
+            color="black"
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "Actions for {userName} in {communityName}",
+                id: "J+haAz",
+                description:
+                  "Aria label for the menu trigger for community actions",
+              },
+              {
+                userName: `${user.firstName} ${user.lastName}`,
+                communityName: getLocalizedName(community.name, intl),
+              },
+            )}
+          />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <EditCommunityMemberDialog
+            user={user}
+            community={community}
+            hasPlatformAdmin={hasPlatformAdmin}
+          />
+          <RemoveCommunityMemberDialog
+            user={user}
+            community={community}
+            hasPlatformAdmin={hasPlatformAdmin}
+          />
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    </>
+  );
+};
 
 export function emailLinkCell(
   email: Maybe<string> | undefined,
@@ -75,16 +98,14 @@ export function emailLinkCell(
 }
 
 export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
-  const nonEmptyRoles = roles?.filter(notEmpty);
-  const roleChips = nonEmptyRoles
+  const nonEmptyRoles = unpackMaybes(roles);
+  const roleItems = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Chip color="secondary" key={role.id}>
-          {getLocalizedName(role.displayName, intl)}
-        </Chip>
+        <li key={role.id}>{getLocalizedName(role.displayName, intl)}</li>
       ))
     : null;
 
-  return roleChips ? <Chips>{roleChips}</Chips> : null;
+  return roleItems ? <ul>{roleItems}</ul> : null;
 }
 
 export function roleAccessor(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {

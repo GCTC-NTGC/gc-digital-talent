@@ -259,6 +259,14 @@ const JobPlacementDialog = ({
                 color: "primary",
               })}
           data-h2-text-align="base(left)"
+          aria-label={intl.formatMessage(
+            {
+              defaultMessage: "Placement: {placement}. Edit.",
+              id: "wUqfbl",
+              description: "Button text to edit the placement of a candidate",
+            },
+            { placement: label },
+          )}
         >
           {label}
         </Button>

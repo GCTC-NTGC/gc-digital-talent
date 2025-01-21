@@ -9,12 +9,12 @@ import {
   LocalizedString,
   Maybe,
   Pool,
-  PoolStream,
   PublishingGroup,
   UpdatePoolInput,
   Department,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
@@ -22,7 +22,7 @@ export interface FormValues {
   selectionLimitations?: Maybe<PoolSelectionLimitation[]>;
   classification?: Classification["id"];
   department?: Department["id"];
-  stream?: PoolStream;
+  stream?: WorkStream["id"];
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
@@ -35,7 +35,7 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
   selectionLimitations: initialData.selectionLimitations?.map((l) => l.value),
   classification: initialData.classification?.id ?? "",
   department: initialData.department?.id ?? "",
-  stream: initialData.stream?.value ?? undefined,
+  stream: initialData.workStream?.id ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
   processNumber: initialData.processNumber ?? "",
@@ -50,7 +50,7 @@ export type PoolNameSubmitData = Pick<
   | "classification"
   | "department"
   | "name"
-  | "stream"
+  | "workStream"
   | "processNumber"
   | "publishingGroup"
   | "opportunityLength"
@@ -71,7 +71,7 @@ export const formValuesToSubmitData = (
         connect: formValues.department,
       }
     : undefined,
-  stream: formValues.stream ? formValues.stream : undefined,
+  workStream: formValues.stream ? { connect: formValues.stream } : undefined,
   name: {
     en: formValues.specificTitleEn,
     fr: formValues.specificTitleFr,
@@ -91,7 +91,7 @@ export const getClassificationOptions = (
 ): Option[] => {
   return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
     value: id,
-    label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+    label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
   }));
 };
 

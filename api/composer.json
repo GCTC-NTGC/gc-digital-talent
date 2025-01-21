@@ -9,9 +9,9 @@
   ],
   "license": "AGPL-3.0",
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
+    "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.2",
     "doctrine/dbal": "^3.1",
-    "gctc-ntgc/laravel-scout-postgres-tsvector": "^1.0",
     "guzzlehttp/guzzle": "^7.4",
     "laravel/framework": "^11.0",
     "laravel/scout": "^10.5",
@@ -28,12 +28,13 @@
     "spatie/laravel-activitylog": "^4.7",
     "spatie/php-structure-discoverer": "^2.1",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
+    "staudenmeir/eloquent-json-relations": "^1.13.1",
     "web-token/jwt-library": "^4.0"
   },
   "require-dev": {
     "brianium/paratest": "^7.4",
     "fakerphp/faker": "^1.9.1",
-    "larastan/larastan": "^2.0",
+    "larastan/larastan": "^3.0.2",
     "laravel/pint": "^1.11",
     "mockery/mockery": "^1.4.4",
     "phpunit/phpunit": "^10.0"
@@ -61,7 +62,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.2.9"
+      "php": "8.3.9"
     },
     "allow-plugins": {
       "composer/package-versions-deprecated": true

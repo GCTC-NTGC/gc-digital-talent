@@ -16,15 +16,15 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/storage": "workspace:*",
-    "graphql": "^16.9.0",
+    "graphql": "^16.10.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/lodash": "^4.17.13",
-    "@types/react": "^18.3.12",
+    "@types/lodash": "^4.17.14",
+    "@types/react": "^18.3.13",
     "eslint": "^8.57.0",
     "tsconfig": "workspace:*"
   }

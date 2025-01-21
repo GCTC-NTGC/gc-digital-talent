@@ -52,57 +52,59 @@ test.describe("Profile Page", () => {
     });
   });
   test.describe("Signed in user with applicant role", () => {
-    test("Render personal information page", async ({ applicantPage }) => {
-      await applicantPage.page.goto("/en/applicant/personal-information");
-      expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+    test("Render personal information page", async ({ appPage }) => {
+      await loginBySub(appPage.page, "applicant@test.com");
+      await appPage.page.goto("/en/applicant/personal-information");
+      expect(appPage.page.url()).toMatch(/\/en\/applicant/);
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Personal and contact information",
           level: 2,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Work preferences",
           level: 2,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Diversity, equity, and inclusion",
           level: 2,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Government employee information",
           level: 2,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Language profile",
           level: 2,
         }),
       ).toBeVisible();
     });
-    test("Render career timeline page", async ({ applicantPage }) => {
-      await applicantPage.page.goto("/en/applicant/career-timeline");
-      expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+    test("Render career timeline page", async ({ appPage }) => {
+      await loginBySub(appPage.page, "applicant@test.com");
+      await appPage.page.goto("/en/applicant/career-timeline");
+      expect(appPage.page.url()).toMatch(/\/en\/applicant/);
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Career timeline",
           level: 1,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Manage your career timeline",
           level: 2,
         }),
       ).toBeVisible();
       await expect(
-        applicantPage.page.getByRole("heading", {
+        appPage.page.getByRole("heading", {
           name: "Qualified recruitment processes",
           level: 2,
         }),

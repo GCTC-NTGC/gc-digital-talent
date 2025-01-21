@@ -6,10 +6,9 @@ import {
   fakeRoles,
   fakeLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { Language } from "@gc-digital-talent/graphql";
-import { OperationalRequirements } from "@gc-digital-talent/i18n";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import UpdateUserPage from "./UpdateUserPage";
+import UpdateUserPage, { UpdateUserOptions_Fragment } from "./UpdateUserPage";
 
 const availableRoles = fakeRoles();
 const teamsData = fakeTeams(10);
@@ -42,12 +41,6 @@ export default {
           teams: teamsData,
         },
       },
-      UpdateUserOptions: {
-        data: {
-          languages: fakeLocalizedEnum(Language),
-          operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
-        },
-      },
     },
   },
 } as Meta<typeof UpdateUserPage>;
@@ -61,6 +54,12 @@ Default.parameters = {
       data: {
         user: userData,
         roles: availableRoles,
+        ...makeFragmentData(
+          {
+            languages: fakeLocalizedEnum(Language),
+          },
+          UpdateUserOptions_Fragment,
+        ),
       },
     },
   },

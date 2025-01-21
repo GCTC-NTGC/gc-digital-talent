@@ -3,10 +3,10 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
-    "en": "Membership roles",
+    "en": "Work stream information",
     "fr": [
-      "Rôles des membres",
-      "Rôles dans l'équipe"
+      "Informations sur le volet de travail",
+      "Informations sur les volets de travail"
     ]
   },
   {
@@ -14,6 +14,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Rôles dans la collectivité",
       "Rôles dans des collectivités"
+    ]
+  },
+  {
+    "en": "Create skill",
+    "fr": [
+      "Créez une compétence",
+      "Créez la compétence"
     ]
   },
   {
@@ -52,17 +59,38 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Remove membership<hidden> in {team}</hidden>",
+    "en": "Add member",
     "fr": [
-      "Retirez de l'équipe<hidden> dans {team}</hidden>",
-      "Retirer de l'équipe<hidden> dans {team}</hidden>"
+      "Ajouter un membre",
+      "Ajoutez un membre"
     ]
   },
   {
-    "en": "Add team role",
+    "en": "Apply now",
     "fr": [
-      "Ajouter un rôle dans l'équipe",
-      "Ajoutez un rôle dans l'équipe"
+      "Postulez dès-maintenant",
+      "Présentez votre demande"
+    ]
+  },
+  {
+    "en": "Create training opportunity",
+    "fr": [
+      "Créez une possibilité de formation",
+      "Créez la possibilité de formation"
+    ]
+  },
+  {
+    "en": "Create community",
+    "fr": [
+      "Créez une collectivité",
+      "Créer une collectivité"
+    ]
+  },
+  {
+    "en": "Create work stream",
+    "fr": [
+      "Créez un volet de travail",
+      "Créez le volet de travail"
     ]
   },
   {
@@ -73,10 +101,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create department",
+    "fr": [
+      "Créez un ministère",
+      "Créez le ministère"
+    ]
+  },
+  {
     "en": "Add community role",
     "fr": [
       "Ajouter un rôle dans la collectivité",
       "Ajoutez un rôle dans la collectivité"
+    ]
+  },
+  {
+    "en": "Request a voucher",
+    "fr": [
+      "Demander un bon",
+      "Demandez un bon"
     ]
   },
   {
@@ -91,6 +133,20 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Poursuivez l'ébauche",
       "Poursuivre l’ébauche"
+    ]
+  },
+  {
+    "en": "Create skill family",
+    "fr": [
+      "Créez un groupe de compétences",
+      "Créez le groupe de compétences"
+    ]
+  },
+  {
+    "en": "Create process",
+    "fr": [
+      "Créer un processus",
+      "Créez un processus"
     ]
   },
   {

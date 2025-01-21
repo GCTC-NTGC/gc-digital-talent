@@ -24,7 +24,7 @@ const meta = {
   image: `${appUrl}/images/digital-talent/banner.jpg`,
 };
 
-const getEnvVar = (key: string, fallback: string = `""`): string => {
+const getEnvVar = (key: string, fallback = `""`): string => {
   return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
 };
 
@@ -84,10 +84,10 @@ export default defineConfig(({ command }) => ({
             "@microsoft/applicationinsights-react-js",
             "@microsoft/applicationinsights-web",
           ],
-          framer: ["framer-motion"],
+          motion: ["motion"],
           graphql: ["@gc-digital-talent/graphql"],
           react: ["react", "react-dom"],
-          router: ["react-router", "react-router-dom"],
+          router: ["react-router", "react-router"],
           tiptap: [
             "@tiptap/react",
             "@tiptap/starter-kit",
@@ -118,8 +118,6 @@ export default defineConfig(({ command }) => ({
     API_URI: getEnvVar("VITE_API_URI"),
     API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
-    API_SUPPORT_ENDPOINT: getEnvVar("VITE_API_SUPPORT_ENDPOINT"),
-    TALENTSEARCH_SUPPORT_EMAIL: getEnvVar("VITE_TALENTSEARCH_SUPPORT_EMAIL"),
 
     // run-time variables
     OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),

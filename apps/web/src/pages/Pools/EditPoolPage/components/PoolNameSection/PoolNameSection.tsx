@@ -77,9 +77,9 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -149,9 +149,9 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -289,8 +289,8 @@ const PoolNameSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This section covers the process' basics, including classification, job title, and closing date.",
-    id: "pQGDiR",
+      "This section covers the process's basics, including classification, job title, and closing date.",
+    id: "7Yacsa",
     description: "Describes selecting a advertisement details for a process.",
   });
 
@@ -393,31 +393,26 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={localizedEnumToOptions(data?.streams, intl)}
+                  options={unpackMaybes(data?.workStreams).map(
+                    (workStream) => ({
+                      value: workStream.id,
+                      label: getLocalizedName(workStream?.name, intl),
+                    }),
+                  )}
                   disabled={formDisabled}
                 />
                 <Input
                   id="specificTitleEn"
                   name="specificTitleEn"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Job title (EN)",
-                    id: "XiODnT",
-                    description:
-                      "Label for a pool advertisements specific English title",
-                  })}
+                  label={intl.formatMessage(processMessages.titleEn)}
                   disabled={formDisabled}
                 />
                 <Input
                   id="specificTitleFr"
                   name="specificTitleFr"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Job title (FR)",
-                    id: "bkAzZm",
-                    description:
-                      "Label for a pool advertisements specific French title",
-                  })}
+                  label={intl.formatMessage(processMessages.titleFr)}
                   disabled={formDisabled}
                 />
               </div>
@@ -439,7 +434,7 @@ const PoolNameSection = ({
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"
-                  label={intl.formatMessage(processMessages.opportunityLength)}
+                  label={intl.formatMessage(processMessages.employmentDuration)}
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
@@ -454,11 +449,7 @@ const PoolNameSection = ({
                   id="processNumber"
                   name="processNumber"
                   type="text"
-                  label={intl.formatMessage({
-                    defaultMessage: "Process Number",
-                    id: "1E0RiD",
-                    description: "Label for a pools process number",
-                  })}
+                  label={intl.formatMessage(processMessages.processNumber)}
                   context={intl.formatMessage({
                     defaultMessage:
                       "This process number is obtained from your HR shop",

@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
-import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
+import { useLocation, Outlet, ScrollRestoration } from "react-router";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 
 import {
   NestedLanguageProvider,
@@ -25,8 +25,8 @@ import micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
-
-export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "./RouteErrorBoundary/RouteErrorBoundary";
+export { ErrorBoundary };
 
 const messages = new Map<string, Messages>([
   ["crg", crgMessages],

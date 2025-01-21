@@ -45,16 +45,16 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import {
   formatClassificationString,
-  getClassificationSalaryRangeUrl,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
 } from "~/utils/poolUtils";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -64,6 +64,10 @@ import ApplicationLink, {
   ApplicationLinkProps,
 } from "~/components/ApplicationLink/ApplicationLink";
 import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import {
+  ClassificationGroup,
+  isClassificationGroup,
+} from "~/types/classificationGroup";
 
 import Text from "./components/Text";
 import DataRow from "./components/DataRow";
@@ -76,6 +80,7 @@ import ClosedEarlyDeadlineDialog from "./components/ClosedEarlyDeadlineDialog";
 import DeadlineValue from "./components/DeadlineValue";
 import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
+import SalaryRangeDialog from "./components/SalaryRangeDialog";
 
 interface SectionContent {
   id: string;
@@ -136,9 +141,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -253,9 +258,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -309,6 +314,7 @@ export const PoolPoster = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const logger = useLogger();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const [moreInfoValue, setMoreInfoValue] = useState<string[]>([]);
   const [skillsValue, setSkillsValue] = useState<string[]>([]);
@@ -328,22 +334,18 @@ export const PoolPoster = ({
     });
   }
   const poolTitle = getShortPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const fullPoolTitle = getFullPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
-  const salaryRangeUrl = getClassificationSalaryRangeUrl(
-    locale,
-    classification,
-  );
   const workLocation = pool.isRemote
     ? intl.formatMessage({
         defaultMessage: "Remote, hybrid or on-site",
@@ -496,7 +498,14 @@ export const PoolPoster = ({
     },
   };
 
-  const classificationGroup = pool.classification?.group;
+  let classificationGroup: ClassificationGroup;
+
+  if (isClassificationGroup(pool.classification?.group)) {
+    classificationGroup = pool.classification.group;
+  } else {
+    logger.error(`Unexpected classification: ${pool.classification?.group}`);
+    classificationGroup = "IT";
+  }
 
   return (
     <>
@@ -664,7 +673,7 @@ export const PoolPoster = ({
                       description: "Label for pool advertisement stream",
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
-                  value={getLocalizedName(pool.stream?.label, intl)}
+                  value={getLocalizedName(pool?.workStream?.name, intl)}
                   suffix={
                     classification?.group === "IT" ? (
                       <Link
@@ -710,23 +719,7 @@ export const PoolPoster = ({
                       locale,
                     ) ?? notAvailable
                   }
-                  suffix={
-                    salaryRangeUrl && (
-                      <Link
-                        mode="icon_only"
-                        external
-                        newTab
-                        href={salaryRangeUrl}
-                        icon={InformationCircleIcon}
-                        aria-label={`${intl.formatMessage({
-                          defaultMessage: "Salary range information",
-                          id: "IvJ9Xd",
-                          description:
-                            "Link text to more information about classification salary range",
-                        })} ${intl.formatMessage(uiMessages.newTab)}`}
-                      />
-                    )
-                  }
+                  suffix={<SalaryRangeDialog />}
                 />
                 <DataRow
                   label={

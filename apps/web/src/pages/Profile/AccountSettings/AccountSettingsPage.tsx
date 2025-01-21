@@ -12,12 +12,14 @@ import {
 } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import profileMessages from "~/messages/profileMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AccountManagement from "./AccountManagement";
 import RecruitmentAvailability from "./RecruitmentAvailability";
@@ -65,7 +67,7 @@ const inlineLink = (href: string, chunks: ReactNode) => (
   </Link>
 );
 
-export const Component = () => {
+const AccountSettingsPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -238,6 +240,12 @@ export const Component = () => {
   );
 };
 
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <AccountSettingsPage />
+  </RequireAuth>
+);
+
 Component.displayName = "AccountSettingsPage";
 
-export default Component;
+export default AccountSettingsPage;

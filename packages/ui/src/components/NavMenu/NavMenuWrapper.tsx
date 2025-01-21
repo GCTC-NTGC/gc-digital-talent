@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import FocusLock from "react-focus-lock";
-import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   KeyboardEventHandler,
   ReactNode,
@@ -98,7 +98,7 @@ const NavMenuWrapper = ({
             data-h2-right="base(x.75) l-tablet(auto)"
             data-h2-left="base(x.75) l-tablet(auto)"
             data-h2-width="l-tablet(100%)"
-            data-h2-z-index="base(9997)"
+            data-h2-z-index="base(7)"
             data-h2-overflow-y="base(auto) l-tablet(initial)"
             data-h2-max-height="base(85vh) l-tablet(none)"
             {...animConfig}
@@ -146,7 +146,7 @@ const NavMenuWrapper = ({
             data-h2-position="base(fixed)"
             data-h2-location="base(0, 0, 0, 0)"
             data-h2-background-color="base:all(black.light)"
-            data-h2-z-index="base(9996)"
+            data-h2-z-index="base(6)"
             data-h2-overflow="base(auto)"
             initial={{ opacity: 0.85 }}
             animate={{ opacity: 0.85 }}

@@ -15,12 +15,6 @@ const mockPools = fakePools(3).map((advert) => ({
   status: toLocalizedEnum(PoolStatus.Published),
 }));
 
-const mockPoolsOngoing = fakePools(2).map((advert) => ({
-  ...advert,
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobsOngoing),
-  status: toLocalizedEnum(PoolStatus.Published),
-}));
-
 export default {
   component: BrowsePools,
   decorators: [MockGraphqlDecorator],
@@ -41,24 +35,6 @@ Default.parameters = {
     BrowsePoolsPage: {
       data: {
         publishedPools: mockPools,
-      },
-    },
-  },
-};
-
-export const OngoingRecruitment = Template.bind({});
-OngoingRecruitment.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  apiResponsesConfig: {
-    latency: {
-      min: 0,
-      max: 0,
-    },
-  },
-  apiResponses: {
-    BrowsePoolsPage: {
-      data: {
-        publishedPools: mockPoolsOngoing,
       },
     },
   },

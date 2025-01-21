@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Community;
+use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommunityFactory extends Factory
@@ -23,11 +24,15 @@ class CommunityFactory extends Factory
     {
         $name = $this->faker->company();
         $description = $this->faker->sentence();
+        $mandateAuthority = $this->faker->optional()->company();
 
         return [
             'key' => $this->faker->unique()->slug(5),
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
+            'mandate_authority' => ! is_null($mandateAuthority)
+                ? ['en' => $mandateAuthority.' EN', 'fr' => $mandateAuthority.' FR']
+                : ['en' => '', 'fr' => ''],
         ];
     }
 
@@ -68,6 +73,15 @@ class CommunityFactory extends Factory
                     $community->addCommunityAdmins($userId);
                 }
             }
+        });
+    }
+
+    public function withWorkStreams(?int $min = 1, ?int $max = 3)
+    {
+        $count = $this->faker->numberBetween($min, $max);
+
+        return $this->afterCreating(function (Community $community) use ($count) {
+            WorkStream::factory()->count($count)->create(['community_id' => $community->id]);
         });
     }
 }

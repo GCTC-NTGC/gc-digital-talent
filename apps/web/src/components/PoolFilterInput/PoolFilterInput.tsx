@@ -53,7 +53,7 @@ const PoolFilterInput = ({
       {...{ name, id }}
       isMulti
       isExternalSearch
-      label={label ?? intl.formatMessage(adminMessages.pools)}
+      label={label ?? intl.formatMessage(adminMessages.processes)}
       fetching={poolsFetching}
       total={total}
       onSearch={handleDebouncedSearch}

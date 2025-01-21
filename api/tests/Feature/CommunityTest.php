@@ -47,11 +47,10 @@ class CommunityTest extends TestCase
 
         // Create communities.
         $this->toBeDeletedUUID = $this->faker->UUID();
-        $this->community1 = Community::factory()->create(['name' => 'community1']);
-        $this->community2 = Community::factory()->create(['name' => 'community2']);
+        $this->community1 = Community::factory()->create();
+        $this->community2 = Community::factory()->create();
         $this->community3 = Community::factory()->create([
             'id' => $this->toBeDeletedUUID, // need specific ID for delete community testing.
-            'name' => 'community3',
         ]);
 
         // Create users.

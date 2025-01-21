@@ -20,6 +20,8 @@ type RichTextInputProps = Omit<
     wordLimit?: number;
     /** Set this component to be read only */
     readOnly?: boolean;
+    /** Determine if the option to add headings is enabled */
+    allowHeadings?: boolean;
   };
 
 const RichTextInput = ({
@@ -30,6 +32,7 @@ const RichTextInput = ({
   wordLimit,
   rules = {},
   readOnly,
+  allowHeadings,
   trackUnsaved = true,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
@@ -90,6 +93,7 @@ const RichTextInput = ({
             wordLimit={wordLimit}
             trackUnsaved={trackUnsaved}
             fieldState={fieldState}
+            allowHeadings={allowHeadings}
             inputProps={{
               id,
               ...wordLimitStyles,

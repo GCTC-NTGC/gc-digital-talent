@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
@@ -25,9 +25,9 @@ import {
   Pending,
   NotFound,
   Heading,
-  Separator,
   CardBasic,
   Link,
+  CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
   SkillFamily,
@@ -218,9 +218,9 @@ export const UpdateSkillFamily = ({
         skills: skillsInput,
       }),
     })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.updateSkillFamily) {
-          navigate(paths.skillFamilyView(skillFamily.id));
+          await navigate(paths.skillFamilyView(skillFamily.id));
           toast.success(
             intl.formatMessage({
               defaultMessage: "Skill family updated successfully!",
@@ -269,6 +269,7 @@ export const UpdateSkillFamily = ({
                 <Input
                   id="name_en"
                   name="name.en"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameEn)}
                   type="text"
                   rules={{
@@ -278,6 +279,7 @@ export const UpdateSkillFamily = ({
                 <Input
                   id="name_fr"
                   name="name.fr"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameFr)}
                   type="text"
                   rules={{
@@ -336,9 +338,7 @@ export const UpdateSkillFamily = ({
                     intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
               </div>
-              <div data-h2-margin="base(0 -x1)">
-                <Separator decorative orientation="horizontal" space="sm" />
-              </div>
+              <CardSeparator />
               <div
                 data-h2-display="base(flex)"
                 data-h2-gap="base(x1)"
@@ -399,8 +399,8 @@ const UpdateSkillFamilyPage = () => {
           <p>
             {intl.formatMessage(
               {
-                defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                id: "ZWnKEJ",
+                defaultMessage: "Skill family {skillFamilyId} not found.",
+                id: "asjJwj",
                 description: "Message displayed for skillFamily not found.",
               },
               { skillFamilyId },

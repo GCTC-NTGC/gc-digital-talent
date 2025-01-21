@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentHasManyDeep\HasOneDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -27,17 +28,19 @@ class ExperienceSkill extends Model
 
     protected $table = 'experience_skill';
 
+    /** @return BelongsTo<Experience, $this> */
     public function experience(): BelongsTo
     {
         return $this->belongsTo(Experience::class);
     }
 
+    /** @return BelongsTo<UserSkill, $this> */
     public function userSkill(): BelongsTo
     {
         return $this->belongsTo(UserSkill::class);
     }
 
-    public function skill()
+    public function skill(): HasOneDeep
     {
         return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill)->skill());
     }

@@ -8,17 +8,19 @@ import {
   LanguageAbility,
   PositionDuration,
   Skill,
-  PoolStream,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
 import fakePools from "./fakePools";
+import fakeWorkStreams from "./fakeWorkStreams";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateApplicantFilters = (
   operationalRequirements: OperationalRequirement[],
   pools: Pool[],
   skills: Skill[],
+  workStreams: WorkStream[],
 ): ApplicantFilter => {
   return {
     __typename: "ApplicantFilter",
@@ -47,9 +49,7 @@ const generateApplicantFilters = (
       Object.values(PositionDuration),
     ),
     skills,
-    qualifiedStreams: faker.helpers
-      .arrayElements<PoolStream>(Object.values(PoolStream), 1)
-      .map((stream) => toLocalizedEnum(stream)),
+    workStreams: faker.helpers.arrayElements<WorkStream>(workStreams, 1),
   };
 };
 
@@ -60,9 +60,15 @@ export default (): ApplicantFilter[] => {
     );
   const pools = fakePools();
   const skills = fakeSkills(5);
+  const workStreams = fakeWorkStreams();
 
   faker.seed(0); // repeatable results
   return Array.from({ length: 20 }, () =>
-    generateApplicantFilters(operationalRequirements, pools, skills),
+    generateApplicantFilters(
+      operationalRequirements,
+      pools,
+      skills,
+      workStreams,
+    ),
   );
 };

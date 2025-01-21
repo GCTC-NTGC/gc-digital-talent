@@ -44,14 +44,20 @@ const ApplicantFilters = ({
   // else set values if filters prop is of ApplicantFilterInput type
   const classificationsFromBrowserHistory = selectedClassifications?.map(
     (classification) =>
-      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
+      wrapAbbr(
+        `${classification?.group}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
+        intl,
+      ),
   );
 
   const classifications = applicantFilter?.qualifiedClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
     .map((classification) =>
-      wrapAbbr(`${classification?.group}-0${classification?.level}`, intl),
+      wrapAbbr(
+        `${classification?.group}-${classification?.level < 10 ? "0" : ""}${classification?.level}`,
+        intl,
+      ),
     );
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
@@ -111,7 +117,7 @@ const ApplicantFilters = ({
   ).map((label) => getLocalizedName(label, intl));
 
   const streams = unpackMaybes(
-    applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
+    applicantFilter?.workStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
   const communityName: string =
@@ -142,7 +148,7 @@ const ApplicantFilters = ({
               applicantFilter
                 ? applicantFilter?.pools?.filter(notEmpty)?.map((pool) =>
                     getShortPoolTitleHtml(intl, {
-                      stream: pool.stream,
+                      workStream: pool.workStream,
                       name: pool.name,
                       publishingGroup: pool.publishingGroup,
                       classification: pool.classification,
@@ -230,8 +236,8 @@ const ApplicantFilters = ({
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "cMsRgt",
+                "Conditions of employment or operational requirements",
+              id: "SNxTm+",
               description:
                 "Title for operational requirements section on summary of filters section",
             })}
@@ -270,15 +276,15 @@ const SearchRequestFilters = ({
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
       (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${classification?.level}`,
+        `${classification?.group.toLocaleUpperCase()}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
     );
 
   const pools: Pool[] | undefined = poolCandidateFilter
     ? poolCandidateFilter?.pools?.filter(notEmpty)
     : [];
 
-  const streams = pools?.map((pool) =>
-    pool.stream?.label ? getLocalizedName(pool.stream.label, intl) : "",
+  const streams = pools?.map(({ workStream }) =>
+    getLocalizedName(workStream?.name, intl, true),
   );
 
   // eslint-disable-next-line deprecation/deprecation
@@ -373,7 +379,7 @@ const SearchRequestFilters = ({
                 pools
                   ? pools.map((pool) =>
                       getShortPoolTitleHtml(intl, {
-                        stream: pool.stream,
+                        workStream: pool.workStream,
                         name: pool.name,
                         publishingGroup: pool.publishingGroup,
                         classification: pool.classification,
@@ -430,8 +436,8 @@ const SearchRequestFilters = ({
               <FilterBlock
                 title={intl.formatMessage({
                   defaultMessage:
-                    "Conditions of employment / Operational requirements",
-                  id: "cMsRgt",
+                    "Conditions of employment or operational requirements",
+                  id: "SNxTm+",
                   description:
                     "Title for operational requirements section on summary of filters section",
                 })}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import { ReactNode } from "react";
 

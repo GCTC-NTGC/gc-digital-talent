@@ -76,6 +76,16 @@ const messages = defineMessages({
     id: "lhV7kM",
     description: "Role at organization, HTML",
   },
+  workWith: {
+    defaultMessage: "{role} with {group}",
+    id: "1b+6V1",
+    description: "Role with group",
+  },
+  workWithHtml: {
+    defaultMessage: "<strong>{role}</strong> with {group}",
+    id: "1syFdp",
+    description: "Role with group, HTML",
+  },
   collapseDetails: {
     defaultMessage: "Collapse all<hidden> experience details</hidden>",
     id: "pp+b1H",

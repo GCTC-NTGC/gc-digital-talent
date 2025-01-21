@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import debounce from "lodash/debounce";
 
 import {
@@ -21,10 +21,9 @@ import {
 import {
   Classification,
   graphql,
-  LocalizedPoolStream,
   Maybe,
-  PoolStream,
   SupervisoryStatus,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,
@@ -40,7 +39,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
-import Hero from "~/components/HeroDeprecated";
+import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -53,14 +52,14 @@ interface FormValues {
   keyword: string;
   classifications: string[];
   supervisoryStatuses: SupervisoryStatus[];
-  streams: PoolStream[];
+  workStreams: string[];
 }
 
 const defaultValues = {
   keyword: "",
   classifications: [],
   supervisoryStatuses: [],
-  streams: [],
+  workStreams: [],
 } satisfies FormValues;
 
 const JobPosterTemplates_Query = graphql(/* GraphQL */ `
@@ -77,18 +76,18 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    poolStreams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
     }
     jobPosterTemplates {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -126,22 +125,22 @@ function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
 function previewMetaData(
   intl: IntlShape,
   classification?: Maybe<Classification>,
-  stream?: Maybe<LocalizedPoolStream>,
+  workStream?: Maybe<WorkStream>,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-0${classification.level}`,
+      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
     } satisfies PreviewMetaData);
   }
 
-  if (stream) {
+  if (workStream) {
     metaData.push({
-      key: stream.value,
+      key: workStream.id,
       type: "text",
-      children: getLocalizedName(stream.label, intl),
+      children: getLocalizedName(workStream.name, intl),
     } satisfies PreviewMetaData);
   }
 
@@ -225,7 +224,7 @@ const JobPosterTemplatesPage = () => {
         );
       show =
         show &&
-        assertIncludes(formData.streams, jobPosterTemplate?.stream?.value);
+        assertIncludes(formData.workStreams, jobPosterTemplate?.workStream?.id);
 
       return show;
     });
@@ -256,7 +255,7 @@ const JobPosterTemplatesPage = () => {
     formData.keyword,
     formData.classifications,
     formData.supervisoryStatuses,
-    formData.streams,
+    formData.workStreams,
     locale,
     sortBy,
     intl,
@@ -357,7 +356,7 @@ const JobPosterTemplatesPage = () => {
                         .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
-                          label: `${classification.group}-0${classification.level}`,
+                          label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
                         }))}
                     />
                     <Checklist
@@ -374,13 +373,13 @@ const JobPosterTemplatesPage = () => {
                       })}
                     />
                     <Checklist
-                      idPrefix="streams"
-                      name="streams"
+                      idPrefix="workStreams"
+                      name="workStreams"
                       items={alphaSortOptions(
-                        localizedEnumToOptions(
-                          unpackMaybes(data?.poolStreams),
-                          intl,
-                        ),
+                        unpackMaybes(data?.workStreams).map((workStream) => ({
+                          value: workStream.id,
+                          label: getLocalizedName(workStream.name, intl),
+                        })),
                       )}
                       legend={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
@@ -497,7 +496,7 @@ const JobPosterTemplatesPage = () => {
                             metaData={previewMetaData(
                               intl,
                               jobPosterTemplate.classification,
-                              jobPosterTemplate.stream,
+                              jobPosterTemplate.workStream,
                             )}
                           >
                             {jobPosterTemplate.description && (

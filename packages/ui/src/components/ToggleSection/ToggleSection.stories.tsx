@@ -10,85 +10,103 @@ const Toggle = () => {
 
   return (
     <ToggleSection.Trigger>
-      <Button mode="inline">{context?.open ? "Close" : "Open"} Section</Button>
+      <Button mode="inline">{context?.open ? "Close" : "Open"} section</Button>
     </ToggleSection.Trigger>
   );
 };
 
+type ToggleSectionRootAndHeader = {
+  headerText?: string;
+} & React.ComponentPropsWithoutRef<typeof ToggleSection.Root>;
+
 export default {
   component: ToggleSection.Root,
-} as Meta<typeof ToggleSection.Root>;
+  args: {
+    headerText: "Toggle section header",
+  },
+  argTypes: {
+    headerText: {
+      control: { type: "text" },
+    },
+  },
+} as Meta;
 
-const Template: StoryFn<typeof ToggleSection.Root> = (args) => (
-  <ToggleSection.Root
-    {...args}
-    onOpenChange={(open) => action("onOpenToggle")(open)}
-  >
-    <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
-      Toggle Section
-    </ToggleSection.Header>
+const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
+  const { headerText } = args;
+  return (
+    <ToggleSection.Root
+      {...args}
+      onOpenChange={(open) => action("onOpenToggle")(open)}
+    >
+      <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+        {headerText}
+      </ToggleSection.Header>
 
-    <ToggleSection.Content data-h2-text-align="base(center)">
-      <ToggleSection.InitialContent>
-        <p>Initial Content Here</p>
-        <ToggleSection.Open>
-          <Button mode="inline">Open</Button>
-        </ToggleSection.Open>
-      </ToggleSection.InitialContent>
+      <ToggleSection.Content data-h2-text-align="base(center)">
+        <ToggleSection.InitialContent>
+          <p>The initial content.</p>
+          <ToggleSection.Open>
+            <Button mode="inline">Open</Button>
+          </ToggleSection.Open>
+        </ToggleSection.InitialContent>
 
-      <ToggleSection.OpenContent>
-        <p>Open Content Here</p>
-        <ToggleSection.Close>
-          <Button mode="inline">Close</Button>
-        </ToggleSection.Close>
-      </ToggleSection.OpenContent>
-    </ToggleSection.Content>
-  </ToggleSection.Root>
-);
+        <ToggleSection.OpenContent>
+          <p>The open content.</p>
+          <ToggleSection.Close>
+            <Button mode="inline">Close</Button>
+          </ToggleSection.Close>
+        </ToggleSection.OpenContent>
+      </ToggleSection.Content>
+    </ToggleSection.Root>
+  );
+};
 
 export const Default = Template.bind({});
 
-const NestedTemplate: StoryFn<typeof ToggleSection.Root> = (args) => (
-  <ToggleSection.Root
-    {...args}
-    onOpenChange={(open) => action("onOpenToggle")(open)}
-  >
-    <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
-      Toggle Section
-    </ToggleSection.Header>
+const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
+  const { headerText } = args;
+  return (
+    <ToggleSection.Root
+      {...args}
+      onOpenChange={(open) => action("onOpenToggle")(open)}
+    >
+      <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+        {headerText}
+      </ToggleSection.Header>
 
-    <ToggleSection.Content data-h2-text-align="base(center)">
-      <ToggleSection.InitialContent>
-        <p>Initial Content Here</p>
-        <ToggleSection.Open>
-          <Button mode="inline">Open Main Content</Button>
-        </ToggleSection.Open>
+      <ToggleSection.Content data-h2-text-align="base(center)">
+        <ToggleSection.InitialContent>
+          <p>The initial content.</p>
+          <ToggleSection.Open>
+            <Button mode="inline">Open main content</Button>
+          </ToggleSection.Open>
 
-        <ToggleSection.Root>
-          <ToggleSection.Trigger>
-            <Button mode="inline">Toggle Nested Content</Button>
-          </ToggleSection.Trigger>
+          <ToggleSection.Root>
+            <ToggleSection.Trigger>
+              <Button mode="inline">Toggle nested content</Button>
+            </ToggleSection.Trigger>
 
-          <ToggleSection.Content data-h2-text-align="base(center)">
-            <ToggleSection.InitialContent>
-              <p>Nested Initial Content Here</p>
-            </ToggleSection.InitialContent>
+            <ToggleSection.Content data-h2-text-align="base(center)">
+              <ToggleSection.InitialContent>
+                <p>The nested initial content.</p>
+              </ToggleSection.InitialContent>
 
-            <ToggleSection.OpenContent>
-              <p>Nested Open Content Here</p>
-            </ToggleSection.OpenContent>
-          </ToggleSection.Content>
-        </ToggleSection.Root>
-      </ToggleSection.InitialContent>
+              <ToggleSection.OpenContent>
+                <p>The nested open content.</p>
+              </ToggleSection.OpenContent>
+            </ToggleSection.Content>
+          </ToggleSection.Root>
+        </ToggleSection.InitialContent>
 
-      <ToggleSection.OpenContent>
-        <p>Open Content Here</p>
-        <ToggleSection.Close>
-          <Button mode="inline">Close</Button>
-        </ToggleSection.Close>
-      </ToggleSection.OpenContent>
-    </ToggleSection.Content>
-  </ToggleSection.Root>
-);
+        <ToggleSection.OpenContent>
+          <p>The open content.</p>
+          <ToggleSection.Close>
+            <Button mode="inline">Close</Button>
+          </ToggleSection.Close>
+        </ToggleSection.OpenContent>
+      </ToggleSection.Content>
+    </ToggleSection.Root>
+  );
+};
 
 export const Nested = NestedTemplate.bind({});

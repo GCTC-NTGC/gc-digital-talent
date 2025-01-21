@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -10,7 +10,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { CardBasic, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -21,6 +21,7 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
 import messages from "./messages";
+import { getClassificationLevels } from "./helpers";
 
 type FormValues = CreateClassificationInput;
 
@@ -80,9 +81,9 @@ export const CreateClassification = () => {
       maxSalary: Number(data.maxSalary),
     };
     return executeMutation({ classification })
-      .then((result) => {
+      .then(async (result) => {
         if (result.data?.createClassification) {
-          navigate(
+          await navigate(
             paths.classificationView(result.data.createClassification.id),
           );
           toast.success(
@@ -129,6 +130,7 @@ export const CreateClassification = () => {
                   <Input
                     id="name_en"
                     name="name.en"
+                    autoComplete="off"
                     label={intl.formatMessage(adminMessages.nameEn)}
                     type="text"
                     rules={{
@@ -138,6 +140,7 @@ export const CreateClassification = () => {
                   <Input
                     id="name_fr"
                     name="name.fr"
+                    autoComplete="off"
                     label={intl.formatMessage(adminMessages.nameFr)}
                     type="text"
                     rules={{
@@ -168,17 +171,8 @@ export const CreateClassification = () => {
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    options={[
-                      { value: 1, label: "1" },
-                      { value: 2, label: "2" },
-                      { value: 3, label: "3" },
-                      { value: 4, label: "4" },
-                      { value: 5, label: "5" },
-                      { value: 6, label: "6" },
-                      { value: 7, label: "7" },
-                      { value: 8, label: "8" },
-                      { value: 9, label: "9" },
-                    ]}
+                    options={getClassificationLevels()}
+                    doNotSort
                   />
                   <Input
                     id="minSalary"
@@ -190,6 +184,7 @@ export const CreateClassification = () => {
                         "Label displayed for the classification form min salary field.",
                     })}
                     type="number"
+                    min="0"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       min: {
@@ -213,6 +208,7 @@ export const CreateClassification = () => {
                         "Label displayed for the classification form max salary field.",
                     })}
                     type="number"
+                    min="0"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       min: {
@@ -227,9 +223,7 @@ export const CreateClassification = () => {
                     }}
                   />
                 </div>
-                <div data-h2-margin="base(0 -x1)">
-                  <Separator decorative orientation="horizontal" space="sm" />
-                </div>
+                <CardSeparator />
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x1)"

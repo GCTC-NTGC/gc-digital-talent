@@ -34,9 +34,15 @@ describe("Render dashboard page", () => {
     renderComponent("platform_admin");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.getByText(/administration/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -50,15 +56,15 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Talent requests",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
 
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -80,6 +86,11 @@ describe("Render dashboard page", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
         name: "Departments",
       }),
     ).toBeInTheDocument();
@@ -91,11 +102,6 @@ describe("Render dashboard page", () => {
     expect(
       screen.getByRole("link", {
         name: "Skills",
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", {
-        name: "Teams",
       }),
     ).toBeInTheDocument();
     expect(
@@ -109,9 +115,15 @@ describe("Render dashboard page", () => {
     renderComponent("community_admin");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -125,15 +137,15 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Candidates",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
 
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -154,6 +166,11 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
       screen.queryByRole("link", {
         name: "Departments",
       }),
@@ -169,24 +186,25 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
-        name: "Teams",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 
   it("Correctly displays page for process operators", () => {
     renderComponent("process_operator");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -195,10 +213,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Candidates",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
     expect(
       screen.queryByRole("link", {
         name: "Talent requests",
@@ -208,7 +226,7 @@ describe("Render dashboard page", () => {
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -230,6 +248,11 @@ describe("Render dashboard page", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("link", {
+        name: "Communities",
+      }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
         name: "Departments",
       }),
     ).not.toBeInTheDocument();
@@ -244,24 +267,25 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
-        name: "Teams",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 
   it("Correctly displays page for community recruiters", () => {
     renderComponent("community_recruiter");
 
     // card sections
-    expect(screen.getByText(/recruitment/i)).toBeInTheDocument();
-    expect(screen.getByText(/resources/i)).toBeInTheDocument();
-    expect(screen.queryByText(/administration/i)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /recruitment/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /resources/i, level: 2 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /administration/i, level: 2 }),
+    ).toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -275,15 +299,15 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Candidates",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
 
     // resources links
     expect(
       screen.getByRole("link", {
-        name: "Job templates library",
+        name: "Job advertisement templates",
       }),
     ).toBeInTheDocument();
     expect(
@@ -304,6 +328,11 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
+      screen.getByRole("link", {
+        name: "Communities",
+      }),
+    ).toBeInTheDocument();
+    expect(
       screen.queryByRole("link", {
         name: "Departments",
       }),
@@ -319,14 +348,9 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
-        name: "Teams",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Users",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
   });
 });

@@ -5,24 +5,38 @@ namespace App\Traits\Generator;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
+use App\Enums\CafEmploymentType;
+use App\Enums\CafForce;
+use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EducationStatus;
+use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\ExternalRoleSeniority;
+use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovContractorRoleSeniority;
+use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
+use App\Models\Classification;
 use App\Models\CommunityExperience;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpWord\Element\Section;
 
 trait GeneratesUserDoc
@@ -171,7 +185,7 @@ trait GeneratesUserDoc
         $section->addTitle($this->localizeHeading('work_preferences'), $headingRank);
 
         $section->addText($this->localizeHeading('contract_duration'), $this->strong);
-        foreach ($user?->position_duration ?? [] as $duration) {
+        foreach ($user->position_duration ?? [] as $duration) {
             $section->addListItem($this->localizeEnum($duration, PositionDuration::class));
         }
 
@@ -276,6 +290,7 @@ trait GeneratesUserDoc
     {
 
         if ($type === AwardExperience::class) {
+            /** @var AwardExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
@@ -284,12 +299,14 @@ trait GeneratesUserDoc
         }
 
         if ($type === CommunityExperience::class) {
+            /** @var CommunityExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
         }
 
         if ($type === EducationExperience::class) {
+            /** @var EducationExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
@@ -298,15 +315,119 @@ trait GeneratesUserDoc
         }
 
         if ($type === PersonalExperience::class) {
+            /** @var PersonalExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.learning_description'), $experience->description);
         }
 
         if ($type === WorkExperience::class) {
-            $section->addTitle($experience->getTitle($this->lang), $headingRank);
-            $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
+            /** @var WorkExperience $experience */
+            if ($experience->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+                $section->addTitle($experience->getTitle($this->lang), $headingRank);
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
+                $this->addLabelText(
+                    $section, $this->localize('experiences.size_organization'),
+                    $this->localizeEnum($experience->ext_size_of_organization,
+                        ExternalSizeOfOrganization::class)
+                );
+                $this->addLabelText(
+                    $section,
+                    $this->localize('experiences.seniority_role'),
+                    $this->localizeEnum($experience->ext_role_seniority, ExternalRoleSeniority::class)
+                );
+            } elseif ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+                $section->addTitle(
+                    sprintf(
+                        '%s %s %s',
+                        $experience->role,
+                        Lang::get('common.with', [], $this->lang),
+                        $this->localizeEnum($experience->caf_force,
+                            CafForce::class),
+                    ),
+                    $headingRank
+                );
+                $section->addText($this->localize('experiences.canadian_armed_forces'));
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
+                $this->addLabelText(
+                    $section, $this->localize('experiences.employment_type'),
+                    $this->localizeEnum($experience->caf_employment_type,
+                        CafEmploymentType::class)
+                );
+                $this->addLabelText(
+                    $section,
+                    $this->localize('experiences.rank_category'),
+                    $this->localizeEnum($experience->caf_rank, CafRank::class)
+                );
+            } elseif ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
+                /** @var Department | null $department */
+                $department = $experience->department_id ? Department::find($experience->department_id) : null;
+                $section->addTitle(
+                    sprintf(
+                        '%s %s %s',
+                        $experience->role,
+                        Lang::get('common.with', [], $this->lang),
+                        $department ? $department->name[$this->lang] : Lang::get('common.not_found', [], $this->lang),
+                    ),
+                    $headingRank
+                );
+                $section->addText(
+                    $experience->gov_employment_type === WorkExperienceGovEmployeeType::CONTRACTOR->name ?
+                    $this->localize('experiences.contractor')
+                    : $this->localize('experiences.government_of_canada')
+                );
+                $section->addText($experience->getDateRangeWithFutureEndDateCheck($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
+                $this->addLabelText(
+                    $section,
+                    $this->localize('experiences.employment_type'),
+                    $this->localizeEnum($experience->gov_employment_type, WorkExperienceGovEmployeeType::class)
+                );
+                if ($experience->gov_employment_type === WorkExperienceGovEmployeeType::INDETERMINATE->name) {
+                    $this->addLabelText(
+                        $section,
+                        $this->localize('experiences.position_type'),
+                        $this->localizeEnum($experience->gov_position_type, GovPositionType::class)
+                    );
+                }
+                if ($experience->gov_employment_type === WorkExperienceGovEmployeeType::CONTRACTOR->name) {
+                    $this->addLabelText(
+                        $section,
+                        $this->localize('experiences.seniority_role'),
+                        $this->localizeEnum($experience->gov_contractor_role_seniority, GovContractorRoleSeniority::class)
+                    );
+                    $this->addLabelText(
+                        $section,
+                        $this->localize('experiences.contractor_type'),
+                        $this->localizeEnum($experience->gov_contractor_type, GovContractorType::class)
+                    );
+                    if ($experience->gov_contractor_type === GovContractorType::FIRM_OR_AGENCY->name) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.contract_firm_agency'),
+                            $experience->contractor_firm_agency_name
+                        );
+                    }
+                }
+                if (
+                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::CONTRACTOR->name &&
+                    $experience->gov_employment_type !== WorkExperienceGovEmployeeType::STUDENT->name
+                ) {
+                    /** @var Classification | null $classification */
+                    $classification = Classification::find($experience->classification_id);
+                    $this->addLabelText(
+                        $section,
+                        $this->localize('experiences.classification'),
+                        $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
+                    );
+                }
+            } else {
+                // null case, so experiences prior to adding employment_category
+                $section->addTitle($experience->getTitle($this->lang), $headingRank);
+                $section->addText($experience->getDateRange($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
+            }
         }
 
         $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
@@ -320,6 +441,7 @@ trait GeneratesUserDoc
 
             $experience->userSkills->each(function ($userSkill) use ($section) {
                 $skillRun = $section->addListItemRun();
+                /** @var UserSkill $userSkill */
                 $skillRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if (isset($userSkill->experience_skill->details)) {
                     $skillRun->addText($this->colon().$userSkill->experience_skill->details);
@@ -329,14 +451,14 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generate a users skills showcase
+     * Generate a user's skill showcase
      *
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function skillsShowcase(Section $section, User $user, $headingRank = 3)
+    protected function skillShowcase(Section $section, User $user, $headingRank = 3)
     {
-        $section->addTitle($this->localizeHeading('skills_showcase'), $headingRank);
+        $section->addTitle($this->localizeHeading('skill_showcase'), $headingRank);
         $subHeadingRank = $headingRank + 2;
 
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
@@ -376,7 +498,7 @@ trait GeneratesUserDoc
         $this->dei($section, $user, $headingRank + 2);
 
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
-        $this->skillsShowcase($section, $user, $headingRank + 1);
+        $this->skillShowcase($section, $user, $headingRank + 1);
 
         $section->addPageBreak();
     }

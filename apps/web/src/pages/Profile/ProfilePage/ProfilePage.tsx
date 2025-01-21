@@ -6,7 +6,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import Hero from "~/components/HeroDeprecated/HeroDeprecated";
+import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -380,6 +380,96 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         division
         startDate
         endDate
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+          maxSalary
+          minSalary
+        }
+        department {
+          id
+          name {
+            en
+            fr
+          }
+          departmentNumber
+        }
       }
     }
     isProfileComplete

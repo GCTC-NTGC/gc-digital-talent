@@ -10,6 +10,7 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
         en
         fr
       }
+      teamIdForRoleAssignment
     }
   }
 `;
