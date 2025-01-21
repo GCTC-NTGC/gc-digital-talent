@@ -374,7 +374,7 @@ export const CommunityDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCommunities}>
+  <RequireAuth roles={permissionConstants().viewCommunityDashboard}>
     <CommunityDashboardPageApi />
   </RequireAuth>
 );
