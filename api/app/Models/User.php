@@ -501,7 +501,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         activity()
             ->causedBy(Auth::user())
             ->performedOn($user)
-            ->withProperties(['attributes' => ['roleAssignments' => [$properties]]])
+            ->withProperties(['attributes' => $properties])
             ->event($eventName)
             ->log($eventName);
     }
@@ -548,11 +548,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
 
         static::roleAdded(function (User $user, string $role, $team) {
-            self::logRoleChange('created', $user, $role, $team);
+            self::logRoleChange('roleAdded', $user, $role, $team);
         });
 
         static::roleRemoved(function (User $user, string $role, $team) {
-            self::logRoleChange('deleted', $user, $role, $team);
+            self::logRoleChange('roleRemoved', $user, $role, $team);
         });
     }
 
