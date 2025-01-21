@@ -497,7 +497,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
      * @param  User  $user  User being affected (subject)
      * @param  ?string  $roleId  Id of the role being added or removed
-     * @param  ?string|array  $team  IF team based role, the ID or array of then team ID
+     * @param  mixed  $team  IF team based role, the ID or array of then team ID
      */
     private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
     {
