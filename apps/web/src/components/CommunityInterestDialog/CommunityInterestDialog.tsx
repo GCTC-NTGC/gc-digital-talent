@@ -179,6 +179,7 @@ const CommunityInterestDialog = ({
                     data-h2-display="base(flex)"
                     data-h2-align-items="base(flex-start)"
                     data-h2-gap="base(x.25)"
+                    data-h2-margin-bottom="base(x.25)"
                   >
                     <BoolCheckIcon
                       value={interestedWorkStreams.includes(workStream.id)}
