@@ -484,7 +484,22 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
-    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $teamId)
+    /**
+     * Custom logging for adding/removing roles for a user
+     *
+     * This comes from Laratrust so it is missed in the normal
+     * event logging for this model. Since we do not have access to specific data
+     * the shape is slightly different
+     *
+     *  - Subject is the user being affected (role added to or removed from)
+     *  - Properties are the subject users id, role id and if it is a team based role, the team id
+     *
+     * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
+     * @param  User  $user  User being affected (subject)
+     * @param  ?string  $roleId  Id of the role being added or removed
+     * @param  ?string|array  $team  IF team based role, the ID or array of then team ID
+     */
+    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
     {
         if (! $roleId) {
             return;
@@ -494,7 +509,16 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'user_id' => $user->id,
             'role_id' => $roleId,
         ];
-        if ($teamId) {
+        if ($team) {
+            $teamId = $team;
+            if (is_array($team)) {
+                if (Arr::isAssoc($team) && isset($team['id'])) {
+                    $teamId = $team['id'];
+                } elseif (isset($team[0]['id'])) {
+                    $teamId = $team[0]['id'];
+                }
+            }
+
             $properties['team_id'] = $teamId;
         }
 
