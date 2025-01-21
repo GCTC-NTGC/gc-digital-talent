@@ -4,7 +4,7 @@ export interface SidebarProps extends HTMLProps<HTMLElement> {
   children: ReactNode;
 }
 
-const Sidebar = ({ children, locationTop, ...rest }: SidebarProps) => (
+const Sidebar = ({ children, ...rest }: SidebarProps) => (
   <aside data-h2-flex-item="base(1of1) l-tablet(1of4)" {...rest}>
     <div
       data-h2-height="base(100%)"
