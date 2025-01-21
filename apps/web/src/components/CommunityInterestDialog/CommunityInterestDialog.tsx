@@ -202,9 +202,9 @@ const CommunityInterestDialog = ({
               </ul>
             </>
           )}
-          <Separator orientation="horizontal" decorative space="sm" />
           {communityDevelopmentPrograms.length > 0 && (
             <>
+              <Separator orientation="horizontal" decorative space="sm" />
               <p
                 data-h2-font-weight="base(700)"
                 data-h2-margin-bottom="base(x.25)"
@@ -239,18 +239,25 @@ const CommunityInterestDialog = ({
                   );
                 })}
               </ul>
-              <Separator orientation="horizontal" decorative space="sm" />
             </>
           )}
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
-            {intl.formatMessage({
-              defaultMessage: "Additional information",
-              id: "NCMG9w",
-              description:
-                "Label for a community interests additional information",
-            })}
-          </p>
-          <p>{communityInterest?.additionalInformation ?? notAvailable}</p>
+          {!!communityInterest?.additionalInformation && (
+            <>
+              <Separator orientation="horizontal" decorative space="sm" />
+              <p
+                data-h2-font-weight="base(700)"
+                data-h2-margin-bottom="base(x.25)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Additional information",
+                  id: "NCMG9w",
+                  description:
+                    "Label for a community interests additional information",
+                })}
+              </p>
+              <p>{communityInterest.additionalInformation}</p>
+            </>
+          )}
           <Dialog.Footer>
             <Link
               mode="solid"
