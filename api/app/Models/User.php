@@ -484,6 +484,28 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $teamId)
+    {
+        if (! $roleId) {
+            return;
+        }
+
+        $properties = [
+            'user_id' => $user->id,
+            'role_id' => $roleId,
+        ];
+        if ($teamId) {
+            $properties['team_id'] = $teamId;
+        }
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($user)
+            ->withProperties(['attributes' => ['roleAssignments' => [$properties]]])
+            ->event($eventName)
+            ->log($eventName);
+    }
+
     /**
      * Boot function for using with User Events
      *
@@ -526,39 +548,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
 
         static::roleAdded(function (User $user, string $role, $team) {
-            if (! $role) {
-                return;
-            }
-
-            $properties = ['role' => $role];
-            if ($team) {
-                $properties['team'] = $team;
-            }
-
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($user)
-                ->withProperties($properties)
-                ->event('roleAdded')
-                ->log('roleAdded');
+            self::logRoleChange('created', $user, $role, $team);
         });
 
         static::roleRemoved(function (User $user, string $role, $team) {
-            if (! $role) {
-                return;
-            }
-
-            $properties = ['role' => $role];
-            if ($team) {
-                $properties['team'] = $team;
-            }
-
-            activity()
-                ->causedBy(Auth::user())
-                ->performedOn($user)
-                ->withProperties($properties)
-                ->event('roleAdded')
-                ->log('roleRemoved');
+            self::logRoleChange('deleted', $user, $role, $team);
         });
     }
 
