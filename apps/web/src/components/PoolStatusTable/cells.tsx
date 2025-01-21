@@ -1,14 +1,8 @@
-import { IntlShape } from "react-intl";
-
 import {
   FragmentType,
-  LocalizedString,
-  Maybe,
   User,
   ChangeStatusDialog_UserFragment as ChangeStatusDialogUserFragmentType,
 } from "@gc-digital-talent/graphql";
-import { Link } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import ChangeDateDialog, {
   ChangeDateDialog_PoolCandidateFragment,
