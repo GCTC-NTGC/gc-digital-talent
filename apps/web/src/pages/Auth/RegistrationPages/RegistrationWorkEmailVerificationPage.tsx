@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "urql";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
@@ -10,6 +9,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import EmailVerificationApi from "~/components/EmailVerification/EmailVerification";
+import permissionConstants from "~/constants/permissionConstants";
 
 import messages from "./utils/messages";
 

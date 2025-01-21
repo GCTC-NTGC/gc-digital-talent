@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
 import { CardBasic, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -12,6 +11,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import NotificationList from "~/components/NotificationList/NotificationList";
 import notificationMessages from "~/messages/notificationMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 const NotificationsPage = () => {
   const intl = useIntl();

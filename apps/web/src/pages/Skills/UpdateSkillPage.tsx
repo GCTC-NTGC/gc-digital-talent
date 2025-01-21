@@ -42,7 +42,6 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import SEO from "~/components/SEO/SEO";
@@ -54,6 +53,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import pageTitles from "~/messages/pageTitles";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { SkillFormOptions_Fragment } from "./operations";
 

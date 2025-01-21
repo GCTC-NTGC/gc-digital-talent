@@ -17,7 +17,6 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -29,6 +28,7 @@ import pageTitles from "~/messages/pageTitles";
 import { getClassificationName } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import permissionConstants from "~/constants/permissionConstants";
 
 import messages from "./messages";
 

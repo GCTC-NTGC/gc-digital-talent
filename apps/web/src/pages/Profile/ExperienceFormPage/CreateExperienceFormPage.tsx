@@ -1,6 +1,5 @@
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import ExperienceFormContainer from "./ExperienceFormPage";
 

@@ -37,7 +37,6 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -47,6 +46,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import permissionConstants from "~/constants/permissionConstants";
 
 import messages from "./messages";
 

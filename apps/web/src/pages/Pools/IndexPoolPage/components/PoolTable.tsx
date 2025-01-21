@@ -247,7 +247,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
 
   const { roleAssignments } = useAuthorization();
   const canCreatePool = hasRole(
-    permissionConstants.createProcess,
+    permissionConstants().createProcess,
     roleAssignments,
   );
 

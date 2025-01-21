@@ -1,7 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
@@ -9,6 +7,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import permissionConstants from "~/constants/permissionConstants";
 
 import ClassificationTableApi from "./components/ClassificationTable";
 

@@ -24,8 +24,6 @@ import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussin
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import permissionConstants from "~/constants/permissionConstants";
 
 const pageTitle = defineMessage({
   defaultMessage: "Managers community",

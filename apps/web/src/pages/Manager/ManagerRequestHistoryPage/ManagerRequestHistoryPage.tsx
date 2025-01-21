@@ -24,7 +24,6 @@ import {
   graphql,
   ManagerRequestHistoryUserFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   commonMessages,
   formMessages,

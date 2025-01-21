@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { useQuery } from "urql";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 
 // importing from a shared file, not the page itself
@@ -14,6 +13,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import EmailVerificationApi from "~/components/EmailVerification/EmailVerification";
+import permissionConstants from "~/constants/permissionConstants";
 
 import messages from "./messages";
 

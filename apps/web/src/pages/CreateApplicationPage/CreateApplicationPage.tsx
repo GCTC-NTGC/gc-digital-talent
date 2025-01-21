@@ -10,12 +10,13 @@ import {
   tryFindMessageDescriptor,
   errorMessages,
 } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];

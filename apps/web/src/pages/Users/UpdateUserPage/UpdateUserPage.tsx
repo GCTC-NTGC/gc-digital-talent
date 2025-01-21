@@ -27,7 +27,6 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -36,6 +35,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useReturnPath from "~/hooks/useReturnPath";
+import permissionConstants from "~/constants/permissionConstants";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
