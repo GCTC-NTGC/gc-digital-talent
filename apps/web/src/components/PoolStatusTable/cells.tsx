@@ -29,24 +29,3 @@ export const expiryCell = (
   candidate: FragmentType<typeof ChangeDateDialog_PoolCandidateFragment>,
   user: Pick<User, "firstName" | "lastName">,
 ) => <ChangeDateDialog selectedCandidateQuery={candidate} user={user} />;
-
-export function viewTeamLinkCell(
-  url: Maybe<string> | undefined,
-  displayName: Maybe<LocalizedString> | undefined,
-  intl: IntlShape,
-) {
-  return url ? (
-    <Link color="black" href={url}>
-      {intl.formatMessage(
-        {
-          defaultMessage: "<hidden>View team: </hidden>{teamName}",
-          id: "ActH9H",
-          description: "Text for a link to the Team table",
-        },
-        {
-          teamName: getLocalizedName(displayName, intl),
-        },
-      )}
-    </Link>
-  ) : null;
-}
