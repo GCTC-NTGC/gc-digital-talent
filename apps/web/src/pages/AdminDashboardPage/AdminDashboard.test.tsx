@@ -56,10 +56,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
+      screen.queryByRole("link", {
         name: "Talent requests",
       }),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
 
     // resources links
     expect(
@@ -203,8 +203,8 @@ describe("Render dashboard page", () => {
       screen.getByRole("heading", { name: /resources/i, level: 2 }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /administration/i, level: 2 }),
-    ).toBeInTheDocument();
+      screen.queryByRole("heading", { name: /administration/i, level: 2 }),
+    ).not.toBeInTheDocument();
 
     // recruitment links
     expect(
@@ -267,10 +267,10 @@ describe("Render dashboard page", () => {
       }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("link", {
+      screen.queryByRole("link", {
         name: "Users",
       }),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
   });
 
   it("Correctly displays page for community recruiters", () => {
