@@ -14,14 +14,14 @@ For contextual descriptions of images, there are additional resources available 
 
 ## Tools
 
-The i18n sub-project contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
+The i18n subproject contains a script (`dist/cli.js`) to help manage the react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
 
 ### Bulk Translation
 
 The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts.
 
 > [!NOTE]  
-> Each sub-project using react-intl (e.g. packages/i18n, apps/web, etc.) requires its own set of commands, and must be managed separately.
+> Each subproject using react-intl (e.g. packages/i18n, apps/web, etc.) requires its own set of commands, and must be managed separately.
 
 For example, to ensure translations in the apps/web project are up to date:
 
