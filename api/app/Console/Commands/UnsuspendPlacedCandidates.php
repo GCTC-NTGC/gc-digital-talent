@@ -31,18 +31,22 @@ class UnsuspendPlacedCandidates extends Command
     public function handle()
     {
         $applicableStatuses = [PoolCandidateStatus::PLACED_TERM->name, PoolCandidateStatus::PLACED_INDETERMINATE->name];
+        $candidatesUpdated = 0;
 
         PoolCandidate::whereIn('pool_candidate_status', $applicableStatuses)
             ->whereNotNull('suspended_at')
             ->with('user')
-            ->chunkById(100, function (Collection $candidates) {
+            ->chunkById(100, function (Collection $candidates) use (&$candidatesUpdated) {
                 foreach ($candidates as $candidate) {
                     /** @var \App\Models\PoolCandidate $candidate */
                     $candidate->suspended_at = null;
                     $candidate->save();
+                    $candidatesUpdated++;
                 }
             }
             );
+
+        $this->info("Updated $candidatesUpdated candidates");
 
         return Command::SUCCESS;
     }
