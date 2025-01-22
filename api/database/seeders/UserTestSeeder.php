@@ -91,13 +91,25 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
-            ->withEmployeeProfile()
             ->withCommunityInterests([$testCommunityId])
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
                 'email' => 'applicant@test.com',
                 'sub' => 'applicant@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->asGovEmployee()
+            ->withEmployeeProfile()
+            ->withCommunityInterests([$testCommunityId])
+            ->create([
+                'first_name' => 'Jaime',
+                'last_name' => 'Bilodeau',
+                'email' => 'applicant-employee@test.com',
+                'sub' => 'applicant-employee@test.com',
             ]);
 
         User::factory()
