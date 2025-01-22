@@ -111,10 +111,6 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
-  "2KDa14": {
-    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
-    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
-  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
