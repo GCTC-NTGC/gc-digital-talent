@@ -1,9 +1,13 @@
 import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
+import { useFormContext } from "react-hook-form";
 
-import { CardSeparator, Heading } from "@gc-digital-talent/ui";
+import { CardSeparator, Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+
+import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
+import { parseStringToBoolean } from "../CreateCommunityInterestPage/form";
 
 export interface SubformValues {
   consent: boolean | null | undefined;
@@ -15,6 +19,17 @@ interface ReviewAndSubmitProps {
 
 const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
   const intl = useIntl();
+
+  const { watch } = useFormContext<FormValues>();
+  const [selectedJobInterest, selectedTrainingInterest] = watch([
+    "jobInterest",
+    "trainingInterest",
+  ]);
+
+  // only require consent if user has expressed interest in job or training
+  const formRequiresConsent =
+    parseStringToBoolean(selectedJobInterest) ||
+    parseStringToBoolean(selectedTrainingInterest);
 
   return (
     <div
@@ -95,26 +110,37 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
             })}
           </p>
         </div>
-        <Checkbox
-          id="consent"
-          name="consent"
-          boundingBoxLabel={intl.formatMessage({
-            defaultMessage: "Consent to share",
-            id: "5oqGTl",
-            description: "Label for the input for the constent check",
-          })}
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree that by indicating my interest in work or training opportunities that my profile will be shared with HR staff and hiring managers in this functional community.",
-            id: "09PkgL",
-            description: "Statement for the input for the constent check",
-          })}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          disabled={formDisabled}
-          boundingBox
-        />
+        {formRequiresConsent ? (
+          <Checkbox
+            id="consent"
+            name="consent"
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Consent to share",
+              id: "5oqGTl",
+              description: "Label for the input for the constent check",
+            })}
+            label={intl.formatMessage({
+              defaultMessage:
+                "I agree that by indicating my interest in work or training opportunities that my profile will be shared with HR staff and hiring managers in this functional community.",
+              id: "09PkgL",
+              description: "Statement for the input for the constent check",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            disabled={formDisabled}
+            boundingBox
+          />
+        ) : (
+          <Well>
+            {intl.formatMessage({
+              defaultMessage:
+                "You've indicated that you aren't interested in job opportunities or training in this community, so your profile information will <strong>not be shared</strong> as part of these features.",
+              id: "/HKgWb",
+              description: "Message displayed when consent is not required",
+            })}
+          </Well>
+        )}
       </div>
       <CardSeparator space="none" />
       {/* submit button */}

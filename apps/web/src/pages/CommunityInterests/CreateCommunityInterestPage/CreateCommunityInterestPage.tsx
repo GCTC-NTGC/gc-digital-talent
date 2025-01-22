@@ -6,6 +6,7 @@ import {
   useForm,
   useFormContext,
 } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -125,6 +126,7 @@ export const CreateCommunityInterestPage = () => {
   const formMethods = useForm<FormValues>();
   const formattedPageTitle = intl.formatMessage(messages.pageTitle);
   const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
+  const navigate = useNavigate();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -161,7 +163,7 @@ export const CreateCommunityInterestPage = () => {
     });
 
     return mutationPromise
-      .then(() => {
+      .then(async () => {
         toast.success(
           intl.formatMessage({
             defaultMessage: "Community interest created successfully",
@@ -169,6 +171,7 @@ export const CreateCommunityInterestPage = () => {
             description: "Toast for successful community interest creation",
           }),
         );
+        await navigate(routes.applicantDashboard());
       })
       .catch(() => {
         toast.error(

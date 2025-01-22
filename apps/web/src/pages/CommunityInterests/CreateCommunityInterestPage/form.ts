@@ -7,7 +7,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { FormValues } from "./CreateCommunityInterestPage";
 
-function parseStringToBoolean(value: string | null): boolean | null {
+export function parseStringToBoolean(
+  value: string | null | undefined,
+): boolean | null | undefined {
   if (value?.toLocaleLowerCase() === "true") {
     return true;
   }
@@ -16,6 +18,9 @@ function parseStringToBoolean(value: string | null): boolean | null {
   }
   if (value === null) {
     return null;
+  }
+  if (value === undefined) {
+    return undefined;
   }
   throw new Error(`Invalid boolean value: (${value})`);
 }
