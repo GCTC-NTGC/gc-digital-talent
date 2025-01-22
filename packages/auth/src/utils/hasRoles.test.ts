@@ -177,4 +177,25 @@ describe("hasRole tests", () => {
 
     expect(f(testRole, unpackMaybes(testUserRoles), teamableId)).toBeTruthy();
   });
+
+  test("user has team role for a team, required role is team based but no teamableId provided, returns true", () => {
+    const testRole: RoleName[] = ["community_admin"];
+    const testUserRoles:
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
+      | undefined = [
+      {
+        id: "id-123",
+        role: {
+          id: "role-id-123",
+          name: "community_admin",
+          isTeamBased: true,
+        },
+        teamable: {
+          id: "teamable-123",
+        },
+      },
+    ];
+
+    expect(f(testRole, unpackMaybes(testUserRoles))).toBeTruthy();
+  });
 });

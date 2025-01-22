@@ -29,7 +29,10 @@ export const hasRole = (
     const includes = roles.includes(roleAssignment?.role?.name as RoleName);
     if (teamableId && roleAssignment.role?.isTeamBased) {
       return includes && teamableId === roleAssignment.teamable?.id;
-    } else if (roleAssignment.role?.isTeamBased === false) {
+    } else if (
+      roleAssignment.role?.isTeamBased !== null &&
+      roleAssignment.role?.isTeamBased !== undefined
+    ) {
       return includes;
     }
     return false;
