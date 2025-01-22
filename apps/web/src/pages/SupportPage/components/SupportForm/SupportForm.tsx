@@ -18,20 +18,9 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  API_SUPPORT_ENDPOINT,
-  TALENTSEARCH_SUPPORT_EMAIL,
-} from "~/constants/talentSearchConstants";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
-interface FormValues {
-  user_id: string;
-  name: string;
-  email: string;
-  description: string;
-  subject: string;
-  previous_url: string;
-  user_agent: string;
-}
+import { FormValues, submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
 
 interface SupportFormProps {
   showSupportForm: boolean;
@@ -287,6 +276,7 @@ const defaultErrorMessage = defineMessage({
   id: "rNVDaA",
   description: "Support form toast message error",
 });
+
 const emailErrorMessage = defineMessage({
   defaultMessage:
     "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
@@ -297,52 +287,37 @@ const emailErrorMessage = defineMessage({
 const SupportFormApi = () => {
   const intl = useIntl();
   const logger = useLogger();
-  const handleCreateTicket = async (data: FormValues) => {
-    const response = await fetch(API_SUPPORT_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    if (response.ok) {
-      logger.info("Ticket successfully submitted");
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Ticket created successfully!",
-          id: "jHuiRm",
-          description: "Support form toast message success",
-        }),
-      );
-      return;
-    }
+  const handleCreateTicket = async (formValues: FormValues) => {
+    return await submitTicket(formValues, logger)
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Ticket created successfully!",
+            id: "jHuiRm",
+            description: "Support form toast message success",
+          }),
+        );
+        return;
+      })
+      .catch((err: Error) => {
+        // default error message if we don't recognize the error
+        let errorMessage = defaultErrorMessage;
+        if (err.name === SUPPORT_TICKET_ERROR.INVALID_EMAIL) {
+          errorMessage = emailErrorMessage;
+        }
+        toast.error(
+          <>
+            {intl.formatMessage(errorMessage, {
+              anchorTag,
+              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+              errorCode: err?.message,
+            })}
+          </>,
+          { autoClose: 20000 },
+        );
 
-    // we didn't get an OK so let's take a closer look at the response
-    const responseBody = (await response.json()) as Record<string, unknown>;
-    const errorCode = `${response.status} - ${response.statusText}`;
-    logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
-
-    // default error message if we don't recognize the error
-    let errorMessage = defaultErrorMessage;
-
-    if (
-      responseBody?.serviceResponse === "error" &&
-      responseBody?.errorDetail === "invalid_email"
-    ) {
-      errorMessage = emailErrorMessage;
-    }
-
-    toast.error(
-      <>
-        {intl.formatMessage(errorMessage, {
-          anchorTag,
-          emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
-          errorCode,
-        })}
-      </>,
-      { autoClose: 20000 },
-    );
-    throw new Error(errorCode);
+        return Promise.reject(err);
+      });
   };
 
   const [{ data, fetching, error }] = useQuery({
