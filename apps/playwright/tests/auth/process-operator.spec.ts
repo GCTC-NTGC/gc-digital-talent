@@ -25,10 +25,33 @@ test.describe("Process operator user", () => {
     );
   });
 
-  test("Cannot access restricted paths", async ({ appPage }) => {
+  const restrictedPathsChunk1 = AUTH.RESTRICTED_PATHS.PROCESS_OPERATOR.slice(
+    0,
+    4,
+  );
+  const restrictedPathsChunk2 = AUTH.RESTRICTED_PATHS.PROCESS_OPERATOR.slice(4);
+
+  test("Cannot access restricted paths group 1", async ({ appPage }) => {
     await loginBySub(appPage.appPage, "process@test.com");
     await Promise.all(
-      AUTH.RESTRICTED_PATHS.PROCESS_OPERATOR.map(async (restrictedPath) => {
+      restrictedPathsChunk1.map(async (restrictedPath) => {
+        const context = appPage.page.context();
+        const page = await context.newPage();
+        await page.goto(restrictedPath);
+        await page.waitForURL(restrictedPath);
+        await expect(
+          page.getByRole("heading", {
+            name: "Sorry, you are not authorized to view this page.",
+          }),
+        ).toBeVisible();
+      }),
+    );
+  });
+
+  test("Cannot access restricted paths group 2", async ({ appPage }) => {
+    await loginBySub(appPage.appPage, "process@test.com");
+    await Promise.all(
+      restrictedPathsChunk2.map(async (restrictedPath) => {
         const context = appPage.page.context();
         const page = await context.newPage();
         await page.goto(restrictedPath);
