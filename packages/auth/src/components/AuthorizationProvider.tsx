@@ -27,6 +27,9 @@ const authorizationQuery = graphql(/** GraphQL */ `
           id
           name
         }
+        teamable {
+          id
+        }
       }
     }
   }

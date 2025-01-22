@@ -1,26 +1,40 @@
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
+import { AuthorizationQueryQuery as AuthorizationQueryType } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 
-type RoleAssignmentNarrowed = Pick<RoleAssignment, "role">;
+type AuthorizationQueryRoleAssignments = NonNullable<
+  AuthorizationQueryType["myAuth"]
+>["roleAssignments"];
 
-const hasRole = (
-  checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignmentNarrowed> | undefined)[]> | undefined,
+/**
+ * Check to see if user contains one or more roles, can account for team and individual role types
+ *
+ * @param roles                   Roles to check for
+ * @param userRoleAssignments     Users current role assignments
+ * @param teamableId             Teamable ID
+ * @returns boolean
+ */
+export const hasRole = (
+  roles: RoleName[] | null,
+  userRoleAssignments: AuthorizationQueryRoleAssignments,
+  teamableId?: string,
 ): boolean => {
-  const userRoleNames = unpackMaybes(userRoles)
-    .map((roleAssign) => roleAssign.role?.name)
-    .filter(notEmpty);
-
-  if (Array.isArray(checkRole)) {
-    if (checkRole.length === 0) {
-      return true;
-    }
-    return checkRole.some((roleName) => userRoleNames.includes(roleName));
-  } else {
-    return userRoleNames.includes(checkRole);
+  if (!roles || roles.length === 0) {
+    return true;
   }
+  const result = userRoleAssignments?.filter((roleAssignment) => {
+    if (!roleAssignment?.role?.name) {
+      return false;
+    }
+    const includes = roles.includes(roleAssignment?.role?.name as RoleName);
+    if (teamableId && roleAssignment.role?.isTeamBased) {
+      return includes && teamableId === roleAssignment.teamable?.id;
+    } else if (roleAssignment.role?.isTeamBased === false) {
+      return includes;
+    }
+    return false;
+  });
+  return !!result?.length;
 };
 
 export default hasRole;
