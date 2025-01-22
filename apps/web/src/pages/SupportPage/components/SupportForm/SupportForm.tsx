@@ -14,38 +14,13 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
-import { Logger, useLogger } from "@gc-digital-talent/logger";
+import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  API_SUPPORT_ENDPOINT,
-  TALENTSEARCH_SUPPORT_EMAIL,
-} from "~/constants/talentSearchConstants";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
-class SupportResponseError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "SupportResponseError";
-  }
-}
-
-class InvalidEmailError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "InvalidEmailError";
-  }
-}
-
-interface FormValues {
-  user_id: string;
-  name: string;
-  email: string;
-  description: string;
-  subject: string;
-  previous_url: string;
-  user_agent: string;
-}
+import { FormValues, submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
 
 interface SupportFormProps {
   showSupportForm: boolean;
@@ -309,35 +284,6 @@ const emailErrorMessage = defineMessage({
   description: "Support form toast message error",
 });
 
-async function submitTicket(values: FormValues, logger: Logger): Promise<void> {
-  const response = await fetch(API_SUPPORT_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(values),
-  });
-
-  const body = await response.json();
-  if (response.ok) {
-    logger.info("Ticket successfully submitted");
-    return;
-  } else {
-    logger.error(`Failed to submit ticket: ${JSON.stringify(body)}`);
-
-    const errorCode = `${response.status} - ${response.statusText}`;
-    let error = new SupportResponseError(errorCode);
-    if (
-      body?.serviceResponse === "error" &&
-      body?.errorDetail === "invalid_email"
-    ) {
-      error = new InvalidEmailError(errorCode);
-    }
-
-    return Promise.reject(error);
-  }
-}
-
 const SupportFormApi = () => {
   const intl = useIntl();
   const logger = useLogger();
@@ -353,10 +299,10 @@ const SupportFormApi = () => {
         );
         return;
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         // default error message if we don't recognize the error
         let errorMessage = defaultErrorMessage;
-        if (err.name === "InvalidEmailError") {
+        if (err.name === SUPPORT_TICKET_ERROR.INVALID_EMAIL) {
           errorMessage = emailErrorMessage;
         }
         toast.error(
@@ -370,7 +316,7 @@ const SupportFormApi = () => {
           { autoClose: 20000 },
         );
 
-        return Promise.reject(error);
+        return Promise.reject(err);
       });
   };
 
