@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             TeamRandomSeeder::class,
             PoolRandomSeeder::class,
             UserRandomSeeder::class,
-            AssessmentResultRandomSeeder::class,
+            // AssessmentResultRandomSeeder::class,
             SearchRequestRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
