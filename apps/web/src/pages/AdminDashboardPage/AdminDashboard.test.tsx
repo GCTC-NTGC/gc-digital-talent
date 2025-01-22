@@ -16,10 +16,15 @@ const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
 };
 
-const renderComponent = (role: string) =>
+const renderComponent = (role: string, isTeamBased: boolean) =>
   renderWithProviders(
     <AuthorizationContainer
-      roleAssignments={[{ id: "123", role: { id: "123", name: role } }]}
+      roleAssignments={[
+        {
+          id: "123",
+          role: { id: "123", name: role, isTeamBased: isTeamBased },
+        },
+      ]}
       userAuthInfo={{ id: "123" }}
       isLoaded
     >
@@ -31,7 +36,7 @@ const renderComponent = (role: string) =>
 
 describe("Render dashboard page", () => {
   it("Correctly displays page for platform admins", () => {
-    renderComponent("platform_admin");
+    renderComponent("platform_admin", false);
 
     // card sections
     expect(
@@ -112,7 +117,7 @@ describe("Render dashboard page", () => {
   });
 
   it("Correctly displays page for community admins", () => {
-    renderComponent("community_admin");
+    renderComponent("community_admin", true);
 
     // card sections
     expect(
@@ -193,7 +198,7 @@ describe("Render dashboard page", () => {
   });
 
   it("Correctly displays page for process operators", () => {
-    renderComponent("process_operator");
+    renderComponent("process_operator", true);
 
     // card sections
     expect(
@@ -274,7 +279,7 @@ describe("Render dashboard page", () => {
   });
 
   it("Correctly displays page for community recruiters", () => {
-    renderComponent("community_recruiter");
+    renderComponent("community_recruiter", true);
 
     // card sections
     expect(
