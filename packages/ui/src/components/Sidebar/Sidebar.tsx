@@ -15,11 +15,11 @@ const Sidebar = ({ children, scrollbar, ...rest }: SidebarProps) => (
       <div
         data-h2-position="base(sticky)"
         data-h2-overflow="base(auto)"
-        data-h2-padding-right="l-tablet(x.5)"
         {...(scrollbar
           ? {
               "data-h2-location": "base(0, auto, auto, auto)",
               "data-h2-height": "l-tablet(100vh)",
+              "data-h2-padding-right": "l-tablet(x.5)",
             }
           : {
               "data-h2-location": "base(x5, auto, auto, auto)",
