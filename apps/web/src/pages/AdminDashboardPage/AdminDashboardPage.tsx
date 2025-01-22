@@ -15,13 +15,7 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole, RoleName } from "@gc-digital-talent/auth";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { Role, User, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
@@ -52,17 +46,6 @@ interface RoleChipsProps {
   roles: Role[];
   intl: IntlShape;
 }
-
-// short-circuit hasRole if no roles were required so an empty array
-const hasRolesHandleNoRolesRequired = (
-  checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
-): boolean => {
-  if (Array.isArray(checkRole) && checkRole.length === 0) {
-    return true;
-  }
-  return hasRole(checkRole, userRoles);
-};
 
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   const uniqueRoles = uniqBy(roles, "name");
@@ -111,7 +94,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     (a, b) => {
@@ -135,7 +118,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
     const aName = a.label;
@@ -192,7 +175,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    (item) => hasRole(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     (a, b) => {

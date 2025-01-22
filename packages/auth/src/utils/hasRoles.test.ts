@@ -74,7 +74,7 @@ describe("hasRole tests", () => {
     expect(f(testRole, unpackMaybes(testUserRoles))).toBeFalsy();
   });
 
-  test("empty array of checkrole always returns true", () => {
+  test("empty array of roles to check always returns true", () => {
     const testRole: RoleName[] = [];
     const testUserRoles = undefined;
 

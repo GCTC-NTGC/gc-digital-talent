@@ -5,14 +5,13 @@ import { useQuery } from "urql";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { checkRole } from "~/utils/communityUtils";
 import permissionConstants from "~/constants/permissionConstants";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
@@ -67,7 +66,7 @@ const CommunityLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdmin = checkRole(
+  const canAdmin = hasRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
     roleAssignmentsFiltered,
     communityId,

@@ -3,9 +3,7 @@ import { useMemo } from "react";
 
 import { Role, graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-
-import { checkRole } from "~/utils/communityUtils";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 const CommunityMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
   query AvailableCommunityRoles {
@@ -35,7 +33,7 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const communityRoles = useMemo(() => {
     const array = ["community_recruiter", "community_manager"];
-    if (checkRole([ROLE_NAME.PlatformAdmin], roleAssignments)) {
+    if (hasRole([ROLE_NAME.PlatformAdmin], roleAssignments)) {
       array.push("community_admin");
     }
     return array;
