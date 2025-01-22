@@ -3,11 +3,10 @@ import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMag
 
 import { CardSeparator, Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
-import { Maybe } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 export interface SubformValues {
-  consent: Maybe<string>;
+  consent: boolean | null | undefined;
 }
 
 interface ReviewAndSubmitProps {

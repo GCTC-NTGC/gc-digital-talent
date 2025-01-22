@@ -3,16 +3,16 @@ import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import { useFormContext } from "react-hook-form";
 
 import { CardSeparator, Chip, Chips, Heading } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   DevelopmentProgramParticipationStatus,
   FragmentType,
   getFragment,
   graphql,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { RadioGroup } from "@gc-digital-talent/forms";
+import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
@@ -43,12 +43,14 @@ export const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
 );
 
 export interface SubformValues {
-  developmentProgramsInterests: Maybe<
-    {
-      developmentProgramId: Maybe<string>;
-      programParticipation: Maybe<string>;
-    }[]
-  >;
+  interestInDevelopmentPrograms:
+    | {
+        developmentProgramId: string | null | undefined;
+        participationStatus: string | null | undefined;
+        completionDate: string | null | undefined;
+      }[]
+    | null
+    | undefined;
 }
 
 interface TrainingAndDevelopmentOpportunitiesProps {
@@ -69,11 +71,14 @@ const TrainingAndDevelopmentOpportunities = ({
   );
 
   const { watch, register } = useFormContext<FormValues>();
-  const selectedFunctionalCommunity = watch("functionalCommunity");
+  const [selectedCommunityId, selectedInterestInDevelopmentPrograms] = watch([
+    "communityId",
+    "interestInDevelopmentPrograms",
+  ]);
 
   const developmentPrograms =
     optionsData.communities.find(
-      (community) => community?.id === selectedFunctionalCommunity,
+      (community) => community?.id === selectedCommunityId,
     )?.developmentPrograms ?? [];
 
   // sort programs
@@ -189,68 +194,82 @@ const TrainingAndDevelopmentOpportunities = ({
                 </div>
               ) : null}
               {/* radio group */}
-              <div>
-                <input
-                  type="hidden"
-                  {...register(
-                    `developmentProgramsInterests.${index}.developmentProgramId`,
-                  )}
-                  value={developmentProgram.id}
-                />
-                <RadioGroup
-                  idPrefix={`developmentProgramsInterests.${index}.programParticipation`}
-                  name={`developmentProgramsInterests.${index}.programParticipation`}
+
+              <input
+                type="hidden"
+                {...register(
+                  `interestInDevelopmentPrograms.${index}.developmentProgramId`,
+                )}
+                value={developmentProgram.id}
+              />
+              <RadioGroup
+                idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
+                name={`interestInDevelopmentPrograms.${index}.participationStatus`}
+                legend={intl.formatMessage({
+                  defaultMessage: "Program participation",
+                  id: "LQ0a0a",
+                  description:
+                    "Legend for the radio group of program participation",
+                })}
+                items={[
+                  {
+                    value: DevelopmentProgramParticipationStatus.NotInterested,
+                    label: intl.formatMessage({
+                      defaultMessage: "I’m not interested right now.",
+                      id: "CU/Mk6",
+                      description:
+                        "Option for the 'not intersted' choice of program participation",
+                    }),
+                  },
+                  {
+                    value: DevelopmentProgramParticipationStatus.Interested,
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "I’m interested in participating in this program.",
+                      id: "K1DbQ9",
+                      description:
+                        "Option for the 'intersted' choice of program participation",
+                    }),
+                  },
+                  {
+                    value: DevelopmentProgramParticipationStatus.Completed,
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "I’ve successfully completed this program.",
+                      id: "tGTM5i",
+                      description:
+                        "Option for the 'completed' choice of program participation",
+                    }),
+                  },
+                  {
+                    value: DevelopmentProgramParticipationStatus.Enrolled,
+                    label: intl.formatMessage({
+                      defaultMessage: "I’m currently enrolled in this program.",
+                      id: "oYEBcP",
+                      description:
+                        "Option for the 'enrolled' choice of program participation",
+                    }),
+                  },
+                ]}
+                disabled={formDisabled}
+              />
+              {selectedInterestInDevelopmentPrograms?.[index]
+                ?.participationStatus ===
+              DevelopmentProgramParticipationStatus.Completed ? (
+                <DateInput
+                  id={`interestInDevelopmentPrograms.${index}.completionDate`}
+                  name={`interestInDevelopmentPrograms.${index}.completionDate`}
                   legend={intl.formatMessage({
-                    defaultMessage: "Program participation",
-                    id: "LQ0a0a",
-                    description:
-                      "Legend for the radio group of program participation",
+                    defaultMessage: "Program completion date",
+                    id: "JGhMIC",
+                    description: "Legend for the program completion date input",
                   })}
-                  items={[
-                    {
-                      value:
-                        DevelopmentProgramParticipationStatus.NotInterested,
-                      label: intl.formatMessage({
-                        defaultMessage: "I’m not interested right now.",
-                        id: "CU/Mk6",
-                        description:
-                          "Option for the 'not intersted' choice of program participation",
-                      }),
-                    },
-                    {
-                      value: DevelopmentProgramParticipationStatus.Interested,
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m interested in participating in this program.",
-                        id: "K1DbQ9",
-                        description:
-                          "Option for the 'intersted' choice of program participation",
-                      }),
-                    },
-                    {
-                      value: DevelopmentProgramParticipationStatus.Completed,
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’ve successfully completed this program.",
-                        id: "tGTM5i",
-                        description:
-                          "Option for the 'completed' choice of program participation",
-                      }),
-                    },
-                    {
-                      value: DevelopmentProgramParticipationStatus.Enrolled,
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m currently enrolled in this program.",
-                        id: "oYEBcP",
-                        description:
-                          "Option for the 'enrolled' choice of program participation",
-                      }),
-                    },
-                  ]}
-                  disabled={formDisabled}
+                  show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
-              </div>
+              ) : null}
             </div>
           </div>
         ))}

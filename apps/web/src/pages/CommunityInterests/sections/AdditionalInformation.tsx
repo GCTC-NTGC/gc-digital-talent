@@ -3,7 +3,6 @@ import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDoc
 
 import { Heading } from "@gc-digital-talent/ui";
 import { RichTextInput } from "@gc-digital-talent/forms";
-import { Maybe } from "@gc-digital-talent/graphql";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
@@ -14,16 +13,14 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 );
 
 export interface SubformValues {
-  additionalInformation: Maybe<string>;
+  additionalInformation: string | null | undefined;
 }
 
-interface AdditionalInformationProps {
-  formDisabled: boolean;
-}
+// interface AdditionalInformationProps {
+// formDisabled: boolean; // RichTextInput can't be disabled: #12531
+// }
 
-const AdditionalInformation = ({
-  formDisabled,
-}: AdditionalInformationProps) => {
+const AdditionalInformation = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

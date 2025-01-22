@@ -11,12 +11,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Maybe,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
 
@@ -38,10 +33,10 @@ export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 export interface SubformValues {
-  functionalCommunity: Maybe<string>;
-  interestInJobOpportunities: Maybe<string>;
-  interestInTrainingOpportunities: Maybe<string>;
-  workStreamPreferences: Maybe<string[]>;
+  communityId: string | null | undefined;
+  jobInterest: string | null | undefined;
+  trainingInterest: string | null | undefined;
+  interestInWorkStreamIds: string[] | null | undefined;
 }
 
 interface FindANewCommunityProps {
@@ -60,7 +55,7 @@ const FindANewCommunity = ({
   );
 
   const { watch } = useFormContext<FormValues>();
-  const [selectedFunctionalCommunity] = watch(["functionalCommunity"]);
+  const [selectedCommunityId] = watch(["communityId"]);
 
   const communityOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(optionsData.communities).map((community) => ({
@@ -71,7 +66,7 @@ const FindANewCommunity = ({
     }));
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
     optionsData.communities
-      .find((community) => community?.id === selectedFunctionalCommunity)
+      .find((community) => community?.id === selectedCommunityId)
       ?.workStreams?.map((workstream) => ({
         value: workstream.id,
         label:
@@ -123,8 +118,8 @@ const FindANewCommunity = ({
         data-h2-gap="base(x1.25)"
       >
         <Select
-          id="functionalCommunity"
-          name="functionalCommunity"
+          id="communityId"
+          name="communityId"
           label={intl.formatMessage({
             defaultMessage: "Functional community",
             id: "ElnCxi",
@@ -138,12 +133,12 @@ const FindANewCommunity = ({
             required: intl.formatMessage(errorMessages.required),
           }}
         />
-        {selectedFunctionalCommunity ? (
+        {selectedCommunityId ? (
           // community selected
           <>
             <RadioGroup
-              idPrefix="interestInJobOpportunities"
-              name="interestInJobOpportunities"
+              idPrefix="jobInterest"
+              name="jobInterest"
               legend={intl.formatMessage({
                 defaultMessage: "Interest in job opportunities",
                 id: "9IhPwx",
@@ -185,8 +180,8 @@ const FindANewCommunity = ({
               disabled={formDisabled}
             />
             <RadioGroup
-              idPrefix="interestInTrainingOpportunities"
-              name="interestInTrainingOpportunities"
+              idPrefix="trainingInterest"
+              name="trainingInterest"
               legend={intl.formatMessage({
                 defaultMessage: "Interest in training opportunities",
                 id: "H1UEd5",
@@ -244,8 +239,8 @@ const FindANewCommunity = ({
                   })}
                 </span>
                 <Checklist
-                  idPrefix="workStreamPreferences"
-                  name="workStreamPreferences"
+                  idPrefix="interestInWorkStreamIds"
+                  name="interestInWorkStreamIds"
                   legend={intl.formatMessage({
                     defaultMessage:
                       "Preferred work streams for job opportunities",

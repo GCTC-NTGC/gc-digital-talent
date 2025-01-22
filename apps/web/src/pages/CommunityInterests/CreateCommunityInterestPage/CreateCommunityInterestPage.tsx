@@ -1,12 +1,22 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
-import { useFormContext } from "react-hook-form";
+import { useMutation, useQuery } from "urql";
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { navigationMessages } from "@gc-digital-talent/i18n";
-import { BasicForm } from "@gc-digital-talent/forms";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  CreateCommunityInterestInput,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -27,6 +37,7 @@ import AdditionalInformation, {
 import ReviewAndSubmit, {
   SubformValues as ReviewAndSubmitSubformValues,
 } from "../sections/ReviewAndSubmit";
+import { formValuesToApiInput } from "./form";
 
 const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterest_Fragment on Query {
@@ -39,16 +50,22 @@ export interface FormValues
   extends FindANewCommunitySubformValues,
     TrainingAndDevelopmentOpportunitiesSubformValues,
     AdditionalInformationSubformValues,
-    ReviewAndSubmitSubformValues {}
-
-interface CreateCommunityInterestProps {
-  query: FragmentType<typeof CreateCommunityInterest_Fragment>;
+    ReviewAndSubmitSubformValues {
+  userId: string | null | undefined;
 }
 
-const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
+interface CreateCommunityInterestFormProps {
+  query: FragmentType<typeof CreateCommunityInterest_Fragment>;
+  formDisabled: boolean;
+}
+
+const CreateCommunityInterestForm = ({
+  query,
+  formDisabled,
+}: CreateCommunityInterestFormProps) => {
   const data = getFragment(CreateCommunityInterest_Fragment, query);
   const { watch } = useFormContext<FormValues>();
-  const selectedFunctionalCommunity = watch("functionalCommunity");
+  const selectedCommunityId = watch("communityId");
 
   return (
     <CardBasic
@@ -61,22 +78,16 @@ const CreateCommunityInterest = ({ query }: CreateCommunityInterestProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x2)"
       >
-        <FindANewCommunity
-          optionsQuery={data}
-          formDisabled={false} /* TODO: should be dynamic from urql */
-        />
-        {selectedFunctionalCommunity && (
+        <FindANewCommunity optionsQuery={data} formDisabled={formDisabled} />
+        {/* other sections hidden until a community is selected */}
+        {selectedCommunityId && (
           <>
             <TrainingAndDevelopmentOpportunities
               optionsQuery={data}
-              formDisabled={false} /* TODO: should be dynamic from urql */
+              formDisabled={formDisabled}
             />
-            <AdditionalInformation
-              formDisabled={false} /* TODO: should be dynamic from urql */
-            />
-            <ReviewAndSubmit
-              formDisabled={false} /* TODO: should be dynamic from urql */
-            />
+            <AdditionalInformation />
+            <ReviewAndSubmit formDisabled={formDisabled} />
           </>
         )}
       </div>
@@ -90,13 +101,28 @@ const CreateCommunityInterestPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const CreateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
+  mutation CreateCommunityInterest(
+    $communityInterest: CreateCommunityInterestInput!
+  ) {
+    createCommunityInterest(communityInterest: $communityInterest) {
+      id
+    }
+  }
+`);
+
 export const CreateCommunityInterestPage = () => {
-  const [{ data, fetching, error }] = useQuery({
-    query: CreateCommunityInterestPage_Query,
-  });
+  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+    useQuery({
+      query: CreateCommunityInterestPage_Query,
+    });
+  const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
+    CreateCommunityInterestPage_Mutation,
+  );
   const intl = useIntl();
   const routes = useRoutes();
-
+  const { userAuthInfo } = useAuthorization();
+  const formMethods = useForm<FormValues>();
   const formattedPageTitle = intl.formatMessage(messages.pageTitle);
   const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
 
@@ -114,8 +140,49 @@ export const CreateCommunityInterestPage = () => {
     ],
   });
 
+  const submitForm: SubmitHandler<FormValues> = async (
+    formValues: FormValues,
+  ) => {
+    const mutationInput: CreateCommunityInterestInput =
+      formValuesToApiInput(formValues);
+    const mutationPromise = executeCreateMutation({
+      communityInterest: mutationInput,
+    }).then((response) => {
+      // confirmed error
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+      // confirmed success
+      if (response.data?.createCommunityInterest?.id) {
+        return; //success
+      }
+      // unexpected outcome
+      throw new Error(intl.formatMessage(errorMessages.error));
+    });
+
+    return mutationPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Community interest created successfully",
+            id: "oDnMMb",
+            description: "Toast for successful community interest creation",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Failed to create community interest",
+            id: "e+6lnP",
+            description: "Toast for error during community interest creation",
+          }),
+        );
+      });
+  };
+
   return (
-    <Pending fetching={fetching} error={error}>
+    <Pending fetching={queryFetching} error={queryError}>
       <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
@@ -125,10 +192,20 @@ export const CreateCommunityInterestPage = () => {
         overlap
       >
         <div data-h2-margin-bottom="base(x3)">
-          {!!data && (
-            <BasicForm onSubmit={() => console.log("submitted")}>
-              <CreateCommunityInterest query={data} />
-            </BasicForm>
+          {!!queryData && (
+            <FormProvider {...formMethods}>
+              <form onSubmit={formMethods.handleSubmit(submitForm)}>
+                <input
+                  type="hidden"
+                  {...formMethods.register(`userId`)}
+                  value={userAuthInfo?.id}
+                />
+                <CreateCommunityInterestForm
+                  query={queryData}
+                  formDisabled={queryFetching || mutationFetching}
+                />
+              </form>
+            </FormProvider>
           )}
         </div>
       </Hero>
