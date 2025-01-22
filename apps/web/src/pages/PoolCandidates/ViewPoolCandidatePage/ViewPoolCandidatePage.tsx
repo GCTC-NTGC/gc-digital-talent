@@ -227,7 +227,7 @@ export const ViewPoolCandidate = ({
       />
       <AdminContentWrapper table>
         <Sidebar.Wrapper>
-          <Sidebar.Sidebar>
+          <Sidebar.Sidebar scrollbar>
             <Heading size="h3" data-h2-margin-top="base(0)">
               {intl.formatMessage({
                 defaultMessage: "More actions",
