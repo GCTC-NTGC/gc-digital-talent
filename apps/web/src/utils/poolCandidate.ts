@@ -433,6 +433,20 @@ export const getApplicationStatusChip = (
     };
   }
 
+  // Fully assessed but final decision not yet made
+  if (
+    assessmentStatus?.overallAssessmentStatus ===
+    OverallAssessmentStatus.Qualified
+  ) {
+    return {
+      color: "secondary",
+      label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.UNDER_ASSESSMENT,
+      ),
+    };
+  }
+
   // Partially assessed applications
   const currentStep = assessmentStatus?.currentStep
     ? assessmentStatus?.currentStep
