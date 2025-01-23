@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-export const DOTS = "...";
+export const DOTS = "…";
 
 const range = (start: number, end: number): number[] => {
   const length = end - start + 1;
