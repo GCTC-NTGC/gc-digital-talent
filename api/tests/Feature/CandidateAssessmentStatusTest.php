@@ -922,4 +922,63 @@ class CandidateAssessmentStatusTest extends TestCase
                 ],
             ]);
     }
+
+    /**
+     * This regression test ensures that if all skills are assessed as Successful,
+     * except for a single skill in the final step which is Unsuccessful,
+     * then the overall status is Disqualified.
+     */
+    public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
+    {
+        $steps = $this->pool->assessmentSteps;
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[1]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, $this->queryVars)
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $steps[0]->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                                [
+                                    'step' => $steps[1]->id,
+                                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                                ],
+                            ],
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
+                            'currentStep' => 2,
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }

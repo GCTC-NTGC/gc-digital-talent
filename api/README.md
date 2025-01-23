@@ -83,7 +83,7 @@ Define new models in the App\Models folder.
 
 - It is helpful to list the columns in class docstring.
 - It is not necessary to define the [fillable array](https://laravel.com/docs/8.x/eloquent#mass-assignment).
-- It _is_ necessary to define the [casts array](https://laravel.com/docs/8.x/eloquent-mutators#attribute-casting) for certain fields. Any json columns in the database must be cast to 'array' (such as LocalizedStrings or arrays of enums), and any dates or datetimes must be cast (besides updated_at and create_at, which Laravel casts by default).
+- It _is_ necessary to define the [casts array](https://laravel.com/docs/8.x/eloquent-mutators#attribute-casting) for certain fields. Any json columns in the database must be cast to 'array' (such as LocalizedStrings or arrays of enums), and any dates or datetimes must be cast (besides `updated_at` and `created_at`, which Laravel casts by default).
 - Remember to define any [relationships](https://laravel.com/docs/8.x/eloquent-relationships) on the new class, and on existing classes it relates to.
 - Remember to define [return types](https://lighthouse-php.com/6/eloquent/nested-mutations.html#return-types-required) on your relationship methods so that Lighthouse can detect them.
 

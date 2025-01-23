@@ -941,6 +941,11 @@ class PoolCandidate extends Model
      *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
      *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
      *       no decision for steps that are TO ASSESS but have no results so we can tell when they've been started
+     *
+     *   overallAssessmentStatus is then:
+     *      if any step is UNSUCCESSFUL, then DISQUALIFIED
+     *      else if all steps are fully assessed, and final step is not HOLD, then QUALIFIED
+     *      else TO ASSESS
      */
     public function computeAssessmentStatus()
     {
@@ -1105,24 +1110,22 @@ class PoolCandidate extends Model
         $totalSteps = $this->pool->assessmentSteps->count();
         $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
-        if ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
+        $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
+            return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+        });
+        if (! empty($unsuccessfulDecisions)) {
+            $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
+        } elseif ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
-        } else {
-            $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
-                return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
-            });
-            if (! empty($unsuccessfulDecisions)) {
-                $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
-            }
         }
 
         // While unlikely, current step could go over.
         // So, set it back to total steps
-        if ($currentStep > $totalSteps) {
+        if ($currentStep && $currentStep > $totalSteps) {
             $currentStep = $totalSteps;
         }
 

@@ -59,7 +59,7 @@ interface FormValues {
   workStyle?: string;
 }
 
-export interface GoalsWorkStyleSectionProps {
+interface GoalsWorkStyleSectionProps {
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileGoalsWorkStyle_Fragment
   >;
