@@ -26,7 +26,6 @@ import {
   getFragment,
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import SEO from "~/components/SEO/SEO";
@@ -36,6 +35,7 @@ import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { ContextType } from "../CommunityMembersPage/components/types";
 
@@ -363,7 +363,7 @@ export const UpdateCommunity = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <UpdateCommunity />
   </RequireAuth>
 );

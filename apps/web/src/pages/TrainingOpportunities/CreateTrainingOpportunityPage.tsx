@@ -4,7 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useMutation, useQuery } from "urql";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   CreateTrainingOpportunityInput,
   FragmentType,
@@ -29,6 +28,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
 import TrainingOpportunityForm, {
@@ -225,7 +225,7 @@ const CreateTrainingOpportunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <CreateTrainingOpportunityPage />
   </RequireAuth>
 );

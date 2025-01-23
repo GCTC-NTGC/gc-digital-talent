@@ -19,7 +19,6 @@ import {
   Scalars,
   ViewTrainingOpportunityPageQuery,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
@@ -31,6 +30,7 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import formLabels from "./formLabels";
 import { TrainingOpportunityForm_Fragment } from "./apiUtils";
@@ -273,7 +273,7 @@ const ViewTrainingOpportunityPageApiWrapper = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <ViewTrainingOpportunityPageApiWrapper />
   </RequireAuth>
 );

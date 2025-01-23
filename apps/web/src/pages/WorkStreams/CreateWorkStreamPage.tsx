@@ -20,7 +20,6 @@ import {
   LocalizedStringInput,
   InputMaybe,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Heading,
   Link,
@@ -37,6 +36,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
   mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
@@ -329,7 +329,7 @@ const CreateWorkStreamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <CreateWorkStreamPage />
   </RequireAuth>
 );

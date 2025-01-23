@@ -34,7 +34,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -46,6 +45,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import permissionConstants from "~/constants/permissionConstants";
 
 const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
   mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
@@ -369,7 +369,7 @@ const UpdateWorkStreamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants().managePlatformData}>
     <UpdateWorkStreamPage />
   </RequireAuth>
 );

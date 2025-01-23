@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -11,6 +10,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import permissionConstants from "~/constants/permissionConstants";
 
 export interface DashboardPageProps {
   currentUser?: User | null;
@@ -70,7 +70,7 @@ export const ApplicantDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants().isApplicant}>
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );
