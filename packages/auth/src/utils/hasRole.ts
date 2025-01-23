@@ -1,7 +1,4 @@
-import {
-  AuthorizationQueryQuery as AuthorizationQueryType,
-  AuthorizationTeamableQueryQuery as AuthorizationTeamableQueryType,
-} from "@gc-digital-talent/graphql";
+import { AuthorizationQueryQuery as AuthorizationQueryType } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 
@@ -10,34 +7,19 @@ type AuthorizationRoleAssignment = NonNullable<
     NonNullable<AuthorizationQueryType["myAuth"]>["roleAssignments"]
   >[number]
 >;
-type AuthorizationRoleAssignmentWithTeamable = NonNullable<
-  NonNullable<
-    NonNullable<AuthorizationTeamableQueryType["myAuth"]>["roleAssignments"]
-  >[number]
->;
-
-const isAuthorizationRoleAssignmentWithTeamable = (
-  roleAssignment:
-    | AuthorizationRoleAssignment
-    | AuthorizationRoleAssignmentWithTeamable,
-): roleAssignment is AuthorizationRoleAssignmentWithTeamable =>
-  !!(roleAssignment as AuthorizationRoleAssignmentWithTeamable).teamable;
 
 /**
  * Check to see if user contains one or more roles, can account for team and individual role types
  *
  * @param roles                   Roles to check for
  * @param userRoleAssignments     Users current role assignments
- * @param teamableId             Teamable ID
+ * @param teamIdForRoleAssignment             Team ID
  * @returns boolean
  */
 const hasRole = (
   roles: RoleName[] | null,
-  userRoleAssignments: (
-    | AuthorizationRoleAssignment
-    | AuthorizationRoleAssignmentWithTeamable
-  )[],
-  teamableId?: string,
+  userRoleAssignments: AuthorizationRoleAssignment[],
+  teamIdForRoleAssignment?: string,
 ): boolean => {
   if (!roles || roles.length === 0) {
     return true;
@@ -47,13 +29,15 @@ const hasRole = (
       return false;
     }
     const includes = roles.includes(roleAssignment?.role?.name as RoleName);
-    if (
-      teamableId &&
-      roleAssignment.role?.isTeamBased &&
-      isAuthorizationRoleAssignmentWithTeamable(roleAssignment)
+    if (teamIdForRoleAssignment && roleAssignment.role?.isTeamBased) {
+      return (
+        includes &&
+        teamIdForRoleAssignment === roleAssignment.team?.teamIdForRoleAssignment
+      );
+    } else if (
+      roleAssignment.role?.isTeamBased === false ||
+      !teamIdForRoleAssignment
     ) {
-      return includes && teamableId === roleAssignment.teamable?.id;
-    } else if (roleAssignment.role?.isTeamBased === false || !teamableId) {
       return includes;
     }
     return false;

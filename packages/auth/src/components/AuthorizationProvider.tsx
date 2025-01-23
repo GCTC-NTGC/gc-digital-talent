@@ -26,34 +26,7 @@ const authorizationQuery = graphql(/** GraphQL */ `
         team {
           id
           name
-        }
-      }
-    }
-  }
-`);
-
-const authorizationTeamableQuery = graphql(/** GraphQL */ `
-  query authorizationTeamableQuery {
-    myAuth {
-      id
-      deletedDate
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        team {
-          id
-          name
-        }
-        teamable {
-          id
+          teamIdForRoleAssignment
         }
       }
     }
@@ -65,18 +38,8 @@ interface AuthorizationProviderProps {
 }
 
 const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
-  // query teamable objects conditionally
-  const privilegedPaths = ["/admin", "/en/admin", "/fr/admin"];
-  const isPrivilegedLocation = privilegedPaths.some(
-    (path) =>
-      window.location.pathname === path ||
-      window.location.pathname.startsWith(`${path}/`),
-  );
-
   const [{ data, fetching, stale }] = useQuery({
-    query: isPrivilegedLocation
-      ? authorizationTeamableQuery
-      : authorizationQuery,
+    query: authorizationQuery,
   });
   const isLoaded = !fetching && !stale;
 
