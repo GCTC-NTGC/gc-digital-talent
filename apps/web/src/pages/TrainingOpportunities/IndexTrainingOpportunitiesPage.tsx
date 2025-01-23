@@ -40,7 +40,7 @@ export const IndexTrainingOpportunitiesPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <IndexTrainingOpportunitiesPage />
   </RequireAuth>
 );

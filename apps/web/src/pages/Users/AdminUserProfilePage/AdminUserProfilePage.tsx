@@ -543,7 +543,7 @@ const AdminUserProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewUserProfile}>
+  <RequireAuth roles={permissionConstants.viewUserProfile}>
     <AdminUserProfilePage />
   </RequireAuth>
 );

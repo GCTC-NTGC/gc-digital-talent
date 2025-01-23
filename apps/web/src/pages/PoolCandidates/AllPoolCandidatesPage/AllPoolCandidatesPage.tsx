@@ -53,7 +53,7 @@ export const AllPoolCandidatesPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCandidates}>
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <AllPoolCandidatesPage />
   </RequireAuth>
 );

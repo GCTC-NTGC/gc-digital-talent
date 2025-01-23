@@ -38,7 +38,7 @@ export const IndexWorkStreamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <IndexWorkStreamPage />
   </RequireAuth>
 );

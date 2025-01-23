@@ -138,21 +138,21 @@ export const ViewPool = ({
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
   const canPublish = hasRole(
-    permissionConstants().publishProcess,
+    permissionConstants.publishProcess,
     unpackedRoleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
   const canDuplicate = hasRole(
-    permissionConstants().createProcess,
+    permissionConstants.createProcess,
     unpackedRoleAssignments,
   );
   const canArchive = hasRole(
-    permissionConstants().archiveProcess,
+    permissionConstants.archiveProcess,
     unpackedRoleAssignments,
   );
   const canDelete = hasRole(
-    permissionConstants().deleteProcess,
+    permissionConstants.deleteProcess,
     unpackedRoleAssignments,
   );
 
@@ -582,7 +582,7 @@ const ViewPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewProcesses}>
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <ViewPoolPage />
   </RequireAuth>
 );

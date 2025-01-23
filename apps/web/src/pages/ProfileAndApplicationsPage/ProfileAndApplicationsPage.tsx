@@ -88,7 +88,7 @@ const ProfileAndApplicationsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ProfileAndApplicationsPage />
   </RequireAuth>
 );

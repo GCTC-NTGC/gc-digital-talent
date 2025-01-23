@@ -222,7 +222,7 @@ const ViewWorkStreamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <ViewWorkStreamPage />
   </RequireAuth>
 );

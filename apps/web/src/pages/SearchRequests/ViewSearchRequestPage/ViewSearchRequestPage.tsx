@@ -17,7 +17,7 @@ export const SingleSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewRequests}>
+  <RequireAuth roles={permissionConstants.viewRequests}>
     <SingleSearchRequestPage />
   </RequireAuth>
 );

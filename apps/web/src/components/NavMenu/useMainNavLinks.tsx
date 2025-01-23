@@ -79,10 +79,7 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ViewUsers = hasRole(
-    permissionConstants().viewUsers,
-    roleAssignments,
-  ) ? (
+  const ViewUsers = hasRole(permissionConstants.viewUsers, roleAssignments) ? (
     <NavItem
       key="viewUsers"
       href={paths.userTable()}
@@ -132,7 +129,7 @@ const useMainNavLinks = () => {
   );
 
   const Processes = hasRole(
-    permissionConstants().viewProcesses,
+    permissionConstants.viewProcesses,
     roleAssignments,
   ) ? (
     <NavItem
@@ -143,7 +140,7 @@ const useMainNavLinks = () => {
   ) : null;
 
   const Requests = hasRole(
-    permissionConstants().viewRequests,
+    permissionConstants.viewRequests,
     roleAssignments,
   ) ? (
     <NavItem
@@ -154,7 +151,7 @@ const useMainNavLinks = () => {
   ) : null;
 
   const Candidates = hasRole(
-    permissionConstants().viewCandidates,
+    permissionConstants.viewCandidates,
     roleAssignments,
   ) ? (
     <NavItem

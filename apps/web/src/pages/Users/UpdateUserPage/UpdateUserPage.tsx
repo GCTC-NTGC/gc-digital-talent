@@ -477,7 +477,7 @@ const UpdateUserPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateUserPage />
   </RequireAuth>
 );

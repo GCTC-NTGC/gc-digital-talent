@@ -534,7 +534,7 @@ const ManagerRequestHistoryPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewOwnRequests}>
+  <RequireAuth roles={permissionConstants.viewOwnRequests}>
     <ManagerRequestHistoryPage />
   </RequireAuth>
 );

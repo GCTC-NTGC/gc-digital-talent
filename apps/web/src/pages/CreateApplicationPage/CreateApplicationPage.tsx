@@ -217,7 +217,7 @@ const CreateApplication = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <CreateApplication />
   </RequireAuth>
 );

@@ -50,7 +50,7 @@ export const IndexUserPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewUsers}>
+  <RequireAuth roles={permissionConstants.viewUsers}>
     <IndexUserPage />
   </RequireAuth>
 );

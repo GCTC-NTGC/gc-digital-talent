@@ -885,7 +885,7 @@ export const EditPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().editProcess}>
+  <RequireAuth roles={permissionConstants.editProcess}>
     <EditPoolPage />
   </RequireAuth>
 );

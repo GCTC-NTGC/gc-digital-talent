@@ -413,7 +413,7 @@ const UpdateSkillFamilyPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateSkillFamilyPage />
   </RequireAuth>
 );

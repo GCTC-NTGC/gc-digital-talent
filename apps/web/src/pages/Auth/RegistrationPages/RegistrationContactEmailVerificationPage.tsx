@@ -69,7 +69,7 @@ const RegistrationContactEmailVerificationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <RegistrationContactEmailVerificationPage />
   </RequireAuth>
 );

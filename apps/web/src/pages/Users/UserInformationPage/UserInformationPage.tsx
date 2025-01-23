@@ -592,7 +592,7 @@ const UserInformationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewUsers}>
+  <RequireAuth roles={permissionConstants.viewUsers}>
     <UserInformationPage />
   </RequireAuth>
 );

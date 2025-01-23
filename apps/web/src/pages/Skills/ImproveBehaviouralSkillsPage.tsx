@@ -228,7 +228,7 @@ const ImproveBehaviouralSkillsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ImproveBehaviouralSkillsPage />
   </RequireAuth>
 );

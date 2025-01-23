@@ -48,7 +48,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const canAddRemoveRoles = hasRole(
-    permissionConstants().manageProcessAccess,
+    permissionConstants.manageProcessAccess,
     roleAssignments,
   );
 
@@ -181,7 +181,7 @@ const ManageAccessPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewProcesses}>
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <ManageAccessPoolPage />
   </RequireAuth>
 );

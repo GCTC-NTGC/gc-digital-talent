@@ -435,7 +435,7 @@ const ManagerDashboardPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewManagerDashboard}>
+  <RequireAuth roles={permissionConstants.viewManagerDashboard}>
     <ManagerDashboardPage />
   </RequireAuth>
 );

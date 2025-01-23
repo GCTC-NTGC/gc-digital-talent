@@ -252,7 +252,7 @@ export const AssessmentPlanBuilderPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewProcesses}>
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <AssessmentPlanBuilderPage />
   </RequireAuth>
 );

@@ -369,7 +369,7 @@ const UpdateWorkStreamPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateWorkStreamPage />
   </RequireAuth>
 );

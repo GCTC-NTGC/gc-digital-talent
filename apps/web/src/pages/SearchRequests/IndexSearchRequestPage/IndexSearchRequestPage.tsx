@@ -37,7 +37,7 @@ export const IndexSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewRequests}>
+  <RequireAuth roles={permissionConstants.viewRequests}>
     <IndexSearchRequestPage />
   </RequireAuth>
 );

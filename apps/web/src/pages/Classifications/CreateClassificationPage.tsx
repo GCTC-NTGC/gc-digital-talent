@@ -261,7 +261,7 @@ export const CreateClassification = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <CreateClassification />
   </RequireAuth>
 );

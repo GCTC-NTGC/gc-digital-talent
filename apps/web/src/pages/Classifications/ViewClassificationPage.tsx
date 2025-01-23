@@ -222,7 +222,7 @@ const ViewClassificationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <ViewClassificationPage />
   </RequireAuth>
 );

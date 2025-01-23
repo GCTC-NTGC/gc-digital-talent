@@ -81,17 +81,17 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(navigationMessages.candidates),
       href: adminRoutes.poolCandidates(),
-      roles: permissionConstants().viewCandidates,
+      roles: permissionConstants.viewCandidates,
     },
     {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
-      roles: permissionConstants().viewProcesses,
+      roles: permissionConstants.viewProcesses,
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
       href: adminRoutes.searchRequestTable(),
-      roles: permissionConstants().viewRequests,
+      roles: permissionConstants.viewRequests,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
@@ -132,47 +132,47 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(pageTitles.announcements),
       href: adminRoutes.announcements(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.classifications),
       href: adminRoutes.classificationTable(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.departments),
       href: adminRoutes.departmentTable(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(navigationMessages.skills),
       href: adminRoutes.skillTable(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.skillFamilies),
       href: adminRoutes.skillFamilyTable(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(pageTitles.trainingOpportunities),
       href: adminRoutes.trainingOpportunitiesIndex(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
-      roles: permissionConstants().viewUsers,
+      roles: permissionConstants.viewUsers,
     },
     {
       label: intl.formatMessage(pageTitles.communities),
       href: adminRoutes.communityTable(),
-      roles: permissionConstants().viewCommunities,
+      roles: permissionConstants.viewCommunities,
     },
     {
       label: intl.formatMessage(pageTitles.workStreams),
       href: adminRoutes.workStreamTable(),
-      roles: permissionConstants().managePlatformData,
+      roles: permissionConstants.managePlatformData,
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
@@ -349,7 +349,7 @@ export const AdminDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewAdminDashboard}>
+  <RequireAuth roles={permissionConstants.viewAdminDashboard}>
     <AdminDashboardPageApi />
   </RequireAuth>
 );

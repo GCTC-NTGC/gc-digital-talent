@@ -76,7 +76,7 @@ const RegistrationWorkEmailVerificationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <RegistrationWorkEmailVerificationPage />
   </RequireAuth>
 );

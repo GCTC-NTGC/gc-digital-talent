@@ -223,7 +223,7 @@ const CreateDepartmentPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <CreateDepartmentPage />
   </RequireAuth>
 );

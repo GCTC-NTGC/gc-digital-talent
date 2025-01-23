@@ -147,7 +147,7 @@ const UserLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewUserProfile}>
+  <RequireAuth roles={permissionConstants.viewUserProfile}>
     <UserLayout />
   </RequireAuth>
 );

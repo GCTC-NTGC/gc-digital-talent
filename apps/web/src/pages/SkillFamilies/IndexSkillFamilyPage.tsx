@@ -38,7 +38,7 @@ const IndexSkillFamilyPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <IndexSkillFamilyPage />
   </RequireAuth>
 );

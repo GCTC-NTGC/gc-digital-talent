@@ -38,7 +38,7 @@ export const PoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewProcesses}>
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <PoolPage />
   </RequireAuth>
 );

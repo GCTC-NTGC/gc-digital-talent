@@ -37,7 +37,7 @@ const IndexCommunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCommunities}>
+  <RequireAuth roles={permissionConstants.viewCommunities}>
     <IndexCommunityPage />
   </RequireAuth>
 );

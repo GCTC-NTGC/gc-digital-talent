@@ -179,7 +179,7 @@ const ScreeningAndEvaluationPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().evaluateCandidates}>
+  <RequireAuth roles={permissionConstants.evaluateCandidates}>
     <ScreeningAndEvaluationPage />
   </RequireAuth>
 );

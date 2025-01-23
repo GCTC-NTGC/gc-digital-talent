@@ -1,34 +1,34 @@
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
-const permissionConstants = () => {
-  const viewCandidates: RoleName[] = [
+const permissionConstants: Readonly<Record<string, RoleName[]>> = {
+  viewCandidates: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.PlatformAdmin,
-  ];
-  const evaluateCandidates: RoleName[] = [
+  ],
+  evaluateCandidates: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.PlatformAdmin,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,
-  ];
-  const placeCandidates: RoleName[] = [
+  ],
+  placeCandidates: [
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
-  ];
-  const viewJobTemplates: RoleName[] = [ROLE_NAME.PoolOperator];
-  const createProcess: RoleName[] = [
+  ],
+  viewJobTemplates: [ROLE_NAME.PoolOperator],
+  createProcess: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
-  ];
-  const viewProcesses: RoleName[] = [
+  ],
+  viewProcesses: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityManager,
@@ -36,131 +36,91 @@ const permissionConstants = () => {
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,
-  ];
-  const editProcess: RoleName[] = [
+  ],
+  editProcess: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.PlatformAdmin,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,
-  ];
+  ],
 
-  const publishProcess: RoleName[] = [
-    ROLE_NAME.CommunityManager,
-    ROLE_NAME.CommunityAdmin,
-  ];
-  const archiveProcess: RoleName[] = [
+  publishProcess: [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
+  archiveProcess: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
-  ];
-  const deleteProcess: RoleName[] = [
+  ],
+  deleteProcess: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
-  ];
+  ],
   // manage Process Access means assigning Pool Operator roles to users
-  const manageProcessAccess: RoleName[] = [
-    ROLE_NAME.CommunityRecruiter,
-    ROLE_NAME.CommunityAdmin,
-  ];
+  manageProcessAccess: [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
 
-  const viewRequests: RoleName[] = [
+  viewRequests: [
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
-  ];
-  const viewOwnRequests: RoleName[] = [ROLE_NAME.Manager]; // Only managers have their own requests
-  const viewUsers: RoleName[] = [
+  ],
+  viewOwnRequests: [ROLE_NAME.Manager], // Only managers have their own requests
+  viewUsers: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.PlatformAdmin,
-  ];
-  const viewUserProfile: RoleName[] = [
+  ],
+  viewUserProfile: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.PlatformAdmin,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,
-  ];
-  const viewTeams: RoleName[] = [
+  ],
+  viewTeams: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.PlatformAdmin,
-  ];
-  const editTeam: RoleName[] = [
-    ROLE_NAME.CommunityManager,
-    ROLE_NAME.PlatformAdmin,
-  ];
+  ],
+  editTeam: [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
   // manage Team members means assigning team-based roles within a team.
-  const manageTeamMembers: RoleName[] = [
-    ROLE_NAME.CommunityManager,
-    ROLE_NAME.PlatformAdmin,
-  ];
-  const viewCommunities: RoleName[] = [
+  manageTeamMembers: [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+  viewCommunities: [
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.PlatformAdmin,
-  ];
-  const viewCommunityMembers: RoleName[] = [
+  ],
+  viewCommunityMembers: [
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.PlatformAdmin,
-  ];
-  const managePlatformData: RoleName[] = [ROLE_NAME.PlatformAdmin];
-  const isApplicant: RoleName[] = [ROLE_NAME.Applicant];
-  const viewManagerDashboard: RoleName[] = [ROLE_NAME.Manager];
-  const viewCommunityDashboard: RoleName[] = [
+  ],
+  managePlatformData: [ROLE_NAME.PlatformAdmin],
+  isApplicant: [ROLE_NAME.Applicant],
+  viewManagerDashboard: [ROLE_NAME.Manager],
+  viewCommunityDashboard: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.ProcessOperator,
-  ];
-  const viewAdminDashboard: RoleName[] = [
+  ],
+  viewAdminDashboard: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityManager,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.PlatformAdmin,
-  ];
-
-  return {
-    viewCandidates,
-    evaluateCandidates,
-    placeCandidates,
-    viewJobTemplates,
-    createProcess,
-    viewProcesses,
-    editProcess,
-    publishProcess,
-    archiveProcess,
-    deleteProcess,
-    manageProcessAccess,
-    viewRequests,
-    viewOwnRequests,
-    viewUsers,
-    viewUserProfile,
-    viewTeams,
-    editTeam,
-    manageTeamMembers,
-    viewCommunities,
-    viewCommunityMembers,
-    managePlatformData,
-    isApplicant,
-    viewCommunityDashboard,
-    viewManagerDashboard,
-    viewAdminDashboard,
-  };
+  ],
 };
 
 export default permissionConstants;

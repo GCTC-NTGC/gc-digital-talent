@@ -363,7 +363,7 @@ export const UpdateCommunity = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateCommunity />
   </RequireAuth>
 );

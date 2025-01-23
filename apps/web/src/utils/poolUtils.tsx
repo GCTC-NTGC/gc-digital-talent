@@ -52,7 +52,7 @@ export const isAdvertisementVisible = (
     return true;
   }
   const unpackedRoleAssignments = unpackMaybes(roleAssignments);
-  return hasRole(permissionConstants().viewProcesses, unpackedRoleAssignments);
+  return hasRole(permissionConstants.viewProcesses, unpackedRoleAssignments);
 };
 
 export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {

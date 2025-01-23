@@ -235,7 +235,7 @@ const ViewSkillFamilyPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <ViewSkillFamilyPage />
   </RequireAuth>
 );

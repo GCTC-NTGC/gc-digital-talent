@@ -229,7 +229,7 @@ const CommunityMembersPageApiWrapper = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCommunityMembers}>
+  <RequireAuth roles={permissionConstants.viewCommunityMembers}>
     <CommunityMembersPageApiWrapper />
   </RequireAuth>
 );

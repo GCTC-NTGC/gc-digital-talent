@@ -11,10 +11,7 @@ const useCanUserEditPool = (status?: Maybe<PoolStatus>) => {
   if (status === PoolStatus.Draft) return true;
 
   if (status === PoolStatus.Published) {
-    return hasRole(
-      permissionConstants().publishProcess,
-      unpackedRoleAssignments,
-    );
+    return hasRole(permissionConstants.publishProcess, unpackedRoleAssignments);
   }
 
   return false;

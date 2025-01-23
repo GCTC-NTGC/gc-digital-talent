@@ -81,7 +81,7 @@ test.describe("User information", () => {
   test("Applicant cannot access", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant@test.com", false);
     await appPage.page.goto(`/en/admin/users/${user?.id}`);
-    await appPage.waitForGraphqlResponse("authorizationQuery");
+    // await appPage.waitForGraphqlResponse("authorizationQuery");
     await expect(
       appPage.page.getByRole("heading", {
         name: /you are not authorized to view this page/i,

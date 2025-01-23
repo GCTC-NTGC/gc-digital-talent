@@ -397,7 +397,7 @@ export const ViewPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCandidates}>
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <ViewPoolCandidatePage />
   </RequireAuth>
 );

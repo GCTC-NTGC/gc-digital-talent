@@ -19,7 +19,7 @@ const CandidateStatusSection = ({
   const unpackedRoleAssignments = unpackMaybes(roleAssignments);
   const isAdmin =
     isLoaded &&
-    hasRole(permissionConstants().managePlatformData, unpackedRoleAssignments);
+    hasRole(permissionConstants.managePlatformData, unpackedRoleAssignments);
 
   const titleString = intl.formatMessage({
     defaultMessage: "Pool status",

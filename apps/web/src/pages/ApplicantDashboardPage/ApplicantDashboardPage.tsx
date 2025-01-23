@@ -70,7 +70,7 @@ export const ApplicantDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );

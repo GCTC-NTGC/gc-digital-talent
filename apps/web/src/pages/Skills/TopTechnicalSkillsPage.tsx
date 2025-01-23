@@ -227,7 +227,7 @@ const TopTechnicalSkillsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <TopTechnicalSkillsPage />
   </RequireAuth>
 );

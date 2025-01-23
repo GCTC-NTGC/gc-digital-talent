@@ -134,7 +134,7 @@ const CommunityLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCommunities}>
+  <RequireAuth roles={permissionConstants.viewCommunities}>
     <CommunityLayout />
   </RequireAuth>
 );

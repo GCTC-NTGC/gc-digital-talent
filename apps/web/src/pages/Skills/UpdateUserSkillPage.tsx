@@ -994,7 +994,7 @@ const UpdateUserSkillPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <UpdateUserSkillPage />
   </RequireAuth>
 );

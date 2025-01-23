@@ -88,7 +88,7 @@ export const IndexPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewCandidates}>
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

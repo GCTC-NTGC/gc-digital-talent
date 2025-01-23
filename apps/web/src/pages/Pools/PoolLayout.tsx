@@ -214,7 +214,7 @@ const PoolLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().viewProcesses}>
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <PoolLayout />
   </RequireAuth>
 );

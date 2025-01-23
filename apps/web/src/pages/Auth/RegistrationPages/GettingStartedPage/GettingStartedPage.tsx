@@ -493,7 +493,7 @@ const GettingStarted = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <GettingStarted />
   </RequireAuth>
 );

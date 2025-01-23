@@ -221,7 +221,7 @@ const Layout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().isApplicant}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <Layout />
   </RequireAuth>
 );

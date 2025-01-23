@@ -263,7 +263,7 @@ const UpdateTrainingOpportunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateTrainingOpportunityPage />
   </RequireAuth>
 );

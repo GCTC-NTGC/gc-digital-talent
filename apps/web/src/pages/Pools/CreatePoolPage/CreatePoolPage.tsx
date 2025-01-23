@@ -360,7 +360,7 @@ const CreatePoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().createProcess}>
+  <RequireAuth roles={permissionConstants.createProcess}>
     <CreatePoolPage />
   </RequireAuth>
 );

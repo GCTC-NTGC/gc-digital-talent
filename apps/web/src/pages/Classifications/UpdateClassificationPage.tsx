@@ -350,7 +350,7 @@ const UpdateClassification = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={permissionConstants().managePlatformData}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <UpdateClassification />
   </RequireAuth>
 );
