@@ -178,8 +178,8 @@ export const ViewPool = ({
   });
 
   const pageSubtitle = intl.formatMessage({
-    defaultMessage: "Manage and view information about your process. ",
-    id: "pM43Xu",
+    defaultMessage: "Manage and view information about your process.",
+    id: "6+MKIv",
     description: "Subtitle for the individual pool page",
   });
 
