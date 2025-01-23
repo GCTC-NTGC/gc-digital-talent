@@ -294,12 +294,6 @@ const getRoutes = (lang: Locales) => {
 
     // Directive on digital talent
     directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
-    digitalServicesContractingQuestionnaire: () =>
-      [
-        baseUrl,
-        "directive-on-digital-talent",
-        "digital-services-contracting-questionnaire",
-      ].join("/"),
 
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),

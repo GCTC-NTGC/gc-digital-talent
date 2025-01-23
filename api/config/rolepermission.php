@@ -96,8 +96,6 @@ return [
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
         'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
-
-        'directiveForm' => 'directiveForm',
     ],
 
     /*
@@ -549,23 +547,6 @@ return [
         'assign-any-teamRole' => [
             'en' => 'Assign any user to any team, with any role.',
             'fr' => 'Affecter n\'importe quel utilisateur à n\'importe quelle équipe, avec n\'importe quel rôle.',
-        ],
-
-        'create-any-directiveForm' => [
-            'en' => 'Create any directive form',
-            'fr' => 'Créer tout formulaire de directive',
-        ],
-        'view-any-directiveForm' => [
-            'en' => 'View any directive form',
-            'fr' => 'Voir tout formulaire de directive',
-        ],
-        'update-any-directiveForm' => [
-            'en' => 'Update any directive form',
-            'fr' => 'Mise à jour de tout formulaire de directive',
-        ],
-        'delete-any-directiveForm' => [
-            'en' => 'Delete any directive form',
-            'fr' => 'Supprimer tout formulaire de directive',
         ],
 
         'view-any-announcement' => [
@@ -1223,9 +1204,6 @@ return [
             ],
             'role' => [
                 'any' => ['view', 'assign'],
-            ],
-            'directiveForm' => [
-                'any' => ['create', 'view', 'update', 'delete'],
             ],
             'announcement' => [
                 'any' => ['view', 'update'],
