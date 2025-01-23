@@ -198,4 +198,42 @@ describe("hasRole tests", () => {
 
     expect(f(testRole, unpackMaybes(testUserRoles))).toBeTruthy();
   });
+
+  test("user has platform admin, required role is community or platform admin, returns true", () => {
+    const testRole: RoleName[] = ["community_admin", "platform_admin"];
+    const testUserRoles:
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
+      | undefined = [
+      {
+        id: "id-123",
+        role: {
+          id: "role-id-123",
+          name: "platform_admin",
+          isTeamBased: false,
+        },
+      },
+    ];
+
+    expect(f(testRole, unpackMaybes(testUserRoles))).toBeTruthy();
+  });
+
+  test("user has platform admin, required role is community or platform admin, pass in teamableId,  returns true", () => {
+    const testRole: RoleName[] = ["platform_admin", "community_admin"];
+    const testUserRoles:
+      | Maybe<(Maybe<RoleAssignment> | undefined)[]>
+      | undefined = [
+      {
+        id: "id-123",
+        role: {
+          id: "role-id-123",
+          name: "platform_admin",
+          isTeamBased: false,
+        },
+      },
+    ];
+
+    expect(
+      f(testRole, unpackMaybes(testUserRoles), "teamable-id"),
+    ).toBeTruthy();
+  });
 });
