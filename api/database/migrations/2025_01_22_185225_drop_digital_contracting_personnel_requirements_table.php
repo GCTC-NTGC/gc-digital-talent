@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -20,7 +21,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::create('digital_contracting_personnel_requirements', function (Blueprint $table) {
-            $table->uuid('id')->default('gen_random_uuid()')->primary();
+            $table->uuid('id')->primary()->default(new Expression('public.gen_random_uuid()'));
             $table->timestamps();
             $table->uuid('digital_contracting_questionnaire_id');
             $table->string('resource_type')->nullable();
