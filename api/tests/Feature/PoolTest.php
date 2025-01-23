@@ -1116,49 +1116,6 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolTeamScope(): void
-    {
-        $this->markTestSkipped('PoolFilterInput does not have community argument.');
-
-        $toBeFound = Pool::factory()->published()->create([
-            'team_id' => $this->team,
-        ]);
-
-        Pool::factory()->published()->create([
-            'team_id' => Team::factory()->create(),
-        ]);
-
-        $res = $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ScopePoolName($where: PoolFilterInput) {
-                    poolsPaginated(where: $where) {
-                        data {
-                            id
-                            team { id name }
-                        }
-                    }
-                }
-            ',
-            [
-                'where' => [
-                    'team' => $this->team->display_name['en'],
-                ],
-            ]
-        )->assertJsonFragment([
-            'id' => $toBeFound->id,
-            'team' => [
-                'id' => $this->team->id,
-                'name' => $this->team->name,
-            ],
-        ]);
-
-        assertSame(1, count($res->json('data.poolsPaginated.data')));
-    }
-
-    /**
-     * @group paginated
-     */
     public function testPoolStreamsScope(): void
     {
         $stream1 = WorkStream::factory()->create();
