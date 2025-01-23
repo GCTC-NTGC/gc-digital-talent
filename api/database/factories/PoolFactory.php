@@ -9,7 +9,6 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
-use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillLevel;
@@ -206,7 +205,6 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $this->faker->boolean,
-                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'work_stream_id' => $workStream->id,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
@@ -254,7 +252,6 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $isRemote,
-                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'work_stream_id' => $workStreamId,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),

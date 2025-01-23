@@ -86,7 +86,7 @@ class PoolTest extends TestCase
         $this->baseUser = User::factory()->create();
     }
 
-    public function testPoolAccessor(): void
+    public function test_pool_accessor(): void
     {
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->create([
@@ -217,7 +217,7 @@ class PoolTest extends TestCase
         ]);
     }
 
-    public function testPoolAccessorTime(): void
+    public function test_pool_accessor_time(): void
     {
         // test that expiry on day of functions as expected, that soon to expire can be applied to and just expired is longer open for application
         $expireInHour = date('Y-m-d H:i:s', strtotime('+1 hour'));
@@ -276,7 +276,7 @@ class PoolTest extends TestCase
     }
 
     // The publishedPools query should only return pools that have been published, not draft
-    public function testPublishedPoolQueryDoesNotReturnDraft(): void
+    public function test_published_pool_query_does_not_return_draft(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
         $publishedPool = Pool::factory()->create([
@@ -309,7 +309,7 @@ class PoolTest extends TestCase
     }
 
     // The publishedPools query should only return pools that have been published, not archived
-    public function testPublishedPoolQueryDoesNotReturnArchived(): void
+    public function test_published_pool_query_does_not_return_archived(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
         $publishedPool = Pool::factory()->create([
@@ -339,7 +339,7 @@ class PoolTest extends TestCase
         ]);
     }
 
-    public function testListPoolsDoesNotReturnDraftAsAnon(): void
+    public function test_list_pools_does_not_return_draft_as_anon(): void
     {
         $publishedPool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
@@ -364,7 +364,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
-    public function testListPoolsDoesNotReturnArchivedAsAnon(): void
+    public function test_list_pools_does_not_return_archived_as_anon(): void
     {
         $publishedPool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
@@ -387,7 +387,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
-    public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
+    public function test_list_pools_returns_only_published_as_base_role_user(): void
     {
         $publishedPool = Pool::factory()
             ->published()
@@ -412,7 +412,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
-    public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
+    public function test_list_pools_returns_only_published_as_guest_role_user(): void
     {
         $publishedPool = Pool::factory()->create([
             'published_at' => config('constants.past_date'),
@@ -438,7 +438,7 @@ class PoolTest extends TestCase
     }
 
     // test filtering closing_date on publishedPools
-    public function testPoolQueryClosingDate(): void
+    public function test_pool_query_closing_date(): void
     {
         Pool::factory()->create([
             'published_at' => null,
@@ -487,7 +487,7 @@ class PoolTest extends TestCase
         assertSame(2, $response2Count);
     }
 
-    public function testCanArchiveClosed(): void
+    public function test_can_archive_closed(): void
     {
         $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
 
@@ -507,7 +507,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['status' => ['value' => PoolStatus::ARCHIVED->name]]);
     }
 
-    public function testCantArchiveActive(): void
+    public function test_cant_archive_active(): void
     {
         $pool = Pool::factory()->published()->create(['team_id' => $this->team->id]);
 
@@ -527,7 +527,7 @@ class PoolTest extends TestCase
             ->assertGraphQLErrorMessage('ArchivePoolInvalidStatus');
     }
 
-    public function testCanUnarchiveArchived(): void
+    public function test_can_unarchive_archived(): void
     {
         $pool = Pool::factory()->archived()->create(['team_id' => $this->team->id]);
 
@@ -549,7 +549,7 @@ class PoolTest extends TestCase
             ]]);
     }
 
-    public function testCantUnarchiveClosed(): void
+    public function test_cant_unarchive_closed(): void
     {
         $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
 
@@ -569,7 +569,7 @@ class PoolTest extends TestCase
             ->assertGraphQLErrorMessage('UnarchivePoolInvalidStatus');
     }
 
-    public function testCannotPublishWithDeletedSkill(): void
+    public function test_cannot_publish_with_deleted_skill(): void
     {
         // create complete but unpublished pool with a deleted skill
         $pool = Pool::factory()
@@ -617,7 +617,7 @@ class PoolTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testCannotReopenWithDeletedSkill(): void
+    public function test_cannot_reopen_with_deleted_skill(): void
     {
         $pool = Pool::factory()->published()->closed()->create(['team_id' => $this->team->id]);
         $skill1 = Skill::factory()->create();
@@ -665,7 +665,7 @@ class PoolTest extends TestCase
             ->assertSuccessful();
     }
 
-    public function testPoolScopeCurrentlyActive(): void
+    public function test_pool_scope_currently_active(): void
     {
         Pool::factory()->create([
             'published_at' => null,
@@ -687,7 +687,7 @@ class PoolTest extends TestCase
         assertSame(count($activePools), 4); // assert 7 pools present but only 4 are considered "active"
     }
 
-    public function testPoolIsCompleteAccessor(): void
+    public function test_pool_is_complete_accessor(): void
     {
         $queryPool =
             /** @lang GraphQL */
@@ -741,7 +741,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['isComplete' => false]);
     }
 
-    public function testPoolIsCompleteAccessorSkillLevel(): void
+    public function test_pool_is_complete_accessor_skill_level(): void
     {
         $queryPool =
             /** @lang GraphQL */
@@ -786,7 +786,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['isComplete' => false]);
     }
 
-    public function testAssessmentStepValidation(): void
+    public function test_assessment_step_validation(): void
     {
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
@@ -903,7 +903,7 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['id' => $completePool->id]);
     }
 
-    public function testPoolSkillValidation(): void
+    public function test_pool_skill_validation(): void
     {
 
         Classification::factory()->create();
@@ -1054,7 +1054,7 @@ class PoolTest extends TestCase
     }
 
     // a pool operator can successfully delete a pool that they created but is still in draft
-    public function testCanDeleteDraftPool(): void
+    public function test_can_delete_draft_pool(): void
     {
         $pool = Pool::factory()
             ->for($this->poolOperator)
@@ -1081,7 +1081,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolNameScope(): void
+    public function test_pool_name_scope(): void
     {
         $toBeFound = Pool::factory()->published()
             ->create([
@@ -1116,7 +1116,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolTeamScope(): void
+    public function test_pool_team_scope(): void
     {
         $toBeFound = Pool::factory()->published()->create([
             'team_id' => $this->team,
@@ -1157,7 +1157,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolStreamsScope(): void
+    public function test_work_streams_scope(): void
     {
         $stream1 = WorkStream::factory()->create();
         $stream2 = WorkStream::factory()->create();
@@ -1218,7 +1218,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPublishingGroupsScope(): void
+    public function test_publishing_groups_scope(): void
     {
         $IT = Pool::factory()->published()->create([
             'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -1275,7 +1275,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolStatusScope(): void
+    public function test_pool_status_scope(): void
     {
         $closed = Pool::factory()->closed()->create();
         $published = Pool::factory()->published()->create();
@@ -1398,7 +1398,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testClassificationScope(): void
+    public function test_classification_scope(): void
     {
         $AA1 = Pool::factory()->published()->create([
             'classification_id' => Classification::factory()->create([
@@ -1478,7 +1478,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testCanAdminScope(): void
+    public function test_can_admin_scope(): void
     {
         // two published pools
         $teamPool = Pool::factory()->published()->create([
@@ -1564,7 +1564,7 @@ class PoolTest extends TestCase
      *
      * @group editing
      */
-    public function testPublishedPoolEditing(): void
+    public function test_published_pool_editing(): void
     {
 
         $pool = Pool::factory()
@@ -1631,7 +1631,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolBookmarksScope(): void
+    public function test_pool_bookmarks_scope(): void
     {
         $pool1 = Pool::factory(['created_at' => config('constants.past_date')])->create();
         $pool2 = Pool::factory(['created_at' => config('constants.past_date')])->withBookmark($this->adminUser->id)->create();
@@ -1697,7 +1697,7 @@ class PoolTest extends TestCase
             ]);
     }
 
-    public function testCanViewDepartment()
+    public function test_can_view_department()
     {
         $department = Department::factory()->create();
 
@@ -1728,7 +1728,7 @@ class PoolTest extends TestCase
     }
 
     // test mutation createPool(...)
-    public function testCreatePool()
+    public function test_create_pool()
     {
         $community = Community::factory()->create();
         $classification = Classification::factory()->create();
@@ -1786,7 +1786,7 @@ class PoolTest extends TestCase
         ]);
     }
 
-    public function testDuplicatePool()
+    public function test_duplicate_pool()
     {
         $this->seed([
             SkillFamilySeeder::class,

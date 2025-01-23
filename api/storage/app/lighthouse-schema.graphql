@@ -243,11 +243,6 @@ type LocalizedPoolStatus {
   label: LocalizedString!
 }
 
-type LocalizedPoolStream {
-  value: PoolStream!
-  label: LocalizedString!
-}
-
 type LocalizedPositionDuration {
   value: PositionDuration!
   label: LocalizedString!
@@ -2222,7 +2217,6 @@ input CreateJobPosterTemplateInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus!
-  stream: PoolStream!
   workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
@@ -3440,20 +3434,6 @@ enum PoolStatus {
   PUBLISHED
   CLOSED
   ARCHIVED
-}
-
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-  EXECUTIVE_GROUP
 }
 
 enum PositionDuration {

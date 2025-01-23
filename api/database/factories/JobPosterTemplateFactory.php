@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\PoolSkillType;
-use App\Enums\PoolStream;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
@@ -37,8 +36,7 @@ class JobPosterTemplateFactory extends Factory
             $classification = Classification::factory()->create();
         }
 
-        $poolStream = $this->faker->randomElement(PoolStream::cases())->name;
-        $workStream = WorkStream::where('key', $poolStream)->first();
+        $workStream = WorkStream::inRandomOrder()->first();
         if (! $workStream) {
             $workStream = WorkStream::factory()->create();
         }
@@ -56,7 +54,6 @@ class JobPosterTemplateFactory extends Factory
 
         return [
             'supervisory_status' => $this->faker->randomElement(SupervisoryStatus::cases())->name,
-            'stream' => $poolStream,
             'work_stream_id' => $workStream->id,
             'reference_id' => implode('_', $this->faker->words()),
             'classification_id' => $classification->id,
