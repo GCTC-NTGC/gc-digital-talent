@@ -163,7 +163,6 @@ const SkillBrowserDialog = ({
                   category={
                     selectedSkill.category.value ?? SkillCategory.Technical
                   }
-                  context={context}
                 />
               )}
               {selectedSkill && context === "pool" && (

@@ -3,14 +3,12 @@ import { useIntl } from "react-intl";
 import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import UserSkillFormFields from "../UserSkillFormFields/UserSkillFormFields";
-import { SkillBrowserDialogContext } from "./types";
 
 interface SkillDetailsProps {
   category: SkillCategory;
-  context?: SkillBrowserDialogContext;
 }
 
-const SkillDetails = ({ category, context }: SkillDetailsProps) => {
+const SkillDetails = ({ category }: SkillDetailsProps) => {
   const intl = useIntl();
 
   return (
@@ -28,7 +26,7 @@ const SkillDetails = ({ category, context }: SkillDetailsProps) => {
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1 0)"
       >
-        <UserSkillFormFields category={category} context={context} />
+        <UserSkillFormFields category={category} />
       </div>
     </>
   );
