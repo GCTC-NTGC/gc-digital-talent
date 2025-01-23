@@ -26,11 +26,8 @@ class UserTestSeeder extends Seeder
         // shared auth users for testing
         User::factory()
             ->asApplicant()
-            ->asRequestResponder()
-            ->asCommunityManager()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
             ->asAdmin()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
@@ -50,42 +47,6 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Kennedy',
                 'email' => 'platform@test.com',
                 'sub' => 'platform@test.com',
-            ]);
-
-        User::factory()
-            ->asApplicant()
-            ->asCommunityManager()
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
-            ->create([
-                'first_name' => 'Darcy',
-                'last_name' => 'Hussein',
-                'email' => 'legacy-community@test.com',
-                'sub' => 'legacy-community@test.com',
-            ]);
-
-        User::factory()
-            ->asApplicant()
-            ->asRequestResponder()
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
-            ->create([
-                'first_name' => 'Denver',
-                'last_name' => 'Reagan',
-                'email' => 'request@test.com',
-                'sub' => 'request@test.com',
-            ]);
-
-        User::factory()
-            ->asApplicant()
-            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
-            ->withSkillsAndExperiences()
-            ->asGovEmployee()
-            ->create([
-                'first_name' => 'Fang',
-                'last_name' => 'Dupont',
-                'email' => 'pool@test.com',
-                'sub' => 'pool@test.com',
             ]);
 
         User::factory()

@@ -17,7 +17,6 @@ use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
@@ -46,17 +45,11 @@ class PoolCandidateUpdateTest extends TestCase
 
     protected $candidateUser;
 
-    protected $poolOperatorUser;
-
-    protected $requestResponderUser;
-
     protected $adminUser;
 
     protected $community;
 
-    protected $team;
-
-    protected $teamPool;
+    protected $pool;
 
     protected $poolCandidate;
 
@@ -90,7 +83,10 @@ class PoolCandidateUpdateTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
-        $baseRoles = ['guest', 'base_user', 'applicant'];
+        $this->community = Community::factory()->create(['name' => 'test-community']);
+        $this->pool = Pool::factory()->create([
+            'community_id' => $this->community->id,
+        ]);
 
         $this->guestUser = User::factory()
             ->asGuest()
@@ -104,23 +100,6 @@ class PoolCandidateUpdateTest extends TestCase
             ->create([
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
-            ]);
-
-        $this->team = Team::factory()->create(['name' => 'test-team']);
-        $this->community = Community::factory()->create(['name' => ['en' => 'test-team EN', 'fr' => 'test-team FR']]);
-
-        $this->poolOperatorUser = User::factory()
-            ->asPoolOperator($this->team->name)
-            ->create([
-                'email' => 'pool-operator-user@test.com',
-                'sub' => 'pool-operator-user@test.com',
-            ]);
-
-        $this->requestResponderUser = User::factory()
-            ->asRequestResponder()
-            ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
             ]);
 
         $this->adminUser = User::factory()
@@ -137,14 +116,8 @@ class PoolCandidateUpdateTest extends TestCase
                 'sub' => 'candidate-user@test.com',
             ]);
 
-        $this->teamPool = Pool::factory()->create([
-            'user_id' => $this->poolOperatorUser->id,
-            'team_id' => $this->team->id,
-            'community_id' => $this->community->id,
-        ]);
-
         $this->processOperatorUser = User::factory()
-            ->asProcessOperator($this->teamPool->id)
+            ->asProcessOperator($this->pool->id)
             ->create([
                 'email' => 'process-operator-user@test.com',
             ]);
@@ -163,7 +136,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->teamPool->id,
+            'pool_id' => $this->pool->id,
         ]);
 
         $this->unauthorizedMessage = 'This action is unauthorized.';
@@ -333,8 +306,8 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ]);
 
-        // pool operator can't add a step
-        $this->actingAs($this->poolOperatorUser, 'api')
+        // process operator can't add a step
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
                 'errors' => [
@@ -342,8 +315,8 @@ class PoolCandidateUpdateTest extends TestCase
                 ],
             ]);
 
-        // pool operator can't add a step
-        $this->actingAs($this->requestResponderUser, 'api')
+        // community recruiter can't add a step
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])
             ->assertJson([
                 'errors' => [
@@ -498,7 +471,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // cannot place candidate due to status
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->placeCandidateMutation,
                 [
@@ -515,7 +488,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // candidate was placed successfully
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->placeCandidateMutation,
                 [
@@ -541,7 +514,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // cannot execute mutation due to candidate not being placed
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->revertPlaceCandidateMutation,
                 [
@@ -554,7 +527,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // mutation was successful
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->revertPlaceCandidateMutation,
                 [
@@ -575,7 +548,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // cannot qualify candidate due to status
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->qualifyCandidateMutation,
                 [
@@ -589,7 +562,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // cannot qualify candidate due to expiry date validation
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->qualifyCandidateMutation,
                 [
@@ -600,7 +573,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage('Validation failed for the field [qualifyCandidate].');
 
         // candidate was qualified successfully
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->qualifyCandidateMutation,
                 [
@@ -622,7 +595,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // cannot disqualify candidate due to status
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->disqualifyCandidateMutation,
                 [
@@ -636,7 +609,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // candidate was disqualified successfully
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->disqualifyCandidateMutation,
                 [
@@ -657,7 +630,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->save();
 
         // candidate was qualified successfully
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->qualifyCandidateMutation,
                 [
@@ -671,7 +644,7 @@ class PoolCandidateUpdateTest extends TestCase
         assertNotNull($response['finalDecisionAt']);
 
         // candidate reverted successfully
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->revertFinalDecisionMutation,
                 [
@@ -684,7 +657,7 @@ class PoolCandidateUpdateTest extends TestCase
         assertNull($response['finalDecisionAt']);
 
         // cannot revert again due to status changes
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $this->revertFinalDecisionMutation,
                 [
@@ -713,7 +686,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert removing as admin succeeds
-        $response = $this->actingAs($this->requestResponderUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->removeMutationDocument, $variables)
             ->assertSuccessful();
 
@@ -749,7 +722,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $variables['id'] = $candidate->id;
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
                 ->assertJsonFragment([
                     'status' => [
@@ -781,7 +754,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $variables['id'] = $candidate->id;
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
                 ->assertGraphQLErrorMessage($error);
         }
@@ -806,7 +779,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
         // Assert reinstating as admin succeeds
-        $this->actingAs($this->requestResponderUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
             ->assertSuccessful()
             ->assertJsonFragment([
@@ -830,7 +803,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'user_id' => $this->applicantUser->id,
             ]);
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertJsonFragment([
                     'status' => [
@@ -863,7 +836,7 @@ class PoolCandidateUpdateTest extends TestCase
                 'user_id' => $this->applicantUser->id,
             ]);
 
-            $this->actingAs($this->requestResponderUser, 'api')
+            $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertGraphQLErrorMessage('CandidateUnexpectedStatus');
         }
@@ -878,7 +851,7 @@ class PoolCandidateUpdateTest extends TestCase
         ]);
         $candidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
-            'pool_id' => $this->teamPool->id,
+            'pool_id' => $this->pool->id,
             'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification_expiry' => null,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
@@ -915,8 +888,8 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
-        // operator successfully updates claim verification
-        $this->actingAs($this->poolOperatorUser, 'api')
+        // community recruiter successfully updates claim verification
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $updateClaimVerificationDocument,
                 [
@@ -941,7 +914,7 @@ class PoolCandidateUpdateTest extends TestCase
     public function testUpdatePoolCandidateClaimVerificationValidation(): void
     {
         $candidate = PoolCandidate::factory()->create([
-            'pool_id' => $this->teamPool->id,
+            'pool_id' => $this->pool->id,
             'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification_expiry' => null,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
@@ -959,7 +932,7 @@ class PoolCandidateUpdateTest extends TestCase
     ';
 
         // veteran expiry not required, priority expiration not required, mutation successful
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $updateClaimVerificationDocument,
                 [
@@ -977,7 +950,7 @@ class PoolCandidateUpdateTest extends TestCase
             ]);
 
         // priority expiry is required, mutation fails
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $updateClaimVerificationDocument,
                 [
@@ -993,7 +966,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
 
         // priority expiry included, succeeds
-        $this->actingAs($this->poolOperatorUser, 'api')
+        $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL(
                 $updateClaimVerificationDocument,
                 [
@@ -1028,7 +1001,7 @@ class PoolCandidateUpdateTest extends TestCase
         $camelTimestamp = Str::camel($timestamp);
         $original = $this->poolCandidate->$timestamp;
 
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1050,7 +1023,7 @@ class PoolCandidateUpdateTest extends TestCase
         }
 
         // Attempt to make change again and assert it does not affect timestamp
-        $noChangeResponse = $this->actingAs($this->poolOperatorUser, 'api')
+        $noChangeResponse = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
