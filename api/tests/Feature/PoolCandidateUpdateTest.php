@@ -1070,7 +1070,6 @@ class PoolCandidateUpdateTest extends TestCase
                 'removed_at',
             ],
 
-
             // Placed
             'placed tentative sets removed at' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
