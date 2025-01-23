@@ -53,10 +53,7 @@ const hasRole = (
       isAuthorizationRoleAssignmentWithTeamable(roleAssignment)
     ) {
       return includes && teamableId === roleAssignment.teamable?.id;
-    } else if (
-      roleAssignment.role?.isTeamBased !== null &&
-      roleAssignment.role?.isTeamBased !== undefined
-    ) {
+    } else if (roleAssignment.role?.isTeamBased === false || !teamableId) {
       return includes;
     }
     return false;
