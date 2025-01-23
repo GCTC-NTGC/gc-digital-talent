@@ -989,7 +989,6 @@ class PoolCandidateUpdateTest extends TestCase
      */
     public function testManualStatusUpdatesTimestamps($status, $timestamp)
     {
-        $this->markTestSkipped('Only a pool operator can update applicationStatus.');
         // Ensure timestamps are set to compare against
         // and we are starting from no status
         $past = config('constants.past_datetime');
@@ -1002,7 +1001,7 @@ class PoolCandidateUpdateTest extends TestCase
         $camelTimestamp = Str::camel($timestamp);
         $original = $this->poolCandidate->$timestamp;
 
-        $response = $this->actingAs($this->poolOperatorUser, 'api')
+        $response = $this->actingAs($this->processOperatorUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1024,7 +1023,7 @@ class PoolCandidateUpdateTest extends TestCase
         }
 
         // Attempt to make change again and assert it does not affect timestamp
-        $noChangeResponse = $this->actingAs($this->poolOperatorUser, 'api')
+        $noChangeResponse = $this->actingAs($this->processOperatorUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1070,7 +1069,34 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::REMOVED->name,
                 'removed_at',
             ],
+        ];
+    }
 
+    /**
+     * @dataProvider manualStatusPlacedProvider
+     */
+    public function testManualStatusPlacedUpdatesTimestamps($status, $timestamp)
+    {
+        // Ensure timestamps are set to compare against
+        // and we are starting from no status
+        $past = config('constants.past_datetime');
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->final_decision_at = $past;
+        $this->poolCandidate->placed_at = $past;
+        $this->poolCandidate->removed_at = $past;
+        $this->poolCandidate->save();
+
+        $this->actingAs($this->processOperatorUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => $status],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public static function manualStatusPlacedProvider()
+    {
+        return [
             // Placed
             'placed tentative sets removed at' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
