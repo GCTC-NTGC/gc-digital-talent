@@ -1072,51 +1072,6 @@ class PoolCandidateUpdateTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider manualStatusPlacedProvider
-     */
-    public function testManualStatusPlacedUpdatesTimestamps($status, $timestamp)
-    {
-        // Ensure timestamps are set to compare against
-        // and we are starting from no status
-        $past = config('constants.past_datetime');
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->final_decision_at = $past;
-        $this->poolCandidate->placed_at = $past;
-        $this->poolCandidate->removed_at = $past;
-        $this->poolCandidate->save();
-
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => $status],
-            ])
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
-    }
-
-    public static function manualStatusPlacedProvider()
-    {
-        return [
-            // Placed
-            'placed tentative sets removed at' => [
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-                'placed_at',
-            ],
-            'placed casual sets placed at' => [
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                'placed_at',
-            ],
-            'placed term sets placed at' => [
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                'placed_at',
-            ],
-            'placed indeterminate sets placed at' => [
-                PoolCandidateStatus::PLACED_INDETERMINATE->name,
-                'placed_at',
-            ],
-        ];
-    }
-
     // test policy correctly allows sample manual status updates to work, when expected and fail otherwise
     public function testManualStatusUpdatePolicy(): void
     {
