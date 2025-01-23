@@ -640,39 +640,47 @@ class CandidateAssessmentStatusTest extends TestCase
                 'team_id' => $this->team->id,
             ]);
 
-        $behaviouralSkills = Skill::where('category', SkillCategory::BEHAVIOURAL->name)->limit(2)->get();
+        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
         $poolSkillOne = PoolSkill::create([
             'pool_id' => $pool->id,
-            'skill_id' => $behaviouralSkills[0]->id,
+            'skill_id' => $technicalSkills[0]->id,
             'type' => PoolSkillType::NONESSENTIAL->name,
         ]);
 
-        // Non-essential skills must also be assessed if a user claims them
+        // Non-essential technical skills must also be assessed if a user claims them
         $poolSkillTwo = PoolSkill::create([
             'pool_id' => $pool->id,
-            'skill_id' => $behaviouralSkills[1]->id,
+            'skill_id' => $technicalSkills[1]->id,
             'type' => PoolSkillType::NONESSENTIAL->name,
+        ]);
+
+        // Skill is not considered claimed unless it has an attached experience
+        $user = User::factory()->create();
+        $userSkill = UserSkill::factory()->create([
+            'user_id' => $user->id,
+            'skill_id' => $poolSkillTwo->skill_id,
+        ]);
+        WorkExperience::factory()->afterCreating(function (WorkExperience $experience) use ($userSkill) {
+            $experience->userSkills()->sync([
+                $userSkill->id => ['details' => 'first skill'],
+            ]);
+        })->create([
+            'user_id' => $user->id,
         ]);
 
         $candidate = PoolCandidate::factory()->withSnapshot()->create([
+            'user_id' => $user->id,
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
 
-        $stepOne = $pool->assessmentSteps->first();
-
-        $stepTwo = AssessmentStep::factory()
-            ->afterCreating(function (AssessmentStep $step) use ($poolSkillOne, $poolSkillTwo) {
-                $step->poolSkills()->sync([$poolSkillOne->id, $poolSkillTwo->id]);
-            })->create([
-                'pool_id' => $pool->id,
-            ]);
+        $assessmentStep = $pool->assessmentSteps->first();
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::EDUCATION)
             ->create([
-                'assessment_step_id' => $stepOne->id,
+                'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
             ]);
@@ -680,7 +688,7 @@ class CandidateAssessmentStatusTest extends TestCase
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::SKILL)
             ->create([
-                'assessment_step_id' => $stepTwo->id,
+                'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
                 'pool_skill_id' => $poolSkillOne->id,
@@ -692,15 +700,11 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'currentStep' => 2,
+                            'currentStep' => 1,
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $stepOne->id,
-                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
-                                ],
-                                [
-                                    'step' => $stepTwo->id,
+                                    'step' => $assessmentStep->id,
                                     'decision' => null,
                                 ],
                             ],
@@ -712,7 +716,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $result = AssessmentResult::factory()
             ->withResultType(AssessmentResultType::SKILL)
             ->create([
-                'assessment_step_id' => $stepTwo->id,
+                'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $candidate->id,
                 'assessment_decision' => null,
                 'pool_skill_id' => $poolSkillTwo->id,
@@ -725,15 +729,11 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'currentStep' => 2,
+                            'currentStep' => 1,
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $stepOne->id,
-                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
-                                ],
-                                [
-                                    'step' => $stepTwo->id,
+                                    'step' => $assessmentStep->id,
                                     'decision' => null,
                                 ],
                             ],
@@ -756,11 +756,7 @@ class CandidateAssessmentStatusTest extends TestCase
                             'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $stepOne->id,
-                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
-                                ],
-                                [
-                                    'step' => $stepTwo->id,
+                                    'step' => $assessmentStep->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
