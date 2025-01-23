@@ -541,6 +541,7 @@ type WorkStream {
   key: String
   name: LocalizedString
   plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
+  community: Community @belongsTo
 }
 
 type Community implements HasRoleAssignments {

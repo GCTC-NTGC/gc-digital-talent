@@ -946,6 +946,7 @@ type WorkStream {
   key: String
   name: LocalizedString
   plainLanguageName: LocalizedString
+  community: Community
 }
 
 type Community implements HasRoleAssignments {

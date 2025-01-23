@@ -12,7 +12,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
