@@ -14,7 +14,7 @@ type AuthorizationQueryRoleAssignments = NonNullable<
  * @param teamableId             Teamable ID
  * @returns boolean
  */
-export const hasRole = (
+const hasRole = (
   roles: RoleName[] | null,
   userRoleAssignments: AuthorizationQueryRoleAssignments,
   teamableId?: string,
