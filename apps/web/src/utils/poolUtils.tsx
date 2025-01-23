@@ -24,6 +24,7 @@ import {
   LocalizedPoolStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,7 +51,8 @@ export const isAdvertisementVisible = (
   if (status !== PoolStatus.Draft) {
     return true;
   }
-  return hasRole(permissionConstants().viewProcesses, roleAssignments);
+  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
+  return hasRole(permissionConstants().viewProcesses, unpackedRoleAssignments);
 };
 
 export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {

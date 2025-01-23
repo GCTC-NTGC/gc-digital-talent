@@ -1,10 +1,27 @@
-import { AuthorizationQueryQuery as AuthorizationQueryType } from "@gc-digital-talent/graphql";
+import {
+  AuthorizationQueryQuery as AuthorizationQueryType,
+  AuthorizationTeamableQueryQuery as AuthorizationTeamableQueryType,
+} from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 
-type AuthorizationQueryRoleAssignments = NonNullable<
-  AuthorizationQueryType["myAuth"]
->["roleAssignments"];
+type AuthorizationRoleAssignment = NonNullable<
+  NonNullable<
+    NonNullable<AuthorizationQueryType["myAuth"]>["roleAssignments"]
+  >[number]
+>;
+type AuthorizationRoleAssignmentWithTeamable = NonNullable<
+  NonNullable<
+    NonNullable<AuthorizationTeamableQueryType["myAuth"]>["roleAssignments"]
+  >[number]
+>;
+
+const isAuthorizationRoleAssignmentWithTeamable = (
+  roleAssignment:
+    | AuthorizationRoleAssignment
+    | AuthorizationRoleAssignmentWithTeamable,
+): roleAssignment is AuthorizationRoleAssignmentWithTeamable =>
+  !!(roleAssignment as AuthorizationRoleAssignmentWithTeamable).teamable;
 
 /**
  * Check to see if user contains one or more roles, can account for team and individual role types
@@ -16,7 +33,10 @@ type AuthorizationQueryRoleAssignments = NonNullable<
  */
 const hasRole = (
   roles: RoleName[] | null,
-  userRoleAssignments: AuthorizationQueryRoleAssignments,
+  userRoleAssignments: (
+    | AuthorizationRoleAssignment
+    | AuthorizationRoleAssignmentWithTeamable
+  )[],
   teamableId?: string,
 ): boolean => {
   if (!roles || roles.length === 0) {
@@ -27,7 +47,11 @@ const hasRole = (
       return false;
     }
     const includes = roles.includes(roleAssignment?.role?.name as RoleName);
-    if (teamableId && roleAssignment.role?.isTeamBased) {
+    if (
+      teamableId &&
+      roleAssignment.role?.isTeamBased &&
+      isAuthorizationRoleAssignmentWithTeamable(roleAssignment)
+    ) {
       return includes && teamableId === roleAssignment.teamable?.id;
     } else if (
       roleAssignment.role?.isTeamBased !== null &&

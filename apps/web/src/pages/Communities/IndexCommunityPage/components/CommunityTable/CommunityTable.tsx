@@ -100,7 +100,11 @@ export const CommunityTable = ({
     .filter(notEmpty);
 
   const { roleAssignments } = useAuthorization();
-  const canCreateMembers = hasRole([ROLE_NAME.PlatformAdmin], roleAssignments);
+  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
+  const canCreateMembers = hasRole(
+    [ROLE_NAME.PlatformAdmin],
+    unpackedRoleAssignments,
+  );
 
   return (
     <Table<CommunityTableCommunityFragmentType>

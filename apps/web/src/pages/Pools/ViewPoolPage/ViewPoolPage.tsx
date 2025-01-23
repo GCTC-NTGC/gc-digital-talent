@@ -121,6 +121,7 @@ export const ViewPool = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
+  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
@@ -138,21 +139,21 @@ export const ViewPool = ({
   const processBadge = getProcessStatusBadge(pool.status, intl);
   const canPublish = hasRole(
     permissionConstants().publishProcess,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
   const canDuplicate = hasRole(
     permissionConstants().createProcess,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
   const canArchive = hasRole(
     permissionConstants().archiveProcess,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
   const canDelete = hasRole(
     permissionConstants().deleteProcess,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
 
   let closingDate = "";

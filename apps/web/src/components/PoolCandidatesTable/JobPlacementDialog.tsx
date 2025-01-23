@@ -127,9 +127,11 @@ const JobPlacementDialog = ({
   );
 
   const { roleAssignments } = useAuthorization();
+  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
+
   const canPlace = hasRole(
     permissionConstants().placeCandidates,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
 
   const {

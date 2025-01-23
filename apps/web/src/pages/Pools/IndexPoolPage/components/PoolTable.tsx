@@ -246,9 +246,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   };
 
   const { roleAssignments } = useAuthorization();
+  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
   const canCreatePool = hasRole(
     permissionConstants().createProcess,
-    roleAssignments,
+    unpackedRoleAssignments,
   );
 
   const [{ data, fetching }] = useQuery({
