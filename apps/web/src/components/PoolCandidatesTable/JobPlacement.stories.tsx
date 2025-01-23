@@ -74,6 +74,7 @@ const Template: StoryFn<typeof JobPlacementDialog> = (args) => {
           role: {
             id: "123",
             name: ROLE_NAME.CommunityAdmin,
+            isTeamBased: true,
           },
         },
       ],
