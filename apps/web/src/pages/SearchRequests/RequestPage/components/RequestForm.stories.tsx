@@ -15,7 +15,6 @@ import {
   LanguageAbility,
   makeFragmentData,
   PoolCandidateSearchRequestReason,
-  PoolStream,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
