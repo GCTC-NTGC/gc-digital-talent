@@ -171,11 +171,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(pageTitles.communities),
       href: adminRoutes.communityTable(),
-      roles: [
-        ROLE_NAME.CommunityAdmin,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.PlatformAdmin,
-      ],
+      roles: permissionConstants().viewCommunities,
     },
     {
       label: intl.formatMessage(pageTitles.workStreams),
