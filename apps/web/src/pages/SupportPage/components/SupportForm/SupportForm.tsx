@@ -200,8 +200,8 @@ const SupportForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
               label={intl.formatMessage({
-                defaultMessage: "I'm looking to...",
-                id: "094835",
+                defaultMessage: "I'm looking to…",
+                id: "aHpCQS",
                 description: "Support form subject field label",
               })}
               options={[
