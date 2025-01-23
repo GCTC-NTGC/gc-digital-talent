@@ -1010,8 +1010,8 @@ importers:
         specifier: ^8.5.0
         version: 8.5.0(prettier@3.4.2)
       storybook-react-intl:
-        specifier: ^3.2.2
-        version: 3.2.2(react-intl@7.1.0(react@18.3.1)(typescript@5.7.2))
+        specifier: ^3.2.3
+        version: 3.2.3(react-intl@7.1.0(react@18.3.1)(typescript@5.7.2))
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -7429,8 +7429,8 @@ packages:
   storybook-i18n@3.1.1:
     resolution: {integrity: sha512-k1/lS+Rx6l5mJEYAHQWEgXuwU5IyWk7kjcJtm2FDIn1UqZwbEraGlrp/fEZKK2e/7+SXEQdKeCaTz7+63WTQxw==}
 
-  storybook-react-intl@3.2.2:
-    resolution: {integrity: sha512-b6lWes6jF9dOuB+8dmoxUa/dtUyvdNhoXRfyx3wjcU9LD3K8yHe4/vukVHg7nYKjkHzRx62aTDeZVoN6ECkj+Q==}
+  storybook-react-intl@3.2.3:
+    resolution: {integrity: sha512-AJLei5j7PNiiSR0MyCE6scS3nBKy9cFAig4Y+47PsWHde+QkmiedMneo95w/n4xavNktHxmJoKcLaTgCKJ/nkw==}
     peerDependencies:
       react-intl: ^5.24.0 || ^6.0.0 || ^7.0.0
 
@@ -15360,7 +15360,7 @@ snapshots:
 
   storybook-i18n@3.1.1: {}
 
-  storybook-react-intl@3.2.2(react-intl@7.1.0(react@18.3.1)(typescript@5.7.2)):
+  storybook-react-intl@3.2.3(react-intl@7.1.0(react@18.3.1)(typescript@5.7.2)):
     dependencies:
       react-intl: 7.1.0(react@18.3.1)(typescript@5.7.2)
       storybook-i18n: 3.1.1
