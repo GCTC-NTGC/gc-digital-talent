@@ -1001,7 +1001,7 @@ class PoolCandidateUpdateTest extends TestCase
         $camelTimestamp = Str::camel($timestamp);
         $original = $this->poolCandidate->$timestamp;
 
-        $response = $this->actingAs($this->processOperatorUser, 'api')
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1023,7 +1023,7 @@ class PoolCandidateUpdateTest extends TestCase
         }
 
         // Attempt to make change again and assert it does not affect timestamp
-        $noChangeResponse = $this->actingAs($this->processOperatorUser, 'api')
+        $noChangeResponse = $this->actingAs($this->communityRecruiterUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1068,6 +1068,25 @@ class PoolCandidateUpdateTest extends TestCase
             'removed sets removed at' => [
                 PoolCandidateStatus::REMOVED->name,
                 'removed_at',
+            ],
+
+
+            // Placed
+            'placed tentative sets removed at' => [
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                'placed_at',
+            ],
+            'placed casual sets placed at' => [
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                'placed_at',
+            ],
+            'placed term sets placed at' => [
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                'placed_at',
+            ],
+            'placed indeterminate sets placed at' => [
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                'placed_at',
             ],
         ];
     }
