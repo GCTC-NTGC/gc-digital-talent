@@ -639,9 +639,6 @@ class ExperiencePage extends AppPage {
     experienceType: string;
     skill: string;
   }) {
-    await this.create();
-    await this.typeLocator.selectOption(input.experienceType);
-
     await this.page.getByRole("button", { name: "Add a skill" }).click();
 
     await this.page.getByRole("combobox", { name: "Skill *" }).click();
