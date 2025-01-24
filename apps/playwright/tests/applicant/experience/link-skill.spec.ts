@@ -10,6 +10,8 @@ test("Can link skill to experience", async ({ appPage }) => {
   await loginBySub(experiencePage.page, "applicant@test.com");
 
   // Ensure the other fields are filled out first
+  // Must be a work experience as regression
+  // for fields resetting on skill link
   await experiencePage.addGovTermOrIndeterminateWorkExperience(
     {
       role,
