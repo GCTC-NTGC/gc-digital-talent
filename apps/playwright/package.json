@@ -27,7 +27,7 @@
     "axe-core": "^4.10.2",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.0",
-    "eslint-plugin-playwright": "^2.1.0",
+    "eslint-plugin-playwright": "^2.2.0",
     "sinon": "^19.0.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.17.0"
