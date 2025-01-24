@@ -214,7 +214,10 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("CreateWorkExperience");
   }
 
-  async addGovTermOrIndeterminateWorkExperience(input: WorkExperienceInput) {
+  async addGovTermOrIndeterminateWorkExperience(
+    input: WorkExperienceInput,
+    save = true,
+  ) {
     await this.create();
     await this.typeLocator.selectOption("work");
 
@@ -286,8 +289,10 @@ class ExperiencePage extends AppPage {
       .getByRole("textbox", { name: /additional details/i })
       .fill(input.details ?? "test details");
 
-    await this.save();
-    await this.waitForGraphqlResponse("CreateWorkExperience");
+    if (save) {
+      await this.save();
+      await this.waitForGraphqlResponse("CreateWorkExperience");
+    }
   }
 
   async addGovContractorWorkExperience(input: WorkExperienceInput) {
