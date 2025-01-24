@@ -32,6 +32,12 @@ test("Can link skill to experience", async ({ appPage }) => {
     skill + " selected.",
   );
 
+  await expect(experiencePage.page.getByText(skill + " selected")).toBeHidden();
+
+  await experiencePage.page
+    .getByRole("textbox", { name: new RegExp(`how ${skill} featured`, "i") })
+    .fill("Test description");
+
   await experiencePage.save();
   await experiencePage.waitForGraphqlResponse("CreateWorkExperience");
 
