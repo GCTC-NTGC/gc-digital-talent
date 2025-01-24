@@ -14,6 +14,14 @@ updates:
       day: "thursday"
     open-pull-requests-limit: 50
     groups:
+      formatjs:
+        patterns:
+          - "react-intl"
+          - "@formatjs*"
+          - "eslint-plugin-formatjs"
+        update-types:
+          - "minor"
+          - "patch"
       radix:
         patterns:
           - "@radix-ui*"
