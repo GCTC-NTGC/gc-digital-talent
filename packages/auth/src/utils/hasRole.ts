@@ -17,7 +17,7 @@ const hasRole = (
   if (!roles || roles.length === 0) {
     return true;
   }
-  const result = userRoleAssignments?.filter((roleAssignment) => {
+  return userRoleAssignments?.some((roleAssignment) => {
     if (!roleAssignment?.role?.name) {
       return false;
     }
@@ -35,7 +35,6 @@ const hasRole = (
     }
     return false;
   });
-  return !!result?.length;
 };
 
 export default hasRole;
