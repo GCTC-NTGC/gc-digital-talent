@@ -37,7 +37,7 @@ class WorkStreamTest extends TestCase
         ],
         'plainLanguageName' => [
             'en' => 'Test work stream (plain language EN)',
-            'fr' => 'Test work stream (plaing language FR)',
+            'fr' => 'Test work stream (plain language FR)',
         ],
     ];
 
@@ -52,9 +52,6 @@ class WorkStreamTest extends TestCase
         $this->nonAdmin = User::factory()
             ->asGuest()
             ->asApplicant()
-            ->asRequestResponder()
-            ->asCommunityManager()
-            ->asManager()
             ->create([
                 'email' => 'non-admin-user@test.com',
                 'sub' => 'non-admin-user@test.com',

@@ -56,7 +56,6 @@ class CommunityTest extends TestCase
         // Create users.
         $this->admin = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -64,14 +63,14 @@ class CommunityTest extends TestCase
             ]);
 
         $this->communityRecruiter1 = User::factory()
-            ->asCommunityManager($this->community1->name)
+            ->asCommunityRecruiter($this->community1->id)
             ->create([
                 'email' => 'communityRecruiter1@test.com',
                 'sub' => 'communityRecruiter1@test.com',
             ]);
 
         $this->communityRecruiter2 = User::factory()
-            ->asCommunityManager($this->community2->name)
+            ->asCommunityRecruiter($this->community2->id)
             ->create([
                 'email' => 'communityRecruiter2@test.com',
                 'sub' => 'communityRecruiter2@test.com',

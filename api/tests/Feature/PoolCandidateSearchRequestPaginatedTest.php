@@ -28,7 +28,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
 
     protected $adminUser;
 
-    protected $requestResponder;
+    protected $communityRecruiter;
 
     protected $applicant;
 
@@ -44,11 +44,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
-        $this->requestResponder = User::factory()
-            ->asRequestResponder()
+        $community = Community::factory()->create();
+        $this->communityRecruiter = User::factory()
+            ->asCommunityRecruiter($community->id)
             ->create([
-                'email' => 'request-responder@test.com',
-                'sub' => 'request-responder@test.com',
+                'email' => 'community-recruiter@test.com',
+                'sub' => 'community-recruiter@test.com',
             ]);
         $this->applicant = User::factory()
             ->asApplicant()
@@ -89,8 +90,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->graphQL($this->searchRequestQuery)
             ->assertJsonFragment(['count' => 0]);
 
-        // assert request responder and admin can see results, paginated, and 10 results
-        $this->actingAs($this->requestResponder, 'api')
+        // assert community recruiter and admin can see results, paginated, and 10 results
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery)
             ->assertJsonFragment(['count' => 10]);
         $this->actingAs($this->adminUser, 'api')
@@ -111,22 +112,22 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // no variables results in 9 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery)
             ->assertJsonFragment(['count' => 9]);
 
         // null where results in 9 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => null])
             ->assertJsonFragment(['count' => 9]);
 
         // status null results in 9 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['status' => null]])
             ->assertJsonFragment(['count' => 9]);
 
         // status new returns 2 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -138,7 +139,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 2]);
 
         // status done returns 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -150,7 +151,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 3]);
 
         // both statuses returns 5 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -173,12 +174,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // departments null results in 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['departments' => null]])
             ->assertJsonFragment(['count' => 3]);
 
         // department[3] passed in returns 0 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -190,7 +191,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 0]);
 
         // department[0] passed in returns 1 result
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -202,7 +203,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // department[0] and [1] passed in returns 1 result, OR matching
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -214,7 +215,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // department[0] and [5] passed in returns 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -244,12 +245,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // classifications null returns results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['classifications' => null]])
             ->assertJsonFragment(['count' => 3]);
 
         // classification[1] passed in returns 0 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -261,7 +262,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 0]);
 
         // classification[0] passed in returns 1 result
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -273,7 +274,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // classification[0] and [1] passed in returns 1 result, OR matching
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -285,7 +286,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // classification[0] and [5] passed in returns 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -316,14 +317,14 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // streams null results in 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['workStreams' => null]])
             ->assertJsonFragment(['count' => 3]);
 
         $unattachedStream = WorkStream::factory()->create();
 
         // infrastructure passed in returns 0 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -335,7 +336,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 0]);
 
         // security passed in returns 1 result
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -347,7 +348,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // security and infrastructure passed in returns 1 result, OR matching
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -359,7 +360,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
             ->assertJsonFragment(['count' => 1]);
 
         // security and business passed in returns 3 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -381,12 +382,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // fullName null returns 4 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['fullName' => null]])
             ->assertJsonFragment(['count' => 4]);
 
         // partial capitals and partial name returns one result correctly
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -408,12 +409,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // email null returns 4 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['email' => null]])
             ->assertJsonFragment(['count' => 4]);
 
         // partial capitals and partial email returns one result correctly
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -435,12 +436,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // jobTitle null returns 4 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['jobTitle' => null]])
             ->assertJsonFragment(['count' => 4]);
 
         // partial capitals and partial job title returns one result correctly
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -462,12 +463,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // additionalComments null returns 4 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['additionalComments' => null]])
             ->assertJsonFragment(['count' => 4]);
 
         // partial capitals and partial comments returns one result correctly
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -489,12 +490,12 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         ]);
 
         // adminNotes null returns 4 results
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->searchRequestQuery, ['where' => ['adminNotes' => null]])
             ->assertJsonFragment(['count' => 4]);
 
         // partial capitals and partial notes returns one result correctly
-        $this->actingAs($this->requestResponder, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 $this->searchRequestQuery,
                 [
@@ -519,14 +520,6 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter([$community->id])
             ->create();
-
-        // request responder sees both requests
-        $this->actingAs($this->requestResponder, 'api')
-            ->graphQL($this->searchRequestQuery, [
-                'where' => [],
-            ])->assertJsonFragment(['count' => 2])
-            ->assertJsonFragment(['id' => $communityRequest->id])
-            ->assertJsonFragment(['id' => $otherCommunityRequest->id]);
 
         // community recruiter only sees the request attached to their community
         $this->actingAs($communityRecruiter, 'api')
