@@ -7,8 +7,10 @@ import {
   Accordion,
   AccordionMetaData,
   Pending,
+  PreviewList,
   ResourceBlock,
   TaskCard,
+  Well,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -16,6 +18,7 @@ import {
   ApplicantDashboard_QueryQuery as ApplicantDashboardQueryType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -25,6 +28,7 @@ import Hero from "~/components/Hero";
 
 import MoveInterestsList from "./components/MoveInterestsList";
 import OrganizationTypeInterestsList from "./components/OrganizationInterestsList";
+import FunctionalCommunityListItem from "./components/FunctionalCommunityListItem";
 
 export interface DashboardPageProps {
   currentUser?: ApplicantDashboardQueryType["me"];
@@ -43,8 +47,45 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         (interest) => interest.value,
       )
     : null;
+  const communityInterestsQuery = unpackMaybes(
+    currentUser?.employeeProfile?.communityInterests,
+  );
 
   const careerPlanningMetaData: AccordionMetaData[] = [
+    {
+      key: "edit-career-planning-key",
+      type: "link",
+      href: "#",
+      color: "secondary",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "Edit career planning",
+            id: "jno96W",
+            description:
+              "Link to a page to edit your career planning information",
+          })}
+        </>
+      ),
+    },
+  ];
+
+  const functionalCommunitiesMetaData: AccordionMetaData[] = [
+    {
+      key: "add-community-key",
+      type: "link",
+      href: "#",
+      color: "secondary",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "Add a community",
+            id: "kBEib8",
+            description: "Link to a page to add a functional community",
+          })}
+        </>
+      ),
+    },
     {
       key: "edit-career-planning-key",
       type: "link",
@@ -120,7 +161,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                     // we don't need that fat padding in the accordion inside the task card
                     data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
-                    <Accordion.Item value="your_talent_searches">
+                    <Accordion.Item value="your_career_planning">
                       <Accordion.Trigger
                         as="h3"
                         subtitle={intl.formatMessage({
@@ -197,6 +238,83 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                     </Accordion.Item>
                   </Accordion.Root>
                 </TaskCard.Item>
+                <TaskCard.Item>
+                  <Accordion.Root
+                    // value={accordionItems}
+                    // onValueChange={(newValue: AccordionItems) => {
+                    //   setAccordionItems(newValue);
+                    // }}
+                    type="multiple"
+                    // we don't need that fat padding in the accordion inside the task card
+                    data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
+                  >
+                    <Accordion.Item value="your_functional_communities">
+                      <Accordion.Trigger
+                        as="h3"
+                        subtitle={intl.formatMessage({
+                          defaultMessage:
+                            "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
+                          id: "L4UWvU",
+                          description:
+                            "Subtitle explaining career planning expandable withing career development card",
+                        })}
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Functional communities",
+                          id: "OH0wqV",
+                          description: "Functional communities expandable",
+                        })}
+                      </Accordion.Trigger>
+                      <Accordion.MetaData
+                        metadata={functionalCommunitiesMetaData}
+                      />
+                      <Accordion.Content>
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(column)"
+                          data-h2-gap="base(x1)"
+                        >
+                          {communityInterestsQuery.length ? (
+                            <PreviewList.Root>
+                              {communityInterestsQuery.map(
+                                (communityInterest) => (
+                                  <FunctionalCommunityListItem
+                                    key={communityInterest.id}
+                                    functionalCommunityListItemQuery={
+                                      communityInterest
+                                    }
+                                    headingAs="h4"
+                                  />
+                                ),
+                              )}
+                            </PreviewList.Root>
+                          ) : (
+                            <Well data-h2-text-align="base(center)">
+                              <p data-h2-font-weight="base(bold)">
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "You haven't opted into any functional communities.",
+                                  id: "rrqAZ6",
+                                  description:
+                                    "Title for notice when there are no functional communities a user is a part of",
+                                })}
+                              </p>
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" button.',
+                                  id: "w6JVdk",
+                                  description:
+                                    "Body for notice when there are no functional communities a user is a part of",
+                                })}
+                              </p>
+                            </Well>
+                          )}
+                        </div>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  </Accordion.Root>
+                </TaskCard.Item>
               </TaskCard.Root>
             </div>
             <div
@@ -249,6 +367,10 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
         }
         organizationTypeInterest {
           value
+        }
+        communityInterests {
+          id
+          ...PreviewListItemFunctionalCommunity
         }
       }
     }
