@@ -1,12 +1,5 @@
-import { AuthorizationQueryQuery as AuthorizationQueryType } from "@gc-digital-talent/graphql";
-
+import { AuthorizationRoleAssignment } from "../components/AuthorizationProvider";
 import { RoleName } from "../const";
-
-type AuthorizationRoleAssignment = NonNullable<
-  NonNullable<
-    NonNullable<AuthorizationQueryType["myAuth"]>["roleAssignments"]
-  >[number]
->;
 
 /**
  * Check to see if user contains one or more roles, can account for team and individual role types

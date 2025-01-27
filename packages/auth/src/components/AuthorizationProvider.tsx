@@ -3,7 +3,10 @@ import { ReactNode } from "react";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  AuthorizationQueryQuery as AuthorizationQueryType,
+} from "@gc-digital-talent/graphql";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 
@@ -33,6 +36,12 @@ const authorizationQuery = graphql(/** GraphQL */ `
   }
 `);
 
+export type AuthorizationRoleAssignment = NonNullable<
+  NonNullable<
+    NonNullable<AuthorizationQueryType["myAuth"]>["roleAssignments"]
+  >[number]
+>;
+
 interface AuthorizationProviderProps {
   children?: ReactNode;
 }
@@ -43,7 +52,7 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   });
   const isLoaded = !fetching && !stale;
 
-  const roleAssignmentsFiltered =
+  const roleAssignmentsFiltered: AuthorizationRoleAssignment[] =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
 
   return (
