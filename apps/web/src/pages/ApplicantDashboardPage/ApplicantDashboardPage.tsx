@@ -153,12 +153,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               >
                 <TaskCard.Item>
                   <Accordion.Root
-                    // value={accordionItems}
-                    // onValueChange={(newValue: AccordionItems) => {
-                    //   setAccordionItems(newValue);
-                    // }}
                     type="multiple"
-                    // we don't need that fat padding in the accordion inside the task card
                     data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_career_planning">
@@ -240,12 +235,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 </TaskCard.Item>
                 <TaskCard.Item>
                   <Accordion.Root
-                    // value={accordionItems}
-                    // onValueChange={(newValue: AccordionItems) => {
-                    //   setAccordionItems(newValue);
-                    // }}
                     type="multiple"
-                    // we don't need that fat padding in the accordion inside the task card
                     data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
                   >
                     <Accordion.Item value="your_functional_communities">
