@@ -12,12 +12,13 @@ import {
   graphql,
   CommunityTable_CommunityFragment as CommunityTableCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
-import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -100,7 +101,10 @@ export const CommunityTable = ({
     .filter(notEmpty);
 
   const { roleAssignments } = useAuthorization();
-  const canCreateMembers = hasRole([ROLE_NAME.PlatformAdmin], roleAssignments);
+  const canCreateMembers = hasRole(
+    permissionConstants.createCommunities,
+    roleAssignments,
+  );
 
   return (
     <Table<CommunityTableCommunityFragmentType>

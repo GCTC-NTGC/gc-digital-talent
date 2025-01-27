@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
-import { hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
+import { hasRole } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -67,7 +67,7 @@ const CommunityLayout = () => {
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
   const canAdmin = hasRole(
-    [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
+    permissionConstants.canManageAccessCommunities,
     roleAssignmentsFiltered,
     communityId,
   );

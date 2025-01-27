@@ -121,6 +121,11 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.PlatformAdmin,
   ],
+  canManageAccessCommunities: [
+    ROLE_NAME.PlatformAdmin,
+    ROLE_NAME.CommunityAdmin,
+  ],
+  createCommunities: [ROLE_NAME.PlatformAdmin],
 };
 
 export default permissionConstants;
