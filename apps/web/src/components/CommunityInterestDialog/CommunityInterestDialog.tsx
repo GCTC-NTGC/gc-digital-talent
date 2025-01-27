@@ -82,8 +82,8 @@ const CommunityInterestDialog = ({
       <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
-            defaultMessage: "View and edit settings for this community.",
-            id: "ZxGa7h",
+            defaultMessage: "View and edit your settings for this community.",
+            id: "PRRKAq",
             description: "Subtitle for dialog viewing a community interest",
           })}
         >
@@ -104,8 +104,8 @@ const CommunityInterestDialog = ({
           >
             {communityInterest.jobInterest
               ? intl.formatMessage({
-                  defaultMessage: "Interested in work",
-                  id: "2L5LBG",
+                  defaultMessage: "Interested in work*",
+                  id: "nVlmhK",
                   description:
                     "Message displayed when user expresses interest in job opportunities",
                 })
@@ -118,8 +118,8 @@ const CommunityInterestDialog = ({
           </BoolCheckIcon>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage({
-              defaultMessage: "Interest in training opportunities",
-              id: "9whw8l",
+              defaultMessage: "Interest in training opportunities*",
+              id: "OONyjR",
               description:
                 "Label for users interest in training opportunities for a community",
             })}
