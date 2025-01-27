@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import permissionConstants from "~/constants/permissionConstants";
 
@@ -16,10 +15,9 @@ const CandidateStatusSection = ({
 }: UserInformationProps) => {
   const intl = useIntl();
   const { roleAssignments, isLoaded } = useAuthorization();
-  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
   const isAdmin =
     isLoaded &&
-    hasRole(permissionConstants.managePlatformData, unpackedRoleAssignments);
+    hasRole(permissionConstants.managePlatformData, roleAssignments);
 
   const titleString = intl.formatMessage({
     defaultMessage: "Pool status",

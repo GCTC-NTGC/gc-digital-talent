@@ -73,7 +73,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
-  const unpackedRoleAssignments = unpackMaybes(roleAssignments);
 
   interface CardLinkInfo {
     label: string;
@@ -100,7 +99,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRole(item.roles, unpackedRoleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     (a, b) => {
@@ -124,7 +123,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRole(item.roles, unpackedRoleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
     const aName = a.label;
@@ -181,7 +180,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRole(item.roles, unpackedRoleAssignments),
+    (item) => hasRole(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     (a, b) => {
