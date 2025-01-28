@@ -148,28 +148,22 @@ export const updatePool: GraphQLRequestFunc<Pool, UpdatePoolArgs> = async (
 };
 
 const Test_CreatePoolSkillMutationDocument = /* GraphQL */ `
-  mutation Test_CreatePoolSkill(
-    $poolId: ID!
-    $skillId: ID!
-    $poolSkill: CreatePoolSkillInput!
-  ) {
-    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+  mutation Test_CreatePoolSkill($poolSkill: CreatePoolSkillInput!) {
+    createPoolSkill(poolSkill: $poolSkill) {
       id
     }
   }
 `;
 
 interface CreatePoolSkillArgs {
-  poolId: string;
-  skillId?: string;
   poolSkill: CreatePoolSkillInput;
 }
 
 export const createPoolSkill: GraphQLRequestFunc<
   PoolSkill,
   CreatePoolSkillArgs
-> = async (ctx, { poolId, poolSkill, ...opts }) => {
-  let skillId = opts?.skillId;
+> = async (ctx, { poolSkill }) => {
+  let skillId: string | undefined = poolSkill.skillId;
   if (!skillId) {
     const technicalSkill = await getSkills(ctx, {}).then((skills) => {
       return skills.find(
@@ -183,8 +177,6 @@ export const createPoolSkill: GraphQLRequestFunc<
     .post(Test_CreatePoolSkillMutationDocument, {
       isPrivileged: true,
       variables: {
-        poolId,
-        skillId,
         poolSkill,
       },
     })
