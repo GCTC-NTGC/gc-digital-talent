@@ -385,7 +385,7 @@ export const formValuesToSubmitData = (
       organization,
       division: team,
       startDate,
-      endDate: endDate,
+      endDate: newEndDate,
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,

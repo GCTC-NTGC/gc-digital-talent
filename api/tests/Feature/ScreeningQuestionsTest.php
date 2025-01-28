@@ -3,12 +3,12 @@
 namespace Tests\Feature;
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,19 +24,15 @@ class ScreeningQuestionsTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $team;
+    protected $community;
 
-    protected $teamName = 'test-team';
-
-    protected $teamUser;
+    protected $communityRecruiter;
 
     protected $adminUser;
 
     protected $applicantUser;
 
-    protected $responderUser;
-
-    protected $communityUser;
+    protected $communityAdmin;
 
     protected $pool;
 
@@ -101,16 +97,15 @@ class ScreeningQuestionsTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
-        $this->team = Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
+        $this->community = Community::factory()->create([
+            'key' => 'test-community']);
         Skill::factory()->count(3)->create();
         $this->pool = Pool::factory()->draft()->withPoolSkills(2, 2)->create([
-            'team_id' => $this->team->id,
+            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
         $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'team_id' => $this->team->id,
+            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
         ]);
         $this->adminUser = User::factory()
             ->asApplicant()
@@ -119,12 +114,12 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
             ]);
-        $this->teamUser = User::factory()
+        $this->communityRecruiter = User::factory()
             ->asApplicant()
-            ->asPoolOperator($this->team->name)
+            ->asCommunityRecruiter($this->community->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'community-recruiter-user@test.com',
+                'sub' => 'community-recruiter-user@test.com',
             ]);
         $this->applicantUser = User::factory()
             ->asApplicant()
@@ -132,19 +127,12 @@ class ScreeningQuestionsTest extends TestCase
                 'email' => 'applicant-user@test.com',
                 'sub' => 'applicant-user@test.com',
             ]);
-        $this->responderUser = User::factory()
+        $this->communityAdmin = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
+            ->asCommunityAdmin($this->community->id)
             ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
-            ]);
-        $this->communityUser = User::factory()
-            ->asApplicant()
-            ->asCommunityManager()
-            ->create([
-                'email' => 'community-user@test.com',
-                'sub' => 'community-user@test.com',
+                'email' => 'community-admin-user@test.com',
+                'sub' => 'community-admin-user@test.com',
             ]);
     }
 
@@ -171,8 +159,13 @@ class ScreeningQuestionsTest extends TestCase
             ],
         ];
 
-        // assert only pool operator may set the screening questions (use the mutation)
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        // assert only community recruiter or community admin may set the screening questions (use the mutation)
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
+            $this->createOrUpdateScreeningQuestionAssessmentStep,
+            $variables
+        )
+            ->assertSuccessful();
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -183,16 +176,6 @@ class ScreeningQuestionsTest extends TestCase
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
         $this->actingAs($this->applicantUser, 'api')->graphQL(
-            $this->createOrUpdateScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->responderUser, 'api')->graphQL(
-            $this->createOrUpdateScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityUser, 'api')->graphQL(
             $this->createOrUpdateScreeningQuestionAssessmentStep,
             $variables
         )
@@ -206,7 +189,7 @@ class ScreeningQuestionsTest extends TestCase
         ];
 
         // assert all except applicant may query screening questions -> assessment step
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )
@@ -221,12 +204,7 @@ class ScreeningQuestionsTest extends TestCase
             $variables
         )
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->responderUser, 'api')->graphQL(
-            $this->queryScreeningQuestionAssessmentStep,
-            $variables
-        )
-            ->assertSuccessful();
-        $this->actingAs($this->communityUser, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->queryScreeningQuestionAssessmentStep,
             $variables
         )

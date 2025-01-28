@@ -4,7 +4,7 @@
  *
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
-import { IntlShape, MessageDescriptor, defineMessages } from "react-intl";
+import { IntlShape, defineMessages } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
@@ -23,6 +23,8 @@ import {
   AssessmentStep,
   FinalDecision,
   LocalizedFinalDecision,
+  Pool,
+  PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -99,6 +101,29 @@ export const isExpired = (
     return true;
   }
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
+};
+
+export const isDisqualifiedFinalDecision = (
+  status: Maybe<FinalDecision> | undefined,
+): boolean => {
+  return status
+    ? [FinalDecision.Disqualified, FinalDecision.DisqualifiedRemoved].includes(
+        status,
+      )
+    : false;
+};
+
+export const isQualifiedFinalDecision = (
+  status: Maybe<FinalDecision> | undefined,
+): boolean => {
+  return status
+    ? [
+        FinalDecision.Qualified,
+        FinalDecision.QualifiedExpired,
+        FinalDecision.QualifiedPlaced,
+        FinalDecision.QualifiedRemoved,
+      ].includes(status)
+    : false;
 };
 
 export const formatSubmittedAt = (
@@ -212,6 +237,10 @@ interface StatusChip {
   label: ReactNode;
 }
 
+/**
+ * Returns a status chip for displaying to assessors. Contains more specific information about
+ * assessment progress than that shown to applicants.
+ */
 export const getCandidateStatusChip = (
   finalDecision: Maybe<LocalizedFinalDecision> | undefined,
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
@@ -232,145 +261,318 @@ export const getCandidateStatusChip = (
 
 /* Applicant facing statuses */
 
-// Map combined statuses to their labels
-const combinedStatusLabels = defineMessages({
-  DRAFT: {
-    defaultMessage: "Continue draft",
-    id: "pf3KKo",
-    description: "Link text to continue a application draft",
-  },
-  RECEIVED: {
-    defaultMessage: "Application received",
-    id: "4TmwRU",
-    description: "Status for an application that has been submitted",
-  },
-  UNDER_REVIEW: {
-    defaultMessage: "Application under review",
-    id: "aagbij",
-    description: "Status for an application that is being reviewed",
-  },
-  PENDING_SKILLS: {
-    defaultMessage: "Application pending assessment",
-    id: "UZWLKn",
-    description: "Status for an application that is having skills reviewed",
-  },
-  ASSESSMENT: {
-    defaultMessage: "Application pending assessment",
-    id: "9Pxjw5",
-    description:
-      "Status for an application that where applicant is being assessed",
-  },
-  DATE_PASSED: {
-    defaultMessage: "Submission date passed",
-    id: "13fSK+",
-    description:
-      "Status for an application that where the recruitment has expired",
-  },
+const applicationStatusLabels = defineMessages({
   EXPIRED: {
     defaultMessage: "Expired",
     id: "GIC6EK",
     description: "Expired status",
   },
-  HIRED_CASUAL: {
-    defaultMessage: "Hired (Casual)",
-    id: "0YZeO0",
+  DRAFT: {
+    defaultMessage: "Draft",
+    id: "QDjfw4",
+    description: "Status label for a draft application",
+  },
+  RECEIVED: {
+    defaultMessage: "Received",
+    id: "IH+bPG",
+    description: "Status label for a submitted (but not reviewed) application",
+  },
+  UNDER_REVIEW: {
+    defaultMessage: "Under review",
+    id: "l2xs1C",
+    description: "Status label for an application under review",
+  },
+  APPLICATION_REVIEWED: {
+    defaultMessage: "Application reviewed",
+    id: "AawFeJ",
+    description: "Status label for a reviewed application awaiting assessment",
+  },
+  UNDER_ASSESSMENT: {
+    defaultMessage: "Under assessment",
+    id: "heFiZt",
+    description: "Status label for an application under assessment",
+  },
+  UNSUCCESSFUL: {
+    defaultMessage: "Unsuccessful",
+    id: "TIAla1",
     description:
-      "Status for an application that has been hired with a casual contract",
+      "Message displayed when candidate has not passed an assessment step",
+  },
+  SUCCESSFUL: {
+    defaultMessage: "Qualified in process",
+    id: "kolwAf",
+    description: "Status label for a qualified application",
+  },
+});
+
+const applicationStatusDescriptions = defineMessages({
+  EXPIRED: {
+    defaultMessage: "The deadline for this opportunity has passed.",
+    id: "CeKPRS",
+    description:
+      "Status description for a draft application to an expired poster",
+  },
+  DRAFT: {
+    defaultMessage:
+      "A draft application has been started but not submitted. You can continue working on your draft and submit it any time before the application deadline. You won't be able to edit your application once it's submitted.",
+    id: "QQyMxc",
+    description: "Status description for a draft application",
+  },
+  RECEIVED: {
+    defaultMessage:
+      "Your application has been submitted and is awaiting review. You can't edit your application anymore.",
+    id: "l0EXuk",
+    description:
+      "Status description for a submitted (but not reviewed) application",
+  },
+  UNDER_REVIEW: {
+    defaultMessage: "We're currently reviewing your application.",
+    id: "ptrg8W",
+    description: "Status description for an application under review",
+  },
+  APPLICATION_REVIEWED: {
+    defaultMessage:
+      "Your application has passed the first step in the review process. This means you've been approved to proceed to the next phase of assessment. However, we're unable to provide a timeline because of the volume of applications and other factors.",
+    id: "yx06ue",
+    description:
+      "Status description for a reviewed application awaiting assessment",
+  },
+  UNDER_ASSESSMENT: {
+    defaultMessage:
+      "Your application has passed the first step in the review process. You're now at the stage when additional testing is being conducted. Depending on the process, this may involve several steps of evaluation such as interviews, exams, and reference checks.",
+    id: "cZJski",
+    description: "Status description for an application under assessment",
+  },
+  UNSUCCESSFUL_PUBLIC: {
+    defaultMessage:
+      "Your application was unsuccessful. Due to the high volume of applications, we're unable to provide specific feedback on why your application was rejected. The two most common reasons people receive this result are a lack of details in the initial application related to skills demonstration or a failure to pass a technical assessment.",
+    id: "Ct7EHx",
+    description:
+      "Status description for a disqualified application to a public pool",
+  },
+  UNSUCCESSFUL_EMPLOYEE: {
+    defaultMessage:
+      "Your application was unsuccessful. For job opportunities internal to the Government of Canada, you may request an informal conversation about this decision. To proceed with this, please reach out to the department or recruitment team responsible for advertising the job.",
+    id: "8lxSJM",
+    description:
+      "Status description for a disqualified application to an employee-only pool",
+  },
+  SUCCESSFUL: {
+    defaultMessage:
+      "You've applied for a role, you've been assessed, and you've been deemed qualified for this role. There may be other candidates who have also applied for this position and are now at the same step in the process as you. If a hiring manager has an opportunity for you, you may be approached with an employment offer.",
+    id: "7e88Z0",
+    description: "Status description for a qualified application",
+  },
+});
+
+export interface StatusChipWithDescription extends StatusChip {
+  description?: ReactNode;
+}
+
+/**
+ * Returns a status chip for displaying to applicants. General information about application status.
+ */
+export const getApplicationStatusChip = (
+  submittedAt: PoolCandidate["submittedAt"],
+  closingDate: Pool["closingDate"],
+  removedAt: PoolCandidate["removedAt"],
+  finalDecisionAt: PoolCandidate["finalDecisionAt"],
+  finalDecision: Maybe<FinalDecision> | undefined,
+  areaOfSelection: Maybe<PoolAreaOfSelection> | undefined,
+  assessmentStatus: PoolCandidate["assessmentStatus"],
+  screeningQuestions: Pool["screeningQuestions"],
+  intl: IntlShape,
+): StatusChipWithDescription => {
+  // Draft applications
+  if (!submittedAt) {
+    if (closingDate && isPast(parseDateTimeUtc(closingDate))) {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.EXPIRED),
+        description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
+      };
+    } else {
+      return {
+        color: "primary",
+        label: intl.formatMessage(applicationStatusLabels.DRAFT),
+        description: intl.formatMessage(applicationStatusDescriptions.DRAFT),
+      };
+    }
+  }
+
+  // Disqualified applications
+  if (
+    removedAt ||
+    (finalDecisionAt && isDisqualifiedFinalDecision(finalDecision))
+  ) {
+    if (areaOfSelection === PoolAreaOfSelection.Employees) {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
+        ),
+      };
+    } else {
+      return {
+        color: "black",
+        label: intl.formatMessage(applicationStatusLabels.UNSUCCESSFUL),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
+        ),
+      };
+    }
+  }
+
+  // Qualified applications
+  if (finalDecisionAt && isQualifiedFinalDecision(finalDecision)) {
+    return {
+      color: "success",
+      label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
+      description: intl.formatMessage(applicationStatusDescriptions.SUCCESSFUL),
+    };
+  }
+
+  // Fully assessed but final decision not yet made
+  if (
+    assessmentStatus?.overallAssessmentStatus ===
+    OverallAssessmentStatus.Qualified
+  ) {
+    return {
+      color: "secondary",
+      label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.UNDER_ASSESSMENT,
+      ),
+    };
+  }
+
+  // Partially assessed applications
+  const currentStep = assessmentStatus?.currentStep
+    ? assessmentStatus?.currentStep
+    : 0;
+  const numberOfScreeningSteps =
+    screeningQuestions && screeningQuestions?.length > 0 ? 2 : 1;
+  const numberOfStepStatuses =
+    assessmentStatus?.assessmentStepStatuses?.length ?? 0;
+
+  if (currentStep <= numberOfScreeningSteps && numberOfStepStatuses > 0) {
+    return {
+      color: "secondary",
+      label: intl.formatMessage(applicationStatusLabels.UNDER_REVIEW),
+      description: intl.formatMessage(
+        applicationStatusDescriptions.UNDER_REVIEW,
+      ),
+    };
+  }
+  if (currentStep > numberOfScreeningSteps) {
+    if (numberOfStepStatuses <= numberOfScreeningSteps) {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(applicationStatusLabels.APPLICATION_REVIEWED),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.APPLICATION_REVIEWED,
+        ),
+      };
+    } else {
+      return {
+        color: "secondary",
+        label: intl.formatMessage(applicationStatusLabels.UNDER_ASSESSMENT),
+        description: intl.formatMessage(
+          applicationStatusDescriptions.UNDER_ASSESSMENT,
+        ),
+      };
+    }
+  }
+
+  return {
+    color: "secondary",
+    label: intl.formatMessage(applicationStatusLabels.RECEIVED),
+    description: intl.formatMessage(applicationStatusDescriptions.RECEIVED),
+  };
+};
+
+const qualifiedRecruitmentStatusLabels = defineMessages({
+  OPEN_TO_JOBS: {
+    defaultMessage: "Open to job offers",
+    id: "p4kAoz",
+    description: "Status label for a qualified application open for hiring",
   },
   NOT_INTERESTED: {
     defaultMessage: "Not interested",
-    id: "c+6rQB",
-    description: "Status for when the user has suspended an application",
-  },
-  HIRED_INDETERMINATE: {
-    defaultMessage: "Hired (Indeterminate)",
-    id: "/Sobod",
+    id: "3QGPJe",
     description:
-      "Status for an application that has been hired with an indeterminate contract",
+      "Status label for a qualified application the candidate has marked not interested",
   },
-  HIRED_TERM: {
-    defaultMessage: "Hired (Term)",
-    id: "VplMpm",
-    description:
-      "Status for an application that has been hired with a term contract",
+  HIRED: {
+    defaultMessage: "Hired",
+    id: "IJL2jN",
+    description: "Status label for a qualified application that has been hired",
   },
-  READY_TO_HIRE: {
-    defaultMessage: "Ready to hire",
-    id: "9gpVCX",
-    description: "Status for an application where user user is ready to hire",
-  },
-  PAUSED: {
-    defaultMessage: "Paused",
-    id: "KA/hfo",
-    description:
-      "Status for an application to an advertisement that is unavailable",
-  },
-  WITHDREW: {
-    defaultMessage: "Withdrew",
-    id: "C+hP/v",
-    description: "Status for an application that has been withdrawn",
-  },
-  REMOVED: commonMessages.removed,
-  SCREENED_OUT: commonMessages.screenedOut,
 });
 
-// Map pool candidate statuses to their regular combined statuses
-const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
-  [PoolCandidateStatus.Draft, combinedStatusLabels.DRAFT],
-  [PoolCandidateStatus.NewApplication, combinedStatusLabels.RECEIVED],
-  [PoolCandidateStatus.ApplicationReview, combinedStatusLabels.UNDER_REVIEW],
-  [PoolCandidateStatus.ScreenedIn, combinedStatusLabels.PENDING_SKILLS],
-  [PoolCandidateStatus.UnderAssessment, combinedStatusLabels.ASSESSMENT],
-  [PoolCandidateStatus.DraftExpired, combinedStatusLabels.DATE_PASSED],
-  [
-    PoolCandidateStatus.ScreenedOutApplication,
-    combinedStatusLabels.SCREENED_OUT,
-  ],
-  [
-    PoolCandidateStatus.ScreenedOutAssessment,
-    combinedStatusLabels.SCREENED_OUT,
-  ],
-  [PoolCandidateStatus.ScreenedOutNotInterested, combinedStatusLabels.REMOVED],
-  [PoolCandidateStatus.ScreenedOutNotResponsive, combinedStatusLabels.REMOVED],
-  [PoolCandidateStatus.QualifiedAvailable, combinedStatusLabels.READY_TO_HIRE],
-  [PoolCandidateStatus.QualifiedUnavailable, combinedStatusLabels.PAUSED],
-  [PoolCandidateStatus.QualifiedWithdrew, combinedStatusLabels.WITHDREW],
-  [PoolCandidateStatus.PlacedTentative, combinedStatusLabels.READY_TO_HIRE],
-  [PoolCandidateStatus.PlacedCasual, combinedStatusLabels.HIRED_CASUAL],
-  [PoolCandidateStatus.PlacedTerm, combinedStatusLabels.HIRED_TERM],
-  [
-    PoolCandidateStatus.PlacedIndeterminate,
-    combinedStatusLabels.HIRED_INDETERMINATE,
-  ],
-  [PoolCandidateStatus.Expired, combinedStatusLabels.EXPIRED],
-  [PoolCandidateStatus.Removed, combinedStatusLabels.REMOVED],
-]);
-
-// Map pool candidate statuses to their suspended combined statuses
-const suspendedStatusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
-  [PoolCandidateStatus.QualifiedAvailable, combinedStatusLabels.NOT_INTERESTED],
-]);
+const qualifiedRecruitmentStatusDescriptions = defineMessages({
+  OPEN_TO_JOBS: {
+    defaultMessage:
+      "You're currently interested in receiving job opportunities related to this recruitment process. You can change this status at the end of this dialog.",
+    id: "ml+1LK",
+    description:
+      "Status description for a qualified application open for hiring",
+  },
+  NOT_INTERESTED: {
+    defaultMessage:
+      "You've indicated that you aren't interested in receiving job opportunities related to this recruitment process. You can change this status at the end of this dialog.",
+    id: "7toBNM",
+    description:
+      "Status description for a qualified application the candidate has marked not interested",
+  },
+  HIRED: {
+    defaultMessage:
+      "You've accepted a job thanks to this recruitment process. You'll no longer receive job opportunities related to this process.",
+    id: "FN037Z",
+    description:
+      "Status description for a qualified application that has been hired",
+  },
+});
 
 /**
- * Derived a combined status from the pool candidate status and the suspendedAt timestamp
- *
- * @param status  pool candidate status
- * @param suspendedAt  The timestamp for the user to suspend the pool candidate.  If suspended the label may be different.
- * @returns MessageDescriptor | null    Returns the derived status label
+ * Returns a status chip for displaying to applicants. Status for current interest/validity
+ * in new opportunities for a QUALIFIED application.
  */
-export const derivedStatusLabel = (
-  status: Maybe<PoolCandidateStatus> | undefined,
+export const getQualifiedRecruitmentStatusChip = (
   suspendedAt: PoolCandidate["suspendedAt"],
-): MessageDescriptor | null => {
-  if (!status) return null;
-  const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
+  placedAt: PoolCandidate["placedAt"],
+  intl: IntlShape,
+): StatusChipWithDescription => {
+  if (placedAt) {
+    return {
+      color: "secondary",
+      label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
+      description: intl.formatMessage(
+        qualifiedRecruitmentStatusDescriptions.HIRED,
+      ),
+    };
+  }
 
-  const combinedStatus =
-    isSuspended && suspendedStatusMap.has(status)
-      ? suspendedStatusMap.get(status) // special suspended label
-      : statusMap.get(status); // regular label
+  if (suspendedAt) {
+    return {
+      color: "secondary",
+      label: intl.formatMessage(
+        qualifiedRecruitmentStatusLabels.NOT_INTERESTED,
+      ),
+      description: intl.formatMessage(
+        qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
+      ),
+    };
+  }
 
-  return combinedStatus ?? null;
+  return {
+    color: "success",
+    label: intl.formatMessage(qualifiedRecruitmentStatusLabels.OPEN_TO_JOBS),
+    description: intl.formatMessage(
+      qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
+    ),
+  };
 };
 
 export const priorityWeightAfterVerification = (

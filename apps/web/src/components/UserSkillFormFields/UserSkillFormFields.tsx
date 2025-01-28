@@ -6,19 +6,12 @@ import { SkillCategory, WhenSkillUsed } from "@gc-digital-talent/graphql";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
-import { SkillBrowserDialogContext } from "../SkillBrowser/types";
-
 interface UserSkillFormFieldsProps {
   category: SkillCategory;
-  context?: SkillBrowserDialogContext;
 }
 
-const UserSkillFormFields = ({
-  category,
-  context,
-}: UserSkillFormFieldsProps) => {
+const UserSkillFormFields = ({ category }: UserSkillFormFieldsProps) => {
   const intl = useIntl();
-  const shouldShowWhenUsedQuestion = context !== "directive_forms";
 
   const levelOptions = getSortedSkillLevels().map((skillLevel) => {
     const messages = getSkillLevelMessages(skillLevel, category);
@@ -44,42 +37,39 @@ const UserSkillFormFields = ({
         }}
         items={levelOptions}
       />
-      {shouldShowWhenUsedQuestion && (
-        <RadioGroup
-          idPrefix="whenSkillUsed"
-          name="whenSkillUsed"
-          legend={intl.formatMessage({
-            defaultMessage: "Do you currently use this skill?",
-            id: "PmDeul",
-            description:
-              "Label for field asking if a skill is currently being used",
-          })}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-          items={[
-            {
-              value: WhenSkillUsed.Current,
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>Yes</strong>, I use this skill in my current role.",
-                id: "yiqfHr",
-                description: "Option for when a skill is currently being used",
-              }),
-            },
-            {
-              value: WhenSkillUsed.Past,
-              label: intl.formatMessage({
-                defaultMessage:
-                  "<strong>No</strong>, this is a skill I've used in the past.",
-                id: "ID6PLP",
-                description:
-                  "Option for when a skill was only used in the past",
-              }),
-            },
-          ]}
-        />
-      )}
+      <RadioGroup
+        idPrefix="whenSkillUsed"
+        name="whenSkillUsed"
+        legend={intl.formatMessage({
+          defaultMessage: "Do you currently use this skill?",
+          id: "PmDeul",
+          description:
+            "Label for field asking if a skill is currently being used",
+        })}
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={[
+          {
+            value: WhenSkillUsed.Current,
+            label: intl.formatMessage({
+              defaultMessage:
+                "<strong>Yes</strong>, I use this skill in my current role.",
+              id: "yiqfHr",
+              description: "Option for when a skill is currently being used",
+            }),
+          },
+          {
+            value: WhenSkillUsed.Past,
+            label: intl.formatMessage({
+              defaultMessage:
+                "<strong>No</strong>, this is a skill I've used in the past.",
+              id: "ID6PLP",
+              description: "Option for when a skill was only used in the past",
+            }),
+          },
+        ]}
+      />
     </>
   );
 };
