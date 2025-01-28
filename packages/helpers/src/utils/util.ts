@@ -58,16 +58,6 @@ export function getOrThrowError<T>(
   return object[key];
 }
 
-/** Return a copy of the object with specific property removed */
-export function deleteProperty<T, K extends keyof T>(
-  obj: T,
-  key: K,
-): Omit<T, K> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { [key]: _, ...newObj } = obj;
-  return newObj;
-}
-
 /**
  * Inserts a separator between each pair of adjacent items in an array.
  * Kind of like array.join, except it leaves you with an array rather than a string.
