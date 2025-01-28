@@ -17,29 +17,29 @@ const commonMessages = defineMessages({
     description: "Title displayed for a table initial loading state.",
   },
   loading: {
-    defaultMessage: "Loading...",
-    id: "ErrpJC",
+    defaultMessage: "Loading…",
+    id: "6sIidC",
     description:
       "Text for a component which can't be rendered yet because a data load is in progress.",
   },
   saving: {
-    defaultMessage: "Saving...",
-    id: "Tw90Pi",
+    defaultMessage: "Saving…",
+    id: "Ib6fY4",
     description: "Submitting text for save button.",
   },
   removing: {
-    defaultMessage: "Removing...",
-    id: "14Cv7d",
+    defaultMessage: "Removing…",
+    id: "j4ZYQw",
     description: "Submitting text for delete button.",
   },
   searching: {
-    defaultMessage: "Searching...",
-    id: "w6vHXf",
+    defaultMessage: "Searching…",
+    id: "dyGR7U",
     description: "Message to display when a search is in progress.",
   },
   loadingError: {
-    defaultMessage: "Oh no...",
-    id: "AvBSV+",
+    defaultMessage: "Oh no…",
+    id: "GtVkbt",
     description: "Title displayed for a table error loading state.",
   },
   notFound: {
@@ -139,8 +139,8 @@ const commonMessages = defineMessages({
     description: "Title displayed telephone",
   },
   preferredCommunicationLanguage: {
-    defaultMessage: "Preferred Communication Language",
-    id: "Ho94JY",
+    defaultMessage: "Preferred communication language",
+    id: "XiECLl",
     description: "Title displayed preferred communication language",
   },
   workingLanguageAbility: {

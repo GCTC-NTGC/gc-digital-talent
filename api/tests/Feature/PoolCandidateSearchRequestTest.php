@@ -35,7 +35,6 @@ class PoolCandidateSearchRequestTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -155,15 +154,6 @@ class PoolCandidateSearchRequestTest extends TestCase
             'guest',
             'base_user',
         ]);
-        $requestResponder = User::create([
-            'email' => 'responder-user@test.com',
-            'sub' => 'responder-user@test.com',
-        ]);
-        $requestResponder->syncRoles([
-            'guest',
-            'base_user',
-            'request_responder',
-        ]);
 
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
@@ -221,26 +211,16 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->actingAs($baseUser, 'api')
             ->graphQL($querySearchRequest, $whereSearchRequest1)
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-        $this->actingAs($requestResponder, 'api')
-            ->graphQL($querySearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment(['id' => $searchRequest1->id]);
 
         // test viewing collection of search requests
         $this->actingAs($baseUser, 'api')
             ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { paginatorInfo { count } } }')
             ->assertJsonFragment(['count' => 0]);
-        $this->actingAs($requestResponder, 'api')
-            ->graphQL('query { poolCandidateSearchRequestsPaginated(first: 500) { data { id } } }')
-            ->assertJsonFragment(['id' => $searchRequest1->id])
-            ->assertJsonFragment(['id' => $searchRequest2->id]);
 
         // test updating a search request
         $this->actingAs($baseUser, 'api')
             ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-        $this->actingAs($requestResponder, 'api')
-            ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest1)
-            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
 
         // community recruiter can only update searchRequest 1
         $this->actingAs($communityRecruiter, 'api')
@@ -262,11 +242,6 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->actingAs($communityRecruiter, 'api')
             ->graphQL($mutationDeleteSearchRequest, $whereUpdateSearchRequest2)
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-
-        // responder deletes request 2
-        $this->actingAs($requestResponder, 'api')
-            ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest2)
-            ->assertJsonFragment(['id' => $searchRequest2->id]);
     }
 
     /**

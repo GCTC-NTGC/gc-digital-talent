@@ -3,6 +3,13 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
+    "en": "Work stream information",
+    "fr": [
+      "Informations sur le volet de travail",
+      "Informations sur les volets de travail"
+    ]
+  },
+  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -80,6 +87,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Create work stream",
+    "fr": [
+      "Créez un volet de travail",
+      "Créez le volet de travail"
+    ]
+  },
+  {
     "en": "Add process role",
     "fr": [
       "Ajoutez un rôle dans le processus",
@@ -112,13 +126,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigences relatives aux compétences",
       "Exigences en matière de compétences"
-    ]
-  },
-  {
-    "en": "Continue draft",
-    "fr": [
-      "Poursuivez l'ébauche",
-      "Poursuivre l’ébauche"
     ]
   },
   {

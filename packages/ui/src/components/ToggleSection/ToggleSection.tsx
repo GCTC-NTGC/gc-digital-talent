@@ -265,13 +265,13 @@ interface HeaderProps extends HeadingProps {
 const Header = forwardRef<HTMLHeadingElement, HeaderProps>(
   ({ toggle, ...headingProps }, forwardedRef) => {
     return (
-      <div data-h2-flex-grid="base(center, x2)">
+      <div data-h2-flex-grid="base(flex-start, x2, x1) p-tablet(center, x2)">
         <Heading
           ref={forwardedRef}
-          data-h2-flex-item="base(fill)"
+          data-h2-flex-item="base(1of1) p-tablet(fill)"
           {...headingProps}
         />
-        <div data-h2-flex-item="base(content)">{toggle}</div>
+        <div data-h2-flex-item="base(1of1) p-tablet(content)">{toggle}</div>
       </div>
     );
   },

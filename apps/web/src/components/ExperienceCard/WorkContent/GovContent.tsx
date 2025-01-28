@@ -78,7 +78,7 @@ const GovContent = ({
             headingLevel={headingLevel}
           >
             {classification
-              ? `${classification.group}-0${classification.level}`
+              ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
               : intl.formatMessage(commonMessages.notAvailable)}
           </ContentSection>
         </div>
@@ -122,7 +122,7 @@ const GovContent = ({
             headingLevel={headingLevel}
           >
             {classification
-              ? `${classification.group}-0${classification.level}`
+              ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
               : intl.formatMessage(commonMessages.notAvailable)}
           </ContentSection>
         </div>

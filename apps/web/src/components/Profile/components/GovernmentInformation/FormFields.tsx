@@ -114,7 +114,10 @@ const FormFields = ({
     ]);
 
   const groupOptions = getGroupOptions([...classifications], intl);
-  const levelOptions = getLevelOptions([...classifications], groupSelection);
+  const levelOptions = getLevelOptions(
+    [...classifications],
+    groupSelection,
+  ).sort((a, b) => a.value - b.value);
   const hasPriorityEntitlement = priorityEntitlement === "yes";
   const isGovEmployee = govEmployee === "yes";
   const isPlaced =
@@ -248,11 +251,9 @@ const FormFields = ({
                 id="currentClassificationGroup"
                 label={labels.currentClassificationGroup}
                 name="currentClassificationGroup"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a group",
-                  id: "9Upe1V",
-                  description: "Null selection for form.",
-                })}
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOptionGroup,
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -272,6 +273,7 @@ const FormFields = ({
                     uiMessages.nullSelectionOptionLevel,
                   )}
                   options={levelOptions}
+                  doNotSort
                 />
               </div>
             )}

@@ -28,15 +28,12 @@ enum PoolCandidateStatus
     case EXPIRED;
     case REMOVED;
 
-    // searchable candidates, so the available status and others treated as available for search purposes
     public static function qualifiedEquivalentGroup(): array
     {
         return [
             PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             PoolCandidateStatus::PLACED_TENTATIVE->name,
             PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
         ];
     }
 

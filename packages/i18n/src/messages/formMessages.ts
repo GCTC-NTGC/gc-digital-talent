@@ -4,11 +4,6 @@ import { defineMessages } from "react-intl";
  * Messages used in generic form components (@gc-digital-talent/forms)
  */
 const formMessages = defineMessages({
-  toggleContext: {
-    defaultMessage: "Toggle context",
-    id: "2W9CMn",
-    description: "Label to toggle the context description of a field set.",
-  },
   submit: {
     defaultMessage: "Submit",
     id: "YHqVoj",
@@ -28,23 +23,6 @@ const formMessages = defineMessages({
     defaultMessage: "{wordCount} / {wordLimit} words",
     id: "YmboX1",
     description: "Message for words remaining before hitting the limit",
-  },
-  wordsOver: {
-    defaultMessage:
-      "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
-    id: "WPJrmN",
-    description: "Message for when user goes over word limit.",
-  },
-  wordsLeft: {
-    defaultMessage: "{wordsLeft, plural, one {word left} other {words left}}.",
-    id: "j6WJBY",
-    description: "Message for when user goes over word limit.",
-  },
-  overLimit: {
-    defaultMessage: "You are over the word limit, {wordLimit}.",
-    id: "JHgARn",
-    description:
-      "Text read out to assistive technology when over the word limit.",
   },
   unsavedTitle: {
     defaultMessage: "You have unsaved changes",
@@ -166,18 +144,6 @@ const formMessages = defineMessages({
     id: "plwOsC",
     description:
       "Default placeholder shown when Select field has nothing actively selected.",
-  },
-  loading: {
-    defaultMessage: "Loading...",
-    id: "ylHC90",
-    description:
-      "Message shown in options dropdown when Select field is loading options.",
-  },
-  noOptions: {
-    defaultMessage: "No options",
-    id: "lsFH+y",
-    description:
-      "Message shown in options dropdown when Select field has no options.",
   },
   phonePlaceholder: {
     defaultMessage: "+123243234",

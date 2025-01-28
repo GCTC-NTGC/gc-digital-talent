@@ -19,7 +19,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Role;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
@@ -1729,7 +1728,6 @@ class UserTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        // group one
         PoolCandidate::factory()->count(8)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1740,7 +1738,6 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        // group two
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1752,7 +1749,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // Should appear in searches, but in pool 2.
-        // group three
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1764,7 +1760,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // Expired in pool - should not appear in searches
-        // group four
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => '2000-01-01',
@@ -1775,13 +1770,11 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        // Already placed - should appear in searches
-        // group five
+        // Already placed - should not appear in searches
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            'suspended_at' => null,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1789,7 +1782,6 @@ class UserTest extends TestCase
             ]),
         ]);
         // User status inactive - should not appear in searches
-        // group six
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
@@ -1819,8 +1811,7 @@ class UserTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                // contains groups one, two, and five
-                'countApplicants' => 15, // including base admin user
+                'countApplicants' => 14, // including base admin user
             ],
         ]);
 
@@ -1842,8 +1833,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                // counts groups one and five, filtered out two due to added language
-                'countApplicants' => 10, // including base admin user
+                'countApplicants' => 9, // including base admin user
             ],
         ]);
     }
@@ -2303,13 +2293,10 @@ class UserTest extends TestCase
 
     public function testRoleAssignmentScope(): void
     {
-        $testTeam = Team::factory()->create();
         $testPool = Pool::factory()->create();
         $testCommunity = Community::factory()->create();
 
         $adminId = Role::where('name', 'platform_admin')->value('id');
-        $responderId = Role::where('name', 'request_responder')->value('id');
-        $poolOperatorId = Role::where('name', 'pool_operator')->value('id');
         $processOperatorId = Role::where('name', 'process_operator')->value('id');
         $communityRecruiterId = Role::where('name', 'community_recruiter')->value('id');
         $communityAdminId = Role::where('name', 'community_admin')->value('id');
@@ -2317,8 +2304,6 @@ class UserTest extends TestCase
         // Create users
         User::factory(1)->asAdmin()->create();
         User::factory(3)->asGuest()->create();
-        User::factory(5)->asPoolOperator($testTeam->name)->create();
-        User::factory(7)->asRequestResponder()->create();
         User::factory(11)->asApplicant()->create();
 
         User::factory(2)->asProcessOperator($testPool->id)->create();
@@ -2340,40 +2325,28 @@ class UserTest extends TestCase
         $empty = ['where' => []];
         $nullRoles = ['where' => ['roles' => null]];
         $adminRoles = ['where' => ['roles' => [$adminId]]];
-        $responderRoles = ['where' => ['roles' => [$responderId]]];
-        $poolRoles = ['where' => ['roles' => [$poolOperatorId]]];
         $processRoles = ['where' => ['roles' => [$processOperatorId]]];
         $recruiterRoles = ['where' => ['roles' => [$communityRecruiterId]]];
         $communityAdminRoles = ['where' => ['roles' => [$communityAdminId]]];
         $communityCombinedRoles = ['where' => ['roles' => [$communityAdminId, $communityRecruiterId]]]; // check more than one role at a time
 
-        assertSame(36, count(User::all())); // ensure total user count is expected 36
+        assertSame(24, count(User::all())); // ensure total user count is expected 24
 
         // assert each query returns expected count
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $empty)
             ->assertJsonFragment([
-                'total' => 36,
+                'total' => 24,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $nullRoles)
             ->assertJsonFragment([
-                'total' => 36,
+                'total' => 24,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $adminRoles)
             ->assertJsonFragment([
                 'total' => 2, // includes created and setup admins
-            ]);
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($query, $responderRoles)
-            ->assertJsonFragment([
-                'total' => 7,
-            ]);
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($query, $poolRoles)
-            ->assertJsonFragment([
-                'total' => 5,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $processRoles)
@@ -2464,7 +2437,6 @@ class UserTest extends TestCase
             ]);
         $adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',

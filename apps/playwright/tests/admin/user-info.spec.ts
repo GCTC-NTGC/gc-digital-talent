@@ -89,11 +89,6 @@ test.describe("User information", () => {
     ).toBeVisible();
   });
 
-  test("Request responder can access", async ({ appPage }) => {
-    await loginAndVisitUser(appPage, "request@test.com", user);
-    await assertSuccess(appPage.page);
-  });
-
   test("Platform admin can access", async ({ appPage }) => {
     await loginAndVisitUser(appPage, "admin@test.com", user);
     await assertSuccess(appPage.page);

@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
@@ -106,7 +107,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasFactory;
     use HasLocalizedEnums;
     use HasRelationships;
-    use HasRolesAndPermissions;
+    use HasRolesAndPermissions {
+        roles as baseRoles;
+    }
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
@@ -204,6 +207,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * Extends Laratrust roles relationship to
+     * support timestamp updating.
+     */
+    public function roles(): MorphToMany
+    {
+        return $this->baseRoles()->withTimestamps();
     }
 
     /**
@@ -358,7 +370,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification()->first();
 
-        return $classification->group.'-0'.$classification->level;
+        $leadingZero = $classification->level < 10 ? '0' : '';
+
+        return $classification->group.'-'.$leadingZero.$classification->level;
     }
 
     public function getDepartment()
@@ -471,6 +485,52 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
+     * Custom logging for adding/removing roles for a user
+     *
+     * This comes from Laratrust so it is missed in the normal
+     * event logging for this model. Since we do not have access to specific data
+     * the shape is slightly different
+     *
+     *  - Subject is the user being affected (role added to or removed from)
+     *  - Properties are the subject users id, role id and if it is a team based role, the team id
+     *
+     * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
+     * @param  User  $user  User being affected (subject)
+     * @param  ?string  $roleId  Id of the role being added or removed
+     * @param  mixed  $team  IF team based role, the ID or array of then team ID
+     */
+    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
+    {
+        if (! $roleId) {
+            return;
+        }
+
+        $properties = [
+            'user_id' => $user->id,
+            'role_id' => $roleId,
+        ];
+        if ($team) {
+            $teamId = $team;
+            if (is_array($team)) {
+                if (Arr::isAssoc($team) && isset($team['id'])) {
+                    $teamId = $team['id'];
+                } elseif (isset($team[0]['id'])) {
+                    $teamId = $team[0]['id'];
+                }
+            }
+
+            $properties['team_id'] = $teamId;
+        }
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($user)
+            ->withProperties(['attributes' => $properties])
+            ->event($eventName)
+            ->log($eventName);
+    }
+
+    /**
      * Boot function for using with User Events
      *
      * @return void
@@ -509,6 +569,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newWorkEmail]);
             }
+        });
+
+        static::roleAdded(function (User $user, string $role, $team) {
+            self::logRoleChange('roleAdded', $user, $role, $team);
+        });
+
+        static::roleRemoved(function (User $user, string $role, $team) {
+            self::logRoleChange('roleRemoved', $user, $role, $team);
         });
     }
 

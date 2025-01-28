@@ -279,8 +279,8 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
   PoolLocationRequired: {
     defaultMessage:
-      "You must fill Specific Location in English and French if advertisement is not remote.",
-    id: "aMkZ80",
+      "You must fill Specific location in English and French if advertisement is not remote.",
+    id: "CYirJF",
     description:
       "Error message that advertisement locations must be filled in English and French.",
   },
@@ -401,12 +401,6 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "LBqw5w",
     description:
       "Message displayed when user attempts to apply to a pool without answering all screening questions",
-  },
-  NEED_AT_LEAST_ONE_PERSONNEL_REQUIREMENT: {
-    defaultMessage: "You must add at least one personnel requirement.",
-    id: "2KDa14",
-    description:
-      "Message displayed when user attempts to submit a form without at least one personnel requirement",
   },
   VERIFICATION_FAILED: {
     defaultMessage: "Verification failed.",

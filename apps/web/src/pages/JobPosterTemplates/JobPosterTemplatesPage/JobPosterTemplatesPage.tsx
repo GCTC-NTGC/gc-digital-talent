@@ -132,7 +132,7 @@ function previewMetaData(
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-0${classification.level}`,
+      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
     } satisfies PreviewMetaData);
   }
 
@@ -356,7 +356,7 @@ const JobPosterTemplatesPage = () => {
                         .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
-                          label: `${classification.group}-0${classification.level}`,
+                          label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
                         }))}
                     />
                     <Checklist

@@ -33,7 +33,7 @@ final class CountPoolCandidatesByPool
             }
         });
 
-        // available candidates scope (qualifiedEquivalentGroup, not expired, not suspended)
+        // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL, or PLACED_TENTATIVE)
         PoolCandidate::scopeAvailable($queryBuilder);
 
         // Only display IT & OTHER publishing group candidates

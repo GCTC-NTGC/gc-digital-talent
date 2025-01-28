@@ -48,7 +48,7 @@ class ClassificationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
-        $this->community = Community::factory()->create(['name' => 'test-team']);
+        $this->community = Community::factory()->create(['name' => 'test-community']);
         $this->teamPool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
@@ -60,8 +60,7 @@ class ClassificationTest extends TestCase
         $this->baseUser->syncRoles([
             'guest',
             'base_user',
-            'pool_operator',
-            'request_responder',
+            'process_operator',
         ]);
 
         $this->adminUser = User::create([

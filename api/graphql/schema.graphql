@@ -151,6 +151,26 @@ type User {
     @canResolved(ability: "view") # Search requests submitted by a user
 }
 
+type CommunityInterest {
+  id: UUID!
+  community: Community! @belongsTo
+  workStreams: [WorkStream!] @belongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+}
+
+# A pivot table for employees to express interest in the development programs of a community.
+type DevelopmentProgramInterest {
+  id: UUID!
+  developmentProgram: DevelopmentProgram! @belongsTo
+  communityInterest: CommunityInterest! @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
 type EmployeeProfile {
   organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_organization_type_interest")
@@ -176,6 +196,8 @@ type EmployeeProfile {
   dreamRoleClassification: Classification @belongsTo
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
+
+  communityInterests: [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -537,6 +559,18 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  developmentPrograms: [DevelopmentProgram!] @hasMany
+}
+
+type DevelopmentProgram {
+  id: UUID!
+  name: LocalizedString
+  descriptionForProfile: LocalizedString
+    @rename(attribute: "description_for_profile")
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+  community: Community @belongsTo
+  eligibleClassifications: [Classification!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -1156,6 +1190,7 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+  workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
   workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
 
   notifications(
@@ -1464,6 +1499,48 @@ input UpdateEmployeeProfileInput @validator {
   dreamRoleClassification: ClassificationBelongsTo
   dreamRoleWorkStream: WorkStreamBelongsTo
   dreamRoleDepartments: DepartmentBelongsToMany
+}
+
+input CreateCommunityInterestInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  community: CommunityBelongsTo!
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+}
+
+input UpdateCommunityInterestInput @validator {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+}
+
+input CreateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+}
+
+input UpdateDevelopmentProgramInterestHasMany {
+  create: [CreateDevelopmentProgramInterestInput!]
+  update: [UpdateDevelopmentProgramInterestInput!]
+  delete: [UUID!]
+}
+
+input CreateDevelopmentProgramInterestInput @validator {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input UpdateDevelopmentProgramInterestInput @validator {
+  id: UUID!
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 input LocalizedStringInput {
@@ -2209,6 +2286,23 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
+  createCommunityInterest(
+    communityInterest: CreateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateCommunityInterest(
+    id: UUID!
+    communityInterest: UpdateCommunityInterestInput! @spread
+  ): CommunityInterest
+    @guard
+    @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+  deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
@@ -2663,5 +2757,3 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
-
-#import directiveForms.graphql

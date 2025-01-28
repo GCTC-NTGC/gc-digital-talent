@@ -108,7 +108,7 @@ const PoolFilterDialog = ({
           options={unpackMaybes(data?.classifications).map(
             ({ group, level }) => ({
               value: `${group}-${level}`,
-              label: `${group}-0${level}`,
+              label: `${group}-${level < 10 ? "0" : ""}${level}`,
             }),
           )}
         />

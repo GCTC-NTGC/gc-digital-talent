@@ -52,27 +52,6 @@ export function viewCell(
   );
 }
 
-export function viewTeamLinkCell(
-  url: Maybe<string> | undefined,
-  displayName: Maybe<LocalizedString> | undefined,
-  intl: IntlShape,
-) {
-  return url ? (
-    <Link color="black" href={url}>
-      {intl.formatMessage(
-        {
-          defaultMessage: "<hidden>View team: </hidden>{teamName}",
-          id: "ActH9H",
-          description: "Text for a link to the Team table",
-        },
-        {
-          teamName: getLocalizedName(displayName, intl),
-        },
-      )}
-    </Link>
-  ) : null;
-}
-
 export function fullNameCell(
   pool: { owner: Pick<User, "firstName" | "lastName"> },
   intl: IntlShape,
@@ -88,7 +67,7 @@ export function classificationAccessor(
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
-    ? `${classification.group}-0${classification.level}`
+    ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
     : "";
 }
 
@@ -99,7 +78,7 @@ export function classificationCell(
 
   return (
     <Chip color="primary">
-      {`${classification.group}-0${classification.level}`}
+      {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
     </Chip>
   );
 }

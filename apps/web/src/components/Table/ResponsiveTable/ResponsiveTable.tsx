@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
+import debounce from "lodash/debounce";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
@@ -10,10 +11,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
-import { ReactNode, useEffect, useId, useMemo } from "react";
+import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
-import { Loading } from "@gc-digital-talent/ui";
+import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
 import Table from "./Table";
 import SearchForm from "./SearchForm";
@@ -91,6 +92,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const { announce } = useAnnouncer();
+  const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
   const memoizedColumns = useMemo(() => {
@@ -320,6 +323,38 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     };
   }
 
+  const canSort = table
+    .getFlatHeaders()
+    .some((header) => header.column.getCanSort());
+  const totalRows = paginationAdjusted?.total;
+  const debouncedAnnouncement = debounce((count: number) => {
+    announce(
+      intl.formatMessage(
+        {
+          defaultMessage:
+            "{total, plural, =0 {0 results found} =1 {1 result found} other {# results found}}",
+          id: "SLYAoc",
+          description:
+            "Message announced to assistive technology when number of items in a table changes",
+        },
+        { total: count },
+      ),
+    );
+  }, 300);
+
+  useEffect(() => {
+    const hasItems = typeof totalRows !== "undefined" && totalRows !== null;
+    if (hasItems && !hasUpdatedRows.current) {
+      hasUpdatedRows.current = true;
+      return;
+    }
+    if (hasItems && hasUpdatedRows.current) {
+      debouncedAnnouncement(totalRows ?? 0);
+    }
+    // Note, exhaustive-deps causes over announcing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [totalRows]);
+
   return (
     <>
       <Table.Controls add={add}>
@@ -353,7 +388,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Table.HeadRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <Table.HeadCell key={header.id} header={header} />
+                      <Table.HeadCell key={header.id} id={id} header={header} />
                     ))}
                   </Table.HeadRow>
                 ))}
@@ -396,6 +431,15 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             />
           )}
         </>
+      )}
+      {canSort && (
+        <span id={`sortHint-${id}`} data-h2-display="base(none)">
+          {intl.formatMessage({
+            defaultMessage: "Sort",
+            id: "LwruRb",
+            description: "Hint to let users know a table column can be sorted",
+          })}
+        </span>
       )}
     </>
   );

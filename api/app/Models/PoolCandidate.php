@@ -48,7 +48,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Carbon\Carbon $suspended_at
+ * @property ?\Illuminate\Support\Carbon $suspended_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
@@ -940,6 +940,12 @@ class PoolCandidate extends Model
      *               else mark nothing and continue, since the result doesn't actually matter
      *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
      *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     *       no decision for steps that are TO ASSESS but have no results so we can tell when they've been started
+     *
+     *   overallAssessmentStatus is then:
+     *      if any step is UNSUCCESSFUL, then DISQUALIFIED
+     *      else if all steps are fully assessed, and final step is not HOLD, then QUALIFIED
+     *      else TO ASSESS
      */
     public function computeAssessmentStatus()
     {
@@ -954,7 +960,7 @@ class PoolCandidate extends Model
             'user.userSkills',
         ]);
 
-        foreach ($this->pool->assessmentSteps as $step) {
+        foreach ($this->pool->assessmentSteps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
             $hasOnHold = false;
@@ -1063,17 +1069,21 @@ class PoolCandidate extends Model
             }
 
             if ($hasToAssess) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => null,
-                ];
+                // Don't add the step if it has no results yet to allow differentiating between
+                // not started and in progress steps
+                if (! $stepResults->isEmpty()) {
+                    $decisions[] = [
+                        'step' => $stepId,
+                        'decision' => null,
+                    ];
+                }
 
                 continue;
             }
 
             // Candidate has been assessed and was not unsuccessful so continue to next step
 
-            $previousStepsNotPassed = Arr::where($decisions, function ($decision) {
+            $previousStepsNotPassed = count($decisions) < $index || Arr::where($decisions, function ($decision) {
                 return is_null($decision['decision']) ||
                     $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
             });
@@ -1100,24 +1110,22 @@ class PoolCandidate extends Model
         $totalSteps = $this->pool->assessmentSteps->count();
         $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
-        if ($currentStep >= $totalSteps) {
+        $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
+            return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+        });
+        if (! empty($unsuccessfulDecisions)) {
+            $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
+        } elseif ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
-        } else {
-            $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
-                return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
-            });
-            if (! empty($unsuccessfulDecisions)) {
-                $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
-            }
         }
 
         // While unlikely, current step could go over.
         // So, set it back to total steps
-        if ($currentStep > $totalSteps) {
+        if ($currentStep && $currentStep > $totalSteps) {
             $currentStep = $totalSteps;
         }
 

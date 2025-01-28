@@ -274,6 +274,9 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    // Employee profile
+    employeeProfile: () => `${applicantUrl}/employee-profile`,
+
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
@@ -291,12 +294,6 @@ const getRoutes = (lang: Locales) => {
 
     // Directive on digital talent
     directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
-    digitalServicesContractingQuestionnaire: () =>
-      [
-        baseUrl,
-        "directive-on-digital-talent",
-        "digital-services-contracting-questionnaire",
-      ].join("/"),
 
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
@@ -329,6 +326,14 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "training-opportunities", trainingOpportunityId, "edit"].join(
         "/",
       ),
+
+    // Admin - Work Streams
+    workStreamTable: () => [adminUrl, "settings", "work-streams"].join("/"),
+    workStreamCreate: () =>
+      [adminUrl, "settings", "work-streams", "create"].join("/"),
+    workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
+    workStreamUpdate: (workStreamId: string) =>
+      [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
 
     /**
      * Deprecated

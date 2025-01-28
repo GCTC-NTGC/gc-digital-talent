@@ -9,11 +9,11 @@ use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
@@ -33,7 +33,7 @@ class CandidateAssessmentStatusTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $team;
+    protected $community;
 
     protected $pool;
 
@@ -71,14 +71,12 @@ class CandidateAssessmentStatusTest extends TestCase
             RolePermissionSeeder::class,
         ]);
 
-        $this->team = Team::factory()->create([
-            'name' => 'assessment-status',
-        ]);
+        $this->community = Community::factory()->create();
 
         $this->pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
 
         $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
@@ -97,8 +95,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asPoolOperator('assessment-status')
-            ->asRequestResponder()
+            ->asCommunityRecruiter($this->community->id)
             ->asAdmin()
             ->create();
 
@@ -411,7 +408,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
 
         $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
@@ -493,10 +490,6 @@ class CandidateAssessmentStatusTest extends TestCase
                             'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'assessmentStepStatuses' => [
                                 [
-                                    'step' => $steps[0]->id,
-                                    'decision' => null,
-                                ],
-                                [
                                     'step' => $steps[1]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
@@ -513,7 +506,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
 
         $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(3)->get();
@@ -599,10 +592,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => null,
                                 ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
-                                ],
                             ],
                         ],
                     ],
@@ -632,10 +621,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
-                                ],
                             ],
                         ],
                     ],
@@ -649,7 +634,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
 
         $behaviouralSkills = Skill::where('category', SkillCategory::BEHAVIOURAL->name)->limit(2)->get();
@@ -789,7 +774,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
 
         $candidate = PoolCandidate::factory()->withSnapshot()->create([
@@ -841,7 +826,7 @@ class CandidateAssessmentStatusTest extends TestCase
         $pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $this->team->id,
+                'community_id' => $this->community->id,
             ]);
         $poolSkill = PoolSkill::create([
             'pool_id' => $pool->id,
@@ -900,10 +885,6 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => null,
                                 ],
-                                [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
-                                ],
                             ],
                         ],
                     ],
@@ -932,11 +913,66 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
+     * This regression test ensures that if all skills are assessed as Successful,
+     * except for a single skill in the final step which is Unsuccessful,
+     * then the overall status is Disqualified.
+     */
+    public function testUnsuccessfulEssentialInFinalStepMeansDisqualified(): void
+    {
+        $steps = $this->pool->assessmentSteps;
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[1]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, $this->queryVars)
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'assessmentStepStatuses' => [
                                 [
-                                    'step' => $stepTwo->id,
-                                    'decision' => null,
+                                    'step' => $steps[0]->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                                [
+                                    'step' => $steps[1]->id,
+                                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
                                 ],
                             ],
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
+                            'currentStep' => 2,
                         ],
                     ],
                 ],

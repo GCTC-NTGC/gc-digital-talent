@@ -30,7 +30,6 @@ import messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
-  descriptionCell,
   familiesAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
@@ -210,12 +209,6 @@ const SkillTable = ({
       {
         id: "description",
         sortingFn: normalizedText,
-        cell: ({ row: { original: skill } }) =>
-          descriptionCell(
-            intl,
-            getLocalizedName(skill.name, intl),
-            getLocalizedName(skill.description, intl),
-          ),
         header: intl.formatMessage(commonMessages.description),
       },
     ),
