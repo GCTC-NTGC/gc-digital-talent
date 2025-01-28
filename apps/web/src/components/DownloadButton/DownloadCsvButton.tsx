@@ -1,5 +1,4 @@
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import { useIntl } from "react-intl";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 
@@ -28,9 +27,7 @@ const DownloadCsvButton = ({
   disabled,
   buttonText,
   options,
-  description,
 }: DownloadCsvButtonProps) => {
-  const intl = useIntl();
 
   return (
     <DropdownMenu.Root>

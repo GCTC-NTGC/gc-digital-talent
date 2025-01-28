@@ -22,11 +22,19 @@ const DownloadCandidateCsvButton = ({
   const intl = useIntl();
   const options = [
     {
-      label: "Download CSV of profiles",
+      label: intl.formatMessage({
+        defaultMessage: "Download CSV of Profiles",
+        id: "N4dNc9",
+        description: "Download CSV of Profiles",
+      }),
       value: CsvType.ProfileCsv,
     },
     {
-      label: "Download CSV of applications",
+      label: intl.formatMessage({
+        defaultMessage: "Download CSV of Applications",
+        id: "nrfOGl",
+        description: "Download CSV of Applications",
+      }),
       value: CsvType.ApplicationCsv,
     },
   ];
