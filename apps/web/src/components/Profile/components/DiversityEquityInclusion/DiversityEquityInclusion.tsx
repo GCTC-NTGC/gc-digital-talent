@@ -171,7 +171,6 @@ const DiversityEquityInclusion = ({
         </Accordion.Item>
       </Accordion.Root>
       <EquityOptions
-        isDisabled={isUpdating}
         inApplication={!!pool}
         indigenousCommunities={user.indigenousCommunities}
         indigenousDeclarationSignature={user.indigenousDeclarationSignature}
