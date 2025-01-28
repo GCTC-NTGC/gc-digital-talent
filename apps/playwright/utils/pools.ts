@@ -265,9 +265,9 @@ export const createAndPublishPool: GraphQLRequestFunc<
       await Promise.all(
         skillIds.map(async (skillId) => {
           await createPoolSkill(ctx, {
-            poolId: pool.id,
-            skillId,
             poolSkill: {
+              poolId: pool.id,
+              skillId,
               type: PoolSkillType.Essential,
               requiredLevel: SkillLevel.Beginner,
             },
@@ -276,8 +276,9 @@ export const createAndPublishPool: GraphQLRequestFunc<
       );
     } else {
       await createPoolSkill(ctx, {
-        poolId: pool.id,
         poolSkill: {
+          poolId: pool.id,
+          skillId: "",
           type: PoolSkillType.Essential,
           requiredLevel: SkillLevel.Beginner,
         },
