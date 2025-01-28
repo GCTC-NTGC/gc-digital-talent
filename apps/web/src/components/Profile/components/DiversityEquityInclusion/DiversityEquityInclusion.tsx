@@ -18,7 +18,6 @@ type AccordionItems = "information" | "";
 const DiversityEquityInclusion = ({
   user,
   onUpdate,
-  isUpdating,
   pool,
 }: SectionProps<Pick<Pool, "publishingGroup">>) => {
   const intl = useIntl();

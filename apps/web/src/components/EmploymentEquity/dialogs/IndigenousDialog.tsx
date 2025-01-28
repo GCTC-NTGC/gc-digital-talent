@@ -55,7 +55,6 @@ const IndigenousDialog = ({
     data: FormValuesWithSignature,
   ) => {
     const newCommunities = formValuesToApiCommunities(data);
-    console.log(onSave);
     await onSave({
       indigenousCommunities: newCommunities,
       indigenousDeclarationSignature:
