@@ -275,14 +275,22 @@ export const createAndPublishPool: GraphQLRequestFunc<
         }),
       );
     } else {
-      await createPoolSkill(ctx, {
-        poolSkill: {
-          poolId: pool.id,
-          skillId: "",
-          type: PoolSkillType.Essential,
-          requiredLevel: SkillLevel.Beginner,
-        },
+      const technicalSkill = await getSkills(ctx, {}).then((skills) => {
+        return skills.find(
+          (skill) => skill.category.value === SkillCategory.Technical,
+        );
       });
+      const skillId = technicalSkill?.id;
+      if (skillId) {
+        await createPoolSkill(ctx, {
+          poolSkill: {
+            poolId: pool.id,
+            skillId,
+            type: PoolSkillType.Essential,
+            requiredLevel: SkillLevel.Beginner,
+          },
+        });
+      }
     }
 
     return await publishPool(ctx, pool.id);
