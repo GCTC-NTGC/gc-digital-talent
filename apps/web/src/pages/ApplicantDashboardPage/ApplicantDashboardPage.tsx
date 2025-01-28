@@ -25,6 +25,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import { isVerifiedGovEmployee } from "~/utils/userUtils";
 
 import MoveInterestsList from "./components/MoveInterestsList";
 import OrganizationTypeInterestsList from "./components/OrganizationInterestsList";
@@ -37,6 +38,12 @@ export interface DashboardPageProps {
 export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const isVerifiedEmployee = isVerifiedGovEmployee({
+    isGovEmployee: currentUser?.isGovEmployee,
+    workEmail: currentUser?.workEmail,
+    isWorkEmailVerified: currentUser?.isWorkEmailVerified,
+  });
 
   const moveInterestsMapped = currentUser?.employeeProfile?.moveInterest
     ? currentUser.employeeProfile.moveInterest.map((interest) => interest.value)
@@ -55,7 +62,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       key: "edit-career-planning-key",
       type: "link",
-      href: "#",
+      href: paths.employeeProfile(),
       color: "secondary",
       children: (
         <>
@@ -87,17 +94,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       ),
     },
     {
-      key: "edit-career-planning-key",
+      key: "career-planning-key",
       type: "link",
-      href: "#",
+      href: paths.employeeProfile(),
       color: "secondary",
       children: (
         <>
           {intl.formatMessage({
-            defaultMessage: "Edit career planning",
-            id: "jno96W",
-            description:
-              "Link to a page to edit your career planning information",
+            defaultMessage: "Career planning",
+            id: "zN7MBv",
+            description: "Title for a users career plan",
           })}
         </>
       ),
@@ -135,184 +141,186 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x1)"
-              data-h2-flex-grow="p-tablet(2)"
-            >
-              <TaskCard.Root
-                icon={Cog8ToothIcon}
-                title={intl.formatMessage({
-                  defaultMessage: "Career development",
-                  id: "+2/ksA",
-                  description: "Card title for career development",
-                })}
-                headingColor="secondary"
-                headingAs="h2"
+            {isVerifiedEmployee ? (
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x1)"
+                data-h2-flex-grow="p-tablet(2)"
               >
-                <TaskCard.Item>
-                  <Accordion.Root
-                    type="multiple"
-                    data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-                  >
-                    <Accordion.Item value="your_career_planning">
-                      <Accordion.Trigger
-                        as="h3"
-                        subtitle={intl.formatMessage({
-                          defaultMessage:
-                            "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
-                          id: "L4UWvU",
-                          description:
-                            "Subtitle explaining career planning expandable withing career development card",
-                        })}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Career planning",
-                          id: "E0I0Yj",
-                          description: "Career planning expandable",
-                        })}
-                      </Accordion.Trigger>
-                      <Accordion.MetaData metadata={careerPlanningMetaData} />
-                      <Accordion.Content>
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x1)"
-                          data-h2-padding-top="base(x.5)"
+                <TaskCard.Root
+                  icon={Cog8ToothIcon}
+                  title={intl.formatMessage({
+                    defaultMessage: "Career development",
+                    id: "+2/ksA",
+                    description: "Card title for career development",
+                  })}
+                  headingColor="secondary"
+                  headingAs="h2"
+                >
+                  <TaskCard.Item>
+                    <Accordion.Root
+                      type="multiple"
+                      data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
+                    >
+                      <Accordion.Item value="your_career_planning">
+                        <Accordion.Trigger
+                          as="h3"
+                          subtitle={intl.formatMessage({
+                            defaultMessage:
+                              "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
+                            id: "L4UWvU",
+                            description:
+                              "Subtitle explaining career planning expandable withing career development card",
+                          })}
                         >
-                          <div>
-                            <p data-h2-font-weight="base(700)">
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Interest in promotions and lateral moves",
-                                id: "TiPh1V",
-                                description:
-                                  "Heading for list of user's interest in employment moves",
-                              })}
-                            </p>
-                            {moveInterestsMapped ? (
-                              <MoveInterestsList
-                                moveInterests={moveInterestsMapped}
-                              ></MoveInterestsList>
-                            ) : (
-                              <p>
+                          {intl.formatMessage({
+                            defaultMessage: "Career planning",
+                            id: "E0I0Yj",
+                            description: "Career planning expandable",
+                          })}
+                        </Accordion.Trigger>
+                        <Accordion.MetaData metadata={careerPlanningMetaData} />
+                        <Accordion.Content>
+                          <div
+                            data-h2-display="base(flex)"
+                            data-h2-flex-direction="base(column)"
+                            data-h2-gap="base(x1)"
+                            data-h2-padding-top="base(x.5)"
+                          >
+                            <div>
+                              <p data-h2-font-weight="base(700)">
                                 {intl.formatMessage({
                                   defaultMessage:
-                                    "<red>Missing information</red>",
-                                  id: "hI7luh",
-                                  description: "Missing information, warning",
+                                    "Interest in promotions and lateral moves",
+                                  id: "TiPh1V",
+                                  description:
+                                    "Heading for list of user's interest in employment moves",
                                 })}
                               </p>
-                            )}
-                          </div>
-                          <div>
-                            <p data-h2-font-weight="base(700)">
-                              {intl.formatMessage({
-                                defaultMessage:
-                                  "Types of organizations you'd like to work for",
-                                id: "WvzD/I",
-                                description:
-                                  "Heading for list of user's interest in organizations as employers",
-                              })}
-                            </p>
-                            {organizationTypeInterestsMapped ? (
-                              <OrganizationTypeInterestsList
-                                organizationTypeInterests={
-                                  organizationTypeInterestsMapped
-                                }
-                              ></OrganizationTypeInterestsList>
-                            ) : (
-                              <p>
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    "<red>Missing information</red>",
-                                  id: "hI7luh",
-                                  description: "Missing information, warning",
-                                })}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  </Accordion.Root>
-                </TaskCard.Item>
-                <TaskCard.Item>
-                  <Accordion.Root
-                    type="multiple"
-                    data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
-                  >
-                    <Accordion.Item value="your_functional_communities">
-                      <Accordion.Trigger
-                        as="h3"
-                        subtitle={intl.formatMessage({
-                          defaultMessage:
-                            "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
-                          id: "L4UWvU",
-                          description:
-                            "Subtitle explaining career planning expandable withing career development card",
-                        })}
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Functional communities",
-                          id: "OH0wqV",
-                          description: "Functional communities expandable",
-                        })}
-                      </Accordion.Trigger>
-                      <Accordion.MetaData
-                        metadata={functionalCommunitiesMetaData}
-                      />
-                      <Accordion.Content>
-                        <div
-                          data-h2-display="base(flex)"
-                          data-h2-flex-direction="base(column)"
-                          data-h2-gap="base(x1)"
-                          data-h2-padding-top="base(x.5)"
-                        >
-                          {communityInterestsQuery.length ? (
-                            <PreviewList.Root>
-                              {communityInterestsQuery.map(
-                                (communityInterest) => (
-                                  <FunctionalCommunityListItem
-                                    key={communityInterest.id}
-                                    functionalCommunityListItemQuery={
-                                      communityInterest
-                                    }
-                                    headingAs="h4"
-                                  />
-                                ),
+                              {moveInterestsMapped ? (
+                                <MoveInterestsList
+                                  moveInterests={moveInterestsMapped}
+                                ></MoveInterestsList>
+                              ) : (
+                                <p>
+                                  {intl.formatMessage({
+                                    defaultMessage:
+                                      "<red>Missing information</red>",
+                                    id: "hI7luh",
+                                    description: "Missing information, warning",
+                                  })}
+                                </p>
                               )}
-                            </PreviewList.Root>
-                          ) : (
-                            <Well data-h2-text-align="base(center)">
-                              <p data-h2-font-weight="base(bold)">
+                            </div>
+                            <div>
+                              <p data-h2-font-weight="base(700)">
                                 {intl.formatMessage({
                                   defaultMessage:
-                                    "You haven't opted into any functional communities.",
-                                  id: "rrqAZ6",
+                                    "Types of organizations you'd like to work for",
+                                  id: "WvzD/I",
                                   description:
-                                    "Title for notice when there are no functional communities a user is a part of",
+                                    "Heading for list of user's interest in organizations as employers",
                                 })}
                               </p>
-                              <p>
-                                {intl.formatMessage({
-                                  defaultMessage:
-                                    'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" button.',
-                                  id: "w6JVdk",
-                                  description:
-                                    "Body for notice when there are no functional communities a user is a part of",
-                                })}
-                              </p>
-                            </Well>
-                          )}
-                        </div>
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  </Accordion.Root>
-                </TaskCard.Item>
-              </TaskCard.Root>
-            </div>
+                              {organizationTypeInterestsMapped ? (
+                                <OrganizationTypeInterestsList
+                                  organizationTypeInterests={
+                                    organizationTypeInterestsMapped
+                                  }
+                                ></OrganizationTypeInterestsList>
+                              ) : (
+                                <p>
+                                  {intl.formatMessage({
+                                    defaultMessage:
+                                      "<red>Missing information</red>",
+                                    id: "hI7luh",
+                                    description: "Missing information, warning",
+                                  })}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    </Accordion.Root>
+                  </TaskCard.Item>
+                  <TaskCard.Item>
+                    <Accordion.Root
+                      type="multiple"
+                      data-h2-padding-bottom="base:selectors[>.Accordion__Item > .Accordion__Content](x.5)"
+                    >
+                      <Accordion.Item value="your_functional_communities">
+                        <Accordion.Trigger
+                          as="h3"
+                          subtitle={intl.formatMessage({
+                            defaultMessage:
+                              "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
+                            id: "L4UWvU",
+                            description:
+                              "Subtitle explaining career planning expandable withing career development card",
+                          })}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Functional communities",
+                            id: "OH0wqV",
+                            description: "Functional communities expandable",
+                          })}
+                        </Accordion.Trigger>
+                        <Accordion.MetaData
+                          metadata={functionalCommunitiesMetaData}
+                        />
+                        <Accordion.Content>
+                          <div
+                            data-h2-display="base(flex)"
+                            data-h2-flex-direction="base(column)"
+                            data-h2-gap="base(x1)"
+                            data-h2-padding-top="base(x.5)"
+                          >
+                            {communityInterestsQuery.length ? (
+                              <PreviewList.Root>
+                                {communityInterestsQuery.map(
+                                  (communityInterest) => (
+                                    <FunctionalCommunityListItem
+                                      key={communityInterest.id}
+                                      functionalCommunityListItemQuery={
+                                        communityInterest
+                                      }
+                                      headingAs="h4"
+                                    />
+                                  ),
+                                )}
+                              </PreviewList.Root>
+                            ) : (
+                              <Well data-h2-text-align="base(center)">
+                                <p data-h2-font-weight="base(bold)">
+                                  {intl.formatMessage({
+                                    defaultMessage:
+                                      "You haven't opted into any functional communities.",
+                                    id: "rrqAZ6",
+                                    description:
+                                      "Title for notice when there are no functional communities a user is a part of",
+                                  })}
+                                </p>
+                                <p>
+                                  {intl.formatMessage({
+                                    defaultMessage:
+                                      'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" button.',
+                                    id: "w6JVdk",
+                                    description:
+                                      "Body for notice when there are no functional communities a user is a part of",
+                                  })}
+                                </p>
+                              </Well>
+                            )}
+                          </div>
+                        </Accordion.Content>
+                      </Accordion.Item>
+                    </Accordion.Root>
+                  </TaskCard.Item>
+                </TaskCard.Root>
+              </div>
+            ) : null}
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -357,6 +365,9 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
       id
       firstName
       lastName
+      isGovEmployee
+      workEmail
+      isWorkEmailVerified
       employeeProfile {
         moveInterest {
           value
