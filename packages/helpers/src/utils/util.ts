@@ -82,14 +82,6 @@ export const emptyToNull = (s?: InputMaybe<string>): string | null =>
   empty(s) || s === "" ? null : s;
 
 /**
- * Accepts a input value and transforms empty strings to a undefined
- * @param s String value from an input
- * @returns The possibly-transformed-to-undefined input string
- */
-export const emptyToUndefined = (s: InputMaybe<string>): string | undefined =>
-  empty(s) || s === "" ? undefined : s;
-
-/**
  * Accepts an array of items and removes all duplicate items
  *
  * @param arr Array<T>  Array of items
