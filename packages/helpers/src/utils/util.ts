@@ -2,10 +2,6 @@ import pick from "lodash/pick";
 
 import { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
 
-export function identity<T>(value: T): T {
-  return value;
-}
-
 /**
  * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array in a

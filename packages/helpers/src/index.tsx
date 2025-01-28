@@ -9,7 +9,6 @@ import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
 import {
   assertUnreachable,
-  identity,
   notEmpty,
   empty,
   getId,
@@ -34,7 +33,6 @@ export {
   keyStringRegex,
   phoneNumberRegex,
   workEmailDomainRegex,
-  identity,
   notEmpty,
   empty,
   getId,
