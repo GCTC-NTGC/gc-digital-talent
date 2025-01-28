@@ -5,42 +5,41 @@ import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationCha
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  PreviewListItemFunctionalCommunityFragment as PreviewListItemFunctionalCommunityFragmentType,
+} from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 
-const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
-  fragment PreviewListItemFunctionalCommunity on CommunityInterest {
-    id
-    jobInterest
-    trainingInterest
-    community {
+export const PreviewListItemFunctionalCommunity_Fragment = graphql(
+  /* GraphQL */ `
+    fragment PreviewListItemFunctionalCommunity on CommunityInterest {
       id
-      name {
-        localized
-      }
-      description {
-        localized
+      jobInterest
+      trainingInterest
+      community {
+        id
+        name {
+          localized
+        }
+        description {
+          localized
+        }
       }
     }
-  }
-`);
+  `,
+);
 
 interface FunctionalCommunityListItemProps {
   headingAs?: HeadingLevel;
-  functionalCommunityListItemQuery: FragmentType<
-    typeof PreviewListItemFunctionalCommunity_Fragment
-  >;
+  functionalCommunityListItemFragment: PreviewListItemFunctionalCommunityFragmentType;
 }
 
 const FunctionalCommunityListItem = ({
   headingAs,
-  functionalCommunityListItemQuery,
+  functionalCommunityListItemFragment,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
-  const communityInterest = getFragment(
-    PreviewListItemFunctionalCommunity_Fragment,
-    functionalCommunityListItemQuery,
-  );
 
   const sharedIconStyling = {
     "data-h2-height": "base(x1)",
@@ -162,13 +161,15 @@ const FunctionalCommunityListItem = ({
     {
       key: "job-interest",
       type: "text",
-      children: generateMetaDataJobInterest(communityInterest.jobInterest),
+      children: generateMetaDataJobInterest(
+        functionalCommunityListItemFragment.jobInterest,
+      ),
     },
     {
       key: "training-interest",
       type: "text",
       children: generateMetaDataTrainingInterest(
-        communityInterest.trainingInterest,
+        functionalCommunityListItemFragment.trainingInterest,
       ),
     },
   ];
@@ -176,13 +177,16 @@ const FunctionalCommunityListItem = ({
   return (
     <>
       <PreviewList.Item
-        title={communityInterest?.community?.name?.localized ?? ""}
+        title={
+          functionalCommunityListItemFragment?.community?.name?.localized ?? ""
+        }
         metaData={metaDataProps}
         // action={<CommunityInterestDialog title={title} id={request.id} />}
         headingAs={headingAs}
       >
         <span>
-          {communityInterest?.community?.description?.localized ?? ""}
+          {functionalCommunityListItemFragment?.community?.description
+            ?.localized ?? ""}
         </span>
       </PreviewList.Item>
     </>
