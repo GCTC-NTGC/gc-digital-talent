@@ -29,7 +29,11 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
-import { getSalaryRange } from "~/utils/poolCandidate";
+import {
+  ApplicationStatus,
+  getApplicationStatusChip,
+  getSalaryRange,
+} from "~/utils/poolCandidate";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -42,12 +46,27 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     expiryDate
     finalDecisionAt
     submittedAt
+    removedAt
     status {
       value
       label {
         en
         fr
       }
+    }
+    finalDecision {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    assessmentStatus {
+      assessmentStepStatuses {
+        step
+      }
+      overallAssessmentStatus
+      currentStep
     }
     pool {
       id
@@ -100,6 +119,13 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      areaOfSelection {
+        value
+        label {
+          en
+          fr
+        }
+      }
       processNumber
       poolSkills {
         id
@@ -125,6 +151,9 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
             }
           }
         }
+      }
+      screeningQuestions {
+        id
       }
     }
   }
@@ -161,8 +190,22 @@ const ReviewApplicationDialog = ({
     ),
   );
 
-  const isDraftStatus = true;
-  const isExpiredStatus = true;
+  const focusOnRecruitment = useRef(false);
+
+  const status = getApplicationStatusChip(
+    application.submittedAt,
+    pool.closingDate,
+    application.removedAt,
+    application.finalDecisionAt,
+    application.finalDecision?.value,
+    pool.areaOfSelection?.value,
+    application.assessmentStatus,
+    pool.screeningQuestions,
+    intl,
+  );
+
+  const isDraftStatus = status.value === ApplicationStatus.DRAFT;
+  const isExpiredStatus = status.value === ApplicationStatus.EXPIRED;
   const lessThanThreeDaysTillClosingDate = pool?.closingDate
     ? differenceInDays(Date.now(), parseDateTimeUtc(pool.closingDate)) < 3
     : null;
@@ -171,9 +214,7 @@ const ReviewApplicationDialog = ({
     (isDraftStatus && lessThanThreeDaysTillClosingDate) ||
     isExpiredStatus;
 
-  const isSuccessfulStatus = true;
-
-  const focusOnRecruitment = useRef(false);
+  const isSuccessfulStatus = status.value === ApplicationStatus.SUCCESSFUL;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -211,9 +252,9 @@ const ReviewApplicationDialog = ({
             data-h2-gap="base(x1)"
           >
             <StatusSummary
-              status="Replace with status"
-              description="Replace with status description and corresponding status color"
-              color="error"
+              label={status.label}
+              description={status.description}
+              color={status.color}
               data-h2-grid-column="p-tablet(span 2)"
             />
 
@@ -450,6 +491,7 @@ const ReviewApplicationPreviewList = ({
   applications: ReviewApplicationPreviewListFragment[];
 }) => {
   const intl = useIntl();
+
   return (
     <>
       {applications.length ? (
@@ -457,12 +499,24 @@ const ReviewApplicationPreviewList = ({
           {applications.map((application) => {
             const { id, pool, submittedAt, finalDecisionAt } = application;
 
+            const status = getApplicationStatusChip(
+              application.submittedAt,
+              pool.closingDate,
+              application.removedAt,
+              application.finalDecisionAt,
+              application.finalDecision?.value,
+              pool.areaOfSelection?.value,
+              application.assessmentStatus,
+              pool.screeningQuestions,
+              intl,
+            );
+
             const applicationMetadata: PreviewMetaData[] = [
               {
                 key: "status",
                 type: "chip",
-                color: "primary",
-                children: "Replace with status",
+                color: status.color,
+                children: status.label,
               },
               {
                 key: "classification",
@@ -479,6 +533,7 @@ const ReviewApplicationPreviewList = ({
                     closingDate={pool?.closingDate}
                     submittedAt={submittedAt}
                     finalDecisionAt={finalDecisionAt}
+                    status={status.value}
                   />
                 ),
               },

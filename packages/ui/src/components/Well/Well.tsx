@@ -1,6 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
-export type WellColor = "default" | "primary" | "success" | "warning" | "error";
+import { Color } from "../../types";
+
+export type WellColor = Color | "default";
 
 const colorMap = new Map<WellColor, Record<string, string>>([
   [
@@ -41,6 +43,22 @@ const colorMap = new Map<WellColor, Record<string, string>>([
       "data-h2-background-color": "base(error.lightest)",
       "data-h2-border": "base(1px solid error.darker)",
       "data-h2-color": "base(error.darkest)",
+    },
+  ],
+  [
+    "black",
+    {
+      "data-h2-background-color": "base(black.lightest)",
+      "data-h2-border": "base(1px solid black.darker)",
+      "data-h2-color": "base(black.darkest)",
+    },
+  ],
+  [
+    "secondary",
+    {
+      "data-h2-background-color": "base(secondary.lightest)",
+      "data-h2-border": "base(1px solid secondary.darker)",
+      "data-h2-color": "base(secondary.darkest)",
     },
   ],
 ]);

@@ -1,13 +1,13 @@
 import { WellColor, Well } from "@gc-digital-talent/ui";
 
 interface StatusSummaryProps {
-  status: string;
-  description: string;
+  label: React.ReactNode;
+  description: React.ReactNode;
   color: WellColor;
 }
 
 const StatusSummary = ({
-  status,
+  label,
   description,
   color,
   ...rest
@@ -15,7 +15,7 @@ const StatusSummary = ({
   return (
     <Well color={color} {...rest}>
       <p data-h2-font-weight="base(bold)" data-h2-padding-bottom="base(x.5)">
-        {status}
+        {label}
       </p>
       <p>{description}</p>
     </Well>

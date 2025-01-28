@@ -3,20 +3,24 @@ import { useIntl } from "react-intl";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import { ApplicationStatus } from "~/utils/poolCandidate";
+
 export const ApplicationDate = ({
   closingDate,
   submittedAt,
   finalDecisionAt,
+  status,
 }: {
   closingDate?: string | null;
   submittedAt?: string | null;
   finalDecisionAt?: string | null;
+  status: ApplicationStatus;
 }) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  const isDraftStatus = true;
-  const isExpiredStatus = true;
+  const isDraftStatus = status === ApplicationStatus.DRAFT;
+  const isExpiredStatus = status === ApplicationStatus.EXPIRED;
   if (isDraftStatus || isExpiredStatus) {
     return (
       <span>
@@ -38,16 +42,10 @@ export const ApplicationDate = ({
     );
   }
 
-  const isReceivedStatus = true;
-  const isUnderReviewStatus = true;
-  const isPendingAssessmentStatus = true;
-  const isUnderAssessmentStatus = true;
-  if (
-    isReceivedStatus ||
-    isUnderReviewStatus ||
-    isPendingAssessmentStatus ||
-    isUnderAssessmentStatus
-  ) {
+  const isReceivedStatus = status === ApplicationStatus.RECEIVED;
+  const isUnderReviewStatus = status === ApplicationStatus.UNDER_REVIEW;
+  const isUnderAssessmentStatus = status === ApplicationStatus.UNDER_ASSESSMENT;
+  if (isReceivedStatus || isUnderReviewStatus || isUnderAssessmentStatus) {
     return (
       <span>
         {intl.formatMessage({
@@ -68,10 +66,9 @@ export const ApplicationDate = ({
     );
   }
 
-  const isSuccessfulStatus = true;
-  const isUnsuccessfulStatus = true;
-  const isIneligibleStatus = true;
-  if (isSuccessfulStatus || isUnsuccessfulStatus || isIneligibleStatus) {
+  const isSuccessfulStatus = status === ApplicationStatus.SUCCESSFUL;
+  const isUnsuccessfulStatus = status === ApplicationStatus.UNSUCCESSFUL;
+  if (isSuccessfulStatus || isUnsuccessfulStatus) {
     return (
       <span>
         {intl.formatMessage({
@@ -98,17 +95,19 @@ export const ApplicationDate = ({
 export const RecruitmentDate = ({
   finalDecisionAt,
   removedAt,
+  status,
 }: {
   finalDecisionAt?: string | null;
   removedAt?: string | null;
+  status: ApplicationStatus;
 }) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  const isOpenToJobsStatus = true;
-  const isNotInterestedStatus = true;
-  const isHiredStatus = true;
-  const isExpiredStatus = true;
+  const isOpenToJobsStatus = status === ApplicationStatus.OPEN_TO_JOBS;
+  const isNotInterestedStatus = status === ApplicationStatus.NOT_INTERESTED;
+  const isHiredStatus = status === ApplicationStatus.HIRED;
+  const isExpiredStatus = status === ApplicationStatus.EXPIRED;
   if (
     isOpenToJobsStatus ||
     isNotInterestedStatus ||
@@ -131,8 +130,8 @@ export const RecruitmentDate = ({
     );
   }
 
-  const isRemovedStatus = true;
-  if (isRemovedStatus) {
+  const isUnsuccessfulStatus = status === ApplicationStatus.UNSUCCESSFUL;
+  if (isUnsuccessfulStatus) {
     return (
       <span>
         {intl.formatMessage(commonMessages.removed)}{" "}

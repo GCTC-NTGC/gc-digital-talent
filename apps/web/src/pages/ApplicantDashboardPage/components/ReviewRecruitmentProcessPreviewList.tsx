@@ -30,14 +30,18 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
-import { getSalaryRange } from "~/utils/poolCandidate";
+import {
+  ApplicationStatus,
+  getQualifiedRecruitmentStatusChip,
+  getSalaryRange,
+} from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 
 import { RecruitmentDate } from "./MetadataDate";
 import StatusSummary from "./StatusSummary";
 
 interface FormValues {
-  isSuspended: "true" | "false"; // Note: RadioGroup only accepts strings
+  isSuspended: "true" | "false";
 }
 
 const ReviewRecruitmentProcess_Mutation = graphql(/* GraphQL */ `
@@ -58,7 +62,15 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
       submittedAt
       suspendedAt
       removedAt
+      placedAt
       status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      finalDecision {
         value
         label {
           en
@@ -194,8 +206,13 @@ const ReviewRecruitmentProcessDialog = ({
       });
   };
 
-  const isExpiredStatus = false;
+  const status = getQualifiedRecruitmentStatusChip(
+    recruitmentProcess.suspendedAt,
+    recruitmentProcess.placedAt,
+    intl,
+  );
 
+  const isExpiredStatus = status.value === ApplicationStatus.EXPIRED;
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -226,9 +243,9 @@ const ReviewRecruitmentProcessDialog = ({
             data-h2-gap="base(x1)"
           >
             <StatusSummary
-              status="Replace with status"
-              description="Replace with status description and corresponding status color"
-              color="error"
+              label={status.label}
+              description={status.description}
+              color={status.color}
               data-h2-grid-column="p-tablet(span 2)"
             />
 
@@ -466,12 +483,18 @@ const ReviewRecruitmentProcessPreviewList = ({
           {recruitmentProcesses.map((recruitmentProcess) => {
             const { id, pool, finalDecisionAt, removedAt } = recruitmentProcess;
 
+            const status = getQualifiedRecruitmentStatusChip(
+              recruitmentProcess.suspendedAt,
+              recruitmentProcess.placedAt,
+              intl,
+            );
+
             const applicationMetadata: PreviewMetaData[] = [
               {
                 key: "status",
                 type: "chip",
-                color: "primary",
-                children: "Replace with status",
+                color: status.color,
+                children: status.label,
               },
               {
                 key: "classification",
@@ -487,6 +510,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                   <RecruitmentDate
                     finalDecisionAt={finalDecisionAt}
                     removedAt={removedAt}
+                    status={status.value}
                   />
                 ),
               },

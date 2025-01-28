@@ -17,6 +17,7 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
 import ReviewApplicationPreviewList, {
   ReviewApplicationPreviewList_Fragment,
@@ -51,13 +52,17 @@ export const DashboardPage = () => {
   const applications = getFragment<ReviewApplicationPreviewListFragment>(
     ReviewApplicationPreviewList_Fragment,
     unpackMaybes(user?.poolCandidates),
-  ); // TODO: filter by application statuses
+  );
 
   const recruitmentProcesses =
     getFragment<ReviewRecruitmentProcessPreviewListFragment>(
       ReviewRecruitmentProcessPreviewList_Fragment,
       unpackMaybes(user?.poolCandidates),
-    ); // TODO: filter by recruitment process statuses
+    ).filter(
+      (recruitmentProcess) =>
+        recruitmentProcess.finalDecisionAt &&
+        isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+    ); // filter for qualified recruitment processes
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -83,11 +88,13 @@ export const DashboardPage = () => {
             )}
             subtitle={""}
           />
-          <ReviewApplicationPreviewList applications={applications} />
-          <Separator />
-          <ReviewRecruitmentProcessPreviewList
-            recruitmentProcesses={recruitmentProcesses}
-          />
+          <div data-h2-padding="base(x2)">
+            <ReviewApplicationPreviewList applications={applications} />
+            <Separator />
+            <ReviewRecruitmentProcessPreviewList
+              recruitmentProcesses={recruitmentProcesses}
+            />
+          </div>
         </>
       )}
     </Pending>
