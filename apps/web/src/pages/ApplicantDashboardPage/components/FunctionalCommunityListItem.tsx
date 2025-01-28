@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationChartLineIcon";
