@@ -28,7 +28,6 @@ const DownloadCsvButton = ({
   buttonText,
   options,
 }: DownloadCsvButtonProps) => {
-
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
