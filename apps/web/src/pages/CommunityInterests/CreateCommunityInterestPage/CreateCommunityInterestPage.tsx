@@ -26,19 +26,11 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import FindANewCommunity, {
-  SubformValues as FindANewCommunitySubformValues,
-} from "../sections/FindANewCommunity";
-import TrainingAndDevelopmentOpportunities, {
-  SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues,
-} from "../sections/TrainingAndDevelopmentOpportunities";
-import AdditionalInformation, {
-  SubformValues as AdditionalInformationSubformValues,
-} from "../sections/AdditionalInformation";
-import ReviewAndSubmit, {
-  SubformValues as ReviewAndSubmitSubformValues,
-} from "../sections/ReviewAndSubmit";
-import { formValuesToApiInput } from "./form";
+import FindANewCommunity from "../sections/FindANewCommunity";
+import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import AdditionalInformation from "../sections/AdditionalInformation";
+import ReviewAndSubmit from "../sections/ReviewAndSubmit";
+import { FormValues, formValuesToApiInput } from "../form";
 
 const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterest_Fragment on Query {
@@ -46,14 +38,6 @@ const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
   }
 `);
-
-export interface FormValues
-  extends FindANewCommunitySubformValues,
-    TrainingAndDevelopmentOpportunitiesSubformValues,
-    AdditionalInformationSubformValues,
-    ReviewAndSubmitSubformValues {
-  userId: string | null | undefined;
-}
 
 interface CreateCommunityInterestFormProps {
   query: FragmentType<typeof CreateCommunityInterest_Fragment>;

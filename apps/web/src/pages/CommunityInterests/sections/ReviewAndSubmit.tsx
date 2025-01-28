@@ -6,8 +6,7 @@ import { CardSeparator, Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
-import { parseStringToBoolean } from "../CreateCommunityInterestPage/form";
+import { FormValues, parseStringToBoolean } from "../form";
 
 export interface SubformValues {
   consent: boolean | null | undefined;

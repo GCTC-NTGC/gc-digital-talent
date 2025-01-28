@@ -671,7 +671,7 @@ type EmployeeProfile {
   dreamRoleClassification: Classification
   dreamRoleWorkStream: WorkStream
   dreamRoleDepartments: [Department!]
-  communityInterests: [CommunityInterest!]
+  communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
 

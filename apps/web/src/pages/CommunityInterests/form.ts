@@ -5,7 +5,18 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { FormValues } from "./CreateCommunityInterestPage";
+import { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
+import { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
+import { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
+import { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+
+export interface FormValues
+  extends FindANewCommunitySubformValues,
+    TrainingAndDevelopmentOpportunitiesSubformValues,
+    AdditionalInformationSubformValues,
+    ReviewAndSubmitSubformValues {
+  userId: string | null | undefined;
+}
 
 export function parseStringToBoolean(
   value: string | null | undefined,

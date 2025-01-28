@@ -195,7 +195,7 @@ type EmployeeProfile {
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }

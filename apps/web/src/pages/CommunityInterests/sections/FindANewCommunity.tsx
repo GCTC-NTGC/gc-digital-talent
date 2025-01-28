@@ -13,7 +13,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
+import { FormValues } from "../form";
 
 export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   fragment FindANewCommunityOptions_Fragment on Query {
