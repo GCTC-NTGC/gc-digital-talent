@@ -19,7 +19,6 @@ import {
   uniqueItems,
   pickMap,
   unpackMaybes,
-  localizedEnumHasValue,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
@@ -45,7 +44,6 @@ export {
   useIsSmallScreen,
   pickMap,
   unpackMaybes,
-  localizedEnumHasValue,
   NotFoundError,
   UnauthorizedError,
 };
