@@ -503,8 +503,7 @@ const PoolCandidatesTable = ({
   );
 
   const [{ fetching: downloadingApplicationsCsv }, downloadApplicationsCsv] =
-     useMutation(DownloadApplicationsCsv_Mutation);
-
+    useMutation(DownloadApplicationsCsv_Mutation);
 
   const [{ fetching: downloadingZip }, downloadZip] = useMutation(
     DownloadPoolCandidatesZip_Mutation,
