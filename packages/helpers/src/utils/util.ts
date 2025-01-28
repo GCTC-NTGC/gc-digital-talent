@@ -88,15 +88,6 @@ export function insertBetween<T>(separator: T, arr: T[]): T[] {
 }
 
 /**
- * Tests if a string is boolean true
- * https://stackoverflow.com/a/264037
- * https://stackoverflow.com/a/2140644
- */
-export function isStringTrue(str: string | undefined): boolean {
-  return str?.toLocaleUpperCase() === "TRUE";
-}
-
-/**
  * Accepts a input value and transforms empty strings to a null
  * @param s String value from an input
  * @returns The possibly-transformed-to-null input string
