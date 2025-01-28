@@ -179,55 +179,60 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                           data-h2-display="base(flex)"
                           data-h2-flex-direction="base(column)"
                           data-h2-gap="base(x1)"
+                          data-h2-padding-top="base(x.5)"
                         >
-                          <p data-h2-font-weight="base(700)">
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Interest in promotions and lateral moves",
-                              id: "TiPh1V",
-                              description:
-                                "Heading for list of user's interest in employment moves",
-                            })}
-                          </p>
-                          {moveInterestsMapped ? (
-                            <MoveInterestsList
-                              moveInterests={moveInterestsMapped}
-                            ></MoveInterestsList>
-                          ) : (
-                            <p>
+                          <div>
+                            <p data-h2-font-weight="base(700)">
                               {intl.formatMessage({
                                 defaultMessage:
-                                  "<red>Missing information</red>",
-                                id: "hI7luh",
-                                description: "Missing information, warning",
+                                  "Interest in promotions and lateral moves",
+                                id: "TiPh1V",
+                                description:
+                                  "Heading for list of user's interest in employment moves",
                               })}
                             </p>
-                          )}
-                          <p data-h2-font-weight="base(700)">
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Types of organizations you'd like to work for",
-                              id: "WvzD/I",
-                              description:
-                                "Heading for list of user's interest in organizations as employers",
-                            })}
-                          </p>
-                          {organizationTypeInterestsMapped ? (
-                            <OrganizationTypeInterestsList
-                              organizationTypeInterests={
-                                organizationTypeInterestsMapped
-                              }
-                            ></OrganizationTypeInterestsList>
-                          ) : (
-                            <p>
+                            {moveInterestsMapped ? (
+                              <MoveInterestsList
+                                moveInterests={moveInterestsMapped}
+                              ></MoveInterestsList>
+                            ) : (
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "<red>Missing information</red>",
+                                  id: "hI7luh",
+                                  description: "Missing information, warning",
+                                })}
+                              </p>
+                            )}
+                          </div>
+                          <div>
+                            <p data-h2-font-weight="base(700)">
                               {intl.formatMessage({
                                 defaultMessage:
-                                  "<red>Missing information</red>",
-                                id: "hI7luh",
-                                description: "Missing information, warning",
+                                  "Types of organizations you'd like to work for",
+                                id: "WvzD/I",
+                                description:
+                                  "Heading for list of user's interest in organizations as employers",
                               })}
                             </p>
-                          )}
+                            {organizationTypeInterestsMapped ? (
+                              <OrganizationTypeInterestsList
+                                organizationTypeInterests={
+                                  organizationTypeInterestsMapped
+                                }
+                              ></OrganizationTypeInterestsList>
+                            ) : (
+                              <p>
+                                {intl.formatMessage({
+                                  defaultMessage:
+                                    "<red>Missing information</red>",
+                                  id: "hI7luh",
+                                  description: "Missing information, warning",
+                                })}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </Accordion.Content>
                     </Accordion.Item>
@@ -263,6 +268,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                           data-h2-display="base(flex)"
                           data-h2-flex-direction="base(column)"
                           data-h2-gap="base(x1)"
+                          data-h2-padding-top="base(x.5)"
                         >
                           {communityInterestsQuery.length ? (
                             <PreviewList.Root>

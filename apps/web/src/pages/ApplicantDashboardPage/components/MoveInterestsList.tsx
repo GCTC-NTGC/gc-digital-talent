@@ -12,7 +12,11 @@ const MoveInterestsList = ({ moveInterests }: MoveInterestsListProps) => {
   const intl = useIntl();
 
   return (
-    <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
+    <ul
+      data-h2-list-style="base(none)"
+      data-h2-padding-left="base(0)"
+      data-h2-padding-top="base(x.5)"
+    >
       <li
         key={MoveInterest.AboveLevel}
         data-h2-display="base(flex)"
