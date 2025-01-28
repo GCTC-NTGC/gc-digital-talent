@@ -879,10 +879,6 @@
     "defaultMessage": "Utilisateur introuvable.",
     "description": "Message displayed for user not found."
   },
-  "2cZySB": {
-    "defaultMessage": "Télécharger CSV des candidatures",
-    "description": "Button label for download CSV of candidate profiles."
-  },
   "2dkgQe": {
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
@@ -2734,10 +2730,6 @@
   "C0LMCq": {
     "defaultMessage": "Rôle actuel",
     "description": "Card title for a nav role switcher"
-  },
-  "C1jirU": {
-    "defaultMessage": "Télécharger CSV des profils",
-    "description": "Button label for download csv of candidate applications with ROD data."
   },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
@@ -4902,6 +4894,10 @@
   "N44sQc": {
     "defaultMessage": "Définition de la compétence",
     "description": "Label for the definition of a specific skill"
+  },
+  "N4dNc9": {
+    "defaultMessage": "Télécharger CSV des profils",
+    "description": "Download CSV of Profiles"
   },
   "N5qMql": {
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
@@ -8766,6 +8762,10 @@
     "defaultMessage": "Communiquez avec l’équipe",
     "description": "Link to send an email to the team"
   },
+  "gJjIzg": {
+    "defaultMessage": "Télécharger CSV",
+    "description": "Download button"
+  },
   "gKyog2": {
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
@@ -10329,6 +10329,10 @@
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
+  },
+  "nrfOGl": {
+    "defaultMessage": "Télécharger CSV des candidatures",
+    "description": "Download CSV of Applications"
   },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
