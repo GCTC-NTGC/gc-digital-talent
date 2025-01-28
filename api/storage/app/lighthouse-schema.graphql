@@ -528,6 +528,7 @@ type Mutation {
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadApplicationsCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!

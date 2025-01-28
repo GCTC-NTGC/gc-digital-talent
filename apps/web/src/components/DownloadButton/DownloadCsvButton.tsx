@@ -1,20 +1,23 @@
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useIntl } from "react-intl";
+
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+
 import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
+
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
-import { familiesAccessor } from "~/pages/Skills/components/tableHelpers";
+import { CsvType } from "../PoolCandidatesTable/types";
 
 interface DownloadCsvButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
   onClick: (
-    option: { label: string; value: string },
+    option: { label: string; value: CsvType },
     withROD?: boolean,
   ) => void;
   buttonText: string;
-  options: { label: string; value: string }[];
+  options: { label: string; value: CsvType }[];
   description: string;
 }
 
@@ -48,11 +51,7 @@ const DownloadCsvButton = ({
                 color: "secondary",
               })}
         >
-          {intl.formatMessage({
-            defaultMessage: buttonText,
-            id: "downloadButton",
-            description: description,
-          })}
+          {buttonText}
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
@@ -60,13 +59,9 @@ const DownloadCsvButton = ({
           <DropdownMenu.Item
             key={option.value}
             disabled={disabled}
-            onSelect={() => onClick(option,false)}
+            onSelect={() => onClick(option, false)}
           >
-            {intl.formatMessage({
-              defaultMessage: option.label,
-              id: option.value,
-              description: option.label,
-            })}
+            {option.label}
           </DropdownMenu.Item>
         ))}
       </DropdownMenu.Content>

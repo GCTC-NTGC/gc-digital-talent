@@ -48,8 +48,7 @@ import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
-import { CsvType } from "../PoolCandidatesTable/types";
-
+import { CsvType, FormValues } from "../PoolCandidatesTable/types";
 import {
   bookmarkCell,
   bookmarkHeader,
@@ -71,7 +70,6 @@ import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
-import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
@@ -419,6 +417,16 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadApplicationsCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationsCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+    $withROD: Boolean
+  ) {
+    downloadApplicationsCsv(ids: $ids, where: $where, withROD: $withROD)
+  }
+`);
+
 const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
     downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
@@ -493,6 +501,10 @@ const PoolCandidatesTable = ({
   const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
     DownloadPoolCandidatesCsv_Mutation,
   );
+
+  const [{ fetching: downloadingApplicationsCsv }, downloadApplicationsCsv] =
+     useMutation(DownloadApplicationsCsv_Mutation);
+
 
   const [{ fetching: downloadingZip }, downloadZip] = useMutation(
     DownloadPoolCandidatesZip_Mutation,
@@ -632,13 +644,16 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = (type?: CsvType, withROD?: boolean) => {
-    if (type == CsvType.ProfileCsv) {
+  const handleCsvDownload = (
+    option: { label: string; value: CsvType },
+    withROD?: boolean,
+  ) => {
+    if (option.value === CsvType.ProfileCsv) {
       downloadCsv({ ids: selectedRows, withROD: false })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
-    } else if (type == CsvType.ApplicationCsv) {
-      downloadCsv({ ids: selectedRows, withROD: true })
+    } else if (option.value === CsvType.ApplicationCsv) {
+      downloadApplicationsCsv({ ids: selectedRows, withROD: true })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     } else
@@ -1029,14 +1044,18 @@ const PoolCandidatesTable = ({
                     downloadingDoc ||
                     downloadingAsyncFile
                   }
-                  isDownloading={downloadingCsv}
+                  isDownloading={downloadingApplicationsCsv}
                   onClick={handleCsvDownload}
                 />
               ),
             }
           : {
               enable: true,
-              onClick: () => handleCsvDownload(),
+              onClick: () =>
+                handleCsvDownload({
+                  label: "Profile CSV",
+                  value: CsvType.ProfileCsv,
+                }),
               downloading: downloadingCsv,
             },
         doc: {

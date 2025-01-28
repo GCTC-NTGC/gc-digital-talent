@@ -8,7 +8,7 @@ interface DownloadCandidateCsvButtonProps {
   disabled?: boolean;
   isDownloading?: boolean;
   onClick: (
-    option: { label: string; value: string },
+    option: { label: string; value: CsvType },
     withROD?: boolean,
   ) => void;
 }
@@ -38,7 +38,7 @@ const DownloadCandidateCsvButton = ({
       disabled={disabled}
       buttonText={intl.formatMessage({
         defaultMessage: "Download CSV",
-        id: "downloadButton",
+        id: "gJjIzg",
         description: "Download button",
       })}
       options={options}

@@ -2741,6 +2741,13 @@ type Mutation {
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
 
+  # CSV file downloads
+  downloadApplicationsCsv(
+    ids: [UUID!]
+    where: PoolCandidateSearchInput
+    withROD: Boolean
+  ): Boolean! @guard
+
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard
   downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean! @guard
