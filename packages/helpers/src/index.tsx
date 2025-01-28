@@ -17,6 +17,7 @@ import {
   insertBetween,
   emptyToNull,
   uniqueItems,
+  groupBy,
   pickMap,
   unpackMaybes,
 } from "./utils/util";
@@ -42,6 +43,7 @@ export {
   sanitizeUrl,
   isUuidError,
   useIsSmallScreen,
+  groupBy,
   pickMap,
   unpackMaybes,
   NotFoundError,

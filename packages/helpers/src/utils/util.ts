@@ -92,6 +92,32 @@ export function uniqueItems<T>(arr: T[]): T[] {
 }
 
 /**
+ * Group an array of objects by specific
+ * callback function
+ *
+ * @param arr Array of items
+ * @param mapper  Callback function to determine items key
+ * @returns Record<PropertyKey, Foo[]>
+ */
+export function groupBy<
+  RetType extends PropertyKey,
+  T,
+  Func extends (arg: T) => RetType,
+>(arr: T[], mapper: Func): Record<RetType, T[]> {
+  return arr.reduce(
+    (accumulator, val) => {
+      const groupedKey = mapper(val);
+      if (!accumulator[groupedKey]) {
+        accumulator[groupedKey] = [];
+      }
+      accumulator[groupedKey].push(val);
+      return accumulator;
+    },
+    {} as Record<RetType, T[]>,
+  );
+}
+
+/**
  * A small function to assert that code execution should never
  * reach this location. Handy for generate compile-time errors
  * for non-exhaustive switch statements.
