@@ -9,6 +9,7 @@ interface DownloadCandidateCsvButtonProps {
   isDownloading?: boolean;
   onClick: (
     option: { label: string; value: CsvType },
+    processNumber?: string,
     withROD?: boolean,
   ) => void;
 }

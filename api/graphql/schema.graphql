@@ -2746,6 +2746,7 @@ type Mutation {
     ids: [UUID!]
     where: PoolCandidateSearchInput
     withROD: Boolean
+    processNumber: String
   ): Boolean! @guard
 
   # ZIP file downloads

@@ -29,7 +29,7 @@ final class DownloadPoolCandidatesCsv
 
         try {
             $generator = new PoolCandidateCsvGenerator(
-                fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.candidates'), date('Y-m-d_His')),
+                fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.profiles'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
                 withROD: $withROD,

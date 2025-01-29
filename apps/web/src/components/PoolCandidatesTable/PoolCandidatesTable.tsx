@@ -422,8 +422,9 @@ const DownloadApplicationsCsv_Mutation = graphql(/* GraphQL */ `
     $ids: [UUID!]
     $where: PoolCandidateSearchInput
     $withROD: Boolean
+    $processNumber: String
   ) {
-    downloadApplicationsCsv(ids: $ids, where: $where, withROD: $withROD)
+    downloadApplicationsCsv(ids: $ids, where: $where, withROD: $withROD, processNumber: $processNumber)
   }
 `);
 
@@ -605,6 +606,18 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
+  const currentPoolProcessNumber = useMemo(() => {
+    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+    const poolCandidate = poolCandidates.find(
+      (candidate) => candidate.poolCandidate.pool.id === currentPool?.id,
+    );
+    // if processNumber is null we want to get the pool id
+    return (
+      poolCandidate?.poolCandidate.pool.processNumber ??
+      poolCandidate?.poolCandidate.pool.id
+    );
+  }, [data?.poolCandidatesPaginated.data, currentPool?.id]);
+
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
   );
@@ -652,7 +665,7 @@ const PoolCandidatesTable = ({
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     } else if (option.value === CsvType.ApplicationCsv) {
-      downloadApplicationsCsv({ ids: selectedRows, withROD: true })
+      downloadApplicationsCsv({ ids: selectedRows, withROD: true, processNumber: currentPoolProcessNumber })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     } else

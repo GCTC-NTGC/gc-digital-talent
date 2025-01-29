@@ -26,14 +26,20 @@ final class DownloadApplicationsCsv
         $ids = $args['ids'] ?? null;
         $filters = $args['where'] ?? null;
         $withROD = $args['withROD'] ?? false;
+        $processNumber = $args['processNumber'] ?? null;
 
         try {
             $generator = new ApplicationCsvGenerator(
-                fileName: sprintf('%s_%s', __('filename.candidates_rod'), date('Y-m-d_His')),
-                dir: $user->id,
-                lang: App::getLocale(),
-                withROD: $withROD,
-            );
+            fileName: sprintf(
+        $processNumber ? '%s-%s_%s' : '%s_%s',
+        __('filename.applications'),
+        $processNumber ?? date('Y-m-d_His'),
+        date('Y-m-d_His')
+    ),
+    dir: $user->id,
+    lang: App::getLocale(),
+    withROD: $withROD
+);
 
             $generator
                 ->setUserId($user->id)
