@@ -9,24 +9,22 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-export const PreviewListItemFunctionalCommunity_Fragment = graphql(
-  /* GraphQL */ `
-    fragment PreviewListItemFunctionalCommunity on CommunityInterest {
+const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment PreviewListItemFunctionalCommunity on CommunityInterest {
+    id
+    jobInterest
+    trainingInterest
+    community {
       id
-      jobInterest
-      trainingInterest
-      community {
-        id
-        name {
-          localized
-        }
-        description {
-          localized
-        }
+      name {
+        localized
+      }
+      description {
+        localized
       }
     }
-  `,
-);
+  }
+`);
 
 interface FunctionalCommunityListItemProps {
   headingAs?: HeadingLevel;
