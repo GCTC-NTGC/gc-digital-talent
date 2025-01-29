@@ -2651,10 +2651,6 @@
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
   },
-  "CKxLR/": {
-    "defaultMessage": "La mise à jour des préférences en matière de développement de carrière a échoué",
-    "description": "Message displayed when a user fails to update the employee profile information"
-  },
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
     "description": "Definition for 'remote positions'"
@@ -3039,10 +3035,6 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
-  "ECAM6A": {
-    "defaultMessage": "Les préférences en matière de développement de carrière ont été mises à jour avec succès!",
-    "description": "Message displayed when a user successfully updates employee profile information"
-  },
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
@@ -3154,10 +3146,6 @@
   "Evn5Mo": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce processus.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
-  },
-  "Ey8cB4": {
-    "defaultMessage": "Préférences en matière de développement de carrière",
-    "description": "Title for career development preferences section"
   },
   "EyH6FY": {
     "defaultMessage": "Sélectionnez les expériences pertinentes",
@@ -5990,10 +5978,6 @@
   "Uea7/1": {
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
-  },
-  "Uj7TE2": {
-    "defaultMessage": "Dans cette section de votre profil, vous pouvez préciser les options qui vous intéressent concernant le recrutement, le mentorat et les possibilités de promotion.",
-    "description": "Describes the career development preferences of employee profile"
   },
   "UjkAHp": {
     "defaultMessage": "Agent(e) P M 3",
