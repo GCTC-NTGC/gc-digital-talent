@@ -212,11 +212,11 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining career planning expandable withing career development card",
                   })}
                 >
-                  {intl.formatMessage({
+                  {`${intl.formatMessage({
                     defaultMessage: "Functional communities",
                     id: "OH0wqV",
                     description: "Functional communities expandable",
-                  })}
+                  })} (${functionalCommunityInterestsFragments.length ?? 0})`}
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
