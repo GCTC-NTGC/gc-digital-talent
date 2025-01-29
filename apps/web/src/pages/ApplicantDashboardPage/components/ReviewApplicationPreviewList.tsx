@@ -3,6 +3,8 @@ import { differenceInDays } from "date-fns/differenceInDays";
 import { useRef, useState } from "react";
 
 import {
+  FragmentType,
+  getFragment,
   graphql,
   PoolSkillType,
   ReviewApplicationPreviewListFragment,
@@ -480,12 +482,21 @@ const ReviewApplicationDialog = ({
   );
 };
 
+interface ReviewApplicationPreviewListProps {
+  applicationsQuery: FragmentType<
+    typeof ReviewApplicationPreviewList_Fragment
+  >[];
+}
+
 const ReviewApplicationPreviewList = ({
-  applications,
-}: {
-  applications: ReviewApplicationPreviewListFragment[];
-}) => {
+  applicationsQuery,
+}: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
+
+  const applications = getFragment(
+    ReviewApplicationPreviewList_Fragment,
+    applicationsQuery,
+  );
 
   return (
     <>

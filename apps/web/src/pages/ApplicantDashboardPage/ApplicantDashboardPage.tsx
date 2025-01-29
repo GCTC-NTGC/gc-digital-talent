@@ -4,12 +4,7 @@ import { useQuery } from "urql";
 
 import { Pending, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  getFragment,
-  graphql,
-  ReviewApplicationPreviewListFragment,
-  ReviewRecruitmentProcessPreviewListFragment,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -17,14 +12,9 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
-import ReviewApplicationPreviewList, {
-  ReviewApplicationPreviewList_Fragment,
-} from "./components/ReviewApplicationPreviewList";
-import ReviewRecruitmentProcessPreviewList, {
-  ReviewRecruitmentProcessPreviewList_Fragment,
-} from "./components/ReviewRecruitmentProcessPreviewList";
+import ReviewApplicationPreviewList from "./components/ReviewApplicationPreviewList";
+import ReviewRecruitmentProcessPreviewList from "./components/ReviewRecruitmentProcessPreviewList";
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   query ApplicantDashboard {
@@ -48,21 +38,6 @@ export const DashboardPage = () => {
   });
 
   const user = data?.me;
-
-  const applications = getFragment<ReviewApplicationPreviewListFragment>(
-    ReviewApplicationPreviewList_Fragment,
-    unpackMaybes(user?.poolCandidates),
-  );
-
-  const recruitmentProcesses =
-    getFragment<ReviewRecruitmentProcessPreviewListFragment>(
-      ReviewRecruitmentProcessPreviewList_Fragment,
-      unpackMaybes(user?.poolCandidates),
-    ).filter(
-      (recruitmentProcess) =>
-        recruitmentProcess.finalDecisionAt &&
-        isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
-    ); // filter for qualified recruitment processes
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -89,10 +64,12 @@ export const DashboardPage = () => {
             subtitle={""}
           />
           <div data-h2-padding="base(x2)">
-            <ReviewApplicationPreviewList applications={applications} />
+            <ReviewApplicationPreviewList
+              applicationsQuery={unpackMaybes(user?.poolCandidates)}
+            />
             <Separator />
             <ReviewRecruitmentProcessPreviewList
-              recruitmentProcesses={recruitmentProcesses}
+              recruitmentProcessesQuery={unpackMaybes(user?.poolCandidates)}
             />
           </div>
         </>

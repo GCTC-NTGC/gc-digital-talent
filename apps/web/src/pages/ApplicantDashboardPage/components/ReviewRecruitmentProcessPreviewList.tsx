@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useMutation } from "urql";
 
 import {
+  FragmentType,
+  getFragment,
   graphql,
   ReviewRecruitmentProcessPreviewListFragment,
 } from "@gc-digital-talent/graphql";
@@ -34,6 +36,7 @@ import {
   ApplicationStatus,
   getQualifiedRecruitmentStatusChip,
   getSalaryRange,
+  isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -470,12 +473,26 @@ const ReviewRecruitmentProcessDialog = ({
   );
 };
 
+interface ReviewRecruitmentProcessPreviewListProps {
+  recruitmentProcessesQuery: FragmentType<
+    typeof ReviewRecruitmentProcessPreviewList_Fragment
+  >[];
+}
+
 const ReviewRecruitmentProcessPreviewList = ({
-  recruitmentProcesses,
-}: {
-  recruitmentProcesses: ReviewRecruitmentProcessPreviewListFragment[];
-}) => {
+  recruitmentProcessesQuery,
+}: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
+
+  const recruitmentProcesses = getFragment(
+    ReviewRecruitmentProcessPreviewList_Fragment,
+    recruitmentProcessesQuery,
+  ).filter(
+    (recruitmentProcess) =>
+      recruitmentProcess.finalDecisionAt &&
+      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+  ); // filter for qualified recruitment processes
+
   return (
     <>
       {recruitmentProcesses.length ? (
