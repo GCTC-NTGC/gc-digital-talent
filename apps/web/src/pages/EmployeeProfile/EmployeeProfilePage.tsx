@@ -113,7 +113,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem={false}
-                  title={intl.formatMessage(messages.careerPlanning)}
+                  title={intl.formatMessage(profileMessages.careerPlanning)}
                   status="success"
                   scrollTo={SECTION_ID.CAREER_PLANNING}
                 />
@@ -164,7 +164,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   data-h2-font-weight="base(400)"
                   data-h2-text-align="base(center) l-tablet(initial)"
                 >
-                  {intl.formatMessage(messages.careerPlanning)}
+                  {intl.formatMessage(profileMessages.careerPlanning)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
