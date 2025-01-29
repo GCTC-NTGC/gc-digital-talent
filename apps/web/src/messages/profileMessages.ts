@@ -62,11 +62,6 @@ const messages = defineMessages({
     id: "v9A5Cb",
     description: "Legend for users current location",
   },
-  careerPlanning: {
-    defaultMessage: "Career planning",
-    id: "zN7MBv",
-    description: "Title for a users career plan",
-  },
 });
 
 export default messages;

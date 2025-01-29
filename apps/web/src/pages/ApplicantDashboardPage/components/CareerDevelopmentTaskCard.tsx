@@ -9,9 +9,9 @@ import {
   TaskCard,
   Well,
 } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import messages from "~/messages/profileMessages";
 
 import MoveInterestsList from "./MoveInterestsList";
 import OrganizationTypeInterestsList from "./OrganizationInterestsList";
@@ -101,7 +101,7 @@ const CareerDevelopmentTaskCard = ({
       type: "link",
       href: paths.employeeProfile(),
       color: "secondary",
-      children: <>{intl.formatMessage(messages.careerPlanning)}</>,
+      children: <>{intl.formatMessage(commonMessages.careerPlanning)}</>,
     },
   ];
 
@@ -139,7 +139,7 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining career planning expandable within career development card",
                   })}
                 >
-                  {intl.formatMessage(messages.careerPlanning)}
+                  {intl.formatMessage(commonMessages.careerPlanning)}
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={careerPlanningMetaData} />
                 <Accordion.Content>

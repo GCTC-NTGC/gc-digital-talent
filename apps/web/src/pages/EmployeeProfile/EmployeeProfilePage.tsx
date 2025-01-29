@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
@@ -113,7 +113,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem={false}
-                  title={intl.formatMessage(profileMessages.careerPlanning)}
+                  title={intl.formatMessage(commonMessages.careerPlanning)}
                   status="success"
                   scrollTo={SECTION_ID.CAREER_PLANNING}
                 />
@@ -164,7 +164,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   data-h2-font-weight="base(400)"
                   data-h2-text-align="base(center) l-tablet(initial)"
                 >
-                  {intl.formatMessage(profileMessages.careerPlanning)}
+                  {intl.formatMessage(commonMessages.careerPlanning)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
