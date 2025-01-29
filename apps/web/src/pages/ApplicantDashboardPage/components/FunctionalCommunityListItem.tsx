@@ -5,10 +5,7 @@ import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationCha
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 
-import {
-  graphql,
-  PreviewListItemFunctionalCommunityFragment as PreviewListItemFunctionalCommunityFragmentType,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 
 export const PreviewListItemFunctionalCommunity_Fragment = graphql(
@@ -32,14 +29,21 @@ export const PreviewListItemFunctionalCommunity_Fragment = graphql(
 
 interface FunctionalCommunityListItemProps {
   headingAs?: HeadingLevel;
-  functionalCommunityListItemFragment: PreviewListItemFunctionalCommunityFragmentType;
+  functionalCommunityListItemQuery: FragmentType<
+    typeof PreviewListItemFunctionalCommunity_Fragment
+  >;
 }
 
 const FunctionalCommunityListItem = ({
   headingAs,
-  functionalCommunityListItemFragment,
+  functionalCommunityListItemQuery,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
+
+  const functionalCommunityListItemFragment = getFragment(
+    PreviewListItemFunctionalCommunity_Fragment,
+    functionalCommunityListItemQuery,
+  );
 
   const sharedIconStyling = {
     "data-h2-height": "base(x1)",

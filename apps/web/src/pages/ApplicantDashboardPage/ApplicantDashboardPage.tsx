@@ -2,14 +2,10 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending, ResourceBlock } from "@gc-digital-talent/ui";
+import { NotFound, Pending, ResourceBlock } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  graphql,
-  ApplicantDashboard_QueryQuery as ApplicantDashboardQueryType,
-} from "@gc-digital-talent/graphql";
+import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -17,35 +13,44 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
+import messages from "~/messages/profileMessages";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 
-export interface DashboardPageProps {
-  currentUser?: ApplicantDashboardQueryType["me"];
+export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
+  fragment ApplicantDashboardPage on User {
+    id
+    firstName
+    lastName
+    isGovEmployee
+    workEmail
+    isWorkEmailVerified
+    employeeProfile {
+      ...CareerDevelopmentTaskCard
+    }
+  }
+`);
+
+interface DashboardPageProps {
+  applicantDashboardQuery: FragmentType<typeof ApplicantDashboardPage_Fragment>;
 }
 
-export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
+export const DashboardPage = ({
+  applicantDashboardQuery,
+}: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const isVerifiedEmployee = isVerifiedGovEmployee({
-    isGovEmployee: currentUser?.isGovEmployee,
-    workEmail: currentUser?.workEmail,
-    isWorkEmailVerified: currentUser?.isWorkEmailVerified,
-  });
-
-  const moveInterestsMapped = currentUser?.employeeProfile?.moveInterest
-    ? currentUser.employeeProfile.moveInterest.map((interest) => interest.value)
-    : null;
-  const organizationTypeInterestsMapped = currentUser?.employeeProfile
-    ?.organizationTypeInterest
-    ? currentUser.employeeProfile.organizationTypeInterest.map(
-        (interest) => interest.value,
-      )
-    : null;
-  const communityInterestsQuery = unpackMaybes(
-    currentUser?.employeeProfile?.communityInterests,
+  const currentUser = getFragment(
+    ApplicantDashboardPage_Fragment,
+    applicantDashboardQuery,
   );
+
+  const isVerifiedEmployee = isVerifiedGovEmployee({
+    isGovEmployee: currentUser.isGovEmployee,
+    workEmail: currentUser.workEmail,
+    isWorkEmailVerified: currentUser.isWorkEmailVerified,
+  });
 
   return (
     <>
@@ -78,12 +83,10 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
-            {isVerifiedEmployee ? (
+            {isVerifiedEmployee && currentUser?.employeeProfile ? (
               <CareerDevelopmentTaskCard
-                moveInterests={moveInterestsMapped}
-                organizationTypeInterests={organizationTypeInterestsMapped}
-                communityInterestsQuery={communityInterestsQuery}
-              ></CareerDevelopmentTaskCard>
+                careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+              />
             ) : null}
             <div
               data-h2-display="base(flex)"
@@ -126,36 +129,26 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   query ApplicantDashboard_Query {
     me {
-      id
-      firstName
-      lastName
-      isGovEmployee
-      workEmail
-      isWorkEmailVerified
-      employeeProfile {
-        moveInterest {
-          value
-        }
-        organizationTypeInterest {
-          value
-        }
-        communityInterests {
-          id
-          ...PreviewListItemFunctionalCommunity
-        }
-      }
+      ...ApplicantDashboardPage
     }
   }
 `);
 
 export const ApplicantDashboardPageApi = () => {
+  const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DashboardPage currentUser={data?.me} />
+      {data?.me ? (
+        <DashboardPage applicantDashboardQuery={data.me} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(messages.userNotFound)}</p>
+        </NotFound>
+      )}
     </Pending>
   );
 };

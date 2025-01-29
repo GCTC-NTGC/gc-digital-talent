@@ -1,12 +1,7 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import {
-  FragmentType,
-  getFragment,
-  MoveInterest,
-  OrganizationTypeInterest,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
@@ -19,29 +14,51 @@ import useRoutes from "~/hooks/useRoutes";
 
 import MoveInterestsList from "./MoveInterestsList";
 import OrganizationTypeInterestsList from "./OrganizationInterestsList";
-import FunctionalCommunityListItem, {
-  PreviewListItemFunctionalCommunity_Fragment,
-} from "./FunctionalCommunityListItem";
+import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
+
+const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
+  fragment CareerDevelopmentTaskCard on EmployeeProfile {
+    moveInterest {
+      value
+    }
+    organizationTypeInterest {
+      value
+    }
+    communityInterests {
+      id
+      ...PreviewListItemFunctionalCommunity
+    }
+  }
+`);
 
 interface CareerDevelopmentTaskCardProps {
-  moveInterests: MoveInterest[] | null;
-  organizationTypeInterests: OrganizationTypeInterest[] | null;
-  communityInterestsQuery: NonNullable<
-    FragmentType<typeof PreviewListItemFunctionalCommunity_Fragment>
-  >[];
+  careerDevelopmentTaskCardQuery: FragmentType<
+    typeof CareerDevelopmentTaskCard_Fragment
+  >;
 }
 
 const CareerDevelopmentTaskCard = ({
-  moveInterests,
-  organizationTypeInterests,
-  communityInterestsQuery,
+  careerDevelopmentTaskCardQuery,
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const functionalCommunityInterestsFragments = getFragment(
-    PreviewListItemFunctionalCommunity_Fragment,
-    communityInterestsQuery,
+
+  const careerDevelopmentTaskCardFragment = getFragment(
+    CareerDevelopmentTaskCard_Fragment,
+    careerDevelopmentTaskCardQuery,
   );
+
+  const moveInterestsMapped = careerDevelopmentTaskCardFragment?.moveInterest
+    ? careerDevelopmentTaskCardFragment.moveInterest.map(
+        (interest) => interest.value,
+      )
+    : null;
+  const organizationTypeInterestsMapped =
+    careerDevelopmentTaskCardFragment?.organizationTypeInterest
+      ? careerDevelopmentTaskCardFragment.organizationTypeInterest.map(
+          (interest) => interest.value,
+        )
+      : null;
 
   const careerPlanningMetaData: AccordionMetaData[] = [
     {
@@ -153,9 +170,9 @@ const CareerDevelopmentTaskCard = ({
                             "Heading for list of user's interest in employment moves",
                         })}
                       </p>
-                      {moveInterests ? (
+                      {moveInterestsMapped ? (
                         <MoveInterestsList
-                          moveInterests={moveInterests}
+                          moveInterests={moveInterestsMapped}
                         ></MoveInterestsList>
                       ) : (
                         <p data-h2-color="base(error.darker) base:dark(error.lightest)">
@@ -177,9 +194,11 @@ const CareerDevelopmentTaskCard = ({
                             "Heading for list of user's interest in organizations as employers",
                         })}
                       </p>
-                      {organizationTypeInterests ? (
+                      {organizationTypeInterestsMapped ? (
                         <OrganizationTypeInterestsList
-                          organizationTypeInterests={organizationTypeInterests}
+                          organizationTypeInterests={
+                            organizationTypeInterestsMapped
+                          }
                         ></OrganizationTypeInterestsList>
                       ) : (
                         <p data-h2-color="base(error.darker) base:dark(error.lightest)">
@@ -216,7 +235,7 @@ const CareerDevelopmentTaskCard = ({
                     defaultMessage: "Functional communities",
                     id: "OH0wqV",
                     description: "Functional communities expandable",
-                  })} (${functionalCommunityInterestsFragments.length ?? 0})`}
+                  })} (${careerDevelopmentTaskCardFragment?.communityInterests?.length ?? 0})`}
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
@@ -226,13 +245,14 @@ const CareerDevelopmentTaskCard = ({
                     data-h2-gap="base(x1)"
                     data-h2-padding-top="base(x.5)"
                   >
-                    {functionalCommunityInterestsFragments.length ? (
+                    {careerDevelopmentTaskCardFragment?.communityInterests
+                      ?.length ? (
                       <PreviewList.Root>
-                        {functionalCommunityInterestsFragments.map(
+                        {careerDevelopmentTaskCardFragment.communityInterests.map(
                           (functionalCommunityInterestFragment) => (
                             <FunctionalCommunityListItem
                               key={functionalCommunityInterestFragment.id}
-                              functionalCommunityListItemFragment={
+                              functionalCommunityListItemQuery={
                                 functionalCommunityInterestFragment
                               }
                               headingAs="h4"
