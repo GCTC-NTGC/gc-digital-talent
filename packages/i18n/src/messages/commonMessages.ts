@@ -314,10 +314,10 @@ const commonMessages = defineMessages({
     id: "ZoYqEo",
     description: "Title for deadline to apply",
   },
-  awarded: {
-    defaultMessage: "Awarded",
-    id: "J0I91S",
-    description: "Title for awarded",
+  qualified: {
+    defaultMessage: "Qualified",
+    id: "jrDTez",
+    description: "Title for qualified",
   },
   expires: {
     defaultMessage: "Expires",

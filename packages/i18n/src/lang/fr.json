@@ -651,6 +651,10 @@
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
   },
+  "SD8i+/": {
+    "defaultMessage": "Reçue",
+    "description": "Title for received"
+  },
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
@@ -815,6 +819,10 @@
     "defaultMessage": "<strong> Région de Québec</strong>(excluant Gatineau)",
     "description": "The work region of Canada described as Quebec."
   },
+  "ZoYqEo": {
+    "defaultMessage": "Date limite",
+    "description": "Title for deadline to apply"
+  },
   "ZpTNbt": {
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
@@ -903,6 +911,10 @@
     "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
+  "eQ8bTh": {
+    "defaultMessage": "Expire",
+    "description": "Title for expires"
+  },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
@@ -942,6 +954,10 @@
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
+  },
+  "fhpH9E": {
+    "defaultMessage": "Fermer",
+    "description": "Title for close"
   },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
@@ -1022,6 +1038,10 @@
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran without bolding"
+  },
+  "jrDTez": {
+    "defaultMessage": "Qualifié(e)",
+    "description": "Title for qualified"
   },
   "juklNA": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",

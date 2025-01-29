@@ -564,9 +564,8 @@ const ReviewApplicationPreviewList = ({
           </p>
           <p>
             {intl.formatMessage({
-              defaultMessage:
-                'You can find a job using the "Browse jobs" button or navigation to the "Browse jobs" page from the main navigation.',
-              id: "zeEjHi",
+              defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
+              id: "0K7Upw",
               description: "Body for notice when there are no applications",
             })}
           </p>

@@ -447,6 +447,10 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0K7Upw": {
+    "defaultMessage": "Pour commencer une nouvelle demande, consultez la page « Parcourir les possibilités d'emploi » et sélectionnez une offre d'emploi.",
+    "description": "Body for notice when there are no applications"
+  },
   "0KY1My": {
     "defaultMessage": "Statut des Premières Nations",
     "description": "Legend for selecting First Nations status or non-status"
@@ -719,6 +723,10 @@
     "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Description for the IT Apprenticeship Program for Indigenous Peoples"
   },
+  "1sppLE": {
+    "defaultMessage": "Poursuivre la demande",
+    "description": "Label for continue application link"
+  },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
@@ -774,6 +782,10 @@
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
+  },
+  "29z3+q": {
+    "defaultMessage": "Consultez les renseignements détaillés d'un processus de recrutement auquel vous participez et indiquez si vous aimeriez continuer à recevoir des offres d'emploi.",
+    "description": "Subtitle for the review recruitment process dialog"
   },
   "2B+d2V": {
     "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
@@ -1735,6 +1747,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "7O5SRa": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Title for security clearance"
+  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -2395,6 +2411,10 @@
     "defaultMessage": "Modifiez les rôles de {userName} dans {communityName}.",
     "description": "Help text for the edit community membership form"
   },
+  "AtMQ8c": {
+    "defaultMessage": "Consultez les renseignements détaillés de la possibilité d'emploi ou poursuivez votre demande.",
+    "description": "Subtitle for the review application dialog"
+  },
   "AumMAr": {
     "defaultMessage": "Langue de contact préférée",
     "description": "Legend text for required language preference in getting started form"
@@ -2430,6 +2450,10 @@
   "B164SZ": {
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
+  },
+  "B1sXVl": {
+    "defaultMessage": "Soumise",
+    "description": "Label for submitted metadata"
   },
   "B6SqfX": {
     "defaultMessage": "Sauvegardez le changement d'état",
@@ -2627,9 +2651,17 @@
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
   },
+  "CKxLR/": {
+    "defaultMessage": "La mise à jour des préférences en matière de développement de carrière a échoué",
+    "description": "Message displayed when a user fails to update the employee profile information"
+  },
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
     "description": "Definition for 'remote positions'"
+  },
+  "CMD0wo": {
+    "defaultMessage": "Voir le processus de recrutement",
+    "description": "Label for view recruitment process link"
   },
   "CMtxbk": {
     "defaultMessage": "Niveau de communication orale",
@@ -3007,6 +3039,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
+  "ECAM6A": {
+    "defaultMessage": "Les préférences en matière de développement de carrière ont été mises à jour avec succès!",
+    "description": "Message displayed when a user successfully updates employee profile information"
+  },
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
@@ -3118,6 +3154,10 @@
   "Evn5Mo": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce processus.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
+  "Ey8cB4": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for career development preferences section"
   },
   "EyH6FY": {
     "defaultMessage": "Sélectionnez les expériences pertinentes",
@@ -3430,6 +3470,10 @@
   "GXw2um": {
     "defaultMessage": "Tâches professionnelles",
     "description": "Sub title for the pool work tasks"
+  },
+  "GYcxDu": {
+    "defaultMessage": "Évaluée",
+    "description": "Label for assessed metadata"
   },
   "GZXf3A": {
     "defaultMessage": "Gérer le recrutement",
@@ -4867,6 +4911,10 @@
     "defaultMessage": "Je consens à travailler dans…",
     "description": "Legend for work regions check list in work preferences form"
   },
+  "Ojevvl": {
+    "defaultMessage": "Compétences optionnelles",
+    "description": "Title for optional skills"
+  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -5467,6 +5515,10 @@
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
   },
+  "RhkjXE": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Title for employment length"
+  },
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
     "description": "Label for the candidates current assessment step"
@@ -5939,6 +5991,10 @@
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
+  "Uj7TE2": {
+    "defaultMessage": "Dans cette section de votre profil, vous pouvez préciser les options qui vous intéressent concernant le recrutement, le mentorat et les possibilités de promotion.",
+    "description": "Describes the career development preferences of employee profile"
+  },
   "UjkAHp": {
     "defaultMessage": "Agent(e) P M 3",
     "description": "PM-03 classification aria label including titles"
@@ -6269,6 +6325,10 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
+  },
+  "WZ17s5": {
+    "defaultMessage": "Compétences requises",
+    "description": "Title for required skills"
   },
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
@@ -7326,6 +7386,10 @@
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
   },
+  "cR8L3T": {
+    "defaultMessage": "Échelle salariale",
+    "description": "Title for salary range"
+  },
   "cS73MC": {
     "defaultMessage": "Je consens à travailler dans",
     "description": "Start of sentence describing a users accepted work regions"
@@ -7757,6 +7821,10 @@
   "eZYP/W": {
     "defaultMessage": "Gérer votre parcours professionnel",
     "description": "Titles for a page section to manage your career timeline"
+  },
+  "eZlUrp": {
+    "defaultMessage": "Afficher l'offre d'emploi",
+    "description": "Label for view job advertisement link"
   },
   "eamuiH": {
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
@@ -9358,6 +9426,10 @@
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
     "description": "Message describing the education requirement filter of the search form."
   },
+  "mivSCS": {
+    "defaultMessage": "Examiner un processus de recrutement",
+    "description": "Title for the review recruitment process dialog"
+  },
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
@@ -9465,6 +9537,10 @@
   "nGy9DA": {
     "defaultMessage": "Informations sur les volets de travail",
     "description": "Heading for the 'view a work stream' form"
+  },
+  "nIAA4Q": {
+    "defaultMessage": "Date limite",
+    "description": "Label for deadline metadata"
   },
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -9709,6 +9785,10 @@
   "oiaUxW": {
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
+  },
+  "ok2eWp": {
+    "defaultMessage": "Vous n'avez aucune demande pour l'instant.",
+    "description": "Title for notice when there are no applications"
   },
   "okKbgd": {
     "defaultMessage": "Préférences en matière de développement de carrière",
@@ -10762,6 +10842,10 @@
     "defaultMessage": "EXposition",
     "description": "Subject line for contact email for EXposition"
   },
+  "vRNv4w": {
+    "defaultMessage": "Revoir la demande",
+    "description": "Title for the review application dialog"
+  },
   "vRpgNs": {
     "defaultMessage": "Analyste subalterne P M 2",
     "description": "PM-02 classification aria label including titles"
@@ -11042,6 +11126,10 @@
     "defaultMessage": "Priorité",
     "description": "Label for priority chip on view candidate page"
   },
+  "xHAPBe": {
+    "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
+    "description": "Message congratulating the applicant into the recruitment process."
+  },
   "xHjgXz": {
     "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
     "description": "Text displayed when there are no pool advertisements to display"
@@ -11097,6 +11185,10 @@
   "xfdk0g": {
     "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont désormais accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
     "description": "Summary of the it training fund featured item"
+  },
+  "xg/wvH": {
+    "defaultMessage": "Voir la demande",
+    "description": "Label for view application link"
   },
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",

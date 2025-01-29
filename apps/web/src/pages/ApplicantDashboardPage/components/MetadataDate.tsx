@@ -125,7 +125,7 @@ export const RecruitmentDate = ({
   ) {
     return (
       <span>
-        {intl.formatMessage(commonMessages.awarded)}
+        {intl.formatMessage(commonMessages.qualified)}
         {intl.formatMessage(commonMessages.dividingColon)}
         {finalDecisionAt
           ? formatDate({
