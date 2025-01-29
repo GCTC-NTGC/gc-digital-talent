@@ -424,7 +424,12 @@ const DownloadApplicationsCsv_Mutation = graphql(/* GraphQL */ `
     $withROD: Boolean
     $processNumber: String
   ) {
-    downloadApplicationsCsv(ids: $ids, where: $where, withROD: $withROD, processNumber: $processNumber)
+    downloadApplicationsCsv(
+      ids: $ids
+      where: $where
+      withROD: $withROD
+      processNumber: $processNumber
+    )
   }
 `);
 
@@ -665,7 +670,11 @@ const PoolCandidatesTable = ({
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     } else if (option.value === CsvType.ApplicationCsv) {
-      downloadApplicationsCsv({ ids: selectedRows, withROD: true, processNumber: currentPoolProcessNumber })
+      downloadApplicationsCsv({
+        ids: selectedRows,
+        withROD: true,
+        processNumber: currentPoolProcessNumber,
+      })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     } else
