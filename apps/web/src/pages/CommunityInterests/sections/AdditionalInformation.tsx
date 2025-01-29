@@ -13,7 +13,7 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 );
 
 export interface SubformValues {
-  additionalInformation: string | null | undefined;
+  additionalInformation: string | null;
 }
 
 // interface AdditionalInformationProps {

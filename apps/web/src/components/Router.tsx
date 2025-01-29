@@ -336,7 +336,7 @@ const createRoute = (locale: Locales) =>
                       },
                     },
                     {
-                      path: ":communityId",
+                      path: ":communityInterestId",
                       lazy: () =>
                         import(
                           "../pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage"

@@ -44,12 +44,11 @@ export const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
 export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
-        developmentProgramId: string | null | undefined;
-        participationStatus: string | null | undefined;
-        completionDate: string | null | undefined;
+        developmentProgramId: string | null;
+        participationStatus: string | null;
+        completionDate: string | null;
       }[]
-    | null
-    | undefined;
+    | null;
 }
 
 interface TrainingAndDevelopmentOpportunitiesProps {

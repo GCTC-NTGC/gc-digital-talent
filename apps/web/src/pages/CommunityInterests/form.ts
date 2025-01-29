@@ -2,6 +2,7 @@ import {
   CreateCommunityInterestInput,
   CreateDevelopmentProgramInterestInput,
   DevelopmentProgramParticipationStatus,
+  UpdateCommunityInterestForm_FragmentFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -15,12 +16,10 @@ export interface FormValues
     TrainingAndDevelopmentOpportunitiesSubformValues,
     AdditionalInformationSubformValues,
     ReviewAndSubmitSubformValues {
-  userId: string | null | undefined;
+  userId: string | null;
 }
 
-export function parseStringToBoolean(
-  value: string | null | undefined,
-): boolean | null | undefined {
+export function parseStringToBoolean(value: string | null): boolean | null {
   if (value?.toLocaleLowerCase() === "true") {
     return true;
   }
@@ -29,9 +28,6 @@ export function parseStringToBoolean(
   }
   if (value === null) {
     return null;
-  }
-  if (value === undefined) {
-    return undefined;
   }
   throw new Error(`Invalid boolean value: (${value})`);
 }
@@ -55,7 +51,7 @@ export function formValuesToApiInput(
   };
 
   if (
-    formValues.interestInWorkStreamIds !== undefined &&
+    formValues.interestInWorkStreamIds !== null &&
     Array.isArray(formValues.interestInWorkStreamIds)
   ) {
     apiInput.workStreams = {
@@ -63,21 +59,21 @@ export function formValuesToApiInput(
     };
   }
 
-  if (formValues.jobInterest !== undefined) {
+  if (formValues.jobInterest !== null) {
     apiInput.jobInterest = parseStringToBoolean(formValues.jobInterest);
   }
 
-  if (formValues.trainingInterest !== undefined) {
+  if (formValues.trainingInterest !== null) {
     apiInput.trainingInterest = parseStringToBoolean(
       formValues.trainingInterest,
     );
   }
 
-  if (formValues.additionalInformation !== undefined) {
+  if (formValues.additionalInformation !== null) {
     apiInput.additionalInformation = formValues.additionalInformation;
   }
 
-  if (formValues.interestInDevelopmentPrograms !== undefined) {
+  if (formValues.interestInDevelopmentPrograms !== null) {
     const interests =
       formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramInterestInput | null>(
         (interest) => {
@@ -103,4 +99,29 @@ export function formValuesToApiInput(
   }
 
   return apiInput;
+}
+
+export function apiDataToFormValues(
+  userId: string | null | undefined,
+  communityInterest:
+    | UpdateCommunityInterestForm_FragmentFragment
+    | null
+    | undefined,
+): FormValues {
+  return {
+    userId: userId ?? null,
+    communityId: communityInterest?.community.id ?? null,
+    interestInWorkStreamIds:
+      communityInterest?.workStreams?.map((ws) => ws.id) ?? [],
+    jobInterest: communityInterest?.jobInterest?.toString() ?? null,
+    trainingInterest: communityInterest?.trainingInterest?.toString() ?? null,
+    additionalInformation: communityInterest?.additionalInformation ?? null,
+    interestInDevelopmentPrograms:
+      communityInterest?.interestInDevelopmentPrograms?.map((interest) => ({
+        developmentProgramId: interest.developmentProgram.id,
+        participationStatus: interest.participationStatus ?? null,
+        completionDate: interest.completionDate ?? null,
+      })) ?? [],
+    consent: null, // not saved in the database
+  };
 }

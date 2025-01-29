@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -21,38 +22,146 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import { FormValues, formValuesToApiInput } from "../form";
+import { apiDataToFormValues, FormValues, formValuesToApiInput } from "../form";
+import FindANewCommunity from "../sections/FindANewCommunity";
 
-const UpdateCommunityInterest_Fragment = graphql(/* GraphQL */ `
-  fragment UpdateCommunityInterest_Fragment on Query {
+// options data for form controls
+const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
   }
 `);
 
+// The shape of data needed to populate the form
+export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateCommunityInterestFormData_Fragment on CommunityInterest {
+    id
+    community {
+      id
+    }
+    jobInterest
+    trainingInterest
+    workStreams {
+      id
+    }
+    additionalInformation
+    interestInDevelopmentPrograms {
+      developmentProgram {
+        id
+      }
+      participationStatus
+      completionDate
+    }
+  }
+`);
+
 interface UpdateCommunityInterestFormProps {
-  query: FragmentType<typeof UpdateCommunityInterest_Fragment>;
+  formOptionsQuery: FragmentType<
+    typeof UpdateCommunityInterestFormOptions_Fragment
+  >;
+  formDataQuery: FragmentType<typeof UpdateCommunityInterestFormData_Fragment>;
+  userId: string;
   formDisabled: boolean;
+  onSubmit: SubmitHandler<FormValues>;
 }
 
 const UpdateCommunityInterestForm = ({
-  query,
+  formOptionsQuery,
+  formDataQuery,
+  userId,
   formDisabled,
+  onSubmit,
 }: UpdateCommunityInterestFormProps) => {
-  const data = getFragment(UpdateCommunityInterest_Fragment, query);
+  const formOptions = getFragment(
+    UpdateCommunityInterestFormOptions_Fragment,
+    formOptionsQuery,
+  );
+
+  const formData = getFragment(
+    UpdateCommunityInterestFormData_Fragment,
+    formDataQuery,
+  );
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: apiDataToFormValues(userId, formData),
+  });
+  //   {
+  //   defaultValues: apiDataToFormValues(userAuthInfo.id, formData),
+  // }
+
   return (
-    <CardBasic>
-      Hello update
-      {/* <FindANewCommunity />
-      <TrainingAndDevelopmentOpportunities />
-      <AdditionalInformation /> */}
-    </CardBasic>
+    <>
+      {/* <pre data-h2-background-color="base(white)">
+        {JSON.stringify(formOptions, null, 2)}
+      </pre> */}
+
+      {!!formOptionsQuery && (
+        <FormProvider {...formMethods}>
+          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+            <input
+              type="hidden"
+              {...formMethods.register(`userId`)}
+              value={userId}
+            />
+
+            <CardBasic
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x5)"
+            >
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x2)"
+              >
+                <FindANewCommunity
+                  optionsQuery={formOptions}
+                  formDisabled={formDisabled}
+                />
+                {/* other sections hidden until a community is selected */}
+                {/* {selectedCommunityId && (
+        <>
+          <TrainingAndDevelopmentOpportunities
+            optionsQuery={data}
+            formDisabled={formDisabled}
+          />
+          <AdditionalInformation />
+          <ReviewAndSubmit formDisabled={formDisabled} />
+        </>
+      )} */}
+              </div>
+            </CardBasic>
+          </form>
+        </FormProvider>
+      )}
+    </>
   );
 };
 
-const UpdateCommunityInterestPage_Query = graphql(/* GraphQL */ `
-  query UpdateCommunityInterestPage_Query {
-    ...UpdateCommunityInterest_Fragment
+// The shape of data needed to populate the page
+export const UpdateCommunityInterestPage_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateCommunityInterestPage_Fragment on CommunityInterest {
+    community {
+      name {
+        localized
+      }
+    }
+  }
+`);
+
+// Complete query for the page
+const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
+  query UpdateCommunityInterest_Query($communityInterestId: UUID!) {
+    me {
+      employeeProfile {
+        communityInterests(id: $communityInterestId) {
+          ...UpdateCommunityInterestPage_Fragment
+          ...UpdateCommunityInterestFormData_Fragment
+        }
+      }
+    }
+    ...UpdateCommunityInterestFormOptions_Fragment
   }
 `);
 
@@ -66,22 +175,43 @@ const UpdateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+interface RouteParams extends Record<string, string> {
+  communityInterestId: string;
+}
+
 export const UpdateCommunityInterestPage = () => {
+  const intl = useIntl();
+  const routes = useRoutes();
+  const { userAuthInfo } = useAuthorization();
+  const { communityInterestId } = useParams<RouteParams>();
+
+  const navigate = useNavigate();
+  if (!communityInterestId) {
+    throw new NotFoundError("Missing paramater: communityInterestId");
+  }
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
-      query: UpdateCommunityInterestPage_Query,
+      query: UpdateCommunityInterest_Query,
+      variables: {
+        communityInterestId: communityInterestId,
+      },
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterestPage_Mutation,
   );
-  const intl = useIntl();
-  const routes = useRoutes();
-  const { userAuthInfo } = useAuthorization();
-  const formMethods = useForm<FormValues>();
-  const formattedLongPageTitle = intl.formatMessage(messages.longPageTitle);
+
+  const pageData = getFragment(
+    UpdateCommunityInterestPage_Fragment,
+    queryData?.me?.employeeProfile?.communityInterests?.[0],
+  );
+
+  const communityName = pageData?.community?.name?.localized ?? "";
+
+  const formattedLongPageTitle = intl.formatMessage(messages.longPageTitle, {
+    communityName: communityName,
+  });
   const formattedShortPageTitle = intl.formatMessage(messages.shortPageTitle);
   const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
-  const navigate = useNavigate();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -139,6 +269,9 @@ export const UpdateCommunityInterestPage = () => {
       });
   };
 
+  const queriedCommunityInterest =
+    queryData?.me?.employeeProfile?.communityInterests?.[0];
+
   return (
     <Pending fetching={queryFetching} error={queryError}>
       <SEO
@@ -152,23 +285,17 @@ export const UpdateCommunityInterestPage = () => {
         centered
         overlap
       >
-        <div data-h2-margin-bottom="base(x3)">
-          {!!queryData && (
-            <FormProvider {...formMethods}>
-              <form onSubmit={formMethods.handleSubmit(submitForm)}>
-                <input
-                  type="hidden"
-                  {...formMethods.register(`userId`)}
-                  value={userAuthInfo?.id}
-                />
-                <UpdateCommunityInterestForm
-                  query={queryData}
-                  formDisabled={queryFetching || mutationFetching}
-                />
-              </form>
-            </FormProvider>
-          )}
-        </div>
+        {!!queryData && !!userAuthInfo?.id && !!queriedCommunityInterest && (
+          <div data-h2-margin-bottom="base(x3)">
+            <UpdateCommunityInterestForm
+              formOptionsQuery={queryData}
+              formDataQuery={queriedCommunityInterest}
+              userId={userAuthInfo.id}
+              formDisabled={queryFetching || mutationFetching}
+              onSubmit={submitForm}
+            />
+          </div>
+        )}
       </Hero>
     </Pending>
   );

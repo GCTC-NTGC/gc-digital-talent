@@ -9,7 +9,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { FormValues, parseStringToBoolean } from "../form";
 
 export interface SubformValues {
-  consent: boolean | null | undefined;
+  consent: boolean | null;
 }
 
 interface ReviewAndSubmitProps {

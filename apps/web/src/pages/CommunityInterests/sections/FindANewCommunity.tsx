@@ -33,10 +33,10 @@ export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 export interface SubformValues {
-  communityId: string | null | undefined;
-  jobInterest: string | null | undefined;
-  trainingInterest: string | null | undefined;
-  interestInWorkStreamIds: string[] | null | undefined;
+  communityId: string | null;
+  jobInterest: string | null;
+  trainingInterest: string | null;
+  interestInWorkStreamIds: string[] | null;
 }
 
 interface FindANewCommunityProps {
@@ -56,6 +56,7 @@ const FindANewCommunity = ({
 
   const { watch } = useFormContext<FormValues>();
   const [selectedCommunityId] = watch(["communityId"]);
+  const allForm = watch();
 
   const communityOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(optionsData.communities).map((community) => ({
@@ -83,6 +84,9 @@ const FindANewCommunity = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1.25)"
     >
+      <pre data-h2-background-color="base(white)">
+        {JSON.stringify(allForm, null, 2)}
+      </pre>
       {/* heading and description */}
       <div
         data-h2-display="base(flex)"
