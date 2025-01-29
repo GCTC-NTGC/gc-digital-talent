@@ -268,7 +268,7 @@ const ReviewRecruitmentProcessDialog = ({
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.salaryRange)}
+              label={intl.formatMessage(commonMessages.salaryRange)}
             >
               {pool?.classification
                 ? getSalaryRange(locale, pool.classification)
@@ -316,7 +316,7 @@ const ReviewRecruitmentProcessDialog = ({
               data-h2-margin="base(0)"
             />
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.employmentLength)}
+              label={intl.formatMessage(commonMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
               {pool.opportunityLength?.label.localized}
@@ -328,9 +328,7 @@ const ReviewRecruitmentProcessDialog = ({
               {pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(
-                talentRequestMessages.securityClearance,
-              )}
+              label={intl.formatMessage(commonMessages.securityClearance)}
               data-h2-grid-column="p-tablet(span 2)"
             >
               {pool.securityClearance?.label.localized}

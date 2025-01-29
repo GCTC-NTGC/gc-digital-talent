@@ -91,6 +91,10 @@
     "defaultMessage": "Nous informerons le candidat ou la candidate de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
+  "1FNzD4": {
+    "defaultMessage": "Date limite",
+    "description": "Title for deadline"
+  },
   "1UX8RD": {
     "defaultMessage": "Address courriel de correspondance",
     "description": "Title for contact email address"
@@ -226,6 +230,10 @@
   "7D58wn": {
     "defaultMessage": "Vous ne pouvez pas archiver un bassin à moins que le statut indique qu'il soit fermé.",
     "description": "Error message when attempting to archive a pool with an invalid status."
+  },
+  "7O5SRa": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Title for security clearance"
   },
   "7QH2G/": {
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
@@ -567,6 +575,10 @@
     "defaultMessage": "Trouver des talents",
     "description": "Name of Find talent (search) page"
   },
+  "Ojevvl": {
+    "defaultMessage": "Compétences optionnelles",
+    "description": "Title for optional skills"
+  },
   "Ork8sR": {
     "defaultMessage": "La nouvelle date de clôture doit être ultérieure à la date de clôture actuelle.",
     "description": "Error message that the pool closing date isn't after the existing one"
@@ -630,6 +642,10 @@
   "RgCSri": {
     "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
     "description": "Text for the option to self-declare as Indigenous"
+  },
+  "RhkjXE": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Title for employment length"
   },
   "RkxqoB": {
     "defaultMessage": "La date ne doit pas être antérieure {value}",
@@ -738,6 +754,10 @@
   "WL3bq/": {
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
+  },
+  "WZ17s5": {
+    "defaultMessage": "Compétences requises",
+    "description": "Title for required skills"
   },
   "WhLeuS": {
     "defaultMessage": "Nom",
@@ -862,6 +882,10 @@
   "cP2cZ0": {
     "defaultMessage": "Défaire",
     "description": "Label for undoing an action in the rich text editor"
+  },
+  "cR8L3T": {
+    "defaultMessage": "Échelle salariale",
+    "description": "Title for salary range"
   },
   "clDpR4": {
     "defaultMessage": "Modérément développée",

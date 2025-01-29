@@ -271,7 +271,7 @@ const ReviewApplicationDialog = ({
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.salaryRange)}
+              label={intl.formatMessage(commonMessages.salaryRange)}
             >
               {pool?.classification
                 ? getSalaryRange(locale, pool.classification)
@@ -338,7 +338,7 @@ const ReviewApplicationDialog = ({
             />
 
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.employmentLength)}
+              label={intl.formatMessage(commonMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
               {pool.workStream?.name?.localized}
@@ -350,9 +350,7 @@ const ReviewApplicationDialog = ({
               {pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(
-                talentRequestMessages.securityClearance,
-              )}
+              label={intl.formatMessage(commonMessages.securityClearance)}
               data-h2-grid-column="p-tablet(span 2)"
             >
               {pool.securityClearance?.label?.localized}
@@ -378,7 +376,7 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="essential-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(talentRequestMessages.requiredSkills)}
+                    {intl.formatMessage(commonMessages.requiredSkills)}
                   </span>
                   <span
                     data-h2-font-weight="base(normal)"
@@ -400,7 +398,7 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="optional-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(talentRequestMessages.optionalSkills)}
+                    {intl.formatMessage(commonMessages.optionalSkills)}
                   </span>
                   <span
                     data-h2-font-weight="base(normal)"

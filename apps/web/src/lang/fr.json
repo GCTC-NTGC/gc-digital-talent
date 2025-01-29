@@ -1747,10 +1747,6 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
-  "7O5SRa": {
-    "defaultMessage": "Cote de sécurité",
-    "description": "Title for security clearance"
-  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -2451,10 +2447,6 @@
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
   },
-  "B1sXVl": {
-    "defaultMessage": "Soumise",
-    "description": "Label for submitted metadata"
-  },
   "B6SqfX": {
     "defaultMessage": "Sauvegardez le changement d'état",
     "description": "Button label displayed that saves the users status selection."
@@ -3039,10 +3031,6 @@
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
   },
-  "EGNLD7": {
-    "defaultMessage": "Durée de l’emploi",
-    "description": "Label for pool advertisement employment length"
-  },
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
@@ -3271,10 +3259,6 @@
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
   },
-  "FVEh7L": {
-    "defaultMessage": "Date limite",
-    "description": "Label for pool advertisement closing date"
-  },
   "FVc2AH": {
     "defaultMessage": "Les demandes de talents complétées apparaîtront automatiquement dans cette section. À partir de là, vous pouvez consulter l'ensemble de l'historique de vos demandes, y compris les filtres, les compétences et les commentaires additionnels de chaque demande.",
     "description": "description of the request history section on the manager request history page"
@@ -3486,10 +3470,6 @@
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
-  },
-  "GgBjAd": {
-    "defaultMessage": "Échelle salariale",
-    "description": "Label for pool advertisement salary range"
   },
   "GhszAa": {
     "defaultMessage": "Sélectionnez une compétence ou plus",
@@ -4899,10 +4879,6 @@
     "defaultMessage": "Je consens à travailler dans…",
     "description": "Legend for work regions check list in work preferences form"
   },
-  "Ojevvl": {
-    "defaultMessage": "Compétences optionnelles",
-    "description": "Title for optional skills"
-  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -5503,10 +5479,6 @@
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
   },
-  "RhkjXE": {
-    "defaultMessage": "Durée de l'emploi",
-    "description": "Title for employment length"
-  },
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
     "description": "Label for the candidates current assessment step"
@@ -6046,10 +6018,6 @@
     "defaultMessage": "Protection des renseignements personnels",
     "description": "Heading for comments and interaction section"
   },
-  "V1DqDX": {
-    "defaultMessage": "Compétences requises :",
-    "description": "Label for the skills required for a pool"
-  },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
@@ -6309,10 +6277,6 @@
   "WYJnLs": {
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
-  },
-  "WZ17s5": {
-    "defaultMessage": "Compétences requises",
-    "description": "Title for required skills"
   },
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
@@ -7370,10 +7334,6 @@
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
   },
-  "cR8L3T": {
-    "defaultMessage": "Échelle salariale",
-    "description": "Title for salary range"
-  },
   "cS73MC": {
     "defaultMessage": "Je consens à travailler dans",
     "description": "Start of sentence describing a users accepted work regions"
@@ -7693,10 +7653,6 @@
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
-  },
-  "e4eYvU": {
-    "defaultMessage": "Cote de sécurité",
-    "description": "Label for pool advertisement security clearance requirement"
   },
   "e4nq4j": {
     "defaultMessage": "Chef de file du numérique E X 3",

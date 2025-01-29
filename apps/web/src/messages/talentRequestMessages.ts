@@ -89,31 +89,6 @@ const messages = defineMessages({
     id: "LOjdrP",
     description: "Title for community",
   },
-  salaryRange: {
-    defaultMessage: "Salary range",
-    id: "cR8L3T",
-    description: "Title for salary range",
-  },
-  employmentLength: {
-    defaultMessage: "Employment length",
-    id: "RhkjXE",
-    description: "Title for employment length",
-  },
-  securityClearance: {
-    defaultMessage: "Security clearance",
-    id: "7O5SRa",
-    description: "Title for security clearance",
-  },
-  requiredSkills: {
-    id: "WZ17s5",
-    defaultMessage: "Required skills",
-    description: "Title for required skills",
-  },
-  optionalSkills: {
-    id: "Ojevvl",
-    defaultMessage: "Optional skills",
-    description: "Title for optional skills",
-  },
 });
 
 export default messages;

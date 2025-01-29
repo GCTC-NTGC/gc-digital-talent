@@ -329,6 +329,36 @@ const commonMessages = defineMessages({
     id: "fhpH9E",
     description: "Title for close",
   },
+  salaryRange: {
+    defaultMessage: "Salary range",
+    id: "cR8L3T",
+    description: "Title for salary range",
+  },
+  employmentLength: {
+    defaultMessage: "Employment length",
+    id: "RhkjXE",
+    description: "Title for employment length",
+  },
+  securityClearance: {
+    defaultMessage: "Security clearance",
+    id: "7O5SRa",
+    description: "Title for security clearance",
+  },
+  requiredSkills: {
+    id: "WZ17s5",
+    defaultMessage: "Required skills",
+    description: "Title for required skills",
+  },
+  optionalSkills: {
+    id: "Ojevvl",
+    defaultMessage: "Optional skills",
+    description: "Title for optional skills",
+  },
+  deadline: {
+    id: "1FNzD4",
+    defaultMessage: "Deadline",
+    description: "Title for deadline",
+  },
 });
 
 export default commonMessages;
