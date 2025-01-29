@@ -210,9 +210,7 @@ const ReviewApplicationDialog = ({
     ? differenceInDays(Date.now(), parseDateTimeUtc(pool.closingDate)) < 3
     : null;
   const showDeadlineToApply =
-    isDraftStatus ||
-    (isDraftStatus && lessThanThreeDaysTillClosingDate) ||
-    isExpiredStatus;
+    (isDraftStatus && lessThanThreeDaysTillClosingDate) || isExpiredStatus;
 
   const isSuccessfulStatus = status.value === ApplicationStatus.SUCCESSFUL;
 
@@ -310,10 +308,7 @@ const ReviewApplicationDialog = ({
                 )
               }
               data-h2-grid-column="p-tablet(span 2)"
-              hasError={
-                (isDraftStatus && lessThanThreeDaysTillClosingDate) ||
-                isExpiredStatus
-              }
+              hasError={showDeadlineToApply}
             >
               {showDeadlineToApply ? (
                 <>
