@@ -5,19 +5,25 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { ApplicationStatus } from "~/utils/poolCandidate";
 
+interface ApplicationDateProps {
+  closingDate?: string | null;
+  submittedAt?: string | null;
+  finalDecisionAt?: string | null;
+  status: ApplicationStatus;
+}
+
 export const ApplicationDate = ({
   closingDate,
   submittedAt,
   finalDecisionAt,
   status,
-}: {
-  closingDate?: string | null;
-  submittedAt?: string | null;
-  finalDecisionAt?: string | null;
-  status: ApplicationStatus;
-}) => {
+}: ApplicationDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
+
+  if (!status) {
+    return null;
+  }
 
   const isDraftStatus = status === ApplicationStatus.DRAFT;
   const isExpiredStatus = status === ApplicationStatus.EXPIRED;
@@ -28,8 +34,8 @@ export const ApplicationDate = ({
           defaultMessage: "Deadline",
           id: "nIAA4Q",
           description: "Label for deadline metadata",
-        })}{" "}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
         {closingDate
           ? formatDate({
               date: parseDateTimeUtc(closingDate),
@@ -51,8 +57,8 @@ export const ApplicationDate = ({
           defaultMessage: "Submitted",
           id: "B1sXVl",
           description: "Label for submitted metadata",
-        })}{" "}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
         {submittedAt
           ? formatDate({
               date: parseDateTimeUtc(submittedAt),
@@ -73,8 +79,8 @@ export const ApplicationDate = ({
           defaultMessage: "Assessed",
           id: "GYcxDu",
           description: "Label for assessed metadata",
-        })}{" "}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        })}
+        {intl.formatMessage(commonMessages.dividingColon)}
         {finalDecisionAt
           ? formatDate({
               date: parseDateTimeUtc(finalDecisionAt),
@@ -89,17 +95,23 @@ export const ApplicationDate = ({
   return null;
 };
 
+interface RecruitmentDateProps {
+  finalDecisionAt?: string | null;
+  removedAt?: string | null;
+  status: ApplicationStatus;
+}
+
 export const RecruitmentDate = ({
   finalDecisionAt,
   removedAt,
   status,
-}: {
-  finalDecisionAt?: string | null;
-  removedAt?: string | null;
-  status: ApplicationStatus;
-}) => {
+}: RecruitmentDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
+
+  if (!status) {
+    return null;
+  }
 
   const isOpenToJobsStatus = status === ApplicationStatus.OPEN_TO_JOBS;
   const isNotInterestedStatus = status === ApplicationStatus.NOT_INTERESTED;
@@ -113,8 +125,8 @@ export const RecruitmentDate = ({
   ) {
     return (
       <span>
-        {intl.formatMessage(commonMessages.awarded)}{" "}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        {intl.formatMessage(commonMessages.awarded)}
+        {intl.formatMessage(commonMessages.dividingColon)}
         {finalDecisionAt
           ? formatDate({
               date: parseDateTimeUtc(finalDecisionAt),
@@ -131,7 +143,7 @@ export const RecruitmentDate = ({
     return (
       <span>
         {intl.formatMessage(commonMessages.removed)}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
+        {intl.formatMessage(commonMessages.dividingColon)}
         {removedAt
           ? formatDate({
               date: parseDateTimeUtc(removedAt),
