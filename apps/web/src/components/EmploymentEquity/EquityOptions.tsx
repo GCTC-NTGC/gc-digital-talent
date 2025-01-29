@@ -82,9 +82,9 @@ const EquityOptions = ({
     return !option;
   }).length;
 
-  const handleOptionSave = (key: EquityKeys, value: boolean) => {
+  const handleOptionSave = async (key: EquityKeys, value: boolean) => {
     const handler = value ? onAdd : onRemove;
-    handler(key)
+    return handler(key)
       .then((response) => {
         if (response) {
           toast.success(
@@ -107,8 +107,8 @@ const EquityOptions = ({
     toast.error(intl.formatMessage(profileMessages.updatingFailed));
   };
 
-  const handleMultipleFieldSave = (data: UpdateUserAsUserInput) => {
-    onUpdate(data)
+  const handleMultipleFieldSave = async (data: UpdateUserAsUserInput) => {
+    return onUpdate(data)
       .then((res) => {
         if (res) toast.success(intl.formatMessage(profileMessages.userUpdated));
         else {
@@ -134,7 +134,7 @@ const EquityOptions = ({
       </Heading>
       {isDisabled && (
         <div
-          data-h2-position="base(absolute)"
+          data-h2-position="base(fixed)"
           data-h2-background-color="base(background)"
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
@@ -155,9 +155,7 @@ const EquityOptions = ({
               option="indigenous"
               indigenousCommunities={resolvedIndigenousCommunities}
               signature={indigenousDeclarationSignature ?? undefined}
-              onSave={(newValues) => {
-                handleMultipleFieldSave(newValues);
-              }}
+              onSave={(newValues) => handleMultipleFieldSave(newValues)}
               title={intl.formatMessage(
                 getEmploymentEquityStatement("indigenous"),
               )}
@@ -168,9 +166,7 @@ const EquityOptions = ({
               disabled={isDisabled}
               option="disability"
               isAdded={resolvedDisability}
-              onSave={(newValue) => {
-                handleOptionSave("hasDisability", newValue);
-              }}
+              onSave={(newValue) => handleOptionSave("hasDisability", newValue)}
               title={intl.formatMessage(
                 getEmploymentEquityStatement("disability"),
               )}
@@ -181,9 +177,9 @@ const EquityOptions = ({
               disabled={isDisabled}
               option="minority"
               isAdded={resolvedMinority}
-              onSave={(newValue) => {
-                handleOptionSave("isVisibleMinority", newValue);
-              }}
+              onSave={(newValue) =>
+                handleOptionSave("isVisibleMinority", newValue)
+              }
               title={intl.formatMessage(
                 getEmploymentEquityStatement("minority"),
               )}
@@ -194,9 +190,7 @@ const EquityOptions = ({
               disabled={isDisabled}
               option="woman"
               isAdded={resolvedWoman}
-              onSave={(newValue) => {
-                handleOptionSave("isWoman", newValue);
-              }}
+              onSave={(newValue) => handleOptionSave("isWoman", newValue)}
               title={intl.formatMessage(getEmploymentEquityStatement("woman"))}
             />
           )}
@@ -260,9 +254,7 @@ const EquityOptions = ({
                     option="indigenous"
                     indigenousCommunities={resolvedIndigenousCommunities}
                     signature={indigenousDeclarationSignature ?? undefined}
-                    onSave={(newValues) => {
-                      handleMultipleFieldSave(newValues);
-                    }}
+                    onSave={(newValues) => handleMultipleFieldSave(newValues)}
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("indigenous"),
                     )}
@@ -280,9 +272,9 @@ const EquityOptions = ({
                     disabled={isDisabled}
                     option="disability"
                     isAdded={resolvedDisability}
-                    onSave={(newValue) => {
-                      handleOptionSave("hasDisability", newValue);
-                    }}
+                    onSave={(newValue) =>
+                      handleOptionSave("hasDisability", newValue)
+                    }
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("disability"),
                     )}
@@ -300,9 +292,9 @@ const EquityOptions = ({
                     disabled={isDisabled}
                     option="minority"
                     isAdded={resolvedMinority}
-                    onSave={(newValue) => {
-                      handleOptionSave("isVisibleMinority", newValue);
-                    }}
+                    onSave={(newValue) =>
+                      handleOptionSave("isVisibleMinority", newValue)
+                    }
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("minority"),
                     )}
@@ -320,9 +312,7 @@ const EquityOptions = ({
                     disabled={isDisabled}
                     option="woman"
                     isAdded={resolvedWoman}
-                    onSave={(newValue) => {
-                      handleOptionSave("isWoman", newValue);
-                    }}
+                    onSave={(newValue) => handleOptionSave("isWoman", newValue)}
                     title={intl.formatMessage(
                       getEmploymentEquityGroup("woman"),
                     )}
