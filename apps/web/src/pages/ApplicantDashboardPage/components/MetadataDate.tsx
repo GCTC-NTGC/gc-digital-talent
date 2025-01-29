@@ -35,7 +35,6 @@ export const ApplicationDate = ({
               date: parseDateTimeUtc(closingDate),
               formatString: "PPP",
               intl,
-              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
@@ -59,7 +58,6 @@ export const ApplicationDate = ({
               date: parseDateTimeUtc(submittedAt),
               formatString: "PPP",
               intl,
-              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
@@ -82,7 +80,6 @@ export const ApplicationDate = ({
               date: parseDateTimeUtc(finalDecisionAt),
               formatString: "PPP",
               intl,
-              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
@@ -123,7 +120,6 @@ export const RecruitmentDate = ({
               date: parseDateTimeUtc(finalDecisionAt),
               formatString: "PPP",
               intl,
-              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
@@ -134,14 +130,13 @@ export const RecruitmentDate = ({
   if (isUnsuccessfulStatus) {
     return (
       <span>
-        {intl.formatMessage(commonMessages.removed)}{" "}
+        {intl.formatMessage(commonMessages.removed)}
         {intl.formatMessage(commonMessages.dividingColon)}{" "}
         {removedAt
           ? formatDate({
               date: parseDateTimeUtc(removedAt),
               formatString: "PPP",
               intl,
-              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
