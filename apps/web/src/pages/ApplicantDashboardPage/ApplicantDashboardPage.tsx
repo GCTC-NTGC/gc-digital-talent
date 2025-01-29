@@ -56,9 +56,7 @@ export const DashboardPage = () => {
                   "Title for applicant dashboard on the talent cloud admin portal.",
               },
               {
-                name: user
-                  ? getFullNameHtml(user.firstName, user.lastName, intl)
-                  : intl.formatMessage(commonMessages.notAvailable),
+                name: getFullNameHtml(user.firstName, user.lastName, intl),
               },
             )}
             subtitle={""}
