@@ -166,14 +166,13 @@ interface ReviewApplicationDialogProps {
 }
 
 const ReviewApplicationDialog = ({
-  applicationQuery,
+  applicationQuery: application,
 }: ReviewApplicationDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const application = applicationQuery;
   const pool = application?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);

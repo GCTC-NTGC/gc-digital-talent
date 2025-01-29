@@ -142,12 +142,12 @@ interface ReviewRecruitmentProcessDialogProps {
 }
 
 const ReviewRecruitmentProcessDialog = ({
-  recruitmentProcessQuery,
+  recruitmentProcessQuery: recruitmentProcess,
 }: ReviewRecruitmentProcessDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const recruitmentProcess = recruitmentProcessQuery;
+
   const pool = recruitmentProcess?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
