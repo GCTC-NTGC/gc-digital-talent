@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
-import PlayCircleIcon from "@heroicons/react/20/solid/PlayCircleIcon";
-import PauseCircleIcon from "@heroicons/react/20/solid/PauseCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 
 import {
   DevelopmentProgramParticipationStatus,
@@ -63,7 +63,7 @@ const useStatusInfo = (
     [
       DevelopmentProgramParticipationStatus.Interested,
       {
-        Icon: PlayCircleIcon,
+        Icon: QuestionMarkCircleIcon,
         iconStyles: { "data-h2-color": "base(primary)" },
         message: intl.formatMessage({
           defaultMessage: "Interested in this program",
@@ -89,7 +89,7 @@ const useStatusInfo = (
     [
       DevelopmentProgramParticipationStatus.Enrolled,
       {
-        Icon: PauseCircleIcon,
+        Icon: BuildingLibraryIcon,
         iconStyles: { "data-h2-color": "base(primary)" },
         message: intl.formatMessage(
           {
@@ -164,10 +164,11 @@ const DevelopmentProgramInterestItem = ({
       <Icon
         data-h2-width="base(x.75)"
         data-h2-height="base(x.75)"
+        data-h2-margin-top="base(x.15)"
         {...iconStyles}
       />
       <span data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-        <span data-h2-line-height="base(1)">{label}</span>
+        <span>{label}</span>
         <span
           data-h2-font-size="base(caption)"
           {...(!developmentProgramInterest?.participationStatus ||

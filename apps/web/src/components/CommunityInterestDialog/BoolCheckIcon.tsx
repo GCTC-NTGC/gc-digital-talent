@@ -39,7 +39,7 @@ const BoolCheckIcon = ({
             }
           : {
               "aria-label": falseLabel,
-              "data-h2-color": "base(gray.lighter)",
+              "data-h2-color": "base(black.lighter) base:dark(white.5)",
             })}
       />
       <span>{children}</span>
