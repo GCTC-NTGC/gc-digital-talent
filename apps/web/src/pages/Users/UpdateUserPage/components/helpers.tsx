@@ -12,7 +12,6 @@ import {
   PoolAssignment,
   PoolTeamable,
   Teamable,
-  TeamTeamable,
   UpdateUserRolesFunc,
 } from "../types";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
