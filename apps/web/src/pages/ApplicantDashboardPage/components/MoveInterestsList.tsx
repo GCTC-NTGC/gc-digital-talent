@@ -70,8 +70,8 @@ const MoveInterestsList = ({ moveInterests }: MoveInterestsListProps) => {
         >
           {intl.formatMessage({
             defaultMessage:
-              "I’m interested in opportunities at my current level.",
-            id: "O9wEXR",
+              "I'm interested in opportunities at my current level.",
+            id: "uD+Xkl",
             description: "List item, interest in lateral moves",
           })}
         </BoolCheckIcon>
