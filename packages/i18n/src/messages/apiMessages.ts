@@ -402,12 +402,6 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Message displayed when user attempts to apply to a pool without answering all screening questions",
   },
-  NEED_AT_LEAST_ONE_PERSONNEL_REQUIREMENT: {
-    defaultMessage: "You must add at least one personnel requirement.",
-    id: "2KDa14",
-    description:
-      "Message displayed when user attempts to submit a form without at least one personnel requirement",
-  },
   VERIFICATION_FAILED: {
     defaultMessage: "Verification failed.",
     id: "XFFFCu",

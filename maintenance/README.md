@@ -21,7 +21,7 @@ To set up a local development environment, run these commands from anywhere in r
 
 ## Environment Maintenance
 
-To refresh each sub-project after they have been setup run one of the refresh scripts:
+To refresh each subproject after they have been setup run one of the refresh scripts:
 
 - `docker compose run --rm maintenance bash refresh_api.sh`
 - `docker compose run --rm maintenance bash refresh_frontend.sh`

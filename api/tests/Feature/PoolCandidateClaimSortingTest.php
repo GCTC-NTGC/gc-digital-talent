@@ -60,7 +60,6 @@ class PoolCandidateClaimSortingTest extends TestCase
 
         $this->adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create();
 

@@ -129,13 +129,6 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Continue draft",
-    "fr": [
-      "Poursuivez l'ébauche",
-      "Poursuivre l’ébauche"
-    ]
-  },
-  {
     "en": "Create skill family",
     "fr": [
       "Créez un groupe de compétences",

@@ -129,6 +129,7 @@ class Pool extends Model
         'process_number',
         'department_id',
         'community_id',
+        'area_of_selection',
         'work_stream_id',
     ];
 

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\PoolSkillType;
 use App\Enums\SkillLevel;
+use App\Models\Community;
 use App\Models\JobPosterTemplate;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
@@ -83,10 +84,11 @@ class JobPosterTemplateTest extends TestCase
         ]);
 
         // Add a few elevated roles to confirm unauthorized
+        $community = Community::factory()->create();
+
         $this->baseUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
-            ->asCommunityManager()
+            ->asCommunityRecruiter($community->id)
             ->create();
 
         $this->adminUser = User::factory()

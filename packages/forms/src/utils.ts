@@ -166,21 +166,6 @@ export function matchStringCaseDiacriticInsensitive(
 }
 
 /**
- * Returns a list of strings (haystack) that match the word being searched for (needle).
- * @param needle String that you want to search for.
- * @param haystack List of strings to check against.
- * @returns { string[] } List of string from the haystack matching the needle
- */
-export function matchStringsCaseDiacriticInsensitive(
-  needle: string,
-  haystack: string[],
-): string[] {
-  return haystack.filter((name) =>
-    matchStringCaseDiacriticInsensitive(needle, name),
-  );
-}
-
-/**
  * Returns the total number of words in a string.
  * @param text String that you want to count the number of words.
  * @returns number

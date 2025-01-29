@@ -114,7 +114,7 @@ export type WorkFormValues = FormValueDateRange & {
   cafEmploymentType?: CafEmploymentType | null;
   cafForce?: CafForce | null;
   cafRank?: CafRank | null;
-  currentRole?: boolean | null;
+  currentRole: boolean;
 };
 
 export type AllExperienceFormValues = AwardFormValues &

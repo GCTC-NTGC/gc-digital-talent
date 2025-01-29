@@ -2756,5 +2756,3 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
 }
-
-#import directiveForms.graphql
