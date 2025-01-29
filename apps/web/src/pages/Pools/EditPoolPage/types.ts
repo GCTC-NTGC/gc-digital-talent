@@ -69,11 +69,7 @@ export type SectionKey =
   | "generalQuestions";
 
 export interface PoolSkillMutationsType {
-  create: (
-    poolId: string,
-    skillId: string,
-    poolSkill: CreatePoolSkillInput,
-  ) => Promise<void>;
+  create: (poolSkill: CreatePoolSkillInput) => Promise<void>;
   update: (id: string, poolSkill: UpdatePoolSkillInput) => Promise<void>;
   delete: (id: string) => Promise<void>;
 }
