@@ -1,9 +1,9 @@
-import { WellColor, Well } from "@gc-digital-talent/ui";
+import { Well, Color } from "@gc-digital-talent/ui";
 
 interface StatusSummaryProps {
   label: React.ReactNode;
   description: React.ReactNode;
-  color: WellColor;
+  color: Color;
 }
 
 const StatusSummary = ({
