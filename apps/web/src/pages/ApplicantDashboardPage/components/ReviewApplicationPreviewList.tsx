@@ -9,11 +9,7 @@ import {
   PoolSkillType,
   ReviewApplicationPreviewListFragment,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocale,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   Accordion,
   Button,
@@ -49,19 +45,8 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     finalDecisionAt
     submittedAt
     removedAt
-    status {
-      value
-      label {
-        en
-        fr
-      }
-    }
     finalDecision {
       value
-      label {
-        en
-        fr
-      }
     }
     assessmentStatus {
       assessmentStepStatuses {
@@ -75,6 +60,7 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
       name {
         en
         fr
+        localized
       }
       classification {
         group
@@ -86,6 +72,7 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         name {
           en
           fr
+          localized
         }
       }
       language {
@@ -93,12 +80,14 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         label {
           en
           fr
+          localized
         }
       }
       department {
         name {
           en
           fr
+          localized
         }
       }
       closingDate
@@ -107,18 +96,21 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         label {
           en
           fr
+          localized
         }
       }
       isRemote
       location {
         en
         fr
+        localized
       }
       securityClearance {
         value
         label {
           en
           fr
+          localized
         }
       }
       areaOfSelection {
@@ -144,6 +136,7 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
           name {
             en
             fr
+            localized
           }
           category {
             value
@@ -176,7 +169,8 @@ const ReviewApplicationDialog = ({
   const pool = application?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
-  const poolName = getLocalizedName(pool?.name, intl);
+  const poolName =
+    pool.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool?.poolSkills);
@@ -286,18 +280,18 @@ const ReviewApplicationDialog = ({
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workStream)}
             >
-              {getLocalizedName(pool?.workStream?.name, intl)}
+              {pool.workStream?.name?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.languageRequirement)}
             >
-              {getLocalizedName(pool?.language?.label, intl)}
+              {pool.language?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.department)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.department?.name, intl)}
+              {pool.department?.name?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={
@@ -347,13 +341,13 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(talentRequestMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.opportunityLength?.label, intl)}
+              {pool.workStream?.name?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.location, intl)}
+              {pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(
@@ -361,7 +355,7 @@ const ReviewApplicationDialog = ({
               )}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.securityClearance?.label, intl)}
+              {pool.securityClearance?.label?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.processNumber)}
@@ -395,9 +389,7 @@ const ReviewApplicationDialog = ({
                   {essentialPoolSkills.length ? (
                     <ul>
                       {essentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>
-                          {getLocalizedName(skill?.name, intl)}
-                        </li>
+                        <li key={skill?.id}>{skill?.name.localized}</li>
                       ))}
                     </ul>
                   ) : (
@@ -419,9 +411,7 @@ const ReviewApplicationDialog = ({
                   {nonessentialPoolSkills.length ? (
                     <ul>
                       {nonessentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>
-                          {getLocalizedName(skill?.name, intl)}
-                        </li>
+                        <li key={skill?.id}>{skill?.name.localized}</li>
                       ))}
                     </ul>
                   ) : (
@@ -550,7 +540,10 @@ const ReviewApplicationPreviewList = ({
             return (
               <PreviewList.Item
                 key={id}
-                title={getLocalizedName(pool.name, intl)}
+                title={
+                  pool.name?.localized ??
+                  intl.formatMessage(commonMessages.notFound)
+                }
                 metaData={applicationMetadata}
                 action={
                   <ReviewApplicationDialog applicationQuery={application} />

@@ -13,7 +13,6 @@ import {
   commonMessages,
   formMessages,
   getLocale,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   Button,
@@ -66,25 +65,15 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
       suspendedAt
       removedAt
       placedAt
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
       finalDecision {
         value
-        label {
-          en
-          fr
-        }
       }
       pool {
         id
         name {
           en
           fr
+          localized
         }
         classification {
           group
@@ -96,6 +85,7 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
           name {
             en
             fr
+            localized
           }
         }
         language {
@@ -103,12 +93,14 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
           label {
             en
             fr
+            localized
           }
         }
         department {
           name {
             en
             fr
+            localized
           }
         }
         closingDate
@@ -117,18 +109,21 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
           label {
             en
             fr
+            localized
           }
         }
         isRemote
         location {
           en
           fr
+          localized
         }
         securityClearance {
           value
           label {
             en
             fr
+            localized
           }
         }
         processNumber
@@ -151,7 +146,8 @@ const ReviewRecruitmentProcessDialog = ({
   const pool = recruitmentProcess?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
-  const poolName = getLocalizedName(pool?.name, intl);
+  const poolName =
+    pool.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   const [, executeMutation] = useMutation(ReviewRecruitmentProcess_Mutation);
 
@@ -281,18 +277,18 @@ const ReviewRecruitmentProcessDialog = ({
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workStream)}
             >
-              {getLocalizedName(pool?.workStream?.name, intl)}
+              {pool.workStream?.name?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.languageRequirement)}
             >
-              {getLocalizedName(pool?.language?.label, intl)}
+              {pool.language?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.department)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.department?.name, intl)}
+              {pool.department?.name.localized}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(commonMessages.awarded)}>
               {recruitmentProcess.finalDecisionAt
@@ -323,13 +319,13 @@ const ReviewRecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.opportunityLength?.label, intl)}
+              {pool.opportunityLength?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.location, intl)}
+              {pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(
@@ -337,7 +333,7 @@ const ReviewRecruitmentProcessDialog = ({
               )}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {getLocalizedName(pool?.securityClearance?.label, intl)}
+              {pool.securityClearance?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.processNumber)}
@@ -541,7 +537,10 @@ const ReviewRecruitmentProcessPreviewList = ({
             return (
               <PreviewList.Item
                 key={id}
-                title={getLocalizedName(pool.name, intl)}
+                title={
+                  pool.name?.localized ??
+                  intl.formatMessage(commonMessages.notFound)
+                }
                 metaData={applicationMetadata}
                 action={
                   <ReviewRecruitmentProcessDialog
