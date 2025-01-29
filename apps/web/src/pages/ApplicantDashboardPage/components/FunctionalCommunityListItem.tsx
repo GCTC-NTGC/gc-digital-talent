@@ -56,10 +56,7 @@ const FunctionalCommunityListItem = ({
 
   const interestedWork = (
     <span>
-      <BriefcaseIcon
-        data-h2-color="base(success)"
-        {...sharedIconStyling}
-      ></BriefcaseIcon>
+      <BriefcaseIcon data-h2-color="base(success)" {...sharedIconStyling} />
       {intl.formatMessage({
         defaultMessage: "Interested in work",
         id: "1VKNrs",
@@ -69,10 +66,7 @@ const FunctionalCommunityListItem = ({
   );
   const notInterestedWork = (
     <span>
-      <XCircleIcon
-        data-h2-color="base(gray.lighter)"
-        {...sharedIconStyling}
-      ></XCircleIcon>
+      <XCircleIcon data-h2-color="base(gray.lighter)" {...sharedIconStyling} />
       {intl.formatMessage({
         defaultMessage: "Not interested in work",
         id: "VDVRPt",
@@ -86,7 +80,7 @@ const FunctionalCommunityListItem = ({
       <ExclamationTriangleIcon
         data-h2-color="base(error)"
         {...sharedIconStyling}
-      ></ExclamationTriangleIcon>
+      />
       <span data-h2-color="base(error.darker) base:dark(error.lightest)">
         {intl.formatMessage({
           defaultMessage: "Missing work info",
@@ -112,7 +106,7 @@ const FunctionalCommunityListItem = ({
       <PresentationChartLineIcon
         data-h2-color="base(success)"
         {...sharedIconStyling}
-      ></PresentationChartLineIcon>
+      />
       {intl.formatMessage({
         defaultMessage: "Interested in training",
         id: "ERsZAD",
@@ -123,10 +117,7 @@ const FunctionalCommunityListItem = ({
   );
   const notInterestedTraining = (
     <span>
-      <XCircleIcon
-        data-h2-color="base(gray.lighter)"
-        {...sharedIconStyling}
-      ></XCircleIcon>
+      <XCircleIcon data-h2-color="base(gray.lighter)" {...sharedIconStyling} />
       {intl.formatMessage({
         defaultMessage: "Not interested in training",
         id: "8wU0cq",
@@ -140,7 +131,7 @@ const FunctionalCommunityListItem = ({
       <ExclamationTriangleIcon
         data-h2-color="base(error)"
         {...sharedIconStyling}
-      ></ExclamationTriangleIcon>
+      />
       <span data-h2-color="base(error.darker) base:dark(error.lightest)">
         {intl.formatMessage({
           defaultMessage: "Missing training info",

@@ -173,7 +173,7 @@ const CareerDevelopmentTaskCard = ({
                       {moveInterestsMapped ? (
                         <MoveInterestsList
                           moveInterests={moveInterestsMapped}
-                        ></MoveInterestsList>
+                        />
                       ) : (
                         <p data-h2-color="base(error.darker) base:dark(error.lightest)">
                           {intl.formatMessage({
@@ -199,7 +199,7 @@ const CareerDevelopmentTaskCard = ({
                           organizationTypeInterests={
                             organizationTypeInterestsMapped
                           }
-                        ></OrganizationTypeInterestsList>
+                        />
                       ) : (
                         <p data-h2-color="base(error.darker) base:dark(error.lightest)">
                           {intl.formatMessage({
