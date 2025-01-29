@@ -2,17 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
 import { Color } from "../../types";
 
-export type WellColor = Color | "default";
-
-const colorMap = new Map<WellColor, Record<string, string>>([
-  [
-    "default",
-    {
-      "data-h2-background-color": "base(background.light)",
-      "data-h2-border": "base(1px solid background.darker)",
-      "data-h2-color": "base(background.darkest)",
-    },
-  ],
+const colorMap = new Map<Color, Record<string, string>>([
   [
     "primary",
     {
@@ -66,17 +56,19 @@ const colorMap = new Map<WellColor, Record<string, string>>([
 export interface WellProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   children: ReactNode;
-  color?: WellColor;
+  color?: Color;
   fontSize?: "caption" | "body";
 }
 
-const Well = ({
-  children,
-  color = "default",
-  fontSize = "body",
-  ...rest
-}: WellProps) => {
-  const colorStyles = colorMap.get(color);
+const Well = ({ children, color, fontSize = "body", ...rest }: WellProps) => {
+  const colorStyles = color
+    ? colorMap.get(color)
+    : {
+        "data-h2-background-color": "base(background.light)",
+        "data-h2-border": "base(1px solid background.darker)",
+        "data-h2-color": "base(background.darkest)",
+      };
+
   let size = {
     "data-h2-font-size": "base(body)",
     "data-h2-padding": "base(x1)",
