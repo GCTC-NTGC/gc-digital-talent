@@ -1067,6 +1067,10 @@
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
   },
+  "kHtt2N": {
+    "defaultMessage": "Vous ne pouvez pas inclure une compétence à la fois comme essentielle et comme atout dans le même processus. Veuillez en choisir une et la retirer de l'autre section.",
+    "description": "Error message that the pool advertisement skills cannot be both essential and asset"
+  },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
     "description": "Error message when human readable message not found"

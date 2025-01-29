@@ -9,22 +9,17 @@ import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
 import {
   assertUnreachable,
-  identity,
   notEmpty,
   empty,
   getId,
   hasKey,
   getOrThrowError,
-  deleteProperty,
   insertBetween,
-  isStringTrue,
   emptyToNull,
-  emptyToUndefined,
   uniqueItems,
   groupBy,
   pickMap,
   unpackMaybes,
-  localizedEnumHasValue,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
@@ -35,17 +30,13 @@ export {
   keyStringRegex,
   phoneNumberRegex,
   workEmailDomainRegex,
-  identity,
   notEmpty,
   empty,
   getId,
   hasKey,
   getOrThrowError,
-  deleteProperty,
   insertBetween,
-  isStringTrue,
   emptyToNull,
-  emptyToUndefined,
   uniqueItems,
   buildMailToUri,
   normalizeString,
@@ -55,7 +46,6 @@ export {
   groupBy,
   pickMap,
   unpackMaybes,
-  localizedEnumHasValue,
   NotFoundError,
   UnauthorizedError,
 };
