@@ -20,6 +20,7 @@ const Sidebar = ({ children, scrollbar, ...rest }: SidebarProps) => (
               "data-h2-location": "base(0, auto, auto, auto)",
               "data-h2-height": "l-tablet(100vh)",
               "data-h2-padding-right": "l-tablet(x.5)",
+              "data-h2-padding-top": "l-tablet(x4)",
             }
           : {
               "data-h2-location": "base(x5, auto, auto, auto)",
