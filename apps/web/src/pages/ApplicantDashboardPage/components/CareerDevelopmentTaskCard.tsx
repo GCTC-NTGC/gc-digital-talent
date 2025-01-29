@@ -123,10 +123,10 @@ const CareerDevelopmentTaskCard = ({
                   as="h3"
                   subtitle={intl.formatMessage({
                     defaultMessage:
-                      "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
-                    id: "L4UWvU",
+                      "Tell us about your interest in a promotion, executive-level opportunities, or mentorship. Share your career aspirations, goals, and work style.",
+                    id: "pm1xpZ",
                     description:
-                      "Subtitle explaining career planning expandable withing career development card",
+                      "Subtitle explaining career planning expandable within career development card",
                   })}
                 >
                   {intl.formatMessage({
@@ -158,10 +158,10 @@ const CareerDevelopmentTaskCard = ({
                           moveInterests={moveInterests}
                         ></MoveInterestsList>
                       ) : (
-                        <p>
+                        <p data-h2-color="base(error.darker) base:dark(error.lightest)">
                           {intl.formatMessage({
-                            defaultMessage: "<red>Missing information</red>",
-                            id: "hI7luh",
+                            defaultMessage: "Missing information",
+                            id: "PnSSPo",
                             description: "Missing information, warning",
                           })}
                         </p>
@@ -182,10 +182,10 @@ const CareerDevelopmentTaskCard = ({
                           organizationTypeInterests={organizationTypeInterests}
                         ></OrganizationTypeInterestsList>
                       ) : (
-                        <p>
+                        <p data-h2-color="base(error.darker) base:dark(error.lightest)">
                           {intl.formatMessage({
-                            defaultMessage: "<red>Missing information</red>",
-                            id: "hI7luh",
+                            defaultMessage: "Missing information",
+                            id: "PnSSPo",
                             description: "Missing information, warning",
                           })}
                         </p>
@@ -207,9 +207,9 @@ const CareerDevelopmentTaskCard = ({
                   subtitle={intl.formatMessage({
                     defaultMessage:
                       "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
-                    id: "L4UWvU",
+                    id: "Yohuno",
                     description:
-                      "Subtitle explaining career planning expandable withing career development card",
+                      "Subtitle explaining functional communities expandable within career development card",
                   })}
                 >
                   {`${intl.formatMessage({

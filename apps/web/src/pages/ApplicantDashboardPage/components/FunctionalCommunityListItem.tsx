@@ -83,12 +83,14 @@ const FunctionalCommunityListItem = ({
         data-h2-color="base(error)"
         {...sharedIconStyling}
       ></ExclamationTriangleIcon>
-      {intl.formatMessage({
-        defaultMessage: "<red>Missing work info</red>",
-        id: "ZrLeP8",
-        description:
-          "Phrase marking incomplete community work opportunities interest",
-      })}
+      <span data-h2-color="base(error.darker) base:dark(error.lightest)">
+        {intl.formatMessage({
+          defaultMessage: "Missing work info",
+          id: "mT1G4k",
+          description:
+            "Phrase marking incomplete community work opportunities interest",
+        })}
+      </span>
     </span>
   );
 
@@ -135,12 +137,14 @@ const FunctionalCommunityListItem = ({
         data-h2-color="base(error)"
         {...sharedIconStyling}
       ></ExclamationTriangleIcon>
-      {intl.formatMessage({
-        defaultMessage: "<red>Missing training info</red>",
-        id: "bupAcV",
-        description:
-          "Phrase marking incomplete community training opportunities interest",
-      })}
+      <span data-h2-color="base(error.darker) base:dark(error.lightest)">
+        {intl.formatMessage({
+          defaultMessage: "Missing training info",
+          id: "zGma0A",
+          description:
+            "Phrase marking incomplete community training opportunities interest",
+        })}
+      </span>
     </span>
   );
 
