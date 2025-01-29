@@ -259,6 +259,7 @@ const ReviewApplicationDialog = ({
             />
 
             <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
               data-h2-margin="base(0)"
             />
@@ -338,6 +339,7 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
 
             <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
               data-h2-margin="base(0)"
             />
@@ -370,6 +372,7 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
 
             <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
               data-h2-margin="base(0)"
             />

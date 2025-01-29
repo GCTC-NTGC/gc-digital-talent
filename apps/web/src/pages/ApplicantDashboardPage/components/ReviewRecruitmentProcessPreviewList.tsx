@@ -253,6 +253,7 @@ const ReviewRecruitmentProcessDialog = ({
             />
 
             <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
               data-h2-margin="base(0)"
             />
@@ -313,12 +314,11 @@ const ReviewRecruitmentProcessDialog = ({
                   })
                 : nullMessage}
             </FieldDisplay>
-
             <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
               data-h2-margin="base(0)"
             />
-
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
@@ -345,128 +345,133 @@ const ReviewRecruitmentProcessDialog = ({
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
-          </div>
-          {!isExpiredStatus ? (
-            <>
-              <Separator
-                data-h2-grid-column="p-tablet(span 2)"
-                data-h2-margin="base(0)"
-              />
-              <FormProvider {...methods}>
-                <form
-                  onSubmit={handleSubmit(updateSuspendedAtStatus)}
-                  data-h2-display="base(grid)"
-                  data-h2-gap="base(x1)"
+            {!isExpiredStatus ? (
+              <>
+                <Separator
+                  decorative
                   data-h2-grid-column="p-tablet(span 2)"
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Congratulations on being accepted into this recruitment process! You’ll now be considered for related opportunities. If you’ve recently taken a new job or no longer want to be contacted about opportunities, you can change your availability here. <strong>This choice can be reversed at any time if you change your mind</strong>.",
-                      id: "xHAPBe",
-                      description:
-                        "Message congratulating the applicant into the recruitment process.",
-                    })}
-                  </p>
-                  <RadioGroup
-                    legend={intl.formatMessage({
-                      defaultMessage: "Your availability",
-                      id: "jaMIil",
-                      description:
-                        "Label for available for opportunities radio group",
-                    })}
-                    idPrefix="availability"
-                    id="isSuspended"
-                    name="isSuspended"
-                    items={[
-                      {
-                        label: intl.formatMessage({
-                          defaultMessage:
-                            "I am <strong>available</strong> for hire and want to be contacted about opportunities from this recruitment process.",
-                          id: "cAOf3a",
-                          description:
-                            "Radio button label for available for opportunities option",
-                        }),
-                        value: "false",
-                      },
-                      {
-                        label: intl.formatMessage({
-                          defaultMessage:
-                            "I am <strong>unavailable</strong> and do not want to be contacted about opportunities from this recruitment process.",
-                          id: "1mYPEx",
-                          description:
-                            "Radio button label for not available for opportunities option",
-                        }),
-                        value: "true",
-                      },
-                    ]}
-                  />
-                  <Dialog.Footer data-h2-gap="base(0 x1)">
-                    <Button
-                      type="submit"
-                      disabled={isSubmitting}
-                      color="secondary"
-                    >
-                      {intl.formatMessage(formMessages.saveChanges)}
-                    </Button>
-                    <Link
-                      href={paths.application(recruitmentProcess.id)}
-                      mode="inline"
-                      color="secondary"
-                    >
+                  data-h2-margin="base(0)"
+                />
+                <FormProvider {...methods}>
+                  <form
+                    onSubmit={handleSubmit(updateSuspendedAtStatus)}
+                    data-h2-display="base(grid)"
+                    data-h2-gap="base(x1)"
+                    data-h2-grid-column="p-tablet(span 2)"
+                  >
+                    <p>
                       {intl.formatMessage({
-                        defaultMessage: "View application",
-                        id: "xg/wvH",
-                        description: "Label for view application link",
+                        defaultMessage:
+                          "Congratulations on being accepted into this recruitment process! You’ll now be considered for related opportunities. If you’ve recently taken a new job or no longer want to be contacted about opportunities, you can change your availability here. <strong>This choice can be reversed at any time if you change your mind</strong>.",
+                        id: "xHAPBe",
+                        description:
+                          "Message congratulating the applicant into the recruitment process.",
                       })}
-                    </Link>
-                    <Link
-                      href={paths.pool(pool.id)}
-                      mode="inline"
-                      color="secondary"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "View job advertisement",
-                        id: "eZlUrp",
-                        description: "Label for view job advertisement link",
+                    </p>
+                    <RadioGroup
+                      legend={intl.formatMessage({
+                        defaultMessage: "Your availability",
+                        id: "jaMIil",
+                        description:
+                          "Label for available for opportunities radio group",
                       })}
-                    </Link>
-                    <Dialog.Close>
-                      <Button mode="inline" color="warning">
-                        {intl.formatMessage(commonMessages.cancel)}
+                      idPrefix="availability"
+                      id="isSuspended"
+                      name="isSuspended"
+                      items={[
+                        {
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I am <strong>available</strong> for hire and want to be contacted about opportunities from this recruitment process.",
+                            id: "cAOf3a",
+                            description:
+                              "Radio button label for available for opportunities option",
+                          }),
+                          value: "false",
+                        },
+                        {
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I am <strong>unavailable</strong> and do not want to be contacted about opportunities from this recruitment process.",
+                            id: "1mYPEx",
+                            description:
+                              "Radio button label for not available for opportunities option",
+                          }),
+                          value: "true",
+                        },
+                      ]}
+                    />
+                    <Dialog.Footer data-h2-gap="base(0 x1)">
+                      <Button
+                        type="submit"
+                        disabled={isSubmitting}
+                        color="secondary"
+                      >
+                        {intl.formatMessage(formMessages.saveChanges)}
                       </Button>
-                    </Dialog.Close>
-                  </Dialog.Footer>
-                </form>
-              </FormProvider>
-            </>
-          ) : (
-            <Dialog.Footer data-h2-gap="base(0 x1)">
-              <Dialog.Close>
-                <Button mode="solid" color="secondary">
-                  {intl.formatMessage(commonMessages.close)}
-                </Button>
-              </Dialog.Close>
-              <Link
-                href={paths.application(recruitmentProcess.id)}
-                mode="inline"
-                color="secondary"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "View application",
-                  id: "xg/wvH",
-                  description: "Label for view application link",
-                })}
-              </Link>
-              <Link href={paths.pool(pool.id)} mode="inline" color="secondary">
-                {intl.formatMessage({
-                  defaultMessage: "View job advertisement",
-                  id: "eZlUrp",
-                  description: "Label for view job advertisement link",
-                })}
-              </Link>
-            </Dialog.Footer>
-          )}
+                      <Link
+                        href={paths.application(recruitmentProcess.id)}
+                        mode="inline"
+                        color="secondary"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "View application",
+                          id: "xg/wvH",
+                          description: "Label for view application link",
+                        })}
+                      </Link>
+                      <Link
+                        href={paths.pool(pool.id)}
+                        mode="inline"
+                        color="secondary"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "View job advertisement",
+                          id: "eZlUrp",
+                          description: "Label for view job advertisement link",
+                        })}
+                      </Link>
+                      <Dialog.Close>
+                        <Button mode="inline" color="warning">
+                          {intl.formatMessage(commonMessages.cancel)}
+                        </Button>
+                      </Dialog.Close>
+                    </Dialog.Footer>
+                  </form>
+                </FormProvider>
+              </>
+            ) : (
+              <Dialog.Footer data-h2-gap="base(0 x1)">
+                <Dialog.Close>
+                  <Button mode="solid" color="secondary">
+                    {intl.formatMessage(commonMessages.close)}
+                  </Button>
+                </Dialog.Close>
+                <Link
+                  href={paths.application(recruitmentProcess.id)}
+                  mode="inline"
+                  color="secondary"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "View application",
+                    id: "xg/wvH",
+                    description: "Label for view application link",
+                  })}
+                </Link>
+                <Link
+                  href={paths.pool(pool.id)}
+                  mode="inline"
+                  color="secondary"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "View job advertisement",
+                    id: "eZlUrp",
+                    description: "Label for view job advertisement link",
+                  })}
+                </Link>
+              </Dialog.Footer>
+            )}
+          </div>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
