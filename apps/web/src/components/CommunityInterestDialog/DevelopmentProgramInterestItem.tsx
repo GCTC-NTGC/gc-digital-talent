@@ -177,7 +177,7 @@ const DevelopmentProgramInterestItem = ({
                 "data-h2-color": "base(error)",
               }
             : {
-                "data-h2-color": "base(black.light)",
+                "data-h2-color": "base(black.lighter) base:dark(white.5)",
               })}
         >
           {message}
