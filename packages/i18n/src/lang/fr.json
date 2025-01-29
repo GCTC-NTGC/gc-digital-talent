@@ -543,6 +543,10 @@
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
   },
+  "MuM7SN": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message for when specific item has missing information"
+  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
