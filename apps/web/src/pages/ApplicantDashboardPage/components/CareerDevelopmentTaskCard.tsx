@@ -11,6 +11,7 @@ import {
 } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/profileMessages";
 
 import MoveInterestsList from "./MoveInterestsList";
 import OrganizationTypeInterestsList from "./OrganizationInterestsList";
@@ -100,15 +101,7 @@ const CareerDevelopmentTaskCard = ({
       type: "link",
       href: paths.employeeProfile(),
       color: "secondary",
-      children: (
-        <>
-          {intl.formatMessage({
-            defaultMessage: "Career planning",
-            id: "zN7MBv",
-            description: "Title for a users career plan",
-          })}
-        </>
-      ),
+      children: <>{intl.formatMessage(messages.careerPlanning)}</>,
     },
   ];
 
@@ -146,11 +139,7 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining career planning expandable within career development card",
                   })}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Career planning",
-                    id: "E0I0Yj",
-                    description: "Career planning expandable",
-                  })}
+                  {intl.formatMessage(messages.careerPlanning)}
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={careerPlanningMetaData} />
                 <Accordion.Content>
