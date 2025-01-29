@@ -159,12 +159,3 @@ export const isCommunityTeamable = (
   }
   return false;
 };
-
-export const isTeamTeamable = (
-  teamable: Teamable | undefined | null,
-): teamable is TeamTeamable => {
-  if (teamable && teamable.__typename === "Team") {
-    return true;
-  }
-  return false;
-};
