@@ -58,7 +58,6 @@ export const DashboardPage = () => {
                 name: getFullNameHtml(user.firstName, user.lastName, intl),
               },
             )}
-            subtitle={""}
           />
           <div data-h2-padding="base(x2)">
             <ReviewApplicationPreviewList
