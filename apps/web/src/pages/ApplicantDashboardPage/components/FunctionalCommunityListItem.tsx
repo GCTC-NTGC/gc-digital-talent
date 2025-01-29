@@ -7,6 +7,7 @@ import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriang
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 export const PreviewListItemFunctionalCommunity_Fragment = graphql(
   /* GraphQL */ `
@@ -177,7 +178,8 @@ const FunctionalCommunityListItem = ({
     <>
       <PreviewList.Item
         title={
-          functionalCommunityListItemFragment?.community?.name?.localized ?? ""
+          functionalCommunityListItemFragment?.community?.name?.localized ??
+          intl.formatMessage(commonMessages.notAvailable)
         }
         metaData={metaDataProps}
         // action={<CommunityInterestDialog title={title} id={request.id} />}
