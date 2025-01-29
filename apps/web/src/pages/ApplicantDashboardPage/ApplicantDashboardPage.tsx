@@ -45,7 +45,7 @@ export const DashboardPage = () => {
         <ThrowNotFound />
       ) : (
         <>
-          <SEO title={""} description={""} />
+          <SEO />
           <Hero
             title={intl.formatMessage(
               {
