@@ -58,8 +58,6 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     pool {
       id
       name {
-        en
-        fr
         localized
       }
       classification {
@@ -70,23 +68,17 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
       }
       workStream {
         name {
-          en
-          fr
           localized
         }
       }
       language {
         value
         label {
-          en
-          fr
           localized
         }
       }
       department {
         name {
-          en
-          fr
           localized
         }
       }
@@ -94,31 +86,21 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
       opportunityLength {
         value
         label {
-          en
-          fr
           localized
         }
       }
       isRemote
       location {
-        en
-        fr
         localized
       }
       securityClearance {
         value
         label {
-          en
-          fr
           localized
         }
       }
       areaOfSelection {
         value
-        label {
-          en
-          fr
-        }
       }
       processNumber
       poolSkills {
@@ -126,23 +108,19 @@ export const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         type {
           value
           label {
-            en
-            fr
+            localized
           }
         }
         skill {
           id
           key
           name {
-            en
-            fr
             localized
           }
           category {
             value
             label {
-              en
-              fr
+              localized
             }
           }
         }

@@ -71,8 +71,6 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
       pool {
         id
         name {
-          en
-          fr
           localized
         }
         classification {
@@ -83,23 +81,17 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
         }
         workStream {
           name {
-            en
-            fr
             localized
           }
         }
         language {
           value
           label {
-            en
-            fr
             localized
           }
         }
         department {
           name {
-            en
-            fr
             localized
           }
         }
@@ -107,22 +99,16 @@ export const ReviewRecruitmentProcessPreviewList_Fragment = graphql(
         opportunityLength {
           value
           label {
-            en
-            fr
             localized
           }
         }
         isRemote
         location {
-          en
-          fr
           localized
         }
         securityClearance {
           value
           label {
-            en
-            fr
             localized
           }
         }
