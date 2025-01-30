@@ -70,10 +70,6 @@ export const isNotPlacedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
 
-export const isScreenedOutStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? SCREENED_OUT_STATUSES.includes(status) : false);
-
 export const isInactiveStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
