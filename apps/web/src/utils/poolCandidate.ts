@@ -99,7 +99,7 @@ export const isExpired = (
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
 };
 
-export const isDisqualifiedFinalDecision = (
+const isDisqualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status
