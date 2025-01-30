@@ -8,7 +8,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import BoolCheckIcon from "./BoolCheckIcon";
+import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
 
 export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
