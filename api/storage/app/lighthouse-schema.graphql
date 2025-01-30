@@ -603,6 +603,8 @@ type User {
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govPositionType: LocalizedGovPositionType
+  govEndDate: Date
   currentClassification: Classification
   department: Department
   hasPriorityEntitlement: Boolean

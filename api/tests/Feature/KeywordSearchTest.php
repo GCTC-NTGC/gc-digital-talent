@@ -43,7 +43,7 @@ class KeywordSearchTest extends TestCase
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
                 'last_name' => null,
@@ -51,7 +51,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test newly added user can be searched by current_city, the column that is NOT returned by the search query response but available in the user table
-    public function testUserSearchByCurrentCity()
+    public function test_user_search_by_current_city()
     {
         $user1 = User::factory()->create([
             'current_city' => 'Ottawa',
@@ -91,7 +91,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can not be searched once soft deleted
-    public function testUserSearchBySoftDeleted()
+    public function test_user_search_by_soft_deleted()
     {
         $user1 = User::factory()->create([
             'first_name' => 'user',
@@ -124,7 +124,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be edited and searched by the changed value
-    public function testUserSearchByEditedValue()
+    public function test_user_search_by_edited_value()
     {
         $user = User::factory()->asApplicant()->create([
             'first_name' => 'user',
@@ -187,7 +187,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be searched by their work experience details
-    public function testUserSearchByWorkExperience()
+    public function test_user_search_by_work_experience()
     {
         $user1 = User::factory()->create([
             'first_name' => 'user',
@@ -243,7 +243,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be searched by their education details, partial search and case insensitive
-    public function testUserSearchByEducation()
+    public function test_user_search_by_education()
     {
         $user1 = User::factory()->create([
             'first_name' => 'user',
@@ -298,7 +298,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be searched by their award details and community experience details
-    public function testUserSearchByAwardAndCommunityExperience()
+    public function test_user_search_by_award_and_community_experience()
     {
         $user1 = User::factory()->create([
             'first_name' => 'user',
@@ -393,7 +393,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be searched by their name and work experience organization
-    public function testUserSearchByNameAndWorkExperienceTitle()
+    public function test_user_search_by_name_and_work_experience_title()
     {
         // create 3 users with same name
         $user1 = User::factory()->create([
@@ -489,7 +489,7 @@ class KeywordSearchTest extends TestCase
     }
 
     // Test user can be partial matched by name or email by scopes added into generalSearch function
-    public function testUserSearchPartialMatchingNameEmail()
+    public function test_user_search_partial_matching_name_email()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',
@@ -561,7 +561,7 @@ class KeywordSearchTest extends TestCase
             ]);
     }
 
-    public function testUserSearchPartialNamesEmailsWithOrLogic()
+    public function test_user_search_partial_names_emails_with_or_logic()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',
@@ -667,7 +667,7 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchPartialNamesEmailsWithQuotes()
+    public function test_user_search_partial_names_emails_with_quotes()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',
@@ -729,7 +729,7 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchNamesEmailsWithNegativeSearch()
+    public function test_user_search_names_emails_with_negative_search()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',
@@ -816,7 +816,7 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(3, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchPartialNamesEmailsWithPunctuation()
+    public function test_user_search_partial_names_emails_with_punctuation()
     {
         $user1 = User::factory()->create([
             'first_name' => 'bob-jones',
@@ -908,7 +908,7 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchMultiSpacing()
+    public function test_user_search_multi_spacing()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',

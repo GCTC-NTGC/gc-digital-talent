@@ -64,7 +64,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $written_level
  * @property ?string $verbal_level
  * @property ?string $estimated_language_ability
- * @property ?bool $is_gov_employee
+ * @property ?bool $computed_is_gov_employee
  * @property ?string $work_email
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
@@ -81,7 +81,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $location_exemptions
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements
- * @property ?string $gov_employee_type
+ * @property ?string $computed_gov_employee_type
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -247,14 +247,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department')
+        return $this->belongsTo(Department::class, 'computed_department')
             ->select(['id', 'name', 'department_number']);
     }
 
     /** @return BelongsTo<Classification, $this> */
     public function currentClassification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, 'current_classification');
+        return $this->belongsTo(Classification::class, 'computed_classification');
     }
 
     /** @return HasMany<AwardExperience, $this> */
@@ -434,7 +434,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
-            is_null($this->attributes['is_gov_employee']) or
+            is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['location_preferences']) or
@@ -466,7 +466,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $query->orWhereNotNull('looking_for_french');
                 $query->orWhereNotNull('looking_for_bilingual');
             });
-            $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('computed_is_gov_employee');
             $query->where(function (Builder $query) {
                 $query->where('has_priority_entitlement', false)
                     ->orWhere(function (Builder $query) {
@@ -1072,7 +1072,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
-            $query->where('is_gov_employee', true);
+            $query->where('computed_is_gov_employee', true);
         }
 
         return $query;
@@ -1332,9 +1332,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'written_level' => 'comprehensionLevel',
             'verbal_level' => 'verbalLevel',
             'estimated_language_ability' => 'estimatedLanguageAbility',
-            'is_gov_employee' => 'isGovEmployee',
+            'computed_is_gov_employee' => 'isGovEmployee',
             'work_email' => 'workEmail',
-            'gov_employee_type' => 'govEmployeeType',
+            'computed_gov_employee_type' => 'govEmployeeType',
+            'computed_gov_position_type' => 'govPositionType',
+            'computed_gov_end_date' => 'govEndDate',
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
             'location_preferences' => 'locationPreferences',

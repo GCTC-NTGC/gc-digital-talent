@@ -83,11 +83,14 @@ type User {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
-    @rename(attribute: "gov_employee_type")
+    @rename(attribute: "computed_gov_employee_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "computed_gov_position_type")
+  govEndDate: Date @rename(attribute: "computed_gov_end_date")
   currentClassification: Classification @belongsTo # Users current classification
   department: Department @belongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1277,7 +1280,7 @@ input CreateUserInput {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email
     @rename(attribute: "work_email")
     @lowerCase
@@ -1290,7 +1293,8 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1360,9 +1364,10 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1439,9 +1444,10 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")

@@ -173,9 +173,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
                     $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
-                    $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
+                    $this->yesOrNo($candidate->user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
+                    $this->localizeEnum($candidate->user->computed_gov_employee_type, GovEmployeeType::class),
                     $candidate->user->work_email, // Work email
                     $candidate->user->getClassification(), // Current classification
                     $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement

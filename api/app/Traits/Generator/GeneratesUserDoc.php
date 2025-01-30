@@ -157,12 +157,12 @@ trait GeneratesUserDoc
     {
         $section->addTitle($this->localizeHeading('government_info'), $headingRank);
 
-        $this->addLabelText($section, $this->localizeHeading('government_employee'), $this->yesOrNo($user->is_gov_employee));
+        $this->addLabelText($section, $this->localizeHeading('government_employee'), $this->yesOrNo($user->computed_is_gov_employee));
 
-        if ($user->is_gov_employee) {
+        if ($user->computed_is_gov_employee) {
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
-            $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+            $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class));
             $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
             $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
         }
