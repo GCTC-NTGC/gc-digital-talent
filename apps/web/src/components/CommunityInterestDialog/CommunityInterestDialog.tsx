@@ -183,18 +183,12 @@ const CommunityInterestDialog = ({
                   >
                     <BoolCheckIcon
                       value={interestedWorkStreams.includes(workStream.id)}
-                      trueLabel={intl.formatMessage({
-                        defaultMessage: "Interested in",
-                        id: "AQiPuW",
-                        description:
-                          "Label for user expressing interest in a specific work stream",
-                      })}
-                      falseLabel={intl.formatMessage({
-                        defaultMessage: "Not interested in",
-                        id: "KyLikL",
-                        description:
-                          "Label for user expressing they are not interested in a specific work stream",
-                      })}
+                      trueLabel={intl.formatMessage(
+                        commonMessages.interestedIn,
+                      )}
+                      falseLabel={intl.formatMessage(
+                        commonMessages.notInterestedIn,
+                      )}
                     >
                       {workStream.name?.localized ?? notAvailable}
                     </BoolCheckIcon>

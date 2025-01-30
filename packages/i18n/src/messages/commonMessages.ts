@@ -309,6 +309,17 @@ const commonMessages = defineMessages({
     id: "i+8teP",
     description: "Title for description",
   },
+  interestedIn: {
+    defaultMessage: "Interested in",
+    id: "7RBrH0",
+    description: "Label for user expressing interest in something",
+  },
+  notInterestedIn: {
+    defaultMessage: "Not interested in",
+    id: "17ztFR",
+    description:
+      "Label for user expressing they are not interested in something",
+  },
 });
 
 export default commonMessages;
