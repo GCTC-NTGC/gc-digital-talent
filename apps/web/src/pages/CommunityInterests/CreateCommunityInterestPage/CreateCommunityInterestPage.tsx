@@ -30,7 +30,7 @@ import FindANewCommunity from "../sections/FindANewCommunity";
 import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
 import AdditionalInformation from "../sections/AdditionalInformation";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
-import { FormValues, formValuesToApiInput } from "../form";
+import { FormValues, formValuesToApiCreateInput } from "../form";
 
 const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterest_Fragment on Query {
@@ -63,7 +63,11 @@ const CreateCommunityInterestForm = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x2)"
       >
-        <FindANewCommunity optionsQuery={data} formDisabled={formDisabled} />
+        <FindANewCommunity
+          optionsQuery={data}
+          formDisabled={formDisabled}
+          mode="create"
+        />
         {/* other sections hidden until a community is selected */}
         {selectedCommunityId && (
           <>
@@ -71,7 +75,7 @@ const CreateCommunityInterestForm = ({
               optionsQuery={data}
               formDisabled={formDisabled}
             />
-            <AdditionalInformation />
+            <AdditionalInformation formDisabled={formDisabled} />
             <ReviewAndSubmit formDisabled={formDisabled} />
           </>
         )}
@@ -130,7 +134,7 @@ export const CreateCommunityInterestPage = () => {
     formValues: FormValues,
   ) => {
     const mutationInput: CreateCommunityInterestInput =
-      formValuesToApiInput(formValues);
+      formValuesToApiCreateInput(formValues);
     const mutationPromise = executeCreateMutation({
       communityInterest: mutationInput,
     }).then((response) => {

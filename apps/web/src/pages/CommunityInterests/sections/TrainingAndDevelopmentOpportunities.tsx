@@ -11,11 +11,16 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
+import {
+  DATE_SEGMENT,
+  DateInput,
+  Input,
+  RadioGroup,
+} from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
-import { FormValues } from "../CreateCommunityInterestPage/CreateCommunityInterestPage";
+import { FormValues } from "../form";
 
 export const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   /* GraphQL */ `
@@ -214,9 +219,9 @@ const TrainingAndDevelopmentOpportunities = ({
                     value: DevelopmentProgramParticipationStatus.NotInterested,
                     label: intl.formatMessage({
                       defaultMessage: "I’m not interested right now.",
-                      id: "CU/Mk6",
+                      id: "gg0yRf",
                       description:
-                        "Option for the 'not intersted' choice of program participation",
+                        "Option for the 'not interested' choice of program participation",
                     }),
                   },
                   {
@@ -224,9 +229,9 @@ const TrainingAndDevelopmentOpportunities = ({
                     label: intl.formatMessage({
                       defaultMessage:
                         "I’m interested in participating in this program.",
-                      id: "K1DbQ9",
+                      id: "r6WWEn",
                       description:
-                        "Option for the 'intersted' choice of program participation",
+                        "Option for the 'interested' choice of program participation",
                     }),
                   },
                   {
@@ -268,6 +273,12 @@ const TrainingAndDevelopmentOpportunities = ({
                   }}
                 />
               ) : null}
+              {/* <Input
+                id={`interestInDevelopmentPrograms.${index}.completionDate`}
+                name={`interestInDevelopmentPrograms.${index}.completionDate`}
+                label="test"
+                type="text"
+              /> */}
             </div>
           </div>
         ))}

@@ -16,11 +16,15 @@ export interface SubformValues {
   additionalInformation: string | null;
 }
 
-// interface AdditionalInformationProps {
-// formDisabled: boolean; // RichTextInput can't be disabled: #12531
-// }
+interface AdditionalInformationProps {
+  formDisabled: boolean;
+}
 
-const AdditionalInformation = () => {
+const AdditionalInformation = ({
+  // RichTextInput can't be disabled: #12531
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  formDisabled,
+}: AdditionalInformationProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

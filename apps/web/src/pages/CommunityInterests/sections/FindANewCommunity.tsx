@@ -42,11 +42,13 @@ export interface SubformValues {
 interface FindANewCommunityProps {
   optionsQuery: FragmentType<typeof FindANewCommunityOptions_Fragment>;
   formDisabled: boolean;
+  mode: "create" | "update";
 }
 
 const FindANewCommunity = ({
   optionsQuery,
   formDisabled,
+  mode,
 }: FindANewCommunityProps) => {
   const intl = useIntl();
   const optionsData = getFragment(
@@ -68,10 +70,10 @@ const FindANewCommunity = ({
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
     optionsData.communities
       .find((community) => community?.id === selectedCommunityId)
-      ?.workStreams?.map((workstream) => ({
-        value: workstream.id,
+      ?.workStreams?.map((workStream) => ({
+        value: workStream.id,
         label:
-          workstream.name?.localized ??
+          workStream.name?.localized ??
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
   workStreamOptions.sort((a, b) =>
@@ -121,22 +123,24 @@ const FindANewCommunity = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1.25)"
       >
-        <Select
-          id="communityId"
-          name="communityId"
-          label={intl.formatMessage({
-            defaultMessage: "Functional community",
-            id: "ElnCxi",
-            description:
-              "Description for a form input for selecting a functional community",
-          })}
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          options={communityOptions}
-          disabled={formDisabled}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
-        />
+        {mode === "create" && (
+          <Select
+            id="communityId"
+            name="communityId"
+            label={intl.formatMessage({
+              defaultMessage: "Functional community",
+              id: "ElnCxi",
+              description:
+                "Description for a form input for selecting a functional community",
+            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+            options={communityOptions}
+            disabled={formDisabled}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        )}
         {selectedCommunityId ? (
           // community selected
           <>

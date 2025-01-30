@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
-  CreateCommunityInterestInput,
+  UpdateCommunityInterestInput,
   FragmentType,
   getFragment,
   graphql,
@@ -22,8 +22,15 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import { apiDataToFormValues, FormValues, formValuesToApiInput } from "../form";
+import {
+  apiDataToFormValues,
+  FormValues,
+  formValuesToApiUpdateInput,
+} from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
+import ReviewAndSubmit from "../sections/ReviewAndSubmit";
+import AdditionalInformation from "../sections/AdditionalInformation";
+import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
 
 // options data for form controls
 const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
@@ -86,55 +93,41 @@ const UpdateCommunityInterestForm = ({
   const formMethods = useForm<FormValues>({
     defaultValues: apiDataToFormValues(userId, formData),
   });
-  //   {
-  //   defaultValues: apiDataToFormValues(userAuthInfo.id, formData),
-  // }
 
   return (
     <>
-      {/* <pre data-h2-background-color="base(white)">
-        {JSON.stringify(formOptions, null, 2)}
-      </pre> */}
-
-      {!!formOptionsQuery && (
-        <FormProvider {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <input
-              type="hidden"
-              {...formMethods.register(`userId`)}
-              value={userId}
-            />
-
-            <CardBasic
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <input
+            type="hidden"
+            {...formMethods.register(`userId`)}
+            value={userId}
+          />
+          <CardBasic
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x5)"
+          >
+            <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x5)"
+              data-h2-gap="base(x2)"
             >
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x2)"
-              >
-                <FindANewCommunity
-                  optionsQuery={formOptions}
-                  formDisabled={formDisabled}
-                />
-                {/* other sections hidden until a community is selected */}
-                {/* {selectedCommunityId && (
-        <>
-          <TrainingAndDevelopmentOpportunities
-            optionsQuery={data}
-            formDisabled={formDisabled}
-          />
-          <AdditionalInformation />
-          <ReviewAndSubmit formDisabled={formDisabled} />
-        </>
-      )} */}
-              </div>
-            </CardBasic>
-          </form>
-        </FormProvider>
-      )}
+              <FindANewCommunity
+                optionsQuery={formOptions}
+                formDisabled={formDisabled}
+                mode="update"
+              />
+              <TrainingAndDevelopmentOpportunities
+                optionsQuery={formOptions}
+                formDisabled={formDisabled}
+              />
+              <AdditionalInformation formDisabled={formDisabled} />
+              <ReviewAndSubmit formDisabled={formDisabled} />
+            </div>
+          </CardBasic>
+        </form>
+      </FormProvider>
     </>
   );
 };
@@ -165,11 +158,12 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
-  mutation CreateCommunityInterest(
-    $communityInterest: CreateCommunityInterestInput!
+const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateCommunityInterest(
+    $id: UUID!
+    $communityInterest: UpdateCommunityInterestInput!
   ) {
-    createCommunityInterest(communityInterest: $communityInterest) {
+    updateCommunityInterest(id: $id, communityInterest: $communityInterest) {
       id
     }
   }
@@ -197,7 +191,7 @@ export const UpdateCommunityInterestPage = () => {
       },
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
-    UpdateCommunityInterestPage_Mutation,
+    UpdateCommunityInterest_Mutation,
   );
 
   const pageData = getFragment(
@@ -230,9 +224,10 @@ export const UpdateCommunityInterestPage = () => {
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const mutationInput: CreateCommunityInterestInput =
-      formValuesToApiInput(formValues);
+    const mutationInput: UpdateCommunityInterestInput =
+      formValuesToApiUpdateInput(formValues);
     const mutationPromise = executeUpdateMutation({
+      id: communityInterestId,
       communityInterest: mutationInput,
     }).then((response) => {
       // confirmed error
@@ -240,7 +235,7 @@ export const UpdateCommunityInterestPage = () => {
         throw new Error(response.error.message);
       }
       // confirmed success
-      if (response.data?.createCommunityInterest?.id) {
+      if (response.data?.updateCommunityInterest?.id) {
         return; //success
       }
       // unexpected outcome
