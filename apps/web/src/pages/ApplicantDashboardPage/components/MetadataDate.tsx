@@ -27,6 +27,7 @@ export const ApplicationDate = ({
 
   const isDraftStatus = status === ApplicationStatus.DRAFT;
   const isExpiredStatus = status === ApplicationStatus.EXPIRED;
+
   if (isDraftStatus || isExpiredStatus) {
     return (
       <span>
