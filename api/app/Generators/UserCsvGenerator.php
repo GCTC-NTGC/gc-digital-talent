@@ -46,7 +46,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'department',
         'employee_type',
         'work_email',
-        'current_classification',
+        'classification',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',

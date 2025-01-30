@@ -69,8 +69,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
  * @property ?string $priority_number
- * @property ?string $department
- * @property ?string $current_classification
+ * @property ?string $computed_department
+ * @property ?string $computed_classification
  * @property ?string $citizenship
  * @property ?string $armed_forces_status
  * @property ?bool $is_woman
@@ -364,7 +364,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getClassification()
     {
-        if (! $this->current_classification) {
+        if (! $this->computed_classification) {
             return '';
         }
 
