@@ -303,7 +303,6 @@ const ReviewApplicationDialog = ({
                         date: parseDateTimeUtc(application.submittedAt),
                         formatString: "PPP",
                         intl,
-                        timeZone: "Canada/Pacific",
                       })
                     : nullMessage}
                 </>
