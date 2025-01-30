@@ -109,7 +109,7 @@ const isDisqualifiedFinalDecision = (
     : false;
 };
 
-export const isQualifiedFinalDecision = (
+const isQualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status
