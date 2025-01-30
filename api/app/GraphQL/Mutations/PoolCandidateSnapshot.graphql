@@ -3,10 +3,6 @@
 query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
-    authInfo {
-      id
-      sub
-    }
     firstName
     lastName
     email

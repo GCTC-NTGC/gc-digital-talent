@@ -100,13 +100,6 @@ const createRoute = (locale: Locales) =>
                   index: true,
                   lazy: () => import("../pages/DirectivePage/DirectivePage"),
                 },
-                {
-                  path: "digital-services-contracting-questionnaire",
-                  lazy: () =>
-                    import(
-                      "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
-                    ),
-                },
               ],
             },
             {

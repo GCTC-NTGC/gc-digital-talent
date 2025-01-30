@@ -111,17 +111,9 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
-  "2KDa14": {
-    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
-    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
-  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
-  },
-  "2W9CMn": {
-    "defaultMessage": "Activer ou désactiver le contexte",
-    "description": "Label to toggle the context description of a field set."
   },
   "2bzpLi": {
     "defaultMessage": "La question donnée à l'écran n'existe pas.",
@@ -415,10 +407,6 @@
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title displayed working language ability"
   },
-  "HMXnoR": {
-    "defaultMessage": "Retourner à ma demande",
-    "description": "Link text for button to return to user application"
-  },
   "HVMI8t": {
     "defaultMessage": "Systèmes d'ordinateurs",
     "description": "Full name of abbreviation for CS"
@@ -467,10 +455,6 @@
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
-  "JHgARn": {
-    "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
-    "description": "Text read out to assistive technology when over the word limit."
-  },
   "JYpEeW": {
     "defaultMessage": "Français",
     "description": "Name of French language"
@@ -482,10 +466,6 @@
   "JqjYZq": {
     "defaultMessage": "Ce champ est obligatoire. Veuillez inscrire une valeur.",
     "description": "Error message that this field must filled for the form to be valid."
-  },
-  "JxjglQ": {
-    "defaultMessage": "Recherche…",
-    "description": "Message to display when a search is being done."
   },
   "K9SPL+": {
     "defaultMessage": "À un stade initial de développement",
@@ -755,10 +735,6 @@
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
   },
-  "WPJrmN": {
-    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
-    "description": "Message for when user goes over word limit."
-  },
   "WhLeuS": {
     "defaultMessage": "Nom",
     "description": "Title for name"
@@ -967,10 +943,6 @@
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
   },
-  "g08hvq": {
-    "defaultMessage": "Étape 1",
-    "description": "Breadcrumb back to review application page."
-  },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
@@ -1039,10 +1011,6 @@
     "defaultMessage": "Retrait en cours…",
     "description": "Submitting text for delete button."
   },
-  "j6WJBY": {
-    "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
-    "description": "Message for when user goes over word limit."
-  },
   "jDYG3j": {
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
@@ -1054,10 +1022,6 @@
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran without bolding"
-  },
-  "jubxvJ": {
-    "defaultMessage": "Chargement…",
-    "description": "Message shown in options dropdown when Select field is loading options."
   },
   "juklNA": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
@@ -1082,6 +1046,10 @@
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
+  },
+  "kHtt2N": {
+    "defaultMessage": "Vous ne pouvez pas inclure une compétence à la fois comme essentielle et comme atout dans le même processus. Veuillez en choisir une et la retirer de l'autre section.",
+    "description": "Error message that the pool advertisement skills cannot be both essential and asset"
   },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
@@ -1118,10 +1086,6 @@
   "ldthVj": {
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
-  },
-  "lsFH+y": {
-    "defaultMessage": "Aucune option",
-    "description": "Message shown in options dropdown when Select field has no options."
   },
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
@@ -1334,10 +1298,6 @@
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
-  },
-  "u+NuHm": {
-    "defaultMessage": "Retourner à mon profil",
-    "description": "Link text for button to return to user profile"
   },
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",

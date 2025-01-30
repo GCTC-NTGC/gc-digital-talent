@@ -11,7 +11,6 @@ use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkStream;
 use Carbon\Carbon;
@@ -36,9 +35,11 @@ class PoolTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $team;
+    protected $community;
 
-    protected $poolOperator;
+    protected $pool;
+
+    protected $communityRecruiter;
 
     protected $adminUser;
 
@@ -46,7 +47,7 @@ class PoolTest extends TestCase
 
     protected $baseUser;
 
-    protected $communityManager;
+    protected $communityAdmin;
 
     protected function setUp(): void
     {
@@ -55,21 +56,20 @@ class PoolTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->team = Team::factory()->create([
-            'name' => 'pool-application-test-team',
-        ]);
+        $this->community = Community::factory()->create([
+            'key' => 'pool-application-test-community']);
 
-        $this->poolOperator = User::factory()
-            ->asPoolOperator($this->team->name)
+        $this->communityRecruiter = User::factory()
+            ->asCommunityRecruiter($this->community->id)
             ->create([
-                'sub' => 'operator@test.com',
+                'sub' => 'community-recruiter@test.com',
             ]);
 
-        $this->communityManager = User::factory()
-            ->asCommunityManager()
+        $this->communityAdmin = User::factory()
+            ->asCommunityAdmin($this->community->id)
             ->create([
-                'email' => 'community@test.com',
-                'sub' => 'community@test.com',
+                'email' => 'community-admin@test.com',
+                'sub' => 'community-admin@test.com',
             ]);
 
         $this->adminUser = User::factory()
@@ -489,9 +489,9 @@ class PoolTest extends TestCase
 
     public function testCanArchiveClosed(): void
     {
-        $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
+        $poolClosed = Pool::factory()->closed()->create(['community_id' => $this->community->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation ArchivePool($id: ID!) {
@@ -501,7 +501,7 @@ class PoolTest extends TestCase
                 }
         ',
             [
-                'id' => $pool->id,
+                'id' => $poolClosed->id,
             ]
         )
             ->assertJsonFragment(['status' => ['value' => PoolStatus::ARCHIVED->name]]);
@@ -509,9 +509,9 @@ class PoolTest extends TestCase
 
     public function testCantArchiveActive(): void
     {
-        $pool = Pool::factory()->published()->create(['team_id' => $this->team->id]);
+        $pool = Pool::factory()->published()->create(['community_id' => $this->community->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation ArchivePool($id: ID!) {
@@ -529,9 +529,9 @@ class PoolTest extends TestCase
 
     public function testCanUnarchiveArchived(): void
     {
-        $pool = Pool::factory()->archived()->create(['team_id' => $this->team->id]);
+        $pool = Pool::factory()->archived()->create(['community_id' => $this->community->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation UnarchivePool($id: ID!) {
@@ -551,9 +551,9 @@ class PoolTest extends TestCase
 
     public function testCantUnarchiveClosed(): void
     {
-        $pool = Pool::factory()->closed()->create(['team_id' => $this->team->id]);
+        $pool = Pool::factory()->closed()->create(['community_id' => $this->community->id]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation UnarchivePool($id: ID!) {
@@ -583,7 +583,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation PublishPool($id: ID!) {
@@ -601,7 +601,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -619,13 +619,13 @@ class PoolTest extends TestCase
 
     public function testCannotReopenWithDeletedSkill(): void
     {
-        $pool = Pool::factory()->published()->closed()->create(['team_id' => $this->team->id]);
+        $pool = Pool::factory()->published()->closed()->create(['community_id' => $this->community->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot reopen due to soft deleted essential skill $skill2
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
@@ -648,7 +648,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can reopen now with the deleted skill gone
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
@@ -824,7 +824,7 @@ class PoolTest extends TestCase
 
         // Note: Default factory has no pool skills attached to Screening question step
         // assert cannot publish due to assessment steps missing skills
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -845,7 +845,7 @@ class PoolTest extends TestCase
         }
 
         // assessment plan now marked as complete
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     query pool($id: UUID!) {
@@ -866,7 +866,7 @@ class PoolTest extends TestCase
         ]);
 
         // assessment plan now marked as complete
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     query pool($id: UUID!) {
@@ -887,7 +887,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert can now publish as all steps have attached skills
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -974,7 +974,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert cannot publish due to the one pool skill lacking an assessment
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -1037,7 +1037,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert successful now that all pool skills have an assessment
-        $this->actingAs($this->communityManager, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
                                 mutation PublishPool($id: ID!) {
@@ -1053,18 +1053,18 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['id' => $completePool->id]);
     }
 
-    // a pool operator can successfully delete a pool that they created but is still in draft
+    // community recruiter can successfully delete a pool that they created but is still in draft
     public function testCanDeleteDraftPool(): void
     {
         $pool = Pool::factory()
-            ->for($this->poolOperator)
+            ->for($this->communityRecruiter)
             ->withAssessments()
             ->draft()
             ->create([
-                'team_id' => $this->team,
+                'community_id' => $this->community,
             ]);
 
-        $this->actingAs($this->poolOperator, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             /** @lang GraphQL */
             '   mutation DeletePool($id: ID!) {
                     deletePool(id: $id) { id }
@@ -1108,47 +1108,6 @@ class PoolTest extends TestCase
         )->assertJsonFragment([
             'id' => $toBeFound->id,
             'name' => $toBeFound->name,
-        ]);
-
-        assertSame(1, count($res->json('data.poolsPaginated.data')));
-    }
-
-    /**
-     * @group paginated
-     */
-    public function testPoolTeamScope(): void
-    {
-        $toBeFound = Pool::factory()->published()->create([
-            'team_id' => $this->team,
-        ]);
-
-        Pool::factory()->published()->create([
-            'team_id' => Team::factory()->create(),
-        ]);
-
-        $res = $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ScopePoolName($where: PoolFilterInput) {
-                    poolsPaginated(where: $where) {
-                        data {
-                            id
-                            team { id name }
-                        }
-                    }
-                }
-            ',
-            [
-                'where' => [
-                    'team' => $this->team->display_name['en'],
-                ],
-            ]
-        )->assertJsonFragment([
-            'id' => $toBeFound->id,
-            'team' => [
-                'id' => $this->team->id,
-                'name' => $this->team->name,
-            ],
         ]);
 
         assertSame(1, count($res->json('data.poolsPaginated.data')));
@@ -1481,11 +1440,11 @@ class PoolTest extends TestCase
     public function testCanAdminScope(): void
     {
         // two published pools
-        $teamPool = Pool::factory()->published()->create([
-            'team_id' => $this->team,
+        $communityPool = Pool::factory()->published()->create([
+            'community_id' => $this->community,
         ]);
         Pool::factory()->published()->create([
-            'team_id' => Team::factory()->create(),
+            'community_id' => Community::factory()->create(),
         ]);
 
         $query =
@@ -1513,15 +1472,15 @@ class PoolTest extends TestCase
             ]);
         assertSame(2, count($adminQuery->json('data.poolsPaginated.data')));
 
-        // pool operator sees the one team pool when true
-        $poolOperatorQuery = $this
-            ->actingAs($this->poolOperator, 'api')
+        // community recruiter sees the one community pool when true
+        $communityRecruiterQuery = $this
+            ->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
                 'where' => [
                     'canAdmin' => true,
                 ],
-            ])->assertJsonFragment(['id' => $teamPool->id]);
-        assertSame(1, count($poolOperatorQuery->json('data.poolsPaginated.data')));
+            ])->assertJsonFragment(['id' => $communityPool->id]);
+        assertSame(1, count($communityRecruiterQuery->json('data.poolsPaginated.data')));
 
         // base user sees zero pools when true
         $userQuery = $this
@@ -1568,11 +1527,11 @@ class PoolTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->for($this->poolOperator)
+            ->for($this->communityRecruiter)
             ->withAssessments()
             ->published()
             ->create([
-                'team_id' => $this->team,
+                'community_id' => $this->community,
             ]);
 
         $mutation =
@@ -1593,13 +1552,13 @@ class PoolTest extends TestCase
             ],
         ];
 
-        // Pool operator cannot edit
-        $this->actingAs($this->poolOperator, 'api')
+        // community recruiter cannot edit
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($mutation, $vars)
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        // Community Manager can edit
-        $this->actingAs($this->communityManager, 'api')
+        // community admin can edit
+        $this->actingAs($this->communityAdmin, 'api')
             ->graphQL($mutation, $vars)
             ->assertExactJson([
                 'data' => [
@@ -1730,11 +1689,10 @@ class PoolTest extends TestCase
     // test mutation createPool(...)
     public function testCreatePool()
     {
-        $community = Community::factory()->create();
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
-        $response = $this->actingAs($this->poolOperator, 'api')
+        $response = $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -1759,9 +1717,9 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $this->poolOperator->id,
-                    'teamId' => $this->team->id,
-                    'communityId' => $community->id,
+                    'userId' => $this->communityRecruiter->id,
+                    'teamId' => $this->community->getTeamIdForRoleAssignmentAttribute(),
+                    'communityId' => $this->community->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1774,11 +1732,11 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $this->poolOperator->id],
+            'owner' => ['id' => $this->communityRecruiter->id],
         ])->assertJsonFragment([
-            'team' => ['id' => $this->team->id],
+            'team' => ['id' => $this->community->getTeamIdForRoleAssignmentAttribute()],
         ])->assertJsonFragment([
-            'community' => ['id' => $community->id],
+            'community' => ['id' => $this->community->id],
         ])->assertJsonFragment([
             'classification' => ['id' => $classification->id],
         ])->assertJsonFragment([
@@ -1797,11 +1755,11 @@ class PoolTest extends TestCase
 
         $original = Pool::factory()
             ->draft()
-            ->for($this->poolOperator)
+            ->for($this->communityRecruiter)
             ->withPoolSkills(3, 3)
             ->create();
 
-        $response = $this->actingAs($this->poolOperator, 'api')
+        $response = $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL(
                 /** @lang GraphQL */
                 '
@@ -1812,7 +1770,7 @@ class PoolTest extends TestCase
                 }',
                 [
                     'id' => $original->id,
-                    'teamId' => $this->team->id,
+                    'teamId' => $this->community->getTeamIdForRoleAssignmentAttribute(),
                     'pool' => ['departmentId' => $department->id],
                 ]
             );

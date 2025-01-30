@@ -58,8 +58,8 @@ class SkillFamilyTest extends TestCase
         $this->baseUser->syncRoles([
             'guest',
             'base_user',
-            'pool_operator',
-            'request_responder',
+            'process_operator',
+            'community_recruiter',
         ]);
 
         $this->adminUser = User::create([

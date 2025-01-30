@@ -333,6 +333,13 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "Error message that the pool advertisement skills are lacking an assessment",
     id: "kDw+xr",
   },
+  PoolSkillNotEssentialAndAssetTypes: {
+    defaultMessage:
+      "You can't include a skill as both essential and an asset in the same process. Please choose one and remove it from the other section.",
+    description:
+      "Error message that the pool advertisement skills cannot be both essential and asset",
+    id: "kHtt2N",
+  },
 
   APPLICATION_EXISTS: {
     defaultMessage: "You have already applied to this pool",
@@ -401,12 +408,6 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "LBqw5w",
     description:
       "Message displayed when user attempts to apply to a pool without answering all screening questions",
-  },
-  NEED_AT_LEAST_ONE_PERSONNEL_REQUIREMENT: {
-    defaultMessage: "You must add at least one personnel requirement.",
-    id: "2KDa14",
-    description:
-      "Message displayed when user attempts to submit a form without at least one personnel requirement",
   },
   VERIFICATION_FAILED: {
     defaultMessage: "Verification failed.",

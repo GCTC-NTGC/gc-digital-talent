@@ -47,27 +47,4 @@ test.describe("Process permissions", () => {
       }),
     ).toBeVisible();
   });
-
-  test("Community manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "legacy-community@test.com", false);
-
-    await appPage.page.goto(`/en/admin/pools/${pool.id}`);
-    await appPage.waitForGraphqlResponse("PoolLayout");
-
-    await expect(
-      appPage.page.getByRole("heading", {
-        name: new RegExp(poolName, "i"),
-      }),
-    ).toBeVisible();
-  });
-
-  test("Request responder cannot view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "request@test.com", false);
-
-    await appPage.page.goto(`/en/admin/pools/${pool.id}`);
-
-    await expect(
-      appPage.page.getByText(/this action is unauthorized/i).first(),
-    ).toBeVisible();
-  });
 });

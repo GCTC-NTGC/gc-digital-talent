@@ -11,7 +11,7 @@ map $upstream_http_cache_control $hdr_cache_control {
 }
 
 map $request_uri $csp_header {
-    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' data:; report-uri /api/csp-report/; report-to csp;";
+    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' data:; frame-ancestors 'none'; report-uri /api/csp-report/; report-to csp;";
     ~^/robots.txt "default-src 'self'; style-src-attr 'unsafe-inline';";
 }
 
@@ -40,6 +40,7 @@ server {
     sub_filter '**CSP_NONCE**' $cspNonce;
     sub_filter_once off;
 
+    add_header X-Frame-Options DENY;
     add_header Reporting-Endpoints csp="/api/csp-report";
     add_header Content-Security-Policy-Report-Only $csp_header always;
 
