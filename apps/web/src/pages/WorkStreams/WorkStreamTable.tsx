@@ -50,10 +50,7 @@ interface WorkStreamTableProps {
   title: string;
 }
 
-export const WorkStreamTable = ({
-  workStreamsQuery,
-  title,
-}: WorkStreamTableProps) => {
+const WorkStreamTable = ({ workStreamsQuery, title }: WorkStreamTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const workStreams = getFragment(
