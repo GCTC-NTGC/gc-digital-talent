@@ -8,13 +8,13 @@ import {
   fakeLocalizedEnum,
   fakePools,
   fakeSkills,
+  fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
 import {
   CreatePoolCandidateSearchRequestInput,
   LanguageAbility,
   makeFragmentData,
   PoolCandidateSearchRequestReason,
-  PoolStream,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -90,7 +90,7 @@ export default {
           languageAbilities: fakeLocalizedEnum(LanguageAbility),
           workRegions: fakeLocalizedEnum(WorkRegion),
           operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
-          streams: fakeLocalizedEnum(PoolStream),
+          workStreams: fakeWorkStreams(),
         },
       },
     },

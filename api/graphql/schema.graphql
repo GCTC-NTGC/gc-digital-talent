@@ -2222,7 +2222,6 @@ input CreateJobPosterTemplateInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: PoolStream!
   workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
