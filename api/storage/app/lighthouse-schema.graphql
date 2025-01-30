@@ -607,7 +607,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [LocalizedIndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
@@ -1017,7 +1017,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -1027,7 +1027,7 @@ type PoolCandidateFilter {
 
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -1299,7 +1299,7 @@ input OrderByColumnInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
@@ -1437,7 +1437,7 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1485,7 +1485,7 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1542,7 +1542,7 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1757,7 +1757,7 @@ input UpdateCommunityInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
