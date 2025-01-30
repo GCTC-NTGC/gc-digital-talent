@@ -14,7 +14,7 @@ const StatusSummary = ({
 }: StatusSummaryProps) => {
   return (
     <Well color={color} {...rest}>
-      <p data-h2-font-weight="base(bold)" data-h2-padding-bottom="base(x.5)">
+      <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.5)">
         {label}
       </p>
       <p>{description}</p>
