@@ -75,7 +75,9 @@ const EssentialSkillsSection = ({
     skillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    await poolSkillMutations.create(pool.id, skillSelected, {
+    await poolSkillMutations.create({
+      poolId: pool.id,
+      skillId: skillSelected,
       type: PoolSkillType.Essential,
       requiredLevel: skillLevel,
     });

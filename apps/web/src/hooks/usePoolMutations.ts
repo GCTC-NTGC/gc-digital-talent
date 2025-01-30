@@ -92,12 +92,8 @@ const UnarchivePool_Mutation = graphql(/* GraphQL */ `
 `);
 
 const CreatePoolSkill_Mutation = graphql(/* GraphQL */ `
-  mutation CreatePoolSkill(
-    $poolId: ID!
-    $skillId: ID!
-    $poolSkill: CreatePoolSkillInput!
-  ) {
-    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+  mutation CreatePoolSkill($poolSkill: CreatePoolSkillInput!) {
+    createPoolSkill(poolSkill: $poolSkill) {
       id
     }
   }
@@ -420,12 +416,8 @@ const usePoolMutations = (returnPath?: string) => {
     executeCreatePoolSkillMutation,
   ] = useMutation(CreatePoolSkill_Mutation);
 
-  const createPoolSkill = async (
-    poolId: string,
-    skillId: string,
-    poolSkill: CreatePoolSkillInput,
-  ) => {
-    return executeCreatePoolSkillMutation({ poolId, skillId, poolSkill })
+  const createPoolSkill = async (poolSkill: CreatePoolSkillInput) => {
+    return executeCreatePoolSkillMutation({ poolSkill })
       .then((result) => {
         if (result.data?.createPoolSkill) {
           toast.success(

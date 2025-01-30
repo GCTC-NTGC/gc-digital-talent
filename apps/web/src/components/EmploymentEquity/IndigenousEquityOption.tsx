@@ -21,7 +21,7 @@ interface EquityOptionProps {
   signature: string | undefined;
   option: EquityGroup;
   // Note: Just defining the func signature
-  onSave: (data: IndigenousUpdateProps) => void;
+  onSave: (data: IndigenousUpdateProps) => Promise<void>;
   title: ReactNode;
   description?: ReactNode;
   disabled?: boolean;

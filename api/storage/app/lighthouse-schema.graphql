@@ -478,7 +478,7 @@ type Mutation {
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   togglePoolUserBookmark(poolId: UUID!): Pool
-  createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
+  createPoolSkill(poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
@@ -2034,6 +2034,8 @@ input UpdatePublishedPoolInput {
 }
 
 input CreatePoolSkillInput {
+  poolId: ID!
+  skillId: ID!
   type: PoolSkillType!
   requiredLevel: SkillLevel
 }

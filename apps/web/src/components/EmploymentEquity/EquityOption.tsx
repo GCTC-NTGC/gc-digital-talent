@@ -18,7 +18,7 @@ interface EquityOptionProps {
   isAdded: boolean;
   option: EquityGroup;
   // Note: Just defining the func signature
-  onSave: (value: boolean) => void;
+  onSave: (value: boolean) => Promise<void>;
   title: ReactNode;
   description?: ReactNode;
 }

@@ -35,7 +35,3 @@ export interface CommunityAssignment {
   community: CommunityTeamable;
   roles: Role[];
 }
-export interface TeamAssignment {
-  team: TeamTeamable;
-  roles: Role[];
-}
