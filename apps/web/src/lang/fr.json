@@ -2319,6 +2319,10 @@
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
   },
+  "AQiPuW": {
+    "defaultMessage": "Intérêt pour",
+    "description": "Label for user expressing interest in a specific work stream"
+  },
   "ARFz8L": {
     "defaultMessage": "Ajoutez une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
@@ -4206,6 +4210,10 @@
   "Kwfc/6": {
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
+  },
+  "KyLikL": {
+    "defaultMessage": "Pas d'intérêt pour",
+    "description": "Label for user expressing they are not interested in a specific work stream"
   },
   "Kyf9At": {
     "defaultMessage": "Définissez les renseignements et les exigences de ce processus de recrutement.",

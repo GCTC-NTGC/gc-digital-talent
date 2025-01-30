@@ -91,10 +91,6 @@
     "defaultMessage": "Nous informerons le candidat ou la candidate de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
-  "17ztFR": {
-    "defaultMessage": "Pas d'intérêt pour",
-    "description": "Label for user expressing they are not interested in something"
-  },
   "1UX8RD": {
     "defaultMessage": "Address courriel de correspondance",
     "description": "Title for contact email address"
@@ -234,10 +230,6 @@
   "7QH2G/": {
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
-  },
-  "7RBrH0": {
-    "defaultMessage": "Intérêt pour",
-    "description": "Label for user expressing interest in something"
   },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
