@@ -64,7 +64,7 @@ class PoolCandidateSearchTest extends TestCase
             ]);
     }
 
-    public function test_pool_candidates_search_filter(): void
+    public function testPoolCandidatesSearchFilter(): void
     {
         // DRAFT, NOT PRESENT
         $candidateOne = PoolCandidate::factory()->create([
@@ -208,7 +208,7 @@ class PoolCandidateSearchTest extends TestCase
             ]);
     }
 
-    public function test_pool_candidates_search_expiry_filter(): void
+    public function testPoolCandidatesSearchExpiryFilter(): void
     {
         $candidateActive = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
@@ -307,7 +307,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
     }
 
-    public function test_pool_candidates_search_suspended_filter(): void
+    public function testPoolCandidatesSearchSuspendedFilter(): void
     {
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $this->pool->id,
@@ -424,7 +424,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
     }
 
-    public function test_pool_candidates_search_gov_employee(): void
+    public function testPoolCandidatesSearchGovEmployee(): void
     {
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $this->pool->id,
@@ -499,7 +499,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
     }
 
-    public function test_pool_candidates_search_classification(): void
+    public function testPoolCandidatesSearchClassification(): void
     {
         // Create qualified right classification candidates
         $classificationIT1 = Classification::factory()->create([
@@ -621,7 +621,7 @@ class PoolCandidateSearchTest extends TestCase
     }
 
     // test pool candidates  general search by notes
-    public function test_pool_candidates_search_by_notes()
+    public function testPoolCandidatesSearchByNotes()
     {
         $candidateId = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
