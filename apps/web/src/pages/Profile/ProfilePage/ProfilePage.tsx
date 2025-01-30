@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { OperationContext, useMutation, useQuery } from "urql";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -27,88 +27,6 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     updateUserAsUser(id: $id, user: $user) {
       id
-      firstName
-      lastName
-      telephone
-      preferredLang {
-        value
-      }
-      preferredLanguageForInterview {
-        value
-      }
-      preferredLanguageForExam {
-        value
-      }
-      currentProvince {
-        value
-      }
-      currentCity
-      preferredLang {
-        value
-      }
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      firstOfficialLanguage {
-        value
-      }
-      secondLanguageExamCompleted
-      secondLanguageExamValidity
-      comprehensionLevel {
-        value
-      }
-      writtenLevel {
-        value
-      }
-      verbalLevel {
-        value
-      }
-      estimatedLanguageAbility {
-        value
-      }
-
-      isGovEmployee
-      workEmail
-      isWorkEmailVerified
-      hasPriorityEntitlement
-      priorityNumber
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      currentClassification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-        minSalary
-        maxSalary
-      }
-
-      isWoman
-      hasDisability
-      isVisibleMinority
-      indigenousCommunities {
-        value
-      }
-      indigenousDeclarationSignature
-
-      hasDiploma
-      locationPreferences {
-        value
-      }
-      locationExemptions
-      acceptedOperationalRequirements {
-        value
-      }
-      positionDuration
     }
   }
 `);
@@ -123,10 +41,6 @@ const subTitle = defineMessage(pageMessages.subTitle);
 export const UserProfile_FragmentText = /* GraphQL */ `
   fragment UserProfile on User {
     id
-    authInfo {
-      id
-      sub
-    }
     firstName
     lastName
     email
@@ -605,9 +519,16 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  requestPolicy: "cache-first",
+};
+
 const ProfilePage = () => {
   const intl = useIntl();
-  const [{ data, fetching, error }] = useQuery({ query: ProfileUser_Query });
+  const [{ data, fetching, error }] = useQuery({
+    query: ProfileUser_Query,
+    context,
+  });
 
   return (
     <Pending fetching={fetching} error={error}>

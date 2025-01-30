@@ -2016,7 +2016,9 @@ input UpdatePublishedPoolInput @validator {
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
 }
 
-input CreatePoolSkillInput {
+input CreatePoolSkillInput @validator {
+  poolId: ID! @rename(attribute: "pool_id")
+  skillId: ID! @rename(attribute: "skill_id")
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
@@ -2546,11 +2548,7 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
 
-  createPoolSkill(
-    poolId: ID! @rename(attribute: "pool_id")
-    skillId: ID! @rename(attribute: "skill_id")
-    poolSkill: CreatePoolSkillInput! @spread
-  ): PoolSkill
+  createPoolSkill(poolSkill: CreatePoolSkillInput! @spread): PoolSkill
     @create
     @guard
     @canFind(

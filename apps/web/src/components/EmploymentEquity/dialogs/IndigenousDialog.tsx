@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
@@ -35,6 +36,7 @@ const IndigenousDialog = ({
   disabled,
 }: IndigenousDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = useState<boolean>(false);
   const methods = useForm<FormValuesWithSignature>({
     defaultValues: {
       ...apiCommunitiesToFormValues(
@@ -49,21 +51,21 @@ const IndigenousDialog = ({
   const communities = watch("communities");
   const hasCommunitiesSelected = communities && communities.length > 0;
 
-  const submitHandler: SubmitHandler<FormValuesWithSignature> = (
+  const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
     data: FormValuesWithSignature,
   ) => {
     const newCommunities = formValuesToApiCommunities(data);
-    onSave({
+    await onSave({
       indigenousCommunities: newCommunities,
       indigenousDeclarationSignature:
         newCommunities.length > 0 ? data.signature : null,
-    });
+    }).then(() => setOpen(false));
   };
 
   const labels = getSelfDeclarationLabels(intl);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

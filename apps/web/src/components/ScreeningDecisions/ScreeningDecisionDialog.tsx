@@ -19,6 +19,7 @@ import {
   PoolSkillType,
   Scalars,
   Skill,
+  SkillCategory,
   UpdateAssessmentResultInput,
   User,
   graphql,
@@ -484,7 +485,9 @@ export const ScreeningDecisionDialog = ({
             <>
               {intl.formatMessage(
                 poolSkill?.type?.value === PoolSkillType.Nonessential &&
-                  !experienceAttachedToSkill
+                  (!experienceAttachedToSkill ||
+                    poolSkill?.skill?.category.value ===
+                      SkillCategory.Behavioural)
                   ? poolCandidateMessages.unclaimed
                   : poolCandidateMessages.toAssess,
               )}

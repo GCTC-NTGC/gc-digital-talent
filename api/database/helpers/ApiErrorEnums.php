@@ -27,6 +27,8 @@ class ApiErrorEnums
 
     const CHANGE_JUSTIFICATION_REQUIRED = 'ChangeJustificationRequired';
 
+    const POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES = 'PoolSkillNotEssentialAndAssetTypes';
+
     // pool candidate field validation
     const EXPIRY_DATE_REQUIRED = 'ExpiryDateRequired';
 

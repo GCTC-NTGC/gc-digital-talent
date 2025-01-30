@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
@@ -24,6 +25,7 @@ const WomanDialog = ({
   disabled,
 }: EquityDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = useState<boolean>(false);
   const methods = useForm<FormValues>({
     defaultValues: {
       isWoman: isAdded,
@@ -31,12 +33,12 @@ const WomanDialog = ({
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
-    onSave(data.isWoman);
+  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await onSave(data.isWoman).then(() => setOpen(false));
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>

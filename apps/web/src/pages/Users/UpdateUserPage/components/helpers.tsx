@@ -12,7 +12,6 @@ import {
   PoolAssignment,
   PoolTeamable,
   Teamable,
-  TeamTeamable,
   UpdateUserRolesFunc,
 } from "../types";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
@@ -155,15 +154,6 @@ export const isCommunityTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is CommunityTeamable => {
   if (teamable && teamable.__typename === "Community") {
-    return true;
-  }
-  return false;
-};
-
-export const isTeamTeamable = (
-  teamable: Teamable | undefined | null,
-): teamable is TeamTeamable => {
-  if (teamable && teamable.__typename === "Team") {
     return true;
   }
   return false;
