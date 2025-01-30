@@ -172,13 +172,21 @@ const ReviewApplicationDialog = ({
 
   const isDraftStatus = status.value === ApplicationStatus.DRAFT;
   const isExpiredStatus = status.value === ApplicationStatus.EXPIRED;
+  const isSuccessfulStatus = status.value === ApplicationStatus.SUCCESSFUL;
+
   const lessThanThreeDaysTillClosingDate = pool?.closingDate
     ? differenceInDays(Date.now(), parseDateTimeUtc(pool.closingDate)) < 3
     : null;
   const showDeadlineToApply =
     (isDraftStatus && lessThanThreeDaysTillClosingDate) || isExpiredStatus;
 
-  const isSuccessfulStatus = status.value === ApplicationStatus.SUCCESSFUL;
+  const deadlineToApplyStyles = showDeadlineToApply
+    ? {
+        "data-h2-color": "base(error)",
+      }
+    : {
+        "data-h2-color": "base(black)",
+      };
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -266,8 +274,8 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
             <FieldDisplay
               label={
-                showDeadlineToApply ? (
-                  <span data-h2-color="base(black)">
+                isDraftStatus ? (
+                  <span {...deadlineToApplyStyles}>
                     {intl.formatMessage(commonMessages.deadlineToApply)}
                   </span>
                 ) : (
