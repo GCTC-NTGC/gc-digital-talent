@@ -24,7 +24,7 @@ export type CommunityTeamable = Pick<
   Community,
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
-export type TeamTeamable = Pick<Team, "id" | "__typename" | "displayName">;
+type TeamTeamable = Pick<Team, "id" | "__typename" | "displayName">;
 export type Teamable = PoolTeamable | CommunityTeamable | TeamTeamable;
 
 export interface PoolAssignment {
