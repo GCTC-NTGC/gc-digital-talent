@@ -237,19 +237,22 @@ const computeInAssessmentStatusChip = (
   };
 };
 
-export enum ApplicationStatus {
-  EXPIRED = "EXPIRED",
-  DRAFT = "DRAFT",
-  UNSUCCESSFUL = "UNSUCCESSFUL",
-  SUCCESSFUL = "SUCCESSFUL",
-  APPLICATION_REVIEWED = "APPLICATION_REVIEWED",
-  UNDER_ASSESSMENT = "UNDER_ASSESSMENT",
-  UNDER_REVIEW = "UNDER_REVIEW",
-  RECEIVED = "RECEIVED",
-  HIRED = "HIRED",
-  NOT_INTERESTED = "NOT_INTERESTED",
-  OPEN_TO_JOBS = "OPEN_TO_JOBS",
-}
+export const ApplicationStatus = {
+  EXPIRED: "EXPIRED",
+  DRAFT: "DRAFT",
+  UNSUCCESSFUL: "UNSUCCESSFUL",
+  SUCCESSFUL: "SUCCESSFUL",
+  APPLICATION_REVIEWED: "APPLICATION_REVIEWED",
+  UNDER_ASSESSMENT: "UNDER_ASSESSMENT",
+  UNDER_REVIEW: "UNDER_REVIEW",
+  RECEIVED: "RECEIVED",
+  HIRED: "HIRED",
+  NOT_INTERESTED: "NOT_INTERESTED",
+  OPEN_TO_JOBS: "OPEN_TO_JOBS",
+} as const;
+
+type ApplicationStatus =
+  (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
 
 interface StatusChip {
   color: Color;
