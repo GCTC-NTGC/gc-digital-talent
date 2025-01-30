@@ -37,7 +37,6 @@ import {
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
-  SCREENED_OUT_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
