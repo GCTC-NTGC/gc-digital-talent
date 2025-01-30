@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('computed_is_gov_employee', 'is_gov_employee');
-            $table->renameColumn('computes_gov_employee_type', 'gov_employee_type');
+            $table->renameColumn('computed_gov_employee_type', 'gov_employee_type');
             $table->renameColumn('computed_classification', 'current_classification');
             $table->renameColumn('computed_department', 'department');
             $table->dropColumn('computed_gov_position_type');
