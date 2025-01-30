@@ -33,6 +33,7 @@ GCNOTIFY
 gctalent
 heroicons
 ilike
+inclusivity
 Inclusivity
 inuk
 Inuk
@@ -63,10 +64,13 @@ Spatie
 spinbutton
 Staudenmeir
 subcomponents
+subproject
+subprojects
 subquery
 TALENTSEARCH
 tanstack
 teamable
+telework
 Telework
 TELEWORK
 testid

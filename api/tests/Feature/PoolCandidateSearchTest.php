@@ -9,9 +9,9 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
@@ -28,11 +28,11 @@ class PoolCandidateSearchTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
-    protected $teamUser;
+    protected $processOperator;
 
-    protected $team;
+    protected $communityRecruiter;
 
-    protected $teamName = 'application-test-team';
+    protected $community;
 
     protected $pool;
 
@@ -44,20 +44,23 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->bootRefreshesSchemaCache();
 
-        $this->team = Team::factory()->create([
-            'name' => $this->teamName,
-        ]);
-
+        $this->community = Community::factory()->create();
         $this->pool = Pool::factory()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
-
-        $this->teamUser = User::factory()
+        $this->processOperator = User::factory()
             ->asApplicant()
-            ->asPoolOperator($this->team->name)
+            ->asProcessOperator($this->pool->id)
             ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'process-operator@test.com',
+                'sub' => 'process-operator@test.com',
+            ]);
+        $this->communityRecruiter = User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter($this->community->id)
+            ->create([
+                'email' => 'community-recruiter@test.com',
+                'sub' => 'community-recruiter@test.com',
             ]);
     }
 
@@ -158,7 +161,7 @@ class PoolCandidateSearchTest extends TestCase
 
         // Assert the order is correct
         // candidate one not present due to being DRAFT
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->processOperator, 'api')
             ->graphQL($query, ['where' => []])
             ->assertJson([
                 'data' => [
@@ -176,7 +179,7 @@ class PoolCandidateSearchTest extends TestCase
         // Assert that
         // PoolCandidates are filtered out by data on User, must have Diploma and be Woman
         // Candidate Four always precedes Candidate Five due to ORDERING
-        $this->actingAs($this->teamUser, 'api')
+        $this->actingAs($this->processOperator, 'api')
             ->graphQL(
                 $query,
                 [
@@ -207,7 +210,6 @@ class PoolCandidateSearchTest extends TestCase
 
     public function testPoolCandidatesSearchExpiryFilter(): void
     {
-
         $candidateActive = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
@@ -251,7 +253,7 @@ class PoolCandidateSearchTest extends TestCase
         ';
 
         // Assert that ACTIVE returns 3
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -269,7 +271,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // Assert that EXPIRED returns 1
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -287,7 +289,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // Assert that ALL returns 4 (all candidates)
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -350,7 +352,7 @@ class PoolCandidateSearchTest extends TestCase
         ';
 
         // assert active 6 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -368,7 +370,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert active 6 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -386,7 +388,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert suspended 2 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -404,7 +406,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert all 8 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -461,7 +463,7 @@ class PoolCandidateSearchTest extends TestCase
         ';
 
         // assert all 8 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -479,7 +481,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert the 5 govEmployee = true models returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -505,7 +507,7 @@ class PoolCandidateSearchTest extends TestCase
             'level' => 1,
         ]);
         $poolIT1 = Pool::factory()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
             'classification_id' => $classificationIT1->id,
         ]);
         PoolCandidate::factory()->count(5)->create([
@@ -521,7 +523,7 @@ class PoolCandidateSearchTest extends TestCase
             'level' => 2,
         ]);
         $poolIT2 = Pool::factory()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
             'classification_id' => $classificationIT2->id,
         ]);
         PoolCandidate::factory()->count(3)->create([
@@ -552,7 +554,7 @@ class PoolCandidateSearchTest extends TestCase
         ';
 
         // assert all 9 returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -570,7 +572,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert the 6 right classifications returned - regardless of qualified status
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -593,7 +595,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         // assert the 5 qualified right classification candidates returned
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $query,
             [
                 'where' => [
@@ -643,7 +645,7 @@ class PoolCandidateSearchTest extends TestCase
         }
     ';
 
-        $this->actingAs($this->teamUser, 'api')->graphQL(
+        $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [

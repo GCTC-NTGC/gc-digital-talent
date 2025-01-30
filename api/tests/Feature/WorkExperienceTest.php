@@ -147,7 +147,7 @@ class WorkExperienceTest extends TestCase
         )->assertGraphQLValidationError('workExperience.extRoleSeniority', 'The work experience.ext role seniority field is required.');
     }
 
-    // test that validation rejects creating experiences with substantive position type when gov employee type is term
+    // test that validation rejects creating experiences with govPositionType when gov employee type is term
     public function testCreatingExperienceFailsValidatingGovPositionType(): void
     {
         $this->actingAs($this->admin, 'api')->graphQL(
@@ -169,7 +169,7 @@ class WorkExperienceTest extends TestCase
                     'govPositionType' => GovPositionType::SUBSTANTIVE->name,
                 ],
             ]
-        )->assertGraphQLValidationError('workExperience.govPositionType', 'The selected work experience.gov position type is invalid.');
+        )->assertGraphQLValidationError('workExperience.govPositionType', 'The work experience.gov position type field is prohibited.');
     }
 
     // test that a created work experience of government type queries without issue
@@ -194,7 +194,7 @@ class WorkExperienceTest extends TestCase
                 'userId' => $this->admin->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => WorkExperienceGovEmployeeType::TERM->name,
+                    'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
                     'classificationId' => $classification->id,
                     'departmentId' => $department->id,

@@ -2,8 +2,8 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 
@@ -42,12 +42,9 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   });
   const isLoaded = !fetching && !stale;
 
-  const roleAssignmentsFiltered =
-    data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-
   return (
     <AuthorizationContainer
-      roleAssignments={roleAssignmentsFiltered}
+      roleAssignments={unpackMaybes(data?.myAuth?.roleAssignments)}
       userAuthInfo={data?.myAuth}
       isLoaded={isLoaded}
     >

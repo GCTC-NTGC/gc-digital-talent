@@ -10,8 +10,7 @@ export type SkillBrowserDialogContext =
   | "pool"
   | "experience"
   | "library"
-  | "showcase"
-  | "directive_forms";
+  | "showcase";
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";

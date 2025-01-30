@@ -39,14 +39,9 @@ const uiMessages = defineMessages({
     id: "+6/qCF",
     description: "Button text for a dismissible chip",
   },
-  searching: {
-    defaultMessage: "Searching...",
-    id: "4l+gBD",
-    description: "Message to display when a search is being done.",
-  },
   loadingResults: {
-    defaultMessage: "Loading results...",
-    id: "QRXLf/",
+    defaultMessage: "Loading results…",
+    id: "0ieoVD",
     description:
       "Message to display when a search is currently loading results.",
   },

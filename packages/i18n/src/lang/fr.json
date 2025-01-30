@@ -75,13 +75,13 @@
     "defaultMessage": "<hidden>Étape, actuelle, </hidden>{label}",
     "description": "Prefix when a step is the currently active one."
   },
+  "0ieoVD": {
+    "defaultMessage": "Chargement des résultats…",
+    "description": "Message to display when a search is currently loading results."
+  },
   "0p1W7Q": {
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
-  },
-  "14Cv7d": {
-    "defaultMessage": "Retrait en cours...",
-    "description": "Submitting text for delete button."
   },
   "16AY+M": {
     "defaultMessage": "Incapable de postuler pour ce bassin",
@@ -115,17 +115,9 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
-  "2KDa14": {
-    "defaultMessage": "Vous devez ajouter au moins une exigence personnelle.",
-    "description": "Message displayed when user attempts to submit a form without at least one personnel requirement"
-  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
-  },
-  "2W9CMn": {
-    "defaultMessage": "Activer ou désactiver le contexte",
-    "description": "Label to toggle the context description of a field set."
   },
   "2bzpLi": {
     "defaultMessage": "La question donnée à l'écran n'existe pas.",
@@ -175,10 +167,6 @@
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"
   },
-  "4l+gBD": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is being done."
-  },
   "4lV1Od": {
     "defaultMessage": "Éliminé à la présélection",
     "description": "Screened out"
@@ -222,6 +210,10 @@
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
+  },
+  "6sIidC": {
+    "defaultMessage": "Chargement…",
+    "description": "Text for a component which can't be rendered yet because a data load is in progress."
   },
   "6tekaa": {
     "defaultMessage": "Septembre",
@@ -307,10 +299,6 @@
     "defaultMessage": "Le statut du candidat est irrégulier.",
     "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
-  "AvBSV+": {
-    "defaultMessage": "Oh non... ",
-    "description": "Title displayed for a table error loading state."
-  },
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
@@ -339,6 +327,10 @@
     "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
     "description": "The work region of Canada described as Ontario."
   },
+  "CYirJF": {
+    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
+    "description": "Error message that advertisement locations must be filled in English and French."
+  },
   "ChFxsM": {
     "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
     "description": "The work region of Canada described as Atlantic."
@@ -366,10 +358,6 @@
   "EZgD5d": {
     "defaultMessage": "Non disponible",
     "description": "Message displayed when specific information is not available"
-  },
-  "ErrpJC": {
-    "defaultMessage": "Chargement...",
-    "description": "Text for a component which can't be rendered yet because a data load is in progress."
   },
   "F6j96P": {
     "defaultMessage": "Refaire",
@@ -407,6 +395,10 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
+  "GtVkbt": {
+    "defaultMessage": "Oh non…",
+    "description": "Title displayed for a table error loading state."
+  },
   "Gv3lBS": {
     "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
     "description": "Message for Unauthorized or Request Rejected server response"
@@ -422,10 +414,6 @@
   "HEGXL7": {
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title displayed working language ability"
-  },
-  "HMXnoR": {
-    "defaultMessage": "Retourner à ma demande",
-    "description": "Link text for button to return to user application"
   },
   "HVMI8t": {
     "defaultMessage": "Systèmes d'ordinateurs",
@@ -446,6 +434,10 @@
   "IRCKBP": {
     "defaultMessage": "Aucun résultat n’a été trouvé.",
     "description": "Message displayed when combobox has no options available"
+  },
+  "Ib6fY4": {
+    "defaultMessage": "Sauvegarde en cours…",
+    "description": "Submitting text for save button."
   },
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
@@ -470,10 +462,6 @@
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
-  },
-  "JHgARn": {
-    "defaultMessage": "Vous avez dépassé la limite de mots, {wordLimit}.",
-    "description": "Text read out to assistive technology when over the word limit."
   },
   "JYpEeW": {
     "defaultMessage": "Français",
@@ -627,10 +615,6 @@
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
     "description": "The operational requirement described as regular overtime."
   },
-  "QRXLf/": {
-    "defaultMessage": "Chargement des résultats...",
-    "description": "Message to display when a search is currently loading results."
-  },
   "QZpZQh": {
     "defaultMessage": "Personne handicapée",
     "description": "Group for when someone indicates they have a disability"
@@ -723,10 +707,6 @@
     "defaultMessage": "Deux années post-secondaire",
     "description": "Option for education requirement, 2-year post-secondary"
   },
-  "Tw90Pi": {
-    "defaultMessage": "Sauvegarde en cours...",
-    "description": "Submitting text for save button."
-  },
   "U/4a27": {
     "defaultMessage": "Effacer votre sélection",
     "description": "Button text to reset the combobox input"
@@ -766,10 +746,6 @@
   "WL3bq/": {
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
-  },
-  "WPJrmN": {
-    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
-    "description": "Message for when user goes over word limit."
   },
   "WhLeuS": {
     "defaultMessage": "Nom",
@@ -859,10 +835,6 @@
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
   },
-  "aMkZ80": {
-    "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l’annonce ne vise pas un poste à distance.",
-    "description": "Error message that advertisement locations must be filled in English and French."
-  },
   "aTHtqQ": {
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
@@ -931,6 +903,10 @@
     "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
     "description": "The work region of Canada described as National Capital."
   },
+  "dyGR7U": {
+    "defaultMessage": "Recherche…",
+    "description": "Message to display when a search is in progress."
+  },
   "e6YQ8t": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
@@ -978,10 +954,6 @@
   "fdv2bM": {
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
-  },
-  "g08hvq": {
-    "defaultMessage": "Étape 1",
-    "description": "Breadcrumb back to review application page."
   },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
@@ -1047,9 +1019,9 @@
     "defaultMessage": "J'accepte d'avoir un emploi qui <strong>nécessite des déplacements</strong>.",
     "description": "The operational requirement described as travel as required."
   },
-  "j6WJBY": {
-    "defaultMessage": "{wordsLeft, plural, one {mot restant} other {mots restants}}.",
-    "description": "Message for when user goes over word limit."
+  "j4ZYQw": {
+    "defaultMessage": "Retrait en cours…",
+    "description": "Submitting text for delete button."
   },
   "jDYG3j": {
     "defaultMessage": "Tableau de bord",
@@ -1087,6 +1059,10 @@
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
   },
+  "kHtt2N": {
+    "defaultMessage": "Vous ne pouvez pas inclure une compétence à la fois comme essentielle et comme atout dans le même processus. Veuillez en choisir une et la retirer de l'autre section.",
+    "description": "Error message that the pool advertisement skills cannot be both essential and asset"
+  },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
     "description": "Error message when human readable message not found"
@@ -1122,10 +1098,6 @@
   "ldthVj": {
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
-  },
-  "lsFH+y": {
-    "defaultMessage": "Aucune option",
-    "description": "Message shown in options dropdown when Select field has no options."
   },
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
@@ -1339,10 +1311,6 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message displayed when a user has not provided some form of information"
   },
-  "u+NuHm": {
-    "defaultMessage": "Retourner à mon profil",
-    "description": "Link text for button to return to user profile"
-  },
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",
     "description": "Label for job placement"
@@ -1407,10 +1375,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
   },
-  "w6vHXf": {
-    "defaultMessage": "Recherche...",
-    "description": "Message to display when a search is in progress."
-  },
   "wUJqDi": {
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
@@ -1450,10 +1414,6 @@
   "yHeFkO": {
     "defaultMessage": "Janvier",
     "description": "Name of the first month"
-  },
-  "ylHC90": {
-    "defaultMessage": "Chargement...",
-    "description": "Message shown in options dropdown when Select field is loading options."
   },
   "yuWHKJ": {
     "defaultMessage": "Par ordre de date (la plus récente étant en premier)",

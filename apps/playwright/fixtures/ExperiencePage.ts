@@ -214,7 +214,10 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("CreateWorkExperience");
   }
 
-  async addGovTermOrIndeterminateWorkExperience(input: WorkExperienceInput) {
+  async addGovTermOrIndeterminateWorkExperience(
+    input: WorkExperienceInput,
+    save = true,
+  ) {
     await this.create();
     await this.typeLocator.selectOption("work");
 
@@ -245,18 +248,10 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    // Ensure "Substantive" option is removed from position type group
-    // when employment type is "Term"
+    // Ensure position type group disappears when employment type is "Term"
     await expect(
       this.page.getByRole("group", { name: /position type/i }),
-    ).not.toContainText("Substantive");
-
-    await this.page
-      .getByRole("group", { name: /position type/i })
-      .getByRole("radio", {
-        name: /acting/i,
-      })
-      .click();
+    ).toBeHidden();
 
     // Change the employment type to "Indeterminate"
     await this.page
@@ -294,8 +289,10 @@ class ExperiencePage extends AppPage {
       .getByRole("textbox", { name: /additional details/i })
       .fill(input.details ?? "test details");
 
-    await this.save();
-    await this.waitForGraphqlResponse("CreateWorkExperience");
+    if (save) {
+      await this.save();
+      await this.waitForGraphqlResponse("CreateWorkExperience");
+    }
   }
 
   async addGovContractorWorkExperience(input: WorkExperienceInput) {
@@ -642,9 +639,6 @@ class ExperiencePage extends AppPage {
     experienceType: string;
     skill: string;
   }) {
-    await this.create();
-    await this.typeLocator.selectOption(input.experienceType);
-
     await this.page.getByRole("button", { name: "Add a skill" }).click();
 
     await this.page.getByRole("combobox", { name: "Skill *" }).click();

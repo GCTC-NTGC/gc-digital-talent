@@ -75,7 +75,9 @@ const EssentialSkillsSection = ({
     skillSelected: string,
     skillLevel: SkillLevel,
   ) => {
-    await poolSkillMutations.create(pool.id, skillSelected, {
+    await poolSkillMutations.create({
+      poolId: pool.id,
+      skillId: skillSelected,
       type: PoolSkillType.Essential,
       requiredLevel: skillLevel,
     });
@@ -99,8 +101,8 @@ const EssentialSkillsSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Select the skills that you are looking for in applicants. Any skill selected here will be required for any applicant to apply. To increase the diversity of applications try to keep the selected number of skills to a minimum.",
-    id: "VKvAfu",
+      "Select the skills that you're looking for in applicants. Skills selected here are required for an applicant to be considered for the role. To increase the diversity of applications, please try to keep the selected number of skills to a minimum.",
+    id: "7gTBjD",
     description: "Describes selecting essentials skills for a process.",
   });
 

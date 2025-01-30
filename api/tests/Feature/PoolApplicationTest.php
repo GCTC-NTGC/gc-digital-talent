@@ -12,6 +12,7 @@ use App\Enums\SkillCategory;
 use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\AwardExperience;
+use App\Models\Community;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestion;
 use App\Models\GeneralQuestionResponse;
@@ -20,7 +21,6 @@ use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
@@ -52,9 +52,7 @@ class PoolApplicationTest extends TestCase
 
     protected $applicantUser;
 
-    protected $teamUser;
-
-    protected $responderUser;
+    protected $communityRecruiter;
 
     protected $uuid;
 
@@ -136,6 +134,8 @@ class PoolApplicationTest extends TestCase
         $this->setUpFaker();
         $this->bootRefreshesSchemaCache();
 
+        $community = Community::factory()->create();
+
         $this->applicantUser = User::factory()
             ->asApplicant()
             ->create([
@@ -143,23 +143,12 @@ class PoolApplicationTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->responderUser = User::factory()
+        $this->communityRecruiter = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
+            ->asCommunityRecruiter($community->id)
             ->create([
-                'email' => 'request-responder-user@test.com',
-                'sub' => 'request-responder-user@test.com',
-            ]);
-
-        $team = Team::factory()->create([
-            'name' => 'pool-application-test-team',
-        ]);
-        $this->teamUser = User::factory()
-            ->asApplicant()
-            ->asPoolOperator($team->name)
-            ->create([
-                'email' => 'team-user@test.com',
-                'sub' => 'team-user@test.com',
+                'email' => 'community-recruiter@test.com',
+                'sub' => 'community-recruiter@test.com',
             ]);
     }
 
@@ -297,11 +286,7 @@ class PoolApplicationTest extends TestCase
         $this->graphQL($this->submitMutationDocument, $submitArgs)
             ->assertGraphQLErrorMessage($this->unauthenticatedMessage);
 
-        $this->actingAs($this->teamUser, 'api')
-            ->graphQL($this->submitMutationDocument, $submitArgs)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
-        $this->actingAs($this->responderUser, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->submitMutationDocument, $submitArgs)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 
@@ -746,11 +731,7 @@ class PoolApplicationTest extends TestCase
             ]);
 
         // Assert non-owners cannot delete application
-        $this->actingAs($this->teamUser, 'api')
-            ->graphQL($this->deleteMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
-        $this->actingAs($this->responderUser, 'api')
+        $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->deleteMutationDocument, $variables)
             ->assertGraphQLErrorMessage($this->unauthorizedMessage);
 

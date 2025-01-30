@@ -34,6 +34,6 @@ Examples of when this is required include:
 > **Notes**
 >
 > - Remove deployment section if no steps are needed
-> - Add [deployment label](https://github.com/GCTC-NTGC/gc-digital-talent/labels/deployment) to the linked issue if deployment steps are needed
+> - Add [deployment label](https://github.com/GCTC-NTGC/gc-digital-talent/labels/deployment) to the PR if deployment steps are needed
 
  -->

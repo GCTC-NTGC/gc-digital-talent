@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
@@ -30,6 +31,7 @@ use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -143,7 +145,14 @@ class UserFactory extends Factory
         ];
     }
 
-    private function createExperienceAndSyncSkills($user, $skills)
+    /**
+     * Add an experience with skills to the user
+     *
+     * @param  User  $user  The user to atttach the experience to
+     * @param  Collection<UserSkill>  $skills  The skills assigned to this experience
+     * @param  Factory<AwardExperience | CommunityExperience | EducationExperience | PersonalExperience | WorkExperience>  $factory  Define a specific factory to use
+     */
+    private function createExperienceAndSyncSkills(User $user, Collection $skills, ?Factory $factory = null)
     {
         $experienceFactories = [
             AwardExperience::factory(['user_id' => $user->id]),
@@ -153,7 +162,9 @@ class UserFactory extends Factory
             WorkExperience::factory(['user_id' => $user->id]),
         ];
 
-        $experience = $this->faker->randomElement($experienceFactories)->create();
+        $factory ??= $this->faker->randomElement($experienceFactories);
+
+        $experience = $factory->create();
         $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
         $syncDataExperience = array_map(function ($skill) {
             return ['id' => $skill->id, 'details' => $this->faker->text()];
@@ -164,31 +175,18 @@ class UserFactory extends Factory
 
     public function withSkillsAndExperiences($count = 10, $skills = [])
     {
-        if (empty($skills)) {
-            $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
-        } else {
-            $allSkills = $skills;
-        }
-        $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
-
-        return $this->afterCreating(function (User $user) use ($count, $allSkills) {
-            $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
-
-            $userSkills = UserSkill::factory($count)->for($user)
-                ->sequence(...$skillSequence)
-                ->create();
-            $skills = $userSkills->map(fn ($us) => $us->skill);
-
-            $this->createExperienceAndSyncSkills($user, $skills);
+        return $this->afterCreating(function (User $user) use ($count, $skills) {
+            $userSkills = $this->getUserSkills($user, $count, $skills);
+            $this->createExperienceAndSyncSkills($user, $userSkills);
         });
     }
 
     /**
      * Is government employee.
      */
-    public function asGovEmployee($isGovEmployee = true)
+    public function asGovEmployee($isGovEmployee = true, $isVerified = true)
     {
-        return $this->state(function () use ($isGovEmployee) {
+        return $this->state(function () use ($isGovEmployee, $isVerified) {
             if (! $isGovEmployee) {
                 return [
                     'is_gov_employee' => false,
@@ -205,11 +203,27 @@ class UserFactory extends Factory
             return [
                 'is_gov_employee' => true,
                 'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
+                'work_email_verified_at' => $isVerified ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
                 'current_classification' => $randomClassification ? $randomClassification->id : null,
                 'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'department' => $randomDepartment ? $randomDepartment->id : null,
 
             ];
+        })->afterCreating(function (User $user) use ($isGovEmployee) {
+            if (! $isGovEmployee) {
+                return;
+            }
+
+            // Government employee counts as an user who has a work experience with
+            //  - an employment type of government of Canada or Canadian armed forces and,
+            //  - that experience has no end date (is current)
+            $userSkills = $this->getUserSkills($user);
+            $factory = WorkExperience::factory([
+                'user_id' => $user->id,
+                'end_date' => null,
+                'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            ]);
+            $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
         });
     }
 
@@ -293,49 +307,6 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->addRole('applicant');
-        });
-    }
-
-    /**
-     * Attach the request responder role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asRequestResponder()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('request_responder');
-        });
-    }
-
-    /**
-     * Attach the pool operator role to a user after creation.
-     *
-     * @param  string|array  $team  Name of the team or teams to attach the role to
-     * @return $this
-     */
-    public function asPoolOperator(string|array $team)
-    {
-        return $this->afterCreating(function (User $user) use ($team) {
-            if (is_array($team)) {
-                foreach ($team as $singleTeam) {
-                    $user->addRole('pool_operator', $singleTeam);
-                }
-            } else {
-                $user->addRole('pool_operator', $team);
-            }
-        });
-    }
-
-    /**
-     * Attach the Community Manager role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asCommunityManager()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('community_manager');
         });
     }
 
@@ -424,5 +395,32 @@ class UserFactory extends Factory
         return $this->afterCreating(function (User $user) {
             $user->addRole('manager');
         });
+    }
+
+    /**
+     * Get skills for use in experiences
+     *
+     * @param  User  $user  The user to connect skills to
+     * @param  int  $count  Number of user skills to return
+     * @param  array  $skills  A list of skills to get from.
+     *                         If not provided, uses all available skills
+     * @return Collection<UserSkill>
+     */
+    private function getUserSkills(User $user, $count = 10, array $skills = [])
+    {
+        $allSkills = $skills;
+        if (empty($skills)) {
+            $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })->inRandomOrder()->take($count)->get();
+        }
+        $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
+
+        $userSkills = UserSkill::factory($count)->for($user)
+            ->sequence(...$skillSequence)
+            ->create();
+
+        return $userSkills->map(fn ($us) => $us->skill);
+
     }
 }

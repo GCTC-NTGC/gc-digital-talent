@@ -471,8 +471,8 @@ export const EditPoolForm = ({
         whatToExpectAdmission: pool.whatToExpectAdmission,
       }), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
-        defaultMessage: "Common questions",
-        id: "RahVQS",
+        defaultMessage: "More information",
+        id: "sGT8ER",
         description: "Title for common questions",
       }),
       subtitle: intl.formatMessage({
