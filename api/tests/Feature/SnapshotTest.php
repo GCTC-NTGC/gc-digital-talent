@@ -93,10 +93,6 @@ class SnapshotTest extends TestCase
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
 
-        // line-up query format with how the snapshot is ordered
-        $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
-        unset($expectedSnapshot['authInfo']);
-
         // sort experiences the same way as order does not matter for comparison
         usort($expectedSnapshot['experiences'], function ($a, $b) {
             return strcmp($a['id'], $b['id']);

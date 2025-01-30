@@ -18,7 +18,7 @@ export type UserMutationPromise = Promise<
 
 export interface EquityDialogProps {
   isAdded: boolean;
-  onSave: (value: boolean) => void;
+  onSave: (value: boolean) => Promise<void>;
   children: ReactNode;
   disabled?: boolean;
 }
@@ -31,7 +31,7 @@ export interface IndigenousUpdateProps {
 export interface IndigenousDialogProps {
   indigenousCommunities: LocalizedIndigenousCommunity[];
   signature: string | undefined;
-  onSave: (data: IndigenousUpdateProps) => void;
+  onSave: (data: IndigenousUpdateProps) => Promise<void>;
   children: ReactNode;
   disabled?: boolean;
 }
