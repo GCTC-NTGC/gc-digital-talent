@@ -14,7 +14,7 @@ const sharedIconStyling = {
   "data-h2-padding-top": "base(x.125)",
 };
 
-export interface MetaDataJobInterestProps {
+interface MetaDataJobInterestProps {
   jobInterest: boolean | null | undefined;
 }
 
@@ -67,7 +67,7 @@ export const MetaDataJobInterest = ({
   return jobInterest ? interestedWork : notInterestedWork;
 };
 
-export interface MetaDataTrainingInterestProps {
+interface MetaDataTrainingInterestProps {
   trainingInterest: boolean | null | undefined;
 }
 
