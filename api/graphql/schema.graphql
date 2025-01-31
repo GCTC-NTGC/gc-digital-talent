@@ -103,9 +103,7 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -626,9 +624,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
     @rename(attribute: "language_ability")
@@ -641,9 +637,7 @@ type PoolCandidateFilter {
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
     @rename(attribute: "language_ability")
@@ -951,7 +945,7 @@ input OrderByColumnInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  hasDiploma: Boolean @scope @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
@@ -1306,9 +1300,7 @@ input CreateUserInput {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1378,9 +1370,7 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1457,9 +1447,7 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1710,9 +1698,7 @@ input UpdateCommunityInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
   operationalRequirements: [OperationalRequirement]
@@ -2016,7 +2002,9 @@ input UpdatePublishedPoolInput @validator {
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
 }
 
-input CreatePoolSkillInput {
+input CreatePoolSkillInput @validator {
+  poolId: ID! @rename(attribute: "pool_id")
+  skillId: ID! @rename(attribute: "skill_id")
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
@@ -2220,7 +2208,6 @@ input CreateJobPosterTemplateInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: PoolStream!
   workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
@@ -2547,11 +2534,7 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
 
-  createPoolSkill(
-    poolId: ID! @rename(attribute: "pool_id")
-    skillId: ID! @rename(attribute: "skill_id")
-    poolSkill: CreatePoolSkillInput! @spread
-  ): PoolSkill
+  createPoolSkill(poolSkill: CreatePoolSkillInput! @spread): PoolSkill
     @create
     @guard
     @canFind(

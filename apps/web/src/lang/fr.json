@@ -5227,10 +5227,6 @@
     "defaultMessage": "Ce candidat a revendiqué un <strong>statut prioritaire</strong> et a soumis le numéro suivant : <strong>{priorityNumber}</strong>.",
     "description": "Message for a candidates priority status claim"
   },
-  "QJ5uDV": {
-    "defaultMessage": "Sélectionnez un volet",
-    "description": "Placeholder for stream filter in search form."
-  },
   "QJi1ZQ": {
     "defaultMessage": "Annulez la décision et mettez le statut à jour",
     "description": "Button label to revert final decision on view pool candidate page"
@@ -10157,6 +10153,10 @@
   "qn77WI": {
     "defaultMessage": "Équipe, groupe ou division",
     "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "qobo/x": {
+    "defaultMessage": "Sélectionnez un volet",
+    "description": "Placeholder for stream filter in search form."
   },
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",

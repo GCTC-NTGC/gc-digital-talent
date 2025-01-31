@@ -243,11 +243,6 @@ type LocalizedPoolStatus {
   label: LocalizedString!
 }
 
-type LocalizedPoolStream {
-  value: PoolStream!
-  label: LocalizedString!
-}
-
 type LocalizedPositionDuration {
   value: PositionDuration!
   label: LocalizedString!
@@ -478,7 +473,7 @@ type Mutation {
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   togglePoolUserBookmark(poolId: UUID!): Pool
-  createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
+  createPoolSkill(poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
@@ -612,7 +607,7 @@ type User {
   isVisibleMinority: Boolean
   indigenousCommunities: [LocalizedIndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
@@ -1022,7 +1017,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification]
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -1032,7 +1027,7 @@ type PoolCandidateFilter {
 
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
   operationalRequirements: [LocalizedOperationalRequirement]
@@ -1304,7 +1299,7 @@ input OrderByColumnInput {
 
 input ApplicantFilterInput {
   equity: EquitySelectionsInput
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
@@ -1442,7 +1437,7 @@ input CreateUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1490,7 +1485,7 @@ input UpdateUserAsAdminInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1547,7 +1542,7 @@ input UpdateUserAsUserInput {
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
@@ -1762,7 +1757,7 @@ input UpdateCommunityInput {
 }
 
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
@@ -2034,6 +2029,8 @@ input UpdatePublishedPoolInput {
 }
 
 input CreatePoolSkillInput {
+  poolId: ID!
+  skillId: ID!
   type: PoolSkillType!
   requiredLevel: SkillLevel
 }
@@ -2212,7 +2209,6 @@ input CreateJobPosterTemplateInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus!
-  stream: PoolStream!
   workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput
   tasks: LocalizedStringInput!
@@ -3003,20 +2999,6 @@ enum PoolStatus {
   PUBLISHED
   CLOSED
   ARCHIVED
-}
-
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-  EXECUTIVE_GROUP
 }
 
 enum PositionDuration {
