@@ -25,9 +25,9 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
 import {
-  ApplicationStatus,
   getQualifiedRecruitmentStatusChip,
   getSalaryRange,
+  ApplicationStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -186,7 +186,7 @@ const ReviewRecruitmentProcessDialog = ({
     intl,
   );
 
-  const isExpiredStatus = status.value === ApplicationStatus.EXPIRED;
+  const isHiredStatus = status.value === ApplicationStatus.HIRED;
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -271,7 +271,6 @@ const ReviewRecruitmentProcessDialog = ({
                     date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
                     formatString: "PPP",
                     intl,
-                    timeZone: "Canada/Pacific",
                   })
                 : nullMessage}
             </FieldDisplay>
@@ -281,7 +280,6 @@ const ReviewRecruitmentProcessDialog = ({
                     date: parseDateTimeUtc(recruitmentProcess.expiryDate),
                     formatString: "PPP",
                     intl,
-                    timeZone: "Canada/Pacific",
                   })
                 : nullMessage}
             </FieldDisplay>
@@ -314,7 +312,7 @@ const ReviewRecruitmentProcessDialog = ({
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
-            {!isExpiredStatus ? (
+            {!isHiredStatus ? (
               <>
                 <Separator
                   decorative

@@ -113,13 +113,7 @@ export const RecruitmentDate = ({
   const isOpenToJobsStatus = status === ApplicationStatus.OPEN_TO_JOBS;
   const isNotInterestedStatus = status === ApplicationStatus.NOT_INTERESTED;
   const isHiredStatus = status === ApplicationStatus.HIRED;
-  const isExpiredStatus = status === ApplicationStatus.EXPIRED;
-  if (
-    isOpenToJobsStatus ||
-    isNotInterestedStatus ||
-    isHiredStatus ||
-    isExpiredStatus
-  ) {
+  if (isOpenToJobsStatus || isNotInterestedStatus || isHiredStatus) {
     return (
       <span>
         {intl.formatMessage(commonMessages.qualified)}

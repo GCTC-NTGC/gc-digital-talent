@@ -240,18 +240,19 @@ const computeInAssessmentStatusChip = (
 export const ApplicationStatus = {
   EXPIRED: "EXPIRED",
   DRAFT: "DRAFT",
-  UNSUCCESSFUL: "UNSUCCESSFUL",
-  SUCCESSFUL: "SUCCESSFUL",
+  RECEIVED: "RECEIVED",
+  UNDER_REVIEW: "UNDER_REVIEW",
   APPLICATION_REVIEWED: "APPLICATION_REVIEWED",
   UNDER_ASSESSMENT: "UNDER_ASSESSMENT",
-  UNDER_REVIEW: "UNDER_REVIEW",
-  RECEIVED: "RECEIVED",
+  UNSUCCESSFUL: "UNSUCCESSFUL",
+  SUCCESSFUL: "SUCCESSFUL",
+
   HIRED: "HIRED",
   NOT_INTERESTED: "NOT_INTERESTED",
   OPEN_TO_JOBS: "OPEN_TO_JOBS",
 } as const;
 
-type ApplicationStatus =
+export type ApplicationStatus =
   (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
 
 interface StatusChip {
