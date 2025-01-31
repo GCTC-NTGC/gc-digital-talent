@@ -95,15 +95,6 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ManagerHomePage = (
-    <NavMenu.Link
-      href={paths.manager()}
-      icon={HomeIcon}
-      mode="icon_only"
-      ariaLabel={intl.formatMessage(navigationMessages.home)}
-    />
-  );
-
   const CommunityDashboard = (
     <NavItem
       key="communityDashboard"
@@ -304,7 +295,6 @@ const useMainNavLinks = () => {
 
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
-    ["manager"]: intl.formatMessage(navMenuMessages.manager),
     ["pool_operator"]: intl.formatMessage(navMenuMessages.community),
     ["request_responder"]: intl.formatMessage(navMenuMessages.community),
     ["community_manager"]: intl.formatMessage(navMenuMessages.community),
