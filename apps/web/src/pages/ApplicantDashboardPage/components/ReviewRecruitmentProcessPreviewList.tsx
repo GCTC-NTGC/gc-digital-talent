@@ -121,16 +121,19 @@ const ReviewRecruitmentProcessPreviewList = ({
         <Well data-h2-text-align="base(center)">
           <p data-h2-font-weight="base(bold)">
             {intl.formatMessage({
-              defaultMessage: "You don't have any applications at the moment.",
-              id: "ok2eWp",
-              description: "Title for notice when there are no applications",
+              defaultMessage:
+                "You don't have any active recruitment processes at the moment.",
+              id: "vVAqzB",
+              description:
+                "Title for notice when there are no recruitment processes",
             })}
           </p>
           <p>
             {intl.formatMessage({
-              defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
-              id: "0K7Upw",
-              description: "Body for notice when there are no applications",
+              defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
+              id: "MGYlS0",
+              description:
+                "Body for notice when there are no Recruitment processes",
             })}
           </p>
         </Well>

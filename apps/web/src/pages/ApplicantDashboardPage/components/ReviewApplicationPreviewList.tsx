@@ -132,8 +132,9 @@ const ReviewApplicationPreviewList = ({
         <Well data-h2-text-align="base(center)">
           <p data-h2-font-weight="base(bold)">
             {intl.formatMessage({
-              defaultMessage: "You don't have any applications at the moment.",
-              id: "ok2eWp",
+              defaultMessage:
+                "You don't have any active applications at the moment.",
+              id: "Y93ht7",
               description: "Title for notice when there are no applications",
             })}
           </p>
