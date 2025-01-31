@@ -19,12 +19,12 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
@@ -250,14 +250,7 @@ const ViewCommunityPageApiWrapper = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCommunities}>
     <ViewCommunityPageApiWrapper />
   </RequireAuth>
 );

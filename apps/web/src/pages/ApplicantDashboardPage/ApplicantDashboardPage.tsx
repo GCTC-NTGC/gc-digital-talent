@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { NotFound, Pending, ResourceBlock } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -14,6 +13,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 
@@ -154,7 +154,7 @@ export const ApplicantDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );

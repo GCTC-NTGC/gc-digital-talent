@@ -12,6 +12,11 @@ test.describe("Community admin user", () => {
         await page.goto(restrictedPath);
         await page.waitForURL(restrictedPath);
         await expect(
+          page.getByRole("link", {
+            name: /dashboard/i,
+          }),
+        ).toBeVisible();
+        await expect(
           page.getByRole("heading", {
             name: "Sorry, you are not authorized to view this page.",
           }),
