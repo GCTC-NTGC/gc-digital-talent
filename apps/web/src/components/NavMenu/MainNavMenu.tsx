@@ -107,8 +107,8 @@ const MainNavMenu = () => {
             data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
             href={languageTogglePath}
             lang={changeToLang === "en" ? "en" : "fr"}
-            data-h2-flex="base(1)"
-            data-h2-text-align="base(right) l-tablet(auto)"
+            data-h2-flex="base(1) l-tablet(auto)"
+            data-h2-text-align="base(right)"
           >
             {intl.formatMessage({
               defaultMessage: "<hidden>Changer la langue en </hidden>Français",
