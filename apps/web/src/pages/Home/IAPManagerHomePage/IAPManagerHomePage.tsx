@@ -807,7 +807,7 @@ export const Component = () => {
                   },
                 )}
               </p>
-              <Well color="default">
+              <Well>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:

@@ -1,16 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
-type Color = "default" | "primary" | "success" | "warning" | "error";
+import { Color } from "../../types";
 
 const colorMap = new Map<Color, Record<string, string>>([
-  [
-    "default",
-    {
-      "data-h2-background-color": "base(background.light)",
-      "data-h2-border": "base(1px solid background.darker)",
-      "data-h2-color": "base(background.darkest)",
-    },
-  ],
   [
     "primary",
     {
@@ -43,6 +35,22 @@ const colorMap = new Map<Color, Record<string, string>>([
       "data-h2-color": "base(error.darkest)",
     },
   ],
+  [
+    "black",
+    {
+      "data-h2-background-color": "base(black.lightest)",
+      "data-h2-border": "base(1px solid black.darker)",
+      "data-h2-color": "base(black.darkest)",
+    },
+  ],
+  [
+    "secondary",
+    {
+      "data-h2-background-color": "base(secondary.lightest)",
+      "data-h2-border": "base(1px solid secondary.darker)",
+      "data-h2-color": "base(secondary.darkest)",
+    },
+  ],
 ]);
 
 export interface WellProps
@@ -52,13 +60,15 @@ export interface WellProps
   fontSize?: "caption" | "body";
 }
 
-const Well = ({
-  children,
-  color = "default",
-  fontSize = "body",
-  ...rest
-}: WellProps) => {
-  const colorStyles = colorMap.get(color);
+const Well = ({ children, color, fontSize = "body", ...rest }: WellProps) => {
+  const colorStyles = color
+    ? colorMap.get(color)
+    : {
+        "data-h2-background-color": "base(background.light)",
+        "data-h2-border": "base(1px solid background.darker)",
+        "data-h2-color": "base(background.darkest)",
+      };
+
   let size = {
     "data-h2-font-size": "base(body)",
     "data-h2-padding": "base(x1)",

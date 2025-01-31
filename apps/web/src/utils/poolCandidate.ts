@@ -10,7 +10,11 @@ import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  localizeSalaryRange,
+} from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -23,6 +27,7 @@ import {
   AssessmentStep,
   FinalDecision,
   LocalizedFinalDecision,
+  Classification,
   Pool,
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
@@ -227,6 +232,24 @@ const computeInAssessmentStatusChip = (
   };
 };
 
+export const ApplicationStatus = {
+  EXPIRED: "EXPIRED",
+  DRAFT: "DRAFT",
+  RECEIVED: "RECEIVED",
+  UNDER_REVIEW: "UNDER_REVIEW",
+  APPLICATION_REVIEWED: "APPLICATION_REVIEWED",
+  UNDER_ASSESSMENT: "UNDER_ASSESSMENT",
+  UNSUCCESSFUL: "UNSUCCESSFUL",
+  SUCCESSFUL: "SUCCESSFUL",
+
+  HIRED: "HIRED",
+  NOT_INTERESTED: "NOT_INTERESTED",
+  OPEN_TO_JOBS: "OPEN_TO_JOBS",
+} as const;
+
+export type ApplicationStatus =
+  (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
+
 interface StatusChip {
   color: Color;
   label: ReactNode;
@@ -362,6 +385,7 @@ const applicationStatusDescriptions = defineMessages({
 
 export interface StatusChipWithDescription extends StatusChip {
   description?: ReactNode;
+  value: ApplicationStatus;
 }
 
 /**
@@ -385,12 +409,14 @@ export const getApplicationStatusChip = (
         color: "black",
         label: intl.formatMessage(applicationStatusLabels.EXPIRED),
         description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
+        value: ApplicationStatus.EXPIRED,
       };
     } else {
       return {
         color: "primary",
         label: intl.formatMessage(applicationStatusLabels.DRAFT),
         description: intl.formatMessage(applicationStatusDescriptions.DRAFT),
+        value: ApplicationStatus.DRAFT,
       };
     }
   }
@@ -407,6 +433,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
         ),
+        value: ApplicationStatus.UNSUCCESSFUL,
       };
     } else {
       return {
@@ -415,6 +442,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
         ),
+        value: ApplicationStatus.UNSUCCESSFUL,
       };
     }
   }
@@ -425,6 +453,7 @@ export const getApplicationStatusChip = (
       color: "success",
       label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
       description: intl.formatMessage(applicationStatusDescriptions.SUCCESSFUL),
+      value: ApplicationStatus.SUCCESSFUL,
     };
   }
 
@@ -439,6 +468,7 @@ export const getApplicationStatusChip = (
       description: intl.formatMessage(
         applicationStatusDescriptions.UNDER_ASSESSMENT,
       ),
+      value: ApplicationStatus.UNDER_ASSESSMENT,
     };
   }
 
@@ -458,6 +488,7 @@ export const getApplicationStatusChip = (
       description: intl.formatMessage(
         applicationStatusDescriptions.UNDER_REVIEW,
       ),
+      value: ApplicationStatus.UNDER_REVIEW,
     };
   }
   if (currentStep > numberOfScreeningSteps) {
@@ -468,6 +499,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.APPLICATION_REVIEWED,
         ),
+        value: ApplicationStatus.APPLICATION_REVIEWED,
       };
     } else {
       return {
@@ -476,6 +508,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNDER_ASSESSMENT,
         ),
+        value: ApplicationStatus.UNDER_ASSESSMENT,
       };
     }
   }
@@ -484,6 +517,7 @@ export const getApplicationStatusChip = (
     color: "secondary",
     label: intl.formatMessage(applicationStatusLabels.RECEIVED),
     description: intl.formatMessage(applicationStatusDescriptions.RECEIVED),
+    value: ApplicationStatus.RECEIVED,
   };
 };
 
@@ -546,6 +580,7 @@ export const getQualifiedRecruitmentStatusChip = (
       description: intl.formatMessage(
         qualifiedRecruitmentStatusDescriptions.HIRED,
       ),
+      value: ApplicationStatus.HIRED,
     };
   }
 
@@ -558,6 +593,7 @@ export const getQualifiedRecruitmentStatusChip = (
       description: intl.formatMessage(
         qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
       ),
+      value: ApplicationStatus.NOT_INTERESTED,
     };
   }
 
@@ -567,6 +603,7 @@ export const getQualifiedRecruitmentStatusChip = (
     description: intl.formatMessage(
       qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
     ),
+    value: ApplicationStatus.OPEN_TO_JOBS,
   };
 };
 
@@ -628,4 +665,23 @@ export const priorityWeightAfterVerification = (
 
   // final fallback - last (Other)
   return 40;
+};
+
+/**
+ * Get the salary range of a classification
+ * @param locale
+ * @param classification
+ * @returns
+ */
+export const getSalaryRange = (
+  locale: string,
+  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
+) => {
+  if (!classification) return null;
+
+  return localizeSalaryRange(
+    classification.minSalary,
+    classification.maxSalary,
+    locale,
+  );
 };

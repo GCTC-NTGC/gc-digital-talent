@@ -73,6 +73,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Qualified",
+    "fr": [
+      "Qualifié",
+      "Qualifié(e)"
+    ]
+  },
+  {
     "en": "Create training opportunity",
     "fr": [
       "Créez une possibilité de formation",

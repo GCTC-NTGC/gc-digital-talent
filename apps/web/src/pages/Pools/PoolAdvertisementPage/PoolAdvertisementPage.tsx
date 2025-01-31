@@ -347,11 +347,7 @@ export const PoolPoster = ({
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
   const workLocation = pool.isRemote
-    ? intl.formatMessage({
-        defaultMessage: "Remote, hybrid or on-site",
-        id: "swESO/",
-        description: "Location requirement when a pool advertisement is remote",
-      })
+    ? intl.formatMessage(commonMessages.remote)
     : getLocalizedName(pool.location, intl);
 
   const showAboutUs = !!pool.aboutUs?.[locale];
@@ -706,11 +702,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Salary range",
-                      id: "GgBjAd",
-                      description: "Label for pool advertisement salary range",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.salaryRange) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
                     localizeSalaryRange(
@@ -723,11 +716,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Deadline",
-                      id: "FVEh7L",
-                      description: "Label for pool advertisement closing date",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.deadline) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
                     <DeadlineValue
@@ -744,12 +734,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Employment length",
-                      id: "EGNLD7",
-                      description:
-                        "Label for pool advertisement employment length",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.employmentLength) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={opportunityLength}
                   suffix={
@@ -800,12 +786,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Security clearance",
-                      id: "e4eYvU",
-                      description:
-                        "Label for pool advertisement security clearance requirement",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.securityClearance) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={securityClearance}
                   suffix={
