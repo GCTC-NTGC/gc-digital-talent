@@ -113,14 +113,5 @@ class UserTestSeeder extends Seeder
                 'email' => 'community@test.com',
                 'sub' => 'community@test.com',
             ]);
-
-        User::factory()
-            ->asApplicant()
-            ->create([
-                'first_name' => 'Maisy',
-                'last_name' => 'Ware',
-                'email' => 'manager@test.com',
-                'sub' => 'manager@test.com',
-            ]);
     }
 }
