@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\CafForce;
 use App\Enums\EmploymentCategory;
+use App\Events\WorkExperienceSaved;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,6 +61,13 @@ class WorkExperience extends Experience
      */
     protected $attributes = [
         'experience_type' => WorkExperience::class,
+    ];
+
+    /**
+     * Listeners for model events
+     */
+    protected $dispatchesEvents = [
+        'saved' => WorkExperienceSaved::class,
     ];
 
     protected static $hydrationFields = [
