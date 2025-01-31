@@ -86,9 +86,6 @@ const FindANewCommunity = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1.25)"
     >
-      <pre data-h2-background-color="base(white)">
-        {JSON.stringify(allForm, null, 2)}
-      </pre>
       {/* heading and description */}
       <div
         data-h2-display="base(flex)"
@@ -230,7 +227,7 @@ const FindANewCommunity = ({
               }}
               disabled={formDisabled}
             />
-            {/* workstream section */}
+            {/* work stream section */}
             {workStreamOptions.length ? (
               <div
                 data-h2-display="base(flex)"
@@ -263,7 +260,7 @@ const FindANewCommunity = ({
                   disabled={formDisabled}
                 />
               </div>
-            ) : // no workstreams
+            ) : // no work streams
             null}
           </>
         ) : (

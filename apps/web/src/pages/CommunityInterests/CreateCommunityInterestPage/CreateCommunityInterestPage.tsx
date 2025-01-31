@@ -1,11 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 import { CardBasic, Pending } from "@gc-digital-talent/ui";
@@ -26,67 +21,89 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import FindANewCommunity from "../sections/FindANewCommunity";
-import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
-import AdditionalInformation from "../sections/AdditionalInformation";
-import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import { FormValues, formValuesToApiCreateInput } from "../form";
+import FindANewCommunity from "../sections/FindANewCommunity";
+import ReviewAndSubmit from "../sections/ReviewAndSubmit";
+import AdditionalInformation from "../sections/AdditionalInformation";
+import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
 
-const CreateCommunityInterest_Fragment = graphql(/* GraphQL */ `
-  fragment CreateCommunityInterest_Fragment on Query {
+// options data for form controls
+const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
+  fragment CreateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
   }
 `);
 
 interface CreateCommunityInterestFormProps {
-  query: FragmentType<typeof CreateCommunityInterest_Fragment>;
+  formOptionsQuery: FragmentType<
+    typeof CreateCommunityInterestFormOptions_Fragment
+  >;
+  userId: string;
   formDisabled: boolean;
+  onSubmit: SubmitHandler<FormValues>;
 }
 
 const CreateCommunityInterestForm = ({
-  query,
+  formOptionsQuery,
+  userId,
   formDisabled,
+  onSubmit,
 }: CreateCommunityInterestFormProps) => {
-  const data = getFragment(CreateCommunityInterest_Fragment, query);
-  const { watch } = useFormContext<FormValues>();
-  const selectedCommunityId = watch("communityId");
+  const formOptions = getFragment(
+    CreateCommunityInterestFormOptions_Fragment,
+    formOptionsQuery,
+  );
+  const formMethods = useForm<FormValues>();
+  const selectedCommunityId = formMethods.watch("communityId");
 
   return (
-    <CardBasic
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x5)"
-    >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x2)"
-      >
-        <FindANewCommunity
-          optionsQuery={data}
-          formDisabled={formDisabled}
-          mode="create"
-        />
-        {/* other sections hidden until a community is selected */}
-        {selectedCommunityId && (
-          <>
-            <TrainingAndDevelopmentOpportunities
-              optionsQuery={data}
-              formDisabled={formDisabled}
-            />
-            <AdditionalInformation formDisabled={formDisabled} />
-            <ReviewAndSubmit formDisabled={formDisabled} />
-          </>
-        )}
-      </div>
-    </CardBasic>
+    <>
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+          <input
+            type="hidden"
+            {...formMethods.register(`userId`)}
+            value={userId}
+          />
+          <CardBasic
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x5)"
+          >
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x2)"
+            >
+              <FindANewCommunity
+                optionsQuery={formOptions}
+                formDisabled={formDisabled}
+                mode="create"
+              />
+              {/* other sections hidden until a community is selected */}
+              {selectedCommunityId && (
+                <>
+                  <TrainingAndDevelopmentOpportunities
+                    optionsQuery={formOptions}
+                    formDisabled={formDisabled}
+                  />
+                  <AdditionalInformation formDisabled={formDisabled} />
+                  <ReviewAndSubmit formDisabled={formDisabled} />
+                </>
+              )}
+            </div>
+          </CardBasic>
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
+// Complete query for the page
 const CreateCommunityInterestPage_Query = graphql(/* GraphQL */ `
   query CreateCommunityInterestPage_Query {
-    ...CreateCommunityInterest_Fragment
+    ...CreateCommunityInterestFormOptions_Fragment
   }
 `);
 
@@ -101,6 +118,11 @@ const CreateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
 `);
 
 export const CreateCommunityInterestPage = () => {
+  const intl = useIntl();
+  const routes = useRoutes();
+  const { userAuthInfo } = useAuthorization();
+
+  const navigate = useNavigate();
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: CreateCommunityInterestPage_Query,
@@ -108,13 +130,8 @@ export const CreateCommunityInterestPage = () => {
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
   );
-  const intl = useIntl();
-  const routes = useRoutes();
-  const { userAuthInfo } = useAuthorization();
-  const formMethods = useForm<FormValues>();
   const formattedPageTitle = intl.formatMessage(messages.pageTitle);
   const formattedPageSubtitle = intl.formatMessage(messages.pageSubtitle);
-  const navigate = useNavigate();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -182,23 +199,16 @@ export const CreateCommunityInterestPage = () => {
         centered
         overlap
       >
-        <div data-h2-margin-bottom="base(x3)">
-          {!!queryData && (
-            <FormProvider {...formMethods}>
-              <form onSubmit={formMethods.handleSubmit(submitForm)}>
-                <input
-                  type="hidden"
-                  {...formMethods.register(`userId`)}
-                  value={userAuthInfo?.id}
-                />
-                <CreateCommunityInterestForm
-                  query={queryData}
-                  formDisabled={queryFetching || mutationFetching}
-                />
-              </form>
-            </FormProvider>
-          )}
-        </div>
+        {!!queryData && !!userAuthInfo?.id && (
+          <div data-h2-margin-bottom="base(x3)">
+            <CreateCommunityInterestForm
+              formOptionsQuery={queryData}
+              userId={userAuthInfo.id}
+              formDisabled={queryFetching || mutationFetching}
+              onSubmit={submitForm}
+            />
+          </div>
+        )}
       </Hero>
     </Pending>
   );

@@ -115,14 +115,14 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
             name="consent"
             boundingBoxLabel={intl.formatMessage({
               defaultMessage: "Consent to share",
-              id: "5oqGTl",
-              description: "Label for the input for the constent check",
+              id: "AlOrGy",
+              description: "Label for the input for the consent check",
             })}
             label={intl.formatMessage({
               defaultMessage:
                 "I agree that by indicating my interest in work or training opportunities that my profile will be shared with HR staff and hiring managers in this functional community.",
-              id: "09PkgL",
-              description: "Statement for the input for the constent check",
+              id: "CCSgzj",
+              description: "Statement for the input for the consent check",
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),

@@ -181,7 +181,7 @@ export const UpdateCommunityInterestPage = () => {
 
   const navigate = useNavigate();
   if (!communityInterestId) {
-    throw new NotFoundError("Missing paramater: communityInterestId");
+    throw new NotFoundError("Missing parameter: communityInterestId");
   }
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
@@ -216,7 +216,7 @@ export const UpdateCommunityInterestPage = () => {
 
       {
         label: intl.formatMessage(messages.shortPageTitle),
-        url: routes.updateCommunityInterest("TODO"),
+        url: routes.updateCommunityInterest(communityInterestId),
       },
     ],
   });

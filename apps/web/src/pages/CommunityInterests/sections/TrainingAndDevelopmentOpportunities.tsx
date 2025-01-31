@@ -11,12 +11,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  RadioGroup,
-} from "@gc-digital-talent/forms";
+import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
@@ -189,7 +184,7 @@ const TrainingAndDevelopmentOpportunities = ({
                     {unpackMaybes(
                       developmentProgram?.eligibleClassifications,
                     ).map((classification) => (
-                      <Chip key={classification.id}>
+                      <Chip key={classification.id} color="secondary">
                         {getClassificationName(classification, intl)}
                       </Chip>
                     ))}
