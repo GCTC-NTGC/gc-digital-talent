@@ -7,10 +7,6 @@ import {
   UserPublicProfile,
 } from "@gc-digital-talent/graphql";
 
-type TeamMember = {
-  roles: Role[];
-} & UserPublicProfile;
-
 /**
  * Check to see if user contains one or more roles
  *
