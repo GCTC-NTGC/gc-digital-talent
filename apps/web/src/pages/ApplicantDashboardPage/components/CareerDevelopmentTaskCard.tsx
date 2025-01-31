@@ -214,8 +214,8 @@ const CareerDevelopmentTaskCard = ({
                   as="h3"
                   subtitle={intl.formatMessage({
                     defaultMessage:
-                      "Opt in to your profile information being shared with recruiters and talent management staff so that you can be referred for job opportunities or training.",
-                    id: "Yohuno",
+                      "Opt in to share your profile information with recruiters and talent management staff so that you can be referred for job opportunities or training.",
+                    id: "vOseaw",
                     description:
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
