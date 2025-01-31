@@ -30,7 +30,7 @@ const Breadcrumbs = ({ crumbs, fullWidth }: BreadcrumbsProps) => {
           {...(fullWidth
             ? {
                 "data-h2-wrapper":
-                  "base(center, full, x1) base(center, full, x2)",
+                  "base(center, full, x1) p-tablet(center, full, x2)",
               }
             : {
                 "data-h2-wrapper":
