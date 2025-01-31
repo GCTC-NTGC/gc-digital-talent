@@ -116,7 +116,6 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asManager()
             ->create([
                 'first_name' => 'Maisy',
                 'last_name' => 'Ware',
