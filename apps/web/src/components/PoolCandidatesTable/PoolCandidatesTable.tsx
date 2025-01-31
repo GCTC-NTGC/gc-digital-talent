@@ -48,6 +48,7 @@ import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
+import { CsvType, FormValues } from "../PoolCandidatesTable/types";
 import {
   bookmarkCell,
   bookmarkHeader,
@@ -69,7 +70,6 @@ import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
-import { FormValues } from "./types";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
@@ -77,7 +77,6 @@ import {
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
-
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
@@ -418,6 +417,22 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadApplicationsCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationsCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+    $withROD: Boolean
+    $processNumber: String
+  ) {
+    downloadApplicationsCsv(
+      ids: $ids
+      where: $where
+      withROD: $withROD
+      processNumber: $processNumber
+    )
+  }
+`);
+
 const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
     downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
@@ -492,6 +507,9 @@ const PoolCandidatesTable = ({
   const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
     DownloadPoolCandidatesCsv_Mutation,
   );
+
+  const [{ fetching: downloadingApplicationsCsv }, downloadApplicationsCsv] =
+    useMutation(DownloadApplicationsCsv_Mutation);
 
   const [{ fetching: downloadingZip }, downloadZip] = useMutation(
     DownloadPoolCandidatesZip_Mutation,
@@ -593,6 +611,18 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
+  const currentPoolProcessNumber = useMemo(() => {
+    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+    const poolCandidate = poolCandidates.find(
+      (candidate) => candidate.poolCandidate.pool.id === currentPool?.id,
+    );
+    // if processNumber is null we want to get the pool id
+    return (
+      poolCandidate?.poolCandidate.pool.processNumber ??
+      poolCandidate?.poolCandidate.pool.id
+    );
+  }, [data?.poolCandidatesPaginated.data, currentPool?.id]);
+
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
   );
@@ -631,10 +661,34 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleCsvDownload = (withROD?: boolean) => {
-    downloadCsv({ ids: selectedRows, withROD })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+  const handleCsvDownload = (
+    option: { label: string; value: CsvType },
+    withROD?: boolean,
+  ) => {
+    if (option.value === CsvType.ProfileCsv) {
+      downloadCsv({ ids: selectedRows, withROD: false })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    } else if (option.value === CsvType.ApplicationCsv) {
+      downloadApplicationsCsv({
+        ids: selectedRows,
+        withROD: true,
+        processNumber: currentPoolProcessNumber,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    } else
+      downloadCsv({
+        ids: selectedRows,
+        where: addSearchToPoolCandidateFilterInput(
+          filterState,
+          searchState?.term,
+          searchState?.type,
+        ),
+        withROD: withROD,
+      })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
   };
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -1011,14 +1065,18 @@ const PoolCandidatesTable = ({
                     downloadingDoc ||
                     downloadingAsyncFile
                   }
-                  isDownloading={downloadingCsv}
+                  isDownloading={downloadingApplicationsCsv}
                   onClick={handleCsvDownload}
                 />
               ),
             }
           : {
               enable: true,
-              onClick: () => handleCsvDownload(),
+              onClick: () =>
+                handleCsvDownload({
+                  label: "Profile CSV",
+                  value: CsvType.ProfileCsv,
+                }),
               downloading: downloadingCsv,
             },
         doc: {

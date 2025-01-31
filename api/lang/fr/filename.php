@@ -6,4 +6,6 @@ return [
     'candidate' => 'candidat',
     'user' => 'utilisateur',
     'users' => 'utilisateurs',
+    'applications' => 'Candidatures et comptes rendues de décision',
+    'profiles' => 'Profils',
 ];

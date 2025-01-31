@@ -15,3 +15,7 @@ export interface FormValues {
   govEmployee: string;
   community: string;
 }
+export enum CsvType {
+  ApplicationCsv = "application",
+  ProfileCsv = "profile",
+}

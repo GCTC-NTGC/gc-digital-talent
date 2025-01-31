@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\PoolCandidateCsvGenerator;
+use App\Generators\ApplicationCsvGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadPoolCandidatesCsv
+final class DownloadApplicationsCsv
 {
     /**
      * Dispatches the generation of a
@@ -26,13 +26,19 @@ final class DownloadPoolCandidatesCsv
         $ids = $args['ids'] ?? null;
         $filters = $args['where'] ?? null;
         $withROD = $args['withROD'] ?? false;
+        $processNumber = $args['processNumber'] ?? null;
 
         try {
-            $generator = new PoolCandidateCsvGenerator(
-                fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.profiles'), date('Y-m-d_His')),
+            $generator = new ApplicationCsvGenerator(
+                fileName: sprintf(
+                    $processNumber ? '%s-%s_%s' : '%s_%s',
+                    __('filename.applications'),
+                    $processNumber ?? date('Y-m-d_His'),
+                    date('Y-m-d_His')
+                ),
                 dir: $user->id,
                 lang: App::getLocale(),
-                withROD: $withROD,
+                withROD: $withROD
             );
 
             $generator

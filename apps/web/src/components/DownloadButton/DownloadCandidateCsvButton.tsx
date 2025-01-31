@@ -1,17 +1,17 @@
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useIntl } from "react-intl";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
-
-import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
-
-import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
+import DownloadCsvButton from "./DownloadCsvButton";
+import { CsvType } from "../PoolCandidatesTable/types";
 
 interface DownloadCandidateCsvButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClick: (withROD?: boolean) => void;
+  onClick: (
+    option: { label: string; value: CsvType },
+    processNumber?: string,
+    withROD?: boolean,
+  ) => void;
 }
 
 const DownloadCandidateCsvButton = ({
@@ -21,53 +21,38 @@ const DownloadCandidateCsvButton = ({
   disabled,
 }: DownloadCandidateCsvButtonProps) => {
   const intl = useIntl();
-
+  const options = [
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Download CSV of Profiles",
+        id: "N4dNc9",
+        description: "Download CSV of Profiles",
+      }),
+      value: CsvType.ProfileCsv,
+    },
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Download CSV of Applications",
+        id: "nrfOGl",
+        description: "Download CSV of Applications",
+      }),
+      value: CsvType.ApplicationCsv,
+    },
+  ];
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button
-          disabled={disabled}
-          utilityIcon={ChevronDownIcon}
-          {...(isDownloading && {
-            icon: SpinnerIcon,
-          })}
-          {...(inTable
-            ? {
-                ...actionButtonStyles,
-                "data-h2-font-weight": "base(400)",
-                "data-h2-margin-top": "base(-2px)",
-              }
-            : {
-                color: "secondary",
-              })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download CSV",
-            id: "mxOuYK",
-            description:
-              "Text label for button to download a csv file of items in a table.",
-          })}
-        </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
-          {intl.formatMessage({
-            defaultMessage: "Download CSV without assessments",
-            id: "2cZySB",
-            description:
-              "Button label for download candidate csv without ROD data.",
-          })}
-        </DropdownMenu.Item>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
-          {intl.formatMessage({
-            defaultMessage: "Download CSV with assessments",
-            id: "C1jirU",
-            description:
-              "Button label for download candidate csv with ROD data.",
-          })}
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+    <DownloadCsvButton
+      inTable={inTable}
+      isDownloading={isDownloading}
+      onClick={onClick}
+      disabled={disabled}
+      buttonText={intl.formatMessage({
+        defaultMessage: "Download CSV",
+        id: "gJjIzg",
+        description: "Download button",
+      })}
+      options={options}
+      description="Download CSV"
+    />
   );
 };
 
