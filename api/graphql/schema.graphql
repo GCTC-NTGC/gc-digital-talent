@@ -195,7 +195,7 @@ type EmployeeProfile {
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -558,6 +558,7 @@ type Community implements HasRoleAssignments {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   developmentPrograms: [DevelopmentProgram!] @hasMany
+  workStreams: [WorkStream!] @hasMany
 }
 
 type DevelopmentProgram {
@@ -1513,6 +1514,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }

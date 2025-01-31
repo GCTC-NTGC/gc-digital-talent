@@ -64,6 +64,7 @@ Spatie
 spinbutton
 Staudenmeir
 subcomponents
+Subform
 subproject
 subprojects
 subquery

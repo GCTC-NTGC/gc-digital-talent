@@ -671,7 +671,7 @@ type EmployeeProfile {
   dreamRoleClassification: Classification
   dreamRoleWorkStream: WorkStream
   dreamRoleDepartments: [Department!]
-  communityInterests: [CommunityInterest!]
+  communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
 
@@ -959,6 +959,7 @@ type Community implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
   pools: [Pool]
   developmentPrograms: [DevelopmentProgram!]
+  workStreams: [WorkStream!]
 }
 
 type DevelopmentProgram {
@@ -1598,6 +1599,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }
