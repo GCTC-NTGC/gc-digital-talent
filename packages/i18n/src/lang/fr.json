@@ -1147,10 +1147,6 @@
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
   },
-  "oIfw3w": {
-    "defaultMessage": "Profil de gestionnaire",
-    "description": "Name of Manager profile page"
-  },
   "oPhurq": {
     "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
     "description": "The work region of Canada described as Prairie."

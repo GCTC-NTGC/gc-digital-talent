@@ -20,7 +20,6 @@ describe("NavContextContainer", () => {
         "community_recruiter",
         "community_admin",
         "platform_admin",
-        "manager",
       ]),
     ).toBe("community");
   });
@@ -36,7 +35,6 @@ describe("NavContextContainer", () => {
         "process_operator",
         "community_recruiter",
         "community_admin",
-        "manager",
       ]),
     ).toBe("applicant");
   });

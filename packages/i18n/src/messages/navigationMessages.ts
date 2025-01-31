@@ -76,11 +76,6 @@ const navigationMessages = defineMessages({
     id: "/pzsYm",
     description: "Name of Applicant profile page",
   },
-  managerProfile: {
-    defaultMessage: "Manager profile",
-    id: "oIfw3w",
-    description: "Name of Manager profile page",
-  },
   accountSettings: {
     defaultMessage: "Account settings",
     id: "YSNrLG",

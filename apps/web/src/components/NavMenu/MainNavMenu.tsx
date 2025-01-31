@@ -64,7 +64,6 @@ const MainNavMenu = () => {
 
   const roleNames = {
     applicant: intl.formatMessage(navMenuMessages.applicant),
-    manager: intl.formatMessage(navMenuMessages.manager),
     community: intl.formatMessage(navMenuMessages.community),
     admin: intl.formatMessage(navMenuMessages.admin),
   } as const;
