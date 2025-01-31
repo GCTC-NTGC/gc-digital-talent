@@ -2647,6 +2647,10 @@
     "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
     "description": "Button text to reinstate a candidate and update their status"
   },
+  "CTBcGm": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et proposez des compétences supplémentaires à inclure.",
+    "description": "the 'Learn about skills' tool description"
+  },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
@@ -9361,6 +9365,10 @@
   "n2bW9s": {
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
+  },
+  "n40Nry": {
+    "defaultMessage": "En savoir plus sur les compétences",
+    "description": "Link for the 'learn about skills' card"
   },
   "n4pwef": {
     "defaultMessage": "Rôle actuel",
