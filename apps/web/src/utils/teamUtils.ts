@@ -1,11 +1,5 @@
 import { RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  UserPublicProfile,
-} from "@gc-digital-talent/graphql";
+import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 /**
  * Check to see if user contains one or more roles
