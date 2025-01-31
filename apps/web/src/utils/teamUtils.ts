@@ -7,7 +7,7 @@ import {
   UserPublicProfile,
 } from "@gc-digital-talent/graphql";
 
-export type TeamMember = {
+type TeamMember = {
   roles: Role[];
 } & UserPublicProfile;
 
