@@ -18,7 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
-export const WorkStreamTableRow_Fragment = graphql(/* GraphQL */ `
+const WorkStreamTableRow_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamTableRow on WorkStream {
     id
     name {
@@ -50,10 +50,7 @@ interface WorkStreamTableProps {
   title: string;
 }
 
-export const WorkStreamTable = ({
-  workStreamsQuery,
-  title,
-}: WorkStreamTableProps) => {
+const WorkStreamTable = ({ workStreamsQuery, title }: WorkStreamTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const workStreams = getFragment(

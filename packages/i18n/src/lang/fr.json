@@ -1415,6 +1415,10 @@
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
   },
+  "zN7MBv": {
+    "defaultMessage": "Planification de carrière",
+    "description": "Title for a users career plan"
+  },
   "zXRf0L": {
     "defaultMessage": "Mai",
     "description": "Name of the fifth month"

@@ -2,22 +2,55 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { NotFound, Pending, ResourceBlock } from "@gc-digital-talent/ui";
+import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
+import { isVerifiedGovEmployee } from "~/utils/userUtils";
+import messages from "~/messages/profileMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
-export interface DashboardPageProps {
-  currentUser?: User | null;
+import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
+
+export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
+  fragment ApplicantDashboardPage on User {
+    id
+    firstName
+    lastName
+    isGovEmployee
+    workEmail
+    isWorkEmailVerified
+    employeeProfile {
+      ...CareerDevelopmentTaskCard
+    }
+  }
+`);
+
+interface DashboardPageProps {
+  applicantDashboardQuery: FragmentType<typeof ApplicantDashboardPage_Fragment>;
 }
 
-export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
+export const DashboardPage = ({
+  applicantDashboardQuery,
+}: DashboardPageProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
+
+  const currentUser = getFragment(
+    ApplicantDashboardPage_Fragment,
+    applicantDashboardQuery,
+  );
+
+  const isVerifiedEmployee = isVerifiedGovEmployee({
+    isGovEmployee: currentUser.isGovEmployee,
+    workEmail: currentUser.workEmail,
+    isWorkEmailVerified: currentUser.isWorkEmailVerified,
+  });
 
   return (
     <>
@@ -43,6 +76,52 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         )}
         subtitle={""}
       />
+      <section data-h2-margin="base(x3, 0)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+            data-h2-gap="base(x1)"
+          >
+            {isVerifiedEmployee && currentUser?.employeeProfile ? (
+              <CareerDevelopmentTaskCard
+                careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+              />
+            ) : null}
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1)"
+              data-h2-max-width="p-tablet(x14)"
+            >
+              <ResourceBlock.Root
+                headingColor="tertiary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Resources",
+                  id: "nGSUzp",
+                  description: "Card title for a 'resources' card",
+                })}
+              >
+                <ResourceBlock.SingleLinkItem
+                  title={intl.formatMessage({
+                    defaultMessage: "Learn about skills",
+                    id: "n40Nry",
+                    description: "Link for the 'learn about skills' card",
+                  })}
+                  href={paths.skills()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Browse a complete list of available skills, learn how they’re organized, and recommend additional skills to include.",
+                    id: "CTBcGm",
+                    description: "the 'Learn about skills' tool description",
+                  })}
+                />
+              </ResourceBlock.Root>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
@@ -50,21 +129,26 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
   query ApplicantDashboard_Query {
     me {
-      id
-      firstName
-      lastName
+      ...ApplicantDashboardPage
     }
   }
 `);
 
 export const ApplicantDashboardPageApi = () => {
+  const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DashboardPage currentUser={data?.me} />
+      {data?.me ? (
+        <DashboardPage applicantDashboardQuery={data.me} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(messages.userNotFound)}</p>
+        </NotFound>
+      )}
     </Pending>
   );
 };
