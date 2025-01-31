@@ -34,7 +34,7 @@ return [
     'department' => 'Department',
     'employee_type' => 'Employment type',
     'work_email' => 'Work email',
-    'current_classification' => 'Current classification',
+    'classification' => 'Current classification',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',

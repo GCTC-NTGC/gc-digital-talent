@@ -12,7 +12,6 @@ use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
-use App\Models\Department;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -91,13 +90,15 @@ class UserResource extends JsonResource
             'writtenLevel' => $this->localizeEnum($this->written_level, EvaluatedLanguageAbility::class),
             'verbalLevel' => $this->localizeEnum($this->verbal_level, EvaluatedLanguageAbility::class),
             'estimatedLanguageAbility' => $this->localizeEnum($this->estimated_language_ability, EstimatedLanguageAbility::class),
-            'isGovEmployee' => $this->is_gov_employee,
+            'isGovEmployee' => $this->computed_is_gov_employee,
             'workEmail' => $this->work_email,
             'isWorkEmailVerified' => $this->isWorkEmailVerified,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
-            'govEmployeeType' => $this->localizeEnum($this->gov_employee_type, GovEmployeeType::class),
-            'department' => $this->department ? (new DepartmentResource(Department::find($this->department))) : null,
+            'govEmployeeType' => $this->localizeEnum($this->computed_gov_employee_type, GovEmployeeType::class),
+            'department' => $this->department ? (new DepartmentResource($this->department)) : null,
             'currentClassification' => (new ClassificationResource($this->currentClassification)),
+            'govPositionType' => $this->computed_gov_position_type,
+            'govEndDate' => $this->computed_gov_end_date,
             'isWoman' => $this->is_woman,
             'hasDisability' => $this->has_disability,
             'isVisibleMinority' => $this->is_visible_minority,

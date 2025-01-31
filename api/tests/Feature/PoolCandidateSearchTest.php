@@ -432,7 +432,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory([
-                'is_gov_employee' => true,
+                'computed_is_gov_employee' => true,
             ]),
         ]);
         PoolCandidate::factory()->count(3)->create([
@@ -441,7 +441,7 @@ class PoolCandidateSearchTest extends TestCase
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory([
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
             ]),
         ]);
 

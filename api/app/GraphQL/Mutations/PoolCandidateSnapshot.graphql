@@ -103,6 +103,14 @@ query getProfile($userId: UUID!) {
         fr
       }
     }
+    govPositionType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    govEndDate
     department {
       id
       departmentNumber

@@ -65,7 +65,7 @@ class UserTest extends TestCase
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
                 'last_name' => null,
@@ -1266,7 +1266,7 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => null,
                 'telephone' => '+15407608748',
                 'current_city' => 'Somewhere random',
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
             ]);
 
         // Assert query no isProfileComplete filter will return all users
@@ -1568,12 +1568,12 @@ class UserTest extends TestCase
     {
         // Create initial set of 5 users not with gov.
         User::factory()->count(5)->create([
-            'is_gov_employee' => false,
+            'computed_is_gov_employee' => false,
         ]);
 
         // Create two new users with the government.
         User::factory()->count(2)->create([
-            'is_gov_employee' => true,
+            'computed_is_gov_employee' => true,
         ]);
 
         // Assert query no isGovEmployee filter will return all users
