@@ -377,7 +377,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getDepartment()
     {
-        if (! $this->department) {
+        if (! $this->computed_department) {
             return '';
         }
 
@@ -1353,7 +1353,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {
-            $user->department = $snapshot['department']['id'];
+            $user->computed_department = $snapshot['department']['id'];
         }
 
         return $user;
