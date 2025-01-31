@@ -343,6 +343,10 @@
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
     "description": "Message for when the download request failed"
   },
+  "DUjO/t": {
+    "defaultMessage": "À distance, hybride ou sur site",
+    "description": "Title for remote, hybrid or on-site"
+  },
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"

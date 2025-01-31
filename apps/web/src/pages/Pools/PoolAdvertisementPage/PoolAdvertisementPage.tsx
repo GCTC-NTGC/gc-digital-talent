@@ -347,11 +347,7 @@ export const PoolPoster = ({
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
   const workLocation = pool.isRemote
-    ? intl.formatMessage({
-        defaultMessage: "Remote, hybrid or on-site",
-        id: "swESO/",
-        description: "Location requirement when a pool advertisement is remote",
-      })
+    ? intl.formatMessage(commonMessages.remote)
     : getLocalizedName(pool.location, intl);
 
   const showAboutUs = !!pool.aboutUs?.[locale];

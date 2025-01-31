@@ -9726,10 +9726,6 @@
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
   },
-  "ok2eWp": {
-    "defaultMessage": "Vous n'avez aucune demande pour l'instant.",
-    "description": "Title for notice when there are no applications"
-  },
   "okKbgd": {
     "defaultMessage": "Préférences en matière de développement de carrière",
     "description": "Title for a users career development preferences"

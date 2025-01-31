@@ -78,6 +78,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
         }
       }
       closingDate
+      isRemote
       location {
         localized
       }
@@ -313,7 +314,9 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(talentRequestMessages.workLocation)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {pool.location?.localized}
+              {pool.isRemote
+                ? intl.formatMessage(commonMessages.remote)
+                : pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.securityClearance)}

@@ -359,6 +359,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Deadline",
     description: "Title for deadline",
   },
+  remote: {
+    defaultMessage: "Remote, hybrid or on-site",
+    id: "DUjO/t",
+    description: "Title for remote, hybrid or on-site",
+  },
 });
 
 export default commonMessages;

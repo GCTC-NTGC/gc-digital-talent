@@ -86,6 +86,7 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      isRemote
       location {
         localized
       }
@@ -298,7 +299,9 @@ const ReviewRecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.workLocation)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {pool.location?.localized}
+              {pool.isRemote
+                ? intl.formatMessage(commonMessages.remote)
+                : pool.location?.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.securityClearance)}
