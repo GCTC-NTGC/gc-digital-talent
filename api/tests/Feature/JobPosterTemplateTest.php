@@ -307,7 +307,6 @@ class JobPosterTemplateTest extends TestCase
             'name' => Arr::only($template->name, ['en', 'fr']),
             'description' => Arr::only($template->description, ['en', 'fr']),
             'supervisoryStatus' => $template->supervisory_status,
-            'stream' => $template->stream,
             'tasks' => Arr::only($template->tasks, ['en', 'fr']),
             'workDescription' => Arr::only($template->work_description, ['en', 'fr']),
             'keywords' => Arr::only($template->keywords, ['en', 'fr']),

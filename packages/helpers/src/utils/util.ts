@@ -16,7 +16,7 @@ export function notEmpty<TValue>(
 }
 
 /**
- * Returns true if value id null OR undefined.
+ * Returns true if value is null OR undefined.
  * @param item
  */
 export function empty<T>(
