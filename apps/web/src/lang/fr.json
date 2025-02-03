@@ -9454,10 +9454,6 @@
     "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
     "description": "Message displayed to user after department fails to get updated."
   },
-  "nYEPMG": {
-    "defaultMessage": "Non, il ne s'agit pas d'un poste de supervision",
-    "description": "Checkbox selection that confirms a job opportunity will not have supervising duties. "
-  },
   "nYriNg": {
     "defaultMessage": "Statut mis à jour avec succès",
     "description": "Toast for successful status update on view-user page"

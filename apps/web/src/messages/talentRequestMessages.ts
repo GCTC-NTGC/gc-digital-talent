@@ -7,12 +7,6 @@ const messages = defineMessages({
     description:
       "Checkbox selection that confirms a job opportunity will have supervising duties. ",
   },
-  supervisoryPositionNo: {
-    defaultMessage: "No, this will not be a supervisory position",
-    id: "nYEPMG",
-    description:
-      "Checkbox selection that confirms a job opportunity will not have supervising duties. ",
-  },
   additionalComments: {
     defaultMessage: "Additional comments",
     id: "GF8FPy",
