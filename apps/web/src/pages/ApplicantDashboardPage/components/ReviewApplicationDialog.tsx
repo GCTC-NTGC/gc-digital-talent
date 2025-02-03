@@ -25,7 +25,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
 import {
-  ApplicationStatus,
+  applicationStatus,
   getApplicationStatusChip,
   getSalaryRange,
 } from "~/utils/poolCandidate";
@@ -171,9 +171,9 @@ const ReviewApplicationDialog = ({
     intl,
   );
 
-  const isDraftStatus = status.value === ApplicationStatus.DRAFT;
-  const isExpiredStatus = status.value === ApplicationStatus.EXPIRED;
-  const isSuccessfulStatus = status.value === ApplicationStatus.SUCCESSFUL;
+  const isDraftStatus = status.value === applicationStatus.DRAFT;
+  const isExpiredStatus = status.value === applicationStatus.EXPIRED;
+  const isSuccessfulStatus = status.value === applicationStatus.SUCCESSFUL;
 
   const lessThanThreeDaysTillClosingDate = pool?.closingDate
     ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3

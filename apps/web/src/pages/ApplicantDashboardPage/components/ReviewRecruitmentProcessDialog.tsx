@@ -27,7 +27,7 @@ import { getClassificationName } from "~/utils/poolUtils";
 import {
   getQualifiedRecruitmentStatusChip,
   getSalaryRange,
-  ApplicationStatus,
+  qualifiedRecruitmentStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -187,7 +187,6 @@ const ReviewRecruitmentProcessDialog = ({
     intl,
   );
 
-  const isHiredStatus = status.value === ApplicationStatus.HIRED;
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -315,7 +314,7 @@ const ReviewRecruitmentProcessDialog = ({
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
-            {!isHiredStatus ? (
+            {!qualifiedRecruitmentStatus.HIRED ? (
               <>
                 <Separator
                   decorative

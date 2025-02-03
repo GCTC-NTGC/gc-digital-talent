@@ -3,13 +3,17 @@ import { useIntl } from "react-intl";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
-import { ApplicationStatus } from "~/utils/poolCandidate";
+import {
+  applicationStatus,
+  qualifiedRecruitmentStatus,
+  StatusChipWithDescription,
+} from "~/utils/poolCandidate";
 
 interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
   finalDecisionAt?: string | null;
-  status: ApplicationStatus;
+  status: StatusChipWithDescription["value"];
 }
 
 export const ApplicationDate = ({
@@ -25,10 +29,10 @@ export const ApplicationDate = ({
     return null;
   }
 
-  const isDraftStatus = status === ApplicationStatus.DRAFT;
-  const isExpiredStatus = status === ApplicationStatus.EXPIRED;
-
-  if (isDraftStatus || isExpiredStatus) {
+  if (
+    status === applicationStatus.DRAFT ||
+    status === applicationStatus.EXPIRED
+  ) {
     return (
       <span>
         {intl.formatMessage({
@@ -48,10 +52,11 @@ export const ApplicationDate = ({
     );
   }
 
-  const isReceivedStatus = status === ApplicationStatus.RECEIVED;
-  const isUnderReviewStatus = status === ApplicationStatus.UNDER_REVIEW;
-  const isUnderAssessmentStatus = status === ApplicationStatus.UNDER_ASSESSMENT;
-  if (isReceivedStatus || isUnderReviewStatus || isUnderAssessmentStatus) {
+  if (
+    status === applicationStatus.RECEIVED ||
+    status === applicationStatus.UNDER_REVIEW ||
+    status === applicationStatus.UNDER_ASSESSMENT
+  ) {
     return (
       <span>
         {intl.formatMessage(formMessages.submitted)}
@@ -67,9 +72,10 @@ export const ApplicationDate = ({
     );
   }
 
-  const isSuccessfulStatus = status === ApplicationStatus.SUCCESSFUL;
-  const isUnsuccessfulStatus = status === ApplicationStatus.UNSUCCESSFUL;
-  if (isSuccessfulStatus || isUnsuccessfulStatus) {
+  if (
+    status === applicationStatus.SUCCESSFUL ||
+    status === applicationStatus.UNSUCCESSFUL
+  ) {
     return (
       <span>
         {intl.formatMessage({
@@ -94,13 +100,11 @@ export const ApplicationDate = ({
 
 interface RecruitmentDateProps {
   finalDecisionAt?: string | null;
-  removedAt?: string | null;
-  status: ApplicationStatus;
+  status: StatusChipWithDescription["value"];
 }
 
 export const RecruitmentDate = ({
   finalDecisionAt,
-  removedAt,
   status,
 }: RecruitmentDateProps) => {
   const intl = useIntl();
@@ -110,10 +114,11 @@ export const RecruitmentDate = ({
     return null;
   }
 
-  const isOpenToJobsStatus = status === ApplicationStatus.OPEN_TO_JOBS;
-  const isNotInterestedStatus = status === ApplicationStatus.NOT_INTERESTED;
-  const isHiredStatus = status === ApplicationStatus.HIRED;
-  if (isOpenToJobsStatus || isNotInterestedStatus || isHiredStatus) {
+  if (
+    status === qualifiedRecruitmentStatus.OPEN_TO_JOBS ||
+    status === qualifiedRecruitmentStatus.NOT_INTERESTED ||
+    status === qualifiedRecruitmentStatus.HIRED
+  ) {
     return (
       <span>
         {intl.formatMessage(commonMessages.qualified)}
@@ -121,23 +126,6 @@ export const RecruitmentDate = ({
         {finalDecisionAt
           ? formatDate({
               date: parseDateTimeUtc(finalDecisionAt),
-              formatString: "PPP",
-              intl,
-            })
-          : nullMessage}
-      </span>
-    );
-  }
-
-  const isUnsuccessfulStatus = status === ApplicationStatus.UNSUCCESSFUL;
-  if (isUnsuccessfulStatus) {
-    return (
-      <span>
-        {intl.formatMessage(commonMessages.removed)}
-        {intl.formatMessage(commonMessages.dividingColon)}
-        {removedAt
-          ? formatDate({
-              date: parseDateTimeUtc(removedAt),
               formatString: "PPP",
               intl,
             })

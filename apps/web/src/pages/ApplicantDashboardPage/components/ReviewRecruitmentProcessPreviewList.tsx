@@ -19,7 +19,6 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     id
     finalDecisionAt
     suspendedAt
-    removedAt
     placedAt
     finalDecision {
       value
@@ -64,7 +63,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcesses.length ? (
         <PreviewList.Root>
           {recruitmentProcesses.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt, removedAt } = recruitmentProcess;
+            const { id, pool, finalDecisionAt } = recruitmentProcess;
 
             const status = getQualifiedRecruitmentStatusChip(
               recruitmentProcess.suspendedAt,
@@ -92,7 +91,6 @@ const ReviewRecruitmentProcessPreviewList = ({
                 children: (
                   <RecruitmentDate
                     finalDecisionAt={finalDecisionAt}
-                    removedAt={removedAt}
                     status={status.value}
                   />
                 ),
