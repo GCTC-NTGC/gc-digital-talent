@@ -26,18 +26,18 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property string $employment_category
- * @property string $ext_size_of_organization
- * @property string $ext_role_seniority
- * @property string $gov_employment_type
- * @property string $gov_position_type
- * @property string $gov_contractor_role_seniority
- * @property string $gov_contractor_type
- * @property string $caf_employment_type
- * @property string $caf_force
- * @property string $caf_rank
- * @property string $classification_id
- * @property string $department_id
- * @property string $contractor_firm_agency_name
+ * @property ?string $ext_size_of_organization
+ * @property ?string $ext_role_seniority
+ * @property ?string $gov_employment_type
+ * @property ?string $gov_position_type
+ * @property ?string $gov_contractor_role_seniority
+ * @property ?string $gov_contractor_type
+ * @property ?string $caf_employment_type
+ * @property ?string $caf_force
+ * @property ?string $caf_rank
+ * @property ?string $classification_id
+ * @property ?string $department_id
+ * @property ?string $contractor_firm_agency_name
  */
 class WorkExperience extends Experience
 {
