@@ -364,11 +364,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getClassification()
     {
+
         if (! $this->computed_classification) {
             return '';
         }
 
-        $classification = $this->currentClassification()->first();
+        $classification = $this->currentClassification;
 
         $leadingZero = $classification->level < 10 ? '0' : '';
 
@@ -1354,6 +1355,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         if (isset($snapshot['department'])) {
             $user->computed_department = $snapshot['department']['id'];
+        }
+
+        if (isset($snapshot['currentClassification'])) {
+            $user->computed_classification = $snapshot['currentClassification']['id'];
         }
 
         return $user;
