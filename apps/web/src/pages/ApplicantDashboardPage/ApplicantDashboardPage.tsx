@@ -98,22 +98,24 @@ export const DashboardPage = ({
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1)"
             >
               <ReviewApplicationPreviewList
                 applicationsQuery={unpackMaybes(currentUser?.poolCandidates)}
               />
-              <Separator />
+              {/* Temporary separator till https://github.com/GCTC-NTGC/gc-digital-talent/issues/10772 */}
+              <Separator data-h2-margin="base(0)" />
               <ReviewRecruitmentProcessPreviewList
                 recruitmentProcessesQuery={unpackMaybes(
                   currentUser?.poolCandidates,
                 )}
               />
+              {isVerifiedEmployee && currentUser?.employeeProfile ? (
+                <CareerDevelopmentTaskCard
+                  careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+                />
+              ) : null}
             </div>
-            {isVerifiedEmployee && currentUser?.employeeProfile ? (
-              <CareerDevelopmentTaskCard
-                careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
-              />
-            ) : null}
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
