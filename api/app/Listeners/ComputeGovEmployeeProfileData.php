@@ -60,7 +60,7 @@ class ComputeGovEmployeeProfileData
         $startDate = Carbon::parse($latest->start_date);
         $sameStartDate = $currentExperiences->where(function ($experience) use ($startDate) {
             // Is same month and year
-            return $startDate->isSameMonth($experience->start_date, true);
+            return $experience?->start_date && $startDate->isSameMonth($experience->start_date, true);
         });
 
         if ($sameStartDate->count()) {
