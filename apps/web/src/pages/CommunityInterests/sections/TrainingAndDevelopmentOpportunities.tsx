@@ -17,7 +17,7 @@ import { getClassificationName } from "~/utils/poolUtils";
 
 import { FormValues } from "../form";
 
-export const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
+const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   /* GraphQL */ `
     fragment TrainingAndDevelopmentOpportunitiesOptions_Fragment on Query {
       communities {

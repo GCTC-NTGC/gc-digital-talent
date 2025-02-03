@@ -15,7 +15,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "../form";
 
-export const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
+const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   fragment FindANewCommunityOptions_Fragment on Query {
     communities {
       id
