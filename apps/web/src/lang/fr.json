@@ -1039,10 +1039,6 @@
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
-  "3TEZds": {
-    "defaultMessage": "En indiquant que les possibilités de formation vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
-  },
   "3W/NbE": {
     "defaultMessage": "Sélectionné(e)",
     "description": "Message displayed when candidate has been screened in at a specific assessment step"
@@ -3295,10 +3291,6 @@
     "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
     "description": "Link text to more information about information technology work streams"
   },
-  "FbjKw/": {
-    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
-    "description": "Description of the 'find a new community' section"
-  },
   "Fe9Cje": {
     "defaultMessage": "IT-01 : Technicien(ne)",
     "description": "IT-01 classification label including titles"
@@ -3342,6 +3334,10 @@
   "FtxA9/": {
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
     "description": "Label for the roles select field on process team dialog"
+  },
+  "Fu9AVg": {
+    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
+    "description": "Description of the 'find a new community' section"
   },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
@@ -3574,6 +3570,10 @@
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
     "description": "Label for the expiry status field"
+  },
+  "HGbGb/": {
+    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations ou supprimer la collectivité de votre profil à tout moment.",
+    "description": "Description of the 'Review and submit' section"
   },
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
@@ -4234,6 +4234,10 @@
   "Kp3Bqu": {
     "defaultMessage": "Critères essentiels",
     "description": "Essential criteria heading"
+  },
+  "KpmfLa": {
+    "defaultMessage": "Veuillez sélectionner les volets de travail dans lesquels vous aimeriez travailler.",
+    "description": "Introduction for a work stream referral preferences input"
   },
   "KqAp09": {
     "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
@@ -7014,6 +7018,10 @@
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
   },
+  "aElqQN": {
+    "defaultMessage": "En indiquant que les possibilités d'emploi vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in work opportunities within this community' radio option"
+  },
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
@@ -8221,10 +8229,6 @@
   "gEnOmo": {
     "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
-  },
-  "gEtMPC": {
-    "defaultMessage": "Veuillez sélectionner les volets de travail dans lesquels vous aimeriez travailler.",
-    "description": "Introduction for a work stream referral preferences input"
   },
   "gGwbvj": {
     "defaultMessage": "Présélection des candidatures - {skillName}",
@@ -9542,10 +9546,6 @@
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
   },
-  "n3rJfA": {
-    "defaultMessage": "En indiquant que les possibilités d'emploi vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in work opportunities within this community' radio option"
-  },
   "n40Nry": {
     "defaultMessage": "En savoir plus sur les compétences",
     "description": "Link for the 'learn about skills' card"
@@ -9737,10 +9737,6 @@
   "o7OKLq": {
     "defaultMessage": "Anglais - À quoi s’attendre",
     "description": "Label for the English - What to expect textarea in the edit pool page."
-  },
-  "o9e3P/": {
-    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez librement mettre à jour ces informations ou supprimer entièrement la collectivité à tout moment.",
-    "description": "Description of the 'Review and submit' section"
   },
   "oC/GRF": {
     "defaultMessage": "Vous n'avez aucune expérience liée à cette compétence",
@@ -11125,6 +11121,10 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
+  },
+  "wdBpAX": {
+    "defaultMessage": "En indiquant que les possibilités de formation vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
