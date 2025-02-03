@@ -206,48 +206,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityAdmin->can('delete', $this->applicant));
     }
 
-    public function testCanUpdateManagerRole()
-    {
-        $managerRoleId = Role::where('name', 'manager')->sole()->id;
-
-        $policyArgsForAttach = [
-            User::class,
-            [
-                'id' => $this->otherApplicant->id,
-                'roleAssignmentsInput' => [
-                    'attach' => [
-                        ['roleId' => $managerRoleId],
-                    ],
-                ],
-            ],
-        ];
-        $policyArgsForDetach = [
-            User::class,
-            [
-                'id' => $this->otherApplicant->id,
-                'roleAssignmentsInput' => [
-                    'detach' => [
-                        ['roleId' => $managerRoleId],
-                    ],
-                ],
-            ],
-        ];
-
-        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
-        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
-        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
-
-        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForDetach));
-        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForAttach));
-        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
-    }
-
     /**
      * Only Platform Admins can always update Process Operator, Community Admin and Community Recruiter situational
      *

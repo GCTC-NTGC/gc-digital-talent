@@ -40,20 +40,6 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import("../pages/Home/ManagerHomePage/ManagerHomePage"),
                 },
-                {
-                  path: "dashboard",
-                  lazy: () =>
-                    import(
-                      "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
-                    ),
-                },
-                {
-                  path: "talent-requests",
-                  lazy: () =>
-                    import(
-                      "../pages/Manager/ManagerRequestHistoryPage/ManagerRequestHistoryPage"
-                    ),
-                },
               ],
             },
             {
