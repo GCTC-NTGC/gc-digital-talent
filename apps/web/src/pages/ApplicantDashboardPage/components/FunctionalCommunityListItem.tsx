@@ -79,7 +79,11 @@ const FunctionalCommunityListItem = ({
           intl.formatMessage(commonMessages.notAvailable)
         }
         metaData={metaDataProps}
-        action={<CommunityInterestDialog />}
+        action={
+          <CommunityInterestDialog
+            communityInterestQuery={functionalCommunityListItemFragment}
+          />
+        }
         headingAs={headingAs}
       >
         <span>
