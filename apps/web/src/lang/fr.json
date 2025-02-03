@@ -267,6 +267,10 @@
     "defaultMessage": "Retirer la compétence {name} de l’expérience",
     "description": "Aria-label for remove skill button from experience"
   },
+  "/Mp09M": {
+    "defaultMessage": "<hidden>Processes de recrutement pour</hidden> {poolName}",
+    "description": "Text before recruitment process pool name in recruitment process preview list."
+  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -3251,14 +3255,6 @@
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
   },
-  "FVc2AH": {
-    "defaultMessage": "Les demandes de talents complétées apparaîtront automatiquement dans cette section. À partir de là, vous pouvez consulter l'ensemble de l'historique de vos demandes, y compris les filtres, les compétences et les commentaires additionnels de chaque demande.",
-    "description": "description of the request history section on the manager request history page"
-  },
-  "FVEh7L": {
-    "defaultMessage": "Date limite",
-    "description": "Label for pool advertisement closing date"
-  },
   "FXpcgW": {
     "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
     "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
@@ -5806,6 +5802,10 @@
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
+  },
+  "TlkHUa": {
+    "defaultMessage": "<hidden>Candidature pour</hidden> {poolName}",
+    "description": "Text before application pool name in application preview list."
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -10286,10 +10286,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sTRNr7": {
-    "defaultMessage": "Application à",
-    "description": "Text before application pool name in application preview list."
-  },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
     "description": "French Positions message"
@@ -10949,10 +10945,6 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
-  },
-  "wbbLKt": {
-    "defaultMessage": "processus de recrutement",
-    "description": "Text before recruitment process pool name in recruitment process preview list."
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",

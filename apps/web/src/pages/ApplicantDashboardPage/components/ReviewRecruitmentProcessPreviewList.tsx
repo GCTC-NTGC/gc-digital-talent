@@ -101,21 +101,20 @@ const ReviewRecruitmentProcessPreviewList = ({
               <PreviewList.Item
                 key={id}
                 title={
-                  pool.name?.localized ? (
-                    <>
-                      <span>{pool.name.localized}</span>{" "}
-                      <span data-h2-visually-hidden="base(invisible)">
-                        {intl.formatMessage({
-                          defaultMessage: "recruitment process",
-                          id: "wbbLKt",
+                  pool.name?.localized
+                    ? intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "{poolName} <hidden>recruitment process</hidden>",
+                          id: "/Mp09M",
                           description:
                             "Text before recruitment process pool name in recruitment process preview list.",
-                        })}
-                      </span>
-                    </>
-                  ) : (
-                    intl.formatMessage(commonMessages.notFound)
-                  )
+                        },
+                        {
+                          poolName: pool.name.localized,
+                        },
+                      )
+                    : intl.formatMessage(commonMessages.notFound)
                 }
                 metaData={applicationMetadata}
                 action={
