@@ -19,7 +19,6 @@ export default {
       "/en/admin/settings/skill-families",
     ],
     COMMUNITY_ADMIN: [
-      "/en/admin",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
@@ -27,7 +26,6 @@ export default {
       "/en/admin/settings/skill-families",
     ],
     COMMUNITY_RECRUITER: [
-      "/en/admin",
       "/en/admin/settings/announcements",
       "/en/admin/settings/classifications",
       "/en/admin/settings/departments",
@@ -64,7 +62,6 @@ export default {
     ],
     PROCESS_OPERATOR: [
       "/en/community",
-      "/en/admin/users",
       "/en/admin/pools",
       "/en/admin/pool-candidates",
     ],

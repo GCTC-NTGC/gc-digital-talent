@@ -5,7 +5,7 @@ import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
@@ -16,6 +16,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import {
   actionCell,
@@ -47,7 +48,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const canAddRemoveRoles = hasRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    permissionConstants.manageProcessAccess,
     roleAssignments,
   );
 
@@ -180,16 +181,7 @@ const ManageAccessPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <ManageAccessPoolPage />
   </RequireAuth>
 );

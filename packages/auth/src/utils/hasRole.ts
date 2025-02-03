@@ -1,28 +1,40 @@
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
-
+import { AuthorizationRoleAssignment } from "../components/AuthorizationProvider";
 import { RoleName } from "../const";
 
+/**
+ * Check to see if user contains one or more roles, can account for team and individual role types
+ *
+ * @param roles                   Roles to check for
+ * @param userRoleAssignments     Users current role assignments
+ * @param teamIdForRoleAssignment             Team ID
+ * @returns boolean
+ */
 const hasRole = (
-  checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  roles: RoleName[] | null,
+  userRoleAssignments: AuthorizationRoleAssignment[],
+  teamIdForRoleAssignment?: string,
 ): boolean => {
-  if (Array.isArray(checkRole)) {
-    const userRolesName = userRoles
-      ?.filter(notEmpty)
-      .map((roleAssign) => roleAssign.role?.name);
-
-    if (userRolesName) {
-      return !!userRolesName
-        .filter(notEmpty)
-        .some((roleName) => checkRole.includes(roleName as RoleName));
+  if (!roles || roles.length === 0) {
+    return true;
+  }
+  return userRoleAssignments?.some((roleAssignment) => {
+    if (!roleAssignment?.role?.name) {
+      return false;
+    }
+    const includes = roles.includes(roleAssignment?.role?.name as RoleName);
+    if (teamIdForRoleAssignment && roleAssignment.role?.isTeamBased) {
+      return (
+        includes &&
+        teamIdForRoleAssignment === roleAssignment.team?.teamIdForRoleAssignment
+      );
+    } else if (
+      roleAssignment.role?.isTeamBased === false ||
+      !teamIdForRoleAssignment
+    ) {
+      return includes;
     }
     return false;
-  }
-
-  return !!userRoles
-    ?.filter(notEmpty)
-    .some((roleAssignment) => roleAssignment.role?.name === checkRole);
+  });
 };
 
 export default hasRole;

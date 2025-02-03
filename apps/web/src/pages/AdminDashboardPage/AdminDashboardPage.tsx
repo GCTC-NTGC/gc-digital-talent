@@ -14,19 +14,8 @@ import {
   Link,
   Pending,
 } from "@gc-digital-talent/ui";
-import {
-  useAuthorization,
-  hasRole,
-  ROLE_NAME,
-  RoleName,
-} from "@gc-digital-talent/auth";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { useAuthorization, hasRole, RoleName } from "@gc-digital-talent/auth";
+import { Role, User, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
@@ -57,17 +46,6 @@ interface RoleChipsProps {
   roles: Role[];
   intl: IntlShape;
 }
-
-// short-circuit hasRole if no roles were required so an empty array
-const hasRolesHandleNoRolesRequired = (
-  checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
-): boolean => {
-  if (Array.isArray(checkRole) && checkRole.length === 0) {
-    return true;
-  }
-  return hasRole(checkRole, userRoles);
-};
 
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   const uniqueRoles = uniqBy(roles, "name");
@@ -116,7 +94,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     (a, b) => {
@@ -140,7 +118,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
     const aName = a.label;
@@ -153,32 +131,32 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(pageTitles.announcements),
       href: adminRoutes.announcements(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.classifications),
       href: adminRoutes.classificationTable(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.departments),
       href: adminRoutes.departmentTable(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(navigationMessages.skills),
       href: adminRoutes.skillTable(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(adminMessages.skillFamilies),
       href: adminRoutes.skillFamilyTable(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(pageTitles.trainingOpportunities),
       href: adminRoutes.trainingOpportunitiesIndex(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
     {
       label: intl.formatMessage(navigationMessages.users),
@@ -188,20 +166,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(pageTitles.communities),
       href: adminRoutes.communityTable(),
-      roles: [
-        ROLE_NAME.CommunityAdmin,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.PlatformAdmin,
-      ],
+      roles: permissionConstants.viewCommunities,
     },
     {
       label: intl.formatMessage(pageTitles.workStreams),
       href: adminRoutes.workStreamTable(),
-      roles: [ROLE_NAME.PlatformAdmin],
+      roles: permissionConstants.managePlatformData,
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    (item) => hasRole(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     (a, b) => {
@@ -374,7 +348,7 @@ export const AdminDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants.viewAdminDashboard}>
     <AdminDashboardPageApi />
   </RequireAuth>
 );

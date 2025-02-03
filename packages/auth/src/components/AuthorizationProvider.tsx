@@ -2,8 +2,11 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  graphql,
+  AuthorizationQueryQuery as AuthorizationQueryType,
+} from "@gc-digital-talent/graphql";
 
 import AuthorizationContainer from "./AuthorizationContainer";
 
@@ -26,11 +29,18 @@ const authorizationQuery = graphql(/** GraphQL */ `
         team {
           id
           name
+          teamIdForRoleAssignment
         }
       }
     }
   }
 `);
+
+export type AuthorizationRoleAssignment = NonNullable<
+  NonNullable<
+    NonNullable<AuthorizationQueryType["myAuth"]>["roleAssignments"]
+  >[number]
+>;
 
 interface AuthorizationProviderProps {
   children?: ReactNode;
@@ -42,9 +52,12 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   });
   const isLoaded = !fetching && !stale;
 
+  const roleAssignmentsFiltered: AuthorizationRoleAssignment[] =
+    data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
+
   return (
     <AuthorizationContainer
-      roleAssignments={unpackMaybes(data?.myAuth?.roleAssignments)}
+      roleAssignments={roleAssignmentsFiltered}
       userAuthInfo={data?.myAuth}
       isLoaded={isLoaded}
     >
