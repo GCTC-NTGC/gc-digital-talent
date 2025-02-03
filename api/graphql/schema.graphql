@@ -155,6 +155,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
+  user: User! @belongsTo @canRoot(ability: "viewUser")
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")

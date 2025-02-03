@@ -640,6 +640,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community!
+  user: User!
   workStreams: [WorkStream!]
   jobInterest: Boolean
   trainingInterest: Boolean

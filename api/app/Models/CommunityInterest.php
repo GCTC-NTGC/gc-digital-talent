@@ -12,12 +12,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class CommunityInterest
  *
  * @property string $id
+ * @property string $user_id
+ * @property string $community_id
+ * @property bool $job_interest
+ * @property bool $training_interest
+ * @property string $additional_information
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class CommunityInterest extends Model
 {
     use HasFactory;
 
     protected $keyType = 'string';
+
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
