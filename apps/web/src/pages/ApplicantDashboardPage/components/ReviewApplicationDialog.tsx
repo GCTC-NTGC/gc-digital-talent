@@ -172,14 +172,13 @@ const ReviewApplicationDialog = ({
   );
 
   const isDraftStatus = status.value === applicationStatus.DRAFT;
-  const isExpiredStatus = status.value === applicationStatus.EXPIRED;
-  const isSuccessfulStatus = status.value === applicationStatus.SUCCESSFUL;
 
   const lessThanThreeDaysTillClosingDate = pool?.closingDate
     ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3
     : null;
   const showDeadlineToApply =
-    (isDraftStatus && lessThanThreeDaysTillClosingDate) || isExpiredStatus;
+    (isDraftStatus && lessThanThreeDaysTillClosingDate) ||
+    status.value === applicationStatus.EXPIRED;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -387,24 +386,21 @@ const ReviewApplicationDialog = ({
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
+            <Separator
+              decorative
+              data-h2-grid-column="p-tablet(span 2)"
+              data-h2-margin="base(0)"
+            />
+            <p data-h2-grid-column="p-tablet(span 2)">
+              {intl.formatMessage({
+                defaultMessage: `You can find the recruitment process for which you’ve been qualified for in the "Recruitment process" tool on your dashboard.`,
+                id: "1bTFdX",
+                description:
+                  "Message informing applicant of the connected recruitment process in the preview list below",
+              })}
+            </p>
           </div>
           <Dialog.Footer data-h2-gap="base(0 x1)">
-            {isSuccessfulStatus && (
-              <Button
-                mode="solid"
-                color="secondary"
-                onClick={() => {
-                  setIsOpen(false);
-                  focusOnRecruitment.current = true;
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "View recruitment process",
-                  id: "CMD0wo",
-                  description: "Label for view recruitment process link",
-                })}
-              </Button>
-            )}
             <Link
               href={paths.application(application.id)}
               mode="solid"

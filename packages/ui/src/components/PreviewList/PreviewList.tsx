@@ -76,7 +76,7 @@ const Link = ({ href, label, icon }: LinkProps) => (
 );
 
 interface ItemProps {
-  title: string;
+  title: React.ReactNode;
   metaData: MetaDataProps[];
   headingAs?: HeadingLevel;
   children?: ReactNode;

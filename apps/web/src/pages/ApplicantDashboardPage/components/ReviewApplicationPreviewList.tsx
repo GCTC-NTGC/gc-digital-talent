@@ -122,8 +122,21 @@ const ReviewApplicationPreviewList = ({
               <PreviewList.Item
                 key={id}
                 title={
-                  pool.name?.localized ??
-                  intl.formatMessage(commonMessages.notFound)
+                  pool.name?.localized ? (
+                    <>
+                      <span data-h2-visually-hidden="base(invisible)">
+                        {intl.formatMessage({
+                          defaultMessage: "Application to",
+                          id: "sTRNr7",
+                          description:
+                            "Text before application pool name in application preview list.",
+                        })}
+                      </span>{" "}
+                      <span>{pool.name.localized}</span>
+                    </>
+                  ) : (
+                    intl.formatMessage(commonMessages.notFound)
+                  )
                 }
                 metaData={applicationMetadata}
                 action={
