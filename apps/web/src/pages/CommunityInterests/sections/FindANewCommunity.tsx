@@ -107,8 +107,8 @@ const FindANewCommunity = ({
         <span>
           {intl.formatMessage({
             defaultMessage:
-              "To get started, browse through the list of communities that partner with GC Digital Talent. If you can’t find a community that matches what you’re searching for, feel free to check back later as we add more communities to the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
-            id: "FbjKw/",
+              "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
+            id: "Fu9AVg",
             description: "Description of the 'find a new community' section",
           })}
         </span>
