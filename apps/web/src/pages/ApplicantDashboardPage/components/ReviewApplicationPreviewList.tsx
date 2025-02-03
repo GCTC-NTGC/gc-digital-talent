@@ -126,8 +126,8 @@ const ReviewApplicationPreviewList = ({
                     ? intl.formatMessage(
                         {
                           defaultMessage:
-                            "<hidden>Application for</hidden> {poolName}",
-                          id: "TlkHUa",
+                            "<hidden>Application for </hidden>{poolName}",
+                          id: "LC1Rsg",
                           description:
                             "Text before application pool name in application preview list.",
                         },

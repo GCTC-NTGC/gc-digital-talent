@@ -267,10 +267,6 @@
     "defaultMessage": "Retirer la compétence {name} de l’expérience",
     "description": "Aria-label for remove skill button from experience"
   },
-  "/Mp09M": {
-    "defaultMessage": "<hidden>Processes de recrutement pour</hidden> {poolName}",
-    "description": "Text before recruitment process pool name in recruitment process preview list."
-  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -4263,6 +4259,10 @@
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
+  "LC1Rsg": {
+    "defaultMessage": "<hidden>Candidature pour </hidden>{poolName}",
+    "description": "Text before application pool name in application preview list."
+  },
   "LCVNJq": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
     "description": "Message displayed when a user successfully updates their diversity, equity, and inclusion information."
@@ -5802,10 +5802,6 @@
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
-  },
-  "TlkHUa": {
-    "defaultMessage": "<hidden>Candidature pour</hidden> {poolName}",
-    "description": "Text before application pool name in application preview list."
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -10969,6 +10965,10 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
+  },
+  "wrg4fw": {
+    "defaultMessage": "<hidden>Processes de recrutement pour </hidden>{poolName}",
+    "description": "Text before recruitment process pool name in recruitment process preview list."
   },
   "wrqRvV": {
     "defaultMessage": "N’a pas réussi au cours de l'évaluation",

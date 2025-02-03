@@ -105,8 +105,8 @@ const ReviewRecruitmentProcessPreviewList = ({
                     ? intl.formatMessage(
                         {
                           defaultMessage:
-                            "{poolName} <hidden>recruitment process</hidden>",
-                          id: "/Mp09M",
+                            "{poolName}<hidden> recruitment process</hidden>",
+                          id: "wrg4fw",
                           description:
                             "Text before recruitment process pool name in recruitment process preview list.",
                         },
