@@ -71,6 +71,7 @@ class CommunityInterest extends Model
     }
 
     // scope the query to CommunityInterests the current user can view
+    // belongs to your community and one or more of jobInterest or trainingInterest is TRUE
     public function scopeAuthorizedToView(Builder $query)
     {
         /** @var \App\Models\User | null */
@@ -85,6 +86,13 @@ class CommunityInterest extends Model
                     ->toArray();
 
                 return $query->whereIn('community_id', $communityIds);
+            });
+
+            $query->where(function (Builder $query) {
+                $query->orWhere('job_interest', true);
+                $query->orWhere('training_interest', true);
+
+                return $query;
             });
 
             return $query;
