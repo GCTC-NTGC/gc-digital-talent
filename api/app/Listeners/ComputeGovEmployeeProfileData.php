@@ -71,8 +71,8 @@ class ComputeGovEmployeeProfileData
             $priortySortedExperiences = $sameStartDate
                 ->sortBy('created_at')
                 ->sortBy([
-                    fn (WorkExperience $a, WorkExperience $b) => array_search($a?->gov_position_type, $this->positionTypeOrder) <=> array_search($b?->gov_position_type, $this->positionTypeOrder),
-                    fn (WorkExperience $a, WorkExperience $b) => array_search($a?->gov_employment_type, $this->employmentTypeOrder) <=> array_search($b?->gov_employment_type, $this->employmentTypeOrder),
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_position_type, $this->positionTypeOrder) <=> array_search($b->gov_position_type, $this->positionTypeOrder),
+                    fn (WorkExperience $a, WorkExperience $b) => array_search($a->gov_employment_type, $this->employmentTypeOrder) <=> array_search($b->gov_employment_type, $this->employmentTypeOrder),
                 ]);
 
             $latest = $priortySortedExperiences->first();
