@@ -205,7 +205,7 @@ const FindANewCommunity = ({
                   }),
                   contentBelow: intl.formatMessage({
                     defaultMessage:
-                      "By indicating you’re interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
+                      "By indicating that you're interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
                     id: "3TEZds",
                     description:
                       "Context for the 'I'm interested in training opportunities within this community' radio option",
