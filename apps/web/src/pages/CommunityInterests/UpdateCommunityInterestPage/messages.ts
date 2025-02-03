@@ -2,8 +2,8 @@ import { defineMessages } from "react-intl";
 
 export const messages = defineMessages({
   longPageTitle: {
-    defaultMessage: "Edit your participation in the {communityName} community",
-    id: "dsNGuc",
+    defaultMessage: "Edit your interest in the {communityName}",
+    id: "BtRBiU",
     description: "Long title for the edit community interest page",
   },
   shortPageTitle: {

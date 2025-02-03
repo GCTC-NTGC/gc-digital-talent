@@ -2563,6 +2563,10 @@
     "defaultMessage": "Mise à jour des réponses aux questions réussie!",
     "description": "Message displayed to users when saving question responses is successful."
   },
+  "BtRBiU": {
+    "defaultMessage": "Modifiez votre intérêt pour la {communityName}",
+    "description": "Long title for the edit community interest page"
+  },
   "BurFgV": {
     "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve technical skills page"
@@ -7653,10 +7657,6 @@
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
-  },
-  "dsNGuc": {
-    "defaultMessage": "Modifiez votre intérêt pour la {community name}",
-    "description": "Long title for the edit community interest page"
   },
   "dssZUt": {
     "defaultMessage": "Nom de famille",
