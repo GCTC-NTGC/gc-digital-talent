@@ -683,6 +683,10 @@
     "defaultMessage": "{role} à {group}",
     "description": "Role with group"
   },
+  "1bTFdX": {
+    "defaultMessage": "Vous pouvez trouver le processus de recrutement pour lequel vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
+    "description": "Message informing applicant of the connected recruitment process in the preview list below"
+  },
   "1bWLa3": {
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
     "description": "Heading for a users skills they would like to improve"
@@ -2647,10 +2651,6 @@
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
     "description": "Definition for 'remote positions'"
   },
-  "CMD0wo": {
-    "defaultMessage": "Voir le processus de recrutement",
-    "description": "Label for view recruitment process link"
-  },
   "CMtxbk": {
     "defaultMessage": "Niveau de communication orale",
     "description": "Label displayed on the language information form oral communication field."
@@ -4454,6 +4454,10 @@
   "ME4sNt": {
     "defaultMessage": "Sauvegarder « À propos de nous »",
     "description": "Text on a button to save the pool about us"
+  },
+  "MGYlS0": {
+    "defaultMessage": "Les processus de recrutement apparaîtront automatiquement dans cette section si votre candidature est retenue.",
+    "description": "Body for notice when there are no Recruitment processes"
   },
   "MHZ1CD": {
     "defaultMessage": "Titre (Anglais)",
@@ -6565,6 +6569,10 @@
   "Y7Qop6": {
     "defaultMessage": "Niveau",
     "description": "Label displayed on Work Experience form for classification level input"
+  },
+  "Y93ht7": {
+    "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
+    "description": "Title for notice when there are no applications"
   },
   "YA/7nb": {
     "defaultMessage": "Erreur : groupe de classification introuvable.",
@@ -10330,6 +10338,10 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
+  "sTRNr7": {
+    "defaultMessage": "Application à",
+    "description": "Text before application pool name in application preview list."
+  },
   "sWBbdX": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
     "description": "French Positions message"
@@ -10405,10 +10417,6 @@
   "ssSdOn": {
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
     "description": "Message for a candidates veteran status claim"
-  },
-  "swESO/": {
-    "defaultMessage": "À distance, hybride ou sur site",
-    "description": "Location requirement when a pool advertisement is remote"
   },
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
@@ -10794,6 +10802,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "vVAqzB": {
+    "defaultMessage": "Vous n'avez aucun processus de recrutement actif pour I'instant.",
+    "description": "Title for notice when there are no recruitment processes"
+  },
   "vW/JGo": {
     "defaultMessage": "Cette page offre un aperçu complet de l’historique de vos notifications. À partir de cette page, vous pouvez consulter, épingler et supprimer des notifications de votre compte. Si vous souhaitez gérer les notifications que vous recevez et leur format, vous pouvez le faire à partir de la page des paramètres de votre compte.",
     "description": "Description of the list of a users notifications"
@@ -10977,6 +10989,10 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
+  },
+  "wbbLKt": {
+    "defaultMessage": "processus de recrutement",
+    "description": "Text before recruitment process pool name in recruitment process preview list."
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
