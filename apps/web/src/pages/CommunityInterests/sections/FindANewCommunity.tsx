@@ -58,7 +58,6 @@ const FindANewCommunity = ({
 
   const { watch } = useFormContext<FormValues>();
   const [selectedCommunityId] = watch(["communityId"]);
-  const allForm = watch();
 
   const communityOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(optionsData.communities).map((community) => ({
