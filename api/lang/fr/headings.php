@@ -33,7 +33,7 @@ return [
     'government_employee' => 'Employé du gouvernement',
     'department' => 'Ministère',
     'employee_type' => 'Type d\'emploi',
-    'current_classification' => 'Classification actuelle',
+    'classification' => 'Classification actuelle',
     'priority_entitlement' => 'Droit de priorité',
     'priority_number' => 'Numéro de priorité',
     'work_location' => 'Lieu de travail',

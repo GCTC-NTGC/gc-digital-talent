@@ -364,6 +364,11 @@ const commonMessages = defineMessages({
     id: "DUjO/t",
     description: "Title for remote, hybrid or on-site",
   },
+  careerPlanning: {
+    defaultMessage: "Career planning",
+    id: "zN7MBv",
+    description: "Title for a users career plan",
+  },
 });
 
 export default commonMessages;

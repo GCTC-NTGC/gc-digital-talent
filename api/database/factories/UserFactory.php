@@ -9,6 +9,7 @@ use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\Mentorship;
@@ -105,10 +106,10 @@ class UserFactory extends Factory
             'verbal_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'is_gov_employee' => $isGovEmployee,
+            'computed_is_gov_employee' => $isGovEmployee,
             'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
-            'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
-            'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
+            'computed_department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
+            'computed_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
@@ -131,7 +132,7 @@ class UserFactory extends Factory
                 array_column(PositionDuration::cases(), 'name')
                 : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
+            'computed_gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
             'armed_forces_status' => $this->faker->boolean() ?
                 ArmedForcesStatus::NON_CAF->name
@@ -189,11 +190,13 @@ class UserFactory extends Factory
         return $this->state(function () use ($isGovEmployee, $isVerified) {
             if (! $isGovEmployee) {
                 return [
-                    'is_gov_employee' => false,
                     'work_email' => null,
-                    'current_classification' => null,
-                    'gov_employee_type' => null,
-                    'department' => null,
+                    'computed_is_gov_employee' => false,
+                    'computed_classification' => null,
+                    'computed_gov_employee_type' => null,
+                    'computed_gov_position_type' => null,
+                    'computed_gov_end_date' => null,
+                    'computed_department' => null,
 
                 ];
             }
@@ -201,13 +204,14 @@ class UserFactory extends Factory
             $randomDepartment = Department::inRandomOrder()->first();
 
             return [
-                'is_gov_employee' => true,
                 'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
                 'work_email_verified_at' => $isVerified ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
-                'current_classification' => $randomClassification ? $randomClassification->id : null,
-                'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
-                'department' => $randomDepartment ? $randomDepartment->id : null,
-
+                'computed_is_gov_employee' => true,
+                'computed_classification' => $randomClassification ? $randomClassification->id : null,
+                'computed_department' => $randomDepartment ? $randomDepartment->id : null,
+                'computed_gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
+                'computed_gov_position_type' => $this->faker->randomElement(GovPositionType::cases())->name,
+                'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
             ];
         })->afterCreating(function (User $user) use ($isGovEmployee) {
             if (! $isGovEmployee) {
@@ -382,18 +386,6 @@ class UserFactory extends Factory
                 $community = Community::find($communityId);
                 $community->addCommunityAdmins($user->id);
             }
-        });
-    }
-
-    /**
-     * Attach the manager role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asManager()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('manager');
         });
     }
 

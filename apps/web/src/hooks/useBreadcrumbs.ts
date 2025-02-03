@@ -27,9 +27,6 @@ const useBreadcrumbs = ({ crumbs }: useBreadcrumbsProps) => {
     case "applicant":
       homePath = paths.home();
       break;
-    case "manager":
-      homePath = paths.manager();
-      break;
     case "community":
       homePath = paths.communityDashboard();
       break;

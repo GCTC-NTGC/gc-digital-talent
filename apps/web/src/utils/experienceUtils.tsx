@@ -348,7 +348,11 @@ export const formValuesToSubmitData = (
     cafRank,
   } = data;
 
-  const newEndDate = !currentRole && endDate ? endDate : null;
+  // for government employee experiences only, expected end date is present in end date field
+  // SUBSTANTIVE the exception, accessible solely through INDETERMINATE
+  const allowExpectedEndDate =
+    employmentCategory === EmploymentCategory.GovernmentOfCanada &&
+    govPositionType !== GovPositionType.Substantive;
 
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
@@ -363,7 +367,7 @@ export const formValuesToSubmitData = (
       organization,
       project,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     education: {
       type: educationType,
@@ -372,20 +376,21 @@ export const formValuesToSubmitData = (
       institution,
       thesisTitle,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     personal: {
       title: experienceTitle,
       description: experienceDescription,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     work: {
       role,
       organization,
       division: team,
       startDate,
-      endDate: newEndDate,
+      endDate:
+        allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
