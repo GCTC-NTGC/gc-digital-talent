@@ -8,6 +8,7 @@ import { IntlShape, defineMessages } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
+import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -690,5 +691,25 @@ export const getSalaryRange = (
     classification.minSalary,
     classification.maxSalary,
     locale,
+  );
+};
+
+/**
+ * Determines if the application is expired, or within 3 days of the pool closing when the application is a draft.
+ * @param closingDate
+ * @param status
+ * @returns
+ */
+export const deadlineToApply = (
+  closingDate: Pool["closingDate"],
+  status: StatusChipWithDescription["value"],
+): boolean => {
+  const lessThanThreeDaysTillClosingDate = closingDate
+    ? differenceInDays(parseDateTimeUtc(closingDate), Date.now()) < 3
+    : null;
+
+  return (
+    (status === applicationStatus.DRAFT && lessThanThreeDaysTillClosingDate) ||
+    status === applicationStatus.EXPIRED
   );
 };

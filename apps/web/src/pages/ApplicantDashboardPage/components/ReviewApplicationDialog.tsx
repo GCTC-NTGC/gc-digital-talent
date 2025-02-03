@@ -26,6 +26,7 @@ import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
 import {
   applicationStatus,
+  deadlineToApply,
   getApplicationStatusChip,
   getSalaryRange,
 } from "~/utils/poolCandidate";
@@ -171,15 +172,6 @@ const ReviewApplicationDialog = ({
     intl,
   );
 
-  const isDraftStatus = status.value === applicationStatus.DRAFT;
-
-  const lessThanThreeDaysTillClosingDate = pool?.closingDate
-    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3
-    : null;
-  const showDeadlineToApply =
-    (isDraftStatus && lessThanThreeDaysTillClosingDate) ||
-    status.value === applicationStatus.EXPIRED;
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
@@ -264,39 +256,36 @@ const ReviewApplicationDialog = ({
             >
               {pool.department?.name?.localized}
             </FieldDisplay>
-            <FieldDisplay
-              label={
-                isDraftStatus
-                  ? intl.formatMessage(commonMessages.deadlineToApply)
-                  : intl.formatMessage(commonMessages.received)
-              }
-              data-h2-grid-column="p-tablet(span 2)"
-              hasError={showDeadlineToApply}
-            >
-              {isDraftStatus ? (
-                <>
-                  {pool?.closingDate
-                    ? formatDate({
-                        date: parseDateTimeUtc(pool?.closingDate),
-                        formatString: "PPP",
-                        intl,
-                        timeZone: "Canada/Pacific",
-                      })
-                    : nullMessage}
-                </>
-              ) : (
-                <>
-                  {application.submittedAt
-                    ? formatDate({
-                        date: parseDateTimeUtc(application.submittedAt),
-                        formatString: "PPP",
-                        intl,
-                      })
-                    : nullMessage}
-                </>
-              )}
-            </FieldDisplay>
-
+            {status.value === applicationStatus.DRAFT ||
+            status.value === applicationStatus.EXPIRED ? (
+              <FieldDisplay
+                label={intl.formatMessage(commonMessages.deadlineToApply)}
+                data-h2-grid-column="p-tablet(span 2)"
+                hasError={deadlineToApply(pool.closingDate, status.value)}
+              >
+                {pool?.closingDate
+                  ? formatDate({
+                      date: parseDateTimeUtc(pool?.closingDate),
+                      formatString: "PPP",
+                      intl,
+                      timeZone: "Canada/Pacific",
+                    })
+                  : nullMessage}
+              </FieldDisplay>
+            ) : (
+              <FieldDisplay
+                label={intl.formatMessage(commonMessages.received)}
+                data-h2-grid-column="p-tablet(span 2)"
+              >
+                {application.submittedAt
+                  ? formatDate({
+                      date: parseDateTimeUtc(application.submittedAt),
+                      formatString: "PPP",
+                      intl,
+                    })
+                  : nullMessage}
+              </FieldDisplay>
+            )}
             <Separator
               decorative
               data-h2-grid-column="p-tablet(span 2)"
@@ -406,7 +395,7 @@ const ReviewApplicationDialog = ({
               mode="solid"
               color="secondary"
             >
-              {isDraftStatus
+              {status.value === applicationStatus.DRAFT
                 ? intl.formatMessage({
                     defaultMessage: "Continue application",
                     id: "1sppLE",

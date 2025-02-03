@@ -5,6 +5,7 @@ import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import {
   applicationStatus,
+  deadlineToApply,
   qualifiedRecruitmentStatus,
   StatusChipWithDescription,
 } from "~/utils/poolCandidate";
@@ -33,8 +34,14 @@ export const ApplicationDate = ({
     status === applicationStatus.DRAFT ||
     status === applicationStatus.EXPIRED
   ) {
+    const deadlineToApplyStyles = deadlineToApply(closingDate, status)
+      ? {
+          "data-h2-color": "base(error.darker) base:dark(error.lightest)",
+        }
+      : {};
+
     return (
-      <span>
+      <span {...deadlineToApplyStyles}>
         {intl.formatMessage({
           defaultMessage: "Deadline",
           id: "nIAA4Q",
