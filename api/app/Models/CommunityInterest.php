@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CommunityInterest
@@ -48,5 +50,47 @@ class CommunityInterest extends Model
     public function interestInDevelopmentPrograms(): HasMany
     {
         return $this->hasMany(DevelopmentProgramInterest::class);
+    }
+
+    /**
+     * Scopes/filters
+     */
+
+    // scope to search records by name of attached user
+    public static function scopeUserName(Builder $query, ?string $name): Builder
+    {
+        if (empty($name)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($query) use ($name) {
+            User::scopeName($query, $name);
+        });
+
+        return $query;
+    }
+
+    // scope the query to CommunityInterests the current user can view
+    public function scopeAuthorizedToView(Builder $query)
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-team-communityInterest')) {
+
+            $query->where(function (Builder $query) use ($user) {
+                $communityIds = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->pluck('teamable_id')
+                    ->toArray();
+
+                return $query->whereIn('community_id', $communityIds);
+            });
+
+            return $query;
+        }
+
+        // fallback
+        return $query->where('id', null);
     }
 }

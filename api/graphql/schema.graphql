@@ -1048,6 +1048,10 @@ input ClaimVerificationSort {
   useBookmark: Boolean
 }
 
+input CommunityInterestFilterInput {
+  userName: String @scope
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -1214,6 +1218,12 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [CommunityInterest]!
+    @guard
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
 }
 
 input ClassificationBelongsTo {
