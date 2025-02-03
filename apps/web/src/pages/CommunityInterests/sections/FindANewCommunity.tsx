@@ -237,7 +237,7 @@ const FindANewCommunity = ({
                 <span>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please select any of the work streams described below that you would consider working within.",
+                      "Please select any of the work streams listed that you would consider working within.",
                     id: "gEtMPC",
                     description:
                       "Introduction for a work stream referral preferences input",
