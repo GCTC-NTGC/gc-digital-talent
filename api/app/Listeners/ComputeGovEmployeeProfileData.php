@@ -81,22 +81,12 @@ class ComputeGovEmployeeProfileData
         }
 
         Log::info([
-            'latest' => $this->logTransform($latest),
-            'priority' => $priortySortedExperiences->map(fn ($exp) => $this->logTransform($exp)),
-            'current' => $currentExperiences->map(fn ($exp) => $this->logTransform($exp)),
+            'computed_is_gov_employee' => true,
+            'computed_gov_employment_type' => $latest?->gov_employment_type,
+            'computed_classification' => $latest?->classification_id,
+            'computed_department' => $latest?->department_id,
+            'computed_gov_position_type' => $latest?->gov_position_type,
+            'computed_gov_end_date' => $latest?->end_date,
         ]);
-    }
-
-    private function logTransform(WorkExperience $exp)
-    {
-        return [
-            'title' => $exp->getTitle(),
-            'start_date' => $exp->start_date?->toDateString(),
-            'end_date' => $exp?->end_date ? $exp->end_date->toDateString() : 'null',
-            'type' => $exp->gov_employment_type,
-            'position' => $exp->gov_position_type,
-            'category' => $exp->employment_category,
-            'created_at' => $exp->created_at?->toDateString(),
-        ];
     }
 }
