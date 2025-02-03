@@ -223,6 +223,16 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
         defaultValue: undefined,
       });
     }
+
+    // govPositionType field only applies to INDETERMINATE
+    if (
+      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
+    ) {
+      resetField("govPositionType", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 
   return (

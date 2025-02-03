@@ -37,7 +37,6 @@ import {
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
-  SCREENED_OUT_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -70,10 +69,6 @@ export const isNotPlacedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
 
-export const isScreenedOutStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? SCREENED_OUT_STATUSES.includes(status) : false);
-
 export const isInactiveStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
@@ -103,7 +98,7 @@ export const isExpired = (
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
 };
 
-export const isDisqualifiedFinalDecision = (
+const isDisqualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status
@@ -113,7 +108,7 @@ export const isDisqualifiedFinalDecision = (
     : false;
 };
 
-export const isQualifiedFinalDecision = (
+const isQualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status

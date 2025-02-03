@@ -249,3 +249,44 @@ AsyncDefaultValue.args = {
 AsyncDefaultValue.parameters = {
   chromatic: { delay: 1500 },
 };
+
+const FieldArrayTemplate: StoryFn = () => {
+  const formValues = {
+    dates: [
+      {
+        legend: "Date 1",
+        value: "2025-01-01",
+      },
+      {
+        legend: "Date 2",
+        value: "2026-02-02",
+      },
+    ],
+  };
+
+  return (
+    <Form
+      options={{
+        mode: "onSubmit",
+        defaultValues: formValues,
+      }}
+      onSubmit={(data) => action("Submit Form")(data)}
+    >
+      {formValues.dates.map((val, i) => (
+        <div key={val.legend}>
+          <DateInput
+            id={`dateInput-${i}`}
+            name={`dates.${i}.value`}
+            legend={val.legend}
+          />
+        </div>
+      ))}
+
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
+    </Form>
+  );
+};
+
+export const InAFieldArray = FieldArrayTemplate.bind({});
