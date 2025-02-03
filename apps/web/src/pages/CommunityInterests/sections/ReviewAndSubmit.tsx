@@ -58,8 +58,8 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
         <span>
           {intl.formatMessage({
             defaultMessage:
-              "Please review the information you’ve provided. Once a community is added to your profile, you can freely update this information or remove the community entirely at any time.",
-            id: "o9e3P/",
+              "Please review the information you've provided. Once a community is added to your profile, you can freely update this information or remove the community entirely at any time.",
+            id: "5a2Mj/",
             description: "Description of the 'Review and submit' section",
           })}
         </span>

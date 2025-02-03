@@ -163,7 +163,7 @@ const FindANewCommunity = ({
                   contentBelow: intl.formatMessage({
                     defaultMessage:
                       "By indicating that you're interested in work opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
-                    id: "n3rJfA",
+                    id: "aElqQN",
                     description:
                       "Context for the 'I'm interested in work opportunities within this community' radio option",
                   }),
@@ -206,7 +206,7 @@ const FindANewCommunity = ({
                   contentBelow: intl.formatMessage({
                     defaultMessage:
                       "By indicating that you're interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
-                    id: "3TEZds",
+                    id: "wdBpAX",
                     description:
                       "Context for the 'I'm interested in training opportunities within this community' radio option",
                   }),
@@ -238,7 +238,7 @@ const FindANewCommunity = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "Please select any of the work streams listed that you would consider working within.",
-                    id: "gEtMPC",
+                    id: "KpmfLa",
                     description:
                       "Introduction for a work stream referral preferences input",
                   })}
