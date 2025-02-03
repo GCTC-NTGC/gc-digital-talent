@@ -244,7 +244,7 @@ export const applicationStatus = {
   SUCCESSFUL: "SUCCESSFUL",
 } as const;
 
-export type ApplicationStatus =
+type ApplicationStatus =
   (typeof applicationStatus)[keyof typeof applicationStatus];
 
 /** Qualified recruitment statuses */
@@ -254,7 +254,7 @@ export const qualifiedRecruitmentStatus = {
   OPEN_TO_JOBS: "OPEN_TO_JOBS",
 } as const;
 
-export type QualifiedRecruitmentStatus =
+type QualifiedRecruitmentStatus =
   (typeof qualifiedRecruitmentStatus)[keyof typeof qualifiedRecruitmentStatus];
 
 interface StatusChip {
