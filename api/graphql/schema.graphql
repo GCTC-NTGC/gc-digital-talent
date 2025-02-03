@@ -1501,6 +1501,8 @@ input CreateCommunityInterestInput @validator {
 }
 
 input UpdateCommunityInterestInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -2282,7 +2284,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
-    id: UUID!
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard

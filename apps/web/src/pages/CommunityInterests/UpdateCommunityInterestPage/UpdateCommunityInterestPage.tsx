@@ -160,10 +160,9 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
 
 const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
   mutation UpdateCommunityInterest(
-    $id: UUID!
     $communityInterest: UpdateCommunityInterestInput!
   ) {
-    updateCommunityInterest(id: $id, communityInterest: $communityInterest) {
+    updateCommunityInterest(communityInterest: $communityInterest) {
       id
     }
   }
@@ -225,9 +224,8 @@ export const UpdateCommunityInterestPage = () => {
     formValues: FormValues,
   ) => {
     const mutationInput: UpdateCommunityInterestInput =
-      formValuesToApiUpdateInput(formValues);
+      formValuesToApiUpdateInput(communityInterestId, formValues);
     const mutationPromise = executeUpdateMutation({
-      id: communityInterestId,
       communityInterest: mutationInput,
     }).then((response) => {
       // confirmed error

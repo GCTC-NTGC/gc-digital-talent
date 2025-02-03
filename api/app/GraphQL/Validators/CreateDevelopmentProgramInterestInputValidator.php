@@ -18,11 +18,17 @@ final class CreateDevelopmentProgramInterestInputValidator extends Validator
     {
         return [
             // developmentProgramId validated in the Create/UpdateCommunityInterestInputValidator
-            'participationStatus' => [Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
+            'participationStatus' => ['required', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
             'completionDate' => [
-                'date',
-                'required_if:participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
-                'prohibited_unless:participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
+                Rule::when(
+                    fn (): bool => $this->arg('participationStatus') === DevelopmentProgramParticipationStatus::COMPLETED->name,
+                    ['required', 'date']
+                ),
+                Rule::when(
+                    fn (): bool => $this->arg('participationStatus') !== DevelopmentProgramParticipationStatus::COMPLETED->name,
+                    ['prohibited']
+                ),
+
             ],
         ];
     }

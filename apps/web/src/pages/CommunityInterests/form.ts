@@ -21,7 +21,7 @@ export interface FormValues
   userId: string | null;
 }
 
-export function parseStringToBoolean(
+export function parseMaybeStringToBoolean(
   value: string | null | undefined,
 ): boolean {
   if (typeof value === "string" && value.toLocaleLowerCase() === "true") {
@@ -59,11 +59,11 @@ export function formValuesToApiCreateInput(
   }
 
   if (formValues.jobInterest !== null) {
-    apiInput.jobInterest = parseStringToBoolean(formValues.jobInterest);
+    apiInput.jobInterest = parseMaybeStringToBoolean(formValues.jobInterest);
   }
 
   if (formValues.trainingInterest !== null) {
-    apiInput.trainingInterest = parseStringToBoolean(
+    apiInput.trainingInterest = parseMaybeStringToBoolean(
       formValues.trainingInterest,
     );
   }
@@ -85,7 +85,11 @@ export function formValuesToApiCreateInput(
               developmentProgramId: interest.developmentProgramId,
               participationStatus:
                 interest.participationStatus as DevelopmentProgramParticipationStatus,
-              completionDate: interest.completionDate,
+              completionDate:
+                interest.participationStatus ===
+                DevelopmentProgramParticipationStatus.Completed.valueOf()
+                  ? interest.completionDate
+                  : null,
             };
           }
           // no participation status or development program ID
@@ -101,14 +105,16 @@ export function formValuesToApiCreateInput(
 }
 
 export function formValuesToApiUpdateInput(
+  communityInterestId: string,
   formValues: FormValues,
 ): UpdateCommunityInterestInput {
   const apiInput: UpdateCommunityInterestInput = {
+    id: communityInterestId,
     workStreams: {
       sync: formValues.interestInWorkStreamIds,
     },
-    jobInterest: parseStringToBoolean(formValues.jobInterest),
-    trainingInterest: parseStringToBoolean(formValues.trainingInterest),
+    jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
+    trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
     additionalInformation: formValues.additionalInformation,
     interestInDevelopmentPrograms: {
       sync: unpackMaybes(
@@ -123,7 +129,11 @@ export function formValuesToApiUpdateInput(
                 developmentProgramId: interest.developmentProgramId,
                 participationStatus:
                   interest.participationStatus as DevelopmentProgramParticipationStatus,
-                completionDate: interest.completionDate,
+                completionDate:
+                  interest.participationStatus ===
+                  DevelopmentProgramParticipationStatus.Completed.valueOf()
+                    ? interest.completionDate
+                    : null,
               };
             }
             // no participation status or development program ID

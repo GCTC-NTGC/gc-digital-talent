@@ -6,7 +6,7 @@ import { CardSeparator, Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { FormValues, parseStringToBoolean } from "../form";
+import { FormValues, parseMaybeStringToBoolean } from "../form";
 
 export interface SubformValues {
   consent: boolean | null;
@@ -27,8 +27,8 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
 
   // only require consent if user has expressed interest in job or training
   const formRequiresConsent =
-    parseStringToBoolean(selectedJobInterest) ||
-    parseStringToBoolean(selectedTrainingInterest);
+    parseMaybeStringToBoolean(selectedJobInterest) ||
+    parseMaybeStringToBoolean(selectedTrainingInterest);
 
   return (
     <div
