@@ -1147,10 +1147,6 @@
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
   },
-  "oIfw3w": {
-    "defaultMessage": "Profil de gestionnaire",
-    "description": "Name of Manager profile page"
-  },
   "oPhurq": {
     "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
     "description": "The work region of Canada described as Prairie."
@@ -1414,6 +1410,10 @@
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zN7MBv": {
+    "defaultMessage": "Planification de carrière",
+    "description": "Title for a users career plan"
   },
   "zXRf0L": {
     "defaultMessage": "Mai",

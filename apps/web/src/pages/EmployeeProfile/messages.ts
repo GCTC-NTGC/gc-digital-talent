@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 export default defineMessages({
-  careerPlanning: {
-    defaultMessage: "Career planning",
-    id: "zN7MBv",
-    description: "Title for a users career plan",
-  },
   careerDevelopment: {
     defaultMessage: "Career development preferences",
     id: "okKbgd",

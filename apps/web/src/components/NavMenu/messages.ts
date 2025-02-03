@@ -6,11 +6,6 @@ const navMenuMessages = defineMessages({
     id: "bdzq6l",
     description: "Applicant role name for nav menu",
   },
-  manager: {
-    defaultMessage: "Manager",
-    id: "URqhIA",
-    description: "Manager role name for nav menu",
-  },
   community: {
     defaultMessage: "Community",
     id: "e/Z582",

@@ -14,7 +14,6 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 export const NAV_ROLES_BY_PRIVILEGE = [
   null,
   "applicant",
-  "manager",
   "community",
   "admin",
 ] as const;
@@ -24,7 +23,6 @@ type NavRole = (typeof NAV_ROLES_BY_PRIVILEGE)[number];
 export const isNavRole = (x: unknown): x is NavRole => {
   switch (x) {
     case "applicant":
-    case "manager":
     case "community":
     case "admin":
       return true;
@@ -52,8 +50,6 @@ export function convertRoleToNavRole(role: RoleName): NavRole {
       return null;
     case "applicant":
       return "applicant";
-    case "manager":
-      return "manager";
     case "pool_operator":
     case "request_responder":
     case "community_manager":

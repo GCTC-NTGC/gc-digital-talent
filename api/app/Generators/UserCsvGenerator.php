@@ -46,7 +46,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'department',
         'employee_type',
         'work_email',
-        'current_classification',
+        'classification',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',
@@ -103,9 +103,9 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
                     $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
-                    $this->yesOrNo($user->is_gov_employee), // Government employee
+                    $this->yesOrNo($user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class),
+                    $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
                     $user->work_email, // Work email
                     $user->getClassification(), // Current classification
                     $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement

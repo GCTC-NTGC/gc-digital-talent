@@ -304,6 +304,11 @@ const commonMessages = defineMessages({
     id: "i+8teP",
     description: "Title for description",
   },
+  careerPlanning: {
+    defaultMessage: "Career planning",
+    id: "zN7MBv",
+    description: "Title for a users career plan",
+  },
 });
 
 export default commonMessages;
