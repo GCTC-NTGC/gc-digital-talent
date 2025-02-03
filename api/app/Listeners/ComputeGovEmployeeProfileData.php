@@ -38,6 +38,10 @@ class ComputeGovEmployeeProfileData
         $workExperience = $event->workExperience;
         $user = $workExperience->user;
 
+        if (! $user) {
+            return;
+        }
+
         $currentExperiences = WorkExperience::where('user_id', $user->id)
             ->whereIn('properties->employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
             ->whereNotIn('properties->gov_employment_type', [WorkExperienceGovEmployeeType::STUDENT->name, WorkExperienceGovEmployeeType::CONTRACTOR->name])
