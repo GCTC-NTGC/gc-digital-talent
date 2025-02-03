@@ -27,7 +27,6 @@ import { getClassificationName } from "~/utils/poolUtils";
 import {
   getQualifiedRecruitmentStatusChip,
   getSalaryRange,
-  qualifiedRecruitmentStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 

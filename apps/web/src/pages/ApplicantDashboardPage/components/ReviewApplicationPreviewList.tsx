@@ -1,11 +1,16 @@
 import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { PreviewList, PreviewMetaData, Well } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
-import { getApplicationStatusChip } from "~/utils/poolCandidate";
+import {
+  applicationStatus,
+  getApplicationStatusChip,
+} from "~/utils/poolCandidate";
+import useRoutes from "~/hooks/useRoutes";
 
 import { ApplicationDate } from "./MetadataDate";
 import ReviewApplicationDialog from "./ReviewApplicationDialog";
@@ -59,6 +64,7 @@ const ReviewApplicationPreviewList = ({
   applicationsQuery,
 }: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const applications = getFragment(
     ReviewApplicationPreviewList_Fragment,
@@ -121,7 +127,21 @@ const ReviewApplicationPreviewList = ({
                 }
                 metaData={applicationMetadata}
                 action={
-                  <ReviewApplicationDialog applicationQuery={application} />
+                  <>
+                    {status.value === applicationStatus.DRAFT ? (
+                      <PreviewList.Link
+                        href={paths.application(application.id)}
+                        label={intl.formatMessage({
+                          defaultMessage: "Continue application",
+                          id: "1sppLE",
+                          description: "Label for continue application link",
+                        })}
+                        icon={PencilSquareIcon}
+                      />
+                    ) : (
+                      <ReviewApplicationDialog applicationQuery={application} />
+                    )}
+                  </>
                 }
                 headingAs="h4"
               />
