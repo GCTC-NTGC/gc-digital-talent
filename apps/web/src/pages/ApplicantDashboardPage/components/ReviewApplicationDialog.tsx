@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { differenceInDays } from "date-fns/differenceInDays";
 import { useRef, useState } from "react";
 
 import {
