@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 
 import { Heading, CardBasic, Link } from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface TalentNominationEventCardProps {
   mode: "Current"; // more modes coming soon.
@@ -57,18 +56,13 @@ const TalentNominationEventCard = ({
             data-h2-margin-bottom="base(x.5)"
             data-h2-color="base(black.light)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Accepting nominations",
-              id: "rh/aqf",
-              description:
-                "Text before date range values for Accepting nominations",
-            })}
-            {intl.formatMessage(commonMessages.dividingColon)}
             {intl.formatMessage(
               {
-                defaultMessage: "{openDate} to {closeDate}",
-                id: "8jTgsz",
-                description: "Text date range values for Accepting nominations",
+                defaultMessage:
+                  "Accepting nominations from {openDate} to {closeDate}.",
+                id: "8UrSRQ",
+                description:
+                  "Text for date range values for Accepting nominations",
               },
               {
                 openDate: formatDate({
