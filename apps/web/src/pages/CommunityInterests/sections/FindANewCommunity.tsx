@@ -117,7 +117,7 @@ const FindANewCommunity = ({
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1.25)"
+        data-h2-gap="base(x1)"
       >
         {mode === "create" && (
           <Select

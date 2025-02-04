@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useFormContext } from "react-hook-form";
 
-import { CardSeparator, Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -64,7 +64,6 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
           })}
         </span>
       </div>
-      <CardSeparator space="none" />
       {/* consent form */}
       <div
         data-h2-display="base(flex)"
@@ -141,7 +140,6 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
           </Well>
         )}
       </div>
-      <CardSeparator space="none" />
       {/* submit button */}
       <div
         data-h2-display="base(flex)"

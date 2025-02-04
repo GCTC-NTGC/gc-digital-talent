@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-import { CardBasic, Pending } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   CreateCommunityInterestInput,
@@ -70,6 +70,7 @@ const CreateCommunityInterestForm = ({
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x5)"
+            data-h2-padding="base(x1 x1) l-tablet(x1 x1.5)"
           >
             <div
               data-h2-display="base(flex)"
@@ -84,11 +85,14 @@ const CreateCommunityInterestForm = ({
               {/* other sections hidden until a community is selected */}
               {selectedCommunityId && (
                 <>
+                  <CardSeparator space="none" />
                   <TrainingAndDevelopmentOpportunities
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
                   />
+                  <CardSeparator space="none" />
                   <AdditionalInformation formDisabled={formDisabled} />
+                  <CardSeparator space="none" />
                   <ReviewAndSubmit formDisabled={formDisabled} />
                 </>
               )}

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import { useFormContext } from "react-hook-form";
 
-import { CardSeparator, Chip, Chips, Heading } from "@gc-digital-talent/ui";
+import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   DevelopmentProgramParticipationStatus,
@@ -134,16 +134,15 @@ const TrainingAndDevelopmentOpportunities = ({
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1.5)"
+        data-h2-gap="base(x1)"
       >
         {developmentPrograms.map((developmentProgram, index) => (
           <div
             key={developmentProgram.id}
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1.25)"
+            data-h2-gap="base(x1)"
           >
-            <CardSeparator space="none" />
             <div
               key={developmentProgram.id}
               data-h2-display="base(flex)"
