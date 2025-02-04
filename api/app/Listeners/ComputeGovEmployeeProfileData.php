@@ -18,7 +18,6 @@ class ComputeGovEmployeeProfileData
     private $employmentTypeOrder = [
         WorkExperienceGovEmployeeType::INDETERMINATE->name,
         WorkExperienceGovEmployeeType::TERM->name,
-        WorkExperienceGovEmployeeType::CASUAL->name,
         null,
     ];
 
@@ -44,7 +43,11 @@ class ComputeGovEmployeeProfileData
 
         $currentExperiences = WorkExperience::where('user_id', $user->id)
             ->whereIn('properties->employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
-            ->whereNotIn('properties->gov_employment_type', [WorkExperienceGovEmployeeType::STUDENT->name, WorkExperienceGovEmployeeType::CONTRACTOR->name])
+            ->whereNotIn('properties->gov_employment_type', [
+                WorkExperienceGovEmployeeType::STUDENT->name,
+                WorkExperienceGovEmployeeType::CASUAL->name,
+                WorkExperienceGovEmployeeType::CONTRACTOR->name,
+            ])
             ->where(function (Builder $query) {
                 $query->whereNull('properties->end_date')
                     ->orWhere('properties->end_date', '>=', now());
