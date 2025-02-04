@@ -51,18 +51,18 @@ const messages = defineMessages({
     description:
       "Label for an employee profile career development preference field",
   },
-  execCoachingStatus: {
-    defaultMessage: "Executive coaching status",
-    id: "I+TGU3",
-    description:
-      "Label for an employee profile career development preference field",
-  },
-  execCoachingStatusContext: {
+  execInterestContext: {
     defaultMessage:
       "Please note that this expression of interest does not necessarily guarantee that you'll be considered for executive level roles. Interest is paired with your career experience and skills to provide recruiters with a holistic picture of whether you'd be a good fit.",
     id: "xnxf8m",
     description:
       "Context for an employee profile career development preference field",
+  },
+  execCoachingStatus: {
+    defaultMessage: "Executive coaching status",
+    id: "I+TGU3",
+    description:
+      "Label for an employee profile career development preference field",
   },
   execCoachingInterest: {
     defaultMessage: "Interest in executive coaching opportunities",

@@ -430,9 +430,6 @@ const CareerDevelopmentSection = ({
                     employeeProfileMessages.mentorshipInterest,
                   )}
                   items={mentorshipInterestOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                 />
                 <RadioGroup
                   idPrefix="execInterest"
@@ -450,6 +447,9 @@ const CareerDevelopmentSection = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
+                  context={intl.formatMessage(
+                    employeeProfileMessages.execInterestContext,
+                  )}
                 />
                 <RadioGroup
                   idPrefix="execCoachingStatus"
@@ -469,9 +469,9 @@ const CareerDevelopmentSection = ({
                     employeeProfileMessages.execCoachingInterest,
                   )}
                   items={execCoachingInterestOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
+                  context={intl.formatMessage(
+                    employeeProfileMessages.execCoachingInterestContext,
+                  )}
                 />
                 <div
                   data-h2-display="base(flex)"
