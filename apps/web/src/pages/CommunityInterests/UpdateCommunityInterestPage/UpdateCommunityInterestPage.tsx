@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
-import { CardBasic, Pending } from "@gc-digital-talent/ui";
+import { CardBasic, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   UpdateCommunityInterestInput,
@@ -278,7 +278,7 @@ export const UpdateCommunityInterestPage = () => {
         centered
         overlap
       >
-        {!!queryData && !!userAuthInfo?.id && !!queriedCommunityInterest && (
+        {!!queryData && !!userAuthInfo?.id && !!queriedCommunityInterest ? (
           <div data-h2-margin-bottom="base(x3)">
             <UpdateCommunityInterestForm
               formOptionsQuery={queryData}
@@ -288,6 +288,8 @@ export const UpdateCommunityInterestPage = () => {
               onSubmit={submitForm}
             />
           </div>
+        ) : (
+          <ThrowNotFound />
         )}
       </Hero>
     </Pending>
