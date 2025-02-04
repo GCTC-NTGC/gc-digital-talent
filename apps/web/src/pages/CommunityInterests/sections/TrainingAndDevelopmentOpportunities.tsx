@@ -175,10 +175,11 @@ const TrainingAndDevelopmentOpportunities = ({
                 >
                   <span>
                     {intl.formatMessage({
-                      defaultMessage: "Available to:",
-                      id: "ZC5dpP",
+                      defaultMessage: "Available to",
+                      id: "nCqQlv",
                       description: "Title for the classification list",
                     })}
+                    {intl.formatMessage(commonMessages.dividingColon)}
                   </span>
                   <Chips>
                     {unpackMaybes(

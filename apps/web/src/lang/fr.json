@@ -6834,10 +6834,6 @@
     "defaultMessage": "Filtrer les candidats par ordre de nom",
     "description": "Label for candidate search input"
   },
-  "ZC5dpP": {
-    "defaultMessage": "Disponible pour :",
-    "description": "Title for the classification list"
-  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -9521,6 +9517,10 @@
   "nBaT85": {
     "defaultMessage": "Vous êtes sur le point de modifier les rôles de ce ou cette membre :",
     "description": "Lead in text for the edit roles on user form."
+  },
+  "nCqQlv": {
+    "defaultMessage": "Disponible pour",
+    "description": "Title for the classification list"
   },
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
