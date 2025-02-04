@@ -33,14 +33,14 @@ const TalentNominationEventCard = ({
     <>
       <CardBasic data-h2-padding="base(x1.5)" data-h2-position="base(relative)">
         <div
-          data-h2-background="base(primary.lightest)"
-          data-h2-border-color="base(inherit) base:selectors[::before](primary.lightest transparent transparent transparent) base:selectors[::after](transparent transparent transparent primary.lightest)"
+          data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
+          data-h2-border-color="base(inherit) base:selectors[::before](primary.lightest transparent transparent transparent) base:selectors[::after](transparent transparent transparent primary.lightest) base:dark:selectors[::before](primary.lightest transparent transparent transparent) base:dark:selectors[::after](transparent transparent transparent primary.lightest)"
           data-h2-border-radius="base(rounded 0 0 rounded)"
           data-h2-border-style="base(inherit) base:selectors[::before](solid) base:selectors[::after](solid)"
           data-h2-border-width="base(inherit) base:selectors[::before](x.613 x.613 0 0) base:selectors[::after](x.613 0 0 x.613)"
           data-h2-bottom="base(inherit) base:selectors[::after](0)"
           data-h2-box-shadow="base(small)"
-          data-h2-color="base(black)"
+          data-h2-color="base(black) base:dark(primary.darkest)"
           data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
           data-h2-display="base(inline-block) base:selectors[::before](block) base:selectors[::after](block)"
           data-h2-font-size="base(caption)"
