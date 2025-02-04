@@ -84,6 +84,7 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'talentNominationEvent' => 'talentNominationEvent',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
 
@@ -632,6 +633,19 @@ return [
             'en' => 'Create or update a training opportunity',
             'fr' => 'Créer ou mettre à jour une opportunité de formation',
         ],
+
+        'view-any-talentNominationEvent' => [
+            'en' => 'View any talent nomination event',
+            'fr' => 'Voir tout événement de nomination de talents',
+        ],
+        'create-any-talentNominationEvent' => [
+            'en' => 'Create any talent nomination event',
+            'fr' => 'Créer n\'importe quel événement de nomination de talents',
+        ],
+        'update-team-talentNominationEvent' => [
+            'en' => 'Update team talent nomination event',
+            'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
+        ],
     ],
 
     /*
@@ -820,6 +834,9 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],
@@ -1100,6 +1117,10 @@ return [
             ],
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
+                'team' => ['update'],
             ],
             'community' => [
                 'team' => ['view', 'update'],

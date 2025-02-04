@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Community;
+use App\Models\TalentNominationEvent;
 use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -82,6 +83,15 @@ class CommunityFactory extends Factory
 
         return $this->afterCreating(function (Community $community) use ($count) {
             WorkStream::factory()->count($count)->create(['community_id' => $community->id]);
+        });
+    }
+
+    public function withTalentNominationEvents(?int $min = 1, ?int $max = 3)
+    {
+        $count = $this->faker->numberBetween($min, $max);
+
+        return $this->afterCreating(function (Community $community) use ($count) {
+            TalentNominationEvent::factory()->count($count)->create(['community_id' => $community->id]);
         });
     }
 }
