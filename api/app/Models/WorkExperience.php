@@ -68,6 +68,7 @@ class WorkExperience extends Experience
      */
     protected $dispatchesEvents = [
         'saved' => WorkExperienceSaved::class,
+        'deleted' => WorkExperienceSaved::class,
     ];
 
     protected static $hydrationFields = [
