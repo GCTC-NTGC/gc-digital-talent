@@ -32,30 +32,22 @@ const TalentNominationEventCard = ({
   return (
     <>
       <CardBasic data-h2-padding="base(x1.5)" data-h2-position="base(relative)">
-        <div
-          data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
-          data-h2-border-color="base(inherit) base:selectors[::before](primary.lightest transparent transparent transparent) base:selectors[::after](transparent transparent transparent primary.lightest) base:dark:selectors[::before](primary.lightest transparent transparent transparent) base:dark:selectors[::after](transparent transparent transparent primary.lightest)"
-          data-h2-border-radius="base(rounded 0 0 rounded)"
-          data-h2-border-style="base(inherit) base:selectors[::before](solid) base:selectors[::after](solid)"
-          data-h2-border-width="base(inherit) base:selectors[::before](x.613 x.613 0 0) base:selectors[::after](x.613 0 0 x.613)"
-          data-h2-bottom="base(inherit) base:selectors[::after](0)"
-          data-h2-box-shadow="base(small)"
-          data-h2-color="base(black) base:dark(primary.darkest)"
-          data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
-          data-h2-display="base(inline-block) base:selectors[::before](block) base:selectors[::after](block)"
-          data-h2-font-size="base(caption)"
-          data-h2-font-weight="base(700)"
-          data-h2-height="base(inherit) base:selectors[::before](0) base:selectors[::after](0)"
-          data-h2-line-height="base(x.175)"
-          data-h2-margin="base(0 0 0 -x1.75)"
-          data-h2-padding="base(x.175 x.5 x.175 x1.75)"
-          data-h2-position="base(relative) base:selectors[::before](absolute) base:selectors[::after](absolute)"
-          data-h2-right="base(inherit) base:selectors[::before](0) base:selectors[::after](0)"
-          data-h2-top="base(inherit) base:selectors[::before](0) base:selectors[::after](0)"
-          data-h2-transform="base(inherit) base:selectors[::before](rotate(0deg) translate(100%, 0)) base:selectors[::after](rotate(0deg) translate(100%, 100%))"
-          data-h2-width="base(inherit) base:selectors[::before](0) base:selectors[::after](0)"
-        >
-          {communityName}
+        <div data-h2-filter="base(drop-shadow(0 2px 2px rgba(0, 0, 0, .2))) base:dark(drop-shadow(0 2px 2px rgba(0, 0, 0, .5)))">
+          <div
+            data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
+            data-h2-border-radius="base(rounded 0 0 rounded)"
+            data-h2-clip-path="base(polygon(0% 0%, 100% 0%, calc(100% - 1rem) 50%, 100% 100%, 0% 100%))"
+            data-h2-color="base(black) base:dark(primary.darkest)"
+            data-h2-display="base(inline-block)"
+            data-h2-font-size="base(caption)"
+            data-h2-font-weight="base(700)"
+            data-h2-line-height="base(x.175)"
+            data-h2-margin="base(0 0 0 -x1.75)"
+            data-h2-padding="base(x.175 x1.5 x.175 x1.75)"
+            data-h2-position="base(relative)"
+          >
+            {communityName}
+          </div>
         </div>
         <div>
           <Heading size="h6" data-h2-font-weight="base(700)">
