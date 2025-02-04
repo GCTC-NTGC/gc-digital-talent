@@ -1,6 +1,8 @@
 import { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import TalentNominationEventCard from "./TalentNominationEventCard";
 
 faker.seed(0);
@@ -16,6 +18,15 @@ export default {
     description: faker.lorem.paragraphs(1),
     startUrl: "#",
     learnMoreUrl: "#",
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
+    },
   },
 } as Meta;
 
