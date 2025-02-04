@@ -118,7 +118,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'DevelopmentProgramCompletionDateProhibited');
+            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'The community interest.interest in development programs.create.0.completion date field is prohibited.');
     }
 
     /**
@@ -150,7 +150,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'DevelopmentProgramCompletionDateRequired');
+            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', 'The community interest.interest in development programs.create.0.completion date field is required.');
     }
 
     /**
