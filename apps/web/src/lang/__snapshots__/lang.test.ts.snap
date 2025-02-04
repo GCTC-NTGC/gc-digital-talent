@@ -38,6 +38,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Review and submit",
+    "fr": [
+      "Révisez votre candidature et envoyez-la",
+      "Révision et soumission"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
@@ -126,6 +133,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigences relatives aux compétences",
       "Exigences en matière de compétences"
+    ]
+  },
+  {
+    "en": "Add a community",
+    "fr": [
+      "Ajoutez une collectivité",
+      "Ajouter une collectivité"
     ]
   },
   {
