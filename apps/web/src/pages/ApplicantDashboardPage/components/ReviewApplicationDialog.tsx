@@ -141,8 +141,6 @@ const ReviewApplicationDialog = ({
   const pool = application?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
-  const poolName =
-    pool.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool?.poolSkills);
@@ -172,7 +170,24 @@ const ReviewApplicationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button label={poolName} />
+        <PreviewList.Button
+          label={
+            pool.name?.localized
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "<hidden>Application for </hidden>{poolName}",
+                    id: "LC1Rsg",
+                    description:
+                      "Text before application pool name in application preview list.",
+                  },
+                  {
+                    poolName: pool.name.localized,
+                  },
+                )
+              : nullMessage
+          }
+        />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -212,7 +227,7 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(talentRequestMessages.jobTitle)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {poolName ?? nullMessage}
+              {pool.name?.localized ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.classification)}

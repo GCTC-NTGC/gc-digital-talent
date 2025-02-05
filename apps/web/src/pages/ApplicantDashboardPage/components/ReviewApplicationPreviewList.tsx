@@ -143,11 +143,19 @@ const ReviewApplicationPreviewList = ({
                     {status.value === applicationStatus.DRAFT ? (
                       <PreviewList.Link
                         href={paths.application(application.id)}
-                        label={intl.formatMessage({
-                          defaultMessage: "Continue application",
-                          id: "1sppLE",
-                          description: "Label for continue application link",
-                        })}
+                        label={intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "Continue application<hidden> for {poolName}</hidden>",
+                            id: "GjL/7z",
+                            description: "Label for continue application link",
+                          },
+                          {
+                            poolName:
+                              pool.name?.localized ??
+                              intl.formatMessage(commonMessages.notFound),
+                          },
+                        )}
                         icon={PencilSquareIcon}
                       />
                     ) : (

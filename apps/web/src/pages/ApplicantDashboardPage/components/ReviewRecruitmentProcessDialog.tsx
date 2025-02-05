@@ -119,8 +119,6 @@ const ReviewRecruitmentProcessDialog = ({
   const pool = recruitmentProcess?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
-  const poolName =
-    pool.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   const [, executeMutation] = useMutation(ReviewRecruitmentProcess_Mutation);
 
@@ -135,15 +133,25 @@ const ReviewRecruitmentProcessDialog = ({
     formState: { isSubmitting },
   } = methods;
 
+  const handleError = () =>
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: failed removing you from search results.",
+        id: "7tdU/G",
+        description:
+          "Alert displayed to the user when application card dialog fails.",
+      }),
+    );
+
   const updateSuspendedAtStatus = async (values: FormValues) => {
     await executeMutation({
       id: recruitmentProcess.id,
       isSuspended: values.isSuspended === "true",
     })
       .then((res) => {
-        if (!res.error) {
+        if (res.data) {
           setIsOpen(false);
-          if (values.isSuspended === "true") {
+          if (res.data.changeApplicationSuspendedAt?.suspendedAt) {
             toast.success(
               intl.formatMessage({
                 defaultMessage:
@@ -164,18 +172,11 @@ const ReviewRecruitmentProcessDialog = ({
               }),
             );
           }
+        } else {
+          handleError();
         }
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: failed removing you from search results.",
-            id: "7tdU/G",
-            description:
-              "Alert displayed to the user when application card dialog fails.",
-          }),
-        );
-      });
+      .catch(handleError);
   };
 
   const status = getQualifiedRecruitmentStatusChip(
@@ -187,14 +188,31 @@ const ReviewRecruitmentProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button label={poolName} />
+        <PreviewList.Button
+          label={
+            pool.name?.localized
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{poolName}<hidden> recruitment process</hidden>",
+                    id: "wrg4fw",
+                    description:
+                      "Text before recruitment process pool name in recruitment process preview list.",
+                  },
+                  {
+                    poolName: pool.name.localized,
+                  },
+                )
+              : nullMessage
+          }
+        />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Check out the details of a recruitment process you belong to and update your interest in receiving jobs.",
-            id: "29z3+q",
+              "Check out the details of a recruitment process you belong to and update your interest in receiving job offers.",
+            id: "Hwt9jD",
             description: "Subtitle for the review recruitment process dialog",
           })}
         >
@@ -227,7 +245,7 @@ const ReviewRecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.jobTitle)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {poolName ?? nullMessage}
+              {pool.name?.localized ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.classification)}

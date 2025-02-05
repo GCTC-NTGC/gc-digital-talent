@@ -799,10 +799,6 @@
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
   },
-  "29z3+q": {
-    "defaultMessage": "Consultez les renseignements détaillés d'un processus de recrutement auquel vous participez et indiquez si vous aimeriez continuer à recevoir des offres d'emploi.",
-    "description": "Subtitle for the review recruitment process dialog"
-  },
   "2B+d2V": {
     "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
     "description": "Second item in list of eligibility requirements section"
@@ -3467,6 +3463,10 @@
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
   },
+  "GjL/7z": {
+    "defaultMessage": "Poursuivre la demande<hidden> pour {poolName}</hidden>",
+    "description": "Label for continue application link"
+  },
   "Gki8Ex": {
     "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
@@ -3614,6 +3614,10 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
+  },
+  "Hwt9jD": {
+    "defaultMessage": "Consultez les renseignements détaillés d'un processus de recrutement auquel vous participez et indiquez si vous aimeriez continuer à recevoir des offres d'emploi.",
+    "description": "Subtitle for the review recruitment process dialog"
   },
   "HxZIwt": {
     "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
