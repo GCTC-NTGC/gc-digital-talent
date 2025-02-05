@@ -225,7 +225,7 @@ export const ViewPoolCandidate = ({
         }
         additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
       />
-      <AdminContentWrapper table>
+      <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper>
           <Sidebar.Sidebar scrollbar>
             <Heading size="h3" data-h2-margin-top="base(0)">
@@ -286,7 +286,10 @@ export const ViewPoolCandidate = ({
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <div data-h2-margin-bottom="base(x1)">
+            <div
+              data-h2-padding-top="l-tablet(x3)"
+              data-h2-margin-bottom="base(x1)"
+            >
               <Heading
                 Icon={ExclamationTriangleIcon}
                 color="quaternary"
