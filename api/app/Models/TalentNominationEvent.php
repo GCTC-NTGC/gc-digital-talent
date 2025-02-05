@@ -6,6 +6,7 @@ use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -59,8 +60,8 @@ class TalentNominationEvent extends Model
     }
 
     /** @return BelongsToMany<DevelopmentProgram, $this> */
-    public function developmentPrograms(): BelongsTo
+    public function developmentPrograms(): BelongsToMany
     {
-        return $this->belongsTo(DevelopmentProgram::class);
+        return $this->belongsToMany(DevelopmentProgram::class);
     }
 }
