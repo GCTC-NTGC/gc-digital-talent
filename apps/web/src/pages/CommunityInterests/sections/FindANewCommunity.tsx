@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
 import { ComponentProps } from "react";
@@ -10,7 +10,7 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "../form";
@@ -79,6 +79,45 @@ const FindANewCommunity = ({
     (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
   );
 
+  // heading and description change depending on whether the user is creating or updating
+  let heading;
+  let description;
+
+  switch (mode) {
+    case "create":
+      heading = defineMessage({
+        defaultMessage: "Find a new community",
+        id: "53LNWh",
+        description:
+          "Heading for the 'Find a new community' section when creating",
+      });
+      description = defineMessage({
+        defaultMessage:
+          "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
+        id: "koX5xF",
+        description:
+          "Description of the 'find a new community' section when creating",
+      });
+      break;
+    case "update":
+      heading = defineMessage({
+        defaultMessage: "Update your preferences",
+        id: "TtJCR6",
+        description:
+          "Heading for the 'Find a new community' section when updating",
+      });
+      description = defineMessage({
+        defaultMessage:
+          "Update your interest in job and training opportunities for this community or rescind your consent to share your profile with its HR staff and hiring managers.",
+        id: "tkKGAr",
+        description:
+          "Description of the 'find a new community' section when updating",
+      });
+      break;
+    default:
+      return assertUnreachable(mode); // exhaustive switch
+  }
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -98,20 +137,9 @@ const FindANewCommunity = ({
           color="primary"
           data-h2-margin="base(0)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Find a new community",
-            id: "yo4y4l",
-            description: "Heading for the 'Find a new community' section",
-          })}
+          {intl.formatMessage(heading)}
         </Heading>
-        <span>
-          {intl.formatMessage({
-            defaultMessage:
-              "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
-            id: "Fu9AVg",
-            description: "Description of the 'find a new community' section",
-          })}
-        </span>
+        <span>{intl.formatMessage(description)}</span>
       </div>
       {/* form */}
       <div
@@ -119,6 +147,7 @@ const FindANewCommunity = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
+        {/* The user only gets to pick the community if they are creating a new interest. */}
         {mode === "create" && (
           <Select
             id="communityId"
@@ -138,7 +167,7 @@ const FindANewCommunity = ({
           />
         )}
         {selectedCommunityId ? (
-          // community selected
+          // Only show more form controls if a community has been selected
           <>
             <RadioGroup
               idPrefix="jobInterest"

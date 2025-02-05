@@ -1367,6 +1367,10 @@
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
   },
+  "53LNWh": {
+    "defaultMessage": "Trouver une nouvelle collectivité",
+    "description": "Heading for the 'Find a new community' section when creating"
+  },
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
@@ -3326,10 +3330,6 @@
   "FtxA9/": {
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
     "description": "Label for the roles select field on process team dialog"
-  },
-  "Fu9AVg": {
-    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
-    "description": "Description of the 'find a new community' section"
   },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
@@ -5890,6 +5890,10 @@
   "TsUcCM": {
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
+  },
+  "TtJCR6": {
+    "defaultMessage": "Mettez à jour vos préférences",
+    "description": "Heading for the 'Find a new community' section when updating"
   },
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d'ajouter des rôles à cet utilisateur ou cette utilisatrice : <strong>{userName}</strong>",
@@ -9046,6 +9050,10 @@
     "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
     "description": "Error message when a file no longer exists"
   },
+  "koX5xF": {
+    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
+    "description": "Description of the 'find a new community' section when creating"
+  },
   "kolwAf": {
     "defaultMessage": "Qualifié(e) dans le processus",
     "description": "Status label for a qualified application"
@@ -10594,6 +10602,10 @@
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Work email label"
   },
+  "tkKGAr": {
+    "defaultMessage": "Mettez à jour votre intérêt pour les possibilités d'emploi et de formation de cette collectivité ou annulez votre consentement à partager votre profil avec le personnel des ressources humaines et les gestionnaires d'embauche.",
+    "description": "Description of the 'find a new community' section when updating"
+  },
   "tlAiJm": {
     "defaultMessage": "La création de la candidature a échoué",
     "description": "Application creation failed"
@@ -11433,10 +11445,6 @@
   "ynGRwF": {
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
     "description": "Description for the professional designation requirement."
-  },
-  "yo4y4l": {
-    "defaultMessage": "Trouver une nouvelle collectivité",
-    "description": "Heading for the 'Find a new community' section"
   },
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
