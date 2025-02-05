@@ -26,6 +26,8 @@ final class CreateTalentNominationEventInputValidator extends Validator
             'name.fr' => ['required', 'string'],
             'description.en' => ['nullable', 'required_with:description.fr', 'string'],
             'description.fr' => ['nullable', 'required_with:description.en', 'string'],
+            'learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],
+            'learnMoreUrl.fr' => ['nullable', 'required_with:learnMoreUrl.en', 'string', 'url'],
             'openDate' => ['required', 'date'],
             'closeDate' => ['required', 'date', 'after:openDate'],
             'includeLeadershipCompetencies' => ['nullable', 'boolean'],
@@ -36,7 +38,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'interestInDevelopmentPrograms.sync.*.developmentProgramId.in' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
+            'developmentPrograms.sync.*.in' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY,
         ];
     }
 }
