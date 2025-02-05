@@ -283,7 +283,11 @@ class CommunityInterestTest extends TestCase
     public function testCommunityInterestsPaginatedRoles(): void
     {
         CommunityInterest::truncate();
-        $communityInterestModel = CommunityInterest::factory()->create(['community_id' => $this->communityId]);
+        $communityInterestModel = CommunityInterest::factory()->create([
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => true,
+        ]);
 
         // these roles cannot see the created model
         $this->actingAs($this->applicant, 'api')->graphQL(
@@ -314,6 +318,22 @@ class CommunityInterestTest extends TestCase
             [],
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestModel->id]);
+
+        // community recruiter and admin of another community do not see the model
+        $otherCommunityRecruiter = User::factory()
+            ->asCommunityRecruiter(Community::factory()->create()->id)
+            ->create();
+        $otherCommunityAdmin = User::factory()
+            ->asCommunityAdmin(Community::factory()->create()->id)
+            ->create();
+        $this->actingAs($otherCommunityRecruiter, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($otherCommunityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
     }
 
     // test scopeAuthorizedToView for community admin and community recruiter
