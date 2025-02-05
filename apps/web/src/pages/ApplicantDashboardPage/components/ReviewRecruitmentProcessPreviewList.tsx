@@ -52,17 +52,21 @@ const ReviewRecruitmentProcessPreviewList = ({
   const recruitmentProcesses = getFragment(
     ReviewRecruitmentProcessPreviewList_Fragment,
     recruitmentProcessesQuery,
-  ).filter(
-    (recruitmentProcess) =>
-      recruitmentProcess.finalDecisionAt &&
-      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
-  ); // filter for qualified recruitment processes
+  );
+
+  const recruitmentProcessesFiltered = recruitmentProcesses
+    ? recruitmentProcesses.filter(
+        (recruitmentProcess) =>
+          recruitmentProcess.finalDecisionAt &&
+          isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+      )
+    : []; // filter for qualified recruitment processes
 
   return (
     <>
-      {recruitmentProcesses.length ? (
+      {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
-          {recruitmentProcesses.map((recruitmentProcess) => {
+          {recruitmentProcessesFiltered.map((recruitmentProcess) => {
             const { id, pool, finalDecisionAt } = recruitmentProcess;
 
             const status = getQualifiedRecruitmentStatusChip(
@@ -129,7 +133,7 @@ const ReviewRecruitmentProcessPreviewList = ({
         </PreviewList.Root>
       ) : (
         <Well data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(bold)">
+          <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active recruitment processes at the moment.",

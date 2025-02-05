@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import {
   FragmentType,
@@ -27,10 +27,10 @@ import {
   applicationStatus,
   deadlineToApply,
   getApplicationStatusChip,
-  getSalaryRange,
 } from "~/utils/poolCandidate";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { getSalaryRange } from "~/utils/classification";
 
 import StatusSummary from "./StatusSummary";
 
@@ -157,8 +157,6 @@ const ReviewApplicationDialog = ({
     ),
   );
 
-  const focusOnRecruitment = useRef(false);
-
   const status = getApplicationStatusChip(
     application.submittedAt,
     pool.closingDate,
@@ -176,16 +174,7 @@ const ReviewApplicationDialog = ({
       <Dialog.Trigger asChild>
         <PreviewList.Button label={poolName} />
       </Dialog.Trigger>
-      <Dialog.Content
-        onCloseAutoFocus={(e) => {
-          if (focusOnRecruitment.current) {
-            e.preventDefault();
-            document.getElementById(`${application.id}-test`)?.focus();
-          }
-
-          focusOnRecruitment.current = false;
-        }}
-      >
+      <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
@@ -242,18 +231,18 @@ const ReviewApplicationDialog = ({
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workStream)}
             >
-              {pool.workStream?.name?.localized}
+              {pool.workStream?.name?.localized ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.languageRequirement)}
             >
-              {pool.language?.label.localized}
+              {pool.language?.label.localized ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.department)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {pool.department?.name?.localized}
+              {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
             {status.value === applicationStatus.DRAFT ||
             status.value === applicationStatus.EXPIRED ? (
@@ -343,7 +332,9 @@ const ReviewApplicationDialog = ({
                   {essentialPoolSkills.length ? (
                     <ul>
                       {essentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>{skill?.name.localized}</li>
+                        <li key={skill?.id}>
+                          {skill?.name.localized ?? nullMessage}
+                        </li>
                       ))}
                     </ul>
                   ) : (
@@ -365,7 +356,9 @@ const ReviewApplicationDialog = ({
                   {nonessentialPoolSkills.length ? (
                     <ul>
                       {nonessentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>{skill?.name.localized}</li>
+                        <li key={skill?.id}>
+                          {skill?.name.localized ?? nullMessage}
+                        </li>
                       ))}
                     </ul>
                   ) : (

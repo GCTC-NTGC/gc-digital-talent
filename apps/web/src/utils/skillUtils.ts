@@ -183,19 +183,21 @@ const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
 export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
   poolSkills: T,
 ) => {
-  return poolSkills.sort((poolSkillA, poolSkillB) => {
-    if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
-      return (
-        categoryOrder.indexOf(
-          poolSkillA.skill.category.value ?? SkillCategory.Behavioural,
-        ) -
-        categoryOrder.indexOf(
-          poolSkillB.skill.category.value ?? SkillCategory.Behavioural,
-        )
-      );
-    }
-    return 0;
-  });
+  return unpackMaybes(
+    poolSkills.sort((poolSkillA, poolSkillB) => {
+      if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
+        return (
+          categoryOrder.indexOf(
+            poolSkillA.skill.category.value ?? SkillCategory.Behavioural,
+          ) -
+          categoryOrder.indexOf(
+            poolSkillB.skill.category.value ?? SkillCategory.Behavioural,
+          )
+        );
+      }
+      return 0;
+    }),
+  );
 };
 
 /**

@@ -16,13 +16,10 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
   getLocalizedName,
-  localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  Classification,
   FragmentType,
-  Maybe,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
   PoolSkillType,
@@ -35,6 +32,7 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { filterPoolSkillsByType } from "~/utils/skillUtils";
+import { getSalaryRange } from "~/utils/classification";
 
 import IconLabel from "./IconLabel";
 
@@ -100,19 +98,6 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const getSalaryRange = (
-  locale: string,
-  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
-) => {
-  if (!classification) return null;
-
-  return localizeSalaryRange(
-    classification.minSalary,
-    classification.maxSalary,
-    locale,
-  );
-};
 
 const deriveWhoCanApplyString = (
   areaOfSelection: PoolAreaOfSelection,

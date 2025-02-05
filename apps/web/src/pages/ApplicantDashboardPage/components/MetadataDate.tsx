@@ -26,10 +26,6 @@ export const ApplicationDate = ({
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  if (!status) {
-    return null;
-  }
-
   if (
     status === applicationStatus.DRAFT ||
     status === applicationStatus.EXPIRED
@@ -53,6 +49,7 @@ export const ApplicationDate = ({
               date: parseDateTimeUtc(closingDate),
               formatString: "PPP",
               intl,
+              timeZone: "Canada/Pacific",
             })
           : nullMessage}
       </span>
@@ -116,10 +113,6 @@ export const RecruitmentDate = ({
 }: RecruitmentDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
-
-  if (!status) {
-    return null;
-  }
 
   if (
     status === qualifiedRecruitmentStatus.OPEN_TO_JOBS ||

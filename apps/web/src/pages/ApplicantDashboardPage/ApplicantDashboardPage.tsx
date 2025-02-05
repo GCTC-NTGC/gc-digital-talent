@@ -104,7 +104,7 @@ export const DashboardPage = ({
                 applicationsQuery={unpackMaybes(currentUser?.poolCandidates)}
               />
               {/* Temporary separator till https://github.com/GCTC-NTGC/gc-digital-talent/issues/10772 */}
-              <Separator data-h2-margin="base(0)" />
+              <Separator data-h2-margin="base(0)" decorative />
               <ReviewRecruitmentProcessPreviewList
                 recruitmentProcessesQuery={unpackMaybes(
                   currentUser?.poolCandidates,

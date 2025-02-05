@@ -11,11 +11,7 @@ import { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  localizeSalaryRange,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   Maybe,
@@ -28,7 +24,6 @@ import {
   AssessmentStep,
   FinalDecision,
   LocalizedFinalDecision,
-  Classification,
   Pool,
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
@@ -673,25 +668,6 @@ export const priorityWeightAfterVerification = (
 
   // final fallback - last (Other)
   return 40;
-};
-
-/**
- * Get the salary range of a classification
- * @param locale
- * @param classification
- * @returns
- */
-export const getSalaryRange = (
-  locale: string,
-  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
-) => {
-  if (!classification) return null;
-
-  return localizeSalaryRange(
-    classification.minSalary,
-    classification.maxSalary,
-    locale,
-  );
 };
 
 /**

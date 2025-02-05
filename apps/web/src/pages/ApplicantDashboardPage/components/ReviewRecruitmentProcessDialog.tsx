@@ -24,11 +24,9 @@ import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
 import { getClassificationName } from "~/utils/poolUtils";
-import {
-  getQualifiedRecruitmentStatusChip,
-  getSalaryRange,
-} from "~/utils/poolCandidate";
+import { getQualifiedRecruitmentStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
+import { getSalaryRange } from "~/utils/classification";
 
 import StatusSummary from "./StatusSummary";
 
@@ -189,10 +187,7 @@ const ReviewRecruitmentProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={poolName}
-          id={`${recruitmentProcess.id}-test`}
-        />
+        <PreviewList.Button label={poolName} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
