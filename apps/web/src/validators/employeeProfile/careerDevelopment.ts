@@ -23,37 +23,21 @@ export function hasAllEmptyFields({
     !moveInterest &&
     !mentorshipStatus &&
     !mentorshipInterest &&
-    !execInterest &&
+    !!execInterest !== execInterest &&
     !execCoachingStatus &&
     !execCoachingInterest
   );
 }
 
 export function hasAnyEmptyFields({
-  organizationTypeInterest,
-  moveInterest,
   mentorshipStatus,
-  mentorshipInterest,
   execInterest,
   execCoachingStatus,
-  execCoachingInterest,
 }: Pick<
   EmployeeProfile,
-  | "organizationTypeInterest"
-  | "moveInterest"
-  | "mentorshipStatus"
-  | "mentorshipInterest"
-  | "execInterest"
-  | "execCoachingInterest"
-  | "execCoachingStatus"
+  "mentorshipStatus" | "execInterest" | "execCoachingStatus"
 >): boolean {
   return (
-    !organizationTypeInterest ||
-    !moveInterest ||
-    !mentorshipStatus ||
-    !mentorshipInterest ||
-    !execInterest ||
-    !execCoachingStatus ||
-    !execCoachingInterest
+    !mentorshipStatus || !!execInterest !== execInterest || !execCoachingStatus
   );
 }

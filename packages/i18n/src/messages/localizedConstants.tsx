@@ -979,21 +979,21 @@ export const getMentorshipInterest = (
 };
 
 export const ExecInterest = {
-  INTERESTED: "INTERESTED",
-  NOT_INTERESTED: "NOT_INTERESTED",
+  NOT_INTERESTED: "no",
+  INTERESTED: "yes",
 } as const;
 
 const execInterestLabels = defineMessages({
-  [ExecInterest.INTERESTED]: {
-    defaultMessage: "I'm not interested in executive level opportunities.",
-    id: "lnrBcu",
-    description: "The executive interest described as interested.",
-  },
   [ExecInterest.NOT_INTERESTED]: {
+    defaultMessage: "I'm not interested in executive level opportunities.",
+    id: "0xmhEq",
+    description: "The executive interest described as not interested.",
+  },
+  [ExecInterest.INTERESTED]: {
     defaultMessage:
       "I'd like to be considered for executive level opportunities.",
-    id: "+C+0Kv",
-    description: "The executive interest described as not interested.",
+    id: "PffQVS",
+    description: "The executive interest described as interested.",
   },
 });
 

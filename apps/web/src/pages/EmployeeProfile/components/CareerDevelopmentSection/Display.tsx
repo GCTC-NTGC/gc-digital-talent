@@ -14,13 +14,16 @@ import {
   EmployeeProfileCareerDevelopmentOptionsFragment,
 } from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
 
-import { displayExecCoachingStatus, displayMentorshipStatus } from "./utils";
+import {
+  displayExecCoachingStatus,
+  displayMentorshipStatus,
+  getLabels,
+} from "./utils";
 import BoolCheckIcon from "./BoolCheckIcon";
 
 interface DisplayProps {
@@ -41,6 +44,7 @@ const Display = ({
   careerDevelopmentOptions,
 }: DisplayProps) => {
   const intl = useIntl();
+  const labels = getLabels(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const organizationTypeInterests = unpackMaybes(
@@ -110,30 +114,22 @@ const Display = ({
       data-h2-gap="base(x1)"
     >
       {hasAnyEmptyFields({
-        organizationTypeInterest,
-        moveInterest,
         mentorshipStatus,
-        mentorshipInterest,
         execInterest,
         execCoachingStatus,
-        execCoachingInterest,
       }) && (
-        <Well>
+        <Well color="error">
           {intl.formatMessage({
             defaultMessage:
-              'There are currently unanswered optional questions in this section. Use the "Edit" button to review and answer any relevant fields.',
-            id: "PEH7og",
+              'There are currently unanswered questions in this section. Use the "Edit" button to review and answer any relevant fields.',
+            id: "mMiZ3q",
             description:
-              "Message for unanswered optional questions in this section",
+              "Message for unanswered required questions in this section",
           })}
         </Well>
       )}
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(
-          employeeProfileMessages.organizationTypeInterest,
-        )}
-      >
-        {organizationTypeInterest?.length ? (
+      <ToggleForm.FieldDisplay label={labels.organizationTypeInterest}>
+        {organizationTypeInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {organizationTypeInterests}
           </ul>
@@ -141,10 +137,8 @@ const Display = ({
           notProvided
         )}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.moveInterest)}
-      >
-        {moveInterest?.length ? (
+      <ToggleForm.FieldDisplay label={labels.moveInterest}>
+        {moveInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {moveInterests}
           </ul>
@@ -153,14 +147,13 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.mentorshipStatus)}
+        hasError={!mentorshipStatus}
+        label={labels.mentorshipStatus}
       >
         {intl.formatMessage(displayMentorshipStatus(mentorshipStatus))}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.mentorshipInterest)}
-      >
-        {mentorshipInterest?.length ? (
+      <ToggleForm.FieldDisplay label={labels.mentorshipInterest}>
+        {mentorshipInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {mentorshipInterests}
           </ul>
@@ -169,25 +162,27 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.execInterest)}
+        hasError={!!execInterest !== execInterest}
+        label={labels.execInterest}
       >
-        {intl.formatMessage(
-          getExecInterest(
-            execInterest
-              ? ExecInterest.INTERESTED
-              : ExecInterest.NOT_INTERESTED,
-          ),
-        )}
+        {empty(execInterest)
+          ? notProvided
+          : intl.formatMessage(
+              getExecInterest(
+                execInterest
+                  ? ExecInterest.INTERESTED
+                  : ExecInterest.NOT_INTERESTED,
+              ),
+            )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.execCoachingStatus)}
+        hasError={!execCoachingStatus}
+        label={labels.execCoachingStatus}
       >
         {intl.formatMessage(displayExecCoachingStatus(execCoachingStatus))}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.execCoachingInterest)}
-      >
-        {execCoachingInterest?.length ? (
+      <ToggleForm.FieldDisplay label={labels.execCoachingInterest}>
+        {execCoachingInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {execCoachingInterests}
           </ul>

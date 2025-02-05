@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
 import { Button, Separator, ToggleSection } from "@gc-digital-talent/ui";
 import {
+  BasicForm,
   CheckboxOption,
   Checklist,
   Radio,
@@ -15,7 +16,6 @@ import {
   commonMessages,
   errorMessages,
   ExecCoachingStatus,
-  ExecInterest,
   formMessages,
   getExecCoachingInterest,
   getExecCoachingStatus,
@@ -35,16 +35,20 @@ import {
   EmployeeProfileCareerDevelopmentOptionsFragment,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  boolToYesNo,
+  UnauthorizedError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
 import Display from "./Display";
 import {
+  getLabels,
   execCoachingStatusToData,
   execCoachingStatusToFormValues,
   mentorshipStatusToData,
@@ -167,7 +171,7 @@ export type FormValues = Pick<
   | "execCoachingInterest"
 > & {
   mentorshipStatus?: string | null;
-  execInterest?: string | null;
+  execInterest?: "yes" | "no";
   execCoachingStatus?: string | null;
 };
 
@@ -192,6 +196,8 @@ const CareerDevelopmentSection = ({
     EmployeeProfileCareerDevelopment_Fragment,
     employeeProfileQuery,
   );
+
+  const labels = getLabels(intl);
   const isNull = hasAllEmptyFields(employeeProfile);
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -211,31 +217,30 @@ const CareerDevelopmentSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
+  const dataToFormValues = ({
+    organizationTypeInterest,
+    moveInterest,
+    mentorshipStatus,
+    mentorshipInterest,
+    execInterest,
+    execCoachingStatus,
+    execCoachingInterest,
+  }: EmployeeProfile): FormValues => ({
     organizationTypeInterest:
-      initialData.organizationTypeInterest?.map((x) => x.value) ?? [],
-    moveInterest: initialData.moveInterest?.map((x) => x.value) ?? [],
-    mentorshipStatus: mentorshipStatusToFormValues(
-      initialData.mentorshipStatus,
-    ),
-    mentorshipInterest:
-      initialData.mentorshipInterest?.map((x) => x.value) ?? [],
-    execInterest: initialData.execInterest
-      ? ExecInterest.INTERESTED
-      : ExecInterest.NOT_INTERESTED,
-    execCoachingStatus: execCoachingStatusToFormValues(
-      initialData.execCoachingStatus,
-    ),
-    execCoachingInterest:
-      initialData.execCoachingInterest?.map((x) => x.value) ?? [],
+      organizationTypeInterest?.map((x) => x.value) ?? [],
+    moveInterest: moveInterest?.map((x) => x.value) ?? [],
+    mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
+    mentorshipInterest: mentorshipInterest?.map((x) => x.value) ?? [],
+    execInterest: boolToYesNo(execInterest),
+    execCoachingStatus: execCoachingStatusToFormValues(execCoachingStatus),
+    execCoachingInterest: execCoachingInterest?.map((x) => x.value) ?? [],
   });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(employeeProfile),
   });
-  const { handleSubmit } = methods;
 
-  const handleSave = async ({
+  const handleSave: SubmitHandler<FormValues> = async ({
     organizationTypeInterest,
     moveInterest,
     mentorshipStatus,
@@ -251,13 +256,13 @@ const CareerDevelopmentSection = ({
     return executeMutation({
       id: userAuthInfo?.id,
       employeeProfile: {
-        organizationTypeInterest,
-        moveInterest,
+        organizationTypeInterest: organizationTypeInterest ?? [],
+        moveInterest: moveInterest ?? [],
         mentorshipStatus: mentorshipStatusToData(mentorshipStatus),
-        mentorshipInterest,
-        execInterest: execInterest === ExecInterest.INTERESTED,
+        mentorshipInterest: mentorshipInterest ?? [],
+        execInterest: execInterest === "yes",
         execCoachingStatus: execCoachingStatusToData(execCoachingStatus),
-        execCoachingInterest,
+        execCoachingInterest: execCoachingInterest ?? [],
       },
     })
       .then((result) => {
@@ -386,120 +391,103 @@ const CareerDevelopmentSection = ({
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleSave)}>
+          <BasicForm
+            labels={labels}
+            onSubmit={handleSave}
+            options={{
+              defaultValues: dataToFormValues(employeeProfile),
+            }}
+          >
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1)"
+            >
+              <Checklist
+                idPrefix="organizationTypeInterest"
+                legend={labels.organizationTypeInterest}
+                name="organizationTypeInterest"
+                id="organizationTypeInterest"
+                items={organizationTypeInterestOptions}
+              />
+              <Checklist
+                idPrefix="moveInterest"
+                legend={labels.moveInterest}
+                name="moveInterest"
+                id="moveInterest"
+                items={moveInterestOptions}
+              />
+              <Separator data-h2-margin="base(0)" />
+              <RadioGroup
+                idPrefix="mentorshipStatus"
+                name="mentorshipStatus"
+                legend={labels.mentorshipStatus}
+                items={mentorshipStatusOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Checklist
+                idPrefix="mentorshipInterest"
+                name="mentorshipInterest"
+                legend={labels.mentorshipInterest}
+                items={mentorshipInterestOptions}
+              />
+              <RadioGroup
+                idPrefix="execInterest"
+                name="execInterest"
+                legend={labels.execInterest}
+                items={["no", "yes"].map((value) => ({
+                  value,
+                  label: intl.formatMessage(getExecInterest(value)),
+                }))}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                context={labels.execInterestContext}
+              />
+              <RadioGroup
+                idPrefix="execCoachingStatus"
+                name="execCoachingStatus"
+                legend={labels.execCoachingStatus}
+                items={execCoachingStatusOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <Checklist
+                idPrefix="execCoachingInterest"
+                name="execCoachingInterest"
+                legend={labels.execCoachingInterest}
+                items={execCoachingInterestOptions}
+                context={labels.execCoachingInterestContext}
+              />
               <div
                 data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1)"
+                data-h2-gap="base(x.5)"
+                data-h2-align-items="base(center)"
+                data-h2-flex-wrap="base(wrap)"
               >
-                <Checklist
-                  idPrefix="organizationTypeInterest"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.organizationTypeInterest,
-                  )}
-                  name="organizationTypeInterest"
-                  id="organizationTypeInterest"
-                  items={organizationTypeInterestOptions}
+                <Submit
+                  text={intl.formatMessage(formMessages.saveChanges)}
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Save career development preferences",
+                    id: "rBtIUo",
+                    description:
+                      "Text on a button to save career development preferences form",
+                  })}
+                  color="secondary"
+                  mode="solid"
+                  isSubmitting={fetching}
                 />
-                <Checklist
-                  idPrefix="moveInterest"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.moveInterest,
-                  )}
-                  name="moveInterest"
-                  id="moveInterest"
-                  items={moveInterestOptions}
-                />
-                <Separator data-h2-margin="base(0)" />
-                <RadioGroup
-                  idPrefix="mentorshipStatus"
-                  name="mentorshipStatus"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.mentorshipStatus,
-                  )}
-                  items={mentorshipStatusOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Checklist
-                  idPrefix="mentorshipInterest"
-                  name="mentorshipInterest"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.mentorshipInterest,
-                  )}
-                  items={mentorshipInterestOptions}
-                />
-                <RadioGroup
-                  idPrefix="execInterest"
-                  name="execInterest"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.execInterest,
-                  )}
-                  items={[
-                    ExecInterest.NOT_INTERESTED,
-                    ExecInterest.INTERESTED,
-                  ].map((value) => ({
-                    value,
-                    label: intl.formatMessage(getExecInterest(value)),
-                  }))}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  context={intl.formatMessage(
-                    employeeProfileMessages.execInterestContext,
-                  )}
-                />
-                <RadioGroup
-                  idPrefix="execCoachingStatus"
-                  name="execCoachingStatus"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.execCoachingStatus,
-                  )}
-                  items={execCoachingStatusOptions}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Checklist
-                  idPrefix="execCoachingInterest"
-                  name="execCoachingInterest"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.execCoachingInterest,
-                  )}
-                  items={execCoachingInterestOptions}
-                  context={intl.formatMessage(
-                    employeeProfileMessages.execCoachingInterestContext,
-                  )}
-                />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x.5)"
-                  data-h2-align-items="base(center)"
-                  data-h2-flex-wrap="base(wrap)"
-                >
-                  <Submit
-                    text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Save career development preferences",
-                      id: "rBtIUo",
-                      description:
-                        "Text on a button to save career development preferences form",
-                    })}
-                    color="secondary"
-                    mode="solid"
-                    isSubmitting={fetching}
-                  />
-                  <ToggleSection.Close>
-                    <Button mode="inline" type="button" color="quaternary">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </ToggleSection.Close>
-                </div>
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
               </div>
-            </form>
-          </FormProvider>
+            </div>
+          </BasicForm>
         </ToggleSection.OpenContent>
       </ToggleSection.Content>
     </ToggleSection.Root>
