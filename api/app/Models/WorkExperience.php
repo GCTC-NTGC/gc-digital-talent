@@ -7,6 +7,7 @@ use App\Enums\EmploymentCategory;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
@@ -294,5 +295,11 @@ class WorkExperience extends Experience
     public function department()
     {
         return $this->belongsTo(Department::class, 'properties->department_id');
+    }
+
+    /** @return BelongsToMany<WorkStream, $this> */
+    public function workStreams(): BelongsToMany
+    {
+        return $this->belongsToMany(WorkStream::class, 'experience_work_stream', 'experience_id', 'work_stream_id');
     }
 }
