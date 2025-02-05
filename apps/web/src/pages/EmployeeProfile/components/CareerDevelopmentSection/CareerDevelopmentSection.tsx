@@ -32,7 +32,6 @@ import {
   getFragment,
   EmployeeProfile,
   UpdateEmployeeProfileInput,
-  EmployeeProfileCareerDevelopmentOptionsFragment,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
@@ -179,12 +178,14 @@ interface CareerDevelopmentSectionProps {
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileCareerDevelopment_Fragment
   >;
-  careerDevelopmentOptions: EmployeeProfileCareerDevelopmentOptionsFragment;
+  careerDevelopmentOptionsQuery: FragmentType<
+    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
+  >;
 }
 
 const CareerDevelopmentSection = ({
   employeeProfileQuery,
-  careerDevelopmentOptions,
+  careerDevelopmentOptionsQuery,
 }: CareerDevelopmentSectionProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
@@ -195,6 +196,11 @@ const CareerDevelopmentSection = ({
   const employeeProfile = getFragment(
     EmployeeProfileCareerDevelopment_Fragment,
     employeeProfileQuery,
+  );
+
+  const careerDevelopmentOptions = getFragment(
+    EmployeeProfileCareerDevelopmentOptions_Fragment,
+    careerDevelopmentOptionsQuery,
   );
 
   const labels = getLabels(intl);

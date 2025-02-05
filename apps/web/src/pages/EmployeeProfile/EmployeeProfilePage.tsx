@@ -3,12 +3,7 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  EmployeeProfileCareerDevelopmentOptionsFragment,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
   Pending,
@@ -54,12 +49,14 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
 
 interface EmployeeProfileProps {
   userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
-  careerDevelopmentOptions?: EmployeeProfileCareerDevelopmentOptionsFragment;
+  careerDevelopmentOptionsQuery: FragmentType<
+    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
+  >;
 }
 
 const EmployeeProfile = ({
   userQuery,
-  careerDevelopmentOptions,
+  careerDevelopmentOptionsQuery,
 }: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -192,7 +189,7 @@ const EmployeeProfile = ({
               <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
                 <CareerDevelopmentSection
                   employeeProfileQuery={user.employeeProfile}
-                  careerDevelopmentOptions={careerDevelopmentOptions}
+                  careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section
@@ -226,17 +223,12 @@ const EmployeeProfilePage = () => {
     query: EmployeeProfilePage_Query,
   });
 
-  const careerDevelopmentOptions = getFragment(
-    EmployeeProfileCareerDevelopmentOptions_Fragment,
-    data,
-  );
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <EmployeeProfile
           userQuery={data.me}
-          careerDevelopmentOptions={careerDevelopmentOptions}
+          careerDevelopmentOptionsQuery={data}
         />
       ) : (
         <ThrowNotFound
