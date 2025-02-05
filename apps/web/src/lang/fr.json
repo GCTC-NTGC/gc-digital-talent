@@ -1455,6 +1455,10 @@
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline page"
   },
+  "5dSChw": {
+    "defaultMessage": "En savoir plus<hidden> sur {title}</hidden>",
+    "description": "Button label to Learn more about event"
+  },
   "5dgCOy": {
     "defaultMessage": "Pourquoi vous demande-t-on de déclarer votre statut?",
     "description": "Heading for the self-declaration explanation dialog"
@@ -1942,6 +1946,10 @@
   "8TyO/X": {
     "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
     "description": "Reminder what screening questions are used for."
+  },
+  "8UrSRQ": {
+    "defaultMessage": "Acceptation des mises en candidature du {openDate} au {closeDate}.",
+    "description": "Text for date range values for Accepting nominations"
   },
   "8V8WwR": {
     "defaultMessage": "Bassins additionnels",
@@ -6833,6 +6841,10 @@
   "ZpYj8o": {
     "defaultMessage": "Créer un ministère",
     "description": "Page title for the department creation page"
+  },
+  "ZqGZ2s": {
+    "defaultMessage": "Lancez une mise en candidature<hidden> pour {title}</hidden>",
+    "description": "Button label to start a nomination for event"
   },
   "ZqZc8Z": {
     "defaultMessage": "La création de votre parcours professionnel est un peu différente sur cette plateforme. Tout d’abord, le travail que vous effectuez ici sera enregistré dans votre profil afin que vous puissiez le réutiliser ultérieurement pour d’autres candidatures.",
