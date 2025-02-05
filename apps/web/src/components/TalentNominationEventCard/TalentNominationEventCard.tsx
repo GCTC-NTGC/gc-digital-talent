@@ -30,7 +30,10 @@ const TalentNominationEventCard = ({
 
   return (
     <>
-      <CardBasic data-h2-padding="base(x1.5)" data-h2-position="base(relative)">
+      <CardBasic
+        data-h2-padding="base(x1 x1.5 x1.5 x1.5)"
+        data-h2-position="base(relative)"
+      >
         <div data-h2-filter="base(drop-shadow(0 2px 2px rgba(0, 0, 0, .2))) base:dark(drop-shadow(0 2px 2px rgba(0, 0, 0, .5)))">
           <div
             data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
@@ -49,7 +52,7 @@ const TalentNominationEventCard = ({
           </div>
         </div>
         <div>
-          <Heading size="h6" data-h2-font-weight="base(700)">
+          <Heading level="h6" data-h2-font-weight="base(700)">
             {title}
           </Heading>
           <p
@@ -81,7 +84,12 @@ const TalentNominationEventCard = ({
             )}
           </p>
           <p data-h2-margin-bottom="base(x1)">{description}</p>
-          <div data-h2-text-align="base(center) p-tablet(inherit)">
+          <div
+            data-h2-align-items="base(center)"
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x1)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+          >
             <Link color="secondary" mode="solid" href={startUrl}>
               {intl.formatMessage(
                 {
@@ -100,8 +108,6 @@ const TalentNominationEventCard = ({
                 href={learnMoreUrl}
                 external
                 newTab
-                data-h2-margin-top="base(x1) p-tablet(none)"
-                data-h2-margin-left="base(0) p-tablet(x1)"
               >
                 {intl.formatMessage(
                   {
