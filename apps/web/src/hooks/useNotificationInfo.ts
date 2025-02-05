@@ -9,7 +9,6 @@ import {
   SystemNotification,
   UserFileGeneratedNotification,
   UserFileGenerationErrorNotification,
-  VerifyWorkEmailNotification,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -223,31 +222,6 @@ const userFileGeneratedNotificationToInfo = (
   };
 };
 
-function isVerifyWorkEmailNotification(
-  notification: GraphqlType,
-): notification is VerifyWorkEmailNotification {
-  return notification.__typename === "VerifyWorkEmailNotification";
-}
-
-const verifyWorkEmailNotificationToInfo = (
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-): NotificationInfo => {
-  const message = intl.formatMessage({
-    defaultMessage:
-      "According to your profile, you currently work for the Government of Canada. Gain access to employee-only tools by verifying your work email.",
-    id: "mbQw3Z",
-    description:
-      "Notification suggesting to a user that they should verify a work email",
-  });
-
-  return {
-    message: message,
-    label: message,
-    href: `${paths.profile()}#government-section`,
-  };
-};
-
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -286,10 +260,6 @@ const useNotificationInfo = (
 
   if (isSystemNotification(notification)) {
     return systemNotificationToInfo(notification, intl);
-  }
-
-  if (isVerifyWorkEmailNotification(notification)) {
-    return verifyWorkEmailNotificationToInfo(paths, intl);
   }
 
   logger.warning(
