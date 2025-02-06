@@ -1,0 +1,182 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Enums\EmploymentCategory;
+use App\Enums\GovPositionType;
+use App\Enums\WorkExperienceGovEmployeeType;
+use App\Models\PersonalExperience;
+use App\Models\User;
+use App\Models\WorkExperience;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
+
+class ComputeGovInfoTest extends TestCase
+{
+    use MakesGraphQLRequests;
+    use RefreshDatabase;
+    use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
+    use WithFaker;
+
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->setUpFaker();
+        $this->seed([
+            ClassificationSeeder::class,
+            RolePermissionSeeder::class,
+        ]);
+
+        $this->user = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'computed-gov-info@test.com',
+                'sub' => 'computed-gov-info@test.com',
+            ]);
+    }
+
+    public function test_non_work_experience()
+    {
+        PersonalExperience::factory()->create(['user_id' => $this->user->id]);
+
+        $this->assertEquals(false, $this->user->is_gov_employee);
+    }
+
+    public function test_acting_term_prioritized_over_substantive_indeterminate()
+    {
+
+        $sharedState = [
+            'user_id' => $this->user->id,
+            'start_date' => $this->faker->dateTimeBetween(now()),
+            'end_date' => null,
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+        ];
+
+        $expectedExperience = WorkExperience::factory()->create([
+            ...$sharedState,
+            'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+            'gov_position_type' => GovPositionType::ACTING->name,
+        ]);
+
+        WorkExperience::factory()->create([
+            ...$sharedState,
+            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+        ]);
+
+        $expected =
+            [
+                'computed_is_gov_employee' => true,
+                'computed_gov_employee_type' => $expectedExperience->gov_employment_type,
+                'computed_classification' => $expectedExperience->classification_id,
+                'computed_department' => $expectedExperience->department_id,
+                'computed_gov_position_type' => $expectedExperience->gov_position_type,
+                'computed_gov_end_date' => $expectedExperience->end_date,
+            ];
+
+        $actual = $this->user->refresh()->only([
+            'computed_is_gov_employee',
+            'computed_gov_employee_type',
+            'computed_classification',
+            'computed_department',
+            'computed_gov_position_type',
+            'computed_gov_end_date',
+        ]);
+
+        $this->assertEqualsCanonicalizing($expected, $actual);
+    }
+
+    /**
+     * @dataProvider workExperienceProvider
+     */
+    public function test_work_experience_computes_proper_data(array $experienceState, array $expected)
+    {
+        WorkExperience::factory()->create([
+            'user_id' => $this->user->id,
+            ...$experienceState,
+        ]);
+
+        $actual = $this->user->refresh()->only(array_keys($expected));
+
+        $this->assertEqualsCanonicalizing($expected, $actual);
+
+    }
+
+    public static function workExperienceProvider()
+    {
+        $nullState = [
+            'computed_is_gov_employee' => false,
+            'computed_gov_employee_type' => null,
+            'computed_classification' => null,
+            'computed_department' => null,
+            'computed_gov_position_type' => null,
+            'computed_gov_end_date' => null,
+        ];
+
+        return [
+            'external' => [
+                ['employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name],
+                $nullState,
+            ],
+            'armed forces' => [
+                ['employment_category' => EmploymentCategory::CANADIAN_ARMED_FORCES->name],
+                $nullState,
+            ],
+            'student government' => [
+                [
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => WorkExperienceGovEmployeeType::STUDENT->name,
+                ],
+                $nullState,
+            ],
+            'casual government' => [
+                [
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => WorkExperienceGovEmployeeType::CASUAL->name,
+                ],
+                $nullState,
+            ],
+            'conrtractor government' => [
+                [
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => WorkExperienceGovEmployeeType::CONTRACTOR->name,
+                ],
+                $nullState,
+            ],
+            'term government' => [
+                [
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+                    'gov_position_type' => GovPositionType::ACTING->name,
+                ],
+                [
+                    'computed_is_gov_employee' => true,
+                    'computed_gov_employee_type' => WorkExperienceGovEmployeeType::TERM->name,
+                    'computed_gov_position_type' => GovPositionType::ACTING->name,
+                ],
+            ],
+            'indeterminate government' => [
+                [
+                    'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+                ],
+                [
+                    'computed_is_gov_employee' => true,
+                    'computed_gov_employee_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'computed_gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+                ],
+            ],
+        ];
+    }
+}
