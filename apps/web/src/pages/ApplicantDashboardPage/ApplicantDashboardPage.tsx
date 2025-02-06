@@ -2,16 +2,11 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import {
-  Pending,
-  Separator,
-  ResourceBlock,
-  NotFound,
-} from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Pending, ResourceBlock, NotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -21,9 +16,8 @@ import Hero from "~/components/Hero";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
 
-import ReviewApplicationPreviewList from "./components/ReviewApplicationPreviewList";
-import ReviewRecruitmentProcessPreviewList from "./components/ReviewRecruitmentProcessPreviewList";
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
+import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -37,8 +31,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       ...CareerDevelopmentTaskCard
     }
     poolCandidates {
-      ...ReviewApplicationPreviewList
-      ...ReviewRecruitmentProcessPreviewList
+      ...ApplicationsProcessesTaskCard
     }
   }
 `);
@@ -100,16 +93,13 @@ export const DashboardPage = ({
               data-h2-flex-direction="base(column)"
               data-h2-gap="base(x1)"
             >
-              <ReviewApplicationPreviewList
-                applicationsQuery={unpackMaybes(currentUser?.poolCandidates)}
-              />
-              {/* Temporary separator till https://github.com/GCTC-NTGC/gc-digital-talent/issues/10772 */}
-              <Separator data-h2-margin="base(0)" decorative />
-              <ReviewRecruitmentProcessPreviewList
-                recruitmentProcessesQuery={unpackMaybes(
-                  currentUser?.poolCandidates,
-                )}
-              />
+              {currentUser?.poolCandidates ? (
+                <ApplicationsProcessesTaskCard
+                  applicationsProcessesTaskCardQuery={unpackMaybes(
+                    currentUser?.poolCandidates,
+                  )}
+                />
+              ) : null}
               {isVerifiedEmployee && currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
