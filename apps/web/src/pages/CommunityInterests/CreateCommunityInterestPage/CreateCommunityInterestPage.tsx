@@ -66,12 +66,7 @@ const CreateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <CardBasic
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x5)"
-            data-h2-padding="base(x1 x1) l-tablet(x1 x1.5)"
-          >
+          <CardBasic data-h2-padding="base(x1 x1) l-tablet(x1 x1.5)">
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
