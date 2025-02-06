@@ -139,7 +139,7 @@ const FindANewCommunity = ({
         >
           {intl.formatMessage(heading)}
         </Heading>
-        <span>{intl.formatMessage(description)}</span>
+        <p>{intl.formatMessage(description)}</p>
       </div>
       {/* form */}
       <div

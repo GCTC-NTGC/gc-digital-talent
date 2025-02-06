@@ -120,7 +120,7 @@ const TrainingAndDevelopmentOpportunities = ({
               "Heading for the 'Training and development opportunities' section",
           })}
         </Heading>
-        <span>
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn’t an application, but it allows HR and recruitment staff to verify your interest in case you’ve been nominated for a training or development opportunity.",
@@ -128,7 +128,7 @@ const TrainingAndDevelopmentOpportunities = ({
             description:
               "Description of the 'Training and development opportunities' section",
           })}
-        </span>
+        </p>
       </div>
       {/* list of programs */}
       <div

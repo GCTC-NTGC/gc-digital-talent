@@ -55,14 +55,14 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
             description: "Heading for the 'Review and submit' section",
           })}
         </Heading>
-        <span>
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "Please review the information you've provided. Once a community is added to your profile, you can update this information or remove the community from your profile at any time.",
             id: "HGbGb/",
             description: "Description of the 'Review and submit' section",
           })}
-        </span>
+        </p>
       </div>
       {/* consent form */}
       <div

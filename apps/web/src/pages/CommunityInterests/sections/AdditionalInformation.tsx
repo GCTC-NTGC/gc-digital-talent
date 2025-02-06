@@ -58,14 +58,14 @@ const AdditionalInformation = ({
             description: "Heading for the 'Additional information' section",
           })}
         </Heading>
-        <span>
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "In some cases, a functional community might have domain-specific questions that will help them better understand how you fit into roles within that community. This section also provides you with an opportunity to describe any other relevant information you might want to offer about yourself or your fit.",
             id: "YiC/Xi",
             description: "Description of the 'Additional information' section",
           })}
-        </span>
+        </p>
       </div>
       {/* form */}
       <div
