@@ -86,6 +86,7 @@ return [
         'communityTeamMembers' => 'communityTeamMembers',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
+        'communityInterest' => 'communityInterest',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -632,6 +633,11 @@ return [
             'en' => 'Create or update a training opportunity',
             'fr' => 'Créer ou mettre à jour une opportunité de formation',
         ],
+
+        'view-team-communityInterest' => [
+            'en' => 'View community interest records associated with a community',
+            'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
+        ],
     ],
 
     /*
@@ -1065,6 +1071,9 @@ return [
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
         ],
 
         'community_admin' => [
@@ -1115,6 +1124,9 @@ return [
             ],
             'processOperatorMembership' => [
                 'team' => ['update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
             ],
         ],
 
