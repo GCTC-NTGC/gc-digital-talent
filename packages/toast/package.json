@@ -23,7 +23,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
-    "@storybook/react": "^8.5.2",
+    "@storybook/react": "^8.5.3",
     "@types/react": "^18.3.13",
     "eslint": "^8.57.0",
     "react": "^18.3.1",
