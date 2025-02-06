@@ -33,8 +33,20 @@ const TalentNominationEventCard = ({
       <CardBasic
         data-h2-padding="base(x1 x1.5 x1.5 x1.5)"
         data-h2-position="base(relative)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
       >
-        <div data-h2-filter="base(drop-shadow(0 2px 2px rgba(0, 0, 0, .2))) base:dark(drop-shadow(0 2px 2px rgba(0, 0, 0, .5)))">
+        <Heading
+          level="h6"
+          data-h2-font-weight="base(700)"
+          data-h2-order="base(2)"
+        >
+          {title}
+        </Heading>
+        <div
+          data-h2-order="base(1)"
+          data-h2-filter="base(drop-shadow(0 2px 2px rgba(0, 0, 0, .2))) base:dark(drop-shadow(0 2px 2px rgba(0, 0, 0, .5)))"
+        >
           <div
             data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
             data-h2-border-radius="base(rounded 0 0 rounded)"
@@ -51,10 +63,7 @@ const TalentNominationEventCard = ({
             {communityName}
           </div>
         </div>
-        <div>
-          <Heading level="h6" data-h2-font-weight="base(700)">
-            {title}
-          </Heading>
+        <div data-h2-order="base(3)">
           <p
             data-h2-margin-bottom="base(x.5)"
             data-h2-color="base(black.light)"
