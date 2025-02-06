@@ -19,6 +19,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -220,6 +221,10 @@ class UserFactory extends Factory
                 'user_id' => $user->id,
                 'end_date' => null,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => $this->faker->randomElement([
+                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    WorkExperienceGovEmployeeType::TERM->name,
+                ]),
             ]);
             $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
         });
@@ -399,6 +404,9 @@ class UserFactory extends Factory
             $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->inRandomOrder()->take($count)->get();
+            if (! $allSkills->count()) {
+                $allSkills = Skill::factory($count)->create();
+            }
         }
         $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
