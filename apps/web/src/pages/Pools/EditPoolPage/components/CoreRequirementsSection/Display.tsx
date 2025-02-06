@@ -56,12 +56,7 @@ const Display = ({
             hasError={!hasLocation}
             label={intl.formatMessage(processMessages.location)}
           >
-            {intl.formatMessage({
-              defaultMessage: "Remote, hybrid or on-site",
-              id: "swESO/",
-              description:
-                "Location requirement when a pool advertisement is remote",
-            }) || notProvided}
+            {intl.formatMessage(commonMessages.remote) || notProvided}
           </ToggleForm.FieldDisplay>
         ) : (
           <>

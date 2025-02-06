@@ -304,6 +304,66 @@ const commonMessages = defineMessages({
     id: "i+8teP",
     description: "Title for description",
   },
+  received: {
+    defaultMessage: "Received",
+    id: "SD8i+/",
+    description: "Title for received",
+  },
+  deadlineToApply: {
+    defaultMessage: "Deadline to apply",
+    id: "ZoYqEo",
+    description: "Title for deadline to apply",
+  },
+  qualified: {
+    defaultMessage: "Qualified",
+    id: "jrDTez",
+    description: "Title for qualified",
+  },
+  expires: {
+    defaultMessage: "Expires",
+    id: "eQ8bTh",
+    description: "Title for expires",
+  },
+  close: {
+    defaultMessage: "Close",
+    id: "fhpH9E",
+    description: "Title for close",
+  },
+  salaryRange: {
+    defaultMessage: "Salary range",
+    id: "cR8L3T",
+    description: "Title for salary range",
+  },
+  employmentLength: {
+    defaultMessage: "Employment length",
+    id: "RhkjXE",
+    description: "Title for employment length",
+  },
+  securityClearance: {
+    defaultMessage: "Security clearance",
+    id: "7O5SRa",
+    description: "Title for security clearance",
+  },
+  requiredSkills: {
+    id: "WZ17s5",
+    defaultMessage: "Required skills",
+    description: "Title for required skills",
+  },
+  optionalSkills: {
+    id: "Ojevvl",
+    defaultMessage: "Optional skills",
+    description: "Title for optional skills",
+  },
+  deadline: {
+    id: "1FNzD4",
+    defaultMessage: "Deadline",
+    description: "Title for deadline",
+  },
+  remote: {
+    defaultMessage: "Remote, hybrid or on-site",
+    id: "DUjO/t",
+    description: "Title for remote, hybrid or on-site",
+  },
   careerPlanning: {
     defaultMessage: "Career planning",
     id: "zN7MBv",
