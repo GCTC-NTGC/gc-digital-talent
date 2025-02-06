@@ -56,7 +56,7 @@ class SendNotificationsVerifyWorkEmail extends Command
                         $user->notify($notification);
                         $successCount++;
                     } catch (Throwable $e) {
-                        $this->error($e->getMessage());
+                        $this->error($e->getMessage().' User id: '.$user->id);
                         $failureCount++;
                     }
                 }
