@@ -333,6 +333,9 @@ const getRoutes = (lang: Locales) => {
     workStreamUpdate: (workStreamId: string) =>
       [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
 
+    // Admin - Community Talent
+    communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
+
     /**
      * Deprecated
      *

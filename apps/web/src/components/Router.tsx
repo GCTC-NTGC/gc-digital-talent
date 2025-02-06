@@ -952,6 +952,13 @@ const createRoute = (locale: Locales) =>
                   ],
                 },
                 {
+                  path: "community-talent",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityInterests/CommunityTalent/CommunityTalentPage"
+                    ),
+                },
+                {
                   path: "*",
                   loader: () => {
                     throw new NotFoundError();
