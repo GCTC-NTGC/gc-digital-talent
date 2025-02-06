@@ -27,7 +27,7 @@
     "@gc-digital-talent/graphql": "workspace:*"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.5.1",
+    "@formatjs/cli": "^6.6.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
