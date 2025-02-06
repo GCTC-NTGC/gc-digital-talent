@@ -6926,6 +6926,10 @@
     "defaultMessage": "Indéterminée (emploi permanent seulement)",
     "description": "Label displayed on Work Preferences form for indeterminate duration option."
   },
+  "aBGEsG": {
+    "defaultMessage": "Candidatures",
+    "description": "Job applications expandable"
+  },
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
@@ -8402,6 +8406,10 @@
     "defaultMessage": "Votre signature",
     "description": "label for the signature input on the self-declaration form"
   },
+  "hhNBq8": {
+    "defaultMessage": "Candidatures et processus",
+    "description": "Card title for Applications and processes"
+  },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
@@ -9666,6 +9674,10 @@
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
+  "ogWg7U": {
+    "defaultMessage": "Les candidatures retenues vous permettent d'accéder aux processus de recrutement qui apparaissent automatiquement ici. Sélectionnez un processus dans cette liste pour en consulter les détails ou mettre à jour votre disponibilité pour les possibilités d’emploi.",
+    "description": "Subtitle explaining Recruitment processes expandable within applications and processes card"
+  },
   "ohLTJS": {
     "defaultMessage": "Candidat non rétabli",
     "description": "Error message for reinstating a candidate"
@@ -9777,6 +9789,10 @@
   "pDlEip": {
     "defaultMessage": "Créez la compétence",
     "description": "Button label to create a skill"
+  },
+  "pDqhbX": {
+    "defaultMessage": "Postulez à un emploi, poursuivez vos ébauches ou suivez vos candidatures soumises tout au long du processus d'évaluation.",
+    "description": "Subtitle explaining job applications expandable within applications and processes card"
   },
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
@@ -10917,6 +10933,10 @@
   "wP9+aN": {
     "defaultMessage": "Créez un processus",
     "description": "Heading displayed above the Create process form."
+  },
+  "wPDwMb": {
+    "defaultMessage": "Processus de recrutement",
+    "description": "Recruitment processes expandable"
   },
   "wPpvvm": {
     "defaultMessage": "Créer un profil",
