@@ -71,25 +71,30 @@ const FunctionalCommunityListItem = ({
     },
   ];
 
+  const title =
+    functionalCommunityListItemFragment?.community?.name?.localized ??
+    intl.formatMessage(commonMessages.notAvailable);
   return (
     <>
       <PreviewList.Item
-        title={
-          functionalCommunityListItemFragment?.community?.name?.localized ??
-          intl.formatMessage(commonMessages.notAvailable)
-        }
+        title={title}
         metaData={metaDataProps}
         action={
           <CommunityInterestDialog
             communityInterestQuery={functionalCommunityListItemFragment}
+            trigger={<PreviewList.Button label={title} />}
           />
         }
         headingAs={headingAs}
       >
-        <span>
-          {functionalCommunityListItemFragment?.community?.description
-            ?.localized ?? ""}
-        </span>
+        {functionalCommunityListItemFragment?.community?.description && (
+          <span>
+            {
+              functionalCommunityListItemFragment?.community?.description
+                ?.localized
+            }
+          </span>
+        )}
       </PreviewList.Item>
     </>
   );
