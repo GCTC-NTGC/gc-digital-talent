@@ -507,6 +507,8 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
+  createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
+  updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -981,6 +983,18 @@ type DevelopmentProgram {
   descriptionForNominations: LocalizedString
   community: Community
   eligibleClassifications: [Classification!]
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedString
+  includeLeadershipCompetencies: Boolean!
+  community: Community!
+  developmentPrograms: [DevelopmentProgram!]
 }
 
 type Team implements HasRoleAssignments {
@@ -1771,6 +1785,32 @@ input UpdateCommunityInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+}
+
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime
+  closeDate: DateTime
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
 }
 
 input CreateApplicantFilterInput {
