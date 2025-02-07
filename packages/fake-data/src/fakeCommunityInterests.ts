@@ -10,6 +10,7 @@ import {
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";
+import { fakeUser } from "./fakeUsers";
 
 const generateCommunityInterest = (
   communities: Community[],
@@ -26,6 +27,7 @@ const generateCommunityInterest = (
     id: faker.string.uuid(),
     community,
     workStreams,
+    user: fakeUser(),
     jobInterest: faker.datatype.boolean(),
     trainingInterest: faker.datatype.boolean(),
     additionalInformation: faker.lorem.paragraph(),
