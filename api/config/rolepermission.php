@@ -646,6 +646,7 @@ return [
         'update-team-talentNominationEvent' => [
             'en' => 'Update team talent nomination event',
             'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
+        ],
         'view-team-communityInterest' => [
             'en' => 'View community interest records associated with a community',
             'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',

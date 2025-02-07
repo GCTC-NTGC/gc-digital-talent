@@ -47,7 +47,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_guest_role()
+    public function testGuestRole()
     {
         $guestRole = Role::where('name', 'guest')->sole();
         $this->user->addRole($guestRole);
@@ -77,7 +77,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_base_user_role()
+    public function testBaseUserRole()
     {
         $baseUserRole = Role::where('name', 'base_user')->sole();
         $this->user->addRole($baseUserRole);
@@ -109,7 +109,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_applicant_role()
+    public function testApplicantRole()
     {
         $applicantRole = Role::where('name', 'applicant')->sole();
         $this->user->addRole($applicantRole);
@@ -136,7 +136,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_platform_admin_role()
+    public function testPlatformAdminRole()
     {
         $superAdminRole = Role::where('name', 'platform_admin')->sole();
         $this->user->addRole($superAdminRole);
@@ -206,7 +206,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_process_operator_role()
+    public function testProcessOperatorRole()
     {
         $pool = Pool::factory()
             ->draft()
@@ -254,7 +254,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_community_recruiter_role()
+    public function testCommunityRecruiterRole()
     {
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
@@ -310,7 +310,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_community_admin_role()
+    public function testCommunityAdminRole()
     {
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
@@ -372,7 +372,7 @@ class RolePermissionTest extends TestCase
      *
      * @return void
      */
-    public function test_strict_team_check()
+    public function testStrictTeamCheck()
     {
         $processOperatorRole = Role::where('name', 'process_operator')->sole();
         $this->user->addRole(
