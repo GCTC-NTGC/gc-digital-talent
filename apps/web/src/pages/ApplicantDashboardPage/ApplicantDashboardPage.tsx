@@ -2,7 +2,13 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { NotFound, Pending, ResourceBlock } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  Separator,
+  ResourceBlock,
+  NotFound,
+} from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -15,6 +21,8 @@ import Hero from "~/components/Hero";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
 
+import ReviewApplicationPreviewList from "./components/ReviewApplicationPreviewList";
+import ReviewRecruitmentProcessPreviewList from "./components/ReviewRecruitmentProcessPreviewList";
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
@@ -27,6 +35,10 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     isWorkEmailVerified
     employeeProfile {
       ...CareerDevelopmentTaskCard
+    }
+    poolCandidates {
+      ...ReviewApplicationPreviewList
+      ...ReviewRecruitmentProcessPreviewList
     }
   }
 `);
@@ -83,11 +95,27 @@ export const DashboardPage = ({
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
-            {isVerifiedEmployee && currentUser?.employeeProfile ? (
-              <CareerDevelopmentTaskCard
-                careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x1)"
+            >
+              <ReviewApplicationPreviewList
+                applicationsQuery={unpackMaybes(currentUser?.poolCandidates)}
               />
-            ) : null}
+              {/* Temporary separator till https://github.com/GCTC-NTGC/gc-digital-talent/issues/10772 */}
+              <Separator data-h2-margin="base(0)" decorative />
+              <ReviewRecruitmentProcessPreviewList
+                recruitmentProcessesQuery={unpackMaybes(
+                  currentUser?.poolCandidates,
+                )}
+              />
+              {isVerifiedEmployee && currentUser?.employeeProfile ? (
+                <CareerDevelopmentTaskCard
+                  careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+                />
+              ) : null}
+            </div>
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -127,7 +155,7 @@ export const DashboardPage = ({
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `
-  query ApplicantDashboard_Query {
+  query ApplicantDashboard {
     me {
       ...ApplicantDashboardPage
     }
@@ -158,5 +186,4 @@ export const Component = () => (
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );
-
 Component.displayName = "ApplicantDashboardPage";
