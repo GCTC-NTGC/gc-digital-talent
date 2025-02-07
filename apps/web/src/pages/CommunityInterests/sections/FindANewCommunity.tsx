@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
-import { ComponentProps } from "react";
+import { ComponentProps, useId } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
@@ -58,6 +58,7 @@ const FindANewCommunity = ({
 
   const { watch } = useFormContext<FormValues>();
   const [selectedCommunityId] = watch(["communityId"]);
+  const workStreamListDescription = useId();
 
   const communityOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(optionsData.communities).map((community) => ({
@@ -262,7 +263,7 @@ const FindANewCommunity = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x0.5)"
               >
-                <span>
+                <span id={workStreamListDescription}>
                   {intl.formatMessage({
                     defaultMessage:
                       "Please select any of the work streams listed that you would consider working within.",
@@ -286,6 +287,7 @@ const FindANewCommunity = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   disabled={formDisabled}
+                  aria-describedby={workStreamListDescription}
                 />
               </div>
             ) : // no work streams
