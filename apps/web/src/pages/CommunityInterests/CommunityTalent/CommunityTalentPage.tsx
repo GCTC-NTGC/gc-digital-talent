@@ -7,6 +7,8 @@ import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import adminMessages from "~/messages/adminMessages";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import CommunityTalentTable from "./CommunityTalentTable";
 
@@ -14,16 +16,12 @@ export const CommunityTalentPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Community talent",
-    id: "ZPkrJh",
-    description: "aaa",
-  });
+  const pageTitle = intl.formatMessage(adminMessages.communityTalent);
   const pageSubtitle = intl.formatMessage({
     defaultMessage:
       "Find GC employees interested in talent mobility opportunities within your community.",
-    id: "3fMyIh",
-    description: "aaa",
+    id: "rT35R+",
+    description: "Subtitle explaining the community talent table",
   });
 
   const crumbs = useBreadcrumbs({
@@ -39,12 +37,9 @@ export const CommunityTalentPage = () => {
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
-      <section
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-        data-h2-margin="base(x3)"
-      >
+      <AdminContentWrapper table>
         <CommunityTalentTable title={pageTitle} />
-      </section>
+      </AdminContentWrapper>
     </>
   );
 };
