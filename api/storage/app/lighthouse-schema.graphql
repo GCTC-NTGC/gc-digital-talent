@@ -410,6 +410,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): TrainingOpportunityPaginator!
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): CommunityInterestPaginator!
 }
 
 type Mutation {
@@ -640,6 +650,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community!
+  user: User!
   workStreams: [WorkStream!]
   jobInterest: Boolean
   trainingInterest: Boolean
@@ -1393,6 +1404,10 @@ input SitewideAnnouncementInput {
 input ClaimVerificationSort {
   order: SortOrder!
   useBookmark: Boolean
+}
+
+input CommunityInterestFilterInput {
+  userName: String
 }
 
 input ClassificationBelongsTo {
@@ -2330,6 +2345,15 @@ type TrainingOpportunityPaginator {
 
   "A list of TrainingOpportunity items."
   data: [TrainingOpportunity!]!
+}
+
+"A paginated list of CommunityInterest items."
+type CommunityInterestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of CommunityInterest items."
+  data: [CommunityInterest!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
