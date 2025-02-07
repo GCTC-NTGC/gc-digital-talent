@@ -20,6 +20,12 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
+import {
+  aboutSectionHasEmptyRequiredFields,
+  governmentInformationSectionHasEmptyRequiredFields,
+  languageInformationSectionHasEmptyRequiredFields,
+  workPreferencesSectionHasEmptyRequiredFields,
+} from "~/validators/profile";
 
 import ReviewApplicationPreviewList from "./components/ReviewApplicationPreviewList";
 import ReviewRecruitmentProcessPreviewList from "./components/ReviewRecruitmentProcessPreviewList";
@@ -39,6 +45,91 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewApplicationPreviewList
       ...ReviewRecruitmentProcessPreviewList
+    }
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+    }
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    positionDuration
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    locationExemptions
+    currentCity
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
     }
   }
 `);
@@ -63,6 +154,24 @@ export const DashboardPage = ({
     workEmail: currentUser.workEmail,
     isWorkEmailVerified: currentUser.isWorkEmailVerified,
   });
+
+  const personalInformationState =
+    aboutSectionHasEmptyRequiredFields(currentUser) ||
+    governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
+    languageInformationSectionHasEmptyRequiredFields(currentUser) ||
+    workPreferencesSectionHasEmptyRequiredFields(currentUser)
+      ? "complete"
+      : "incomplete";
+
+  const careerExperienceState =
+    currentUser.experiences && currentUser.experiences?.length > 0
+      ? "complete"
+      : "incomplete";
+
+  const skillsPortfolioState =
+    currentUser.userSkills && currentUser.userSkills?.length > 0
+      ? "complete"
+      : "incomplete";
 
   return (
     <>
@@ -122,6 +231,80 @@ export const DashboardPage = ({
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
             >
+              <ResourceBlock.Root
+                headingColor="quaternary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Your information",
+                  id: "Jlk0bi",
+                  description: "Card title for a 'your information' card",
+                })}
+              >
+                <ResourceBlock.SingleLinkItem
+                  state={personalInformationState}
+                  title={intl.formatMessage({
+                    defaultMessage: "Personal information",
+                    id: "3v6Tmi",
+                    description: "Link to the 'Personal information' page",
+                  })}
+                  href={paths.careerTimelineAndRecruitment()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Name, contact info, employment equity, language proficiency, and work preferences.",
+                    id: "aDCqiX",
+                    description:
+                      "Helper instructions for an 'Personal information' card",
+                  })}
+                />
+                <ResourceBlock.SingleLinkItem
+                  state={careerExperienceState}
+                  title={intl.formatMessage({
+                    defaultMessage: "Career experience",
+                    id: "UfjJ9P",
+                    description: "Link to the 'Career experience' page",
+                  })}
+                  href={paths.careerTimelineAndRecruitment()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Work, education, volunteering, awards, and more.",
+                    id: "RSUZix",
+                    description:
+                      "Helper instructions for an 'Career experience' card",
+                  })}
+                />
+                <ResourceBlock.SingleLinkItem
+                  state={skillsPortfolioState}
+                  title={intl.formatMessage({
+                    defaultMessage: "Skills portfolio",
+                    id: "UmlE9r",
+                    description: "Link to the 'Skills portfolio' page",
+                  })}
+                  href={paths.skillPortfolio()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Manage skills, and edit top skills or skills you'd like to learn.",
+                    id: "gCDfWw",
+                    description:
+                      "Helper instructions for an 'Skills portfolio' card",
+                  })}
+                />
+                <ResourceBlock.SingleLinkItem
+                  state="complete"
+                  title={intl.formatMessage({
+                    defaultMessage: "Account settings",
+                    id: "dEMBDa",
+                    description: "Link to the 'Account settings' page",
+                  })}
+                  href={paths.accountSettings()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Learn about GCKey and manage notifications.",
+                    id: "dj+m3H",
+                    description:
+                      "Helper instructions for an 'Account settings' card",
+                  })}
+                />
+              </ResourceBlock.Root>
               <ResourceBlock.Root
                 headingColor="tertiary"
                 headingAs="h2"
