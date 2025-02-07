@@ -44,4 +44,12 @@ class CommunityInterestPolicy
     {
         return $user->isAbleTo('update-own-employeeProfile') && $user->id === $communityInterest->user_id;
     }
+
+    /**
+     * Determine whether the user can access user profiles associated with models.
+     */
+    public function viewUser(User $user): bool
+    {
+        return $user->isAbleTo('view-team-communityInterest');
+    }
 }
