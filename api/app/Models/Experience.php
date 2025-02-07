@@ -285,6 +285,33 @@ class Experience extends Model
         );
     }
 
+    protected static function getJsonPropertyArray(array $attributes, string $propertyName)
+    {
+
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName)) {
+            return $properties->$propertyName;
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyArray(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        $properties->$propertyName = array_unique($value);
+
+        return ['properties' => json_encode($properties)];
+    }
+
+    protected function makeJsonPropertyArrayAttribute(string $propertyName): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyArray($attributes, $propertyName),
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyArray($value, $attributes, $propertyName)
+        );
+    }
+
     /**
      * @param  mixed  $snapshot  the snapshot
      * @return array array of experiences

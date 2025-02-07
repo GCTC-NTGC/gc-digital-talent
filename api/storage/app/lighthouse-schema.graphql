@@ -1868,7 +1868,7 @@ input WorkExperienceInput {
   cafRank: CafRank
   classificationId: String
   departmentId: String
-  workStreams: WorkStreamBelongsToMany
+  workStreamIds: [UUID!]
 }
 
 input PersonalExperienceInput {

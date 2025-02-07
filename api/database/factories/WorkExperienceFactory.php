@@ -125,18 +125,15 @@ class WorkExperienceFactory extends Factory
 
                 return null;
             },
+            'work_stream_ids' => function () {
+                if ($this->faker->boolean()) {
+                    $count = $this->faker->numberBetween(1, 3);
+
+                    return WorkStream::inRandomOrder()->limit($count)->get()->modelKeys();
+                }
+
+                return null;
+            },
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (WorkExperience $experience) {
-            if ($this->faker->boolean()) {
-                $count = $this->faker->numberBetween(1, 3);
-
-                $workStreams = WorkStream::inRandomOrder()->limit($count)->get();
-                $experience->workStreams()->sync($workStreams);
-            }
-        });
     }
 }

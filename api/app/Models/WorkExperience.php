@@ -7,10 +7,10 @@ use App\Enums\EmploymentCategory;
 use App\Models\Scopes\MatchExperienceType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
 
 /**
  * Class WorkExperience
@@ -282,6 +282,14 @@ class WorkExperience extends Experience
     }
 
     /**
+     * Interact with the saved work stream ids
+     */
+    protected function workStreamIds(): Attribute
+    {
+        return $this->makeJsonPropertyArrayAttribute('work_stream_ids');
+    }
+
+    /**
      * Return the classification model from JSON
      */
     public function classification()
@@ -297,9 +305,8 @@ class WorkExperience extends Experience
         return $this->belongsTo(Department::class, 'properties->department_id');
     }
 
-    /** @return BelongsToMany<WorkStream, $this> */
-    public function workStreams(): BelongsToMany
+    public function workStreams(): BelongsToJson
     {
-        return $this->belongsToMany(WorkStream::class, 'experience_work_stream', 'experience_id', 'work_stream_id');
+        return $this->belongsToJson(WorkStream::class, 'properties->work_stream_ids');
     }
 }
