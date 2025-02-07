@@ -45,14 +45,14 @@ class ComputeGovInfoTest extends TestCase
             ]);
     }
 
-    public function test_non_work_experience()
+    public function testNonWorkExperience()
     {
         PersonalExperience::factory()->create(['user_id' => $this->user->id]);
 
         $this->assertEquals(false, $this->user->is_gov_employee);
     }
 
-    public function test_acting_term_prioritized_over_substantive_indeterminate()
+    public function testActingTermPrioritizedOverSubstantiveIndeterminate()
     {
 
         $sharedState = [
@@ -99,10 +99,11 @@ class ComputeGovInfoTest extends TestCase
     /**
      * @dataProvider workExperienceProvider
      */
-    public function test_work_experience_computes_proper_data(array $experienceState, array $expected)
+    public function testWorkExperienceComputesProperData(array $experienceState, array $expected)
     {
         WorkExperience::factory()->create([
             'user_id' => $this->user->id,
+            'end_date' => null,
             ...$experienceState,
         ]);
 

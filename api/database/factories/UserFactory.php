@@ -105,6 +105,7 @@ class UserFactory extends Factory
             'verbal_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
+            'computed_is_gov_employee' => $isGovEmployee,
             'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
