@@ -4,8 +4,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
 import {
-  CardBasic,
-  CardSeparator,
+  CardForm,
+  CardFormSeparator,
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -108,7 +108,7 @@ const UpdateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <CardBasic data-h2-padding="base(x1 x1) l-tablet(x1 x1.5)">
+          <CardForm>
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -119,17 +119,17 @@ const UpdateCommunityInterestForm = ({
                 formDisabled={formDisabled}
                 mode="update"
               />
-              <CardSeparator space="none" />
+              <CardFormSeparator />
               <TrainingAndDevelopmentOpportunities
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
               />
-              <CardSeparator space="none" />
+              <CardFormSeparator />
               <AdditionalInformation formDisabled={formDisabled} />
-              <CardSeparator space="none" />
+              <CardFormSeparator />
               <ReviewAndSubmit formDisabled={formDisabled} />
             </div>
-          </CardBasic>
+          </CardForm>
         </form>
       </FormProvider>
     </>
