@@ -299,7 +299,9 @@ class Experience extends Model
     protected static function setJsonPropertyArray(mixed $value, array $attributes, string $propertyName)
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
-        $properties->$propertyName = array_unique($value);
+        if (is_array($value)) {
+            $properties->$propertyName = array_unique($value);
+        }
 
         return ['properties' => json_encode($properties)];
     }
