@@ -8,6 +8,8 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
+import CommunityTalentTable from "./CommunityTalentTable";
+
 export const CommunityTalentPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -41,7 +43,7 @@ export const CommunityTalentPage = () => {
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin="base(x3)"
       >
-        <p>Hi</p>
+        <CommunityTalentTable title={pageTitle} />
       </section>
     </>
   );
