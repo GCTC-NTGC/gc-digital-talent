@@ -93,13 +93,11 @@ export const DashboardPage = ({
               data-h2-flex-direction="base(column)"
               data-h2-gap="base(x1)"
             >
-              {currentUser?.poolCandidates ? (
-                <ApplicationsProcessesTaskCard
-                  applicationsProcessesTaskCardQuery={unpackMaybes(
-                    currentUser?.poolCandidates,
-                  )}
-                />
-              ) : null}
+              <ApplicationsProcessesTaskCard
+                applicationsProcessesTaskCardQuery={unpackMaybes(
+                  currentUser?.poolCandidates,
+                )}
+              />
               {isVerifiedEmployee && currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
