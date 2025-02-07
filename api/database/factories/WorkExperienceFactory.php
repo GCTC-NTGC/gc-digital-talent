@@ -16,6 +16,7 @@ use App\Models\Classification;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -125,5 +126,17 @@ class WorkExperienceFactory extends Factory
                 return null;
             },
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (WorkExperience $experience) {
+            if ($this->faker->boolean()) {
+                $count = $this->faker->numberBetween(1, 3);
+
+                $workStreams = WorkStream::inRandomOrder()->limit($count)->get();
+                $experience->workStreams()->sync($workStreams);
+            }
+        });
     }
 }
