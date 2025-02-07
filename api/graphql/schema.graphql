@@ -1220,7 +1220,15 @@ type Query {
   ): [LocalizedEnumString!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: ["first_name", "work_email", "preferred_lang"]
+          }
+        ]
+      )
   ): [CommunityInterest]!
     @guard
     @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])

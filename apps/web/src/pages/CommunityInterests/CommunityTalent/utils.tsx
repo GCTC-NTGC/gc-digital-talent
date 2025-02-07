@@ -2,8 +2,13 @@ import { SortingState } from "@tanstack/react-table";
 import { IntlShape } from "react-intl";
 import { JSX } from "react";
 
-import { Maybe, OrderByClause, SortOrder } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  Maybe,
+  SortOrder,
+  QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
+  OrderByRelationWithColumnAggregateFunction,
+  QueryCommunityInterestsPaginatedOrderByUserColumn,
+} from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -11,22 +16,57 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 export function transformSortStateToOrderByClause(
-  sortingRule: SortingState,
-): OrderByClause | OrderByClause[] | undefined {
-  const columnMap = new Map<string, string>([["id", "id"]]);
+  sortingRules: SortingState,
+): QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
+  const columnMap = new Map<string, string>([
+    ["jobInterest", "job_interest"],
+    ["trainingInterest", "training_interest"],
+    ["userName", "FIRST_NAME"],
+    ["workEmail", "WORK_EMAIL"],
+    ["preferredLang", "PREFERRED_LANG"],
+  ]);
 
-  const orderBy = sortingRule
-    .map((rule) => {
-      const columnName = columnMap.get(rule.id);
-      if (!columnName) return undefined;
-      return {
-        column: columnName,
-        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
-      };
-    })
-    .filter(notEmpty);
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
 
-  return orderBy.length ? orderBy : undefined;
+  if (
+    sortingRule &&
+    ["jobInterest", "trainingInterest"].includes(sortingRule.id)
+  ) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: columnName,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: undefined,
+    };
+  }
+
+  if (
+    sortingRule &&
+    ["userName", "preferredLang", "workEmail"].includes(sortingRule.id)
+  ) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: columnName as QueryCommunityInterestsPaginatedOrderByUserColumn,
+      },
+    };
+  }
+
+  // default final sort is column FIRST_NAME
+  return {
+    column: undefined,
+    order: SortOrder.Asc,
+    user: {
+      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+      column: "FIRST_NAME" as QueryCommunityInterestsPaginatedOrderByUserColumn,
+    },
+  };
 }
 
 export const usernameCell = (

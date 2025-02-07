@@ -35,7 +35,7 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
     $where: CommunityInterestFilterInput
     $first: Int
     $page: Int
-    $orderBy: [OrderByClause!]
+    $orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
   ) {
     communityInterestsPaginated(
       where: $where
@@ -133,7 +133,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderBy: sortState
-        ? transformSortStateToOrderByClause(sortState)
+        ? [transformSortStateToOrderByClause(sortState)]
         : undefined,
     },
   });
@@ -147,6 +147,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "userName",
         header: intl.formatMessage(commonMessages.name),
+        enableColumnFilter: false,
         cell: ({
           row: {
             original: { user },
@@ -160,6 +161,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     columnHelper.accessor(({ community }) => community.name?.localized, {
       id: "community",
       header: intl.formatMessage(adminMessages.community),
+      enableColumnFilter: false,
+      enableSorting: false,
     }),
     columnHelper.accessor(
       ({
@@ -180,6 +183,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "languageAbility",
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
+        enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -192,11 +197,13 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
         enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(({ user }) => user?.workEmail, {
       id: "workEmail",
       header: intl.formatMessage(commonMessages.workEmail),
+      enableColumnFilter: false,
       cell: ({ getValue }) => cells.email(getValue()),
     }),
     columnHelper.accessor(
@@ -204,6 +211,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "jobInterest",
         header: intl.formatMessage(commonMessages.jobInterest),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
@@ -211,6 +219,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "trainingInterest",
         header: intl.formatMessage(commonMessages.trainingInterest),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
