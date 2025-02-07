@@ -140,9 +140,23 @@ export const DashboardPage = ({
                   href={paths.skills()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Browse a complete list of available skills, learn how they’re organized, and recommend additional skills to include.",
-                    id: "CTBcGm",
+                      "Browse a complete list of available skills and learn how they’re organized.",
+                    id: "mluvY2",
                     description: "the 'Learn about skills' tool description",
+                  })}
+                />
+                <ResourceBlock.SingleLinkItem
+                  title={intl.formatMessage({
+                    defaultMessage: "Contact support",
+                    id: "jRnA1D",
+                    description: "Link for the 'contact support' card",
+                  })}
+                  href={paths.support()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Questions or need help? Get in touch with our support team and let us know how we can help.",
+                    id: "s8ByY4",
+                    description: "the 'contact support' tool description",
                   })}
                 />
               </ResourceBlock.Root>
