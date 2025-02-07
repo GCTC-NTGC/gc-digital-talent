@@ -13,11 +13,22 @@ import {
   graphql,
   CommunityTalentTableQuery as CommunityTalentTableQueryType,
 } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
+import cells from "~/components/Table/cells";
+import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
-import { transformSortStateToOrderByClause } from "./utils";
+import {
+  classificationAccessor,
+  interestAccessor,
+  transformSortStateToOrderByClause,
+  usernameCell,
+} from "./utils";
 
 const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   query CommunityTalentTable(
@@ -34,6 +45,31 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
+        jobInterest
+        trainingInterest
+        user {
+          id
+          firstName
+          lastName
+          workEmail
+          preferredLang {
+            label {
+              localized
+            }
+          }
+          lookingForEnglish
+          lookingForFrench
+          lookingForBilingual
+          currentClassification {
+            group
+            level
+          }
+        }
+        community {
+          name {
+            localized
+          }
+        }
       }
       paginatorInfo {
         count
@@ -68,6 +104,7 @@ interface CommunityTalentTableProps {
 
 const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const [paginationState, setPaginationState] = useState<PaginationState>(
     INITIAL_STATE.paginationState,
@@ -105,14 +142,87 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     data?.communityInterestsPaginated?.data.filter(notEmpty) ?? [];
 
   const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
-      header: intl.formatMessage({
-        defaultMessage: "Id",
-        id: "CFsPDG",
-        description: "aaa",
-      }),
+    columnHelper.accessor(
+      ({ user }) => getFullNameLabel(user.firstName, user.lastName, intl),
+      {
+        id: "userName",
+        header: intl.formatMessage(commonMessages.name),
+        cell: ({
+          row: {
+            original: { user },
+          },
+        }) => usernameCell(user.id, paths, intl, user.firstName, user.lastName),
+        meta: {
+          isRowTitle: true,
+        },
+      },
+    ),
+    columnHelper.accessor(({ community }) => community.name?.localized, {
+      id: "community",
+      header: intl.formatMessage(adminMessages.community),
     }),
+    columnHelper.accessor(
+      ({
+        user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+      }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
+      },
+    ),
+    columnHelper.accessor(
+      ({ user: { currentClassification } }) =>
+        classificationAccessor(
+          currentClassification?.group,
+          currentClassification?.level,
+        ),
+      {
+        id: "classification",
+        header: intl.formatMessage(processMessages.classification),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(({ user }) => user?.workEmail, {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
+      cell: ({ getValue }) => cells.email(getValue()),
+    }),
+    columnHelper.accessor(
+      ({ jobInterest }) => interestAccessor(intl, jobInterest),
+      {
+        id: "jobInterest",
+        header: intl.formatMessage(commonMessages.jobInterest),
+      },
+    ),
+    columnHelper.accessor(
+      ({ trainingInterest }) => interestAccessor(intl, trainingInterest),
+      {
+        id: "trainingInterest",
+        header: intl.formatMessage(commonMessages.trainingInterest),
+      },
+    ),
+    columnHelper.accessor(
+      ({ user: { preferredLang } }) => preferredLang?.label?.localized,
+      {
+        id: "preferredLang",
+        enableColumnFilter: false,
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
+      },
+    ),
   ] as ColumnDef<CommunityTalentTableQueryCommunityInterestType>[];
 
   return (
