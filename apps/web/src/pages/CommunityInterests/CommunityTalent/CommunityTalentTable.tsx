@@ -230,7 +230,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       data={communityInterestData}
       caption={title}
       columns={columns}
-      hiddenColumnIds={[]}
+      hiddenColumnIds={["community", "workEmail", "preferredLang"]}
       isLoading={fetching}
       sort={{
         internal: false,
