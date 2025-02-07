@@ -43,7 +43,7 @@ class KeywordSearchTest extends TestCase
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
                 'last_name' => null,

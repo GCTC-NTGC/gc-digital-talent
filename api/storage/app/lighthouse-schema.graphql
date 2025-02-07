@@ -410,6 +410,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): TrainingOpportunityPaginator!
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): CommunityInterestPaginator!
 }
 
 type Mutation {
@@ -497,6 +507,8 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
+  createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
+  updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -598,6 +610,8 @@ type User {
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govPositionType: LocalizedGovPositionType
+  govEndDate: Date
   currentClassification: Classification
   department: Department
   hasPriorityEntitlement: Boolean
@@ -638,6 +652,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community!
+  user: User!
   workStreams: [WorkStream!]
   jobInterest: Boolean
   trainingInterest: Boolean
@@ -968,6 +983,18 @@ type DevelopmentProgram {
   descriptionForNominations: LocalizedString
   community: Community
   eligibleClassifications: [Classification!]
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedString
+  includeLeadershipCompetencies: Boolean!
+  community: Community!
+  developmentPrograms: [DevelopmentProgram!]
 }
 
 type Team implements HasRoleAssignments {
@@ -1392,6 +1419,10 @@ input ClaimVerificationSort {
   useBookmark: Boolean
 }
 
+input CommunityInterestFilterInput {
+  userName: String
+}
+
 input ClassificationBelongsTo {
   connect: ID
   disconnect: Boolean
@@ -1754,6 +1785,32 @@ input UpdateCommunityInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+}
+
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime
+  closeDate: DateTime
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
 }
 
 input CreateApplicantFilterInput {
@@ -2325,6 +2382,15 @@ type TrainingOpportunityPaginator {
 
   "A list of TrainingOpportunity items."
   data: [TrainingOpportunity!]!
+}
+
+"A paginated list of CommunityInterest items."
+type CommunityInterestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of CommunityInterest items."
+  data: [CommunityInterest!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."

@@ -83,11 +83,14 @@ type User {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
-    @rename(attribute: "gov_employee_type")
+    @rename(attribute: "computed_gov_employee_type")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "computed_gov_position_type")
+  govEndDate: Date @rename(attribute: "computed_gov_end_date")
   currentClassification: Classification @belongsTo # Users current classification
   department: Department @belongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -152,6 +155,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
+  user: User! @belongsTo @canRoot(ability: "viewUser")
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -569,6 +573,19 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_nominations")
   community: Community @belongsTo
   eligibleClassifications: [Classification!] @belongsToMany
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedString @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean!
+    @rename(attribute: "include_leadership_competencies")
+  community: Community! @belongsTo
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -1044,6 +1061,10 @@ input ClaimVerificationSort {
   useBookmark: Boolean
 }
 
+input CommunityInterestFilterInput {
+  userName: String @scope
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -1210,6 +1231,12 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: [OrderByClause!] @orderBy
+  ): [CommunityInterest]!
+    @guard
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
 }
 
 input ClassificationBelongsTo {
@@ -1271,7 +1298,7 @@ input CreateUserInput {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email
     @rename(attribute: "work_email")
     @lowerCase
@@ -1284,7 +1311,8 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1352,9 +1380,10 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1429,9 +1458,10 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1695,6 +1725,34 @@ input UpdateCommunityInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+}
+
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput @validator {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput @validator {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime @rename(attribute: "open_date")
+  closeDate: DateTime @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
 }
 
 input CreateApplicantFilterInput {
@@ -2639,6 +2697,18 @@ type Mutation {
     id: UUID!
     community: UpdateCommunityInput! @spread
   ): Community @update @canFind(ability: "update", find: "id") @validator
+
+  # Talent nomination event mutations
+  createTalentNominationEvent(
+    talentNominationEvent: CreateTalentNominationEventInput! @spread
+  ): TalentNominationEvent @create @guard @canModel(ability: "create")
+  updateTalentNominationEvent(
+    id: UUID!
+    talentNominationEvent: UpdateTalentNominationEventInput! @spread
+  ): TalentNominationEvent
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

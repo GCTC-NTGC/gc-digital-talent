@@ -24,7 +24,7 @@ import notificationMessages from "~/messages/notificationMessages";
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
 
-const Overlay = m(DialogPrimitive.Overlay);
+const Overlay = m.create(DialogPrimitive.Overlay);
 
 // For the sake of the bell icon, we only care if the user has at least 1 unread notification
 // This is to query to minimal amount of data to display the badge

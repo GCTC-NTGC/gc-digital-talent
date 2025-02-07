@@ -95,23 +95,6 @@ const useMainNavLinks = () => {
     />
   );
 
-  const ManagerHomePage = (
-    <NavMenu.Link
-      href={paths.manager()}
-      icon={HomeIcon}
-      mode="icon_only"
-      ariaLabel={intl.formatMessage(navigationMessages.home)}
-    />
-  );
-
-  const ManagerDashboard = (
-    <NavItem
-      key="managerDashboard"
-      href={paths.managerDashboard()}
-      title={intl.formatMessage(navigationMessages.dashboard)}
-    />
-  );
-
   const CommunityDashboard = (
     <NavItem
       key="communityDashboard"
@@ -194,15 +177,6 @@ const useMainNavLinks = () => {
       key="skillPortfolio"
       href={paths.skillPortfolio()}
       title={intl.formatMessage(navigationMessages.skillPortfolio)}
-      subMenu
-    />
-  );
-
-  const ManagerProfile = (
-    <NavItem
-      key="managerProfile"
-      href={paths.profile()}
-      title={intl.formatMessage(navigationMessages.managerProfile)}
       subMenu
     />
   );
@@ -321,7 +295,6 @@ const useMainNavLinks = () => {
 
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
-    ["manager"]: intl.formatMessage(navMenuMessages.manager),
     ["pool_operator"]: intl.formatMessage(navMenuMessages.community),
     ["request_responder"]: intl.formatMessage(navMenuMessages.community),
     ["community_manager"]: intl.formatMessage(navMenuMessages.community),
@@ -333,7 +306,6 @@ const useMainNavLinks = () => {
 
   const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
-    ["manager"]: paths.managerDashboard(),
     ["pool_operator"]: paths.communityDashboard(),
     ["request_responder"]: paths.communityDashboard(),
     ["community_manager"]: paths.communityDashboard(),
@@ -400,16 +372,6 @@ const useMainNavLinks = () => {
             ]
           : null,
         resourceLinks: [ContactSupport, SkillLibrary],
-      };
-    case "manager":
-      return {
-        ...defaultLinks,
-        homeLink: ManagerHomePage,
-        mainLinks: [ManagerDashboard, FindTalent],
-        accountLinks: loggedIn
-          ? [ManagerProfile, AccountSettings, SignOut]
-          : null,
-        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "community":
       return {
