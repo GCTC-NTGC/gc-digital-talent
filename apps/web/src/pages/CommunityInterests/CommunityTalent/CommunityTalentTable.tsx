@@ -91,13 +91,6 @@ type CommunityTalentTableQueryCommunityInterestType =
 const columnHelper =
   createColumnHelper<CommunityTalentTableQueryCommunityInterestType>();
 
-const sortInitialState = [
-  {
-    id: "id",
-    desc: true,
-  },
-];
-
 interface CommunityTalentTableProps {
   title: string;
 }
@@ -109,9 +102,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const [paginationState, setPaginationState] = useState<PaginationState>(
     INITIAL_STATE.paginationState,
   );
-  const [sortState, setSortState] = useState<SortingState | undefined>(
-    sortInitialState,
-  );
+  const [sortState, setSortState] = useState<SortingState>([]);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -132,9 +123,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       where: undefined,
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: sortState
-        ? [transformSortStateToOrderByClause(sortState)]
-        : undefined,
+      orderBy: [transformSortStateToOrderByClause(sortState)],
     },
   });
 
@@ -244,7 +233,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       sort={{
         internal: false,
         onSortChange: setSortState,
-        initialState: sortInitialState,
       }}
       pagination={{
         internal: false,
