@@ -768,6 +768,7 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
+  workStreams: [WorkStream!] @belongsToMany
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1829,6 +1830,7 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
+  workStreams: WorkStreamBelongsToMany
 }
 input PersonalExperienceInput {
   title: String

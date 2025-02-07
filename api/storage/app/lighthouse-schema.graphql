@@ -1132,6 +1132,7 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank
   classification: Classification
   department: Department
+  workStreams: [WorkStream!]
 }
 
 type PersonalExperience implements Experience {
@@ -1867,6 +1868,7 @@ input WorkExperienceInput {
   cafRank: CafRank
   classificationId: String
   departmentId: String
+  workStreams: WorkStreamBelongsToMany
 }
 
 input PersonalExperienceInput {
