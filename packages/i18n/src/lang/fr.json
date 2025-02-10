@@ -291,6 +291,10 @@
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
   },
+  "AQeWgK": {
+    "defaultMessage": "Intérêt pour la formation",
+    "description": "Training interest label"
+  },
   "AiFpbo": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -915,6 +919,10 @@
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
   },
+  "dYhxhN": {
+    "defaultMessage": "Intérêt pour l'emploi",
+    "description": "Job interest label"
+  },
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
@@ -970,6 +978,10 @@
   "fO0cRR": {
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
+  },
+  "fUAej4": {
+    "defaultMessage": "Pas d'intérêt",
+    "description": "Expressed lack of interest"
   },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
@@ -1258,6 +1270,10 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
+  },
+  "rH9RNh": {
+    "defaultMessage": "Intérêt",
+    "description": "Expressed interest"
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
