@@ -103,10 +103,15 @@ class UpdateApplicationTimestamps extends Command
 
         $placedCount = $this->update($placed, ['removed_at' => null]);
 
-        $total = $nullCount + $finalCount + $removedCount + $placedCount;
+        $suspended = PoolCandidate::where('pool_candidate_status', PoolCandidateStatus::QUALIFIED_WITHDREW->name)
+            ->whereNull('suspended_at');
+
+        $suspendedCount = $this->update($suspended, ['suspended_at' => now()]);
+
+        $total = $nullCount + $finalCount + $removedCount + $placedCount + $suspendedCount;
         $this->table(
-            ['Null', 'Final', 'Removed', 'Placed', 'Total'],
-            [[$nullCount, $finalCount, $removedCount, $placedCount, $total]]
+            ['Null', 'Final', 'Removed', 'Placed', 'Suspended', 'Total'],
+            [[$nullCount, $finalCount, $removedCount, $placedCount, $suspendedCount, $total]]
         );
     }
 
