@@ -175,7 +175,19 @@ export const DashboardPage = ({
 
   return (
     <>
-      <SEO title={""} description={""} />
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Applicant dashboard",
+          id: "tFpXkQ",
+          description: "SEO title for applicant dashboard",
+        })}
+        description={intl.formatMessage({
+          defaultMessage:
+            "Track job applications and manage your applicant information, including career experience, skills portfolio, and more.",
+          id: "zsjK3M",
+          description: "Subtitle for applicant dashboard",
+        })}
+      />
       <Hero
         title={intl.formatMessage(
           {
@@ -195,7 +207,12 @@ export const DashboardPage = ({
               : intl.formatMessage(commonMessages.notAvailable),
           },
         )}
-        subtitle={""}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Track job applications and manage your applicant information, including career experience, skills portfolio, and more.",
+          id: "zsjK3M",
+          description: "Subtitle for applicant dashboard",
+        })}
       />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
