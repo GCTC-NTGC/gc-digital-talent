@@ -108,6 +108,7 @@ class WorkExperience extends Experience
 
         static::created(function (WorkExperience $workExperience) {
             // send an in-app notification upon creation of a work experience that is GOV + TERM/INDETERMINATE + CURRENT
+            // only if a work email has not been verified
 
             $properties = $workExperience->properties;
             $now = Carbon::now();
@@ -116,6 +117,7 @@ class WorkExperience extends Experience
 
             if (
                 $user &&
+                is_null($user->work_email_verified_at) &&
                 $properties &&
                 array_key_exists('employment_category', $properties) &&
                 array_key_exists('gov_employment_type', $properties) &&

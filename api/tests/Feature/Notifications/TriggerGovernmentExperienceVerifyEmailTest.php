@@ -47,7 +47,9 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
 
         $this->user = User::factory()
             ->asApplicant()
-            ->create([]);
+            ->create([
+                'work_email_verified_at' => null,
+            ]);
     }
 
     // test notification correctly created via mutation
@@ -208,6 +210,49 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'department_id' => $department->id,
             'startDate' => config('constants.past_date'),
             'endDate' => config('constants.past_date'),
+        ]);
+
+        // no notifications sent
+        $notifications = Notification::all();
+        assertEquals(0, count($notifications));
+    }
+
+    // test verified work email prevents sending of notifications when they would've otherwise been sent
+    public function testVerifiedWorkEmailNoNotifications(): void
+    {
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $userVerifiedEmail = User::factory()
+            ->asApplicant()
+            ->create([
+                'work_email_verified_at' => config('constants.past_date'),
+            ]);
+
+        Notification::truncate();
+        assertEquals(0, count(Notification::all()));
+
+        // indeterminate with future end date
+        WorkExperience::factory()->create([
+            'user_id' => $userVerifiedEmail->id,
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::ACTING->name,
+            'classification_id' => $classification->id,
+            'department_id' => $department->id,
+            'start_date' => config('constants.past_date'),
+            'end_date' => config('constants.far_future_date'),
+        ]);
+
+        // term with required future end date
+        WorkExperience::factory()->create([
+            'user_id' => $userVerifiedEmail->id,
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
+            'classification_id' => $classification->id,
+            'department_id' => $department->id,
+            'start_date' => config('constants.past_date'),
+            'end_date' => config('constants.far_future_date'),
         ]);
 
         // no notifications sent
