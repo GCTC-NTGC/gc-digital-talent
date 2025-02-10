@@ -39,6 +39,7 @@ class UpdateApplicationTimestamps extends Command
         PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
         PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+        PoolCandidateStatus::QUALIFIED_WITHDREW->name,
         PoolCandidateStatus::EXPIRED->name,
     ];
 
