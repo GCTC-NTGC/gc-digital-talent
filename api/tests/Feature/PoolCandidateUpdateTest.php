@@ -1233,7 +1233,7 @@ class PoolCandidateUpdateTest extends TestCase
     /**
      * @dataProvider nullTimeProvider
      */
-    public function testNullTimestampsOnStatusChanged($status, $expected, $user)
+    public function testNullTimestampsOnStatusChanged($status, $expected)
     {
         $past = config('constants.past_datetime');
         $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::DRAFT->name;
@@ -1243,7 +1243,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->placed_at = $past;
         $this->poolCandidate->save();
 
-        $this->actingAs($this->$user, 'api')
+        $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($this->manualStatusUpdateMutation, [
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
@@ -1263,14 +1263,16 @@ class PoolCandidateUpdateTest extends TestCase
             'placedAt' => null,
         ];
 
-        $finalDeciscion = [
+        $finalDecision = [
             'removedAt' => null,
             'placedAt' => null,
         ];
+
         $removed = [
             'finalDecisionAt' => null,
             'placedAt' => null,
         ];
+
         $placed = [
             'removedAt' => null,
         ];
@@ -1279,92 +1281,70 @@ class PoolCandidateUpdateTest extends TestCase
             'new application' => [
                 PoolCandidateStatus::NEW_APPLICATION->name,
                 $nullState,
-                'communityAdminUser',
             ],
             'application review' => [
                 PoolCandidateStatus::APPLICATION_REVIEW->name,
                 $nullState,
-                'communityAdminUser',
             ],
             'screened in' => [
                 PoolCandidateStatus::SCREENED_IN->name,
                 $nullState,
-                'communityAdminUser',
             ],
             'under assessment' => [
                 PoolCandidateStatus::UNDER_ASSESSMENT->name,
                 $nullState,
-                'communityAdminUser',
             ],
             'screened out - application' => [
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                $finalDeciscion,
-                'communityAdminUser',
+                $finalDecision,
             ],
             'screened out - not interested' => [
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 $removed,
-                'communityAdminUser',
             ],
             'screened out - not responsive' => [
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
                 $removed,
-                'communityAdminUser',
             ],
             'screened out - assessment' => [
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-                $finalDeciscion,
-                'communityAdminUser',
+                $finalDecision,
             ],
             'qualified - available' => [
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $finalDeciscion,
-                'communityAdminUser',
+                $finalDecision,
             ],
             'qualified - available' => [
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $finalDeciscion,
-                'communityAdminUser',
+                $finalDecision,
             ],
-            // 'qualified - unavailable' => [
-            //     PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            //     $finalDeciscion,
-            //     'communityManagerUser',
-            // ],
-            // 'qualified - withdrew' => [
-            //     PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            //     $finalDeciscion,
-            //     'communityAdminUser',
-            // ],
+            'qualified - unavailable' => [
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                $finalDecision,
+            ],
+            'qualified - withdrew' => [
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                $finalDecision,
+            ],
             'placed - casual' => [
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 $placed,
-                'communityAdminUser',
             ],
             'placed - tentative' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
                 $placed,
-                'communityAdminUser',
             ],
             'placed - term' => [
                 PoolCandidateStatus::PLACED_TERM->name,
                 $placed,
-                'communityAdminUser',
             ],
             'placed - indeterminate' => [
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 $placed,
-                'communityAdminUser',
             ],
-            // 'expired' => [
-            //     PoolCandidateStatus::EXPIRED->name,
-            //     $finalDeciscion,
-            //     'processOperatorUser',
-            // ],
             'removed' => [
                 PoolCandidateStatus::REMOVED->name,
                 $removed,
-                'processOperatorUser',
             ],
         ];
     }
