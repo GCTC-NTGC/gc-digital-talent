@@ -26,6 +26,7 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import ReviewApplicationPreviewList from "./components/ReviewApplicationPreviewList";
 import ReviewRecruitmentProcessPreviewList from "./components/ReviewRecruitmentProcessPreviewList";
@@ -144,6 +145,15 @@ export const DashboardPage = ({
   const intl = useIntl();
   const paths = useRoutes();
 
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
+        url: paths.applicantDashboard(),
+      },
+    ],
+  });
+
   const currentUser = getFragment(
     ApplicantDashboardPage_Fragment,
     applicantDashboardQuery,
@@ -176,11 +186,7 @@ export const DashboardPage = ({
   return (
     <>
       <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Applicant dashboard",
-          id: "tFpXkQ",
-          description: "SEO title for applicant dashboard",
-        })}
+        title={intl.formatMessage(navigationMessages.applicantDashboard)}
         description={intl.formatMessage({
           defaultMessage:
             "Track job applications and manage your applicant information, including career experience, skills portfolio, and more.",
@@ -213,6 +219,7 @@ export const DashboardPage = ({
           id: "zsjK3M",
           description: "Subtitle for applicant dashboard",
         })}
+        crumbs={crumbs}
       />
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
