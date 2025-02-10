@@ -9,6 +9,7 @@ import { getClassificationName } from "~/utils/poolUtils";
 import {
   applicationStatus,
   getApplicationStatusChip,
+  qualifiedRecruitmentStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -71,102 +72,127 @@ const ReviewApplicationPreviewList = ({
     applicationsQuery,
   );
 
+  const statusOrder = [
+    applicationStatus.DRAFT,
+    applicationStatus.RECEIVED,
+    applicationStatus.UNDER_REVIEW,
+    applicationStatus.APPLICATION_REVIEWED,
+    applicationStatus.UNDER_ASSESSMENT,
+    applicationStatus.SUCCESSFUL,
+    applicationStatus.UNSUCCESSFUL,
+    applicationStatus.EXPIRED,
+    qualifiedRecruitmentStatus.HIRED,
+    qualifiedRecruitmentStatus.NOT_INTERESTED,
+    qualifiedRecruitmentStatus.OPEN_TO_JOBS,
+  ];
+
   return (
     <>
       {applications.length ? (
         <PreviewList.Root>
-          {applications.map((application) => {
-            const { id, pool, submittedAt, finalDecisionAt } = application;
+          {applications
+            .map((application) => {
+              const status = getApplicationStatusChip(
+                application.submittedAt,
+                application.pool.closingDate,
+                application.removedAt,
+                application.finalDecisionAt,
+                application.finalDecision?.value,
+                application.pool.areaOfSelection?.value,
+                application.assessmentStatus,
+                application.pool.screeningQuestions,
+                intl,
+              );
+              return { application, status };
+            })
+            .sort(
+              (a, b) =>
+                statusOrder.indexOf(a.status.value) -
+                statusOrder.indexOf(b.status.value),
+            )
+            .map(({ application, status }) => {
+              const { id, pool, submittedAt, finalDecisionAt } = application;
 
-            const status = getApplicationStatusChip(
-              application.submittedAt,
-              pool.closingDate,
-              application.removedAt,
-              application.finalDecisionAt,
-              application.finalDecision?.value,
-              pool.areaOfSelection?.value,
-              application.assessmentStatus,
-              pool.screeningQuestions,
-              intl,
-            );
+              const applicationMetadata: PreviewMetaData[] = [
+                {
+                  key: "status",
+                  type: "chip",
+                  color: status.color,
+                  children: status.label,
+                },
+                {
+                  key: "classification",
+                  type: "text",
+                  children: pool?.classification
+                    ? getClassificationName(pool?.classification, intl)
+                    : intl.formatMessage(commonMessages.notFound),
+                },
+                {
+                  key: "date",
+                  type: "text",
+                  children: (
+                    <ApplicationDate
+                      closingDate={pool?.closingDate}
+                      submittedAt={submittedAt}
+                      finalDecisionAt={finalDecisionAt}
+                      status={status.value}
+                    />
+                  ),
+                },
+              ];
 
-            const applicationMetadata: PreviewMetaData[] = [
-              {
-                key: "status",
-                type: "chip",
-                color: status.color,
-                children: status.label,
-              },
-              {
-                key: "classification",
-                type: "text",
-                children: pool?.classification
-                  ? getClassificationName(pool?.classification, intl)
-                  : intl.formatMessage(commonMessages.notFound),
-              },
-              {
-                key: "date",
-                type: "text",
-                children: (
-                  <ApplicationDate
-                    closingDate={pool?.closingDate}
-                    submittedAt={submittedAt}
-                    finalDecisionAt={finalDecisionAt}
-                    status={status.value}
-                  />
-                ),
-              },
-            ];
-
-            return (
-              <PreviewList.Item
-                key={id}
-                title={
-                  pool.name?.localized
-                    ? intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "<hidden>Application for </hidden>{poolName}",
-                          id: "LC1Rsg",
-                          description:
-                            "Text before application pool name in application preview list.",
-                        },
-                        {
-                          poolName: pool.name.localized,
-                        },
-                      )
-                    : intl.formatMessage(commonMessages.notFound)
-                }
-                metaData={applicationMetadata}
-                action={
-                  <>
-                    {status.value === applicationStatus.DRAFT ? (
-                      <PreviewList.Link
-                        href={paths.application(application.id)}
-                        label={intl.formatMessage(
+              return (
+                <PreviewList.Item
+                  key={id}
+                  title={
+                    pool.name?.localized
+                      ? intl.formatMessage(
                           {
                             defaultMessage:
-                              "Continue application<hidden> for {poolName}</hidden>",
-                            id: "GjL/7z",
-                            description: "Label for continue application link",
+                              "<hidden>Application for </hidden>{poolName}",
+                            id: "LC1Rsg",
+                            description:
+                              "Text before application pool name in application preview list.",
                           },
                           {
-                            poolName:
-                              pool.name?.localized ??
-                              intl.formatMessage(commonMessages.notFound),
+                            poolName: pool.name.localized,
                           },
-                        )}
-                        icon={PencilSquareIcon}
-                      />
-                    ) : (
-                      <ReviewApplicationDialog applicationQuery={application} />
-                    )}
-                  </>
-                }
-                headingAs="h4"
-              />
-            );
-          })}
+                        )
+                      : intl.formatMessage(commonMessages.notFound)
+                  }
+                  metaData={applicationMetadata}
+                  action={
+                    <>
+                      {status.value === applicationStatus.DRAFT ? (
+                        <PreviewList.Link
+                          href={paths.application(application.id)}
+                          label={intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "Continue application<hidden> for {poolName}</hidden>",
+                              id: "GjL/7z",
+                              description:
+                                "Label for continue application link",
+                            },
+                            {
+                              poolName:
+                                pool.name?.localized ??
+                                intl.formatMessage(commonMessages.notFound),
+                            },
+                          )}
+                          icon={PencilSquareIcon}
+                        />
+                      ) : (
+                        <ReviewApplicationDialog
+                          applicationQuery={application}
+                        />
+                      )}
+                    </>
+                  }
+                  headingAs="h4"
+                />
+              );
+            })}
         </PreviewList.Root>
       ) : (
         <Well data-h2-text-align="base(center)">
