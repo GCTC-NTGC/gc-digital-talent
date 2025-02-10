@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
-use Throwable;
 
 /**
  * Class WorkExperience
@@ -144,8 +144,9 @@ class WorkExperience extends Experience
                             inAppHrefFr: $viewGroup.'.in_app_href_fr',
                         );
                         $user->notify($notification);
-                    } catch (Throwable $e) {
-                        $this->error($e->getMessage().' User id: '.$user->id);
+                    } catch (\Throwable $e) {
+                        Log::error('Error sending work experience verification notification to user '.$user->id.' experience '.$workExperience->id.' '.$e->getMessage());
+                        throw $e;
                     }
                 }
             }

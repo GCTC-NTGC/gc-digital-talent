@@ -70,15 +70,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                 user {
                     id
                 }
-                employmentCategory {
-                    value
-                }
-                extSizeOfOrganization {
-                    value
-                }
-                extRoleSeniority {
-                    value
-                }
             }
         }
         ',
