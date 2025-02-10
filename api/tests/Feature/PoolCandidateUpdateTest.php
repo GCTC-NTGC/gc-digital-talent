@@ -987,7 +987,7 @@ class PoolCandidateUpdateTest extends TestCase
     /**
      * @dataProvider manualStatusProvider
      */
-    public function testManualStatusUpdatesTimestamps($status, $timestamp)
+    public function testManualStatusUpdatesTimestamps($status, $timestamp, $additionalChanged = [])
     {
         // Ensure timestamps are set to compare against
         // and we are starting from no status
@@ -1016,10 +1016,12 @@ class PoolCandidateUpdateTest extends TestCase
             $original->toDayDateTimeString()
         ));
 
-        // Ensure other timestamps remain the same
-        $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
-        foreach ($unchanged as $unchangedTimestamp) {
-            $this->assertEquals($this->poolCandidate->$unchangedTimestamp, $data[Str::camel($unchangedTimestamp)]);
+        $this->poolCandidate->refresh();
+
+        // Ensure other timestamps are null
+        $nulled = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp, ...$additionalChanged]);
+        foreach ($nulled as $nulledTimestamp) {
+            $this->assertEquals($this->poolCandidate->$nulledTimestamp, null);
         }
 
         // Attempt to make change again and assert it does not affect timestamp
@@ -1051,18 +1053,18 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'final_decision_at',
             ],
+            'qualified unavailable sets final decision' => [
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                'final_decision_at',
+            ],
+            'qualified withdrew sets final decision' => [
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                'final_decision_at',
+            ],
 
             // Removed
             'screened out not responsive sets removed at' => [
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                'removed_at',
-            ],
-            'qualified unavailable sets removed at' => [
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                'removed_at',
-            ],
-            'qualified withdrew sets removed at' => [
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
                 'removed_at',
             ],
             'removed sets removed at' => [
@@ -1074,18 +1076,22 @@ class PoolCandidateUpdateTest extends TestCase
             'placed tentative sets removed at' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed casual sets placed at' => [
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed term sets placed at' => [
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed indeterminate sets placed at' => [
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
         ];
     }
