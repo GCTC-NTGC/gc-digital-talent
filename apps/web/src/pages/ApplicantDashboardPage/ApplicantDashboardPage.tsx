@@ -11,7 +11,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -261,8 +261,9 @@ export const DashboardPage = ({
                   state={personalInformationState}
                   title={intl.formatMessage({
                     defaultMessage: "Personal information",
-                    id: "3v6Tmi",
-                    description: "Link to the 'Personal information' page",
+                    id: "g8Ur9z",
+                    description:
+                      "applicant dashboard card title for profile card",
                   })}
                   href={paths.careerTimelineAndRecruitment()}
                   description={intl.formatMessage({
@@ -291,11 +292,7 @@ export const DashboardPage = ({
                 />
                 <ResourceBlock.SingleLinkItem
                   state={skillsPortfolioState}
-                  title={intl.formatMessage({
-                    defaultMessage: "Skills portfolio",
-                    id: "UmlE9r",
-                    description: "Link to the 'Skills portfolio' page",
-                  })}
+                  title={intl.formatMessage(navigationMessages.skillPortfolio)}
                   href={paths.skillPortfolio()}
                   description={intl.formatMessage({
                     defaultMessage:
@@ -307,11 +304,7 @@ export const DashboardPage = ({
                 />
                 <ResourceBlock.SingleLinkItem
                   state="complete"
-                  title={intl.formatMessage({
-                    defaultMessage: "Account settings",
-                    id: "dEMBDa",
-                    description: "Link to the 'Account settings' page",
-                  })}
+                  title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
                   description={intl.formatMessage({
                     defaultMessage:

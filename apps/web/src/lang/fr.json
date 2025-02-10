@@ -2671,10 +2671,6 @@
     "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
     "description": "Button text to reinstate a candidate and update their status"
   },
-  "CTBcGm": {
-    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et proposez des compétences supplémentaires à inclure.",
-    "description": "the 'Learn about skills' tool description"
-  },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
