@@ -1352,6 +1352,11 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::REMOVED->name,
                 $removed,
             ],
+            // NOTE: This action is unauthorized so cannot test
+            // 'expired' => [
+            //     PoolCandidateStatus::EXPIRED->name,
+            //     $finalDecision,
+            // ],
         ];
     }
 }
