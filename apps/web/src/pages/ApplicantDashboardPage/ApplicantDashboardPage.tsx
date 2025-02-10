@@ -82,21 +82,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     }
     userSkills {
       id
-      skill {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
     }
     acceptedOperationalRequirements {
       value
