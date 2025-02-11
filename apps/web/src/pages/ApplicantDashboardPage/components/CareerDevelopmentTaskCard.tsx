@@ -111,7 +111,6 @@ const CareerDevelopmentTaskCard = ({
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
-        data-h2-flex-grow="p-tablet(2)"
       >
         <TaskCard.Root
           icon={Cog8ToothIcon}

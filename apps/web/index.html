@@ -92,7 +92,11 @@
           ],
 
           // Feature flags
-          [],
+          [
+            "FEATURE_NEW_APPLICANT_DASHBOARD",
+            filterUnusable("$FEATURE_NEW_APPLICANT_DASHBOARD") ??
+              "<%= FEATURE_NEW_APPLICANT_DASHBOARD %>",
+          ],
 
           // Azure application insights not used in dev
           [

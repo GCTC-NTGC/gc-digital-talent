@@ -2671,10 +2671,6 @@
     "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
     "description": "Button text to reinstate a candidate and update their status"
   },
-  "CTBcGm": {
-    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et proposez des compétences supplémentaires à inclure.",
-    "description": "the 'Learn about skills' tool description"
-  },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
@@ -3991,6 +3987,10 @@
     "defaultMessage": "Découvrez les cours dirigés par un instructeur ou une instructrice proposés pour améliorer votre expertise en technologie de l’information.",
     "description": "Page subtitle for the instructor led training page"
   },
+  "Jlk0bi": {
+    "defaultMessage": "Vos informations",
+    "description": "Card title for a 'your information' card"
+  },
   "Jp/oeD": {
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
     "description": "Text for second sign up -> create step."
@@ -4670,6 +4670,10 @@
   "NUjAy0": {
     "defaultMessage": "Dupliquer le processus",
     "description": "Title to duplicate a process"
+  },
+  "NUrFMU": {
+    "defaultMessage": "Gérez vos compétences et modifiez votre liste de compétences principales ou de celles que vous aimeriez acquérir.",
+    "description": "Helper instructions for an 'Skills portfolio' card"
   },
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
@@ -5439,6 +5443,10 @@
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
   },
+  "RSUZix": {
+    "defaultMessage": "Travail, études, bénévolat, prix, etc.",
+    "description": "Helper instructions for an 'Career experience' card"
+  },
   "RSUgO3": {
     "defaultMessage": "Ajoutez une compétence",
     "description": "Button text to open the skill dialog and add a skill"
@@ -5950,6 +5958,10 @@
   "Uea7/1": {
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
+  },
+  "UfjJ9P": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Link to the 'Career experience' page"
   },
   "UjkAHp": {
     "defaultMessage": "Agent(e) P M 3",
@@ -6946,6 +6958,10 @@
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
   },
+  "aDCqiX": {
+    "defaultMessage": "Nom, coordonnées, équité en matière d'emploi, compétences linguistiques et préférences en matière de travail.",
+    "description": "Helper instructions for an 'Personal information' card"
+  },
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
@@ -7557,6 +7573,10 @@
   "diSBjl": {
     "defaultMessage": "Langues officielles",
     "description": "Heading for comments and interaction section"
+  },
+  "dj+m3H": {
+    "defaultMessage": "En savoir plus sur CléGC et gérer les notifications.",
+    "description": "Helper instructions for an 'Account settings' card"
   },
   "dj8GiH": {
     "defaultMessage": "Détails sur le candidat",
@@ -8770,6 +8790,10 @@
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
   },
+  "jRnA1D": {
+    "defaultMessage": "Communiquer avec l'équipe de soutien",
+    "description": "Link for the 'contact support' card"
+  },
   "jT46zb": {
     "defaultMessage": "<strong>Comment y accéder</strong> : Disponible via Navigar, un outil Web intelligent de développement des compétences. Tous les membres du personnel admissibles du groupe TI recevront un courriel d'activation de leur compte Navigar.",
     "description": "An item in a list of points about online learning"
@@ -9357,6 +9381,10 @@
   "ml+1LK": {
     "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
     "description": "Status description for a qualified application open for hiring"
+  },
+  "mluvY2": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles et découvrez comment elles sont organisées.",
+    "description": "the 'Learn about skills' tool description"
   },
   "mm1X02": {
     "defaultMessage": "Compétences techniques facultatives",
@@ -10269,6 +10297,10 @@
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
+  },
+  "s8ByY4": {
+    "defaultMessage": "Vous avez des questions ou vous avez besoin d'aide? Communiquez avec notre équipe de soutien et dites-nous comment nous pouvons vous aider.",
+    "description": "the 'contact support' tool description"
   },
   "sB7wVn": {
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
@@ -11541,6 +11573,10 @@
   "zsUuN9": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Title for edit experience page"
+  },
+  "zsjK3M": {
+    "defaultMessage": "Suivez les candidatures et gérez vos informations de candidat, y compris l'expérience professionnelle, le portfolio de compétences, etc.",
+    "description": "Subtitle for applicant dashboard"
   },
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",

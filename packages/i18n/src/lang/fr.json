@@ -1411,6 +1411,10 @@
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
   },
+  "wqBryV": {
+    "defaultMessage": "Tableau de bord du (de la) candidat(e)",
+    "description": "Name of applicant dashboard page"
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"

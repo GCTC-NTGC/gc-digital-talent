@@ -73,6 +73,9 @@ test.describe("IAP Application", () => {
 
   test("Can submit application", async ({ appPage }) => {
     const application = new ApplicationPage(appPage.page, pool.id);
+    await application.overrideFeatureFlags({
+      FEATURE_NEW_APPLICANT_DASHBOARD: false,
+    });
     await loginBySub(application.page, sub, false);
 
     await application.page.goto("/en/indigenous-it-apprentice");
