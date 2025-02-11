@@ -37,7 +37,11 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isPlacedStatus(status?.value)) {
+  // placed casual is an exception, it can be suspended
+  if (
+    isPlacedStatus(status?.value) &&
+    status?.value !== PoolCandidateStatus.PlacedCasual
+  ) {
     return {
       icon: null,
       color: {},

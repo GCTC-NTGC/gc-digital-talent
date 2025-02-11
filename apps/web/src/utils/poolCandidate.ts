@@ -80,7 +80,11 @@ export const isSuspendedStatus = (
 ): boolean => {
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
-  return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
+  return !!(
+    isSuspended &&
+    (status === PoolCandidateStatus.QualifiedAvailable ||
+      status === PoolCandidateStatus.PlacedCasual)
+  );
 };
 
 export const isDraft = (
