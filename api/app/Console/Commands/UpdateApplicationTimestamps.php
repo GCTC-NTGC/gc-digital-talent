@@ -23,7 +23,7 @@ class UpdateApplicationTimestamps extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Updates application timestamps based on status.';
 
     private $dry = false;
 
