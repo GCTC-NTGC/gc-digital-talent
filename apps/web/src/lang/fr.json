@@ -7050,13 +7050,13 @@
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
   },
-  "aElqQN": {
-    "defaultMessage": "En indiquant que les possibilités d'emploi vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in work opportunities within this community' radio option"
-  },
   "aDCqiX": {
     "defaultMessage": "Nom, coordonnées, équité en matière d'emploi, compétences linguistiques et préférences en matière de travail.",
     "description": "Helper instructions for an 'Personal information' card"
+  },
+  "aElqQN": {
+    "defaultMessage": "En indiquant que les possibilités d'emploi vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in work opportunities within this community' radio option"
   },
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
