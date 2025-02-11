@@ -55,6 +55,24 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
+                  path: "talent-events",
+                  lazy: () =>
+                    import(
+                      "../pages/TalentMobilityEventsPage/TalentMobilityEventsPage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "support",
               lazy: () => import("../pages/SupportPage/SupportPage"),
             },
