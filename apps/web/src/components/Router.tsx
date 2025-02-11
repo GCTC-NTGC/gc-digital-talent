@@ -67,7 +67,7 @@ const createRoute = (locale: Locales) =>
                   path: "talent-events",
                   lazy: () =>
                     import(
-                      "../pages/TalentMobilityEventsPage/TalentMobilityEventsPage"
+                      "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
                     ),
                 },
               ],

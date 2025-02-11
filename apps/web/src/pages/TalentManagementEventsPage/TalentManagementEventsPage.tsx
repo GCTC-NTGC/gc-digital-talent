@@ -18,8 +18,8 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import TalentNominationEventCard from "~/components/TalentNominationEventCard/TalentNominationEventCard";
 
-const TalentMobilityEventsPage_Query = graphql(/* GraphQL */ `
-  query TalentMobilityEventsPage {
+const TalentManagementEventsPage_Query = graphql(/* GraphQL */ `
+  query TalentManagementEventsPage {
     activeEvents: talentNominationEvents(status: ACTIVE) {
       id
       ...TalentNominationEventCard
@@ -37,18 +37,20 @@ export const Component = () => {
   const paths = useRoutes();
 
   const [{ data, fetching }] = useQuery({
-    query: TalentMobilityEventsPage_Query,
+    query: TalentManagementEventsPage_Query,
   });
 
   const activeEvents = unpackMaybes(data?.activeEvents);
 
-  const pageTitle = intl.formatMessage(navigationMessages.talentMobilityEvents);
+  const pageTitle = intl.formatMessage(
+    navigationMessages.talentManagementEvents,
+  );
 
   const subtitle = intl.formatMessage({
     defaultMessage:
       "Learn more about the events that focus on talent promotion, lateral movement, and professional development.",
-    id: "+eXo2f",
-    description: "Subtitle for talent mobility events page",
+    id: "HPaQCC",
+    description: "Subtitle for talent management events page",
   });
 
   const sections: Section[] = [
@@ -66,7 +68,7 @@ export const Component = () => {
     crumbs: [
       {
         label: pageTitle,
-        url: paths.talentMobilityEvents(),
+        url: paths.talentManagementEvents(),
       },
     ],
   });
@@ -154,6 +156,6 @@ export const Component = () => {
   );
 };
 
-Component.displayName = "TalentMobilityEventsPage";
+Component.displayName = "TalentManagementEventsPage";
 
 export default Component;

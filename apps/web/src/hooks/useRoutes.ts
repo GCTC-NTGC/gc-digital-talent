@@ -335,7 +335,7 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
 
     // Communities
-    talentMobilityEvents: () => [communitiesUrl, "talent-events"].join("/"),
+    talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
 
     /**
      * Deprecated
