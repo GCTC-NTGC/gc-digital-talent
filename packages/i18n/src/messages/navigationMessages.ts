@@ -151,6 +151,11 @@ const navigationMessages = defineMessages({
     id: "9RXifp",
     description: "Name of skill families page",
   },
+  talentMobilityEvents: {
+    defaultMessage: "Talent mobility events",
+    id: "e/1+mW",
+    description: "Name of talent mobility events page",
+  },
 });
 
 export default navigationMessages;
