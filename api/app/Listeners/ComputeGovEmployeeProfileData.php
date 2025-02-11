@@ -9,7 +9,6 @@ use App\Events\WorkExperienceSaved;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 
 class ComputeGovEmployeeProfileData
 {
@@ -56,8 +55,13 @@ class ComputeGovEmployeeProfileData
             ->get();
 
         if (! $currentExperiences->count()) {
-            Log::info([
+            $user->update([
                 'computed_is_gov_employee' => false,
+                'computed_gov_employee_type' => null,
+                'computed_classification' => null,
+                'computed_department' => null,
+                'computed_gov_position_type' => null,
+                'computed_gov_end_date' => null,
             ]);
 
             return;
@@ -81,9 +85,9 @@ class ComputeGovEmployeeProfileData
             $latest = $prioritySortedExperiences->first();
         }
 
-        Log::info([
+        $user->update([
             'computed_is_gov_employee' => true,
-            'computed_gov_employment_type' => $latest?->gov_employment_type,
+            'computed_gov_employee_type' => $latest?->gov_employment_type,
             'computed_classification' => $latest?->classification_id,
             'computed_department' => $latest?->department_id,
             'computed_gov_position_type' => $latest?->gov_position_type,

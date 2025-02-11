@@ -576,6 +576,19 @@ type DevelopmentProgram {
   eligibleClassifications: [Classification!] @belongsToMany
 }
 
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedString @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean!
+    @rename(attribute: "include_leadership_competencies")
+  community: Community! @belongsTo
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+}
+
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
@@ -770,6 +783,7 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
+  workStreams: [WorkStream!] @with(relation: "workStreams")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1718,6 +1732,34 @@ input UpdateCommunityInput {
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput @validator {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput @validator {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime @rename(attribute: "open_date")
+  closeDate: DateTime @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
@@ -1844,6 +1886,7 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
+  workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
 }
 input PersonalExperienceInput {
   title: String
@@ -2659,6 +2702,18 @@ type Mutation {
     id: UUID!
     community: UpdateCommunityInput! @spread
   ): Community @update @canFind(ability: "update", find: "id") @validator
+
+  # Talent nomination event mutations
+  createTalentNominationEvent(
+    talentNominationEvent: CreateTalentNominationEventInput! @spread
+  ): TalentNominationEvent @create @guard @canModel(ability: "create")
+  updateTalentNominationEvent(
+    id: UUID!
+    talentNominationEvent: UpdateTalentNominationEventInput! @spread
+  ): TalentNominationEvent
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

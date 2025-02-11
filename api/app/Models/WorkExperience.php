@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
 
 /**
  * Class WorkExperience
@@ -290,6 +291,14 @@ class WorkExperience extends Experience
     }
 
     /**
+     * Interact with the saved work stream ids
+     */
+    protected function workStreamIds(): Attribute
+    {
+        return $this->makeJsonPropertyArrayAttribute('work_stream_ids');
+    }
+
+    /**
      * Return the classification model from JSON
      */
     public function classification()
@@ -303,5 +312,10 @@ class WorkExperience extends Experience
     public function department()
     {
         return $this->belongsTo(Department::class, 'properties->department_id');
+    }
+
+    public function workStreams(): BelongsToJson
+    {
+        return $this->belongsToJson(WorkStream::class, 'properties->work_stream_ids');
     }
 }
