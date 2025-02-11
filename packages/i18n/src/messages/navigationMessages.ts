@@ -156,6 +156,11 @@ const navigationMessages = defineMessages({
     id: "ukd1kY",
     description: "Name of talent management events page",
   },
+  applicantDashboard: {
+    defaultMessage: "Applicant dashboard",
+    id: "wqBryV",
+    description: "Name of applicant dashboard page",
+  },
 });
 
 export default navigationMessages;
