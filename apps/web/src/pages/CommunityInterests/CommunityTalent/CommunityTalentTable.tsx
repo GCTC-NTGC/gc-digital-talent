@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ColumnDef,
   PaginationState,
@@ -8,10 +8,11 @@ import {
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  CommunityTalentTableQuery as CommunityTalentTableQueryType,
+  CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -30,6 +31,37 @@ import {
   usernameCell,
 } from "./utils";
 
+const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
+  fragment CommunityTalentTableCommunityInterest on CommunityInterest {
+    id
+    jobInterest
+    trainingInterest
+    user {
+      id
+      firstName
+      lastName
+      workEmail
+      preferredLang {
+        label {
+          localized
+        }
+      }
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      currentClassification {
+        group
+        level
+      }
+    }
+    community {
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   query CommunityTalentTable(
     $where: CommunityInterestFilterInput
@@ -44,32 +76,7 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
-        id
-        jobInterest
-        trainingInterest
-        user {
-          id
-          firstName
-          lastName
-          workEmail
-          preferredLang {
-            label {
-              localized
-            }
-          }
-          lookingForEnglish
-          lookingForFrench
-          lookingForBilingual
-          currentClassification {
-            group
-            level
-          }
-        }
-        community {
-          name {
-            localized
-          }
-        }
+        ...CommunityTalentTableCommunityInterest
       }
       paginatorInfo {
         count
@@ -85,11 +92,8 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type CommunityTalentTableQueryCommunityInterestType =
-  CommunityTalentTableQueryType["communityInterestsPaginated"]["data"][number];
-
 const columnHelper =
-  createColumnHelper<CommunityTalentTableQueryCommunityInterestType>();
+  createColumnHelper<CommunityTalentTableCommunityInterestFragmentType>();
 
 interface CommunityTalentTableProps {
   title: string;
@@ -127,8 +131,14 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     },
   });
 
-  const communityInterestData =
-    data?.communityInterestsPaginated?.data.filter(notEmpty) ?? [];
+  const dataFragment = getFragment(
+    CommunityTalentTable_CommunityInterestFragment,
+    data?.communityInterestsPaginated?.data,
+  );
+  const communityInterestData = useMemo(
+    () => unpackMaybes(dataFragment),
+    [dataFragment],
+  );
 
   const columns = [
     columnHelper.accessor(
@@ -221,10 +231,10 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         ),
       },
     ),
-  ] as ColumnDef<CommunityTalentTableQueryCommunityInterestType>[];
+  ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];
 
   return (
-    <Table<CommunityTalentTableQueryCommunityInterestType>
+    <Table<CommunityTalentTableCommunityInterestFragmentType>
       data={communityInterestData}
       caption={title}
       columns={columns}
