@@ -276,8 +276,8 @@ export const DashboardPage = ({
                   href={paths.skillPortfolio()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Manage skills, and edit top skills or skills you'd like to learn.",
-                    id: "gCDfWw",
+                      "Manage skills and edit top skills or skills you'd like to learn.",
+                    id: "NUrFMU",
                     description:
                       "Helper instructions for an 'Skills portfolio' card",
                   })}
