@@ -21,6 +21,8 @@ import Board from "./components/Board/Board";
 import {
   CardBasic,
   CardFlat,
+  CardForm,
+  CardFormSeparator,
   type CardBasicProps,
   type CardFlatProps,
 } from "./components/Card";
@@ -141,6 +143,8 @@ export {
   Button,
   CardBasic,
   CardFlat,
+  CardForm,
+  CardFormSeparator,
   CardRepeater,
   CardSeparator,
   Chips,

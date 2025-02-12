@@ -198,7 +198,7 @@ type EmployeeProfile {
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -562,6 +562,7 @@ type Community implements HasRoleAssignments {
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
+  workStreams: [WorkStream!] @hasMany
 }
 
 type DevelopmentProgram {
@@ -1531,6 +1532,8 @@ input CreateCommunityInterestInput @validator {
 }
 
 input UpdateCommunityInterestInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -1544,6 +1547,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }
@@ -2340,7 +2344,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
-    id: UUID!
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard

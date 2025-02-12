@@ -302,6 +302,12 @@ const getRoutes = (lang: Locales) => {
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
+    // Community interests
+    createCommunityInterest: () =>
+      [applicantUrl, "community-interests", "create"].join("/"),
+    updateCommunityInterest: (id: string) =>
+      [applicantUrl, "community-interests", id].join("/"),
+
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
     jobPosterTemplate: (templateId: string) =>
