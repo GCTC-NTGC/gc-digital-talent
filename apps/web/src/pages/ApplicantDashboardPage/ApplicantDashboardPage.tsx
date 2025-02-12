@@ -269,8 +269,8 @@ export const DashboardPage = ({
                     href={paths.employeeProfile()}
                     description={intl.formatMessage({
                       defaultMessage:
-                        "Talent mobility preferences and career goals.",
-                      id: "J2QmoU",
+                        "Career development preferences and career goals.",
+                      id: "GBfPU+",
                       description:
                         "Helper instructions for an 'employee profile' card",
                     })}
