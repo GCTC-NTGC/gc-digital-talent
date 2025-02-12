@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
 
-export type CardFormProps = HTMLProps<HTMLDivElement>;
+type CardFormProps = HTMLProps<HTMLDivElement>;
 
 const CardForm = (props: CardFormProps) => (
   <div
