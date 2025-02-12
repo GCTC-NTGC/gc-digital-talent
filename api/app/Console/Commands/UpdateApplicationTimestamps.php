@@ -143,7 +143,7 @@ class UpdateApplicationTimestamps extends Command
         if (! $this->dry) {
             $query->chunk(100, function ($candidates) use ($state) {
                 foreach ($candidates as $candidate) {
-                    $candidate->update($state);
+                    $candidate->updateQuietly($state);
                 }
             });
         }
