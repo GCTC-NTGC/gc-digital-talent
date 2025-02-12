@@ -19,6 +19,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $user_id
+ * @property mixed $properties
  * @property \Illuminate\Support\Carbon $start_date
  * @property ?\Illuminate\Support\Carbon $end_date
  * @property ?\Illuminate\Support\Carbon $awarded_date
