@@ -151,6 +151,9 @@ export const DashboardPage = ({
       ? "complete"
       : "incomplete";
 
+  // NOTE: Update once employee profile is complete
+  const employeeProfileState = "complete";
+
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
       ? "complete"
@@ -254,6 +257,25 @@ export const DashboardPage = ({
                       "Helper instructions for an 'Personal information' card",
                   })}
                 />
+                {isVerifiedEmployee ? (
+                  <ResourceBlock.SingleLinkItem
+                    state={employeeProfileState}
+                    title={intl.formatMessage({
+                      defaultMessage: "Employee profile",
+                      id: "QzGuI5",
+                      description:
+                        "applicant dashboard card title for employee profile card",
+                    })}
+                    href={paths.employeeProfile()}
+                    description={intl.formatMessage({
+                      defaultMessage:
+                        "Talent mobility preferences and career goals.",
+                      id: "J2QmoU",
+                      description:
+                        "Helper instructions for an 'employee profile' card",
+                    })}
+                  />
+                ) : null}
                 <ResourceBlock.SingleLinkItem
                   state={careerExperienceState}
                   title={intl.formatMessage({
