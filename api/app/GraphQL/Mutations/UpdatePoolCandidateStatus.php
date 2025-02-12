@@ -28,6 +28,7 @@ final readonly class UpdatePoolCandidateStatus
                 PoolCandidateStatus::EXPIRED->name,
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
                 PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name => ['final_decision_at'],
@@ -36,7 +37,6 @@ final readonly class UpdatePoolCandidateStatus
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::REMOVED->name => ['removed_at'],
 
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 PoolCandidateStatus::PLACED_TERM->name,
                 PoolCandidateStatus::PLACED_INDETERMINATE->name => ['placed_at', 'final_decision_at'],
