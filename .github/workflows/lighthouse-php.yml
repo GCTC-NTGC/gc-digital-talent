@@ -50,8 +50,5 @@ jobs:
       # See: https://github.com/lhotari/action-upterm
       - name: Create upterm session for debug
         uses: lhotari/action-upterm@v1
-        with:
-          limit-access-to-users: petertgiles
-          wait-timeout-minutes: 10
-        # if: ${{ false }}
-        if: ${{ always() }}
+        if: ${{ false }}
+        # if: ${{ always() }}
