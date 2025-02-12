@@ -40,6 +40,7 @@ class UpdateApplicationTimestamps extends Command
         PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
         PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+        PoolCandidateStatus::PLACED_TENTATIVE->name,
         PoolCandidateStatus::EXPIRED->name,
     ];
 
@@ -52,7 +53,6 @@ class UpdateApplicationTimestamps extends Command
     private $placedStatuses = [
         PoolCandidateStatus::PLACED_INDETERMINATE->name,
         PoolCandidateStatus::PLACED_TERM->name,
-        PoolCandidateStatus::PLACED_TENTATIVE->name,
         PoolCandidateStatus::PLACED_CASUAL->name,
     ];
 
@@ -63,6 +63,9 @@ class UpdateApplicationTimestamps extends Command
     {
         $this->dry = $this->option('dry');
 
+        $now = now();
+
+        // Null out all timestamps
         $nullCandidates = PoolCandidate::whereIn('pool_candidate_status', $this->nullStatuses)
             ->where(function ($query) {
                 $query->whereNotNull('removed_at')
@@ -76,6 +79,7 @@ class UpdateApplicationTimestamps extends Command
             'final_decision_at' => null,
         ]);
 
+        // Null non final decision fields
         $final = PoolCandidate::whereIn('pool_candidate_status', $this->finalStatuses)
             ->where(function ($query) {
                 $query->whereNotNull('removed_at')
@@ -87,6 +91,13 @@ class UpdateApplicationTimestamps extends Command
             'placed_at' => null,
         ]);
 
+        // Set final decision where null
+        $finalNull = PoolCandidate::whereIn('pool_candidate_status', $this->finalStatuses)
+            ->whereNull('final_decision_at');
+
+        $finalCount += $this->update($finalNull, ['final_decision_at' => $now]);
+
+        // Null non removed at fields
         $removed = PoolCandidate::whereIn('pool_candidate_status', $this->removedStatuses)
             ->where(function ($query) {
                 $query->whereNotNull('final_decision_at')
@@ -98,15 +109,31 @@ class UpdateApplicationTimestamps extends Command
             'placed_at' => null,
         ]);
 
+        // Set removed at where null
+        $removedNull = PoolCandidate::whereIn('pool_candidate_status', $this->removedStatuses)
+            ->whereNull('removed_at');
+
+        $removedCount += $this->update($removedNull, ['removed_at' => $now]);
+
         $placed = PoolCandidate::whereIn('pool_candidate_status', $this->placedStatuses)
             ->whereNotNull('removed_at');
 
         $placedCount = $this->update($placed, ['removed_at' => null]);
 
+        $placedNullFinal = PoolCandidate::whereIn('pool_candidate_status', $this->placedStatuses)
+            ->whereNull('final_decision_at');
+
+        $placedCount += $this->update($placedNullFinal, ['final_decision_at' => $now]);
+
+        $placedNullPlaced = PoolCandidate::whereIn('pool_candidate_status', $this->placedStatuses)
+            ->whereNull('placed_at');
+
+        $placedCount += $this->update($placedNullPlaced, ['placed_at' => $now]);
+
         $suspended = PoolCandidate::where('pool_candidate_status', PoolCandidateStatus::QUALIFIED_WITHDREW->name)
             ->whereNull('suspended_at');
 
-        $suspendedCount = $this->update($suspended, ['suspended_at' => now()]);
+        $suspendedCount = $this->update($suspended, ['suspended_at' => $now]);
 
         $total = $nullCount + $finalCount + $removedCount + $placedCount + $suspendedCount;
         $this->table(
