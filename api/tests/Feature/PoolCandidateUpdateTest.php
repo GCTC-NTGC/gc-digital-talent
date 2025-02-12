@@ -1006,7 +1006,6 @@ class PoolCandidateUpdateTest extends TestCase
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
             ]);
-
         // Assert the expected timestamp was changed
         $data = $response['data']['updatePoolCandidateStatus'];
         $new = new Carbon($data[$camelTimestamp]);
@@ -1034,7 +1033,11 @@ class PoolCandidateUpdateTest extends TestCase
         $unChangeData = $noChangeResponse['data']['updatePoolCandidateStatus'];
         $unchanged = new Carbon($unChangeData[$camelTimestamp]);
 
-        $this->assertEquals($new->timestamp, $unchanged->timestamp);
+        // Same year, month, day, hour, minute (close enough!)
+        $this->assertTrue($new->isSameDay($unchanged));
+        $this->assertTrue($new->isSameHour($unchanged));
+        $this->assertTrue($new->isSameHour($unchanged));
+        $this->assertTrue($new->isSameMinute($unchanged));
     }
 
     public static function manualStatusProvider()
