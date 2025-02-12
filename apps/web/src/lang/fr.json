@@ -2175,6 +2175,10 @@
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
   },
+  "9TIkDp": {
+    "defaultMessage": "Ce programme ne m'intéresse pas",
+    "description": "Message displayed when a user is not interested in a development program"
+  },
   "9UZ/eS": {
     "defaultMessage": "Organisation",
     "description": "Label displayed on Work Experience form for organization input"
@@ -2286,6 +2290,10 @@
   "9wfkY1": {
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
+  },
+  "9whw8l": {
+    "defaultMessage": "Intérêt pour les possibilités de formation",
+    "description": "Label for users interest in training opportunities for a community"
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
@@ -3074,6 +3082,10 @@
   "EJN/zZ": {
     "defaultMessage": "Description générique du travail",
     "description": "Label displayed on the job poster template 'generic work description' field."
+  },
+  "EJPdqH": {
+    "defaultMessage": "* Veuillez noter qu'en indiquant votre intérêt pour les possibilités d'emplois ou de formation, vous acceptez de partager les renseignements de votre profil avec le personnel des ressources humaines et du recrutement du gouvernement du Canada au sein de cette collectivité.",
+    "description": "Footnote for more information on interest in job and training opportunities"
   },
   "EK+25s": {
     "defaultMessage": "Notes",
@@ -4715,6 +4727,10 @@
     "defaultMessage": "Si vous rencontrez toujours des difficultés, essayez d'envoyer un nouveau code en utilisant le lien fourni.",
     "description": "Instructions to send another code"
   },
+  "NCMG9w": {
+    "defaultMessage": "Renseignements supplémentaires",
+    "description": "Label for a community interests additional information"
+  },
   "NGEgVN": {
     "defaultMessage": "Organisation émettrice",
     "description": "Label displayed on award form for organization section"
@@ -4814,6 +4830,10 @@
   "NpznI5": {
     "defaultMessage": "Sauvegarder et ignorer la vérification",
     "description": "Button label for submit and skip email verification button on getting started form."
+  },
+  "Nq3XrT": {
+    "defaultMessage": "Volets de travail préférés pour l'emploi",
+    "description": "Label for users interest in training opportunities for a community"
   },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
@@ -5110,6 +5130,10 @@
   "PROKKo": {
     "defaultMessage": "Vous trouverez les échelles salariales et les échelons de la plupart des emplois du gouvernement du Canada dans <link1>les conventions collectives</link1>. Pour les postes non syndiqués, les échelles salariales sont disponibles sur le <link2>site Web du Secrétariat du Conseil du Trésor du Canada</link2>.",
     "description": "Fourth paragraph for the pool application salary ranges dialog"
+  },
+  "PRRKAq": {
+    "defaultMessage": "Visionnez et modifiez vos paramètres pour cette collectivité.",
+    "description": "Subtitle for dialog viewing a community interest"
   },
   "PS/LFb": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
@@ -5538,6 +5562,10 @@
   "RWvojd": {
     "defaultMessage": "Revenir à l'annonce",
     "description": "Link text to return to a pool advertisement during the application"
+  },
+  "RXFGuE": {
+    "defaultMessage": "Achevé en {date}",
+    "description": "Message when a user has completed a development program"
   },
   "RXOgrq": {
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
@@ -6050,6 +6078,10 @@
   "UfjJ9P": {
     "defaultMessage": "Expérience professionnelle",
     "description": "Link to the 'Career experience' page"
+  },
+  "UfwS5s": {
+    "defaultMessage": "Options de perfectionnement professionnel et en leadership",
+    "description": "Label for users interest in development programs for a community"
   },
   "UjkAHp": {
     "defaultMessage": "Agent(e) P M 3",
@@ -7626,6 +7658,10 @@
     "defaultMessage": "Les exigences linguistiques des postes bilingues sont résumées au moyen de l’une des lettres pour chacune des compétences. La première lettre renvoie au niveau requis pour la <strong>Lecture</strong>, la deuxième pour <strong>l’écriture</strong> et la troisième pour  <strong>l’expression orale</strong>.",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "dYsXAU": {
+    "defaultMessage": "Intérêt pour les possibilités d'emploi",
+    "description": "Label for users interest in job opportunities for a community"
+  },
   "da/TLc": {
     "defaultMessage": "Modifier<hidden> le volet de travail</hidden>",
     "description": "Breadcrumb title for the edit work stream page link."
@@ -7882,6 +7918,10 @@
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
   },
+  "edqRug": {
+    "defaultMessage": "La formation m'intéresse*",
+    "description": "Message displayed when user expresses interest in training opportunities"
+  },
   "eeU13V": {
     "defaultMessage": "Filtrer par volets de travail",
     "description": "Legend for pool streams input"
@@ -8001,6 +8041,10 @@
   "fF4Ex+": {
     "defaultMessage": "Le Portail des talents autochtones a été créé pour la communauté autochtone par la communauté autochtone.",
     "description": "Talent portal information sentence 1"
+  },
+  "fFihbX": {
+    "defaultMessage": "Programme en cours, achèvement prévu en {date}",
+    "description": "Message displayed when a user is enrolled in a development program"
   },
   "fHEsA5": {
     "defaultMessage": "Le BIA a pour mission d’intégrer les talents autochtones dans la main-d’œuvre des TI du GC et de simplifier le processus d’embauche pour vous.",
@@ -9342,6 +9386,10 @@
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
   },
+  "m6NZda": {
+    "defaultMessage": "La formation ne m'intéresse pas",
+    "description": "Message displayed when a user has expressed they are not interested in training opportunities"
+  },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
@@ -9657,6 +9705,10 @@
   "nUokX9": {
     "defaultMessage": "Retourner au suivi des évaluations",
     "description": "Link label to return to assessment tracker"
+  },
+  "nVlmhK": {
+    "defaultMessage": "Les possibilités d'emploi m'intéressent*",
+    "description": "Message displayed when user expresses interest in job opportunities"
   },
   "nWZiWr": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
@@ -10585,6 +10637,10 @@
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
     "description": "Learn more dialog question six paragraph one"
+  },
+  "szxveb": {
+    "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
+    "description": "Message displayed when a user has expressed they are not interested in job opportunities"
   },
   "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
@@ -11578,6 +11634,10 @@
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais du groupe de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the skill families 'key' field."
   },
+  "ytcZ7A": {
+    "defaultMessage": "Ce programme m'intéresse",
+    "description": "Message displayed when a user is interested in a development program"
+  },
   "yu4wqa": {
     "defaultMessage": "Dites-nous quel examen vous aimeriez passer et nous évaluerons votre demande.",
     "description": "Second paragraph of certification topics section"
@@ -11733,6 +11793,10 @@
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
+  },
+  "zpr5ny": {
+    "defaultMessage": "Modifiez cette collectivité",
+    "description": "Link text for edit interest in a community"
   },
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour du groupe de compétences",

@@ -12,41 +12,58 @@ final readonly class UpdatePoolCandidateStatus
     public function __invoke(null $_, array $args)
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
+        $values = [];
 
         if (isset($args['pool_candidate_status']) && $args['pool_candidate_status'] !== $candidate->pool_candidate_status) {
             $status = $args['pool_candidate_status'];
 
-            $timestamp = match ($status) {
+            $now = now();
+            $values = [
+                'removed_at' => null,
+                'final_decision_at' => null,
+                'placed_at' => null,
+            ];
+
+            $timestamps = match ($status) {
+                PoolCandidateStatus::EXPIRED->name,
                 PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
                 PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => 'final_decision_at',
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => ['final_decision_at'],
 
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                PoolCandidateStatus::REMOVED->name => 'removed_at',
+                PoolCandidateStatus::REMOVED->name => ['removed_at'],
 
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 PoolCandidateStatus::PLACED_TERM->name,
-                PoolCandidateStatus::PLACED_INDETERMINATE->name => 'placed_at',
+                PoolCandidateStatus::PLACED_INDETERMINATE->name => ['placed_at', 'final_decision_at'],
 
                 default => null// no-op
             };
 
-            if ($timestamp) {
-                $candidate->$timestamp = now();
+            if ($timestamps) {
+                foreach ($timestamps as $timestamp) {
+                    $values[$timestamp] = $now;
+                }
             }
 
-            $candidate->pool_candidate_status = $status;
+            if ($status === PoolCandidateStatus::QUALIFIED_WITHDREW->name) {
+                $values['suspended_at'] = $now;
+            }
+
+            $values['pool_candidate_status'] = $status;
+
         }
 
         if (isset($args['expiry_date'])) {
-            $candidate->expiry_date = $args['expiry_date'];
+            $values['expiry_date'] = $args['expiry_date'];
         }
 
-        $candidate->save();
+        $candidate->update($values);
+        $candidate->refresh();
 
         return $candidate;
     }

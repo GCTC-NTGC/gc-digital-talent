@@ -663,7 +663,6 @@ type CommunityInterest {
 type DevelopmentProgramInterest {
   id: UUID!
   developmentProgram: DevelopmentProgram!
-  communityInterest: CommunityInterest!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
 }
@@ -973,6 +972,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
+  workStreams: [WorkStream!]
   developmentPrograms: [DevelopmentProgram!]
   workStreams: [WorkStream!]
 }

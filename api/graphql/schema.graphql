@@ -167,7 +167,6 @@ type CommunityInterest {
 type DevelopmentProgramInterest {
   id: UUID!
   developmentProgram: DevelopmentProgram! @belongsTo
-  communityInterest: CommunityInterest! @belongsTo
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
@@ -561,6 +560,7 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
   workStreams: [WorkStream!] @hasMany
 }
