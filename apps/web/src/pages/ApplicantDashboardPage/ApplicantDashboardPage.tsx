@@ -151,7 +151,7 @@ export const DashboardPage = ({
       ? "complete"
       : "incomplete";
 
-  // NOTE: Update once employee profile is complete
+  // NOTE: Update in issue #12744
   const employeeProfileState = "complete";
 
   const careerExperienceState =
