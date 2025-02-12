@@ -25,6 +25,20 @@ export function empty<T>(
   return value === null || value === undefined;
 }
 
+/**
+ * Determines if variable is empty or a boolean. Then returns "yes" or "no".
+ * @param bool
+ * @returns "yes" if true, or "no" if false
+ */
+export const boolToYesNo = (
+  bool: boolean | null | undefined,
+): "yes" | "no" | undefined => {
+  if (empty(bool)) {
+    return undefined;
+  }
+  return bool ? "yes" : "no";
+};
+
 export function getId<T extends { id: string }>(item: T): string {
   return item.id;
 }

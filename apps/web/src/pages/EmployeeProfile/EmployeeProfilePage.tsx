@@ -24,6 +24,9 @@ import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import CareerDevelopmentSection, {
+  EmployeeProfileCareerDevelopmentOptions_Fragment,
+} from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -39,15 +42,22 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     isWorkEmailVerified
     employeeProfile {
       ...EmployeeProfileGoalsWorkStyle
+      ...EmployeeProfileCareerDevelopment
     }
   }
 `);
 
 interface EmployeeProfileProps {
   userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  careerDevelopmentOptionsQuery: FragmentType<
+    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
+  >;
 }
 
-const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
+const EmployeeProfile = ({
+  userQuery,
+  careerDevelopmentOptionsQuery,
+}: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const user = getFragment(EmployeeProfile_Fragment, userQuery);
@@ -176,9 +186,12 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   })}
                 </p>
               </TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.CAREER_DEVELOPMENT}
-              ></TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
+                <CareerDevelopmentSection
+                  employeeProfileQuery={user.employeeProfile}
+                  careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
+                />
+              </TableOfContents.Section>
               <TableOfContents.Section
                 id={SECTION_ID.DREAM_ROLE}
               ></TableOfContents.Section>
@@ -200,6 +213,7 @@ const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
     me {
       ...EmployeeProfile
     }
+    ...EmployeeProfileCareerDevelopmentOptions
   }
 `);
 
@@ -212,7 +226,10 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile userQuery={data.me} />
+        <EmployeeProfile
+          userQuery={data.me}
+          careerDevelopmentOptionsQuery={data}
+        />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
