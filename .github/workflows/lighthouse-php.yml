@@ -52,5 +52,6 @@ jobs:
         uses: lhotari/action-upterm@v1
         with:
           limit-access-to-users: petertgiles
+          wait-timeout-minutes: 10
         # if: ${{ false }}
         if: ${{ always() }}
