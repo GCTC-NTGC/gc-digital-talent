@@ -214,6 +214,11 @@ const messages = defineMessages({
     id: "dotl8X",
     description: "Label for keyword search input",
   },
+  communityTalent: {
+    defaultMessage: "Community talent",
+    id: "+365vM",
+    description: "Label for community talent",
+  },
 });
 
 export default messages;

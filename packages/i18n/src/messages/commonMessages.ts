@@ -374,6 +374,26 @@ const commonMessages = defineMessages({
     id: "zN7MBv",
     description: "Title for a users career plan",
   },
+  jobInterest: {
+    defaultMessage: "Job interest",
+    id: "dYhxhN",
+    description: "Job interest label",
+  },
+  trainingInterest: {
+    defaultMessage: "Training interest",
+    id: "AQeWgK",
+    description: "Training interest label",
+  },
+  interested: {
+    defaultMessage: "Interested",
+    id: "rH9RNh",
+    description: "Expressed interest",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    id: "fUAej4",
+    description: "Expressed lack of interest",
+  },
 });
 
 export default commonMessages;
