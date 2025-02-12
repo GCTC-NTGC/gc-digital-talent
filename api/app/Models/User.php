@@ -129,6 +129,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected $fillable = [
         'email',
         'sub',
+        'computed_is_gov_employee',
+        'computed_gov_employee_type',
+        'computed_classification',
+        'computed_department',
+        'computed_gov_position_type',
+        'computed_gov_end_date',
     ];
 
     protected $hidden = [];

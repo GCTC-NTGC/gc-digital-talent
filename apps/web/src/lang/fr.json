@@ -2679,10 +2679,6 @@
     "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
     "description": "Button text to reinstate a candidate and update their status"
   },
-  "CTBcGm": {
-    "defaultMessage": "Consultez une liste complète des compétences disponibles, découvrez comment elles sont organisées et proposez des compétences supplémentaires à inclure.",
-    "description": "the 'Learn about skills' tool description"
-  },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
@@ -4003,6 +3999,10 @@
     "defaultMessage": "Découvrez les cours dirigés par un instructeur ou une instructrice proposés pour améliorer votre expertise en technologie de l’information.",
     "description": "Page subtitle for the instructor led training page"
   },
+  "Jlk0bi": {
+    "defaultMessage": "Vos informations",
+    "description": "Card title for a 'your information' card"
+  },
   "Jp/oeD": {
     "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
     "description": "Text for second sign up -> create step."
@@ -4686,6 +4686,10 @@
   "NUjAy0": {
     "defaultMessage": "Dupliquer le processus",
     "description": "Title to duplicate a process"
+  },
+  "NUrFMU": {
+    "defaultMessage": "Gérez vos compétences et modifiez votre liste de compétences principales ou de celles que vous aimeriez acquérir.",
+    "description": "Helper instructions for an 'Skills portfolio' card"
   },
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
@@ -5463,6 +5467,10 @@
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
   },
+  "RSUZix": {
+    "defaultMessage": "Travail, études, bénévolat, prix, etc.",
+    "description": "Helper instructions for an 'Career experience' card"
+  },
   "RSUgO3": {
     "defaultMessage": "Ajoutez une compétence",
     "description": "Button text to open the skill dialog and add a skill"
@@ -5978,6 +5986,10 @@
   "Uea7/1": {
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
+  },
+  "UfjJ9P": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Link to the 'Career experience' page"
   },
   "UfwS5s": {
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
@@ -6970,9 +6982,17 @@
     "defaultMessage": "Indéterminée (emploi permanent seulement)",
     "description": "Label displayed on Work Preferences form for indeterminate duration option."
   },
+  "aBGEsG": {
+    "defaultMessage": "Candidatures",
+    "description": "Job applications expandable"
+  },
   "aCKQVB": {
     "defaultMessage": "Question (EN)",
     "description": "Label for an English general question"
+  },
+  "aDCqiX": {
+    "defaultMessage": "Nom, coordonnées, équité en matière d'emploi, compétences linguistiques et préférences en matière de travail.",
+    "description": "Helper instructions for an 'Personal information' card"
   },
   "aFPUbm": {
     "defaultMessage": "Passez en revue votre profil",
@@ -7589,6 +7609,10 @@
   "diSBjl": {
     "defaultMessage": "Langues officielles",
     "description": "Heading for comments and interaction section"
+  },
+  "dj+m3H": {
+    "defaultMessage": "En savoir plus sur CléGC et gérer les notifications.",
+    "description": "Helper instructions for an 'Account settings' card"
   },
   "dj8GiH": {
     "defaultMessage": "Détails sur le candidat",
@@ -8458,6 +8482,10 @@
     "defaultMessage": "Votre signature",
     "description": "label for the signature input on the self-declaration form"
   },
+  "hhNBq8": {
+    "defaultMessage": "Candidatures et processus",
+    "description": "Card title for Applications and processes"
+  },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
     "description": "Skill name column header for the skill library table"
@@ -8805,6 +8833,10 @@
   "jRmRd+": {
     "defaultMessage": "Talents numériques du GC est la nouvelle plateforme de recrutement pour les emplois numériques et technologiques au gouvernement du Canada. Postulez maintenant!",
     "description": "Meta tag description for Talent Search site"
+  },
+  "jRnA1D": {
+    "defaultMessage": "Communiquer avec l'équipe de soutien",
+    "description": "Link for the 'contact support' card"
   },
   "jT46zb": {
     "defaultMessage": "<strong>Comment y accéder</strong> : Disponible via Navigar, un outil Web intelligent de développement des compétences. Tous les membres du personnel admissibles du groupe TI recevront un courriel d'activation de leur compte Navigar.",
@@ -9398,6 +9430,10 @@
     "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
     "description": "Status description for a qualified application open for hiring"
   },
+  "mluvY2": {
+    "defaultMessage": "Consultez une liste complète des compétences disponibles et découvrez comment elles sont organisées.",
+    "description": "the 'Learn about skills' tool description"
+  },
   "mm1X02": {
     "defaultMessage": "Compétences techniques facultatives",
     "description": "Title for optional technical skills section"
@@ -9730,6 +9766,10 @@
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
+  "ogWg7U": {
+    "defaultMessage": "Les candidatures retenues vous permettent d'accéder aux processus de recrutement qui apparaissent automatiquement ici. Sélectionnez un processus dans cette liste pour en consulter les détails ou mettre à jour votre disponibilité pour les possibilités d’emploi.",
+    "description": "Subtitle explaining Recruitment processes expandable within applications and processes card"
+  },
   "ohLTJS": {
     "defaultMessage": "Candidat non rétabli",
     "description": "Error message for reinstating a candidate"
@@ -9841,6 +9881,10 @@
   "pDlEip": {
     "defaultMessage": "Créez la compétence",
     "description": "Button label to create a skill"
+  },
+  "pDqhbX": {
+    "defaultMessage": "Postulez à un emploi, poursuivez vos ébauches ou suivez vos candidatures soumises tout au long du processus d'évaluation.",
+    "description": "Subtitle explaining job applications expandable within applications and processes card"
   },
   "pErNfb": {
     "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
@@ -10305,6 +10349,10 @@
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
+  },
+  "s8ByY4": {
+    "defaultMessage": "Vous avez des questions ou vous avez besoin d'aide? Communiquez avec notre équipe de soutien et dites-nous comment nous pouvons vous aider.",
+    "description": "the 'contact support' tool description"
   },
   "sB7wVn": {
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
@@ -10986,6 +11034,10 @@
     "defaultMessage": "Créez un processus",
     "description": "Heading displayed above the Create process form."
   },
+  "wPDwMb": {
+    "defaultMessage": "Processus de recrutement",
+    "description": "Recruitment processes expandable"
+  },
   "wPpvvm": {
     "defaultMessage": "Créer un profil",
     "description": "Link text to direct users to the profile page when anonymous"
@@ -11585,6 +11637,10 @@
   "zsUuN9": {
     "defaultMessage": "Modifier l'expérience",
     "description": "Title for edit experience page"
+  },
+  "zsjK3M": {
+    "defaultMessage": "Suivez les candidatures et gérez vos informations de candidat, y compris l'expérience professionnelle, le portfolio de compétences, etc.",
+    "description": "Subtitle for applicant dashboard"
   },
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
