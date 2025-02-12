@@ -99,13 +99,9 @@ class UpdateApplicationTimestamps extends Command
 
         // Null non removed at fields
         $removed = PoolCandidate::whereIn('pool_candidate_status', $this->removedStatuses)
-            ->where(function ($query) {
-                $query->whereNotNull('final_decision_at')
-                    ->orWhereNotNull('placed_at');
-            });
+            ->whereNotNull('placed_at');
 
         $removedCount = $this->update($removed, [
-            'final_decision_at' => null,
             'placed_at' => null,
         ]);
 
