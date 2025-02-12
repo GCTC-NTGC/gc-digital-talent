@@ -32,6 +32,13 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
+
+    communities {
+      id
+      developmentPrograms {
+        id
+      }
+    }
   }
 `);
 
@@ -57,6 +64,11 @@ const CreateCommunityInterestForm = ({
   const formMethods = useForm<FormValues>();
   const selectedCommunityId = formMethods.watch("communityId");
 
+  const developmentProgramCount: number =
+    formOptions?.communities?.find(
+      (community) => community?.id === selectedCommunityId,
+    )?.developmentPrograms?.length ?? 0;
+
   return (
     <>
       <FormProvider {...formMethods}>
@@ -80,11 +92,16 @@ const CreateCommunityInterestForm = ({
               {/* other sections hidden until a community is selected */}
               {selectedCommunityId && (
                 <>
-                  <CardFormSeparator />
-                  <TrainingAndDevelopmentOpportunities
-                    optionsQuery={formOptions}
-                    formDisabled={formDisabled}
-                  />
+                  {/* the training section is hidden if there are no development programs */}
+                  {developmentProgramCount > 0 ? (
+                    <>
+                      <CardFormSeparator />
+                      <TrainingAndDevelopmentOpportunities
+                        optionsQuery={formOptions}
+                        formDisabled={formDisabled}
+                      />
+                    </>
+                  ) : null}
                   <CardFormSeparator />
                   <AdditionalInformation formDisabled={formDisabled} />
                   <CardFormSeparator />

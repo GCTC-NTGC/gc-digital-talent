@@ -42,6 +42,13 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment UpdateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
+
+    communities {
+      id
+      developmentPrograms {
+        id
+      }
+    }
   }
 `);
 
@@ -99,6 +106,11 @@ const UpdateCommunityInterestForm = ({
     defaultValues: apiDataToFormValues(userId, formData),
   });
 
+  const developmentProgramCount: number =
+    formOptions?.communities?.find(
+      (community) => community?.id === formData.community.id,
+    )?.developmentPrograms?.length ?? 0;
+
   return (
     <>
       <FormProvider {...formMethods}>
@@ -119,11 +131,16 @@ const UpdateCommunityInterestForm = ({
                 formDisabled={formDisabled}
                 mode="update"
               />
-              <CardFormSeparator />
-              <TrainingAndDevelopmentOpportunities
-                optionsQuery={formOptions}
-                formDisabled={formDisabled}
-              />
+              {/* the training section is hidden if there are no development programs */}
+              {developmentProgramCount > 0 ? (
+                <>
+                  <CardFormSeparator />
+                  <TrainingAndDevelopmentOpportunities
+                    optionsQuery={formOptions}
+                    formDisabled={formDisabled}
+                  />
+                </>
+              ) : null}
               <CardFormSeparator />
               <AdditionalInformation formDisabled={formDisabled} />
               <CardFormSeparator />
