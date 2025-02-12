@@ -25,13 +25,14 @@ const BoolCheckIcon = ({
   return (
     <div
       data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
+      data-h2-align-items="base(flex-start)"
       data-h2-gap="base(x.25)"
       {...rest}
     >
       <Icon
         data-h2-width="base(x.75)"
         data-h2-height="base(x.75)"
+        data-h2-margin-top="base(x.15)"
         {...(value
           ? {
               "aria-label": trueLabel,
@@ -39,7 +40,7 @@ const BoolCheckIcon = ({
             }
           : {
               "aria-label": falseLabel,
-              "data-h2-color": "base(gray.lighter)",
+              "data-h2-color": "base(black.lighter) base:dark(black.5)",
             })}
       />
       <span>{children}</span>
