@@ -20,6 +20,9 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     finalDecisionAt
     suspendedAt
     placedAt
+    status {
+      value
+    }
     finalDecision {
       value
     }
@@ -72,6 +75,7 @@ const ReviewRecruitmentProcessPreviewList = ({
             const status = getQualifiedRecruitmentStatusChip(
               recruitmentProcess.suspendedAt,
               recruitmentProcess.placedAt,
+              recruitmentProcess.status?.value ?? null,
               intl,
             );
 
