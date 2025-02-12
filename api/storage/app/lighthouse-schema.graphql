@@ -974,7 +974,6 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
   workStreams: [WorkStream!]
   developmentPrograms: [DevelopmentProgram!]
-  workStreams: [WorkStream!]
 }
 
 type DevelopmentProgram {

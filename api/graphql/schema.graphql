@@ -562,7 +562,6 @@ type Community implements HasRoleAssignments {
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
-  workStreams: [WorkStream!] @hasMany
 }
 
 type DevelopmentProgram {
