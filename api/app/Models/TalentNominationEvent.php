@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
+use App\Enums\TalentNominationEventStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -63,5 +65,21 @@ class TalentNominationEvent extends Model
     public function developmentPrograms(): BelongsToMany
     {
         return $this->belongsToMany(DevelopmentProgram::class);
+    }
+
+    public static function scopeStatus(Builder $query, ?string $status)
+    {
+        if (! $status) {
+            return $query;
+        }
+        if ($status === TalentNominationEventStatus::ACTIVE->name) {
+            return $query->where('open_date', '<', now())->where('close_date', '>', now());
+        }
+        if ($status === TalentNominationEventStatus::UPCOMING->name) {
+            return $query->where('open_date', '>', now());
+        }
+        if ($status === TalentNominationEventStatus::PAST->name) {
+            return $query->where('close_date', '<', now());
+        }
     }
 }

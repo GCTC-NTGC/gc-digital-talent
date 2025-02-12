@@ -1,31 +1,45 @@
 import { useIntl } from "react-intl";
 
 import { Heading, CardBasic, Link } from "@gc-digital-talent/ui";
-import { formatDate } from "@gc-digital-talent/date-helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-interface TalentNominationEventCardProps {
-  mode: "Current"; // more modes coming soon.
-  communityName: string;
-  title: string;
-  openDate: Date;
-  closeDate: Date;
-  description: string;
-  startUrl: string;
-  learnMoreUrl?: string;
+export interface TalentNominationEventCardProps {
+  talentNominationEventQuery: FragmentType<
+    typeof TalentNominationEventCard_Fragment
+  >;
 }
 
+export const TalentNominationEventCard_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationEventCard on TalentNominationEvent {
+    id
+    name {
+      localized
+    }
+    description {
+      localized
+    }
+    openDate
+    closeDate
+    learnMoreUrl {
+      localized
+    }
+    community {
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 const TalentNominationEventCard = ({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  mode, // not used.
-  communityName,
-  title,
-  openDate,
-  closeDate,
-  description,
-  startUrl,
-  learnMoreUrl,
+  talentNominationEventQuery,
 }: TalentNominationEventCardProps) => {
   const intl = useIntl();
+  const talentNominationEvent = getFragment(
+    TalentNominationEventCard_Fragment,
+    talentNominationEventQuery,
+  );
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   return (
@@ -41,7 +55,7 @@ const TalentNominationEventCard = ({
           data-h2-font-weight="base(700)"
           data-h2-order="base(2)"
         >
-          {title}
+          {talentNominationEvent.name.localized}
         </Heading>
         <div
           data-h2-order="base(1)"
@@ -60,7 +74,7 @@ const TalentNominationEventCard = ({
             data-h2-padding="base(x.175 x1.5 x.175 x1.75)"
             data-h2-position="base(relative)"
           >
-            {communityName}
+            {talentNominationEvent.community?.name?.localized}
           </div>
         </div>
         <div data-h2-order="base(3)">
@@ -78,13 +92,13 @@ const TalentNominationEventCard = ({
               },
               {
                 openDate: formatDate({
-                  date: openDate,
+                  date: parseDateTimeUtc(talentNominationEvent.openDate),
                   formatString: "MMMM d, yyyy",
                   intl,
                   timeZone: localTimeZone,
                 }),
                 closeDate: formatDate({
-                  date: closeDate,
+                  date: parseDateTimeUtc(talentNominationEvent.closeDate),
                   formatString: "MMMM d, yyyy",
                   intl,
                   timeZone: localTimeZone,
@@ -92,14 +106,16 @@ const TalentNominationEventCard = ({
               },
             )}
           </p>
-          <p data-h2-margin-bottom="base(x1)">{description}</p>
+          <p data-h2-margin-bottom="base(x1)">
+            {talentNominationEvent.description?.localized}
+          </p>
           <div
             data-h2-align-items="base(center)"
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
-            <Link color="secondary" mode="solid" href={startUrl}>
+            <Link color="secondary" mode="solid" href="#">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -107,14 +123,14 @@ const TalentNominationEventCard = ({
                   id: "ZqGZ2s",
                   description: "Button label to start a nomination for event",
                 },
-                { title },
+                { title: talentNominationEvent.name.localized },
               )}
             </Link>
-            {learnMoreUrl && (
+            {talentNominationEvent.learnMoreUrl?.localized && (
               <Link
                 color="secondary"
                 mode="inline"
-                href={learnMoreUrl}
+                href={talentNominationEvent.learnMoreUrl.localized}
                 external
                 newTab
               >
@@ -124,7 +140,7 @@ const TalentNominationEventCard = ({
                     id: "5dSChw",
                     description: "Button label to Learn more about event",
                   },
-                  { title },
+                  { title: talentNominationEvent.name.localized },
                 )}
               </Link>
             )}

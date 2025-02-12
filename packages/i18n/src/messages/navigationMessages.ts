@@ -151,6 +151,11 @@ const navigationMessages = defineMessages({
     id: "9RXifp",
     description: "Name of skill families page",
   },
+  talentManagementEvents: {
+    defaultMessage: "Talent management events",
+    id: "ukd1kY",
+    description: "Name of talent management events page",
+  },
   applicantDashboard: {
     defaultMessage: "Applicant dashboard",
     id: "wqBryV",

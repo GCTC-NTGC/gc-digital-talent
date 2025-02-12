@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
             // convenient test data
             CommunityTestSeeder::class,
+            TalentNominationEventTestSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
