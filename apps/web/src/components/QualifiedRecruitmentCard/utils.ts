@@ -37,7 +37,11 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isPlacedStatus(status?.value)) {
+  // placed casual is an exception, it can be suspended
+  const isLongTermPlacedStatus =
+    isPlacedStatus(status?.value) &&
+    status?.value !== PoolCandidateStatus.PlacedCasual;
+  if (isLongTermPlacedStatus) {
     return {
       icon: null,
       color: {},
@@ -93,6 +97,7 @@ export const getQualifiedRecruitmentInfo = (
     statusChip: getQualifiedRecruitmentStatusChip(
       candidate.suspendedAt,
       candidate.placedAt,
+      candidate.status?.value ?? null,
       intl,
     ),
     availability: getAvailabilityInfo(candidate, intl),
