@@ -38,10 +38,10 @@ const getAvailabilityInfo = (
   }
 
   // placed casual is an exception, it can be suspended
-  if (
+  const isLongTermPlacedStatus =
     isPlacedStatus(status?.value) &&
-    status?.value !== PoolCandidateStatus.PlacedCasual
-  ) {
+    status?.value !== PoolCandidateStatus.PlacedCasual;
+  if (isLongTermPlacedStatus) {
     return {
       icon: null,
       color: {},
