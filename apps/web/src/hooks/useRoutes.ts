@@ -257,6 +257,10 @@ const getRoutes = (lang: Locales) => {
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
 
+    // Community interests
+    communityInterest: (communityInterestId: string) =>
+      `${applicantUrl}/community-interests/${communityInterestId}`,
+
     // Profile and Applications
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
