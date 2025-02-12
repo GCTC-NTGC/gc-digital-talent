@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { MoveInterest } from "@gc-digital-talent/graphql";
 
-import BoolCheckIcon from "./BoolCheckIcon";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 interface MoveInterestsListProps {
   moveInterests: MoveInterest[];

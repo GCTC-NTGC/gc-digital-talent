@@ -6,8 +6,9 @@ import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
-const createRoute = (locale: Locales) =>
+const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -185,17 +186,25 @@ const createRoute = (locale: Locales) =>
                 {
                   index: true,
                   lazy: () =>
-                    import(
-                      "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-                    ),
+                    newApplicantDashboard
+                      ? import(
+                          "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                        )
+                      : import(
+                          "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
+                        ),
                 },
-                // {
-                //   path: "dashboard-test",
-                //   lazy: () =>
-                //     import(
-                //       "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                //     ),
-                // },
+                {
+                  path: "dashboard",
+                  lazy: () =>
+                    newApplicantDashboard
+                      ? import(
+                          "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                        )
+                      : import(
+                          "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
+                        ),
+                },
                 {
                   path: "settings",
                   lazy: () =>
@@ -1009,7 +1018,9 @@ const createRoute = (locale: Locales) =>
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const router = createRoute(locale);
+  const { newApplicantDashboard } = useFeatureFlags();
+  const router = createRoute(locale, newApplicantDashboard);
+
   return <RouterProvider router={router} />;
 };
 

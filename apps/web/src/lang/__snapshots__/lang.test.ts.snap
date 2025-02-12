@@ -14,6 +14,7 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Non intéressé(e)",
       "Pas d'intérêt"
+      "Ce programme ne m'intéresse pas"
     ]
   },
   {

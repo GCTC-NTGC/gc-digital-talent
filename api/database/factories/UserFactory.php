@@ -19,6 +19,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -51,8 +52,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $randomDepartment = Department::inRandomOrder()->first();
-        $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
         $isDeclared = $this->faker->boolean();
@@ -108,8 +107,6 @@ class UserFactory extends Factory
                 : null,
             'computed_is_gov_employee' => $isGovEmployee,
             'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
-            'computed_department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
-            'computed_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
@@ -132,7 +129,6 @@ class UserFactory extends Factory
                 array_column(PositionDuration::cases(), 'name')
                 : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-            'computed_gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
             'armed_forces_status' => $this->faker->boolean() ?
                 ArmedForcesStatus::NON_CAF->name
@@ -226,6 +222,10 @@ class UserFactory extends Factory
                 'user_id' => $user->id,
                 'end_date' => null,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => $this->faker->randomElement([
+                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    WorkExperienceGovEmployeeType::TERM->name,
+                ]),
             ]);
             $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
         });
@@ -405,6 +405,9 @@ class UserFactory extends Factory
             $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->inRandomOrder()->take($count)->get();
+            if (! $allSkills->count()) {
+                $allSkills = Skill::factory($count)->create();
+            }
         }
         $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 

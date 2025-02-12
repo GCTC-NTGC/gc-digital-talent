@@ -547,6 +547,10 @@
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
   },
+  "MuM7SN": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message for when specific item has missing information"
+  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
@@ -1426,6 +1430,10 @@
   "wUJqDi": {
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
+  },
+  "wqBryV": {
+    "defaultMessage": "Tableau de bord du (de la) candidat(e)",
+    "description": "Name of applicant dashboard page"
   },
   "x61BXA": {
     "defaultMessage": "Mars",

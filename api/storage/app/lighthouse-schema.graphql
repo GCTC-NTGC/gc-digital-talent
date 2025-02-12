@@ -507,6 +507,8 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
+  createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
+  updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -661,7 +663,6 @@ type CommunityInterest {
 type DevelopmentProgramInterest {
   id: UUID!
   developmentProgram: DevelopmentProgram!
-  communityInterest: CommunityInterest!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
 }
@@ -971,6 +972,7 @@ type Community implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
+  workStreams: [WorkStream!]
   developmentPrograms: [DevelopmentProgram!]
 }
 
@@ -981,6 +983,18 @@ type DevelopmentProgram {
   descriptionForNominations: LocalizedString
   community: Community
   eligibleClassifications: [Classification!]
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedString
+  includeLeadershipCompetencies: Boolean!
+  community: Community!
+  developmentPrograms: [DevelopmentProgram!]
 }
 
 type Team implements HasRoleAssignments {
@@ -1143,6 +1157,7 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank
   classification: Classification
   department: Department
+  workStreams: [WorkStream!]
 }
 
 type PersonalExperience implements Experience {
@@ -1773,6 +1788,32 @@ input UpdateCommunityInput {
   mandateAuthority: LocalizedStringInput
 }
 
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime!
+  closeDate: DateTime!
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime
+  closeDate: DateTime
+  learnMoreUrl: LocalizedStringInput
+  includeLeadershipCompetencies: Boolean
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -1882,6 +1923,7 @@ input WorkExperienceInput {
   cafRank: CafRank
   classificationId: String
   departmentId: String
+  workStreamIds: [UUID!]
 }
 
 input PersonalExperienceInput {
