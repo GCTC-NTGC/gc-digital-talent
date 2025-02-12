@@ -1036,7 +1036,6 @@ class PoolCandidateUpdateTest extends TestCase
         // Same year, month, day, hour, minute (close enough!)
         $this->assertTrue($new->isSameDay($unchanged));
         $this->assertTrue($new->isSameHour($unchanged));
-        $this->assertTrue($new->isSameHour($unchanged));
         $this->assertTrue($new->isSameMinute($unchanged));
     }
 
