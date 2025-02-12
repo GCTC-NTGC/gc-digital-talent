@@ -50,6 +50,9 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
     finalDecisionAt
     suspendedAt
     placedAt
+    status {
+      value
+    }
     pool {
       id
       name {
@@ -182,6 +185,7 @@ const ReviewRecruitmentProcessDialog = ({
   const status = getQualifiedRecruitmentStatusChip(
     recruitmentProcess.suspendedAt,
     recruitmentProcess.placedAt,
+    recruitmentProcess.status?.value ?? null,
     intl,
   );
 

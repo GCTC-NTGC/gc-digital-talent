@@ -67,25 +67,21 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/hired/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        /you are open to opportunities from this recruitment/i,
-      ),
-    ).not.toBeInTheDocument();
+      screen.getByText(/you are open to opportunities from this recruitment/i),
+    ).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/change your availability/i),
-    ).not.toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
       screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(3);
   });
 
   it("PLACED_CASUAL and SUSPENDED", () => {
@@ -102,25 +98,23 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/hired/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
       ),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(
+      screen.getByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/change your availability/i),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
       screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(3);
   });
 
   it("PLACED_INDETERMINATE and UN-SUSPENDED", () => {
