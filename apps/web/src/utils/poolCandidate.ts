@@ -38,6 +38,7 @@ import {
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
+  SUSPENDABLE_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -81,9 +82,7 @@ export const isSuspendedStatus = (
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
   return !!(
-    isSuspended &&
-    (status === PoolCandidateStatus.QualifiedAvailable ||
-      status === PoolCandidateStatus.PlacedCasual)
+    isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
   );
 };
 
