@@ -4,7 +4,7 @@ import { Heading, CardBasic, Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-export interface TalentNominationEventCardProps {
+interface TalentNominationEventCardProps {
   talentNominationEventQuery: FragmentType<
     typeof TalentNominationEventCard_Fragment
   >;
