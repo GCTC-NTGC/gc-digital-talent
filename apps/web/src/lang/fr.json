@@ -1503,6 +1503,10 @@
     "defaultMessage": "Notre équipe s’engage à s’informer en permanence sur la manière dont la plateforme et ses processus de recrutement façonnent l’équité et la diversité dans l’embauche. Nous utilisons ce que nous apprenons pour concevoir des améliorations aux caractéristiques et de nouvelles fonctionnalités, et pour peaufiner les efforts de recrutement afin de mieux soutenir une expérience inclusive pour tous.",
     "description": "Paragraph 3, our commitment to inclusivity and equity"
   },
+  "5iTUew": {
+    "defaultMessage": "Il n'y a pas d'événements actifs pour le moment.",
+    "description": "Message title displayed when no active events"
+  },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
@@ -2174,6 +2178,10 @@
   "9QxHnD": {
     "defaultMessage": "Créer<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the create skill page link."
+  },
+  "9SO6OE": {
+    "defaultMessage": "Événements actifs",
+    "description": "Title for active events section"
   },
   "9TIkDp": {
     "defaultMessage": "Ce programme ne m'intéresse pas",
@@ -3618,6 +3626,10 @@
   "HP5PEg": {
     "defaultMessage": "Taille de l'organisation",
     "description": "Label for the size of the organization radio group"
+  },
+  "HPaQCC": {
+    "defaultMessage": "Apprenez-en davantage sur les événements axés sur la promotion des talents, les mutations latérales et le perfectionnement professionnel.",
+    "description": "Subtitle for talent management events page"
   },
   "HRmtdK": {
     "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
@@ -5230,6 +5242,10 @@
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
+  },
+  "Pva73v": {
+    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature. Le lien « En savoir plus » figurant sur chaque carte d'événement permet d'obtenir des informations détaillées sur les exigences et les critères d'admissibilité.",
+    "description": "Description for active events section"
   },
   "PymrxL": {
     "defaultMessage": "Sélectionner une classification pour afficher les exigences en matière de formation.",
@@ -9165,6 +9181,10 @@
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
+  },
+  "kl3wX/": {
+    "defaultMessage": "Consultez régulièrement le site pour connaître les possibilités de mise en candidature. Chaque collectivité fonctionnelle organise des événements selon un calendrier qui lui est propre. Dès qu'un événement est préparé, il apparaîtra ici avant son lancement.",
+    "description": "Message description displayed when no active events"
   },
   "klyOZZ": {
     "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
