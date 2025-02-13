@@ -66,6 +66,26 @@ const Display = ({
           })}
         </Well>
       )}
+      <ToggleForm.FieldDisplay label={labels.moveInterest}>
+        {moveInterest ? (
+          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            {unpackMaybes(careerDevelopmentOptions?.moveInterest).map((x) => {
+              const iconValue = moveInterest
+                ?.map((interest) => String(interest.value))
+                .includes(x.value);
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(getMoveInterest(x.value, iconValue))}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          notProvided
+        )}
+      </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay label={labels.organizationTypeInterest}>
         {organizationTypeInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
@@ -81,26 +101,6 @@ const Display = ({
                     {intl.formatMessage(
                       getOrganizationTypeInterest(x.value, iconValue),
                     )}
-                  </BoolCheckIcon>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          notProvided
-        )}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay label={labels.moveInterest}>
-        {moveInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
-            {unpackMaybes(careerDevelopmentOptions?.moveInterest).map((x) => {
-              const iconValue = moveInterest
-                ?.map((interest) => String(interest.value))
-                .includes(x.value);
-              return (
-                <li key={x.value}>
-                  <BoolCheckIcon value={iconValue}>
-                    {intl.formatMessage(getMoveInterest(x.value, iconValue))}
                   </BoolCheckIcon>
                 </li>
               );

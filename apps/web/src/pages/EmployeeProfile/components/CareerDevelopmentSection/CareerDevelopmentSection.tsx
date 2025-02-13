@@ -351,18 +351,6 @@ const CareerDevelopmentSection = ({
               data-h2-gap="base(x1)"
             >
               <Checklist
-                idPrefix="organizationTypeInterest"
-                legend={labels.organizationTypeInterest}
-                name="organizationTypeInterest"
-                id="organizationTypeInterest"
-                items={unpackMaybes(
-                  careerDevelopmentOptions?.organizationTypeInterest,
-                ).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getOrganizationTypeInterest(value)),
-                }))}
-              />
-              <Checklist
                 idPrefix="moveInterest"
                 legend={labels.moveInterest}
                 name="moveInterest"
@@ -373,6 +361,18 @@ const CareerDevelopmentSection = ({
                     label: intl.formatMessage(getMoveInterest(value)),
                   }),
                 )}
+              />
+              <Checklist
+                idPrefix="organizationTypeInterest"
+                legend={labels.organizationTypeInterest}
+                name="organizationTypeInterest"
+                id="organizationTypeInterest"
+                items={unpackMaybes(
+                  careerDevelopmentOptions?.organizationTypeInterest,
+                ).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOrganizationTypeInterest(value)),
+                }))}
               />
               <Separator data-h2-margin="base(0)" decorative />
               <RadioGroup
