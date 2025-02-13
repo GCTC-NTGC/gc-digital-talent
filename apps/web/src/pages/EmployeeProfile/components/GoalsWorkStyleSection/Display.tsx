@@ -14,7 +14,7 @@ interface DisplayProps {
 }
 
 const Display = ({
-  employeeProfile: { aboutYou, careerGoals, learningGoals, workStyle },
+  employeeProfile: { aboutYou, learningGoals, workStyle },
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -27,7 +27,6 @@ const Display = ({
     >
       {hasAnyEmptyFields({
         aboutYou,
-        careerGoals,
         learningGoals,
         workStyle,
       }) && (
@@ -46,15 +45,6 @@ const Display = ({
       >
         {aboutYou ? (
           <RichTextRenderer node={htmlToRichTextJSON(aboutYou)} />
-        ) : (
-          notProvided
-        )}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.careerGoals)}
-      >
-        {careerGoals ? (
-          <RichTextRenderer node={htmlToRichTextJSON(careerGoals)} />
         ) : (
           notProvided
         )}

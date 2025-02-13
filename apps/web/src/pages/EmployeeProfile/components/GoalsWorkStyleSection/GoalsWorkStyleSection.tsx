@@ -32,7 +32,6 @@ import Display from "./Display";
 const EmployeeProfileGoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileGoalsWorkStyle on EmployeeProfile {
     aboutYou
-    careerGoals
     learningGoals
     workStyle
   }
@@ -45,7 +44,6 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
       aboutYou
-      careerGoals
       learningGoals
       workStyle
     }
@@ -54,7 +52,6 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
 
 interface FormValues {
   aboutYou?: string;
-  careerGoals?: string;
   learningGoals?: string;
   workStyle?: string;
 }
@@ -107,7 +104,6 @@ const GoalsWorkStyleSection = ({
 
   const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
     aboutYou: initialData.aboutYou ?? "",
-    careerGoals: initialData.careerGoals ?? "",
     learningGoals: initialData.learningGoals ?? "",
     workStyle: initialData.workStyle ?? "",
   });
@@ -119,7 +115,6 @@ const GoalsWorkStyleSection = ({
 
   const handleSave = async ({
     aboutYou,
-    careerGoals,
     learningGoals,
     workStyle,
   }: FormValues) => {
@@ -131,7 +126,6 @@ const GoalsWorkStyleSection = ({
       id: userAuthInfo?.id,
       employeeProfile: {
         aboutYou,
-        careerGoals,
         learningGoals,
         workStyle,
       },
@@ -151,7 +145,6 @@ const GoalsWorkStyleSection = ({
           methods.reset(
             {
               aboutYou,
-              careerGoals,
               learningGoals,
               workStyle,
             },
@@ -221,14 +214,6 @@ const GoalsWorkStyleSection = ({
                   id="aboutYou"
                   label={intl.formatMessage(employeeProfileMessages.aboutYou)}
                   name="aboutYou"
-                  wordLimit={wordCountLimits[locale]}
-                />
-                <RichTextInput
-                  id="careerGoals"
-                  label={intl.formatMessage(
-                    employeeProfileMessages.careerGoals,
-                  )}
-                  name="careerGoals"
                   wordLimit={wordCountLimits[locale]}
                 />
                 <RichTextInput
