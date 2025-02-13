@@ -16,13 +16,13 @@ import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
   getLabels,
 } from "./utils";
-import BoolCheckIcon from "./BoolCheckIcon";
 
 interface DisplayProps {
   employeeProfile: EmployeeProfileCareerDevelopmentFragment;
