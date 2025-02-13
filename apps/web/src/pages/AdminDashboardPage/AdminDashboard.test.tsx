@@ -60,6 +60,11 @@ describe("Render dashboard page", () => {
         name: "Talent requests",
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: "Community talent",
+      }),
+    ).not.toBeInTheDocument();
 
     // resources links
     expect(
@@ -139,6 +144,11 @@ describe("Render dashboard page", () => {
     expect(
       screen.getByRole("link", {
         name: "Candidates",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: "Community talent",
       }),
     ).toBeInTheDocument();
 
@@ -222,6 +232,11 @@ describe("Render dashboard page", () => {
         name: "Talent requests",
       }),
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: "Community talent",
+      }),
+    ).not.toBeInTheDocument();
 
     // resources links
     expect(
@@ -301,6 +316,11 @@ describe("Render dashboard page", () => {
     expect(
       screen.getByRole("link", {
         name: "Candidates",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: "Community talent",
       }),
     ).toBeInTheDocument();
 
