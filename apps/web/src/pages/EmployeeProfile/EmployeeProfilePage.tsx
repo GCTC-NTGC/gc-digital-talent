@@ -24,9 +24,8 @@ import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
-import CareerDevelopmentSection, {
-  EmployeeProfileCareerDevelopmentOptions_Fragment,
-} from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
+import { EmployeeProfileCareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection/utils";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",

@@ -4,6 +4,7 @@ import {
   EmployeeProfile,
   EmployeeProfileCareerDevelopmentFragment,
   ExecCoaching,
+  graphql,
   Mentorship,
   UpdateEmployeeProfileInput,
 } from "@gc-digital-talent/graphql";
@@ -16,6 +17,101 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { FormValues } from "./CareerDevelopmentSection";
+
+export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
+  /* GraphQL */ `
+    fragment EmployeeProfileCareerDevelopmentOptions on Query {
+      organizationTypeInterest: localizedEnumStrings(
+        enumName: "OrganizationTypeInterest"
+      ) {
+        value
+        label {
+          en
+          fr
+          localized
+        }
+      }
+      moveInterest: localizedEnumStrings(enumName: "MoveInterest") {
+        value
+        label {
+          en
+          fr
+          localized
+        }
+      }
+      mentorship: localizedEnumStrings(enumName: "Mentorship") {
+        value
+        label {
+          en
+          fr
+          localized
+        }
+      }
+      execCoaching: localizedEnumStrings(enumName: "ExecCoaching") {
+        value
+        label {
+          en
+          fr
+          localized
+        }
+      }
+    }
+  `,
+);
+
+export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
+  fragment EmployeeProfileCareerDevelopment on EmployeeProfile {
+    organizationTypeInterest {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    moveInterest {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    mentorshipStatus {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    mentorshipInterest {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    execInterest
+    execCoachingStatus {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    execCoachingInterest {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
 
 export const getLabels = (intl: IntlShape) => ({
   organizationTypeInterest: intl.formatMessage({

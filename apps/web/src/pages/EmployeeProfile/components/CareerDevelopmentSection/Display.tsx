@@ -7,10 +7,7 @@ import {
   getMoveInterest,
   getOrganizationTypeInterest,
 } from "@gc-digital-talent/i18n";
-import {
-  EmployeeProfileCareerDevelopmentFragment,
-  EmployeeProfileCareerDevelopmentOptionsFragment,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -21,16 +18,29 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
+  EmployeeProfileCareerDevelopment_Fragment,
+  EmployeeProfileCareerDevelopmentOptions_Fragment,
   getLabels,
 } from "./utils";
 
 interface DisplayProps {
-  employeeProfile: EmployeeProfileCareerDevelopmentFragment;
-  careerDevelopmentOptions: EmployeeProfileCareerDevelopmentOptionsFragment;
+  employeeProfileQuery: FragmentType<
+    typeof EmployeeProfileCareerDevelopment_Fragment
+  >;
+  careerDevelopmentOptionsQuery: FragmentType<
+    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
+  >;
 }
 
 const Display = ({
-  employeeProfile: {
+  employeeProfileQuery,
+  careerDevelopmentOptionsQuery,
+}: DisplayProps) => {
+  const intl = useIntl();
+  const labels = getLabels(intl);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+
+  const {
     organizationTypeInterest,
     moveInterest,
     mentorshipStatus,
@@ -38,12 +48,15 @@ const Display = ({
     execInterest,
     execCoachingStatus,
     execCoachingInterest,
-  },
-  careerDevelopmentOptions,
-}: DisplayProps) => {
-  const intl = useIntl();
-  const labels = getLabels(intl);
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  } = getFragment(
+    EmployeeProfileCareerDevelopment_Fragment,
+    employeeProfileQuery,
+  );
+
+  const careerDevelopmentOptions = getFragment(
+    EmployeeProfileCareerDevelopmentOptions_Fragment,
+    careerDevelopmentOptionsQuery,
+  );
 
   const moveInterests = unpackMaybes(moveInterest).map((interest) =>
     String(interest.value),

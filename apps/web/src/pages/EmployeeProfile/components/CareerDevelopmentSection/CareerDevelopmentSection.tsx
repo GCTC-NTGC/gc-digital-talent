@@ -44,102 +44,9 @@ import {
   execCoachingStatusToFormValues,
   mentorshipStatusToData,
   mentorshipStatusToFormValues,
+  EmployeeProfileCareerDevelopment_Fragment,
+  EmployeeProfileCareerDevelopmentOptions_Fragment,
 } from "./utils";
-
-export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
-  /* GraphQL */ `
-    fragment EmployeeProfileCareerDevelopmentOptions on Query {
-      organizationTypeInterest: localizedEnumStrings(
-        enumName: "OrganizationTypeInterest"
-      ) {
-        value
-        label {
-          en
-          fr
-          localized
-        }
-      }
-      moveInterest: localizedEnumStrings(enumName: "MoveInterest") {
-        value
-        label {
-          en
-          fr
-          localized
-        }
-      }
-      mentorship: localizedEnumStrings(enumName: "Mentorship") {
-        value
-        label {
-          en
-          fr
-          localized
-        }
-      }
-      execCoaching: localizedEnumStrings(enumName: "ExecCoaching") {
-        value
-        label {
-          en
-          fr
-          localized
-        }
-      }
-    }
-  `,
-);
-
-const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
-  fragment EmployeeProfileCareerDevelopment on EmployeeProfile {
-    organizationTypeInterest {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    moveInterest {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    mentorshipStatus {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    mentorshipInterest {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    execInterest
-    execCoachingStatus {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-    execCoachingInterest {
-      value
-      label {
-        en
-        fr
-        localized
-      }
-    }
-  }
-`);
 
 const UpdateEmployeeProfileCareerDevelopment_Mutation = graphql(/* GraphQL */ `
   mutation UpdateEmployeeProfileCareerDevelopment(
@@ -330,8 +237,8 @@ const CareerDevelopmentSection = ({
             <ToggleForm.NullDisplay />
           ) : (
             <Display
-              employeeProfile={employeeProfile}
-              careerDevelopmentOptions={careerDevelopmentOptions}
+              employeeProfileQuery={employeeProfileQuery}
+              careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
             />
           )}
         </ToggleSection.InitialContent>
