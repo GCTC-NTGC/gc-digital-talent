@@ -19,7 +19,6 @@ import {
   formMessages,
   getExecCoachingInterest,
   getExecCoachingStatus,
-  getExecInterest,
   getMentorshipInterest,
   getMentorshipStatus,
   getMoveInterest,
@@ -431,10 +430,28 @@ const CareerDevelopmentSection = ({
                 idPrefix="execInterest"
                 name="execInterest"
                 legend={labels.execInterest}
-                items={["no", "yes"].map((value) => ({
-                  value,
-                  label: intl.formatMessage(getExecInterest(value)),
-                }))}
+                items={[
+                  {
+                    value: "no",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "I'm not interested in executive level opportunities.",
+                      id: "0xmhEq",
+                      description:
+                        "The executive interest described as not interested.",
+                    }),
+                  },
+                  {
+                    value: "yes",
+                    label: intl.formatMessage({
+                      defaultMessage:
+                        "I'd like to be considered for executive level opportunities.",
+                      id: "PffQVS",
+                      description:
+                        "The executive interest described as interested.",
+                    }),
+                  },
+                ]}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

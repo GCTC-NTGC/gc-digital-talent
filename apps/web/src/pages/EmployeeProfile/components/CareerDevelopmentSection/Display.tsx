@@ -2,9 +2,7 @@ import { useIntl } from "react-intl";
 
 import {
   commonMessages,
-  ExecInterest,
   getExecCoachingInterest,
-  getExecInterest,
   getMentorshipInterest,
   getMoveInterest,
   getOrganizationTypeInterest,
@@ -170,9 +168,20 @@ const Display = ({
           : intl.formatMessage(
               getExecInterest(
                 execInterest
-                  ? ExecInterest.INTERESTED
-                  : ExecInterest.NOT_INTERESTED,
-              ),
+                ? {
+                    defaultMessage:
+                      "I'd like to be considered for executive level opportunities.",
+                    id: "PffQVS",
+                    description:
+                      "The executive interest described as interested.",
+                  }
+                : {
+                    defaultMessage:
+                      "I'm not interested in executive level opportunities.",
+                    id: "0xmhEq",
+                    description:
+                      "The executive interest described as not interested.",
+                  },
             )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay

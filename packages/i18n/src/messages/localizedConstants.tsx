@@ -978,35 +978,6 @@ export const getMentorshipInterest = (
   );
 };
 
-export const ExecInterest = {
-  NOT_INTERESTED: "no",
-  INTERESTED: "yes",
-} as const;
-
-const execInterestLabels = defineMessages({
-  [ExecInterest.NOT_INTERESTED]: {
-    defaultMessage: "I'm not interested in executive level opportunities.",
-    id: "0xmhEq",
-    description: "The executive interest described as not interested.",
-  },
-  [ExecInterest.INTERESTED]: {
-    defaultMessage:
-      "I'd like to be considered for executive level opportunities.",
-    id: "PffQVS",
-    description: "The executive interest described as interested.",
-  },
-});
-
-export const getExecInterest = (
-  execInterestId: string | number,
-): MessageDescriptor => {
-  return getOrDisplayError(
-    execInterestLabels,
-    execInterestId,
-    `Invalid executive interest '${execInterestId}'`,
-  );
-};
-
 export const ExecCoachingStatus = {
   NOT_PARTICIPATING: "NOT_PARTICIPATING",
   LEARNING: ExecCoaching.Learning,
