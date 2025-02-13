@@ -67,3 +67,8 @@ export const INACTIVE_STATUSES = [
   PoolCandidateStatus.QualifiedUnavailable,
   PoolCandidateStatus.QualifiedWithdrew,
 ];
+
+export const SUSPENDABLE_STATUSES = [
+  PoolCandidateStatus.QualifiedAvailable,
+  PoolCandidateStatus.PlacedCasual,
+];

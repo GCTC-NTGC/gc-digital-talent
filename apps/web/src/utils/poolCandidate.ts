@@ -38,6 +38,7 @@ import {
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
+  SUSPENDABLE_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -80,7 +81,9 @@ export const isSuspendedStatus = (
 ): boolean => {
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
-  return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
+  return !!(
+    isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
+  );
 };
 
 export const isDraft = (
@@ -574,9 +577,11 @@ const qualifiedRecruitmentStatusDescriptions = defineMessages({
 export const getQualifiedRecruitmentStatusChip = (
   suspendedAt: PoolCandidate["suspendedAt"],
   placedAt: PoolCandidate["placedAt"],
+  status: PoolCandidateStatus | null,
   intl: IntlShape,
 ): StatusChipWithDescription => {
-  if (placedAt) {
+  // placed casual is an exception
+  if (placedAt && status !== PoolCandidateStatus.PlacedCasual) {
     return {
       color: "secondary",
       label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),

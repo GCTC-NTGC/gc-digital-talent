@@ -430,7 +430,7 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
-  updateCommunityInterest(id: UUID!, communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
@@ -685,7 +685,7 @@ type EmployeeProfile {
   dreamRoleClassification: Classification
   dreamRoleWorkStream: WorkStream
   dreamRoleDepartments: [Department!]
-  communityInterests: [CommunityInterest!]
+  communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
 
@@ -1617,6 +1617,7 @@ input CreateCommunityInterestInput {
 }
 
 input UpdateCommunityInterestInput {
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
@@ -1630,6 +1631,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }

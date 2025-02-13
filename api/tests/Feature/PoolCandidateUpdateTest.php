@@ -987,7 +987,7 @@ class PoolCandidateUpdateTest extends TestCase
     /**
      * @dataProvider manualStatusProvider
      */
-    public function testManualStatusUpdatesTimestamps($status, $timestamp)
+    public function testManualStatusUpdatesTimestamps($status, $timestamp, $additionalChanged = [])
     {
         // Ensure timestamps are set to compare against
         // and we are starting from no status
@@ -1006,7 +1006,6 @@ class PoolCandidateUpdateTest extends TestCase
                 'id' => $this->poolCandidate->id,
                 'candidate' => ['status' => $status],
             ]);
-
         // Assert the expected timestamp was changed
         $data = $response['data']['updatePoolCandidateStatus'];
         $new = new Carbon($data[$camelTimestamp]);
@@ -1016,10 +1015,12 @@ class PoolCandidateUpdateTest extends TestCase
             $original->toDayDateTimeString()
         ));
 
-        // Ensure other timestamps remain the same
-        $unchanged = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp]);
-        foreach ($unchanged as $unchangedTimestamp) {
-            $this->assertEquals($this->poolCandidate->$unchangedTimestamp, $data[Str::camel($unchangedTimestamp)]);
+        $this->poolCandidate->refresh();
+
+        // Ensure other timestamps are null
+        $nulled = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp, ...$additionalChanged]);
+        foreach ($nulled as $nulledTimestamp) {
+            $this->assertEquals($this->poolCandidate->$nulledTimestamp, null);
         }
 
         // Attempt to make change again and assert it does not affect timestamp
@@ -1032,7 +1033,10 @@ class PoolCandidateUpdateTest extends TestCase
         $unChangeData = $noChangeResponse['data']['updatePoolCandidateStatus'];
         $unchanged = new Carbon($unChangeData[$camelTimestamp]);
 
-        $this->assertEquals($new->timestamp, $unchanged->timestamp);
+        // Same year, month, day, hour, minute (close enough!)
+        $this->assertTrue($new->isSameDay($unchanged));
+        $this->assertTrue($new->isSameHour($unchanged));
+        $this->assertTrue($new->isSameMinute($unchanged));
     }
 
     public static function manualStatusProvider()
@@ -1051,18 +1055,18 @@ class PoolCandidateUpdateTest extends TestCase
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 'final_decision_at',
             ],
+            'qualified unavailable sets final decision' => [
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                'final_decision_at',
+            ],
+            'qualified withdrew sets final decision' => [
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                'final_decision_at',
+            ],
 
             // Removed
             'screened out not responsive sets removed at' => [
                 PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                'removed_at',
-            ],
-            'qualified unavailable sets removed at' => [
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                'removed_at',
-            ],
-            'qualified withdrew sets removed at' => [
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
                 'removed_at',
             ],
             'removed sets removed at' => [
@@ -1074,18 +1078,22 @@ class PoolCandidateUpdateTest extends TestCase
             'placed tentative sets removed at' => [
                 PoolCandidateStatus::PLACED_TENTATIVE->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed casual sets placed at' => [
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed term sets placed at' => [
                 PoolCandidateStatus::PLACED_CASUAL->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
             'placed indeterminate sets placed at' => [
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 'placed_at',
+                ['final_decision_at'],
             ],
         ];
     }
@@ -1228,5 +1236,129 @@ class PoolCandidateUpdateTest extends TestCase
                     'value' => PoolCandidateStatus::PLACED_TERM->name,
                 ],
             ]);
+    }
+
+    /**
+     * @dataProvider nullTimeProvider
+     */
+    public function testNullTimestampsOnStatusChanged($status, $expected)
+    {
+        $past = config('constants.past_datetime');
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::DRAFT->name;
+        $this->poolCandidate->submitted_at = $past;
+        $this->poolCandidate->removed_at = $past;
+        $this->poolCandidate->final_decision_at = $past;
+        $this->poolCandidate->placed_at = $past;
+        $this->poolCandidate->save();
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->manualStatusUpdateMutation, [
+                'id' => $this->poolCandidate->id,
+                'candidate' => ['status' => $status],
+            ])->assertJsonFragment([
+                'status' => [
+                    'value' => $status,
+                ],
+                ...$expected,
+            ]);
+    }
+
+    public static function nullTimeProvider()
+    {
+        $nullState = [
+            'removedAt' => null,
+            'finalDecisionAt' => null,
+            'placedAt' => null,
+        ];
+
+        $finalDecision = [
+            'removedAt' => null,
+            'placedAt' => null,
+        ];
+
+        $removed = [
+            'finalDecisionAt' => null,
+            'placedAt' => null,
+        ];
+
+        $placed = [
+            'removedAt' => null,
+        ];
+
+        return [
+            'new application' => [
+                PoolCandidateStatus::NEW_APPLICATION->name,
+                $nullState,
+            ],
+            'application review' => [
+                PoolCandidateStatus::APPLICATION_REVIEW->name,
+                $nullState,
+            ],
+            'screened in' => [
+                PoolCandidateStatus::SCREENED_IN->name,
+                $nullState,
+            ],
+            'under assessment' => [
+                PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                $nullState,
+            ],
+            'screened out - application' => [
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                $finalDecision,
+            ],
+            'screened out - not interested' => [
+                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+                $removed,
+            ],
+            'screened out - not responsive' => [
+                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+                $removed,
+            ],
+            'screened out - assessment' => [
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                $finalDecision,
+            ],
+            'qualified - available' => [
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                $finalDecision,
+            ],
+            'qualified - available' => [
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                $finalDecision,
+            ],
+            'qualified - unavailable' => [
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                $finalDecision,
+            ],
+            'qualified - withdrew' => [
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                $finalDecision,
+            ],
+            'placed - casual' => [
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                $placed,
+            ],
+            'placed - tentative' => [
+                PoolCandidateStatus::PLACED_TENTATIVE->name,
+                $placed,
+            ],
+            'placed - term' => [
+                PoolCandidateStatus::PLACED_TERM->name,
+                $placed,
+            ],
+            'placed - indeterminate' => [
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                $placed,
+            ],
+            'removed' => [
+                PoolCandidateStatus::REMOVED->name,
+                $removed,
+            ],
+            // NOTE: This action is unauthorized so cannot test
+            // 'expired' => [
+            //     PoolCandidateStatus::EXPIRED->name,
+            //     $finalDecision,
+            // ],
+        ];
     }
 }

@@ -321,6 +321,31 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
                 },
+                {
+                  path: "community-interests",
+                  children: [
+                    {
+                      index: true,
+                      loader: () => {
+                        throw new NotFoundError();
+                      },
+                    },
+                    {
+                      path: ":communityInterestId",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage"
+                        ),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage"
+                        ),
+                    },
+                  ],
+                },
               ],
             },
             {
