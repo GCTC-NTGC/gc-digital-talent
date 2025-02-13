@@ -145,7 +145,7 @@ const Display = ({
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
-        hasError={!!execInterest !== execInterest}
+        hasError={empty(execInterest)}
         label={labels.execInterest}
       >
         {empty(execInterest)

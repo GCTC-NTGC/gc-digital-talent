@@ -1,4 +1,5 @@
 import { EmployeeProfile } from "@gc-digital-talent/graphql";
+import { empty } from "@gc-digital-talent/helpers";
 
 export function hasAllEmptyFields({
   organizationTypeInterest,
@@ -23,7 +24,7 @@ export function hasAllEmptyFields({
     !moveInterest &&
     !mentorshipStatus &&
     !mentorshipInterest &&
-    !!execInterest !== execInterest &&
+    empty(execInterest) &&
     !execCoachingStatus &&
     !execCoachingInterest
   );
@@ -37,7 +38,5 @@ export function hasAnyEmptyFields({
   EmployeeProfile,
   "mentorshipStatus" | "execInterest" | "execCoachingStatus"
 >): boolean {
-  return (
-    !mentorshipStatus || !!execInterest !== execInterest || !execCoachingStatus
-  );
+  return !mentorshipStatus || empty(execInterest) || !execCoachingStatus;
 }
