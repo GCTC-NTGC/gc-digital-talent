@@ -67,6 +67,7 @@ subcomponents
 subproject
 subprojects
 subquery
+SUSPENDABLE
 TALENTSEARCH
 tanstack
 teamable

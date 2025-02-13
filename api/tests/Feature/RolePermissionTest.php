@@ -348,6 +348,8 @@ class RolePermissionTest extends TestCase
             'update-team-publishedPool',
             'update-team-community',
             'update-team-communityRecruiterMembership',
+            'create-any-talentNominationEvent',
+            'update-team-talentNominationEvent',
             'view-team-communityInterest',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
