@@ -411,7 +411,7 @@ const CareerDevelopmentSection = ({
                 id="moveInterest"
                 items={moveInterestOptions}
               />
-              <Separator data-h2-margin="base(0)" />
+              <Separator data-h2-margin="base(0)" decorative />
               <RadioGroup
                 idPrefix="mentorshipStatus"
                 name="mentorshipStatus"
