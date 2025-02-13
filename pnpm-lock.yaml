@@ -158,8 +158,8 @@ importers:
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.4.0
-        version: 9.4.0
+        specifier: ^9.5.0
+        version: 9.5.0
       '@formatjs/cli':
         specifier: ^6.6.0
         version: 6.6.0
@@ -537,8 +537,8 @@ importers:
   packages/fake-data:
     dependencies:
       '@faker-js/faker':
-        specifier: ^9.4.0
-        version: 9.4.0
+        specifier: ^9.5.0
+        version: 9.5.0
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
         version: link:../date-helpers
@@ -632,8 +632,8 @@ importers:
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.4.0
-        version: 9.4.0
+        specifier: ^9.5.0
+        version: 9.5.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1060,8 +1060,8 @@ importers:
         version: 11.0.3(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.4.0
-        version: 9.4.0
+        specifier: ^9.5.0
+        version: 9.5.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1177,8 +1177,8 @@ importers:
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
     devDependencies:
       '@faker-js/faker':
-        specifier: ^9.4.0
-        version: 9.4.0
+        specifier: ^9.5.0
+        version: 9.5.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1870,8 +1870,8 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@faker-js/faker@9.4.0':
-    resolution: {integrity: sha512-85+k0AxaZSTowL0gXp8zYWDIrWclTbRPg/pm/V0dSFZ6W6D4lhcG3uuZl4zLsEKfEvs69xDbLN2cHQudwp95JA==}
+  '@faker-js/faker@9.5.0':
+    resolution: {integrity: sha512-3qbjLv+fzuuCg3umxc9/7YjrEXNaKwHgmig949nfyaTx8eL4FAsvFbu+1JcFUj1YAXofhaDn6JdEUBTYuk0Ssw==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@floating-ui/core@1.6.9':
@@ -8745,7 +8745,7 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
-  '@faker-js/faker@9.4.0': {}
+  '@faker-js/faker@9.5.0': {}
 
   '@floating-ui/core@1.6.9':
     dependencies:
