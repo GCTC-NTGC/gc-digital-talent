@@ -256,7 +256,6 @@ class UserFactory extends Factory
                 'career_planning_exec_coaching_status' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
                 'career_planning_exec_coaching_interest' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
                 'career_planning_about_you' => $this->faker->paragraph(),
-                'career_planning_career_goals' => $this->faker->paragraph(),
                 'career_planning_learning_goals' => $this->faker->paragraph(),
                 'career_planning_work_style' => $this->faker->paragraph(),
                 'dream_role_title' => $this->faker->words(3, true),

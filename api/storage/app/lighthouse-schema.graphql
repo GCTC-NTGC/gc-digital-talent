@@ -676,7 +676,6 @@ type EmployeeProfile {
   execCoachingStatus: [LocalizedExecCoaching!]
   execCoachingInterest: [LocalizedExecCoaching!]
   aboutYou: String
-  careerGoals: String
   learningGoals: String
   workStyle: String
   dreamRoleTitle: String
@@ -1595,7 +1594,6 @@ input UpdateEmployeeProfileInput {
   execCoachingStatus: [ExecCoaching!]
   execCoachingInterest: [ExecCoaching!]
   aboutYou: String
-  careerGoals: String
   learningGoals: String
   workStyle: String
   dreamRoleTitle: String
