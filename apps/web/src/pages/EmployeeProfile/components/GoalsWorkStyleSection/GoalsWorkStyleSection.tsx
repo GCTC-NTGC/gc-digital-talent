@@ -29,7 +29,7 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
 import Display from "./Display";
 
-const EmployeeProfileGoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
+export const EmployeeProfileGoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileGoalsWorkStyle on EmployeeProfile {
     aboutYou
     learningGoals
