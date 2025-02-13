@@ -274,18 +274,15 @@ const CareerDevelopmentSection = ({
             }),
           );
           setIsEditing(false);
-          methods.reset(
-            {
-              organizationTypeInterest,
-              moveInterest,
-              mentorshipStatus,
-              mentorshipInterest,
-              execInterest,
-              execCoachingStatus,
-              execCoachingInterest,
-            },
-            { keepDirty: true },
-          );
+          methods.reset({
+            organizationTypeInterest,
+            moveInterest,
+            mentorshipStatus,
+            mentorshipInterest,
+            execInterest,
+            execCoachingStatus,
+            execCoachingInterest,
+          });
         } else {
           handleError();
         }
