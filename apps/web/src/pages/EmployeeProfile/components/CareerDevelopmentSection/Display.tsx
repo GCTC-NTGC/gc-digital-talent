@@ -49,7 +49,7 @@ const Display = ({
     careerDevelopmentOptions?.organizationTypeInterest,
   ).map((x) => {
     const iconValue = organizationTypeInterest
-      ?.map((interest) => interest.value as string)
+      ?.map((interest) => String(interest.value))
       .includes(x.value);
     return (
       <li key={x.value}>
@@ -64,7 +64,7 @@ const Display = ({
     careerDevelopmentOptions?.moveInterest,
   ).map((x) => {
     const iconValue = moveInterest
-      ?.map((interest) => interest.value as string)
+      ?.map((interest) => String(interest.value))
       .includes(x.value);
     return (
       <li key={x.value}>
@@ -79,7 +79,7 @@ const Display = ({
     careerDevelopmentOptions?.mentorship,
   ).map((x) => {
     const iconValue = mentorshipInterest
-      ?.map((interest) => interest.value as string)
+      ?.map((interest) => String(interest.value))
       .includes(x.value);
     return (
       <li key={x.value}>
@@ -94,7 +94,7 @@ const Display = ({
     careerDevelopmentOptions?.execCoaching,
   ).map((x) => {
     const iconValue = execCoachingInterest
-      ?.map((interest) => interest.value as string)
+      ?.map((interest) => String(interest.value))
       .includes(x.value);
     return (
       <li key={x.value}>
@@ -166,8 +166,7 @@ const Display = ({
         {empty(execInterest)
           ? notProvided
           : intl.formatMessage(
-              getExecInterest(
-                execInterest
+              execInterest
                 ? {
                     defaultMessage:
                       "I'd like to be considered for executive level opportunities.",
