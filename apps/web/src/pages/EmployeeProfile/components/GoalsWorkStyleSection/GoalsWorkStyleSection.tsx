@@ -17,8 +17,6 @@ import {
   getFragment,
   EmployeeProfile,
 } from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import { UnauthorizedError } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
@@ -60,6 +58,7 @@ interface FormValues {
 }
 
 interface GoalsWorkStyleSectionProps {
+  userId: string;
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileGoalsWorkStyle_Fragment
   >;
@@ -73,11 +72,11 @@ const wordCountLimits: Record<Locales, number> = {
 } as const;
 
 const GoalsWorkStyleSection = ({
+  userId,
   employeeProfileQuery,
 }: GoalsWorkStyleSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const { userAuthInfo } = useAuthorization();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfile_Mutation,
   );
@@ -123,12 +122,8 @@ const GoalsWorkStyleSection = ({
     learningGoals,
     workStyle,
   }: FormValues) => {
-    if (!userAuthInfo?.id) {
-      throw new UnauthorizedError();
-    }
-
     return executeMutation({
-      id: userAuthInfo?.id,
+      id: userId,
       employeeProfile: {
         aboutYou,
         careerGoals,

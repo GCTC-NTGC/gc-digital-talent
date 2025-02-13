@@ -6,9 +6,7 @@ import { useMutation } from "urql";
 import { Button, Separator, ToggleSection } from "@gc-digital-talent/ui";
 import {
   BasicForm,
-  CheckboxOption,
   Checklist,
-  Radio,
   RadioGroup,
   Submit,
 } from "@gc-digital-talent/forms";
