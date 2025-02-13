@@ -62,7 +62,7 @@ interface GoalsWorkStyleSectionProps {
   >;
 }
 
-const TEXT_AREA_MAX_WORDS_EN = 100;
+const TEXT_AREA_MAX_WORDS_EN = 200;
 
 const wordCountLimits: Record<Locales, number> = {
   en: TEXT_AREA_MAX_WORDS_EN,
