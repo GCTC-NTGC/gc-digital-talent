@@ -45,66 +45,6 @@ const Display = ({
   const labels = getLabels(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
-  const organizationTypeInterests = unpackMaybes(
-    careerDevelopmentOptions?.organizationTypeInterest,
-  ).map((x) => {
-    const iconValue = organizationTypeInterest
-      ?.map((interest) => String(interest.value))
-      .includes(x.value);
-    return (
-      <li key={x.value}>
-        <BoolCheckIcon value={iconValue}>
-          {intl.formatMessage(getOrganizationTypeInterest(x.value, iconValue))}
-        </BoolCheckIcon>
-      </li>
-    );
-  });
-
-  const moveInterests = unpackMaybes(
-    careerDevelopmentOptions?.moveInterest,
-  ).map((x) => {
-    const iconValue = moveInterest
-      ?.map((interest) => String(interest.value))
-      .includes(x.value);
-    return (
-      <li key={x.value}>
-        <BoolCheckIcon value={iconValue}>
-          {intl.formatMessage(getMoveInterest(x.value, iconValue))}
-        </BoolCheckIcon>
-      </li>
-    );
-  });
-
-  const mentorshipInterests = unpackMaybes(
-    careerDevelopmentOptions?.mentorship,
-  ).map((x) => {
-    const iconValue = mentorshipInterest
-      ?.map((interest) => String(interest.value))
-      .includes(x.value);
-    return (
-      <li key={x.value}>
-        <BoolCheckIcon value={iconValue}>
-          {intl.formatMessage(getMentorshipInterest(x.value, iconValue))}
-        </BoolCheckIcon>
-      </li>
-    );
-  });
-
-  const execCoachingInterests = unpackMaybes(
-    careerDevelopmentOptions?.execCoaching,
-  ).map((x) => {
-    const iconValue = execCoachingInterest
-      ?.map((interest) => String(interest.value))
-      .includes(x.value);
-    return (
-      <li key={x.value}>
-        <BoolCheckIcon value={iconValue}>
-          {intl.formatMessage(getExecCoachingInterest(x.value, iconValue))}
-        </BoolCheckIcon>
-      </li>
-    );
-  });
-
   return (
     <div
       data-h2-display="base(flex)"
@@ -129,7 +69,22 @@ const Display = ({
       <ToggleForm.FieldDisplay label={labels.organizationTypeInterest}>
         {organizationTypeInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
-            {organizationTypeInterests}
+            {unpackMaybes(
+              careerDevelopmentOptions?.organizationTypeInterest,
+            ).map((x) => {
+              const iconValue = organizationTypeInterest
+                ?.map((interest) => String(interest.value))
+                .includes(x.value);
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(
+                      getOrganizationTypeInterest(x.value, iconValue),
+                    )}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           notProvided
@@ -138,7 +93,18 @@ const Display = ({
       <ToggleForm.FieldDisplay label={labels.moveInterest}>
         {moveInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
-            {moveInterests}
+            {unpackMaybes(careerDevelopmentOptions?.moveInterest).map((x) => {
+              const iconValue = moveInterest
+                ?.map((interest) => String(interest.value))
+                .includes(x.value);
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(getMoveInterest(x.value, iconValue))}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           notProvided
@@ -153,7 +119,20 @@ const Display = ({
       <ToggleForm.FieldDisplay label={labels.mentorshipInterest}>
         {mentorshipInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
-            {mentorshipInterests}
+            {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
+              const iconValue = mentorshipInterest
+                ?.map((interest) => String(interest.value))
+                .includes(x.value);
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(
+                      getMentorshipInterest(x.value, iconValue),
+                    )}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           notProvided
@@ -192,7 +171,20 @@ const Display = ({
       <ToggleForm.FieldDisplay label={labels.execCoachingInterest}>
         {execCoachingInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
-            {execCoachingInterests}
+            {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
+              const iconValue = execCoachingInterest
+                ?.map((interest) => String(interest.value))
+                .includes(x.value);
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(
+                      getExecCoachingInterest(x.value, iconValue),
+                    )}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           notProvided
