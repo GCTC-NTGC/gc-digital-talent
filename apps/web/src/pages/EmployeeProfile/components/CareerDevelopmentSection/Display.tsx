@@ -12,7 +12,7 @@ import { Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
+import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import {
@@ -76,7 +76,7 @@ const Display = ({
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
     >
-      {hasAnyEmptyFields({
+      {hasEmptyRequiredFields({
         mentorshipStatus,
         execInterest,
         execCoachingStatus,

@@ -21,11 +21,18 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerDevelopment";
 
 import messages from "./messages";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
-import { EmployeeProfileCareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection/utils";
+import {
+  EmployeeProfileCareerDevelopment_Fragment,
+  EmployeeProfileCareerDevelopmentOptions_Fragment,
+} from "./components/CareerDevelopmentSection/utils";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -110,6 +117,11 @@ const EmployeeProfile = ({
     ],
   });
 
+  const careerDevelopment = getFragment(
+    EmployeeProfileCareerDevelopment_Fragment,
+    user.employeeProfile,
+  );
+
   return (
     <>
       <SEO title={pageTitle} description={subtitle} />
@@ -136,7 +148,13 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
-                      status="success"
+                      status={
+                        hasAllEmptyFields(careerDevelopment)
+                          ? "optional"
+                          : hasEmptyRequiredFields(careerDevelopment)
+                            ? "error"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
                     />
                   </TableOfContents.ListItem>

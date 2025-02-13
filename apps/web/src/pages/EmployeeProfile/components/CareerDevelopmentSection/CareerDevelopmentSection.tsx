@@ -33,7 +33,10 @@ import {
 import { boolToYesNo, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
-import { hasAllEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
+import {
+  hasAllEmptyFields,
+  hasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerDevelopment";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -125,7 +128,7 @@ const CareerDevelopmentSection = ({
   const isNull = hasAllEmptyFields(employeeProfile);
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
-    emptyRequired: false,
+    emptyRequired: hasEmptyRequiredFields(employeeProfile),
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });

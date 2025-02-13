@@ -30,7 +30,7 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasAnyEmptyFields({
+export function hasEmptyRequiredFields({
   mentorshipStatus,
   execInterest,
   execCoachingStatus,
