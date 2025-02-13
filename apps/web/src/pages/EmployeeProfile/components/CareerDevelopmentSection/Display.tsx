@@ -45,6 +45,18 @@ const Display = ({
   const labels = getLabels(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
+  const moveInterests = unpackMaybes(moveInterest).map((interest) =>
+    String(interest.value),
+  );
+  const organizationTypeInterests = unpackMaybes(organizationTypeInterest).map(
+    (interest) => String(interest.value),
+  );
+  const mentorshipInterests = unpackMaybes(mentorshipInterest).map((interest) =>
+    String(interest.value),
+  );
+  const execCoachingInterests = unpackMaybes(execCoachingInterest).map(
+    (interest) => String(interest.value),
+  );
   return (
     <div
       data-h2-display="base(flex)"
@@ -70,9 +82,7 @@ const Display = ({
         {moveInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {unpackMaybes(careerDevelopmentOptions?.moveInterest).map((x) => {
-              const iconValue = moveInterest
-                ?.map((interest) => String(interest.value))
-                .includes(x.value);
+              const iconValue = moveInterests.includes(x.value);
               return (
                 <li key={x.value}>
                   <BoolCheckIcon value={iconValue}>
@@ -92,9 +102,7 @@ const Display = ({
             {unpackMaybes(
               careerDevelopmentOptions?.organizationTypeInterest,
             ).map((x) => {
-              const iconValue = organizationTypeInterest
-                ?.map((interest) => String(interest.value))
-                .includes(x.value);
+              const iconValue = organizationTypeInterests.includes(x.value);
               return (
                 <li key={x.value}>
                   <BoolCheckIcon value={iconValue}>
@@ -120,9 +128,7 @@ const Display = ({
         {mentorshipInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
-              const iconValue = mentorshipInterest
-                ?.map((interest) => String(interest.value))
-                .includes(x.value);
+              const iconValue = mentorshipInterests.includes(x.value);
               return (
                 <li key={x.value}>
                   <BoolCheckIcon value={iconValue}>
@@ -172,9 +178,7 @@ const Display = ({
         {execCoachingInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
-              const iconValue = execCoachingInterest
-                ?.map((interest) => String(interest.value))
-                .includes(x.value);
+              const iconValue = execCoachingInterests.includes(x.value);
               return (
                 <li key={x.value}>
                   <BoolCheckIcon value={iconValue}>
