@@ -297,52 +297,6 @@ const CareerDevelopmentSection = ({
       "Describes the career development preferences of employee profile",
   });
 
-  const organizationTypeInterestOptions: CheckboxOption[] = unpackMaybes(
-    careerDevelopmentOptions?.organizationTypeInterest,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getOrganizationTypeInterest(value)),
-  }));
-
-  const moveInterestOptions: CheckboxOption[] = unpackMaybes(
-    careerDevelopmentOptions?.moveInterest,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getMoveInterest(value)),
-  }));
-
-  const mentorshipStatusOptions: Radio[] = [
-    { value: MentorshipStatus.NOT_PARTICIPATING },
-    ...unpackMaybes(careerDevelopmentOptions?.mentorship),
-    { value: MentorshipStatus.MENTEE_AND_MENTOR },
-  ].map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getMentorshipStatus(value)),
-  }));
-
-  const mentorshipInterestOptions: Radio[] = unpackMaybes(
-    careerDevelopmentOptions?.mentorship,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getMentorshipInterest(value)),
-  }));
-
-  const execCoachingStatusOptions: Radio[] = [
-    { value: ExecCoachingStatus.NOT_PARTICIPATING },
-    ...unpackMaybes(careerDevelopmentOptions?.execCoaching),
-    { value: ExecCoachingStatus.LEARNING_AND_COACHING },
-  ].map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getExecCoachingStatus(value)),
-  }));
-
-  const execCoachingInterestOptions: Radio[] = unpackMaybes(
-    careerDevelopmentOptions?.execCoaching,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getExecCoachingInterest(value)),
-  }));
-
   return (
     <ToggleSection.Root
       id="career-development-form"
@@ -401,21 +355,38 @@ const CareerDevelopmentSection = ({
                 legend={labels.organizationTypeInterest}
                 name="organizationTypeInterest"
                 id="organizationTypeInterest"
-                items={organizationTypeInterestOptions}
+                items={unpackMaybes(
+                  careerDevelopmentOptions?.organizationTypeInterest,
+                ).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOrganizationTypeInterest(value)),
+                }))}
               />
               <Checklist
                 idPrefix="moveInterest"
                 legend={labels.moveInterest}
                 name="moveInterest"
                 id="moveInterest"
-                items={moveInterestOptions}
+                items={unpackMaybes(careerDevelopmentOptions?.moveInterest).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getMoveInterest(value)),
+                  }),
+                )}
               />
               <Separator data-h2-margin="base(0)" decorative />
               <RadioGroup
                 idPrefix="mentorshipStatus"
                 name="mentorshipStatus"
                 legend={labels.mentorshipStatus}
-                items={mentorshipStatusOptions}
+                items={[
+                  { value: MentorshipStatus.NOT_PARTICIPATING },
+                  ...unpackMaybes(careerDevelopmentOptions?.mentorship),
+                  { value: MentorshipStatus.MENTEE_AND_MENTOR },
+                ].map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getMentorshipStatus(value)),
+                }))}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -424,7 +395,12 @@ const CareerDevelopmentSection = ({
                 idPrefix="mentorshipInterest"
                 name="mentorshipInterest"
                 legend={labels.mentorshipInterest}
-                items={mentorshipInterestOptions}
+                items={unpackMaybes(careerDevelopmentOptions?.mentorship).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getMentorshipInterest(value)),
+                  }),
+                )}
               />
               <RadioGroup
                 idPrefix="execInterest"
@@ -461,7 +437,14 @@ const CareerDevelopmentSection = ({
                 idPrefix="execCoachingStatus"
                 name="execCoachingStatus"
                 legend={labels.execCoachingStatus}
-                items={execCoachingStatusOptions}
+                items={[
+                  { value: ExecCoachingStatus.NOT_PARTICIPATING },
+                  ...unpackMaybes(careerDevelopmentOptions?.execCoaching),
+                  { value: ExecCoachingStatus.LEARNING_AND_COACHING },
+                ].map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getExecCoachingStatus(value)),
+                }))}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -470,7 +453,12 @@ const CareerDevelopmentSection = ({
                 idPrefix="execCoachingInterest"
                 name="execCoachingInterest"
                 legend={labels.execCoachingInterest}
-                items={execCoachingInterestOptions}
+                items={unpackMaybes(careerDevelopmentOptions?.execCoaching).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getExecCoachingInterest(value)),
+                  }),
+                )}
                 context={labels.execCoachingInterestContext}
               />
               <div
