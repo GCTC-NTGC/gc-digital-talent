@@ -1004,6 +1004,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                   ],
                 },
                 {
+                  path: "community-talent",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityInterests/CommunityTalentPage/CommunityTalentPage"
+                    ),
+                },
+                {
                   path: "*",
                   loader: () => {
                     throw new NotFoundError();

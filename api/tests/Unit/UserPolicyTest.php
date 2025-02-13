@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Role;
@@ -138,6 +139,19 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->processOperator->can('view', $this->applicant));
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
+
+        PoolCandidate::truncate();
+        CommunityInterest::factory()->create([
+            'user_id' => $this->applicant->id,
+            'community_id' => $this->community->id,
+            'job_interest' => true,
+            'training_interest' => true,
+        ]);
+
+        // admin/recruiter but not process operator can now view applicant as they are a community talent (CommunityInterest with interest)
+        $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
+        $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->processOperator->can('view', $this->applicant));
     }
 
     /**

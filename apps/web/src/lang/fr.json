@@ -15,6 +15,10 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
+  "+365vM": {
+    "defaultMessage": "Talents de la collectivité",
+    "description": "Label for community talent"
+  },
   "+6syC7": {
     "defaultMessage": "Votre fichier est prêt à être téléchargé",
     "description": "Notification for when q requested download is ready"
@@ -10429,6 +10433,10 @@
   "rRREuF": {
     "defaultMessage": "Créer un processus",
     "description": "Label/title for creating a recruitment process."
+  },
+  "rT35R+": {
+    "defaultMessage": "Trouvez des employées et employés du GC intéressés par des possibilités de mobilité des talents au sein de votre collectivité.",
+    "description": "Subtitle explaining the community talent table"
   },
   "rTBi+P": {
     "defaultMessage": "Créer une possibilité de formation",
