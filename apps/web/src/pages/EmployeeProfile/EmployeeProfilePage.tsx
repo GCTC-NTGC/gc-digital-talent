@@ -188,6 +188,7 @@ const EmployeeProfile = ({
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
                 <CareerDevelopmentSection
+                  userId={user.id}
                   employeeProfileQuery={user.employeeProfile}
                   careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
                 />
@@ -211,6 +212,7 @@ const EmployeeProfile = ({
 const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
   query EmployeeProfilePage {
     me {
+      id
       ...EmployeeProfile
     }
     ...EmployeeProfileCareerDevelopmentOptions

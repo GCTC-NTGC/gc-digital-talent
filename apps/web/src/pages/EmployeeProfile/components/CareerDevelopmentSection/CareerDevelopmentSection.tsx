@@ -33,12 +33,7 @@ import {
   EmployeeProfile,
   UpdateEmployeeProfileInput,
 } from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  boolToYesNo,
-  UnauthorizedError,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
+import { boolToYesNo, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/careerDevelopment";
@@ -162,6 +157,24 @@ const UpdateEmployeeProfileCareerDevelopment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const dataToFormValues = ({
+  organizationTypeInterest,
+  moveInterest,
+  mentorshipStatus,
+  mentorshipInterest,
+  execInterest,
+  execCoachingStatus,
+  execCoachingInterest,
+}: EmployeeProfile): FormValues => ({
+  organizationTypeInterest: organizationTypeInterest?.map((x) => x.value) ?? [],
+  moveInterest: moveInterest?.map((x) => x.value) ?? [],
+  mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
+  mentorshipInterest: mentorshipInterest?.map((x) => x.value) ?? [],
+  execInterest: boolToYesNo(execInterest),
+  execCoachingStatus: execCoachingStatusToFormValues(execCoachingStatus),
+  execCoachingInterest: execCoachingInterest?.map((x) => x.value) ?? [],
+});
+
 export type FormValues = Pick<
   UpdateEmployeeProfileInput,
   | "organizationTypeInterest"
@@ -175,6 +188,7 @@ export type FormValues = Pick<
 };
 
 interface CareerDevelopmentSectionProps {
+  userId: string;
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileCareerDevelopment_Fragment
   >;
@@ -184,11 +198,11 @@ interface CareerDevelopmentSectionProps {
 }
 
 const CareerDevelopmentSection = ({
+  userId,
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
 }: CareerDevelopmentSectionProps) => {
   const intl = useIntl();
-  const { userAuthInfo } = useAuthorization();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfileCareerDevelopment_Mutation,
   );
@@ -223,25 +237,6 @@ const CareerDevelopmentSection = ({
     );
   };
 
-  const dataToFormValues = ({
-    organizationTypeInterest,
-    moveInterest,
-    mentorshipStatus,
-    mentorshipInterest,
-    execInterest,
-    execCoachingStatus,
-    execCoachingInterest,
-  }: EmployeeProfile): FormValues => ({
-    organizationTypeInterest:
-      organizationTypeInterest?.map((x) => x.value) ?? [],
-    moveInterest: moveInterest?.map((x) => x.value) ?? [],
-    mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
-    mentorshipInterest: mentorshipInterest?.map((x) => x.value) ?? [],
-    execInterest: boolToYesNo(execInterest),
-    execCoachingStatus: execCoachingStatusToFormValues(execCoachingStatus),
-    execCoachingInterest: execCoachingInterest?.map((x) => x.value) ?? [],
-  });
-
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(employeeProfile),
   });
@@ -255,12 +250,8 @@ const CareerDevelopmentSection = ({
     execCoachingStatus,
     execCoachingInterest,
   }: FormValues) => {
-    if (!userAuthInfo?.id) {
-      throw new UnauthorizedError();
-    }
-
     return executeMutation({
-      id: userAuthInfo?.id,
+      id: userId,
       employeeProfile: {
         organizationTypeInterest: organizationTypeInterest ?? [],
         moveInterest: moveInterest ?? [],
