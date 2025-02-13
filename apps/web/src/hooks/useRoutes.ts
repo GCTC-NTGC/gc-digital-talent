@@ -256,6 +256,10 @@ const getRoutes = (lang: Locales) => {
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
 
+    // Community interests
+    communityInterest: (communityInterestId: string) =>
+      `${applicantUrl}/community-interests/${communityInterestId}`,
+
     // Profile and Applications
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
@@ -297,6 +301,12 @@ const getRoutes = (lang: Locales) => {
 
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
+
+    // Community interests
+    createCommunityInterest: () =>
+      [applicantUrl, "community-interests", "create"].join("/"),
+    updateCommunityInterest: (id: string) =>
+      [applicantUrl, "community-interests", id].join("/"),
 
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
