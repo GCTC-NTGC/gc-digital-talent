@@ -1217,6 +1217,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(
+    status: TalentNominationEventStatus @scope
+  ): [TalentNominationEvent]!
+    @all
+    @orderBy(column: "close_date", direction: ASC)
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput

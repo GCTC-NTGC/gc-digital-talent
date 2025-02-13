@@ -329,6 +329,7 @@ type Query {
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -3155,6 +3156,12 @@ enum SkillLevel {
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
+}
+
+enum TalentNominationEventStatus {
+  ACTIVE
+  UPCOMING
+  PAST
 }
 
 enum WhenSkillUsed {

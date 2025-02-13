@@ -1379,6 +1379,10 @@
     "defaultMessage": "Introuvable",
     "description": "Title displayed when an item cannot be found."
   },
+  "ukd1kY": {
+    "defaultMessage": "Événements axés sur la gestion des talents",
+    "description": "Name of talent management events page"
+  },
   "us8fY4": {
     "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
     "description": "The work region of Canada described as North."
