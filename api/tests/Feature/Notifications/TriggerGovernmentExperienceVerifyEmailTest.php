@@ -50,6 +50,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             ->create([
                 'work_email_verified_at' => null,
             ]);
+
+        Notification::truncate();
     }
 
     // test notification correctly created via mutation
@@ -59,7 +61,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
-        Notification::truncate();
         assertEquals(0, count(Notification::all()));
 
         $this->actingAs($this->user, 'api')->graphQL(
@@ -107,7 +108,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
-        Notification::truncate();
         assertEquals(0, count(Notification::all()));
 
         // indeterminate with future end date
@@ -141,7 +141,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     // other experiences being created don't send notifications
     public function testNonWorkExperienceNoNotifications(): void
     {
-        Notification::truncate();
         assertEquals(0, count(Notification::all()));
 
         AwardExperience::factory()->create([
@@ -171,7 +170,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 
-        Notification::truncate();
         assertEquals(0, count(Notification::all()));
 
         // external
