@@ -198,7 +198,7 @@ type EmployeeProfile {
   dreamRoleWorkStream: WorkStream @belongsTo
   dreamRoleDepartments: [Department!] @belongsToMany
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -1217,6 +1217,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(
+    status: TalentNominationEventStatus @scope
+  ): [TalentNominationEvent]!
+    @all
+    @orderBy(column: "close_date", direction: ASC)
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1234,7 +1239,15 @@ type Query {
   ): [LocalizedEnumString!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: ["first_name", "work_email", "preferred_lang"]
+          }
+        ]
+      )
   ): [CommunityInterest]!
     @guard
     @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
@@ -1531,6 +1544,8 @@ input CreateCommunityInterestInput @validator {
 }
 
 input UpdateCommunityInterestInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -1544,6 +1559,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }
@@ -2340,7 +2356,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
-    id: UUID!
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard

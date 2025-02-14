@@ -329,6 +329,7 @@ type Query {
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -412,7 +413,7 @@ type Query {
   ): TrainingOpportunityPaginator!
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
-    orderBy: [OrderByClause!]
+    orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 500."
     first: Int! = 10
@@ -430,7 +431,7 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
-  updateCommunityInterest(id: UUID!, communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
@@ -685,7 +686,7 @@ type EmployeeProfile {
   dreamRoleClassification: Classification
   dreamRoleWorkStream: WorkStream
   dreamRoleDepartments: [Department!]
-  communityInterests: [CommunityInterest!]
+  communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
 
@@ -1617,6 +1618,7 @@ input CreateCommunityInterestInput {
 }
 
 input UpdateCommunityInterestInput {
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
@@ -1630,6 +1632,7 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
+  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }
@@ -2489,6 +2492,34 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
   pool: QueryPoolCandidatesPaginatedOrderByPool
 }
 
+"Allowed column names for Query.communityInterestsPaginated.orderBy."
+enum QueryCommunityInterestsPaginatedOrderByUserColumn {
+  FIRST_NAME
+  WORK_EMAIL
+  PREFERRED_LANG
+}
+
+"Aggregate specification for Query.communityInterestsPaginated.orderBy.user."
+input QueryCommunityInterestsPaginatedOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryCommunityInterestsPaginatedOrderByUserColumn
+}
+
+"Order by clause for Query.communityInterestsPaginated.orderBy."
+input QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryCommunityInterestsPaginatedOrderByUser
+}
+
 "Directions for ordering a list of records."
 enum SortOrder {
   "Sort records in ascending order."
@@ -3125,6 +3156,12 @@ enum SkillLevel {
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
+}
+
+enum TalentNominationEventStatus {
+  ACTIVE
+  UPCOMING
+  PAST
 }
 
 enum WhenSkillUsed {
