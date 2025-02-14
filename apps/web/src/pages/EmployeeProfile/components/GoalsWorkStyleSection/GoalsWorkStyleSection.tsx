@@ -17,9 +17,9 @@ import {
   getFragment,
   EmployeeProfile,
 } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
@@ -76,8 +76,8 @@ const GoalsWorkStyleSection = ({
   employeeProfileQuery,
 }: GoalsWorkStyleSectionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { userAuthInfo } = useAuthorization();
+  const locale = getLocale(intl);
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfile_Mutation,
   );
@@ -126,9 +126,8 @@ const GoalsWorkStyleSection = ({
     if (!userAuthInfo?.id) {
       throw new UnauthorizedError();
     }
-
     return executeMutation({
-      id: userAuthInfo?.id,
+      id: userAuthInfo.id,
       employeeProfile: {
         aboutYou,
         careerGoals,
