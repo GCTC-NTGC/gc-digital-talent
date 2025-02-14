@@ -65,7 +65,6 @@ class EmployeeProfileTest extends TestCase
                             dreamRoleWorkStream { id }
                             dreamRoleDepartments { id }
                             aboutYou
-                            careerGoals
                             learningGoals
                             workStyle
                         }
@@ -87,7 +86,6 @@ class EmployeeProfileTest extends TestCase
                 'dreamRoleWorkStream' => ['id' => $this->user->employeeProfile->dreamRoleWorkStream->id],
                 'dreamRoleDepartments' => Arr::map($this->user->employeeProfile->dreamRoleDepartments->toArray(), fn ($value) => ['id' => $value['id']]),
                 'aboutYou' => $this->user->employeeProfile->career_planning_about_you,
-                'careerGoals' => $this->user->employeeProfile->career_planning_career_goals,
                 'learningGoals' => $this->user->employeeProfile->career_planning_learning_goals,
                 'workStyle' => $this->user->employeeProfile->career_planning_work_style,
             ]);
@@ -112,7 +110,6 @@ class EmployeeProfileTest extends TestCase
             'dreamRoleWorkStream' => ['connect' => $community->workStreams->first()->id],
             'dreamRoleDepartments' => ['sync' => [Department::factory()->create()->id]],
             'aboutYou' => 'test about',
-            'careerGoals' => 'test careerGoals',
             'learningGoals' => 'test learningGoals',
             'workStyle' => 'test workStyle',
         ];
@@ -135,7 +132,6 @@ class EmployeeProfileTest extends TestCase
                             dreamRoleWorkStream { id }
                             dreamRoleDepartments { id }
                             aboutYou
-                            careerGoals
                             learningGoals
                         workStyle
                     }
@@ -155,7 +151,6 @@ class EmployeeProfileTest extends TestCase
                 'dreamRoleWorkStream' => ['id' => $input['dreamRoleWorkStream']['connect']],
                 'dreamRoleDepartments' => [['id' => $input['dreamRoleDepartments']['sync'][0]]],
                 'aboutYou' => $input['aboutYou'],
-                'careerGoals' => $input['careerGoals'],
                 'learningGoals' => $input['learningGoals'],
                 'workStyle' => $input['workStyle'],
             ]);

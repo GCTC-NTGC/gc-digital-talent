@@ -21,9 +21,15 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import {
+  hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
+  hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/goalsWorkStyle";
 
 import messages from "./messages";
-import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -99,6 +105,11 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
     ],
   });
 
+  const goalsWorkStyle = getFragment(
+    EmployeeProfileGoalsWorkStyle_Fragment,
+    user.employeeProfile,
+  );
+
   return (
     <>
       <SEO title={pageTitle} description={subtitle} />
@@ -141,7 +152,13 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
-                      status="success"
+                      status={
+                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+                          ? "error"
+                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
                     />
                   </TableOfContents.ListItem>

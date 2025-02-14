@@ -6,11 +6,6 @@ const messages = defineMessages({
     id: "tSvuK1",
     description: "Label for a employee profile about you field",
   },
-  careerGoals: {
-    defaultMessage: "Your career goals",
-    id: "NlcepR",
-    description: "Label for a employee profile career goals field",
-  },
   learningGoals: {
     defaultMessage: "Your learning goals",
     id: "j5Fwi6",
