@@ -39,6 +39,10 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
 
     protected $user;
 
+    protected $department;
+
+    protected $classification;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -51,6 +55,10 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                 'work_email_verified_at' => null,
             ]);
 
+        $this->department = Department::factory()->create();
+
+        $this->classification = Classification::factory()->create();
+
         Notification::truncate();
     }
 
@@ -58,9 +66,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     // government work experience, indeterminate, null end date
     public function testGovernmentWorkExperienceVerifyWorkEmailNotificationMutationSuccessful(): void
     {
-        $classification = Classification::factory()->create();
-        $department = Department::factory()->create();
-
         assertEquals(0, count(Notification::all()));
 
         $this->actingAs($this->user, 'api')->graphQL(
@@ -80,8 +85,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
                     'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
                     'govPositionType' => GovPositionType::ACTING->name,
-                    'classificationId' => $classification->id,
-                    'departmentId' => $department->id,
+                    'classificationId' => $this->classification->id,
+                    'departmentId' => $this->department->id,
                     'startDate' => config('constants.past_date'),
                     'endDate' => null,
                 ],
@@ -105,9 +110,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     // test other cases that should send notifications
     public function testGovernmentWorkExperienceVerifyWorkEmailNotificationOtherCasesSuccessful(): void
     {
-        $classification = Classification::factory()->create();
-        $department = Department::factory()->create();
-
         assertEquals(0, count(Notification::all()));
 
         // indeterminate with future end date
@@ -116,8 +118,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
-            'classification_id' => $classification->id,
-            'department_id' => $department->id,
+            'classification_id' => $this->classification->id,
+            'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),
             'end_date' => config('constants.far_future_date'),
         ]);
@@ -127,8 +129,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'user_id' => $this->user->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
-            'classification_id' => $classification->id,
-            'department_id' => $department->id,
+            'classification_id' => $this->classification->id,
+            'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),
             'end_date' => config('constants.far_future_date'),
         ]);
@@ -167,9 +169,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     // test other cases like external or army experiences don't send notifications
     public function testExcludedWorkExperienceNoNotifications(): void
     {
-        $classification = Classification::factory()->create();
-        $department = Department::factory()->create();
-
         assertEquals(0, count(Notification::all()));
 
         // external
@@ -195,8 +194,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
-            'classification_id' => $classification->id,
-            'department_id' => $department->id,
+            'classification_id' => $this->classification->id,
+            'department_id' => $this->department->id,
             'startDate' => config('constants.past_date'),
             'endDate' => config('constants.past_date'),
         ]);
@@ -209,9 +208,6 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
     // test verified work email prevents sending of notifications when they would've otherwise been sent
     public function testVerifiedWorkEmailNoNotifications(): void
     {
-        $classification = Classification::factory()->create();
-        $department = Department::factory()->create();
-
         $userVerifiedEmail = User::factory()
             ->asApplicant()
             ->create([
@@ -227,8 +223,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::ACTING->name,
-            'classification_id' => $classification->id,
-            'department_id' => $department->id,
+            'classification_id' => $this->classification->id,
+            'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),
             'end_date' => config('constants.far_future_date'),
         ]);
@@ -238,8 +234,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'user_id' => $userVerifiedEmail->id,
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => WorkExperienceGovEmployeeType::TERM->name,
-            'classification_id' => $classification->id,
-            'department_id' => $department->id,
+            'classification_id' => $this->classification->id,
+            'department_id' => $this->department->id,
             'start_date' => config('constants.past_date'),
             'end_date' => config('constants.far_future_date'),
         ]);
