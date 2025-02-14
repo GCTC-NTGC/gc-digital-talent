@@ -167,15 +167,15 @@ const Display = ({
               execInterest
                 ? {
                     defaultMessage:
-                      "I'd like to be considered for executive level opportunities.",
-                    id: "PffQVS",
+                      "I'd like to be considered for executive-level opportunities.",
+                    id: "WoZ3pB",
                     description:
                       "The executive interest described as interested.",
                   }
                 : {
                     defaultMessage:
-                      "I'm not interested in executive level opportunities.",
-                    id: "0xmhEq",
+                      "I'm not interested in executive-level opportunities.",
+                    id: "vFV5N8",
                     description:
                       "The executive interest described as not interested.",
                   },

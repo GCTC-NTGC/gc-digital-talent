@@ -327,8 +327,8 @@ const CareerDevelopmentSection = ({
                     value: "no",
                     label: intl.formatMessage({
                       defaultMessage:
-                        "I'm not interested in executive level opportunities.",
-                      id: "0xmhEq",
+                        "I'm not interested in executive-level opportunities.",
+                      id: "vFV5N8",
                       description:
                         "The executive interest described as not interested.",
                     }),
@@ -337,8 +337,8 @@ const CareerDevelopmentSection = ({
                     value: "yes",
                     label: intl.formatMessage({
                       defaultMessage:
-                        "I'd like to be considered for executive level opportunities.",
-                      id: "PffQVS",
+                        "I'd like to be considered for executive-level opportunities.",
+                      id: "WoZ3pB",
                       description:
                         "The executive interest described as interested.",
                     }),

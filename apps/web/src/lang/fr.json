@@ -2499,6 +2499,10 @@
     "defaultMessage": "Écrire le nom ici",
     "description": "Placeholder text for user name input in the delete user dialog"
   },
+  "B524m1": {
+    "defaultMessage": "État du mentorat",
+    "description": "Label for an employee profile career development preference field"
+  },
   "B6SqfX": {
     "defaultMessage": "Sauvegardez le changement d'état",
     "description": "Button label displayed that saves the users status selection."
@@ -2690,6 +2694,10 @@
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
+  },
+  "CKxLR/": {
+    "defaultMessage": "La mise à jour des préférences en matière de développement de carrière a échoué.",
+    "description": "Message displayed when a user fails to update the employee profile information"
   },
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
@@ -3067,6 +3075,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
+  "ECAM6A": {
+    "defaultMessage": "Les préférences en matière de développement de carrière ont été mises à jour avec succès!",
+    "description": "Message displayed when a user successfully updates employee profile information"
+  },
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
@@ -3186,6 +3198,10 @@
   "Evn5Mo": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce processus.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
+  "Ey8cB4": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for career development preferences section"
   },
   "EyH6FY": {
     "defaultMessage": "Sélectionnez les expériences pertinentes",
@@ -3715,6 +3731,10 @@
     "defaultMessage": "Ensemble, nous sommes en mesure de tirer parti de la diversité des expériences et des idées que les personnes autochtones apportent à la fonction publique et de contribuer à la réconciliation au Canada.",
     "description": "Paragraph 2 of the 'A commitment to diverse digital talent' section"
   },
+  "I+TGU3": {
+    "defaultMessage": "État du coaching des cadres",
+    "description": "Label for an employee profile career development preference field"
+  },
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
     "description": "Comments or contributions list title"
@@ -3798,6 +3818,10 @@
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
+  },
+  "IQiTZd": {
+    "defaultMessage": "Intérêt pour les possibilités de mentorat",
+    "description": "Label for an employee profile career development preference field"
   },
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
@@ -6111,6 +6135,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "Uj7TE2": {
+    "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
+    "description": "Describes the career development preferences of employee profile"
+  },
   "UjkAHp": {
     "defaultMessage": "Agent(e) P M 3",
     "description": "PM-03 classification aria label including titles"
@@ -6477,6 +6505,10 @@
   "Wo+T62": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
     "description": "Confirmation text for reinstating a candidate"
+  },
+  "WoZ3pB": {
+    "defaultMessage": "Les postes au niveau de la direction m'intéressent.",
+    "description": "The executive interest described as interested."
   },
   "WovyCU": {
     "defaultMessage": "Ajouter un rôle dans la collectivité",
@@ -8322,6 +8354,10 @@
     "defaultMessage": "Annonce à l’échelle du site",
     "description": "Page title for the update sitewide announcement page"
   },
+  "gDoGSs": {
+    "defaultMessage": "Intérêt pour des postes au niveau de la direction",
+    "description": "Label for an employee profile career development preference field"
+  },
   "gEnOmo": {
     "defaultMessage": "Avant que nous considérions qu'un produit est prêt à être lancé, nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
@@ -9318,6 +9354,10 @@
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
     "description": "description of 'screening questions' section of the 'assessment details' dialog"
   },
+  "lW24T5": {
+    "defaultMessage": "Intérêt pour les promotions et les mutations latérales",
+    "description": "Label for an employee profile career development preference field"
+  },
   "lZ8lct": {
     "defaultMessage": "Process mis en signet.",
     "description": "Alert displayed to the user when they mark a pool as bookmarked."
@@ -9485,6 +9525,10 @@
   "mLmPpf": {
     "defaultMessage": "Trouver une compétence",
     "description": "Title for the find a skill dialog"
+  },
+  "mMiZ3q": {
+    "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifiez » pour réviser vos réponses dans les champs pertinents.",
+    "description": "Message for unanswered required questions in this section"
   },
   "mNNgEF": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -10386,6 +10430,10 @@
     "defaultMessage": "Titre du poste (français)",
     "description": "Label for process French title"
   },
+  "rBtIUo": {
+    "defaultMessage": "Enregistrez les préférences en matière de développement de carrière",
+    "description": "Text on a button to save career development preferences form"
+  },
   "rCpVpZ": {
     "defaultMessage": "Vous avez indiqué que vous répondiez aux <strong>exigences minimales en matière d’expérience ou d’études (2 années d’études post-secondaires)</strong> en mentionnant les expériences suivantes sur votre parcours professionnel :",
     "description": "Message on education requirements card on the application review page."
@@ -10669,6 +10717,10 @@
   "ssSdOn": {
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
     "description": "Message for a candidates veteran status claim"
+  },
+  "sxCR5N": {
+    "defaultMessage": "Seuls les membres du personnel admissibles seront pris en considération pour les possibilités de coaching des cadres. L'admissibilité dépend de votre classification et de votre structure organisationnelle.",
+    "description": "Context for an employee profile career development preference field"
   },
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
@@ -11042,6 +11094,10 @@
     "defaultMessage": "Annulation des modifications",
     "description": "Button text to cancel editing a profile section"
   },
+  "vFV5N8": {
+    "defaultMessage": "Les postes au niveau de la direction ne m'intéressent pas.",
+    "description": "The executive interest described as not interested."
+  },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
@@ -11105,6 +11161,10 @@
   "vYigGH": {
     "defaultMessage": "l'informatique en nuage;",
     "description": "Third item in list of certification topics section"
+  },
+  "vaxlr+": {
+    "defaultMessage": "Types d'organisations pour lesquelles vous aimeriez travailler",
+    "description": "Label for an employee profile career development preference field"
   },
   "vbiWgW": {
     "defaultMessage": "Politiques connexes",
@@ -11221,6 +11281,10 @@
   "wIccbA": {
     "defaultMessage": "Signaler un bogue",
     "description": "Support form subject field bug option label"
+  },
+  "wJ5KIL": {
+    "defaultMessage": "Intérêt pour le coaching des cadres",
+    "description": "Label for an employee profile career development preference field"
   },
   "wJnIJx": {
     "defaultMessage": "Groupe",
@@ -11465,6 +11529,10 @@
   "xnlBSd": {
     "defaultMessage": "Erreur : la mise à jour du processus a échoué",
     "description": "Message displayed to user after pool fails to get updated."
+  },
+  "xnxf8m": {
+    "defaultMessage": "Le fait de manifester son intérêt ne garantit pas la prise en considération d'une candidature à un poste au niveau de la direction. Votre intérêt, combiné à votre expérience professionnelle et à vos compétences, aide les recruteurs à déterminer si vous correspondez au profil recherché.",
+    "description": "Context for an employee profile career development preference field"
   },
   "xtNiNu": {
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
