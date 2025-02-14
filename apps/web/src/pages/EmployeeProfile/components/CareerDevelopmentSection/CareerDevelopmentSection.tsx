@@ -30,8 +30,13 @@ import {
   EmployeeProfile,
   UpdateEmployeeProfileInput,
 } from "@gc-digital-talent/graphql";
-import { boolToYesNo, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  boolToYesNo,
+  UnauthorizedError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import {
   hasAllEmptyFields,
@@ -95,7 +100,6 @@ export type FormValues = Pick<
 };
 
 interface CareerDevelopmentSectionProps {
-  userId: string;
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileCareerDevelopment_Fragment
   >;
@@ -105,11 +109,11 @@ interface CareerDevelopmentSectionProps {
 }
 
 const CareerDevelopmentSection = ({
-  userId,
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
 }: CareerDevelopmentSectionProps) => {
   const intl = useIntl();
+  const { userAuthInfo } = useAuthorization();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfileCareerDevelopment_Mutation,
   );
@@ -157,8 +161,12 @@ const CareerDevelopmentSection = ({
     execCoachingStatus,
     execCoachingInterest,
   }: FormValues) => {
+    if (!userAuthInfo?.id) {
+      throw new UnauthorizedError();
+    }
+
     return executeMutation({
-      id: userId,
+      id: userAuthInfo.id,
       employeeProfile: {
         organizationTypeInterest: organizationTypeInterest ?? [],
         moveInterest: moveInterest ?? [],

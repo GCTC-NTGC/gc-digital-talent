@@ -54,7 +54,6 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface EmployeeProfileProps {
-  userId: string;
   userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
   careerDevelopmentOptionsQuery: FragmentType<
     typeof EmployeeProfileCareerDevelopmentOptions_Fragment
@@ -62,7 +61,6 @@ interface EmployeeProfileProps {
 }
 
 const EmployeeProfile = ({
-  userId,
   userQuery,
   careerDevelopmentOptionsQuery,
 }: EmployeeProfileProps) => {
@@ -207,7 +205,6 @@ const EmployeeProfile = ({
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
                 <CareerDevelopmentSection
-                  userId={userId}
                   employeeProfileQuery={user.employeeProfile}
                   careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
                 />
@@ -217,7 +214,6 @@ const EmployeeProfile = ({
               ></TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
-                  userId={userId}
                   employeeProfileQuery={user.employeeProfile}
                 />
               </TableOfContents.Section>
@@ -232,7 +228,6 @@ const EmployeeProfile = ({
 const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
   query EmployeeProfilePage {
     me {
-      id
       ...EmployeeProfile
     }
     ...EmployeeProfileCareerDevelopmentOptions
@@ -249,7 +244,6 @@ const EmployeeProfilePage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <EmployeeProfile
-          userId={data.me.id}
           userQuery={data.me}
           careerDevelopmentOptionsQuery={data}
         />
