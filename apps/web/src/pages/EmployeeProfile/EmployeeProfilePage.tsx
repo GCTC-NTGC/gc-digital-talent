@@ -3,7 +3,11 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  EmployeeProfilePageQuery,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Heading,
   Pending,
@@ -29,10 +33,7 @@ import {
 import messages from "./messages";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
-import {
-  EmployeeProfileCareerDevelopment_Fragment,
-  EmployeeProfileCareerDevelopmentOptions_Fragment,
-} from "./components/CareerDevelopmentSection/utils";
+import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -54,27 +55,24 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface EmployeeProfileProps {
-  userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
-  careerDevelopmentOptionsQuery: FragmentType<
-    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
-  >;
+  employeeProfileQuery: EmployeeProfilePageQuery;
 }
 
-const EmployeeProfile = ({
-  userQuery,
-  careerDevelopmentOptionsQuery,
-}: EmployeeProfileProps) => {
+const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, userQuery);
-  const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
+  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery.me);
 
-  if (!user.employeeProfile) {
+  if (!user?.employeeProfile) {
     throw new NotFoundError();
   }
 
   if (
-    !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
+    !isVerifiedGovEmployee({
+      isGovEmployee: user.isGovEmployee,
+      workEmail: user.workEmail,
+      isWorkEmailVerified: user.isWorkEmailVerified,
+    })
   ) {
     throw new UnauthorizedError(
       intl.formatMessage({
@@ -206,7 +204,7 @@ const EmployeeProfile = ({
               <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
                 <CareerDevelopmentSection
                   employeeProfileQuery={user.employeeProfile}
-                  careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
+                  careerDevelopmentOptionsQuery={employeeProfileQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section
@@ -243,10 +241,7 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile
-          userQuery={data.me}
-          careerDevelopmentOptionsQuery={data}
-        />
+        <EmployeeProfile employeeProfileQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
