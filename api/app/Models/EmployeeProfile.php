@@ -78,13 +78,13 @@ class EmployeeProfile extends Model
     /** @return BelongsToMany<WorkStream, $this> */
     public function nextRoleWorkStreams(): BelongsToMany
     {
-        return $this->belongsToMany(WorkStream::class, 'user_work_stream_next_role');
+        return $this->belongsToMany(WorkStream::class, 'user_work_stream_next_role', 'user_id', 'work_stream_id');
     }
 
     /** @return BelongsToMany<WorkStream, $this> */
     public function careerObjectiveWorkStreams(): BelongsToMany
     {
-        return $this->belongsToMany(WorkStream::class, 'user_work_stream_career_objective');
+        return $this->belongsToMany(WorkStream::class, 'user_work_stream_career_objective', 'user_id', 'work_stream_id');
     }
 
     /** @return BelongsToMany<Department, $this> */
