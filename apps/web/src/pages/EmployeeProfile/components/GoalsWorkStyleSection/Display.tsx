@@ -24,6 +24,7 @@ const Display = ({
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
+      data-h2-overflow-wrap="base(anywhere)"
     >
       {hasAnyEmptyFields({
         aboutYou,
