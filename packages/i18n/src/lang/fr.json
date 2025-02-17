@@ -315,6 +315,10 @@
     "defaultMessage": "Intérêt pour la formation",
     "description": "Training interest label"
   },
+  "AQxes2": {
+    "defaultMessage": "Renseignements facultatifs manquants",
+    "description": "Message for when specific item has missing optional information"
+  },
   "AiFpbo": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."

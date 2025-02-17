@@ -26,12 +26,18 @@ import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import {
-  hasAllEmptyFields,
-  hasEmptyRequiredFields,
+  hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
+  hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/careerDevelopment";
+import {
+  hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
+  hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/goalsWorkStyle";
 
 import messages from "./messages";
-import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
 
@@ -113,6 +119,10 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
     ],
   });
 
+  const goalsWorkStyle = getFragment(
+    EmployeeProfileGoalsWorkStyle_Fragment,
+    user.employeeProfile,
+  );
   const careerDevelopment = getFragment(
     EmployeeProfileCareerDevelopment_Fragment,
     user.employeeProfile,
@@ -145,9 +155,11 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
                       status={
-                        hasAllEmptyFields(careerDevelopment)
+                        careerDevelopmentHasAllEmptyFields(careerDevelopment)
                           ? "optional"
-                          : hasEmptyRequiredFields(careerDevelopment)
+                          : careerDevelopmentHasEmptyRequiredFields(
+                                careerDevelopment,
+                              )
                             ? "error"
                             : "success"
                       }
@@ -166,7 +178,13 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
-                      status="success"
+                      status={
+                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+                          ? "error"
+                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
                     />
                   </TableOfContents.ListItem>
