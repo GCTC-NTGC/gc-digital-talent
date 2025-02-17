@@ -107,9 +107,7 @@ const WorkFields = ({
   );
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
-  }>({
-    name: "employmentCategory",
-  });
+  }>({ name: "employmentCategory" });
 
   const employmentCategories: Radio[] = unpackMaybes(
     data?.employmentCategoryTypes,
@@ -153,11 +151,6 @@ const WorkFields = ({
       resetDirtyField("cafEmploymentType");
       resetDirtyField("cafForce");
       resetDirtyField("cafRank");
-
-      // all categories
-      resetDirtyField("startDate");
-      resetDirtyField("currentRole");
-      resetDirtyField("endDate");
     }
 
     prevEmploymentCategory.current = watchEmploymentCategory;
