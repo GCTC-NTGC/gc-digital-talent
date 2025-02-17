@@ -1216,6 +1216,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(
+    status: TalentNominationEventStatus @scope
+  ): [TalentNominationEvent]!
+    @all
+    @orderBy(column: "close_date", direction: ASC)
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1233,7 +1238,15 @@ type Query {
   ): [LocalizedEnumString!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: ["first_name", "work_email", "preferred_lang"]
+          }
+        ]
+      )
   ): [CommunityInterest]!
     @guard
     @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])

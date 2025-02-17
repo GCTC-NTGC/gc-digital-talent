@@ -43,6 +43,7 @@ export default {
       "/en/admin/settings/skill-families",
       "/en/admin/talent-requests",
       "/en/admin/communities",
+      "/en/admin/community-talent",
     ],
   },
   ALLOWED_PATHS: {
@@ -53,6 +54,7 @@ export default {
       "/en/admin/talent-requests",
       "/en/admin/communities",
       "/en/admin/users",
+      "/en/admin/community-talent",
     ],
     COMMUNITY_RECRUITER: [
       "/en/community",
@@ -61,6 +63,7 @@ export default {
       "/en/admin/talent-requests",
       "/en/admin/communities",
       "/en/admin/users",
+      "/en/admin/community-talent",
     ],
     PROCESS_OPERATOR: [
       "/en/community",

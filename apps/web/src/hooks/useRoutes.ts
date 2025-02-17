@@ -28,6 +28,7 @@ const getRoutes = (lang: Locales) => {
   const managerUrl = [baseUrl, "manager"].join("/");
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
+  const communitiesUrl = [baseUrl, "communities"].join("/");
 
   return {
     // Main Routes
@@ -342,6 +343,12 @@ const getRoutes = (lang: Locales) => {
     workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
     workStreamUpdate: (workStreamId: string) =>
       [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
+
+    // Admin - Community Talent
+    communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
+
+    // Communities
+    talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
 
     /**
      * Deprecated

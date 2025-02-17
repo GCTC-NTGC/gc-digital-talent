@@ -56,6 +56,24 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
               ],
             },
             {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
+                  path: "talent-events",
+                  lazy: () =>
+                    import(
+                      "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "support",
               lazy: () => import("../pages/SupportPage/SupportPage"),
             },
@@ -984,6 +1002,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       ],
                     },
                   ],
+                },
+                {
+                  path: "community-talent",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityInterests/CommunityTalentPage/CommunityTalentPage"
+                    ),
                 },
                 {
                   path: "*",
