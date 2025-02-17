@@ -4863,10 +4863,6 @@
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
   },
-  "NlcepR": {
-    "defaultMessage": "Vos objectifs de carrière",
-    "description": "Label for a employee profile career goals field"
-  },
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
