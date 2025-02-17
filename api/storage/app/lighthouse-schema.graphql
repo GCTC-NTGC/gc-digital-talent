@@ -283,6 +283,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTargetRole {
+  value: TargetRole!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -3162,6 +3167,17 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TargetRole {
+  INDIVIDUAL_CONTRIBUTOR
+  MANAGER
+  DIRECTOR
+  DIRECTOR_GENERAL
+  EXECUTIVE_DIRECTOR
+  ASSISTANT_DEPUTY_MINISTER
+  DEPUTY_MINISTER
+  OTHER
 }
 
 enum WhenSkillUsed {
