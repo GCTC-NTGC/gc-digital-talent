@@ -685,12 +685,22 @@ type EmployeeProfile {
   careerGoals: String
   learningGoals: String
   workStyle: String
-  dreamRoleTitle: String
-  dreamRoleAdditionalInformation: String
-  dreamRoleCommunity: Community
-  dreamRoleClassification: Classification
-  dreamRoleWorkStream: WorkStream
-  dreamRoleDepartments: [Department!]
+  nextRoleJobTitle: String
+  careerObjectiveJobTitle: String
+  nextRoleAdditionalInformation: String
+  careerObjectiveAdditionalInformation: String
+  nextRoleCommunity: Community
+  careerObjectiveCommunity: Community
+  nextRoleClassification: Classification
+  careerObjectiveClassification: Classification
+  nextRoleWorkStreams: [WorkStream!]
+  careerObjectiveWorkStreams: [WorkStream!]
+  nextRoleDepartments: [Department!]
+  careerObjectiveDepartments: [Department!]
+  nextRoleTargetRole: LocalizedTargetRole
+  careerObjectiveTargetRole: LocalizedTargetRole
+  nextRoleTargetRoleOther: String
+  careerObjectiveTargetRoleOther: String
   communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
@@ -1604,12 +1614,22 @@ input UpdateEmployeeProfileInput {
   careerGoals: String
   learningGoals: String
   workStyle: String
-  dreamRoleTitle: String
-  dreamRoleAdditionalInformation: String
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String
+  careerObjectiveJobTitle: String
+  nextRoleAdditionalInformation: String
+  careerObjectiveAdditionalInformation: String
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole
+  careerObjectiveTargetRole: TargetRole
+  nextRoleTargetRoleOther: String
+  careerObjectiveTargetRoleOther: String
 }
 
 input CreateCommunityInterestInput {
