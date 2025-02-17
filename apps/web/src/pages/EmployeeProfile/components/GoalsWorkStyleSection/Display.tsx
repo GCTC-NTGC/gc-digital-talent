@@ -17,7 +17,9 @@ const Display = ({
   employeeProfile: { aboutYou, learningGoals, workStyle },
 }: DisplayProps) => {
   const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const notProvided = intl.formatMessage(
+    commonMessages.missingOptionalInformation,
+  );
 
   return (
     <div
