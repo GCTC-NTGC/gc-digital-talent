@@ -17,7 +17,7 @@ const Display = ({
   employeeProfile: { aboutYou, learningGoals, workStyle },
 }: DisplayProps) => {
   const intl = useIntl();
-  const notProvided = intl.formatMessage(
+  const nullField = intl.formatMessage(
     commonMessages.missingOptionalInformation,
   );
 
@@ -49,7 +49,7 @@ const Display = ({
         {aboutYou ? (
           <RichTextRenderer node={htmlToRichTextJSON(aboutYou)} />
         ) : (
-          notProvided
+          nullField
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
@@ -58,7 +58,7 @@ const Display = ({
         {learningGoals ? (
           <RichTextRenderer node={htmlToRichTextJSON(learningGoals)} />
         ) : (
-          notProvided
+          nullField
         )}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
@@ -67,7 +67,7 @@ const Display = ({
         {workStyle ? (
           <RichTextRenderer node={htmlToRichTextJSON(workStyle)} />
         ) : (
-          notProvided
+          nullField
         )}
       </ToggleForm.FieldDisplay>
     </div>
