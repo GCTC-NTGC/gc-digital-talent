@@ -355,9 +355,8 @@ export const Component = () => {
                         external
                         newTab
                         href={theTeamUrl[locale]}
-                        data-h2-flex-grow="base(2)"
                         data-h2-justify-content="base(center)"
-                        data-h2-display="base(flex) p-tablet(flex)"
+                        data-h2-display="base(flex) p-tablet(inline-block)"
                       >
                         {intl.formatMessage({
                           defaultMessage: "Learn more",
@@ -425,9 +424,8 @@ export const Component = () => {
                         external
                         newTab
                         href={newsletterUrl[locale]}
-                        data-h2-flex-grow="base(2)"
                         data-h2-justify-content="base(center)"
-                        data-h2-display="base(flex) p-tablet(flex)"
+                        data-h2-display="base(flex) p-tablet(inline-block)"
                       >
                         {intl.formatMessage({
                           defaultMessage: "Subscribe",
@@ -495,9 +493,8 @@ export const Component = () => {
                         external
                         newTab
                         href={linkedInUrl}
-                        data-h2-flex-grow="base(2)"
                         data-h2-justify-content="base(center)"
-                        data-h2-display="base(flex) p-tablet(flex)"
+                        data-h2-display="base(flex) p-tablet(inline-block)"
                       >
                         {intl.formatMessage({
                           defaultMessage: "Join us on LinkedIn",
