@@ -361,9 +361,11 @@ export const Component = () => {
                         data-h2-display="base(flex) p-tablet(inline-block)"
                       >
                         {intl.formatMessage({
-                          defaultMessage: "Learn more",
-                          id: "hlp7KX",
-                          description: "External link button, learn more",
+                          defaultMessage:
+                            "Learn more<hidden> about the Financial Management Community Development team</hidden>",
+                          id: "C0M2h9",
+                          description:
+                            "External link button, learn more about the named team",
                         })}
                       </Link>
                     </div>
