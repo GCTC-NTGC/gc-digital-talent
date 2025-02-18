@@ -248,7 +248,7 @@ export const DashboardPage = ({
                     description:
                       "applicant dashboard card title for profile card",
                   })}
-                  href={paths.careerTimelineAndRecruitment()}
+                  href={paths.profile()}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Name, contact info, employment equity, language proficiency, and work preferences.",
