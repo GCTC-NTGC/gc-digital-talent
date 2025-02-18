@@ -3,7 +3,11 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  EmployeeProfilePageQuery,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Heading,
   Pending,
@@ -21,9 +25,21 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import {
+  hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
+  hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerDevelopment";
+import {
+  hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
+  hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/goalsWorkStyle";
 
 import messages from "./messages";
-import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
+import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -39,26 +55,30 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     isWorkEmailVerified
     employeeProfile {
       ...EmployeeProfileGoalsWorkStyle
+      ...EmployeeProfileCareerDevelopment
     }
   }
 `);
 
 interface EmployeeProfileProps {
-  userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  employeeProfileQuery: EmployeeProfilePageQuery;
 }
 
-const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
+const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, userQuery);
-  const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
+  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery.me);
 
-  if (!user.employeeProfile) {
+  if (!user?.employeeProfile) {
     throw new NotFoundError();
   }
 
   if (
-    !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
+    !isVerifiedGovEmployee({
+      isGovEmployee: user.isGovEmployee,
+      workEmail: user.workEmail,
+      isWorkEmailVerified: user.isWorkEmailVerified,
+    })
   ) {
     throw new UnauthorizedError(
       intl.formatMessage({
@@ -99,6 +119,15 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
     ],
   });
 
+  const goalsWorkStyle = getFragment(
+    EmployeeProfileGoalsWorkStyle_Fragment,
+    user.employeeProfile,
+  );
+  const careerDevelopment = getFragment(
+    EmployeeProfileCareerDevelopment_Fragment,
+    user.employeeProfile,
+  );
+
   return (
     <>
       <SEO title={pageTitle} description={subtitle} />
@@ -125,7 +154,15 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
-                      status="success"
+                      status={
+                        careerDevelopmentHasAllEmptyFields(careerDevelopment)
+                          ? "optional"
+                          : careerDevelopmentHasEmptyRequiredFields(
+                                careerDevelopment,
+                              )
+                            ? "error"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
                     />
                   </TableOfContents.ListItem>
@@ -141,7 +178,13 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
-                      status="success"
+                      status={
+                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+                          ? "error"
+                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
                     />
                   </TableOfContents.ListItem>
@@ -176,9 +219,12 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   })}
                 </p>
               </TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.CAREER_DEVELOPMENT}
-              ></TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
+                <CareerDevelopmentSection
+                  employeeProfileQuery={user.employeeProfile}
+                  careerDevelopmentOptionsQuery={employeeProfileQuery}
+                />
+              </TableOfContents.Section>
               <TableOfContents.Section
                 id={SECTION_ID.DREAM_ROLE}
               ></TableOfContents.Section>
@@ -200,6 +246,7 @@ const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
     me {
       ...EmployeeProfile
     }
+    ...EmployeeProfileCareerDevelopmentOptions
   }
 `);
 
@@ -212,7 +259,7 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile userQuery={data.me} />
+        <EmployeeProfile employeeProfileQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

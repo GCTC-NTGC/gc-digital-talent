@@ -19,7 +19,7 @@ class TalentNominationEventFactory extends Factory
     {
         $name = $this->faker->unique()->catchPhrase();
         $description = $this->faker->sentence();
-        $openDate = $this->faker->dateTimeBetween(now());
+        $openDate = $this->faker->dateTimeBetween();
         $learnMore = $this->faker->optional()->url();
 
         return [
@@ -32,7 +32,7 @@ class TalentNominationEventFactory extends Factory
                 'fr' => $description.' FR',
             ],
             'open_date' => $openDate,
-            'close_date' => $this->faker->dateTimeBetween($openDate),
+            'close_date' => $this->faker->dateTimeBetween($openDate, '+2 year'),
             'include_leadership_competencies' => $this->faker->boolean(),
             'learn_more_url' => $learnMore ? [
                 'en' => $learnMore.'/en',

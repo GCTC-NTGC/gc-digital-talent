@@ -56,6 +56,24 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
               ],
             },
             {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
+                  path: "talent-events",
+                  lazy: () =>
+                    import(
+                      "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
+                    ),
+                },
+              ],
+            },
+            {
               path: "support",
               lazy: () => import("../pages/SupportPage/SupportPage"),
             },
@@ -320,6 +338,31 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                     import(
                       "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
+                },
+                {
+                  path: "community-interests",
+                  children: [
+                    {
+                      index: true,
+                      loader: () => {
+                        throw new NotFoundError();
+                      },
+                    },
+                    {
+                      path: ":communityInterestId",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage"
+                        ),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage"
+                        ),
+                    },
+                  ],
                 },
               ],
             },
@@ -959,6 +1002,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       ],
                     },
                   ],
+                },
+                {
+                  path: "community-talent",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityInterests/CommunityTalentPage/CommunityTalentPage"
+                    ),
                 },
                 {
                   path: "*",

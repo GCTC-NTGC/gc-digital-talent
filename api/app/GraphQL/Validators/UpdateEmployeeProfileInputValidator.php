@@ -46,7 +46,6 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'dreamRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],
 
             'aboutYou' => ['nullable', 'string'],
-            'careerGoals' => ['nullable', 'string'],
             'learningGoals' => ['nullable', 'string'],
             'workStyle' => ['nullable', 'string'],
         ];

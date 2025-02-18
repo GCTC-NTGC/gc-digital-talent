@@ -83,6 +83,10 @@
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
   },
+  "0pIr++": {
+    "defaultMessage": "Je n'ai pas envie de coacher quelqu'un d'autre.",
+    "description": "The executive coaching interest status described as coaching."
+  },
   "16AY+M": {
     "defaultMessage": "Incapable de postuler pour ce bassin",
     "description": "Message displayed when user attempts to apply to an unpublished pool"
@@ -106,6 +110,10 @@
   "1i0PsT": {
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
+  },
+  "1rhiD1": {
+    "defaultMessage": "Les possibilités à mon niveau actuel m'intéressent.",
+    "description": "The move interest described as at level."
   },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
@@ -134,6 +142,10 @@
   "2wKf2U": {
     "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
+  },
+  "3I0zLF": {
+    "defaultMessage": "Je souhaite coacher quelqu'un d'autre.",
+    "description": "The executive coaching interest status described as coaching."
   },
   "3I2Qke": {
     "defaultMessage": "S’ouvre dans un nouvel onglet",
@@ -243,6 +255,10 @@
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
   },
+  "7woRF/": {
+    "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
+    "description": "The executive coaching status described as not participating."
+  },
   "8JxN4A": {
     "defaultMessage": "<strong> Région de la capitale nationale</strong>(Ottawa, en Ontario et Gatineau, au Québec).",
     "description": "The work region of Canada described as National Capital."
@@ -290,6 +306,18 @@
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
+  },
+  "APggfy": {
+    "defaultMessage": "Je ne souhaite pas bénéficier du coaching des cadres.",
+    "description": "The executive coaching interest status described as learning."
+  },
+  "AQeWgK": {
+    "defaultMessage": "Intérêt pour la formation",
+    "description": "Training interest label"
+  },
+  "AQxes2": {
+    "defaultMessage": "Renseignements facultatifs manquants",
+    "description": "Message for when specific item has missing optional information"
   },
   "AiFpbo": {
     "defaultMessage": "Fermer le menu",
@@ -351,6 +379,10 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
+  "DtuUkd": {
+    "defaultMessage": "J'envisagerais des possibilités dans d'autres ministères.",
+    "description": "The organization type interest described as other department."
+  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -366,6 +398,10 @@
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
+  },
+  "FBTxhQ": {
+    "defaultMessage": "J'envisagerais des possibilités au sein de mon ministère, de mon organisme ou de ma société d'État actuel.",
+    "description": "The organization type interest described as current."
   },
   "FYrmhH": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
@@ -507,6 +543,10 @@
     "defaultMessage": "Autre",
     "description": "Different or distinct from one already mentioned"
   },
+  "LvpKEa": {
+    "defaultMessage": "Les possibilités en dessous de mon niveau actuel ne m'intéressent pas.",
+    "description": "The move interest described as below level."
+  },
   "LySK4b": {
     "defaultMessage": "Utilisateurs",
     "description": "Name of Users page"
@@ -547,6 +587,10 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message for when specific item has missing information"
   },
+  "NA889i": {
+    "defaultMessage": "Les possibilités de promotion ne m'intéressent pas.",
+    "description": "The move interest described as above level."
+  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
@@ -563,9 +607,17 @@
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
   },
+  "OAoFzw": {
+    "defaultMessage": "Je suis actuellement en train de coacher quelqu'un d'autre.",
+    "description": "The executive coaching status described as coaching."
+  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
+  },
+  "OLs1UJ": {
+    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor ou mentore.",
+    "description": "The mentorship interest described as mentee."
   },
   "OOVZSs": {
     "defaultMessage": "Ajouter un nouvel élément",
@@ -599,6 +651,10 @@
     "defaultMessage": "J'accepte de travailler par quarts.",
     "description": "The operational requirement described as shift work."
   },
+  "P7AWrP": {
+    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
+    "description": "The mentorship interest described as mentee."
+  },
   "P9roJ7": {
     "defaultMessage": "Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut)",
     "description": "The work region of Canada described as North."
@@ -606,6 +662,10 @@
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
+  },
+  "PIO8CM": {
+    "defaultMessage": "J'envisagerais des possibilités dans d'autres sociétés d'État.",
+    "description": "The organization type interest described as other crown corp."
   },
   "PKkPSW": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
@@ -622,6 +682,10 @@
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
     "description": "The operational requirement described as regular overtime."
+  },
+  "QUnymn": {
+    "defaultMessage": "Le rôle de mentor ou mentore ne m'intéresse pas.",
+    "description": "The mentorship interest described as mentor."
   },
   "QZpZQh": {
     "defaultMessage": "Personne handicapée",
@@ -679,6 +743,10 @@
     "defaultMessage": "Reçue",
     "description": "Title for received"
   },
+  "SKJjYS": {
+    "defaultMessage": "J'ai actuellement un ou une coach.",
+    "description": "The executive coaching status described as learning."
+  },
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
     "description": "Message displayed when number of user attempts exceeds rate limit"
@@ -695,6 +763,10 @@
     "defaultMessage": "jj",
     "description": "Placeholder for a day input"
   },
+  "T6nzbO": {
+    "defaultMessage": "Les possibilités en dessous de mon niveau actuel m'intéressent.",
+    "description": "The move interest described as below level."
+  },
   "T7IoJU": {
     "defaultMessage": "Je m'identifie comme membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
@@ -702,6 +774,10 @@
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
+  },
+  "TKORX7": {
+    "defaultMessage": "Les possibilités à mon niveau actuel ne m'intéressent pas.",
+    "description": "The move interest described as at level."
   },
   "TO/Q6I": {
     "defaultMessage": "Femme",
@@ -835,6 +911,10 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
+  "ZMVV2z": {
+    "defaultMessage": "Je ne participe à aucun programme de mentorat.",
+    "description": "The mentorship status described as not participating."
+  },
   "ZhOciS": {
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Name of job advertisement templates page"
@@ -863,6 +943,10 @@
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
   },
+  "aVEsoE": {
+    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres sociétés d'État.",
+    "description": "The organization type interest described as other crown corp."
+  },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
@@ -882,6 +966,10 @@
   "bXECaV": {
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
+  },
+  "by5WLz": {
+    "defaultMessage": "Je souhaite devenir mentor ou mentore.",
+    "description": "The mentorship interest described as mentor."
   },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
@@ -907,6 +995,10 @@
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
   },
+  "d9hLSq": {
+    "defaultMessage": "Les possibilités de promotion m'intéressent.",
+    "description": "The move interest described as above level."
+  },
   "dBc/+T": {
     "defaultMessage": "Bibliothèque de compétences",
     "description": "Name of the skills library page"
@@ -918,6 +1010,10 @@
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
+  },
+  "dYhxhN": {
+    "defaultMessage": "Intérêt pour l'emploi",
+    "description": "Job interest label"
   },
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
@@ -975,6 +1071,10 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
+  "fUAej4": {
+    "defaultMessage": "Pas d'intérêt",
+    "description": "Expressed lack of interest"
+  },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
@@ -1031,6 +1131,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "iOCAT0": {
+    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres ministères.",
+    "description": "The organization type interest described as other department."
+  },
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
@@ -1047,6 +1151,10 @@
     "defaultMessage": "Numéro de téléphone",
     "description": "Title displayed telephone"
   },
+  "inlUs4": {
+    "defaultMessage": "Je participe à la fois en tant que coach et en tant qu'apprenant.",
+    "description": "The executive coaching status described as both learning and coaching."
+  },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
     "description": "Fallback text when an error message is not supplied"
@@ -1062,6 +1170,10 @@
   "jDYG3j": {
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
+  },
+  "jMACPB": {
+    "defaultMessage": "J'envisagerais des possibilités dans d'autres organismes.",
+    "description": "The organization type interest described as other agency."
   },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
@@ -1183,6 +1295,10 @@
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
   },
+  "nwBZ4v": {
+    "defaultMessage": "Je suis actuellement le mentor ou la mentore d'une personne.",
+    "description": "The mentorship status described as mentor."
+  },
   "o/6zAs": {
     "defaultMessage": "Chargement",
     "description": "Title displayed for a table initial loading state."
@@ -1255,6 +1371,10 @@
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
     "description": "Body text for the unexpected error page."
   },
+  "r1QzK4": {
+    "defaultMessage": "Je participe à la fois en tant que mentor ou mentore et en tant que mentoré ou mentorée.",
+    "description": "The mentorship status described as both mentee and mentor."
+  },
   "rCXko4": {
     "defaultMessage": "Novembre",
     "description": "Name of the eleventh month"
@@ -1262,6 +1382,10 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
+  },
+  "rH9RNh": {
+    "defaultMessage": "Intérêt",
+    "description": "Expressed interest"
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
@@ -1335,6 +1459,10 @@
     "defaultMessage": "Retiré",
     "description": "Removed"
   },
+  "tHeY7N": {
+    "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
+    "description": "The executive coaching interest status described as learning."
+  },
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
     "description": "Error message that Work Tasks in English must be filled"
@@ -1362,6 +1490,10 @@
   "ufSiRU": {
     "defaultMessage": "Introuvable",
     "description": "Title displayed when an item cannot be found."
+  },
+  "ukd1kY": {
+    "defaultMessage": "Événements axés sur la gestion des talents",
+    "description": "Name of talent management events page"
   },
   "us8fY4": {
     "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
@@ -1394,6 +1526,10 @@
   "vPDtGU": {
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
+  },
+  "vaaj5i": {
+    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres organismes.",
+    "description": "The organization type interest described as other agency."
   },
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
@@ -1466,6 +1602,14 @@
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zKeQDh": {
+    "defaultMessage": "Je n'envisagerais pas des possibilités au sein de mon ministère, de mon organisme ou de ma société d'État actuel.",
+    "description": "The organization type interest described as current."
+  },
+  "zM99Vm": {
+    "defaultMessage": "J'ai actuellement un mentor ou une mentore.",
+    "description": "The mentorship status described as mentee."
   },
   "zN7MBv": {
     "defaultMessage": "Planification de carrière",

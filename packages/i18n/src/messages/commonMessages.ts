@@ -73,6 +73,12 @@ const commonMessages = defineMessages({
     id: "MuM7SN",
     description: "Message for when specific item has missing information",
   },
+  missingOptionalInformation: {
+    defaultMessage: "Missing optional information",
+    id: "AQxes2",
+    description:
+      "Message for when specific item has missing optional information",
+  },
   nameNotLoaded: {
     defaultMessage: "Error: name not loaded",
     id: "DdOEWx",
@@ -373,6 +379,26 @@ const commonMessages = defineMessages({
     defaultMessage: "Career planning",
     id: "zN7MBv",
     description: "Title for a users career plan",
+  },
+  jobInterest: {
+    defaultMessage: "Job interest",
+    id: "dYhxhN",
+    description: "Job interest label",
+  },
+  trainingInterest: {
+    defaultMessage: "Training interest",
+    id: "AQeWgK",
+    description: "Training interest label",
+  },
+  interested: {
+    defaultMessage: "Interested",
+    id: "rH9RNh",
+    description: "Expressed interest",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    id: "fUAej4",
+    description: "Expressed lack of interest",
   },
 });
 

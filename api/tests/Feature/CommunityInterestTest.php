@@ -163,15 +163,15 @@ class CommunityInterestTest extends TestCase
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL(<<<'GRAPHQL'
-                mutation UpdateCommunityInterest($id: UUID!, $communityInterest: UpdateCommunityInterestInput!) {
-                    updateCommunityInterest(id: $id, communityInterest: $communityInterest) {
+                mutation UpdateCommunityInterest($communityInterest: UpdateCommunityInterestInput!) {
+                    updateCommunityInterest(communityInterest: $communityInterest) {
                         id
                         additionalInformation
                     }
                 }
                 GRAPHQL, [
-                'id' => $communityInterestId,
                 'communityInterest' => [
+                    'id' => $communityInterestId,
                     'additionalInformation' => 'new info',
                 ],
             ])

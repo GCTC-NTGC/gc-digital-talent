@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property ?array $career_planning_exec_coaching_status
  * @property ?array $career_planning_exec_coaching_interest
  * @property string $career_planning_about_you
- * @property string $career_planning_career_goals
  * @property string $career_planning_learning_goals
  * @property string $career_planning_work_style
  * @property string $dream_role_title
