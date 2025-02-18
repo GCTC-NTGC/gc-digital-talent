@@ -12,6 +12,7 @@ import {
   qualifiedRecruitmentStatus,
 } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import { ApplicationDate } from "./MetadataDate";
 import ReviewApplicationDialog from "./ReviewApplicationDialog";
@@ -124,7 +125,10 @@ const ReviewApplicationPreviewList = ({
                   key: "classification",
                   type: "text",
                   children: pool?.classification
-                    ? getClassificationName(pool?.classification, intl)
+                    ? wrapAbbr(
+                        getClassificationName(pool?.classification, intl),
+                        intl,
+                      )
                     : intl.formatMessage(commonMessages.notFound),
                 },
                 {
