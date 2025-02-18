@@ -1811,10 +1811,6 @@
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidates et candidats. Les compétences sélectionnées ici sont nécessaires pour qu'une personne candidate soit prise en considération pour le poste. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
     "description": "Describes selecting essentials skills for a process."
   },
-  "7hUWc+": {
-    "defaultMessage": "Créer un profil",
-    "description": "Link text for users to create a profile"
-  },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
