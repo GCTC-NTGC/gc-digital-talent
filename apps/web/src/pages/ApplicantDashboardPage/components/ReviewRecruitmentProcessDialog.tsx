@@ -157,23 +157,29 @@ const ReviewRecruitmentProcessDialog = ({
           setIsOpen(false);
           if (res.data.changeApplicationSuspendedAt?.suspendedAt) {
             toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "You have been removed from the search results.",
-                id: "PoFTwr",
-                description:
-                  "Alert displayed to the user when application card dialog submits successfully.",
-              }),
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You have been removed from the search results for {poolName}.",
+                  id: "Wyi02N",
+                  description:
+                    "Alert displayed to the user when application card dialog submits successfully.",
+                },
+                { poolName: pool.name?.localized },
+              ),
             );
           } else {
             toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "You have been added back into the search results.",
-                id: "lB/SWR",
-                description:
-                  "Alert displayed to the user when they updated something to appear in search results again.",
-              }),
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You have been added back into the search results for {poolName}.",
+                  id: "ghTJqE",
+                  description:
+                    "Alert displayed to the user when they updated something to appear in search results again.",
+                },
+                { poolName: pool.name?.localized },
+              ),
             );
           }
         } else {
