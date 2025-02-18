@@ -90,25 +90,26 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Who is this for?",
-                  id: "XTuDAg",
-                  description: "aaa",
+                  id: "45ber4",
+                  description: "Section heading, explain audience",
                 })}
               </Heading>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This page is intended for specific current employees of the Government of Canada:",
-                  id: "ZfHgDa",
-                  description: "aaa",
+                    "This page is intended for specific current employees of the Government of Canada",
+                  id: "ZBFT4z",
+                  description: "About to list employee types",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </p>
               <ul data-h2-margin="base(x.5 0)">
                 <li>
                   <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage: "Current financial management executives",
-                      id: "5P+vh6",
-                      description: "aaa",
+                      id: "EBFgMS",
+                      description: "Employee group list item label",
                     })}
                   </span>
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -116,8 +117,8 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Participation in the talent management process is <strong>mandatory</strong> for all financial management executives and all Chief Financial Officers and Deputy Chief Financial Officers who occupy a position at a group and level other than EX",
-                      id: "/YC068",
-                      description: "aaa",
+                      id: "14ZYuD",
+                      description: "Employee group list item description",
                     })}
                   </span>
                 </li>
@@ -126,8 +127,8 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Aspiring financial management executives",
-                      id: "EtyA2M",
-                      description: "aaa",
+                      id: "WrTLaB",
+                      description: "Employee group list item label",
                     })}
                   </span>
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -135,8 +136,8 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "CT-FIN-04 classified employees who have been nominated for talent management must create a profile",
-                      id: "g3yvxV",
-                      description: "aaa",
+                      id: "WVf1Wr",
+                      description: "Employee group list item descriptions",
                     })}
                   </span>
                 </li>
@@ -144,8 +145,8 @@ export const Component = () => {
                   <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
                       defaultMessage: "Current executives in other fields",
-                      id: "V3qet1",
-                      description: "aaa",
+                      id: "vSr72F",
+                      description: "Employee group list item label",
                     })}
                   </span>
                   {intl.formatMessage(commonMessages.dividingColon)}
@@ -153,8 +154,8 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Government of Canada executives in comptrollership or other fields interested in a career in financial management are invited to create a profile",
-                      id: "vsulHD",
-                      description: "aaa",
+                      id: "PWqSgG",
+                      description: "Employee group list item description",
                     })}
                   </span>
                 </li>
@@ -163,8 +164,8 @@ export const Component = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Additional employee groups working in comptrollership, such as executives currently working in internal audit, procurement, material management, real property, and project management, may be added to the scope of this exercise in the future.",
-                  id: "hmT7c5",
-                  description: "aaa",
+                  id: "mL1sax",
+                  description: "Closing remark about future relevant employees",
                 })}
               </p>
             </div>
@@ -179,16 +180,16 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Manage your career",
-                  id: "SKbz3/",
-                  description: "aaa",
+                  id: "yFOAEj",
+                  description: "Section heading, explain profile's purpose",
                 })}
               </Heading>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "Your profile is at the heart of the platform. Tell us your story by highlighting your career growth and showcasing your skills. Your profile will inform talent management decisions and strategic planning related to recruitment, succession planning, and the development of our financial management executives.",
-                  id: "ecpE4Q",
-                  description: "aaa",
+                  id: "T4LCrR",
+                  description: "Explanation about profile",
                 })}
               </p>
               <div
@@ -220,8 +221,9 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Shape the future of financial management",
-                  id: "aIjdkN",
-                  description: "aaa",
+                  id: "7II3VK",
+                  description:
+                    "Section heading, things you can do now or later",
                 })}
               </Heading>
               <div
@@ -234,16 +236,16 @@ export const Component = () => {
                     color="quaternary"
                     title={intl.formatMessage({
                       defaultMessage: "Executive talent management process",
-                      id: "WqcLP6",
-                      description: "aaa",
+                      id: "fJmRpp",
+                      description: "Card label, process",
                     })}
                   >
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
                           "Through this annual process, departments and agencies share information about the career aspirations and potential of their financial leaders. This ensures that we have the right talent ready to step into executive roles as they become available.",
-                        id: "j0ZEiZ",
-                        description: "aaa",
+                        id: "L9Tc5u",
+                        description: "Card description, for process",
                       })}
                     </p>
                   </CardFlat>
@@ -253,16 +255,16 @@ export const Component = () => {
                     color="quinary"
                     title={intl.formatMessage({
                       defaultMessage: "Talent mobility",
-                      id: "fP3JIB",
-                      description: "aaa",
+                      id: "6xQf6q",
+                      description: "Card label, for nomination feature",
                     })}
                   >
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
                           "Are you a Chief Financial Officer who knows a high-potential leader with the ability to enhance public service to Canadians? Help them progress in their career by nominating them for advancement, lateral movement, or development opportunities.",
-                        id: "aMLQVX",
-                        description: "aaa",
+                        id: "RDC7fi",
+                        description: "card description, for nomination feature",
                       })}
                     </p>
                     <p
@@ -271,8 +273,8 @@ export const Component = () => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Available in April",
-                        id: "0Dh9XU",
-                        description: "aaa",
+                        id: "Wg+Buu",
+                        description: "Availability blurb",
                       })}
                     </p>
                   </CardFlat>
@@ -293,8 +295,8 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "The Financial Management Community",
-                  id: "r6ezLq",
-                  description: "aaa",
+                  id: "y5xvLj",
+                  description: "Section heading, expand on community aspects",
                 })}
               </Heading>
               <div
@@ -320,8 +322,8 @@ export const Component = () => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "The team",
-                        id: "djS9iE",
-                        description: "aaa",
+                        id: "tc3sSC",
+                        description: "Card title, team",
                       })}
                     </Heading>
                   </div>
@@ -343,8 +345,8 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "The Financial Management Community Development (FMCD) team within the Office of the Comptroller General at Treasury Board of Canada Secretariat helps federal financial management professionals enhance their skills and grow in their careers through recruitment, development, and networking.",
-                          id: "D1fBLr",
-                          description: "aaa",
+                          id: "2vdIG6",
+                          description: "Card description, team",
                         })}
                       </p>
                     </div>
@@ -360,8 +362,8 @@ export const Component = () => {
                       >
                         {intl.formatMessage({
                           defaultMessage: "Learn more",
-                          id: "D5QiHW",
-                          description: "aaa",
+                          id: "hlp7KX",
+                          description: "External link button, learn more",
                         })}
                       </Link>
                     </div>
@@ -385,8 +387,8 @@ export const Component = () => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Newsletter",
-                        id: "I6szBu",
-                        description: "aaa",
+                        id: "6B6xPa",
+                        description: "Card title, newsletter",
                       })}
                     </Heading>
                   </div>
@@ -412,8 +414,8 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "Get the latest Financial Management Community updates, resources, and events from the Office of the Comptroller General's Community Development Office, delivered straight to your inbox.",
-                          id: "BuQ8Xr",
-                          description: "aaa",
+                          id: "xvPb8Z",
+                          description: "Card description, newsletter",
                         })}
                       </p>
                     </div>
@@ -429,8 +431,9 @@ export const Component = () => {
                       >
                         {intl.formatMessage({
                           defaultMessage: "Subscribe",
-                          id: "jwCHWA",
-                          description: "aaa",
+                          id: "vXsC7+",
+                          description:
+                            "External button link to subscribe to a newsletter",
                         })}
                       </Link>
                     </div>
@@ -454,8 +457,8 @@ export const Component = () => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Connect with your peers",
-                        id: "VLjFbE",
-                        description: "aaa",
+                        id: "Ari7FD",
+                        description: "Card title, connect with peers",
                       })}
                     </Heading>
                   </div>
@@ -481,8 +484,9 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "Stay up to date on our external announcements and other exciting news by following our Financial Management Community's LinkedIn page.",
-                          id: "OhFedA",
-                          description: "aaa",
+                          id: "YBrlqU",
+                          description:
+                            "Card description, to connect with peers",
                         })}
                       </p>
                     </div>
@@ -498,8 +502,8 @@ export const Component = () => {
                       >
                         {intl.formatMessage({
                           defaultMessage: "Join us on LinkedIn",
-                          id: "+Htwt0",
-                          description: "aaa",
+                          id: "EyhaxU",
+                          description: "External button link to LinkedIn",
                         })}
                       </Link>
                     </div>
