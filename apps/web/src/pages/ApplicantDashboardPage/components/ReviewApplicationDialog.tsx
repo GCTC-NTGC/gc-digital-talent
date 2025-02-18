@@ -263,8 +263,7 @@ const ReviewApplicationDialog = ({
             >
               {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
-            {status.value === applicationStatus.DRAFT ||
-            status.value === applicationStatus.EXPIRED ? (
+            {status.value === applicationStatus.EXPIRED ? (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.deadlineToApply)}
                 data-h2-grid-column="p-tablet(span 2)"
@@ -406,17 +405,11 @@ const ReviewApplicationDialog = ({
               mode="solid"
               color="secondary"
             >
-              {status.value === applicationStatus.DRAFT
-                ? intl.formatMessage({
-                    defaultMessage: "Continue application",
-                    id: "1sppLE",
-                    description: "Label for continue application link",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "View application",
-                    id: "xg/wvH",
-                    description: "Label for view application link",
-                  })}
+              {intl.formatMessage({
+                defaultMessage: "View application",
+                id: "xg/wvH",
+                description: "Label for view application link",
+              })}
             </Link>
             <Link href={paths.pool(pool.id)} mode="inline" color="secondary">
               {intl.formatMessage({
