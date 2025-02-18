@@ -27,6 +27,7 @@ import { getClassificationName } from "~/utils/poolUtils";
 import { getQualifiedRecruitmentStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import StatusSummary from "./StatusSummary";
 
@@ -255,7 +256,10 @@ const ReviewRecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? getClassificationName(pool?.classification, intl)
+                ? wrapAbbr(
+                    getClassificationName(pool?.classification, intl),
+                    intl,
+                  )
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay
