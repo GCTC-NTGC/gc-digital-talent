@@ -4851,10 +4851,6 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
-  "NjHXGh": {
-    "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
-    "description": "Link text for the Office of the Chief Information Officer"
-  },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
@@ -8510,10 +8506,6 @@
     "defaultMessage": "Profil complet",
     "description": "Label for the profile complete field"
   },
-  "h7URQB": {
-    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
-    "description": "Description of the Office of the Chief Information Officer"
-  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
@@ -8733,10 +8725,6 @@
   "i9ND/M": {
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
-  },
-  "i9cA5V": {
-    "defaultMessage": "Bureau du dirigeant principal de l'information",
-    "description": "Title for the Office of the Chief Information Officer"
   },
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
