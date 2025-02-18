@@ -55,8 +55,10 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import pageTitles from "~/messages/pageTitles";
 
 import ExperienceSkills from "./components/ExperienceSkills";
+import ExperienceWorkStreams from "./components/ExperienceWorkStreams";
 
 const editPageTitle = defineMessage({
   defaultMessage: "Edit a career timeline experience",
@@ -86,6 +88,21 @@ type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
   experienceType?: ExperienceType;
   action: FormAction;
 };
+
+export const ExperienceFormCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceFormCommunity on Community {
+    id
+    name {
+      localized
+    }
+    workStreams {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
@@ -290,6 +307,7 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      ...ExperienceFormWorkStream
     }
   }
 `);
@@ -300,6 +318,7 @@ interface ExperienceFormProps {
   experienceId?: string;
   experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
+  communitiesQuery: FragmentType<typeof ExperienceFormCommunity_Fragment>[];
   userId: string;
   organizationSuggestions: string[];
 }
@@ -310,6 +329,7 @@ export const ExperienceForm = ({
   experienceId,
   experienceType,
   skillsQuery,
+  communitiesQuery,
   userId,
   organizationSuggestions,
 }: ExperienceFormProps) => {
@@ -322,6 +342,10 @@ export const ExperienceForm = ({
     experienceQuery,
   );
   const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
+  const communities = getFragment(
+    ExperienceFormCommunity_Fragment,
+    communitiesQuery,
+  );
 
   const defaultValues =
     experienceId && experience && experienceType
@@ -531,6 +555,13 @@ export const ExperienceForm = ({
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
+              {experienceType === "work" && (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id="work-streams">
+                    {intl.formatMessage(pageTitles.workStreams)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id="skills">
                   {intl.formatMessage({
@@ -565,6 +596,15 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="additional-details">
                   <AdditionalDetails experienceType={experienceType} />
                 </TableOfContents.Section>
+
+                {experienceType === "work" && (
+                  <TableOfContents.Section id="work-streams">
+                    <ExperienceWorkStreams
+                      experienceWorkStreamsQuery={experience}
+                      communities={communities}
+                    />
+                  </TableOfContents.Section>
+                )}
 
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
@@ -722,6 +762,9 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
         ...ExperienceFormExperience
       }
     }
+    communities {
+      ...ExperienceFormCommunity
+    }
   }
 `);
 
@@ -753,6 +796,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const skills = unpackMaybes(data?.skills);
   const experience =
     data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
+  const communities = unpackMaybes(data?.communities);
 
   const myExperiences = unpackMaybes(data?.me?.experiences);
   const organizationsForAutocomplete =
@@ -773,6 +817,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
           organizationSuggestions={organizationsForAutocomplete}
+          communitiesQuery={communities}
         />
       ) : (
         <ThrowNotFound
