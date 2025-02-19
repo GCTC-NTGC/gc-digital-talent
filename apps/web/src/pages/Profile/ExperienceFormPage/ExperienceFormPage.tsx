@@ -474,10 +474,9 @@ export const ExperienceForm = ({
               description: "Title for edit experience page",
             })
           : intl.formatMessage({
-              defaultMessage: "Add Experience",
-              id: "mJ1HE4",
-              description:
-                "Display text for add experience form in breadcrumbs",
+              defaultMessage: "Add experience",
+              id: "g1WB3B",
+              description: "Title for add experience page",
             }),
         url: experience ? paths.editExperience(experience.id) : "#",
       },
