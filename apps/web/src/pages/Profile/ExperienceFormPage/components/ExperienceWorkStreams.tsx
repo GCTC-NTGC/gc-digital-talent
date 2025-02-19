@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { AlertDialog, Button, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Heading, Well } from "@gc-digital-talent/ui";
 import { groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Community,
@@ -14,9 +15,11 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import pageTitles from "~/messages/pageTitles";
 
 import ExperienceWorkStreamsDialog from "./ExperienceWorkStreamsDialog";
+import ExperienceWorkStreamsRemoveDialog from "./ExperienceWorkStreamsRemoveDialog";
 
 export const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormWorkStream on WorkExperience {
+    id
     workStreams {
       id
       key
@@ -106,79 +109,28 @@ const ExperienceWorkStreams = ({
             <Heading level="h4" size="h4">
               {group.community?.name?.localized}
             </Heading>
+            <ExperienceWorkStreamsDialog
+              experienceId={experience.id}
+              communities={communities}
+              communityGroup={group}
+              experienceWorkStreams={experienceWorkStreams}
+              trigger={
+                <Button type="button" icon={PencilSquareIcon} mode="icon_only">
+                  <span data-h2-visually-hidden="base(invisible)">
+                    {intl.formatMessage(commonMessages.edit)}
+                  </span>
+                </Button>
+              }
+            />
+            <ExperienceWorkStreamsRemoveDialog
+              experienceId={experience.id}
+              experienceWorkStreams={experienceWorkStreams}
+              communityGroup={group}
+            />
             <div data-h2-margin-bottom="base(x1)">
               {group.workStreams.map((workStream) => (
                 <div key={`${group?.community?.id}-${workStream.id}`}>
                   <span>{workStream?.name?.localized}</span>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(row)"
-                    data-h2-justify-content="base(flex-start)"
-                    data-h2-gap="base(x1 0)"
-                  >
-                    <ExperienceWorkStreamsDialog
-                      communities={communities}
-                      trigger={
-                        <Button mode="inline" type="button">
-                          {intl.formatMessage(commonMessages.edit)}
-                        </Button>
-                      }
-                    />
-                    <AlertDialog.Root>
-                      <AlertDialog.Trigger>
-                        <Button mode="inline" type="button">
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "Remove<hidden> {communityName}</hidden>",
-                              id: "+ygHm1",
-                              description:
-                                "Title for alert dialog to remove community from experience",
-                            },
-                            {
-                              communityName: group.community?.name?.localized,
-                            },
-                          )}
-                        </Button>
-                      </AlertDialog.Trigger>
-                      <AlertDialog.Content>
-                        <AlertDialog.Title>
-                          {intl.formatMessage(
-                            {
-                              defaultMessage: "Remove {communityName}",
-                              id: "B9dPx2",
-                              description:
-                                "Title for alert dialog to remove community from experience",
-                            },
-                            {
-                              communityName: group.community?.name?.localized,
-                            },
-                          )}
-                        </AlertDialog.Title>
-                        <AlertDialog.Description>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "Are you sure you'd like to remove this functional community and its related work streams from this experience? You can always add them back at a later time.",
-                            id: "R+Lghw",
-                            description:
-                              "Message displayed when user attempts to remove community from experience",
-                          })}
-                        </AlertDialog.Description>
-                        <AlertDialog.Footer>
-                          <AlertDialog.Cancel>
-                            <Button color="primary" type="button">
-                              {intl.formatMessage(commonMessages.cancel)}
-                            </Button>
-                          </AlertDialog.Cancel>
-                          <AlertDialog.Action>
-                            <Button mode="solid" color="error" type="button">
-                              {intl.formatMessage(commonMessages.remove)}
-                            </Button>
-                          </AlertDialog.Action>
-                        </AlertDialog.Footer>
-                      </AlertDialog.Content>
-                    </AlertDialog.Root>
-                  </div>
                 </div>
               ))}
             </div>
@@ -207,7 +159,9 @@ const ExperienceWorkStreams = ({
         </Well>
       )}
       <ExperienceWorkStreamsDialog
+        experienceId={experience?.id}
         communities={communities}
+        experienceWorkStreams={experienceWorkStreams}
         trigger={
           <Button
             icon={PlusCircleIcon}
