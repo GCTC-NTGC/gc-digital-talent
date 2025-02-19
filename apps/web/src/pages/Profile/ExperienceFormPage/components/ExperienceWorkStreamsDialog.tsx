@@ -1,23 +1,18 @@
 import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import {
   Community,
   graphql,
-  WorkExperience,
   WorkExperienceInput,
-  WorkStream
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
-import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import { uniqueItems } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import pageTitles from "~/messages/pageTitles";
@@ -36,16 +31,18 @@ const UpdateExperienceWorkStreams_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  workStreams: WorkExperience["workStreams"];
+  community: string;
+  workStreams: string[];
 }
 interface ExperienceWorkStreamsDialogProps {
   experienceId: string;
   communities: Community[];
   communityGroup?: {
-    community: Community;
+    community?: Community | null;
     workStreams: WorkStream[];
   };
-  experienceWorkStreams: WorkStream[];
+  experienceWorkStreams?: Omit<WorkStream, "key">[] | null;
+  selectedCommunities?: string[];
   trigger: ReactNode;
   defaultOpen?: boolean;
 }
@@ -55,19 +52,26 @@ const ExperienceWorkStreamsDialog = ({
   communities,
   communityGroup,
   experienceWorkStreams,
+  selectedCommunities,
   trigger,
   defaultOpen = false,
 }: ExperienceWorkStreamsDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setOpen] = useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
-  const methods = useForm<FormValues>();
-  const { handleSubmit, watch } = methods;
-  const communityValue = communityGroup ? communityGroup.community.id : watch("community");
+  const experienceWorkStreamIds: string[] = experienceWorkStreams?.map(
+    (workStream) => workStream.id,
+  );
 
-  const experienceWorkStreamIds: string[] = experienceWorkStreams?.map((workStream) => workStream.id);
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      workStreams: communityGroup ? experienceWorkStreamIds : [],
+    },
+  });
+  const { handleSubmit, reset, watch } = methods;
 
-  // TODO: figure out how to set prop of checked (other than value: true) to CheckboxOption for existing values.
+  const communityValue = communityGroup?.community?.id ?? watch("community");
+
   const workStreamItemsOfCommunity = communities
     ?.find((item) => communityValue === item.id)
     ?.workStreams?.map<CheckboxOption>(({ id, name }) => ({
@@ -87,12 +91,27 @@ const ExperienceWorkStreamsDialog = ({
     return Promise.reject(new Error(result.error?.toString()));
   };
 
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      reset();
+    }
+    setIsOpen(newOpen);
+  };
+
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    existingExperienceWorkStreamIds = experienceWorkStreamIds && [];
     await requestMutation(experienceId, {
-      workStreamIds: uniqueItems(experienceWorkStreamIds.concat(formValues.workStreams ?? []))
+      workStreamIds: uniqueItems(
+        experienceWorkStreamIds
+          .filter(
+            (item) =>
+              !workStreamItemsOfCommunity?.some(
+                (stream) => stream.value === item,
+              ),
+          )
+          .concat(formValues.workStreams ?? []),
+      ),
     })
       .then(() => {
         toast.success(
@@ -102,7 +121,8 @@ const ExperienceWorkStreamsDialog = ({
             description: "Toast for successful experience work streams save",
           }),
         );
-        setOpen(false);
+        reset(formValues);
+        setIsOpen(false);
       })
       .catch(() => {
         toast.error(
@@ -116,7 +136,7 @@ const ExperienceWorkStreamsDialog = ({
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
@@ -143,12 +163,21 @@ const ExperienceWorkStreamsDialog = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                {communityGroup?.community && (<><span data-h2-display="base(block)" data-h2-font-weight="base(700)">{intl.formatMessage({
-                    defaultMessage:
-                      "Functional community",
-                    id: "yKpbHC",
-                    description: "Label for Functional community value",
-                  })}</span><span>{communityGroup?.community?.name?.localized}</span></>)}
+                {communityGroup?.community && (
+                  <>
+                    <span
+                      data-h2-display="base(block)"
+                      data-h2-font-weight="base(700)"
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Functional community",
+                        id: "gV0mRk",
+                        description: "Label for Functional community value",
+                      })}
+                    </span>
+                    <span>{communityGroup?.community?.name?.localized}</span>
+                  </>
+                )}
                 {communities && !communityGroup && (
                   <Select
                     id="community"
@@ -162,10 +191,11 @@ const ExperienceWorkStreamsDialog = ({
                     nullSelection={intl.formatMessage(
                       commonMessages.selectACommunity,
                     )}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
                     options={communities
-                      ?.filter(
-                        (item) => unpackMaybes(item?.workStreams).length > 0,
-                      )
+                      .filter((item) => !selectedCommunities?.includes(item.id))
                       .map(({ id, name }) => ({
                         value: id,
                         label: name?.localized,

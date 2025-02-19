@@ -3,7 +3,12 @@ import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  groupBy,
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   Community,
   FragmentType,
@@ -53,11 +58,13 @@ const ExperienceWorkStreams = ({
     experienceWorkStreamsQuery,
   );
 
-  const experienceWorkStreams = unpackMaybes(experience?.workStreams);
+  const experienceWorkStreams = unpackMaybes(experience?.workStreams).filter(
+    (item) => notEmpty(item.community),
+  );
 
   const groupsExperience = Object.values(
-    groupBy(experienceWorkStreams, (workStream) => {
-      return workStream?.community?.id;
+    groupBy(experienceWorkStreams, (item) => {
+      return item?.community?.id ?? "";
     }),
   ).map((communityGroupOfWorkStreams) => {
     return {
@@ -65,6 +72,14 @@ const ExperienceWorkStreams = ({
       workStreams: communityGroupOfWorkStreams.map((stream) => stream),
     };
   });
+
+  const selectedCommunities = uniqueItems(
+    experienceWorkStreams.flatMap((workStream) => workStream.community?.id),
+  );
+
+  const communitiesWithWorkStreams = communities?.filter(
+    (item) => unpackMaybes(item?.workStreams).length > 0,
+  );
 
   return (
     <section>
@@ -103,7 +118,7 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 3 on Experience form",
         })}
       </p>
-      {groupsExperience ? (
+      {groupsExperience.length > 0 ? (
         groupsExperience.map((group) => (
           <div key={group?.community?.id} data-h2-margin-bottom="base(1px)">
             <Heading level="h4" size="h4">
@@ -111,7 +126,7 @@ const ExperienceWorkStreams = ({
             </Heading>
             <ExperienceWorkStreamsDialog
               experienceId={experience.id}
-              communities={communities}
+              communities={communitiesWithWorkStreams}
               communityGroup={group}
               experienceWorkStreams={experienceWorkStreams}
               trigger={
@@ -137,7 +152,10 @@ const ExperienceWorkStreams = ({
           </div>
         ))
       ) : (
-        <Well data-h2-text-align="base(center)">
+        <Well
+          data-h2-text-align="base(center)"
+          data-h2-margin-bottom="base(x.5)"
+        >
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -158,26 +176,29 @@ const ExperienceWorkStreams = ({
           </p>
         </Well>
       )}
-      <ExperienceWorkStreamsDialog
-        experienceId={experience?.id}
-        communities={communities}
-        experienceWorkStreams={experienceWorkStreams}
-        trigger={
-          <Button
-            icon={PlusCircleIcon}
-            mode="placeholder"
-            color="secondary"
-            data-h2-display="base(block)"
-            data-h2-width="base(100%)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Add work streams",
-              id: "dXRajZ",
-              description: "Button label for Add work streams",
-            })}
-          </Button>
-        }
-      />
+      {selectedCommunities.length < communitiesWithWorkStreams.length && (
+        <ExperienceWorkStreamsDialog
+          experienceId={experience?.id}
+          communities={communitiesWithWorkStreams}
+          experienceWorkStreams={experienceWorkStreams}
+          selectedCommunities={selectedCommunities}
+          trigger={
+            <Button
+              icon={PlusCircleIcon}
+              mode="placeholder"
+              color="secondary"
+              data-h2-display="base(block)"
+              data-h2-width="base(100%)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Add work streams",
+                id: "dXRajZ",
+                description: "Button label for Add work streams",
+              })}
+            </Button>
+          }
+        />
+      )}
     </section>
   );
 };
