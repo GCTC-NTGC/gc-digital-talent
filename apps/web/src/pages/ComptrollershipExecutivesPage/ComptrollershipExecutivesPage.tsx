@@ -34,22 +34,22 @@ const pageSubtitle = defineMessage({
     "Page subtitle for the comptrollership executives talent management page",
 });
 
+const theTeamUrl = {
+  en: "https://www.canada.ca/en/treasury-board-secretariat/corporate/organization/financial-management-community-development.html",
+  fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/organisation/developpement-collectivite-gestion-financiere.html",
+} as const;
+
+const newsletterUrl = {
+  en: "https://forms-formulaires.alpha.canada.ca/en/id/cm6k7jkk9006px5694mnkatr4",
+  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm6k7jkk9006px5694mnkatr4",
+} as const;
+
+const linkedInUrl = "https://www.linkedin.com/company/fmcd-dcgf/";
+
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-
-  const theTeamUrl = {
-    en: "https://www.canada.ca/en/treasury-board-secretariat/corporate/organization/financial-management-community-development.html",
-    fr: "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/organisation/developpement-collectivite-gestion-financiere.html",
-  } as const;
-
-  const newsletterUrl = {
-    en: "https://forms-formulaires.alpha.canada.ca/en/id/cm6k7jkk9006px5694mnkatr4",
-    fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm6k7jkk9006px5694mnkatr4",
-  } as const;
-
-  const linkedInUrl = "https://www.linkedin.com/company/fmcd-dcgf/";
 
   const crumbs = useBreadcrumbs({
     crumbs: [
