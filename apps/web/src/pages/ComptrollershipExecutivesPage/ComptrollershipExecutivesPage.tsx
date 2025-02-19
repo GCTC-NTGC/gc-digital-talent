@@ -428,8 +428,9 @@ export const Component = () => {
                         data-h2-display="base(flex) p-tablet(inline-block)"
                       >
                         {intl.formatMessage({
-                          defaultMessage: "Subscribe",
-                          id: "vXsC7+",
+                          defaultMessage:
+                            "Subscribe<hidden> to the Financial Management Community newsletter</hidden>",
+                          id: "cAowoI",
                           description:
                             "External button link to subscribe to a newsletter",
                         })}
