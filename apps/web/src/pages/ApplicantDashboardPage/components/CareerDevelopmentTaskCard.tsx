@@ -96,13 +96,6 @@ const CareerDevelopmentTaskCard = ({
         </>
       ),
     },
-    {
-      key: "career-planning-key",
-      type: "link",
-      href: paths.employeeProfile(),
-      color: "secondary",
-      children: <>{intl.formatMessage(commonMessages.careerPlanning)}</>,
-    },
   ];
 
   return (
