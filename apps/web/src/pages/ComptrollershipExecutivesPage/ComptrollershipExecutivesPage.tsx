@@ -72,7 +72,7 @@ export const Component = () => {
         crumbs={crumbs}
         centered
       />
-      <div data-h2-padding="base(x3, 0)">
+      <div data-h2-margin="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div
             data-h2-display="base(flex)"
@@ -231,54 +231,50 @@ export const Component = () => {
                 data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
                 data-h2-gap="base(x2) p-tablet(x3)"
               >
-                <div>
-                  <CardFlat
-                    color="quaternary"
-                    title={intl.formatMessage({
-                      defaultMessage: "Executive talent management process",
-                      id: "fJmRpp",
-                      description: "Card label, process",
+                <CardFlat
+                  color="quaternary"
+                  title={intl.formatMessage({
+                    defaultMessage: "Executive talent management process",
+                    id: "fJmRpp",
+                    description: "Card label, process",
+                  })}
+                >
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Through this annual process, departments and agencies share information about the career aspirations and potential of their financial leaders. This ensures that we have the right talent ready to step into executive roles as they become available.",
+                      id: "L9Tc5u",
+                      description: "Card description, for process",
                     })}
-                  >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Through this annual process, departments and agencies share information about the career aspirations and potential of their financial leaders. This ensures that we have the right talent ready to step into executive roles as they become available.",
-                        id: "L9Tc5u",
-                        description: "Card description, for process",
-                      })}
-                    </p>
-                  </CardFlat>
-                </div>
-                <div>
-                  <CardFlat
-                    color="quinary"
-                    title={intl.formatMessage({
-                      defaultMessage: "Talent mobility",
-                      id: "6xQf6q",
-                      description: "Card label, for nomination feature",
+                  </p>
+                </CardFlat>
+                <CardFlat
+                  color="quinary"
+                  title={intl.formatMessage({
+                    defaultMessage: "Talent mobility",
+                    id: "6xQf6q",
+                    description: "Card label, for nomination feature",
+                  })}
+                >
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Are you a Chief Financial Officer who knows a high-potential leader with the ability to enhance public service to Canadians? Help them progress in their career by nominating them for advancement, lateral movement, or development opportunities.",
+                      id: "RDC7fi",
+                      description: "card description, for nomination feature",
                     })}
+                  </p>
+                  <p
+                    data-h2-margin-top="base(x.5)"
+                    data-h2-font-weight="base(bold)"
                   >
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Are you a Chief Financial Officer who knows a high-potential leader with the ability to enhance public service to Canadians? Help them progress in their career by nominating them for advancement, lateral movement, or development opportunities.",
-                        id: "RDC7fi",
-                        description: "card description, for nomination feature",
-                      })}
-                    </p>
-                    <p
-                      data-h2-margin-top="base(x.5)"
-                      data-h2-font-weight="base(bold)"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Available in April",
-                        id: "Wg+Buu",
-                        description: "Availability blurb",
-                      })}
-                    </p>
-                  </CardFlat>
-                </div>
+                    {intl.formatMessage({
+                      defaultMessage: "Available in April",
+                      id: "Wg+Buu",
+                      description: "Availability blurb",
+                    })}
+                  </p>
+                </CardFlat>
               </div>
             </div>
             <div
