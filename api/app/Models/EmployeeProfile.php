@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\TargetRole;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,8 +46,6 @@ class EmployeeProfile extends Model
         'career_planning_exec_interest' => 'boolean',
         'career_planning_exec_coaching_status' => 'array',
         'career_planning_exec_coaching_interest' => 'array',
-        'next_role_target_role' => TargetRole::class,
-        'career_objective_target_role' => TargetRole::class,
     ];
 
     /** @return BelongsTo<Community, $this> */
