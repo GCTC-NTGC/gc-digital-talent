@@ -65,7 +65,7 @@ const CareerDevelopmentTaskCard = ({
     {
       key: "edit-career-planning-key",
       type: "link",
-      href: paths.employeeProfile(),
+      href: `${paths.employeeProfile()}#career-planning-section`,
       color: "secondary",
       children: (
         <>
