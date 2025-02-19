@@ -84,7 +84,7 @@ const CareerDevelopmentTaskCard = ({
     {
       key: "add-community-key",
       type: "link",
-      href: "#",
+      href: paths.createCommunityInterest(),
       color: "secondary",
       children: (
         <>
