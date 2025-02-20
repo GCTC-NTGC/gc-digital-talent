@@ -12,7 +12,6 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import teamImage from "~/assets/img/comptrollership-the-team.webp";
 import newsletterImage from "~/assets/img/comptrollership-newsletter.webp";
@@ -51,15 +50,6 @@ export const Component = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitle),
-        url: paths.comptrollershipExecutivesPage(),
-      },
-    ],
-  });
-
   return (
     <>
       <SEO
@@ -69,7 +59,6 @@ export const Component = () => {
       <Hero
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(pageSubtitle)}
-        crumbs={crumbs}
         centered
       />
       <div data-h2-margin="base(x3, 0)">
