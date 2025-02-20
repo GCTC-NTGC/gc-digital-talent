@@ -148,8 +148,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(react@18.3.1)(typescript@5.7.2)
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-to-print:
         specifier: ^3.0.5
         version: 3.0.5(react@18.3.1)
@@ -315,8 +315,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
@@ -808,8 +808,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(react@18.3.1)(typescript@5.7.2)
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -838,8 +838,8 @@ importers:
         specifier: ^7.1.6
         version: 7.1.6(react@18.3.1)(typescript@5.7.2)
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -961,8 +961,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
@@ -1170,8 +1170,8 @@ importers:
         specifier: ^2.6.3
         version: 2.6.3(@types/react@18.3.13)(react@18.3.1)
       react-router:
-        specifier: ^7.1.5
-        version: 7.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
@@ -6893,8 +6893,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-router@7.1.5:
-    resolution: {integrity: sha512-8BUF+hZEU4/z/JD201yK6S+UYhsf58bzYIDq2NS1iGpwxSXDu7F+DeGSkIXMFBuHZB21FSiCzEcUb18cQNdRkA==}
+  react-router@7.2.0:
+    resolution: {integrity: sha512-fXyqzPgCPZbqhrk7k3hPcCpYIlQ2ugIXDboHUzhJISFVy2DEPsmHgN588MyGmkIOv3jDgNfUE3kJi83L28s/LQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -14879,7 +14879,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.13
 
-  react-router@7.1.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-router@7.2.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@types/cookie': 0.6.0
       cookie: 1.0.2
@@ -14889,7 +14889,7 @@ snapshots:
     optionalDependencies:
       react-dom: 18.3.1(react@18.3.1)
 
-  react-router@7.1.5(react-dom@19.0.0(react@18.3.1))(react@18.3.1):
+  react-router@7.2.0(react-dom@19.0.0(react@18.3.1))(react@18.3.1):
     dependencies:
       '@types/cookie': 0.6.0
       cookie: 1.0.2
