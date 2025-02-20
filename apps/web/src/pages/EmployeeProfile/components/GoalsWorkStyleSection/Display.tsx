@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -52,6 +52,7 @@ const Display = ({
           nullField
         )}
       </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
@@ -61,6 +62,7 @@ const Display = ({
           nullField
         )}
       </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
