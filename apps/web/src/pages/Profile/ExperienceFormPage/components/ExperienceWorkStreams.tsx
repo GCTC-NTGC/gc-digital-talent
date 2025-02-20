@@ -136,11 +136,23 @@ const ExperienceWorkStreams = ({
         })}
       </p>
       {/*
-      TODO: add copy string for "5 linked work streams" (consider plural)
       TODO: style group cards
-      TODO: fix lint errors
       TODO: send strings for translation
       */}
+
+      {intl.formatMessage(
+        {
+          defaultMessage:
+            "{workStreamCount, plural, =0 {0 linked work streams} =1 {1 linked work stream} other {# linked work streams}}",
+          id: "HWjcqg",
+          description: "Count of work streams for work experience",
+        },
+        {
+          workStreamCount: experienceWorkStreams
+            ? experienceWorkStreams.length
+            : 0,
+        },
+      )}
       {groupsExperience.length > 0 ? (
         groupsExperience.map((group) => (
           <div key={group?.community?.id} data-h2-margin-bottom="base(1px)">
