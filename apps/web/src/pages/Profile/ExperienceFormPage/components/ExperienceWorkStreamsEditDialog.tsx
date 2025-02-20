@@ -31,7 +31,7 @@ interface FormValues {
   community: string;
   workStreams: string[];
 }
-interface ExperienceWorkStreamsDialogProps {
+interface ExperienceWorkStreamsEditDialogProps {
   experienceId: string;
   communities: CommunityWithoutKey[];
   communityGroup?: {
@@ -44,7 +44,7 @@ interface ExperienceWorkStreamsDialogProps {
   defaultOpen?: boolean;
 }
 
-const ExperienceWorkStreamsDialog = ({
+const ExperienceWorkStreamsEditDialog = ({
   experienceId,
   communities,
   communityGroup,
@@ -52,7 +52,7 @@ const ExperienceWorkStreamsDialog = ({
   selectedCommunities,
   trigger,
   defaultOpen = false,
-}: ExperienceWorkStreamsDialogProps) => {
+}: ExperienceWorkStreamsEditDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
@@ -258,4 +258,4 @@ const ExperienceWorkStreamsDialog = ({
   );
 };
 
-export default ExperienceWorkStreamsDialog;
+export default ExperienceWorkStreamsEditDialog;

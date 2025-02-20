@@ -14,7 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import pageTitles from "~/messages/pageTitles";
 
-import ExperienceWorkStreamsDialog from "./ExperienceWorkStreamsDialog";
+import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 import ExperienceWorkStreamsRemoveDialog from "./ExperienceWorkStreamsRemoveDialog";
 
 export const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
@@ -147,7 +147,7 @@ const ExperienceWorkStreams = ({
             <Heading level="h4" size="h4">
               {group.community?.name?.localized}
             </Heading>
-            <ExperienceWorkStreamsDialog
+            <ExperienceWorkStreamsEditDialog
               experienceId={experience.id}
               communities={communitiesWithWorkStreams}
               communityGroup={group}
@@ -200,7 +200,7 @@ const ExperienceWorkStreams = ({
         </Well>
       )}
       {selectedCommunities.length < communitiesWithWorkStreams.length && (
-        <ExperienceWorkStreamsDialog
+        <ExperienceWorkStreamsEditDialog
           experienceId={experience.id}
           communities={communitiesWithWorkStreams}
           experienceWorkStreams={experienceWorkStreams}
