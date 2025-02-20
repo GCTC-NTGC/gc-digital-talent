@@ -7562,6 +7562,10 @@
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
   },
+  "cAowoI": {
+    "defaultMessage": "Abonnez-vous<hidden> au bulletin d'information de la collectivité de la gestion financière</hidden>",
+    "description": "External button link to subscribe to a newsletter"
+  },
   "cCSlti": {
     "defaultMessage": "Vérifier les instructions",
     "description": "Title for review instructions action"
