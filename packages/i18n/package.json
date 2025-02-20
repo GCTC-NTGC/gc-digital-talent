@@ -42,7 +42,7 @@
     "react-intl": "^7.1.6",
     "react-router": "^7.1.5",
     "tsconfig": "workspace:*",
-    "tsx": "^4.19.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.2",
     "yargs": "^17.7.2"
   }
