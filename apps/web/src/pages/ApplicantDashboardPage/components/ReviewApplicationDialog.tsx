@@ -321,6 +321,16 @@ const ReviewApplicationDialog = ({
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Application ID",
+                id: "OEk0OP",
+                description: "Label for application ID",
+              })}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {application.id}
+            </FieldDisplay>
 
             <Separator
               decorative
