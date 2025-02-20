@@ -58,7 +58,9 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 
 import ExperienceSkills from "./components/ExperienceSkills";
-import ExperienceWorkStreams from "./components/ExperienceWorkStreams";
+import ExperienceWorkStreams, {
+  ExperienceWorkStreamsCommunity_Fragment,
+} from "./components/ExperienceWorkStreams";
 
 const editPageTitle = defineMessage({
   defaultMessage: "Edit a career timeline experience",
@@ -88,21 +90,6 @@ type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
   experienceType?: ExperienceType;
   action: FormAction;
 };
-
-export const ExperienceFormCommunity_Fragment = graphql(/* GraphQL */ `
-  fragment ExperienceFormCommunity on Community {
-    id
-    name {
-      localized
-    }
-    workStreams {
-      id
-      name {
-        localized
-      }
-    }
-  }
-`);
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
@@ -318,7 +305,9 @@ interface ExperienceFormProps {
   experienceId?: string;
   experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
-  communitiesQuery: FragmentType<typeof ExperienceFormCommunity_Fragment>[];
+  communitiesQuery: FragmentType<
+    typeof ExperienceWorkStreamsCommunity_Fragment
+  >[];
   userId: string;
   organizationSuggestions: string[];
 }
@@ -342,10 +331,6 @@ export const ExperienceForm = ({
     experienceQuery,
   );
   const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
-  const communities = getFragment(
-    ExperienceFormCommunity_Fragment,
-    communitiesQuery,
-  );
 
   const defaultValues =
     experienceId && experience && experienceType
@@ -596,14 +581,16 @@ export const ExperienceForm = ({
                   <AdditionalDetails experienceType={experienceType} />
                 </TableOfContents.Section>
 
-                {experienceType === "work" && (
-                  <TableOfContents.Section id="work-streams">
-                    <ExperienceWorkStreams
-                      experienceWorkStreamsQuery={experience}
-                      communities={communities}
-                    />
-                  </TableOfContents.Section>
-                )}
+                {experience &&
+                  experienceType === "work" &&
+                  experience?.__typename === "WorkExperience" && (
+                    <TableOfContents.Section id="work-streams">
+                      <ExperienceWorkStreams
+                        experienceWorkStreamsQuery={experience}
+                        communitiesQuery={communitiesQuery}
+                      />
+                    </TableOfContents.Section>
+                  )}
 
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
@@ -762,7 +749,7 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
       }
     }
     communities {
-      ...ExperienceFormCommunity
+      ...ExperienceWorkStreamsCommunity
     }
   }
 `);

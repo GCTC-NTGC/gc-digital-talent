@@ -9,12 +9,7 @@ import {
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  Community,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import pageTitles from "~/messages/pageTitles";
@@ -41,21 +36,43 @@ export const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceWorkStreamsCommunity on Community {
+    id
+    name {
+      localized
+    }
+    workStreams {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 interface ExperienceWorkStreamsProps {
   experienceWorkStreamsQuery: FragmentType<
     typeof ExperienceFormWorkStream_Fragment
   >;
-  communities: Community[];
+  communitiesQuery?: FragmentType<
+    typeof ExperienceWorkStreamsCommunity_Fragment
+  >[];
 }
 
 const ExperienceWorkStreams = ({
   experienceWorkStreamsQuery,
-  communities,
+  communitiesQuery,
 }: ExperienceWorkStreamsProps) => {
   const intl = useIntl();
   const experience = getFragment(
     ExperienceFormWorkStream_Fragment,
     experienceWorkStreamsQuery,
+  );
+
+  const communities = getFragment(
+    ExperienceWorkStreamsCommunity_Fragment,
+    communitiesQuery,
   );
 
   const experienceWorkStreams = unpackMaybes(experience?.workStreams).filter(
@@ -77,9 +94,9 @@ const ExperienceWorkStreams = ({
     experienceWorkStreams.flatMap((workStream) => workStream.community?.id),
   );
 
-  const communitiesWithWorkStreams = communities?.filter(
-    (item) => unpackMaybes(item?.workStreams).length > 0,
-  );
+  const communitiesWithWorkStreams =
+    communities?.filter((item) => unpackMaybes(item?.workStreams).length > 0) ??
+    [];
 
   return (
     <section>
@@ -118,6 +135,12 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 3 on Experience form",
         })}
       </p>
+      {/*
+      TODO: add copy string for "5 linked work streams" (consider plural)
+      TODO: style group cards
+      TODO: fix lint errors
+      TODO: send strings for translation
+      */}
       {groupsExperience.length > 0 ? (
         groupsExperience.map((group) => (
           <div key={group?.community?.id} data-h2-margin-bottom="base(1px)">
@@ -178,7 +201,7 @@ const ExperienceWorkStreams = ({
       )}
       {selectedCommunities.length < communitiesWithWorkStreams.length && (
         <ExperienceWorkStreamsDialog
-          experienceId={experience?.id}
+          experienceId={experience.id}
           communities={communitiesWithWorkStreams}
           experienceWorkStreams={experienceWorkStreams}
           selectedCommunities={selectedCommunities}

@@ -3,15 +3,12 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
-import {
-  Community,
-  graphql,
-  WorkExperienceInput,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
+import { graphql, WorkExperienceInput } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+
+import { CommunityWithoutKey, WorkStreamWithoutKey } from "./types";
 
 const UpdateExperienceWorkStreams_Mutation = graphql(/* GraphQL */ `
   mutation UpdateExperienceWorkStreams_Mutation(
@@ -28,11 +25,11 @@ const UpdateExperienceWorkStreams_Mutation = graphql(/* GraphQL */ `
 
 interface ExperienceWorkStreamsRemoveDialogProps {
   experienceId: string;
-  communityGroup: {
-    community: Community;
-    workStreams: WorkStream[];
+  communityGroup?: {
+    community?: CommunityWithoutKey | null;
+    workStreams: WorkStreamWithoutKey[];
   };
-  experienceWorkStreams: WorkStream[];
+  experienceWorkStreams: WorkStreamWithoutKey[];
 }
 
 const ExperienceWorkStreamsRemoveDialog = ({
@@ -56,7 +53,7 @@ const ExperienceWorkStreamsRemoveDialog = ({
           !communityGroup?.workStreams
             .map((workStream) => workStream.id)
             .includes(item),
-      );
+      ) ?? [];
 
   const requestMutation = async (id: string, values: WorkExperienceInput) => {
     const result = await executeMutation({ id, workExperience: values });
@@ -103,7 +100,7 @@ const ExperienceWorkStreamsRemoveDialog = ({
                 description:
                   "Title for alert dialog to remove community from experience",
               },
-              { communityName: communityGroup.community?.name?.localized },
+              { communityName: communityGroup?.community?.name?.localized },
             )}
           </span>
         </Button>
@@ -117,7 +114,7 @@ const ExperienceWorkStreamsRemoveDialog = ({
               description:
                 "Title for alert dialog to remove community from experience",
             },
-            { communityName: communityGroup.community?.name?.localized },
+            { communityName: communityGroup?.community?.name?.localized },
           )}
         </AlertDialog.Title>
         <AlertDialog.Description>

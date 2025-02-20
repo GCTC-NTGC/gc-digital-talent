@@ -3,12 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import {
-  Community,
-  graphql,
-  WorkExperienceInput,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
+import { graphql, WorkExperienceInput } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
@@ -16,6 +11,8 @@ import { uniqueItems } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import pageTitles from "~/messages/pageTitles";
+
+import { CommunityWithoutKey, WorkStreamWithoutKey } from "./types";
 
 const UpdateExperienceWorkStreams_Mutation = graphql(/* GraphQL */ `
   mutation UpdateExperienceWorkStreams_Mutation(
@@ -36,13 +33,13 @@ interface FormValues {
 }
 interface ExperienceWorkStreamsDialogProps {
   experienceId: string;
-  communities: Community[];
+  communities: CommunityWithoutKey[];
   communityGroup?: {
-    community?: Community | null;
-    workStreams: WorkStream[];
+    community?: CommunityWithoutKey | null;
+    workStreams: WorkStreamWithoutKey[];
   };
-  experienceWorkStreams?: Omit<WorkStream, "key">[] | null;
-  selectedCommunities?: string[];
+  experienceWorkStreams?: WorkStreamWithoutKey[] | null;
+  selectedCommunities?: (string | undefined)[];
   trigger: ReactNode;
   defaultOpen?: boolean;
 }
@@ -59,9 +56,8 @@ const ExperienceWorkStreamsDialog = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
-  const experienceWorkStreamIds: string[] = experienceWorkStreams?.map(
-    (workStream) => workStream.id,
-  );
+  const experienceWorkStreamIds: string[] =
+    experienceWorkStreams?.map((workStream) => workStream.id) ?? [];
 
   const methods = useForm<FormValues>({
     defaultValues: {
