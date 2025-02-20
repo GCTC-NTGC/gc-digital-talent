@@ -1127,6 +1127,10 @@
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
+  "3u7nGm": {
+    "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
+    "description": "About to list employee types"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -7041,10 +7045,6 @@
   "ZAcxSx": {
     "defaultMessage": "Filtrer les candidats par ordre de nom",
     "description": "Label for candidate search input"
-  },
-  "ZBFT4z": {
-    "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
-    "description": "About to list employee types"
   },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",

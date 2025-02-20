@@ -85,11 +85,10 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This page is intended for specific current employees of the Government of Canada",
-                  id: "ZBFT4z",
+                    "This page is intended for specific current employees of the Government of Canada:",
+                  id: "3u7nGm",
                   description: "About to list employee types",
                 })}
-                {intl.formatMessage(commonMessages.dividingColon)}
               </p>
               <ul data-h2-margin="base(x.5 0)">
                 <li>
