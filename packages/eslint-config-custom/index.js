@@ -109,7 +109,7 @@ module.exports = {
     // CI Only rules to keep local snappy, deprecation kept as a warn
     "import/no-named-as-default": process.env.CI ? "error" : "off",
     "import/no-cycle": process.env.CI ? "error" : "off",
-    "import/no-unused-mofules": process.env.CI ? "error" : "off",
+    "import/no-unused-modules": process.env.CI ? "error" : "off",
     "import/no-deprecated": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
   },
