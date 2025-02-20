@@ -47,10 +47,9 @@ export const getPageInfo: GetPageNavInfo = ({
       {
         url: paths.applicationCareerTimelineAdd(application.id),
         label: intl.formatMessage({
-          defaultMessage: "Add Experience",
-          id: "K+ZIOB",
-          description:
-            "Breadcrumb link text for the application career timeline add experience page",
+          defaultMessage: "Add experience",
+          id: "g1WB3B",
+          description: "Title for add experience page",
         }),
       },
     ],

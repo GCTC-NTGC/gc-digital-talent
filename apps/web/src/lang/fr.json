@@ -4143,10 +4143,6 @@
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
   },
-  "K+ZIOB": {
-    "defaultMessage": "Ajouter une expérience",
-    "description": "Breadcrumb link text for the application career timeline add experience page"
-  },
   "K+roYh": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
@@ -8286,6 +8282,10 @@
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
   },
+  "g1WB3B": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Title for add experience page"
+  },
   "g1YoPl": {
     "defaultMessage": "En savoir plus<hidden> sur le Fonds de formation et de perfectionnement de la collectivité de la TI</hidden>",
     "description": "Link text to the IT training fund"
@@ -9489,10 +9489,6 @@
   "mHTt67": {
     "defaultMessage": "En tant que membre retenu du processus de recrutement <strong>{title}</strong>, il se peut que l’on communique avec vous au sujet de possibilités pertinentes.",
     "description": "Text describing what it means to be available in a recruitment"
-  },
-  "mJ1HE4": {
-    "defaultMessage": "Ajouter une expérience",
-    "description": "Display text for add experience form in breadcrumbs"
   },
   "mKrj0x": {
     "defaultMessage": "Sauvegardez et ajoutez un membre",

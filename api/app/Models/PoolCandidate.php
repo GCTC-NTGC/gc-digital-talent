@@ -391,7 +391,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
 
@@ -1146,7 +1147,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($processNumber) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->processNumber($processNumber);
         });
 
