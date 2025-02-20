@@ -43,7 +43,7 @@
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.13.6",
     "react-remove-scroll": "^2.6.3",
-    "react-router": "^7.1.5",
+    "react-router": "^7.2.0",
     "urql": "^4.2.1"
   },
   "devDependencies": {
