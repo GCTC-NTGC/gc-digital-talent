@@ -13,6 +13,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import pageTitles from "~/messages/pageTitles";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 import ExperienceWorkStreamsRemoveDialog from "./ExperienceWorkStreamsRemoveDialog";
@@ -135,61 +136,99 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 3 on Experience form",
         })}
       </p>
-      {/*
-      TODO: style group cards
-      TODO: send strings for translation
-      */}
-
-      {intl.formatMessage(
-        {
-          defaultMessage:
-            "{workStreamCount, plural, =0 {0 linked work streams} =1 {1 linked work stream} other {# linked work streams}}",
-          id: "HWjcqg",
-          description: "Count of work streams for work experience",
-        },
-        {
-          workStreamCount: experienceWorkStreams
-            ? experienceWorkStreams.length
-            : 0,
-        },
-      )}
       {groupsExperience.length > 0 ? (
-        groupsExperience.map((group) => (
-          <div key={group?.community?.id} data-h2-margin-bottom="base(1px)">
-            <Heading level="h4" size="h4">
-              {group.community?.name?.localized}
-            </Heading>
-            <ExperienceWorkStreamsEditDialog
-              experienceId={experience.id}
-              communities={communitiesWithWorkStreams}
-              communityGroup={group}
-              experienceWorkStreams={experienceWorkStreams}
-              trigger={
-                <Button type="button" icon={PencilSquareIcon} mode="icon_only">
-                  <span data-h2-visually-hidden="base(invisible)">
-                    {intl.formatMessage(commonMessages.edit)}
+        <>
+          <p data-h2-margin-bottom="base(x1)" data-h2-color="base(black.light)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "{workStreamCount, plural, =0 {0 linked work streams} =1 {1 linked work stream} other {# linked work streams}}",
+                id: "HWjcqg",
+                description: "Count of work streams for work experience",
+              },
+              {
+                workStreamCount: experienceWorkStreams
+                  ? experienceWorkStreams.length
+                  : 0,
+              },
+            )}
+          </p>
+          <div data-h2-margin-bottom="base(x1)">
+            {groupsExperience.map((group) => (
+              <div
+                key={group?.community?.id}
+                data-h2-background-color="base:selectors[:nth-child(even)](background.light) base:selectors[:nth-child(odd)](foreground)"
+                data-h2-padding="base(x1)"
+                data-h2-border-top="base(1px solid gray.lighter)"
+                data-h2-border-right="base(none)"
+                data-h2-border-bottom="base:selectors[:last-child](1px solid gray.lighter)"
+                data-h2-border-left="base(none)"
+              >
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-justify-content="base(space-between)"
+                  data-h2-flex-direction="base(column) p-tablet(row)"
+                  data-h2-gap="base(x.5) p-tablet(x1)"
+                  data-h2-margin-bottom="base(x.5) p-tablet(0)"
+                >
+                  <span data-h2-font-weight="base(700)">
+                    {group.community?.name?.localized}
                   </span>
-                </Button>
-              }
-            />
-            <ExperienceWorkStreamsRemoveDialog
-              experienceId={experience.id}
-              experienceWorkStreams={experienceWorkStreams}
-              communityGroup={group}
-            />
-            <div data-h2-margin-bottom="base(x1)">
-              {group.workStreams.map((workStream) => (
-                <div key={`${group?.community?.id}-${workStream.id}`}>
-                  <span>{workStream?.name?.localized}</span>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-justify-content="p-tablet(space-between)"
+                    data-h2-align-items="base(center)"
+                    data-h2-gap="base(x.5)"
+                  >
+                    <ExperienceWorkStreamsEditDialog
+                      experienceId={experience.id}
+                      communities={communitiesWithWorkStreams}
+                      communityGroup={group}
+                      experienceWorkStreams={experienceWorkStreams}
+                      trigger={
+                        <Button
+                          type="button"
+                          icon={PencilSquareIcon}
+                          mode="icon_only"
+                          color="black"
+                        >
+                          <span data-h2-visually-hidden="base(invisible)">
+                            {intl.formatMessage(commonMessages.edit)}
+                          </span>
+                        </Button>
+                      }
+                    />
+                    <span data-h2-color="base(black.light)" aria-hidden>
+                      &bull;
+                    </span>
+                    <ExperienceWorkStreamsRemoveDialog
+                      experienceId={experience.id}
+                      experienceWorkStreams={experienceWorkStreams}
+                      communityGroup={group}
+                    />
+                  </div>
                 </div>
-              ))}
-            </div>
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x.25)"
+                >
+                  {group.workStreams.map((workStream) => (
+                    <div key={`${group?.community?.id}-${workStream.id}`}>
+                      <BoolCheckIcon value={true}>
+                        {workStream?.name?.localized}
+                      </BoolCheckIcon>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-        ))
+        </>
       ) : (
         <Well
           data-h2-text-align="base(center)"
-          data-h2-margin-bottom="base(x.5)"
+          data-h2-margin-bottom="base(x1)"
         >
           <p>
             {intl.formatMessage({

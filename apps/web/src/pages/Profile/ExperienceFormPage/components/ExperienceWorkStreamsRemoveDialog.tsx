@@ -91,7 +91,7 @@ const ExperienceWorkStreamsRemoveDialog = ({
   return (
     <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialog.Trigger>
-        <Button type="button" icon={TrashIcon} mode="icon_only">
+        <Button type="button" icon={TrashIcon} mode="icon_only" color="black">
           <span data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage(
               {
