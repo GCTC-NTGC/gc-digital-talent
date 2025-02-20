@@ -4939,6 +4939,10 @@
     "defaultMessage": "Compétences techniques requises",
     "description": "Heading for required technical skills section"
   },
+  "OEk0OP": {
+    "defaultMessage": "Identification de la demande",
+    "description": "Label for application ID"
+  },
   "OF7SCg": {
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
     "description": "Header text for dialog to change availability in a recruitment"
