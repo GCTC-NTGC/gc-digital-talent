@@ -59,7 +59,6 @@ export const Component = () => {
       <Hero
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(pageSubtitle)}
-        centered
       />
       <div data-h2-margin="base(x3, 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
