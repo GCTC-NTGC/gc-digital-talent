@@ -1,0 +1,52 @@
+name: Bug Report (YAML)
+description: File a bug report.
+title: "🐛 "
+labels: ["bug"]
+projects: ["GCTC-NTGC/8"]
+type: "Bug"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description-and-expected-behaviour
+    attributes:
+      label: 🐛 Bug and Expected Behaviour
+      description: Describe the issue you encountered. What should be happening?
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with troubleshooting/fixing the issue.
+      placeholder: |
+        **Operating System**: Name and version (if possible).
+        **Browser**: Name and version (if possible).
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 📋 Steps to Reproduce
+      description: How can we make this happen again when testing?
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 Screenshot
+      description: Paste a screenshot to help illustrate the problem.
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 🙋‍♀️ Proposed Solution
+      description: How do you think we can fix this?
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the bug was addressed.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
