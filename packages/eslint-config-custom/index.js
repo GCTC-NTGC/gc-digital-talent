@@ -10,7 +10,6 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "prettier",
   ],
   ignorePatterns: [
     "index.js",
@@ -53,6 +52,11 @@ module.exports = {
     ],
     "consistent-return": "error",
     "import/no-extraneous-dependencies": "off",
+    "import/named": "off",
+    "import/namespace": "off",
+    "import/default": "off",
+    "import/no-named-as-default-member": "off",
+    "import/no-unresolved": "off",
     "import/extensions": ["error", "never", { json: "always" }],
     "import/order": [
       "error",
@@ -104,7 +108,9 @@ module.exports = {
 
     // CI Only rules to keep local snappy, deprecation kept as a warn
     "import/no-named-as-default": process.env.CI ? "error" : "off",
-    "import/namespace": process.env.CI ? "error" : "off",
+    "import/no-cycle": process.env.CI ? "error" : "off",
+    "import/no-unused-mofules": process.env.CI ? "error" : "off",
+    "import/no-deprecated": process.env.CI ? "error" : "off",
     "deprecation/deprecation": process.env.CI ? "warn" : "off",
   },
   settings: {
