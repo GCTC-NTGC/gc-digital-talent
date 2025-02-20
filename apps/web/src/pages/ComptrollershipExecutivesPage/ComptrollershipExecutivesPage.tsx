@@ -60,7 +60,7 @@ export const Component = () => {
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(pageSubtitle)}
       />
-      <div data-h2-margin="base(x3, 0)">
+      <div data-h2-margin="base(x3 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div
             data-h2-display="base(flex)"
@@ -72,7 +72,7 @@ export const Component = () => {
                 Icon={UserCircleIcon}
                 size="h2"
                 color="primary"
-                data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-margin="base(0 0 x1.5 0)"
                 data-h2-font-weight="base(400)"
                 data-h2-justify-content="base(center) p-tablet(start)"
               >
@@ -162,7 +162,7 @@ export const Component = () => {
                 Icon={ArrowTrendingUpIcon}
                 size="h2"
                 color="secondary"
-                data-h2-margin="base(0, 0, x1.5, 0)"
+                data-h2-margin="base(0 0 x1.5 0)"
                 data-h2-font-weight="base(400)"
                 data-h2-justify-content="base(center) p-tablet(start)"
               >
@@ -302,7 +302,7 @@ export const Component = () => {
                       level="h3"
                       size="h2"
                       data-h2-font-size="base(h6)"
-                      data-h2-margin="base(0, 0, x0.25, 0)"
+                      data-h2-margin="base(0 0 x0.25 0)"
                     >
                       {intl.formatMessage({
                         defaultMessage: "The team",
@@ -369,7 +369,7 @@ export const Component = () => {
                       level="h3"
                       size="h2"
                       data-h2-font-size="base(h6)"
-                      data-h2-margin="base(0, 0, x0.25, 0)"
+                      data-h2-margin="base(0 0 x0.25 0)"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Newsletter",
@@ -440,7 +440,7 @@ export const Component = () => {
                       level="h3"
                       size="h2"
                       data-h2-font-size="base(h6)"
-                      data-h2-margin="base(0, 0, x0.25, 0)"
+                      data-h2-margin="base(0 0 x0.25 0)"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Connect with your peers",
