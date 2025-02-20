@@ -49,8 +49,8 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'careerObjectiveJobTitle' => ['nullable', 'string'],
             'nextRoleAdditionalInformation' => ['nullable', 'string'],
             'careerObjectiveAdditionalInformation' => ['nullable', 'string'],
-            'nextRoleCommunity.connect' => ['required', 'uuid', 'exists:communities,id'],
-            'careerObjectiveCommunity.connect' => ['required', 'uuid', 'exists:communities,id'],
+            'nextRoleCommunity.connect' => ['uuid', 'exists:communities,id'],
+            'careerObjectiveCommunity.connect' => ['uuid', 'exists:communities,id'],
             'nextRoleClassification.connect' => ['uuid', 'exists:classifications,id'],
             'careerObjectiveClassification.connect' => ['uuid', 'exists:classifications,id'],
 
@@ -90,8 +90,8 @@ final class UpdateEmployeeProfileInputValidator extends Validator
 
             'nextRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],
             'careerObjectiveDepartments.sync.*' => ['uuid', 'exists:departments,id'],
-            'nextRoleTargetRole' => ['required', Rule::in(array_column(TargetRole::cases(), 'name'))],
-            'careerObjectiveTargetRole' => ['required', Rule::in(array_column(TargetRole::cases(), 'name'))],
+            'nextRoleTargetRole' => [Rule::in(array_column(TargetRole::cases(), 'name'))],
+            'careerObjectiveTargetRole' => [Rule::in(array_column(TargetRole::cases(), 'name'))],
             'nextRoleTargetRoleOther' => [
                 Rule::when(
                     fn (): bool => Arr::has($argsArr, 'nextRoleTargetRole'),
