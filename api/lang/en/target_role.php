@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
     'individual_contributor' => 'Individual contributor',
     'manager' => 'Manager',
@@ -8,5 +10,5 @@ return [
     'executive_director' => 'Executive director',
     'assistant_deputy_minister' => 'Assistant deputy minister',
     'deputy_minister' => 'Deputy minister',
-    'other' => 'Other',
+    'other' => Lang::get('common.other', [], 'en'),
 ];
