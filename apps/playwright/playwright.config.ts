@@ -3,6 +3,12 @@ import path from "path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 // eslint-disable-next-line import/no-named-as-default-member
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 

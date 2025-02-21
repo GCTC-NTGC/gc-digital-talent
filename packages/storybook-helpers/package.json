@@ -2,6 +2,7 @@
   "name": "@gc-digital-talent/storybook-helpers",
   "license": "AGPL-3.0",
   "version": "0.0.0",
+  "type": "module",
   "exports": {
     ".": "./index.ts",
     "./main": "./main.ts"
@@ -35,7 +36,7 @@
     "@storybook/preview-api": "^8.5.8",
     "@storybook/react-vite": "^8.5.8",
     "@storybook/types": "^8.5.8",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "storybook": "^8.5.8",
