@@ -230,7 +230,7 @@ export const UpdateCommunityInterestPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
         url: routes.applicantDashboard(),
       },
 
