@@ -110,11 +110,7 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
       },
       {
         url: paths.employeeProfile(),
-        label: intl.formatMessage({
-          defaultMessage: "Employee profile",
-          id: "FThj7q",
-          description: "Short title for a users employee profile",
-        }),
+        label: intl.formatMessage(navigationMessages.employeeProfileGC),
       },
     ],
   });

@@ -843,6 +843,10 @@
     "defaultMessage": "Compétences requises",
     "description": "Title for required skills"
   },
+  "WZ8QTB": {
+    "defaultMessage": "Profil d'employé(e) du GC",
+    "description": "Short title for a user's GC employee profile"
+  },
   "WhLeuS": {
     "defaultMessage": "Nom",
     "description": "Title for name"

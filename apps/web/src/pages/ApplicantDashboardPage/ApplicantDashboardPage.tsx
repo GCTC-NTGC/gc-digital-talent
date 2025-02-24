@@ -260,12 +260,9 @@ export const DashboardPage = ({
                 {isVerifiedEmployee ? (
                   <ResourceBlock.SingleLinkItem
                     state={employeeProfileState}
-                    title={intl.formatMessage({
-                      defaultMessage: "Employee profile",
-                      id: "QzGuI5",
-                      description:
-                        "applicant dashboard card title for employee profile card",
-                    })}
+                    title={intl.formatMessage(
+                      navigationMessages.employeeProfileGC,
+                    )}
                     href={paths.employeeProfile()}
                     description={intl.formatMessage({
                       defaultMessage:
