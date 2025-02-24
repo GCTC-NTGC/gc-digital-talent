@@ -7,6 +7,8 @@ import turbo from "eslint-plugin-turbo";
 import testingLibrary from "eslint-plugin-testing-library";
 import noOnlyTests from "eslint-plugin-no-only-tests";
 
+console.log(import.meta.dirname);
+
 export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,

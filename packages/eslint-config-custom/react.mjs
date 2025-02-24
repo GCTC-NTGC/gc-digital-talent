@@ -9,12 +9,12 @@ import formatjs from "eslint-plugin-formatjs";
 
 export default [
   ...baseConfig,
-  // react.configs.flat.recommended,
-  // react.configs.flat["jsx-runtime"],
-  // jsxA11Y.flatConfigs.recommended,
-  // reactHooks.configs["recommended-latest"],
-  // // @ts-ignore
-  // formatjs.configs.recommended,
+  react.configs.flat.recommended,
+  react.configs.flat["jsx-runtime"],
+  jsxA11Y.flatConfigs.recommended,
+  reactHooks.configs["recommended-latest"],
+  // @ts-ignore
+  formatjs.configs.recommended,
   {
     // languageOptions: {
     //   globals: {
