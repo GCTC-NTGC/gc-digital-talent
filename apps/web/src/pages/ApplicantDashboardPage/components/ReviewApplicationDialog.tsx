@@ -399,8 +399,8 @@ const ReviewApplicationDialog = ({
             />
             <p data-h2-grid-column="p-tablet(span 2)">
               {intl.formatMessage({
-                defaultMessage: `You can find the recruitment process for which you’ve been qualified for in the "Recruitment process" tool on your dashboard.`,
-                id: "1bTFdX",
+                defaultMessage: `You can find the recruitment processes you've been qualified for in the "Recruitment processes" tool on your dashboard.`,
+                id: "/6obwT",
                 description:
                   "Message informing applicant of the connected recruitment process in the preview list below",
               })}
