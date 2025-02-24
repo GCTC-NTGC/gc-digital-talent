@@ -615,6 +615,10 @@
     "defaultMessage": "Vétéran",
     "description": "Label for veteran chip on view candidate page"
   },
+  "16tGhC": {
+    "defaultMessage": "Soumise",
+    "description": "Label for application submitted"
+  },
   "18pJdz": {
     "defaultMessage": "2. Ils ont révisé la liste de contrôle de la trousse du gestionnaire et ont des postes à pourvoir pour embaucher un apprentis en TI",
     "description": "Paragraph 3 of a manager's email for apprenticeship"
@@ -6084,7 +6088,7 @@
     "description": "Title for the 'How to begin hiring an apprentice' section"
   },
   "UKw7sB": {
-    "defaultMessage": "Flux de travail",
+    "defaultMessage": "Volet de travail",
     "description": "Label displayed on the pool form stream/job title field."
   },
   "UNEVD9": {
