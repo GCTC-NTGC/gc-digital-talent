@@ -36,6 +36,7 @@ const getAssessmentResult = (
 ): AssessmentResult => ({
   id: faker.string.uuid(),
   assessmentDecision: toLocalizedEnum(
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     !decision ? AssessmentDecision.Successful : decision,
   ),
   assessmentResultType: AssessmentResultType.Education,

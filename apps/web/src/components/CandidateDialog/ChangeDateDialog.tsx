@@ -134,13 +134,12 @@ const ChangeDateDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate
-              ? selectedCandidate.expiryDate
-              : intl.formatMessage({
-                  defaultMessage: "Change date",
-                  id: "DspBFX",
-                  description: "Command to change a date",
-                })}
+            {selectedCandidate?.expiryDate ??
+              intl.formatMessage({
+                defaultMessage: "Change date",
+                id: "DspBFX",
+                description: "Command to change a date",
+              })}
           </span>
         </Button>
       </Dialog.Trigger>

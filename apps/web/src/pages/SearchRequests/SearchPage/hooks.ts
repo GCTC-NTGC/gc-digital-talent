@@ -76,6 +76,7 @@ export const useCandidateCount = (
     variables: queryArgs,
   });
 
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   const candidateCount = data?.countApplicants ? data.countApplicants : 0;
 
   /**

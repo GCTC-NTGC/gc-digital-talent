@@ -14,6 +14,7 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { ExperienceForDate } from "~/types/experience";
+import nodeToString from "~/utils/nodeToString";
 
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
@@ -68,8 +69,8 @@ export function sortAndFilterExperiences(
   switch (sortAndFilterValues?.sortBy) {
     case "title_asc":
       experiencesSorted.sort((e1, e2) => {
-        const t1 = getExperienceName(e1, intl)?.toString();
-        const t2 = getExperienceName(e2, intl)?.toString();
+        const t1 = nodeToString(getExperienceName(e1, intl));
+        const t2 = nodeToString(getExperienceName(e2, intl));
         return t1 && t2 ? t1?.localeCompare(t2) : 0;
       });
       break;

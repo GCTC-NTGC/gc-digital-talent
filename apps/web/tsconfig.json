@@ -3,8 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@gc-digital-talent/*": ["../../../packages/*/src"],
-      "~/*": ["./*"]
+      "@gc-digital-talent/*": [
+        "../../../packages/*/src"
+      ],
+      "~/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -16,12 +20,9 @@
     "jest.config.ts"
   ],
   "exclude": [
-    ".turbo",
-    "node_modules",
+    "**/.*/",
+    "**/node_modules",
     "dist",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types",
     "**/src/gql"
   ]
 }

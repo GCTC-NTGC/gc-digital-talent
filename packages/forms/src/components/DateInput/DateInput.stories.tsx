@@ -128,6 +128,7 @@ const ValidationDependantInputs = ({
       <DateInput
         name={`${name}Two`}
         id={`${id}Two`}
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         legend={`${legend?.toString()} Two`}
         rules={{
           min: {

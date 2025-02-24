@@ -46,6 +46,7 @@ export const formValuesToSubmitData = (
   formValues: FormValues,
 ): CoreRequirementsSubmitData => {
   return {
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     language: formValues.languageRequirement
       ? formValues.languageRequirement
       : undefined, // can't be set to null, assume not updating if empty
@@ -60,6 +61,7 @@ export const formValuesToSubmitData = (
             fr: null,
           },
     isRemote: formValues.locationOption === LocationOption.RemoteOptional,
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     securityClearance: formValues.securityRequirement
       ? formValues.securityRequirement
       : undefined, // can't be set to null, assume not updating if empty

@@ -71,6 +71,7 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
                 onCheckedChange={toggle}
                 checked={Boolean(value)}
                 {...(hideLabel && {
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string
                   "aria-label": label?.toString(),
                 })}
                 {...(disabled && {

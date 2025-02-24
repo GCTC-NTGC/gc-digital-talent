@@ -224,6 +224,7 @@ export const groupPoolCandidatesByStep = (
 
           return {
             poolCandidate: candidate,
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             decision: (stepDecision?.decision
               ? stepDecision.decision
               : NO_DECISION) as NullableDecision,
@@ -313,6 +314,7 @@ export const filterAlreadyDisqualified = (
       !(
         (isDisqualifiedStatus(candidate.status?.value) ||
           isRemovedStatus(candidate.status?.value)) &&
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
         (candidate.assessmentResults ? candidate.assessmentResults : [])
           .length === 0
       ),

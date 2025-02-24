@@ -97,7 +97,9 @@ const Select = ({
         {optionsModified.map((option) =>
           Object.prototype.hasOwnProperty.call(option, "options") ? (
             <optgroup
+              // eslint-disable-next-line @typescript-eslint/no-base-to-string
               key={`optgroup${option.label?.toString()}`}
+              // eslint-disable-next-line @typescript-eslint/no-base-to-string
               label={option.label?.toString() ?? ""}
             >
               {option.options?.map(

@@ -76,10 +76,13 @@ export const formValuesToSubmitData = (
     en: formValues.specificTitleEn,
     fr: formValues.specificTitleFr,
   },
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   processNumber: formValues.processNumber ? formValues.processNumber : null,
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   publishingGroup: formValues.publishingGroup
     ? formValues.publishingGroup
     : undefined, // can't be set to null, assume not updating if empty
+  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   opportunityLength: formValues.opportunityLength
     ? formValues.opportunityLength
     : null, // can't be set to null, assume not updating if empty

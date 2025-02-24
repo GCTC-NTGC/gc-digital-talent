@@ -102,6 +102,7 @@ const Footer = ({ width }: FooterProps) => {
               })}
             >
               {links.map((props) => (
+                // eslint-disable-next-line @typescript-eslint/no-base-to-string
                 <Link key={String(props.href)} color="black" {...props} />
               ))}
             </nav>
