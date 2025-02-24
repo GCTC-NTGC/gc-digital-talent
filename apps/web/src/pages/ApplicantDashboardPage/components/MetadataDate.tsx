@@ -63,7 +63,11 @@ export const ApplicationDate = ({
   ) {
     return (
       <span>
-        {intl.formatMessage(formMessages.submitted)}
+        {intl.formatMessage({
+          defaultMessage: "Submitted",
+          id: "16tGhC",
+          description: "Label for application submitted",
+        })}
         {intl.formatMessage(commonMessages.dividingColon)}
         {submittedAt
           ? formatDate({

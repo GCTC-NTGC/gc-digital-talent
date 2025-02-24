@@ -10,6 +10,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Submitted",
+    "fr": [
+      "Soumise",
+      "Soumis"
+    ]
+  },
+  {
     "en": "Not interested",
     "fr": [
       "Non intéressé(e)",
