@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
   applicationStatus,
@@ -63,7 +63,11 @@ export const ApplicationDate = ({
   ) {
     return (
       <span>
-        {intl.formatMessage(formMessages.submitted)}
+        {intl.formatMessage({
+          defaultMessage: "Submitted",
+          id: "16tGhC",
+          description: "Label for application submitted",
+        })}
         {intl.formatMessage(commonMessages.dividingColon)}
         {submittedAt
           ? formatDate({
