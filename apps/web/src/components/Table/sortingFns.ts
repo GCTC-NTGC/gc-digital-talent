@@ -20,6 +20,8 @@ const compareNormalized = (strA: string, strB: string): number => {
   return a > b ? 1 : -1;
 };
 
-export const normalizedText: SortingFn<unknown> = (rowA, rowB, columnId) => {
+// Note: any required for react-table
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
   return compareNormalized(rowA.getValue(columnId), rowB.getValue(columnId));
 };
