@@ -88,8 +88,8 @@ const MainNavMenu = () => {
       <NavMenuWrapper
         label={intl.formatMessage({
           defaultMessage: "Main menu",
-          id: "B+nEMP",
-          description: "Label for the main navigation menu",
+          id: "SY1LIh",
+          description: "Label for the main navigation",
         })}
         onOpenChange={setMenuOpen}
         open={isMenuOpen}
