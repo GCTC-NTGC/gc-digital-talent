@@ -14,12 +14,5 @@
     "globals.d.ts",
     "jest.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types",
-    "**/src/gql"
-  ]
+  "exclude": ["**/node_modules", "**/.*/"]
 }
