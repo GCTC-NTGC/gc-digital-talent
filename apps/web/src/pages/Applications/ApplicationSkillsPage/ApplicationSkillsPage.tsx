@@ -114,6 +114,8 @@ export const ApplicationSkills = ({
     application.pool,
   );
 
+  const applicationWasSubmitted = !!application.submittedAt;
+
   const methods = useForm<FormValues>();
   const {
     setValue,
@@ -242,6 +244,8 @@ export const ApplicationSkills = ({
                 skill={requiredTechnicalSkill}
                 experiences={experiences}
                 showDisclaimer
+                hideEdit={applicationWasSubmitted}
+                hideConnectButton={applicationWasSubmitted}
               />
             ),
           )}
@@ -268,6 +272,8 @@ export const ApplicationSkills = ({
                 key={optionalTechnicalSkill.id}
                 skill={optionalTechnicalSkill}
                 experiences={experiences}
+                hideEdit={applicationWasSubmitted}
+                hideConnectButton={applicationWasSubmitted}
               />
             ),
           )}
