@@ -1,5 +1,11 @@
 {
   "extends": "tsconfig/react-lib.json",
-  "include": ["env.d.ts", "src"],
-  "exclude": ["dist", "build", "node_modules"]
+  "include": [
+    "env.d.ts",
+    "src"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/.*/"
+  ]
 }

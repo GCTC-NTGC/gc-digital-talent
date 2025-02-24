@@ -10,6 +10,7 @@
   ],
   "exclude": [
     "src", // This is a generated package
-    "node_modules"
+    "**/node_modules",
+    "**/.*/"
   ]
 }

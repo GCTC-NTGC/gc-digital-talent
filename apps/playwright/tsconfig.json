@@ -12,10 +12,6 @@
       "~/*": ["./*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types"
-  ]
+  "include": ["globals.d.ts", "constants", "fixtures", "tests", "utils"],
+  "exclude": ["**/node_modules", "**/.*/"]
 }

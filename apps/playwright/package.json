@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "license": "ISC",
-  "type": "module",
   "scripts": {
     "e2e:playwright": "pnpm exec playwright test",
     "e2e:playwright:chromium": "pnpm exec playwright test --project=chromium",

@@ -22,9 +22,7 @@
     "preserveSymlinks": true
   },
   "exclude": [
-    "node_modules",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types"
+    "**/node_modules",
+    "**/.*/"
   ]
 }
