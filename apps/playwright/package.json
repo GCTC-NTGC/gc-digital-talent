@@ -10,7 +10,7 @@
     "e2e:playwright:firefox": "pnpm exec playwright test --project=firefox",
     "e2e:playwright:webkit": "pnpm exec playwright test --project=webkit",
     "e2e:playwright:report": "pnpm exec playwright show-report",
-    "lint": "eslint \"constants/**\" \"fixtures/**\" \"tests/**\" \"utils/**\"",
+    "lint": "eslint",
     "lint:fix": "eslint ./ --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",

@@ -10,10 +10,8 @@ export default [
       },
     },
     rules: {
-      "import/no-unused-modules": (() => {
-        // Trigger warning on CI only, because of performance issues locally
-        if (process.env.CI) {
-          return [
+      "import/no-unused-modules": process.env.CI
+        ? [
             1,
             {
               unusedExports: true,
@@ -22,10 +20,8 @@ export default [
                 "src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
               ],
             },
-          ];
-        }
-        return "off";
-      })(),
+          ]
+        : "off",
     },
   },
 ];

@@ -20,4 +20,12 @@ export default [
       "testing-library/prefer-screen-queries": "off",
     },
   },
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
 ];

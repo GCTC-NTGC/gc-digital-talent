@@ -10,7 +10,7 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint"
   },
   "dependencies": {
     "@faker-js/faker": "^9.5.0",

@@ -9,9 +9,22 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["globals.d.ts", "constants", "fixtures", "tests", "utils"],
-  "exclude": ["**/node_modules", "**/.*/"]
+  "include": [
+    "globals.d.ts",
+    "eslint.config.mjs",
+    "playwright.config.ts",
+    "constants",
+    "fixtures",
+    "tests",
+    "utils"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/.*/"
+  ]
 }

@@ -17,6 +17,7 @@ export default tseslint.config(
   {
     ignores: [
       "eslint.config.js",
+      "eslint.config.mjs",
       "**/index.js",
       "**/tsconfig.json",
       "**/styleMock.ts",
@@ -136,6 +137,7 @@ export default tseslint.config(
           },
         },
       ],
+      "@typescript-eslint/no-deprecation": process.env.CI ? "warn" : "off",
 
       "no-underscore-dangle": [
         "error",

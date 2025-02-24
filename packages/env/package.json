@@ -8,7 +8,7 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json --noEmit"
