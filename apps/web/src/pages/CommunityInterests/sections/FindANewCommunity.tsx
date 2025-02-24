@@ -31,6 +31,16 @@ const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+
+    meForOptions: me {
+      employeeProfile {
+        communityInterests {
+          community {
+            id
+          }
+        }
+      }
+    }
   }
 `);
 
@@ -62,13 +72,22 @@ const FindANewCommunity = ({
   const [selectedCommunityId] = watch(["communityId"]);
   const workStreamListDescription = useId();
 
+  const alreadyInterestedCommunityIds =
+    optionsData.meForOptions?.employeeProfile?.communityInterests?.map(
+      (interest) => interest?.community?.id,
+    ) ?? [];
+
   const communityOptions: ComponentProps<typeof Select>["options"] =
-    unpackMaybes(optionsData.communities).map((community) => ({
-      value: community.id,
-      label:
-        community.name?.localized ??
-        intl.formatMessage(commonMessages.notProvided),
-    }));
+    unpackMaybes(optionsData.communities)
+      .filter(
+        (community) => !alreadyInterestedCommunityIds.includes(community.id),
+      )
+      .map((community) => ({
+        value: community.id,
+        label:
+          community.name?.localized ??
+          intl.formatMessage(commonMessages.notProvided),
+      }));
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
     optionsData.communities
       .find((community) => community?.id === selectedCommunityId)
