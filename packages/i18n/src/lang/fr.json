@@ -251,6 +251,10 @@
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
+  "7hUWc+": {
+    "defaultMessage": "Créer un profil",
+    "description": "Link text for users to create a profile"
+  },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
