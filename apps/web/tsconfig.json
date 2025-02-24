@@ -3,12 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@gc-digital-talent/*": [
-        "../../../packages/*/src"
-      ],
-      "~/*": [
-        "./*"
-      ]
+      "@gc-digital-talent/*": ["../../../packages/*/src"],
+      "~/*": ["./*"]
     }
   },
   "include": [
@@ -18,10 +14,5 @@
     "globals.d.ts",
     "jest.config.ts"
   ],
-  "exclude": [
-    "**/.*/",
-    "**/node_modules",
-    "dist",
-    "**/src/gql"
-  ]
+  "exclude": ["**/.*/", "**/node_modules", "dist", "**/src/gql"]
 }
