@@ -7538,6 +7538,10 @@
     "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
   },
+  "cUSI4/": {
+    "defaultMessage": "Votre profil d'employée ou d'employé du GC",
+    "description": "Page title for a user's GC employee profile"
+  },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
     "description": "Legend for the options related to the reason for submitting a request."
@@ -10865,10 +10869,6 @@
   "tvQYG5": {
     "defaultMessage": "Avis",
     "description": "Title for the websites terms and conditions"
-  },
-  "u+lXsz": {
-    "defaultMessage": "Votre profil d'employée ou d'employé",
-    "description": "Page title for a users employee profile"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",

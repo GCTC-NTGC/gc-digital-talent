@@ -90,9 +90,9 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
   }
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Your employee profile",
-    id: "u+lXsz",
-    description: "Page title for a users employee profile",
+    defaultMessage: "Your GC employee profile",
+    id: "cUSI4/",
+    description: "Page title for a user's GC employee profile",
   });
 
   const subtitle = intl.formatMessage({
