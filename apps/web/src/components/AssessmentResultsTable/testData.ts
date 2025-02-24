@@ -165,7 +165,7 @@ const interviewGroupResults: AssessmentResult[] = [
   ),
 ];
 
-// eslint-disable-next-line import/prefer-default-export
+
 export const testPoolCandidate: PoolCandidate = {
   ...poolCandidate,
   id: faker.string.uuid(),

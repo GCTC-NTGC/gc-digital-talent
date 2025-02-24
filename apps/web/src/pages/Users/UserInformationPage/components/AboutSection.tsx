@@ -98,6 +98,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             </p>
             <p>
               {user.currentCity ? user.currentCity : ""}
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               {user.currentCity && user.currentProvince?.label ? ", " : ""}
               {getLocalizedName(user.currentProvince?.label, intl, true)}
             </p>

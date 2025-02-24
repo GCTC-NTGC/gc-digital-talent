@@ -1,6 +1,6 @@
 import formatjs from "eslint-plugin-formatjs";
-import baseConfig from "@gc-digital-talent/eslint-config/react";
-import plugin from "eslint-plugin-react";
+import baseConfig from "./react.mjs";
+
 export default [
   ...baseConfig,
   {

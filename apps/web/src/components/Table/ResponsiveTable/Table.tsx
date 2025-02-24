@@ -202,6 +202,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
           data-h2-font-weight="base(700)"
         >
           {header}
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}
         </span>
       )}

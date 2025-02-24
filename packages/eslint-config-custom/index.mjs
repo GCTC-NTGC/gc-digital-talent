@@ -6,8 +6,7 @@ import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
 import turbo from "eslint-plugin-turbo";
 import testingLibrary from "eslint-plugin-testing-library";
 import noOnlyTests from "eslint-plugin-no-only-tests";
-
-console.log(import.meta.dirname);
+import prettierConfig from "eslint-config-prettier";
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -15,6 +14,19 @@ export default tseslint.config(
   tseslint.configs.stylisticTypeChecked,
   turbo.configs["flat/recommended"],
   testingLibrary.configs["flat/react"],
+  {
+    ignores: [
+      "eslint.config.js",
+      "**/index.js",
+      "**/tsconfig.json",
+      "**/styleMock.ts",
+      "**/fileMock.ts",
+      "**/.turbo",
+      "gql/graphql.ts",
+      "dist/**/*",
+      "**/*.snap",
+    ],
+  },
   {
     languageOptions: {
       ecmaVersion: 2020,
@@ -27,17 +39,8 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    files: ["**/*.{ts,tsx}"],
     extends: [importFlatConfigs.recommended, importFlatConfigs.typescript],
-    files: ["**/*.ts", "**.*.tsx"],
-    ignores: [
-      "**/index.js",
-      "**/tsconfig.json",
-      "**/styleMock.ts",
-      "**/fileMock.ts",
-      "**/.turbo",
-      "gql/graphql.ts",
-      "dist/**/*",
-    ],
     plugins: {
       "no-only-tests": noOnlyTests,
     },
@@ -111,6 +114,7 @@ export default tseslint.config(
       "no-console": "error",
       "no-alert": "error",
       "prefer-promise-reject-errors": "off",
+      "@typescript-eslint/no-deprecated": "error",
       "@typescript-eslint/no-use-before-define": "error",
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/no-empty-function": "error",
@@ -142,7 +146,7 @@ export default tseslint.config(
 
       "import/no-named-as-default": "off",
       "import/namespace": "off",
-      "deprecation/deprecation": "off",
     },
   },
+  prettierConfig,
 );

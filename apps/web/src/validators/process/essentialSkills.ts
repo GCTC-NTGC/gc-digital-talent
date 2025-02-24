@@ -4,7 +4,6 @@ import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 // Note: Only one field to check here
-// eslint-disable-next-line import/prefer-default-export
 export function hasEmptyRequiredFields({
   poolSkills,
 }: Pick<Pool, "poolSkills">): boolean {

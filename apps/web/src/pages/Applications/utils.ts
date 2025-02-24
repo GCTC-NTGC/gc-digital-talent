@@ -24,7 +24,6 @@ interface GetApplicationPagesArgs {
 }
 
 // Dynamically build the list of application steps for this application
-// eslint-disable-next-line import/prefer-default-export
 export const getApplicationSteps = ({
   paths,
   intl,

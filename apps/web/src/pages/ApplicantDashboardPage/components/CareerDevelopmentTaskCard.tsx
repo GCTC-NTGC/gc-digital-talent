@@ -212,6 +212,7 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
                 >
+                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                   {`${intl.formatMessage({
                     defaultMessage: "Functional communities",
                     id: "OH0wqV",

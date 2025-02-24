@@ -29,6 +29,7 @@ export default [
           assertFunctionNames: ["assertError", "assertSuccess"],
         },
       ],
+      "testing-library/prefer-screen-queries": "off",
     },
   },
 ];

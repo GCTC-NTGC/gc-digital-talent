@@ -40,7 +40,6 @@ const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
       <NavMenu.Link
         type={subMenu ? "subMenuLink" : "link"}
         // NOTE: Comes from react-router
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         {...{ state, href }}
       >
         {title}

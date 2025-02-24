@@ -163,6 +163,7 @@ const ChangeDateDialog = ({
                 "First section of text on the change candidate expiry date dialog",
             })}
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p data-h2-font-weight="base(800)">
             - {getFullNameHtml(firstName, lastName, intl)}
           </p>
@@ -175,7 +176,8 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            -{" "}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {"- "}
             {getShortPoolTitleHtml(intl, {
               workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,

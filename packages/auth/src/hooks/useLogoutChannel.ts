@@ -41,7 +41,6 @@ const useLogoutChannel = (onLogout: () => void) => {
       }
     };
     // We only want this to run on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const broadcastLogoutMessage = useCallback(() => {

@@ -173,6 +173,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.GovernmentOfCanada && (
             <>
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               <span aria-hidden>&bull;</span>
               <span>
                 {intl.formatMessage({
@@ -190,6 +191,7 @@ const ExperienceCard = ({
           experience.govEmploymentType?.value ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               <span aria-hidden>&bull;</span>
               <span>
                 {intl.formatMessage({
@@ -205,6 +207,7 @@ const ExperienceCard = ({
           experience.employmentCategory?.value ===
             EmploymentCategory.CanadianArmedForces && (
             <>
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               <span aria-hidden>&bull;</span>
               <span>
                 {intl.formatMessage({
@@ -218,6 +221,7 @@ const ExperienceCard = ({
           )}
         {date && (
           <>
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             <span aria-hidden>&bull;</span>
             <span>{date}</span>
           </>

@@ -143,6 +143,7 @@ const Pagination = ({
         </span>
         {pageSizes && (
           <>
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             <span aria-hidden>&bull;</span>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
@@ -224,6 +225,7 @@ const Pagination = ({
 
           {paginationRange.map((pageNumber, index) => {
             if (pageNumber === DOTS) {
+              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
               return <li key={`dots-${index + 1}`}>&hellip;</li>;
             }
 

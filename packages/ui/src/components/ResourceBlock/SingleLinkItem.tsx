@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
 
 import Link, { LinkProps } from "../Link";
@@ -29,7 +30,7 @@ const SingleLinkItem = ({
         >
           {title}
           {/* issue #11284 */}
-          <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
+          <ArrowSmallRightIcon
             data-h2-width="base(auto)"
             data-h2-height="base(x0.75)"
             data-h2-color="base(black.light)"

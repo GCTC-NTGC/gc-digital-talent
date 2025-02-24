@@ -63,10 +63,13 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
     >
       <p>
         <span data-h2-font-size="base(caption)">
-          {user.currentCity ?? intl.formatMessage(commonMessages.notFound)},{" "}
-          {getLocalizedName(user.currentProvince?.label, intl)}
+          {user.currentCity ??
+            // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            intl.formatMessage(commonMessages.notFound)}
+          , {getLocalizedName(user.currentProvince?.label, intl)}
         </span>
       </p>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       {user.telephone ? (
         <>
@@ -79,18 +82,21 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
               <span data-h2-font-size="base(caption)">{user.telephone}</span>
             </Link>
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <span aria-hidden>&bull;</span>
         </>
       ) : null}
       <Link external href={`mailto:${user.email}`}>
         <span data-h2-font-size="base(caption)">{user.email}</span>
       </Link>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
         <span data-h2-font-size="base(caption)">
           {getLocalizedName(user.citizenship?.label, intl)}
         </span>
       </p>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
         <span data-h2-font-size="base(caption)">
@@ -103,6 +109,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
           {getLocalizedName(user.preferredLang?.label, intl)}
         </span>
       </p>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
         <span data-h2-font-size="base(caption)">
@@ -116,6 +123,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
           {getLocalizedName(user.preferredLanguageForInterview?.label, intl)}
         </span>
       </p>
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       <span aria-hidden>&bull;</span>
       <p>
         <span data-h2-font-size="base(caption)">

@@ -35,7 +35,6 @@ type GetSkillBrowserDialogMessages = (
   args: GetSkillBrowserDialogMessagesArgs,
 ) => SkillBrowserDialogMessages;
 
-// eslint-disable-next-line import/prefer-default-export
 export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
   context,
   intl,

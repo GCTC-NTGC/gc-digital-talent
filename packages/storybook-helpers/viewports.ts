@@ -6,7 +6,6 @@ export const VIEWPORT = {
   DESKTOP: "desktop",
 } as const;
 
-// eslint-disable-next-line import/no-unused-modules
 export type Viewport = (typeof VIEWPORT)[keyof typeof VIEWPORT];
 
 interface Dimension {

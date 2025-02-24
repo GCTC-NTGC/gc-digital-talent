@@ -178,7 +178,9 @@ function getMetadata(
               date: parseDateTimeUtc(trainingOpportunity.trainingStart),
               formatString: "PPP",
               intl,
+              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             })}{" "}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {"-"}{" "}
             {formatDate({
               date: parseDateTimeUtc(trainingOpportunity.trainingEnd),

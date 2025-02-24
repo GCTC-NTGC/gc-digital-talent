@@ -102,6 +102,7 @@ export const EmailVerification = ({
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
         }
+        // eslint-disable-next-line testing-library/no-debugging-utils
         logger.debug("A code was sent");
         setCanRequestACode(false);
       })
@@ -292,6 +293,7 @@ const EmailVerificationApi = ({
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
         }
+        // eslint-disable-next-line testing-library/no-debugging-utils
         logger.debug("Initial code was sent");
       })
       .catch(() => {

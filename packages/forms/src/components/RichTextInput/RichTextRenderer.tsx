@@ -90,7 +90,6 @@ const RichTextRenderer = ({
     node.content.forEach((childNode, index) => {
       children.push(
         <RichTextRenderer
-          // eslint-disable-next-line react/no-array-index-key
           key={`${childNode.type}-${index}`}
           node={childNode}
           {...{ renderMap }}
@@ -101,7 +100,7 @@ const RichTextRenderer = ({
 
   // We do not have a renderer for this
   if (!(node.type in renderMap)) {
-    // eslint-disable-next-line react/jsx-no-useless-fragment
+
     return <NoNode node={node}>{children}</NoNode>;
   }
 

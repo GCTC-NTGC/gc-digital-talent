@@ -570,6 +570,7 @@ const AssessmentDetailsDialog = ({
                         type="text"
                         label={intl.formatMessage(labels.assessmentTitleEn)}
                       />
+                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                     </div>{" "}
                     <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
                       <Input

@@ -27,7 +27,6 @@ const sortOrder = [
   PoolCandidateStatus.Expired,
 ];
 
-// eslint-disable-next-line import/prefer-default-export
 const sortStatus: SortingFnOption<PoolStatusTablePoolCandidateFragmentType> = (
   { original: a },
   { original: b },
