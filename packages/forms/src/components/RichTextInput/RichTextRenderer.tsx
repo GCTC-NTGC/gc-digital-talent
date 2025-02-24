@@ -100,7 +100,6 @@ const RichTextRenderer = ({
 
   // We do not have a renderer for this
   if (!(node.type in renderMap)) {
-
     return <NoNode node={node}>{children}</NoNode>;
   }
 

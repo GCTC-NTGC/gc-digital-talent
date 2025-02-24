@@ -165,7 +165,6 @@ const interviewGroupResults: AssessmentResult[] = [
   ),
 ];
 
-
 export const testPoolCandidate: PoolCandidate = {
   ...poolCandidate,
   id: faker.string.uuid(),
