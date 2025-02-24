@@ -245,11 +245,7 @@ const ManagerHomePage = () => {
             href={paths.profile()}
             icon={UserPlusIcon}
           >
-            {intl.formatMessage({
-              defaultMessage: "Create a profile",
-              id: "7hUWc+",
-              description: "Link text for users to create a profile",
-            })}
+            {intl.formatMessage(navigationMessages.createProfile)}
           </Link>
         </div>
       </SkewedImageContainer>

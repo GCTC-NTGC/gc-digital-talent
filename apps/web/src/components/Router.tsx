@@ -582,6 +582,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
               ],
             },
             {
+              path: "comptrollership-executives",
+              lazy: () =>
+                import(
+                  "../pages/ComptrollershipExecutivesPage/ComptrollershipExecutivesPage"
+                ),
+            },
+            {
               path: "admin",
               children: [
                 {

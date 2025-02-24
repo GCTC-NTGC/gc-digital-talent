@@ -350,6 +350,10 @@ const getRoutes = (lang: Locales) => {
     // Communities
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
 
+    // Comptrollership
+    comptrollershipExecutivesPage: () =>
+      [baseUrl, "comptrollership-executives"].join("/"),
+
     /**
      * Deprecated
      *
