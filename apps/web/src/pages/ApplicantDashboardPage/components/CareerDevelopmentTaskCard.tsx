@@ -14,11 +14,8 @@ import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
-import {
-  EmployeeProfileCareerDevelopmentOptions_Fragment,
-  getLabels as getCareerDevelopmentLabels,
-} from "~/pages/EmployeeProfile/components/CareerDevelopmentSection/utils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import messages from "~/messages/careerDevelopmentMessages";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
@@ -65,12 +62,35 @@ export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
+  fragment CareerDevelopmentTaskCardOptions on Query {
+    organizationTypeInterest: localizedEnumStrings(
+      enumName: "OrganizationTypeInterest"
+    ) {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    timeFrame: localizedEnumStrings(enumName: "TimeFrame") {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
+
 interface CareerDevelopmentTaskCardProps {
   careerDevelopmentTaskCardQuery: FragmentType<
     typeof CareerDevelopmentTaskCard_Fragment
   >;
   careerDevelopmentOptionsQuery: FragmentType<
-    typeof EmployeeProfileCareerDevelopmentOptions_Fragment
+    typeof CareerDevelopmentTaskCardOptions_Fragment
   >;
 }
 
@@ -80,15 +100,15 @@ const CareerDevelopmentTaskCard = ({
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const careerDevelopmentLabels = getCareerDevelopmentLabels(intl);
+  const careerDevelopmentMessages = messages(intl);
 
   const careerDevelopmentTaskCardFragment = getFragment(
     CareerDevelopmentTaskCard_Fragment,
     careerDevelopmentTaskCardQuery,
   );
 
-  const careerDevelopmentOptions = getFragment(
-    EmployeeProfileCareerDevelopmentOptions_Fragment,
+  const careerDevelopmentTaskCardOptions = getFragment(
+    CareerDevelopmentTaskCardOptions_Fragment,
     careerDevelopmentOptionsQuery,
   );
 
@@ -199,7 +219,7 @@ const CareerDevelopmentTaskCard = ({
                     data-h2-padding-top="base(x.5)"
                   >
                     <FieldDisplay
-                      label={careerDevelopmentLabels.lateralMoveInterest}
+                      label={careerDevelopmentMessages.lateralMoveInterest}
                     >
                       {empty(lateralMoveInterest)
                         ? missingInfo
@@ -223,7 +243,7 @@ const CareerDevelopmentTaskCard = ({
                     </FieldDisplay>
                     {lateralMoveInterest && (
                       <FieldDisplay
-                        label={careerDevelopmentLabels.lateralMoveTimeFrame}
+                        label={careerDevelopmentMessages.lateralMoveTimeFrame}
                       >
                         {lateralMoveTimeFrame
                           ? lateralMoveTimeFrame.label.localized
@@ -233,7 +253,7 @@ const CareerDevelopmentTaskCard = ({
                     {lateralMoveInterest && (
                       <FieldDisplay
                         label={
-                          careerDevelopmentLabels.lateralMoveOrganizationType
+                          careerDevelopmentMessages.lateralMoveOrganizationType
                         }
                       >
                         {lateralMoveOrganizationType ? (
@@ -242,7 +262,7 @@ const CareerDevelopmentTaskCard = ({
                             data-h2-padding="base(0)"
                           >
                             {unpackMaybes(
-                              careerDevelopmentOptions?.organizationTypeInterest,
+                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
                             ).map((x) => {
                               const iconValue =
                                 lateralMoveOrganizationTypes.includes(x.value);
@@ -264,7 +284,7 @@ const CareerDevelopmentTaskCard = ({
                       </FieldDisplay>
                     )}
                     <FieldDisplay
-                      label={careerDevelopmentLabels.promotionMoveInterest}
+                      label={careerDevelopmentMessages.promotionMoveInterest}
                     >
                       {empty(promotionMoveInterest)
                         ? missingInfo
@@ -288,7 +308,7 @@ const CareerDevelopmentTaskCard = ({
                     </FieldDisplay>
                     {promotionMoveInterest && (
                       <FieldDisplay
-                        label={careerDevelopmentLabels.promotionMoveTimeFrame}
+                        label={careerDevelopmentMessages.promotionMoveTimeFrame}
                       >
                         {promotionMoveTimeFrame
                           ? promotionMoveTimeFrame.label.localized
@@ -298,7 +318,7 @@ const CareerDevelopmentTaskCard = ({
                     {promotionMoveInterest && (
                       <FieldDisplay
                         label={
-                          careerDevelopmentLabels.promotionMoveOrganizationType
+                          careerDevelopmentMessages.promotionMoveOrganizationType
                         }
                       >
                         {promotionMoveOrganizationType ? (
@@ -307,7 +327,7 @@ const CareerDevelopmentTaskCard = ({
                             data-h2-padding="base(0)"
                           >
                             {unpackMaybes(
-                              careerDevelopmentOptions?.organizationTypeInterest,
+                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
                             ).map((x) => {
                               const iconValue =
                                 promotionMoveOrganizationTypes.includes(

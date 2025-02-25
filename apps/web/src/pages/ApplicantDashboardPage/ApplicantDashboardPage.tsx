@@ -377,7 +377,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
     me {
       ...ApplicantDashboardPage
     }
-    ...EmployeeProfileCareerDevelopmentOptions
+    ...CareerDevelopmentTaskCardOptions
   }
 `);
 

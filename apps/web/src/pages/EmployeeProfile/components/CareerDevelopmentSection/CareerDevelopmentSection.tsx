@@ -45,10 +45,10 @@ import {
 } from "~/validators/employeeProfile/careerDevelopment";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import messages from "~/messages/careerDevelopmentMessages";
 
 import Display from "./Display";
 import {
-  getLabels,
   execCoachingStatusToData,
   execCoachingStatusToFormValues,
   mentorshipStatusToData,
@@ -142,7 +142,7 @@ const CareerDevelopmentSection = ({
     careerDevelopmentOptionsQuery,
   );
 
-  const labels = getLabels(intl);
+  const careerDevelopmentMessages = messages(intl);
   const isNull = hasAllEmptyFields(employeeProfile);
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -320,7 +320,7 @@ const CareerDevelopmentSection = ({
               >
                 <RadioGroup
                   idPrefix="lateralMoveInterest"
-                  legend={labels.lateralMoveInterest}
+                  legend={careerDevelopmentMessages.lateralMoveInterest}
                   name="lateralMoveInterest"
                   id="lateralMoveInterest"
                   items={[
@@ -354,7 +354,7 @@ const CareerDevelopmentSection = ({
                     <RadioGroup
                       idPrefix="lateralMoveTimeFrame"
                       name="lateralMoveTimeFrame"
-                      legend={labels.lateralMoveTimeFrame}
+                      legend={careerDevelopmentMessages.lateralMoveTimeFrame}
                       items={localizedEnumToOptions(
                         careerDevelopmentOptions?.timeFrame,
                         intl,
@@ -366,7 +366,9 @@ const CareerDevelopmentSection = ({
                     <Checklist
                       idPrefix="lateralMoveOrganizationType"
                       name="lateralMoveOrganizationType"
-                      legend={labels.lateralMoveOrganizationType}
+                      legend={
+                        careerDevelopmentMessages.lateralMoveOrganizationType
+                      }
                       items={localizedEnumToOptions(
                         careerDevelopmentOptions?.organizationTypeInterest,
                         intl,
@@ -380,7 +382,7 @@ const CareerDevelopmentSection = ({
                 <Separator data-h2-margin="base(0)" decorative />
                 <RadioGroup
                   idPrefix="promotionMoveInterest"
-                  legend={labels.promotionMoveInterest}
+                  legend={careerDevelopmentMessages.promotionMoveInterest}
                   name="promotionMoveInterest"
                   id="promotionMoveInterest"
                   items={[
@@ -414,7 +416,7 @@ const CareerDevelopmentSection = ({
                     <RadioGroup
                       idPrefix="promotionMoveTimeFrame"
                       name="promotionMoveTimeFrame"
-                      legend={labels.promotionMoveTimeFrame}
+                      legend={careerDevelopmentMessages.promotionMoveTimeFrame}
                       items={localizedEnumToOptions(
                         careerDevelopmentOptions?.timeFrame,
                         intl,
@@ -426,7 +428,9 @@ const CareerDevelopmentSection = ({
                     <Checklist
                       idPrefix="promotionMoveOrganizationType"
                       name="promotionMoveOrganizationType"
-                      legend={labels.promotionMoveOrganizationType}
+                      legend={
+                        careerDevelopmentMessages.promotionMoveOrganizationType
+                      }
                       items={localizedEnumToOptions(
                         careerDevelopmentOptions?.organizationTypeInterest,
                         intl,
@@ -441,7 +445,7 @@ const CareerDevelopmentSection = ({
                 <RadioGroup
                   idPrefix="mentorshipStatus"
                   name="mentorshipStatus"
-                  legend={labels.mentorshipStatus}
+                  legend={careerDevelopmentMessages.mentorshipStatus}
                   items={[
                     { value: MentorshipStatus.NOT_PARTICIPATING },
                     ...unpackMaybes(careerDevelopmentOptions?.mentorship),
@@ -457,7 +461,7 @@ const CareerDevelopmentSection = ({
                 <Checklist
                   idPrefix="mentorshipInterest"
                   name="mentorshipInterest"
-                  legend={labels.mentorshipInterest}
+                  legend={careerDevelopmentMessages.mentorshipInterest}
                   items={unpackMaybes(careerDevelopmentOptions?.mentorship).map(
                     ({ value }) => ({
                       value,
@@ -468,7 +472,7 @@ const CareerDevelopmentSection = ({
                 <RadioGroup
                   idPrefix="execInterest"
                   name="execInterest"
-                  legend={labels.execInterest}
+                  legend={careerDevelopmentMessages.execInterest}
                   items={[
                     {
                       value: "no",
@@ -494,12 +498,12 @@ const CareerDevelopmentSection = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  context={labels.execInterestContext}
+                  context={careerDevelopmentMessages.execInterestContext}
                 />
                 <RadioGroup
                   idPrefix="execCoachingStatus"
                   name="execCoachingStatus"
-                  legend={labels.execCoachingStatus}
+                  legend={careerDevelopmentMessages.execCoachingStatus}
                   items={[
                     { value: ExecCoachingStatus.NOT_PARTICIPATING },
                     ...unpackMaybes(careerDevelopmentOptions?.execCoaching),
@@ -515,14 +519,16 @@ const CareerDevelopmentSection = ({
                 <Checklist
                   idPrefix="execCoachingInterest"
                   name="execCoachingInterest"
-                  legend={labels.execCoachingInterest}
+                  legend={careerDevelopmentMessages.execCoachingInterest}
                   items={unpackMaybes(
                     careerDevelopmentOptions?.execCoaching,
                   ).map(({ value }) => ({
                     value,
                     label: intl.formatMessage(getExecCoachingInterest(value)),
                   }))}
-                  context={labels.execCoachingInterestContext}
+                  context={
+                    careerDevelopmentMessages.execCoachingInterestContext
+                  }
                 />
                 <div
                   data-h2-display="base(flex)"

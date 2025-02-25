@@ -12,13 +12,13 @@ import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import messages from "~/messages/careerDevelopmentMessages";
 
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
   EmployeeProfileCareerDevelopment_Fragment,
   EmployeeProfileCareerDevelopmentOptions_Fragment,
-  getLabels,
 } from "./utils";
 
 interface DisplayProps {
@@ -35,7 +35,7 @@ const Display = ({
   careerDevelopmentOptionsQuery,
 }: DisplayProps) => {
   const intl = useIntl();
-  const labels = getLabels(intl);
+  const careerDevelopmentMessages = messages(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const {
@@ -95,7 +95,9 @@ const Display = ({
           })}
         </Well>
       )}
-      <ToggleForm.FieldDisplay label={labels.lateralMoveInterest}>
+      <ToggleForm.FieldDisplay
+        label={careerDevelopmentMessages.lateralMoveInterest}
+      >
         {empty(lateralMoveInterest)
           ? notProvided
           : intl.formatMessage(
@@ -118,12 +120,16 @@ const Display = ({
       </ToggleForm.FieldDisplay>
       {lateralMoveInterest && (
         <>
-          <ToggleForm.FieldDisplay label={labels.lateralMoveTimeFrame}>
+          <ToggleForm.FieldDisplay
+            label={careerDevelopmentMessages.lateralMoveTimeFrame}
+          >
             {lateralMoveTimeFrame
               ? lateralMoveTimeFrame.label.localized
               : notProvided}
           </ToggleForm.FieldDisplay>
-          <ToggleForm.FieldDisplay label={labels.lateralMoveOrganizationType}>
+          <ToggleForm.FieldDisplay
+            label={careerDevelopmentMessages.lateralMoveOrganizationType}
+          >
             {lateralMoveOrganizationType ? (
               <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
                 {unpackMaybes(
@@ -150,7 +156,9 @@ const Display = ({
       )}
       {promotionMoveInterest && (
         <>
-          <ToggleForm.FieldDisplay label={labels.promotionMoveInterest}>
+          <ToggleForm.FieldDisplay
+            label={careerDevelopmentMessages.promotionMoveInterest}
+          >
             {empty(promotionMoveInterest)
               ? notProvided
               : intl.formatMessage(
@@ -171,12 +179,16 @@ const Display = ({
                       },
                 )}
           </ToggleForm.FieldDisplay>
-          <ToggleForm.FieldDisplay label={labels.promotionMoveTimeFrame}>
+          <ToggleForm.FieldDisplay
+            label={careerDevelopmentMessages.promotionMoveTimeFrame}
+          >
             {promotionMoveTimeFrame
               ? promotionMoveTimeFrame.label.localized
               : notProvided}
           </ToggleForm.FieldDisplay>
-          <ToggleForm.FieldDisplay label={labels.promotionMoveOrganizationType}>
+          <ToggleForm.FieldDisplay
+            label={careerDevelopmentMessages.promotionMoveOrganizationType}
+          >
             {promotionMoveOrganizationType ? (
               <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
                 {unpackMaybes(
@@ -203,13 +215,15 @@ const Display = ({
       )}
       <ToggleForm.FieldDisplay
         hasError={!mentorshipStatus}
-        label={labels.mentorshipStatus}
+        label={careerDevelopmentMessages.mentorshipStatus}
       >
         {mentorshipStatus
           ? intl.formatMessage(displayMentorshipStatus(mentorshipStatus))
           : notProvided}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay label={labels.mentorshipInterest}>
+      <ToggleForm.FieldDisplay
+        label={careerDevelopmentMessages.mentorshipInterest}
+      >
         {mentorshipInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
@@ -231,7 +245,7 @@ const Display = ({
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={empty(execInterest)}
-        label={labels.execInterest}
+        label={careerDevelopmentMessages.execInterest}
       >
         {empty(execInterest)
           ? notProvided
@@ -255,11 +269,13 @@ const Display = ({
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!execCoachingStatus}
-        label={labels.execCoachingStatus}
+        label={careerDevelopmentMessages.execCoachingStatus}
       >
         {intl.formatMessage(displayExecCoachingStatus(execCoachingStatus))}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay label={labels.execCoachingInterest}>
+      <ToggleForm.FieldDisplay
+        label={careerDevelopmentMessages.execCoachingInterest}
+      >
         {execCoachingInterest ? (
           <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {

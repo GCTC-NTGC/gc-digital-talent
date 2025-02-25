@@ -12,8 +12,10 @@ import {
   DashboardPage as ApplicantDashboardPage,
   ApplicantDashboardPage_Fragment,
 } from "./ApplicantDashboardPage";
-import { EmployeeProfileCareerDevelopmentOptions_Fragment } from "../EmployeeProfile/components/CareerDevelopmentSection/utils";
-import { CareerDevelopmentTaskCard_Fragment } from "./components/CareerDevelopmentTaskCard";
+import {
+  CareerDevelopmentTaskCard_Fragment,
+  CareerDevelopmentTaskCardOptions_Fragment,
+} from "./components/CareerDevelopmentTaskCard";
 
 const mockUser = fakeUser();
 
@@ -73,7 +75,7 @@ Default.args = {
           },
         ],
       },
-      EmployeeProfileCareerDevelopmentOptions_Fragment,
+      CareerDevelopmentTaskCardOptions_Fragment,
     ),
   },
 };
