@@ -5,6 +5,7 @@ import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   EmployeeProfilePageQuery,
+  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -40,12 +41,21 @@ import GoalsWorkStyleSection, {
 } from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
+import NextRoleSection from "./components/NextRoleSection/NextRoleSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
+  NEXT_ROLE: "next-role-section",
+  CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
+
+const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeProfileOptions on Query {
+    ...EmployeeProfileNextRoleOptions
+  }
+`);
 
 const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
@@ -55,18 +65,27 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     employeeProfile {
       ...EmployeeProfileGoalsWorkStyle
       ...EmployeeProfileCareerDevelopment
+      ...EmployeeProfileNextRole
     }
   }
 `);
 
 interface EmployeeProfileProps {
   employeeProfileQuery: EmployeeProfilePageQuery;
+  userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
-const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
+const EmployeeProfile = ({
+  employeeProfileQuery,
+  userQuery,
+  optionsQuery,
+}: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery.me);
+  const user = getFragment(EmployeeProfile_Fragment, userQuery);
+  const options = getFragment(EmployeeProfileOptions_Fragment, optionsQuery);
+  const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
 
   if (!user?.employeeProfile) {
     throw new NotFoundError();
@@ -164,6 +183,22 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
+                      title={intl.formatMessage(messages.yourNextRole)}
+                      status={"success"}
+                      scrollTo={SECTION_ID.NEXT_ROLE}
+                    />
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.careerObjective)}
+                      status="success"
+                      scrollTo={SECTION_ID.CAREER_OBJECTIVE}
+                    />
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
                       status={
                         goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
@@ -212,6 +247,18 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                   careerDevelopmentOptionsQuery={employeeProfileQuery}
                 />
               </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.NEXT_ROLE}>
+                <NextRoleSection
+                  employeeProfileQuery={user.employeeProfile}
+                  optionsQuery={options}
+                />
+              </TableOfContents.Section>
+              {/* <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
+                <CareerObjectiveSection
+                  employeeProfileQuery={user.employeeProfile}
+                />
+              </TableOfContents.Section> */}
+
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}
@@ -227,6 +274,7 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
 
 const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
   query EmployeeProfilePage {
+    ...EmployeeProfileOptions
     me {
       ...EmployeeProfile
     }
@@ -243,7 +291,11 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile employeeProfileQuery={data} />
+        <EmployeeProfile
+          employeeProfileQuery={data}
+          userQuery={data.me}
+          optionsQuery={data}
+        />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
