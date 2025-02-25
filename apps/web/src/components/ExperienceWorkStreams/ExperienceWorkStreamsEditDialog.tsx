@@ -181,6 +181,14 @@ const ExperienceWorkStreamsEditDialog = ({
                         id: "L8iV5q",
                         description: "Instructions for selecting work streams",
                       })}
+                      {communityGroup?.community &&
+                        ` ${intl.formatMessage({
+                          defaultMessage:
+                            "To remove this functional community entirely, use the trash can button on the previous screen and save your changes.",
+                          id: "fM48Ck",
+                          description:
+                            "Instructions for deselecting work streams",
+                        })}`}
                     </p>
                     {workStreamItemsOfCommunity && (
                       <Checklist
@@ -198,12 +206,19 @@ const ExperienceWorkStreamsEditDialog = ({
               </div>
               <Dialog.Footer>
                 <Button type="submit" color="secondary">
-                  {intl.formatMessage({
-                    defaultMessage: "Save work streams",
-                    id: "JUC/JA",
-                    description:
-                      "Link text to save work streams for an experience",
-                  })}
+                  {communityGroup?.community
+                    ? intl.formatMessage({
+                        defaultMessage: "Update work streams",
+                        id: "eePQun",
+                        description:
+                          "Link text to add work streams for an experience",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Add work streams",
+                        id: "gL8LDB",
+                        description:
+                          "Link text to update work streams for an experience",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button mode="inline" color="quaternary">

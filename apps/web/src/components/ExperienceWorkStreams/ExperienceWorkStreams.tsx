@@ -286,8 +286,8 @@ const ExperienceWorkStreams = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                'You can add a new field of work using the "Add work streams" button.',
-              id: "MeN3/x",
+                'You can add them using the "Add work streams" button.',
+              id: "fdSRLv",
               description:
                 "Subtitle when no work streams have been attached to experience",
             })}
