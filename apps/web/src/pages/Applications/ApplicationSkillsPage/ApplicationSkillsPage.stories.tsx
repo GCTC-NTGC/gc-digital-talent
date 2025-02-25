@@ -18,6 +18,7 @@ faker.seed(0);
 const fakePoolCandidate = fakePoolCandidates(
   1,
 )[0] as ApplicationPoolCandidateFragmentType;
+fakePoolCandidate.submittedAt = null;
 const fakeUser = fakePoolCandidate.user;
 const mockExperiences = fakeExperiences(5);
 const experienceSkills = mockExperiences
