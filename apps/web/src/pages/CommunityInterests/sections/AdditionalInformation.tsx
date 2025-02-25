@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { RichTextInput } from "@gc-digital-talent/forms";
+import { TextArea } from "@gc-digital-talent/forms";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
@@ -73,7 +73,7 @@ const AdditionalInformation = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1)"
       >
-        <RichTextInput
+        <TextArea
           id="additionalInformation"
           name="additionalInformation"
           label={intl.formatMessage({
