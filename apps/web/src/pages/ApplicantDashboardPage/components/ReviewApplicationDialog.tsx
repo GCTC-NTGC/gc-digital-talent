@@ -117,6 +117,11 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
       screeningQuestions {
         id
       }
+      opportunityLength {
+        label {
+          localized
+        }
+      }
     }
   }
 `);
@@ -299,7 +304,7 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(commonMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {pool.workStream?.name?.localized}
+              {pool.opportunityLength?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
