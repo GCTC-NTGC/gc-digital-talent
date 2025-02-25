@@ -16,6 +16,7 @@ const useDirtyFields = (section: SectionKey): void => {
      *
      * This is necessary to facilitate validating all of the forms at once
      */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDirty]);
 };
 

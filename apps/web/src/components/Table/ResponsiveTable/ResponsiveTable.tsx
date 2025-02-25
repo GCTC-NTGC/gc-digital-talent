@@ -354,6 +354,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       debouncedAnnouncement(totalRows ?? 0);
     }
     // Note, exhaustive-deps causes over announcing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows]);
 
   return (

@@ -115,7 +115,7 @@ export default tseslint.config(
       "no-console": "error",
       "no-alert": "error",
       "prefer-promise-reject-errors": "off",
-      "@typescript-eslint/no-deprecated": process.env.CI ? "error" : "off",
+      "@typescript-eslint/no-deprecated": "error",
       "@typescript-eslint/no-use-before-define": "error",
       "@typescript-eslint/no-shadow": "error",
       "@typescript-eslint/no-empty-function": "error",

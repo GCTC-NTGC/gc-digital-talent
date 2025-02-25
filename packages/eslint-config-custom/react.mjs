@@ -4,7 +4,7 @@ import react from "eslint-plugin-react";
 import baseConfig from "./index.mjs";
 import globals from "globals";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
-// import reactHooks from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks";
 import formatjs from "eslint-plugin-formatjs";
 
 export default [
@@ -12,7 +12,6 @@ export default [
   react.configs.flat.recommended,
   react.configs.flat["jsx-runtime"],
   jsxA11Y.flatConfigs.recommended,
-  // reactHooks.configs["recommended-latest"],
   // @ts-ignore
   formatjs.configs.recommended,
   {
@@ -24,8 +23,9 @@ export default [
         SharedArrayBuffer: "readonly",
       },
     },
-    plugins: { react },
+    plugins: { react, "react-hooks": reactHooks },
     rules: {
+      ...reactHooks.configs.recommended.rules,
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "formatjs/no-id": "off",

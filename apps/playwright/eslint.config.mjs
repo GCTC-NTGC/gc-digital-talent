@@ -1,5 +1,5 @@
 import playwright from "eslint-plugin-playwright";
-import baseConfig from "@gc-digital-talent/eslint-config/react";
+import baseConfig from "@gc-digital-talent/eslint-config";
 
 export default [
   ...baseConfig,

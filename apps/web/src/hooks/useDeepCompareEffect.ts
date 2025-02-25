@@ -19,6 +19,7 @@ function useDeepCompareEffect(
   dependencies: DependencyList,
 ): void {
   // this function was added to eslint so deps will be checked at the calling location
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(callback, dependencies.map(useDeepCompareMemoize));
 }
 
