@@ -44,7 +44,6 @@ import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDe
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
-  DREAM_ROLE: "dream-role-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
@@ -165,14 +164,6 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
-                      title={intl.formatMessage(messages.dreamRole)}
-                      status="success"
-                      scrollTo={SECTION_ID.DREAM_ROLE}
-                    />
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <StatusItem
-                      asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
                       status={
                         goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
@@ -221,9 +212,6 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
                   careerDevelopmentOptionsQuery={employeeProfileQuery}
                 />
               </TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.DREAM_ROLE}
-              ></TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}
