@@ -345,6 +345,9 @@ const CareerDevelopmentSection = ({
                       }),
                     },
                   ]}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
                 {watchLateralMoveInterest === "yes" && (
                   <>
@@ -368,6 +371,9 @@ const CareerDevelopmentSection = ({
                         careerDevelopmentOptions?.organizationTypeInterest,
                         intl,
                       )}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
                     />
                   </>
                 )}
@@ -399,6 +405,9 @@ const CareerDevelopmentSection = ({
                       }),
                     },
                   ]}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
                 {watchPromotionMoveInterest === "yes" && (
                   <>
@@ -422,6 +431,9 @@ const CareerDevelopmentSection = ({
                         careerDevelopmentOptions?.organizationTypeInterest,
                         intl,
                       )}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
                     />
                   </>
                 )}
