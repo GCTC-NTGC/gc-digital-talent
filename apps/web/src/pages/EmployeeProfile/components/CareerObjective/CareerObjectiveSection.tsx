@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { ComponentProps, useEffect } from "react";
+import { ComponentProps, useEffect, useId } from "react";
 
 import { Button, ToggleSection, Well } from "@gc-digital-talent/ui";
 import {
@@ -170,6 +170,7 @@ const CareerObjectiveSection = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const { userAuthInfo } = useAuthorization();
+  const classificationDescriptionId = useId();
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfile_Mutation,
   );
@@ -414,8 +415,13 @@ const CareerObjectiveSection = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1)"
               >
-                <>
-                  <p>
+                {/* Classification subsection */}
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x.5)"
+                >
+                  <p id={classificationDescriptionId}>
                     {intl.formatMessage(
                       employeeProfileMessages.targetClassification,
                     )}
@@ -439,6 +445,7 @@ const CareerObjectiveSection = ({
                         )}
                         options={groupOptions}
                         disabled={fetching}
+                        aria-describedby={classificationDescriptionId}
                       />
                     </div>
                     {notEmpty(watchClassificationGroup) && (
@@ -459,7 +466,7 @@ const CareerObjectiveSection = ({
                       </div>
                     )}
                   </div>
-                </>
+                </div>
                 <RadioGroup
                   idPrefix="targetRole"
                   name="targetRole"
@@ -564,7 +571,7 @@ const CareerObjectiveSection = ({
                 />
                 <div
                   data-h2-display="base(flex)"
-                  data-h2-gap="base(x.5)"
+                  data-h2-gap="base(x1)"
                   data-h2-align-items="base(center)"
                   data-h2-flex-wrap="base(wrap)"
                 >
