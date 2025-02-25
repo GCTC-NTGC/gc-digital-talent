@@ -13,12 +13,12 @@ use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\TimeFrame;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -248,8 +248,12 @@ class UserFactory extends Factory
             $user->employeeProfile->dreamRoleDepartments()->sync($departments);
 
             $user->employeeProfile()->update([
-                'career_planning_organization_type_interest' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
-                'career_planning_move_interest' => $this->faker->randomElements(array_column(MoveInterest::cases(), 'name'), null),
+                'career_planning_lateral_move_interest' => $this->faker->boolean(),
+                'career_planning_lateral_move_time_frame' => $this->faker->randomElement(array_column(TimeFrame::cases(), 'name'), null),
+                'career_planning_lateral_move_organization_type' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
+                'career_planning_promotion_move_interest' => $this->faker->boolean(),
+                'career_planning_promotion_move_time_frame' => $this->faker->randomElement(array_column(TimeFrame::cases(), 'name'), null),
+                'career_planning_promotion_move_organization_type' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
                 'career_planning_mentorship_status' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_mentorship_interest' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_exec_interest' => $this->faker->boolean(),
