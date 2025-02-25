@@ -19,6 +19,7 @@ colour
 colours
 columnheader
 combobox
+comptrollership
 corejs
 CRTC
 datas

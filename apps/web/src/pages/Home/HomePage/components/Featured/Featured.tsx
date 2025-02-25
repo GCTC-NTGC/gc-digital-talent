@@ -46,31 +46,34 @@ const Featured = () => {
       },
     },
     {
-      key: "directive-on-digital-talent",
+      key: "comptrollership-executives",
       title: intl.formatMessage({
-        defaultMessage: "Directive on Digital Talent",
-        id: "xXwUGs",
-        description: "Title for the digital talent directive page",
+        defaultMessage: "Talent management for comptrollership executives",
+        id: "vtE73H",
+        description:
+          "Title for talent management for comptrollership executives callout",
       }),
       summary: (
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Learn more about the Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
-            id: "L0ugLs",
+              "Each year, the Financial Management Community gathers information on its executive workforce to maintain leadership excellence and stay ahead of future needs.",
+            id: "GxSHuS",
             description:
-              "Summary of the directive on digital talent featured item",
+              "Summary on the talent management for comptrollership executives callout",
           })}
         </p>
       ),
 
       img: { path: glassesOnBooks, position: "bottom right" },
       link: {
-        path: paths.directive(),
+        path: paths.comptrollershipExecutivesPage(),
         label: intl.formatMessage({
-          defaultMessage: "Check out the Directive",
-          id: "sGPKUt",
-          description: "Link text to read the directive on digital talent",
+          defaultMessage:
+            "Learn more<hidden> about Talent management for comptrollership executives</hidden>",
+          id: "5Y8vU5",
+          description:
+            "Link text to the Talent management for comptrollership executives page",
         }),
       },
     },
