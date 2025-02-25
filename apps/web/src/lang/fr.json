@@ -235,6 +235,10 @@
     "defaultMessage": "Les candidatures pour les possibilités de recrutement peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
     "description": "Description for the track applications section on the profile and applications, paragraph one."
   },
+  "/6obwT": {
+    "defaultMessage": "Vous trouverez les processus de recrutement pour lesquels vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
+    "description": "Message informing applicant of the connected recruitment process in the preview list below"
+  },
   "/81xCT": {
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
@@ -710,10 +714,6 @@
   "1b+6V1": {
     "defaultMessage": "{role} à {group}",
     "description": "Role with group"
-  },
-  "1bTFdX": {
-    "defaultMessage": "Vous pouvez trouver le processus de recrutement pour lequel vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
-    "description": "Message informing applicant of the connected recruitment process in the preview list below"
   },
   "1bWLa3": {
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
