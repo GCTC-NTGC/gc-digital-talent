@@ -3,12 +3,7 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  EmployeeProfilePageQuery,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
   Pending,
@@ -54,6 +49,7 @@ const SECTION_ID = {
 
 const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfileOptions on Query {
+    ...EmployeeProfileCareerDevelopmentOptions
     ...EmployeeProfileNextRoleOptions
     ...EmployeeProfileCareerObjectiveOptions
   }
@@ -65,30 +61,27 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
     workEmail
     isWorkEmailVerified
     employeeProfile {
-      ...EmployeeProfileGoalsWorkStyle
       ...EmployeeProfileCareerDevelopment
-      ...EmployeeProfileNextRole
       ...EmployeeProfileCareerObjective
+      ...EmployeeProfileNextRole
+      ...EmployeeProfileGoalsWorkStyle
     }
   }
 `);
 
 interface EmployeeProfileProps {
-  employeeProfileQuery: EmployeeProfilePageQuery;
-  userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  employeeProfileQuery: FragmentType<typeof EmployeeProfile_Fragment>;
   optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
 const EmployeeProfile = ({
   employeeProfileQuery,
-  userQuery,
   optionsQuery,
 }: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, userQuery);
+  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery);
   const options = getFragment(EmployeeProfileOptions_Fragment, optionsQuery);
-  const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
 
   if (!user?.employeeProfile) {
     throw new NotFoundError();
@@ -247,7 +240,7 @@ const EmployeeProfile = ({
               <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
                 <CareerDevelopmentSection
                   employeeProfileQuery={user.employeeProfile}
-                  careerDevelopmentOptionsQuery={employeeProfileQuery}
+                  careerDevelopmentOptionsQuery={options}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.NEXT_ROLE}>
@@ -281,7 +274,6 @@ const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
     me {
       ...EmployeeProfile
     }
-    ...EmployeeProfileCareerDevelopmentOptions
   }
 `);
 
@@ -294,11 +286,7 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile
-          employeeProfileQuery={data}
-          userQuery={data.me}
-          optionsQuery={data}
-        />
+        <EmployeeProfile employeeProfileQuery={data.me} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
