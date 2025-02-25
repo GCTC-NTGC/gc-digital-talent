@@ -42,6 +42,7 @@ import GoalsWorkStyleSection, {
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
 import NextRoleSection from "./components/NextRoleSection/NextRoleSection";
+import CareerObjectiveSection from "./components/CareerObjective/CareerObjectiveSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -253,12 +254,12 @@ const EmployeeProfile = ({
                   optionsQuery={options}
                 />
               </TableOfContents.Section>
-              {/* <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
+              <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
                 <CareerObjectiveSection
                   employeeProfileQuery={user.employeeProfile}
+                  optionsQuery={options}
                 />
-              </TableOfContents.Section> */}
-
+              </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}

@@ -86,7 +86,7 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
-  fragment EmployeeProfileNextRole on EmployeeProfile {
+  fragment EmployeeProfileCareerObjective on EmployeeProfile {
     nextRoleClassification {
       id
       group
@@ -124,12 +124,12 @@ const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
 `);
 
 const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateEmployeeProfileNextRole(
+  mutation UpdateEmployeeProfileCareerObjective(
     $id: UUID!
     $employeeProfile: UpdateEmployeeProfileInput!
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-      ...EmployeeProfileNextRole
+      ...EmployeeProfileCareerObjective
     }
   }
 `);
@@ -187,8 +187,8 @@ const NextRoleSection = ({
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Failed updating next role information",
-        id: "GndGRz",
+        defaultMessage: "Failed updating career objective information",
+        id: "vKzPT0",
         description:
           "Message displayed when a user fails to updates employee profile information",
       }),
@@ -275,8 +275,9 @@ const NextRoleSection = ({
         if (result.data?.updateEmployeeProfile) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Next role information updated successfully!",
-              id: "3Kt+rj",
+              defaultMessage:
+                "Career objective information updated successfully!",
+              id: "bju7JB",
               description:
                 "Message displayed when a user successfully updates employee profile information",
             }),
@@ -304,9 +305,9 @@ const NextRoleSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Tell us about the next role you see yourself in. Sharing your preferences for your next job can help HR staff find the right position for you.",
-    id: "IO+qSg",
-    description: "Describes the next role section of employee profile",
+      "Describe your ultimate career objective. Your input can help staff working on talent management identify the right next step for you, whether it's a lateral move, a development opportunity, or an advancement.",
+    id: "FYCNAa",
+    description: "Describes the career objective section of employee profile",
   });
 
   const groupOptions = getGroupOptions(
@@ -349,7 +350,7 @@ const NextRoleSection = ({
 
   return (
     <ToggleSection.Root
-      id="next-role-form"
+      id="career-objective-form"
       open={isEditing}
       onOpenChange={setIsEditing}
     >
@@ -361,18 +362,18 @@ const NextRoleSection = ({
         toggle={
           <ToggleForm.LabelledTrigger
             sectionTitle={intl.formatMessage({
-              defaultMessage: "Your next role",
-              id: "m6eIBH",
-              description: "Title for the next role section",
+              defaultMessage: "Your career objective",
+              id: "vvnsjr",
+              description: "Title for the career objective section",
             })}
           />
         }
         data-h2-font-weight="base(bold)"
       >
         {intl.formatMessage({
-          defaultMessage: "Your next role",
-          id: "m6eIBH",
-          description: "Title for the next role section",
+          defaultMessage: "Your career objective",
+          id: "vvnsjr",
+          description: "Title for the career objective section",
         })}
       </ToggleSection.Header>
       <p>{subtitle}</p>
@@ -526,7 +527,7 @@ const NextRoleSection = ({
                 <TextArea
                   id="additionalInformation"
                   label={intl.formatMessage(
-                    employeeProfileMessages.additionalInformationNextRole,
+                    employeeProfileMessages.additionalInformationCareerObjective,
                   )}
                   name="additionalInformation"
                   wordLimit={wordCountLimits[locale]}

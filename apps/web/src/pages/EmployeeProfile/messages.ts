@@ -21,9 +21,4 @@ export default defineMessages({
     id: "qZKabV",
     description: "Title for a users goals and work style",
   },
-  additionalInformationNextRole: {
-    defaultMessage: "Additional information about your next role",
-    id: "Vc44L9",
-    description: "Additional information about your next role",
-  },
 });

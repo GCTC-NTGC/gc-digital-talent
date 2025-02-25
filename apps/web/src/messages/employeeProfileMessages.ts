@@ -65,6 +65,11 @@ const messages = defineMessages({
     id: "Vc44L9",
     description: "Additional information about your next role",
   },
+  additionalInformationCareerObjective: {
+    defaultMessage: "Additional information about your career objective",
+    id: "U8ZQ2g",
+    description: "Additional information about your career objective",
+  },
 });
 
 export default messages;
