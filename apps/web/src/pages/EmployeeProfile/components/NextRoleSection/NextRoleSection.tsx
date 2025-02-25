@@ -408,12 +408,9 @@ const NextRoleSection = ({
                     >
                       <Select
                         id="classificationGroup"
-                        label={intl.formatMessage({
-                          defaultMessage: "Group",
-                          id: "hgxH8y",
-                          description:
-                            "Label displayed for the classification form group field.",
-                        })}
+                        label={intl.formatMessage(
+                          employeeProfileMessages.classificationGroup,
+                        )}
                         name="classificationGroup"
                         nullSelection={intl.formatMessage(
                           uiMessages.nullSelectionOptionGroup,
@@ -426,12 +423,9 @@ const NextRoleSection = ({
                       <div style={{ width: "100%" }}>
                         <Select
                           id="classificationLevel"
-                          label={intl.formatMessage({
-                            defaultMessage: "Level",
-                            id: "yZqUAU",
-                            description:
-                              "Title displayed for the Classification table Level column.",
-                          })}
+                          label={intl.formatMessage(
+                            employeeProfileMessages.classificationLevel,
+                          )}
                           name="classificationLevel"
                           nullSelection={intl.formatMessage(
                             uiMessages.nullSelectionOptionLevel,
