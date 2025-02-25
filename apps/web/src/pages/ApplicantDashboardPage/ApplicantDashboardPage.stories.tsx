@@ -1,13 +1,19 @@
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUser } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import {
+  makeFragmentData,
+  OrganizationTypeInterest,
+  TimeFrame,
+} from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import {
   DashboardPage as ApplicantDashboardPage,
   ApplicantDashboardPage_Fragment,
 } from "./ApplicantDashboardPage";
+import { EmployeeProfileCareerDevelopmentOptions_Fragment } from "../EmployeeProfile/components/CareerDevelopmentSection/utils";
+import { CareerDevelopmentTaskCard_Fragment } from "./components/CareerDevelopmentTaskCard";
 
 const mockUser = fakeUser();
 
@@ -21,18 +27,55 @@ const Template: StoryFn<typeof ApplicantDashboardPage> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  applicantDashboardQuery: makeFragmentData(
-    {
-      ...{
-        ...mockUser,
-        isGovEmployee: true,
-        workEmail: "user@domain.tld",
-        isWorkEmailVerified: true,
-        employeeProfile: {},
-      },
+  applicantDashboardQuery: {
+    me: {
+      ...makeFragmentData(
+        {
+          ...{
+            ...mockUser,
+            isGovEmployee: true,
+            workEmail: "user@domain.tld",
+            isWorkEmailVerified: true,
+            employeeProfile: {
+              ...makeFragmentData(
+                {
+                  lateralMoveInterest: false,
+                  promotionMoveInterest: false,
+                },
+                CareerDevelopmentTaskCard_Fragment,
+              ),
+            },
+          },
+        },
+        ApplicantDashboardPage_Fragment,
+      ),
     },
-    ApplicantDashboardPage_Fragment,
-  ),
+    ...makeFragmentData(
+      {
+        organizationTypeInterest: [
+          {
+            label: {
+              en: "Current organization",
+              fr: "Current organization fr",
+              localized: "Current organization",
+            },
+            value: OrganizationTypeInterest.Current,
+          },
+        ],
+        timeFrame: [
+          {
+            label: {
+              en: "This year",
+              fr: "This year fr",
+              localized: "This year",
+            },
+            value: TimeFrame.ThisYear,
+          },
+        ],
+      },
+      EmployeeProfileCareerDevelopmentOptions_Fragment,
+    ),
+  },
 };
 Default.parameters = {
   chromatic: {

@@ -22,7 +22,7 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
-const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
+export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCard on EmployeeProfile {
     lateralMoveInterest
     lateralMoveTimeFrame {
