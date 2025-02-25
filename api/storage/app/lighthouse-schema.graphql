@@ -611,6 +611,7 @@ type User {
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govRole: String
   govPositionType: LocalizedGovPositionType
   govEndDate: Date
   currentClassification: Classification

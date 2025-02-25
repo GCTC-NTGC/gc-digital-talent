@@ -88,6 +88,7 @@ type User {
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "computed_gov_position_type")
   govEndDate: Date @rename(attribute: "computed_gov_end_date")

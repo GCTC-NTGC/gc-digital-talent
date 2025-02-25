@@ -193,6 +193,7 @@ class UserFactory extends Factory
                     'computed_gov_position_type' => null,
                     'computed_gov_end_date' => null,
                     'computed_department' => null,
+                    'computed_gov_role' => null,
 
                 ];
             }
@@ -208,6 +209,7 @@ class UserFactory extends Factory
                 'computed_gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
                 'computed_gov_position_type' => $this->faker->randomElement(GovPositionType::cases())->name,
                 'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
+                'computed_gov_role' => $this->faker->jobTitle(),
             ];
         })->afterCreating(function (User $user) use ($isGovEmployee) {
             if (! $isGovEmployee) {
