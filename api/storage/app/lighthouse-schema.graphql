@@ -173,11 +173,6 @@ type LocalizedMentorship {
   label: LocalizedString!
 }
 
-type LocalizedMoveInterest {
-  value: MoveInterest!
-  label: LocalizedString!
-}
-
 type LocalizedOperationalRequirement {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -280,6 +275,11 @@ type LocalizedSkillLevel {
 
 type LocalizedSupervisoryStatus {
   value: SupervisoryStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTimeFrame {
+  value: TimeFrame!
   label: LocalizedString!
 }
 
@@ -669,8 +669,12 @@ type DevelopmentProgramInterest {
 }
 
 type EmployeeProfile {
-  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
-  moveInterest: [LocalizedMoveInterest!]
+  lateralMoveInterest: Boolean
+  lateralMoveTimeFrame: LocalizedTimeFrame
+  lateralMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  promotionMoveInterest: Boolean
+  promotionMoveTimeFrame: LocalizedTimeFrame
+  promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
   mentorshipStatus: [LocalizedMentorship!]
   mentorshipInterest: [LocalizedMentorship!]
   execInterest: Boolean
@@ -1587,8 +1591,12 @@ input UpdateUserAsUserInput {
 }
 
 input UpdateEmployeeProfileInput {
-  organizationTypeInterest: [OrganizationTypeInterest!]
-  moveInterest: [MoveInterest!]
+  lateralMoveInterest: Boolean
+  lateralMoveTimeFrame: TimeFrame
+  lateralMoveOrganizationType: [OrganizationTypeInterest!]
+  promotionMoveInterest: Boolean
+  promotionMoveTimeFrame: TimeFrame
+  promotionMoveOrganizationType: [OrganizationTypeInterest!]
   mentorshipStatus: [Mentorship!]
   mentorshipInterest: [Mentorship!]
   execInterest: Boolean
@@ -2970,12 +2978,6 @@ enum Mentorship {
   MENTEE
 }
 
-enum MoveInterest {
-  ABOVE_LEVEL
-  AT_LEVEL
-  BELOW_LEVEL
-}
-
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
@@ -2999,9 +3001,10 @@ enum OperationalRequirement {
 
 enum OrganizationTypeInterest {
   CURRENT
-  OTHER_DEPARTMENT
-  OTHER_AGENCY
-  OTHER_CROWN_CORP
+  CPA
+  NON_CPA
+  CENTRAL_AGENCIES
+  ANY
 }
 
 enum OverallAssessmentStatus {
@@ -3160,6 +3163,12 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TimeFrame {
+  THIS_YEAR
+  ONE_TO_TWO_YEARS
+  THREE_OR_MORE_YEARS
 }
 
 enum WhenSkillUsed {
