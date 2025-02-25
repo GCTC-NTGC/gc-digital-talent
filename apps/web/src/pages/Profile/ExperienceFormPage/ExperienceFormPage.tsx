@@ -539,7 +539,7 @@ export const ExperienceForm = ({
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {experienceType === "work" && (
+              {(type === "work" || experienceType === "work") && (
                 <TableOfContents.ListItem>
                   <TableOfContents.AnchorLink id="work-streams">
                     {intl.formatMessage(pageTitles.workStreams)}
@@ -581,16 +581,16 @@ export const ExperienceForm = ({
                   <AdditionalDetails experienceType={experienceType} />
                 </TableOfContents.Section>
 
-                {experience &&
-                  experienceType === "work" &&
-                  experience?.__typename === "WorkExperience" && (
-                    <TableOfContents.Section id="work-streams">
-                      <ExperienceWorkStreams
-                        experienceWorkStreamsQuery={experience}
-                        communitiesQuery={communitiesQuery}
-                      />
-                    </TableOfContents.Section>
-                  )}
+                {(type === "work" ||
+                  (experience &&
+                    experienceType === "work" &&
+                    experience?.__typename === "WorkExperience")) && (
+                  <TableOfContents.Section id="work-streams">
+                    <ExperienceWorkStreams
+                      communitiesQuery={communitiesQuery}
+                    />
+                  </TableOfContents.Section>
+                )}
 
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills

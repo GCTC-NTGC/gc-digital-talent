@@ -1,63 +1,54 @@
 import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "urql";
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 
-import { graphql, WorkExperienceInput } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
 import { uniqueItems } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 
 import pageTitles from "~/messages/pageTitles";
+import { WorkFormValues } from "~/types/experience";
 
 import { CommunityWithoutKey, WorkStreamWithoutKey } from "./types";
-
-const UpdateExperienceWorkStreams_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateExperienceWorkStreams_Mutation(
-    $id: ID!
-    $workExperience: WorkExperienceInput!
-  ) {
-    updateWorkExperience(id: $id, workExperience: $workExperience) {
-      workStreams {
-        id
-      }
-    }
-  }
-`);
 
 interface FormValues {
   community: string;
   workStreams: string[];
 }
 interface ExperienceWorkStreamsEditDialogProps {
-  experienceId: string;
   communities: CommunityWithoutKey[];
   communityGroup?: {
     community?: CommunityWithoutKey | null;
     workStreams: WorkStreamWithoutKey[];
   };
-  experienceWorkStreams?: WorkStreamWithoutKey[] | null;
   selectedCommunities?: (string | undefined)[];
   trigger: ReactNode;
   defaultOpen?: boolean;
+  onUpdate: (ids: string[]) => void;
 }
 
 const ExperienceWorkStreamsEditDialog = ({
-  experienceId,
   communities,
   communityGroup,
-  experienceWorkStreams,
   selectedCommunities,
   trigger,
   defaultOpen = false,
+  onUpdate,
 }: ExperienceWorkStreamsEditDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
+  const { watch: watchParent } = useFormContext<WorkFormValues>();
+  const watchWorkStreams = watchParent("workStreams");
+
   const experienceWorkStreamIds: string[] =
-    experienceWorkStreams?.map((workStream) => workStream.id) ?? [];
+    watchWorkStreams?.map((workStream) => workStream.id) ?? [];
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -75,18 +66,6 @@ const ExperienceWorkStreamsEditDialog = ({
       label: name?.localized,
     }));
 
-  const [{ fetching }, executeMutation] = useMutation(
-    UpdateExperienceWorkStreams_Mutation,
-  );
-
-  const requestMutation = async (id: string, values: WorkExperienceInput) => {
-    const result = await executeMutation({ id, workExperience: values });
-    if (result.data?.updateWorkExperience) {
-      return result.data.updateWorkExperience;
-    }
-    return Promise.reject(new Error(result.error?.toString()));
-  };
-
   const handleOpenChange = (newOpen: boolean) => {
     if (!newOpen) {
       reset();
@@ -94,11 +73,9 @@ const ExperienceWorkStreamsEditDialog = ({
     setIsOpen(newOpen);
   };
 
-  const submitForm: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {
-    await requestMutation(experienceId, {
-      workStreamIds: uniqueItems(
+  const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
+    onUpdate(
+      uniqueItems(
         experienceWorkStreamIds
           .filter(
             (item) =>
@@ -108,27 +85,8 @@ const ExperienceWorkStreamsEditDialog = ({
           )
           .concat(formValues.workStreams ?? []),
       ),
-    })
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work streams updated successfully",
-            id: "Rs+0eP",
-            description: "Toast for successful experience work streams save",
-          }),
-        );
-        reset(formValues);
-        setIsOpen(false);
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Failed updating work streams",
-            id: "GsuiUg",
-            description: "Toast for failed experience work streams save",
-          }),
-        );
-      });
+    );
+    handleOpenChange(false);
   };
 
   return (
@@ -144,7 +102,12 @@ const ExperienceWorkStreamsEditDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(submitForm)}>
+            <form
+              onSubmit={(e) => {
+                e.stopPropagation();
+                return handleSubmit(submitForm)(e);
+              }}
+            >
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
                   defaultMessage:
@@ -234,15 +197,13 @@ const ExperienceWorkStreamsEditDialog = ({
                 )}
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
-                  {fetching
-                    ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage({
-                        defaultMessage: "Save work streams",
-                        id: "JUC/JA",
-                        description:
-                          "Link text to save work streams for an experience",
-                      })}
+                <Button type="submit" color="secondary">
+                  {intl.formatMessage({
+                    defaultMessage: "Save work streams",
+                    id: "JUC/JA",
+                    description:
+                      "Link text to save work streams for an experience",
+                  })}
                 </Button>
                 <Dialog.Close>
                   <Button mode="inline" color="quaternary">

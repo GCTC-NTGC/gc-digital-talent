@@ -346,6 +346,7 @@ export const formValuesToSubmitData = (
     cafEmploymentType,
     cafForce,
     cafRank,
+    workStreams,
   } = data;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -404,6 +405,7 @@ export const formValuesToSubmitData = (
       cafEmploymentType,
       cafForce,
       cafRank,
+      workStreamIds: workStreams?.map((item) => item.id),
     },
   };
 
@@ -644,6 +646,7 @@ const getWorkExperienceDefaultValues = (
     cafEmploymentType,
     cafForce,
     cafRank,
+    workStreams,
   } = experience;
 
   const isIndeterminate =
@@ -695,6 +698,11 @@ const getWorkExperienceDefaultValues = (
     cafEmploymentType: cafEmploymentType?.value,
     cafForce: cafForce?.value,
     cafRank: cafRank?.value,
+    workStreams: workStreams?.map((item) => ({
+      id: item.id,
+      communityId: item.community?.id,
+      name: item.name,
+    })),
   };
 };
 
