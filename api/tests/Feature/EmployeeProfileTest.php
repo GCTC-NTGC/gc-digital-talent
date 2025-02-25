@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\TimeFrame;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -51,8 +51,12 @@ class EmployeeProfileTest extends TestCase
                 query {
                     me {
                         employeeProfile {
-                            organizationTypeInterest { value }
-                            moveInterest { value }
+                            lateralMoveInterest
+                            lateralMoveTimeFrame { value }
+                            lateralMoveOrganizationType { value }
+                            promotionMoveInterest
+                            promotionMoveTimeFrame { value }
+                            promotionMoveOrganizationType { value }
                             mentorshipStatus { value }
                             mentorshipInterest { value }
                             execInterest
@@ -72,8 +76,12 @@ class EmployeeProfileTest extends TestCase
                 }
                 GRAPHQL)
             ->assertJsonFragment([
-                'organizationTypeInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_organization_type_interest),
-                'moveInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_move_interest),
+                'lateralMoveInterest' => $this->user->employeeProfile->career_planning_lateral_move_interest,
+                'lateralMoveTimeFrame' => ['value' => $this->user->employeeProfile->career_planning_lateral_move_time_frame],
+                'lateralMoveOrganizationType' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_lateral_move_organization_type),
+                'promotionMoveInterest' => $this->user->employeeProfile->career_planning_promotion_move_interest,
+                'promotionMoveTimeFrame' => ['value' => $this->user->employeeProfile->career_planning_promotion_move_time_frame],
+                'promotionMoveOrganizationType' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_promotion_move_organization_type),
                 'mentorshipStatus' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_status),
                 'mentorshipInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_interest),
                 'execInterest' => $this->user->employeeProfile->career_planning_exec_interest,
@@ -96,8 +104,12 @@ class EmployeeProfileTest extends TestCase
 
         $community = Community::factory()->withWorkStreams()->create();
         $input = [
-            'organizationTypeInterest' => [OrganizationTypeInterest::CURRENT->name],
-            'moveInterest' => [MoveInterest::AT_LEVEL->name],
+            'lateralMoveInterest' => true,
+            'lateralMoveTimeFrame' => TimeFrame::THREE_OR_MORE_YEARS->name,
+            'lateralMoveOrganizationType' => [OrganizationTypeInterest::CURRENT->name],
+            'promotionMoveInterest' => true,
+            'promotionMoveTimeFrame' => TimeFrame::THIS_YEAR->name,
+            'promotionMoveOrganizationType' => [OrganizationTypeInterest::ANY->name],
             'mentorshipStatus' => [Mentorship::MENTOR->name],
             'mentorshipInterest' => array_column(Mentorship::cases(), 'name'),
             'execInterest' => true,
@@ -118,8 +130,12 @@ class EmployeeProfileTest extends TestCase
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
                     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-                            organizationTypeInterest { value }
-                            moveInterest { value }
+                            lateralMoveInterest
+                            lateralMoveTimeFrame { value }
+                            lateralMoveOrganizationType { value }
+                            promotionMoveInterest
+                            promotionMoveTimeFrame { value }
+                            promotionMoveOrganizationType { value }
                             mentorshipStatus { value }
                             mentorshipInterest { value }
                             execInterest
@@ -133,12 +149,16 @@ class EmployeeProfileTest extends TestCase
                             dreamRoleDepartments { id }
                             aboutYou
                             learningGoals
-                        workStyle
+                            workStyle
                     }
                 }
                 GRAPHQL, ['id' => $this->user->id, 'employeeProfile' => $input])->assertJsonFragment([
-                'organizationTypeInterest' => $this->arrayToLocalizedEnum($input['organizationTypeInterest']),
-                'moveInterest' => $this->arrayToLocalizedEnum($input['moveInterest']),
+                'lateralMoveInterest' => $input['lateralMoveInterest'],
+                'lateralMoveTimeFrame' => ['value' => $input['lateralMoveTimeFrame']],
+                'lateralMoveOrganizationType' => $this->arrayToLocalizedEnum($input['lateralMoveOrganizationType']),
+                'promotionMoveInterest' => $input['promotionMoveInterest'],
+                'promotionMoveTimeFrame' => ['value' => $input['promotionMoveTimeFrame']],
+                'promotionMoveOrganizationType' => $this->arrayToLocalizedEnum($input['promotionMoveOrganizationType']),
                 'mentorshipStatus' => $this->arrayToLocalizedEnum($input['mentorshipStatus']),
                 'mentorshipInterest' => $this->arrayToLocalizedEnum($input['mentorshipInterest']),
                 'execInterest' => $input['execInterest'],
