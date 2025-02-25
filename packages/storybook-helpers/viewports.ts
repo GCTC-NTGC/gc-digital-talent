@@ -6,7 +6,7 @@ export const VIEWPORT = {
   DESKTOP: "desktop",
 } as const;
 
-export type Viewport = (typeof VIEWPORT)[keyof typeof VIEWPORT];
+type Viewport = (typeof VIEWPORT)[keyof typeof VIEWPORT];
 
 interface Dimension {
   width: number;
