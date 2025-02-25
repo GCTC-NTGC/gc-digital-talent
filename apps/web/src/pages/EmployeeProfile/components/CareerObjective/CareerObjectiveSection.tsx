@@ -228,16 +228,29 @@ const CareerObjectiveSection = ({
     methods.watch(["classificationGroup", "communityId", "targetRole"]);
 
   /**
-   * Reset target role other when target role changes
+   * Reset fields in response to changes
    */
   useEffect(() => {
+    // clear "other" field if role is not other
     if (watchTargetRole !== TargetRole.Other) {
       methods.resetField("targetRoleOther", {
         keepDirty: false,
         defaultValue: null,
       });
     }
-  }, [watchTargetRole, methods]);
+    // method to reset work streams if community changes
+    if (watchCommunityId !== employeeProfile.careerObjectiveCommunity?.id) {
+      methods.resetField("workStreamIds", {
+        keepDirty: false,
+        defaultValue: [],
+      });
+    }
+  }, [
+    watchTargetRole,
+    methods,
+    watchCommunityId,
+    employeeProfile.careerObjectiveCommunity?.id,
+  ]);
 
   const { handleSubmit } = methods;
 
