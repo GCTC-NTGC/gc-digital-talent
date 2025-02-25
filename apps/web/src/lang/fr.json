@@ -3363,10 +3363,6 @@
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
   },
-  "FThj7q": {
-    "defaultMessage": "Profil d'employé(e)",
-    "description": "Short title for a users employee profile"
-  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -5555,10 +5551,6 @@
     "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
     "description": "Descriptive text about how skills are used during the application process"
   },
-  "QzGuI5": {
-    "defaultMessage": "Profil d'employé(e)",
-    "description": "applicant dashboard card title for employee profile card"
-  },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
@@ -7633,6 +7625,10 @@
   "cTSaxx": {
     "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
+  },
+  "cUSI4/": {
+    "defaultMessage": "Votre profil d'employée ou d'employé du GC",
+    "description": "Page title for a user's GC employee profile"
   },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
@@ -10969,10 +10965,6 @@
   "tvQYG5": {
     "defaultMessage": "Avis",
     "description": "Title for the websites terms and conditions"
-  },
-  "u+lXsz": {
-    "defaultMessage": "Votre profil d'employée ou d'employé",
-    "description": "Page title for a users employee profile"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
