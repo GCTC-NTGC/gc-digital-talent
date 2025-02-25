@@ -90,9 +90,9 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
   }
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Your employee profile",
-    id: "u+lXsz",
-    description: "Page title for a users employee profile",
+    defaultMessage: "Your GC employee profile",
+    id: "cUSI4/",
+    description: "Page title for a user's GC employee profile",
   });
 
   const subtitle = intl.formatMessage({
@@ -110,11 +110,7 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
       },
       {
         url: paths.employeeProfile(),
-        label: intl.formatMessage({
-          defaultMessage: "Employee profile",
-          id: "FThj7q",
-          description: "Short title for a users employee profile",
-        }),
+        label: intl.formatMessage(navigationMessages.employeeProfileGC),
       },
     ],
   });
