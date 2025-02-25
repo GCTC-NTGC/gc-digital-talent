@@ -31,7 +31,7 @@ export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
           localized
         }
       }
-      moveInterest: localizedEnumStrings(enumName: "MoveInterest") {
+      timeFrame: localizedEnumStrings(enumName: "TimeFrame") {
         value
         label {
           en
@@ -61,7 +61,8 @@ export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
 
 export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileCareerDevelopment on EmployeeProfile {
-    organizationTypeInterest {
+    lateralMoveInterest
+    lateralMoveTimeFrame {
       value
       label {
         en
@@ -69,7 +70,24 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    moveInterest {
+    lateralMoveOrganizationType {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    promotionMoveInterest
+    promotionMoveTimeFrame {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    promotionMoveOrganizationType {
       value
       label {
         en
@@ -114,15 +132,41 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
 `);
 
 export const getLabels = (intl: IntlShape) => ({
-  organizationTypeInterest: intl.formatMessage({
-    defaultMessage: "Types of organizations you’d like to work for",
-    id: "vaxlr+",
+  lateralMoveInterest: intl.formatMessage({
+    defaultMessage: "Interest in lateral movement",
+    id: "YbiEAB",
     description:
       "Label for an employee profile career development preference field",
   }),
-  moveInterest: intl.formatMessage({
-    defaultMessage: "Interest in promotions and lateral moves",
-    id: "lW24T5",
+  lateralMoveTimeFrame: intl.formatMessage({
+    defaultMessage: "Target time frame for lateral movement",
+    id: "iR7GWG",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
+  lateralMoveOrganizationType: intl.formatMessage({
+    defaultMessage:
+      "Types of organizations you’d consider for lateral movement",
+    id: "aYgVQT",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
+  promotionMoveInterest: intl.formatMessage({
+    defaultMessage: "Interest in promotion and advancement",
+    id: "zXWJ/5",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
+  promotionMoveTimeFrame: intl.formatMessage({
+    defaultMessage: "Target time frame for promotion or advancement",
+    id: "JHEUw9",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
+  promotionMoveOrganizationType: intl.formatMessage({
+    defaultMessage:
+      "Types of organizations you’d consider for promotion or advancement",
+    id: "M4sGS2",
     description:
       "Label for an employee profile career development preference field",
   }),
