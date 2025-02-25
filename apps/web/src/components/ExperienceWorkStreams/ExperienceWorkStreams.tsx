@@ -49,7 +49,7 @@ export const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface ExperienceWorkStreamsProps {
+export interface ExperienceWorkStreamsProps {
   communitiesQuery?: FragmentType<
     typeof ExperienceWorkStreamsCommunity_Fragment
   >[];

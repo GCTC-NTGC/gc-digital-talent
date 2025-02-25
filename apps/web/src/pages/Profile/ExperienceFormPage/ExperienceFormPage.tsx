@@ -56,11 +56,11 @@ import {
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-
-import ExperienceSkills from "./components/ExperienceSkills";
 import ExperienceWorkStreams, {
   ExperienceWorkStreamsCommunity_Fragment,
-} from "./components/ExperienceWorkStreams";
+} from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
+
+import ExperienceSkills from "./components/ExperienceSkills";
 
 const editPageTitle = defineMessage({
   defaultMessage: "Edit a career timeline experience",
