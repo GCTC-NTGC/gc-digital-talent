@@ -180,6 +180,7 @@ export const ApplicationCareerTimeline = ({
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const applicationWasSubmitted = !!application.submittedAt;
 
   const methods = useForm<FormValues>();
   const {
@@ -364,6 +365,7 @@ export const ApplicationCareerTimeline = ({
                     application.id,
                     experience.id,
                   )}
+                  showEdit={!applicationWasSubmitted}
                 />
               );
             })
