@@ -124,15 +124,12 @@ const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
 `);
 
 const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateEmployeeProfile(
+  mutation UpdateEmployeeProfileNextRole(
     $id: UUID!
     $employeeProfile: UpdateEmployeeProfileInput!
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-      aboutYou
-      careerGoals
-      learningGoals
-      workStyle
+      ...EmployeeProfileNextRole
     }
   }
 `);
