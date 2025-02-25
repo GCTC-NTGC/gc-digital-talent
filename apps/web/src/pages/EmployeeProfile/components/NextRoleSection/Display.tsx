@@ -16,6 +16,7 @@ const Display = ({
   employeeProfile: {
     nextRoleClassification,
     nextRoleTargetRole,
+    nextRoleTargetRoleOther,
     nextRoleJobTitle,
     nextRoleCommunity,
     nextRoleWorkStreams,
@@ -93,9 +94,9 @@ const Display = ({
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.targetRole)}
         >
-          {nextRoleTargetRole?.label.localized
-            ? nextRoleTargetRole.label.localized
-            : notProvided}
+          {nextRoleTargetRoleOther ??
+            nextRoleTargetRole?.label.localized ??
+            notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.jobTitle)}

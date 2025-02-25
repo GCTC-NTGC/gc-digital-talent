@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect } from "react";
 
 import { Button, ToggleSection, Well } from "@gc-digital-talent/ui";
 import {
@@ -98,6 +98,7 @@ const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    nextRoleTargetRoleOther
     nextRoleJobTitle
     nextRoleCommunity {
       id
@@ -138,6 +139,7 @@ interface FormValues {
   classificationGroup: string | null | undefined;
   classificationLevel: string | null | undefined;
   targetRole: string | null | undefined;
+  targetRoleOther: string | null | undefined;
   jobTitle: string | null | undefined;
   communityId: string | null | undefined;
   workStreamIds: string[] | null | undefined;
@@ -199,6 +201,7 @@ const NextRoleSection = ({
     classificationGroup: initialData.nextRoleClassification?.group,
     classificationLevel: initialData.nextRoleClassification?.level.toString(),
     targetRole: initialData.nextRoleTargetRole?.value,
+    targetRoleOther: initialData.nextRoleTargetRoleOther,
     jobTitle: initialData.nextRoleJobTitle,
     communityId: initialData.nextRoleCommunity?.id,
     workStreamIds: initialData.nextRoleWorkStreams?.map(
@@ -215,10 +218,20 @@ const NextRoleSection = ({
   });
 
   // hooks to watch, needed for conditional rendering
-  const [watchClassificationGroup, watchCommunityId] = methods.watch([
-    "classificationGroup",
-    "communityId",
-  ]);
+  const [watchClassificationGroup, watchCommunityId, watchTargetRole] =
+    methods.watch(["classificationGroup", "communityId", "targetRole"]);
+
+  /**
+   * Reset target role other when target role changes
+   */
+  useEffect(() => {
+    if (watchTargetRole !== TargetRole.Other) {
+      methods.resetField("targetRoleOther", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
+  }, [watchTargetRole, methods]);
 
   const { handleSubmit } = methods;
 
@@ -226,6 +239,7 @@ const NextRoleSection = ({
     classificationGroup,
     classificationLevel,
     targetRole,
+    targetRoleOther,
     jobTitle,
     communityId,
     workStreamIds,
@@ -254,6 +268,7 @@ const NextRoleSection = ({
               disconnect: true,
             },
         nextRoleTargetRole: targetRole as TargetRole,
+        nextRoleTargetRoleOther: targetRoleOther,
         nextRoleJobTitle: jobTitle,
         nextRoleCommunity: communityId
           ? {
@@ -287,6 +302,7 @@ const NextRoleSection = ({
               classificationGroup,
               classificationLevel,
               targetRole,
+              targetRoleOther,
               jobTitle,
               communityId,
               workStreamIds,
@@ -459,6 +475,20 @@ const NextRoleSection = ({
                   }}
                   disabled={fetching}
                 />
+                {watchTargetRole === TargetRole.Other ? (
+                  <Input
+                    id="targetRoleOther"
+                    type="text"
+                    label={intl.formatMessage(
+                      employeeProfileMessages.targetRoleOther,
+                    )}
+                    name="targetRoleOther"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                ) : null}
                 <Input
                   id="jobTitle"
                   type="text"

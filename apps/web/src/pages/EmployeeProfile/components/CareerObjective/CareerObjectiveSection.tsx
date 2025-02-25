@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect } from "react";
 
 import { Button, ToggleSection, Well } from "@gc-digital-talent/ui";
 import {
@@ -98,6 +98,7 @@ const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    careerObjectiveTargetRoleOther
     careerObjectiveJobTitle
     careerObjectiveCommunity {
       id
@@ -138,6 +139,7 @@ interface FormValues {
   classificationGroup: string | null | undefined;
   classificationLevel: string | null | undefined;
   targetRole: string | null | undefined;
+  targetRoleOther: string | null | undefined;
   jobTitle: string | null | undefined;
   communityId: string | null | undefined;
   workStreamIds: string[] | null | undefined;
@@ -204,6 +206,7 @@ const CareerObjectiveSection = ({
     classificationLevel:
       initialData.careerObjectiveClassification?.level.toString(),
     targetRole: initialData.careerObjectiveTargetRole?.value,
+    targetRoleOther: initialData.nextRoleTargetRoleOther,
     jobTitle: initialData.careerObjectiveJobTitle,
     communityId: initialData.careerObjectiveCommunity?.id,
     workStreamIds: initialData.careerObjectiveWorkStreams?.map(
@@ -220,10 +223,20 @@ const CareerObjectiveSection = ({
   });
 
   // hooks to watch, needed for conditional rendering
-  const [watchClassificationGroup, watchCommunityId] = methods.watch([
-    "classificationGroup",
-    "communityId",
-  ]);
+  const [watchClassificationGroup, watchCommunityId, watchTargetRole] =
+    methods.watch(["classificationGroup", "communityId", "targetRole"]);
+
+  /**
+   * Reset target role other when target role changes
+   */
+  useEffect(() => {
+    if (watchTargetRole !== TargetRole.Other) {
+      methods.resetField("targetRoleOther", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
+  }, [watchTargetRole, methods]);
 
   const { handleSubmit } = methods;
 
@@ -231,6 +244,7 @@ const CareerObjectiveSection = ({
     classificationGroup,
     classificationLevel,
     targetRole,
+    targetRoleOther,
     jobTitle,
     communityId,
     workStreamIds,
@@ -259,6 +273,7 @@ const CareerObjectiveSection = ({
               disconnect: true,
             },
         careerObjectiveTargetRole: targetRole as TargetRole,
+        careerObjectiveTargetRoleOther: targetRoleOther,
         careerObjectiveJobTitle: jobTitle,
         careerObjectiveCommunity: communityId
           ? {
@@ -293,6 +308,7 @@ const CareerObjectiveSection = ({
               classificationGroup,
               classificationLevel,
               targetRole,
+              targetRoleOther,
               jobTitle,
               communityId,
               workStreamIds,
@@ -465,6 +481,20 @@ const CareerObjectiveSection = ({
                   }}
                   disabled={fetching}
                 />
+                {watchTargetRole === TargetRole.Other ? (
+                  <Input
+                    id="targetRoleOther"
+                    type="text"
+                    label={intl.formatMessage(
+                      employeeProfileMessages.targetRoleOther,
+                    )}
+                    name="targetRoleOther"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                ) : null}
                 <Input
                   id="jobTitle"
                   type="text"

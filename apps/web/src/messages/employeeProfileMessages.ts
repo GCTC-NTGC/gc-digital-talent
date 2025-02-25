@@ -48,6 +48,11 @@ const messages = defineMessages({
     id: "cHwSqN",
     description: "Label for a employee profile target role field",
   },
+  targetRoleOther: {
+    defaultMessage: "Other role",
+    id: "kJbTqn",
+    description: "Label for a employee profile target role other field",
+  },
   jobTitle: {
     defaultMessage: "Job title",
     id: "HBuWZ0",

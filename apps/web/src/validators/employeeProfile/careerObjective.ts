@@ -3,6 +3,7 @@ import { EmployeeProfile } from "@gc-digital-talent/graphql";
 export function hasAllEmptyFields({
   careerObjectiveClassification,
   careerObjectiveTargetRole,
+  careerObjectiveTargetRoleOther,
   careerObjectiveJobTitle,
   careerObjectiveCommunity,
   careerObjectiveWorkStreams,
@@ -12,6 +13,7 @@ export function hasAllEmptyFields({
   EmployeeProfile,
   | "careerObjectiveClassification"
   | "careerObjectiveTargetRole"
+  | "careerObjectiveTargetRoleOther"
   | "careerObjectiveJobTitle"
   | "careerObjectiveCommunity"
   | "careerObjectiveWorkStreams"
@@ -21,6 +23,7 @@ export function hasAllEmptyFields({
   return (
     !careerObjectiveClassification &&
     !careerObjectiveTargetRole &&
+    !careerObjectiveTargetRoleOther &&
     !careerObjectiveJobTitle &&
     !careerObjectiveCommunity &&
     !careerObjectiveWorkStreams &&

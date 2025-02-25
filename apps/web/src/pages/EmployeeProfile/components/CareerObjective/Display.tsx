@@ -16,6 +16,7 @@ const Display = ({
   employeeProfile: {
     careerObjectiveClassification,
     careerObjectiveTargetRole,
+    careerObjectiveTargetRoleOther,
     careerObjectiveJobTitle,
     careerObjectiveCommunity,
     careerObjectiveWorkStreams,
@@ -93,9 +94,9 @@ const Display = ({
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.targetRole)}
         >
-          {careerObjectiveTargetRole?.label.localized
-            ? careerObjectiveTargetRole.label.localized
-            : notProvided}
+          {careerObjectiveTargetRoleOther ??
+            careerObjectiveTargetRole?.label.localized ??
+            notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.jobTitle)}
