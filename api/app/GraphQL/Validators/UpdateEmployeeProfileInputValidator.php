@@ -4,8 +4,8 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\TimeFrame;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
@@ -24,11 +24,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
         $workStreams = $communityId ? WorkStream::where('community_id', $communityId)->get('id')->pluck('id') : [];
 
         return [
-            'organizationTypeInterest' => ['nullable'],
-            'organizationTypeInterest.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
-            'moveInterest' => ['nullable'],
-            'moveInterest.*' => [Rule::in(array_column(MoveInterest::cases(), 'name'))],
-            'mentorshipStatus' => ['nullable'],
+            'lateralMoveInterest' => ['nullable', 'boolean'],
+            'lateralMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:lateralMoveInterest,true'],
+            'lateralMoveOrganizationType' => ['nullable', 'required_if:lateralMoveInterest,true'],
+            'lateralMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+
+            'promotionMoveInterest' => ['nullable', 'boolean'],
+            'promotionMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:promotionMoveInterest,true'],
+            'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
+            'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+
             'mentorshipStatus.*' => [Rule::in(array_column(Mentorship::cases(), 'name'))],
             'mentorshipInterest' => ['nullable'],
             'mentorshipInterest.*' => [Rule::in(array_column(Mentorship::cases(), 'name'))],
