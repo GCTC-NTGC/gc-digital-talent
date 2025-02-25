@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import { ComponentProps } from "react";
@@ -141,7 +141,7 @@ interface FormValues {
   jobTitle: string | null | undefined;
   communityId: string | null | undefined;
   workStreamIds: string[] | null | undefined;
-  departments: string[] | null | undefined;
+  departmentIds: string[] | null | undefined;
   additionalInformation: string | null | undefined;
 }
 
@@ -204,7 +204,7 @@ const NextRoleSection = ({
     workStreamIds: initialData.nextRoleWorkStreams?.map(
       (workStream) => workStream.id,
     ),
-    departments: initialData.nextRoleDepartments?.map(
+    departmentIds: initialData.nextRoleDepartments?.map(
       (department) => department.id,
     ),
     additionalInformation: initialData.nextRoleAdditionalInformation,
@@ -227,50 +227,80 @@ const NextRoleSection = ({
     classificationLevel,
     targetRole,
     jobTitle,
-    community,
-    workStreams,
-    departments,
+    communityId,
+    workStreamIds,
+    departmentIds,
     additionalInformation,
   }: FormValues) => {
+    // should not be possible
     if (!userAuthInfo?.id) {
       throw new UnauthorizedError();
     }
 
-    // return executeMutation({
-    //   id: userAuthInfo?.id,
-    //   employeeProfile: {
-    //     aboutYou,
-    //     careerGoals,
-    //     learningGoals,
-    //     workStyle,
-    //   },
-    // })
-    //   .then((result) => {
-    //     if (result.data?.updateEmployeeProfile) {
-    //       toast.success(
-    //         intl.formatMessage({
-    //           defaultMessage:
-    //             "Goals and work style information updated successfully!",
-    //           id: "voMSDe",
-    //           description:
-    //             "Message displayed when a user successfully updates employee profile information",
-    //         }),
-    //       );
-    //       setIsEditing(false);
-    //       methods.reset(
-    //         {
-    //           aboutYou,
-    //           careerGoals,
-    //           learningGoals,
-    //           workStyle,
-    //         },
-    //         { keepDirty: true },
-    //       );
-    //     } else {
-    //       handleError();
-    //     }
-    //   })
-    //   .catch(handleError);
+    const selectedClassification = unpackMaybes(options.classifications).find(
+      (classification) =>
+        classification.group === classificationGroup &&
+        classification.level.toString() === classificationLevel,
+    );
+
+    return executeMutation({
+      id: userAuthInfo.id,
+      employeeProfile: {
+        nextRoleClassification: selectedClassification?.id
+          ? {
+              connect: selectedClassification.id,
+            }
+          : {
+              disconnect: true,
+            },
+        nextRoleTargetRole: targetRole as TargetRole,
+        nextRoleJobTitle: jobTitle,
+        nextRoleCommunity: communityId
+          ? {
+              connect: communityId,
+            }
+          : {
+              disconnect: true,
+            },
+        nextRoleWorkStreams: {
+          sync: workStreamIds,
+        },
+        nextRoleDepartments: {
+          sync: departmentIds,
+        },
+        nextRoleAdditionalInformation: additionalInformation,
+      },
+    })
+      .then((result) => {
+        if (result.data?.updateEmployeeProfile) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Goals and work style information updated successfully!",
+              id: "voMSDe",
+              description:
+                "Message displayed when a user successfully updates employee profile information",
+            }),
+          );
+          setIsEditing(false);
+          methods.reset(
+            {
+              classificationGroup,
+              classificationLevel,
+              targetRole,
+              jobTitle,
+              communityId,
+              workStreamIds,
+              departmentIds,
+              additionalInformation,
+            },
+            { keepDirty: true },
+          );
+        } else {
+          handleError();
+        }
+      })
+      .catch(handleError);
   };
 
   const subtitle = intl.formatMessage({
@@ -389,10 +419,8 @@ const NextRoleSection = ({
                         nullSelection={intl.formatMessage(
                           uiMessages.nullSelectionOptionGroup,
                         )}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
                         options={groupOptions}
+                        disabled={fetching}
                       />
                     </div>
                     {notEmpty(watchClassificationGroup) && (
@@ -406,16 +434,12 @@ const NextRoleSection = ({
                               "Title displayed for the Classification table Level column.",
                           })}
                           name="classificationLevel"
-                          rules={{
-                            required: intl.formatMessage(
-                              errorMessages.required,
-                            ),
-                          }}
                           nullSelection={intl.formatMessage(
                             uiMessages.nullSelectionOptionLevel,
                           )}
                           options={levelOptions}
                           doNotSort
+                          disabled={fetching}
                         />
                       </div>
                     )}
@@ -440,12 +464,14 @@ const NextRoleSection = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
+                  disabled={fetching}
                 />
                 <Input
                   id="jobTitle"
                   type="text"
                   label={intl.formatMessage(employeeProfileMessages.jobTitle)}
                   name="jobTitle"
+                  disabled={fetching}
                 />
                 <Select
                   id="communityId"
@@ -458,6 +484,7 @@ const NextRoleSection = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
+                  disabled={fetching}
                 />
                 {watchCommunityId ? (
                   // Only show work streams if a community has been selected
@@ -470,9 +497,7 @@ const NextRoleSection = ({
                           employeeProfileMessages.workStreams,
                         )}
                         items={workStreamOptions}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
+                        disabled={fetching}
                       />
                     ) : // no work streams
                     null}
@@ -490,13 +515,14 @@ const NextRoleSection = ({
                   </Well>
                 )}
                 <Combobox
-                  id="departments"
-                  name="departments"
+                  id="departmentIds"
+                  name="departmentIds"
                   isMulti
                   label={intl.formatMessage(
                     employeeProfileMessages.departments,
                   )}
                   options={departmentOptions}
+                  disabled={fetching}
                 />
                 <TextArea
                   id="additionalInformation"
@@ -505,6 +531,7 @@ const NextRoleSection = ({
                   )}
                   name="additionalInformation"
                   wordLimit={wordCountLimits[locale]}
+                  disabled={fetching}
                 />
                 <div
                   data-h2-display="base(flex)"
@@ -516,7 +543,7 @@ const NextRoleSection = ({
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage(formMessages.saveChanges)}
                     color="secondary"
-                    mode="solid"
+                    mode="inline"
                     isSubmitting={fetching}
                   />
                   <ToggleSection.Close>
