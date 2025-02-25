@@ -12,9 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * Class EmployeeProfile
  *
  * @property string $id
-//  * @property ?array $career_planning_organization_type_interest
-//  * @property ?array $career_planning_move_interest
-
  * @property ?bool $career_planning_lateral_move_interest
  * @property ?string $career_planning_lateral_move_time_frame
  * @property ?array $career_planning_lateral_move_organization_type
@@ -39,16 +36,12 @@ class EmployeeProfile extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        // 'career_planning_organization_type_interest' => 'array',
-        // 'career_planning_move_interest' => 'array',
-
         'career_planning_lateral_move' => 'boolean',
         'career_planning_lateral_move_time_frame' => 'string',
         'career_planning_lateral_move_organization_type' => 'array',
         'career_planning_promotion_move' => 'boolean',
         'career_planning_promotion_move_time_frame' => 'string',
         'career_planning_promotion_move_organization_type' => 'array',
-
         'career_planning_mentorship_status' => 'array',
         'career_planning_mentorship_interest' => 'array',
         'career_planning_exec_interest' => 'boolean',
