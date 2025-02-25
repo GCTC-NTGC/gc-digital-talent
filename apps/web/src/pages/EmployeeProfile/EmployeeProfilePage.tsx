@@ -55,6 +55,7 @@ const SECTION_ID = {
 const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfileOptions on Query {
     ...EmployeeProfileNextRoleOptions
+    ...EmployeeProfileCareerObjectiveOptions
   }
 `);
 
@@ -67,6 +68,7 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
       ...EmployeeProfileGoalsWorkStyle
       ...EmployeeProfileCareerDevelopment
       ...EmployeeProfileNextRole
+      ...EmployeeProfileCareerObjective
     }
   }
 `);

@@ -38,7 +38,7 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 
-import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
+import { hasAllEmptyFields } from "~/validators/employeeProfile/careerObjective";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -50,8 +50,8 @@ import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants
 
 import Display from "./Display";
 
-const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
-  fragment EmployeeProfileNextRoleOptions on Query {
+const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
+  fragment EmployeeProfileCareerObjectiveOptions on Query {
     classifications {
       id
       group
@@ -85,41 +85,41 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
+const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileCareerObjective on EmployeeProfile {
-    nextRoleClassification {
+    careerObjectiveClassification {
       id
       group
       level
     }
-    nextRoleTargetRole {
+    careerObjectiveTargetRole {
       value
       label {
         localized
       }
     }
-    nextRoleJobTitle
-    nextRoleCommunity {
+    careerObjectiveJobTitle
+    careerObjectiveCommunity {
       id
       key
       name {
         localized
       }
     }
-    nextRoleWorkStreams {
+    careerObjectiveWorkStreams {
       id
       name {
         localized
       }
     }
-    nextRoleDepartments {
+    careerObjectiveDepartments {
       id
       departmentNumber
       name {
         localized
       }
     }
-    nextRoleAdditionalInformation
+    careerObjectiveAdditionalInformation
   }
 `);
 
@@ -145,9 +145,13 @@ interface FormValues {
   additionalInformation: string | null | undefined;
 }
 
-interface NextRoleSectionProps {
-  employeeProfileQuery: FragmentType<typeof EmployeeProfileNextRole_Fragment>;
-  optionsQuery: FragmentType<typeof EmployeeProfileNextRoleOptions_Fragment>;
+interface CareerObjectiveSectionProps {
+  employeeProfileQuery: FragmentType<
+    typeof EmployeeProfileCareerObjective_Fragment
+  >;
+  optionsQuery: FragmentType<
+    typeof EmployeeProfileCareerObjectiveOptions_Fragment
+  >;
 }
 
 const TEXT_AREA_MAX_WORDS_EN = 300;
@@ -157,10 +161,10 @@ const wordCountLimits: Record<Locales, number> = {
   fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
 } as const;
 
-const NextRoleSection = ({
+const CareerObjectiveSection = ({
   employeeProfileQuery,
   optionsQuery,
-}: NextRoleSectionProps) => {
+}: CareerObjectiveSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { userAuthInfo } = useAuthorization();
@@ -169,11 +173,11 @@ const NextRoleSection = ({
   );
 
   const employeeProfile = getFragment(
-    EmployeeProfileNextRole_Fragment,
+    EmployeeProfileCareerObjective_Fragment,
     employeeProfileQuery,
   );
   const options = getFragment(
-    EmployeeProfileNextRoleOptions_Fragment,
+    EmployeeProfileCareerObjectiveOptions_Fragment,
     optionsQuery,
   );
   const isNull = hasAllEmptyFields(employeeProfile);
@@ -196,18 +200,19 @@ const NextRoleSection = ({
   };
 
   const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
-    classificationGroup: initialData.nextRoleClassification?.group,
-    classificationLevel: initialData.nextRoleClassification?.level.toString(),
-    targetRole: initialData.nextRoleTargetRole?.value,
-    jobTitle: initialData.nextRoleJobTitle,
-    communityId: initialData.nextRoleCommunity?.id,
-    workStreamIds: initialData.nextRoleWorkStreams?.map(
+    classificationGroup: initialData.careerObjectiveClassification?.group,
+    classificationLevel:
+      initialData.careerObjectiveClassification?.level.toString(),
+    targetRole: initialData.careerObjectiveTargetRole?.value,
+    jobTitle: initialData.careerObjectiveJobTitle,
+    communityId: initialData.careerObjectiveCommunity?.id,
+    workStreamIds: initialData.careerObjectiveWorkStreams?.map(
       (workStream) => workStream.id,
     ),
-    departmentIds: initialData.nextRoleDepartments?.map(
+    departmentIds: initialData.careerObjectiveDepartments?.map(
       (department) => department.id,
     ),
-    additionalInformation: initialData.nextRoleAdditionalInformation,
+    additionalInformation: initialData.careerObjectiveAdditionalInformation,
   });
 
   const methods = useForm<FormValues>({
@@ -246,29 +251,29 @@ const NextRoleSection = ({
     return executeMutation({
       id: userAuthInfo.id,
       employeeProfile: {
-        nextRoleClassification: selectedClassification?.id
+        careerObjectiveClassification: selectedClassification?.id
           ? {
               connect: selectedClassification.id,
             }
           : {
               disconnect: true,
             },
-        nextRoleTargetRole: targetRole as TargetRole,
-        nextRoleJobTitle: jobTitle,
-        nextRoleCommunity: communityId
+        careerObjectiveTargetRole: targetRole as TargetRole,
+        careerObjectiveJobTitle: jobTitle,
+        careerObjectiveCommunity: communityId
           ? {
               connect: communityId,
             }
           : {
               disconnect: true,
             },
-        nextRoleWorkStreams: {
+        careerObjectiveWorkStreams: {
           sync: workStreamIds,
         },
-        nextRoleDepartments: {
+        careerObjectiveDepartments: {
           sync: departmentIds,
         },
-        nextRoleAdditionalInformation: additionalInformation,
+        careerObjectiveAdditionalInformation: additionalInformation,
       },
     })
       .then((result) => {
@@ -555,4 +560,4 @@ const NextRoleSection = ({
   );
 };
 
-export default NextRoleSection;
+export default CareerObjectiveSection;

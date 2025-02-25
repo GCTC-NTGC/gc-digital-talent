@@ -1,26 +1,26 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EmployeeProfileNextRoleFragment } from "@gc-digital-talent/graphql";
+import { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import { hasAnyEmptyFields } from "~/validators/employeeProfile/nextRole";
+import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerObjective";
 
 interface DisplayProps {
-  employeeProfile: EmployeeProfileNextRoleFragment;
+  employeeProfile: EmployeeProfileCareerObjectiveFragment;
 }
 
 const Display = ({
   employeeProfile: {
-    nextRoleClassification,
-    nextRoleTargetRole,
-    nextRoleJobTitle,
-    nextRoleCommunity,
-    nextRoleWorkStreams,
-    nextRoleDepartments,
-    nextRoleAdditionalInformation,
+    careerObjectiveClassification,
+    careerObjectiveTargetRole,
+    careerObjectiveJobTitle,
+    careerObjectiveCommunity,
+    careerObjectiveWorkStreams,
+    careerObjectiveDepartments,
+    careerObjectiveAdditionalInformation,
   },
 }: DisplayProps) => {
   const intl = useIntl();
@@ -28,13 +28,13 @@ const Display = ({
     commonMessages.missingOptionalInformation,
   );
 
-  nextRoleWorkStreams?.sort((a, b) =>
+  careerObjectiveWorkStreams?.sort((a, b) =>
     a.name?.localized && b.name?.localized
       ? a.name.localized.localeCompare(b.name.localized)
       : 0,
   );
 
-  nextRoleDepartments?.sort((a, b) =>
+  careerObjectiveDepartments?.sort((a, b) =>
     a.name?.localized && b.name?.localized
       ? a.name.localized.localeCompare(b.name.localized)
       : 0,
@@ -47,13 +47,13 @@ const Display = ({
       data-h2-gap="base(x1)"
     >
       {hasAnyEmptyFields({
-        nextRoleClassification,
-        nextRoleTargetRole,
-        nextRoleJobTitle,
-        nextRoleCommunity,
-        nextRoleWorkStreams,
-        nextRoleDepartments,
-        nextRoleAdditionalInformation,
+        careerObjectiveClassification,
+        careerObjectiveTargetRole,
+        careerObjectiveJobTitle,
+        careerObjectiveCommunity,
+        careerObjectiveWorkStreams,
+        careerObjectiveDepartments,
+        careerObjectiveAdditionalInformation,
       }) && (
         <>
           <Well>
@@ -77,8 +77,8 @@ const Display = ({
             employeeProfileMessages.targetClassificationGroup,
           )}
         >
-          {nextRoleClassification?.group
-            ? nextRoleClassification.group
+          {careerObjectiveClassification?.group
+            ? careerObjectiveClassification.group
             : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
@@ -86,40 +86,40 @@ const Display = ({
             employeeProfileMessages.targetClassificationLevel,
           )}
         >
-          {nextRoleClassification?.level
-            ? nextRoleClassification.level.toString().padStart(2, "0")
+          {careerObjectiveClassification?.level
+            ? careerObjectiveClassification.level.toString().padStart(2, "0")
             : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.targetRole)}
         >
-          {nextRoleTargetRole?.label.localized
-            ? nextRoleTargetRole.label.localized
+          {careerObjectiveTargetRole?.label.localized
+            ? careerObjectiveTargetRole.label.localized
             : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.jobTitle)}
         >
-          {nextRoleJobTitle ? nextRoleJobTitle : notProvided}
+          {careerObjectiveJobTitle ? careerObjectiveJobTitle : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.community)}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleCommunity?.name?.localized
-            ? nextRoleCommunity.name.localized
+          {careerObjectiveCommunity?.name?.localized
+            ? careerObjectiveCommunity.name.localized
             : notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.workStreams)}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleWorkStreams?.length ? (
+          {careerObjectiveWorkStreams?.length ? (
             <ul
               data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
               data-h2-padding-left="base(x1)"
             >
-              {nextRoleWorkStreams.map((workStream) => (
+              {careerObjectiveWorkStreams.map((workStream) => (
                 <li key={workStream.id}>{workStream?.name?.localized}</li>
               ))}
             </ul>
@@ -131,12 +131,12 @@ const Display = ({
           label={intl.formatMessage(employeeProfileMessages.departments)}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleDepartments?.length ? (
+          {careerObjectiveDepartments?.length ? (
             <ul
               data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
               data-h2-padding-left="base(x1)"
             >
-              {nextRoleDepartments.map((department) => (
+              {careerObjectiveDepartments.map((department) => (
                 <li key={department.id}>{department?.name?.localized}</li>
               ))}
             </ul>
@@ -150,8 +150,8 @@ const Display = ({
           )}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleAdditionalInformation
-            ? nextRoleAdditionalInformation
+          {careerObjectiveAdditionalInformation
+            ? careerObjectiveAdditionalInformation
             : notProvided}
         </ToggleForm.FieldDisplay>
       </div>
