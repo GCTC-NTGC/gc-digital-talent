@@ -1,15 +1,6 @@
 import { EmployeeProfile } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({
-  careerObjectiveClassification,
-  careerObjectiveTargetRole,
-  careerObjectiveTargetRoleOther,
-  careerObjectiveJobTitle,
-  careerObjectiveCommunity,
-  careerObjectiveWorkStreams,
-  careerObjectiveDepartments,
-  careerObjectiveAdditionalInformation,
-}: Pick<
+type EmployeeProfileCareerObjectiveFragment = Pick<
   EmployeeProfile,
   | "careerObjectiveClassification"
   | "careerObjectiveTargetRole"
@@ -19,15 +10,26 @@ export function hasAllEmptyFields({
   | "careerObjectiveWorkStreams"
   | "careerObjectiveDepartments"
   | "careerObjectiveAdditionalInformation"
->): boolean {
+>;
+
+export function hasAllEmptyFields({
+  careerObjectiveClassification,
+  careerObjectiveTargetRole,
+  careerObjectiveTargetRoleOther,
+  careerObjectiveJobTitle,
+  careerObjectiveCommunity,
+  careerObjectiveWorkStreams,
+  careerObjectiveDepartments,
+  careerObjectiveAdditionalInformation,
+}: EmployeeProfileCareerObjectiveFragment): boolean {
   return (
     !careerObjectiveClassification &&
     !careerObjectiveTargetRole &&
     !careerObjectiveTargetRoleOther &&
     !careerObjectiveJobTitle &&
     !careerObjectiveCommunity &&
-    !careerObjectiveWorkStreams &&
-    !careerObjectiveDepartments &&
+    !(careerObjectiveWorkStreams?.length ?? 0 > 0) &&
+    !(careerObjectiveDepartments?.length ?? 0 > 0) &&
     !careerObjectiveAdditionalInformation
   );
 }
@@ -40,23 +42,21 @@ export function hasAnyEmptyFields({
   careerObjectiveWorkStreams,
   careerObjectiveDepartments,
   careerObjectiveAdditionalInformation,
-}: Pick<
-  EmployeeProfile,
-  | "careerObjectiveClassification"
-  | "careerObjectiveTargetRole"
-  | "careerObjectiveJobTitle"
-  | "careerObjectiveCommunity"
-  | "careerObjectiveWorkStreams"
-  | "careerObjectiveDepartments"
-  | "careerObjectiveAdditionalInformation"
->): boolean {
+}: EmployeeProfileCareerObjectiveFragment): boolean {
   return (
     !careerObjectiveClassification ||
     !careerObjectiveTargetRole ||
     !careerObjectiveJobTitle ||
     !careerObjectiveCommunity ||
-    !careerObjectiveWorkStreams ||
-    !careerObjectiveDepartments ||
+    !(careerObjectiveWorkStreams?.length ?? 0 > 0) ||
+    !(careerObjectiveDepartments?.length ?? 0 > 0) ||
     !careerObjectiveAdditionalInformation
   );
+}
+
+export function hasEmptyRequiredFields(
+  _: EmployeeProfileCareerObjectiveFragment,
+): boolean {
+  // no required fields
+  return false;
 }

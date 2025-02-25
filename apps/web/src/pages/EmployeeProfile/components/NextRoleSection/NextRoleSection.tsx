@@ -85,7 +85,7 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
+export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileNextRole on EmployeeProfile {
     nextRoleClassification {
       id

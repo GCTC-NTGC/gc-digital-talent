@@ -26,6 +26,14 @@ import {
   hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/careerDevelopment";
 import {
+  hasAllEmptyFields as nextRoleHasAllEmptyFields,
+  hasEmptyRequiredFields as nextRoleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/nextRole";
+import {
+  hasAllEmptyFields as careerObjectiveHasAllEmptyFields,
+  hasEmptyRequiredFields as careerObjectiveHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerObjective";
+import {
   hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
   hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/goalsWorkStyle";
@@ -36,8 +44,12 @@ import GoalsWorkStyleSection, {
 } from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
 import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
-import NextRoleSection from "./components/NextRoleSection/NextRoleSection";
-import CareerObjectiveSection from "./components/CareerObjective/CareerObjectiveSection";
+import NextRoleSection, {
+  EmployeeProfileNextRole_Fragment,
+} from "./components/NextRoleSection/NextRoleSection";
+import CareerObjectiveSection, {
+  EmployeeProfileCareerObjective_Fragment,
+} from "./components/CareerObjective/CareerObjectiveSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -129,12 +141,21 @@ const EmployeeProfile = ({
     ],
   });
 
-  const goalsWorkStyle = getFragment(
-    EmployeeProfileGoalsWorkStyle_Fragment,
-    user.employeeProfile,
-  );
+  // for validation
   const careerDevelopment = getFragment(
     EmployeeProfileCareerDevelopment_Fragment,
+    user.employeeProfile,
+  );
+  const nextRole = getFragment(
+    EmployeeProfileNextRole_Fragment,
+    user.employeeProfile,
+  );
+  const careerObjective = getFragment(
+    EmployeeProfileCareerObjective_Fragment,
+    user.employeeProfile,
+  );
+  const goalsWorkStyle = getFragment(
+    EmployeeProfileGoalsWorkStyle_Fragment,
     user.employeeProfile,
   );
 
@@ -180,7 +201,13 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.yourNextRole)}
-                      status={"success"}
+                      status={
+                        nextRoleHasEmptyRequiredFields(nextRole)
+                          ? "error"
+                          : nextRoleHasAllEmptyFields(nextRole)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.NEXT_ROLE}
                     />
                   </TableOfContents.ListItem>
@@ -188,7 +215,13 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerObjective)}
-                      status="success"
+                      status={
+                        careerObjectiveHasEmptyRequiredFields(careerObjective)
+                          ? "error"
+                          : careerObjectiveHasAllEmptyFields(careerObjective)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.CAREER_OBJECTIVE}
                     />
                   </TableOfContents.ListItem>

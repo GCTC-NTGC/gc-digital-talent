@@ -85,7 +85,7 @@ const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
+export const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileCareerObjective on EmployeeProfile {
     careerObjectiveClassification {
       id

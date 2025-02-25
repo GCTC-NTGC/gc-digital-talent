@@ -1,15 +1,6 @@
 import { EmployeeProfile } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({
-  nextRoleClassification,
-  nextRoleTargetRole,
-  nextRoleTargetRoleOther,
-  nextRoleJobTitle,
-  nextRoleCommunity,
-  nextRoleWorkStreams,
-  nextRoleDepartments,
-  nextRoleAdditionalInformation,
-}: Pick<
+type EmployeeProfileNextRoleFragment = Pick<
   EmployeeProfile,
   | "nextRoleClassification"
   | "nextRoleTargetRole"
@@ -19,15 +10,26 @@ export function hasAllEmptyFields({
   | "nextRoleWorkStreams"
   | "nextRoleDepartments"
   | "nextRoleAdditionalInformation"
->): boolean {
+>;
+
+export function hasAllEmptyFields({
+  nextRoleClassification,
+  nextRoleTargetRole,
+  nextRoleTargetRoleOther,
+  nextRoleJobTitle,
+  nextRoleCommunity,
+  nextRoleWorkStreams,
+  nextRoleDepartments,
+  nextRoleAdditionalInformation,
+}: EmployeeProfileNextRoleFragment): boolean {
   return (
     !nextRoleClassification &&
     !nextRoleTargetRole &&
     !nextRoleTargetRoleOther &&
     !nextRoleJobTitle &&
     !nextRoleCommunity &&
-    !nextRoleWorkStreams &&
-    !nextRoleDepartments &&
+    !(nextRoleWorkStreams?.length ?? 0 > 0) &&
+    !(nextRoleDepartments?.length ?? 0 > 0) &&
     !nextRoleAdditionalInformation
   );
 }
@@ -40,23 +42,21 @@ export function hasAnyEmptyFields({
   nextRoleWorkStreams,
   nextRoleDepartments,
   nextRoleAdditionalInformation,
-}: Pick<
-  EmployeeProfile,
-  | "nextRoleClassification"
-  | "nextRoleTargetRole"
-  | "nextRoleJobTitle"
-  | "nextRoleCommunity"
-  | "nextRoleWorkStreams"
-  | "nextRoleDepartments"
-  | "nextRoleAdditionalInformation"
->): boolean {
+}: EmployeeProfileNextRoleFragment): boolean {
   return (
     !nextRoleClassification ||
     !nextRoleTargetRole ||
     !nextRoleJobTitle ||
     !nextRoleCommunity ||
-    !nextRoleWorkStreams ||
-    !nextRoleDepartments ||
+    !(nextRoleWorkStreams?.length ?? 0 > 0) ||
+    !(nextRoleDepartments?.length ?? 0 > 0) ||
     !nextRoleAdditionalInformation
   );
+}
+
+export function hasEmptyRequiredFields(
+  _: EmployeeProfileNextRoleFragment,
+): boolean {
+  // no required fields
+  return false;
 }
