@@ -88,11 +88,11 @@ class EmployeeProfileTest extends TestCase
                 GRAPHQL)
             ->assertJsonFragment([
                 'lateralMoveInterest' => $this->user->employeeProfile->career_planning_lateral_move_interest,
-                'lateralMoveTimeFrame' => ['value' => $this->user->employeeProfile->career_planning_lateral_move_time_frame],
-                'lateralMoveOrganizationType' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_lateral_move_organization_type),
+                'lateralMoveTimeFrame' => $this->user->employeeProfile->career_planning_lateral_move_interest ? ['value' => $this->user->employeeProfile->career_planning_lateral_move_time_frame] : null,
+                'lateralMoveOrganizationType' => $this->user->employeeProfile->career_planning_lateral_move_interest ? $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_lateral_move_organization_type) : null,
                 'promotionMoveInterest' => $this->user->employeeProfile->career_planning_promotion_move_interest,
-                'promotionMoveTimeFrame' => ['value' => $this->user->employeeProfile->career_planning_promotion_move_time_frame],
-                'promotionMoveOrganizationType' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_promotion_move_organization_type),
+                'promotionMoveTimeFrame' => $this->user->employeeProfile->career_planning_promotion_move_interest ? ['value' => $this->user->employeeProfile->career_planning_promotion_move_time_frame] : null,
+                'promotionMoveOrganizationType' => $this->user->employeeProfile->career_planning_promotion_move_interest ? $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_promotion_move_organization_type) : null,
                 'mentorshipStatus' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_status),
                 'mentorshipInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_interest),
                 'execInterest' => $this->user->employeeProfile->career_planning_exec_interest,
