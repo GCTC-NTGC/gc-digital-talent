@@ -17,7 +17,7 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -31,6 +31,7 @@ import {
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import StatusSummary from "./StatusSummary";
 
@@ -149,16 +150,20 @@ const ReviewApplicationDialog = ({
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool?.poolSkills);
-  const essentialPoolSkills = sortPoolSkillsBySkillCategory(
+  const essentialSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
       (poolSkill) => poolSkill.type?.value === PoolSkillType.Essential,
     ),
-  );
-  const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
+  )
+    .flatMap(({ skill }) => skill)
+    .filter(notEmpty);
+  const nonessentialSkills = sortPoolSkillsBySkillCategory(
     poolSkills.filter(
       (poolSkill) => poolSkill.type?.value === PoolSkillType.Nonessential,
     ),
-  );
+  )
+    .flatMap(({ skill }) => skill)
+    .filter(notEmpty);
 
   const status = getApplicationStatusChip(
     application.submittedAt,
@@ -238,7 +243,10 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? getClassificationName(pool?.classification, intl)
+                ? wrapAbbr(
+                    getClassificationName(pool?.classification, intl),
+                    intl,
+                  )
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay
@@ -264,8 +272,7 @@ const ReviewApplicationDialog = ({
             >
               {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
-            {status.value === applicationStatus.DRAFT ||
-            status.value === applicationStatus.EXPIRED ? (
+            {status.value === applicationStatus.EXPIRED ? (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.deadlineToApply)}
                 data-h2-grid-column="p-tablet(span 2)"
@@ -356,15 +363,13 @@ const ReviewApplicationDialog = ({
                   <span
                     data-h2-font-weight="base(normal)"
                     data-h2-color="base(black.light)"
-                  >{` (${essentialPoolSkills.length ?? 0})`}</span>
+                  >{` (${essentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
                 <Accordion.Content>
-                  {essentialPoolSkills.length ? (
+                  {essentialSkills.length ? (
                     <ul>
-                      {essentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>
-                          {skill?.name.localized ?? nullMessage}
-                        </li>
+                      {essentialSkills.map(({ id, name }) => (
+                        <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
                     </ul>
                   ) : (
@@ -380,15 +385,13 @@ const ReviewApplicationDialog = ({
                   <span
                     data-h2-font-weight="base(normal)"
                     data-h2-color="base(black.light)"
-                  >{` (${nonessentialPoolSkills.length ?? 0})`}</span>
+                  >{` (${nonessentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-margin-bottom="base(-x.5)">
-                  {nonessentialPoolSkills.length ? (
+                  {nonessentialSkills.length ? (
                     <ul>
-                      {nonessentialPoolSkills.map(({ skill }) => (
-                        <li key={skill?.id}>
-                          {skill?.name.localized ?? nullMessage}
-                        </li>
+                      {nonessentialSkills.map(({ id, name }) => (
+                        <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
                     </ul>
                   ) : (
@@ -421,17 +424,11 @@ const ReviewApplicationDialog = ({
               mode="solid"
               color="secondary"
             >
-              {status.value === applicationStatus.DRAFT
-                ? intl.formatMessage({
-                    defaultMessage: "Continue application",
-                    id: "1sppLE",
-                    description: "Label for continue application link",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "View application",
-                    id: "xg/wvH",
-                    description: "Label for view application link",
-                  })}
+              {intl.formatMessage({
+                defaultMessage: "View application",
+                id: "xg/wvH",
+                description: "Label for view application link",
+              })}
             </Link>
             <Link href={paths.pool(pool.id)} mode="inline" color="secondary">
               {intl.formatMessage({

@@ -50,13 +50,9 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton
-      ref={ref}
-      {...actionProps}
-      onClick={onClick}
-      aria-label={label}
-      {...rest}
-    />
+    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
+      {label}
+    </BaseButton>
   ),
 );
 
@@ -67,12 +63,9 @@ interface LinkProps {
 }
 
 const Link = ({ href, label, icon }: LinkProps) => (
-  <BaseLink
-    {...actionProps}
-    href={href}
-    aria-label={label}
-    icon={icon ?? actionProps.icon}
-  />
+  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+    {label}
+  </BaseLink>
 );
 
 interface ItemProps {
