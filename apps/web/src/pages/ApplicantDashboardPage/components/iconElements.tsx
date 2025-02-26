@@ -39,7 +39,7 @@ export const MetaDataJobInterest = ({
   const notInterestedWork = (
     <span>
       <XCircleIcon
-        data-h2-color="base(gray.lighter) base:dark(gray)"
+        data-h2-color="base(black.lighter) base:dark(black.5)"
         {...sharedIconStyling}
       />
       {intl.formatMessage({
@@ -99,7 +99,7 @@ export const MetaDataTrainingInterest = ({
   const notInterestedTraining = (
     <span>
       <XCircleIcon
-        data-h2-color="base(gray.lighter) base:dark(gray)"
+        data-h2-color="base(black.lighter) base:dark(black.5)"
         {...sharedIconStyling}
       />
       {intl.formatMessage({

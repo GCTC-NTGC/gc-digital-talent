@@ -79,7 +79,9 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.NotInterested,
       {
         Icon: XCircleIcon,
-        iconStyles: { "data-h2-color": "base(gray.lighter) base:dark(gray)" },
+        iconStyles: {
+          "data-h2-color": "base(black.lighter) base:dark(black.5)",
+        },
         message: intl.formatMessage({
           defaultMessage: "Not interested",
           id: "9TIkDp",
