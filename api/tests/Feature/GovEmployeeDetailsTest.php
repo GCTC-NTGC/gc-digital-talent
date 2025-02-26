@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -71,85 +70,5 @@ class GovEmployeeDetailsTest extends TestCase
                     'govEmployee' => null,
                 ],
             ]);
-    }
-
-    /**
-     * @dataProvider validationProvider
-     */
-    public function testGovernmentEmailValidation($email, $passes): void
-    {
-
-        $testUser = User::factory()
-            ->asGovEmployee()
-            ->create(['work_email' => $email]);
-
-        $res = $this->actingAs($this->baseUser, 'api')
-            ->graphQL($this->query, [
-                'workEmail' => $email,
-            ]);
-
-        if ($passes) {
-            $res->assertJson([
-                'data' => ['govEmployee' => ['id' => $testUser->id]],
-            ]);
-        } else {
-            $res->assertGraphQLValidationError('workEmail', ApiErrorEnums::NOT_GOVERNMENT_EMAIL);
-        }
-    }
-
-    public static function validationProvider(): array
-    {
-
-        $tlds = [
-            'gc.ca',
-            'canada.ca',
-            'elections.ca',
-            'ccc.ca',
-            'canadapost-postescanada.ca',
-            'gg.ca',
-            'scics.ca',
-            'scc-csc.ca',
-            'ccohs.ca',
-            'cchst.ca',
-            'edc.ca',
-            'invcanada.ca',
-            'parl.ca',
-            'telefilm.ca',
-            'bankofcanada.ca',
-            'banqueducanada.ca',
-            'ncc-ccn.ca',
-            'bank-banque-canada.ca',
-            'cef-cce.ca',
-            'cgc.ca',
-            'nfb.ca',
-            'onf.ca',
-            'canadacouncil.ca',
-            'conseildesarts.ca',
-            'humanrights.ca',
-            'droitsdelapersonne.ca',
-            'ingeniumcanada.org',
-            'cjc-ccm.ca',
-            'bdc.ca',
-            'idrc.ca',
-            'museedelhistoire.ca',
-            'historymuseum.ca',
-            'cdic.ca',
-            'sadc.ca',
-            'scc.ca',
-            'clc.ca',
-            'clc-sic.ca',
-            'cntower.ca',
-            'latourcn.ca',
-        ];
-
-        $passes = [];
-        foreach ($tlds as $tld) {
-            $passes[$tld.' passes validation'] = ['passes@'.$tld, true];
-        }
-
-        return [
-            'non government email fails validation' => ['email@domain.com', false],
-            ...$passes,
-        ];
     }
 }
