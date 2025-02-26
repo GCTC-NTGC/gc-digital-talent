@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-class GovEmployeeDetailsTest extends TestCase
+class GovEmployeeProfileTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;

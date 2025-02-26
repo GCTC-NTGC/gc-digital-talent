@@ -5,7 +5,7 @@ namespace App\GraphQL\Validators\Query;
 use App\Rules\GovernmentEmailRegex;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class GovEmployeeValidator extends Validator
+final class GovEmployeeProfileValidator extends Validator
 {
     /**
      * Return the validation rules.
