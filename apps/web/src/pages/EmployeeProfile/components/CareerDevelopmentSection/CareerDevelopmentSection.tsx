@@ -303,14 +303,6 @@ const CareerDevelopmentSection = ({
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          {/* TODO: Add useForm prop to BasicForm to allow watch control in parent component */}
-          {/* <BasicForm
-            labels={labels}
-            onSubmit={handleSave}
-            options={{
-              defaultValues: dataToFormValues(employeeProfile),
-            }}
-          > */}
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div
@@ -555,7 +547,6 @@ const CareerDevelopmentSection = ({
                   </ToggleSection.Close>
                 </div>
               </div>
-              {/* </BasicForm> */}
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>
