@@ -12,7 +12,7 @@ enum OrganizationTypeInterest
     case CPA;
     case NON_CPA;
     case CENTRAL_AGENCIES;
-    case ANY;
+    case SCIENCE_REGULATORY_AGENCY;
 
     public static function getLangFilename(): string
     {

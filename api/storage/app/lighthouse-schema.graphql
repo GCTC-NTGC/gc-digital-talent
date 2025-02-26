@@ -3029,7 +3029,7 @@ enum OrganizationTypeInterest {
   CPA
   NON_CPA
   CENTRAL_AGENCIES
-  ANY
+  SCIENCE_REGULATORY_AGENCY
 }
 
 enum OverallAssessmentStatus {
