@@ -11,7 +11,7 @@ class GovernmentEmailValidationTest extends TestCase
     /**
      * @dataProvider validationProvider
      */
-    public function test_government_email_validation($email, $passes): void
+    public function testGovernmentEmailValidation($email, $passes): void
     {
         $data = ['test' => $email];
 
@@ -78,6 +78,7 @@ class GovernmentEmailValidationTest extends TestCase
 
         return [
             'non government email fails validation' => ['email@domain.com', false],
+            'non exact government email fails validation' => ['endswithgc.ca', false],
             ...$passes,
         ];
     }
