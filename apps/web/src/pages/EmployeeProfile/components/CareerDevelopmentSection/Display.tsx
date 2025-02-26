@@ -154,31 +154,31 @@ const Display = ({
           </ToggleForm.FieldDisplay>
         </>
       )}
+      <ToggleForm.FieldDisplay
+        label={careerDevelopmentMessages.promotionMoveInterest}
+      >
+        {empty(promotionMoveInterest)
+          ? notProvided
+          : intl.formatMessage(
+              promotionMoveInterest
+                ? {
+                    defaultMessage:
+                      "I’m interested in receiving opportunities for promotion and advancement.",
+                    id: "2tAqF/",
+                    description:
+                      "The promotion move interest described as interested.",
+                  }
+                : {
+                    defaultMessage:
+                      "I’m not looking for a promotion or advancement right now.",
+                    id: "tXLRmG",
+                    description:
+                      "The promotion move interest described as not interested.",
+                  },
+            )}
+      </ToggleForm.FieldDisplay>
       {promotionMoveInterest && (
         <>
-          <ToggleForm.FieldDisplay
-            label={careerDevelopmentMessages.promotionMoveInterest}
-          >
-            {empty(promotionMoveInterest)
-              ? notProvided
-              : intl.formatMessage(
-                  promotionMoveInterest
-                    ? {
-                        defaultMessage:
-                          "I’m interested in receiving opportunities for promotion and advancement.",
-                        id: "2tAqF/",
-                        description:
-                          "The promotion move interest described as interested.",
-                      }
-                    : {
-                        defaultMessage:
-                          "I’m not looking for a promotion or advancement right now.",
-                        id: "tXLRmG",
-                        description:
-                          "The promotion move interest described as not interested.",
-                      },
-                )}
-          </ToggleForm.FieldDisplay>
           <ToggleForm.FieldDisplay
             label={careerDevelopmentMessages.promotionMoveTimeFrame}
           >
