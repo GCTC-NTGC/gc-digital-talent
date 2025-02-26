@@ -37,7 +37,7 @@ class GovEmployeeDetailsTest extends TestCase
             ->create();
     }
 
-    public function test_verified_government_employee_details_available()
+    public function testVerifiedGovernmentEmployeeDetailsAvailable()
     {
         $email = 'employee@gc.ca';
         $testUser = User::factory()
@@ -56,7 +56,7 @@ class GovEmployeeDetailsTest extends TestCase
             ]);
     }
 
-    public function test_unverified_government_employee_details_not_available()
+    public function testUnverifiedGovernmentEmployeeDetailsNotAvailable()
     {
         $email = 'employee@gc.ca';
         User::factory()
@@ -76,7 +76,7 @@ class GovEmployeeDetailsTest extends TestCase
     /**
      * @dataProvider validationProvider
      */
-    public function test_government_email_validation($email, $passes): void
+    public function testGovernmentEmailValidation($email, $passes): void
     {
 
         $testUser = User::factory()
