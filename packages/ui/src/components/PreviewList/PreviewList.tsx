@@ -50,13 +50,9 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton
-      ref={ref}
-      {...actionProps}
-      onClick={onClick}
-      aria-label={label}
-      {...rest}
-    />
+    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
+      {label}
+    </BaseButton>
   ),
 );
 
