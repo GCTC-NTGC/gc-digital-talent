@@ -458,7 +458,7 @@ const NextRoleSection = ({
                         aria-describedby={classificationDescriptionId}
                       />
                     </div>
-                    {notEmpty(watchClassificationGroup) && (
+                    {watchClassificationGroup ? (
                       <div style={{ width: "100%" }}>
                         <Select
                           id="classificationLevel"
@@ -474,7 +474,7 @@ const NextRoleSection = ({
                           disabled={fetching}
                         />
                       </div>
-                    )}
+                    ) : null}
                   </div>
                 </div>
                 <RadioGroup
