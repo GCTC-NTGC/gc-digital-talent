@@ -105,7 +105,7 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
         url: paths.profileAndApplications(),
       },
       {
