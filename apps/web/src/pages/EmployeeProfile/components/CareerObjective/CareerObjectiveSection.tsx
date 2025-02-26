@@ -207,7 +207,7 @@ const CareerObjectiveSection = ({
     classificationLevel:
       initialData.careerObjectiveClassification?.level.toString(),
     targetRole: initialData.careerObjectiveTargetRole?.value,
-    targetRoleOther: initialData.nextRoleTargetRoleOther,
+    targetRoleOther: initialData.careerObjectiveTargetRoleOther,
     jobTitle: initialData.careerObjectiveJobTitle,
     communityId: initialData.careerObjectiveCommunity?.id,
     workStreamIds: initialData.careerObjectiveWorkStreams?.map(
