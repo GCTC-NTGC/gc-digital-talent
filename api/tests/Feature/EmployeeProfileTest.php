@@ -131,7 +131,7 @@ class EmployeeProfileTest extends TestCase
             'lateralMoveOrganizationType' => [OrganizationTypeInterest::CURRENT->name],
             'promotionMoveInterest' => true,
             'promotionMoveTimeFrame' => TimeFrame::THIS_YEAR->name,
-            'promotionMoveOrganizationType' => [OrganizationTypeInterest::ANY->name],
+            'promotionMoveOrganizationType' => [OrganizationTypeInterest::SCIENCE_REGULATORY_AGENCY->name],
             'mentorshipStatus' => [Mentorship::MENTOR->name],
             'mentorshipInterest' => array_column(Mentorship::cases(), 'name'),
             'execInterest' => true,
