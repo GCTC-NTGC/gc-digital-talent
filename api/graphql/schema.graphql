@@ -284,7 +284,7 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   lastName: String @rename(attribute: "last_name")
 }
 
-type BasicGovEmployeeDetails @model(class: "\\App\\Models\\User") {
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
@@ -1079,9 +1079,9 @@ type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
-  govEmployee(
+  govEmployeeProfile(
     workEmail: String! @scope(name: "exactWorkEmail")
-  ): BasicGovEmployeeDetails
+  ): BasicGovEmployeeProfile
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
