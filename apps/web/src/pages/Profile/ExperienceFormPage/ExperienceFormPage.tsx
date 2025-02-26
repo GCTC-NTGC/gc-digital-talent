@@ -55,10 +55,6 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import pageTitles from "~/messages/pageTitles";
-import ExperienceWorkStreams, {
-  ExperienceWorkStreamsCommunity_Fragment,
-} from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -305,9 +301,6 @@ interface ExperienceFormProps {
   experienceId?: string;
   experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
-  communitiesQuery: FragmentType<
-    typeof ExperienceWorkStreamsCommunity_Fragment
-  >[];
   userId: string;
   organizationSuggestions: string[];
 }
@@ -318,7 +311,6 @@ export const ExperienceForm = ({
   experienceId,
   experienceType,
   skillsQuery,
-  communitiesQuery,
   userId,
   organizationSuggestions,
 }: ExperienceFormProps) => {
@@ -539,13 +531,6 @@ export const ExperienceForm = ({
                   })}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              {(type === "work" || experienceType === "work") && (
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink id="work-streams">
-                    {intl.formatMessage(pageTitles.workStreams)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              )}
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id="skills">
                   {intl.formatMessage({
@@ -580,17 +565,6 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="additional-details">
                   <AdditionalDetails experienceType={experienceType} />
                 </TableOfContents.Section>
-
-                {(type === "work" ||
-                  (experience &&
-                    experienceType === "work" &&
-                    experience?.__typename === "WorkExperience")) && (
-                  <TableOfContents.Section id="work-streams">
-                    <ExperienceWorkStreams
-                      communitiesQuery={communitiesQuery}
-                    />
-                  </TableOfContents.Section>
-                )}
 
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
@@ -748,9 +722,6 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
         ...ExperienceFormExperience
       }
     }
-    communities {
-      ...ExperienceWorkStreamsCommunity
-    }
   }
 `);
 
@@ -782,7 +753,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const skills = unpackMaybes(data?.skills);
   const experience =
     data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
-  const communities = unpackMaybes(data?.communities);
 
   const myExperiences = unpackMaybes(data?.me?.experiences);
   const organizationsForAutocomplete =
@@ -803,7 +773,6 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
           organizationSuggestions={organizationsForAutocomplete}
-          communitiesQuery={communities}
         />
       ) : (
         <ThrowNotFound
