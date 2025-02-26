@@ -1181,6 +1181,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function scopeIsVerifiedGovEmployee(Builder $query): void
     {
         $query->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
             ->whereNotNull('work_email_verified_at');
     }
 
