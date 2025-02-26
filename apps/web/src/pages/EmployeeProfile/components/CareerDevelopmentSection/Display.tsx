@@ -140,7 +140,21 @@ const Display = ({
                   );
                   return (
                     <li key={x.value}>
-                      <BoolCheckIcon value={iconValue}>
+                      <BoolCheckIcon
+                        value={iconValue}
+                        trueLabel={intl.formatMessage({
+                          defaultMessage: "Interested in",
+                          id: "AQiPuW",
+                          description:
+                            "Label for user expressing interest in a specific work stream",
+                        })}
+                        falseLabel={intl.formatMessage({
+                          defaultMessage: "Not interested in",
+                          id: "KyLikL",
+                          description:
+                            "Label for user expressing they are not interested in a specific work stream",
+                        })}
+                      >
                         {x.label.localized ??
                           intl.formatMessage(commonMessages.notFound)}
                       </BoolCheckIcon>
@@ -199,7 +213,21 @@ const Display = ({
                   );
                   return (
                     <li key={x.value}>
-                      <BoolCheckIcon value={iconValue}>
+                      <BoolCheckIcon
+                        value={iconValue}
+                        trueLabel={intl.formatMessage({
+                          defaultMessage: "Interested in",
+                          id: "AQiPuW",
+                          description:
+                            "Label for user expressing interest in a specific work stream",
+                        })}
+                        falseLabel={intl.formatMessage({
+                          defaultMessage: "Not interested in",
+                          id: "KyLikL",
+                          description:
+                            "Label for user expressing they are not interested in a specific work stream",
+                        })}
+                      >
                         {x.label.localized ??
                           intl.formatMessage(commonMessages.notFound)}
                       </BoolCheckIcon>
