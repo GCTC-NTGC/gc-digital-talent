@@ -1083,6 +1083,7 @@ type Query {
     workEmail: String! @scope(name: "exactWorkEmail")
   ): BasicGovEmployeeDetails
     @guard
+    @validator
     @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
