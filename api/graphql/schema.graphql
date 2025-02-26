@@ -1736,7 +1736,8 @@ input PoolBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID!
+  connect: UUID
+  disconnect: Boolean
 }
 
 input CreateTeamInput {
