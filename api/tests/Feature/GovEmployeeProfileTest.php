@@ -20,8 +20,8 @@ class GovEmployeeProfileTest extends TestCase
     private User $baseUser;
 
     private string $query = <<<'GRAPHQL'
-        query govEmployee($workEmail: String!) {
-            govEmployee(workEmail: $workEmail) { id }
+        query GovEmployeeProfile($workEmail: String!) {
+            govEmployeeProfile(workEmail: $workEmail) { id }
         }
     GRAPHQL;
 
