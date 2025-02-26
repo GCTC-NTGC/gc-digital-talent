@@ -419,6 +419,10 @@
     "defaultMessage": "Utilisez le bouton « Créez un processus » pour commencer.",
     "description": "Instructions for adding a process item."
   },
+  "07xB/W": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de volet de travail à cette expérience",
+    "description": "Title when no work streams have been attached to experience"
+  },
   "08IbRz": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
@@ -1926,6 +1930,10 @@
   "81Bib7": {
     "defaultMessage": "Vous pouvez ajouter des expériences spécifiques en matière d’études en sélectionnant l’option « Études et certificats » lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add education experience in application education page."
+  },
+  "81Zt0T": {
+    "defaultMessage": "Vous pouvez sélectionner des volets de travail en liant votre expérience à une collectivité fonctionnelle qui utilise notre plateforme. Les collectivités fonctionnelles mettent en relation des collègues du gouvernement avec des emplois, des formations et des possibilités relatives à la gestion des talents dans le domaine d'expertise de la collectivité fonctionnelle. L'expérience acquise à l'extérieur du gouvernement peut également être mise à profit.",
+    "description": "Description for work streams paragraph 2 on Experience form"
   },
   "81iywD": {
     "defaultMessage": "On vous demandera de confirmer les renseignements que vous avez fournis.",
@@ -3511,6 +3519,10 @@
     "defaultMessage": "Niveau",
     "description": "Label displayed on classification level input"
   },
+  "GK8s3M": {
+    "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
+    "description": "Description for work streams paragraph 3 on Experience form"
+  },
   "GMbOaT": {
     "defaultMessage": "Utilisez le bouton « Ajoutez une compétence » pour commencer.",
     "description": "Null message description for asset skills table."
@@ -3702,6 +3714,10 @@
   "HRmtdK": {
     "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
     "description": "third paragraph describing the 2024 changes to the directive on digital talent"
+  },
+  "HWjcqg": {
+    "defaultMessage": "{workStreamCount, plural, =0 {0 volet de travail lié} =1 {1 volet de travail lié} other {# volets de travail liés}}",
+    "description": "Count of work streams for work experience"
   },
   "HXF9GA": {
     "defaultMessage": "Bassin demandé",
@@ -4430,6 +4446,10 @@
   "L819mr": {
     "defaultMessage": "Mises à jour du questionnaire sur l’octroi de contrats sur les services numériques",
     "description": "fourth 2024 key change to the directive"
+  },
+  "L8iV5q": {
+    "defaultMessage": "Sélectionnez un ou plusieurs volets de travail qui, selon vous, correspondent au travail effectué par rapport à cette expérience.",
+    "description": "Instructions for selecting work streams"
   },
   "L8k+lC": {
     "defaultMessage": "Précédent",
@@ -5526,6 +5546,10 @@
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
     "description": "Title for the experience section of the user skill page"
+  },
+  "QuVtMh": {
+    "defaultMessage": "Collectivités fonctionnelles",
+    "description": "Label for functional communities field"
   },
   "Quwegl": {
     "defaultMessage": "Études minimales",
@@ -7790,6 +7814,10 @@
     "defaultMessage": "L’étude a été menée à une institution d’enseignement reconnue",
     "description": "Text for education accepted information context in screening decision dialog"
   },
+  "dXRajZ": {
+    "defaultMessage": "Ajoutez des volets de travail",
+    "description": "Button label for Add work streams"
+  },
   "dY3Qr4": {
     "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
@@ -8062,6 +8090,10 @@
     "defaultMessage": "La formation m'intéresse*",
     "description": "Message displayed when user expresses interest in training opportunities"
   },
+  "eePQun": {
+    "defaultMessage": "Mettez à jour les volets de travail",
+    "description": "Link text to add work streams for an experience"
+  },
   "eeU13V": {
     "defaultMessage": "Filtrer par volets de travail",
     "description": "Legend for pool streams input"
@@ -8210,6 +8242,10 @@
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
   },
+  "fM48Ck": {
+    "defaultMessage": "Pour retirer entièrement cette collectivité fonctionnelle, utilisez le bouton de la poubelle sur l'écran précédent et enregistrez vos modifications.",
+    "description": "Instructions for deselecting work streams"
+  },
   "fMLoIF": {
     "defaultMessage": "Modèle d'emploi",
     "description": "Title for the 'job poster template' page"
@@ -8281,6 +8317,10 @@
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
+  },
+  "fdSRLv": {
+    "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajoutez des volets de travail ».",
+    "description": "Subtitle when no work streams have been attached to experience"
   },
   "fg2wla": {
     "defaultMessage": "Langue préférée pour l'examen écrit",
@@ -8478,6 +8518,10 @@
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
   },
+  "gL8LDB": {
+    "defaultMessage": "Ajoutez les volets de travail",
+    "description": "Link text to update work streams for an experience"
+  },
   "gLNQYB": {
     "defaultMessage": "Évaluées lors de la demande initiale",
     "description": "Message displayed for technical skills telling users at what point it will be assessed"
@@ -8501,6 +8545,10 @@
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
+  },
+  "gV0mRk": {
+    "defaultMessage": "Collectivité fonctionnelle",
+    "description": "Label for Functional community value"
   },
   "gXFpR1": {
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
@@ -9914,6 +9962,10 @@
     "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
     "description": "An item in a list of points about instructor-led classes"
   },
+  "njfu1M": {
+    "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
+    "description": "Subtitle for work streams for an experience dialog"
+  },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
@@ -10694,6 +10746,10 @@
     "defaultMessage": "Consulter la Directive",
     "description": "Link text to read the directive on digital talent"
   },
+  "sGQ4eO": {
+    "defaultMessage": "Cette section est facultative, mais le fait de lier votre expérience à un ou plusieurs volets de travail peut mettre en évidence votre expérience cumulée et aider nos équipes de recrutement à vous proposer de nouvelles possibilités d’emploi. Ce service est particulièrement utile si vous avez une expérience au sein du gouvernement du Canada ou si des postes de direction vous intéressent.",
+    "description": "Description for work streams paragraph 1 on Experience form"
+  },
   "sGT8ER": {
     "defaultMessage": "Informations complémentaires",
     "description": "Title for common questions"
@@ -11010,6 +11066,10 @@
     "defaultMessage": "Ajouter une nouvelle question",
     "description": "Button text to add a new general question to a pool"
   },
+  "uEzDbH": {
+    "defaultMessage": " Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
+    "description": "Description for work streams for an experience dialog"
+  },
   "uG1ZWN": {
     "defaultMessage": "Retirez de la collectivité",
     "description": "Button label for the form to remove a community role from a user"
@@ -11061,6 +11121,10 @@
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
+  },
+  "uTf8vH": {
+    "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
+    "description": "Title for to remove community from experience"
   },
   "uWZgYM": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un volet de travail. Elle devrait être fondée sur le nom anglais du volet de travail et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
@@ -11729,6 +11793,10 @@
   "yKQGy8": {
     "defaultMessage": "Niveaux de compétence comportementale",
     "description": "Heading for the skills level definitions of behavioural skills"
+  },
+  "yKpbHC": {
+    "defaultMessage": "Sélectionnez une collectivité fonctionnelle pour continuer.",
+    "description": "Message when no community selected"
   },
   "yKr1Ji": {
     "defaultMessage": "J’envoie ma candidature",
