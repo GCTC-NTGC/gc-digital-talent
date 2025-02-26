@@ -48,7 +48,8 @@ export function hasAnyEmptyFields({
     !nextRoleTargetRole ||
     !nextRoleJobTitle ||
     !nextRoleCommunity ||
-    !(nextRoleWorkStreams?.length ?? 0 > 0) ||
+    ((nextRoleCommunity.workStreams?.length ?? 0 > 0) &&
+      !(nextRoleWorkStreams?.length ?? 0 > 0)) ||
     !(nextRoleDepartments?.length ?? 0 > 0) ||
     !nextRoleAdditionalInformation
   );

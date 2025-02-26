@@ -111,23 +111,27 @@ const Display = ({
             ? careerObjectiveCommunity.name.localized
             : notProvided}
         </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          label={intl.formatMessage(employeeProfileMessages.workStreams)}
-          data-h2-grid-column="l-tablet(span 2)"
-        >
-          {careerObjectiveWorkStreams?.length ? (
-            <ul
-              data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-              data-h2-padding-left="base(x1)"
-            >
-              {careerObjectiveWorkStreams.map((workStream) => (
-                <li key={workStream.id}>{workStream?.name?.localized}</li>
-              ))}
-            </ul>
-          ) : (
-            notProvided
-          )}
-        </ToggleForm.FieldDisplay>
+        {/* Only show work streams if the community has possible work streams to choose, or if there are some chosen already somehow */}
+        {careerObjectiveCommunity?.workStreams?.length ||
+        careerObjectiveWorkStreams?.length ? (
+          <ToggleForm.FieldDisplay
+            label={intl.formatMessage(employeeProfileMessages.workStreams)}
+            data-h2-grid-column="l-tablet(span 2)"
+          >
+            {careerObjectiveWorkStreams?.length ? (
+              <ul
+                data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
+                data-h2-padding-left="base(x1)"
+              >
+                {careerObjectiveWorkStreams.map((workStream) => (
+                  <li key={workStream.id}>{workStream?.name?.localized}</li>
+                ))}
+              </ul>
+            ) : (
+              notProvided
+            )}
+          </ToggleForm.FieldDisplay>
+        ) : null}
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.departments)}
           data-h2-grid-column="l-tablet(span 2)"

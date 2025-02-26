@@ -106,6 +106,9 @@ export const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
       name {
         localized
       }
+      workStreams {
+        id
+      }
     }
     careerObjectiveWorkStreams {
       id

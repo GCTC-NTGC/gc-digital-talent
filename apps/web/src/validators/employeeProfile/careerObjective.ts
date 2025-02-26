@@ -48,7 +48,8 @@ export function hasAnyEmptyFields({
     !careerObjectiveTargetRole ||
     !careerObjectiveJobTitle ||
     !careerObjectiveCommunity ||
-    !(careerObjectiveWorkStreams?.length ?? 0 > 0) ||
+    ((careerObjectiveCommunity.workStreams?.length ?? 0 > 0) &&
+      !(careerObjectiveWorkStreams?.length ?? 0 > 0)) ||
     !(careerObjectiveDepartments?.length ?? 0 > 0) ||
     !careerObjectiveAdditionalInformation
   );

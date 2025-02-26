@@ -106,6 +106,9 @@ export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
       name {
         localized
       }
+      workStreams {
+        id
+      }
     }
     nextRoleWorkStreams {
       id
