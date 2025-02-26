@@ -21,11 +21,7 @@ import {
   TargetRole,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  notEmpty,
-  UnauthorizedError,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
+import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Checklist,
