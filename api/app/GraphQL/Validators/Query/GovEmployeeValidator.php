@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Validators\Query;
 
-use App\Rules\GovernmentEmail;
+use App\Rules\GovernmentEmailRegex;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class GovEmployeeValidator extends Validator
@@ -15,7 +15,7 @@ final class GovEmployeeValidator extends Validator
     public function rules(): array
     {
         return [
-            'workEmail' => [new GovernmentEmail],
+            'workEmail' => [new GovernmentEmailRegex],
         ];
     }
 }

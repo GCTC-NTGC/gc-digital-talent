@@ -6,7 +6,7 @@ use Closure;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class GovernmentEmail implements ValidationRule
+class GovernmentEmailRegex implements ValidationRule
 {
     /**
      * Run the validation rule.

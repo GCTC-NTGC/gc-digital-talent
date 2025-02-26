@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Rules\GovernmentEmail;
+use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
@@ -11,11 +11,11 @@ class GovernmentEmailValidationTest extends TestCase
     /**
      * @dataProvider validationProvider
      */
-    public function testGovernmentEmailValidation($email, $passes): void
+    public function test_government_email_validation($email, $passes): void
     {
         $data = ['test' => $email];
 
-        $validator = Validator::make($data, ['test' => new GovernmentEmail]);
+        $validator = Validator::make($data, ['test' => new GovernmentEmailRegex]);
         $isValid = $validator->passes();
 
         if ($passes) {
