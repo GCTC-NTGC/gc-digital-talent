@@ -29,7 +29,7 @@ class GovernmentEmailValidationTest extends TestCase
     public static function validationProvider(): array
     {
 
-        $tlds = [
+        $domains = [
             'gc.ca',
             'canada.ca',
             'elections.ca',
@@ -72,8 +72,8 @@ class GovernmentEmailValidationTest extends TestCase
         ];
 
         $passes = [];
-        foreach ($tlds as $tld) {
-            $passes[$tld.' passes validation'] = ['passes@'.$tld, true];
+        foreach ($domains as $domain) {
+            $passes[$domain.' passes validation'] = ['passes@'.$domain, true];
         }
 
         return [
