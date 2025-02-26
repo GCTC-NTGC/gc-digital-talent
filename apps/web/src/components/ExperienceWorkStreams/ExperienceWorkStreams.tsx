@@ -15,25 +15,6 @@ import { WorkFormValues } from "~/types/experience";
 
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 
-const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
-  fragment ExperienceFormWorkStream on WorkExperience {
-    id
-    workStreams {
-      id
-      key
-      name {
-        localized
-      }
-      community {
-        id
-        name {
-          localized
-        }
-      }
-    }
-  }
-`);
-
 const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceWorkStreamsCommunity on Community {
     id

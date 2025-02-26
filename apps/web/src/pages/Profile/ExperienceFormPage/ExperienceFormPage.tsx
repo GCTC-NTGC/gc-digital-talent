@@ -290,7 +290,19 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      ...ExperienceFormWorkStream
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          name {
+            localized
+          }
+        }
+      }
     }
   }
 `);
