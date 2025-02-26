@@ -19,6 +19,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,6 +66,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $verbal_level
  * @property ?string $estimated_language_ability
  * @property ?bool $computed_is_gov_employee
+ * @property bool $isVerifiedGovEmployee
  * @property ?string $work_email
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
@@ -422,6 +424,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $preferences;
+    }
+
+    protected function isVerifiedGovEmployee(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && !is_null($attributes['work_email']) && !is_null($attributes['work_email_verified_at']),
+        );
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
