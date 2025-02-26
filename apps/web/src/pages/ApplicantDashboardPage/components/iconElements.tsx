@@ -25,7 +25,10 @@ export const MetaDataJobInterest = ({
 
   const interestedWork = (
     <span>
-      <BriefcaseIcon data-h2-color="base(success)" {...sharedIconStyling} />
+      <BriefcaseIcon
+        data-h2-color="base(success) base:dark(success.lighter)"
+        {...sharedIconStyling}
+      />
       {intl.formatMessage({
         defaultMessage: "Interested in work",
         id: "1VKNrs",
@@ -35,7 +38,10 @@ export const MetaDataJobInterest = ({
   );
   const notInterestedWork = (
     <span>
-      <XCircleIcon data-h2-color="base(gray.lighter)" {...sharedIconStyling} />
+      <XCircleIcon
+        data-h2-color="base(gray.lighter) base:dark(gray)"
+        {...sharedIconStyling}
+      />
       {intl.formatMessage({
         defaultMessage: "Not interested in work",
         id: "VDVRPt",
@@ -47,7 +53,7 @@ export const MetaDataJobInterest = ({
   const missingWork = (
     <span>
       <ExclamationTriangleIcon
-        data-h2-color="base(error)"
+        data-h2-color="base(error) base:dark(error.lighter)"
         {...sharedIconStyling}
       />
       <span data-h2-color="base(error.darker) base:dark(error.lightest)">
@@ -79,7 +85,7 @@ export const MetaDataTrainingInterest = ({
   const interestedTraining = (
     <span>
       <PresentationChartLineIcon
-        data-h2-color="base(success)"
+        data-h2-color="base(success) base:dark(success.lighter)"
         {...sharedIconStyling}
       />
       {intl.formatMessage({
@@ -92,7 +98,10 @@ export const MetaDataTrainingInterest = ({
   );
   const notInterestedTraining = (
     <span>
-      <XCircleIcon data-h2-color="base(gray.lighter)" {...sharedIconStyling} />
+      <XCircleIcon
+        data-h2-color="base(gray.lighter) base:dark(gray)"
+        {...sharedIconStyling}
+      />
       {intl.formatMessage({
         defaultMessage: "Not interested in training",
         id: "8wU0cq",
@@ -104,7 +113,7 @@ export const MetaDataTrainingInterest = ({
   const missingTraining = (
     <span>
       <ExclamationTriangleIcon
-        data-h2-color="base(error)"
+        data-h2-color="base(error) base:dark(error.lighter)"
         {...sharedIconStyling}
       />
       <span data-h2-color="base(error.darker) base:dark(error.lightest)">
