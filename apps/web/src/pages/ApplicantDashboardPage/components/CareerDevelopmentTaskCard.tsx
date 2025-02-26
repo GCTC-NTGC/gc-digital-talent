@@ -25,16 +25,12 @@ export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
     lateralMoveTimeFrame {
       value
       label {
-        en
-        fr
         localized
       }
     }
     lateralMoveOrganizationType {
       value
       label {
-        en
-        fr
         localized
       }
     }
@@ -42,16 +38,12 @@ export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
     promotionMoveTimeFrame {
       value
       label {
-        en
-        fr
         localized
       }
     }
     promotionMoveOrganizationType {
       value
       label {
-        en
-        fr
         localized
       }
     }

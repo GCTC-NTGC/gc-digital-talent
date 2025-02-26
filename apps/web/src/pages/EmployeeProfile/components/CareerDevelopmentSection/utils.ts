@@ -63,16 +63,12 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
     lateralMoveTimeFrame {
       value
       label {
-        en
-        fr
         localized
       }
     }
     lateralMoveOrganizationType {
       value
       label {
-        en
-        fr
         localized
       }
     }
@@ -80,51 +76,27 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
     promotionMoveTimeFrame {
       value
       label {
-        en
-        fr
         localized
       }
     }
     promotionMoveOrganizationType {
       value
       label {
-        en
-        fr
         localized
       }
     }
     mentorshipStatus {
       value
-      label {
-        en
-        fr
-        localized
-      }
     }
     mentorshipInterest {
       value
-      label {
-        en
-        fr
-        localized
-      }
     }
     execInterest
     execCoachingStatus {
       value
-      label {
-        en
-        fr
-        localized
-      }
     }
     execCoachingInterest {
       value
-      label {
-        en
-        fr
-        localized
-      }
     }
   }
 `);
