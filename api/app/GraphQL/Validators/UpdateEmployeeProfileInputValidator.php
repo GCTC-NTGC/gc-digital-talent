@@ -5,9 +5,11 @@ namespace App\GraphQL\Validators;
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -20,8 +22,13 @@ final class UpdateEmployeeProfileInputValidator extends Validator
      */
     public function rules(): array
     {
-        $communityId = $this->arg('dreamRoleCommunity.connect');
-        $workStreams = $communityId ? WorkStream::where('community_id', $communityId)->get('id')->pluck('id') : [];
+        // args->has doesn't work with dotted syntax
+        $argsArr = $this->args->toArray();
+
+        $nextRoleCommunityId = $this->arg('nextRoleCommunity.connect');
+        $careerObjectiveCommunityId = $this->arg('careerObjectiveCommunity.connect');
+        $nextRoleAllWorkStreams = $nextRoleCommunityId ? WorkStream::where('community_id', $nextRoleCommunityId)->get('id')->pluck('id') : [];
+        $careerObjectiveAllWorkStreams = $careerObjectiveCommunityId ? WorkStream::where('community_id', $careerObjectiveCommunityId)->get('id')->pluck('id') : [];
 
         return [
             'lateralMoveInterest' => ['nullable', 'boolean'],
@@ -43,12 +50,69 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'execCoachingInterest' => ['nullable'],
             'execCoachingInterest.*' => [Rule::in(array_column(ExecCoaching::cases(), 'name'))],
 
-            'dreamRoleTitle' => ['nullable', 'string'],
-            'dreamRoleAdditionalInformation' => ['nullable', 'string'],
-            'dreamRoleCommunity.connect' => ['uuid', 'exists:communities,id'],
-            'dreamRoleClassification.connect' => ['uuid', 'exists:classifications,id'],
-            'dreamRoleWorkStream.connect' => ['prohibited_if:dreamRoleCommunity,null', 'uuid', 'exists:work_streams,id', Rule::in($workStreams)],
-            'dreamRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],
+            'nextRoleJobTitle' => ['nullable', 'string'],
+            'careerObjectiveJobTitle' => ['nullable', 'string'],
+            'nextRoleAdditionalInformation' => ['nullable', 'string'],
+            'careerObjectiveAdditionalInformation' => ['nullable', 'string'],
+            'nextRoleCommunity.connect' => ['uuid', 'exists:communities,id'],
+            'careerObjectiveCommunity.connect' => ['uuid', 'exists:communities,id'],
+            'nextRoleClassification.connect' => ['uuid', 'exists:classifications,id'],
+            'careerObjectiveClassification.connect' => ['uuid', 'exists:classifications,id'],
+
+            'nextRoleWorkStreams' => [
+                Rule::when(
+                    fn (): bool => Arr::has($argsArr, ('nextRoleCommunity.connect')),
+                    [
+                        'present', // if community is specified, work streams must also be specified
+                        'nextRoleWorkStreams.sync' => ['required'],
+                    ]
+                ),
+            ],
+            'nextRoleWorkStreams.sync.*' => [
+                'prohibited_if:nextRoleCommunity,null',
+                'required_with:nextRoleCommunity,null',
+                'uuid',
+                'exists:work_streams,id',
+                Rule::in($nextRoleAllWorkStreams),
+            ],
+
+            'careerObjectiveWorkStreams' => [
+                Rule::when(
+                    fn (): bool => Arr::has($argsArr, ('careerObjectiveCommunity.connect')),
+                    [
+                        'present', // if community is specified, work streams must also be specified
+                        'careerObjectiveCommunity.sync' => ['required'],
+                    ]
+                ),
+            ],
+            'careerObjectiveWorkStreams.sync.*' => [
+                'prohibited_if:careerObjectiveCommunity,null',
+                'required_with:careerObjectiveCommunity,null',
+                'uuid',
+                'exists:work_streams,id',
+                Rule::in($careerObjectiveAllWorkStreams),
+            ],
+
+            'nextRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],
+            'careerObjectiveDepartments.sync.*' => ['uuid', 'exists:departments,id'],
+            'nextRoleTargetRole' => [Rule::in(array_column(TargetRole::cases(), 'name'))],
+            'careerObjectiveTargetRole' => [Rule::in(array_column(TargetRole::cases(), 'name'))],
+            'nextRoleTargetRoleOther' => [
+                Rule::when(
+                    fn (): bool => Arr::has($argsArr, 'nextRoleTargetRole'),
+                    ['present'] // if role is specified, other must be defined as a value or null
+                ),
+                'required_if:nextRoleTargetRole,'.TargetRole::OTHER->name,
+                'prohibited_unless:nextRoleTargetRole,'.TargetRole::OTHER->name,
+            ],
+            'careerObjectiveTargetRoleOther' => [
+                Rule::when(
+                    fn (): bool => Arr::has($argsArr, 'careerObjectiveTargetRole'),
+                    ['present'] // if role is specified, other must be defined as a value or null
+                ),
+                'required_if:careerObjectiveTargetRole,'.TargetRole::OTHER->name,
+                'prohibited_unless:careerObjectiveTargetRole,'.TargetRole::OTHER->name,
+            ],
 
             'aboutYou' => ['nullable', 'string'],
             'learningGoals' => ['nullable', 'string'],
@@ -59,11 +123,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'dreamRoleCommunity.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
-            'dreamRoleClassification.connect.exists' => ApiErrorEnums::CLASSIFICATION_NOT_FOUND,
-            'dreamRoleWorkStream.connect.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
-            'dreamRoleWorkStream.connect.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
-            'dreamRoleDepartments.sync.*.exists' => ApiErrorEnums::DEPARTMENT_NOT_FOUND,
+            'nextRoleCommunity.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
+            'careerObjectiveCommunity.connect.exists' => ApiErrorEnums::COMMUNITY_NOT_FOUND,
+            'nextRoleClassification.connect.exists' => ApiErrorEnums::CLASSIFICATION_NOT_FOUND,
+            'careerObjectiveClassification.connect.exists' => ApiErrorEnums::CLASSIFICATION_NOT_FOUND,
+            'nextRoleWorkStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
+            'nextRoleWorkStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
+            'careerObjectiveWorkStreams.sync.*.exists' => ApiErrorEnums::WORK_STREAM_NOT_FOUND,
+            'careerObjectiveWorkStreams.sync.*.in' => ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY,
+            'nextRoleDepartments.sync.*.exists' => ApiErrorEnums::DEPARTMENT_NOT_FOUND,
+            'careerObjectiveDepartments.sync.*.exists' => ApiErrorEnums::DEPARTMENT_NOT_FOUND,
         ];
     }
 }

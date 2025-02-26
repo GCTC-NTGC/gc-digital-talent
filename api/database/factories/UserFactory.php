@@ -18,6 +18,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
@@ -234,18 +235,31 @@ class UserFactory extends Factory
     public function withEmployeeProfile()
     {
         return $this->afterCreating(function (User $user) {
-            $community = Community::inRandomOrder()->first();
-            if (is_null($community)) {
-                $community = Community::factory()->withWorkStreams()->create();
-            }
-            $classification = Classification::inRandomOrder()->first();
-            if (is_null($classification)) {
-                $classification = Classification::factory()->create();
-            }
-            $workStream = $this->faker->randomElement($community->workStreams);
-            $departments = Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get();
+            $nextRoleCommunity = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
+            $careerObjectiveCommunity = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
-            $user->employeeProfile->dreamRoleDepartments()->sync($departments);
+            $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
+            $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
+
+            $user->employeeProfile->nextRoleDepartments()
+                ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
+            $user->employeeProfile->careerObjectiveDepartments()
+                ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
+
+            $user->employeeProfile->nextRoleWorkStreams()
+                ->sync($this->faker->randomElements(
+                    $nextRoleCommunity
+                        ->workStreams
+                        ->pluck('id'),
+                    $this->faker->numberBetween(0, $nextRoleCommunity->workStreams->count())
+                ));
+            $user->employeeProfile->careerObjectiveWorkStreams()
+                ->sync($this->faker->randomElements(
+                    $careerObjectiveCommunity
+                        ->workStreams
+                        ->pluck('id'),
+                    $this->faker->numberBetween(0, $careerObjectiveCommunity->workStreams->count())
+                ));
 
             $user->employeeProfile()->update([
                 'career_planning_lateral_move_interest' => $this->faker->boolean(),
@@ -262,11 +276,24 @@ class UserFactory extends Factory
                 'career_planning_about_you' => $this->faker->paragraph(),
                 'career_planning_learning_goals' => $this->faker->paragraph(),
                 'career_planning_work_style' => $this->faker->paragraph(),
-                'dream_role_title' => $this->faker->words(3, true),
-                'dream_role_additional_information' => $this->faker->paragraph(),
-                'dream_role_community_id' => $community->id,
-                'dream_role_classification_id' => $classification->id,
-                'dream_role_work_stream_id' => $workStream?->id,
+                'next_role_job_title' => $this->faker->words(3, true),
+                'career_objective_job_title' => $this->faker->words(3, true),
+                'next_role_additional_information' => $this->faker->paragraph(),
+                'career_objective_additional_information' => $this->faker->paragraph(),
+                'next_role_community_id' => $nextRoleCommunity->id,
+                'career_objective_community_id' => $careerObjectiveCommunity->id,
+                'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
+                'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
+
+                'next_role_target_role' => $nextRoleTargetRole,
+                'career_objective_target_role' => $careerObjectiveTargetRole,
+                'next_role_target_role_other' => $nextRoleTargetRole === TargetRole::OTHER->name
+                        ? $this->faker->words(3, true)
+                        : null,
+                'career_objective_target_role_other' => $careerObjectiveTargetRole === TargetRole::OTHER->name
+                        ? $this->faker->words(3, true)
+                        : null,
+
             ]);
         });
     }

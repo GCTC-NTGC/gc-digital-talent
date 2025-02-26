@@ -5,12 +5,7 @@ import kebabCase from "lodash/kebabCase";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
-import {
-  BasicForm,
-  Input,
-  RichTextInput,
-  Submit,
-} from "@gc-digital-talent/forms";
+import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   CreateCommunityInput,
@@ -132,7 +127,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <RichTextInput
+          <TextArea
             id="description.en"
             label={intl.formatMessage(adminMessages.descriptionEn)}
             name="description.en"
@@ -141,7 +136,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             }}
             wordLimit={TEXT_AREA_MAX_WORDS_EN}
           />
-          <RichTextInput
+          <TextArea
             id="description.fr"
             label={intl.formatMessage(adminMessages.descriptionFr)}
             name="description.fr"
