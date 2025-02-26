@@ -755,10 +755,6 @@
     "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Description for the IT Apprenticeship Program for Indigenous Peoples"
   },
-  "1sppLE": {
-    "defaultMessage": "Poursuivre la demande",
-    "description": "Label for continue application link"
-  },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
@@ -6630,6 +6626,10 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
   },
+  "Wyi02N": {
+    "defaultMessage": "Vous avez été supprimé des résultats de la recherche pour {poolName}.",
+    "description": "Alert displayed to the user when application card dialog submits successfully."
+  },
   "X0YPib": {
     "defaultMessage": "Expériences relatives aux prix",
     "description": "Heading for award experiences in experience by type listing"
@@ -8521,6 +8521,10 @@
   "gg0yRf": {
     "defaultMessage": "Cela ne m'intéresse pas pour l'instant.",
     "description": "Option for the 'not interested' choice of program participation"
+  },
+  "ghTJqE": {
+    "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche pour {poolName}.",
+    "description": "Alert displayed to the user when they updated something to appear in search results again."
   },
   "giUfys": {
     "defaultMessage": "Expérience professionnelle",
