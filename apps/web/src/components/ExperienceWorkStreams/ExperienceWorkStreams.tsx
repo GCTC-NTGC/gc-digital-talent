@@ -15,7 +15,7 @@ import { WorkFormValues } from "~/types/experience";
 
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 
-export const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
+const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormWorkStream on WorkExperience {
     id
     workStreams {
@@ -34,7 +34,7 @@ export const ExperienceFormWorkStream_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
+const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceWorkStreamsCommunity on Community {
     id
     name {
@@ -49,7 +49,7 @@ export const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface ExperienceWorkStreamsProps {
+interface ExperienceWorkStreamsProps {
   communitiesQuery?: FragmentType<
     typeof ExperienceWorkStreamsCommunity_Fragment
   >[];
