@@ -1078,6 +1078,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    public static function scopeExactWorkEmail(Builder $query, string $email): Builder
+    {
+            return $query->where('work_email', $email);
+    }
+
+
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
@@ -1171,6 +1177,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
             ->sortBy('improve_skills_rank');
+    }
+
+    public function scopeIsVerifiedGovEmployee(Builder $query): void
+    {
+        $query->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email_verified_at');
     }
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void

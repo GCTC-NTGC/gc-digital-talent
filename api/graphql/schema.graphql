@@ -284,6 +284,15 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   lastName: String @rename(attribute: "last_name")
 }
 
+type BasicGovEmployeeDetails @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
+}
+
 type GeneralQuestion {
   id: ID!
   pool: Pool @belongsTo
@@ -1070,6 +1079,11 @@ type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployee(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeDetails
+    @guard
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
