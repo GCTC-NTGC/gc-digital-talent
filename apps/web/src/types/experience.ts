@@ -115,11 +115,7 @@ export type WorkFormValues = FormValueDateRange & {
   cafForce?: CafForce | null;
   cafRank?: CafRank | null;
   currentRole: boolean;
-  workStreams?: {
-    id: string;
-    communityId: Maybe<string>;
-    name: LocalizedString;
-  }[];
+  workStreams?: string[];
 };
 
 export type AllExperienceFormValues = AwardFormValues &

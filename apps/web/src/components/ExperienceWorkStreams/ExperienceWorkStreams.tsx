@@ -2,10 +2,10 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { groupBy, uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -14,6 +14,7 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { WorkFormValues } from "~/types/experience";
 
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
+import { WorkStreamWithoutKey } from "./types";
 
 const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceWorkStreamsCommunity on Community {
@@ -41,11 +42,7 @@ const ExperienceWorkStreams = ({
 }: ExperienceWorkStreamsProps) => {
   const intl = useIntl();
 
-  const { control, watch } = useFormContext<WorkFormValues>();
-  const { replace } = useFieldArray({
-    control,
-    name: "workStreams",
-  });
+  const { setValue, watch } = useFormContext<WorkFormValues>();
 
   const watchWorkStreams = watch("workStreams") ?? [];
 
@@ -54,60 +51,43 @@ const ExperienceWorkStreams = ({
     communitiesQuery,
   );
 
-  const groupsExperience = Object.values(
-    groupBy(watchWorkStreams, (item) => {
-      return item?.communityId ?? "";
-    }),
-  ).map((communityGroupOfWorkStreams) => {
-    return {
-      community: communities?.find(
-        (item) => item.id === communityGroupOfWorkStreams[0].communityId,
-      ),
-      workStreams: communityGroupOfWorkStreams.map((workStream) => workStream),
-    };
-  });
-
-  const selectedCommunities = uniqueItems(
-    watchWorkStreams.flatMap((workStream) => workStream.communityId),
-  );
-
   const communitiesWithWorkStreams =
     communities?.filter((item) => unpackMaybes(item?.workStreams).length > 0) ??
     [];
 
+  const workStreamsByCommunity = new Map<string, WorkStreamWithoutKey[]>();
+  watchWorkStreams.forEach((item) => {
+    let workStream;
+    const community = communities?.find((c) => {
+      const matchedWorkStream = c.workStreams?.find((s) => s.id === item);
+      workStream = matchedWorkStream;
+      return !!matchedWorkStream;
+    });
+    if (community && workStream) {
+      const newWorkStreams = [
+        ...(workStreamsByCommunity.get(community.id) ?? []),
+        workStream,
+      ];
+      workStreamsByCommunity.set(community.id, newWorkStreams);
+    }
+  });
+
   const handleUpdate = (workStreamIds: string[]) => {
-    const newWorkStreams: WorkFormValues["workStreams"] = workStreamIds.reduce(
-      (formFields: WorkFormValues["workStreams"], currentWorkStreamId) => {
-        const communitiesReduced = communitiesWithWorkStreams?.find((item) =>
-          item.workStreams?.some(
-            (workStream) => workStream.id === currentWorkStreamId,
-          ),
-        );
-        const workStream = communitiesReduced?.workStreams?.find(
-          (item) => item.id === currentWorkStreamId,
-        );
-        if (!communitiesReduced || !workStream?.name) {
-          return formFields;
-        }
-        return [
-          ...(formFields ?? []),
-          {
-            id: workStream.id,
-            communityId: communitiesReduced.id,
-            name: workStream.name,
-          },
-        ];
-      },
-      [],
-    );
-    replace(unpackMaybes(newWorkStreams));
+    setValue("workStreams", workStreamIds, { shouldDirty: true });
   };
 
   const handleRemove = (communityId?: string) => {
-    const newWorkStreams = watchWorkStreams.filter(
-      (item) => item.communityId !== communityId,
-    );
-    replace(unpackMaybes(newWorkStreams));
+    if (communityId) {
+      const newWorkStreamsByCommunity = new Map(workStreamsByCommunity);
+      newWorkStreamsByCommunity.delete(communityId);
+      setValue(
+        "workStreams",
+        Array.from(newWorkStreamsByCommunity.values())
+          .flat()
+          .map((workStream) => workStream.id),
+        { shouldDirty: true },
+      );
+    }
   };
 
   return (
@@ -147,7 +127,7 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 3 on Experience form",
         })}
       </p>
-      {groupsExperience.length > 0 ? (
+      {workStreamsByCommunity.size > 0 ? (
         <>
           <p data-h2-margin-bottom="base(x1)" data-h2-color="base(black.light)">
             {intl.formatMessage(
@@ -163,91 +143,102 @@ const ExperienceWorkStreams = ({
             )}
           </p>
           <div data-h2-margin-bottom="base(x1)">
-            {groupsExperience.map((group) => (
-              <div
-                key={group?.community?.id}
-                data-h2-background-color="base:selectors[:nth-child(even)](background.light) base:selectors[:nth-child(odd)](foreground)"
-                data-h2-padding="base(x1)"
-                data-h2-border-top="base(1px solid gray.lighter)"
-                data-h2-border-right="base(none)"
-                data-h2-border-bottom="base:selectors[:last-child](1px solid gray.lighter)"
-                data-h2-border-left="base(none)"
-              >
+            {Array.from(workStreamsByCommunity.keys()).map((communityId) => {
+              const currentWorkStreams =
+                workStreamsByCommunity.get(communityId) ?? [];
+              const currentCommunity = communities?.find(
+                (community) => community.id === communityId,
+              );
+              if (!currentCommunity) {
+                return null;
+              }
+              return (
                 <div
-                  data-h2-display="base(flex)"
-                  data-h2-justify-content="base(space-between)"
-                  data-h2-flex-direction="base(column) p-tablet(row)"
-                  data-h2-gap="base(x.5) p-tablet(x1)"
-                  data-h2-margin-bottom="base(x.5) p-tablet(0)"
+                  key={currentCommunity.id}
+                  data-h2-background-color="base:selectors[:nth-child(even)](background.light) base:selectors[:nth-child(odd)](foreground)"
+                  data-h2-padding="base(x1)"
+                  data-h2-border-top="base(1px solid gray.lighter)"
+                  data-h2-border-right="base(none)"
+                  data-h2-border-bottom="base:selectors[:last-child](1px solid gray.lighter)"
+                  data-h2-border-left="base(none)"
                 >
-                  <span data-h2-font-weight="base(700)">
-                    {group.community?.name?.localized}
-                  </span>
                   <div
                     data-h2-display="base(flex)"
-                    data-h2-justify-content="p-tablet(space-between)"
-                    data-h2-align-items="base(center)"
-                    data-h2-gap="base(x.5)"
+                    data-h2-justify-content="base(space-between)"
+                    data-h2-flex-direction="base(column) p-tablet(row)"
+                    data-h2-gap="base(x.5) p-tablet(x1)"
+                    data-h2-margin-bottom="base(x.5) p-tablet(0)"
                   >
-                    <ExperienceWorkStreamsEditDialog
-                      communities={communitiesWithWorkStreams}
-                      communityGroup={group}
-                      onUpdate={handleUpdate}
-                      trigger={
-                        <Button
-                          type="button"
-                          icon={PencilSquareIcon}
-                          mode="icon_only"
-                          color="black"
-                        >
-                          <span data-h2-visually-hidden="base(invisible)">
-                            {intl.formatMessage(commonMessages.edit)}
-                          </span>
-                        </Button>
-                      }
-                    />
-                    <span data-h2-color="base(black.light)" aria-hidden>
-                      &bull;
+                    <span data-h2-font-weight="base(700)">
+                      {currentCommunity.name?.localized}
                     </span>
-                    <Button
-                      type="button"
-                      icon={TrashIcon}
-                      mode="icon_only"
-                      color="black"
-                      onClick={() => handleRemove(group?.community?.id)}
+                    <div
+                      data-h2-display="base(flex)"
+                      data-h2-justify-content="p-tablet(space-between)"
+                      data-h2-align-items="base(center)"
+                      data-h2-gap="base(x.5)"
                     >
-                      <span data-h2-visually-hidden="base(invisible)">
-                        {intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "Remove<hidden> {communityName}</hidden>",
-                            id: "uTf8vH",
-                            description:
-                              "Title for to remove community from experience",
-                          },
-                          {
-                            communityName: group?.community?.name?.localized,
-                          },
-                        )}
+                      <ExperienceWorkStreamsEditDialog
+                        communities={communitiesWithWorkStreams}
+                        community={currentCommunity}
+                        workStreams={currentWorkStreams}
+                        onUpdate={handleUpdate}
+                        trigger={
+                          <Button
+                            type="button"
+                            icon={PencilSquareIcon}
+                            mode="icon_only"
+                            color="black"
+                          >
+                            <span data-h2-visually-hidden="base(invisible)">
+                              {intl.formatMessage(commonMessages.edit)}
+                            </span>
+                          </Button>
+                        }
+                      />
+                      <span data-h2-color="base(black.light)" aria-hidden>
+                        &bull;
                       </span>
-                    </Button>
+                      <Button
+                        type="button"
+                        icon={TrashIcon}
+                        mode="icon_only"
+                        color="black"
+                        onClick={() => handleRemove(currentCommunity.id)}
+                      >
+                        <span data-h2-visually-hidden="base(invisible)">
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "Remove<hidden> {communityName}</hidden>",
+                              id: "uTf8vH",
+                              description:
+                                "Title for to remove community from experience",
+                            },
+                            {
+                              communityName: currentCommunity?.name?.localized,
+                            },
+                          )}
+                        </span>
+                      </Button>
+                    </div>
+                  </div>
+                  <div
+                    data-h2-display="base(flex)"
+                    data-h2-flex-direction="base(column)"
+                    data-h2-gap="base(x.25)"
+                  >
+                    {currentWorkStreams.map((workStream) => (
+                      <div key={`${currentCommunity?.id}-${workStream.id}`}>
+                        <BoolCheckIcon value={true}>
+                          {workStream?.name?.localized}
+                        </BoolCheckIcon>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x.25)"
-                >
-                  {group.workStreams.map((workStream) => (
-                    <div key={`${group?.community?.id}-${workStream.id}`}>
-                      <BoolCheckIcon value={true}>
-                        {workStream?.name?.localized}
-                      </BoolCheckIcon>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </>
       ) : (
@@ -275,10 +266,10 @@ const ExperienceWorkStreams = ({
           </p>
         </Well>
       )}
-      {selectedCommunities.length < communitiesWithWorkStreams.length && (
+      {workStreamsByCommunity.size < communitiesWithWorkStreams.length && (
         <ExperienceWorkStreamsEditDialog
           communities={communitiesWithWorkStreams}
-          selectedCommunities={unpackMaybes(selectedCommunities)}
+          selectedCommunities={workStreamsByCommunity}
           onUpdate={handleUpdate}
           trigger={
             <Button

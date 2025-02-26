@@ -405,7 +405,7 @@ export const formValuesToSubmitData = (
       cafEmploymentType,
       cafForce,
       cafRank,
-      workStreamIds: workStreams?.map((item) => item.id),
+      workStreamIds: workStreams,
     },
   };
 
@@ -698,11 +698,7 @@ const getWorkExperienceDefaultValues = (
     cafEmploymentType: cafEmploymentType?.value,
     cafForce: cafForce?.value,
     cafRank: cafRank?.value,
-    workStreams: workStreams?.map((item) => ({
-      id: item.id,
-      communityId: item.community?.id,
-      name: item.name,
-    })),
+    workStreams: workStreams?.map((item) => item.id),
   };
 };
 

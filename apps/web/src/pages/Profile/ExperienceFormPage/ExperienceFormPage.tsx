@@ -292,16 +292,6 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       }
       workStreams {
         id
-        key
-        name {
-          localized
-        }
-        community {
-          id
-          name {
-            localized
-          }
-        }
       }
     }
   }

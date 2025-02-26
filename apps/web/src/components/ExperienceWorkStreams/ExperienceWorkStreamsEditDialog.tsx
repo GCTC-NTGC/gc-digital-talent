@@ -10,7 +10,6 @@ import {
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
-import { uniqueItems } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
 import { WorkFormValues } from "~/types/experience";
@@ -18,16 +17,14 @@ import { WorkFormValues } from "~/types/experience";
 import { CommunityWithoutKey, WorkStreamWithoutKey } from "./types";
 
 interface FormValues {
-  community: string;
+  community?: string;
   workStreams: string[];
 }
 interface ExperienceWorkStreamsEditDialogProps {
   communities: CommunityWithoutKey[];
-  communityGroup?: {
-    community?: CommunityWithoutKey | null;
-    workStreams: WorkStreamWithoutKey[];
-  };
-  selectedCommunities?: (string | undefined)[];
+  community?: CommunityWithoutKey | null;
+  workStreams?: WorkStreamWithoutKey[];
+  selectedCommunities?: Map<string, WorkStreamWithoutKey[]>;
   trigger: ReactNode;
   defaultOpen?: boolean;
   onUpdate: (ids: string[]) => void;
@@ -35,7 +32,8 @@ interface ExperienceWorkStreamsEditDialogProps {
 
 const ExperienceWorkStreamsEditDialog = ({
   communities,
-  communityGroup,
+  community,
+  workStreams,
   selectedCommunities,
   trigger,
   defaultOpen = false,
@@ -48,16 +46,18 @@ const ExperienceWorkStreamsEditDialog = ({
   const watchWorkStreams = watchParent("workStreams");
 
   const experienceWorkStreamIds: string[] =
-    watchWorkStreams?.map((workStream) => workStream.id) ?? [];
+    watchWorkStreams?.filter((workStream) =>
+      workStreams?.some((i) => i.id == workStream),
+    ) ?? [];
 
   const methods = useForm<FormValues>({
-    defaultValues: {
-      workStreams: communityGroup ? experienceWorkStreamIds : [],
+    values: {
+      workStreams: community ? experienceWorkStreamIds : [],
     },
   });
   const { handleSubmit, reset, watch } = methods;
 
-  const communityValue = communityGroup?.community?.id ?? watch("community");
+  const communityValue = community?.id ?? watch("community");
 
   const workStreamItemsOfCommunity = communities
     ?.find((item) => communityValue === item.id)
@@ -67,25 +67,15 @@ const ExperienceWorkStreamsEditDialog = ({
     }));
 
   const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen) {
-      reset();
-    }
+    reset();
     setIsOpen(newOpen);
   };
 
   const submitForm: SubmitHandler<FormValues> = (formValues: FormValues) => {
-    onUpdate(
-      uniqueItems(
-        experienceWorkStreamIds
-          .filter(
-            (item) =>
-              !workStreamItemsOfCommunity?.some(
-                (stream) => stream.value === item,
-              ),
-          )
-          .concat(formValues.workStreams ?? []),
-      ),
+    const newWorkStreams = watchWorkStreams?.filter(
+      (workStream) => !workStreams?.some((i) => i.id === workStream),
     );
+    onUpdate([...(formValues?.workStreams ?? []), ...(newWorkStreams ?? [])]);
     handleOpenChange(false);
   };
 
@@ -122,7 +112,7 @@ const ExperienceWorkStreamsEditDialog = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >
-                {communityGroup?.community && (
+                {community && (
                   <>
                     <span
                       data-h2-display="base(block)"
@@ -134,10 +124,10 @@ const ExperienceWorkStreamsEditDialog = ({
                         description: "Label for Functional community value",
                       })}
                     </span>
-                    <span>{communityGroup?.community?.name?.localized}</span>
+                    <span>{community?.name?.localized}</span>
                   </>
                 )}
-                {communities && !communityGroup && (
+                {communities && !community && (
                   <Select
                     id="community"
                     name="community"
@@ -154,7 +144,7 @@ const ExperienceWorkStreamsEditDialog = ({
                       required: intl.formatMessage(errorMessages.required),
                     }}
                     options={communities
-                      .filter((item) => !selectedCommunities?.includes(item.id))
+                      .filter((item) => !selectedCommunities?.has(item.id))
                       .map(({ id, name }) => ({
                         value: id,
                         label: name?.localized,
@@ -181,7 +171,7 @@ const ExperienceWorkStreamsEditDialog = ({
                         id: "L8iV5q",
                         description: "Instructions for selecting work streams",
                       })}
-                      {communityGroup?.community &&
+                      {community &&
                         ` ${intl.formatMessage({
                           defaultMessage:
                             "To remove this functional community entirely, use the trash can button on the previous screen and save your changes.",
@@ -206,7 +196,7 @@ const ExperienceWorkStreamsEditDialog = ({
               </div>
               <Dialog.Footer>
                 <Button type="submit" color="secondary">
-                  {communityGroup?.community
+                  {community
                     ? intl.formatMessage({
                         defaultMessage: "Update work streams",
                         id: "eePQun",
