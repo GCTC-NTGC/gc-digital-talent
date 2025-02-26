@@ -62,17 +62,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 interface LinkProps {
   href: BaseLinkProps["href"];
-  ariaLabel: string;
+  label: string;
   icon?: IconType;
 }
 
-const Link = ({ href, ariaLabel, icon }: LinkProps) => (
-  <BaseLink
-    {...actionProps}
-    href={href}
-    aria-label={ariaLabel}
-    icon={icon ?? actionProps.icon}
-  />
+const Link = ({ href, label, icon }: LinkProps) => (
+  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+    {label}
+  </BaseLink>
 );
 
 interface ItemProps {

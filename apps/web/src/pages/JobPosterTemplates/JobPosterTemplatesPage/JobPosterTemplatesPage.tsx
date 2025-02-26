@@ -487,7 +487,7 @@ const JobPosterTemplatesPage = () => {
                                 href={paths.jobPosterTemplate(
                                   jobPosterTemplate.id,
                                 )}
-                                ariaLabel={getLocalizedName(
+                                label={getLocalizedName(
                                   jobPosterTemplate.name,
                                   intl,
                                 )}

@@ -170,11 +170,11 @@ const ReviewApplicationPreviewList = ({
                       {status.value === applicationStatus.DRAFT ? (
                         <PreviewList.Link
                           href={paths.application(application.id)}
-                          ariaLabel={intl.formatMessage(
+                          label={intl.formatMessage(
                             {
                               defaultMessage:
-                                "Continue application for {poolName}",
-                              id: "nQtAO/",
+                                "Continue application<hidden> for {poolName}</hidden>",
+                              id: "GjL/7z",
                               description:
                                 "Label for continue application link",
                             },
