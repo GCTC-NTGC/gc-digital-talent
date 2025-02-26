@@ -13,7 +13,6 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -32,8 +31,9 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     firstName
     lastName
     isGovEmployee
-    workEmail
-    isWorkEmailVerified
+    isVerifiedGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     employeeProfile {
       ...CareerDevelopmentTaskCard
     }
@@ -137,12 +137,6 @@ export const DashboardPage = ({
     applicantDashboardQuery,
   );
 
-  const isVerifiedEmployee = isVerifiedGovEmployee({
-    isGovEmployee: currentUser.isGovEmployee,
-    workEmail: currentUser.workEmail,
-    isWorkEmailVerified: currentUser.isWorkEmailVerified,
-  });
-
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||
     governmentInformationSectionHasEmptyRequiredFields(currentUser) ||
@@ -219,7 +213,8 @@ export const DashboardPage = ({
                   currentUser?.poolCandidates,
                 )}
               />
-              {isVerifiedEmployee && currentUser?.employeeProfile ? (
+              {currentUser?.isVerifiedGovEmployee &&
+              currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
                 />
@@ -257,7 +252,7 @@ export const DashboardPage = ({
                       "Helper instructions for an 'Personal information' card",
                   })}
                 />
-                {isVerifiedEmployee ? (
+                {currentUser?.isVerifiedGovEmployee ? (
                   <ResourceBlock.SingleLinkItem
                     state={employeeProfileState}
                     title={intl.formatMessage(

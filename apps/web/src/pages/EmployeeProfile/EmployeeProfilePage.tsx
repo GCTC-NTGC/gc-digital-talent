@@ -22,7 +22,6 @@ import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import {
@@ -50,9 +49,7 @@ const SECTION_ID = {
 
 const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
-    isGovEmployee
-    workEmail
-    isWorkEmailVerified
+    isVerifiedGovEmployee
     employeeProfile {
       ...EmployeeProfileGoalsWorkStyle
       ...EmployeeProfileCareerDevelopment
@@ -73,13 +70,7 @@ const EmployeeProfile = ({ employeeProfileQuery }: EmployeeProfileProps) => {
     throw new NotFoundError();
   }
 
-  if (
-    !isVerifiedGovEmployee({
-      isGovEmployee: user.isGovEmployee,
-      workEmail: user.workEmail,
-      isWorkEmailVerified: user.isWorkEmailVerified,
-    })
-  ) {
+  if (!user?.isVerifiedGovEmployee) {
     throw new UnauthorizedError(
       intl.formatMessage({
         defaultMessage: "Not a verified employee",
