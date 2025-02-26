@@ -161,6 +161,16 @@ const navigationMessages = defineMessages({
     id: "wqBryV",
     description: "Name of applicant dashboard page",
   },
+  employeeProfileGC: {
+    defaultMessage: "GC employee profile",
+    id: "WZ8QTB",
+    description: "Short title for a user's GC employee profile",
+  },
+  createProfile: {
+    defaultMessage: "Create a profile",
+    id: "7hUWc+",
+    description: "Link text for users to create a profile",
+  },
 });
 
 export default navigationMessages;

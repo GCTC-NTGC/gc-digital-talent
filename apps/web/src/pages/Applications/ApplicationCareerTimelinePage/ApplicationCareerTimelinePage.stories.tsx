@@ -14,6 +14,7 @@ const fakePoolCandidate = fakePoolCandidates(
   1,
 )[0] as ApplicationPoolCandidateFragmentType;
 const fakeUser = fakePoolCandidate.user;
+fakePoolCandidate.submittedAt = null;
 
 type ApplicationCareerTimelineStory = StoryFn<typeof ApplicationCareerTimeline>;
 

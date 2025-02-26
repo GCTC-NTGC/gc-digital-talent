@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { RichTextInput, Submit } from "@gc-digital-talent/forms";
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
+import { Submit, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   formMessages,
@@ -209,13 +209,14 @@ const GoalsWorkStyleSection = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1)"
               >
-                <RichTextInput
+                <TextArea
                   id="aboutYou"
                   label={intl.formatMessage(employeeProfileMessages.aboutYou)}
                   name="aboutYou"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <RichTextInput
+                <CardSeparator data-h2-margin="base(0)" />
+                <TextArea
                   id="learningGoals"
                   label={intl.formatMessage(
                     employeeProfileMessages.learningGoals,
@@ -223,12 +224,14 @@ const GoalsWorkStyleSection = ({
                   name="learningGoals"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <RichTextInput
+                <CardSeparator data-h2-margin="base(0)" />
+                <TextArea
                   id="workStyle"
                   label={intl.formatMessage(employeeProfileMessages.workStyle)}
                   name="workStyle"
                   wordLimit={wordCountLimits[locale]}
                 />
+                <CardSeparator data-h2-margin="base(0)" />
                 <div
                   data-h2-display="base(flex)"
                   data-h2-gap="base(x.5)"

@@ -235,6 +235,10 @@
     "defaultMessage": "Les candidatures pour les possibilités de recrutement peuvent être gérées et suivies ici. Vous pourrez voir les dates limites de présentation des candidatures, le statut de votre candidature au fil du temps et les candidatures antérieures.",
     "description": "Description for the track applications section on the profile and applications, paragraph one."
   },
+  "/6obwT": {
+    "defaultMessage": "Vous trouverez les processus de recrutement pour lesquels vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
+    "description": "Message informing applicant of the connected recruitment process in the preview list below"
+  },
   "/81xCT": {
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
@@ -603,6 +607,10 @@
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
   },
+  "14ZYuD": {
+    "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
+    "description": "Employee group list item description"
+  },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
@@ -614,6 +622,10 @@
   "16iCWc": {
     "defaultMessage": "Vétéran",
     "description": "Label for veteran chip on view candidate page"
+  },
+  "16tGhC": {
+    "defaultMessage": "Soumise",
+    "description": "Label for application submitted"
   },
   "18pJdz": {
     "defaultMessage": "2. Ils ont révisé la liste de contrôle de la trousse du gestionnaire et ont des postes à pourvoir pour embaucher un apprentis en TI",
@@ -702,10 +714,6 @@
   "1b+6V1": {
     "defaultMessage": "{role} à {group}",
     "description": "Role with group"
-  },
-  "1bTFdX": {
-    "defaultMessage": "Vous pouvez trouver le processus de recrutement pour lequel vous avez été qualifié(e) dans l'outil « Processus de recrutement » de votre tableau de bord.",
-    "description": "Message informing applicant of the connected recruitment process in the preview list below"
   },
   "1bWLa3": {
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
@@ -947,6 +955,10 @@
     "defaultMessage": "Passez en revue les renseignements fournis pour vous assurer qu’ils sont exacts et à jour.",
     "description": "Lead-in text for verifying a candidates claims"
   },
+  "2vdIG6": {
+    "defaultMessage": "L'équipe du Développement de la collectivité de la gestion financière (DCGF) du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière fédérale à améliorer leurs compétences et à progresser dans leur carrière grâce au recrutement, au perfectionnement et au réseautage.",
+    "description": "Card description, team"
+  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -1115,6 +1127,10 @@
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
   },
+  "3u7nGm": {
+    "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
+    "description": "About to list employee types"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -1150,6 +1166,10 @@
   "450itb": {
     "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} =1 {1 élément sélectionné} other {# éléments sélectionnés}}",
     "description": "Message displayed for the number of rows selected in a table"
+  },
+  "45ber4": {
+    "defaultMessage": "À qui s'adresse cette page?",
+    "description": "Section heading, explain audience"
   },
   "46pgKa": {
     "defaultMessage": "PM-04 : Analyste",
@@ -1463,6 +1483,10 @@
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
   },
+  "5Y8vU5": {
+    "defaultMessage": "En savoir plus<hidden> sur le processus de gestion des talents des cadres</hidden>",
+    "description": "Link text to the Talent management for comptrollership executives page"
+  },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
@@ -1578,6 +1602,10 @@
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
+  },
+  "6B6xPa": {
+    "defaultMessage": "Bulletin d'information",
+    "description": "Card title, newsletter"
   },
   "6EzUZV": {
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Pour ajouter ou modifier une expérience dans votre parcours professionnel, revenez à la section <careerTimelineLink>Passez en revue votre parcours professionnel</careerTimelineLink>.",
@@ -1695,6 +1723,10 @@
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
   },
+  "6xQf6q": {
+    "defaultMessage": "Mobilité des talents",
+    "description": "Card label, for nomination feature"
+  },
   "6yn+iJ": {
     "defaultMessage": "Chercher les processus",
     "description": "Label for the pools table search input"
@@ -1759,6 +1791,10 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
+  "7II3VK": {
+    "defaultMessage": "Façonner l'avenir de la gestion financière",
+    "description": "Section heading, things you can do now or later"
+  },
   "7JQCZ0": {
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
@@ -1806,10 +1842,6 @@
   "7gTBjD": {
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidates et candidats. Les compétences sélectionnées ici sont nécessaires pour qu'une personne candidate soit prise en considération pour le poste. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
     "description": "Describes selecting essentials skills for a process."
-  },
-  "7hUWc+": {
-    "defaultMessage": "Créer un profil",
-    "description": "Link text for users to create a profile"
   },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
@@ -2447,6 +2479,10 @@
     "defaultMessage": "La spécialisation est pertinente à l’exigence du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
   },
+  "Ari7FD": {
+    "defaultMessage": "Tissez des liens avec vos pairs",
+    "description": "Card title, connect with peers"
+  },
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
     "description": "Title for dashboard"
@@ -2626,6 +2662,10 @@
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "C0M2h9": {
+    "defaultMessage": "En savoir plus<hidden> sur l'equipe du Développement de la collectivité de la gestion financière</hidden>",
+    "description": "External link button, learn more about the named team"
   },
   "C1jirU": {
     "defaultMessage": "Télécharger CSV avec évaluations",
@@ -3071,6 +3111,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
+  "EBFgMS": {
+    "defaultMessage": "Les cadres de la gestion financière actuellement en poste",
+    "description": "Employee group list item label"
+  },
   "ECAM6A": {
     "defaultMessage": "Les préférences en matière de développement de carrière ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
@@ -3207,6 +3251,10 @@
     "defaultMessage": "Mettre à jour l’utilisateur",
     "description": "Page title for the user edit page"
   },
+  "EyhaxU": {
+    "defaultMessage": "Rejoignez-nous sur LinkedIn",
+    "description": "External button link to LinkedIn"
+  },
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
@@ -3310,10 +3358,6 @@
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
-  },
-  "FThj7q": {
-    "defaultMessage": "Profil d'employé(e)",
-    "description": "Short title for a users employee profile"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
@@ -3566,6 +3610,10 @@
   "GwhSUZ": {
     "defaultMessage": "EX-04 : Chef de file du numérique",
     "description": "EX-04 classification label including titles"
+  },
+  "GxSHuS": {
+    "defaultMessage": "Chaque année, la collectivité de la gestion financière recueille des renseignements sur son effectif des cadres afin de maintenir l'excellence en matière de leadership et d'anticiper les besoins futurs.",
+    "description": "Summary on the talent management for comptrollership executives callout"
   },
   "H+83NU": {
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
@@ -4143,10 +4191,6 @@
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
   },
-  "K+ZIOB": {
-    "defaultMessage": "Ajouter une expérience",
-    "description": "Breadcrumb link text for the application career timeline add experience page"
-  },
   "K+roYh": {
     "defaultMessage": "Date de clôture",
     "description": "Closing Date field label for publish pool dialog"
@@ -4391,6 +4435,10 @@
     "defaultMessage": "Que puis-je faire si mes codes d'authentification ne sont plus acceptés?",
     "description": "GCKey question for when user authenticator codes not accepted"
   },
+  "L9Tc5u": {
+    "defaultMessage": "Le processus annuel de gestion des talents des cadres permet aux ministères et organismes d'échanger des renseignements sur les aspirations professionnelles et le potentiel de leurs cadres des finances. Il garantit ainsi que les talents appropriés sont prêts à occuper des postes de direction au fur et à mesure qu'ils deviennent disponibles.",
+    "description": "Card description, for process"
+  },
   "L9mWLV": {
     "defaultMessage": "Rapport sur le Nuage de talents",
     "description": "Link text to read the report on talent cloud"
@@ -4582,6 +4630,10 @@
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
+  },
+  "M2MQu7": {
+    "defaultMessage": "Aidez le Bureau du contrôleur général à recueillir des renseignements importants sur l'effectif des cadres de la gestion financière afin d'élaborer des programmes stratégiques, d'appuyer la planification de la relève et de renforcer notre collectivité.",
+    "description": "Page subtitle for the comptrollership executives talent management page"
   },
   "M7bb1V": {
     "defaultMessage": "Ministère",
@@ -4851,10 +4903,6 @@
     "defaultMessage": "Consultez et mettez à jour les renseignements sur le compte, y compris les coordonnées et les préférences de travail.",
     "description": "subtitle for the profile page"
   },
-  "NjHXGh": {
-    "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
-    "description": "Link text for the Office of the Chief Information Officer"
-  },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
@@ -4938,6 +4986,10 @@
   "OCrKtT": {
     "defaultMessage": "Compétences techniques requises",
     "description": "Heading for required technical skills section"
+  },
+  "OEk0OP": {
+    "defaultMessage": "Identification de la demande",
+    "description": "Label for application ID"
   },
   "OF7SCg": {
     "defaultMessage": "Changer votre disponibilité dans ce processus de recrutement",
@@ -5182,6 +5234,10 @@
   "PVzyQl": {
     "defaultMessage": "Date de début/fin",
     "description": "Label for the start/end date for an experience"
+  },
+  "PWqSgG": {
+    "defaultMessage": "nous invitons les cadres du gouvernement du Canada exerçant une fonction de contrôle ou travaillant dans d’autres secteurs et qui souhaiteraient se lancer dans une carrière en gestion financière à créer un profil.",
+    "description": "Employee group list item description"
   },
   "PYMFoh": {
     "defaultMessage": "Recherche par mot-clé",
@@ -5491,10 +5547,6 @@
     "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
     "description": "Descriptive text about how skills are used during the application process"
   },
-  "QzGuI5": {
-    "defaultMessage": "Profil d'employé(e)",
-    "description": "applicant dashboard card title for employee profile card"
-  },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
@@ -5534,6 +5586,10 @@
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
     "description": "Link text to read the entire directive."
+  },
+  "RDC7fi": {
+    "defaultMessage": "Vous faites partie des dirigeantes et dirigeants principaux des finances et vous connaissez des leaders à fort potentiel ayant la capacité d'améliorer la fonction publique pour la population canadienne? Aidez-les à progresser dans leur carrière en présentant leur candidature pour des possibilités d'avancement, de mutation latérale ou de perfectionnement.",
+    "description": "card description, for nomination feature"
   },
   "RDFAWE": {
     "defaultMessage": "Renseignements de base",
@@ -5847,6 +5903,10 @@
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
   },
+  "T4LCrR": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez-nous votre histoire en mettant l'accent sur votre avancement professionnel et vos compétences. Votre profil éclairera les décisions en matière de gestion des talents et orientera la planification stratégique en ce qui a trait au recrutement, à la planification de la relève et au perfectionnement de nos cadres de la gestion financière.",
+    "description": "Explanation about profile"
+  },
   "T4xKEw": {
     "defaultMessage": "– Darcy Pierlot, dirigeant principal de l’information et sous-ministre adjoint, Immigration, Réfugiés et Citoyenneté Canada",
     "description": "Quote attribution for Quote from Darcy Pierlot about working with apprentices"
@@ -6080,7 +6140,7 @@
     "description": "Title for the 'How to begin hiring an apprentice' section"
   },
   "UKw7sB": {
-    "defaultMessage": "Flux de travail",
+    "defaultMessage": "Volet de travail",
     "description": "Label displayed on the pool form stream/job title field."
   },
   "UNEVD9": {
@@ -6446,6 +6506,10 @@
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
   },
+  "WVf1Wr": {
+    "defaultMessage": "les fonctionnaires dont la classification est CT-FIN-04 et qui ont fait l'objet d'une candidature dans le cadre de la gestion des talents doivent créer un profil.",
+    "description": "Employee group list item descriptions"
+  },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
     "description": "Message displayed to user after training opportunity fails to get updated."
@@ -6461,6 +6525,10 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
+  },
+  "Wg+Buu": {
+    "defaultMessage": "Disponible en avril",
+    "description": "Availability blurb"
   },
   "WhHVMt": {
     "defaultMessage": "Se renseigner sur le fonctionnement des exigences linguistiques.",
@@ -6517,6 +6585,10 @@
   "Wpj2OY": {
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
+  },
+  "WrTLaB": {
+    "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
+    "description": "Employee group list item label"
   },
   "WsR0FB": {
     "defaultMessage": "IT-02 : Analyste",
@@ -6765,6 +6837,10 @@
   "YA/7nb": {
     "defaultMessage": "Erreur : groupe de classification introuvable.",
     "description": "Error message if classification group is not defined."
+  },
+  "YBrlqU": {
+    "defaultMessage": "Ne manquez pas nos annonces externes et d'autres nouvelles importantes en suivant la page LinkedIn de notre collectivité de la gestion financière.",
+    "description": "Card description, to connect with peers"
   },
   "YCqTbH": {
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
@@ -7486,6 +7562,10 @@
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
   },
+  "cAowoI": {
+    "defaultMessage": "Abonnez-vous<hidden> au bulletin d'information de la collectivité de la gestion financière</hidden>",
+    "description": "External button link to subscribe to a newsletter"
+  },
   "cCSlti": {
     "defaultMessage": "Vérifier les instructions",
     "description": "Title for review instructions action"
@@ -7545,6 +7625,10 @@
   "cTSaxx": {
     "defaultMessage": "Téléchargez le questionnaire<hidden> : {formName}</hidden>",
     "description": "Link text for form download"
+  },
+  "cUSI4/": {
+    "defaultMessage": "Votre profil d'employée ou d'employé du GC",
+    "description": "Page title for a user's GC employee profile"
   },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
@@ -8110,6 +8194,10 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date received column."
   },
+  "fJmRpp": {
+    "defaultMessage": "Processus de gestion des talents des cadres",
+    "description": "Card label, process"
+  },
   "fK+EvE": {
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
@@ -8293,6 +8381,10 @@
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
+  },
+  "g1WB3B": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Title for add experience page"
   },
   "g1YoPl": {
     "defaultMessage": "En savoir plus<hidden> sur le Fonds de formation et de perfectionnement de la collectivité de la TI</hidden>",
@@ -8518,10 +8610,6 @@
     "defaultMessage": "Profil complet",
     "description": "Label for the profile complete field"
   },
-  "h7URQB": {
-    "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> n’est qu’une des nombreuses initiatives menées par le bureau du dirigeant principal de l'information du Canada (BDPI). Apprenez-en davantage sur le rôle du BDPI au sein du gouvernement du Canada. Consultez l’Ambition numérique du Canada 2022 pour connaître la direction future du BDPI.",
-    "description": "Description of the Office of the Chief Information Officer"
-  },
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
@@ -8741,10 +8829,6 @@
   "i9ND/M": {
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
-  },
-  "i9cA5V": {
-    "defaultMessage": "Bureau du dirigeant principal de l'information",
-    "description": "Title for the Office of the Chief Information Officer"
   },
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
@@ -9510,10 +9594,6 @@
     "defaultMessage": "En tant que membre retenu du processus de recrutement <strong>{title}</strong>, il se peut que l’on communique avec vous au sujet de possibilités pertinentes.",
     "description": "Text describing what it means to be available in a recruitment"
   },
-  "mJ1HE4": {
-    "defaultMessage": "Ajouter une expérience",
-    "description": "Display text for add experience form in breadcrumbs"
-  },
   "mKrj0x": {
     "defaultMessage": "Sauvegardez et ajoutez un membre",
     "description": "Label for add member to a community form"
@@ -9521,6 +9601,10 @@
   "mKzQwr": {
     "defaultMessage": "Compétence linguistique",
     "description": "Language ability"
+  },
+  "mL1sax": {
+    "defaultMessage": "D'autres groupes de fonctionnaires exerçant une fonction de contrôle, comme les cadres qui travaillent actuellement à la vérification interne, à l’approvisionnement, à la gestion du matériel, aux biens immobiliers et à la gestion de projets, pourraient s'ajouter.",
+    "description": "Closing remark about future relevant employees"
   },
   "mLmPpf": {
     "defaultMessage": "Trouver une compétence",
@@ -9837,6 +9921,10 @@
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
+  },
+  "nmokFS": {
+    "defaultMessage": "Gestion des talents des cadres exerçant une fonction de contrôle",
+    "description": "Title for the comptrollership executives talent management page"
   },
   "nmx1ym": {
     "defaultMessage": "Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
@@ -10814,6 +10902,10 @@
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
     "description": "Title for the social media section."
   },
+  "tc3sSC": {
+    "defaultMessage": "L'équipe",
+    "description": "Card title, team"
+  },
   "tcL+WV": {
     "defaultMessage": "Détails de base",
     "description": "Title of the 'basic details' section of the job poster template page"
@@ -10877,10 +10969,6 @@
   "tvQYG5": {
     "defaultMessage": "Avis",
     "description": "Title for the websites terms and conditions"
-  },
-  "u+lXsz": {
-    "defaultMessage": "Votre profil d'employée ou d'employé",
-    "description": "Page title for a users employee profile"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
@@ -11130,6 +11218,10 @@
     "defaultMessage": "Analyste subalterne P M 2",
     "description": "PM-02 classification aria label including titles"
   },
+  "vSr72F": {
+    "defaultMessage": "Les cadres actuellement en poste dans d’autres secteurs",
+    "description": "Employee group list item label"
+  },
   "vUtN1U": {
     "defaultMessage": "Rechercher les membres du processus",
     "description": "Label for the process team members table search input"
@@ -11201,6 +11293,10 @@
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
+  },
+  "vtE73H": {
+    "defaultMessage": "Gestion des talents pour les cadres exerçant une fonction de contrôle",
+    "description": "Title for talent management for comptrollership executives callout"
   },
   "vweW8X": {
     "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
@@ -11538,6 +11634,10 @@
     "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
     "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
   },
+  "xvPb8Z": {
+    "defaultMessage": "Recevez les dernières nouvelles et prenez connaissance des ressources et activités de la collectivité de la gestion financière du Bureau du développement de la collectivité de la fonction de contrôleur du Bureau du contrôleur général directement dans votre boîte de réception.",
+    "description": "Card description, newsletter"
+  },
   "xvULuR": {
     "defaultMessage": "En savoir plus sur les lieux de travail et la terminologie.",
     "description": "Info button label for pool application work location details."
@@ -11574,6 +11674,10 @@
     "defaultMessage": "Objectifs du Fonds",
     "description": "Heading for the fund objectives card"
   },
+  "y5xvLj": {
+    "defaultMessage": "La collectivité de la gestion financière",
+    "description": "Section heading, expand on community aspects"
+  },
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
@@ -11593,6 +11697,10 @@
   "yFMCqD": {
     "defaultMessage": "Vous vous demandez quelle est la suite dans votre carrière? Vous souhaitez être pris en considération pour des possibilités de poste de cadre supérieur au sein de la collectivité du numérique du GC? L’équipe de direction de la collectivité du numérique procède à une mise en correspondance des talents pour les gestionnaires qui sont prêts à passer à l’étape suivante. Consultez notre page sur les cadres supérieurs du numérique pour voir ce qui s’offre à vous.",
     "description": "Summary for the feature about finding executive jobs"
+  },
+  "yFOAEj": {
+    "defaultMessage": "Gérez votre carrière",
+    "description": "Section heading, explain profile's purpose"
   },
   "yGlG9e": {
     "defaultMessage": "Création du ministère réussie!",

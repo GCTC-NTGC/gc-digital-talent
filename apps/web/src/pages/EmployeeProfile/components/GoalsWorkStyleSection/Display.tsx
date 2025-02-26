@@ -1,9 +1,8 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -46,29 +45,19 @@ const Display = ({
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
-        {aboutYou ? (
-          <RichTextRenderer node={htmlToRichTextJSON(aboutYou)} />
-        ) : (
-          nullField
-        )}
+        {aboutYou ? aboutYou : nullField}
       </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
-        {learningGoals ? (
-          <RichTextRenderer node={htmlToRichTextJSON(learningGoals)} />
-        ) : (
-          nullField
-        )}
+        {learningGoals ? learningGoals : nullField}
       </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
-        {workStyle ? (
-          <RichTextRenderer node={htmlToRichTextJSON(workStyle)} />
-        ) : (
-          nullField
-        )}
+        {workStyle ? workStyle : nullField}
       </ToggleForm.FieldDisplay>
     </div>
   );

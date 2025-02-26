@@ -189,13 +189,29 @@ type EmployeeProfile {
   aboutYou: String @rename(attribute: "career_planning_about_you")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: Community @belongsTo
-  dreamRoleClassification: Classification @belongsTo
-  dreamRoleWorkStream: WorkStream @belongsTo
-  dreamRoleDepartments: [Department!] @belongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: Community @belongsTo
+  careerObjectiveCommunity: Community @belongsTo
+  nextRoleClassification: Classification @belongsTo
+  careerObjectiveClassification: Classification @belongsTo
+  nextRoleWorkStreams: [WorkStream!] @belongsToMany
+  careerObjectiveWorkStreams: [WorkStream!] @belongsToMany
+  nextRoleDepartments: [Department!] @belongsToMany
+  careerObjectiveDepartments: [Department!] @belongsToMany
+  nextRoleTargetRole: LocalizedTargetRole
+    @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: LocalizedTargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 
   communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
@@ -1522,13 +1538,28 @@ input UpdateEmployeeProfileInput @validator {
   aboutYou: String @rename(attribute: "career_planning_about_you")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: TargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 }
 
 input CreateCommunityInterestInput @validator {

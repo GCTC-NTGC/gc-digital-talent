@@ -118,6 +118,11 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
       screeningQuestions {
         id
       }
+      opportunityLength {
+        label {
+          localized
+        }
+      }
     }
   }
 `);
@@ -306,7 +311,7 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(commonMessages.employmentLength)}
               data-h2-grid-column="p-tablet(span 2)"
             >
-              {pool.workStream?.name?.localized}
+              {pool.opportunityLength?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
@@ -327,6 +332,16 @@ const ReviewApplicationDialog = ({
               data-h2-grid-column="p-tablet(span 2)"
             >
               {pool?.processNumber ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Application ID",
+                id: "OEk0OP",
+                description: "Label for application ID",
+              })}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {application.id}
             </FieldDisplay>
 
             <Separator
@@ -385,19 +400,23 @@ const ReviewApplicationDialog = ({
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
-            <p data-h2-grid-column="p-tablet(span 2)">
-              {intl.formatMessage({
-                defaultMessage: `You can find the recruitment process for which you’ve been qualified for in the "Recruitment process" tool on your dashboard.`,
-                id: "1bTFdX",
-                description:
-                  "Message informing applicant of the connected recruitment process in the preview list below",
-              })}
-            </p>
+            {status.value === applicationStatus.SUCCESSFUL && (
+              <>
+                <Separator
+                  decorative
+                  data-h2-grid-column="p-tablet(span 2)"
+                  data-h2-margin="base(0)"
+                />
+                <p data-h2-grid-column="p-tablet(span 2)">
+                  {intl.formatMessage({
+                    defaultMessage: `You can find the recruitment processes you've been qualified for in the "Recruitment processes" tool on your dashboard.`,
+                    id: "/6obwT",
+                    description:
+                      "Message informing applicant of the connected recruitment process in the preview list below",
+                  })}
+                </p>
+              </>
+            )}
           </div>
           <Dialog.Footer data-h2-gap="base(0 x1)">
             <Link
