@@ -759,10 +759,6 @@
     "defaultMessage": "Appuyez le cheminement de carrière des peuples des Premières Nations, des Inuit et des Métis, qui sont passionnés par les TI, et contribuez à créer une fonction publique diversifiée, équitable et inclusive. Embauchez par le biais du Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Description for the IT Apprenticeship Program for Indigenous Peoples"
   },
-  "1sppLE": {
-    "defaultMessage": "Poursuivre la demande",
-    "description": "Label for continue application link"
-  },
   "1sutYh": {
     "defaultMessage": "Groupes de compétences (anglais)",
     "description": "Title for skill families in English"
@@ -1063,6 +1059,10 @@
     "defaultMessage": "donner des outils aux membres du personnel des TI pour diriger la transformation numérique.",
     "description": "an item in a list of fund objectives"
   },
+  "3Kt+rj": {
+    "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
+    "description": "Message displayed when a user successfully updates employee profile information"
+  },
   "3MboNR": {
     "defaultMessage": "Veuillez sélectionner une date d’expiration",
     "description": "Label for date selection input for expiry date"
@@ -1238,6 +1238,10 @@
   "4L9rHO": {
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
+  },
+  "4LN+P9": {
+    "defaultMessage": "Niveau de classification visé",
+    "description": "Label for a employee profile target classification level field"
   },
   "4LVc9T": {
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
@@ -2247,6 +2251,10 @@
     "defaultMessage": "Télécharger",
     "description": "Button text to download an applicants application or profile"
   },
+  "9Y3w6l": {
+    "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
+    "description": "Message for unanswered questions in this section"
+  },
   "9aW0M6": {
     "defaultMessage": "Ministère",
     "description": "Title for department"
@@ -2390,6 +2398,10 @@
   "AH2U9S": {
     "defaultMessage": "Gestionnaire P M 6",
     "description": "PM-06 classification aria label including titles"
+  },
+  "AH5WDT": {
+    "defaultMessage": "Votre objectif de carrière",
+    "description": "Title for a users career objective"
   },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
@@ -3383,6 +3395,10 @@
     "defaultMessage": "Ces champs ne seront disponibles qu’aux fins de la migration, pendant un certain temps limité.",
     "description": "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time"
   },
+  "FYCNAa": {
+    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une occasion de perfectionnement ou d'une promotion.",
+    "description": "Describes the career objective section of employee profile"
+  },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
@@ -3611,6 +3627,10 @@
     "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
   },
+  "GndGRz": {
+    "defaultMessage": "La mise à jour des informations sur votre prochain type de post a échoué.",
+    "description": "Message displayed when a user fails to updates employee profile information"
+  },
   "GplLic": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
@@ -3698,6 +3718,10 @@
   "HJTr0Q": {
     "defaultMessage": "Les compétences en langue seconde sont également déterminées pour les compétences connexes",
     "description": "Second language proficiency related skills list for language requirements dialog"
+  },
+  "HLYDTG": {
+    "defaultMessage": "Volets de travail souhaités",
+    "description": "Label for a employee profile desired work streams field"
   },
   "HMlreE": {
     "defaultMessage": "Consentement au partage d'information",
@@ -3878,6 +3902,10 @@
   "IJyxRd": {
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
+  },
+  "IO+qSg": {
+    "defaultMessage": "Parlez-nous du prochain type de poste que vous vous imaginez occuper. En communiquant vos préférences concernant votre prochain emploi, vous pouvez aider le personnel des RH à trouver le poste qui vous convient.",
+    "description": "Describes the next role section of employee profile"
   },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
@@ -4334,6 +4362,10 @@
   "KehmPp": {
     "defaultMessage": "« Un ou plusieurs de mes niveaux de langue ne sont <strong>plus valides</strong>. »",
     "description": "Radio option for exam validity input on language information form."
+  },
+  "Kf+7FN": {
+    "defaultMessage": "Classification visée",
+    "description": "Label for employee profile target classification fields"
   },
   "Kf7cYc": {
     "defaultMessage": "PM-03 : Agent(e)",
@@ -6135,6 +6167,10 @@
     "defaultMessage": "Pour l’instant, sauvegardez et quittez",
     "description": "Action button to save and exit an application"
   },
+  "U8ZQ2g": {
+    "defaultMessage": "Renseignements supplémentaires sur votre objectif de carrière",
+    "description": "Additional information about your career objective"
+  },
   "U8bLT7": {
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
@@ -6150,6 +6186,10 @@
   "UA37iG": {
     "defaultMessage": "Commis C R 4",
     "description": "CR-04 classification aria label including titles"
+  },
+  "UCt8ym": {
+    "defaultMessage": "Votre prochain type de poste",
+    "description": "Title for a users next role"
   },
   "UCv0X2": {
     "defaultMessage": "L’engagement de l’équipe de Talents numériques du GC",
@@ -6390,6 +6430,10 @@
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
   },
+  "Vc44L9": {
+    "defaultMessage": "Renseignements supplémentaires sur votre prochain type de poste",
+    "description": "Additional information about your next role"
+  },
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
@@ -6598,6 +6642,10 @@
     "defaultMessage": "Les postes au niveau de la direction m'intéressent.",
     "description": "The executive interest described as interested."
   },
+  "WokDUl": {
+    "defaultMessage": "Groupe de classification visé",
+    "description": "Label for a employee profile target classification group field"
+  },
   "WovyCU": {
     "defaultMessage": "Ajouter un rôle dans la collectivité",
     "description": "Header for the form to add a community membership to a user"
@@ -6653,6 +6701,10 @@
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
     "description": "Message displayed to user after experience fails to be updated."
+  },
+  "Wyi02N": {
+    "defaultMessage": "Vous avez été supprimé des résultats de la recherche pour {poolName}.",
+    "description": "Alert displayed to the user when application card dialog submits successfully."
   },
   "X0YPib": {
     "defaultMessage": "Expériences relatives aux prix",
@@ -7478,6 +7530,10 @@
     "defaultMessage": "Date de fin de la formation",
     "description": "The training end date of the training opportunity"
   },
+  "bju7JB": {
+    "defaultMessage": "Les information sur votre objectif de carrière ont été mises à jour avec succès!",
+    "description": "Message displayed when a user successfully updates employee profile information"
+  },
   "bjwTpe": {
     "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d'abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil, lequel nous permet de confirmer votre situation d'emploi, votre classification, votre appartenance à un groupe visé par l'équité en matière d'emploi et l'expérience requise. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil.",
     "description": "First paragraph of apply and share section"
@@ -7605,6 +7661,10 @@
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
+  },
+  "cHwSqN": {
+    "defaultMessage": "Type de poste visé",
+    "description": "Label for a employee profile target role field"
   },
   "cL3OoZ": {
     "defaultMessage": "Notification non lue",
@@ -8182,10 +8242,6 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
-  "f1reMg": {
-    "defaultMessage": "Poste de rêve",
-    "description": "Title for a users dream role information"
-  },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
@@ -8542,6 +8598,10 @@
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
     "description": "Title for application career timeline add experience"
   },
+  "gUTOAU": {
+    "defaultMessage": "Ministères ou organismes préférés",
+    "description": "Label for a employee profile preferred departments or agencies field"
+  },
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
@@ -8569,6 +8629,10 @@
   "gg0yRf": {
     "defaultMessage": "Cela ne m'intéresse pas pour l'instant.",
     "description": "Option for the 'not interested' choice of program participation"
+  },
+  "ghTJqE": {
+    "defaultMessage": "Vous apparaissez de nouveau dans les résultats de recherche pour {poolName}.",
+    "description": "Alert displayed to the user when they updated something to appear in search results again."
   },
   "giUfys": {
     "defaultMessage": "Expérience professionnelle",
@@ -9274,6 +9338,10 @@
     "defaultMessage": "Du concept au code",
     "description": "Title for how the platform was created"
   },
+  "kJbTqn": {
+    "defaultMessage": "Autre type de poste",
+    "description": "Label for a employee profile target role other field"
+  },
   "kK1Z9U": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for the browse executive jobs section"
@@ -9589,6 +9657,10 @@
   "m6NZda": {
     "defaultMessage": "La formation ne m'intéresse pas",
     "description": "Message displayed when a user has expressed they are not interested in training opportunities"
+  },
+  "m6eIBH": {
+    "defaultMessage": "Votre prochain type de poste",
+    "description": "Title for the next role section"
   },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
@@ -9961,6 +10033,10 @@
   "nhfKqB": {
     "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
     "description": "An item in a list of points about instructor-led classes"
+  },
+  "njBzmn": {
+    "defaultMessage": "Collectivité fonctionnelle souhaitée",
+    "description": "Label for a employee profile desired functional community field"
   },
   "njfu1M": {
     "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
@@ -11250,6 +11326,10 @@
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
   },
+  "vKzPT0": {
+    "defaultMessage": "La mise à jour des informations sur votre objectif de carrière a échoué",
+    "description": "Message displayed when a user fails to updates employee profile information"
+  },
   "vMBiMV": {
     "defaultMessage": "Mise à jour réussie de la compétence",
     "description": "Message displayed when a user updates a skill"
@@ -11357,6 +11437,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents pour les cadres exerçant une fonction de contrôle",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vvnsjr": {
+    "defaultMessage": "Votre objectif de carrière",
+    "description": "Title for the career objective section"
   },
   "vweW8X": {
     "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
