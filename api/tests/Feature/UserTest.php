@@ -2527,4 +2527,28 @@ class UserTest extends TestCase
                 ],
             ]);
     }
+
+    public function testIsVerifiedGovermentEmployeeAccessor()
+    {
+        $user = User::factory()
+            ->asGovEmployee()
+            ->create();
+
+        $this->assertTrue($user->isVerifiedGovEmployee);
+
+        $user->work_email_verified_at = null;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
+        $user->work_email_verified_at = now();
+        $user->work_email = null;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
+        $user->work_email = 'email@domain.com';
+        $user->computed_is_gov_employee = false;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
+    }
 }

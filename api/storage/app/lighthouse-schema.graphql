@@ -613,6 +613,7 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  isVerifiedGovEmployee: Boolean
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
