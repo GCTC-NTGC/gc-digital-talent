@@ -48,7 +48,7 @@ class GovEmployeeProfileTest extends TestCase
                 'workEmail' => $email,
             ])->assertJson([
                 'data' => [
-                    'govEmployee' => [
+                    'govEmployeeProfile' => [
                         'id' => $testUser->id,
                     ],
                 ],
@@ -67,7 +67,7 @@ class GovEmployeeProfileTest extends TestCase
                 'workEmail' => $email,
             ])->assertJson([
                 'data' => [
-                    'govEmployee' => null,
+                    'govEmployeeProfile' => null,
                 ],
             ]);
     }
