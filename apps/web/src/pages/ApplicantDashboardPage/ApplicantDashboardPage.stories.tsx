@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { fakeUser } from "@gc-digital-talent/fake-data";
 import {
@@ -19,72 +19,125 @@ import {
 
 const mockUser = fakeUser();
 
-export default {
+const meta: Meta<typeof ApplicantDashboardPage> = {
   component: ApplicantDashboardPage,
-} as Meta<typeof ApplicantDashboardPage>;
-
-const Template: StoryFn<typeof ApplicantDashboardPage> = (args) => (
-  <ApplicantDashboardPage {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  applicantDashboardQuery: {
-    me: {
-      ...makeFragmentData(
-        {
-          ...{
-            ...mockUser,
-            isGovEmployee: true,
-            workEmail: "user@domain.tld",
-            isWorkEmailVerified: true,
-            employeeProfile: {
-              ...makeFragmentData(
-                {
-                  lateralMoveInterest: false,
-                  promotionMoveInterest: false,
-                },
-                CareerDevelopmentTaskCard_Fragment,
-              ),
-            },
-          },
-        },
-        ApplicantDashboardPage_Fragment,
-      ),
-    },
-    ...makeFragmentData(
-      {
-        organizationTypeInterest: [
-          {
-            label: {
-              en: "Current organization",
-              fr: "Current organization fr",
-              localized: "Current organization",
-            },
-            value: OrganizationTypeInterest.Current,
-          },
-        ],
-        timeFrame: [
-          {
-            label: {
-              en: "This year",
-              fr: "This year fr",
-              localized: "This year",
-            },
-            value: TimeFrame.ThisYear,
-          },
-        ],
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
       },
-      CareerDevelopmentTaskCardOptions_Fragment,
-    ),
+    },
   },
 };
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
+
+export default meta;
+
+type Story = StoryObj<typeof ApplicantDashboardPage>;
+
+export const VerifiedGovernmentEmployee: Story = {
+  args: {
+    applicantDashboardQuery: {
+      me: {
+        ...makeFragmentData(
+          {
+            ...{
+              ...mockUser,
+              isGovEmployee: true,
+              workEmail: "user@domain.tld",
+              isWorkEmailVerified: true,
+              employeeProfile: {
+                ...makeFragmentData(
+                  {
+                    lateralMoveInterest: false,
+                    promotionMoveInterest: false,
+                  },
+                  CareerDevelopmentTaskCard_Fragment,
+                ),
+              },
+            },
+          },
+          ApplicantDashboardPage_Fragment,
+        ),
+      },
+      ...makeFragmentData(
+        {
+          organizationTypeInterest: [
+            {
+              label: {
+                en: "Current organization",
+                fr: "Current organization fr",
+                localized: "Current organization",
+              },
+              value: OrganizationTypeInterest.Current,
+            },
+          ],
+          timeFrame: [
+            {
+              label: {
+                en: "This year",
+                fr: "This year fr",
+                localized: "This year",
+              },
+              value: TimeFrame.ThisYear,
+            },
+          ],
+        },
+        CareerDevelopmentTaskCardOptions_Fragment,
+      ),
+    },
+  },
+};
+
+export const NonEmployee: Story = {
+  args: {
+    applicantDashboardQuery: {
+      me: {
+        ...makeFragmentData(
+          {
+            ...{
+              ...mockUser,
+              isWorkEmailVerified: false,
+              employeeProfile: {
+                ...makeFragmentData(
+                  {
+                    lateralMoveInterest: false,
+                    promotionMoveInterest: false,
+                  },
+                  CareerDevelopmentTaskCard_Fragment,
+                ),
+              },
+            },
+          },
+          ApplicantDashboardPage_Fragment,
+        ),
+      },
+      ...makeFragmentData(
+        {
+          organizationTypeInterest: [
+            {
+              label: {
+                en: "Current organization",
+                fr: "Current organization fr",
+                localized: "Current organization",
+              },
+              value: OrganizationTypeInterest.Current,
+            },
+          ],
+          timeFrame: [
+            {
+              label: {
+                en: "This year",
+                fr: "This year fr",
+                localized: "This year",
+              },
+              value: TimeFrame.ThisYear,
+            },
+          ],
+        },
+        CareerDevelopmentTaskCardOptions_Fragment,
+      ),
     },
   },
 };
