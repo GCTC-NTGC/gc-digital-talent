@@ -307,6 +307,7 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
+  govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -617,6 +618,7 @@ type User {
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govRole: String
   govPositionType: LocalizedGovPositionType
   govEndDate: Date
   currentClassification: Classification
@@ -777,6 +779,15 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+type BasicGovEmployeeProfile {
+  id: ID!
+  workEmail: Email
+  firstName: String
+  lastName: String
+  role: String
+  department: Department
 }
 
 type GeneralQuestion {
