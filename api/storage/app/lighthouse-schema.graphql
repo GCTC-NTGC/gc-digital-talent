@@ -693,6 +693,8 @@ type EmployeeProfile {
   careerObjectiveAdditionalInformation: String
   nextRoleCommunity: Community
   careerObjectiveCommunity: Community
+  nextRoleCommunityOther: String
+  careerObjectiveCommunityOther: String
   nextRoleClassification: Classification
   careerObjectiveClassification: Classification
   nextRoleWorkStreams: [WorkStream!]
@@ -1630,6 +1632,8 @@ input UpdateEmployeeProfileInput {
   careerObjectiveAdditionalInformation: String
   nextRoleCommunity: CommunityBelongsTo
   careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleCommunityOther: String
+  careerObjectiveCommunityOther: String
   nextRoleClassification: ClassificationBelongsTo
   careerObjectiveClassification: ClassificationBelongsTo
   nextRoleWorkStreams: WorkStreamBelongsToMany
