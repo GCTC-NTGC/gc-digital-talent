@@ -87,16 +87,28 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
     }
     mentorshipStatus {
       value
+      label {
+        localized
+      }
     }
     mentorshipInterest {
       value
+      label {
+        localized
+      }
     }
     execInterest
     execCoachingStatus {
       value
+      label {
+        localized
+      }
     }
     execCoachingInterest {
       value
+      label {
+        localized
+      }
     }
   }
 `);
