@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { fakeUser } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
@@ -11,35 +11,49 @@ import {
 
 const mockUser = fakeUser();
 
-export default {
+const meta: Meta<typeof ApplicantDashboardPage> = {
   component: ApplicantDashboardPage,
-} as Meta<typeof ApplicantDashboardPage>;
-
-const Template: StoryFn<typeof ApplicantDashboardPage> = (args) => (
-  <ApplicantDashboardPage {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  applicantDashboardQuery: makeFragmentData(
-    {
-      ...{
-        ...mockUser,
-        isGovEmployee: true,
-        workEmail: "user@domain.tld",
-        isWorkEmailVerified: true,
-        employeeProfile: {},
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
       },
     },
-    ApplicantDashboardPage_Fragment,
-  ),
+  },
 };
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
-    },
+
+export default meta;
+
+type Story = StoryObj<typeof ApplicantDashboardPage>;
+
+export const VerifiedGovernmentEmployee: Story = {
+  args: {
+    applicantDashboardQuery: makeFragmentData(
+      {
+        ...{
+          ...mockUser,
+          isVerifiedGovEmployee: true,
+          employeeProfile: {},
+        },
+      },
+      ApplicantDashboardPage_Fragment,
+    ),
+  },
+};
+
+export const NonEmployee: Story = {
+  args: {
+    applicantDashboardQuery: makeFragmentData(
+      {
+        ...{
+          ...mockUser,
+          isVerifiedGovEmployee: false,
+          employeeProfile: {},
+        },
+      },
+      ApplicantDashboardPage_Fragment,
+    ),
   },
 };
