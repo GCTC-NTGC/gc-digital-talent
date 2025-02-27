@@ -375,10 +375,6 @@
     "defaultMessage": "Validité de l’examen",
     "description": "Label for exam validity in language information form"
   },
-  "/uOExm": {
-    "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
-    "description": "An application confirmation number"
-  },
   "/voRGj": {
     "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
     "description": "Button text to show all advanced filters"
@@ -719,6 +715,10 @@
     "defaultMessage": "Compétences que le candidat aimerait améliorer",
     "description": "Heading for a users skills they would like to improve"
   },
+  "1cCjc/": {
+    "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
+    "description": "Link text for government of canada security screening application and consent form"
+  },
   "1e84jV": {
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
     "description": "Paragraph two describing linking to gov section"
@@ -846,6 +846,10 @@
   "2Oubfe": {
     "defaultMessage": "Type d'emploi",
     "description": "Label for applicant's employment type"
+  },
+  "2SSm+L": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Success message after submission for the application review page."
   },
   "2SnhXV": {
     "defaultMessage": "Marquer comme non lue",
@@ -1783,10 +1787,6 @@
     "defaultMessage": "Apprenez comment fonctionnent les dates limites et ce que les candidates et candidats verront au moment de présenter une demande.",
     "description": "Subtitle for the pool closing date dialog"
   },
-  "79m9jN": {
-    "defaultMessage": "Nous avons bien reçu votre candidature",
-    "description": "Page title for the application success page"
-  },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Legend text for citizenship status"
@@ -1898,10 +1898,6 @@
   "7tv7ct": {
     "defaultMessage": "EXposition",
     "description": "Heading for exposition section on the executive homepage"
-  },
-  "7vOa71": {
-    "defaultMessage": "Nous avons bien reçu votre candidature",
-    "description": "Success message after submission for the application review page."
   },
   "7wcfnG": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>IT-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -2687,6 +2683,10 @@
     "defaultMessage": "Télécharger CSV avec évaluations",
     "description": "Button label for download candidate csv with ROD data."
   },
+  "C2urGD": {
+    "defaultMessage": "Your application ID is: <strong>{id}</strong>",
+    "description": "An application confirmation number"
+  },
   "C3YsFy": {
     "defaultMessage": "Annuler la décision d’évaluation finale",
     "description": "Subtitle for view revert final decision dialog on view pool candidate page"
@@ -3114,6 +3114,10 @@
   "E2nMR3": {
     "defaultMessage": "Partager",
     "description": "Label for sharing a pool advertisement"
+  },
+  "E2uEWk": {
+    "defaultMessage": "Évaluation de langue seconde",
+    "description": "Link text for government of canada second language evaluation"
   },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
@@ -4647,10 +4651,6 @@
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
   },
-  "M+5+nP": {
-    "defaultMessage": "Exploiter d’autres occasions",
-    "description": "Link text for browse jobs page"
-  },
   "M051tF": {
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
@@ -5754,6 +5754,10 @@
   "Rn5e/i": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title for group and level on summary of filters section"
+  },
+  "Rped43": {
+    "defaultMessage": "Nous avons bien reçu votre candidature",
+    "description": "Page title for the application success page"
   },
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
@@ -9438,10 +9442,6 @@
     "defaultMessage": "Aucun possibilité de formation n'est actuellement affiché. Revenez plus tard.",
     "description": "Null message for instructor led training list"
   },
-  "l5R6Nc": {
-    "defaultMessage": "Veuillez remplir une demande d’habilitation",
-    "description": "Link text for government of canada security clearance forms"
-  },
   "l75mNg": {
     "defaultMessage": "Collectivité des gestionnaires",
     "description": "Title for Managers community"
@@ -9461,10 +9461,6 @@
   "lDnHjr": {
     "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
     "description": "Paragraph 1 of the 'Graduates and advanced talent' section"
-  },
-  "lE92J0": {
-    "defaultMessage": "Nous vous contacterons si votre candidature correspond aux critères définis par les occasions d’emploi En attendant, consultez les ressources suivantes pour en savoir sur la suite des événements.",
-    "description": "Description of review process and next steps for the applicant."
   },
   "lFFnfX": {
     "defaultMessage": "Supprimer un élément pour en ajouter un autre ({numOfSkills}/{maxSkills})",
@@ -9573,10 +9569,6 @@
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
-  },
-  "lxDgNf": {
-    "defaultMessage": "* Veuillez prendre note que votre numéro de confirmation peut également se trouver dans la section « Suivi de vos candidatures » à partir de votre page de profil et de candidature.",
-    "description": "Note that the application confirmation number is available on the profile and applications page"
   },
   "lyJ0Ft": {
     "defaultMessage": "Ajouter une collectivité",
@@ -11917,10 +11909,6 @@
   "ysKXVP": {
     "defaultMessage": "Groupe de publication",
     "description": "Label for a process' publishing group"
-  },
-  "ytHyUL": {
-    "defaultMessage": "Effectuez la mise à jour de l’information de votre profil",
-    "description": "Link text to users profile to update contact information"
   },
   "ytTGvb": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un groupe de compétences. Elle devrait être fondée sur le nom anglais du groupe de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
