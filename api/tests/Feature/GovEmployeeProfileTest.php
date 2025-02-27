@@ -55,6 +55,24 @@ class GovEmployeeProfileTest extends TestCase
             ]);
     }
 
+    public function testCaseInsensitiveQuery()
+    {
+        $testUser = User::factory()
+            ->asGovEmployee()
+            ->create(['work_email' => 'mUlTiCasEEmaiL@Gc.Ca']);
+
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL($this->query, [
+                'workEmail' => 'MuLtICaSeemAIl@gC.cA',
+            ])->assertJson([
+                'data' => [
+                    'govEmployeeProfile' => [
+                        'id' => $testUser->id,
+                    ],
+                ],
+            ]);
+    }
+
     public function testUnverifiedGovernmentEmployeeDetailsNotAvailable()
     {
         $email = 'employee@gc.ca';
