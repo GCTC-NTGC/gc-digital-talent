@@ -1080,7 +1080,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public static function scopeExactWorkEmail(Builder $query, string $email): Builder
     {
-        return $query->whereRaw('LOWER("work_email") like ?', [strtolower($email)]);
+        return $query->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
     }
 
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
