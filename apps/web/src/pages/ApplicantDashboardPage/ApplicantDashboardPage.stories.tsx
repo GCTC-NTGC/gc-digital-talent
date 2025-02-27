@@ -46,7 +46,7 @@ export const VerifiedGovernmentEmployee: Story = {
               ...mockUser,
               isGovEmployee: true,
               workEmail: "user@domain.tld",
-              isWorkEmailVerified: true,
+              isVerifiedGovEmployee: true,
               employeeProfile: {
                 ...makeFragmentData(
                   {
@@ -98,7 +98,7 @@ export const NonEmployee: Story = {
           {
             ...{
               ...mockUser,
-              isWorkEmailVerified: false,
+              isVerifiedGovEmployee: false,
               employeeProfile: {
                 ...makeFragmentData(
                   {
