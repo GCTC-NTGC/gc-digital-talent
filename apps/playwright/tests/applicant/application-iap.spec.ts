@@ -253,7 +253,7 @@ test.describe("IAP Application", () => {
     await application.waitForGraphqlResponse("Application");
     await expect(
       application.page.getByRole("heading", {
-        name: /we successfully received your application/i,
+        name: /we've successfully received your application/i,
       }),
     ).toBeVisible();
     await expect(
