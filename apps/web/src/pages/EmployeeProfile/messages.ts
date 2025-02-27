@@ -6,10 +6,15 @@ export default defineMessages({
     id: "okKbgd",
     description: "Title for a users career development preferences",
   },
-  dreamRole: {
-    defaultMessage: "Dream role",
-    id: "f1reMg",
-    description: "Title for a users dream role information",
+  yourNextRole: {
+    defaultMessage: "Your next role",
+    id: "UCt8ym",
+    description: "Title for a users next role",
+  },
+  careerObjective: {
+    defaultMessage: "Your career objective",
+    id: "AH5WDT",
+    description: "Title for a users career objective",
   },
   goalsWorkStyle: {
     defaultMessage: "Goals and work style",
