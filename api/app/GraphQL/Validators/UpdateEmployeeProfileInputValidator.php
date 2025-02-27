@@ -49,14 +49,57 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'careerObjectiveJobTitle' => ['nullable', 'string'],
             'nextRoleAdditionalInformation' => ['nullable', 'string'],
             'careerObjectiveAdditionalInformation' => ['nullable', 'string'],
-            'nextRoleCommunity.connect' => ['uuid', 'exists:communities,id'],
-            'careerObjectiveCommunity.connect' => ['uuid', 'exists:communities,id'],
+
+            'nextRoleCommunity.connect' => [
+                'uuid',
+                'exists:communities,id',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunityOther') !== null
+                    )
+                ),
+            ],
+            'careerObjectiveCommunity.connect' => [
+                'uuid',
+                'exists:communities,id',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunityOther') !== null
+                    )
+                ),
+            ],
+            'nextRoleCommunityOther' => [
+                'string',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunity.connect') !== null
+                    )
+                ),
+            ],
+            'careerObjectiveCommunityOther' => [
+                'string',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunity.connect') !== null
+                    )
+                ),
+            ],
+
             'nextRoleClassification.connect' => ['uuid', 'exists:classifications,id'],
             'careerObjectiveClassification.connect' => ['uuid', 'exists:classifications,id'],
 
             'nextRoleWorkStreams' => [
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunityOther') !== null
+                    )
+                ),
                 Rule::when(
-                    fn (): bool => Arr::has($argsArr, ('nextRoleCommunity.connect')),
+                    fn (): bool => (Arr::has($argsArr, ('nextRoleCommunity.connect')) && $this->arg('nextRoleCommunity.connect') !== null),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'nextRoleWorkStreams.sync' => ['required'],
@@ -72,8 +115,13 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             ],
 
             'careerObjectiveWorkStreams' => [
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunityOther') !== null
+                    )
+                ),
                 Rule::when(
-                    fn (): bool => Arr::has($argsArr, ('careerObjectiveCommunity.connect')),
+                    fn (): bool => (Arr::has($argsArr, ('careerObjectiveCommunity.connect')) && $this->arg('careerObjectiveCommunity.connect') !== null),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'careerObjectiveCommunity.sync' => ['required'],
