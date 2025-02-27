@@ -14,7 +14,7 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { WorkFormValues } from "~/types/experience";
 
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
-import { WorkStreamWithoutKey } from "./types";
+import { WorkStreamsWithCommunity } from "./types";
 
 const ExperienceWorkStreamsCommunity_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceWorkStreamsCommunity on Community {
@@ -52,24 +52,28 @@ const ExperienceWorkStreams = ({
   );
 
   const communitiesWithWorkStreams =
-    communities?.filter((item) => unpackMaybes(item?.workStreams).length > 0) ??
-    [];
+    communities
+      ?.filter((item) => unpackMaybes(item?.workStreams).length > 0)
+      .sort((a, b) =>
+        (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+      ) ?? [];
 
-  const workStreamsByCommunity = new Map<string, WorkStreamWithoutKey[]>();
-  watchWorkStreams.forEach((item) => {
-    let workStream;
-    const community = communities?.find((c) => {
-      const matchedWorkStream = c.workStreams?.find((s) => s.id === item);
-      workStream = matchedWorkStream;
-      return !!matchedWorkStream;
+  const workStreamsByCommunity = new Map<string, WorkStreamsWithCommunity>();
+  communitiesWithWorkStreams.forEach((community) => {
+    community.workStreams?.forEach((workStream) => {
+      if (watchWorkStreams.includes(workStream.id)) {
+        const newWorkStreams = [
+          ...(workStreamsByCommunity.get(community.id)?.workStreams ?? []),
+          workStream,
+        ].sort((a, b) =>
+          (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+        );
+        workStreamsByCommunity.set(community.id, {
+          community,
+          workStreams: newWorkStreams,
+        });
+      }
     });
-    if (community && workStream) {
-      const newWorkStreams = [
-        ...(workStreamsByCommunity.get(community.id) ?? []),
-        workStream,
-      ];
-      workStreamsByCommunity.set(community.id, newWorkStreams);
-    }
   });
 
   const handleUpdate = (workStreamIds: string[]) => {
@@ -84,7 +88,9 @@ const ExperienceWorkStreams = ({
         "workStreams",
         Array.from(newWorkStreamsByCommunity.values())
           .flat()
-          .map((workStream) => workStream.id),
+          .map((item) => item.workStreams)
+          .flat()
+          .flatMap((workStream) => workStream.id),
         { shouldDirty: true },
       );
     }
@@ -144,17 +150,14 @@ const ExperienceWorkStreams = ({
           </p>
           <div data-h2-margin-bottom="base(x1)">
             {Array.from(workStreamsByCommunity.keys()).map((communityId) => {
-              const currentWorkStreams =
-                workStreamsByCommunity.get(communityId) ?? [];
-              const currentCommunity = communities?.find(
-                (community) => community.id === communityId,
-              );
-              if (!currentCommunity) {
+              const currentWorkStreamsWithCommunity =
+                workStreamsByCommunity.get(communityId);
+              if (!currentWorkStreamsWithCommunity) {
                 return null;
               }
               return (
                 <div
-                  key={currentCommunity.id}
+                  key={currentWorkStreamsWithCommunity.community.id}
                   data-h2-background-color="base:selectors[:nth-child(even)](background.light) base:selectors[:nth-child(odd)](foreground)"
                   data-h2-padding="base(x1)"
                   data-h2-border-top="base(1px solid gray.lighter)"
@@ -170,7 +173,10 @@ const ExperienceWorkStreams = ({
                     data-h2-margin-bottom="base(x.5) p-tablet(0)"
                   >
                     <span data-h2-font-weight="base(700)">
-                      {currentCommunity.name?.localized}
+                      {
+                        currentWorkStreamsWithCommunity.community.name
+                          ?.localized
+                      }
                     </span>
                     <div
                       data-h2-display="base(flex)"
@@ -180,8 +186,10 @@ const ExperienceWorkStreams = ({
                     >
                       <ExperienceWorkStreamsEditDialog
                         communities={communitiesWithWorkStreams}
-                        community={currentCommunity}
-                        workStreams={currentWorkStreams}
+                        community={currentWorkStreamsWithCommunity.community}
+                        workStreams={
+                          currentWorkStreamsWithCommunity.workStreams
+                        }
                         onUpdate={handleUpdate}
                         trigger={
                           <Button
@@ -204,7 +212,11 @@ const ExperienceWorkStreams = ({
                         icon={TrashIcon}
                         mode="icon_only"
                         color="black"
-                        onClick={() => handleRemove(currentCommunity.id)}
+                        onClick={() =>
+                          handleRemove(
+                            currentWorkStreamsWithCommunity.community.id,
+                          )
+                        }
                       >
                         <span data-h2-visually-hidden="base(invisible)">
                           {intl.formatMessage(
@@ -216,7 +228,9 @@ const ExperienceWorkStreams = ({
                                 "Title for to remove community from experience",
                             },
                             {
-                              communityName: currentCommunity?.name?.localized,
+                              communityName:
+                                currentWorkStreamsWithCommunity.community?.name
+                                  ?.localized,
                             },
                           )}
                         </span>
@@ -228,13 +242,17 @@ const ExperienceWorkStreams = ({
                     data-h2-flex-direction="base(column)"
                     data-h2-gap="base(x.25)"
                   >
-                    {currentWorkStreams.map((workStream) => (
-                      <div key={`${currentCommunity?.id}-${workStream.id}`}>
-                        <BoolCheckIcon value={true}>
-                          {workStream?.name?.localized}
-                        </BoolCheckIcon>
-                      </div>
-                    ))}
+                    {currentWorkStreamsWithCommunity?.workStreams.map(
+                      (workStream) => (
+                        <div
+                          key={`${currentWorkStreamsWithCommunity.community?.id}-${workStream.id}`}
+                        >
+                          <BoolCheckIcon value={true}>
+                            {workStream?.name?.localized}
+                          </BoolCheckIcon>
+                        </div>
+                      ),
+                    )}
                   </div>
                 </div>
               );

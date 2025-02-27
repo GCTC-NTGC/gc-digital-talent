@@ -14,7 +14,11 @@ import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
 import pageTitles from "~/messages/pageTitles";
 import { WorkFormValues } from "~/types/experience";
 
-import { CommunityWithoutKey, WorkStreamWithoutKey } from "./types";
+import {
+  CommunityWithoutKey,
+  WorkStreamsWithCommunity,
+  WorkStreamWithoutKey,
+} from "./types";
 
 interface FormValues {
   community?: string;
@@ -24,7 +28,7 @@ interface ExperienceWorkStreamsEditDialogProps {
   communities: CommunityWithoutKey[];
   community?: CommunityWithoutKey | null;
   workStreams?: WorkStreamWithoutKey[];
-  selectedCommunities?: Map<string, WorkStreamWithoutKey[]>;
+  selectedCommunities?: Map<string, WorkStreamsWithCommunity>;
   trigger: ReactNode;
   defaultOpen?: boolean;
   onUpdate: (ids: string[]) => void;
@@ -61,11 +65,13 @@ const ExperienceWorkStreamsEditDialog = ({
 
   const workStreamItemsOfCommunity = communities
     ?.find((item) => communityValue === item.id)
-    ?.workStreams?.map<CheckboxOption>(({ id, name }) => ({
+    ?.workStreams?.sort((a, b) =>
+      (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+    )
+    .map<CheckboxOption>(({ id, name }) => ({
       value: id,
       label: name?.localized,
     }));
-
   const handleOpenChange = (newOpen: boolean) => {
     reset();
     setIsOpen(newOpen);
