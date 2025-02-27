@@ -67,6 +67,8 @@ class EmployeeProfileTest extends TestCase
                             careerObjectiveClassification { id }
                             nextRoleCommunity { id }
                             careerObjectiveCommunity { id }
+                            nextRoleCommunityOther
+                            careerObjectiveCommunityOther
                             nextRoleWorkStreams { id }
                             careerObjectiveWorkStreams { id }
                             nextRoleDepartments { id }
@@ -96,8 +98,12 @@ class EmployeeProfileTest extends TestCase
                 'careerObjectiveAdditionalInformation' => $this->user->employeeProfile->career_objective_additional_information,
                 'nextRoleClassification' => ['id' => $this->user->employeeProfile->nextRoleClassification?->id],
                 'careerObjectiveClassification' => ['id' => $this->user->employeeProfile->careerObjectiveClassification?->id],
-                'nextRoleCommunity' => ['id' => $this->user->employeeProfile->nextRoleCommunity?->id],
-                'careerObjectiveCommunity' => ['id' => $this->user->employeeProfile->careerObjectiveCommunity?->id],
+                'nextRoleCommunity' => $this->user->employeeProfile->nextRoleCommunity?->id ?
+                    ['id' => $this->user->employeeProfile->nextRoleCommunity->id] : null,
+                'careerObjectiveCommunity' => $this->user->employeeProfile->careerObjectiveCommunity?->id ?
+                    ['id' => $this->user->employeeProfile->careerObjectiveCommunity->id] : null,
+                'nextRoleCommunityOther' => $this->user->employeeProfile->next_role_community_other,
+                'careerObjectiveCommunityOther' => $this->user->employeeProfile->career_objective_community_other,
                 'nextRoleWorkStreams' => Arr::map($this->user->employeeProfile->nextRoleWorkStreams->toArray(), fn ($value) => ['id' => $value['id']]),
                 'careerObjectiveWorkStreams' => Arr::map($this->user->employeeProfile->careerObjectiveWorkStreams->toArray(), fn ($value) => ['id' => $value['id']]),
                 'nextRoleDepartments' => Arr::map($this->user->employeeProfile->nextRoleDepartments->toArray(), fn ($value) => ['id' => $value['id']]),
@@ -133,6 +139,8 @@ class EmployeeProfileTest extends TestCase
             'careerObjectiveClassification' => ['connect' => Classification::factory()->create()->id],
             'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
             'careerObjectiveCommunity' => ['connect' => $careerObjectiveCommunity->id],
+            'nextRoleCommunityOther' => null,
+            'careerObjectiveCommunityOther' => null,
             'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
             'careerObjectiveWorkStreams' => ['sync' => [$careerObjectiveCommunity->workStreams->first()->id]],
             'nextRoleDepartments' => ['sync' => [Department::factory()->create()->id]],
@@ -165,6 +173,8 @@ class EmployeeProfileTest extends TestCase
                             careerObjectiveClassification { id }
                             nextRoleCommunity { id }
                             careerObjectiveCommunity { id }
+                            nextRoleCommunityOther
+                            careerObjectiveCommunityOther
                             nextRoleWorkStreams { id }
                             careerObjectiveWorkStreams { id }
                             nextRoleDepartments { id }
@@ -194,6 +204,8 @@ class EmployeeProfileTest extends TestCase
                 'careerObjectiveClassification' => ['id' => $input['careerObjectiveClassification']['connect']],
                 'nextRoleCommunity' => ['id' => $input['nextRoleCommunity']['connect']],
                 'careerObjectiveCommunity' => ['id' => $input['careerObjectiveCommunity']['connect']],
+                'nextRoleCommunityOther' => null,
+                'careerObjectiveCommunityOther' => null,
                 'nextRoleWorkStreams' => [['id' => $input['nextRoleWorkStreams']['sync'][0]]],
                 'careerObjectiveWorkStreams' => [['id' => $input['careerObjectiveWorkStreams']['sync'][0]]],
                 'nextRoleDepartments' => [['id' => $input['nextRoleDepartments']['sync'][0]]],
@@ -243,6 +255,66 @@ class EmployeeProfileTest extends TestCase
             ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
             ->assertGraphQLValidationError('employeeProfile.nextRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND)
             ->assertGraphQLValidationError('employeeProfile.careerObjectiveDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
+    }
+
+    public function testUpdateEmployeeProfileCommunityOtherCommunityValidation()
+    {
+        $nextRoleCommunity = Community::factory()->withWorkStreams()->create();
+        $careerObjectiveCommunity = Community::factory()->withWorkStreams()->create();
+        $input = [
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => $careerObjectiveCommunity->id],
+            'nextRoleCommunityOther' => 'Imaginary community',
+            'careerObjectiveCommunityOther' => 'Imaginary community',
+            'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
+            'careerObjectiveWorkStreams' => ['sync' => [$careerObjectiveCommunity->workStreams->first()->id]],
+        ];
+        $input2 = [
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => null],
+            'nextRoleCommunityOther' => null,
+            'careerObjectiveCommunityOther' => 'Imaginary community',
+            'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
+            // 'careerObjectiveWorkStreams' not included as it is not allowed input
+        ];
+
+        // fails due to passing in community and community other values, check validation errors present
+        $this->actingAs($this->user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
+                    updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
+                        userPublicProfile { email }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $this->user->id,
+                    'employeeProfile' => $input,
+                ])
+            ->assertGraphQLValidationError('employeeProfile.nextRoleCommunity.connect', 'The employee profile.next role community.connect field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunity.connect', 'The employee profile.career objective community.connect field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.nextRoleCommunityOther', 'The employee profile.next role community other field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunityOther', 'The employee profile.career objective community other field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams', 'The employee profile.next role work streams field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams', 'The employee profile.career objective work streams field is prohibited.');
+
+        // mutation successful now with the second input
+        $this->actingAs($this->user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
+                    updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
+                        userPublicProfile { email }
+                        nextRoleCommunityOther
+                        careerObjectiveCommunityOther
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $this->user->id,
+                    'employeeProfile' => $input2,
+                ])
+            ->assertJsonFragment(['nextRoleCommunityOther' => null])
+            ->assertJsonFragment(['careerObjectiveCommunityOther' => 'Imaginary community']);
     }
 
     public function testCannotEditAnotherUsersEmployeeProfile()
