@@ -25,8 +25,8 @@ return new class extends Migration
             $table->foreignUuid('nominator_id')->nullable()->constrained('users');
             $table->string('nominator_fallback_work_email')->nullable();
             $table->string('nominator_fallback_name')->nullable();
-            $table->foreignUuid('nominator_fallback_classification')->nullable()->constrained('classifications');
-            $table->foreignUuid('nominator_fallback_department')->nullable()->constrained('departments');
+            $table->foreignUuid('nominator_fallback_classification_id')->nullable()->constrained('classifications');
+            $table->foreignUuid('nominator_fallback_department_id')->nullable()->constrained('departments');
             $table->string('nominator_review')->nullable();
             $table->foreignUuid('nominee_id')->nullable()->constrained('users');
             $table->string('nominee_review')->nullable();
@@ -39,8 +39,8 @@ return new class extends Migration
             $table->string('advancement_reference_review')->nullable();
             $table->string('advancement_reference_fallback_work_email')->nullable();
             $table->string('advancement_reference_fallback_name')->nullable();
-            $table->foreignUuid('advancement_reference_fallback_classification')->nullable()->constrained('classifications');
-            $table->foreignUuid('advancement_reference_fallback_department')->nullable()->constrained('departments');
+            $table->foreignUuid('advancement_reference_fallback_classification_id')->nullable()->constrained('classifications');
+            $table->foreignUuid('advancement_reference_fallback_department_id')->nullable()->constrained('departments');
             $table->jsonb('lateral_movement_options')->nullable();
             $table->string('lateral_movement_options_other')->nullable();
             $table->string('development_program_options_other')->nullable();
