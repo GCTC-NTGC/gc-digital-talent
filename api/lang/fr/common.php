@@ -23,4 +23,5 @@ return [
     'expected_end_date' => '(Date de fin prévue)',
     'not_found' => 'Introuvable',
     'step' => 'Étape',
+    'suspended' => 'Suspendue',
 ];
