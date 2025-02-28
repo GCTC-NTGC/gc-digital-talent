@@ -100,8 +100,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, IT-classified employees who are covered by the IT collective agreement now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
-                  id: "kl7vTl",
+                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, employees represented by the Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
+                  id: "Sew1Zp",
                   description:
                     "First paragraph describing investing in future talent",
                 })}
@@ -211,8 +211,8 @@ export const Component = () => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Training opportunities supported by the fund are available to IT-classified employees covered by the IT collective agreement. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access training. Employees represented by PIPSC will have priority when spaces are limited.",
-                        id: "oY+SWP",
+                          "Training opportunities supported by the fund are available only to employees represented by PIPSC in the IT group.",
+                        id: "aO/jZ3",
                         description:
                           "Description for the employee eligibility card",
                       })}

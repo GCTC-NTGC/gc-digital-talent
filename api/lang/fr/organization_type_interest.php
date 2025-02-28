@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'current' => 'Current organization',
-    'cpa' => 'Core public administration (CPA) departments',
-    'non_cpa' => 'Non-core public administration (Non CPA) agencies or crown corps',
-    'central_agencies' => 'Central agencies',
-    'science_regulatory_agency' => 'Science or regulatory departments or agencies',
+    'current' => 'Organisation actuelle',
+    'cpa' => "Ministères de l'administration publique centrale (APC)",
+    'non_cpa' => "Organismes ou sociétés d'État ne faisant pas partie de l'administration publique centrale (n'étant pas de l'APC)",
+    'central_agencies' => 'Organismes centraux',
+    'science_regulatory_agency' => 'Ministères ou organismes scientifiques ou réglementaires',
 ];
