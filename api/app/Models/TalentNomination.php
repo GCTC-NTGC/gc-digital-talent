@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -47,6 +48,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class TalentNomination extends Model
 {
+    /** @use HasFactory<\Database\Factories\TalentNominationFactory> */
+    use HasFactory;
+
     use LogsActivity;
 
     protected $keyType = 'string';
