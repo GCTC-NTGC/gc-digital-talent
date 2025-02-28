@@ -39,6 +39,7 @@ import CommunityContent from "./CommunityContent";
 import EducationContent from "./EducationContent";
 import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
+import WorkStreamContent from "./WorkContent/WorkStreamsContent";
 
 type EditMode = "link" | "dialog";
 
@@ -351,6 +352,12 @@ const ExperienceCard = ({
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
             </ContentSection>
+            {isWorkExperience(experience) && (
+              <WorkStreamContent
+                workStreams={experience.workStreams}
+                headingLevel={headingLevel}
+              />
+            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />

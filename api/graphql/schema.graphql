@@ -84,10 +84,12 @@ type User {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
+  isVerifiedGovEmployee: Boolean
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "computed_gov_position_type")
   govEndDate: Date @rename(attribute: "computed_gov_end_date")
@@ -189,13 +191,29 @@ type EmployeeProfile {
   aboutYou: String @rename(attribute: "career_planning_about_you")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: Community @belongsTo
-  dreamRoleClassification: Classification @belongsTo
-  dreamRoleWorkStream: WorkStream @belongsTo
-  dreamRoleDepartments: [Department!] @belongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: Community @belongsTo
+  careerObjectiveCommunity: Community @belongsTo
+  nextRoleClassification: Classification @belongsTo
+  careerObjectiveClassification: Classification @belongsTo
+  nextRoleWorkStreams: [WorkStream!] @belongsToMany
+  careerObjectiveWorkStreams: [WorkStream!] @belongsToMany
+  nextRoleDepartments: [Department!] @belongsToMany
+  careerObjectiveDepartments: [Department!] @belongsToMany
+  nextRoleTargetRole: LocalizedTargetRole
+    @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: LocalizedTargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 
   communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
@@ -281,6 +299,15 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+}
+
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
 }
 
 type GeneralQuestion {
@@ -1069,6 +1096,12 @@ type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployeeProfile(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeProfile
+    @guard
+    @validator
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -1522,13 +1555,28 @@ input UpdateEmployeeProfileInput @validator {
   aboutYou: String @rename(attribute: "career_planning_about_you")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: TargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -1705,7 +1753,8 @@ input PoolBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID!
+  connect: UUID
+  disconnect: Boolean
 }
 
 input CreateTeamInput {

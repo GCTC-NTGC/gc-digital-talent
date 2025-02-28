@@ -145,17 +145,3 @@ export const formatLocation = ({
 
   return intl.formatMessage(commonMessages.notProvided);
 };
-
-interface IsVerifiedGovEmployeeArgs {
-  isGovEmployee?: Maybe<boolean>;
-  workEmail?: Maybe<string>;
-  isWorkEmailVerified?: Maybe<boolean>;
-}
-
-export const isVerifiedGovEmployee = ({
-  isGovEmployee,
-  workEmail,
-  isWorkEmailVerified,
-}: IsVerifiedGovEmployeeArgs): boolean => {
-  return Boolean(isGovEmployee && workEmail && isWorkEmailVerified);
-};

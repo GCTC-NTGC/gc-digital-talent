@@ -9,6 +9,7 @@ import {
   getQualifiedRecruitmentStatusChip,
   isQualifiedFinalDecision,
 } from "~/utils/poolCandidate";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
@@ -90,7 +91,10 @@ const ReviewRecruitmentProcessPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? getClassificationName(pool?.classification, intl)
+                  ? wrapAbbr(
+                      getClassificationName(pool?.classification, intl),
+                      intl,
+                    )
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

@@ -283,6 +283,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTargetRole {
+  value: TargetRole!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -302,6 +307,7 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
+  govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -608,9 +614,11 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  isVerifiedGovEmployee: Boolean
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govRole: String
   govPositionType: LocalizedGovPositionType
   govEndDate: Date
   currentClassification: Classification
@@ -679,12 +687,22 @@ type EmployeeProfile {
   aboutYou: String
   learningGoals: String
   workStyle: String
-  dreamRoleTitle: String
-  dreamRoleAdditionalInformation: String
-  dreamRoleCommunity: Community
-  dreamRoleClassification: Classification
-  dreamRoleWorkStream: WorkStream
-  dreamRoleDepartments: [Department!]
+  nextRoleJobTitle: String
+  careerObjectiveJobTitle: String
+  nextRoleAdditionalInformation: String
+  careerObjectiveAdditionalInformation: String
+  nextRoleCommunity: Community
+  careerObjectiveCommunity: Community
+  nextRoleClassification: Classification
+  careerObjectiveClassification: Classification
+  nextRoleWorkStreams: [WorkStream!]
+  careerObjectiveWorkStreams: [WorkStream!]
+  nextRoleDepartments: [Department!]
+  careerObjectiveDepartments: [Department!]
+  nextRoleTargetRole: LocalizedTargetRole
+  careerObjectiveTargetRole: LocalizedTargetRole
+  nextRoleTargetRoleOther: String
+  careerObjectiveTargetRoleOther: String
   communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
@@ -761,6 +779,15 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+type BasicGovEmployeeProfile {
+  id: ID!
+  workEmail: Email
+  firstName: String
+  lastName: String
+  role: String
+  department: Department
 }
 
 type GeneralQuestion {
@@ -1597,12 +1624,22 @@ input UpdateEmployeeProfileInput {
   aboutYou: String
   learningGoals: String
   workStyle: String
-  dreamRoleTitle: String
-  dreamRoleAdditionalInformation: String
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String
+  careerObjectiveJobTitle: String
+  nextRoleAdditionalInformation: String
+  careerObjectiveAdditionalInformation: String
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole
+  careerObjectiveTargetRole: TargetRole
+  nextRoleTargetRoleOther: String
+  careerObjectiveTargetRoleOther: String
 }
 
 input CreateCommunityInterestInput {
@@ -1756,7 +1793,8 @@ input PoolBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID!
+  connect: UUID
+  disconnect: Boolean
 }
 
 input CreateTeamInput {
@@ -3160,6 +3198,17 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TargetRole {
+  INDIVIDUAL_CONTRIBUTOR
+  MANAGER
+  DIRECTOR
+  DIRECTOR_GENERAL
+  EXECUTIVE_DIRECTOR
+  ASSISTANT_DEPUTY_MINISTER
+  DEPUTY_MINISTER
+  OTHER
 }
 
 enum WhenSkillUsed {

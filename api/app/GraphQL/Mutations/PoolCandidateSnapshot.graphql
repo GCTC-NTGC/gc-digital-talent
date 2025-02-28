@@ -111,6 +111,7 @@ query getProfile($userId: UUID!) {
       }
     }
     govEndDate
+    govRole
     department {
       id
       departmentNumber

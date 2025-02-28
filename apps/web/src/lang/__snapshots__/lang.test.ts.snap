@@ -10,6 +10,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Submitted",
+    "fr": [
+      "Soumise",
+      "Soumis"
+    ]
+  },
+  {
     "en": "Not interested",
     "fr": [
       "Non intéressé(e)",
@@ -134,6 +141,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajouter un rôle dans la collectivité",
       "Ajoutez un rôle dans la collectivité"
+    ]
+  },
+  {
+    "en": "Add work streams",
+    "fr": [
+      "Ajoutez des volets de travail",
+      "Ajoutez les volets de travail"
     ]
   },
   {

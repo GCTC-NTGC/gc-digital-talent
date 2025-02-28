@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
@@ -45,11 +46,7 @@ const Profile = () => {
           href={paths.profile()}
           icon={UserPlusIcon}
         >
-          {intl.formatMessage({
-            defaultMessage: "Create a profile",
-            id: "7hUWc+",
-            description: "Link text for users to create a profile",
-          })}
+          {intl.formatMessage(navigationMessages.createProfile)}
         </Link>
       </div>
     </SkewedImageContainer>
