@@ -2684,7 +2684,7 @@
     "description": "Button label for download candidate csv with ROD data."
   },
   "C2urGD": {
-    "defaultMessage": "Your application ID is: <strong>{id}</strong>",
+    "defaultMessage": "Votre identifiant de candidature est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
   "C3YsFy": {
@@ -7698,6 +7698,10 @@
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
     "description": "Legend for the options related to the reason for submitting a request."
   },
+  "cXuiuN": {
+    "defaultMessage": "Nous vous contacterons si votre candidature correspond aux critères énoncés dans l'offre d'emploi. En attendant, consultez les ressources suivantes pour en savoir plus sur la suite des événements.",
+    "description": "Description of review process and next steps for the applicant."
+  },
   "cYNDhP": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Title for the websites privacy policy"
@@ -9061,6 +9065,10 @@
   "j3m2Ca": {
     "defaultMessage": "Lieu précis (précisez ci-dessous)",
     "description": "Label displayed for 'specific location' option"
+  },
+  "j4rest": {
+    "defaultMessage": "Votre identifiant de candidature peut également être trouvé dans les candidatures sur votre tableau de bord du (de la) candidat(e).",
+    "description": "Note where the application ID is available"
   },
   "j5Fwi6": {
     "defaultMessage": "Vos objectifs d'apprentissage",
