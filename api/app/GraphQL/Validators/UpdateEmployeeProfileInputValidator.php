@@ -93,13 +93,8 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'careerObjectiveClassification.connect' => ['uuid', 'exists:classifications,id'],
 
             'nextRoleWorkStreams' => [
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('nextRoleCommunityOther') !== null
-                    )
-                ),
                 Rule::when(
-                    fn (): bool => (Arr::has($argsArr, ('nextRoleCommunity.connect')) && $this->arg('nextRoleCommunity.connect') !== null),
+                    fn (): bool => (Arr::has($argsArr, ('nextRoleCommunity.connect'))),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'nextRoleWorkStreams.sync' => ['required'],
@@ -112,16 +107,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
                 'uuid',
                 'exists:work_streams,id',
                 Rule::in($nextRoleAllWorkStreams),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunityOther') !== null
+                    )
+                ),
             ],
 
             'careerObjectiveWorkStreams' => [
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('careerObjectiveCommunityOther') !== null
-                    )
-                ),
                 Rule::when(
-                    fn (): bool => (Arr::has($argsArr, ('careerObjectiveCommunity.connect')) && $this->arg('careerObjectiveCommunity.connect') !== null),
+                    fn (): bool => (Arr::has($argsArr, ('careerObjectiveCommunity.connect'))),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'careerObjectiveCommunity.sync' => ['required'],
@@ -134,6 +129,11 @@ final class UpdateEmployeeProfileInputValidator extends Validator
                 'uuid',
                 'exists:work_streams,id',
                 Rule::in($careerObjectiveAllWorkStreams),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunityOther') !== null
+                    )
+                ),
             ],
 
             'nextRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],

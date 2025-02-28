@@ -275,7 +275,7 @@ class EmployeeProfileTest extends TestCase
             'nextRoleCommunityOther' => null,
             'careerObjectiveCommunityOther' => 'Imaginary community',
             'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
-            // 'careerObjectiveWorkStreams' not included as it is not allowed input
+            'careerObjectiveWorkStreams' => ['sync' => []],
         ];
 
         // fails due to passing in community and community other values, check validation errors present
@@ -295,8 +295,8 @@ class EmployeeProfileTest extends TestCase
             ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunity.connect', 'The employee profile.career objective community.connect field is prohibited.')
             ->assertGraphQLValidationError('employeeProfile.nextRoleCommunityOther', 'The employee profile.next role community other field is prohibited.')
             ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunityOther', 'The employee profile.career objective community other field is prohibited.')
-            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams', 'The employee profile.next role work streams field is prohibited.')
-            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams', 'The employee profile.career objective work streams field is prohibited.');
+            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams.sync.0', 'The employeeProfile.nextRoleWorkStreams.sync.0 field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', 'The employeeProfile.careerObjectiveWorkStreams.sync.0 field is prohibited.');
 
         // mutation successful now with the second input
         $this->actingAs($this->user, 'api')
