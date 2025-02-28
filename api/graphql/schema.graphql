@@ -89,6 +89,7 @@ type User {
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "computed_gov_position_type")
   govEndDate: Date @rename(attribute: "computed_gov_end_date")
@@ -308,6 +309,15 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+}
+
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
 }
 
 type GeneralQuestion {
@@ -1096,6 +1106,12 @@ type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployeeProfile(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeProfile
+    @guard
+    @validator
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy

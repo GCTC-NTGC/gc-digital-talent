@@ -204,6 +204,20 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          key
+          name {
+            localized
+          }
+        }
+      }
     }
   }
 `);

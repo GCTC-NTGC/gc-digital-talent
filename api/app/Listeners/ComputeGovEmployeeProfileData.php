@@ -62,6 +62,7 @@ class ComputeGovEmployeeProfileData
                 'computed_department' => null,
                 'computed_gov_position_type' => null,
                 'computed_gov_end_date' => null,
+                'computed_gov_role' => null,
             ]);
 
             return;
@@ -92,6 +93,7 @@ class ComputeGovEmployeeProfileData
             'computed_department' => $latest?->department_id,
             'computed_gov_position_type' => $latest?->gov_position_type,
             'computed_gov_end_date' => $latest?->end_date,
+            'computed_gov_role' => $latest?->role,
         ]);
     }
 }

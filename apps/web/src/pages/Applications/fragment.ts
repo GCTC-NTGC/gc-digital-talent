@@ -334,6 +334,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
               fr
             }
           }
+          workStreams {
+            id
+            key
+            name {
+              localized
+            }
+            community {
+              id
+              key
+              name {
+                localized
+              }
+            }
+          }
         }
       }
       workEmail
@@ -577,6 +591,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           name {
             en
             fr
+          }
+        }
+        workStreams {
+          id
+          key
+          name {
+            localized
+          }
+          community {
+            id
+            key
+            name {
+              localized
+            }
           }
         }
       }

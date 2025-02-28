@@ -84,6 +84,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements
  * @property ?string $computed_gov_employee_type
+ * @property ?string $computed_gov_role
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -137,6 +138,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'computed_department',
         'computed_gov_position_type',
         'computed_gov_end_date',
+        'computed_gov_role',
     ];
 
     protected $hidden = [];
@@ -1085,6 +1087,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    public static function scopeExactWorkEmail(Builder $query, string $email): Builder
+    {
+        return $query->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
@@ -1178,6 +1185,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
             ->sortBy('improve_skills_rank');
+    }
+
+    public function scopeIsVerifiedGovEmployee(Builder $query): void
+    {
+        $query->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNotNull('work_email_verified_at');
     }
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
@@ -1353,6 +1367,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'computed_gov_employee_type' => 'govEmployeeType',
             'computed_gov_position_type' => 'govPositionType',
             'computed_gov_end_date' => 'govEndDate',
+            'computed_gov_role' => 'govRole',
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
             'location_preferences' => 'locationPreferences',

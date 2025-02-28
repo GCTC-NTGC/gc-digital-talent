@@ -144,6 +144,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add work streams",
+    "fr": [
+      "Ajoutez des volets de travail",
+      "Ajoutez les volets de travail"
+    ]
+  },
+  {
     "en": "Request a voucher",
     "fr": [
       "Demander un bon",

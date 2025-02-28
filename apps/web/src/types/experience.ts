@@ -115,6 +115,7 @@ export type WorkFormValues = FormValueDateRange & {
   cafForce?: CafForce | null;
   cafRank?: CafRank | null;
   currentRole: boolean;
+  workStreams?: string[];
 };
 
 export type AllExperienceFormValues = AwardFormValues &
@@ -183,6 +184,7 @@ export interface ExperienceDetailsSubmissionData {
       | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
       | undefined;
   };
+  workStreamIds?: string[];
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &

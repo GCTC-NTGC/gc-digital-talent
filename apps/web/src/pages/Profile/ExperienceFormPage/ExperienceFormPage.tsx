@@ -290,6 +290,9 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      workStreams {
+        id
+      }
     }
   }
 `);
