@@ -51,7 +51,7 @@ export NVM_DIR="$HOME/.nvm"
 source ~/.bash_profile
 nvm install v20.11.0
 #nvm install-latest-pnpm
-npm install -g pnpm@9.12.3
+npm install -g pnpm@10.5.2
 
 ### API
 
