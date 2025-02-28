@@ -237,10 +237,10 @@ class UserFactory extends Factory
     public function withEmployeeProfile()
     {
         return $this->afterCreating(function (User $user) {
-            $nextRoleCommunity = $this->faker->boolean(90) ?
+            $nextRoleCommunity = $this->faker->boolean(80) ?
                 Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
                 null;
-            $careerObjectiveCommunity = $this->faker->boolean(90) ?
+            $careerObjectiveCommunity = $this->faker->boolean(80) ?
                 Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
                 null;
 
