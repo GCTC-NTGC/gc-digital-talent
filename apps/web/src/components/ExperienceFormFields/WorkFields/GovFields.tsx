@@ -192,9 +192,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
    */
   useEffect(() => {
     const resetDirtyField = (name: keyof WorkFormValues) => {
-      resetField(name, {
-        keepDirty: false,
-      });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
     if (
