@@ -210,26 +210,14 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     if (watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor) {
       resetDirtyField("govContractorRoleSeniority");
       resetDirtyField("govContractorType");
-    }
-
-    if (
-      watchGovContractorType === GovContractorType.SelfEmployed ||
-      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor
-    ) {
-      resetField("contractorFirmAgencyName", {
-        keepDirty: false,
-        defaultValue: undefined,
-      });
+      resetDirtyField("contractorFirmAgencyName");
     }
 
     // govPositionType field only applies to INDETERMINATE
     if (
       watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
     ) {
-      resetField("govPositionType", {
-        keepDirty: false,
-        defaultValue: null,
-      });
+      resetDirtyField("govPositionType");
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 
