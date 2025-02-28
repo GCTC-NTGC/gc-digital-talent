@@ -5024,7 +5024,7 @@
     "description": "Heading for required technical skills section"
   },
   "OEk0OP": {
-    "defaultMessage": "Identification de la demande",
+    "defaultMessage": "Identifiant de candidature",
     "description": "Label for application ID"
   },
   "OF7SCg": {
@@ -6531,7 +6531,7 @@
     "description": "Heading displayed above the Create Department form."
   },
   "WJSVBr": {
-    "defaultMessage": "Copier l’identification de votre demande {title}",
+    "defaultMessage": "Copier l'identifiant de votre candidature {title}",
     "description": "Button text to copy a specific application ID"
   },
   "WKAzau": {
@@ -8399,7 +8399,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "ftg8sT": {
-    "defaultMessage": "L’identification de votre demande {title} a été copiée",
+    "defaultMessage": "L'identifiant de votre candidature {title} a été copié",
     "description": "Button text to indicate that a specific application’s ID has been copied"
   },
   "fvsYkj": {
@@ -8499,7 +8499,7 @@
     "description": "Title for description in English."
   },
   "gBAz/G": {
-    "defaultMessage": "Identification de la demande copiée",
+    "defaultMessage": "Identifiant de candidature copié",
     "description": "Button text to indicate that a specific application’s ID has been copied"
   },
   "gChYmW": {
@@ -10715,7 +10715,7 @@
     "description": "Message displayed to pool after pool fails to get created."
   },
   "rvoNoQ": {
-    "defaultMessage": "Copier l’identification de la demande",
+    "defaultMessage": "Copier l'identifiant de candidature",
     "description": "Button text to copy a specific application ID"
   },
   "rxDfeN": {
