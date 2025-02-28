@@ -483,10 +483,6 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
-  "0NkIxW": {
-    "defaultMessage": "Les possibilités en dessous de mon niveau actuel m'intéressent.",
-    "description": "List item, interest in demotion"
-  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -678,6 +674,10 @@
   "1T+YAC": {
     "defaultMessage": "Modifier une expérience dans la chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
+  },
+  "1TFJ+r": {
+    "defaultMessage": "Je souhaite recevoir des offres d'emploi au sein de mon groupe et à mon niveau actuels ou au sein d'un groupe et à un niveau équivalents.",
+    "description": "The lateral move interest described as interested."
   },
   "1VKNrs": {
     "defaultMessage": "Les possibilités d'emploi m'intéressent",
@@ -963,6 +963,10 @@
     "defaultMessage": "Passez en revue les renseignements fournis pour vous assurer qu’ils sont exacts et à jour.",
     "description": "Lead-in text for verifying a candidates claims"
   },
+  "2tAqF/": {
+    "defaultMessage": "Je souhaite recevoir des offres de promotion et d'avancement.",
+    "description": "The promotion move interest described as interested."
+  },
   "2vdIG6": {
     "defaultMessage": "L'équipe du Développement de la collectivité de la gestion financière (DCGF) du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière fédérale à améliorer leurs compétences et à progresser dans leur carrière grâce au recrutement, au perfectionnement et au réseautage.",
     "description": "Card description, team"
@@ -1154,10 +1158,6 @@
   "40Z3LU": {
     "defaultMessage": "AS-03 : Conseiller(ère) ou analyste",
     "description": "AS-03 classification label including titles"
-  },
-  "427bsx": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres organismes.",
-    "description": "List item, interest in opportunities at other agencies"
   },
   "436DA5": {
     "defaultMessage": "Croissance",
@@ -1422,6 +1422,10 @@
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
+  },
+  "55IkTu": {
+    "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
+    "description": "The lateral move interest described as not interested."
   },
   "55Me4a": {
     "defaultMessage": "Titre (Français)",
@@ -2110,10 +2114,6 @@
   "9+Gd8H": {
     "defaultMessage": "Exprimez votre intérêt pour une collectivité fonctionnelle pour en recevoir les possibilités de recrutement, de formation et de promotion.",
     "description": "Subtitle for the community interest pages"
-  },
-  "91/wW5": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres ministères.",
-    "description": "List item, interest in opportunities at other departments"
   },
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
@@ -3515,10 +3515,6 @@
     "defaultMessage": "Préférences en matière de développement de carrière et objectifs de carrière.",
     "description": "Helper instructions for an 'employee profile' card"
   },
-  "GCjnow": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres sociétés d'État.",
-    "description": "List item, interest in opportunities at other crown corporations"
-  },
   "GF8FPy": {
     "defaultMessage": "Autres commentaires",
     "description": "Title for the additional comments block for a search request"
@@ -4135,6 +4131,10 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
+  "JHEUw9": {
+    "defaultMessage": "Délai cible pour la promotion ou l'avancement",
+    "description": "Label for an employee profile career development preference field"
+  },
   "JIvR0C": {
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
@@ -4306,10 +4306,6 @@
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
-  },
-  "KKZgfJ": {
-    "defaultMessage": "J'envisagerais des possibilités au sein de mon ministère, de mon organisme ou de ma société d'État actuel.",
-    "description": "List item, interest in opportunities at present organization"
   },
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
@@ -4690,6 +4686,10 @@
   "M2MQu7": {
     "defaultMessage": "Aidez le Bureau du contrôleur général à recueillir des renseignements importants sur l'effectif des cadres de la gestion financière afin d'élaborer des programmes stratégiques, d'appuyer la planification de la relève et de renforcer notre collectivité.",
     "description": "Page subtitle for the comptrollership executives talent management page"
+  },
+  "M4sGS2": {
+    "defaultMessage": "Types d'organisations que vous envisageriez pour une promotion ou un avancement",
+    "description": "Label for an employee profile career development preference field"
   },
   "M7bb1V": {
     "defaultMessage": "Ministère",
@@ -6091,10 +6091,6 @@
     "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Option for education requirement, 2-year post-secondary"
   },
-  "TiPh1V": {
-    "defaultMessage": "Intérêt pour les promotions et les mutations latérales",
-    "description": "Heading for list of user's interest in employment moves"
-  },
   "Tj1iyN": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d'entrainement dirigés par un instructeur ou une instructrice</hidden>",
     "description": "A link to sign up for updates"
@@ -6686,10 +6682,6 @@
     "defaultMessage": "Passer un entretien",
     "description": "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "WvzD/I": {
-    "defaultMessage": "Types d'organisations pour lesquelles vous aimeriez travailler",
-    "description": "Heading for list of user's interest in organizations as employers"
-  },
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
@@ -7005,6 +6997,10 @@
   "Yaxm1W": {
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
+  },
+  "YbiEAB": {
+    "defaultMessage": "Intérêt pour la mutation latérale",
+    "description": "Label for an employee profile career development preference field"
   },
   "Yc2A2Q": {
     "defaultMessage": "{skill} sélectionnée.",
@@ -7353,6 +7349,10 @@
   "aW/Htv": {
     "defaultMessage": "Les processus de recrutement auxquels vous avez été admis(e) apparaîtront ici.",
     "description": "Message to user when no qualified recruitments have been attached to profile, paragraph one."
+  },
+  "aYgVQT": {
+    "defaultMessage": "Types d'organisations que vous envisageriez pour une mutation latérale",
+    "description": "Label for an employee profile career development preference field"
   },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
@@ -8226,10 +8226,6 @@
     "defaultMessage": "Demander un bon",
     "description": "Link text to request a voucher (infinitive)"
   },
-  "evwxYn": {
-    "defaultMessage": "Les possibilités de promotion m'intéressent.",
-    "description": "List item, interest in promotion"
-  },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
@@ -8998,6 +8994,10 @@
     "defaultMessage": "Facultatives",
     "description": "Label for an optional skill"
   },
+  "iR7GWG": {
+    "defaultMessage": "Délai cible pour une mutation latérale",
+    "description": "Label for an employee profile career development preference field"
+  },
   "iSbtcK": {
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
@@ -9553,10 +9553,6 @@
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
     "description": "description of 'screening questions' section of the 'assessment details' dialog"
-  },
-  "lW24T5": {
-    "defaultMessage": "Intérêt pour les promotions et les mutations latérales",
-    "description": "Label for an employee profile career development preference field"
   },
   "lZ8lct": {
     "defaultMessage": "Process mis en signet.",
@@ -11022,6 +11018,10 @@
     "defaultMessage": "Adresse courriel non validée",
     "description": "The email address has not been verified to be owned by user"
   },
+  "tXLRmG": {
+    "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
+    "description": "The promotion move interest described as not interested."
+  },
   "tZmXOj": {
     "defaultMessage": "l’amélioration de l'accessibilité des couleurs",
     "description": "List item two, things designers consider for accessibility"
@@ -11125,10 +11125,6 @@
   "uA8hbm": {
     "defaultMessage": "Renseignements sur l'employé(e)",
     "description": "Main heading in employee information page."
-  },
-  "uD+Xkl": {
-    "defaultMessage": "Les possibilités à mon niveau actuel m'intéressent.",
-    "description": "List item, interest in lateral moves"
   },
   "uD105N": {
     "defaultMessage": "Non lus",
@@ -11393,10 +11389,6 @@
   "vYigGH": {
     "defaultMessage": "l'informatique en nuage;",
     "description": "Third item in list of certification topics section"
-  },
-  "vaxlr+": {
-    "defaultMessage": "Types d'organisations pour lesquelles vous aimeriez travailler",
-    "description": "Label for an employee profile career development preference field"
   },
   "vbiWgW": {
     "defaultMessage": "Politiques connexes",
@@ -12109,6 +12101,10 @@
   "zVGzWa": {
     "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
     "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
+  },
+  "zXWJ/5": {
+    "defaultMessage": "Intérêt pour la promotion et l'avancement",
+    "description": "Label for an employee profile career development preference field"
   },
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",

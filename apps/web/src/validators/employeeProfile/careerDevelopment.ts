@@ -2,8 +2,12 @@ import { EmployeeProfile } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 
 export function hasAllEmptyFields({
-  organizationTypeInterest,
-  moveInterest,
+  lateralMoveInterest,
+  lateralMoveTimeFrame,
+  lateralMoveOrganizationType,
+  promotionMoveInterest,
+  promotionMoveTimeFrame,
+  promotionMoveOrganizationType,
   mentorshipStatus,
   mentorshipInterest,
   execInterest,
@@ -11,8 +15,12 @@ export function hasAllEmptyFields({
   execCoachingInterest,
 }: Pick<
   EmployeeProfile,
-  | "organizationTypeInterest"
-  | "moveInterest"
+  | "lateralMoveInterest"
+  | "lateralMoveTimeFrame"
+  | "lateralMoveOrganizationType"
+  | "promotionMoveInterest"
+  | "promotionMoveTimeFrame"
+  | "promotionMoveOrganizationType"
   | "mentorshipStatus"
   | "mentorshipInterest"
   | "execInterest"
@@ -20,8 +28,12 @@ export function hasAllEmptyFields({
   | "execCoachingStatus"
 >): boolean {
   return (
-    !organizationTypeInterest &&
-    !moveInterest &&
+    empty(lateralMoveInterest) &&
+    !lateralMoveTimeFrame &&
+    !lateralMoveOrganizationType &&
+    empty(promotionMoveInterest) &&
+    !promotionMoveTimeFrame &&
+    !promotionMoveOrganizationType &&
     !mentorshipStatus &&
     !mentorshipInterest &&
     empty(execInterest) &&
@@ -31,12 +43,24 @@ export function hasAllEmptyFields({
 }
 
 export function hasEmptyRequiredFields({
+  lateralMoveInterest,
+  promotionMoveInterest,
   mentorshipStatus,
   execInterest,
   execCoachingStatus,
 }: Pick<
   EmployeeProfile,
-  "mentorshipStatus" | "execInterest" | "execCoachingStatus"
+  | "lateralMoveInterest"
+  | "promotionMoveInterest"
+  | "mentorshipStatus"
+  | "execInterest"
+  | "execCoachingStatus"
 >): boolean {
-  return !mentorshipStatus || empty(execInterest) || !execCoachingStatus;
+  return (
+    empty(lateralMoveInterest) ||
+    empty(promotionMoveInterest) ||
+    !mentorshipStatus ||
+    empty(execInterest) ||
+    !execCoachingStatus
+  );
 }
