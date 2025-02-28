@@ -7,6 +7,7 @@ type EmployeeProfileNextRoleFragment = Pick<
   | "nextRoleTargetRoleOther"
   | "nextRoleJobTitle"
   | "nextRoleCommunity"
+  | "nextRoleCommunityOther"
   | "nextRoleWorkStreams"
   | "nextRoleDepartments"
   | "nextRoleAdditionalInformation"
@@ -18,6 +19,7 @@ export function hasAllEmptyFields({
   nextRoleTargetRoleOther,
   nextRoleJobTitle,
   nextRoleCommunity,
+  nextRoleCommunityOther,
   nextRoleWorkStreams,
   nextRoleDepartments,
   nextRoleAdditionalInformation,
@@ -28,6 +30,7 @@ export function hasAllEmptyFields({
     !nextRoleTargetRoleOther &&
     !nextRoleJobTitle &&
     !nextRoleCommunity &&
+    !nextRoleCommunityOther &&
     !(nextRoleWorkStreams?.length ?? 0 > 0) &&
     !(nextRoleDepartments?.length ?? 0 > 0) &&
     !nextRoleAdditionalInformation
@@ -39,6 +42,7 @@ export function hasAnyEmptyFields({
   nextRoleTargetRole,
   nextRoleJobTitle,
   nextRoleCommunity,
+  nextRoleCommunityOther,
   nextRoleWorkStreams,
   nextRoleDepartments,
   nextRoleAdditionalInformation,
@@ -47,8 +51,8 @@ export function hasAnyEmptyFields({
     !nextRoleClassification ||
     !nextRoleTargetRole ||
     !nextRoleJobTitle ||
-    !nextRoleCommunity ||
-    ((nextRoleCommunity.workStreams?.length ?? 0 > 0) &&
+    (!nextRoleCommunity && !nextRoleCommunityOther) ||
+    ((nextRoleCommunity?.workStreams?.length ?? 0 > 0) &&
       !(nextRoleWorkStreams?.length ?? 0 > 0)) ||
     !(nextRoleDepartments?.length ?? 0 > 0) ||
     !nextRoleAdditionalInformation

@@ -45,6 +45,7 @@ import {
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import Display from "./Display";
+import messages from "../../messages";
 
 const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileNextRoleOptions on Query {
@@ -106,6 +107,7 @@ export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
         id
       }
     }
+    nextRoleCommunityOther
     nextRoleWorkStreams {
       id
       name {
@@ -141,6 +143,7 @@ interface FormValues {
   targetRoleOther: string | null | undefined;
   jobTitle: string | null | undefined;
   communityId: string | null | undefined;
+  communityOther: string | null | undefined;
   workStreamIds: string[] | null | undefined;
   departmentIds: string[] | null | undefined;
   additionalInformation: string | null | undefined;
@@ -157,6 +160,8 @@ const wordCountLimits: Record<Locales, number> = {
   en: TEXT_AREA_MAX_WORDS_EN,
   fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
 } as const;
+
+const OTHER_SELECTION_VALUE = "OTHER";
 
 const NextRoleSection = ({
   employeeProfileQuery,
@@ -197,21 +202,31 @@ const NextRoleSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
-    classificationGroup: initialData.nextRoleClassification?.group,
-    classificationLevel: initialData.nextRoleClassification?.level.toString(),
-    targetRole: initialData.nextRoleTargetRole?.value,
-    targetRoleOther: initialData.nextRoleTargetRoleOther,
-    jobTitle: initialData.nextRoleJobTitle,
-    communityId: initialData.nextRoleCommunity?.id,
-    workStreamIds: initialData.nextRoleWorkStreams?.map(
-      (workStream) => workStream.id,
-    ),
-    departmentIds: initialData.nextRoleDepartments?.map(
-      (department) => department.id,
-    ),
-    additionalInformation: initialData.nextRoleAdditionalInformation,
-  });
+  const dataToFormValues = (initialData: EmployeeProfile): FormValues => {
+    // community and communityOther have a bespoke touch
+    const isCommunityOther =
+      !initialData.nextRoleCommunity?.id &&
+      !!initialData.nextRoleCommunityOther;
+
+    return {
+      classificationGroup: initialData.nextRoleClassification?.group,
+      classificationLevel: initialData.nextRoleClassification?.level.toString(),
+      targetRole: initialData.nextRoleTargetRole?.value,
+      targetRoleOther: initialData.nextRoleTargetRoleOther,
+      jobTitle: initialData.nextRoleJobTitle,
+      communityId: isCommunityOther
+        ? OTHER_SELECTION_VALUE
+        : initialData.nextRoleCommunity?.id,
+      communityOther: initialData.nextRoleCommunityOther,
+      workStreamIds: initialData.nextRoleWorkStreams?.map(
+        (workStream) => workStream.id,
+      ),
+      departmentIds: initialData.nextRoleDepartments?.map(
+        (department) => department.id,
+      ),
+      additionalInformation: initialData.nextRoleAdditionalInformation,
+    };
+  };
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(employeeProfile),
@@ -239,6 +254,13 @@ const NextRoleSection = ({
         defaultValue: [],
       });
     }
+    // reset communityOther when switching communities
+    if (watchCommunityId !== OTHER_SELECTION_VALUE) {
+      methods.resetField("communityOther", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [
     watchTargetRole,
     methods,
@@ -255,6 +277,7 @@ const NextRoleSection = ({
     targetRoleOther,
     jobTitle,
     communityId,
+    communityOther,
     workStreamIds,
     departmentIds,
     additionalInformation,
@@ -270,6 +293,7 @@ const NextRoleSection = ({
         classification.level.toString() === classificationLevel,
     );
 
+    // community and communityOther have bespoke handling
     return executeMutation({
       id: userAuthInfo.id,
       employeeProfile: {
@@ -283,15 +307,17 @@ const NextRoleSection = ({
         nextRoleTargetRole: targetRole as TargetRole,
         nextRoleTargetRoleOther: targetRoleOther,
         nextRoleJobTitle: jobTitle,
-        nextRoleCommunity: communityId
-          ? {
-              connect: communityId,
-            }
-          : {
-              disconnect: true,
-            },
+        nextRoleCommunity:
+          communityId && communityId !== OTHER_SELECTION_VALUE
+            ? {
+                connect: communityId,
+              }
+            : {
+                disconnect: true,
+              },
+        nextRoleCommunityOther: communityOther,
         nextRoleWorkStreams: {
-          sync: workStreamIds,
+          sync: communityId === OTHER_SELECTION_VALUE ? [] : workStreamIds,
         },
         nextRoleDepartments: {
           sync: departmentIds,
@@ -346,13 +372,24 @@ const NextRoleSection = ({
     unpackMaybes(options.classifications),
     watchClassificationGroup ?? undefined,
   ).sort((a, b) => a.value - b.value);
-  const communityOptions: ComponentProps<typeof Select>["options"] =
-    unpackMaybes(options.communities).map((community) => ({
-      value: community.id,
-      label:
-        community.name?.localized ??
-        intl.formatMessage(commonMessages.notProvided),
-    }));
+
+  // append the special OTHER selection to the fetched communities
+  let communityOptions: ComponentProps<typeof Select>["options"] = unpackMaybes(
+    options.communities,
+  ).map((community) => ({
+    value: community.id,
+    label:
+      community.name?.localized ??
+      intl.formatMessage(commonMessages.notProvided),
+  }));
+  communityOptions = [
+    ...communityOptions,
+    {
+      value: OTHER_SELECTION_VALUE,
+      label: intl.formatMessage(messages.otherCommunity),
+    },
+  ];
+
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
     options.communities
       .find((community) => community?.id === watchCommunityId)
@@ -528,6 +565,18 @@ const NextRoleSection = ({
                   }}
                   disabled={fetching}
                 />
+                {watchCommunityId === OTHER_SELECTION_VALUE ? (
+                  <Input
+                    id="communityOther"
+                    name="communityOther"
+                    type="text"
+                    label={intl.formatMessage(messages.otherCommunity)}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                ) : null}
                 {watchCommunityId ? (
                   // Only show work streams if a community has been selected
                   <>
