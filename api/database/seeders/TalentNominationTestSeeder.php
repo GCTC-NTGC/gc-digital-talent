@@ -39,5 +39,10 @@ class TalentNominationTestSeeder extends Seeder
             ->submittedNominationDetails()
             ->create();
 
+        TalentNomination::factory()
+            ->count(3)
+            ->submittedRationale()
+            ->create();
+
     }
 }

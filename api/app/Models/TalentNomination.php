@@ -44,7 +44,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $lateral_movement_options_other
  * @property string $development_program_options_other
  * @property string $nomination_rationale
- * @property string $nomination_comments
+ * @property string $additional_comments
  */
 class TalentNomination extends Model
 {

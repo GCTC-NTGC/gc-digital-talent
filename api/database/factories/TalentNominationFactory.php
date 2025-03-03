@@ -9,6 +9,7 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
@@ -179,6 +180,36 @@ class TalentNominationFactory extends Factory
                             )
                         )
                     );
+                }
+            });
+    }
+
+    public function submittedRationale(): self
+    {
+        return $this
+            ->submittedNominationDetails()
+            ->state(function (array $attributes) {
+                $stepsArray = $attributes['submitted_steps'];
+                $stepsArray[] = TalentNominationStep::RATIONALE->name;
+
+                return [
+                    'submitted_steps' => $stepsArray,
+                    'nomination_rationale' => $this->faker->paragraph(),
+                    'additional_comments' => $this->faker->paragraph(),
+                ];
+            })
+            ->afterCreating(function (TalentNomination $talentNomination) {
+                if ($talentNomination->talentNominationEvent->include_leadership_competencies) {
+                    // key leadership competencies
+                    $skillIds = SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray();
+
+                    if (count($skillIds) < 3) {
+                        throw new \Exception('Not enough key leadership competencies to seed a nomination');
+                    }
+                    $talentNomination->skills()->sync(
+                        $this->faker->randomElements($skillIds, 3)
+                    );
+
                 }
             });
     }

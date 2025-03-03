@@ -45,7 +45,7 @@ return new class extends Migration
             $table->string('lateral_movement_options_other')->nullable();
             $table->string('development_program_options_other')->nullable();
             $table->text('nomination_rationale')->nullable();
-            $table->text('nomination_comments')->nullable();
+            $table->text('additional_comments')->nullable();
         });
 
         Schema::create('development_program_talent_nomination', function (Blueprint $table) {
