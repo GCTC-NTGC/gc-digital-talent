@@ -4,16 +4,16 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum MoveInterest
+enum TimeFrame
 {
     use HasLocalization;
 
-    case ABOVE_LEVEL;
-    case AT_LEVEL;
-    case BELOW_LEVEL;
+    case THIS_YEAR;
+    case ONE_TO_TWO_YEARS;
+    case THREE_OR_MORE_YEARS;
 
     public static function getLangFilename(): string
     {
-        return 'move_interest';
+        return 'time_frame';
     }
 }
