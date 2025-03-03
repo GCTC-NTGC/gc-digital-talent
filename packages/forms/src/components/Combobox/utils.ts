@@ -10,14 +10,12 @@ import { ComboboxValue, Option } from "./types";
 const orderItems = (options: Option[]): Option[] => {
   return orderBy(
     options,
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     (o) => o?.label?.toLocaleString().toLowerCase(),
     "asc",
   );
 };
 
 const optionQueryMatcher = (option: Option, query: string): boolean =>
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   !!option.label?.toLocaleString().toLowerCase().includes(query.toLowerCase());
 
 interface GetFilteredItemsArgs {
@@ -44,7 +42,6 @@ export function getSingleFilteredItems({
     query &&
     !(
       selected &&
-      // eslint-disable-next-line @typescript-eslint/no-base-to-string
       selected.label?.toLocaleString().toLowerCase() === query.toLowerCase()
     )
   ) {
@@ -87,7 +84,6 @@ export function getMultiFilteredItems({
 }
 
 export function itemToString<T extends Option>(item: T | null): string {
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   return item?.label?.toString() ?? "";
 }
 

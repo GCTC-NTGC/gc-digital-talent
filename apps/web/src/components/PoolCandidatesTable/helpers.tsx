@@ -410,11 +410,9 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     expiryStatus: input?.expiryStatus
       ? input.expiryStatus
       : CandidateExpiryFilter.Active,
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     suspendedStatus: input?.suspendedStatus
       ? input.suspendedStatus
       : CandidateSuspendedFilter.Active,

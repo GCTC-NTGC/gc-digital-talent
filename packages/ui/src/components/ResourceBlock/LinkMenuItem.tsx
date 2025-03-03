@@ -45,7 +45,6 @@ const LinkMenuItem = ({
       <DropdownMenu.Content align="end" collisionPadding={2}>
         {links.map((link) => (
           <DropdownMenu.Item
-            // eslint-disable-next-line @typescript-eslint/no-base-to-string
             key={link.title + String(link.href)}
             asChild
             color={link.isSelected ? "secondary" : "black"}

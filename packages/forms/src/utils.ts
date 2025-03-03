@@ -266,7 +266,6 @@ export function alphaSortOptions(
 ): OptGroupOrOption[] {
   return list
     ? list.sort((a, b) =>
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
         Intl.Collator(locale).compare(String(a.label), String(b.label)),
       )
     : [];

@@ -22,7 +22,6 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
     name: "experienceType",
   }) as ExperienceType;
   const derivedType: ExperienceType =
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     type ?? (!experienceType ? "personal" : experienceType);
   const labels = getExperienceFormLabels(intl, derivedType);
   const {

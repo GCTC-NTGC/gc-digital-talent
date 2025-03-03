@@ -282,7 +282,6 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           positionDuration: applicantFilter?.positionDuration
             ? applicantFilter.positionDuration
             : null,
@@ -307,7 +306,6 @@ export const RequestForm = ({
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           locationPreferences: applicantFilter?.locationPreferences
             ? applicantFilter?.locationPreferences
             : [],

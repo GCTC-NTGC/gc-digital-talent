@@ -76,7 +76,6 @@ const FirstNationSection = ({
         />
         {formState.errors.firstNationsCustom && (
           <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
-            {/* eslint-disable-next-line @typescript-eslint/no-base-to-string */}
             {formState.errors.firstNationsCustom.message?.toString()}
           </Field.Error>
         )}

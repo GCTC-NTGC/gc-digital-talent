@@ -119,7 +119,6 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
             if (isRegularLinkItem(link)) {
               return (
                 <CardFlatRegularLink
-                  // eslint-disable-next-line @typescript-eslint/no-base-to-string
                   key={String(link.naturalKey ?? link.href)}
                   color={color}
                   {...link}
