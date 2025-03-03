@@ -24,6 +24,7 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
+import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
@@ -40,6 +41,22 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     priorityNumber
     employeeProfile {
       ...CareerDevelopmentTaskCard
+
+      lateralMoveInterest
+      promotionMoveInterest
+      mentorshipStatus {
+        label {
+          localized
+        }
+        value
+      }
+      execInterest
+      execCoachingStatus {
+        label {
+          localized
+        }
+        value
+      }
     }
     poolCandidates {
       ...ApplicationsProcessesTaskCard
@@ -154,7 +171,11 @@ export const DashboardPage = ({
       : "incomplete";
 
   // NOTE: Update in issue #12744
-  const employeeProfileState = "complete";
+  const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
+    currentUser?.employeeProfile ?? {},
+  )
+    ? "incomplete"
+    : "complete";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0

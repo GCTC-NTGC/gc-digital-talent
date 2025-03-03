@@ -48,13 +48,15 @@ export function hasEmptyRequiredFields({
   mentorshipStatus,
   execInterest,
   execCoachingStatus,
-}: Pick<
-  EmployeeProfile,
-  | "lateralMoveInterest"
-  | "promotionMoveInterest"
-  | "mentorshipStatus"
-  | "execInterest"
-  | "execCoachingStatus"
+}: Partial<
+  Pick<
+    EmployeeProfile,
+    | "lateralMoveInterest"
+    | "promotionMoveInterest"
+    | "mentorshipStatus"
+    | "execInterest"
+    | "execCoachingStatus"
+  >
 >): boolean {
   return (
     empty(lateralMoveInterest) ||
