@@ -85,8 +85,7 @@ const GovContent = ({
       </>
     );
   } else if (
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate ||
-    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate
   ) {
     return (
       <>
@@ -116,6 +115,40 @@ const GovContent = ({
             data-h2-border-right="l-tablet(1px solid gray.lighter)"
           >
             {getLocalizedName(govPositionType?.label, intl)}
+          </ContentSection>
+          <ContentSection
+            title={experienceFormLabels.classification}
+            headingLevel={headingLevel}
+          >
+            {classification
+              ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
+              : intl.formatMessage(commonMessages.notAvailable)}
+          </ContentSection>
+        </div>
+      </>
+    );
+  } else if (govEmploymentType?.value === WorkExperienceGovEmployeeType.Term) {
+    return (
+      <>
+        <ContentSection
+          title={experienceFormLabels.team}
+          headingLevel={headingLevel}
+          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        >
+          {division ?? intl.formatMessage(commonMessages.notAvailable)}
+        </ContentSection>
+        <Separator space="sm" decorative />
+        <div
+          data-h2-display="base(grid)"
+          data-h2-gap="base(x1)"
+          data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
+        >
+          <ContentSection
+            title={experienceFormLabels.govEmploymentType}
+            headingLevel={headingLevel}
+            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          >
+            {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.classification}
