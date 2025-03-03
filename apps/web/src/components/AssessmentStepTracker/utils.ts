@@ -313,7 +313,6 @@ export const filterAlreadyDisqualified = (
       !(
         (isDisqualifiedStatus(candidate.status?.value) ||
           isRemovedStatus(candidate.status?.value)) &&
-
         (candidate.assessmentResults ? candidate.assessmentResults : [])
           .length === 0
       ),
