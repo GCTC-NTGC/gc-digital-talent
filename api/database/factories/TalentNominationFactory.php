@@ -2,12 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -112,6 +114,72 @@ class TalentNominationFactory extends Factory
                             ? $this->faker->jobTitle()
                             : null,
                 ];
+            });
+    }
+
+    public function submittedNominationDetails(): self
+    {
+        return $this
+            ->submittedNomineeInformation()
+            ->state(function (array $attributes) {
+                $stepsArray = $attributes['submitted_steps'];
+                $stepsArray[] = TalentNominationStep::NOMINATION_DETAILS->name;
+                $parentEvent = TalentNominationEvent::find($attributes['talent_nomination_event_id']);
+
+                return [
+                    'submitted_steps' => $stepsArray,
+
+                    'nominate_for_advancement' => $this->faker->boolean(),
+                    'nominate_for_lateral_movement' => $this->faker->boolean(),
+                    'nominate_for_development_programs' => $parentEvent->developmentPrograms->count() > 0 && $this->faker->boolean(),
+
+                    'advancement_reference_id' => fn ($attributes) => $attributes['nominate_for_advancement'] && $this->faker->boolean()
+                        // nominated for advancement and we have the user id
+                        ? User::where('id', '!=', $attributes['submitter_id'])
+                            ->inRandomOrder()
+                            ->firstOr(fn () => User::factory()->create())
+                            ->id
+                        : null,
+                    'advancement_reference_review' => fn ($attributes) => ! is_null($attributes['advancement_reference_id'])
+                        ? $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name')))
+                        : null,
+                    'advancement_reference_fallback_work_email' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
+                        ? $this->faker->safeEmail()
+                        : null,
+                    'advancement_reference_fallback_name' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
+                        ? $this->faker->name()
+                        : null,
+                    'advancement_reference_fallback_classification_id' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
+                        ? Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id
+                        : null,
+                    'advancement_reference_fallback_department_id' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
+                        ? Department::inRandomOrder()->firstOr(fn () => Department::factory()->create())->id
+                        : null,
+
+                    'lateral_movement_options' => fn ($attributes) => $attributes['nominate_for_lateral_movement']
+                        ? $this->faker->randomElements(array_column(TalentNominationLateralMovementOption::cases(), 'name'), $this->faker->numberBetween(1, count(TalentNominationLateralMovementOption::cases())))
+                        : null,
+                    'lateral_movement_options_other' => fn ($attributes) => $attributes['nominate_for_lateral_movement'] && in_array(TalentNominationLateralMovementOption::OTHER->name, $attributes['lateral_movement_options'] ?? [])
+                        ? $this->faker->jobTitle()
+                        : null,
+
+                    'development_program_options_other' => fn ($attributes) => $attributes['nominate_for_development_programs'] && $this->faker->boolean(10)
+                        ? $this->faker->jobTitle()
+                        : null,
+                ];
+            })
+            ->afterCreating(function (TalentNomination $talentNomination) {
+                if ($talentNomination->nominate_for_development_programs) {
+                    $talentNomination->developmentPrograms()->attach(
+                        $this->faker->randomElements(
+                            $talentNomination->talentNominationEvent->developmentPrograms->pluck('id')->toArray(),
+                            $this->faker->numberBetween(
+                                ! is_null($talentNomination->development_program_options_other) ? 0 : 1, // if there is an "other" option already, we can select 0 programs
+                                $talentNomination->talentNominationEvent->developmentPrograms->count()
+                            )
+                        )
+                    );
+                }
             });
     }
 }
