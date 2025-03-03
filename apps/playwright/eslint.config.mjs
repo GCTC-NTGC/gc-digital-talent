@@ -8,6 +8,7 @@ export default [
     plugins: {
       playwright: playwright,
     },
+    ignores: ["test-results/**", "playwright-report/**", ".auth/**"],
     rules: {
       ...playwright.configs["flat/recommended"].rules,
       "no-console": "warn",
