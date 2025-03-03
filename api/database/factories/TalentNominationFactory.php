@@ -13,6 +13,7 @@ use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -211,6 +212,21 @@ class TalentNominationFactory extends Factory
                     );
 
                 }
+            });
+    }
+
+    public function submittedReviewAndSubmit(): self
+    {
+        return $this
+            ->submittedRationale()
+            ->state(function (array $attributes) {
+                $stepsArray = $attributes['submitted_steps'];
+                $stepsArray[] = TalentNominationStep::REVIEW_AND_SUBMIT->name;
+
+                return [
+                    'submitted_steps' => $stepsArray,
+                    'submitted_at' => Carbon::now(),
+                ];
             });
     }
 }

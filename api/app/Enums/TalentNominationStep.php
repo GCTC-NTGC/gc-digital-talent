@@ -17,6 +17,6 @@ enum TalentNominationStep
     #[Description(description: 'Form to collect why the candidate is being nominated.')]
     case RATIONALE;
     #[Description(description: 'Page to review and submit the nomination.')]
-    case SUBMIT;
+    case REVIEW_AND_SUBMIT;
 
 }
