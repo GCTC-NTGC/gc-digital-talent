@@ -4,16 +4,19 @@ import { useQuery } from "urql";
 
 import { Pending, ResourceBlock, NotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  getFragment,
+  ApplicantDashboardQuery,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
-import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import messages from "~/messages/profileMessages";
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -32,8 +35,9 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     firstName
     lastName
     isGovEmployee
-    workEmail
-    isWorkEmailVerified
+    isVerifiedGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
     employeeProfile {
       ...CareerDevelopmentTaskCard
     }
@@ -114,7 +118,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface DashboardPageProps {
-  applicantDashboardQuery: FragmentType<typeof ApplicantDashboardPage_Fragment>;
+  applicantDashboardQuery: ApplicantDashboardQuery;
 }
 
 export const DashboardPage = ({
@@ -134,14 +138,12 @@ export const DashboardPage = ({
 
   const currentUser = getFragment(
     ApplicantDashboardPage_Fragment,
-    applicantDashboardQuery,
+    applicantDashboardQuery.me,
   );
 
-  const isVerifiedEmployee = isVerifiedGovEmployee({
-    isGovEmployee: currentUser.isGovEmployee,
-    workEmail: currentUser.workEmail,
-    isWorkEmailVerified: currentUser.isWorkEmailVerified,
-  });
+  if (!currentUser) {
+    throw new NotFoundError();
+  }
 
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||
@@ -219,9 +221,11 @@ export const DashboardPage = ({
                   currentUser?.poolCandidates,
                 )}
               />
-              {isVerifiedEmployee && currentUser?.employeeProfile ? (
+              {currentUser?.isVerifiedGovEmployee &&
+              currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+                  careerDevelopmentOptionsQuery={applicantDashboardQuery}
                 />
               ) : null}
             </div>
@@ -257,7 +261,7 @@ export const DashboardPage = ({
                       "Helper instructions for an 'Personal information' card",
                   })}
                 />
-                {isVerifiedEmployee ? (
+                {currentUser?.isVerifiedGovEmployee ? (
                   <ResourceBlock.SingleLinkItem
                     state={employeeProfileState}
                     title={intl.formatMessage(
@@ -365,6 +369,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
     me {
       ...ApplicantDashboardPage
     }
+    ...CareerDevelopmentTaskCardOptions
   }
 `);
 
@@ -377,7 +382,7 @@ export const ApplicantDashboardPageApi = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <DashboardPage applicantDashboardQuery={data.me} />
+        <DashboardPage applicantDashboardQuery={data} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>

@@ -106,10 +106,6 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
         show={[DATE_SEGMENT.Day, DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
         rules={{
           required: intl.formatMessage(errorMessages.required),
-          min: {
-            value: currentDate(),
-            message: intl.formatMessage(errorMessages.futureDate),
-          },
         }}
       />
       <div data-h2-display="base(none) p-tablet(inherit)">

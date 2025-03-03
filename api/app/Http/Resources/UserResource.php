@@ -95,6 +95,7 @@ class UserResource extends JsonResource
             'isWorkEmailVerified' => $this->isWorkEmailVerified,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
             'govEmployeeType' => $this->localizeEnum($this->computed_gov_employee_type, GovEmployeeType::class),
+            'govRole' => $this->computed_gov_role,
             'department' => $this->department ? (new DepartmentResource($this->department)) : null,
             'currentClassification' => (new ClassificationResource($this->currentClassification)),
             'govPositionType' => $this->computed_gov_position_type,

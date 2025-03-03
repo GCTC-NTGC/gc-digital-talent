@@ -82,6 +82,7 @@ class ComputeGovInfoTest extends TestCase
                 'computed_department' => $expectedExperience->department_id,
                 'computed_gov_position_type' => $expectedExperience->gov_position_type,
                 'computed_gov_end_date' => $expectedExperience->end_date,
+                'computed_gov_role' => $expectedExperience->role,
             ];
 
         $actual = $this->user->refresh()->only([
@@ -91,6 +92,7 @@ class ComputeGovInfoTest extends TestCase
             'computed_department',
             'computed_gov_position_type',
             'computed_gov_end_date',
+            'computed_gov_role',
         ]);
 
         $this->assertEqualsCanonicalizing($expected, $actual);
@@ -122,6 +124,7 @@ class ComputeGovInfoTest extends TestCase
             'computed_department' => null,
             'computed_gov_position_type' => null,
             'computed_gov_end_date' => null,
+            'computed_gov_role' => null,
         ];
 
         return [

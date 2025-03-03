@@ -13,8 +13,8 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
   const path = paths.applicationSuccess(application.id);
   return {
     title: intl.formatMessage({
-      defaultMessage: "We successfully received your application",
-      id: "79m9jN",
+      defaultMessage: "We've successfully received your application",
+      id: "Rped43",
       description: "Page title for the application success page",
     }),
     subtitle: intl.formatMessage({
@@ -57,9 +57,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       <p data-h2-margin="base(x.5, 0)">
         {intl.formatMessage(
           {
-            defaultMessage:
-              "Your confirmation number is: <strong>{id}</strong>",
-            id: "/uOExm",
+            defaultMessage: "Your application ID is: <strong>{id}</strong>",
+            id: "C2urGD",
             description: "An application confirmation number",
           },
           {
@@ -67,79 +66,74 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x.5, 0)">
-        {isIAP
-          ? intl.formatMessage({
+      {isIAP ? (
+        <p data-h2-margin="base(x.5 0 x1.5 0)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
+            id: "cTCdw5",
+            description:
+              "Description of review process and next steps for the IAP applicant.",
+          })}
+        </p>
+      ) : (
+        <>
+          <p data-h2-margin="base(x.5 0 x.5 0)">
+            {intl.formatMessage({
               defaultMessage:
-                "Thank you for your interest in becoming an IT apprentice with the Government of Canada. Your lived experience, skills, passion and interests are warmly received and acknowledged. A member of the Office of Indigenous Initiatives team will contact you within the next three to five business days to discuss your application.",
-              id: "cTCdw5",
-              description:
-                "Description of review process and next steps for the IAP applicant.",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "We'll be in touch if your application matches the criteria outlined by the opportunity. In the meantime, check out the following resources for further information on what might be next.",
-              id: "lE92J0",
+                "We'll be in touch if your application matches the criteria outlined in the job advertisement. In the meantime, check out the following resources for further information on what might be next.",
+              id: "cXuiuN",
               description:
                 "Description of review process and next steps for the applicant.",
             })}
-      </p>
-      <ul data-h2-margin-bottom="base(x1.5)">
-        {!isIAP && (
-          <li data-h2-margin-bottom="base(x.25)">
-            <Link
-              newTab
-              external
-              href={
-                locale === "en"
-                  ? "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-eng.asp"
-                  : "https://www.tbs-sct.canada.ca/tbsf-fsct/330-60-fra.asp"
-              }
-              data-h2-display="base(inline-block)"
-              data-h2-text-align="base(left)"
-              data-h2-vertical-align="base(top)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Complete a security clearance application",
-                id: "l5R6Nc",
-                description:
-                  "Link text for government of canada security clearance forms",
-              })}
-            </Link>
-          </li>
-        )}
-        <li data-h2-margin-bottom="base(x.25)">
-          <Link
-            href={paths.profile()}
-            data-h2-display="base(inline-block)"
-            data-h2-text-align="base(left)"
-            data-h2-vertical-align="base(top)"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Update your profile information",
-              id: "ytHyUL",
-              description:
-                "Link text to users profile to update contact information",
-            })}
-          </Link>
-        </li>
-        {!isIAP && (
-          <li data-h2-margin-bottom="base(x.25)">
-            <Link
-              href={paths.browsePools()}
-              data-h2-display="base(inline-block)"
-              data-h2-text-align="base(left)"
-              data-h2-vertical-align="base(top)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Browse for other opportunities",
-                id: "M+5+nP",
-                description: "Link text for browse jobs page",
-              })}
-            </Link>
-          </li>
-        )}
-      </ul>
+          </p>
+          <ul data-h2-margin-bottom="base(x1.5)">
+            <li data-h2-margin-bottom="base(x.25)">
+              <Link
+                newTab
+                external
+                href={
+                  locale === "en"
+                    ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+                    : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+                }
+                data-h2-display="base(inline-block)"
+                data-h2-text-align="base(left)"
+                data-h2-vertical-align="base(top)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Second language evaluation",
+                  id: "E2uEWk",
+                  description:
+                    "Link text for government of canada second language evaluation",
+                })}
+              </Link>
+            </li>
+            <li data-h2-margin-bottom="base(x.25)">
+              <Link
+                newTab
+                external
+                href={
+                  locale === "en"
+                    ? "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-eng.asp"
+                    : "https://www.tbs-sct.canada.ca/tbsf-fsct/ssac-cdfs-fra.asp"
+                }
+                data-h2-display="base(inline-block)"
+                data-h2-text-align="base(left)"
+                data-h2-vertical-align="base(top)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Security screening application and consent form",
+                  id: "1cCjc/",
+                  description:
+                    "Link text for government of canada security screening application and consent form",
+                })}
+              </Link>
+            </li>
+          </ul>
+        </>
+      )}
       <p
         data-h2-margin="base(x.5, 0)"
         data-h2-display="base(flex)"
@@ -180,10 +174,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       <Alert.Footer>
         {intl.formatMessage({
           defaultMessage:
-            "* Note that your confirmation number can also be found in the Track your applications section on your Profile and applications page.",
-          id: "lxDgNf",
-          description:
-            "Note that the application confirmation number is available on the profile and applications page",
+            "Your application ID can also be found in the applications on your applicant dashboard.",
+          id: "j4rest",
+          description: "Note where the application ID is available",
         })}
       </Alert.Footer>
     </Alert.Root>

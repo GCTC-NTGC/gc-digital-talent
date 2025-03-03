@@ -19,6 +19,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,6 +66,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $verbal_level
  * @property ?string $estimated_language_ability
  * @property ?bool $computed_is_gov_employee
+ * @property bool $isVerifiedGovEmployee
  * @property ?string $work_email
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
@@ -82,6 +84,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements
  * @property ?string $computed_gov_employee_type
+ * @property ?string $computed_gov_role
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -135,6 +138,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'computed_department',
         'computed_gov_position_type',
         'computed_gov_end_date',
+        'computed_gov_role',
     ];
 
     protected $hidden = [];
@@ -422,6 +426,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $preferences;
+    }
+
+    protected function isVerifiedGovEmployee(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
+        );
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
@@ -1076,6 +1087,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    public static function scopeExactWorkEmail(Builder $query, string $email): Builder
+    {
+        return $query->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
@@ -1169,6 +1185,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
             ->sortBy('improve_skills_rank');
+    }
+
+    public function scopeIsVerifiedGovEmployee(Builder $query): void
+    {
+        $query->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNotNull('work_email_verified_at');
     }
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
@@ -1344,6 +1367,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'computed_gov_employee_type' => 'govEmployeeType',
             'computed_gov_position_type' => 'govPositionType',
             'computed_gov_end_date' => 'govEndDate',
+            'computed_gov_role' => 'govRole',
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
             'location_preferences' => 'locationPreferences',

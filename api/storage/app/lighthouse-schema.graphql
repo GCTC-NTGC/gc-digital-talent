@@ -173,11 +173,6 @@ type LocalizedMentorship {
   label: LocalizedString!
 }
 
-type LocalizedMoveInterest {
-  value: MoveInterest!
-  label: LocalizedString!
-}
-
 type LocalizedOperationalRequirement {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -288,6 +283,11 @@ type LocalizedTargetRole {
   label: LocalizedString!
 }
 
+type LocalizedTimeFrame {
+  value: TimeFrame!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -307,6 +307,7 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
+  govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -613,9 +614,11 @@ type User {
   verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
+  isVerifiedGovEmployee: Boolean
   workEmail: Email
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
+  govRole: String
   govPositionType: LocalizedGovPositionType
   govEndDate: Date
   currentClassification: Classification
@@ -674,8 +677,12 @@ type DevelopmentProgramInterest {
 }
 
 type EmployeeProfile {
-  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
-  moveInterest: [LocalizedMoveInterest!]
+  lateralMoveInterest: Boolean
+  lateralMoveTimeFrame: LocalizedTimeFrame
+  lateralMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  promotionMoveInterest: Boolean
+  promotionMoveTimeFrame: LocalizedTimeFrame
+  promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
   mentorshipStatus: [LocalizedMentorship!]
   mentorshipInterest: [LocalizedMentorship!]
   execInterest: Boolean
@@ -776,6 +783,15 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
+}
+
+type BasicGovEmployeeProfile {
+  id: ID!
+  workEmail: Email
+  firstName: String
+  lastName: String
+  role: String
+  department: Department
 }
 
 type GeneralQuestion {
@@ -1602,8 +1618,12 @@ input UpdateUserAsUserInput {
 }
 
 input UpdateEmployeeProfileInput {
-  organizationTypeInterest: [OrganizationTypeInterest!]
-  moveInterest: [MoveInterest!]
+  lateralMoveInterest: Boolean
+  lateralMoveTimeFrame: TimeFrame
+  lateralMoveOrganizationType: [OrganizationTypeInterest!]
+  promotionMoveInterest: Boolean
+  promotionMoveTimeFrame: TimeFrame
+  promotionMoveOrganizationType: [OrganizationTypeInterest!]
   mentorshipStatus: [Mentorship!]
   mentorshipInterest: [Mentorship!]
   execInterest: Boolean
@@ -2996,12 +3016,6 @@ enum Mentorship {
   MENTEE
 }
 
-enum MoveInterest {
-  ABOVE_LEVEL
-  AT_LEVEL
-  BELOW_LEVEL
-}
-
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
@@ -3025,9 +3039,10 @@ enum OperationalRequirement {
 
 enum OrganizationTypeInterest {
   CURRENT
-  OTHER_DEPARTMENT
-  OTHER_AGENCY
-  OTHER_CROWN_CORP
+  CPA
+  NON_CPA
+  CENTRAL_AGENCIES
+  SCIENCE_REGULATORY_AGENCY
 }
 
 enum OverallAssessmentStatus {
@@ -3197,6 +3212,12 @@ enum TargetRole {
   ASSISTANT_DEPUTY_MINISTER
   DEPUTY_MINISTER
   OTHER
+}
+
+enum TimeFrame {
+  THIS_YEAR
+  ONE_TO_TWO_YEARS
+  THREE_OR_MORE_YEARS
 }
 
 enum WhenSkillUsed {

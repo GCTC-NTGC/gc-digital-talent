@@ -84,10 +84,12 @@ type User {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
+  isVerifiedGovEmployee: Boolean
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
     @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
   govPositionType: LocalizedGovPositionType
     @rename(attribute: "computed_gov_position_type")
   govEndDate: Date @rename(attribute: "computed_gov_end_date")
@@ -173,10 +175,20 @@ type DevelopmentProgramInterest {
 }
 
 type EmployeeProfile {
-  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [LocalizedMoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+
   mentorshipStatus: [LocalizedMentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [LocalizedMentorship!]
@@ -297,6 +309,15 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+}
+
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
 }
 
 type GeneralQuestion {
@@ -1085,6 +1106,12 @@ type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployeeProfile(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeProfile
+    @guard
+    @validator
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -1522,10 +1549,20 @@ input UpdateUserAsUserInput @validator {
 }
 
 input UpdateEmployeeProfileInput @validator {
-  organizationTypeInterest: [OrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [MoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+
   mentorshipStatus: [Mentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [Mentorship!]
