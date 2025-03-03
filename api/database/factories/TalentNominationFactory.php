@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
-use App\Enums\TalentNominationSubmitterRelationship;
+use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\Classification;
 use App\Models\Department;
@@ -67,9 +68,9 @@ class TalentNominationFactory extends Factory
                         default => null, // the nominator is not a user in the database
                     },
                     'submitter_relationship_to_nominator' => fn ($attributes) => $attributes['nominator_id'] != $attributes['submitter_id']
-                            ? $this->faker->randomElement(array_column(TalentNominationSubmitterRelationship::cases(), 'name'))
+                            ? $this->faker->randomElement(array_column(TalentNominationSubmitterRelationshipToNominator::cases(), 'name'))
                             : null,
-                    'submitter_relationship_to_nominator_other' => fn ($attributes) => $attributes['submitter_relationship_to_nominator'] === TalentNominationSubmitterRelationship::OTHER->name
+                    'submitter_relationship_to_nominator_other' => fn ($attributes) => $attributes['submitter_relationship_to_nominator'] === TalentNominationSubmitterRelationshipToNominator::OTHER->name
                             ? $this->faker->jobTitle()
                             : null,
                     'nominator_fallback_work_email' => fn ($attributes) => is_null($attributes['nominator_id'])
@@ -88,6 +89,28 @@ class TalentNominationFactory extends Factory
                         ? $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name')))
                         : null,
 
+                ];
+            });
+    }
+
+    public function submittedNomineeInformation(): self
+    {
+        return $this
+            ->submittedNominatorInformation()
+            ->state(function (array $attributes) {
+                $stepsArray = $attributes['submitted_steps'];
+                $stepsArray[] = TalentNominationStep::NOMINEE_INFORMATION->name;
+
+                return [
+                    'submitted_steps' => $stepsArray,
+                    'nominee_id' => User::where('id', '!=', $attributes['submitter_id'])
+                        ->inRandomOrder()
+                        ->firstOr(fn () => User::factory()->create()),
+                    'nominee_review' => $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name'))),
+                    'nominee_relationship_to_nominator' => $this->faker->randomElement(array_column(TalentNominationNomineeRelationshipToNominator::cases(), 'name')),
+                    'nominee_relationship_to_nominator_other' => fn ($attributes) => $attributes['nominee_relationship_to_nominator'] === TalentNominationNomineeRelationshipToNominator::OTHER->name
+                            ? $this->faker->jobTitle()
+                            : null,
                 ];
             });
     }

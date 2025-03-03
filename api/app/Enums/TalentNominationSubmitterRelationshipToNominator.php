@@ -5,7 +5,7 @@ namespace App\Enums;
 use GraphQL\Type\Definition\Description;
 
 // What relationship does the submitter have to the nominator?
-enum TalentNominationSubmitterRelationship
+enum TalentNominationSubmitterRelationshipToNominator
 {
     #[Description(description: 'Submitter is an administrative support staff for the nominator.')]
     case SUPPORT_STAFF;
