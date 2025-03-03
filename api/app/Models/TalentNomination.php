@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\TalentNominationStep;
+use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -56,12 +58,17 @@ class TalentNomination extends Model
     protected $keyType = 'string';
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
      */
-    protected $casts = [
-        'submitted_steps' => 'array',
-        'lateral_movement_options' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'submitted_steps' => AsEnumCollection::of(TalentNominationStep::class),
+            'lateral_movement_options' => 'array',
+        ];
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -108,12 +115,12 @@ class TalentNomination extends Model
 
     public function advancementReferenceFallbackClassification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, 'nominator_fallback_classification_id');
+        return $this->belongsTo(Classification::class, 'advancement_reference_fallback_classification_id');
     }
 
     public function advancementReferenceFallbackDepartment(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'nominator_fallback_department_id');
+        return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
     }
 
     public function developmentPrograms(): BelongsToMany

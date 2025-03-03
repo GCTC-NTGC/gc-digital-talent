@@ -278,6 +278,21 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationLateralMovementOption {
+  value: TalentNominationLateralMovementOption!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationSubmitterRelationshipToNominator {
+  value: TalentNominationSubmitterRelationshipToNominator!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationUserReview {
+  value: TalentNominationUserReview!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole {
   value: TargetRole!
   label: LocalizedString!
@@ -336,6 +351,7 @@ type Query {
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNomination(id: UUID!): TalentNomination
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -1026,6 +1042,42 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
+}
+
+type TalentNomination {
+  id: UUID!
+  submittedSteps: [TalentNominationStep!]
+  talentNominationEvent: TalentNominationEvent!
+  submittedAt: DateTime
+  submitter: User!
+  submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
+  submitterRelationshipToNominatorOther: String
+  nominator: User
+  nominatorFallbackWorkEmail: String
+  nominatorFallbackName: String
+  nominatorFallbackClassification: Classification
+  nominatorFallbackDepartment: Department
+  nominatorReview: LocalizedTalentNominationUserReview
+  nominee: User
+  nomineeReview: LocalizedTalentNominationUserReview
+  nomineeRelationshipToNominator: String
+  nomineeRelationshipToNominatorOther: String
+  nominateForAdvancement: Boolean
+  nominateForLateralMovement: Boolean
+  nominateForDevelopmentPrograms: Boolean
+  advancementReference: User
+  advancementReferenceReview: LocalizedTalentNominationUserReview
+  advancementReferenceFallbackWorkEmail: String
+  advancementReferenceFallbackName: String
+  advancementReferenceFallbackClassification: Classification
+  advancementReferenceFallbackDepartment: Department
+  lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
+  lateralMovementOptionsOther: String
+  developmentPrograms: [DevelopmentProgram!]
+  developmentProgramOptionsOther: String
+  nominationRationale: String
+  skills: [Skill]
+  additionalComments: String
 }
 
 type Team implements HasRoleAssignments {
@@ -3201,6 +3253,45 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TalentNominationLateralMovementOption {
+  SMALL_DEPARTMENT
+  LARGE_DEPARTMENT
+  CENTRAL_DEPARTMENT
+  NEW_DEPARTMENT
+  PROGRAM_EXPERIENCE
+  POLICY_EXPERIENCE
+  OTHER
+}
+
+enum TalentNominationNomineeRelationshipToNominator {
+  CURRENT_EMPLOYEE
+  FORMER_EMPLOYEE
+  ANOTHER_WORK_EMPLOYEE
+  MENTEE
+  OTHER
+}
+
+enum TalentNominationStep {
+  INSTRUCTIONS
+  NOMINATOR_INFORMATION
+  NOMINEE_INFORMATION
+  NOMINATION_DETAILS
+  RATIONALE
+  REVIEW_AND_SUBMIT
+}
+
+enum TalentNominationSubmitterRelationshipToNominator {
+  SUPPORT_STAFF
+  EMPLOYEE
+  OTHER
+}
+
+enum TalentNominationUserReview {
+  CORRECT
+  INCORRECT
+  OUT_OF_DATE
 }
 
 enum TargetRole {

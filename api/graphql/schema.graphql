@@ -624,6 +624,62 @@ type TalentNominationEvent {
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
 }
 
+type TalentNomination {
+  id: UUID!
+  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  submittedAt: DateTime @rename(attribute: "submitted_at")
+  submitter: User! @belongsTo
+  submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: User @belongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: Classification @belongsTo
+  nominatorFallbackDepartment: Department @belongsTo
+  nominatorReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: User @belongsTo
+  nomineeReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: String
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: User
+  advancementReferenceReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: Classification @belongsTo
+  advancementReferenceFallbackDepartment: Department @belongsTo
+
+  lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: [Skill] @belongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
@@ -1264,6 +1320,10 @@ type Query {
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
+
+  talentNomination(id: UUID! @eq): TalentNomination @find
+  # @guard
+  # @canQuery(ability: "view")
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput

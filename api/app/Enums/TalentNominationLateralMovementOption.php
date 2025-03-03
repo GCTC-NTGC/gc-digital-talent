@@ -2,11 +2,14 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
 use GraphQL\Type\Definition\Description;
 
 // What options are available for lateral movement?
 enum TalentNominationLateralMovementOption
 {
+    use HasLocalization;
+
     #[Description(description: 'A small department or agency')]
     case SMALL_DEPARTMENT;
     #[Description(description: 'A large department or agency')]
@@ -20,4 +23,9 @@ enum TalentNominationLateralMovementOption
     #[Description(description: 'Another policy domain')]
     case POLICY_EXPERIENCE;
     case OTHER;
+
+    public static function getLangFilename(): string
+    {
+        return 'talent_nomination_lateral_movement_option';
+    }
 }
