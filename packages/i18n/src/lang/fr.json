@@ -111,10 +111,6 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
-  "1rhiD1": {
-    "defaultMessage": "Les possibilités à mon niveau actuel m'intéressent.",
-    "description": "The move interest described as at level."
-  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
@@ -383,10 +379,6 @@
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
   },
-  "DtuUkd": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres ministères.",
-    "description": "The organization type interest described as other department."
-  },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
@@ -402,10 +394,6 @@
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
-  },
-  "FBTxhQ": {
-    "defaultMessage": "J'envisagerais des possibilités au sein de mon ministère, de mon organisme ou de ma société d'État actuel.",
-    "description": "The organization type interest described as current."
   },
   "FYrmhH": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
@@ -547,10 +535,6 @@
     "defaultMessage": "Autre",
     "description": "Different or distinct from one already mentioned"
   },
-  "LvpKEa": {
-    "defaultMessage": "Les possibilités en dessous de mon niveau actuel ne m'intéressent pas.",
-    "description": "The move interest described as below level."
-  },
   "LySK4b": {
     "defaultMessage": "Utilisateurs",
     "description": "Name of Users page"
@@ -590,10 +574,6 @@
   "MuM7SN": {
     "defaultMessage": "Renseignements manquants",
     "description": "Message for when specific item has missing information"
-  },
-  "NA889i": {
-    "defaultMessage": "Les possibilités de promotion ne m'intéressent pas.",
-    "description": "The move interest described as above level."
   },
   "NAKad/": {
     "defaultMessage": "Supprimer",
@@ -666,10 +646,6 @@
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
-  },
-  "PIO8CM": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres sociétés d'État.",
-    "description": "The organization type interest described as other crown corp."
   },
   "PKkPSW": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
@@ -767,10 +743,6 @@
     "defaultMessage": "jj",
     "description": "Placeholder for a day input"
   },
-  "T6nzbO": {
-    "defaultMessage": "Les possibilités en dessous de mon niveau actuel m'intéressent.",
-    "description": "The move interest described as below level."
-  },
   "T7IoJU": {
     "defaultMessage": "Je m'identifie comme membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
@@ -778,10 +750,6 @@
   "TCs69O": {
     "defaultMessage": "Lieu de travail",
     "description": "Name of Work location page"
-  },
-  "TKORX7": {
-    "defaultMessage": "Les possibilités à mon niveau actuel ne m'intéressent pas.",
-    "description": "The move interest described as at level."
   },
   "TO/Q6I": {
     "defaultMessage": "Femme",
@@ -951,10 +919,6 @@
     "defaultMessage": "Obtention d’un diplôme",
     "description": "Option for education requirement, graduation with degree"
   },
-  "aVEsoE": {
-    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres sociétés d'État.",
-    "description": "The organization type interest described as other crown corp."
-  },
   "adbcoS": {
     "defaultMessage": "Ce champ doit suivre le modèle +123243234",
     "description": "Error message that the field must contain a phone number validated by the specified pattern."
@@ -1002,10 +966,6 @@
   "ctpoN9": {
     "defaultMessage": "Ce nom d’équipe est déjà utilisé",
     "description": "Error message that the given team name is already in use."
-  },
-  "d9hLSq": {
-    "defaultMessage": "Les possibilités de promotion m'intéressent.",
-    "description": "The move interest described as above level."
   },
   "dBc/+T": {
     "defaultMessage": "Bibliothèque de compétences",
@@ -1139,10 +1099,6 @@
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
-  "iOCAT0": {
-    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres ministères.",
-    "description": "The organization type interest described as other department."
-  },
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
@@ -1178,10 +1134,6 @@
   "jDYG3j": {
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
-  },
-  "jMACPB": {
-    "defaultMessage": "J'envisagerais des possibilités dans d'autres organismes.",
-    "description": "The organization type interest described as other agency."
   },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
@@ -1535,10 +1487,6 @@
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
-  "vaaj5i": {
-    "defaultMessage": "Je n'envisagerais pas des possibilités dans d'autres organismes.",
-    "description": "The organization type interest described as other agency."
-  },
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
@@ -1610,10 +1558,6 @@
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
-  },
-  "zKeQDh": {
-    "defaultMessage": "Je n'envisagerais pas des possibilités au sein de mon ministère, de mon organisme ou de ma société d'État actuel.",
-    "description": "The organization type interest described as current."
   },
   "zM99Vm": {
     "defaultMessage": "J'ai actuellement un mentor ou une mentore.",
