@@ -8,7 +8,6 @@ export default [
     plugins: {
       playwright: playwright,
     },
-    ignores: ["test-results/**", "playwright-report/**", ".auth/**"],
     rules: {
       ...playwright.configs["flat/recommended"].rules,
       "no-console": "warn",
@@ -28,5 +27,8 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
+  },
+  {
+    ignores: ["test-results/**", "playwright-report/**", ".auth/**"],
   },
 ];
