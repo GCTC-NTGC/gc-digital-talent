@@ -1,14 +1,12 @@
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
-import { ReactNode } from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/utils/nameUtils";
 import hero1Landscape from "~/assets/img/hero-1-landscape.webp";
 import hero1Portrait from "~/assets/img/hero-1-portrait.webp";
 import hero1Tablet from "~/assets/img/hero-1-tablet-portrait.webp";
@@ -108,17 +106,12 @@ const Hero = ({ defaultImage }: HeroProps) => {
         data-h2-margin="base(x1, 0, x2, 0)"
         data-h2-max-width="p-tablet(65%) l-tablet(50%)"
       >
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
-            id: "DzCUmx",
-            description: "Description of the application on the homepage",
-          },
-          {
-            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-          },
-        )}
+        {intl.formatMessage({
+          defaultMessage:
+            "Whether you're thinking about joining government or already an employee, hoping to hire or considering a new role, this is the place to come to be part of the GC digital community.",
+          id: "DzCUmx",
+          description: "Description of the application on the homepage",
+        })}
       </p>
     </HomeHero>
   );

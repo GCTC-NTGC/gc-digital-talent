@@ -16,6 +16,8 @@ import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 
+import nodeToString from "~/utils/nodeToString";
+
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
@@ -427,7 +429,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
             <TablePagination
               table={table}
               pagination={paginationAdjusted}
-              label={caption?.toString() ?? ""}
+              label={nodeToString(caption) ?? ""}
             />
           )}
         </>

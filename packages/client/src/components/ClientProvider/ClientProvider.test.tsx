@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { CombinedError } from "urql";
 import isEqual from "lodash/isEqual";
 
@@ -48,12 +49,10 @@ describe("ClientProvider tests", () => {
         {
           extensions: {
             validation: {
-              // eslint-disable-next-line camelcase
               validation_rule_1: [
                 "Validation message 1.1",
                 "Validation message 1.2",
               ],
-              // eslint-disable-next-line camelcase
               validation_rule_2: [
                 "Validation message 2.1",
                 "Validation message 2.2",

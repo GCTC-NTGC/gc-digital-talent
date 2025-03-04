@@ -355,7 +355,7 @@ export const ScreeningDecisionDialog = ({
   const dialogType = useDialogType(
     educationRequirement ? undefined : { type: assessmentStep?.type },
   );
-  const skill = poolSkill?.skill ? poolSkill.skill : undefined;
+  const skill = poolSkill?.skill ?? undefined;
   const skillLevel = getSkillLevelMessage(intl, {
     requiredLevel: poolSkill?.requiredLevel,
     skill: poolSkill?.skill,

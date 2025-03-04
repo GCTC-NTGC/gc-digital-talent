@@ -33,6 +33,7 @@ export function skillFamiliesCell(
       {familyName.length < maxCharacterCount ? (
         familyName
       ) : (
+        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
         <>{familyName.slice(0, maxCharacterCount)}&hellip;</>
       )}
     </li>

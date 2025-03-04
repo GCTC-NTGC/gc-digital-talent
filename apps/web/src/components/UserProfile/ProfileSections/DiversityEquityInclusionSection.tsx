@@ -58,7 +58,9 @@ const DiversityEquityInclusionSection = ({
                 id: "l1hUeU",
                 description:
                   "Label preceding what groups the user identifies as part of, followed by a colon",
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
               })}{" "}
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             </p>{" "}
             {indigenousCommunities && indigenousCommunities.length > 0 && (
               <div
@@ -164,6 +166,7 @@ const DiversityEquityInclusionSection = ({
                       getEmploymentEquityStatement("minority"),
                     )}
                   </li>
+                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                 )}{" "}
                 {hasDisability && (
                   <li>

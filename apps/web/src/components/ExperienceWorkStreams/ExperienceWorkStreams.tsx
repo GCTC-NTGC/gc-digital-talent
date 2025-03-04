@@ -204,6 +204,7 @@ const ExperienceWorkStreams = ({
                           </Button>
                         }
                       />
+                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                       <span data-h2-color="base(black.light)" aria-hidden>
                         &bull;
                       </span>

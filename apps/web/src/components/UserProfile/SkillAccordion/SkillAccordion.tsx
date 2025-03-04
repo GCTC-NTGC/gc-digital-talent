@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useIntl } from "react-intl";
 
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
@@ -47,9 +46,7 @@ const grabSkillJustification = (
     (skillIterator) => skillIterator.id === accordionSkill.id,
   );
   // guarding against possible undefined
-  const justification = specificSkill?.experienceSkillRecord?.details
-    ? specificSkill.experienceSkillRecord.details
-    : "";
+  const justification = specificSkill?.experienceSkillRecord?.details ?? "";
   return justification;
 };
 
@@ -129,6 +126,7 @@ const SkillAccordion = ({
         )}
         {type?.label && status?.label ? (
           <p>
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {getLocalizedName(type.label, intl)}{" "}
             <span
               data-h2-color="base(primary.darker)"

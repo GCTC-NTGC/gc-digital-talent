@@ -479,9 +479,7 @@ export const getApplicationStatusChip = (
   }
 
   // Partially assessed applications
-  const currentStep = assessmentStatus?.currentStep
-    ? assessmentStatus?.currentStep
-    : 0;
+  const currentStep = assessmentStatus?.currentStep ?? 0;
   const numberOfScreeningSteps =
     screeningQuestions && screeningQuestions?.length > 0 ? 2 : 1;
   const numberOfStepStatuses =

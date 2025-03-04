@@ -27,7 +27,7 @@ const assessmentStep = fakeAssessmentSteps(1)[0];
 const poolCandidate = fakePoolCandidates(1)[0];
 const experience = fakeExperiences(1)[0];
 const poolSkill = fakePoolSkills(1)[0];
-const skill = poolSkill?.skill ? poolSkill.skill : fakeSkills(1)[0];
+const skill = poolSkill?.skill ?? fakeSkills(1)[0];
 experience.skills?.push(skill);
 poolCandidate.user.experiences?.push(experience);
 poolCandidate.user.userSkills?.push(fakeUserSkills(1, skill)[0]);

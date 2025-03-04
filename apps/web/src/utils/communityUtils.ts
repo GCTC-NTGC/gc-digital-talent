@@ -11,7 +11,6 @@ export type CommunityMember = {
   roles: Role[];
 } & UserPublicProfile;
 
-// eslint-disable-next-line import/prefer-default-export
 export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
   let users: CommunityMember[] = [];
   const filteredAssignments = assignments.filter((assignment) => {

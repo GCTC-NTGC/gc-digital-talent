@@ -2,20 +2,22 @@
   "name": "@gc-digital-talent/eslint-config",
   "main": "index.js",
   "exports": {
-    ".": "./index.js",
-    "./react": "./react.js"
+    ".": "./index.mjs",
+    "./react": "./react.mjs",
+    "./no-translation": "./noTranslation.mjs"
   },
+  "type": "module",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@eslint/compat": "^1.2.7",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.8.2",
-    "eslint-plugin-deprecation": "^3.0.0",
     "eslint-plugin-formatjs": "^5.2.14",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.2.1",
@@ -23,6 +25,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-testing-library": "^7.1.1",
     "eslint-plugin-turbo": "^2.4.4",
+    "globals": "^16.0.0",
     "jest": "^29.7.0"
   }
 }

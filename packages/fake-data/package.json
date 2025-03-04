@@ -10,7 +10,7 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint"
   },
   "dependencies": {
     "@faker-js/faker": "^9.5.0",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/lodash": "^4.17.15",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.7.2"
   }

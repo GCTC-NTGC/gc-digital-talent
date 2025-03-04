@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 

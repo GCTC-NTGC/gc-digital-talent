@@ -51,5 +51,4 @@ const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line import/no-unused-modules
 export default PoolStatusTable_PoolCandidateFragment;
