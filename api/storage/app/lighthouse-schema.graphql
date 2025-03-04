@@ -538,6 +538,8 @@ type Mutation {
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
   updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
+  updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
+  submitTalentNomination(id: UUID!): TalentNomination
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -1927,6 +1929,38 @@ input CreateTalentNominationInput {
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEventBelongsTo!
   submitter: UserBelongsTo!
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+  submitterRelationshipToNominatorOther: String
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+  nominatorFallbackName: String
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+  nomineeRelationshipToNominatorOther: String
+  nominateForAdvancement: Boolean
+  nominateForLateralMovement: Boolean
+  nominateForDevelopmentPrograms: Boolean
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+  advancementReferenceFallbackWorkEmail: String
+  advancementReferenceFallbackName: String
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+  lateralMovementOptionsOther: String
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+  nominationRationale: String
+  skills: SkillBelongsToMany
+  additionalComments: String
+}
+
+input UpdateTalentNominationInput {
+  submittedSteps: [TalentNominationStep!]
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: UserBelongsTo

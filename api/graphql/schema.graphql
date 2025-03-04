@@ -1958,6 +1958,58 @@ input CreateTalentNominationInput {
   additionalComments: String @rename(attribute: "additional_comments")
 }
 
+input UpdateTalentNominationInput {
+  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
+  # can we make this automatic?
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: SkillBelongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
@@ -2918,6 +2970,12 @@ type Mutation {
     talentNomination: CreateTalentNominationInput! @spread
   ): TalentNomination @create
   #@guard @canModel(ability: "create")
+  updateTalentNomination(
+    id: UUID!
+    talentNomination: UpdateTalentNominationInput! @spread
+  ): TalentNomination @update
+  #@guard @canModel(ability: "create")
+  submitTalentNomination(id: UUID!): TalentNomination
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
