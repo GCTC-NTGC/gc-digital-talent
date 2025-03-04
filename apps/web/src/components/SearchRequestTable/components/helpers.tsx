@@ -37,6 +37,7 @@ export function classificationsCell(
         key={`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
         color="primary"
       >
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
       </Chip>
     );

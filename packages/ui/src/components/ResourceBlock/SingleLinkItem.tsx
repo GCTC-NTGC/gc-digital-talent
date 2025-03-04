@@ -29,7 +29,8 @@ const SingleLinkItem = ({
         >
           {title}
           {/* issue #11284 */}
-          <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+          <ArrowSmallRightIcon
             data-h2-width="base(auto)"
             data-h2-height="base(x0.75)"
             data-h2-color="base(black.light)"

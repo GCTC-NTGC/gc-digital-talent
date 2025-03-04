@@ -2,6 +2,7 @@ import type { Quote as QuoteProps } from "~/hooks/useQuote";
 
 import { CloseQuote, OpenQuote } from "./Svg";
 
+const hyphen = `—`;
 const Quote = ({ content, author }: QuoteProps) => (
   <figure data-h2-padding="base(x2, 0, x1, 0) p-tablet(x3, 0)">
     <blockquote
@@ -33,7 +34,8 @@ const Quote = ({ content, author }: QuoteProps) => (
         data-h2-font-size="base(h5, 1) l-tablet(h4, 1)"
         data-h2-font-weight="base(700)"
       >
-        —{author}
+        {hyphen}
+        {author}
       </figcaption>
     </blockquote>
   </figure>

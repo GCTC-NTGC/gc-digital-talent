@@ -10,7 +10,7 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
@@ -25,7 +25,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@storybook/react": "^8.6.0",
     "@types/react": "^18.3.13",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.7.2"

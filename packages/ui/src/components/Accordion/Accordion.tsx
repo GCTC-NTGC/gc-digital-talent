@@ -296,8 +296,9 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-display="base(none) p-tablet(inline-block)"
       data-h2-color="base(black.lighter)"
       data-h2-margin="p-tablet(0 x.5)"
+      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
     >
-      •
+      &bull;
     </span>
   );
 

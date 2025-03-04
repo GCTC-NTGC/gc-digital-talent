@@ -124,6 +124,7 @@ const StatusItem = ({
     <>
       {hiddenContextPrefix ? (
         <span data-h2-visually-hidden="base(invisible)">
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {`${hiddenContextPrefix} - `}
         </span>
       ) : null}

@@ -141,7 +141,6 @@ export function groupBy<
  * @param x Not used, but important that it is typed _never_
  */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function assertUnreachable(_: never): never {
   throw new Error("Didn't expect to be reachable.");
 }

@@ -363,6 +363,7 @@ const ReviewApplicationDialog = ({
                   <span
                     data-h2-font-weight="base(normal)"
                     data-h2-color="base(black.light)"
+                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   >{` (${essentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
                 <Accordion.Content>
@@ -385,6 +386,7 @@ const ReviewApplicationDialog = ({
                   <span
                     data-h2-font-weight="base(normal)"
                     data-h2-color="base(black.light)"
+                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   >{` (${nonessentialSkills.length ?? 0})`}</span>
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-margin-bottom="base(-x.5)">

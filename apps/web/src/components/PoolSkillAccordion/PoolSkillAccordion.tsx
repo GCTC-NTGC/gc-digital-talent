@@ -71,6 +71,7 @@ const AccordionSubtitle = ({
     )}
     {screeningTime && (
       <>
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
         <span>{screeningTime}</span>
       </>
