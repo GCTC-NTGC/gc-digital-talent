@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\TalentNominationStep;
-use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,7 +63,7 @@ class TalentNomination extends Model
     protected function casts(): array
     {
         return [
-            'submitted_steps' => AsEnumCollection::of(TalentNominationStep::class),
+            'submitted_steps' => 'array',
             'lateral_movement_options' => 'array',
         ];
     }
