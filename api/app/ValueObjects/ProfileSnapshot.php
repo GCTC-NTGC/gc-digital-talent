@@ -116,6 +116,7 @@ class ProfileSnapshot implements Castable
                     'personalExperiences.skills',
                     'workExperiences',
                     'workExperiences.skills',
+                    'workExperiences.workStreams',
                 ])->findOrFail($value['userId']);
 
                 // collect skills attached to the Pool to pass into resource collection
