@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { FragmentType, Scalars, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -253,13 +253,7 @@ const UserEmployeeInformationPage = () => {
 
   return (
     <AdminContentWrapper>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Career details",
-          id: "PARsli",
-          description: "Page title for the user employee information page",
-        })}
-      />
+      <SEO title={intl.formatMessage(navigationMessages.employeeProfileGC)} />
       <Pending fetching={fetching} error={error}>
         {data?.user?.employeeProfile && data?.user?.isGovEmployee ? (
           <UserEmployeeInformation
