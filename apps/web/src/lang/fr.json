@@ -2987,6 +2987,10 @@
     "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
     "description": "first 2024 key change rationale to the directive"
   },
+  "DX3z2x": {
+    "defaultMessage": "Autre collectivité",
+    "description": "Selection or label referring to adding a community that isn't a provided option"
+  },
   "DXjJyD": {
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
     "description": "Text describing expiry dates for candidates, what it is for and a recommendation"

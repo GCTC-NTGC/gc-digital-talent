@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $career_objective_job_title
  * @property string $next_role_additional_information
  * @property string $career_objective_additional_information
+ * @property ?string $next_role_community_other
+ * @property ?string $career_objective_community_other
  */
 class EmployeeProfile extends Model
 {
