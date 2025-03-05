@@ -1321,9 +1321,10 @@ type Query {
     @all
     @orderBy(column: "close_date", direction: ASC)
 
-  talentNomination(id: UUID! @eq): TalentNomination @find
-  # @guard
-  # @canQuery(ability: "view")
+  talentNomination(id: UUID! @eq): TalentNomination
+    @find
+    @guard
+    @canQuery(ability: "view")
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -2965,14 +2966,18 @@ type Mutation {
   #Talent nomination mutations
   createTalentNomination(
     talentNomination: CreateTalentNominationInput! @spread
-  ): TalentNomination @create @inject(context: "user.id", name: "submitter_id")
-  #@guard @canModel(ability: "create")
+  ): TalentNomination
+    @create
+    @inject(context: "user.id", name: "submitter_id")
+    @guard
+    @canModel(ability: "create")
   updateTalentNomination(
     id: UUID!
     talentNomination: UpdateTalentNominationInput! @spread
-  ): TalentNomination @update
-  #@guard @canModel(ability: "create")
+  ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
   submitTalentNomination(id: UUID!): TalentNomination
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

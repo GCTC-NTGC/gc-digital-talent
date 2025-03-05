@@ -64,6 +64,7 @@ class TalentNomination extends Model
     {
         return [
             'submitted_steps' => 'array',
+            'submitted_at' => 'datetime',
             'lateral_movement_options' => 'array',
         ];
     }
@@ -139,5 +140,25 @@ class TalentNomination extends Model
         $nominationSteps = collect([$this->submitted_steps, $nominationStep])->flatten()->unique();
 
         $this->submitted_steps = $nominationSteps->values()->all();
+    }
+
+    /**
+     * Determine if a talent nomination is in draft mode
+     *
+     * @return bool
+     */
+    public function isDraft()
+    {
+        return is_null($this->submitted_at) || $this->submitted_at->isFuture();
+    }
+
+    /**
+     * Determine if a talent nomination is owned by a user
+     *
+     * @return bool
+     */
+    public function isOwn(User $user)
+    {
+        return $this->submitter_id === $user->id;
     }
 }

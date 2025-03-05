@@ -25,7 +25,7 @@ final class SubmitTalentNomination
 
         // all validation has successfully completed above, execute the core function of this resolver
         $nomination->submitted_at = Carbon::now();
-        // $nomination->setInsertSubmittedSrtepAttribute(TalentNominationStep::REVIEW_AND_SUBMIT->name);
+        $nomination->setInsertSubmittedStepAttribute(TalentNominationStep::REVIEW_AND_SUBMIT->name);
 
         $nomination->save();
         $nomination->refresh();

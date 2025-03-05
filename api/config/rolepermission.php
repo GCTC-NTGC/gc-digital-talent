@@ -85,6 +85,7 @@ return [
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
         'talentNominationEvent' => 'talentNominationEvent',
+        'talentNomination' => 'talentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
@@ -651,6 +652,19 @@ return [
             'en' => 'View community interest records associated with a community',
             'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
         ],
+
+        'create-own-talentNomination' => [
+            'en' => 'Create a draft talent nomination as the submitter',
+            'fr' => 'Créer un projet de nomination de talents en tant qu\'auteur de la proposition',
+        ],
+        'update-own-talentNomination' => [
+            'en' => 'Update a draft talent nomination as the submitter',
+            'fr' => 'Mise à jour d\'un projet de nomination de talent en tant que déposant',
+        ],
+        'view-own-talentNomination' => [
+            'en' => 'View a draft talent nomination as the submitter',
+            'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
+        ],
     ],
 
     /*
@@ -918,6 +932,9 @@ return [
             ],
             'applicationPlacement' => [
                 'own' => ['view'],
+            ],
+            'talentNomination' => [
+                'own' => ['create', 'update', 'view'],
             ],
         ],
 
