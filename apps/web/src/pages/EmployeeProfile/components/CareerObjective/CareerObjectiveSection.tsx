@@ -489,6 +489,7 @@ const CareerObjectiveSection = ({
                     TargetRole.IndividualContributor,
                     TargetRole.Manager,
                     TargetRole.Director,
+                    TargetRole.SeniorDirector,
                     TargetRole.DirectorGeneral,
                     TargetRole.ExecutiveDirector,
                     TargetRole.AssistantDeputyMinister,

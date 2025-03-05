@@ -483,6 +483,7 @@ const NextRoleSection = ({
                     TargetRole.IndividualContributor,
                     TargetRole.Manager,
                     TargetRole.Director,
+                    TargetRole.SeniorDirector,
                     TargetRole.DirectorGeneral,
                     TargetRole.ExecutiveDirector,
                     TargetRole.AssistantDeputyMinister,
