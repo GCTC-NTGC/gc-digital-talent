@@ -20,7 +20,7 @@ class WorkStreamResource extends JsonResource
             'id' => $this->id,
             'key' => $this->key,
             'name' => $this->name,
-            'plain_language_name' => $this->plain_language_name,
+            'plainLanguageName' => $this->plain_language_name,
             'community' => $this->community_id ? (new CommunityResource(Community::find($this->community_id))) : null,
         ];
     }
