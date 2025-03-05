@@ -3043,6 +3043,10 @@ enum OrganizationTypeInterest {
   NON_CPA
   CENTRAL_AGENCIES
   SCIENCE_REGULATORY_AGENCY
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum OverallAssessmentStatus {
