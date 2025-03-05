@@ -8,7 +8,12 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { FragmentType, Scalars, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -32,7 +37,7 @@ const SECTION_ID = {
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
-export const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
+const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
   fragment UserEmployeeInformation on EmployeeProfile {
     ...CareerDevelopment
     ...NextRole
@@ -53,6 +58,11 @@ export const UserEmployeeInformation = ({
   careerDevelopmentOptionsQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
+
+  const employeeProfile = getFragment(
+    UserEmployeeInformation_Fragment,
+    employeeProfileQuery,
+  );
 
   return (
     <TableOfContents.Wrapper>
@@ -153,7 +163,7 @@ export const UserEmployeeInformation = ({
               })}
             </p>
             <CareerDevelopmentSection
-              employeeProfileQuery={employeeProfileQuery}
+              employeeProfileQuery={employeeProfile}
               careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
             />
           </TableOfContents.Section>
@@ -175,7 +185,7 @@ export const UserEmployeeInformation = ({
                   "Description for Next role section of user employee information page",
               })}
             </p>
-            <NextRoleSection employeeProfileQuery={employeeProfileQuery} />
+            <NextRoleSection employeeProfileQuery={employeeProfile} />
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
             <Heading level="h3" size="h6">
@@ -195,9 +205,7 @@ export const UserEmployeeInformation = ({
                   "Description for Career objective section of user employee information page",
               })}
             </p>
-            <CareerObjectiveSection
-              employeeProfileQuery={employeeProfileQuery}
-            />
+            <CareerObjectiveSection employeeProfileQuery={employeeProfile} />
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
             <Heading level="h3" size="h6">
@@ -217,9 +225,7 @@ export const UserEmployeeInformation = ({
                   "Description for Goals and work style section of user employee information page",
               })}
             </p>
-            <GoalsWorkStyleSection
-              employeeProfileQuery={employeeProfileQuery}
-            />
+            <GoalsWorkStyleSection employeeProfileQuery={employeeProfile} />
           </TableOfContents.Section>
         </div>
       </TableOfContents.Content>
@@ -227,8 +233,8 @@ export const UserEmployeeInformation = ({
   );
 };
 
-const UserEmployeeInformation_Query = graphql(/* GraphQL */ `
-  query GetViewUserEmployeeData($id: UUID!) {
+const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
+  query UserEmployeeInformationPage($id: UUID!) {
     user(id: $id, trashed: WITH) {
       isGovEmployee
       employeeProfile {
@@ -247,7 +253,7 @@ const UserEmployeeInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
-    query: UserEmployeeInformation_Query,
+    query: UserEmployeeInformationPage_Query,
     variables: { id: userId },
   });
 
