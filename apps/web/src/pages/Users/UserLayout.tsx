@@ -8,6 +8,7 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -53,11 +54,7 @@ const UserHeader = ({ user }: UserHeaderProps) => {
         "employee-profile",
         {
           icon: UserCircleIcon,
-          title: intl.formatMessage({
-            defaultMessage: "GC employee profile",
-            id: "77EVG8",
-            description: "Title for the GC employee profile page",
-          }),
+          title: intl.formatMessage(navigationMessages.employeeProfileGC),
           link: {
             url: paths.userEmployeeProfile(user.id),
           },
