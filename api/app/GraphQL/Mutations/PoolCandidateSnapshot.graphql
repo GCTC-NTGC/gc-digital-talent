@@ -359,12 +359,21 @@ query getProfile($userId: UUID!) {
           id
           key
           name {
+            en
+            fr
             localized
           }
           community {
             id
             key
             name {
+              en
+              fr
+              localized
+            }
+            description {
+              en
+              fr
               localized
             }
           }
