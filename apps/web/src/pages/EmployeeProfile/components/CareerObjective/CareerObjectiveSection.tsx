@@ -24,6 +24,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  alphaSortOptions,
   Checklist,
   Combobox,
   Input,
@@ -379,7 +380,7 @@ const CareerObjectiveSection = ({
     watchClassificationGroup ?? undefined,
   ).sort((a, b) => a.value - b.value);
 
-  // append the special OTHER selection to the fetched communities
+  // append the special OTHER selection to the end of fetched communities
   let communityOptions: ComponentProps<typeof Select>["options"] = unpackMaybes(
     options.communities,
   ).map((community) => ({
@@ -388,6 +389,7 @@ const CareerObjectiveSection = ({
       community.name?.localized ??
       intl.formatMessage(commonMessages.notProvided),
   }));
+  communityOptions = alphaSortOptions(communityOptions);
   communityOptions = [
     ...communityOptions,
     {
@@ -566,6 +568,7 @@ const CareerObjectiveSection = ({
                     uiMessages.nullSelectionOption,
                   )}
                   options={communityOptions}
+                  doNotSort
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
