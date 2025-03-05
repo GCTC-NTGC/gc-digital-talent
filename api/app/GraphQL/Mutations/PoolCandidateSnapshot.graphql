@@ -355,6 +355,20 @@ query getProfile($userId: UUID!) {
           }
           departmentNumber
         }
+        workStreams {
+          id
+          key
+          name {
+            localized
+          }
+          community {
+            id
+            key
+            name {
+              localized
+            }
+          }
+        }
       }
     }
     isProfileComplete
