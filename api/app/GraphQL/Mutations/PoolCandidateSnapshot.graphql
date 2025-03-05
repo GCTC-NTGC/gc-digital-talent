@@ -362,10 +362,6 @@ query getProfile($userId: UUID!) {
             en
             fr
           }
-          plainLanguageName {
-            en
-            fr
-          }
           community {
             id
             key
@@ -377,6 +373,10 @@ query getProfile($userId: UUID!) {
               en
               fr
             }
+          }
+          plainLanguageName {
+            en
+            fr
           }
         }
       }
