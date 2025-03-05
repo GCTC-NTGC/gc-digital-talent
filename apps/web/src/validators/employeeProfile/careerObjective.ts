@@ -7,6 +7,7 @@ type EmployeeProfileCareerObjectiveFragment = Pick<
   | "careerObjectiveTargetRoleOther"
   | "careerObjectiveJobTitle"
   | "careerObjectiveCommunity"
+  | "careerObjectiveCommunityOther"
   | "careerObjectiveWorkStreams"
   | "careerObjectiveDepartments"
   | "careerObjectiveAdditionalInformation"
@@ -18,6 +19,7 @@ export function hasAllEmptyFields({
   careerObjectiveTargetRoleOther,
   careerObjectiveJobTitle,
   careerObjectiveCommunity,
+  careerObjectiveCommunityOther,
   careerObjectiveWorkStreams,
   careerObjectiveDepartments,
   careerObjectiveAdditionalInformation,
@@ -28,6 +30,7 @@ export function hasAllEmptyFields({
     !careerObjectiveTargetRoleOther &&
     !careerObjectiveJobTitle &&
     !careerObjectiveCommunity &&
+    !careerObjectiveCommunityOther &&
     !(careerObjectiveWorkStreams?.length ?? 0 > 0) &&
     !(careerObjectiveDepartments?.length ?? 0 > 0) &&
     !careerObjectiveAdditionalInformation
@@ -39,6 +42,7 @@ export function hasAnyEmptyFields({
   careerObjectiveTargetRole,
   careerObjectiveJobTitle,
   careerObjectiveCommunity,
+  careerObjectiveCommunityOther,
   careerObjectiveWorkStreams,
   careerObjectiveDepartments,
   careerObjectiveAdditionalInformation,
@@ -47,8 +51,8 @@ export function hasAnyEmptyFields({
     !careerObjectiveClassification ||
     !careerObjectiveTargetRole ||
     !careerObjectiveJobTitle ||
-    !careerObjectiveCommunity ||
-    ((careerObjectiveCommunity.workStreams?.length ?? 0 > 0) &&
+    (!careerObjectiveCommunity && !careerObjectiveCommunityOther) ||
+    ((careerObjectiveCommunity?.workStreams?.length ?? 0 > 0) &&
       !(careerObjectiveWorkStreams?.length ?? 0 > 0)) ||
     !(careerObjectiveDepartments?.length ?? 0 > 0) ||
     !careerObjectiveAdditionalInformation
