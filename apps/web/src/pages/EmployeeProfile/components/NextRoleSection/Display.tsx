@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileNextRoleFragment } from "@gc-digital-talent/graphql";
@@ -7,6 +7,23 @@ import { CardSeparator, Well } from "@gc-digital-talent/ui";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/nextRole";
+
+import messages from "../../messages";
+
+// bespoke rendering of community field
+const handleNextRoleCommunity = (
+  nextRoleCommunityNameLocalized: string | null | undefined,
+  nextRoleCommunityOther: string | null | undefined,
+  intl: IntlShape,
+): string => {
+  if (nextRoleCommunityNameLocalized) {
+    return nextRoleCommunityNameLocalized;
+  } else if (nextRoleCommunityOther) {
+    return intl.formatMessage(messages.otherCommunity);
+  }
+
+  return intl.formatMessage(commonMessages.missingOptionalInformation);
+};
 
 interface DisplayProps {
   employeeProfile: EmployeeProfileNextRoleFragment;
@@ -19,6 +36,7 @@ const Display = ({
     nextRoleTargetRoleOther,
     nextRoleJobTitle,
     nextRoleCommunity,
+    nextRoleCommunityOther,
     nextRoleWorkStreams,
     nextRoleDepartments,
     nextRoleAdditionalInformation,
@@ -41,6 +59,8 @@ const Display = ({
       : 0,
   );
 
+  const isCommunityOther = !nextRoleCommunity?.id && !!nextRoleCommunityOther;
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -52,6 +72,7 @@ const Display = ({
         nextRoleTargetRole,
         nextRoleJobTitle,
         nextRoleCommunity,
+        nextRoleCommunityOther,
         nextRoleWorkStreams,
         nextRoleDepartments,
         nextRoleAdditionalInformation,
@@ -107,10 +128,20 @@ const Display = ({
           label={intl.formatMessage(employeeProfileMessages.community)}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleCommunity?.name?.localized
-            ? nextRoleCommunity.name.localized
-            : notProvided}
+          {handleNextRoleCommunity(
+            nextRoleCommunity?.name?.localized,
+            nextRoleCommunityOther,
+            intl,
+          )}
         </ToggleForm.FieldDisplay>
+        {isCommunityOther ? (
+          <ToggleForm.FieldDisplay
+            label={intl.formatMessage(messages.otherCommunity)}
+            data-h2-grid-column="l-tablet(span 2)"
+          >
+            {nextRoleCommunityOther}
+          </ToggleForm.FieldDisplay>
+        ) : null}
         {/* Only show work streams if the community has possible work streams to choose, or if there are some chosen already somehow */}
         {nextRoleCommunity?.workStreams?.length ||
         nextRoleWorkStreams?.length ? (
