@@ -1926,9 +1926,7 @@ input TalentNominationEventBelongsTo {
 }
 
 input CreateTalentNominationInput {
-  submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEventBelongsTo!
-  submitter: UserBelongsTo!
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: UserBelongsTo
@@ -1959,17 +1957,8 @@ input CreateTalentNominationInput {
   additionalComments: String
 }
 
-input TalentNominationStepHasMany {
-  upsert: TalentNominationStep
-  connect: TalentNominationStep
-  create: TalentNominationStep
-  update: TalentNominationStep
-  disconnect: TalentNominationStep
-  delete: TalentNominationStep
-}
-
 input UpdateTalentNominationInput {
-  submittedSteps: TalentNominationStepHasMany
+  insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: UserBelongsTo

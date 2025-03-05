@@ -1906,8 +1906,6 @@ input TalentNominationEventBelongsTo {
 
 input CreateTalentNominationInput {
   talentNominationEvent: TalentNominationEventBelongsTo!
-  # can we make this automatic?
-  submitter: UserBelongsTo!
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")
   submitterRelationshipToNominatorOther: String
@@ -2967,7 +2965,7 @@ type Mutation {
   #Talent nomination mutations
   createTalentNomination(
     talentNomination: CreateTalentNominationInput! @spread
-  ): TalentNomination @create
+  ): TalentNomination @create @inject(context: "user.id", name: "submitter_id")
   #@guard @canModel(ability: "create")
   updateTalentNomination(
     id: UUID!
