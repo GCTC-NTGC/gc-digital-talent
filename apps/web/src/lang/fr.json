@@ -1595,6 +1595,10 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
+  "5sZWgB": {
+    "defaultMessage": "Objectifs et style de travail",
+    "description": "Title for Goals and work style section of user employee information page"
+  },
   "5wKh/o": {
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
@@ -6798,6 +6802,10 @@
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
   },
+  "XdOWYL": {
+    "defaultMessage": "Prochain type de poste",
+    "description": "Title for Next role section of user employee information page"
+  },
   "XdynkW": {
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
@@ -8589,6 +8597,10 @@
   "gMaDG/": {
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
+  },
+  "gOy6PW": {
+    "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
+    "description": "The lateral move interest described as not interested."
   },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
@@ -11605,6 +11617,10 @@
   "wrg4fw": {
     "defaultMessage": "<hidden>Processes de recrutement pour </hidden>{poolName}",
     "description": "Text before recruitment process pool name in recruitment process preview list."
+  },
+  "wrolJv": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for Career development preferences section of user employee information page"
   },
   "wrqRvV": {
     "defaultMessage": "N’a pas réussi au cours de l'évaluation",
