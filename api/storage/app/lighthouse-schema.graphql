@@ -1959,8 +1959,17 @@ input CreateTalentNominationInput {
   additionalComments: String
 }
 
+input TalentNominationStepHasMany {
+  upsert: TalentNominationStep
+  connect: TalentNominationStep
+  create: TalentNominationStep
+  update: TalentNominationStep
+  disconnect: TalentNominationStep
+  delete: TalentNominationStep
+}
+
 input UpdateTalentNominationInput {
-  submittedSteps: [TalentNominationStep!]
+  submittedSteps: TalentNominationStepHasMany
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: UserBelongsTo

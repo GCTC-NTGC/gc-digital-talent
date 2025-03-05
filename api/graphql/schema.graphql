@@ -1905,7 +1905,6 @@ input TalentNominationEventBelongsTo {
 }
 
 input CreateTalentNominationInput {
-  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEventBelongsTo!
   # can we make this automatic?
   submitter: UserBelongsTo!
@@ -1959,8 +1958,8 @@ input CreateTalentNominationInput {
 }
 
 input UpdateTalentNominationInput {
-  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
-  # can we make this automatic?
+  # can only connect a step, not disconnect or sync
+  insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")
   submitterRelationshipToNominatorOther: String

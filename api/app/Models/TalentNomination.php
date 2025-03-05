@@ -130,4 +130,14 @@ class TalentNomination extends Model
     {
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
     }
+
+    /**
+     * Take the new application step to insert and add it to the array, preserving uniqueness
+     */
+    public function setInsertSubmittedStepAttribute($nominationStep)
+    {
+        $nominationSteps = collect([$this->submitted_steps, $nominationStep])->flatten()->unique();
+
+        $this->submitted_steps = $nominationSteps->values()->all();
+    }
 }
