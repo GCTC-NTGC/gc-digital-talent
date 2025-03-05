@@ -1151,6 +1151,10 @@
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
   },
+  "3yMRCt": {
+    "defaultMessage": "Nous demandons aux membres du personnel de décrire leur objectif de carrière ultime. Voici ce qu'ils ont répondu.",
+    "description": "Description for Career objective section of user employee information page"
+  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -1354,6 +1358,10 @@
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
+  },
+  "4pwxOm": {
+    "defaultMessage": "Je souhaite recevoir des offres d'emploi au sein de mon groupe et à mon niveau actuels ou au sein d'un groupe et à un niveau équivalents.",
+    "description": "The lateral move interest described as interested."
   },
   "4qdoau": {
     "defaultMessage": "Compétence introuvable",
@@ -4623,6 +4631,10 @@
     "defaultMessage": "Pas une employée ou un employé vérifié",
     "description": "Error message for unauthorized employee access"
   },
+  "Ll9cyc": {
+    "defaultMessage": "Renseignez-vous sur leur intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
+    "description": "Description for Career development preferences section of user employee information page"
+  },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
     "description": "Verify your contact email text"
@@ -5423,6 +5435,10 @@
     "defaultMessage": "<strong>Heures d’ouverture :</strong> Du lundi au vendredi, de 8 h à 20 h (heure de l’Est)",
     "description": "Hours of operation info"
   },
+  "Q7b1X0": {
+    "defaultMessage": "Apprenez-en davantage sur le ou la membre du personnel et sa façon de travailler.",
+    "description": "Description for Goals and work style section of user employee information page"
+  },
   "Q83U92": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
@@ -5954,6 +5970,10 @@
   "SojYxS": {
     "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
     "description": "Description displayed on the job poster template 'essential technical skills' section."
+  },
+  "SqDb3H": {
+    "defaultMessage": "Dans la présente section, le ou la membre du personnel peut faire part de ses souhaits concernant son prochain type de poste.",
+    "description": "Description for Next role section of user employee information page"
   },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
@@ -11985,6 +12005,10 @@
   "ynGRwF": {
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
     "description": "Description for the professional designation requirement."
+  },
+  "yozvgX": {
+    "defaultMessage": "Apprenez-en davantage sur les aspirations professionnelles de ce ou cette membre du personnel.",
+    "description": "Description for Career planning section of user employee information page"
   },
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
