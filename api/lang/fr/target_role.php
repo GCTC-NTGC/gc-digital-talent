@@ -6,6 +6,7 @@ return [
     'individual_contributor' => 'Contributeur individuel',
     'manager' => 'Gestionnaire',
     'director' => 'Directrice ou directeur',
+    'senior_director' => 'Directrice principale ou directeur principal',
     'director_general' => 'Directrice générale ou directeur général',
     'executive_director' => 'Directrice exécutive ou directeur exécutif',
     'assistant_deputy_minister' => 'Sous-ministre adjointe ou adjoint',
