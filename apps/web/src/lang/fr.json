@@ -3923,6 +3923,10 @@
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
   },
+  "ISPFsQ": {
+    "defaultMessage": "Objectif de carrière",
+    "description": "Title for Career objective section of user employee information page"
+  },
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
