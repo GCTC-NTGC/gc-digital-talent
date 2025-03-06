@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/lodash": "^4.17.15",
+    "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*"
