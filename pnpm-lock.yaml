@@ -364,8 +364,8 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(graphql@16.10.0)
       '@urql/exchange-auth':
-        specifier: ^2.2.0
-        version: 2.2.0(@urql/core@5.1.0(graphql@16.10.0))
+        specifier: ^2.2.1
+        version: 2.2.1(@urql/core@5.1.0(graphql@16.10.0))
       graphql:
         specifier: ^16.10.0
         version: 16.10.0
@@ -3553,8 +3553,8 @@ packages:
   '@urql/core@5.1.0':
     resolution: {integrity: sha512-yC3sw8yqjbX45GbXxfiBY8GLYCiyW/hLBbQF9l3TJrv4ro00Y0ChkKaD9I2KntRxAVm9IYBqh0awX8fwWAe/Yw==}
 
-  '@urql/exchange-auth@2.2.0':
-    resolution: {integrity: sha512-4bJR22EYa/flbhwMBj4lU8MI4cO3ddo/DX7FygWeaeHZU+RWfnQKifCKwxIYlnoV8/CgYRM4lFSMIByYlhmWcg==}
+  '@urql/exchange-auth@2.2.1':
+    resolution: {integrity: sha512-n4xUxxjvY36GJh539sLaPFyvFzreADOv8EFQdTiXOCIRVoXXhWVVI7DjY/HNtLICfbg1+UlbvQ7sNkwaBouDHg==}
     peerDependencies:
       '@urql/core': ^5.0.0
 
@@ -7723,6 +7723,9 @@ packages:
   wonka@6.3.4:
     resolution: {integrity: sha512-CjpbqNtBGNAeyNS/9W6q3kSkKE52+FjIj7AkFlLr11s/VWGUu6a2CdYSdGxocIhIVjaW/zchesBQUKPVU69Cqg==}
 
+  wonka@6.3.5:
+    resolution: {integrity: sha512-SSil+ecw6B4/Dm7Pf2sAshKQ5hWFvfyGlfPbEd6A14dOH6VDjrmbY86u6nZvy9omGwwIPFR8V41+of1EezgoUw==}
+
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
@@ -10719,10 +10722,10 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@urql/exchange-auth@2.2.0(@urql/core@5.1.0(graphql@16.10.0))':
+  '@urql/exchange-auth@2.2.1(@urql/core@5.1.0(graphql@16.10.0))':
     dependencies:
       '@urql/core': 5.1.0(graphql@16.10.0)
-      wonka: 6.3.4
+      wonka: 6.3.5
 
   '@vitejs/plugin-react@4.3.4(vite@6.2.0(@types/node@22.13.5)(jiti@2.4.2)(lightningcss@1.25.1)(terser@5.31.1)(tsx@4.19.3)(yaml@2.7.0))':
     dependencies:
@@ -15634,6 +15637,8 @@ snapshots:
       stack-trace: 0.0.10
 
   wonka@6.3.4: {}
+
+  wonka@6.3.5: {}
 
   word-wrap@1.2.5: {}
 
