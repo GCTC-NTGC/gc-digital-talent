@@ -287,6 +287,10 @@
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
+  "/SOIpV": {
+    "defaultMessage": "En indiquant que la formation ou le perfectionnement vous intéresse, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
+  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -11573,10 +11577,6 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
-  },
-  "wdBpAX": {
-    "defaultMessage": "En indiquant que les possibilités de formation vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",

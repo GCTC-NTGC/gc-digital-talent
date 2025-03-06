@@ -255,8 +255,8 @@ const FindANewCommunity = ({
                   }),
                   contentBelow: intl.formatMessage({
                     defaultMessage:
-                      "By indicating that you're interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
-                    id: "wdBpAX",
+                      "By indicating that you're interested in training or development, you agree to share your profile information with recruiters and hiring managers within this functional community.",
+                    id: "/SOIpV",
                     description:
                       "Context for the 'I'm interested in training opportunities within this community' radio option",
                   }),
