@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-debugging-utils */
 import { ReactNode, useEffect, useMemo, useRef } from "react";
 import { authExchange } from "@urql/exchange-auth";
 import { JwtPayload, jwtDecode } from "jwt-decode";

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import { Page } from "@playwright/test";
 
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";

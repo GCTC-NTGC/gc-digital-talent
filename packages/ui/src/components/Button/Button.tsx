@@ -29,7 +29,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      // eslint-disable-next-line react/button-has-type
       <button
         ref={ref}
         disabled={disabled}

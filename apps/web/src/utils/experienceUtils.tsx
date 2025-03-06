@@ -37,6 +37,7 @@ import {
 import { formattedDate, getDateRange } from "./dateUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
+import nodeToString from "./nodeToString";
 
 /**
  * Gets all of the experience form labels
@@ -942,7 +943,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   ]);
 
   return {
-    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    title: nodeToString(getExperienceName(experience, intl)) ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,

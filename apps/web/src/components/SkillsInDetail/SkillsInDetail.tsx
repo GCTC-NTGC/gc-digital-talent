@@ -45,6 +45,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
               data-h2-justify-content="base(space-between)"
             >
               <p data-h2-font-weight="base(700)">
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {index + 1}. {name[locale]}
               </p>
               <Button

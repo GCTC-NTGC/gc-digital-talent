@@ -135,8 +135,8 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
       .map((poolId) => poolMap.get(poolId))
       .filter(notEmpty);
 
-    const promises = poolsToUpdate.map((pool) => {
-      return requestMutation({
+    const promises = poolsToUpdate.map(async (pool) => {
+      return await requestMutation({
         pool: {
           connect: pool?.id,
         },
@@ -144,8 +144,6 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
           connect: id,
         },
         expiryDate: formValues.expiryDate ?? emptyToNull(formValues.expiryDate),
-      }).catch((err) => {
-        throw err;
       });
     });
 
@@ -243,6 +241,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                 "First section of text on the add user to pool dialog",
             })}
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p data-h2-font-weight="base(800)">
             - {getFullNameHtml(firstName, lastName, intl)}
           </p>

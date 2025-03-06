@@ -178,6 +178,7 @@ const ExperienceWorkStreamsEditDialog = ({
                         description: "Instructions for selecting work streams",
                       })}
                       {community &&
+                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                         ` ${intl.formatMessage({
                           defaultMessage:
                             "To remove this functional community entirely, use the trash can button on the previous screen and save your changes.",

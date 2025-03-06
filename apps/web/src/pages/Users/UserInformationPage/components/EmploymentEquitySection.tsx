@@ -27,6 +27,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       {isIndigenous && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Indigenous",
@@ -38,6 +39,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       {user.hasDisability && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Person with disability",
@@ -50,6 +52,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       {user.isVisibleMinority && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Visible minority",
@@ -62,6 +65,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       {user.isWoman && (
         <div data-h2-padding="base(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
             defaultMessage: "Woman",

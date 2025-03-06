@@ -1,3 +1,4 @@
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useState } from "react";
 import { useIntl } from "react-intl";
 

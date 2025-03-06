@@ -171,6 +171,8 @@ export function apiDataToFormValues(
             ? strToFormDate(interest.completionDate)
             : null,
       })) ?? null,
-    consent: null, // not saved in the database
+    // not saved in the database but if job or training interest is saved, they will have previously consented
+    consent:
+      !!communityInterest?.jobInterest || !!communityInterest?.trainingInterest,
   };
 }

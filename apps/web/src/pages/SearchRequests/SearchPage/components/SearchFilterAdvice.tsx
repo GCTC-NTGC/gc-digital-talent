@@ -146,9 +146,11 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
         id: "zDzzb/",
         description:
           "Heading for total matching candidates in results section of search page.",
+        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
       })}{" "}
       {recommendations.map(({ key, link }, index) => (
         <span key={key}>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {index > 0 && ", "}
           {link}
         </span>

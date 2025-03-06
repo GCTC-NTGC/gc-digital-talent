@@ -567,10 +567,6 @@
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
   },
-  "0nP0Wj": {
-    "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
-    "description": "Link to Statistics Canada's employment equity definitions"
-  },
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
@@ -979,10 +975,6 @@
     "defaultMessage": "Le code saisi est incorrect.",
     "description": "Title for error message when the code is not valid."
   },
-  "2yXxyQ": {
-    "defaultMessage": "« ... inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
-    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
-  },
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
@@ -1142,6 +1134,10 @@
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
+  },
+  "3tu/Mv": {
+    "defaultMessage": "« réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
+    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "3u7nGm": {
     "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
@@ -1614,10 +1610,6 @@
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
-  },
-  "66qMwD": {
-    "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
-    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
   },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
@@ -2463,10 +2455,6 @@
     "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
     "description": "Describing where to go to manage notification settings"
   },
-  "AfSlkm": {
-    "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
-    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
-  },
   "Ag8BE0": {
     "defaultMessage": "Tout d’abord, demander trop de renseignements sur une demande d’emploi peut repousser de bons candidats qui estiment que le processus est trop laborieux. Si vous souhaiter recruter parmi les meilleurs candidats, vous devrez trouver le bon équilibre entre ce que vous voulez demander et le temps que les candidats devront accorder pour entreprendre le processus.",
     "description": "Second paragraph of first answer of the Frequently Asked Questions for logging in"
@@ -2998,6 +2986,10 @@
   "DVBh+y": {
     "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
     "description": "first 2024 key change rationale to the directive"
+  },
+  "DX3z2x": {
+    "defaultMessage": "Autre collectivité",
+    "description": "Selection or label referring to adding a community that isn't a provided option"
   },
   "DXjJyD": {
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
@@ -4162,6 +4154,10 @@
   "JbHieN": {
     "defaultMessage": "Demander pour les candidats du bassin {poolName}",
     "description": "Button link message on search page that takes user to the request form."
+  },
+  "JbSK7q": {
+    "defaultMessage": "« réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
+    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
   },
   "Jc9FDx": {
     "defaultMessage": "Rôles ajoutés avec succès",
@@ -6714,6 +6710,10 @@
     "defaultMessage": "Octroi de contrat pour des services numériques",
     "description": "Short name for Digital Services Contracting Form"
   },
+  "X3pHUD": {
+    "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe ",
+    "description": "Link to Statistics Canada's employment equity definitions"
+  },
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
     "description": "Title for no skills in a users library"
@@ -8010,6 +8010,10 @@
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
     "description": "Comments or contributions list item"
   },
+  "dycByE": {
+    "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
+    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
+  },
   "dyzeVv": {
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
@@ -8137,6 +8141,10 @@
   "eWVgyx": {
     "defaultMessage": "Objet de la demande",
     "description": "Talent request - request purpose title"
+  },
+  "eX+V6c": {
+    "defaultMessage": "« désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
+    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
   "eZT5Vr": {
     "defaultMessage": "Nous recommandons d'ajouter un nom de rechange en langage clair pour les utilisateurs non gouvernementaux.",
@@ -11181,10 +11189,6 @@
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
-  },
-  "uPQ1t+": {
-    "defaultMessage": "« ... réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
-    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "uR9G1H": {
     "defaultMessage": "Statut de supervision",

@@ -103,6 +103,7 @@ const Fieldset = ({
         );
       }
     } else {
+      // eslint-disable-next-line testing-library/no-debugging-utils
       defaultLogger.debug("No onRemove for handler to call.");
     }
   };
@@ -117,6 +118,7 @@ const Fieldset = ({
 
   // replaces a button when it should be disabled.
   const disabledIcon = (
+    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
     <span data-h2-color="base(gray)" aria-hidden data-h2-width="base(x.75)">
       &bull;
     </span>

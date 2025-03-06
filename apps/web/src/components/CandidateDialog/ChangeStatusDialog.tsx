@@ -439,6 +439,7 @@ const ChangeStatusDialog = ({
                 "First section of text on the change candidate status dialog",
             })}
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p data-h2-font-weight="base(700)">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
@@ -451,7 +452,8 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            -{" "}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {"- "}
             {getShortPoolTitleHtml(intl, {
               workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,

@@ -13,6 +13,8 @@ import {
 import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
+import nodeToString from "~/utils/nodeToString";
+
 import { FormValues } from "../form";
 
 const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
@@ -96,7 +98,7 @@ const FindANewCommunity = ({
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
   workStreamOptions.sort((a, b) =>
-    (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
+    (nodeToString(a.label) ?? "").localeCompare(nodeToString(b.label) ?? ""),
   );
 
   // heading and description change depending on whether the user is creating or updating

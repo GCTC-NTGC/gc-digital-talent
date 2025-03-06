@@ -26,7 +26,6 @@ const SortButton = <T,>({
   const ariaId = `${column.id}-${id}`;
 
   if (!column.getCanSort()) {
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{children}</>;
   }
 

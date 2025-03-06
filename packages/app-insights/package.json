@@ -10,21 +10,21 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
     "@gc-digital-talent/env": "workspace:*",
     "@microsoft/applicationinsights-react-js": "^17.3.5",
-    "@microsoft/applicationinsights-web": "^3.3.5"
+    "@microsoft/applicationinsights-web": "^3.3.6"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/react": "^18.3.13",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

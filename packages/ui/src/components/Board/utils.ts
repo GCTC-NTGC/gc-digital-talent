@@ -11,7 +11,6 @@ import { BoardColumn } from "./types";
  * @param rootEl
  * @returns
  */
-// eslint-disable-next-line import/prefer-default-export
 export function findColumns(rootEl: HTMLDivElement | null): BoardColumn[] {
   const colDiv = rootEl?.querySelectorAll<HTMLDivElement>(".Board__Column");
   let cols: BoardColumn[] = [];
