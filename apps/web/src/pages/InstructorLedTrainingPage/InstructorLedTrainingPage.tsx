@@ -5,7 +5,11 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   CardBasic,
@@ -96,6 +100,19 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
 const itLink = (href: string, chunks: ReactNode) => {
   return (
     <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
+      {chunks}
+    </Link>
+  );
+};
+
+const externalLinkAccessor = (href: string, chunks: ReactNode) => {
+  return (
+    <Link
+      href={href}
+      color="secondary"
+      external
+      data-h2-font-weight="base(bold)"
+    >
       {chunks}
     </Link>
   );
@@ -220,6 +237,7 @@ const unselectedFilterStyle: Record<string, string> = {
 
 export const Component = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
@@ -295,14 +313,21 @@ export const Component = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "The training opportunities on this page are supported by the <link>IT Community Training and Development Fund</link> and are available only to employees represented by PIPSC in the IT group.",
-                  id: "KUuhwO",
+                    "The training opportunities on this page are supported by the <itTrainingFundLink>IT Community Training and Development Fund</itTrainingFundLink> and are available only to IT-classified employees who are covered by the <itCollectiveAgreementLink>IT collective agreement.</itCollectiveAgreementLink>",
+                  id: "AQybBB",
                   description:
                     "Second paragraph of it training opportunities section",
                 },
                 {
-                  link: (chunks: ReactNode) =>
+                  itTrainingFundLink: (chunks: ReactNode) =>
                     itLink(paths.itTrainingFund(), chunks),
+                  itCollectiveAgreementLink: (chunks: ReactNode) =>
+                    externalLinkAccessor(
+                      locale === "en"
+                        ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                        : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                      chunks,
+                    ),
                 },
               )}
             </p>

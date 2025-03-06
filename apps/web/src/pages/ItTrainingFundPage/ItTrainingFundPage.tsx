@@ -5,7 +5,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import { ReactNode } from "react";
 
 import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -98,13 +98,24 @@ export const Component = () => {
                 })}
               </Heading>
               <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, employees represented by the Professional Institute of the Public Service of Canada (PIPSC) in the IT group now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
-                  id: "Sew1Zp",
-                  description:
-                    "First paragraph describing investing in future talent",
-                })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "The Government of Canada is committed to supporting the development of its IT professionals. With the <strong>IT Community Training and Development Fund</strong>, IT-classified employees who are covered by the <link>IT collective agreement</link> now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
+                    id: "XDM1hL",
+                    description:
+                      "First paragraph describing investing in future talent",
+                  },
+                  {
+                    link: (chunks: ReactNode) =>
+                      externalLinkAccessor(
+                        locale === "en"
+                          ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                          : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                        chunks,
+                      ),
+                  },
+                )}
               </p>
             </div>
             {/* What is the IT Community Training and Development Fund? */}
@@ -211,8 +222,8 @@ export const Component = () => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Training opportunities supported by the fund are available only to employees represented by PIPSC in the IT group.",
-                        id: "aO/jZ3",
+                          "Training opportunities supported by the fund are available to IT-classified employees covered by the IT collective agreement. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access training. Employees represented by PIPSC will have priority when spaces are limited.",
+                        id: "oY+SWP",
                         description:
                           "Description for the employee eligibility card",
                       })}

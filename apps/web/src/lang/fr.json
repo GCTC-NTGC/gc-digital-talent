@@ -1831,6 +1831,10 @@
     "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
     "description": "Describes selecting a advertisement details for a process."
   },
+  "7abz0A": {
+    "defaultMessage": "Vous êtes actuellement un membre du personnel du gouvernement du Canada du groupe TI couvert par la convention collective du groupe TI.",
+    "description": "First item in list of eligibility requirements section"
+  },
   "7dOILY": {
     "defaultMessage": "EX-03 : Chef de file du numérique",
     "description": "EX-03 classification label including titles"
@@ -2410,6 +2414,10 @@
   "AQiPuW": {
     "defaultMessage": "Intérêt pour",
     "description": "Label for user expressing interest in a specific work stream"
+  },
+  "AQybBB": {
+    "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la TI</itTrainingFundLink> et sont réservées aux membres du personnel du groupe TI couverts par la <itCollectiveAgreementLink>convention collective du groupe TI</itCollectiveAgreementLink>.",
+    "description": "Second paragraph of it training opportunities section"
   },
   "ARFz8L": {
     "defaultMessage": "Ajoutez une nouvelle expérience",
@@ -4311,10 +4319,6 @@
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
   },
-  "KUuhwO": {
-    "defaultMessage": "Les formations que vous trouverez dans cette page sont soutenues par le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> et conçues pour le personnel du groupe TI représenté par l’Institut professionnel de la fonction publique du Canada.",
-    "description": "Second paragraph of it training opportunities section"
-  },
   "KWXIKL": {
     "defaultMessage": "Membre retiré avec succès",
     "description": "Alert displayed to user when a community member is removed"
@@ -5907,10 +5911,6 @@
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "Sew1Zp": {
-    "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des TI. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI, représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC), ont désormais accès à une plus vaste gamme de possibilités d’apprentissage afin d’acquérir des compétences et les approfondir.",
-    "description": "First paragraph describing investing in future talent"
-  },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
     "description": "Title to get hiring experience"
@@ -6738,6 +6738,10 @@
     "defaultMessage": "Message (Anglais)",
     "description": "The message, in English"
   },
+  "XDM1hL": {
+    "defaultMessage": "The Government of Canada is committed to supporting the development of its IT professionals. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI et couverts par la <link>convention collective du groupe TI</link> ont désormais un meilleur accès à un large éventail de possibilités d’apprentissage leur permettant d’acquérir et d’approfondir leurs compétences en matière de TI.",
+    "description": "First paragraph describing investing in future talent"
+  },
   "XDgkwV": {
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
@@ -7321,10 +7325,6 @@
   "aMhznA": {
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
     "description": "Second paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "aO/jZ3": {
-    "defaultMessage": "Les possibilités de formation offertes au moyen du Fonds sont réservées uniquement aux membres du personnel du groupe TI, représentés par l’IPFPC.",
-    "description": "Description for the employee eligibility card"
   },
   "aO23nW": {
     "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
@@ -8117,10 +8117,6 @@
   "eP8dfW": {
     "defaultMessage": "Voir l’utilisateur",
     "description": "Title for the user information page"
-  },
-  "eQkmhS": {
-    "defaultMessage": "Vous êtes actuellement un membre du personnel du gouvernement du Canada du groupe TI représenté par l'Institut professionnel de la fonction publique du Canada (IPFPC).",
-    "description": "First item in list of eligibility requirements section"
   },
   "eRbVle": {
     "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
@@ -10185,6 +10181,10 @@
   "oXYnZN": {
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
+  },
+  "oY+SWP": {
+    "defaultMessage": "Les possibilités de formation financées par le fonds sont accessibles aux membres du personnel du groupe TI couverts par la convention collective du groupe TI. Les membres du personnel représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC) et les membres du personnel non représentés peuvent accéder à la formation. Les membres du personnel représentés par l’IPFPC auront la priorité lorsque les places seront limitées.",
+    "description": "Description for the employee eligibility card"
   },
   "oYEBcP": {
     "defaultMessage": "Je fais actuellement partie de ce programme.",
