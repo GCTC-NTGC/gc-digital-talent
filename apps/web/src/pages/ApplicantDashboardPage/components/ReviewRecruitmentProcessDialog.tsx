@@ -395,7 +395,10 @@ const ReviewRecruitmentProcessDialog = ({
                     },
                   ]}
                 />
-                <Dialog.Footer data-h2-gap="base(0 x1)">
+                <Dialog.Footer
+                  data-h2-gap="base(x1 0) p-tablet(0 x1)"
+                  data-h2-flex-direction="base(column) p-tablet(row)"
+                >
                   <Button
                     type="submit"
                     disabled={isSubmitting}
