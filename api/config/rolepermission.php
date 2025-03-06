@@ -615,11 +615,11 @@ return [
         ],
         'update-any-communityTalentCoordinatorMembership' => [
             'en' => 'Add or remove the Community Talent Coordinator role from any user',
-            'fr' => '',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à n\'importe quel utilisateur',
         ],
         'update-team-communityTalentCoordinatorMembership' => [
             'en' => 'Add or remove the Community Talent Coordinator role from a community user',
-            'fr' => '',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
         ],
 
         'view-any-poolTeamMembers' => [
@@ -653,8 +653,8 @@ return [
             'fr' => 'Créer n\'importe quel événement de nomination de talents',
         ],
         'create-team-talentNominationEvent' => [
-            'en' => 'Create any talent nomination event',
-            'fr' => 'Créer n\'importe quel événement de nomination de talents',
+            'en' => 'Create a team talent nomination event',
+            'fr' => 'Créer un événement de nomination des talents de l\'équipe',
         ],
         'update-team-talentNominationEvent' => [
             'en' => 'Update team talent nomination event',
@@ -806,11 +806,11 @@ return [
         'community_talent_coordinator' => [
             'display_name' => [
                 'en' => 'Community Talent Coordinator',
-                'fr' => 'Community Talent Coordinator',
+                'fr' => 'Coordonnateur des talents de la collectivité',
             ],
             'description' => [
                 'en' => 'Access to the talent event and talent nomination management flows',
-                'fr' => 'Access to the talent event and talent nomination management flows',
+                'fr' => 'Accès aux flux de gestion des événements et des nominations de talents',
             ],
             'is_team_based' => true,
         ],
