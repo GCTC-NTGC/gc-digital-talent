@@ -177,12 +177,14 @@ const EmployeeProfile = ({
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
                       status={
-                        careerDevelopmentHasAllEmptyFields(careerDevelopment)
-                          ? "optional"
-                          : careerDevelopmentHasEmptyRequiredFields(
+                        careerDevelopmentHasEmptyRequiredFields(
+                          careerDevelopment,
+                        )
+                          ? "error"
+                          : careerDevelopmentHasAllEmptyFields(
                                 careerDevelopment,
                               )
-                            ? "error"
+                            ? "optional"
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
