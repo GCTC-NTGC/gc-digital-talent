@@ -835,6 +835,10 @@
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
   },
+  "2Kz16k": {
+    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
+    "description": "Description of the 'Review and submit' section"
+  },
   "2Ljgvn": {
     "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
     "description": "Link message that shows the job poster for the recruitment process."
@@ -3694,10 +3698,6 @@
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
     "description": "Label for the expiry status field"
-  },
-  "HGbGb/": {
-    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations ou supprimer la collectivité de votre profil à tout moment.",
-    "description": "Description of the 'Review and submit' section"
   },
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
