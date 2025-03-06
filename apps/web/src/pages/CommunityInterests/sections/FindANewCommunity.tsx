@@ -236,25 +236,25 @@ const FindANewCommunity = ({
               idPrefix="trainingInterest"
               name="trainingInterest"
               legend={intl.formatMessage({
-                defaultMessage: "Interest in training opportunities",
-                id: "H1UEd5",
+                defaultMessage: "Interest in training and development",
+                id: "WfX9z1",
                 description:
-                  "Label for the input for choosing interest level in a training opportunity",
+                  "Label for user Interest in training and development for a community",
               })}
               items={[
                 {
                   value: "true",
                   label: intl.formatMessage({
                     defaultMessage:
-                      "I’m interested in being considered for training or development opportunities within this community.",
-                    id: "oEYCLO",
+                      "I’m interested in being considered for training opportunities or development programs within this community.",
+                    id: "gsjH8R",
                     description:
                       "Label for the community interest in training opportunities radio option",
                   }),
                   contentBelow: intl.formatMessage({
                     defaultMessage:
-                      "By indicating that you're interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
-                    id: "wdBpAX",
+                      "By indicating that you're interested in training or development, you agree to share your profile information with recruiters and hiring managers within this functional community.",
+                    id: "/SOIpV",
                     description:
                       "Context for the 'I'm interested in training opportunities within this community' radio option",
                   }),
