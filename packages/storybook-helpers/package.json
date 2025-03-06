@@ -23,7 +23,7 @@
     "motion": "^12.4.10",
     "react-helmet-async": "^2.0.5",
     "react-router": "^7.2.0",
-    "urql": "^4.2.1",
+    "urql": "^4.2.2",
     "wonka": "^6.3.5"
   },
   "devDependencies": {

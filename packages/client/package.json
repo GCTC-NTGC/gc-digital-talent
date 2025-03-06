@@ -30,7 +30,7 @@
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "react-intl": "^7.1.6",
-    "urql": "^4.2.1"
+    "urql": "^4.2.2"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
