@@ -20,6 +20,6 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }
