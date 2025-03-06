@@ -5,7 +5,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import { ReactNode } from "react";
 
 import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
-import { getLocale, Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
