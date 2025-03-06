@@ -643,6 +643,10 @@ return [
             'en' => 'Create any talent nomination event',
             'fr' => 'Créer n\'importe quel événement de nomination de talents',
         ],
+        'create-team-talentNominationEvent' => [
+            'en' => 'Create any talent nomination event',
+            'fr' => 'Créer n\'importe quel événement de nomination de talents',
+        ],
         'update-team-talentNominationEvent' => [
             'en' => 'Update team talent nomination event',
             'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
@@ -788,6 +792,18 @@ return [
                 'fr' => 'Crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), publie des pools, gère des données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.',
             ],
             'is_team_based' => false,
+        ],
+
+        'community_talent_coordinator' => [
+            'display_name' => [
+                'en' => 'Community Talent Coordinator',
+                'fr' => 'Community Talent Coordinator',
+            ],
+            'description' => [
+                'en' => 'Access to the talent event and talent nomination management flows',
+                'fr' => 'Access to the talent event and talent nomination management flows',
+            ],
+            'is_team_based' => true,
         ],
     ],
 
@@ -1246,6 +1262,19 @@ return [
             ],
             'workStream' => [
                 'any' => ['create', 'update'],
+            ],
+        ],
+
+        'community_talent_coordinator' => [
+            'talentNominationEvent' => [
+                'any' => ['view'],
+                'team' => ['create', 'update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTeamMembers' => [
+                'team' => ['view'],
             ],
         ],
     ],
