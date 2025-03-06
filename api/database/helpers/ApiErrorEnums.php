@@ -73,4 +73,7 @@ class ApiErrorEnums
     const ENUM_NOT_FOUND = 'EnumNotFound';
 
     const ENUM_NOT_LOCALIZED = 'EnumNotLocalized';
+
+    // Talent Nomination
+    const TALENT_NOMINATION_EVENT_NOT_FOUND = 'TalentNominationEventNotFound';
 }

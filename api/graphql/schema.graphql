@@ -1901,11 +1901,11 @@ input UpdateTalentNominationEventInput @validator {
 }
 
 input TalentNominationEventBelongsTo {
-  connect: ID!
+  connect: ID
   # no need for disconnect at the moment
 }
 
-input CreateTalentNominationInput {
+input CreateTalentNominationInput @validator {
   talentNominationEvent: TalentNominationEventBelongsTo!
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")

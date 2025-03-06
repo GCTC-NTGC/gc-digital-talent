@@ -1922,7 +1922,7 @@ input UpdateTalentNominationEventInput {
 }
 
 input TalentNominationEventBelongsTo {
-  connect: ID!
+  connect: ID
 }
 
 input CreateTalentNominationInput {
