@@ -130,16 +130,16 @@ const CommunityInterestDialog = ({
           >
             {communityInterest.trainingInterest
               ? intl.formatMessage({
-                  defaultMessage: "Interested in training*",
-                  id: "edqRug",
+                  defaultMessage: "Interested in training or development*",
+                  id: "QcrA75",
                   description:
-                    "Message displayed when user expresses interest in training opportunities",
+                    "Message when user expresses interest in training or development opportunities",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Not interested in training",
-                  id: "m6NZda",
+                  defaultMessage: "Not interested in training or development",
+                  id: "TE28aU",
                   description:
-                    "Message displayed when a user has expressed they are not interested in training opportunities",
+                    "Message when user has expressed they are not interested in training or development opportunities",
                 })}
           </BoolCheckIcon>
           <p

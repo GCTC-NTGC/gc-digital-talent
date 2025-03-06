@@ -5511,6 +5511,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QcrA75": {
+    "defaultMessage": "La formation ou le perfectionnement m'intéresse*",
+    "description": "Message when user expresses interest in training or development opportunities"
+  },
   "Qibs21": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
@@ -5994,6 +5998,10 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
+  },
+  "TE28aU": {
+    "defaultMessage": "La formation ou le perfectionnement ne m'intéresse pas",
+    "description": "Message when user has expressed they are not interested in training or development opportunities"
   },
   "TE2Nwv": {
     "defaultMessage": "Critères de compétences constituant un atout",
@@ -8162,10 +8170,6 @@
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
   },
-  "edqRug": {
-    "defaultMessage": "La formation m'intéresse*",
-    "description": "Message displayed when user expresses interest in training opportunities"
-  },
   "eePQun": {
     "defaultMessage": "Mettez à jour les volets de travail",
     "description": "Link text to add work streams for an experience"
@@ -9661,10 +9665,6 @@
   "m54J0C": {
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
-  },
-  "m6NZda": {
-    "defaultMessage": "La formation ne m'intéresse pas",
-    "description": "Message displayed when a user has expressed they are not interested in training opportunities"
   },
   "m6eIBH": {
     "defaultMessage": "Votre prochain type de poste",
