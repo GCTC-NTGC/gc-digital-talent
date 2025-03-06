@@ -298,8 +298,8 @@ const FindANewCommunity = ({
                   name="interestInWorkStreamIds"
                   legend={intl.formatMessage({
                     defaultMessage:
-                      "Preferred work streams for job opportunities",
-                    id: "loImp5",
+                      "Preferred work streams for job and training opportunities",
+                    id: "EoEEha",
                     description:
                       "Label for the input for selecting work stream referral preferences",
                   })}
