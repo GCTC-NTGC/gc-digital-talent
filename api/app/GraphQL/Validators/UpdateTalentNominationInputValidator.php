@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\TalentNominationLateralMovementOption;
+use App\Enums\TalentNominationStep;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
@@ -10,7 +11,7 @@ use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class CreateTalentNominationInputValidator extends Validator
+final class UpdateTalentNominationInputValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -20,10 +21,10 @@ final class CreateTalentNominationInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'talentNominationEvent.connect' => [
-                'uuid',
-                'required',
-                'exists:talent_nomination_events,id',
+            'insertSubmittedStep' => [
+                Rule::in(array_column(TalentNominationStep::cases(), 'name')),
+                // can only review and submit using the submit mutation
+                Rule::notIn([TalentNominationStep::REVIEW_AND_SUBMIT->name]),
             ],
             'nominator' => ['required_array_keys:connect'],
             'nominator.connect' => [
@@ -126,7 +127,6 @@ final class CreateTalentNominationInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'talentNominationEvent.connect.exists' => ApiErrorEnums::TALENT_NOMINATION_EVENT_NOT_FOUND,
             'nominator.connect.exists' => ApiErrorEnums::NOMINATOR_NOT_FOUND,
             'nominatorFallbackClassification.connect.exists' => ApiErrorEnums::NOMINATOR_CLASSIFICATION_NOT_FOUND,
             'nominatorFallbackDepartment.connect.exists' => ApiErrorEnums::NOMINATOR_DEPARTMENT_NOT_FOUND,

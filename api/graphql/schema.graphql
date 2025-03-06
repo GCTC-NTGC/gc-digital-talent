@@ -1956,7 +1956,7 @@ input CreateTalentNominationInput @validator {
   additionalComments: String @rename(attribute: "additional_comments")
 }
 
-input UpdateTalentNominationInput {
+input UpdateTalentNominationInput @validator {
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
