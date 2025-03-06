@@ -7,6 +7,7 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
+use App\Rules\GovernmentEmailRegex;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -58,7 +59,7 @@ final class SubmitTalentNominationValidator extends Validator
             'nominator_fallback_work_email' => [
                 'required_if:nominator_id,null',
                 'prohibited_unless:nominator_id,null',
-                // TODO: validate work email - in create and update, too
+                GovernmentEmailRegex::class,
             ],
             'nominator_fallback_name' => [
                 'required_if:nominator_id,null',
@@ -124,7 +125,7 @@ final class SubmitTalentNominationValidator extends Validator
             'advancement_reference_fallback_work_email' => [
                 'required_if:advancement_reference_id,null',
                 'prohibited_unless:advancement_reference_id,null',
-                // TODO: validate work email - in create and update, too
+                GovernmentEmailRegex::class,
             ],
             'advancement_reference_fallback_name' => [
                 'required_if:advancement_reference_id,null',
