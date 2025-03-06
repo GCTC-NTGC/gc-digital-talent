@@ -37,6 +37,7 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import CourseLanguageChip from "./CourseLanguageChip";
 
@@ -97,21 +98,21 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const itLink = (href: string, chunks: ReactNode) => {
-  return (
-    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
-      {chunks}
-    </Link>
-  );
-};
-
-const externalLinkAccessor = (href: string, chunks: ReactNode) => {
+const externalLinkAccessor = ({
+  href,
+  chunks,
+  bold = false,
+}: {
+  href: string;
+  chunks: ReactNode;
+  bold?: boolean;
+}) => {
   return (
     <Link
       href={href}
       color="secondary"
       external
-      data-h2-font-weight="base(bold)"
+      {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
     >
       {chunks}
     </Link>
@@ -313,21 +314,27 @@ export const Component = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "The training opportunities on this page are supported by the <itTrainingFundLink>IT Community Training and Development Fund</itTrainingFundLink> and are available only to IT-classified employees who are covered by the <itCollectiveAgreementLink>IT collective agreement.</itCollectiveAgreementLink>",
-                  id: "AQybBB",
+                    "The training opportunities on this page are supported by the <itTrainingFundLink><abbreviation>IT</abbreviation> Community Training and Development Fund</itTrainingFundLink> and are available only to <abbreviation>IT</abbreviation>-classified employees who are covered by the <itCollectiveAgreementLink><abbreviation>IT</abbreviation> collective agreement.</itCollectiveAgreementLink>",
+                  id: "6c89Fd",
                   description:
                     "Second paragraph of it training opportunities section",
                 },
                 {
                   itTrainingFundLink: (chunks: ReactNode) =>
-                    itLink(paths.itTrainingFund(), chunks),
-                  itCollectiveAgreementLink: (chunks: ReactNode) =>
-                    externalLinkAccessor(
-                      locale === "en"
-                        ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
-                        : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                    externalLinkAccessor({
+                      href: paths.itTrainingFund(),
                       chunks,
-                    ),
+                      bold: true,
+                    }),
+                  itCollectiveAgreementLink: (chunks: ReactNode) =>
+                    externalLinkAccessor({
+                      href:
+                        locale === "en"
+                          ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                          : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                      chunks,
+                    }),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
             </p>
