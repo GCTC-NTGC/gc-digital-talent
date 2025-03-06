@@ -238,10 +238,10 @@ const FindANewCommunity = ({
               idPrefix="trainingInterest"
               name="trainingInterest"
               legend={intl.formatMessage({
-                defaultMessage: "Interest in training opportunities",
-                id: "H1UEd5",
+                defaultMessage: "Interest in training and development",
+                id: "WfX9z1",
                 description:
-                  "Label for the input for choosing interest level in a training opportunity",
+                  "Label for user Interest in training and development for a community",
               })}
               items={[
                 {

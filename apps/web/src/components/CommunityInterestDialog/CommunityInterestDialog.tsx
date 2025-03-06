@@ -118,10 +118,10 @@ const CommunityInterestDialog = ({
           </BoolCheckIcon>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage({
-              defaultMessage: "Interest in training opportunities",
-              id: "9whw8l",
+              defaultMessage: "Interest in training and development",
+              id: "WfX9z1",
               description:
-                "Label for users interest in training opportunities for a community",
+                "Label for user Interest in training and development for a community",
             })}
           </p>
           <BoolCheckIcon

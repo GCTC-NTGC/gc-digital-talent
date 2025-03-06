@@ -2339,10 +2339,6 @@
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
-  "9whw8l": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for users interest in training opportunities for a community"
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -3662,10 +3658,6 @@
   "H0h1Vn": {
     "defaultMessage": "Anglais essentiel",
     "description": "English essential language requirement"
-  },
-  "H1UEd5": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for the input for choosing interest level in a training opportunity"
   },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
@@ -6593,6 +6585,10 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
+  },
+  "WfX9z1": {
+    "defaultMessage": "Intérêt pour la formation ou le perfectionnement",
+    "description": "Label for user Interest in training and development for a community"
   },
   "Wg+Buu": {
     "defaultMessage": "Disponible en avril",
