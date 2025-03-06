@@ -28,7 +28,6 @@ const Registration_Query = graphql(/** GraphQL */ `
  * If they have an email but not isGovEmployee instead
  * redirect to the `/employee-registration` page
  */
-// eslint-disable-next-line import/prefer-default-export
 export const Component = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();

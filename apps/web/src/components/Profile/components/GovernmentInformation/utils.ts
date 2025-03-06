@@ -127,9 +127,7 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
     priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),
-    priorityEntitlementNumber: data?.priorityNumber
-      ? data.priorityNumber
-      : undefined,
+    priorityEntitlementNumber: data?.priorityNumber ?? undefined,
     govEmployeeType: data?.govEmployeeType?.value,
     lateralDeployBool: undefined,
     department: data?.department?.id,

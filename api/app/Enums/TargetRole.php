@@ -11,8 +11,9 @@ enum TargetRole
     case INDIVIDUAL_CONTRIBUTOR;
     case MANAGER;
     case DIRECTOR;
-    case DIRECTOR_GENERAL;
+    case SENIOR_DIRECTOR;
     case EXECUTIVE_DIRECTOR;
+    case DIRECTOR_GENERAL;
     case ASSISTANT_DEPUTY_MINISTER;
     case DEPUTY_MINISTER;
     case OTHER;

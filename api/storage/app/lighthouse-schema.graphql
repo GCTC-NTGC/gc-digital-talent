@@ -697,6 +697,8 @@ type EmployeeProfile {
   careerObjectiveAdditionalInformation: String
   nextRoleCommunity: Community
   careerObjectiveCommunity: Community
+  nextRoleCommunityOther: String
+  careerObjectiveCommunityOther: String
   nextRoleClassification: Classification
   careerObjectiveClassification: Classification
   nextRoleWorkStreams: [WorkStream!]
@@ -1638,6 +1640,8 @@ input UpdateEmployeeProfileInput {
   careerObjectiveAdditionalInformation: String
   nextRoleCommunity: CommunityBelongsTo
   careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleCommunityOther: String
+  careerObjectiveCommunityOther: String
   nextRoleClassification: ClassificationBelongsTo
   careerObjectiveClassification: ClassificationBelongsTo
   nextRoleWorkStreams: WorkStreamBelongsToMany
@@ -3043,6 +3047,10 @@ enum OrganizationTypeInterest {
   NON_CPA
   CENTRAL_AGENCIES
   SCIENCE_REGULATORY_AGENCY
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum OverallAssessmentStatus {
@@ -3207,8 +3215,9 @@ enum TargetRole {
   INDIVIDUAL_CONTRIBUTOR
   MANAGER
   DIRECTOR
-  DIRECTOR_GENERAL
+  SENIOR_DIRECTOR
   EXECUTIVE_DIRECTOR
+  DIRECTOR_GENERAL
   ASSISTANT_DEPUTY_MINISTER
   DEPUTY_MINISTER
   OTHER

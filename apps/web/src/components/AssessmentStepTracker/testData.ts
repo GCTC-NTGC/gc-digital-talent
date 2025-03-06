@@ -237,7 +237,6 @@ export const testCandidates = [
   secondLastByStatus,
 ];
 
-// eslint-disable-next-line import/prefer-default-export
 export const poolWithAssessmentSteps: Pool = {
   ...fakePool,
   assessmentSteps: [

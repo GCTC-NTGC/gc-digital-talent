@@ -147,7 +147,6 @@ const Single = ({
           >
             {items.map((item, index) => (
               <Menu.Item
-                // eslint-disable-next-line react/no-array-index-key
                 key={`${item.value}${index}`}
                 active={highlightedIndex === index}
                 selected={selectedItem?.value === item.value}

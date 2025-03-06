@@ -1,12 +1,10 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable prefer-destructuring */
 import type { StorybookConfig } from "@storybook/react-vite";
 
 const webStories = "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 const designStories =
   "../../../packages/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 let stories = [webStories, designStories];
+// eslint-disable-next-line turbo/no-undeclared-env-vars
 const sbApp = process.env.SB_APP;
 if (sbApp) {
   if (sbApp === "web") {

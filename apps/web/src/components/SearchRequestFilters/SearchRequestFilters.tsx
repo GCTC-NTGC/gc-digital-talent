@@ -87,7 +87,6 @@ const ApplicantFilters = ({
           description: "Text shown when the filter was not selected",
         });
 
-  // eslint-disable-next-line deprecation/deprecation
   const educationLevel: string | undefined = hasDiplomaToEducationLevel(
     applicantFilter?.hasDiploma,
     intl,
@@ -287,7 +286,6 @@ const SearchRequestFilters = ({
     getLocalizedName(workStream?.name, intl, true),
   );
 
-  // eslint-disable-next-line deprecation/deprecation
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",

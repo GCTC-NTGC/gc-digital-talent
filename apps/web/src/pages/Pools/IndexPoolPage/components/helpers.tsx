@@ -78,6 +78,7 @@ export function classificationCell(
 
   return (
     <Chip color="primary">
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
       {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
     </Chip>
   );
