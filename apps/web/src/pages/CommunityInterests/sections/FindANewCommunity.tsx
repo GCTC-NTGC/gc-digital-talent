@@ -287,8 +287,8 @@ const FindANewCommunity = ({
                 <span id={workStreamListDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please select any of the work streams listed that you would consider working within.",
-                    id: "KpmfLa",
+                      "Please select any of the work streams listed that you would consider for work or training.",
+                    id: "1vpJU6",
                     description:
                       "Introduction for a work stream referral preferences input",
                   })}
