@@ -6,12 +6,11 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 
 const sharedIconStyling = {
-  "data-h2-height": "base(x1)",
-  "data-h2-width": "base(x1)",
+  "data-h2-height": "base(x.75)",
+  "data-h2-width": "base(x.75)",
   "data-h2-display": "base(inline-block)",
-  "data-h2-vertical-align": "base(bottom)",
+  "data-h2-vertical-align": "base(text-bottom)",
   "data-h2-margin-right": "base(x.25)",
-  "data-h2-padding-top": "base(x.125)",
 };
 
 interface MetaDataJobInterestProps {
