@@ -248,8 +248,8 @@ const FindANewCommunity = ({
                   value: "true",
                   label: intl.formatMessage({
                     defaultMessage:
-                      "I’m interested in being considered for training or development opportunities within this community.",
-                    id: "oEYCLO",
+                      "I’m interested in being considered for training opportunities or development programs within this community.",
+                    id: "gsjH8R",
                     description:
                       "Label for the community interest in training opportunities radio option",
                   }),

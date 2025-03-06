@@ -8682,6 +8682,10 @@
     "defaultMessage": "Le statut du placement a été enregistré avec succès",
     "description": "Message displayed when a job placement status has been saved."
   },
+  "gsjH8R": {
+    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et des programmes de perfectionnement au sein de cette collectivité.",
+    "description": "Label for the community interest in training opportunities radio option"
+  },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
     "description": "Page title for the executives homepage"
@@ -10133,10 +10137,6 @@
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
-  },
-  "oEYCLO": {
-    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et de perfectionnement au sein de cette collectivité.",
-    "description": "Label for the community interest in training opportunities radio option"
   },
   "oIM22z": {
     "defaultMessage": "Disqualifiez le candidat ou la candidate",
