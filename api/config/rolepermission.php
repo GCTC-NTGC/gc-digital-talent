@@ -93,6 +93,7 @@ return [
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
+        'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -611,6 +612,14 @@ return [
         'update-team-processOperatorMembership' => [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
+        ],
+        'update-any-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from any user',
+            'fr' => '',
+        ],
+        'update-team-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from a community user',
+            'fr' => '',
         ],
 
         'view-any-poolTeamMembers' => [
@@ -1164,6 +1173,9 @@ return [
             'communityInterest' => [
                 'team' => ['view'],
             ],
+            'communityTalentCoordinatorMembership' => [
+                'team' => ['update'],
+            ],
         ],
 
         'platform_admin' => [
@@ -1262,6 +1274,9 @@ return [
             ],
             'workStream' => [
                 'any' => ['create', 'update'],
+            ],
+            'communityTalentCoordinatorMembership' => [
+                'any' => ['update'],
             ],
         ],
 
