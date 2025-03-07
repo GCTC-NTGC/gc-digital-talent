@@ -28,7 +28,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import { getClassificationName } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
 
