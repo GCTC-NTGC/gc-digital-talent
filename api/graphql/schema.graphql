@@ -1631,7 +1631,6 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
-  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }

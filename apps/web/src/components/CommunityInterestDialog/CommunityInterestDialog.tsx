@@ -118,10 +118,10 @@ const CommunityInterestDialog = ({
           </BoolCheckIcon>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage({
-              defaultMessage: "Interest in training opportunities",
-              id: "9whw8l",
+              defaultMessage: "Interest in training and development",
+              id: "WfX9z1",
               description:
-                "Label for users interest in training opportunities for a community",
+                "Label for user Interest in training and development for a community",
             })}
           </p>
           <BoolCheckIcon
@@ -130,16 +130,16 @@ const CommunityInterestDialog = ({
           >
             {communityInterest.trainingInterest
               ? intl.formatMessage({
-                  defaultMessage: "Interested in training*",
-                  id: "edqRug",
+                  defaultMessage: "Interested in training or development*",
+                  id: "QcrA75",
                   description:
-                    "Message displayed when user expresses interest in training opportunities",
+                    "Message when user expresses interest in training or development opportunities",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Not interested in training",
-                  id: "m6NZda",
+                  defaultMessage: "Not interested in training or development",
+                  id: "TE28aU",
                   description:
-                    "Message displayed when a user has expressed they are not interested in training opportunities",
+                    "Message when user has expressed they are not interested in training or development opportunities",
                 })}
           </BoolCheckIcon>
           <p
@@ -163,10 +163,10 @@ const CommunityInterestDialog = ({
               >
                 {intl.formatMessage({
                   defaultMessage:
-                    "Preferred work streams for job opportunities",
-                  id: "Nq3XrT",
+                    "Preferred work streams for job and training opportunities",
+                  id: "EoEEha",
                   description:
-                    "Label for users interest in training opportunities for a community",
+                    "Label for the input for selecting work stream referral preferences",
                 })}
               </p>
               <ul
@@ -229,6 +229,7 @@ const CommunityInterestDialog = ({
                         interest?.developmentProgram?.id ===
                         developmentProgram.id,
                     );
+
                   return (
                     <DevelopmentProgramInterestItem
                       key={developmentProgram.id}
