@@ -44,7 +44,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";

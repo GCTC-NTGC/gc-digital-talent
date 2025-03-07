@@ -26,8 +26,8 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
   fragment WorkStreamView on WorkStream {
