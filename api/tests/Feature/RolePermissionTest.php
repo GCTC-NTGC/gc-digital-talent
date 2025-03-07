@@ -351,6 +351,7 @@ class RolePermissionTest extends TestCase
             'create-any-talentNominationEvent',
             'update-team-talentNominationEvent',
             'view-team-communityInterest',
+            'update-team-communityTalentCoordinatorMembership',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -363,6 +364,42 @@ class RolePermissionTest extends TestCase
 
         // negative assertion of permissions, fail if any possessed
         $this->assertFalse($communityAdmin->isAbleTo($notPossessedPermissions, false));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Community Talent Coordinator Role
+     *
+     * @return void
+     */
+    public function testCommunityTalentCoordinator()
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $communityTalentCoordinator = User::factory()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+        $communityTalentCoordinator->removeRole('base_user'); // isolate community_talent_coordinator
+
+        $permissionsToCheck = [
+            'view-any-talentNominationEvent',
+            'create-team-talentNominationEvent',
+            'update-team-talentNominationEvent',
+            'view-team-communityInterest',
+            'view-team-communityTeamMembers',
+        ];
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($communityTalentCoordinator->hasRole('community_talent_coordinator', $community->team));
+        $this->assertTrue($communityTalentCoordinator->isAbleTo($permissionsToCheck, $community->team, true));
+
+        $this->assertFalse($communityTalentCoordinator->hasRole('community_talent_coordinator', $otherCommunity->team));
+        $this->assertFalse($communityTalentCoordinator->isAbleTo($permissionsToCheck, $otherCommunity->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($communityTalentCoordinator->isAbleTo($notPossessedPermissions, false));
 
         $this->cleanup();
     }

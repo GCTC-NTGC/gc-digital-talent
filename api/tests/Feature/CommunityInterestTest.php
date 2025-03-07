@@ -37,6 +37,8 @@ class CommunityInterestTest extends TestCase
 
     protected $communityAdmin;
 
+    protected $communityTalentCoordinator;
+
     protected $communityId;
 
     protected array $workStreamIds;
@@ -109,6 +111,10 @@ class CommunityInterestTest extends TestCase
 
         $this->communityAdmin = User::factory()
             ->asCommunityAdmin($this->communityId)
+            ->create();
+
+        $this->communityTalentCoordinator = User::factory()
+            ->asCommunityTalentCoordinator($this->communityId)
             ->create();
     }
 
@@ -307,7 +313,7 @@ class CommunityInterestTest extends TestCase
             [],
         )->assertJsonFragment(['total' => 0]);
 
-        // only community recruiter and community admin can see the model
+        // only community recruiter/admin/coordinator can see the model
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
@@ -318,13 +324,21 @@ class CommunityInterestTest extends TestCase
             [],
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestModel->id]);
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
 
-        // community recruiter and admin of another community do not see the model
+        // community recruiter/admin/coordinator of another community do not see the model
         $otherCommunityRecruiter = User::factory()
             ->asCommunityRecruiter(Community::factory()->create()->id)
             ->create();
         $otherCommunityAdmin = User::factory()
             ->asCommunityAdmin(Community::factory()->create()->id)
+            ->create();
+        $otherCommunityTalentCoordinator = User::factory()
+            ->asCommunityTalentCoordinator(Community::factory()->create()->id)
             ->create();
         $this->actingAs($otherCommunityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
@@ -334,9 +348,13 @@ class CommunityInterestTest extends TestCase
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($otherCommunityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
     }
 
-    // test scopeAuthorizedToView for community admin and community recruiter
+    // test scopeAuthorizedToView for community admin/recruiter/coordinator
     // scope acts on community and job/training interest
     public function testCommunityInterestsPaginatedAuthorizedToView(): void
     {
@@ -389,6 +407,14 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
 
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 3])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
+
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 3])

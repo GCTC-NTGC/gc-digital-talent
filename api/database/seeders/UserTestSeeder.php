@@ -113,5 +113,16 @@ class UserTestSeeder extends Seeder
                 'email' => 'community@test.com',
                 'sub' => 'community@test.com',
             ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator([$digitalCommunityId, $atipCommunityId])
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Berlin',
+                'last_name' => 'Sky',
+                'email' => 'talent-coordinator@test.com',
+                'sub' => 'talent-coordinator@test.com',
+            ]);
     }
 }

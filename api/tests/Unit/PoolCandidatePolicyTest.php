@@ -33,6 +33,8 @@ class PoolCandidatePolicyTest extends TestCase
 
     protected $communityAdminUser;
 
+    protected $communityTalentCoordinatorUser;
+
     protected $team;
 
     protected $basePool;
@@ -126,6 +128,10 @@ class PoolCandidatePolicyTest extends TestCase
             ->create([
                 'email' => 'community-admin-user@test.com',
             ]);
+
+        $this->communityTalentCoordinatorUser = User::factory()
+            ->asCommunityTalentCoordinator($this->community->id)
+            ->create();
     }
 
     /**
@@ -143,6 +149,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('viewAny', PoolCandidate::class));
         $this->assertFalse($this->communityRecruiterUser->can('viewAny', PoolCandidate::class));
         $this->assertFalse($this->communityAdminUser->can('viewAny', PoolCandidate::class));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('viewAny', PoolCandidate::class));
     }
 
     /**
@@ -164,6 +171,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('view', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('view', $this->poolCandidate));
     }
 
     /**
@@ -186,6 +194,7 @@ class PoolCandidatePolicyTest extends TestCase
 
         $this->assertFalse($this->guestUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('view', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('view', $this->poolCandidate));
 
         // Cannot view submitted applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('view', $this->unOwnedPoolCandidate));
@@ -208,6 +217,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('createDraft', PoolCandidate::class));
         $this->assertFalse($this->communityRecruiterUser->can('createDraft', PoolCandidate::class));
         $this->assertFalse($this->communityAdminUser->can('createDraft', PoolCandidate::class));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('createDraft', PoolCandidate::class));
     }
 
     /**
@@ -226,6 +236,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('create', PoolCandidate::class));
         $this->assertFalse($this->communityRecruiterUser->can('create', PoolCandidate::class));
         $this->assertFalse($this->communityAdminUser->can('create', PoolCandidate::class));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('create', PoolCandidate::class));
     }
 
     /**
@@ -246,6 +257,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('updateStatusLegacy', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('updateStatusLegacy', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('updateStatusLegacy', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateStatusLegacy', $this->poolCandidate));
     }
 
     /**
@@ -267,6 +279,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('update', $this->poolCandidate));
 
         // make candidate draft
         $this->poolCandidate->submitted_at = null;
@@ -280,6 +293,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('update', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('update', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('update', $this->poolCandidate));
     }
 
     /**
@@ -298,6 +312,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('submit', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('submit', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('submit', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('submit', $this->poolCandidate));
     }
 
     /**
@@ -316,6 +331,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('archive', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('archive', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('archive', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('archive', $this->poolCandidate));
     }
 
     /**
@@ -334,6 +350,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('delete', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('delete', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('delete', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('delete', $this->poolCandidate));
     }
 
     /**
@@ -352,6 +369,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->processOperatorUser->can('suspend', $this->poolCandidate));
         $this->assertFalse($this->communityRecruiterUser->can('suspend', $this->poolCandidate));
         $this->assertFalse($this->communityAdminUser->can('suspend', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('suspend', $this->poolCandidate));
     }
 
     /**
@@ -369,6 +387,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertTrue($this->processOperatorUser->can('count', $this->poolCandidate));
         $this->assertTrue($this->communityRecruiterUser->can('count', $this->poolCandidate));
         $this->assertTrue($this->communityAdminUser->can('count', $this->poolCandidate));
+        $this->assertTrue($this->communityTalentCoordinatorUser->can('count', $this->poolCandidate));
     }
 
     /**
@@ -388,6 +407,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->guestUser->can('updateBookmark', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('updateBookmark', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updateBookmark', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateBookmark', $this->poolCandidate));
 
         // Cannot bookmark applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('updateBookmark', $this->unOwnedPoolCandidate));
@@ -412,6 +432,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->candidateUser->can('viewNotes', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('viewNotes', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('viewNotes', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('viewNotes', $this->poolCandidate));
 
         // Cannot view notes for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('viewNotes', $this->unOwnedPoolCandidate));
@@ -436,6 +457,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->guestUser->can('updateNotes', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('updateNotes', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updateNotes', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateNotes', $this->poolCandidate));
 
         // Cannot update notes for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('updateNotes', $this->unOwnedPoolCandidate));
@@ -460,6 +482,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->candidateUser->can('viewAssessment', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('viewAssessment', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('viewAssessment', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('viewAssessment', $this->poolCandidate));
 
         // Cannot view assessments for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('viewAssessment', $this->unOwnedPoolCandidate));
@@ -484,6 +507,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->guestUser->can('updateAssessment', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('updateAssessment', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updateAssessment', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateAssessment', $this->poolCandidate));
 
         // Cannot update assessments for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('updateAssessment', $this->unOwnedPoolCandidate));
@@ -508,6 +532,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->candidateUser->can('viewDecision', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('viewDecision', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('viewDecision', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('viewDecision', $this->poolCandidate));
 
         // Cannot view decisions for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('viewDecision', $this->unOwnedPoolCandidate));
@@ -532,6 +557,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->guestUser->can('updateDecision', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('updateDecision', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updateDecision', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updateDecision', $this->poolCandidate));
 
         // Cannot update decisions for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('updateDecision', $this->unOwnedPoolCandidate));
@@ -556,6 +582,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->candidateUser->can('viewPlacement', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('viewPlacement', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('viewPlacement', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('viewPlacement', $this->poolCandidate));
 
         // Cannot view placements for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('viewPlacement', $this->unOwnedPoolCandidate));
@@ -580,6 +607,7 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertFalse($this->applicantUser->can('updatePlacement', $this->poolCandidate));
         $this->assertFalse($this->adminUser->can('updatePlacement', $this->poolCandidate));
         $this->assertFalse($this->processOperatorUser->can('updatePlacement', $this->poolCandidate));
+        $this->assertFalse($this->communityTalentCoordinatorUser->can('updatePlacement', $this->poolCandidate));
 
         // Cannot update placements for applications not in their team's pool
         $this->assertFalse($this->processOperatorUser->can('updatePlacement', $this->unOwnedPoolCandidate));

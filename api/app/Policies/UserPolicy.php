@@ -221,6 +221,8 @@ class UserPolicy
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
                 return $actor->isAbleTo('update-any-communityAdminMembership') || $actor->isAbleTo('update-team-communityAdminMembership', $team);
+            case 'community_talent_coordinator':
+                return $actor->isAbleTo('update-any-communityTalentCoordinatorMembership') || $actor->isAbleTo('update-team-communityTalentCoordinatorMembership', $team);
         }
 
         return false; // reject unknown roles
