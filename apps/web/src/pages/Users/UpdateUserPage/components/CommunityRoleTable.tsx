@@ -61,7 +61,11 @@ const CommunityRoleTable = ({
   const communityRoles = availableRoles.filter(
     (role) =>
       role.isTeamBased &&
-      ["community_admin", "community_recruiter"].includes(role.name),
+      [
+        "community_admin",
+        "community_recruiter",
+        "community_talent_coordinator",
+      ].includes(role.name),
   );
 
   const handleEditRoles = useCallback(
