@@ -7,7 +7,7 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
-  // required imports to generate AnExperience to export
+  // required imports to generate an Experience to export
   User,
   ExperienceSkillRecord,
   Skill,
