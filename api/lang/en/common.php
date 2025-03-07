@@ -23,4 +23,5 @@ return [
     'expected_end_date' => '(Expected end date)',
     'not_found' => 'Not found',
     'step' => 'Step',
+    'suspended' => 'Suspended',
 ];
