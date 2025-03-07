@@ -229,6 +229,7 @@ const CommunityInterestDialog = ({
                         interest?.developmentProgram?.id ===
                         developmentProgram.id,
                     );
+
                   return (
                     <DevelopmentProgramInterestItem
                       key={developmentProgram.id}

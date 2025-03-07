@@ -63,9 +63,10 @@ class CommunityInterestFactory extends Factory
             $developmentPrograms = $communityInterest->community->developmentPrograms()->limit($limit)->get();
             foreach ($developmentPrograms as $developmentProgram) {
                 DevelopmentProgramInterest::factory()
-                    ->for($communityInterest)
-                    ->for($developmentProgram)
-                    ->create();
+                    ->create([
+                        'development_program_id' => $developmentProgram->id,
+                        'community_interest_id' => $communityInterest->id,
+                    ]);
             }
         });
     }
