@@ -163,10 +163,10 @@ const CommunityInterestDialog = ({
               >
                 {intl.formatMessage({
                   defaultMessage:
-                    "Preferred work streams for job opportunities",
-                  id: "Nq3XrT",
+                    "Preferred work streams for job and training opportunities",
+                  id: "EoEEha",
                   description:
-                    "Label for users interest in training opportunities for a community",
+                    "Label for the input for selecting work stream referral preferences",
                 })}
               </p>
               <ul
