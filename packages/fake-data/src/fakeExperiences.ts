@@ -16,7 +16,9 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
+  EmploymentCategory,
 } from "@gc-digital-talent/graphql";
+import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
 import { getStaticSkills } from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";
@@ -167,13 +169,16 @@ const generateWork = (): GeneratedWorkExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     organization: faker.company.name(),
-    role: faker.person.jobTitle(),
+    role: `${faker.person.jobDescriptor()} ${faker.person.jobTitle()}`,
     division: faker.animal.bird(),
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    department: fakeDepartments()[5],
+    employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
+    contractorFirmAgencyName: faker.company.name(),
   };
 };
 
