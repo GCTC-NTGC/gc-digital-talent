@@ -8,6 +8,7 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -19,68 +20,136 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 
 type PageNavKeys = "profile" | "info" | "edit";
+type PageNavEmployeeKeys = "profile" | "employee-profile" | "info" | "edit";
 
 interface UserHeaderProps {
-  user: Pick<User, "id" | "firstName" | "lastName" | "deletedDate">;
+  user: Pick<
+    User,
+    "id" | "firstName" | "lastName" | "deletedDate" | "isGovEmployee"
+  >;
 }
 
 const UserHeader = ({ user }: UserHeaderProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pages = new Map<PageNavKeys, PageNavInfo>([
-    [
-      "profile",
-      {
-        icon: UserCircleIcon,
-        title: intl.formatMessage({
-          defaultMessage: "User profile",
-          id: "SLedtO",
-          description: "Title for the user profile page",
-        }),
-        link: {
-          url: paths.userProfile(user.id),
-        },
-      },
-    ],
-    [
-      "info",
-      {
-        icon: UserIcon,
-        title: intl.formatMessage({
-          defaultMessage: "View user",
-          id: "eP8dfW",
-          description: "Title for the user information page",
-        }),
-        link: {
-          url: paths.userView(user.id),
-          label: intl.formatMessage({
-            defaultMessage: "User information",
-            id: "SFk84j",
-            description: "Link text for the user information page link",
+  let pages = undefined;
+  if (user.isGovEmployee) {
+    pages = new Map<PageNavEmployeeKeys, PageNavInfo>([
+      [
+        "profile",
+        {
+          icon: UserCircleIcon,
+          title: intl.formatMessage({
+            defaultMessage: "User profile",
+            id: "SLedtO",
+            description: "Title for the user profile page",
           }),
+          link: {
+            url: paths.userProfile(user.id),
+          },
         },
-      },
-    ],
-    [
-      "edit",
-      {
-        icon: Cog8ToothIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Edit user account",
-          id: "9i2N/g",
-          description: "Title for the user edit page",
-        }),
-        link: {
-          url: paths.userUpdate(user.id),
+      ],
+      [
+        "employee-profile",
+        {
+          icon: UserCircleIcon,
+          title: intl.formatMessage(navigationMessages.employeeProfileGC),
+          link: {
+            url: paths.userEmployeeProfile(user.id),
+          },
         },
-      },
-    ],
-  ]);
+      ],
+      [
+        "info",
+        {
+          icon: UserIcon,
+          title: intl.formatMessage({
+            defaultMessage: "View user",
+            id: "eP8dfW",
+            description: "Title for the user information page",
+          }),
+          link: {
+            url: paths.userView(user.id),
+            label: intl.formatMessage({
+              defaultMessage: "User information",
+              id: "SFk84j",
+              description: "Link text for the user information page link",
+            }),
+          },
+        },
+      ],
+      [
+        "edit",
+        {
+          icon: Cog8ToothIcon,
+          title: intl.formatMessage({
+            defaultMessage: "Edit user account",
+            id: "9i2N/g",
+            description: "Title for the user edit page",
+          }),
+          link: {
+            url: paths.userUpdate(user.id),
+          },
+        },
+      ],
+    ]);
+  } else {
+    pages = new Map<PageNavKeys, PageNavInfo>([
+      [
+        "profile",
+        {
+          icon: UserCircleIcon,
+          title: intl.formatMessage({
+            defaultMessage: "User profile",
+            id: "SLedtO",
+            description: "Title for the user profile page",
+          }),
+          link: {
+            url: paths.userProfile(user.id),
+          },
+        },
+      ],
+      [
+        "info",
+        {
+          icon: UserIcon,
+          title: intl.formatMessage({
+            defaultMessage: "View user",
+            id: "eP8dfW",
+            description: "Title for the user information page",
+          }),
+          link: {
+            url: paths.userView(user.id),
+            label: intl.formatMessage({
+              defaultMessage: "User information",
+              id: "SFk84j",
+              description: "Link text for the user information page link",
+            }),
+          },
+        },
+      ],
+      [
+        "edit",
+        {
+          icon: Cog8ToothIcon,
+          title: intl.formatMessage({
+            defaultMessage: "Edit user account",
+            id: "9i2N/g",
+            description: "Title for the user edit page",
+          }),
+          link: {
+            url: paths.userUpdate(user.id),
+          },
+        },
+      ],
+    ]);
+  }
+
+  const currentPage = useCurrentPage<PageNavEmployeeKeys>(pages);
 
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
   const userDeleted = !!user.deletedDate;
-  const currentPage = useCurrentPage<PageNavKeys>(pages);
 
   return (
     <>
@@ -123,6 +192,7 @@ const UserName_Query = graphql(/* GraphQL */ `
       firstName
       lastName
       deletedDate
+      isGovEmployee
     }
   }
 `);
