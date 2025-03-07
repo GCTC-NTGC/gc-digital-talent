@@ -17,6 +17,8 @@ import {
   EducationType,
   EducationStatus,
   EmploymentCategory,
+  WorkExperienceGovEmployeeType,
+  GovContractorType,
 } from "@gc-digital-talent/graphql";
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
@@ -169,7 +171,7 @@ const generateWork = (): GeneratedWorkExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     organization: faker.company.name(),
-    role: `${faker.person.jobDescriptor()} ${faker.person.jobTitle()}`,
+    role: `${faker.person.jobDescriptor()} ${faker.person.jobType()} ${faker.person.jobTitle()} ${faker.person.jobArea()}`,
     division: faker.animal.bird(),
     startDate: staticDates.start,
     endDate: staticDates.end,
@@ -178,6 +180,10 @@ const generateWork = (): GeneratedWorkExperience => {
     },
     department: fakeDepartments()[5],
     employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
+    govEmploymentType: toLocalizedEnum(
+      WorkExperienceGovEmployeeType.Contractor,
+    ),
+    govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
     contractorFirmAgencyName: faker.company.name(),
   };
 };
