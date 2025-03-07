@@ -5159,6 +5159,10 @@
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
   },
+  "OpemzD": {
+    "defaultMessage": "({notificationCount, plural, =0 {0 non lue} one {{notificationCount, number} non lue} other {{notificationCount, number} non lues}})",
+    "description": "Number of unread notifications"
+  },
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
@@ -9514,6 +9518,10 @@
     "defaultMessage": "Retirer du processus",
     "description": "Header for the form to remove a process role from a user"
   },
+  "l82MWI": {
+    "defaultMessage": "Voir les notifications{count}",
+    "description": "Button text to open the notifications dialog"
+  },
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
@@ -12181,10 +12189,6 @@
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
     "description": "Title for the accessible by design section"
-  },
-  "ztx8xL": {
-    "defaultMessage": "Voir les notifications",
-    "description": "Button text to open the notifications dialog"
   },
   "ztzRUG": {
     "defaultMessage": "Créez une classification",

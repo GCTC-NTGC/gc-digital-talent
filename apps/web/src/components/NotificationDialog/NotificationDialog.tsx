@@ -253,8 +253,11 @@ const NotificationDialog = ({
                   notificationCount > 0
                     ? ` ${intl.formatMessage(
                         {
-                          defaultMessage: "({notificationCount} unread)",
-                          id: "Z22PPJ",
+                          defaultMessage: `({notificationCount, plural,
+                            =0 {0 unread}
+                            one {{notificationCount, number} unread}
+                            other {{notificationCount, number} unread}})`,
+                          id: "OpemzD",
                           description: "Number of unread notifications",
                         },
                         { notificationCount },
