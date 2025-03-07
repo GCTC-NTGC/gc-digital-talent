@@ -3,9 +3,11 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\TalentNominationLateralMovementOption;
+use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
+use App\Rules\GovernmentEmailRegex;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -39,6 +41,8 @@ final class CreateTalentNominationInputValidator extends Validator
                 'prohibited_unless:submitterRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
                 'string',
             ],
+            'nominator_fallback_work_email' => [new GovernmentEmailRegex],
+            'nominator_fallback_name' => ['string'],
             'nominatorFallbackClassification' => ['required_array_keys:connect'],
             'nominatorFallbackClassification.connect' => [
                 'uuid',
@@ -61,11 +65,11 @@ final class CreateTalentNominationInputValidator extends Validator
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
             'nomineeRelationshipToNominator' => [
-                Rule::in(array_column(TalentNominationSubmitterRelationshipToNominator::cases(), 'name')),
+                Rule::in(array_column(TalentNominationNomineeRelationshipToNominator::cases(), 'name')),
             ],
             'nomineeRelationshipToNominatorOther' => [
-                'required_if:nomineeRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
-                'prohibited_unless:nomineeRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
+                'required_if:nomineeRelationshipToNominator,'.TalentNominationNomineeRelationshipToNominator::OTHER->name,
+                'prohibited_unless:nomineeRelationshipToNominator,'.TalentNominationNomineeRelationshipToNominator::OTHER->name,
                 'string',
             ],
             'nominateForAdvancement' => ['boolean'],
@@ -81,6 +85,8 @@ final class CreateTalentNominationInputValidator extends Validator
             'advancementReferenceReview' => [
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
+            'advancement_reference_fallback_work_email' => [new GovernmentEmailRegex],
+            'advancement_reference_fallback_name' => ['string'],
             'advancementReferenceFallbackClassification' => ['required_array_keys:connect'],
             'advancementReferenceFallbackClassification.connect' => [
                 'uuid',
