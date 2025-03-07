@@ -287,6 +287,10 @@
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
+  "/SOIpV": {
+    "defaultMessage": "En indiquant que la formation ou le perfectionnement vous intéresse, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
+  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -2347,10 +2351,6 @@
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
-  "9whw8l": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for users interest in training opportunities for a community"
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -3670,10 +3670,6 @@
   "H0h1Vn": {
     "defaultMessage": "Anglais essentiel",
     "description": "English essential language requirement"
-  },
-  "H1UEd5": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for the input for choosing interest level in a training opportunity"
   },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
@@ -5519,6 +5515,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QcrA75": {
+    "defaultMessage": "La formation ou le perfectionnement m'intéresse*",
+    "description": "Message when user expresses interest in training or development opportunities"
+  },
   "Qibs21": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
@@ -5998,6 +5998,10 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
+  },
+  "TE28aU": {
+    "defaultMessage": "La formation ou le perfectionnement ne m'intéresse pas",
+    "description": "Message when user has expressed they are not interested in training or development opportunities"
   },
   "TE2Nwv": {
     "defaultMessage": "Critères de compétences constituant un atout",
@@ -6593,6 +6597,10 @@
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
+  },
+  "WfX9z1": {
+    "defaultMessage": "Intérêt pour la formation ou le perfectionnement",
+    "description": "Label for user Interest in training and development for a community"
   },
   "Wg+Buu": {
     "defaultMessage": "Disponible en avril",
@@ -8154,10 +8162,6 @@
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
   },
-  "edqRug": {
-    "defaultMessage": "La formation m'intéresse*",
-    "description": "Message displayed when user expresses interest in training opportunities"
-  },
   "eePQun": {
     "defaultMessage": "Mettez à jour les volets de travail",
     "description": "Link text to add work streams for an experience"
@@ -8677,6 +8681,10 @@
   "gr8+Es": {
     "defaultMessage": "Le statut du placement a été enregistré avec succès",
     "description": "Message displayed when a job placement status has been saved."
+  },
+  "gsjH8R": {
+    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et des programmes de perfectionnement au sein de cette collectivité.",
+    "description": "Label for the community interest in training opportunities radio option"
   },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
@@ -9650,10 +9658,6 @@
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
   },
-  "m6NZda": {
-    "defaultMessage": "La formation ne m'intéresse pas",
-    "description": "Message displayed when a user has expressed they are not interested in training opportunities"
-  },
   "m6eIBH": {
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for the next role section"
@@ -10129,10 +10133,6 @@
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
-  },
-  "oEYCLO": {
-    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et de perfectionnement au sein de cette collectivité.",
-    "description": "Label for the community interest in training opportunities radio option"
   },
   "oIM22z": {
     "defaultMessage": "Disqualifiez le candidat ou la candidate",
@@ -11577,10 +11577,6 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
-  },
-  "wdBpAX": {
-    "defaultMessage": "En indiquant que les possibilités de formation vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
