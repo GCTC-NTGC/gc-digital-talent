@@ -73,7 +73,10 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:nominator_id,null',
             ],
 
-            'nominee_id' => ['required'],
+            'nominee_id' => [
+                'required',
+                'different:nominator_id',
+            ],
             'nominee_review' => [
                 'required',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),

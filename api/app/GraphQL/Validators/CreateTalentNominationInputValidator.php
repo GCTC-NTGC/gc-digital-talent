@@ -61,6 +61,7 @@ final class CreateTalentNominationInputValidator extends Validator
             'nominee.connect' => [
                 'uuid',
                 'exists:users,id',
+                'different:nominator.connect',
             ],
             'nomineeReview' => [
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
