@@ -32,7 +32,6 @@ class TalentNominationFactory extends Factory
             'submitted_steps' => [],
             'talent_nomination_event_id' => TalentNominationEvent::inRandomOrder()->firstOr(fn () => TalentNominationEvent::factory()->create())->id,
             'submitter_id' => User::inRandomOrder()->firstOr(fn () => User::factory()->create())->id,
-
         ];
     }
 
@@ -160,7 +159,7 @@ class TalentNominationFactory extends Factory
 
                     'lateral_movement_options' => fn ($attributes) => $attributes['nominate_for_lateral_movement']
                         ? $this->faker->randomElements(array_column(TalentNominationLateralMovementOption::cases(), 'name'), $this->faker->numberBetween(1, count(TalentNominationLateralMovementOption::cases())))
-                        : null,
+                        : [],
                     'lateral_movement_options_other' => fn ($attributes) => $attributes['nominate_for_lateral_movement'] && in_array(TalentNominationLateralMovementOption::OTHER->name, $attributes['lateral_movement_options'] ?? [])
                         ? $this->faker->jobTitle()
                         : null,

@@ -16,7 +16,9 @@ final class SubmitTalentNomination
      */
     public function __invoke($_, array $args)
     {
-        $nomination = TalentNomination::find($args['id'])->load('submitter');
+        $nomination = TalentNomination::find($args['id'])
+            ->load('developmentPrograms')
+            ->load('skills');
         $submitValidator = new SubmitTalentNominationValidator($nomination);
         $validator = Validator::make($nomination->toArray(), $submitValidator->rules(), $submitValidator->messages());
         if ($validator->fails()) {

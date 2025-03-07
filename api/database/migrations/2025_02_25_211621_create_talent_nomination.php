@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('advancement_reference_fallback_name')->nullable();
             $table->foreignUuid('advancement_reference_fallback_classification_id')->nullable()->constrained('classifications');
             $table->foreignUuid('advancement_reference_fallback_department_id')->nullable()->constrained('departments');
-            $table->jsonb('lateral_movement_options')->nullable();
+            $table->jsonb('lateral_movement_options')->default(json_encode([]));
             $table->string('lateral_movement_options_other')->nullable();
             $table->string('development_program_options_other')->nullable();
             $table->text('nomination_rationale')->nullable();
@@ -56,6 +56,7 @@ return new class extends Migration
             $table->foreignUuid('talent_nomination_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->unique(['development_program_id', 'talent_nomination_id']);
         });
 
         Schema::create('skill_talent_nomination', function (Blueprint $table) {
@@ -66,6 +67,7 @@ return new class extends Migration
             $table->foreignUuid('talent_nomination_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->unique(['skill_id', 'talent_nomination_id']);
         });
     }
 

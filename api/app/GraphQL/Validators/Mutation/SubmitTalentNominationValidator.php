@@ -87,44 +87,52 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:nominee_relationship_to_nominator,'.TalentNominationNomineeRelationshipToNominator::OTHER->name,
             ],
 
-            'nominate_for_advancement' => ['required'],
-            'nominate_for_lateral_movement' => ['required'],
-            'nominate_for_development_programs' => ['required'],
+            'nominate_for_advancement' => [
+                'required',
+                Rule::when(fn () => $this->nomination->advancement_reference_id || $this->nomination->advancement_reference_fallback_work_email, ['accepted']),
+                Rule::when(fn () => is_null($this->nomination->advancement_reference_id) && empty($this->nomination->advancement_reference_fallback_work_email), ['declined']),
+            ],
+            'nominate_for_lateral_movement' => [
+                'required',
+                Rule::when(fn () => count($this->nomination->lateral_movement_options) > 0, ['accepted']),
+                Rule::when(fn () => count($this->nomination->lateral_movement_options) == 0, ['declined']),
+            ],
+            'nominate_for_development_programs' => [
+                'required',
+                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->development_program_options_other), ['accepted']),
+                Rule::when(fn () => $this->nomination->developmentPrograms->count() == 0 && empty($this->development_program_options_other), ['declined']),
+            ],
 
-            'advancement_reference_id' => ['prohibited_unless:nominate_for_advancement,true'],
+            'advancement_reference_id' => [
+                'prohibited_unless:nominate_for_advancement,true',
+                'prohibited_unless:advancement_reference_fallback_work_email,null',
+            ],
             'advancement_reference_review' => [
-                'required_unless:advancement_reference_id,null',
-                'prohibited_if:advancement_reference_id,null',
-                'required_without_all:advancement_reference_fallback_work_email,advancement_reference_fallback_name,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
+                'required_with:advancement_reference_id',
+                'prohibited_unless:advancement_reference_id',
                 'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
             'advancement_reference_fallback_work_email' => [
-                'required_if:advancement_reference_id,null',
                 'prohibited_unless:advancement_reference_id,null',
+                'required_with:advancement_reference_fallback_name,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
                 'nullable',
                 new GovernmentEmailRegex,
             ],
             'advancement_reference_fallback_name' => [
-                'required_if:advancement_reference_id,null',
+                'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
                 'prohibited_unless:advancement_reference_id,null',
             ],
             'advancement_reference_fallback_classification_id' => [
-                'required_if:advancement_reference_id,null',
+                'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_name,advancement_reference_fallback_department_id',
                 'prohibited_unless:advancement_reference_id,null',
             ],
             'advancement_reference_fallback_department_id' => [
-                'required_if:advancement_reference_id,null',
+                'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_name,advancement_reference_fallback_classification_id',
                 'prohibited_unless:advancement_reference_id,null',
             ],
 
-            'lateral_movement_options' => [
-                'prohibited_unless:nominate_for_lateral_movement,true',
-                'required_if:nominate_for_lateral_movement,true',
-                'nullable',
-                'array',
-                'min:1',
-            ],
+            'lateral_movement_options' => ['array'],
             'lateral_movement_options.*' => [
                 'distinct',
                 Rule::in(array_column(TalentNominationLateralMovementOption::cases(), 'name')),
@@ -134,18 +142,15 @@ final class SubmitTalentNominationValidator extends Validator
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->nomination->lateral_movement_options)),
             ],
 
-            'development_programs' => ['prohibited_unless:nominate_for_development_programs,true'],
+            'development_programs' => ['array'],
             'development_program_options_other' => [
                 'prohibited_unless:nominate_for_development_programs,true',
-                Rule::when($this->nomination->developmentPrograms->count() == 0, ['required']),
             ],
             'nomination_rationale' => ['required'],
             'skills.*' => [
-                'distinct',
-                'length:3',
+                'size:3',
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
             ],
-            // 'skills.*.id' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additional_comments' => ['required'],
         ];
     }
