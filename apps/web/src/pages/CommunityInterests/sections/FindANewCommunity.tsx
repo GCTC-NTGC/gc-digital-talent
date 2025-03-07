@@ -287,8 +287,8 @@ const FindANewCommunity = ({
                 <span id={workStreamListDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please select any of the work streams listed that you would consider working within.",
-                    id: "KpmfLa",
+                      "Please select any of the work streams listed that you would consider for work or training.",
+                    id: "1vpJU6",
                     description:
                       "Introduction for a work stream referral preferences input",
                   })}
@@ -298,8 +298,8 @@ const FindANewCommunity = ({
                   name="interestInWorkStreamIds"
                   legend={intl.formatMessage({
                     defaultMessage:
-                      "Preferred work streams for job opportunities",
-                    id: "loImp5",
+                      "Preferred work streams for job and training opportunities",
+                    id: "EoEEha",
                     description:
                       "Label for the input for selecting work stream referral preferences",
                   })}

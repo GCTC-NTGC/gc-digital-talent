@@ -771,6 +771,10 @@
     "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait.",
     "description": "First paragraph of apply and complete your profile section"
   },
+  "1vpJU6": {
+    "defaultMessage": "Veuillez sélectionner les volets de travail que vous envisageriez pour un emploi ou une formation.",
+    "description": "Introduction for a work stream referral preferences input"
+  },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
@@ -3235,6 +3239,10 @@
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
   },
+  "EoEEha": {
+    "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
+    "description": "Label for the input for selecting work stream referral preferences"
+  },
   "EoGTKC": {
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement, de possibilités de formation et de mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
     "description": "Paragraph for privacy policy page"
@@ -4395,10 +4403,6 @@
     "defaultMessage": "Critères essentiels",
     "description": "Essential criteria heading"
   },
-  "KpmfLa": {
-    "defaultMessage": "Veuillez sélectionner les volets de travail dans lesquels vous aimeriez travailler.",
-    "description": "Introduction for a work stream referral preferences input"
-  },
   "KqAp09": {
     "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
     "description": "Link text to apply for a pool advertisement"
@@ -4962,10 +4966,6 @@
   "NpznI5": {
     "defaultMessage": "Sauvegarder et ignorer la vérification",
     "description": "Button label for submit and skip email verification button on getting started form."
-  },
-  "Nq3XrT": {
-    "defaultMessage": "Volets de travail préférés pour l'emploi",
-    "description": "Label for users interest in training opportunities for a community"
   },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
@@ -9617,10 +9617,6 @@
   "loDwKe": {
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
-  },
-  "loImp5": {
-    "defaultMessage": "Volets de travail préférés pour l'emploi",
-    "description": "Label for the input for selecting work stream referral preferences"
   },
   "lr6PWk": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
