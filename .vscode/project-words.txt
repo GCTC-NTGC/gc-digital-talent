@@ -53,6 +53,7 @@ Nuwave
 OCIO
 personalisation
 pgsql
+PIPSC
 Queueable
 recruitmentimit
 recruitments
