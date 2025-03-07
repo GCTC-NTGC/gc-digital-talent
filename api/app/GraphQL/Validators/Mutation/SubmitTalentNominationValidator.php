@@ -89,18 +89,21 @@ final class SubmitTalentNominationValidator extends Validator
 
             'nominate_for_advancement' => [
                 'required',
-                Rule::when(fn () => $this->nomination->advancement_reference_id || $this->nomination->advancement_reference_fallback_work_email, ['accepted']),
-                Rule::when(fn () => is_null($this->nomination->advancement_reference_id) && empty($this->nomination->advancement_reference_fallback_work_email), ['declined']),
+                Rule::when(fn () => $this->nomination->advancement_reference_id || $this->nomination->advancement_reference_fallback_work_email,
+                    ['accepted'],
+                    ['declined']),
             ],
             'nominate_for_lateral_movement' => [
                 'required',
-                Rule::when(fn () => count($this->nomination->lateral_movement_options) > 0, ['accepted']),
-                Rule::when(fn () => count($this->nomination->lateral_movement_options) == 0, ['declined']),
+                Rule::when(fn () => count($this->nomination->lateral_movement_options) > 0,
+                    ['accepted'],
+                    ['declined']),
             ],
             'nominate_for_development_programs' => [
                 'required',
-                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->development_program_options_other), ['accepted']),
-                Rule::when(fn () => $this->nomination->developmentPrograms->count() == 0 && empty($this->development_program_options_other), ['declined']),
+                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->development_program_options_other),
+                    ['accepted'],
+                    ['declined']),
             ],
 
             'advancement_reference_id' => [
