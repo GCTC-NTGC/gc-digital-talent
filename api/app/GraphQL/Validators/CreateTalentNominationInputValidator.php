@@ -7,6 +7,7 @@ use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
+use App\Models\TalentNominationEvent;
 use App\Rules\GovernmentEmailRegex;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
@@ -122,7 +123,10 @@ final class CreateTalentNominationInputValidator extends Validator
                 'array',
                 'exists:skills,id',
                 'distinct',
-                'max:3',
+                Rule::when(fn () => TalentNominationEvent::find($this->arg('talentNominationEvent.connect'))->include_leadership_competencies,
+                    ['max:3'],
+                    ['prohibited']
+                ),
             ],
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additionalComments' => ['string'],
@@ -143,6 +147,7 @@ final class CreateTalentNominationInputValidator extends Validator
             'developmentPrograms.sync.exists' => ApiErrorEnums::DEVELOPMENT_PROGRAM_NOT_FOUND,
             'skills.sync.exists' => ApiErrorEnums::SKILL_NOT_FOUND,
             'skills.sync.*.in' => ApiErrorEnums::SKILL_NOT_KLC,
+            'skills.sync.prohibited' => ApiErrorEnums::SKILLS_NOT_ALLOWED_FOR_EVENT,
         ];
     }
 }

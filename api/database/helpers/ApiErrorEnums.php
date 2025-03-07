@@ -94,4 +94,6 @@ class ApiErrorEnums
     const SKILL_NOT_FOUND = 'SKILL_NOT_FOUND';
 
     const SKILL_NOT_KLC = 'SKILL_NOT_KLC';
+
+    const SKILLS_NOT_ALLOWED_FOR_EVENT = 'SKILLS_NOT_ALLOWED_FOR_EVENT';
 }

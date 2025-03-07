@@ -147,8 +147,13 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:nominate_for_development_programs,true',
             ],
             'nomination_rationale' => ['required'],
-            'skills.*' => [
-                'size:3',
+            'skills' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_leadership_competencies,
+                    ['size:3'],
+                    ['prohibited']
+                ),
+            ],
+            'skills.*.skill_id' => [
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
             ],
             'additional_comments' => ['required'],
@@ -160,6 +165,7 @@ final class SubmitTalentNominationValidator extends Validator
         return [
             'submitted_at.prohibited' => 'AlreadySubmitted',
             'skills.*.in' => ApiErrorEnums::SKILL_NOT_KLC,
+            'skills.*.prohibited' => ApiErrorEnums::SKILLS_NOT_ALLOWED_FOR_EVENT,
         ];
     }
 }
