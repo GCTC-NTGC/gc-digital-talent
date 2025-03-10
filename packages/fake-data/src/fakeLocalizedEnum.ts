@@ -21,7 +21,7 @@ function enumToString(value: string, delimiter: string | RegExp = "_") {
 }
 
 /**
- * Converts a strin in PascalCase to SCREAMING_SNAKE_CASE
+ * Converts a string in PascalCase to SCREAMING_SNAKE_CASE
  *
  * @param value - The string to be transformed
  * @returns New string
