@@ -680,6 +680,7 @@ type User {
   enabledInAppNotifications: [NotificationFamily]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+  talentNominationsAsSubmitter: [TalentNomination!]
 }
 
 type CommunityInterest {

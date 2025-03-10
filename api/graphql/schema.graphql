@@ -152,6 +152,10 @@ type User {
   poolBookmarks: [Pool] @belongsToMany
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+  # Nominations
+  talentNominationsAsSubmitter: [TalentNomination!]
+    @hasMany
+    @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
 type CommunityInterest {
