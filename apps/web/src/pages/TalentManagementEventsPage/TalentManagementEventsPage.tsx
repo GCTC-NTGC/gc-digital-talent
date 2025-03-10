@@ -58,7 +58,7 @@ export const Component = () => {
 
   const activeEvents = unpackMaybes(data?.activeEvents);
 
-  const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
+  const [_, executeCreateMutation] = useMutation(
     TalentManagementEventsPage_Mutation,
   );
 
@@ -182,7 +182,6 @@ export const Component = () => {
                     <TalentNominationEventCard
                       key={item.id}
                       talentNominationEventQuery={item}
-                      disabled={mutationFetching}
                       onCreate={handleCreateNomination}
                     />
                   ))}

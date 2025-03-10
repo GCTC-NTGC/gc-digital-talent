@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useState } from "react";
 
 import { Heading, CardBasic, Link, Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -8,7 +9,6 @@ interface TalentNominationEventCardProps {
   talentNominationEventQuery: FragmentType<
     typeof TalentNominationEventCard_Fragment
   >;
-  disabled?: boolean;
   onCreate: (talentNominationEventId: string) => Promise<void>;
 }
 
@@ -36,7 +36,6 @@ export const TalentNominationEventCard_Fragment = graphql(/* GraphQL */ `
 
 const TalentNominationEventCard = ({
   talentNominationEventQuery,
-  disabled = false,
   onCreate,
 }: TalentNominationEventCardProps) => {
   const intl = useIntl();
@@ -45,6 +44,13 @@ const TalentNominationEventCard = ({
     talentNominationEventQuery,
   );
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const [isCreating, setIsCreating] = useState(false);
+
+  async function handleClickCreate() {
+    setIsCreating(true);
+    await onCreate(talentNominationEvent.id);
+    setIsCreating(false);
+  }
 
   return (
     <>
@@ -122,8 +128,8 @@ const TalentNominationEventCard = ({
             <Button
               color="secondary"
               mode="solid"
-              disabled={disabled}
-              onClick={() => onCreate(talentNominationEvent.id)}
+              disabled={isCreating}
+              onClick={handleClickCreate}
             >
               {intl.formatMessage(
                 {
