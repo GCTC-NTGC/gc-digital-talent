@@ -56,6 +56,7 @@ export function convertRoleToNavRole(role: RoleName): NavRole {
     case "process_operator":
     case "community_recruiter":
     case "community_admin":
+    case "community_talent_coordinator":
       return "community";
     case "platform_admin":
       return "admin";

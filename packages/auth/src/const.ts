@@ -18,6 +18,7 @@ export const ROLE_NAME = {
   CommunityRecruiter: "community_recruiter",
   CommunityAdmin: "community_admin",
   PlatformAdmin: "platform_admin",
+  CommunityTalentCoordinator: "community_talent_coordinator",
 } as const;
 
 type ObjectValues<T> = T[keyof T];

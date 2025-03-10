@@ -139,6 +139,29 @@ class Community extends Model
         }
     }
 
+    /**
+     * Attach the users to the related team creating one if there isn't already
+     *
+     * @param  string|array  $userId  - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addCommunityTalentCoordinator(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => 'community-'.$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                $user->addRole('community_talent_coordinator', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            $user->addRole('community_talent_coordinator', $team->name);
+        }
+    }
+
     /* accessor to retrieve id from teams table */
     public function getTeamIdForRoleAssignmentAttribute()
     {

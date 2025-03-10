@@ -66,11 +66,18 @@ const CommunityLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdmin = checkRole(
+  const canAdminManageAccess = checkRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
     roleAssignmentsFiltered,
     communityId,
   );
+  const canViewManageAccess =
+    canAdminManageAccess ||
+    checkRole(
+      [ROLE_NAME.CommunityTalentCoordinator],
+      roleAssignmentsFiltered,
+      communityId,
+    );
 
   const pages = new Map<PageNavKeys, PageNavInfo>([
     [
@@ -89,7 +96,7 @@ const CommunityLayout = () => {
     ],
   ]);
 
-  if (canAdmin) {
+  if (canViewManageAccess) {
     pages.set("manage-access", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage({
@@ -126,7 +133,7 @@ const CommunityLayout = () => {
       url: page.link.url,
     })),
     navigationCrumbs: navigationCrumbs,
-    canAdmin,
+    canAdminManageAccess,
   };
 
   // No actual shared UI - this is just used as a context provider
@@ -139,6 +146,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

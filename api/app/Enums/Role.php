@@ -12,5 +12,6 @@ enum Role: string
     case COMMUNITY_RECRUITER = 'community_recruiter';
     case COMMUNITY_MANAGER = 'community_manager';
     case COMMUNITY_ADMIN = 'community_admin';
+    case COMMUNITY_TALENT_COORDINATOR = 'community_talent_coordinator';
     case PLATFORM_ADMIN = 'platform_admin';
 }

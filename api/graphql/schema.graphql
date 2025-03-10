@@ -2790,7 +2790,10 @@ type Mutation {
   # Talent nomination event mutations
   createTalentNominationEvent(
     talentNominationEvent: CreateTalentNominationEventInput! @spread
-  ): TalentNominationEvent @create @guard @canModel(ability: "create")
+  ): TalentNominationEvent
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
   updateTalentNominationEvent(
     id: UUID!
     talentNominationEvent: UpdateTalentNominationEventInput! @spread

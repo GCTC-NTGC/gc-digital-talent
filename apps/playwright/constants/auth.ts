@@ -45,6 +45,18 @@ export default {
       "/en/admin/communities",
       "/en/admin/community-talent",
     ],
+    COMMUNITY_TALENT_COORDINATOR: [
+      "/en/admin",
+      "/en/admin/users",
+      "/en/admin/pools",
+      "/en/admin/pool-candidates",
+      "/en/admin/talent-requests",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/departments",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+    ],
   },
   ALLOWED_PATHS: {
     COMMUNITY_ADMIN: [
@@ -70,6 +82,11 @@ export default {
       "/en/admin/users",
       "/en/admin/pools",
       "/en/admin/pool-candidates",
+    ],
+    COMMUNITY_TALENT_COORDINATOR: [
+      "/en/community",
+      "/en/admin/communities",
+      "/en/admin/community-talent",
     ],
   },
 };
