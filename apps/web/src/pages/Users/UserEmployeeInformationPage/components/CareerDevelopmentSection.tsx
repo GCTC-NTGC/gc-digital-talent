@@ -5,7 +5,7 @@ import {
   commonMessages,
   getExecCoachingInterest,
 } from "@gc-digital-talent/i18n";
-import { CardBasic } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator } from "@gc-digital-talent/ui";
 import {
   ExecCoaching,
   FragmentType,
@@ -209,6 +209,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </div>
+      <CardSeparator space="xs" />
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {careerDevelopmentMessages.promotionMoveInterest}
@@ -227,6 +228,7 @@ const CareerDevelopmentSection = ({
             )
           : intl.formatMessage(commonMessages.notProvided)}
       </div>
+      <CardSeparator space="xs" />
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {careerDevelopmentMessages.execInterest}
