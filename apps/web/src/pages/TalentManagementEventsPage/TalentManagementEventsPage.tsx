@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
 import { ReactNode } from "react";
+import { useNavigate } from "react-router";
 
 import {
   Flourish,
@@ -9,9 +10,13 @@ import {
   TableOfContents,
   Well,
 } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  CreateTalentNominationInput,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -27,6 +32,16 @@ const TalentManagementEventsPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const TalentManagementEventsPage_Mutation = graphql(/* GraphQL */ `
+  mutation CreateTalentNomination(
+    $talentNomination: CreateTalentNominationInput!
+  ) {
+    createTalentNomination(talentNomination: $talentNomination) {
+      id
+    }
+  }
+`);
+
 interface Section {
   id: string;
   title: ReactNode;
@@ -35,12 +50,17 @@ interface Section {
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const navigate = useNavigate();
 
   const [{ data, fetching }] = useQuery({
     query: TalentManagementEventsPage_Query,
   });
 
   const activeEvents = unpackMaybes(data?.activeEvents);
+
+  const [_, executeCreateMutation] = useMutation(
+    TalentManagementEventsPage_Mutation,
+  );
 
   const pageTitle = intl.formatMessage(
     navigationMessages.talentManagementEvents,
@@ -72,6 +92,49 @@ export const Component = () => {
       },
     ],
   });
+
+  const handleCreateNomination = async (talentNominationEventId: string) => {
+    const mutationInput: CreateTalentNominationInput = {
+      talentNominationEvent: {
+        connect: talentNominationEventId,
+      },
+    };
+    const mutationPromise = executeCreateMutation({
+      talentNomination: mutationInput,
+    }).then((response) => {
+      // confirmed error
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+      // confirmed success
+      if (response.data?.createTalentNomination?.id) {
+        return response.data.createTalentNomination.id; //success
+      }
+      // unexpected outcome
+      throw new Error(intl.formatMessage(errorMessages.error));
+    });
+
+    return mutationPromise
+      .then(async (nominationId: string) => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Nomination created successfully",
+            id: "qWew0O",
+            description: "Toast for successful nomination creation",
+          }),
+        );
+        await navigate(paths.talentNominationInstructions(nominationId));
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Failed to create nomination",
+            id: "VMcxoH",
+            description: "Toast for error during nomination creation",
+          }),
+        );
+      });
+  };
 
   return (
     <>
@@ -119,6 +182,7 @@ export const Component = () => {
                     <TalentNominationEventCard
                       key={item.id}
                       talentNominationEventQuery={item}
+                      onCreate={handleCreateNomination}
                     />
                   ))}
                 </div>

@@ -33,6 +33,7 @@ refresh_api:
 	php api/artisan migrate
 	php api/artisan lighthouse:print-schema --write
 	php api/artisan optimize:clear
+	docker compose exec webserver sh -c "pkill -o -USR2 php-fpm"
 
 restart_fpm:
 	docker compose exec webserver sh -c "pkill -o -USR2 php-fpm"

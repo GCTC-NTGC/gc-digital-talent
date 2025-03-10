@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
+import { useState } from "react";
 
-import { Heading, CardBasic, Link } from "@gc-digital-talent/ui";
+import { Heading, CardBasic, Link, Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -8,6 +9,7 @@ interface TalentNominationEventCardProps {
   talentNominationEventQuery: FragmentType<
     typeof TalentNominationEventCard_Fragment
   >;
+  onCreate: (talentNominationEventId: string) => Promise<void>;
 }
 
 export const TalentNominationEventCard_Fragment = graphql(/* GraphQL */ `
@@ -34,6 +36,7 @@ export const TalentNominationEventCard_Fragment = graphql(/* GraphQL */ `
 
 const TalentNominationEventCard = ({
   talentNominationEventQuery,
+  onCreate,
 }: TalentNominationEventCardProps) => {
   const intl = useIntl();
   const talentNominationEvent = getFragment(
@@ -41,6 +44,13 @@ const TalentNominationEventCard = ({
     talentNominationEventQuery,
   );
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const [isCreating, setIsCreating] = useState(false);
+
+  async function handleClickCreate() {
+    setIsCreating(true);
+    await onCreate(talentNominationEvent.id);
+    setIsCreating(false);
+  }
 
   return (
     <>
@@ -115,7 +125,12 @@ const TalentNominationEventCard = ({
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
-            <Link color="secondary" mode="solid" href="#">
+            <Button
+              color="secondary"
+              mode="solid"
+              disabled={isCreating}
+              onClick={handleClickCreate}
+            >
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -125,7 +140,7 @@ const TalentNominationEventCard = ({
                 },
                 { title: talentNominationEvent.name.localized },
               )}
-            </Link>
+            </Button>
             {talentNominationEvent.learnMoreUrl?.localized && (
               <Link
                 color="secondary"
