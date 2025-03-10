@@ -160,15 +160,17 @@ const ExperienceCard = ({
         >
           <span>{titleHtml}</span>
         </Heading>
-        <div
-          data-h2-display="base(block) p-tablet(initial)"
-          data-h2-width="base(100%) p-tablet(initial)"
-          data-h2-text-align="base(center) p-tablet(initial)"
-          data-h2-margin="base(x1 0 x.5 0) p-tablet(initial)"
-        >
-          {showEdit && edit}
-          {view}
-        </div>
+        {(showEdit || view) && (
+          <div
+            data-h2-display="base(block) p-tablet(initial)"
+            data-h2-width="base(100%) p-tablet(initial)"
+            data-h2-text-align="base(center) p-tablet(initial)"
+            data-h2-margin="base(x1 0 x.5 0) p-tablet(initial)"
+          >
+            {showEdit && edit}
+            {view}
+          </div>
+        )}
       </div>
       <p
         data-h2-display="base(flex)"
