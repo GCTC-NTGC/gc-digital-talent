@@ -384,6 +384,30 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           }
           departmentNumber
         }
+        workStreams {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          community {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+          }
+          plainLanguageName {
+            en
+            fr
+          }
+        }
       }
     }
     isProfileComplete
