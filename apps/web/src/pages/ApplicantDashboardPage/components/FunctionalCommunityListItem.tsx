@@ -87,14 +87,15 @@ const FunctionalCommunityListItem = ({
         }
         headingAs={headingAs}
       >
-        {functionalCommunityListItemFragment?.community?.description && (
-          <span>
+        {functionalCommunityListItemFragment?.community?.description
+          ?.localized ? (
+          <span data-h2-color="base(black.light)">
             {
-              functionalCommunityListItemFragment?.community?.description
-                ?.localized
+              functionalCommunityListItemFragment.community.description
+                .localized
             }
           </span>
-        )}
+        ) : null}
       </PreviewList.Item>
     </>
   );
