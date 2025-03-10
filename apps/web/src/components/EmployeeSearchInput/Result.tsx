@@ -23,9 +23,10 @@ const EmployeeSearchResult_Fragment = graphql(/* GraphQL */ `
 
 interface ResultProps {
   resultQuery?: FragmentType<typeof EmployeeSearchResult_Fragment>;
+  id: string;
 }
 
-const Result = ({ resultQuery }: ResultProps) => {
+const Result = ({ resultQuery, id }: ResultProps) => {
   const intl = useIntl();
   const employee = getFragment(EmployeeSearchResult_Fragment, resultQuery);
 
@@ -35,6 +36,7 @@ const Result = ({ resultQuery }: ResultProps) => {
 
   return (
     <div
+      id={id}
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
       data-h2-gap="base(x1)"

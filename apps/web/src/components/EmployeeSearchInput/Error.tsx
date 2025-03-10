@@ -18,34 +18,84 @@ export const ErrorTitle = ({ children }: ErrorTitleProps) => (
   </p>
 );
 
-interface ErrorMessageProps {
+interface NullResponseErrorProps {
   email?: string;
-  error?: CombinedError;
 }
 
-export const ErrorMessage = ({ email, error }: ErrorMessageProps) => {
+const NullResponseError = ({ email }: NullResponseErrorProps) => {
+  const intl = useIntl();
+  return (
+    <>
+      <ErrorTitle>
+        {intl.formatMessage(
+          {
+            defaultMessage: "We couldn't find a matching profile for “{email}”",
+            id: "D8FjlJ",
+            description: "Error message when an employee could not be found",
+          },
+          { email },
+        )}
+      </ErrorTitle>
+    </>
+  );
+};
+
+interface NotGovernmentEmailErrorProps {
+  email?: string;
+}
+
+export const NotGovernmentEmailError = ({
+  email,
+}: NotGovernmentEmailErrorProps) => {
   const intl = useIntl();
 
-  if (!error) return null;
+  return (
+    <>
+      <ErrorTitle>
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "“{email}” isn’t a valid Government of Canada email address",
+            id: "tmFU3R",
+            description: "Label for when an employee was found",
+          },
+          { email },
+        )}
+      </ErrorTitle>
+    </>
+  );
+};
 
-  const errorCodes = extractValidationMessageKeys(error);
+interface ErrorMessageProps {
+  email?: string;
+  error?: CombinedError | string[];
+  isNullResponse?: boolean;
+}
 
-  if (errorCodes?.includes("NotGovernmentEmail")) {
-    return (
-      <>
-        <ErrorTitle>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "“{email}” isn’t a valid Government of Canada email address",
-              id: "tmFU3R",
-              description: "Label for when an employee was found",
-            },
-            { email },
-          )}
-        </ErrorTitle>
-      </>
-    );
+export const ErrorMessage = ({
+  email,
+  error,
+  isNullResponse,
+}: ErrorMessageProps) => {
+  if (!error && !isNullResponse) return null;
+  let errorCodes: string[] | undefined;
+
+  if (isNullResponse) {
+    return <NullResponseError />;
+  }
+
+  if (error) {
+    if (Array.isArray(error)) {
+      if (error.includes("isGovEmail")) {
+        errorCodes = ["NotGovernmentEmail"];
+      }
+    } else {
+      errorCodes = extractValidationMessageKeys(error);
+    }
+
+    if (errorCodes?.includes("NotGovernmentEmail")) {
+      return <NotGovernmentEmailError email={email} />;
+    }
   }
 
   return null;

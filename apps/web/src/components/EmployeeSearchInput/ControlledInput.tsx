@@ -1,8 +1,14 @@
-import { ChangeEventHandler, useEffect, useId, useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEventHandler,
+  useEffect,
+  useId,
+  useState,
+} from "react";
 import {
   ControllerRenderProps,
   FieldValues,
-  get,
+  useFormContext,
   UseFormStateReturn,
 } from "react-hook-form";
 import { useQuery } from "urql";
@@ -12,15 +18,16 @@ import { useIntl } from "react-intl";
 import {
   FieldState,
   useCommonInputStyles,
-  useFieldStateStyles,
+  useInputDescribedBy,
 } from "@gc-digital-talent/forms";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import Result from "./Result";
-import { ErrorMessage, ErrorTitle } from "./Error";
-import { getDefaultValue } from "./utils";
+import { ErrorMessage } from "./Error";
+import { getDefaultValue, getErrors } from "./utils";
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
@@ -34,27 +41,26 @@ const EmployeeSearch_Query = graphql(/* GraphQL */ `
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   formState: UseFormStateReturn<FieldValues>;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
   /** Current field state (to update styles) */
   fieldState: FieldState;
   inputProps?: Record<string, string>;
   buttonLabel?: string;
+  describedBy?: string;
 }
 
 const ControlledInput = ({
   field: { onChange, name },
-  formState: { defaultValues },
+  formState: { defaultValues, errors },
   inputProps,
   buttonLabel,
-  trackUnsaved,
+  describedBy,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
   const inputStyles = useCommonInputStyles();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-  const rawDefaultValue: unknown = get(defaultValues, name);
-  const defaultValue = getDefaultValue(rawDefaultValue);
+  const { setError } = useFormContext();
+  const defaultValue = getDefaultValue(defaultValues, name);
+  const inputErrors = getErrors(errors, name);
   const [query, setQuery] = useState<string>(defaultValue?.workEmail ?? "");
   const [currentQuery, setCurrentQuery] = useState<string>(
     defaultValue?.workEmail ?? "",
@@ -76,7 +82,21 @@ const ControlledInput = ({
 
   const handleSearch = () => {
     setCurrentQuery(query);
+    if (query && !workEmailDomainRegex.test(query)) {
+      setError(name, {
+        type: "isGovEmail",
+      });
+      return;
+    }
     executeQuery();
+  };
+
+  const handleKeyDown: KeyboardEventHandler = (e) => {
+    if (e.key === "Enter" && query) {
+      e.preventDefault();
+      e.stopPropagation();
+      handleSearch();
+    }
   };
 
   useEffect(() => {
@@ -95,6 +115,20 @@ const ControlledInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [employeeId]);
 
+  const isNullResponse = data?.govEmployeeProfile === null;
+  const hasErrors =
+    !!error || (inputErrors && inputErrors?.length > 0) || isNullResponse;
+  const showContext = !fetching && !hasErrors;
+
+  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
+    id,
+    describedBy,
+    show: {
+      error: hasErrors,
+      context: showContext,
+    },
+  });
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -102,14 +136,18 @@ const ControlledInput = ({
       data-h2-radius="base(rounded)"
       data-h2-border-style="base(solid)"
       data-h2-border-width="base(1px)"
-      {...stateStyles}
     >
-      <div data-h2-display="base(flex)">
+      <div
+        data-h2-display="base(flex)"
+        data-h2-position="base(relative)"
+        data-h2-z-index="base(2)"
+      >
         <input
           name={`${name}-${id}`}
           id={`${name}-${id}`}
           type="text"
           defaultValue={defaultValue?.workEmail ?? undefined}
+          aria-describedby={ariaDescribedBy}
           {...inputProps}
           {...inputStyles}
           readOnly={fetching}
@@ -117,6 +155,7 @@ const ControlledInput = ({
           data-h2-border-width="base(0)"
           data-h2-radius="base(rounded 0 0 rounded)"
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
         />
         <Button
           type="button"
@@ -132,12 +171,15 @@ const ControlledInput = ({
         </Button>
       </div>
       <div
+        data-h2-background="base(white)"
         data-h2-border-radius="base(0 0 rounded rounded)"
         data-h2-border-top="base(solid 1px gray)"
         data-h2-padding="base(x1)"
+        data-h2-position="base(relative)"
+        data-h2-z-index="base(1)"
       >
-        {typeof data === "undefined" && !fetching && (
-          <p data-h2-text-align="base(center)">
+        {showContext && typeof data === "undefined" && (
+          <p data-h2-text-align="base(center)" id={descriptionIds.context}>
             {intl.formatMessage({
               defaultMessage:
                 "Enter a work email and use the search button to find a user.",
@@ -151,27 +193,18 @@ const ControlledInput = ({
             {intl.formatMessage(commonMessages.searching)}
           </p>
         )}
-        {!fetching && data?.govEmployeeProfile && (
-          <Result resultQuery={data?.govEmployeeProfile} />
+        {!fetching && data?.govEmployeeProfile && !hasErrors && (
+          <Result
+            resultQuery={data?.govEmployeeProfile}
+            id={descriptionIds.context}
+          />
         )}
-        {!fetching && data?.govEmployeeProfile === null && !error && (
-          <>
-            <ErrorTitle>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "We couldn't find a matching profile for “{email}”",
-                  id: "D8FjlJ",
-                  description:
-                    "Error message when an employee could not be found",
-                },
-                { email: currentQuery },
-              )}
-            </ErrorTitle>
-          </>
-        )}
-        {!fetching && error && (
-          <ErrorMessage email={currentQuery} error={error} />
+        {!fetching && hasErrors && (
+          <ErrorMessage
+            email={currentQuery}
+            error={error ?? inputErrors}
+            isNullResponse={isNullResponse}
+          />
         )}
       </div>
     </div>

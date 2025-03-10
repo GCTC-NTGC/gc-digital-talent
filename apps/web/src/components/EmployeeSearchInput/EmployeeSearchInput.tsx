@@ -5,11 +5,12 @@ import {
   CommonInputProps,
   Field,
   useFieldState,
-  useInputDescribedBy,
 } from "@gc-digital-talent/forms";
 import { HydrogenAttributes } from "@gc-digital-talent/ui";
+import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import ControlledInput from "./ControlledInput";
+import { EmployeeSearchValue } from "./types";
 export { type EmployeeSearchValue } from "./types";
 
 interface WrapperProps
@@ -18,38 +19,28 @@ interface WrapperProps
 
 export interface EmployeeSearchInputProps
   extends Omit<ComponentPropsWithoutRef<"input">, "id" | "name">,
-    CommonInputProps {
+    Omit<CommonInputProps, "context"> {
   buttonLabel?: string;
   wrapperProps: WrapperProps;
 }
 
 const EmployeeSearchInput = ({
   id,
-  context,
   label,
   name,
   rules = {},
   buttonLabel,
   wrapperProps,
-  trackUnsaved = true,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
-  const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
-  const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
-    id,
-    describedBy,
-    show: {
-      error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
-      context,
-    },
-  });
+  const { control } = useFormContext();
+  const fieldState = useFieldState(id, true);
+  const isGovEmail = (value: EmployeeSearchValue) => {
+    if (!value.workEmail) return true;
+
+    return workEmailDomainRegex.test(value.workEmail) || "NOT_WORK_EMAIL";
+  };
 
   const labelId = `${id}-label`;
   return (
@@ -60,11 +51,10 @@ const EmployeeSearchInput = ({
       <Controller
         control={control}
         name={name}
-        rules={rules}
+        rules={{ ...rules, validate: { isGovEmail } }}
         render={(props) => (
           <ControlledInput
             {...props}
-            trackUnsaved={trackUnsaved}
             fieldState={fieldState}
             buttonLabel={buttonLabel}
             inputProps={{
@@ -72,14 +62,13 @@ const EmployeeSearchInput = ({
               "aria-labelledby": `${labelId}${
                 labelledBy ? ` ${labelledBy}` : ``
               }`,
-              ...(ariaDescribedBy && {
-                "aria-describedby": ariaDescribedBy,
+              ...(describedBy && {
+                "aria-describedby": describedBy,
               }),
             }}
           />
         )}
       />
-      <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />
     </Field.Wrapper>
   );
 };
