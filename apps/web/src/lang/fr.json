@@ -5159,10 +5159,6 @@
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
   },
-  "OpemzD": {
-    "defaultMessage": "({notificationCount, plural, =0 {0 non lue} one {{notificationCount, number} non lue} other {{notificationCount, number} non lues}})",
-    "description": "Number of unread notifications"
-  },
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
@@ -10089,6 +10085,10 @@
   "nzw1ry": {
     "defaultMessage": "Domaine d’études",
     "description": "Label displayed on education form for area of study input"
+  },
+  "o+YSXN": {
+    "defaultMessage": "(il y a des notifications non lues)",
+    "description": "Notice of unread notifications"
   },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
