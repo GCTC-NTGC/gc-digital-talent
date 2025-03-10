@@ -242,11 +242,23 @@ const NotificationDialog = ({
             mode={isSmallScreen ? "solid" : "icon_only"}
             color={isSmallScreen ? "black" : "secondary"}
             icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            aria-label={intl.formatMessage({
-              defaultMessage: "View notifications",
-              id: "ztx8xL",
-              description: "Button text to open the notifications dialog",
-            })}
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "View notifications{count}",
+                id: "l82MWI",
+                description: "Button text to open the notifications dialog",
+              },
+              {
+                count:
+                  notificationCount > 0
+                    ? ` ${intl.formatMessage({
+                        defaultMessage: "(there are unread notifications)",
+                        id: "o+YSXN",
+                        description: "Notice of unread notifications",
+                      })}`
+                    : "",
+              },
+            )}
             data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
             data-icon="true"
             {...(!isSmallScreen && linkColorStyling)}
