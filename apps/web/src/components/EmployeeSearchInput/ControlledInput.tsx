@@ -26,8 +26,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import Result from "./Result";
-import { ErrorMessage } from "./Error";
+import ErrorMessage from "./Error";
 import { getDefaultValue, getErrors } from "./utils";
+import { ErrorMessages } from "./types";
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
@@ -46,6 +47,7 @@ interface ControlledInputProps {
   inputProps?: Record<string, string>;
   buttonLabel?: string;
   describedBy?: string;
+  errorMessages?: Partial<ErrorMessages>;
 }
 
 const ControlledInput = ({
@@ -54,6 +56,7 @@ const ControlledInput = ({
   inputProps,
   buttonLabel,
   describedBy,
+  errorMessages,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
@@ -162,7 +165,15 @@ const ControlledInput = ({
           mode="solid"
           color="primary"
           data-h2-radius="base(0 rounded 0 0)"
-          aria-label={buttonLabel}
+          aria-label={
+            buttonLabel ??
+            intl.formatMessage({
+              defaultMessage: "Search work email",
+              id: "pfwT4h",
+              description:
+                "Default button text to search for an employee by work email",
+            })
+          }
           onClick={handleSearch}
         >
           <span data-h2-display="base(flex)" data-h2-align-items="base(cener)">
@@ -204,6 +215,7 @@ const ControlledInput = ({
             email={currentQuery}
             error={error ?? inputErrors}
             isNullResponse={isNullResponse}
+            messages={errorMessages}
           />
         )}
       </div>

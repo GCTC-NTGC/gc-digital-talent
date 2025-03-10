@@ -1,90 +1,89 @@
-import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
-interface ErrorTitleProps {
-  children: ReactNode;
-}
-
-export const ErrorTitle = ({ children }: ErrorTitleProps) => (
-  <p
-    data-h2-font-weight="base(700)"
-    data-h2-margin-bottom="base(x.5)"
-    data-h2-color="base(error)"
-  >
-    {children}
-  </p>
-);
-
-interface NullResponseErrorProps {
-  email?: string;
-}
-
-const NullResponseError = ({ email }: NullResponseErrorProps) => {
-  const intl = useIntl();
-  return (
-    <>
-      <ErrorTitle>
-        {intl.formatMessage(
-          {
-            defaultMessage: "We couldn't find a matching profile for “{email}”",
-            id: "D8FjlJ",
-            description: "Error message when an employee could not be found",
-          },
-          { email },
-        )}
-      </ErrorTitle>
-    </>
-  );
-};
-
-interface NotGovernmentEmailErrorProps {
-  email?: string;
-}
-
-export const NotGovernmentEmailError = ({
-  email,
-}: NotGovernmentEmailErrorProps) => {
-  const intl = useIntl();
-
-  return (
-    <>
-      <ErrorTitle>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "“{email}” isn’t a valid Government of Canada email address",
-            id: "tmFU3R",
-            description: "Label for when an employee was found",
-          },
-          { email },
-        )}
-      </ErrorTitle>
-    </>
-  );
-};
+import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
 
 interface ErrorMessageProps {
+  message: TErrorMessage;
+}
+
+const ErrorMessage = ({ message }: ErrorMessageProps) => (
+  <>
+    {message.title && (
+      <p
+        data-h2-font-weight="base(700)"
+        data-h2-margin-bottom="base(x.5)"
+        data-h2-color="base(error)"
+      >
+        {message.title}
+      </p>
+    )}
+    {message.body}
+  </>
+);
+
+const useDefaultMessages = (email: string | undefined): ErrorMessages => {
+  const intl = useIntl();
+  return {
+    NO_PROFILE: {
+      title: intl.formatMessage(
+        {
+          defaultMessage: "We couldn't find a matching profile for “{email}”",
+          id: "occYTR",
+          description:
+            "Default error messsage when an employee could not be found",
+        },
+        { email },
+      ),
+      body: intl.formatMessage({
+        defaultMessage:
+          "It appears that this work email address isn't linked to a profile. Try searching for another email address or provide the information requested. Once you submit your nomination form, we’ll notify them by email.",
+        id: "OcN4TN",
+        description:
+          "Description of default error message when an employee could not be found",
+      }),
+    },
+    NOT_GOVERNMENT_EMAIL: {
+      title: intl.formatMessage(
+        {
+          defaultMessage:
+            "“{email}” isn’t a valid Government of Canada email address",
+          id: "tmFU3R",
+          description: "Label for when an employee was found",
+        },
+        { email },
+      ),
+      body: intl.formatMessage({
+        defaultMessage:
+          "It appears that the email entered isn’t a valid Government of Canada email address. Please double check the email is typed correctly, try a different work email address, or reach out to support if you feel this is an error.",
+        id: "iIT3zx",
+        description:
+          "Description of default message when an email is not a government of Canada email",
+      }),
+    },
+  };
+};
+
+interface ErrorProps {
   email?: string;
   error?: CombinedError | string[];
   isNullResponse?: boolean;
+  messages?: Partial<ErrorMessages>;
 }
 
-export const ErrorMessage = ({
-  email,
-  error,
-  isNullResponse,
-}: ErrorMessageProps) => {
+const Error = ({ email, error, isNullResponse, messages }: ErrorProps) => {
+  const defaultMessages = useDefaultMessages(email);
+  const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !isNullResponse) return null;
-  let errorCodes: string[] | undefined;
 
   if (isNullResponse) {
-    return <NullResponseError />;
+    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
   }
 
   if (error) {
+    let errorCodes: string[] | undefined;
     if (Array.isArray(error)) {
       if (error.includes("isGovEmail")) {
         errorCodes = ["NotGovernmentEmail"];
@@ -94,9 +93,11 @@ export const ErrorMessage = ({
     }
 
     if (errorCodes?.includes("NotGovernmentEmail")) {
-      return <NotGovernmentEmailError email={email} />;
+      return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
     }
   }
 
   return null;
 };
+
+export default Error;

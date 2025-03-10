@@ -10,8 +10,8 @@ import { HydrogenAttributes } from "@gc-digital-talent/ui";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import ControlledInput from "./ControlledInput";
-import { EmployeeSearchValue } from "./types";
-export { type EmployeeSearchValue } from "./types";
+import { EmployeeSearchValue, ErrorMessages } from "./types";
+export type { EmployeeSearchValue, ErrorMessages } from "./types";
 
 interface WrapperProps
   extends ComponentPropsWithoutRef<"div">,
@@ -22,6 +22,7 @@ export interface EmployeeSearchInputProps
     Omit<CommonInputProps, "context"> {
   buttonLabel?: string;
   wrapperProps: WrapperProps;
+  errorMessages?: Partial<ErrorMessages>;
 }
 
 const EmployeeSearchInput = ({
@@ -31,6 +32,7 @@ const EmployeeSearchInput = ({
   rules = {},
   buttonLabel,
   wrapperProps,
+  errorMessages,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
@@ -57,6 +59,7 @@ const EmployeeSearchInput = ({
             {...props}
             fieldState={fieldState}
             buttonLabel={buttonLabel}
+            errorMessages={errorMessages}
             inputProps={{
               id,
               "aria-labelledby": `${labelId}${
