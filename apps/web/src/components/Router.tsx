@@ -616,6 +616,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                             ),
                         },
                         {
+                          path: "employee-profile",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/UserEmployeeInformationPage/UserEmployeeInformationPage"
+                            ),
+                        },
+                        {
                           path: "profile",
                           lazy: () =>
                             import(
