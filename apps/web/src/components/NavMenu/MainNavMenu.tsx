@@ -85,7 +85,15 @@ const MainNavMenu = () => {
 
   return (
     <>
-      <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
+      <NavMenuWrapper
+        label={intl.formatMessage({
+          defaultMessage: "Main menu",
+          id: "SY1LIh",
+          description: "Label for the main navigation",
+        })}
+        onOpenChange={setMenuOpen}
+        open={isMenuOpen}
+      >
         <div
           data-h2-display="base(flex) l-tablet(none)"
           data-h2-justify-content="base(space-between)"

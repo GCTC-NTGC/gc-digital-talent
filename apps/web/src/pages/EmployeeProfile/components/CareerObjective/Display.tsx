@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
@@ -7,6 +7,23 @@ import { CardSeparator, Well } from "@gc-digital-talent/ui";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerObjective";
+
+import messages from "../../messages";
+
+// bespoke rendering of community field
+const handleCareerObjectiveCommunity = (
+  careerObjectiveCommunityNameLocalized: string | null | undefined,
+  careerObjectiveCommunityOther: string | null | undefined,
+  intl: IntlShape,
+): string => {
+  if (careerObjectiveCommunityNameLocalized) {
+    return careerObjectiveCommunityNameLocalized;
+  } else if (careerObjectiveCommunityOther) {
+    return intl.formatMessage(messages.otherCommunity);
+  }
+
+  return intl.formatMessage(commonMessages.missingOptionalInformation);
+};
 
 interface DisplayProps {
   employeeProfile: EmployeeProfileCareerObjectiveFragment;
@@ -19,6 +36,7 @@ const Display = ({
     careerObjectiveTargetRoleOther,
     careerObjectiveJobTitle,
     careerObjectiveCommunity,
+    careerObjectiveCommunityOther,
     careerObjectiveWorkStreams,
     careerObjectiveDepartments,
     careerObjectiveAdditionalInformation,
@@ -41,6 +59,9 @@ const Display = ({
       : 0,
   );
 
+  const isCommunityOther =
+    !careerObjectiveCommunity?.id && !!careerObjectiveCommunityOther;
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -52,6 +73,7 @@ const Display = ({
         careerObjectiveTargetRole,
         careerObjectiveJobTitle,
         careerObjectiveCommunity,
+        careerObjectiveCommunityOther,
         careerObjectiveWorkStreams,
         careerObjectiveDepartments,
         careerObjectiveAdditionalInformation,
@@ -107,10 +129,20 @@ const Display = ({
           label={intl.formatMessage(employeeProfileMessages.community)}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {careerObjectiveCommunity?.name?.localized
-            ? careerObjectiveCommunity.name.localized
-            : notProvided}
+          {handleCareerObjectiveCommunity(
+            careerObjectiveCommunity?.name?.localized,
+            careerObjectiveCommunityOther,
+            intl,
+          )}
         </ToggleForm.FieldDisplay>
+        {isCommunityOther ? (
+          <ToggleForm.FieldDisplay
+            label={intl.formatMessage(messages.otherCommunity)}
+            data-h2-grid-column="l-tablet(span 2)"
+          >
+            {careerObjectiveCommunityOther}
+          </ToggleForm.FieldDisplay>
+        ) : null}
         {/* Only show work streams if the community has possible work streams to choose, or if there are some chosen already somehow */}
         {careerObjectiveCommunity?.workStreams?.length ||
         careerObjectiveWorkStreams?.length ? (

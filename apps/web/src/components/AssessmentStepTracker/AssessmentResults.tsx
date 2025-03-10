@@ -123,7 +123,9 @@ const AssessmentResult = ({
             href={paths.poolCandidateApplication(result.poolCandidate.id)}
             state={{ candidateIds, stepName }}
           >
-            {result.ordinal}.{" "}
+            {result.ordinal}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {". "}
             {getFullNameLabel(
               result.poolCandidate.user.firstName,
               result.poolCandidate.user.lastName,

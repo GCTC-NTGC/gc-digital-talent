@@ -287,6 +287,10 @@
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
+  "/SOIpV": {
+    "defaultMessage": "En indiquant que la formation ou le perfectionnement vous intéresse, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
+  },
   "/UKT+/": {
     "defaultMessage": "Compétences",
     "description": "Title for skills"
@@ -567,10 +571,6 @@
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
   },
-  "0nP0Wj": {
-    "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
-    "description": "Link to Statistics Canada's employment equity definitions"
-  },
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
@@ -771,6 +771,10 @@
     "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait.",
     "description": "First paragraph of apply and complete your profile section"
   },
+  "1vpJU6": {
+    "defaultMessage": "Veuillez sélectionner les volets de travail que vous envisageriez pour un emploi ou une formation.",
+    "description": "Introduction for a work stream referral preferences input"
+  },
   "1xI8uo": {
     "defaultMessage": "Utilisez le bouton « Ajoutez un rôle individuel » pour commencer.",
     "description": "Instructions for adding a role to a user."
@@ -838,6 +842,10 @@
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
+  },
+  "2Kz16k": {
+    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
+    "description": "Description of the 'Review and submit' section"
   },
   "2Ljgvn": {
     "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
@@ -978,10 +986,6 @@
   "2xBxZ9": {
     "defaultMessage": "Le code saisi est incorrect.",
     "description": "Title for error message when the code is not valid."
-  },
-  "2yXxyQ": {
-    "defaultMessage": "« ... inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
-    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
   },
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
@@ -1142,6 +1146,10 @@
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
+  },
+  "3tu/Mv": {
+    "defaultMessage": "« réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
+    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "3u7nGm": {
     "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
@@ -1627,10 +1635,6 @@
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
   },
-  "66qMwD": {
-    "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
-    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
-  },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
@@ -1702,6 +1706,10 @@
   "6c5+AE": {
     "defaultMessage": "Ce processus est <heavyPrimary>ouvert</heavyPrimary> et accepte les candidatures jusqu'au <heavyPrimary>{closingDate}</heavyPrimary>.",
     "description": "Message displayed to admins when a process is published"
+  },
+  "6c89Fd": {
+    "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></itTrainingFundLink> et sont réservées aux membres du personnel du groupe <abbreviation>TI</abbreviation> couverts par la <itCollectiveAgreementLink>convention collective du groupe <abbreviation>TI</abbreviation></itCollectiveAgreementLink>.",
+    "description": "Second paragraph of it training opportunities section"
   },
   "6ceoYt": {
     "defaultMessage": "Mises à jour des procédures obligatoires",
@@ -1850,6 +1858,10 @@
   "7Yacsa": {
     "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
     "description": "Describes selecting a advertisement details for a process."
+  },
+  "7abz0A": {
+    "defaultMessage": "Vous êtes actuellement un membre du personnel du gouvernement du Canada du groupe TI couvert par la convention collective du groupe TI.",
+    "description": "First item in list of eligibility requirements section"
   },
   "7dOILY": {
     "defaultMessage": "EX-03 : Chef de file du numérique",
@@ -2359,10 +2371,6 @@
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
-  "9whw8l": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for users interest in training opportunities for a community"
-  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -2374,10 +2382,6 @@
   "A2ycww": {
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
-  },
-  "A44nkj": {
-    "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des TI au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe TI</link>, signée en décembre 2023, par le groupe TI de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe TI, et ce jusqu’à la date d’expiration de la convention.",
-    "description": "First paragraph describing the training fund"
   },
   "A94Zgi": {
     "defaultMessage": "Découvrez les possibilités d’apprentissage offertes aux membres du personnel des TI pour acquérir des compétences et les perfectionner.",
@@ -2463,6 +2467,10 @@
     "defaultMessage": "Candidature examinée",
     "description": "Status label for a reviewed application awaiting assessment"
   },
+  "AcpYdi": {
+    "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des <abbreviation>TI</abbreviation>. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></strong>, les membres du personnel du groupe <abbreviation>TI</abbreviation> et couverts par la <link>convention collective du groupe <abbreviation>TI</abbreviation></link> ont désormais un meilleur accès à un large éventail de possibilités d’apprentissage leur permettant d’acquérir et d’approfondir leurs compétences en matière de <abbreviation>TI</abbreviation>.",
+    "description": "First paragraph describing investing in future talent"
+  },
   "AcsOrg": {
     "defaultMessage": "Êtes-vous certain(e)?",
     "description": "Delete confirmation"
@@ -2474,10 +2482,6 @@
   "Af4zOR": {
     "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
     "description": "Describing where to go to manage notification settings"
-  },
-  "AfSlkm": {
-    "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
-    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
   },
   "Ag8BE0": {
     "defaultMessage": "Tout d’abord, demander trop de renseignements sur une demande d’emploi peut repousser de bons candidats qui estiment que le processus est trop laborieux. Si vous souhaiter recruter parmi les meilleurs candidats, vous devrez trouver le bon équilibre entre ce que vous voulez demander et le temps que les candidats devront accorder pour entreprendre le processus.",
@@ -3011,6 +3015,10 @@
     "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
     "description": "first 2024 key change rationale to the directive"
   },
+  "DX3z2x": {
+    "defaultMessage": "Autre collectivité",
+    "description": "Selection or label referring to adding a community that isn't a provided option"
+  },
   "DXjJyD": {
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
     "description": "Text describing expiry dates for candidates, what it is for and a recommendation"
@@ -3250,6 +3258,10 @@
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
     "description": "Display text for the phone number field on users"
+  },
+  "EoEEha": {
+    "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
+    "description": "Label for the input for selecting work stream referral preferences"
   },
   "EoGTKC": {
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement, de possibilités de formation et de mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
@@ -3683,10 +3695,6 @@
     "defaultMessage": "Anglais essentiel",
     "description": "English essential language requirement"
   },
-  "H1UEd5": {
-    "defaultMessage": "Intérêt pour les possibilités de formation",
-    "description": "Label for the input for choosing interest level in a training opportunity"
-  },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
@@ -3714,10 +3722,6 @@
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
     "description": "Label for the expiry status field"
-  },
-  "HGbGb/": {
-    "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations ou supprimer la collectivité de votre profil à tout moment.",
-    "description": "Description of the 'Review and submit' section"
   },
   "HHEQgM": {
     "defaultMessage": "Sélectionnez une classification",
@@ -4179,6 +4183,10 @@
     "defaultMessage": "Demander pour les candidats du bassin {poolName}",
     "description": "Button link message on search page that takes user to the request form."
   },
+  "JbSK7q": {
+    "defaultMessage": "« réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
+    "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
+  },
   "Jc9FDx": {
     "defaultMessage": "Rôles ajoutés avec succès",
     "description": "Alert displayed to user when a community member's roles have been updated"
@@ -4331,10 +4339,6 @@
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
   },
-  "KUuhwO": {
-    "defaultMessage": "Les formations que vous trouverez dans cette page sont soutenues par le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> et conçues pour le personnel du groupe TI représenté par l’Institut professionnel de la fonction publique du Canada.",
-    "description": "Second paragraph of it training opportunities section"
-  },
   "KWXIKL": {
     "defaultMessage": "Membre retiré avec succès",
     "description": "Alert displayed to user when a community member is removed"
@@ -4418,10 +4422,6 @@
   "Kp3Bqu": {
     "defaultMessage": "Critères essentiels",
     "description": "Essential criteria heading"
-  },
-  "KpmfLa": {
-    "defaultMessage": "Veuillez sélectionner les volets de travail dans lesquels vous aimeriez travailler.",
-    "description": "Introduction for a work stream referral preferences input"
   },
   "KqAp09": {
     "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
@@ -4991,10 +4991,6 @@
     "defaultMessage": "Sauvegarder et ignorer la vérification",
     "description": "Button label for submit and skip email verification button on getting started form."
   },
-  "Nq3XrT": {
-    "defaultMessage": "Volets de travail préférés pour l'emploi",
-    "description": "Label for users interest in training opportunities for a community"
-  },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
     "description": "Heading label for update a user's subject form"
@@ -5543,6 +5539,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QcrA75": {
+    "defaultMessage": "La formation ou le perfectionnement m'intéresse*",
+    "description": "Message when user expresses interest in training or development opportunities"
+  },
   "Qibs21": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
@@ -5935,10 +5935,6 @@
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "Sew1Zp": {
-    "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des TI. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la TI</strong>, les membres du personnel du groupe TI, représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC), ont désormais accès à une plus vaste gamme de possibilités d’apprentissage afin d’acquérir des compétences et les approfondir.",
-    "description": "First paragraph describing investing in future talent"
-  },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
     "description": "Title to get hiring experience"
@@ -6030,6 +6026,10 @@
   "TBsQMo": {
     "defaultMessage": "Choisissez l’option qui s’applique à votre situation",
     "description": "Legend for the radio group in the application education page."
+  },
+  "TE28aU": {
+    "defaultMessage": "La formation ou le perfectionnement ne m'intéresse pas",
+    "description": "Message when user has expressed they are not interested in training or development opportunities"
   },
   "TE2Nwv": {
     "defaultMessage": "Critères de compétences constituant un atout",
@@ -6626,6 +6626,10 @@
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
   },
+  "WfX9z1": {
+    "defaultMessage": "Intérêt pour la formation ou le perfectionnement",
+    "description": "Label for user Interest in training and development for a community"
+  },
   "Wg+Buu": {
     "defaultMessage": "Disponible en avril",
     "description": "Availability blurb"
@@ -6741,6 +6745,10 @@
   "X3bPom": {
     "defaultMessage": "Octroi de contrat pour des services numériques",
     "description": "Short name for Digital Services Contracting Form"
+  },
+  "X3pHUD": {
+    "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe ",
+    "description": "Link to Statistics Canada's employment equity definitions"
   },
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
@@ -7353,10 +7361,6 @@
   "aMhznA": {
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
     "description": "Second paragraph for profile and applications notification welcoming an IAP user"
-  },
-  "aO/jZ3": {
-    "defaultMessage": "Les possibilités de formation offertes au moyen du Fonds sont réservées uniquement aux membres du personnel du groupe TI, représentés par l’IPFPC.",
-    "description": "Description for the employee eligibility card"
   },
   "aO23nW": {
     "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
@@ -8042,6 +8046,10 @@
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
     "description": "Comments or contributions list item"
   },
+  "dycByE": {
+    "defaultMessage": "« inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
+    "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
+  },
   "dyzeVv": {
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
@@ -8146,10 +8154,6 @@
     "defaultMessage": "Voir l’utilisateur",
     "description": "Title for the user information page"
   },
-  "eQkmhS": {
-    "defaultMessage": "Vous êtes actuellement un membre du personnel du gouvernement du Canada du groupe TI représenté par l'Institut professionnel de la fonction publique du Canada (IPFPC).",
-    "description": "First item in list of eligibility requirements section"
-  },
   "eRbVle": {
     "defaultMessage": "Cette adresse courriel sera utilisée pour la communication et les notifications. À l'étape suivante, nous vous demanderons de vérifier cette adresse courriel en utilisant un code que nous vous enverrons dans votre boîte de réception.",
     "description": "Message on getting started page about the contact email address - part 1."
@@ -8170,6 +8174,10 @@
     "defaultMessage": "Objet de la demande",
     "description": "Talent request - request purpose title"
   },
+  "eX+V6c": {
+    "defaultMessage": "« désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
+    "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
+  },
   "eZT5Vr": {
     "defaultMessage": "Nous recommandons d'ajouter un nom de rechange en langage clair pour les utilisateurs non gouvernementaux.",
     "description": "Suggestion for the next work stream input."
@@ -8185,10 +8193,6 @@
   "eamuiH": {
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
-  },
-  "edqRug": {
-    "defaultMessage": "La formation m'intéresse*",
-    "description": "Message displayed when user expresses interest in training opportunities"
   },
   "eePQun": {
     "defaultMessage": "Mettez à jour les volets de travail",
@@ -8713,6 +8717,10 @@
   "gr8+Es": {
     "defaultMessage": "Le statut du placement a été enregistré avec succès",
     "description": "Message displayed when a job placement status has been saved."
+  },
+  "gsjH8R": {
+    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et des programmes de perfectionnement au sein de cette collectivité.",
+    "description": "Label for the community interest in training opportunities radio option"
   },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
@@ -9542,6 +9550,10 @@
     "defaultMessage": "Retirer du processus",
     "description": "Header for the form to remove a process role from a user"
   },
+  "l82MWI": {
+    "defaultMessage": "Voir les notifications{count}",
+    "description": "Button text to open the notifications dialog"
+  },
   "l9AK3C": {
     "defaultMessage": "ou",
     "description": "that appears between different experience requirements for a pool applicant"
@@ -9638,10 +9650,6 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
-  "loImp5": {
-    "defaultMessage": "Volets de travail préférés pour l'emploi",
-    "description": "Label for the input for selecting work stream referral preferences"
-  },
   "lr6PWk": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
     "description": "Copy explaining mfa apps"
@@ -9685,10 +9693,6 @@
   "m54J0C": {
     "defaultMessage": "Rôles et permissions",
     "description": "Heading for updating a users roles and permissions"
-  },
-  "m6NZda": {
-    "defaultMessage": "La formation ne m'intéresse pas",
-    "description": "Message displayed when a user has expressed they are not interested in training opportunities"
   },
   "m6eIBH": {
     "defaultMessage": "Votre prochain type de poste",
@@ -10118,6 +10122,10 @@
     "defaultMessage": "Domaine d’études",
     "description": "Label displayed on education form for area of study input"
   },
+  "o+YSXN": {
+    "defaultMessage": "(il y a des notifications non lues)",
+    "description": "Notice of unread notifications"
+  },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
     "description": "Label displayed on education form for institution input"
@@ -10166,10 +10174,6 @@
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
-  "oEYCLO": {
-    "defaultMessage": "Je souhaite bénéficier des possibilités de formation et de perfectionnement au sein de cette collectivité.",
-    "description": "Label for the community interest in training opportunities radio option"
-  },
   "oIM22z": {
     "defaultMessage": "Disqualifiez le candidat ou la candidate",
     "description": "Disqualify candidate option"
@@ -10213,6 +10217,10 @@
   "oXYnZN": {
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
+  },
+  "oY+SWP": {
+    "defaultMessage": "Les possibilités de formation financées par le fonds sont accessibles aux membres du personnel du groupe TI couverts par la convention collective du groupe TI. Les membres du personnel représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC) et les membres du personnel non représentés peuvent accéder à la formation. Les membres du personnel représentés par l’IPFPC auront la priorité lorsque les places seront limitées.",
+    "description": "Description for the employee eligibility card"
   },
   "oYEBcP": {
     "defaultMessage": "Je fais actuellement partie de ce programme.",
@@ -10878,6 +10886,10 @@
     "defaultMessage": "Créer votre parcours professionnel",
     "description": "Title for career timeline page when there are no experiences yet"
   },
+  "sMCVdo": {
+    "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des <abbreviation>TI</abbreviation> au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe <abbreviation>TI</abbreviation></link>, signée en décembre 2023, par le groupe <abbreviation>TI</abbreviation> de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe <abbreviation>TI</abbreviation>, et ce jusqu’à la date d’expiration de la convention.",
+    "description": "First paragraph describing the training fund"
+  },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
     "description": "Description for checklist section in application education page."
@@ -11217,10 +11229,6 @@
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
-  },
-  "uPQ1t+": {
-    "defaultMessage": "« ... réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
-    "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "uR9G1H": {
     "defaultMessage": "Statut de supervision",
@@ -11609,10 +11617,6 @@
   "wYohzF": {
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
-  },
-  "wdBpAX": {
-    "defaultMessage": "En indiquant que les possibilités de formation vous intéressent, vous acceptez de partager les informations de votre profil avec l'équipe de recrutement et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
-    "description": "Context for the 'I'm interested in training opportunities within this community' radio option"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
@@ -12221,10 +12225,6 @@
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
     "description": "Title for the accessible by design section"
-  },
-  "ztx8xL": {
-    "defaultMessage": "Voir les notifications",
-    "description": "Button text to open the notifications dialog"
   },
   "ztzRUG": {
     "defaultMessage": "Créez une classification",

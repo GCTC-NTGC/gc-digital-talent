@@ -230,9 +230,8 @@ const GovernmentInformationSection = ({
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {priorityNumber
-                    ? priorityNumber
-                    : intl.formatMessage(commonMessages.notProvided)}
+                  {priorityNumber ??
+                    intl.formatMessage(commonMessages.notProvided)}
                 </span>
               </p>
             </div>

@@ -9,7 +9,6 @@ interface ExperienceTreeItemsProps {
 
 const ExperienceTreeItems = ({ experiences }: ExperienceTreeItemsProps) => {
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {experiences.length
         ? experiences.map((experience) => (

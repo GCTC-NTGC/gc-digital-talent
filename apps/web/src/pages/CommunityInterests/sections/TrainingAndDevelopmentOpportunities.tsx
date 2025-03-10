@@ -45,7 +45,7 @@ export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
         developmentProgramId: string | null;
-        participationStatus: string | null;
+        participationStatus: DevelopmentProgramParticipationStatus | null;
         completionDate: string | null;
       }[]
     | null;

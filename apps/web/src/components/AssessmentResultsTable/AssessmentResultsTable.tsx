@@ -1,3 +1,4 @@
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";

@@ -280,8 +280,10 @@ export const Component = () => {
                       color="black"
                       external
                       href="tel:1-855-438-1102"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label="1 8 5 5 4 3 8 1 1 0 2"
                       data-h2-margin-top="base(x0.5)"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     >
                       1-855-438-1102
                     </Link>
@@ -292,8 +294,10 @@ export const Component = () => {
                       color="black"
                       external
                       href="tel:1-855-438-1103"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label="1 8 5 5 4 3 8 1 1 0 3"
                       data-h2-margin-top="base(x0.5)"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     >
                       1-855-438-1103
                     </Link>
@@ -304,8 +308,10 @@ export const Component = () => {
                       color="black"
                       external
                       href="tel:1-800-2318-6290"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
                       data-h2-margin-top="base(x0.5)"
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                     >
                       1-800-2318-6290
                     </Link>

@@ -155,18 +155,11 @@ const EditCommunityMemberDialog = forwardRef<
             },
           )}
         >
-          {intl.formatMessage(
-            {
-              defaultMessage: "Edit community roles",
-              id: "eS/PsM",
-              description:
-                "Label for the form to edit user community membership",
-            },
-            {
-              userName,
-              communityName: getLocalizedName(community.name, intl),
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage: "Edit community roles",
+            id: "eS/PsM",
+            description: "Label for the form to edit user community membership",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>

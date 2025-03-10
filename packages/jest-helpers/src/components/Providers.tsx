@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { HelmetProvider } from "react-helmet-async";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router";

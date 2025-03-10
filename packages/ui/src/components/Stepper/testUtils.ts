@@ -1,6 +1,5 @@
 import { StepType } from "./types";
 
-// eslint-disable-next-line import/prefer-default-export
 export const defaultSteps: StepType[] = [
   {
     href: "/step-one",

@@ -2,7 +2,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 
 // Note: Only one field to check here
-// eslint-disable-next-line import/prefer-default-export
 export function hasEmptyRequiredFields({
   poolSkills,
 }: Pick<Pool, "poolSkills">): boolean {

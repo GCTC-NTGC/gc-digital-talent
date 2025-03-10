@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

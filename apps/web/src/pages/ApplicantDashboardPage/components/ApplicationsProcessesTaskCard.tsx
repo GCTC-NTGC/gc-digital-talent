@@ -91,6 +91,7 @@ const ApplicationsProcessesTaskCard = ({
                       "Subtitle explaining job applications expandable within applications and processes card",
                   })}
                 >
+                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                   {`${intl.formatMessage({
                     defaultMessage: "Job applications",
                     id: "aBGEsG",
@@ -124,6 +125,7 @@ const ApplicationsProcessesTaskCard = ({
                       "Subtitle explaining Recruitment processes expandable within applications and processes card",
                   })}
                 >
+                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                   {`${intl.formatMessage({
                     defaultMessage: "Recruitment processes",
                     id: "wPDwMb",

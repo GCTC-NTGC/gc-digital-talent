@@ -24,6 +24,7 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  alphaSortOptions,
   Checklist,
   Combobox,
   Input,
@@ -45,6 +46,7 @@ import {
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import Display from "./Display";
+import messages from "../../messages";
 
 const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileCareerObjectiveOptions on Query {
@@ -106,6 +108,7 @@ export const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
         id
       }
     }
+    careerObjectiveCommunityOther
     careerObjectiveWorkStreams {
       id
       name {
@@ -141,6 +144,7 @@ interface FormValues {
   targetRoleOther: string | null | undefined;
   jobTitle: string | null | undefined;
   communityId: string | null | undefined;
+  communityOther: string | null | undefined;
   workStreamIds: string[] | null | undefined;
   departmentIds: string[] | null | undefined;
   additionalInformation: string | null | undefined;
@@ -161,6 +165,8 @@ const wordCountLimits: Record<Locales, number> = {
   en: TEXT_AREA_MAX_WORDS_EN,
   fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
 } as const;
+
+const OTHER_SELECTION_VALUE = "OTHER";
 
 const CareerObjectiveSection = ({
   employeeProfileQuery,
@@ -201,22 +207,32 @@ const CareerObjectiveSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
-    classificationGroup: initialData.careerObjectiveClassification?.group,
-    classificationLevel:
-      initialData.careerObjectiveClassification?.level.toString(),
-    targetRole: initialData.careerObjectiveTargetRole?.value,
-    targetRoleOther: initialData.careerObjectiveTargetRoleOther,
-    jobTitle: initialData.careerObjectiveJobTitle,
-    communityId: initialData.careerObjectiveCommunity?.id,
-    workStreamIds: initialData.careerObjectiveWorkStreams?.map(
-      (workStream) => workStream.id,
-    ),
-    departmentIds: initialData.careerObjectiveDepartments?.map(
-      (department) => department.id,
-    ),
-    additionalInformation: initialData.careerObjectiveAdditionalInformation,
-  });
+  const dataToFormValues = (initialData: EmployeeProfile): FormValues => {
+    // community and communityOther have a bespoke touch
+    const isCommunityOther =
+      !initialData.careerObjectiveCommunity?.id &&
+      !!initialData.careerObjectiveCommunityOther;
+
+    return {
+      classificationGroup: initialData.careerObjectiveClassification?.group,
+      classificationLevel:
+        initialData.careerObjectiveClassification?.level.toString(),
+      targetRole: initialData.careerObjectiveTargetRole?.value,
+      targetRoleOther: initialData.careerObjectiveTargetRoleOther,
+      jobTitle: initialData.careerObjectiveJobTitle,
+      communityId: isCommunityOther
+        ? OTHER_SELECTION_VALUE
+        : initialData.careerObjectiveCommunity?.id,
+      communityOther: initialData.careerObjectiveCommunityOther,
+      workStreamIds: initialData.careerObjectiveWorkStreams?.map(
+        (workStream) => workStream.id,
+      ),
+      departmentIds: initialData.careerObjectiveDepartments?.map(
+        (department) => department.id,
+      ),
+      additionalInformation: initialData.careerObjectiveAdditionalInformation,
+    };
+  };
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(employeeProfile),
@@ -244,6 +260,13 @@ const CareerObjectiveSection = ({
         defaultValue: [],
       });
     }
+    // reset communityOther when switching communities
+    if (watchCommunityId !== OTHER_SELECTION_VALUE) {
+      methods.resetField("communityOther", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [
     watchTargetRole,
     methods,
@@ -260,6 +283,7 @@ const CareerObjectiveSection = ({
     targetRoleOther,
     jobTitle,
     communityId,
+    communityOther,
     workStreamIds,
     departmentIds,
     additionalInformation,
@@ -275,6 +299,7 @@ const CareerObjectiveSection = ({
         classification.level.toString() === classificationLevel,
     );
 
+    // community and communityOther have bespoke handling
     return executeMutation({
       id: userAuthInfo.id,
       employeeProfile: {
@@ -288,15 +313,17 @@ const CareerObjectiveSection = ({
         careerObjectiveTargetRole: targetRole as TargetRole,
         careerObjectiveTargetRoleOther: targetRoleOther,
         careerObjectiveJobTitle: jobTitle,
-        careerObjectiveCommunity: communityId
-          ? {
-              connect: communityId,
-            }
-          : {
-              disconnect: true,
-            },
+        careerObjectiveCommunity:
+          communityId && communityId !== OTHER_SELECTION_VALUE
+            ? {
+                connect: communityId,
+              }
+            : {
+                disconnect: true,
+              },
+        careerObjectiveCommunityOther: communityOther,
         careerObjectiveWorkStreams: {
-          sync: workStreamIds,
+          sync: communityId === OTHER_SELECTION_VALUE ? [] : workStreamIds,
         },
         careerObjectiveDepartments: {
           sync: departmentIds,
@@ -352,13 +379,25 @@ const CareerObjectiveSection = ({
     unpackMaybes(options.classifications),
     watchClassificationGroup ?? undefined,
   ).sort((a, b) => a.value - b.value);
-  const communityOptions: ComponentProps<typeof Select>["options"] =
-    unpackMaybes(options.communities).map((community) => ({
-      value: community.id,
-      label:
-        community.name?.localized ??
-        intl.formatMessage(commonMessages.notProvided),
-    }));
+
+  // append the special OTHER selection to the end of fetched communities
+  let communityOptions: ComponentProps<typeof Select>["options"] = unpackMaybes(
+    options.communities,
+  ).map((community) => ({
+    value: community.id,
+    label:
+      community.name?.localized ??
+      intl.formatMessage(commonMessages.notProvided),
+  }));
+  communityOptions = alphaSortOptions(communityOptions);
+  communityOptions = [
+    ...communityOptions,
+    {
+      value: OTHER_SELECTION_VALUE,
+      label: intl.formatMessage(messages.otherCommunity),
+    },
+  ];
+
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
     options.communities
       .find((community) => community?.id === watchCommunityId)
@@ -489,8 +528,9 @@ const CareerObjectiveSection = ({
                     TargetRole.IndividualContributor,
                     TargetRole.Manager,
                     TargetRole.Director,
-                    TargetRole.DirectorGeneral,
+                    TargetRole.SeniorDirector,
                     TargetRole.ExecutiveDirector,
+                    TargetRole.DirectorGeneral,
                     TargetRole.AssistantDeputyMinister,
                     TargetRole.DeputyMinister,
                     TargetRole.Other,
@@ -529,11 +569,24 @@ const CareerObjectiveSection = ({
                     uiMessages.nullSelectionOption,
                   )}
                   options={communityOptions}
+                  doNotSort
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   disabled={fetching}
                 />
+                {watchCommunityId === OTHER_SELECTION_VALUE ? (
+                  <Input
+                    id="communityOther"
+                    name="communityOther"
+                    type="text"
+                    label={intl.formatMessage(messages.otherCommunity)}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                ) : null}
                 {watchCommunityId ? (
                   // Only show work streams if a community has been selected
                   <>

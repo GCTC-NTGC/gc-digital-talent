@@ -86,18 +86,13 @@ const Opportunities = () => {
           ]}
         >
           <p data-h2-margin-bottom="base(x1)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Find pre-qualified talent for your team or plan your own next career move.",
-                id: "e6hj69",
-                description:
-                  "Paragraph one, description of the managers community",
-              },
-              {
-                abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-              },
-            )}
+            {intl.formatMessage({
+              defaultMessage:
+                "Find pre-qualified talent for your team or plan your own next career move.",
+              id: "e6hj69",
+              description:
+                "Paragraph one, description of the managers community",
+            })}
           </p>
           <p>
             {intl.formatMessage({
