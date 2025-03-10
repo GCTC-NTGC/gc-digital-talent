@@ -121,6 +121,7 @@ const generateUser = (
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
+    workEmail: faker.internet.email(),
     govEmployeeType: toLocalizedEnum(
       faker.helpers.arrayElement<GovEmployeeType>(
         Object.values(GovEmployeeType),
@@ -268,6 +269,7 @@ export const fakeUser = (): User => {
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
+    workEmail: faker.internet.email(),
     govEmployeeType: toLocalizedEnum(
       faker.helpers.arrayElement<GovEmployeeType>(
         Object.values(GovEmployeeType),

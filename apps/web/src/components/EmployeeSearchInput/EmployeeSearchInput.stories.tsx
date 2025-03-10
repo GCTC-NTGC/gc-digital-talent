@@ -5,20 +5,19 @@ import { CombinedError } from "urql";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { BasicGovEmployeeProfile } from "@gc-digital-talent/graphql";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
 import EmployeeSearchInput, {
   EmployeeSearchInputProps,
 } from "./EmployeeSearchInput";
+import { EmployeeSearchValue } from "./types";
 
 faker.seed(0);
 
 const users = fakeUsers(1);
 
 interface EmployeeSearchInputArgs extends EmployeeSearchInputProps {
-  mockSearch?: (term: string) => Promise<BasicGovEmployeeProfile>;
-  defaultValue?: string | string[];
+  defaultUser?: EmployeeSearchValue;
 }
 
 const meta: Meta<EmployeeSearchInputArgs> = {
@@ -40,8 +39,15 @@ const meta: Meta<EmployeeSearchInputArgs> = {
       },
     },
   },
-  render: (args) => (
-    <BasicForm onSubmit={action("onSubmit")}>
+  render: ({ defaultUser, ...args }) => (
+    <BasicForm
+      onSubmit={action("onSubmit")}
+      options={
+        defaultUser
+          ? { defaultValues: { [args.name]: defaultUser } }
+          : undefined
+      }
+    >
       <EmployeeSearchInput {...args} />
       <Submit />
     </BasicForm>
@@ -49,7 +55,7 @@ const meta: Meta<EmployeeSearchInputArgs> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof EmployeeSearchInput>;
+type Story = StoryObj<EmployeeSearchInputArgs>;
 
 export const Default: Story = {
   parameters: {
@@ -94,6 +100,24 @@ export const NotGovernmentEmail: Story = {
             },
           ],
         }),
+      },
+    },
+  },
+};
+
+export const WithDefaultValue: Story = {
+  args: {
+    defaultUser: {
+      id: users[0].id,
+      workEmail: users[0].workEmail,
+    },
+  },
+  parameters: {
+    apiResponses: {
+      EmployeeSearch: {
+        data: {
+          govEmployeeProfile: users[0],
+        },
       },
     },
   },

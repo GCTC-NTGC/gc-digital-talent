@@ -2,6 +2,7 @@ import { ChangeEventHandler, useEffect, useId, useState } from "react";
 import {
   ControllerRenderProps,
   FieldValues,
+  get,
   UseFormStateReturn,
 } from "react-hook-form";
 import { useQuery } from "urql";
@@ -19,6 +20,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Result from "./Result";
 import { ErrorMessage, ErrorTitle } from "./Error";
+import { getDefaultValue } from "./utils";
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
@@ -42,6 +44,7 @@ interface ControlledInputProps {
 
 const ControlledInput = ({
   field: { onChange, name },
+  formState: { defaultValues },
   inputProps,
   buttonLabel,
   trackUnsaved,
@@ -50,7 +53,12 @@ const ControlledInput = ({
   const intl = useIntl();
   const inputStyles = useCommonInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-  const [query, setQuery] = useState<string>("");
+  const rawDefaultValue: unknown = get(defaultValues, name);
+  const defaultValue = getDefaultValue(rawDefaultValue);
+  const [query, setQuery] = useState<string>(defaultValue?.workEmail ?? "");
+  const [currentQuery, setCurrentQuery] = useState<string>(
+    defaultValue?.workEmail ?? "",
+  );
   const [{ data, fetching, error }, executeQuery] = useQuery({
     query: EmployeeSearch_Query,
     pause: true,
@@ -67,14 +75,25 @@ const ControlledInput = ({
   };
 
   const handleSearch = () => {
+    setCurrentQuery(query);
     executeQuery();
   };
+
+  useEffect(() => {
+    if (defaultValue?.workEmail) {
+      executeQuery();
+    }
+    // NOTE: Only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const employeeId = data?.govEmployeeProfile?.id;
 
   useEffect(() => {
-    onChange(employeeId);
-  }, [employeeId, onChange]);
+    onChange({ id: employeeId, workEmail: query });
+    // Note: Only update when employee ID changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [employeeId]);
 
   return (
     <div
@@ -90,8 +109,10 @@ const ControlledInput = ({
           name={`${name}-${id}`}
           id={`${name}-${id}`}
           type="text"
+          defaultValue={defaultValue?.workEmail ?? undefined}
           {...inputProps}
           {...inputStyles}
+          readOnly={fetching}
           data-h2-flex-grow="base(1)"
           data-h2-border-width="base(0)"
           data-h2-radius="base(rounded 0 0 rounded)"
@@ -144,12 +165,14 @@ const ControlledInput = ({
                   description:
                     "Error message when an employee could not be found",
                 },
-                { email: query },
+                { email: currentQuery },
               )}
             </ErrorTitle>
           </>
         )}
-        {!fetching && error && <ErrorMessage email={query} error={error} />}
+        {!fetching && error && (
+          <ErrorMessage email={currentQuery} error={error} />
+        )}
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import {
 import { HydrogenAttributes } from "@gc-digital-talent/ui";
 
 import ControlledInput from "./ControlledInput";
+export { type EmployeeSearchValue } from "./types";
 
 interface WrapperProps
   extends ComponentPropsWithoutRef<"div">,
