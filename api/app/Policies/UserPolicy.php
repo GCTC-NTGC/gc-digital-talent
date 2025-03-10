@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
 use App\Models\Role;
 use App\Models\Team;
@@ -29,11 +30,21 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-applicantProfile')
+        return $user->isAbleTo('view-any-user') ||
+            ($user->isAbleTo('view-own-user') && $user->id === $model->id) ||
+            ($user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams(
                     $model,
                     $user->rolesTeams()->get()->pluck('id')
+                )
+            ) ||
+            ($user->isAbleTo('view-team-communityInterest')
+                && $this->userIsACommunityTalentInCommunities(
+                    $model,
+                    $user->rolesTeams()
+                        ->where('teamable_type', "App\Models\Community")
+                        ->pluck('teamable_id')
+                        ->toArray(),
                 )
             );
     }
@@ -163,6 +174,22 @@ class UserPolicy
             ->exists();
     }
 
+    /*******************  COMMUNITY TALENT QUERIES  *******************/
+
+    // a community talent is a user with a community interest and job and/or training interest
+    protected function userIsACommunityTalentInCommunities(User $user, $communityIds)
+    {
+        return CommunityInterest::where('user_id', $user->id)
+            ->whereIn('community_id', $communityIds)
+            ->where(function ($query) {
+                $query->orWhere('job_interest', true);
+                $query->orWhere('training_interest', true);
+
+                return $query;
+            })
+            ->exists();
+    }
+
     /*******************  ROLE CHECKING  *******************/
 
     /**
@@ -221,8 +248,6 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
-            case 'manager':
-                return $actor->isAbleTo('update-any-managerMembership ') || $actor->isAbleTo('assign-any-role');
 
         }
 

@@ -26,7 +26,7 @@ class UserTestSeeder extends Seeder
         // shared auth users for testing
         User::factory()
             ->asApplicant()
-            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
+            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->asAdmin()
             ->withSkillsAndExperiences()
             ->asGovEmployee()
@@ -52,7 +52,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
-            ->withCommunityInterests([$testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
@@ -65,7 +65,7 @@ class UserTestSeeder extends Seeder
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->withEmployeeProfile()
-            ->withCommunityInterests([$testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->create([
                 'first_name' => 'Jaime',
                 'last_name' => 'Bilodeau',
@@ -112,16 +112,6 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Waters',
                 'email' => 'community@test.com',
                 'sub' => 'community@test.com',
-            ]);
-
-        User::factory()
-            ->asApplicant()
-            ->asManager()
-            ->create([
-                'first_name' => 'Maisy',
-                'last_name' => 'Ware',
-                'email' => 'manager@test.com',
-                'sub' => 'manager@test.com',
             ]);
     }
 }

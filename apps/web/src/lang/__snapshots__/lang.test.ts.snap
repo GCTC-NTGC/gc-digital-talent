@@ -10,6 +10,21 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Submitted",
+    "fr": [
+      "Soumise",
+      "Soumis"
+    ]
+  },
+  {
+    "en": "Not interested",
+    "fr": [
+      "Non intéressé(e)",
+      "Ce programme ne m'intéresse pas",
+      "Pas d'intérêt"
+    ]
+  },
+  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -35,6 +50,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajoutez un rôle individuel",
       "Ajouter un rôle individue"
+    ]
+  },
+  {
+    "en": "Review and submit",
+    "fr": [
+      "Révisez votre candidature et envoyez-la",
+      "Révision et soumission"
     ]
   },
   {
@@ -70,6 +92,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Postulez dès-maintenant",
       "Présentez votre demande"
+    ]
+  },
+  {
+    "en": "Qualified",
+    "fr": [
+      "Qualifié",
+      "Qualifié(e)"
     ]
   },
   {
@@ -115,6 +144,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add work streams",
+    "fr": [
+      "Ajoutez des volets de travail",
+      "Ajoutez les volets de travail"
+    ]
+  },
+  {
     "en": "Request a voucher",
     "fr": [
       "Demander un bon",
@@ -126,6 +162,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigences relatives aux compétences",
       "Exigences en matière de compétences"
+    ]
+  },
+  {
+    "en": "Add a community",
+    "fr": [
+      "Ajoutez une collectivité",
+      "Ajouter une collectivité"
     ]
   },
   {

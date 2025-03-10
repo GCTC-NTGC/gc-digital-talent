@@ -431,17 +431,16 @@ class PoolCandidateSearchTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
-            'user_id' => User::factory([
-                'is_gov_employee' => true,
-            ]),
+            'user_id' => User::factory()->asGovEmployee(),
         ]);
+
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $this->pool->id,
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
             'suspended_at' => null,
             'user_id' => User::factory([
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
             ]),
         ]);
 

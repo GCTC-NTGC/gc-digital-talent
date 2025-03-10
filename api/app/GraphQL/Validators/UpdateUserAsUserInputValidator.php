@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\GovernmentEmailRegex;
 use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -45,8 +46,7 @@ final class UpdateUserAsUserInputValidator extends Validator
                  */
                 Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
                 Rule::unique('users', 'work_email')->ignore($this->arg('id'), 'id'),
-                // Note: Should be kept in sync with the workEmailDomainRegex
-                'regex:/@([A-Za-z0-9-]+\.)*(gc\.ca|canada\.ca|elections\.ca|ccc\.ca|canadapost-postescanada\.ca|gg\.ca)$/i',
+                new GovernmentEmailRegex,
             ],
             'sub' => [
                 'sometimes',

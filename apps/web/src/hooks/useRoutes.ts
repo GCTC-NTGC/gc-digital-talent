@@ -28,6 +28,7 @@ const getRoutes = (lang: Locales) => {
   const managerUrl = [baseUrl, "manager"].join("/");
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
+  const communitiesUrl = [baseUrl, "communities"].join("/");
 
   return {
     // Main Routes
@@ -256,6 +257,10 @@ const getRoutes = (lang: Locales) => {
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
 
+    // Community interests
+    communityInterest: (communityInterestId: string) =>
+      `${applicantUrl}/community-interests/${communityInterestId}`,
+
     // Profile and Applications
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
@@ -298,6 +303,12 @@ const getRoutes = (lang: Locales) => {
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
+    // Community interests
+    createCommunityInterest: () =>
+      [applicantUrl, "community-interests", "create"].join("/"),
+    updateCommunityInterest: (id: string) =>
+      [applicantUrl, "community-interests", id].join("/"),
+
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
     jobPosterTemplate: (templateId: string) =>
@@ -305,8 +316,6 @@ const getRoutes = (lang: Locales) => {
 
     // Manager pages
     manager: () => managerUrl,
-    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
-    managerRequestHistory: () => [managerUrl, "talent-requests"].join("/"),
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
@@ -334,6 +343,16 @@ const getRoutes = (lang: Locales) => {
     workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
     workStreamUpdate: (workStreamId: string) =>
       [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
+
+    // Admin - Community Talent
+    communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
+
+    // Communities
+    talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
+
+    // Comptrollership
+    comptrollershipExecutivesPage: () =>
+      [baseUrl, "comptrollership-executives"].join("/"),
 
     /**
      * Deprecated

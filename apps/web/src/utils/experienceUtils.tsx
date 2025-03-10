@@ -37,6 +37,7 @@ import {
 import { formattedDate, getDateRange } from "./dateUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
+import nodeToString from "./nodeToString";
 
 /**
  * Gets all of the experience form labels
@@ -346,6 +347,7 @@ export const formValuesToSubmitData = (
     cafEmploymentType,
     cafForce,
     cafRank,
+    workStreams,
   } = data;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -404,6 +406,7 @@ export const formValuesToSubmitData = (
       cafEmploymentType,
       cafForce,
       cafRank,
+      workStreamIds: workStreams,
     },
   };
 
@@ -644,6 +647,7 @@ const getWorkExperienceDefaultValues = (
     cafEmploymentType,
     cafForce,
     cafRank,
+    workStreams,
   } = experience;
 
   const isIndeterminate =
@@ -695,6 +699,7 @@ const getWorkExperienceDefaultValues = (
     cafEmploymentType: cafEmploymentType?.value,
     cafForce: cafForce?.value,
     cafRank: cafRank?.value,
+    workStreams: workStreams?.map((item) => item.id),
   };
 };
 
@@ -938,7 +943,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   ]);
 
   return {
-    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    title: nodeToString(getExperienceName(experience, intl)) ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,

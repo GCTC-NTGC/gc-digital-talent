@@ -44,6 +44,12 @@ import {
   getSkillLevelName,
   getSkillLevelDefinition,
   getSkillLevelMessages,
+  MentorshipStatus,
+  getMentorshipStatus,
+  getMentorshipInterest,
+  ExecCoachingStatus,
+  getExecCoachingStatus,
+  getExecCoachingInterest,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -133,6 +139,12 @@ export {
   getSkillLevelName,
   getSkillLevelDefinition,
   getSkillLevelMessages,
+  MentorshipStatus,
+  getMentorshipStatus,
+  getMentorshipInterest,
+  ExecCoachingStatus,
+  getExecCoachingStatus,
+  getExecCoachingInterest,
 };
 
 export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };

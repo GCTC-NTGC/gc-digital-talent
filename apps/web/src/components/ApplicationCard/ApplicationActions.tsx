@@ -287,15 +287,12 @@ const DeleteAction = ({ show, title, onDelete }: DeleteActionProps) => {
       </AlertDialog.Trigger>
       <AlertDialog.Content>
         <AlertDialog.Title>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Delete Application",
-              id: "FFD16/",
-              description:
-                "Title for the modal that appears when a user attempts to delete an application",
-            },
-            { name: title },
-          )}
+          {intl.formatMessage({
+            defaultMessage: "Delete Application",
+            id: "FFD16/",
+            description:
+              "Title for the modal that appears when a user attempts to delete an application",
+          })}
         </AlertDialog.Title>
         <AlertDialog.Description>
           {intl.formatMessage(

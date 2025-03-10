@@ -19,6 +19,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $user_id
+ * @property mixed $properties
  * @property \Illuminate\Support\Carbon $start_date
  * @property ?\Illuminate\Support\Carbon $end_date
  * @property ?\Illuminate\Support\Carbon $awarded_date
@@ -282,6 +283,35 @@ class Experience extends Model
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
             set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyString($value, $attributes, $propertyName)
+        );
+    }
+
+    protected static function getJsonPropertyArray(array $attributes, string $propertyName)
+    {
+
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName)) {
+            return $properties->$propertyName;
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyArray(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (is_array($value)) {
+            $properties->$propertyName = array_unique($value);
+        }
+
+        return ['properties' => json_encode($properties)];
+    }
+
+    protected function makeJsonPropertyArrayAttribute(string $propertyName): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyArray($attributes, $propertyName),
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyArray($value, $attributes, $propertyName)
         );
     }
 

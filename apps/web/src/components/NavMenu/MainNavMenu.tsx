@@ -64,7 +64,6 @@ const MainNavMenu = () => {
 
   const roleNames = {
     applicant: intl.formatMessage(navMenuMessages.applicant),
-    manager: intl.formatMessage(navMenuMessages.manager),
     community: intl.formatMessage(navMenuMessages.community),
     admin: intl.formatMessage(navMenuMessages.admin),
   } as const;
@@ -86,7 +85,15 @@ const MainNavMenu = () => {
 
   return (
     <>
-      <NavMenuWrapper label="Menu" onOpenChange={setMenuOpen} open={isMenuOpen}>
+      <NavMenuWrapper
+        label={intl.formatMessage({
+          defaultMessage: "Main menu",
+          id: "SY1LIh",
+          description: "Label for the main navigation",
+        })}
+        onOpenChange={setMenuOpen}
+        open={isMenuOpen}
+      >
         <div
           data-h2-display="base(flex) l-tablet(none)"
           data-h2-justify-content="base(space-between)"

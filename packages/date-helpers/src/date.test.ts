@@ -3,7 +3,7 @@
  */
 
 import { createIntl, createIntlCache } from "react-intl";
-import { parseISO } from "date-fns";
+import { parseISO } from "date-fns/parseISO";
 import { tz } from "@date-fns/tz";
 import { register } from "timezone-mock";
 

@@ -347,11 +347,7 @@ export const PoolPoster = ({
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
   const workLocation = pool.isRemote
-    ? intl.formatMessage({
-        defaultMessage: "Remote, hybrid or on-site",
-        id: "swESO/",
-        description: "Location requirement when a pool advertisement is remote",
-      })
+    ? intl.formatMessage(commonMessages.remote)
     : getLocalizedName(pool.location, intl);
 
   const showAboutUs = !!pool.aboutUs?.[locale];
@@ -686,6 +682,7 @@ export const PoolPoster = ({
                             : "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html#information-technology"
                         }
                         icon={InformationCircleIcon}
+                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                         aria-label={`${intl.formatMessage({
                           defaultMessage:
                             "Information technology (IT) work streams",
@@ -706,11 +703,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Salary range",
-                      id: "GgBjAd",
-                      description: "Label for pool advertisement salary range",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.salaryRange) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
                     localizeSalaryRange(
@@ -723,11 +717,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Deadline",
-                      id: "FVEh7L",
-                      description: "Label for pool advertisement closing date",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.deadline) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={
                     <DeadlineValue
@@ -744,12 +735,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Employment length",
-                      id: "EGNLD7",
-                      description:
-                        "Label for pool advertisement employment length",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.employmentLength) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={opportunityLength}
                   suffix={
@@ -764,6 +751,7 @@ export const PoolPoster = ({
                           ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
                           : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
                       }
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about employment durations",
                         id: "zlHeEz",
@@ -800,12 +788,8 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage({
-                      defaultMessage: "Security clearance",
-                      id: "e4eYvU",
-                      description:
-                        "Label for pool advertisement security clearance requirement",
-                    }) + intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage(commonMessages.securityClearance) +
+                    intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={securityClearance}
                   suffix={
@@ -820,6 +804,7 @@ export const PoolPoster = ({
                           ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
                           : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
                       }
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about security clearances",
                         id: "WlMSeh",

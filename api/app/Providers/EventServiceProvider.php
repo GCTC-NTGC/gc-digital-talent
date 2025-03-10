@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Events\AssessmentResultSaved;
 use App\Events\CandidateStatusChanged;
 use App\Events\UserFileGenerated;
+use App\Events\WorkExperienceSaved;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeCandidateFinalDecision;
+use App\Listeners\ComputeGovEmployeeProfileData;
 use App\Listeners\SendFileGeneratedNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserFileGenerated::class => [
             SendFileGeneratedNotification::class,
+        ],
+        WorkExperienceSaved::class => [
+            ComputeGovEmployeeProfileData::class,
         ],
     ];
 

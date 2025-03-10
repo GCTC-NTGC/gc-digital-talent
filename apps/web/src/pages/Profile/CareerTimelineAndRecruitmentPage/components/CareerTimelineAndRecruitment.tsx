@@ -204,6 +204,20 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          key
+          name {
+            localized
+          }
+        }
+      }
     }
   }
 `);
@@ -261,7 +275,7 @@ const CareerTimelineAndRecruitment = ({
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
         url: paths.profileAndApplications(),
       },
       {

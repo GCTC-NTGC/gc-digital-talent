@@ -83,11 +83,16 @@ type User {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
+  isVerifiedGovEmployee: Boolean
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
-    @rename(attribute: "gov_employee_type")
+    @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "computed_gov_position_type")
+  govEndDate: Date @rename(attribute: "computed_gov_end_date")
   currentClassification: Classification @belongsTo # Users current classification
   department: Department @belongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -152,6 +157,7 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
+  user: User! @belongsTo @canRoot(ability: "viewUser")
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -163,17 +169,26 @@ type CommunityInterest {
 type DevelopmentProgramInterest {
   id: UUID!
   developmentProgram: DevelopmentProgram! @belongsTo
-  communityInterest: CommunityInterest! @belongsTo
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
 }
 
 type EmployeeProfile {
-  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [LocalizedMoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+
   mentorshipStatus: [LocalizedMentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [LocalizedMentorship!]
@@ -184,18 +199,36 @@ type EmployeeProfile {
   execCoachingInterest: [LocalizedExecCoaching!]
     @rename(attribute: "career_planning_exec_coaching_interest")
   aboutYou: String @rename(attribute: "career_planning_about_you")
-  careerGoals: String @rename(attribute: "career_planning_career_goals")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: Community @belongsTo
-  dreamRoleClassification: Classification @belongsTo
-  dreamRoleWorkStream: WorkStream @belongsTo
-  dreamRoleDepartments: [Department!] @belongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: Community @belongsTo
+  careerObjectiveCommunity: Community @belongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
+  nextRoleClassification: Classification @belongsTo
+  careerObjectiveClassification: Classification @belongsTo
+  nextRoleWorkStreams: [WorkStream!] @belongsToMany
+  careerObjectiveWorkStreams: [WorkStream!] @belongsToMany
+  nextRoleDepartments: [Department!] @belongsToMany
+  careerObjectiveDepartments: [Department!] @belongsToMany
+  nextRoleTargetRole: LocalizedTargetRole
+    @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: LocalizedTargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
 }
@@ -279,6 +312,15 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+}
+
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
 }
 
 type GeneralQuestion {
@@ -557,6 +599,7 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
 }
 
@@ -569,6 +612,19 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_nominations")
   community: Community @belongsTo
   eligibleClassifications: [Classification!] @belongsToMany
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedString @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean!
+    @rename(attribute: "include_leadership_competencies")
+  community: Community! @belongsTo
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -765,6 +821,7 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
+  workStreams: [WorkStream!] @with(relation: "workStreams")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1044,10 +1101,20 @@ input ClaimVerificationSort {
   useBookmark: Boolean
 }
 
+input CommunityInterestFilterInput {
+  userName: String @scope
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployeeProfile(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeProfile
+    @guard
+    @validator
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -1195,6 +1262,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(
+    status: TalentNominationEventStatus @scope
+  ): [TalentNominationEvent]!
+    @all
+    @orderBy(column: "close_date", direction: ASC)
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1210,6 +1282,20 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: ["first_name", "work_email", "preferred_lang"]
+          }
+        ]
+      )
+  ): [CommunityInterest]!
+    @guard
+    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
 }
 
 input ClassificationBelongsTo {
@@ -1271,7 +1357,7 @@ input CreateUserInput {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email
     @rename(attribute: "work_email")
     @lowerCase
@@ -1284,7 +1370,8 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1352,9 +1439,10 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1429,9 +1517,10 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1463,10 +1552,20 @@ input UpdateUserAsUserInput @validator {
 }
 
 input UpdateEmployeeProfileInput @validator {
-  organizationTypeInterest: [OrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [MoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+
   mentorshipStatus: [Mentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [Mentorship!]
@@ -1477,16 +1576,33 @@ input UpdateEmployeeProfileInput @validator {
   execCoachingInterest: [ExecCoaching!]
     @rename(attribute: "career_planning_exec_coaching_interest")
   aboutYou: String @rename(attribute: "career_planning_about_you")
-  careerGoals: String @rename(attribute: "career_planning_career_goals")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: TargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -1500,6 +1616,8 @@ input CreateCommunityInterestInput @validator {
 }
 
 input UpdateCommunityInterestInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -1660,7 +1778,8 @@ input PoolBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID!
+  connect: UUID
+  disconnect: Boolean
 }
 
 input CreateTeamInput {
@@ -1695,6 +1814,34 @@ input UpdateCommunityInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+}
+
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput @validator {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput @validator {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime @rename(attribute: "open_date")
+  closeDate: DateTime @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
 }
 
 input CreateApplicantFilterInput {
@@ -1823,6 +1970,7 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
+  workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
 }
 input PersonalExperienceInput {
   title: String
@@ -2280,7 +2428,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
-    id: UUID!
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard
@@ -2639,6 +2786,18 @@ type Mutation {
     id: UUID!
     community: UpdateCommunityInput! @spread
   ): Community @update @canFind(ability: "update", find: "id") @validator
+
+  # Talent nomination event mutations
+  createTalentNominationEvent(
+    talentNominationEvent: CreateTalentNominationEventInput! @spread
+  ): TalentNominationEvent @create @guard @canModel(ability: "create")
+  updateTalentNominationEvent(
+    id: UUID!
+    talentNominationEvent: UpdateTalentNominationEventInput! @spread
+  ): TalentNominationEvent
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

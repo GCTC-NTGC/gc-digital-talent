@@ -12,16 +12,7 @@
     "src/**/*.tsx",
     "vite.config.ts",
     "globals.d.ts",
-    "*.cjs",
     "jest.config.ts"
   ],
-  "exclude": [
-    ".turbo",
-    "node_modules",
-    "dist",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types",
-    "**/src/gql"
-  ]
+  "exclude": ["**/node_modules", "**/.*/", "dist", "**/src/gql"]
 }

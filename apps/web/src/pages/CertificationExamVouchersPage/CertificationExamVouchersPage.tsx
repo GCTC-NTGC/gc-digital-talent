@@ -228,8 +228,8 @@ export const Component = () => {
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "You're currently an IT-classified Government of Canada employee represented by PIPSC",
-                    id: "eQkmhS",
+                      "You're currently an IT-classified Government of Canada employee covered by the IT collective agreement",
+                    id: "7abz0A",
                     description:
                       "First item in list of eligibility requirements section",
                   })}

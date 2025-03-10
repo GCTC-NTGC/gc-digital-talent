@@ -192,9 +192,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
    */
   useEffect(() => {
     const resetDirtyField = (name: keyof WorkFormValues) => {
-      resetField(name, {
-        keepDirty: false,
-      });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
     if (
@@ -218,20 +216,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       watchGovContractorType === GovContractorType.SelfEmployed ||
       watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor
     ) {
-      resetField("contractorFirmAgencyName", {
-        keepDirty: false,
-        defaultValue: undefined,
-      });
-    }
-
-    // govPositionType field only applies to INDETERMINATE
-    if (
-      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
-    ) {
-      resetField("govPositionType", {
-        keepDirty: false,
-        defaultValue: null,
-      });
+      resetDirtyField("contractorFirmAgencyName");
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 

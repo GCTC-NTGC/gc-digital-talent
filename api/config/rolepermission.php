@@ -84,14 +84,15 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'talentNominationEvent' => 'talentNominationEvent',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
+        'communityInterest' => 'communityInterest',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
-        'managerMembership' => 'managerMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -611,10 +612,6 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
-        'update-any-managerMembership' => [
-            'en' => 'Add or remove the Manager role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
-        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -636,6 +633,23 @@ return [
         'create-any-trainingOpportunity' => [
             'en' => 'Create or update a training opportunity',
             'fr' => 'Créer ou mettre à jour une opportunité de formation',
+        ],
+
+        'view-any-talentNominationEvent' => [
+            'en' => 'View any talent nomination event',
+            'fr' => 'Voir tout événement de nomination de talents',
+        ],
+        'create-any-talentNominationEvent' => [
+            'en' => 'Create any talent nomination event',
+            'fr' => 'Créer n\'importe quel événement de nomination de talents',
+        ],
+        'update-team-talentNominationEvent' => [
+            'en' => 'Update team talent nomination event',
+            'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
+        ],
+        'view-team-communityInterest' => [
+            'en' => 'View community interest records associated with a community',
+            'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
         ],
     ],
 
@@ -775,18 +789,6 @@ return [
             ],
             'is_team_based' => false,
         ],
-
-        'manager' => [
-            'display_name' => [
-                'en' => 'Manager',
-                'fr' => 'Gestionnaire',
-            ],
-            'description' => [
-                'en' => 'Can search for talent and submit talent requests.',
-                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
-            ],
-            'is_team_based' => false,
-        ],
     ],
 
     /*
@@ -837,6 +839,9 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],
@@ -1082,6 +1087,9 @@ return [
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
         ],
 
         'community_admin' => [
@@ -1118,6 +1126,10 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
+                'team' => ['update'],
+            ],
             'community' => [
                 'team' => ['view', 'update'],
             ],
@@ -1132,6 +1144,9 @@ return [
             ],
             'processOperatorMembership' => [
                 'team' => ['update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
             ],
         ],
 
@@ -1220,9 +1235,6 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
-            'managerMembership' => [
-                'any' => ['update'],
-            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
@@ -1235,9 +1247,6 @@ return [
             'workStream' => [
                 'any' => ['create', 'update'],
             ],
-        ],
-        'manager' => [
-            // granted permissions will be defined later
         ],
     ],
 ];

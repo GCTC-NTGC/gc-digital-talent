@@ -103,6 +103,9 @@ class PoolCandidate extends Model
         'archived_at',
         'submitted_at',
         'suspended_at',
+        'removed_at',
+        'final_decision_at',
+        'placed_at',
         'user_id',
         'pool_id',
         'signature',
@@ -388,7 +391,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
 
@@ -1143,7 +1147,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($processNumber) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->processNumber($processNumber);
         });
 

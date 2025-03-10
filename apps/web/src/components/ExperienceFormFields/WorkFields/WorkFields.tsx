@@ -19,6 +19,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";
 
 import CafFields from "./CafFields";
 import ExternalFields from "./ExternalFields";
@@ -34,6 +35,9 @@ const WorkFieldOptions_Query = graphql(/* GraphQL */ `
         en
         fr
       }
+    }
+    communities {
+      ...ExperienceWorkStreamsCommunity
     }
   }
 `);
@@ -100,6 +104,8 @@ const WorkFields = ({
     query: WorkFieldOptions_Query,
   });
 
+  const communities = unpackMaybes(data?.communities);
+
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
   const prevEmploymentCategory = useRef<EmploymentCategory | null | undefined>(
@@ -107,9 +113,7 @@ const WorkFields = ({
   );
   const watchEmploymentCategory = useWatch<{
     employmentCategory: EmploymentCategory;
-  }>({
-    name: "employmentCategory",
-  });
+  }>({ name: "employmentCategory" });
 
   const employmentCategories: Radio[] = unpackMaybes(
     data?.employmentCategoryTypes,
@@ -153,11 +157,6 @@ const WorkFields = ({
       resetDirtyField("cafEmploymentType");
       resetDirtyField("cafForce");
       resetDirtyField("cafRank");
-
-      // all categories
-      resetDirtyField("startDate");
-      resetDirtyField("currentRole");
-      resetDirtyField("endDate");
     }
 
     prevEmploymentCategory.current = watchEmploymentCategory;
@@ -200,6 +199,9 @@ const WorkFields = ({
               labels={labels}
               organizationSuggestions={organizationSuggestions}
             />
+            <div data-h2-flex-item="base(1of1)">
+              <ExperienceWorkStreams communitiesQuery={communities} />
+            </div>
           </div>
         </div>
       )}

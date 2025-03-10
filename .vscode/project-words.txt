@@ -19,6 +19,7 @@ colour
 colours
 columnheader
 combobox
+comptrollership
 corejs
 CRTC
 datas
@@ -52,6 +53,7 @@ Nuwave
 OCIO
 personalisation
 pgsql
+PIPSC
 Queueable
 recruitmentimit
 recruitments
@@ -64,9 +66,11 @@ Spatie
 spinbutton
 Staudenmeir
 subcomponents
+Subform
 subproject
 subprojects
 subquery
+SUSPENDABLE
 TALENTSEARCH
 tanstack
 teamable

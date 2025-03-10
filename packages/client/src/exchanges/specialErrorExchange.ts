@@ -12,7 +12,6 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
     (ops$) =>
       pipe(
         ops$,
-        // eslint-disable-next-line no-console
         // tap((op) => console.log("[Exchange debug]: Incoming operation: ", op)),
         forward,
         tap((result) => {

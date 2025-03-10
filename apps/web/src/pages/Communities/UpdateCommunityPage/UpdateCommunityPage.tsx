@@ -5,7 +5,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useNavigate, useOutletContext } from "react-router";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Submit, Input, RichTextInput } from "@gc-digital-talent/forms";
+import { Submit, Input, TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
@@ -187,7 +187,7 @@ const CommunityForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <RichTextInput
+            <TextArea
               id="descriptionEn"
               label={intl.formatMessage(adminMessages.descriptionEn)}
               name="descriptionEn"
@@ -196,7 +196,7 @@ const CommunityForm = ({
               }}
               wordLimit={TEXT_AREA_MAX_WORDS_EN}
             />
-            <RichTextInput
+            <TextArea
               id="descriptionFr"
               label={intl.formatMessage(adminMessages.descriptionFr)}
               name="descriptionFr"

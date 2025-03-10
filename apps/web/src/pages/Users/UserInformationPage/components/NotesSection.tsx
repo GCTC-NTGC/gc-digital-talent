@@ -129,7 +129,7 @@ const NotesSection = ({ user }: BasicUserInformationProps) => {
                         }),
                       },
                     )}
-                    defaultValue={candidate.notes ? candidate.notes : ""}
+                    defaultValue={candidate.notes ?? ""}
                     rows={4}
                   />
                 </div>

@@ -1,0 +1,446 @@
+import { useIntl } from "react-intl";
+import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useMutation } from "urql";
+
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  commonMessages,
+  formMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
+import {
+  Button,
+  Dialog,
+  Link,
+  PreviewList,
+  Separator,
+} from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { toast } from "@gc-digital-talent/toast";
+import { RadioGroup } from "@gc-digital-talent/forms";
+
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import processMessages from "~/messages/processMessages";
+import { getClassificationName } from "~/utils/poolUtils";
+import { getQualifiedRecruitmentStatusChip } from "~/utils/poolCandidate";
+import useRoutes from "~/hooks/useRoutes";
+import { getSalaryRange } from "~/utils/classification";
+import { wrapAbbr } from "~/utils/nameUtils";
+
+import StatusSummary from "./StatusSummary";
+
+interface FormValues {
+  isSuspended: "true" | "false";
+}
+
+const ReviewRecruitmentProcess_Mutation = graphql(/* GraphQL */ `
+  mutation Name($id: ID!, $isSuspended: Boolean!) {
+    changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
+      id
+      suspendedAt
+    }
+  }
+`);
+
+const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ReviewRecruitmentProcessDialog on PoolCandidate {
+    id
+    expiryDate
+    finalDecisionAt
+    suspendedAt
+    placedAt
+    status {
+      value
+    }
+    pool {
+      id
+      name {
+        localized
+      }
+      classification {
+        group
+        level
+        minSalary
+        maxSalary
+      }
+      workStream {
+        name {
+          localized
+        }
+      }
+      language {
+        value
+        label {
+          localized
+        }
+      }
+      department {
+        name {
+          localized
+        }
+      }
+      opportunityLength {
+        value
+        label {
+          localized
+        }
+      }
+      isRemote
+      location {
+        localized
+      }
+      securityClearance {
+        value
+        label {
+          localized
+        }
+      }
+      processNumber
+    }
+  }
+`);
+
+interface ReviewRecruitmentProcessDialogProps {
+  recruitmentProcessQuery: FragmentType<
+    typeof ReviewRecruitmentProcessDialog_Fragment
+  >;
+}
+
+const ReviewRecruitmentProcessDialog = ({
+  recruitmentProcessQuery,
+}: ReviewRecruitmentProcessDialogProps) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = useRoutes();
+
+  const recruitmentProcess = getFragment(
+    ReviewRecruitmentProcessDialog_Fragment,
+    recruitmentProcessQuery,
+  );
+
+  const pool = recruitmentProcess?.pool;
+
+  const nullMessage = intl.formatMessage(commonMessages.notFound);
+
+  const [, executeMutation] = useMutation(ReviewRecruitmentProcess_Mutation);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const isSuspended = !!recruitmentProcess.suspendedAt;
+  const methods = useForm<FormValues>({
+    defaultValues: { isSuspended: isSuspended ? "true" : "false" },
+  });
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  const handleError = () =>
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: failed removing you from search results.",
+        id: "7tdU/G",
+        description:
+          "Alert displayed to the user when application card dialog fails.",
+      }),
+    );
+
+  const updateSuspendedAtStatus = async (values: FormValues) => {
+    await executeMutation({
+      id: recruitmentProcess.id,
+      isSuspended: values.isSuspended === "true",
+    })
+      .then((res) => {
+        if (res.data) {
+          setIsOpen(false);
+          if (res.data.changeApplicationSuspendedAt?.suspendedAt) {
+            toast.success(
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You have been removed from the search results for {poolName}.",
+                  id: "Wyi02N",
+                  description:
+                    "Alert displayed to the user when application card dialog submits successfully.",
+                },
+                { poolName: pool.name?.localized },
+              ),
+            );
+          } else {
+            toast.success(
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "You have been added back into the search results for {poolName}.",
+                  id: "ghTJqE",
+                  description:
+                    "Alert displayed to the user when they updated something to appear in search results again.",
+                },
+                { poolName: pool.name?.localized },
+              ),
+            );
+          }
+        } else {
+          handleError();
+        }
+      })
+      .catch(handleError);
+  };
+
+  const status = getQualifiedRecruitmentStatusChip(
+    recruitmentProcess.suspendedAt,
+    recruitmentProcess.placedAt,
+    recruitmentProcess.status?.value ?? null,
+    intl,
+  );
+
+  return (
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
+        <PreviewList.Button
+          label={
+            pool.name?.localized
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "{poolName}<hidden> recruitment process</hidden>",
+                    id: "wrg4fw",
+                    description:
+                      "Text before recruitment process pool name in recruitment process preview list.",
+                  },
+                  {
+                    poolName: pool.name.localized,
+                  },
+                )
+              : nullMessage
+          }
+        />
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header
+          subtitle={intl.formatMessage({
+            defaultMessage:
+              "Check out the details of a recruitment process you belong to and update your interest in receiving job offers.",
+            id: "Hwt9jD",
+            description: "Subtitle for the review recruitment process dialog",
+          })}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Review a recruitment process",
+            id: "mivSCS",
+            description: "Title for the review recruitment process dialog",
+          })}
+        </Dialog.Header>
+        <Dialog.Body>
+          <div
+            data-h2-display="base(grid)"
+            data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+            data-h2-gap="base(x1)"
+          >
+            <StatusSummary
+              label={status.label}
+              description={status.description}
+              color={status.color}
+              data-h2-grid-column="p-tablet(span 2)"
+            />
+
+            <Separator
+              decorative
+              data-h2-grid-column="p-tablet(span 2)"
+              data-h2-margin="base(0)"
+            />
+
+            <FieldDisplay
+              label={intl.formatMessage(talentRequestMessages.jobTitle)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool.name?.localized ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(talentRequestMessages.classification)}
+            >
+              {pool?.classification
+                ? wrapAbbr(
+                    getClassificationName(pool?.classification, intl),
+                    intl,
+                  )
+                : nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.salaryRange)}
+            >
+              {pool?.classification
+                ? getSalaryRange(locale, pool.classification)
+                : nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(talentRequestMessages.workStream)}
+            >
+              {pool.workStream?.name?.localized}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(processMessages.languageRequirement)}
+            >
+              {pool.language?.label.localized}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.department)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool.department?.name.localized}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
+              {recruitmentProcess.finalDecisionAt
+                ? formatDate({
+                    date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
+                    formatString: "PPP",
+                    intl,
+                  })
+                : nullMessage}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(commonMessages.expires)}>
+              {recruitmentProcess.expiryDate
+                ? formatDate({
+                    date: parseDateTimeUtc(recruitmentProcess.expiryDate),
+                    formatString: "PPP",
+                    intl,
+                  })
+                : nullMessage}
+            </FieldDisplay>
+            <Separator
+              decorative
+              data-h2-grid-column="p-tablet(span 2)"
+              data-h2-margin="base(0)"
+            />
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.employmentLength)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool.opportunityLength?.label.localized}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(talentRequestMessages.workLocation)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool.isRemote
+                ? intl.formatMessage(commonMessages.remote)
+                : pool.location?.localized}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.securityClearance)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool.securityClearance?.label.localized}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(processMessages.processNumber)}
+              data-h2-grid-column="p-tablet(span 2)"
+            >
+              {pool?.processNumber ?? nullMessage}
+            </FieldDisplay>
+
+            <Separator
+              decorative
+              data-h2-grid-column="p-tablet(span 2)"
+              data-h2-margin="base(0)"
+            />
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(updateSuspendedAtStatus)}
+                data-h2-display="base(grid)"
+                data-h2-gap="base(x1)"
+                data-h2-grid-column="p-tablet(span 2)"
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Congratulations on being accepted into this recruitment process! You’ll now be considered for related opportunities. If you’ve recently taken a new job or no longer want to be contacted about opportunities, you can change your availability here. <strong>This choice can be reversed at any time if you change your mind</strong>.",
+                    id: "xHAPBe",
+                    description:
+                      "Message congratulating the applicant into the recruitment process.",
+                  })}
+                </p>
+                <RadioGroup
+                  legend={intl.formatMessage({
+                    defaultMessage: "Your availability",
+                    id: "jaMIil",
+                    description:
+                      "Label for available for opportunities radio group",
+                  })}
+                  idPrefix="availability"
+                  id="isSuspended"
+                  name="isSuspended"
+                  items={[
+                    {
+                      label: intl.formatMessage({
+                        defaultMessage:
+                          "I am <strong>available</strong> for hire and want to be contacted about opportunities from this recruitment process.",
+                        id: "cAOf3a",
+                        description:
+                          "Radio button label for available for opportunities option",
+                      }),
+                      value: "false",
+                    },
+                    {
+                      label: intl.formatMessage({
+                        defaultMessage:
+                          "I am <strong>unavailable</strong> and do not want to be contacted about opportunities from this recruitment process.",
+                        id: "1mYPEx",
+                        description:
+                          "Radio button label for not available for opportunities option",
+                      }),
+                      value: "true",
+                    },
+                  ]}
+                />
+                <Dialog.Footer
+                  data-h2-gap="base(x1 0) p-tablet(0 x1)"
+                  data-h2-flex-direction="base(column) p-tablet(row)"
+                >
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    color="secondary"
+                  >
+                    {intl.formatMessage(formMessages.saveChanges)}
+                  </Button>
+                  <Link
+                    href={paths.application(recruitmentProcess.id)}
+                    mode="inline"
+                    color="secondary"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "View application",
+                      id: "xg/wvH",
+                      description: "Label for view application link",
+                    })}
+                  </Link>
+                  <Link
+                    href={paths.pool(pool.id)}
+                    mode="inline"
+                    color="secondary"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "View job advertisement",
+                      id: "eZlUrp",
+                      description: "Label for view job advertisement link",
+                    })}
+                  </Link>
+                  <Dialog.Close>
+                    <Button mode="inline" color="warning">
+                      {intl.formatMessage(commonMessages.cancel)}
+                    </Button>
+                  </Dialog.Close>
+                </Dialog.Footer>
+              </form>
+            </FormProvider>
+          </div>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
+  );
+};
+
+export default ReviewRecruitmentProcessDialog;

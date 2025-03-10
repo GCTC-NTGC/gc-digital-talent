@@ -32,7 +32,6 @@ const Display = ({
     indigenousCommunities && indigenousCommunities.length > 0;
   const hasClaimedEquityGroup =
     // Note, we only care about one truthy value so nullish coalescing is inappropriate here.
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
   return hasClaimedEquityGroup ? (

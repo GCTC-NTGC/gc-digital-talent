@@ -7,6 +7,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { getExperienceName } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { getExperienceSkills } from "~/utils/skillUtils";
+import nodeToString from "~/utils/nodeToString";
 
 interface SkillExperiencesProps {
   skill: Skill;
@@ -58,7 +59,9 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                           "Assistive technology link text to view a specific experience",
                       },
                       {
-                        experienceName: getExperienceName(experience, intl),
+                        experienceName: nodeToString(
+                          getExperienceName(experience, intl),
+                        ),
                       },
                     ),
                   )}

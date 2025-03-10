@@ -60,6 +60,7 @@ export const formValuesToSubmitData = (
             fr: null,
           },
     isRemote: formValues.locationOption === LocationOption.RemoteOptional,
+
     securityClearance: formValues.securityRequirement
       ? formValues.securityRequirement
       : undefined, // can't be set to null, assume not updating if empty

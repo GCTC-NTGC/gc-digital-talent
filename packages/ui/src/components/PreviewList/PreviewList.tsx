@@ -4,7 +4,7 @@ import { forwardRef, ReactElement, ReactNode } from "react";
 import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
 import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
 import Chip from "../Chip/Chip";
-import { ButtonLinkProps, Color } from "../../types";
+import { ButtonLinkProps, Color, IconType } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
 export interface MetaDataProps {
@@ -50,27 +50,26 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton
-      ref={ref}
-      {...actionProps}
-      onClick={onClick}
-      aria-label={label}
-      {...rest}
-    />
+    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
+      {label}
+    </BaseButton>
   ),
 );
 
 interface LinkProps {
   href: BaseLinkProps["href"];
   label: string;
+  icon?: IconType;
 }
 
-const Link = ({ href, label }: LinkProps) => (
-  <BaseLink {...actionProps} href={href} aria-label={label} />
+const Link = ({ href, label, icon }: LinkProps) => (
+  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+    {label}
+  </BaseLink>
 );
 
 interface ItemProps {
-  title: string;
+  title: React.ReactNode;
   metaData: MetaDataProps[];
   headingAs?: HeadingLevel;
   children?: ReactNode;

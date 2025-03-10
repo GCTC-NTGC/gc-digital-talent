@@ -131,6 +131,7 @@ type BulletProps = DetailedHTMLProps<
  * @returns JSX.Element
  */
 const Bullet = (props: Omit<BulletProps, "children">) => (
+  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
   <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
     &bull;
   </span>

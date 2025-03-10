@@ -64,8 +64,8 @@ const DisabilityDialog = ({
             }
             quotedDefinition={intl.formatMessage({
               defaultMessage:
-                '"... refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition."',
-              id: "66qMwD",
+                '"refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition."',
+              id: "JbSK7q",
               description:
                 "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page.",
             })}

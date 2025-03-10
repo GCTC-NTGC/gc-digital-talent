@@ -64,7 +64,16 @@ const StatusItemTitle = ({
   }
   if (scrollTo) {
     return (
-      <ScrollToLink to={scrollTo} color={color} {...rest}>
+      <ScrollToLink
+        to={scrollTo}
+        color={color}
+        onScrollTo={(_, section) => {
+          if (section) {
+            section.focus();
+          }
+        }}
+        {...rest}
+      >
         {children}
       </ScrollToLink>
     );
@@ -124,6 +133,7 @@ const StatusItem = ({
     <>
       {hiddenContextPrefix ? (
         <span data-h2-visually-hidden="base(invisible)">
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {`${hiddenContextPrefix} - `}
         </span>
       ) : null}

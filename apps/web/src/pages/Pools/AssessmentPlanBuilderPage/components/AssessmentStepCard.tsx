@@ -139,8 +139,9 @@ const AssessmentStepCard = ({
           {skillNames.map((skillName, skillIndex) => (
             <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                 <span data-h2-margin="base(0 x.5)" aria-hidden>
-                  •
+                  &bull;
                 </span>
               ) : null}
               <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">

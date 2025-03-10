@@ -1,9 +1,15 @@
+import { ComponentProps } from "react";
+
 import Separator from "../Separator";
 
-const CardSeparator = () => {
+const CardSeparator = ({
+  orientation = "horizontal",
+  space = "sm",
+  ...rest
+}: ComponentProps<typeof Separator>) => {
   return (
     <div data-h2-margin="base(0 -x1)">
-      <Separator decorative orientation="horizontal" space="sm" />
+      <Separator decorative orientation={orientation} space={space} {...rest} />
     </div>
   );
 };

@@ -66,6 +66,9 @@ class ApiErrorEnums
 
     const DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY = 'DevelopmentProgramNotValidForCommunity';
 
+    // Government Employee Details
+    const NOT_GOVERNMENT_EMAIL = 'NotGovernmentEmail';
+
     // Localized Enums
     const ENUM_NOT_FOUND = 'EnumNotFound';
 

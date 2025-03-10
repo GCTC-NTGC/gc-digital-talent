@@ -2,6 +2,7 @@
   "name": "@gc-digital-talent/graphql",
   "license": "AGPL-3.0",
   "version": "1.0.0",
+  "type": "module",
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
@@ -11,12 +12,12 @@
     "watch": "pnpm run codegen --watch"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.4",
-    "@graphql-codegen/client-preset": "^4.6.0",
+    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/client-preset": "^4.6.4",
     "@parcel/watcher": "^2.5.1",
     "graphql": "^16.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2",
+    "typescript": "^5.8.2",
     "urql": "^4.2.1"
   }
 }

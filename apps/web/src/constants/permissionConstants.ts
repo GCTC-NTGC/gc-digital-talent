@@ -66,7 +66,6 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
   ],
-  viewOwnRequests: [ROLE_NAME.Manager], // Only managers have their own requests
   viewUsers: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
@@ -104,7 +103,6 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   ],
   managePlatformData: [ROLE_NAME.PlatformAdmin],
   isApplicant: [ROLE_NAME.Applicant],
-  viewManagerDashboard: [ROLE_NAME.Manager],
   viewCommunityDashboard: [
     ROLE_NAME.PoolOperator,
     ROLE_NAME.RequestResponder,
@@ -126,6 +124,7 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.CommunityAdmin,
   ],
   createCommunities: [ROLE_NAME.PlatformAdmin],
+  viewCommunityTalent: [ROLE_NAME.CommunityAdmin, ROLE_NAME.CommunityRecruiter],
 };
 
 export default permissionConstants;

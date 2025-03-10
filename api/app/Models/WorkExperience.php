@@ -4,12 +4,18 @@ namespace App\Models;
 
 use App\Enums\CafForce;
 use App\Enums\EmploymentCategory;
+use App\Enums\GovEmployeeType;
+use App\Events\WorkExperienceSaved;
 use App\Models\Scopes\MatchExperienceType;
+use App\Notifications\System as SystemNotification;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
 
 /**
  * Class WorkExperience
@@ -25,18 +31,18 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property string $employment_category
- * @property string $ext_size_of_organization
- * @property string $ext_role_seniority
- * @property string $gov_employment_type
- * @property string $gov_position_type
- * @property string $gov_contractor_role_seniority
- * @property string $gov_contractor_type
- * @property string $caf_employment_type
- * @property string $caf_force
- * @property string $caf_rank
- * @property string $classification_id
- * @property string $department_id
- * @property string $contractor_firm_agency_name
+ * @property ?string $ext_size_of_organization
+ * @property ?string $ext_role_seniority
+ * @property ?string $gov_employment_type
+ * @property ?string $gov_position_type
+ * @property ?string $gov_contractor_role_seniority
+ * @property ?string $gov_contractor_type
+ * @property ?string $caf_employment_type
+ * @property ?string $caf_force
+ * @property ?string $caf_rank
+ * @property ?string $classification_id
+ * @property ?string $department_id
+ * @property ?string $contractor_firm_agency_name
  */
 class WorkExperience extends Experience
 {
@@ -62,6 +68,14 @@ class WorkExperience extends Experience
         'experience_type' => WorkExperience::class,
     ];
 
+    /**
+     * Listeners for model events
+     */
+    protected $dispatchesEvents = [
+        'saved' => WorkExperienceSaved::class,
+        'deleted' => WorkExperienceSaved::class,
+    ];
+
     protected static $hydrationFields = [
         'organization' => 'organization',
         'role' => 'role',
@@ -82,6 +96,62 @@ class WorkExperience extends Experience
         'department_id' => 'departmentId',
         'contractor_firm_agency_name' => 'contractorFirmAgencyName',
     ];
+
+    /**
+     * Boot function for using with Eloquent Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (WorkExperience $workExperience) {
+            // send an in-app notification upon creation of a work experience that is GOV + TERM/INDETERMINATE + CURRENT
+            // only if a work email has not been verified
+
+            $properties = $workExperience->properties;
+            $now = Carbon::now();
+            $user = $workExperience->user;
+            $viewGroup = 'notification_government_experience_verify_work_email';
+
+            if (
+                $user &&
+                is_null($user->work_email_verified_at) &&
+                $properties &&
+                array_key_exists('employment_category', $properties) &&
+                array_key_exists('gov_employment_type', $properties) &&
+                array_key_exists('end_date', $properties)
+            ) {
+
+                if (
+                    $properties['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name &&
+                    ($properties['gov_employment_type'] === GovEmployeeType::TERM->name || $properties['gov_employment_type'] === GovEmployeeType::INDETERMINATE->name) &&
+                    ($properties['end_date'] === null || $properties['end_date'] > $now)
+                ) {
+
+                    try {
+                        $notification = new SystemNotification(
+                            channelEmail: false,
+                            channelApp: true,
+                            emailSubjectEn: '',
+                            emailSubjectFr: '',
+                            emailContentEn: '',
+                            emailContentFr: '',
+                            inAppMessageEn: $viewGroup.'.in_app_message_en',
+                            inAppMessageFr: $viewGroup.'.in_app_message_fr',
+                            inAppHrefEn: $viewGroup.'.in_app_href_en',
+                            inAppHrefFr: $viewGroup.'.in_app_href_fr',
+                        );
+                        $user->notify($notification);
+                    } catch (\Throwable $e) {
+                        Log::error('Error sending work experience verification notification to user '.$user->id.' experience '.$workExperience->id.' '.$e->getMessage());
+                        throw $e;
+                    }
+                }
+            }
+        });
+    }
 
     public function getTitle(?string $lang = 'en'): string
     {
@@ -281,6 +351,14 @@ class WorkExperience extends Experience
     }
 
     /**
+     * Interact with the saved work stream ids
+     */
+    protected function workStreamIds(): Attribute
+    {
+        return $this->makeJsonPropertyArrayAttribute('work_stream_ids');
+    }
+
+    /**
      * Return the classification model from JSON
      */
     public function classification()
@@ -294,5 +372,10 @@ class WorkExperience extends Experience
     public function department()
     {
         return $this->belongsTo(Department::class, 'properties->department_id');
+    }
+
+    public function workStreams(): BelongsToJson
+    {
+        return $this->belongsToJson(WorkStream::class, 'properties->work_stream_ids');
     }
 }

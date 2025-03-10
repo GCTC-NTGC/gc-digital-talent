@@ -66,6 +66,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                       checked: table.getIsAllColumnsVisible(),
                       onChange: table.getToggleAllColumnsVisibilityHandler(),
                     }}
+                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                   />{" "}
                   {intl.formatMessage(adminMessages.toggleAll)}
                 </Field.Label>
@@ -84,6 +85,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                             checked: column.getIsVisible(),
                             onChange: column.getToggleVisibilityHandler(),
                           }}
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                         />{" "}
                         {header}
                       </label>

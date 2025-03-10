@@ -1,9 +1,8 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -14,20 +13,22 @@ interface DisplayProps {
 }
 
 const Display = ({
-  employeeProfile: { aboutYou, careerGoals, learningGoals, workStyle },
+  employeeProfile: { aboutYou, learningGoals, workStyle },
 }: DisplayProps) => {
   const intl = useIntl();
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const nullField = intl.formatMessage(
+    commonMessages.missingOptionalInformation,
+  );
 
   return (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
+      data-h2-overflow-wrap="base(anywhere)"
     >
       {hasAnyEmptyFields({
         aboutYou,
-        careerGoals,
         learningGoals,
         workStyle,
       }) && (
@@ -44,38 +45,19 @@ const Display = ({
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
-        {aboutYou ? (
-          <RichTextRenderer node={htmlToRichTextJSON(aboutYou)} />
-        ) : (
-          notProvided
-        )}
+        {aboutYou ? aboutYou : nullField}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(employeeProfileMessages.careerGoals)}
-      >
-        {careerGoals ? (
-          <RichTextRenderer node={htmlToRichTextJSON(careerGoals)} />
-        ) : (
-          notProvided
-        )}
-      </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
-        {learningGoals ? (
-          <RichTextRenderer node={htmlToRichTextJSON(learningGoals)} />
-        ) : (
-          notProvided
-        )}
+        {learningGoals ? learningGoals : nullField}
       </ToggleForm.FieldDisplay>
+      <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
-        {workStyle ? (
-          <RichTextRenderer node={htmlToRichTextJSON(workStyle)} />
-        ) : (
-          notProvided
-        )}
+        {workStyle ? workStyle : nullField}
       </ToggleForm.FieldDisplay>
     </div>
   );

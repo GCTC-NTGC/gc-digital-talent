@@ -10,24 +10,24 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "react-toastify": "^11.0.3"
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.4.0",
+    "@faker-js/faker": "^9.5.1",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
-    "@storybook/react": "^8.5.2",
+    "@storybook/react": "^8.6.4",
     "@types/react": "^18.3.13",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

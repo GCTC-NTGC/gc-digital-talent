@@ -35,7 +35,6 @@ interface LinkWrapperProps {
 }
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
-  // eslint-disable-next-line react/jsx-no-useless-fragment
   if (!inDialog) return <>{children}</>;
 
   return <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>;

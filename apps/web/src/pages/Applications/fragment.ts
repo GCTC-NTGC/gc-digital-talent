@@ -3,6 +3,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment Application_PoolCandidate on PoolCandidate {
     id
+    submittedAt
     user {
       id
       firstName
@@ -333,6 +334,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
               fr
             }
           }
+          workStreams {
+            id
+            key
+            name {
+              localized
+            }
+            community {
+              id
+              key
+              name {
+                localized
+              }
+            }
+          }
         }
       }
       workEmail
@@ -576,6 +591,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           name {
             en
             fr
+          }
+        }
+        workStreams {
+          id
+          key
+          name {
+            localized
+          }
+          community {
+            id
+            key
+            name {
+              localized
+            }
           }
         }
       }

@@ -10,6 +10,8 @@ import {
   ArmedForcesStatus,
   EducationRequirementOption,
   SkillLevel,
+  Mentorship,
+  ExecCoaching,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -779,4 +781,168 @@ export const getSkillLevelMessages = (
     name: getSkillLevelName(skillLevel, skillCategory),
     definition: getSkillLevelDefinition(skillLevel, skillCategory),
   };
+};
+
+export const MentorshipStatus = {
+  NOT_PARTICIPATING: "NOT_PARTICIPATING",
+  MENTEE: Mentorship.Mentee,
+  MENTOR: Mentorship.Mentor,
+  MENTEE_AND_MENTOR: "MENTEE_AND_MENTOR",
+} as const;
+
+const mentorshipStatusLabels = defineMessages({
+  [MentorshipStatus.NOT_PARTICIPATING]: {
+    defaultMessage: "I’m not participating in a mentorship program.",
+    id: "ZMVV2z",
+    description: "The mentorship status described as not participating.",
+  },
+  [MentorshipStatus.MENTEE]: {
+    defaultMessage: "I currently have a mentor.",
+    id: "zM99Vm",
+    description: "The mentorship status described as mentee.",
+  },
+  [MentorshipStatus.MENTOR]: {
+    defaultMessage: "I’m currently mentoring someone.",
+    id: "nwBZ4v",
+    description: "The mentorship status described as mentor.",
+  },
+  [MentorshipStatus.MENTEE_AND_MENTOR]: {
+    defaultMessage: "I’m participating as both a mentor and as a mentee.",
+    id: "r1QzK4",
+    description: "The mentorship status described as both mentee and mentor.",
+  },
+});
+
+export const getMentorshipStatus = (
+  mentorshipStatusId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    mentorshipStatusLabels,
+    mentorshipStatusId,
+    `Invalid mentorship status '${mentorshipStatusId}'`,
+  );
+};
+
+const mentorshipInterestLabels = defineMessages({
+  [Mentorship.Mentee]: {
+    defaultMessage: "I'm interested in having someone mentor me.",
+    id: "OLs1UJ",
+    description: "The mentorship interest described as mentee.",
+  },
+  [Mentorship.Mentor]: {
+    defaultMessage: "I'm interested in being a mentor.",
+    id: "by5WLz",
+    description: "The mentorship interest described as mentor.",
+  },
+});
+
+const mentorshipInterestFalseLabels = defineMessages({
+  [Mentorship.Mentee]: {
+    defaultMessage: "I'm not interested in having someone mentor me.",
+    id: "P7AWrP",
+    description: "The mentorship interest described as mentee.",
+  },
+  [Mentorship.Mentor]: {
+    defaultMessage: "I'm not interested in being a mentor.",
+    id: "QUnymn",
+    description: "The mentorship interest described as mentor.",
+  },
+});
+
+export const getMentorshipInterest = (
+  mentorshipInterestId: string | number,
+  type?: boolean,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    type || type === undefined
+      ? mentorshipInterestLabels
+      : mentorshipInterestFalseLabels,
+    mentorshipInterestId,
+    `Invalid mentorship interest '${mentorshipInterestId}'`,
+  );
+};
+
+export const ExecCoachingStatus = {
+  NOT_PARTICIPATING: "NOT_PARTICIPATING",
+  LEARNING: ExecCoaching.Learning,
+  COACHING: ExecCoaching.Coaching,
+  LEARNING_AND_COACHING: "LEARNING_AND_COACHING",
+} as const;
+
+const execCoachingStatusLabels = defineMessages({
+  [ExecCoachingStatus.NOT_PARTICIPATING]: {
+    defaultMessage: "I'm not participating in an executive coaching program.",
+    id: "7woRF/",
+    description:
+      "The executive coaching status described as not participating.",
+  },
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I currently have an executive coach.",
+    id: "SKJjYS",
+    description: "The executive coaching status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm currently coaching someone else.",
+    id: "OAoFzw",
+    description: "The executive coaching status described as coaching.",
+  },
+  [ExecCoachingStatus.LEARNING_AND_COACHING]: {
+    defaultMessage: "I'm participating as both a coach and learner.",
+    id: "inlUs4",
+    description:
+      "The executive coaching status described as both learning and coaching.",
+  },
+});
+
+export const getExecCoachingStatus = (
+  execCoachingId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    execCoachingStatusLabels,
+    execCoachingId,
+    `Invalid executive coaching status '${execCoachingId}'`,
+  );
+};
+
+const execCoachingInterestLabels = defineMessages({
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I'm interested in receiving executive coaching.",
+    id: "tHeY7N",
+    description:
+      "The executive coaching interest status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm interested in coaching another employee.",
+    id: "3I0zLF",
+    description:
+      "The executive coaching interest status described as coaching.",
+  },
+});
+
+const execCoachingInterestFalseLabels = defineMessages({
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I'm not interested in receiving executive coaching.",
+    id: "APggfy",
+    description:
+      "The executive coaching interest status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm not interested in coaching another employee.",
+    id: "0pIr++",
+    description:
+      "The executive coaching interest status described as coaching.",
+  },
+});
+
+export const getExecCoachingInterest = (
+  execCoachingInterestId: string | number,
+  type?: boolean,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    type || type === undefined
+      ? execCoachingInterestLabels
+      : execCoachingInterestFalseLabels,
+    execCoachingInterestId,
+    `Invalid executive coaching interest '${execCoachingInterestId}'`,
+  );
 };

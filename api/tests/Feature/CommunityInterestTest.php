@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Community;
+use App\Models\CommunityInterest;
+use App\Models\Pool;
 use App\Models\User;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
@@ -14,6 +16,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEquals;
+
 class CommunityInterestTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -22,6 +26,16 @@ class CommunityInterestTest extends TestCase
     use UsesProtectedGraphqlEndpoint;
 
     protected $applicant;
+
+    protected $baseUser;
+
+    protected $platformAdmin;
+
+    protected $processOperator;
+
+    protected $communityRecruiter;
+
+    protected $communityAdmin;
 
     protected $communityId;
 
@@ -40,6 +54,23 @@ class CommunityInterestTest extends TestCase
             }
         }
     GRAPHQL;
+
+    protected $paginatedCommunityInterestsQuery =
+        /** @lang GraphQL */
+        '
+        query communityInterestsPaginated($where: CommunityInterestFilterInput){
+            communityInterestsPaginated(where: $where) {
+                data
+                {
+                    id
+                }
+                paginatorInfo
+                {
+                    total
+                }
+            }
+        }
+    ';
 
     protected function setUp(): void
     {
@@ -60,6 +91,25 @@ class CommunityInterestTest extends TestCase
         $this->communityId = $community->id;
         $this->workStreamIds = $community->workStreams()->pluck('id')->toArray();
 
+        $communityPool = Pool::factory()->create(['community_id' => $this->communityId]);
+
+        $this->baseUser = User::factory()->create();
+
+        $this->platformAdmin = User::factory()
+            ->asAdmin()
+            ->create();
+
+        $this->processOperator = User::factory()
+            ->asProcessOperator($communityPool->id)
+            ->create();
+
+        $this->communityRecruiter = User::factory()
+            ->asCommunityRecruiter($this->communityId)
+            ->create();
+
+        $this->communityAdmin = User::factory()
+            ->asCommunityAdmin($this->communityId)
+            ->create();
     }
 
     /**
@@ -113,15 +163,15 @@ class CommunityInterestTest extends TestCase
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL(<<<'GRAPHQL'
-                mutation UpdateCommunityInterest($id: UUID!, $communityInterest: UpdateCommunityInterestInput!) {
-                    updateCommunityInterest(id: $id, communityInterest: $communityInterest) {
+                mutation UpdateCommunityInterest($communityInterest: UpdateCommunityInterestInput!) {
+                    updateCommunityInterest(communityInterest: $communityInterest) {
                         id
                         additionalInformation
                     }
                 }
                 GRAPHQL, [
-                'id' => $communityInterestId,
                 'communityInterest' => [
+                    'id' => $communityInterestId,
                     'additionalInformation' => 'new info',
                 ],
             ])
@@ -227,5 +277,123 @@ class CommunityInterestTest extends TestCase
                 ],
             ])
             ->assertGraphQLValidationError('communityInterest.workStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY);
+    }
+
+    // test querying CommunityInterests with various roles
+    public function testCommunityInterestsPaginatedRoles(): void
+    {
+        CommunityInterest::truncate();
+        $communityInterestModel = CommunityInterest::factory()->create([
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => true,
+        ]);
+
+        // these roles cannot see the created model
+        $this->actingAs($this->applicant, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($this->baseUser, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($this->processOperator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+
+        // only community recruiter and community admin can see the model
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
+
+        // community recruiter and admin of another community do not see the model
+        $otherCommunityRecruiter = User::factory()
+            ->asCommunityRecruiter(Community::factory()->create()->id)
+            ->create();
+        $otherCommunityAdmin = User::factory()
+            ->asCommunityAdmin(Community::factory()->create()->id)
+            ->create();
+        $this->actingAs($otherCommunityRecruiter, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+        $this->actingAs($otherCommunityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 0]);
+    }
+
+    // test scopeAuthorizedToView for community admin and community recruiter
+    // scope acts on community and job/training interest
+    public function testCommunityInterestsPaginatedAuthorizedToView(): void
+    {
+        CommunityInterest::truncate();
+        $communityInterestWithBothInterests = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => true,
+        ]);
+        $communityInterestWithJobInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => false,
+        ]);
+        $communityInterestWithTrainingInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => false,
+            'training_interest' => true,
+        ]);
+        $communityInterestWithNoInterests = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => false,
+            'training_interest' => false,
+        ]);
+        $otherCommunityInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => Community::factory(),
+            'job_interest' => false,
+            'training_interest' => false,
+        ]);
+
+        // five records in total
+        assertEquals(5, count(CommunityInterest::all()));
+
+        // three results should be returned in total for both roles
+        // communityInterestWithBothInterests
+        // communityInterestWithJobInterest
+        // communityInterestWithTrainingInterest
+
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 3])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
+
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 3])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
     }
 }

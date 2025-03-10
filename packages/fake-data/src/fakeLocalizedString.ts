@@ -4,6 +4,7 @@ const toLocalizedString = (base: string): LocalizedString => {
   return {
     en: `${base} EN`,
     fr: `${base} FR`,
+    localized: `${base} LOCALIZED`,
   };
 };
 
