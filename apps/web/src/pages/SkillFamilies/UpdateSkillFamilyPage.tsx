@@ -46,7 +46,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
 

@@ -6,6 +6,7 @@ import {
   IconType,
   IconProps,
   ButtonLinkMode,
+  HydrogenAttributes,
 } from "./types";
 import Accordion, { type AccordionMetaData } from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
@@ -105,6 +106,7 @@ export type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
+  HydrogenAttributes,
   DownloadCsvProps,
   LinkProps,
   IconProps,

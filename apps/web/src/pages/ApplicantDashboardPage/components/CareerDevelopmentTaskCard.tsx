@@ -13,7 +13,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 

@@ -11,7 +11,7 @@ import {
 import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import sections from "../sections";
 
