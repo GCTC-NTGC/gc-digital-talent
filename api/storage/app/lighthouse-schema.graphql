@@ -33,6 +33,11 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
+type LocalizedCSuiteRoleTitle {
+  value: CSuiteRoleTitle!
+  label: LocalizedString!
+}
+
 type LocalizedCafEmploymentType {
   value: CafEmploymentType!
   label: LocalizedString!
@@ -2790,6 +2795,24 @@ enum AwardedTo {
   MY_TEAM
   MY_PROJECT
   MY_ORGANIZATION
+}
+
+enum CSuiteRoleTitle {
+  CHIEF_AUDIT_OFFICER
+  CHIEF_FINANCE_OFFICER
+  CHIEF_DATA_OFFICER
+  CHIEF_DIGITAL_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  CHIEF_PRIVACY_OFFICER
+  CHIEF_TECHNOLOGY_OFFICER
+  DEPUTY_CHIEF_AUDIT_OFFICER
+  DEPUTY_CHIEF_FINANCE_OFFICER
+  DEPUTY_CHIEF_DATA_OFFICER
+  DEPUTY_CHIEF_DIGITAL_OFFICER
+  DEPUTY_CHIEF_INFORMATION_OFFICER
+  DEPUTY_CHIEF_PRIVACY_OFFICER
+  DEPUTY_CHIEF_TECHNOLOGY_OFFICER
+  OTHER
 }
 
 enum CafEmploymentType {
