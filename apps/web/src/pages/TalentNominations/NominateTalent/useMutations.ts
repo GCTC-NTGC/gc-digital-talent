@@ -7,6 +7,7 @@ import {
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
@@ -62,15 +63,23 @@ const useMutations = (): UseMutationsReturn => {
   ) => {
     return executeUpdateMutation({ id, talentNomination })
       .then(async (res) => {
-        if (!res.data?.updateTalentNomination) throw new Error();
-
-        if (next && intent === "next-step") {
-          await navigate(`${paths.talentNomiation(id)}?step=${next}`);
+        if (res.error?.message) {
+          throw new Error(res.error.message);
         }
 
-        if (intent === "save-draft") {
-          await navigate(paths.applicantDashboard());
+        if (res.data?.updateTalentNomination) {
+          if (next && intent === "next-step") {
+            await navigate(`${paths.talentNomiation(id)}?step=${next}`);
+          }
+
+          if (intent === "save-draft") {
+            await navigate(paths.applicantDashboard());
+          }
+
+          return;
         }
+
+        throw new Error(intl.formatMessage(errorMessages.error));
       })
       .catch(() => {
         toast.error(
@@ -91,9 +100,16 @@ const useMutations = (): UseMutationsReturn => {
 
     return executeSubmitMutation({ id })
       .then(async (res) => {
-        if (!res.data?.submitTalentNomination) throw new Error();
+        if (res.error?.message) {
+          throw new Error(res.error.message);
+        }
 
-        await navigate(paths.talentNomiation(id));
+        if (res.data?.submitTalentNomination) {
+          await navigate(paths.talentNomiation(id));
+          return;
+        }
+
+        throw new Error(intl.formatMessage(errorMessages.error));
       })
       .catch(() => {
         toast.error(
