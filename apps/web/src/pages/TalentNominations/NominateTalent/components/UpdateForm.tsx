@@ -14,7 +14,7 @@ export type SubmitDataTransformer<TFormValues> = (
 
 interface UpdateFormProps<TFormValues extends BaseFormValues> {
   defaultValues?: DefaultValues<TFormValues>;
-  submitDataTransformer: SubmitDataTransformer<TFormValues>;
+  submitDataTransformer?: SubmitDataTransformer<TFormValues>;
   children: ReactNode;
 }
 
@@ -34,7 +34,7 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
     await update(
       {
         insertSubmittedStep: current,
-        ...submitDataTransformer(values),
+        ...(submitDataTransformer ? submitDataTransformer(values) : {}),
       },
       values.intent,
     );

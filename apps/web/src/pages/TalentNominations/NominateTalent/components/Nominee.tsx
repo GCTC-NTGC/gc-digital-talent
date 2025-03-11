@@ -48,25 +48,23 @@ const Nominee = ({ nomineeQuery }: NomineeProps) => {
   }
 
   return (
-    <>
-      <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <SubHeading level="h2" Icon={UserCircleIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Nominee information",
-            id: "Efdmb2",
-            description: "Heading for nominee step of a talent nomination",
-          })}
-        </SubHeading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Now that we know a little about who is submitting the nomination, let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
-            id: "AdYm70",
-            description: "Subtitle for nomiation nominee step",
-          })}
-        </p>
-      </UpdateForm>
-    </>
+    <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
+      <SubHeading level="h2" Icon={UserCircleIcon}>
+        {intl.formatMessage({
+          defaultMessage: "Nominee information",
+          id: "Efdmb2",
+          description: "Heading for nominee step of a talent nomination",
+        })}
+      </SubHeading>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Now that we know a little about who is submitting the nomination, let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
+          id: "AdYm70",
+          description: "Subtitle for nomiation nominee step",
+        })}
+      </p>
+    </UpdateForm>
   );
 };
 

@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { FormProvider, useForm } from "react-hook-form";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import { ReactNode } from "react";
 
@@ -8,37 +7,22 @@ import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import useMutations from "../useMutations";
 import { BaseFormValues } from "../types";
-import Actions from "./Actions";
 import useCurrentStep from "../useCurrentStep";
 import SubHeading from "./SubHeading";
+import UpdateForm from "./UpdateForm";
 
 const Instructions = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { current } = useCurrentStep();
-  const [fetching, { update }] = useMutations();
-
-  const methods = useForm<BaseFormValues>({
-    disabled: fetching,
-  });
 
   if (current !== TalentNominationStep.Instructions) {
     return null;
   }
 
-  const handleSubmit = async (values: BaseFormValues) => {
-    await update(
-      {
-        insertSubmittedStep: TalentNominationStep.Instructions,
-      },
-      values.intent,
-    );
-  };
-
   return (
-    <>
+    <UpdateForm<BaseFormValues>>
       <SubHeading Icon={ClipboardDocumentIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",
@@ -82,12 +66,7 @@ const Instructions = () => {
           },
         )}
       </p>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Actions />
-        </form>
-      </FormProvider>
-    </>
+    </UpdateForm>
   );
 };
 

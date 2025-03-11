@@ -48,25 +48,23 @@ const Nominator = ({ nominatorQuery }: NominatorProps) => {
   }
 
   return (
-    <>
-      <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <SubHeading level="h2" Icon={DocumentCheckIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Nominator information",
-            id: "vJD6dl",
-            description: "Heading for nominator step of a talent nomination",
-          })}
-        </SubHeading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Let’s get started by learning a little about the nominator.",
-            id: "Mu3Hq4",
-            description: "Subtitle for nomiation nominator step",
-          })}
-        </p>
-      </UpdateForm>
-    </>
+    <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
+      <SubHeading level="h2" Icon={DocumentCheckIcon}>
+        {intl.formatMessage({
+          defaultMessage: "Nominator information",
+          id: "vJD6dl",
+          description: "Heading for nominator step of a talent nomination",
+        })}
+      </SubHeading>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Let’s get started by learning a little about the nominator.",
+          id: "Mu3Hq4",
+          description: "Subtitle for nomiation nominator step",
+        })}
+      </p>
+    </UpdateForm>
   );
 };
 

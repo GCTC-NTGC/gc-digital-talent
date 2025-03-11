@@ -47,25 +47,23 @@ const Details = ({ detailsQuery }: DetailsProps) => {
   }
 
   return (
-    <>
-      <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <SubHeading Icon={RectangleGroupIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Nomination details",
-            id: "gD98oQ",
-            description: "Heading for details step of a talent nomination",
-          })}
-        </SubHeading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Now, we'll look at the details of the nomination you'd like to submit.",
-            id: "ZWIfBh",
-            description: "Subtitle for nomiation details step",
-          })}
-        </p>
-      </UpdateForm>
-    </>
+    <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
+      <SubHeading Icon={RectangleGroupIcon}>
+        {intl.formatMessage({
+          defaultMessage: "Nomination details",
+          id: "gD98oQ",
+          description: "Heading for details step of a talent nomination",
+        })}
+      </SubHeading>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Now, we'll look at the details of the nomination you'd like to submit.",
+          id: "ZWIfBh",
+          description: "Subtitle for nomiation details step",
+        })}
+      </p>
+    </UpdateForm>
   );
 };
 

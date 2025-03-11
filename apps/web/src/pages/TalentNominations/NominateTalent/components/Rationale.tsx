@@ -48,25 +48,23 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
   }
 
   return (
-    <>
-      <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <SubHeading level="h2" Icon={ChatBubbleBottomCenterTextIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Rationale and additional comments",
-            id: "LA0AM1",
-            description: "Heading for rationale step of a talent nomination",
-          })}
-        </SubHeading>
-        <p data-h2-margin="base(x1 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "The final step in the nomination process is to explain why this candidate is being nominated. If you've nominated an executive or equivalent level employee, please also provide the top 3 key leadership competencies demonstrated by the nominee.",
-            id: "jhOq6m",
-            description: "Subtitle for nomiation rationale step",
-          })}
-        </p>
-      </UpdateForm>
-    </>
+    <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
+      <SubHeading level="h2" Icon={ChatBubbleBottomCenterTextIcon}>
+        {intl.formatMessage({
+          defaultMessage: "Rationale and additional comments",
+          id: "LA0AM1",
+          description: "Heading for rationale step of a talent nomination",
+        })}
+      </SubHeading>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "The final step in the nomination process is to explain why this candidate is being nominated. If you've nominated an executive or equivalent level employee, please also provide the top 3 key leadership competencies demonstrated by the nominee.",
+          id: "jhOq6m",
+          description: "Subtitle for nomiation rationale step",
+        })}
+      </p>
+    </UpdateForm>
   );
 };
 
