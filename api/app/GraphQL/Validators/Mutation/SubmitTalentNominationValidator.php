@@ -39,8 +39,9 @@ final class SubmitTalentNominationValidator extends Validator
             'submitted_at' => ['prohibited'],
             'submitter_id' => ['required'],
             'submitter_relationship_to_nominator' => [
-                'required_unless:submitter.id,'.$this->nomination->nominator?->id,
-                'prohibited_if:submitter.id,'.$this->nomination->nominator?->id,
+                'required_unless:submitter_id,'.$this->nomination->nominator?->id,
+                'prohibited_if:submitter_id,'.$this->nomination->nominator?->id,
+                'nullable',
                 Rule::in(array_column(TalentNominationSubmitterRelationshipToNominator::cases(), 'name')),
             ],
             'submitter_relationship_to_nominator_other' => [
@@ -114,8 +115,8 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:advancement_reference_fallback_work_email,null',
             ],
             'advancement_reference_review' => [
-                'required_with:advancement_reference_id',
-                'prohibited_unless:advancement_reference_id',
+                'required_unless:advancement_reference_id,null',
+                'prohibited_if:advancement_reference_id,null',
                 'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
@@ -38,6 +39,14 @@ class TalentNominationTest extends TestCase
     protected $updateMutation = <<<'GRAPHQL'
     mutation UpdateTalentNomination($id: UUID!, $talentNomination: UpdateTalentNominationInput!) {
         updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+                id
+            }
+        }
+    GRAPHQL;
+
+    protected $submitMutation = <<<'GRAPHQL'
+        mutation SubmitTalentNomination($id: UUID!) {
+        submitTalentNomination(id: $id) {
                 id
             }
         }
@@ -118,10 +127,11 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testSubmitterCanUpdateTheirOwnNominations()
+    public function testSubmitterCanUpdateTheirOwnDraftNominations()
     {
         $nomination = TalentNomination::factory()->create([
             'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
         ]);
 
         $response = $this->actingAs($this->employee1, 'api')
@@ -147,6 +157,7 @@ class TalentNominationTest extends TestCase
     {
         $nomination = TalentNomination::factory()->create([
             'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
         ]);
 
         $response = $this->actingAs($this->employee2, 'api')
@@ -158,5 +169,125 @@ class TalentNominationTest extends TestCase
             ]);
 
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testSubmitterCantUpdateTheirOwnSubmittedNominations()
+    {
+        $nomination = TalentNomination::factory()->create([
+            'submitter_id' => $this->employee1->id,
+            'submitted_at' => now(),
+        ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $nomination->id,
+                'talentNomination' => [
+                    'additionalComments' => 'New comments',
+                ],
+            ]);
+
+        $response->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testCanAddKLCSkillsWithEventOption()
+    {
+        $event = TalentNominationEvent::factory()
+            ->create([
+                'include_leadership_competencies' => true,
+            ]);
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->hasSkills(SkillFamily::where('key', 'klc')->sole()->skills->take(3))
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'submitted_at' => null,
+                'nominee_id' => $this->employee2->id,
+                'talent_nomination_event_id' => $event->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
+    public function testCantAddKLCSkillsWithoutEventOption()
+    {
+        $event = TalentNominationEvent::factory()
+            ->create([
+                'include_leadership_competencies' => false,
+            ]);
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->hasSkills(SkillFamily::where('key', '<>', 'klc')->first()->skills->take(3))
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'submitted_at' => null,
+                'nominee_id' => $this->employee2->id,
+                'talent_nomination_event_id' => $event->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('skills', 'The skills field is prohibited.');
+    }
+
+    public function testCantAddNonKLCSkills()
+    {
+        $nonKlcSkillId = SkillFamily::where('key', '<>', 'klc')->first()->skills->first()->id;
+
+        $event = TalentNominationEvent::factory()->create([
+            'include_leadership_competencies' => true,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->hasSkills([])
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $nomination->id,
+                'talentNomination' => [
+                    'skills' => [
+                        'sync' => [$nonKlcSkillId],
+                    ],
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError('talentNomination.skills.sync.0', 'SKILL_NOT_KLC');
+    }
+
+    public function testCantNominateSelf()
+    {
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'submitted_at' => null,
+                'nominator_id' => $this->employee1->id,
+                'nominee_id' => $this->employee1->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nominee_id', 'The nominee id field and nominator id must be different.');
     }
 }

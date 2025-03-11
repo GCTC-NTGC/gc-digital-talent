@@ -77,7 +77,7 @@ class TalentNominationFactory extends Factory
                             ? $this->faker->jobTitle()
                             : null,
                     'nominator_fallback_work_email' => fn ($attributes) => is_null($attributes['nominator_id'])
-                        ? $this->faker->safeEmail()
+                        ? $this->faker->userName().'@gc.ca'
                         : null,
                     'nominator_fallback_name' => fn ($attributes) => is_null($attributes['nominator_id'])
                         ? $this->faker->name()
@@ -145,7 +145,7 @@ class TalentNominationFactory extends Factory
                         ? $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name')))
                         : null,
                     'advancement_reference_fallback_work_email' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
-                        ? $this->faker->safeEmail()
+                        ? $this->faker->userName().'@gc.ca'
                         : null,
                     'advancement_reference_fallback_name' => fn ($attributes) => $attributes['nominate_for_advancement'] && is_null($attributes['advancement_reference_id'])
                         ? $this->faker->name()
