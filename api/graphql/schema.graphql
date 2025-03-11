@@ -227,6 +227,10 @@ type EmployeeProfile {
     @rename(attribute: "next_role_target_role_other")
   careerObjectiveTargetRoleOther: String
     @rename(attribute: "career_objective_target_role_other")
+  nextRoleCSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "next_role_c_suite_role_title")
+  careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
@@ -1603,6 +1607,10 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "next_role_target_role_other")
   careerObjectiveTargetRoleOther: String
     @rename(attribute: "career_objective_target_role_other")
+  nextRoleCSuiteRoleTitle: CSuiteRoleTitle
+    @rename(attribute: "next_role_c_suite_role_title")
+  careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
+    @rename(attribute: "career_objective_c_suite_role_title")
 }
 
 input CreateCommunityInterestInput @validator {
