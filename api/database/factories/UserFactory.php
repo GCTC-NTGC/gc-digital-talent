@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
@@ -310,6 +311,8 @@ class UserFactory extends Factory
                         ? $this->faker->words(3, true)
                         : null,
 
+                'next_role_c_suite_role_title' => $this->faker->optional(weight: 40)->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')),
+                'career_objective_c_suite_role_title' => $this->faker->optional(weight: 40)->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')),
             ]);
         });
     }
