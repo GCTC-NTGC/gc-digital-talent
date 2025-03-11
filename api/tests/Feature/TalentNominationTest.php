@@ -201,7 +201,6 @@ class TalentNominationTest extends TestCase
             ->create([
                 'submitter_id' => $this->employee1->id,
                 'submitted_at' => null,
-                'nominee_id' => $this->employee2->id,
                 'talent_nomination_event_id' => $event->id,
             ]);
 
@@ -233,7 +232,6 @@ class TalentNominationTest extends TestCase
             ->create([
                 'submitter_id' => $this->employee1->id,
                 'submitted_at' => null,
-                'nominee_id' => $this->employee2->id,
                 'talent_nomination_event_id' => $event->id,
             ]);
 

@@ -106,7 +106,7 @@ class TalentNominationFactory extends Factory
 
                 return [
                     'submitted_steps' => $stepsArray,
-                    'nominee_id' => User::where('id', '!=', $attributes['submitter_id'])
+                    'nominee_id' => User::where('id', '!=', $attributes['nominator_id'])
                         ->inRandomOrder()
                         ->firstOr(fn () => User::factory()->create()),
                     'nominee_review' => $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name'))),
