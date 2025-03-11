@@ -89,6 +89,7 @@ return [
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
+        'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -665,6 +666,11 @@ return [
             'en' => 'View a draft talent nomination as the submitter',
             'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
         ],
+
+        'view-any-basicGovEmployeeProfile' => [
+            'en' => 'View any basic government employee profile',
+            'fr' => 'Voir tout profil de base d\'employé du gouvernement',
+        ],
     ],
 
     /*
@@ -935,6 +941,9 @@ return [
             ],
             'talentNomination' => [
                 'own' => ['create', 'update', 'view'],
+            ],
+            'basicGovEmployeeProfile' => [
+                'any' => ['view'],
             ],
         ],
 

@@ -84,12 +84,12 @@ class TalentNomination extends Model
 
     public function submitter(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'submitter_id');
+        return $this->belongsTo(User::class, 'submitter_id')->isVerifiedGovEmployee();
     }
 
     public function nominator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominator_id');
+        return $this->belongsTo(User::class, 'nominator_id')->isVerifiedGovEmployee();
     }
 
     public function nominatorFallbackClassification(): BelongsTo
@@ -104,12 +104,12 @@ class TalentNomination extends Model
 
     public function nominee(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominee_id');
+        return $this->belongsTo(User::class, 'nominee_id')->isVerifiedGovEmployee();
     }
 
     public function advancementReference(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'advancement_reference_id');
+        return $this->belongsTo(User::class, 'advancement_reference_id')->isVerifiedGovEmployee();
     }
 
     public function advancementReferenceFallbackClassification(): BelongsTo

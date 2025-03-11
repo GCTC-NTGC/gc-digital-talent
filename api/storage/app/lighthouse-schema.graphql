@@ -1058,23 +1058,23 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEvent!
   submittedAt: DateTime
-  submitter: User!
+  submitter: BasicGovEmployeeProfile!
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
-  nominator: User
+  nominator: BasicGovEmployeeProfile
   nominatorFallbackWorkEmail: String
   nominatorFallbackName: String
   nominatorFallbackClassification: Classification
   nominatorFallbackDepartment: Department
   nominatorReview: LocalizedTalentNominationUserReview
-  nominee: User
+  nominee: BasicGovEmployeeProfile
   nomineeReview: LocalizedTalentNominationUserReview
   nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
   nomineeRelationshipToNominatorOther: String
   nominateForAdvancement: Boolean
   nominateForLateralMovement: Boolean
   nominateForDevelopmentPrograms: Boolean
-  advancementReference: User
+  advancementReference: BasicGovEmployeeProfile
   advancementReferenceReview: LocalizedTalentNominationUserReview
   advancementReferenceFallbackWorkEmail: String
   advancementReferenceFallbackName: String

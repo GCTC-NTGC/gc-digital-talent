@@ -633,12 +633,16 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   submittedAt: DateTime @rename(attribute: "submitted_at")
-  submitter: User! @belongsTo
+  submitter: BasicGovEmployeeProfile!
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")
   submitterRelationshipToNominatorOther: String
     @rename(attribute: "submitter_relationship_to_nominator_other")
-  nominator: User @belongsTo
+  nominator: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominatorFallbackWorkEmail: String
     @rename(attribute: "nominator_fallback_work_email")
   nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
@@ -646,7 +650,9 @@ type TalentNomination {
   nominatorFallbackDepartment: Department @belongsTo
   nominatorReview: LocalizedTalentNominationUserReview
     @rename(attribute: "nominator_review")
-  nominee: User @belongsTo
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nomineeReview: LocalizedTalentNominationUserReview
     @rename(attribute: "nominee_review")
   nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
@@ -660,7 +666,8 @@ type TalentNomination {
   nominateForDevelopmentPrograms: Boolean
     @rename(attribute: "nominate_for_development_programs")
 
-  advancementReference: User
+  advancementReference: BasicGovEmployeeProfile
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   advancementReferenceReview: LocalizedTalentNominationUserReview
     @rename(attribute: "advancement_reference_review")
   advancementReferenceFallbackWorkEmail: String
