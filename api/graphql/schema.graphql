@@ -189,6 +189,10 @@ type EmployeeProfile {
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
 
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
+
   mentorshipStatus: [LocalizedMentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [LocalizedMentorship!]
@@ -1565,6 +1569,10 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
+
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
 
   mentorshipStatus: [Mentorship!]
     @rename(attribute: "career_planning_mentorship_status")
