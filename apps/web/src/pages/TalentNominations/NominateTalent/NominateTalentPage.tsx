@@ -1,8 +1,10 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
+import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -20,22 +22,28 @@ import Details from "./components/Details";
 import Rationale from "./components/Rationale";
 import ReviewAndSubmit from "./components/ReviewAndSubmit";
 import Instructions from "./components/Instructions";
+import Navigation from "./components/Navigation";
+import useCurrentStep from "./useCurrentStep";
+import Success from "./components/Success";
 
 const NominateTalent_Query = graphql(/* GraphQL */ `
   query NominateTalent($id: UUID!) {
     talentNomination(id: $id) {
       id
+      submittedAt
       talentNominationEvent {
         name {
           localized
         }
       }
 
+      ...NominateTalentNavigation
       ...NominateTalentNominator
       ...NominateTalentNominee
       ...NominateTalentDetails
       ...NominateTalentRationale
       ...NominateTalentReviewAndSubmit
+      ...NominateTalentSuccess
     }
   }
 `);
@@ -50,11 +58,25 @@ const subTitle = defineMessage({
 const NominateTalentPage = () => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
+  const { current } = useCurrentStep();
+  const navigate = useNavigate();
   const paths = useRoutes();
   const [{ data, fetching, error }] = useQuery({
     query: NominateTalent_Query,
     variables: { id },
   });
+
+  const isSubmitted = !!data?.talentNomination?.submittedAt;
+
+  // NOTE: If step is not set and nomination is not submitted, send them to the instructions page
+  useEffect(() => {
+    if (!current && !isSubmitted) {
+      void navigate(
+        `${paths.talentNomiation(id)}?step=${TalentNominationStep.Instructions}`,
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [current, isSubmitted]);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -99,12 +121,25 @@ const NominateTalentPage = () => {
             subtitle={intl.formatMessage(subTitle)}
             crumbs={crumbs}
           />
-          <Instructions />
-          <Nominator nominatorQuery={data.talentNomination} />
-          <Nominee nomineeQuery={data.talentNomination} />
-          <Details detailsQuery={data.talentNomination} />
-          <Rationale rationaleQuery={data.talentNomination} />
-          <ReviewAndSubmit revieAndSubmitQuery={data.talentNomination} />
+          <div
+            data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+            data-h2-margin-top="base(x3)"
+          >
+            <TableOfContents.Wrapper>
+              <TableOfContents.Sidebar>
+                <Navigation navigationQuery={data.talentNomination} />
+              </TableOfContents.Sidebar>
+              <TableOfContents.Content>
+                <Instructions />
+                <Nominator nominatorQuery={data.talentNomination} />
+                <Nominee nomineeQuery={data.talentNomination} />
+                <Details detailsQuery={data.talentNomination} />
+                <Rationale rationaleQuery={data.talentNomination} />
+                <ReviewAndSubmit reviewAndSubmitQuery={data.talentNomination} />
+                <Success successQuery={data.talentNomination} />
+              </TableOfContents.Content>
+            </TableOfContents.Wrapper>
+          </div>
         </>
       ) : (
         <ThrowNotFound />

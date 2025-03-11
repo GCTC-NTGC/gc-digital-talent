@@ -61,7 +61,7 @@ const Actions = () => {
           color="secondary"
           {...intentProps}
           onClick={() => setValue("intent", "next-step")}
-          icon={isLastStep ? undefined : ChevronDoubleRightIcon}
+          utilityIcon={isLastStep ? undefined : ChevronDoubleRightIcon}
         >
           {isLastStep
             ? intl.formatMessage({

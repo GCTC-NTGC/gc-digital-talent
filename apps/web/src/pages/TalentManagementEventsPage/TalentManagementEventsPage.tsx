@@ -123,7 +123,7 @@ export const Component = () => {
             description: "Toast for successful nomination creation",
           }),
         );
-        await navigate(paths.talentNominationInstructions(nominationId));
+        await navigate(paths.talentNomiation(nominationId));
       })
       .catch(() => {
         toast.error(

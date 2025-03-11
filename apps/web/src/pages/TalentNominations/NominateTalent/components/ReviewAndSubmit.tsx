@@ -8,12 +8,12 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
 
 import useCurrentStep from "../useCurrentStep";
 import { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import useMutations from "../useMutations";
+import SubHeading from "./SubHeading";
 
 const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentReviewAndSubmit on TalentNomination {
@@ -22,20 +22,20 @@ const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface ReviewAndSubmitProps {
-  revieAndSubmitQuery: FragmentType<
+  reviewAndSubmitQuery: FragmentType<
     typeof NominateTalentReviewAndSubmit_Fragment
   >;
 }
 
-const ReviewAndSubmit = ({ revieAndSubmitQuery }: ReviewAndSubmitProps) => {
+const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
   const [fetching, { submit }] = useMutations();
   // TO DO: Use in the form population
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const revieAndSubmit = getFragment(
+  const talentNomination = getFragment(
     NominateTalentReviewAndSubmit_Fragment,
-    revieAndSubmitQuery,
+    reviewAndSubmitQuery,
   );
 
   const methods = useForm<BaseFormValues>({ disabled: fetching });
@@ -51,13 +51,13 @@ const ReviewAndSubmit = ({ revieAndSubmitQuery }: ReviewAndSubmitProps) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <Heading level="h2" Icon={DocumentMagnifyingGlassIcon}>
+        <SubHeading level="h2" Icon={DocumentMagnifyingGlassIcon}>
           {intl.formatMessage({
             defaultMessage: "Review and submit",
             id: "29uHtO",
             description: "Heading for submit step of a talent nomination",
           })}
-        </Heading>
+        </SubHeading>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
             defaultMessage:

@@ -1,17 +1,22 @@
-import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import { ReactNode } from "react";
 
 import { TalentNominationStep } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
+
+import useRoutes from "~/hooks/useRoutes";
 
 import useMutations from "../useMutations";
 import { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import useCurrentStep from "../useCurrentStep";
+import SubHeading from "./SubHeading";
 
 const Instructions = () => {
   const intl = useIntl();
+  const paths = useRoutes();
   const { current } = useCurrentStep();
   const [fetching, { update }] = useMutations();
 
@@ -34,20 +39,48 @@ const Instructions = () => {
 
   return (
     <>
-      <Heading level="h2" Icon={RectangleGroupIcon}>
+      <SubHeading Icon={ClipboardDocumentIcon}>
         {intl.formatMessage({
-          defaultMessage: "Nomination details",
-          id: "gD98oQ",
-          description: "Heading for details step of a talent nomination",
+          defaultMessage: "Instructions",
+          id: "fhbTHo",
+          description: "Heading for instructions step of a talent nomination",
         })}
-      </Heading>
+      </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Now, we'll look at the details of the nomination you'd like to submit.",
-          id: "ZWIfBh",
-          description: "Subtitle for nomiation details step",
+            "Welcome to the talent nomination form. This form allows you to nominate a candidate for advancement, lateral movement, or development opportunities unique to their area of work.",
+          id: "6ZwHMj",
+          description:
+            "Paragraph one, instructions on how to submit a nomination",
         })}
+      </p>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "Nominations must be sponsored by a C-suite level executive working in the candidate’s domain and will be triaged by the associated functional community team. Once confirmed, the candidate will be entered in that community’s talent management system for the current year.",
+          id: "QqwcpX",
+          description:
+            "Paragraph two, instructions on how to submit a nomination",
+        })}
+      </p>
+      <p data-h2-margin="base(x1 0)">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Have questions? <link>Reach out to our support team</link>.",
+            id: "3RUGGK",
+            description:
+              "Paragraph two, instructions on how to submit a nomination",
+          },
+          {
+            link: (chunks: ReactNode) => (
+              <Link href={paths.support()} color="black">
+                {chunks}
+              </Link>
+            ),
+          },
+        )}
       </p>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>

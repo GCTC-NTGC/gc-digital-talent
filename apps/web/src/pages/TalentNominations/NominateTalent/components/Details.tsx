@@ -7,11 +7,11 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
 
 import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import SubHeading from "./SubHeading";
 
 // TO DO: Populate when building form
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -38,7 +38,10 @@ const Details = ({ detailsQuery }: DetailsProps) => {
   const { current } = useCurrentStep();
   // TO DO: Use in the form population
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const details = getFragment(NominateTalentDetails_Fragment, detailsQuery);
+  const talentNomination = getFragment(
+    NominateTalentDetails_Fragment,
+    detailsQuery,
+  );
   if (current !== TalentNominationStep.NominationDetails) {
     return null;
   }
@@ -46,13 +49,13 @@ const Details = ({ detailsQuery }: DetailsProps) => {
   return (
     <>
       <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <Heading level="h2" Icon={RectangleGroupIcon}>
+        <SubHeading Icon={RectangleGroupIcon}>
           {intl.formatMessage({
             defaultMessage: "Nomination details",
             id: "gD98oQ",
             description: "Heading for details step of a talent nomination",
           })}
-        </Heading>
+        </SubHeading>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
             defaultMessage:

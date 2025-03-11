@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router";
 
 import { TalentNominationStep } from "@gc-digital-talent/graphql";
 
-const stepOrder = [
+export const stepOrder = [
   TalentNominationStep.Instructions,
   TalentNominationStep.NominatorInformation,
   TalentNominationStep.NomineeInformation,
@@ -17,6 +17,7 @@ const isValidStep = (step: string | null): step is TalentNominationStep => {
 };
 
 interface UseCurrentStepReturn {
+  index: number | null;
   current: TalentNominationStep | null;
   next: TalentNominationStep | null;
   prev: TalentNominationStep | null;
@@ -28,7 +29,13 @@ const useCurrentStep = (): UseCurrentStepReturn => {
   const step = searchParams.get("step");
 
   if (!isValidStep(step)) {
-    return { current: null, next: null, prev: null, isLastStep: false };
+    return {
+      current: null,
+      next: null,
+      prev: null,
+      isLastStep: false,
+      index: null,
+    };
   }
 
   const index = stepOrder.indexOf(step);
@@ -45,6 +52,7 @@ const useCurrentStep = (): UseCurrentStepReturn => {
   }
 
   return {
+    index,
     current: step,
     next,
     prev,

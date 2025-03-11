@@ -1,4 +1,4 @@
-import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
+import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { useIntl } from "react-intl";
 
 import {
@@ -7,11 +7,11 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
 
 import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import SubHeading from "./SubHeading";
 
 // TO DO: Populate when building form
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -38,7 +38,7 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
   const { current } = useCurrentStep();
   // TO DO: Use in the form population
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const rationale = getFragment(
+  const talentNomation = getFragment(
     NominateTalentRationale_Fragment,
     rationaleQuery,
   );
@@ -50,13 +50,13 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
   return (
     <>
       <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
-        <Heading level="h2" Icon={ChatBubbleBottomCenterIcon}>
+        <SubHeading level="h2" Icon={ChatBubbleBottomCenterTextIcon}>
           {intl.formatMessage({
             defaultMessage: "Rationale and additional comments",
             id: "LA0AM1",
             description: "Heading for rationale step of a talent nomination",
           })}
-        </Heading>
+        </SubHeading>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
             defaultMessage:

@@ -38,7 +38,7 @@ interface TalentNominationMutations {
     talentNomination: UpdateTalentNominationInput,
     intent: SubmitIntent,
   ) => Promise<void>;
-  submit: (intent: SubmitIntent) => Promise<void> | void;
+  submit: (intent: SubmitIntent) => Promise<void> | null;
 }
 
 type UseMutationsReturn = [boolean, TalentNominationMutations];
@@ -86,15 +86,14 @@ const useMutations = (): UseMutationsReturn => {
 
   const submit: TalentNominationMutations["submit"] = async (intent) => {
     if (intent === "save-draft") {
-      await navigate(paths.applicantDashboard());
-      return;
+      return await navigate(paths.applicantDashboard());
     }
 
     return executeSubmitMutation({ id })
       .then(async (res) => {
         if (!res.data?.submitTalentNomination) throw new Error();
 
-        await navigate(`${paths.talentNomiation(id)}?step=success`);
+        await navigate(paths.talentNomiation(id));
       })
       .catch(() => {
         toast.error(
