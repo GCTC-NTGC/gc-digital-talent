@@ -1,5 +1,4 @@
 import { defineMessage, useIntl } from "react-intl";
-import { Outlet } from "react-router";
 import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
@@ -15,6 +14,12 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { RouteParams } from "./types";
+import Nominator from "./components/Nominator";
+import Nominee from "./components/Nominee";
+import Details from "./components/Details";
+import Rationale from "./components/Rationale";
+import ReviewAndSubmit from "./components/ReviewAndSubmit";
+import Instructions from "./components/Instructions";
 
 const NominateTalent_Query = graphql(/* GraphQL */ `
   query NominateTalent($id: UUID!) {
@@ -25,15 +30,15 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
           localized
         }
       }
+
+      ...NominateTalentNominator
+      ...NominateTalentNominee
+      ...NominateTalentDetails
+      ...NominateTalentRationale
+      ...NominateTalentReviewAndSubmit
     }
   }
 `);
-
-const pageTitle = defineMessage({
-  defaultMessage: "Nominate talent",
-  id: "cENNpj",
-  description: "Title for the form to nominate talent",
-});
 
 const subTitle = defineMessage({
   defaultMessage:
@@ -62,26 +67,44 @@ const NominateTalentPage = () => {
         url: paths.talentManagementEvents(),
       },
       {
-        label: intl.formatMessage(pageTitle),
+        label: intl.formatMessage({
+          defaultMessage: "Nominate talent",
+          id: "3IwZ47",
+          description: "Link text for the form to nominate talent",
+        }),
         url: paths.talentNomiation(id),
       },
     ],
   });
 
+  const pageTitle = intl.formatMessage(
+    {
+      defaultMessage: "Nominate talent for {eventName}",
+      id: "7fY684",
+      description: "Page title for the form to nominate talen",
+    },
+    {
+      eventName:
+        data?.talentNomination?.talentNominationEvent.name.localized ?? "",
+    },
+  );
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNomination ? (
         <>
-          <SEO
-            title={intl.formatMessage(pageTitle)}
-            description={intl.formatMessage(subTitle)}
-          />
+          <SEO title={pageTitle} description={intl.formatMessage(subTitle)} />
           <Hero
-            title={intl.formatMessage(pageTitle)}
+            title={pageTitle}
             subtitle={intl.formatMessage(subTitle)}
             crumbs={crumbs}
           />
-          <Outlet />
+          <Instructions />
+          <Nominator nominatorQuery={data.talentNomination} />
+          <Nominee nomineeQuery={data.talentNomination} />
+          <Details detailsQuery={data.talentNomination} />
+          <Rationale rationaleQuery={data.talentNomination} />
+          <ReviewAndSubmit revieAndSubmitQuery={data.talentNomination} />
         </>
       ) : (
         <ThrowNotFound />

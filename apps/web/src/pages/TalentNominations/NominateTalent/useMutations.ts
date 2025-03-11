@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 
 import {
   graphql,
-  TalentNominationStep,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -13,6 +12,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
 import { RouteParams, SubmitIntent } from "./types";
+import useCurrentStep from "./useCurrentStep";
 
 const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `
   mutation NominateTalentUpdate(
@@ -25,13 +25,22 @@ const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const NominateTalentSubmit_Mutation = graphql(/* GraphQL */ `
+  mutation NominateTalentSubmit($id: UUID!) {
+    submitTalentNomination(id: $id) {
+      id
+    }
+  }
+`);
+
 interface TalentNominationMutations {
   update: (
     talentNomination: UpdateTalentNominationInput,
     intent: SubmitIntent,
-    nextStep?: TalentNominationStep,
   ) => Promise<void>;
+  submit: (intent: SubmitIntent) => Promise<void> | void;
 }
+
 type UseMutationsReturn = [boolean, TalentNominationMutations];
 
 const useMutations = (): UseMutationsReturn => {
@@ -39,21 +48,24 @@ const useMutations = (): UseMutationsReturn => {
   const { id } = useRequiredParams<RouteParams>("id");
   const paths = useRoutes();
   const navigate = useNavigate();
-  const [{ fetching }, executeUpdateMutation] = useMutation(
+  const { next } = useCurrentStep();
+  const [{ fetching: updating }, executeUpdateMutation] = useMutation(
     NominateTalentUpdate_Mutation,
+  );
+  const [{ fetching: submitting }, executeSubmitMutation] = useMutation(
+    NominateTalentSubmit_Mutation,
   );
 
   const update: TalentNominationMutations["update"] = async (
     talentNomination,
     intent,
-    nextStep,
   ) => {
     return executeUpdateMutation({ id, talentNomination })
       .then(async (res) => {
         if (!res.data?.updateTalentNomination) throw new Error();
 
-        if (nextStep && intent === "next-step") {
-          await navigate(`${paths.talentNomiation(id)}?step=${nextStep}`);
+        if (next && intent === "next-step") {
+          await navigate(`${paths.talentNomiation(id)}?step=${next}`);
         }
 
         if (intent === "save-draft") {
@@ -63,8 +75,8 @@ const useMutations = (): UseMutationsReturn => {
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error update talent nomination",
-            id: "x8CORP",
+            defaultMessage: "Error updating talent nomination",
+            id: "UlK+Qm",
             description:
               "Error message displayed when a talent nomination could not be updated",
           }),
@@ -72,7 +84,31 @@ const useMutations = (): UseMutationsReturn => {
       });
   };
 
-  return [fetching, { update }];
+  const submit: TalentNominationMutations["submit"] = async (intent) => {
+    if (intent === "save-draft") {
+      await navigate(paths.applicantDashboard());
+      return;
+    }
+
+    return executeSubmitMutation({ id })
+      .then(async (res) => {
+        if (!res.data?.submitTalentNomination) throw new Error();
+
+        await navigate(`${paths.talentNomiation(id)}?step=success`);
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error submitting talent nomination",
+            id: "afkBMh",
+            description:
+              "Error message displayed when a talent nomination could not be submitted",
+          }),
+        );
+      });
+  };
+
+  return [updating || submitting, { update, submit }];
 };
 
 export default useMutations;
