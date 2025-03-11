@@ -214,6 +214,9 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_additional_information")
   nextRoleCommunity: Community @belongsTo
   careerObjectiveCommunity: Community @belongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
   nextRoleClassification: Classification @belongsTo
   careerObjectiveClassification: Classification @belongsTo
   nextRoleWorkStreams: [WorkStream!] @belongsToMany
@@ -1656,6 +1659,9 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_additional_information")
   nextRoleCommunity: CommunityBelongsTo
   careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
   nextRoleClassification: ClassificationBelongsTo
   careerObjectiveClassification: ClassificationBelongsTo
   nextRoleWorkStreams: WorkStreamBelongsToMany
@@ -1697,7 +1703,6 @@ input CreateDevelopmentProgramInterestHasMany {
 
 input UpdateDevelopmentProgramInterestHasMany {
   create: [CreateDevelopmentProgramInterestInput!]
-  sync: [CreateDevelopmentProgramInterestInput!]
   update: [UpdateDevelopmentProgramInterestInput!]
   delete: [UUID!]
 }

@@ -5,7 +5,11 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import {
   Button,
   CardBasic,
@@ -33,6 +37,7 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import { wrapAbbr } from "~/utils/nameUtils";
 
 import CourseLanguageChip from "./CourseLanguageChip";
 
@@ -93,9 +98,22 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const itLink = (href: string, chunks: ReactNode) => {
+const externalLinkAccessor = ({
+  href,
+  chunks,
+  bold = false,
+}: {
+  href: string;
+  chunks: ReactNode;
+  bold?: boolean;
+}) => {
   return (
-    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
+    <Link
+      href={href}
+      color="secondary"
+      external
+      {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
+    >
       {chunks}
     </Link>
   );
@@ -220,6 +238,7 @@ const unselectedFilterStyle: Record<string, string> = {
 
 export const Component = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
@@ -295,14 +314,27 @@ export const Component = () => {
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "The training opportunities on this page are supported by the <link>IT Community Training and Development Fund</link> and are available only to employees represented by PIPSC in the IT group.",
-                  id: "KUuhwO",
+                    "The training opportunities on this page are supported by the <itTrainingFundLink><abbreviation>IT</abbreviation> Community Training and Development Fund</itTrainingFundLink> and are available only to <abbreviation>IT</abbreviation>-classified employees who are covered by the <itCollectiveAgreementLink><abbreviation>IT</abbreviation> collective agreement.</itCollectiveAgreementLink>",
+                  id: "6c89Fd",
                   description:
                     "Second paragraph of it training opportunities section",
                 },
                 {
-                  link: (chunks: ReactNode) =>
-                    itLink(paths.itTrainingFund(), chunks),
+                  itTrainingFundLink: (chunks: ReactNode) =>
+                    externalLinkAccessor({
+                      href: paths.itTrainingFund(),
+                      chunks,
+                      bold: true,
+                    }),
+                  itCollectiveAgreementLink: (chunks: ReactNode) =>
+                    externalLinkAccessor({
+                      href:
+                        locale === "en"
+                          ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
+                          : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
+                      chunks,
+                    }),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
             </p>

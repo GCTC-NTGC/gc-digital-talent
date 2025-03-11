@@ -64,7 +64,16 @@ const StatusItemTitle = ({
   }
   if (scrollTo) {
     return (
-      <ScrollToLink to={scrollTo} color={color} {...rest}>
+      <ScrollToLink
+        to={scrollTo}
+        color={color}
+        onScrollTo={(_, section) => {
+          if (section) {
+            section.focus();
+          }
+        }}
+        {...rest}
+      >
         {children}
       </ScrollToLink>
     );
