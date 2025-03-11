@@ -714,6 +714,8 @@ type EmployeeProfile {
   careerObjectiveTargetRole: LocalizedTargetRole
   nextRoleTargetRoleOther: String
   careerObjectiveTargetRoleOther: String
+  nextRoleIsCSuiteRole: Boolean
+  careerObjectiveIsCSuiteRole: Boolean
   nextRoleCSuiteRoleTitle: LocalizedCSuiteRoleTitle
   careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
   communityInterests(id: UUID): [CommunityInterest!]
@@ -1659,6 +1661,8 @@ input UpdateEmployeeProfileInput {
   careerObjectiveTargetRole: TargetRole
   nextRoleTargetRoleOther: String
   careerObjectiveTargetRoleOther: String
+  nextRoleIsCSuiteRole: Boolean
+  careerObjectiveIsCSuiteRole: Boolean
   nextRoleCSuiteRoleTitle: CSuiteRoleTitle
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
 }

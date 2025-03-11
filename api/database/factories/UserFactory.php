@@ -251,6 +251,9 @@ class UserFactory extends Factory
             $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
             $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
 
+            $nextRoleIsCSuite = $this->faker->boolean(40);
+            $careerObjectiveIsCSuite = $this->faker->boolean(40);
+
             $user->employeeProfile->nextRoleDepartments()
                 ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
             $user->employeeProfile->careerObjectiveDepartments()
@@ -311,8 +314,10 @@ class UserFactory extends Factory
                         ? $this->faker->words(3, true)
                         : null,
 
-                'next_role_c_suite_role_title' => $this->faker->optional(weight: 40)->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')),
-                'career_objective_c_suite_role_title' => $this->faker->optional(weight: 40)->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')),
+                'next_role_is_c_suite_role' => $nextRoleIsCSuite,
+                'career_objective_is_c_suite_role' => $careerObjectiveIsCSuite,
+                'next_role_c_suite_role_title' => $nextRoleIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
+                'career_objective_c_suite_role_title' => $careerObjectiveIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
             ]);
         });
     }
