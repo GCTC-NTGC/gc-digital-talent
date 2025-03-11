@@ -6378,6 +6378,10 @@
     "defaultMessage": "Étant donné que les plateformes de médias sociaux et leurs serveurs sont gérés par un tiers, les comptes de médias sociaux sont sujets à des interruptions de service qui échappent au contrôle du gouvernement du Canada. Le gouvernement du Canada n’assume donc aucune responsabilité en cas de non-disponibilité des plateformes.",
     "description": "Paragraph for content and frequency section"
   },
+  "VMcxoH": {
+    "defaultMessage": "La création de la mise en candidature a échoué",
+    "description": "Toast for error during nomination creation"
+  },
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
@@ -10561,6 +10565,10 @@
   "qShZxu": {
     "defaultMessage": "Candidat rétabli avec succès",
     "description": "Success message for reinstating a candidate"
+  },
+  "qWew0O": {
+    "defaultMessage": "La mise en candidature a été créée avec succès",
+    "description": "Toast for successful nomination creation"
   },
   "qX9s0l": {
     "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de « présélection des candidatures » et de « questions de présélection (au moment de la candidature) » qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
