@@ -349,10 +349,8 @@ const getRoutes = (lang: Locales) => {
 
     // Communities
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
-    talentNominationInstructions: (nominationId: string) =>
-      [communitiesUrl, "talent-nominations", nominationId, "instructions"].join(
-        "/",
-      ),
+    talentNomiation: (nominationId: string) =>
+      `${communitiesUrl}/talent-nominations/${nominationId}`,
 
     // Comptrollership
     comptrollershipExecutivesPage: () =>
