@@ -17,14 +17,15 @@ import {
   graphql,
   FragmentType,
   getFragment,
-  EmployeeProfile,
   TargetRole,
+  CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   alphaSortOptions,
+  Checkbox,
   Checklist,
   Combobox,
   Input,
@@ -60,6 +61,12 @@ const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
       label {
         en
         fr
+      }
+    }
+    cSuiteRoleTitles: localizedEnumStrings(enumName: "CSuiteRoleTitle") {
+      value
+      label {
+        localized
       }
     }
     communities {
@@ -123,6 +130,13 @@ export const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
       }
     }
     careerObjectiveAdditionalInformation
+    careerObjectiveIsCSuiteRole
+    careerObjectiveCSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
   }
 `);
 
@@ -148,6 +162,8 @@ interface FormValues {
   workStreamIds: string[] | null | undefined;
   departmentIds: string[] | null | undefined;
   additionalInformation: string | null | undefined;
+  isCSuiteRole: boolean;
+  cSuiteRoleTitle: string | null | undefined;
 }
 
 interface CareerObjectiveSectionProps {
@@ -207,7 +223,9 @@ const CareerObjectiveSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => {
+  const dataToFormValues = (
+    initialData: typeof employeeProfile,
+  ): FormValues => {
     // community and communityOther have a bespoke touch
     const isCommunityOther =
       !initialData.careerObjectiveCommunity?.id &&
@@ -231,6 +249,8 @@ const CareerObjectiveSection = ({
         (department) => department.id,
       ),
       additionalInformation: initialData.careerObjectiveAdditionalInformation,
+      isCSuiteRole: !!initialData.careerObjectiveIsCSuiteRole,
+      cSuiteRoleTitle: initialData.careerObjectiveCSuiteRoleTitle?.value,
     };
   };
 
@@ -239,8 +259,17 @@ const CareerObjectiveSection = ({
   });
 
   // hooks to watch, needed for conditional rendering
-  const [watchClassificationGroup, watchCommunityId, watchTargetRole] =
-    methods.watch(["classificationGroup", "communityId", "targetRole"]);
+  const [
+    watchClassificationGroup,
+    watchCommunityId,
+    watchTargetRole,
+    watchIsCSuiteRole,
+  ] = methods.watch([
+    "classificationGroup",
+    "communityId",
+    "targetRole",
+    "isCSuiteRole",
+  ]);
 
   /**
    * Reset fields in response to changes
@@ -267,11 +296,19 @@ const CareerObjectiveSection = ({
         defaultValue: null,
       });
     }
+    // reset cSuiteRoleTitle when toggling watchIsCSuiteRole
+    if (watchIsCSuiteRole !== true) {
+      methods.resetField("cSuiteRoleTitle", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [
     watchTargetRole,
     methods,
     watchCommunityId,
     employeeProfile.careerObjectiveCommunity?.id,
+    watchIsCSuiteRole,
   ]);
 
   const { handleSubmit } = methods;
@@ -287,6 +324,8 @@ const CareerObjectiveSection = ({
     workStreamIds,
     departmentIds,
     additionalInformation,
+    isCSuiteRole,
+    cSuiteRoleTitle,
   }: FormValues) => {
     // should not be possible
     if (!userAuthInfo?.id) {
@@ -329,6 +368,8 @@ const CareerObjectiveSection = ({
           sync: departmentIds,
         },
         careerObjectiveAdditionalInformation: additionalInformation,
+        careerObjectiveIsCSuiteRole: isCSuiteRole,
+        careerObjectiveCSuiteRoleTitle: cSuiteRoleTitle as CSuiteRoleTitle,
       },
     })
       .then((result) => {
@@ -420,6 +461,13 @@ const CareerObjectiveSection = ({
   departmentOptions.sort((a, b) =>
     (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
   );
+  const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
+    unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({
+      value: cSuiteRoleTitle.value,
+      label:
+        cSuiteRoleTitle?.label?.localized ??
+        intl.formatMessage(commonMessages.notProvided),
+    }));
 
   return (
     <ToggleSection.Root
@@ -548,6 +596,35 @@ const CareerObjectiveSection = ({
                       employeeProfileMessages.targetRoleOther,
                     )}
                     name="targetRoleOther"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                ) : null}
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={intl.formatMessage(
+                    employeeProfileMessages.seniorManagementStatus,
+                  )}
+                  id="isCSuiteRole"
+                  label={intl.formatMessage(
+                    employeeProfileMessages.isChiefDeputyCSuiteRole,
+                  )}
+                  name="isCSuiteRole"
+                />
+                {watchIsCSuiteRole === true ? (
+                  <Select
+                    id="cSuiteRoleTitle"
+                    name="cSuiteRoleTitle"
+                    label={intl.formatMessage(
+                      employeeProfileMessages.cSuiteRoleTitle,
+                    )}
+                    nullSelection={intl.formatMessage(
+                      uiMessages.nullSelectionOption,
+                    )}
+                    options={cSuiteRoleTitleOptions}
+                    doNotSort
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
