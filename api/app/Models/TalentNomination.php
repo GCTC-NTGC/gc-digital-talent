@@ -77,6 +77,7 @@ class TalentNomination extends Model
             ->dontSubmitEmptyLogs();
     }
 
+    /** @return BelongsTo<TalentNominationEvent, $this> */
     public function talentNominationEvent(): BelongsTo
     {
         return $this->belongsTo(TalentNominationEvent::class);

@@ -105,7 +105,7 @@ final class SubmitTalentNominationValidator extends Validator
             ],
             'nominate_for_development_programs' => [
                 'required',
-                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->development_program_options_other),
+                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->nomination->development_program_options_other),
                     ['accepted'],
                     ['declined']),
             ],

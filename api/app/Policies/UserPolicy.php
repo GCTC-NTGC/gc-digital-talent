@@ -256,10 +256,8 @@ class UserPolicy
 
     /**
      * Determine whether the user can view a more limited version of the User model.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAnyBasicGovEmployeeProfile(?User $user): bool
+    public function viewAnyBasicGovEmployeeProfile(User $user): bool
     {
         return $user->isAbleTo('view-any-basicGovEmployeeProfile');
     }
