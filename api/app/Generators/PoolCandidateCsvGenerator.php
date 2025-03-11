@@ -68,7 +68,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
     protected array $headerLocaleKeys = [
         'status',
         'category',
-        'suspended',
+        'availability',
         'notes',
         'current_province',
         'date_received',
@@ -151,7 +151,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 $values = [
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
                     $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
-                    $candidate->suspended_at ? Lang::get('common.suspended', [], $this->lang) : '',
+                    $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
                     $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
