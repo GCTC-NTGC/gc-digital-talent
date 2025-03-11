@@ -4,6 +4,7 @@ import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getExecCoachingInterest,
+  getMentorshipInterest,
 } from "@gc-digital-talent/i18n";
 import { CardBasic, CardSeparator } from "@gc-digital-talent/ui";
 import {
@@ -11,6 +12,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  Mentorship,
   OrganizationTypeInterest,
 } from "@gc-digital-talent/graphql";
 
@@ -34,7 +36,25 @@ export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
       }
     }
     promotionMoveInterest
+    promotionMoveTimeFrame {
+      value
+      label {
+        localized
+      }
+    }
+    promotionMoveOrganizationType {
+      value
+      label {
+        localized
+      }
+    }
     mentorshipStatus {
+      value
+      label {
+        localized
+      }
+    }
+    mentorshipInterest {
       value
       label {
         localized
@@ -61,6 +81,12 @@ export const CareerDevelopmentOptions_Fragment = graphql(/* GraphQL */ `
     organizationTypeInterest: localizedEnumStrings(
       enumName: "OrganizationTypeInterest"
     ) {
+      value
+      label {
+        localized
+      }
+    }
+    mentorship: localizedEnumStrings(enumName: "Mentorship") {
       value
       label {
         localized
@@ -101,6 +127,14 @@ const CareerDevelopmentSection = ({
 
   const lateralMoveOrganizationTypes = unpackMaybes(
     employeeProfile.lateralMoveOrganizationType,
+  ).map((interest) => interest.value);
+
+  const promotionMoveOrganizationTypes = unpackMaybes(
+    employeeProfile.promotionMoveOrganizationType,
+  ).map((interest) => interest.value);
+
+  const mentorshipInterests = unpackMaybes(
+    employeeProfile.mentorshipInterest,
   ).map((interest) => interest.value);
 
   const execCoachingInterests = unpackMaybes(
@@ -220,6 +254,55 @@ const CareerDevelopmentSection = ({
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.promotionMoveTimeFrame}
+        </span>
+        {employeeProfile.promotionMoveTimeFrame
+          ? employeeProfile.promotionMoveTimeFrame.label.localized
+          : intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.promotionMoveOrganizationType}
+        </span>
+        {employeeProfile.promotionMoveOrganizationType ? (
+          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            {unpackMaybes(
+              careerDevelopmentOptions?.organizationTypeInterest,
+            ).map((x) => {
+              const iconValue = promotionMoveOrganizationTypes.includes(
+                x.value as OrganizationTypeInterest,
+              );
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon
+                    value={iconValue}
+                    trueLabel={intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "AQiPuW",
+                      description:
+                        "Label for user expressing interest in a specific work stream",
+                    })}
+                    falseLabel={intl.formatMessage({
+                      defaultMessage: "Not interested in",
+                      id: "KyLikL",
+                      description:
+                        "Label for user expressing they are not interested in a specific work stream",
+                    })}
+                  >
+                    {x.label.localized ??
+                      intl.formatMessage(commonMessages.notFound)}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          intl.formatMessage(commonMessages.notProvided)
+        )}
+      </div>
+      <CardSeparator space="xs" />
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {careerDevelopmentMessages.mentorshipStatus}
         </span>
         {employeeProfile.mentorshipStatus
@@ -227,6 +310,31 @@ const CareerDevelopmentSection = ({
               displayMentorshipStatus(employeeProfile.mentorshipStatus),
             )
           : intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.mentorshipInterest}
+        </span>
+        {employeeProfile.mentorshipInterest ? (
+          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
+              const iconValue = mentorshipInterests.includes(
+                x.value as Mentorship,
+              );
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon value={iconValue}>
+                    {intl.formatMessage(
+                      getMentorshipInterest(x.value, iconValue),
+                    )}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          intl.formatMessage(commonMessages.notProvided)
+        )}
       </div>
       <CardSeparator space="xs" />
       <div>
