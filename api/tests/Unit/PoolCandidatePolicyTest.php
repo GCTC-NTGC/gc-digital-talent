@@ -131,7 +131,9 @@ class PoolCandidatePolicyTest extends TestCase
 
         $this->communityTalentCoordinatorUser = User::factory()
             ->asCommunityTalentCoordinator($this->community->id)
-            ->create();
+            ->create([
+                'email' => 'talent-coordinator@test.com',
+            ]);
     }
 
     /**
