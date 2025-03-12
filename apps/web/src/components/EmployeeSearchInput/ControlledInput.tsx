@@ -139,6 +139,7 @@ const ControlledInput = ({
       data-h2-radius="base(rounded)"
       data-h2-border-style="base(solid)"
       data-h2-border-width="base(1px)"
+      data-h2-border-color="base(gray) base:focus-visible(focus)"
     >
       <div
         data-h2-display="base(flex)"
@@ -154,16 +155,17 @@ const ControlledInput = ({
           {...inputProps}
           {...inputStyles}
           readOnly={fetching}
+          data-h2-background="base(foreground)"
           data-h2-flex-grow="base(1)"
           data-h2-border-width="base(0)"
-          data-h2-radius="base(rounded 0 0 rounded)"
+          data-h2-radius="base(rounded 0 0 0)"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
         <Button
           type="button"
           mode="solid"
-          color="primary"
+          color="secondary"
           data-h2-radius="base(0 rounded 0 0)"
           aria-label={
             buttonLabel ??
@@ -182,7 +184,7 @@ const ControlledInput = ({
         </Button>
       </div>
       <div
-        data-h2-background="base(white)"
+        data-h2-background="base(foreground)"
         data-h2-border-radius="base(0 0 rounded rounded)"
         data-h2-border-top="base(solid 1px gray)"
         data-h2-padding="base(x1)"
