@@ -15,5 +15,5 @@ return [
     'deputy_chief_information_officer' => 'Deputy Chief Information Officer',
     'deputy_chief_privacy_officer' => 'Deputy Chief Privacy Officer',
     'deputy_chief_technology_officer' => 'Deputy Chief Technology Officer',
-    'other' => 'Other',
+    'other' => Lang::get('common.other', [], 'en'),
 ];

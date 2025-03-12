@@ -15,5 +15,5 @@ return [
     'deputy_chief_information_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de l\'information',
     'deputy_chief_privacy_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de la protection des renseignements personnels',
     'deputy_chief_technology_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de la technologie',
-    'other' => 'Autre',
+    'other' => Lang::get('common.other', [], 'fr'),
 ];
