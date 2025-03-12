@@ -39,7 +39,9 @@ class TalentNominationEventPolicy
         if (! is_null($communityId)) {
             $community = Community::with('team')->findOrFail($communityId);
 
-            return $user->isAbleTo('create-team-talentNominationEvent', $community->team);
+            if ($user->isAbleTo('create-team-talentNominationEvent', $community->team)) {
+                return true;
+            }
         }
 
         // fall through
