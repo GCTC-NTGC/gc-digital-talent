@@ -23,4 +23,6 @@ return [
     'expected_end_date' => '(Date de fin prévue)',
     'not_found' => 'Introuvable',
     'step' => 'Étape',
+    'open_to_job_offers' => 'Ouvert(e) aux offres d\'emploi',
+    'not_interested' => 'Non intéressé(e)',
 ];
