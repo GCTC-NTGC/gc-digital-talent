@@ -20,7 +20,7 @@ import {
   useCommonInputStyles,
   useInputDescribedBy,
 } from "@gc-digital-talent/forms";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
@@ -29,6 +29,18 @@ import Result from "./Result";
 import ErrorMessage from "./Error";
 import { getDefaultValue, getErrors } from "./utils";
 import { ErrorMessages } from "./types";
+
+export const EmployeeSearchDefaultValue_Fragment = graphql(/* GraphQL */ `
+  fragment EmployeeSearchDefaultValue on BasicGovEmployeeProfile {
+    id
+    workEmail
+    ...EmployeeSearchResult
+  }
+`);
+
+export type DefaultValueFragmentType = FragmentType<
+  typeof EmployeeSearchDefaultValue_Fragment
+>;
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
@@ -48,6 +60,7 @@ interface ControlledInputProps {
   buttonLabel?: string;
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
+  employeeQuery?: DefaultValueFragmentType;
 }
 
 const ControlledInput = ({
@@ -57,6 +70,7 @@ const ControlledInput = ({
   buttonLabel,
   describedBy,
   errorMessages,
+  employeeQuery,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
@@ -64,9 +78,18 @@ const ControlledInput = ({
   const { setError } = useFormContext();
   const defaultValue = getDefaultValue(defaultValues, name);
   const inputErrors = getErrors(errors, name);
-  const [query, setQuery] = useState<string>(defaultValue?.workEmail ?? "");
+  const maybeEmployee = getFragment(
+    EmployeeSearchDefaultValue_Fragment,
+    employeeQuery,
+  );
+  const defaultEmployee =
+    defaultValue && maybeEmployee?.id === defaultValue
+      ? maybeEmployee
+      : undefined;
+
+  const [query, setQuery] = useState<string>(defaultEmployee?.workEmail ?? "");
   const [currentQuery, setCurrentQuery] = useState<string>(
-    defaultValue?.workEmail ?? "",
+    defaultEmployee?.workEmail ?? "",
   );
   const [{ data, fetching, error }, executeQuery] = useQuery({
     query: EmployeeSearch_Query,
@@ -102,18 +125,16 @@ const ControlledInput = ({
     }
   };
 
-  useEffect(() => {
-    if (defaultValue?.workEmail) {
-      executeQuery();
-    }
-    // NOTE: Only run on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  let resultQuery;
+  if (data?.govEmployeeProfile) {
+    resultQuery = data?.govEmployeeProfile;
+  } else if (defaultEmployee) {
+    resultQuery = defaultEmployee;
+  }
   const employeeId = data?.govEmployeeProfile?.id;
 
   useEffect(() => {
-    onChange({ id: employeeId, workEmail: query });
+    onChange(employeeId ?? defaultEmployee?.id);
     // Note: Only update when employee ID changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [employeeId]);
@@ -150,7 +171,7 @@ const ControlledInput = ({
           name={`${name}-${id}`}
           id={`${name}-${id}`}
           type="text"
-          defaultValue={defaultValue?.workEmail ?? undefined}
+          defaultValue={defaultEmployee?.workEmail ?? undefined}
           aria-describedby={ariaDescribedBy}
           {...inputProps}
           {...inputStyles}
@@ -206,16 +227,13 @@ const ControlledInput = ({
             {intl.formatMessage(commonMessages.searching)}
           </p>
         )}
-        {!fetching && data?.govEmployeeProfile && !hasErrors && (
-          <Result
-            resultQuery={data?.govEmployeeProfile}
-            id={descriptionIds.context}
-          />
+        {!fetching && resultQuery && !hasErrors && (
+          <Result resultQuery={resultQuery} id={descriptionIds.context} />
         )}
         {!fetching && hasErrors && (
           <ErrorMessage
             email={currentQuery}
-            error={error ?? inputErrors}
+            error={error}
             isNullResponse={isNullResponse}
             messages={errorMessages}
           />

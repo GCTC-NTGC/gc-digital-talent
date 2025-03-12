@@ -7,11 +7,10 @@ import {
   useFieldState,
 } from "@gc-digital-talent/forms";
 import { HydrogenAttributes } from "@gc-digital-talent/ui";
-import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
-import ControlledInput from "./ControlledInput";
-import { EmployeeSearchValue, ErrorMessages } from "./types";
-export type { EmployeeSearchValue, ErrorMessages } from "./types";
+import ControlledInput, { DefaultValueFragmentType } from "./ControlledInput";
+import { ErrorMessages } from "./types";
+export type { ErrorMessages } from "./types";
 
 interface WrapperProps
   extends ComponentPropsWithoutRef<"div">,
@@ -23,6 +22,7 @@ export interface EmployeeSearchInputProps
   buttonLabel?: string;
   wrapperProps?: WrapperProps;
   errorMessages?: Partial<ErrorMessages>;
+  employeeQuery?: DefaultValueFragmentType;
 }
 
 const EmployeeSearchInput = ({
@@ -33,16 +33,12 @@ const EmployeeSearchInput = ({
   buttonLabel,
   wrapperProps,
   errorMessages,
+  employeeQuery,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
   const { control } = useFormContext();
   const fieldState = useFieldState(id, true);
-  const isGovEmail = (value: EmployeeSearchValue) => {
-    if (!value.workEmail) return true;
-
-    return workEmailDomainRegex.test(value.workEmail) || "NOT_WORK_EMAIL";
-  };
 
   const labelId = `${id}-label`;
   return (
@@ -53,13 +49,14 @@ const EmployeeSearchInput = ({
       <Controller
         control={control}
         name={name}
-        rules={{ ...rules, validate: { isGovEmail } }}
+        rules={rules}
         render={(props) => (
           <ControlledInput
             {...props}
             fieldState={fieldState}
             buttonLabel={buttonLabel}
             errorMessages={errorMessages}
+            employeeQuery={employeeQuery}
             inputProps={{
               id,
               "aria-labelledby": `${labelId}${

@@ -2,8 +2,6 @@ import { FieldErrors, FieldValues, get } from "react-hook-form";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { EmployeeSearchValue } from "./types";
-
 const isRecord = (value?: unknown): value is Record<string, unknown> => {
   return value !== null && typeof value === "object";
 };
@@ -15,17 +13,12 @@ const getSubValue = (value?: unknown): string | undefined => {
 export const getDefaultValue = (
   defaultValues: FieldValues | undefined,
   name: string,
-): EmployeeSearchValue | undefined => {
+): string | undefined => {
   if (!defaultValues) return undefined;
 
   const rawDefaultValue: unknown = get<FieldValues>(defaultValues, name);
-  if (isRecord(rawDefaultValue)) {
-    if ("workEmail" in rawDefaultValue || "id" in rawDefaultValue) {
-      return {
-        id: getSubValue(rawDefaultValue.id),
-        workEmail: getSubValue(rawDefaultValue.workEmail),
-      };
-    }
+  if (typeof rawDefaultValue === "string") {
+    return rawDefaultValue;
   }
 
   return undefined;

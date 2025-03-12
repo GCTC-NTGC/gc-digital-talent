@@ -6,18 +6,19 @@ import { CombinedError } from "urql";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmployeeSearchInput, {
   EmployeeSearchInputProps,
 } from "./EmployeeSearchInput";
-import { EmployeeSearchValue } from "./types";
+import { EmployeeSearchDefaultValue_Fragment } from "./ControlledInput";
 
 faker.seed(0);
 
 const users = fakeUsers(1);
 
 interface EmployeeSearchInputArgs extends EmployeeSearchInputProps {
-  defaultUser?: EmployeeSearchValue;
+  defaultValue?: string;
 }
 
 const meta: Meta<EmployeeSearchInputArgs> = {
@@ -39,12 +40,12 @@ const meta: Meta<EmployeeSearchInputArgs> = {
       },
     },
   },
-  render: ({ defaultUser, ...args }) => (
+  render: ({ defaultValue, ...args }) => (
     <BasicForm
       onSubmit={action("onSubmit")}
       options={
-        defaultUser
-          ? { defaultValues: { [args.name]: defaultUser } }
+        defaultValue
+          ? { defaultValues: { [args.name]: defaultValue } }
           : undefined
       }
     >
@@ -107,10 +108,11 @@ export const NotGovernmentEmail: Story = {
 
 export const WithDefaultValue: Story = {
   args: {
-    defaultUser: {
-      id: users[0].id,
-      workEmail: users[0].workEmail,
-    },
+    defaultValue: users[0].id,
+    employeeQuery: makeFragmentData(
+      { ...users[0], __typename: "BasicGovEmployeeProfile" },
+      EmployeeSearchDefaultValue_Fragment,
+    ),
   },
   parameters: {
     apiResponses: {
