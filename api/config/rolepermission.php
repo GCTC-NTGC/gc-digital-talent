@@ -95,6 +95,7 @@ return [
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
+        'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -614,6 +615,14 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
+        'update-any-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à n\'importe quel utilisateur',
+        ],
+        'update-team-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from a community user',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -644,6 +653,10 @@ return [
         'create-any-talentNominationEvent' => [
             'en' => 'Create any talent nomination event',
             'fr' => 'Créer n\'importe quel événement de nomination de talents',
+        ],
+        'create-team-talentNominationEvent' => [
+            'en' => 'Create a team talent nomination event',
+            'fr' => 'Créer un événement de nomination des talents de l\'équipe',
         ],
         'update-team-talentNominationEvent' => [
             'en' => 'Update team talent nomination event',
@@ -808,6 +821,18 @@ return [
                 'fr' => 'Crée des équipes, attribue des rôles à d\'autres utilisateurs (y compris l\'attribution d\'utilisateurs à des organisations), publie des pools, gère des données commerciales et a la capacité extraordinaire de modifier ou de supprimer d\'autres utilisateurs.',
             ],
             'is_team_based' => false,
+        ],
+
+        'community_talent_coordinator' => [
+            'display_name' => [
+                'en' => 'Community Talent Coordinator',
+                'fr' => 'Coordonnateur des talents de la collectivité',
+            ],
+            'description' => [
+                'en' => 'Access to the talent event and talent nomination management flows',
+                'fr' => 'Accès aux flux de gestion des événements et des nominations de talents',
+            ],
+            'is_team_based' => true,
         ],
     ],
 
@@ -1174,6 +1199,9 @@ return [
             'communityInterest' => [
                 'team' => ['view'],
             ],
+            'communityTalentCoordinatorMembership' => [
+                'team' => ['update'],
+            ],
         ],
 
         'platform_admin' => [
@@ -1272,6 +1300,22 @@ return [
             ],
             'workStream' => [
                 'any' => ['create', 'update'],
+            ],
+            'communityTalentCoordinatorMembership' => [
+                'any' => ['update'],
+            ],
+        ],
+
+        'community_talent_coordinator' => [
+            'talentNominationEvent' => [
+                'any' => ['view'],
+                'team' => ['create', 'update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTeamMembers' => [
+                'team' => ['view'],
             ],
         ],
     ],

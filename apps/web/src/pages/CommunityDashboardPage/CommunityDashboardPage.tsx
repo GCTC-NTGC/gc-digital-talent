@@ -196,6 +196,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [
         ROLE_NAME.CommunityAdmin,
         ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityTalentCoordinator,
         ROLE_NAME.PlatformAdmin,
       ],
     },
@@ -386,6 +387,7 @@ export const Component = () => (
       ROLE_NAME.CommunityManager,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
     ]}
   >

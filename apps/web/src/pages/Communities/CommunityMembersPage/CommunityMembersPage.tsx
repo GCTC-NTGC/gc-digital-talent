@@ -53,7 +53,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     CommunityMembersPage_CommunityFragment,
     communityQuery,
   );
-  const { canAdmin } = useOutletContext<ContextType>();
+  const { canAdminManageAccess } = useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -97,7 +97,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     }),
   ] as ColumnDef<CommunityMember>[];
 
-  if (canAdmin) {
+  if (canAdminManageAccess) {
     columns.splice(
       1,
       0,
@@ -136,7 +136,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
           internal: true,
           label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
-        {...(canAdmin && {
+        {...(canAdminManageAccess && {
           add: {
             component: (
               <AddCommunityMemberDialog
@@ -237,6 +237,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >
