@@ -221,6 +221,8 @@ class UserPolicy
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
                 return $actor->isAbleTo('update-any-communityAdminMembership') || $actor->isAbleTo('update-team-communityAdminMembership', $team);
+            case 'community_talent_coordinator':
+                return $actor->isAbleTo('update-any-communityTalentCoordinatorMembership') || $actor->isAbleTo('update-team-communityTalentCoordinatorMembership', $team);
         }
 
         return false; // reject unknown roles
@@ -252,5 +254,13 @@ class UserPolicy
         }
 
         return false; // reject unknown roles
+    }
+
+    /**
+     * Determine whether the user can view a more limited version of the User model.
+     */
+    public function viewAnyBasicGovEmployeeProfile(User $user): bool
+    {
+        return $user->isAbleTo('view-any-basicGovEmployeeProfile');
     }
 }

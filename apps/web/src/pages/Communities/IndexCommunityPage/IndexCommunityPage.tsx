@@ -43,6 +43,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

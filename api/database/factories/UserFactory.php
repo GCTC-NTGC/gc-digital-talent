@@ -444,6 +444,27 @@ class UserFactory extends Factory
     }
 
     /**
+     * Attach the community talent coordinator role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityTalentCoordinator(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityTalentCoordinator($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityTalentCoordinator($user->id);
+            }
+        });
+    }
+
+    /**
      * Get skills for use in experiences
      *
      * @param  User  $user  The user to connect skills to
