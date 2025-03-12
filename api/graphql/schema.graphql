@@ -152,6 +152,10 @@ type User {
   poolBookmarks: [Pool] @belongsToMany
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+  # Nominations
+  talentNominationsAsSubmitter: [TalentNomination!]
+    @hasMany
+    @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
 type CommunityInterest {
@@ -625,6 +629,69 @@ type TalentNominationEvent {
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
+}
+
+type TalentNomination {
+  id: UUID!
+  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  submittedAt: DateTime @rename(attribute: "submitted_at")
+  submitter: BasicGovEmployeeProfile!
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: Classification @belongsTo
+  nominatorFallbackDepartment: Department @belongsTo
+  nominatorReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nomineeReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: BasicGovEmployeeProfile
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  advancementReferenceReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: Classification @belongsTo
+  advancementReferenceFallbackDepartment: Department @belongsTo
+
+  lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: [Skill] @belongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
 }
 
 type Team implements HasRoleAssignments {
@@ -1267,6 +1334,11 @@ type Query {
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
+
+  talentNomination(id: UUID! @eq): TalentNomination
+    @find
+    @guard
+    @canQuery(ability: "view")
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1842,6 +1914,114 @@ input UpdateTalentNominationEventInput @validator {
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
   developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input TalentNominationEventBelongsTo {
+  connect: ID
+  # no need for disconnect at the moment
+}
+
+input CreateTalentNominationInput @validator {
+  talentNominationEvent: TalentNominationEventBelongsTo!
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: SkillBelongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
+input UpdateTalentNominationInput @validator {
+  # can only connect a step, not disconnect or sync
+  insertSubmittedStep: TalentNominationStep
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: SkillBelongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
 }
 
 input CreateApplicantFilterInput {
@@ -2796,6 +2976,22 @@ type Mutation {
     talentNominationEvent: UpdateTalentNominationEventInput! @spread
   ): TalentNominationEvent
     @update
+    @guard
+    @canFind(ability: "update", find: "id")
+
+  #Talent nomination mutations
+  createTalentNomination(
+    talentNomination: CreateTalentNominationInput! @spread
+  ): TalentNomination
+    @create
+    @inject(context: "user.id", name: "submitter_id")
+    @guard
+    @canModel(ability: "create")
+  updateTalentNomination(
+    id: UUID!
+    talentNomination: UpdateTalentNominationInput! @spread
+  ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
+  submitTalentNomination(id: UUID!): TalentNomination
     @guard
     @canFind(ability: "update", find: "id")
 
