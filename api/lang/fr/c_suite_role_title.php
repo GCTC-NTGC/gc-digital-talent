@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
     'chief_audit_officer' => 'Dirigeant(e) principal(e) de la vérification',
     'chief_finance_officer' => 'Dirigeant(e) principal(e) des finances',
@@ -15,5 +17,5 @@ return [
     'deputy_chief_information_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de l\'information',
     'deputy_chief_privacy_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de la protection des renseignements personnels',
     'deputy_chief_technology_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de la technologie',
-    'other' => 'Autre',
+    'other' => Lang::get('common.other', [], 'fr'),
 ];

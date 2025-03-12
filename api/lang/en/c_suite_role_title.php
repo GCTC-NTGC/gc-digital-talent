@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
     'chief_audit_officer' => 'Chief Audit Officer',
     'chief_finance_officer' => 'Chief Finance Officer',
@@ -15,5 +17,5 @@ return [
     'deputy_chief_information_officer' => 'Deputy Chief Information Officer',
     'deputy_chief_privacy_officer' => 'Deputy Chief Privacy Officer',
     'deputy_chief_technology_officer' => 'Deputy Chief Technology Officer',
-    'other' => 'Other',
+    'other' => Lang::get('common.other', [], 'en'),
 ];
