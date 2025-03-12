@@ -636,6 +636,7 @@ type User {
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
+  govEmployeeProfile: BasicGovEmployeeProfile
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
