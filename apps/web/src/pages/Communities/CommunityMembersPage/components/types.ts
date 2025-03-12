@@ -20,5 +20,5 @@ export interface ContextType {
   teamId: Scalars["UUID"]["output"] | null | undefined;
   navTabs: React.ComponentProps<typeof Hero>["navTabs"];
   navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
-  canAdmin: boolean;
+  canAdminManageAccess: boolean;
 }

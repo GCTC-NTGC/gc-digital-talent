@@ -23,4 +23,6 @@ return [
     'expected_end_date' => '(Expected end date)',
     'not_found' => 'Not found',
     'step' => 'Step',
+    'open_to_job_offers' => 'Open to job offers',
+    'not_interested' => 'Not interested',
 ];

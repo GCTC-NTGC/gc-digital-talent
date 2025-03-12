@@ -16,18 +16,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-const hasEnrolled = (
-  status?: Maybe<DevelopmentProgramParticipationStatus>,
-): boolean => {
-  return (
-    !!status &&
-    [
-      DevelopmentProgramParticipationStatus.Enrolled,
-      DevelopmentProgramParticipationStatus.Completed,
-    ].includes(status)
-  );
-};
-
 interface StatusInfo {
   Icon: IconType;
   iconStyles: Record<string, string>;
@@ -43,11 +31,16 @@ const useStatusInfo = (
   const defaultStatusInfo = {
     Icon: ExclamationCircleIcon,
     iconStyles: {
-      "data-h2-color": "base(error)",
+      "data-h2-color": "base(error) base:dark(error.lighter)",
     },
     message: intl.formatMessage(commonMessages.missingInformation),
   };
-  if (!status || (!completionDate && hasEnrolled(status))) {
+
+  if (
+    !status ||
+    (!completionDate &&
+      status === DevelopmentProgramParticipationStatus.Completed)
+  ) {
     return defaultStatusInfo;
   }
 
@@ -64,7 +57,9 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Interested,
       {
         Icon: QuestionMarkCircleIcon,
-        iconStyles: { "data-h2-color": "base(primary)" },
+        iconStyles: {
+          "data-h2-color": "base(primary) base:dark(primary.light)",
+        },
         message: intl.formatMessage({
           defaultMessage: "Interested in this program",
           id: "ytcZ7A",
@@ -77,7 +72,9 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.NotInterested,
       {
         Icon: XCircleIcon,
-        iconStyles: { "data-h2-color": "base(gray.lighter)" },
+        iconStyles: {
+          "data-h2-color": "base(black.lighter) base:dark(black.5)",
+        },
         message: intl.formatMessage({
           defaultMessage: "Not interested",
           id: "9TIkDp",
@@ -90,7 +87,9 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Enrolled,
       {
         Icon: BuildingLibraryIcon,
-        iconStyles: { "data-h2-color": "base(primary)" },
+        iconStyles: {
+          "data-h2-color": "base(primary) base:dark(primary.light)",
+        },
         message: intl.formatMessage(
           {
             defaultMessage: "Currently enrolled, expected completion in {date}",
@@ -106,7 +105,9 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Completed,
       {
         Icon: CheckCircleIcon,
-        iconStyles: { "data-h2-color": "base(success)" },
+        iconStyles: {
+          "data-h2-color": "base(success) base:dark(success.lighter)",
+        },
         message: intl.formatMessage(
           {
             defaultMessage: "Completed in {date}",
@@ -174,10 +175,10 @@ const DevelopmentProgramInterestItem = ({
           {...(!developmentProgramInterest?.participationStatus ||
           !developmentProgramInterest?.completionDate
             ? {
-                "data-h2-color": "base(error)",
+                "data-h2-color": "base(error) base:dark(error.lightest)",
               }
             : {
-                "data-h2-color": "base(black.lighter) base:dark(black.5)",
+                "data-h2-color": "base(black.light)",
               })}
         >
           {message}

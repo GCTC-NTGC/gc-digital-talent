@@ -25,6 +25,8 @@ class DevelopmentProgramInterest extends Model
 
     protected $keyType = 'string';
 
+    protected $fillable = ['participation_status', 'completion_date'];
+
     /**
      * The attributes that should be cast.
      */
@@ -36,12 +38,12 @@ class DevelopmentProgramInterest extends Model
     /** @return BelongsTo<CommunityInterest, $this> */
     public function communityInterest(): BelongsTo
     {
-        return $this->belongsTo(CommunityInterest::class);
+        return $this->belongsTo(CommunityInterest::class, 'community_interest_id');
     }
 
     /** @return BelongsTo<DevelopmentProgram, $this> */
     public function developmentProgram(): BelongsTo
     {
-        return $this->belongsTo(DevelopmentProgram::class);
+        return $this->belongsTo(DevelopmentProgram::class, 'development_program_id');
     }
 }

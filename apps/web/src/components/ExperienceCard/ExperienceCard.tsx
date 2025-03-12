@@ -144,6 +144,7 @@ const ExperienceCard = ({
     >
       <div
         data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         data-h2-align-items="base(center)"
         data-h2-justify-content="base(space-between)"
         data-h2-gap="base(0 x1)"
@@ -159,12 +160,23 @@ const ExperienceCard = ({
         >
           <span>{titleHtml}</span>
         </Heading>
-        {showEdit && edit}
-        {view}
+        {(showEdit || view) && (
+          <div
+            data-h2-display="base(block) p-tablet(initial)"
+            data-h2-width="base(100%) p-tablet(initial)"
+            data-h2-text-align="base(center) p-tablet(initial)"
+            data-h2-margin="base(x1 0 x.5 0) p-tablet(initial)"
+          >
+            {showEdit && edit}
+            {view}
+          </div>
+        )}
       </div>
       <p
         data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap) p-tablet(initial)"
         data-h2-align-items="base(center)"
+        data-h2-justify-content="base(center) p-tablet(initial)"
         data-h2-gap="base(0 x.5)"
         data-h2-margin="base(x.25, 0, x1, 0)"
         data-h2-color="base(black.light)"

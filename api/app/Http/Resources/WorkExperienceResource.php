@@ -40,6 +40,7 @@ class WorkExperienceResource extends JsonResource
             'cafRank' => $this->caf_rank,
             'classification' => $this->classification_id ? (new ClassificationResource(Classification::find($this->classification_id))) : null,
             'department' => $this->department_id ? (new DepartmentResource(Department::find($this->department_id))) : null,
+            'workStreams' => WorkStreamResource::collection($this->workStreams),
         ];
     }
 }

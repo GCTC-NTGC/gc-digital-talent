@@ -23,6 +23,7 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
+import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
@@ -39,6 +40,22 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     priorityNumber
     employeeProfile {
       ...CareerDevelopmentTaskCard
+
+      lateralMoveInterest
+      promotionMoveInterest
+      mentorshipStatus {
+        label {
+          localized
+        }
+        value
+      }
+      execInterest
+      execCoachingStatus {
+        label {
+          localized
+        }
+        value
+      }
     }
     poolCandidates {
       ...ApplicationsProcessesTaskCard
@@ -152,8 +169,11 @@ export const DashboardPage = ({
       ? "complete"
       : "incomplete";
 
-  // NOTE: Update in issue #12744
-  const employeeProfileState = "complete";
+  const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
+    currentUser?.employeeProfile ?? {},
+  )
+    ? "incomplete"
+    : "complete";
 
   const careerExperienceState =
     currentUser.experiences && currentUser.experiences?.length > 0
@@ -244,6 +264,7 @@ export const DashboardPage = ({
                 })}
               >
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={personalInformationState}
                   title={intl.formatMessage({
                     defaultMessage: "Personal information",
@@ -262,6 +283,7 @@ export const DashboardPage = ({
                 />
                 {currentUser?.isVerifiedGovEmployee ? (
                   <ResourceBlock.SingleLinkItem
+                    as="h3"
                     state={employeeProfileState}
                     title={intl.formatMessage(
                       navigationMessages.employeeProfileGC,
@@ -277,6 +299,7 @@ export const DashboardPage = ({
                   />
                 ) : null}
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={careerExperienceState}
                   title={intl.formatMessage({
                     defaultMessage: "Career experience",
@@ -293,6 +316,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={skillsPortfolioState}
                   title={intl.formatMessage(navigationMessages.skillPortfolio)}
                   href={paths.skillPortfolio()}
@@ -305,6 +329,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state="complete"
                   title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
@@ -327,6 +352,7 @@ export const DashboardPage = ({
                 })}
               >
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   title={intl.formatMessage({
                     defaultMessage: "Learn about skills",
                     id: "n40Nry",
@@ -341,6 +367,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   title={intl.formatMessage({
                     defaultMessage: "Contact support",
                     id: "jRnA1D",
