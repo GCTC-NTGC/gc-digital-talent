@@ -622,6 +622,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                       data?.cSuiteRoleTitles,
                       intl,
                     )}
+                    doNotSort
                   />
                 </div>
               )}
