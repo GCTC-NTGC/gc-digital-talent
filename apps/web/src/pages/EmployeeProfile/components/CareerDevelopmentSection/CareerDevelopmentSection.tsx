@@ -280,8 +280,8 @@ const CareerDevelopmentSection = ({
       .catch(handleError);
   };
 
-  const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
-  const maxRetirementYear = new Date(new Date().getFullYear() + 35, 0, 1);
+  const currentYear = new Date();
+  const maxRetirementYear = new Date(currentYear.getFullYear() + 35, 0, 1);
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -502,9 +502,7 @@ const CareerDevelopmentSection = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                       min: {
-                        value: strToFormDate(
-                          beginningOfCurrentYear.toISOString(),
-                        ),
+                        value: strToFormDate(currentYear.toISOString()),
                         message: intl.formatMessage(errorMessages.futureDate),
                       },
                       max: {
