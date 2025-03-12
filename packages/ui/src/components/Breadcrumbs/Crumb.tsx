@@ -21,6 +21,7 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
             "data-h2-font-weight": "base(700)",
             "data-h2-text-decoration": "base(none)",
             "aria-current": "page",
+            reloadDocument: true,
           }
         : {})}
     >
