@@ -21,6 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
+  CSuiteRoleTitle,
   GovContractorType,
   GovFieldOptionsQuery,
   GovPositionType,
@@ -83,6 +84,13 @@ const GovFieldOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    cSuiteRoleTitles: localizedEnumStrings(enumName: "cSuiteRoleTitle") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -109,6 +117,21 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   });
   const watchGovContractorType = useWatch<WorkFormValues>({
     name: "govContractorType",
+  });
+  const watchSupervisoryPosition = useWatch<WorkFormValues>({
+    name: "supervisoryPosition",
+  });
+  const watchSupervisedEmployees = useWatch<WorkFormValues>({
+    name: "supervisedEmployees",
+  });
+  const watchBudgetManagement = useWatch<WorkFormValues>({
+    name: "budgetManagement",
+  });
+  const watchSeniorManagementStatus = useWatch<WorkFormValues>({
+    name: "seniorManagementStatus",
+  });
+  const watchCSuiteRoleTitle = useWatch<WorkFormValues>({
+    name: "cSuiteRoleTitle",
   });
 
   const departmentOptions = unpackMaybes(data?.departments).map(
@@ -432,6 +455,143 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               </>
             )}
           </div>
+          <div data-h2-flex-item="base(1of1)">
+            <Checkbox
+              boundingBox
+              boundingBoxLabel={labels.supervisoryPosition}
+              id="supervisoryPosition"
+              name="supervisoryPosition"
+              label={intl.formatMessage({
+                defaultMessage:
+                  "This role was a management or supervisory position.",
+                id: "N/1OYS",
+                description: "Label displayed for supervisory position",
+              })}
+            />
+          </div>
+          {watchSupervisoryPosition && (
+            <>
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.supervisedEmployees}
+                  id="supervisedEmployees"
+                  name="supervisedEmployees"
+                  label={intl.formatMessage({
+                    defaultMessage: "I supervised employees in this role.",
+                    id: "6RGluQ",
+                    description: "Label displayed for supervised employees",
+                  })}
+                />
+              </div>
+              {watchSupervisedEmployees && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="supervisedEmployeesNumber"
+                    name="supervisedEmployeesNumber"
+                    label={labels.supervisedEmployeesNumber}
+                    type="number"
+                    min="1"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: 1,
+                        message: intl.formatMessage(
+                          errorMessages.mustBeGreater,
+                          {
+                            value: 1,
+                          },
+                        ),
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.budgetManagement}
+                  id="budgetManagement"
+                  name="budgetManagement"
+                  label={intl.formatMessage({
+                    defaultMessage:
+                      "This role required that I managed a dedicated budget or had delegated signing authority for a budget.",
+                    id: "144l3L",
+                    description: "Label displayed for budget management",
+                  })}
+                />
+              </div>
+              {watchBudgetManagement && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="annualBudgetAllocation"
+                    name="annualBudgetAllocation"
+                    label={labels.annualBudgetAllocation}
+                    type="number"
+                    min="1"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: 1,
+                        message: intl.formatMessage(
+                          errorMessages.mustBeGreater,
+                          {
+                            value: 1,
+                          },
+                        ),
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.seniorManagementStatus}
+                  id="seniorManagementStatus"
+                  name="seniorManagementStatus"
+                  label={intl.formatMessage({
+                    defaultMessage:
+                      "This was a chief or deputy chief (C-suite) role.",
+                    id: "y/V9eA",
+                    description: "Label displayed for budget management",
+                  })}
+                />
+              </div>
+              {watchSeniorManagementStatus && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Select
+                    id="cSuiteRoleTitle"
+                    name="cSuiteRoleTitle"
+                    label={labels.cSuiteRoleTitle}
+                    nullSelection={intl.formatMessage(
+                      uiMessages.nullSelectionOption,
+                    )}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={localizedEnumToOptions(
+                      data?.cSuiteRoleTitles,
+                      intl,
+                    )}
+                  />
+                </div>
+              )}
+              {watchCSuiteRoleTitle === CSuiteRoleTitle.Other && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="otherCSuiteRoleTitle"
+                    name="otherCSuiteRoleTitle"
+                    label={labels.otherCSuiteRoleTitle}
+                    type="text"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
     </>

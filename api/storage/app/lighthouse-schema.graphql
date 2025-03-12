@@ -1196,6 +1196,14 @@ type WorkExperience implements Experience {
   classification: Classification
   department: Department
   workStreams: [WorkStream!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: LocalizedCSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 type PersonalExperience implements Experience {
@@ -1979,6 +1987,14 @@ input WorkExperienceInput {
   classificationId: String
   departmentId: String
   workStreamIds: [UUID!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: CSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 input PersonalExperienceInput {
