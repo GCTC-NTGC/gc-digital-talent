@@ -83,51 +83,61 @@ class TalentNomination extends Model
         return $this->belongsTo(TalentNominationEvent::class);
     }
 
+    /** @return BelongsTo<User, $this> */
     public function submitter(): BelongsTo
     {
         return $this->belongsTo(User::class, 'submitter_id')->isVerifiedGovEmployee();
     }
 
+    /** @return BelongsTo<User, $this> */
     public function nominator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'nominator_id')->isVerifiedGovEmployee();
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function nominatorFallbackClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'nominator_fallback_classification_id');
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function nominatorFallbackDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'nominator_fallback_department_id');
     }
 
+    /** @return BelongsTo<User, $this> */
     public function nominee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'nominee_id')->isVerifiedGovEmployee();
     }
 
+    /** @return BelongsTo<User, $this> */
     public function advancementReference(): BelongsTo
     {
         return $this->belongsTo(User::class, 'advancement_reference_id')->isVerifiedGovEmployee();
     }
 
+    /** @return BelongsTo<Classification, $this> */
     public function advancementReferenceFallbackClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, 'advancement_reference_fallback_classification_id');
     }
 
+    /** @return BelongsTo<Department, $this> */
     public function advancementReferenceFallbackDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
     }
 
+    /** @return BelongsToMany<DevelopmentProgram, $this> */
     public function developmentPrograms(): BelongsToMany
     {
         return $this->belongsToMany(DevelopmentProgram::class, 'development_program_talent_nomination');
     }
 
+    /** @return BelongsToMany<Skill, $this> */
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
