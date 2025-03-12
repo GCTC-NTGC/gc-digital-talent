@@ -33,7 +33,7 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
           defaultMessage: "We couldn't find a matching profile for “{email}”",
           id: "occYTR",
           description:
-            "Default error messsage when an employee could not be found",
+            "Default error message when an employee could not be found",
         },
         { email },
       ),
