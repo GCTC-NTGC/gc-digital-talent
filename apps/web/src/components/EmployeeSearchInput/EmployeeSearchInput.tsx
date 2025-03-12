@@ -21,7 +21,7 @@ export interface EmployeeSearchInputProps
   extends Omit<ComponentPropsWithoutRef<"input">, "id" | "name">,
     Omit<CommonInputProps, "context"> {
   buttonLabel?: string;
-  wrapperProps: WrapperProps;
+  wrapperProps?: WrapperProps;
   errorMessages?: Partial<ErrorMessages>;
 }
 
