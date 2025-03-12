@@ -824,7 +824,7 @@
     "description": "Second item in list of eligibility requirements section"
   },
   "2ExR2X": {
-    "defaultMessage": "Il semble que {nom} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement. »",
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement. »",
     "description": "Message about the employee found for a search"
   },
   "2FBdeQ": {
