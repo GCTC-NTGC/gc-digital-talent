@@ -607,7 +607,7 @@ const NextRoleSection = ({
                   )}
                   name="isCSuiteRole"
                 />
-                {watchIsCSuiteRole === true ? (
+                {watchIsCSuiteRole && (
                   <Select
                     id="cSuiteRoleTitle"
                     name="cSuiteRoleTitle"
@@ -624,7 +624,7 @@ const NextRoleSection = ({
                     }}
                     disabled={fetching}
                   />
-                ) : null}
+                )}
                 <Input
                   id="jobTitle"
                   type="text"

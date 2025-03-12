@@ -613,7 +613,7 @@ const CareerObjectiveSection = ({
                   )}
                   name="isCSuiteRole"
                 />
-                {watchIsCSuiteRole === true ? (
+                {watchIsCSuiteRole && (
                   <Select
                     id="cSuiteRoleTitle"
                     name="cSuiteRoleTitle"
@@ -630,7 +630,7 @@ const CareerObjectiveSection = ({
                     }}
                     disabled={fetching}
                   />
-                ) : null}
+                )}
                 <Input
                   id="jobTitle"
                   type="text"
