@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { Button, Separator, ToggleSection } from "@gc-digital-talent/ui";
 import {
   Checklist,
+  DATE_SEGMENT,
+  DateInput,
   localizedEnumToOptions,
   RadioGroup,
   Submit,
@@ -30,6 +32,7 @@ import {
   UpdateEmployeeProfileInput,
   TimeFrame,
   OrganizationTypeInterest,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   boolToYesNo,
@@ -38,6 +41,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import {
   hasAllEmptyFields,
@@ -77,6 +81,8 @@ const dataToFormValues = ({
   promotionMoveInterest,
   promotionMoveTimeFrame,
   promotionMoveOrganizationType,
+  eligibleRetirementYearKnown,
+  eligibleRetirementYear,
   mentorshipStatus,
   mentorshipInterest,
   execInterest,
@@ -91,6 +97,8 @@ const dataToFormValues = ({
   promotionMoveTimeFrame: promotionMoveTimeFrame?.value,
   promotionMoveOrganizationType:
     promotionMoveOrganizationType?.map((x) => x.value) ?? [],
+  eligibleRetirementYearKnown: boolToYesNo(eligibleRetirementYearKnown),
+  eligibleRetirementYear: eligibleRetirementYear ?? null,
   mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
   mentorshipInterest: mentorshipInterest?.map((x) => x.value) ?? [],
   execInterest: boolToYesNo(execInterest),
@@ -108,6 +116,8 @@ export type FormValues = Pick<
   promotionMoveInterest?: "yes" | "no";
   promotionMoveTimeFrame?: TimeFrame | null;
   promotionMoveOrganizationType?: OrganizationTypeInterest[] | null;
+  eligibleRetirementYearKnown?: "yes" | "no";
+  eligibleRetirementYear?: Scalars["Date"]["input"] | null;
   mentorshipStatus?: string | null;
   execInterest?: "yes" | "no";
   execCoachingStatus?: string | null;
@@ -169,6 +179,7 @@ const CareerDevelopmentSection = ({
 
   const watchLateralMoveInterest = watch("lateralMoveInterest");
   const watchPromotionMoveInterest = watch("promotionMoveInterest");
+  const watchRetirementYearKnown = watch("eligibleRetirementYearKnown");
 
   useEffect(() => {
     const resetDirtyField = (name: keyof FormValues) => {
@@ -187,7 +198,16 @@ const CareerDevelopmentSection = ({
       resetDirtyField("promotionMoveTimeFrame");
       resetDirtyField("promotionMoveOrganizationType");
     }
-  }, [resetField, watchLateralMoveInterest, watchPromotionMoveInterest]);
+
+    if (watchRetirementYearKnown === "no") {
+      resetDirtyField("eligibleRetirementYear");
+    }
+  }, [
+    resetField,
+    watchLateralMoveInterest,
+    watchPromotionMoveInterest,
+    watchRetirementYearKnown,
+  ]);
 
   const handleSave: SubmitHandler<FormValues> = async ({
     lateralMoveInterest,
@@ -196,6 +216,8 @@ const CareerDevelopmentSection = ({
     promotionMoveInterest,
     promotionMoveTimeFrame,
     promotionMoveOrganizationType,
+    eligibleRetirementYearKnown,
+    eligibleRetirementYear,
     mentorshipStatus,
     mentorshipInterest,
     execInterest,
@@ -215,6 +237,8 @@ const CareerDevelopmentSection = ({
         promotionMoveInterest: promotionMoveInterest === "yes",
         promotionMoveTimeFrame,
         promotionMoveOrganizationType: promotionMoveOrganizationType ?? null,
+        eligibleRetirementYearKnown: eligibleRetirementYearKnown === "yes",
+        eligibleRetirementYear: eligibleRetirementYear ?? null,
         mentorshipStatus: mentorshipStatusToData(mentorshipStatus),
         mentorshipInterest: mentorshipInterest ?? [],
         execInterest: execInterest === "yes",
@@ -241,6 +265,8 @@ const CareerDevelopmentSection = ({
             promotionMoveInterest,
             promotionMoveTimeFrame,
             promotionMoveOrganizationType,
+            eligibleRetirementYearKnown,
+            eligibleRetirementYear,
             mentorshipStatus,
             mentorshipInterest,
             execInterest,
@@ -253,6 +279,9 @@ const CareerDevelopmentSection = ({
       })
       .catch(handleError);
   };
+
+  const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
+  const maxRetirementYear = new Date(new Date().getFullYear() + 35, 0, 1);
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -432,6 +461,61 @@ const CareerDevelopmentSection = ({
                       }}
                     />
                   </>
+                )}
+                <Separator data-h2-margin="base(0)" decorative />
+                <RadioGroup
+                  idPrefix="eligibleRetirementYearKnown"
+                  legend={careerDevelopmentMessages.eligibleRetirementYearKnown}
+                  name="eligibleRetirementYearKnown"
+                  id="eligibleRetirementYearKnown"
+                  items={[
+                    {
+                      value: "yes",
+                      label: intl.formatMessage({
+                        defaultMessage:
+                          "I know the year in which I'm eligible to retire.",
+                        id: "f0dhMc",
+                        description:
+                          "The eligible retirement year described as known.",
+                      }),
+                    },
+                    {
+                      value: "no",
+                      label: intl.formatMessage({
+                        defaultMessage:
+                          "I'm not sure about the year I'm eligible to retire.",
+                        id: "a5YBuH",
+                        description:
+                          "The eligible retirement year described as unknown.",
+                      }),
+                    },
+                  ]}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+                {watchRetirementYearKnown === "yes" && (
+                  <DateInput
+                    id="eligibleRetirementYear"
+                    name="eligibleRetirementYear"
+                    legend={careerDevelopmentMessages.eligibleRetirementYear}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: strToFormDate(
+                          beginningOfCurrentYear.toISOString(),
+                        ),
+                        message: intl.formatMessage(errorMessages.futureDate),
+                      },
+                      max: {
+                        value: strToFormDate(maxRetirementYear.toISOString()),
+                        message: intl.formatMessage(errorMessages.maxDate, {
+                          date: maxRetirementYear.getFullYear(),
+                        }),
+                      },
+                    }}
+                    show={[DATE_SEGMENT.Year]}
+                  />
                 )}
                 <Separator data-h2-margin="base(0)" decorative />
                 <RadioGroup
