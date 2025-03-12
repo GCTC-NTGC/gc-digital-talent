@@ -169,7 +169,6 @@ export const DashboardPage = ({
       ? "complete"
       : "incomplete";
 
-  // NOTE: Update in issue #12744
   const employeeProfileState = careerDevelopmentHasEmptyRequiredFields(
     currentUser?.employeeProfile ?? {},
   )
