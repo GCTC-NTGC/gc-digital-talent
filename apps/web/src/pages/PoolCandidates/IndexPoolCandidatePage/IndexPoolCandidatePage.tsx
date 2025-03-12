@@ -8,13 +8,13 @@ import {
   CandidateSuspendedFilter,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 interface RouteParams extends Record<string, string> {
@@ -88,16 +88,7 @@ export const IndexPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <IndexPoolCandidatePage />
   </RequireAuth>
 );

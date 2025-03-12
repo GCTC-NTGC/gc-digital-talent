@@ -10,7 +10,6 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
@@ -20,6 +19,7 @@ import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import permissionConstants from "~/constants/permissionConstants";
 import {
   hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
   hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
@@ -321,7 +321,7 @@ const EmployeeProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <EmployeeProfilePage />
   </RequireAuth>
 );

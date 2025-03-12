@@ -21,7 +21,6 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -37,6 +36,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
@@ -397,16 +397,7 @@ export const ViewPoolCandidatePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <ViewPoolCandidatePage />
   </RequireAuth>
 );

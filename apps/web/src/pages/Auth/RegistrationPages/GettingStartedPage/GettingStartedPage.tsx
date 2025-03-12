@@ -15,7 +15,7 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
@@ -33,6 +33,7 @@ import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import permissionConstants from "~/constants/permissionConstants";
 
 import messages from "../utils/messages";
 
@@ -492,7 +493,7 @@ const GettingStarted = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <GettingStarted />
   </RequireAuth>
 );

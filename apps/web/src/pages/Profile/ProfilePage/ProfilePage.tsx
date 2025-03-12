@@ -4,7 +4,6 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,6 +19,7 @@ import LanguageProfile from "~/components/Profile/components/LanguageProfile/Lan
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import pageMessages from "./messages";
 
@@ -568,7 +568,7 @@ const ProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ProfilePage />
   </RequireAuth>
 );

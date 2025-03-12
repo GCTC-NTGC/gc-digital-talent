@@ -4,7 +4,6 @@ import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -13,6 +12,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 
 export const AllPoolCandidatesPage = () => {
@@ -53,16 +53,7 @@ export const AllPoolCandidatesPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCandidates}>
     <AllPoolCandidatesPage />
   </RequireAuth>
 );

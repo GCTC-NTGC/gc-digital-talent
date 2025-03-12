@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending, ResourceBlock, NotFound } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
   getFragment,
@@ -17,6 +16,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
+import permissionConstants from "~/constants/permissionConstants";
 import {
   aboutSectionHasEmptyRequiredFields,
   governmentInformationSectionHasEmptyRequiredFields,
@@ -399,7 +399,7 @@ export const ApplicantDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+  <RequireAuth roles={permissionConstants.isApplicant}>
     <ApplicantDashboardPageApi />
   </RequireAuth>
 );

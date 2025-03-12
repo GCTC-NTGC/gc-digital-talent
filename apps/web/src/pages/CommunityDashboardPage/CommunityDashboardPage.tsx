@@ -20,13 +20,7 @@ import {
   ROLE_NAME,
   RoleName,
 } from "@gc-digital-talent/auth";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { Role, User, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
@@ -34,13 +28,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Hero from "~/components/Hero";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import adminMessages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
@@ -57,17 +51,6 @@ interface RoleChipsProps {
   roles: Role[];
   intl: IntlShape;
 }
-
-// short-circuit hasRole if no roles were required so an empty array
-const hasRolesHandleNoRolesRequired = (
-  checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
-): boolean => {
-  if (Array.isArray(checkRole) && checkRole.length === 0) {
-    return true;
-  }
-  return hasRole(checkRole, userRoles);
-};
 
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   const uniqueRoles = uniqBy(roles, "name");
@@ -121,7 +104,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     (a, b) => {
@@ -145,7 +128,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRole(item.roles, roleAssignments),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
     const aName = a.label;
@@ -193,11 +176,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(pageTitles.communities),
       href: adminRoutes.communityTable(),
-      roles: [
-        ROLE_NAME.CommunityAdmin,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.PlatformAdmin,
-      ],
+      roles: permissionConstants.viewCommunities,
     },
     {
       label: intl.formatMessage(pageTitles.workStreams),
@@ -206,7 +185,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    (item) => hasRole(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     (a, b) => {
@@ -379,16 +358,7 @@ export const CommunityDashboardPageApi = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCommunityDashboard}>
     <CommunityDashboardPageApi />
   </RequireAuth>
 );

@@ -16,7 +16,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -31,6 +30,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
@@ -214,17 +214,7 @@ const PoolLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <PoolLayout />
   </RequireAuth>
 );

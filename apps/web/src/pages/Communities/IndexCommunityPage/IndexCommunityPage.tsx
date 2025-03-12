@@ -1,12 +1,11 @@
 import { useIntl } from "react-intl";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
+import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
@@ -38,14 +37,7 @@ const IndexCommunityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCommunities}>
     <IndexCommunityPage />
   </RequireAuth>
 );

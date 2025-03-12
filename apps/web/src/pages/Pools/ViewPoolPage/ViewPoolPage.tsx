@@ -10,7 +10,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   FragmentType,
   getFragment,
@@ -31,12 +31,12 @@ import {
   getPoolCompletenessBadge,
   getProcessStatusBadge,
 } from "~/utils/poolUtils";
-import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import permissionConstants from "~/constants/permissionConstants";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog, {
@@ -135,37 +135,21 @@ export const ViewPool = ({
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
-  const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
+  const canPublish = hasRole(
+    permissionConstants.publishProcess,
     roleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
-  const canDuplicate = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
+  const canDuplicate = hasRole(
+    permissionConstants.createProcess,
     roleAssignments,
   );
-  const canArchive = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
+  const canArchive = hasRole(
+    permissionConstants.archiveProcess,
     roleAssignments,
   );
-  const canDelete = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
-    roleAssignments,
-  );
+  const canDelete = hasRole(permissionConstants.deleteProcess, roleAssignments);
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -593,17 +577,7 @@ const ViewPoolPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewProcesses}>
     <ViewPoolPage />
   </RequireAuth>
 );

@@ -6,7 +6,7 @@ import { useOutletContext } from "react-router";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   CommunityMembersTeamQuery,
@@ -20,12 +20,12 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   groupRoleAssignmentsByUser,
   CommunityMember,
-  checkRole,
 } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
+import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -57,10 +57,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
-  const hasPlatformAdmin = checkRole(
-    [ROLE_NAME.PlatformAdmin],
-    roleAssignments,
-  );
+  const hasPlatformAdmin = hasRole([ROLE_NAME.PlatformAdmin], roleAssignments);
 
   const members: CommunityMember[] = useMemo(
     () => groupRoleAssignmentsByUser(community.roleAssignments ?? []),
@@ -232,14 +229,7 @@ const CommunityMembersPageApiWrapper = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
+  <RequireAuth roles={permissionConstants.viewCommunityMembers}>
     <CommunityMembersPageApiWrapper />
   </RequireAuth>
 );

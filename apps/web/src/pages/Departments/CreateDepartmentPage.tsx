@@ -12,7 +12,6 @@ import {
   CreateDepartmentInput,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, CardSeparator, CardBasic } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
@@ -22,6 +21,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 type FormValues = CreateDepartmentInput;
 
@@ -223,7 +223,7 @@ const CreateDepartmentPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={permissionConstants.managePlatformData}>
     <CreateDepartmentPage />
   </RequireAuth>
 );
