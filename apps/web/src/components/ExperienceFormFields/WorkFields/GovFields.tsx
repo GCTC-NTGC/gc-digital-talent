@@ -601,8 +601,8 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   label={intl.formatMessage({
                     defaultMessage:
                       "This was a chief or deputy chief (C-suite) role.",
-                    id: "y/V9eA",
-                    description: "Label displayed for budget management",
+                    id: "ZOKEiB",
+                    description: "Label displayed for senior management",
                   })}
                 />
               </div>
