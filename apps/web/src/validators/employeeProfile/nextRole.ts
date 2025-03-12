@@ -11,6 +11,8 @@ type EmployeeProfileNextRoleFragment = Pick<
   | "nextRoleWorkStreams"
   | "nextRoleDepartments"
   | "nextRoleAdditionalInformation"
+  | "nextRoleIsCSuiteRole"
+  | "nextRoleCSuiteRoleTitle"
 >;
 
 export function hasAllEmptyFields({
@@ -23,6 +25,8 @@ export function hasAllEmptyFields({
   nextRoleWorkStreams,
   nextRoleDepartments,
   nextRoleAdditionalInformation,
+  nextRoleIsCSuiteRole,
+  nextRoleCSuiteRoleTitle,
 }: EmployeeProfileNextRoleFragment): boolean {
   return (
     !nextRoleClassification &&
@@ -33,7 +37,9 @@ export function hasAllEmptyFields({
     !nextRoleCommunityOther &&
     !(nextRoleWorkStreams?.length ?? 0 > 0) &&
     !(nextRoleDepartments?.length ?? 0 > 0) &&
-    !nextRoleAdditionalInformation
+    !nextRoleAdditionalInformation &&
+    (nextRoleIsCSuiteRole === undefined || nextRoleIsCSuiteRole === null) &&
+    !nextRoleCSuiteRoleTitle
   );
 }
 
@@ -46,6 +52,8 @@ export function hasAnyEmptyFields({
   nextRoleWorkStreams,
   nextRoleDepartments,
   nextRoleAdditionalInformation,
+  nextRoleIsCSuiteRole,
+  nextRoleCSuiteRoleTitle,
 }: EmployeeProfileNextRoleFragment): boolean {
   return (
     !nextRoleClassification ||
@@ -55,7 +63,8 @@ export function hasAnyEmptyFields({
     ((nextRoleCommunity?.workStreams?.length ?? 0 > 0) &&
       !(nextRoleWorkStreams?.length ?? 0 > 0)) ||
     !(nextRoleDepartments?.length ?? 0 > 0) ||
-    !nextRoleAdditionalInformation
+    !nextRoleAdditionalInformation ||
+    (!!nextRoleIsCSuiteRole && !nextRoleCSuiteRoleTitle)
   );
 }
 
