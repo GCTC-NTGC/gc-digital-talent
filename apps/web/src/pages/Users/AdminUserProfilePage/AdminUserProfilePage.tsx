@@ -398,6 +398,19 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
             }
           }
         }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            localized
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     topTechnicalSkillsRanking {
