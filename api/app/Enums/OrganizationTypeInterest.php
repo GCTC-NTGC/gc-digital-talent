@@ -9,9 +9,14 @@ enum OrganizationTypeInterest
     use HasLocalization;
 
     case CURRENT;
-    case OTHER_DEPARTMENT;
-    case OTHER_AGENCY;
-    case OTHER_CROWN_CORP;
+    case CPA;
+    case NON_CPA;
+    case CENTRAL_AGENCIES;
+    case SCIENCE_REGULATORY_AGENCY;
+    case MICRO;
+    case SMALL;
+    case MEDIUM;
+    case LARGE;
 
     public static function getLangFilename(): string
     {

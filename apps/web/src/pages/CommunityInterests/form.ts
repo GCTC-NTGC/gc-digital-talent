@@ -4,6 +4,7 @@ import {
   DevelopmentProgramParticipationStatus,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
+  UpdateDevelopmentProgramInterestHasMany,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
@@ -83,11 +84,10 @@ export function formValuesToApiCreateInput(
             // valid interest
             return {
               developmentProgramId: interest.developmentProgramId,
-              participationStatus:
-                interest.participationStatus as DevelopmentProgramParticipationStatus,
+              participationStatus: interest.participationStatus,
               completionDate:
                 interest.participationStatus ===
-                DevelopmentProgramParticipationStatus.Completed.valueOf()
+                DevelopmentProgramParticipationStatus.Completed
                   ? interest.completionDate
                   : null,
             };
@@ -106,9 +106,47 @@ export function formValuesToApiCreateInput(
 
 export function formValuesToApiUpdateInput(
   communityInterestId: string,
+  interestedPrograms: Map<string, string>,
   formValues: FormValues,
 ): UpdateCommunityInterestInput {
-  const apiInput: UpdateCommunityInterestInput = {
+  const interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany =
+    {};
+
+  formValues.interestInDevelopmentPrograms?.forEach((input) => {
+    if (!input.developmentProgramId) return;
+
+    const existingInterest = interestedPrograms.get(input.developmentProgramId);
+
+    if (existingInterest) {
+      interestInDevelopmentPrograms.update = [
+        ...(interestInDevelopmentPrograms.update ?? []),
+        {
+          id: existingInterest,
+          participationStatus: input.participationStatus,
+          completionDate:
+            input.participationStatus ===
+            DevelopmentProgramParticipationStatus.Completed
+              ? input.completionDate
+              : null,
+        },
+      ];
+    } else {
+      interestInDevelopmentPrograms.create = [
+        ...(interestInDevelopmentPrograms.create ?? []),
+        {
+          developmentProgramId: input.developmentProgramId,
+          participationStatus: input.participationStatus,
+          completionDate:
+            input.participationStatus ===
+            DevelopmentProgramParticipationStatus.Completed
+              ? input.completionDate
+              : null,
+        },
+      ];
+    }
+  });
+
+  return {
     id: communityInterestId,
     workStreams: {
       sync: formValues.interestInWorkStreamIds,
@@ -116,35 +154,8 @@ export function formValuesToApiUpdateInput(
     jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
     trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
     additionalInformation: formValues.additionalInformation,
-    interestInDevelopmentPrograms: {
-      sync: unpackMaybes(
-        formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramInterestInput | null>(
-          (interest) => {
-            if (
-              typeof interest.participationStatus === "string" &&
-              typeof interest.developmentProgramId === "string"
-            ) {
-              // valid interest
-              return {
-                developmentProgramId: interest.developmentProgramId,
-                participationStatus:
-                  interest.participationStatus as DevelopmentProgramParticipationStatus,
-                completionDate:
-                  interest.participationStatus ===
-                  DevelopmentProgramParticipationStatus.Completed.valueOf()
-                    ? interest.completionDate
-                    : null,
-              };
-            }
-            // no participation status or development program ID
-            return null;
-          },
-        ),
-      ),
-    },
+    interestInDevelopmentPrograms,
   };
-
-  return apiInput;
 }
 
 export function apiDataToFormValues(
@@ -163,14 +174,22 @@ export function apiDataToFormValues(
     trainingInterest: communityInterest?.trainingInterest?.toString() ?? null,
     additionalInformation: communityInterest?.additionalInformation ?? null,
     interestInDevelopmentPrograms:
-      communityInterest?.interestInDevelopmentPrograms?.map((interest) => ({
-        developmentProgramId: interest.developmentProgram.id,
-        participationStatus: interest.participationStatus ?? null,
-        completionDate:
-          typeof interest.completionDate === "string"
-            ? strToFormDate(interest.completionDate)
-            : null,
-      })) ?? null,
-    consent: null, // not saved in the database
+      communityInterest?.interestInDevelopmentPrograms
+        ?.sort((a, b) =>
+          (a.developmentProgram.name?.localized ?? "").localeCompare(
+            b.developmentProgram.name?.localized ?? "",
+          ),
+        )
+        .map((interest) => ({
+          developmentProgramId: interest.developmentProgram.id,
+          participationStatus: interest.participationStatus ?? null,
+          completionDate:
+            typeof interest.completionDate === "string"
+              ? strToFormDate(interest.completionDate)
+              : null,
+        })) ?? null,
+    // not saved in the database but if job or training interest is saved, they will have previously consented
+    consent:
+      !!communityInterest?.jobInterest || !!communityInterest?.trainingInterest,
   };
 }

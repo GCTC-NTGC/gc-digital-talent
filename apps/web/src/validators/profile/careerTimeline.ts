@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { Experience } from "@gc-digital-talent/graphql";
 
 type Experiences = Pick<Experience, "id">[] | undefined | null;

@@ -27,7 +27,6 @@ const makeLink = (chunks: ReactNode, url: string) => (
   </Link>
 );
 
-// eslint-disable-next-line import/prefer-default-export
 export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);

@@ -20,7 +20,6 @@ const protectedEndpointExchange: Exchange =
         );
         if (isPrivilegedLocation) {
           // we're updating the operation on the fly
-          // eslint-disable-next-line no-param-reassign
           op.context.url = `${apiHost}${protectedUrl}`;
         }
       }),

@@ -10,8 +10,6 @@ import {
   ArmedForcesStatus,
   EducationRequirementOption,
   SkillLevel,
-  OrganizationTypeInterest,
-  MoveInterest,
   Mentorship,
   ExecCoaching,
 } from "@gc-digital-talent/graphql";
@@ -783,120 +781,6 @@ export const getSkillLevelMessages = (
     name: getSkillLevelName(skillLevel, skillCategory),
     definition: getSkillLevelDefinition(skillLevel, skillCategory),
   };
-};
-
-const organizationTypeInterestLabels = defineMessages({
-  [OrganizationTypeInterest.Current]: {
-    defaultMessage:
-      "I’d consider opportunities in my current department, agency, or crown corporation.",
-    id: "FBTxhQ",
-    description: "The organization type interest described as current.",
-  },
-  [OrganizationTypeInterest.OtherAgency]: {
-    defaultMessage: "I’d consider opportunities in other agencies.",
-    id: "jMACPB",
-    description: "The organization type interest described as other agency.",
-  },
-  [OrganizationTypeInterest.OtherCrownCorp]: {
-    defaultMessage: "I’d consider opportunities in other crown corporations.",
-    id: "PIO8CM",
-    description:
-      "The organization type interest described as other crown corp.",
-  },
-  [OrganizationTypeInterest.OtherDepartment]: {
-    defaultMessage: "I’d consider opportunities in other departments.",
-    id: "DtuUkd",
-    description:
-      "The organization type interest described as other department.",
-  },
-});
-
-const organizationTypeInterestFalseLabels = defineMessages({
-  [OrganizationTypeInterest.Current]: {
-    defaultMessage:
-      "I wouldn't consider opportunities in my current department, agency, or crown corporation.",
-    id: "zKeQDh",
-    description: "The organization type interest described as current.",
-  },
-  [OrganizationTypeInterest.OtherAgency]: {
-    defaultMessage: "I wouldn't consider opportunities in other agencies.",
-    id: "vaaj5i",
-    description: "The organization type interest described as other agency.",
-  },
-  [OrganizationTypeInterest.OtherCrownCorp]: {
-    defaultMessage:
-      "I wouldn't consider opportunities in other crown corporations.",
-    id: "aVEsoE",
-    description:
-      "The organization type interest described as other crown corp.",
-  },
-  [OrganizationTypeInterest.OtherDepartment]: {
-    defaultMessage: "I wouldn't consider opportunities in other departments.",
-    id: "iOCAT0",
-    description:
-      "The organization type interest described as other department.",
-  },
-});
-
-export const getOrganizationTypeInterest = (
-  organizationTypeInterestId: string | number,
-  type?: boolean,
-): MessageDescriptor => {
-  return getOrDisplayError(
-    type || type === undefined
-      ? organizationTypeInterestLabels
-      : organizationTypeInterestFalseLabels,
-    organizationTypeInterestId,
-    `Invalid organization type interest '${organizationTypeInterestId}'`,
-  );
-};
-
-const moveInterestLabels = defineMessages({
-  [MoveInterest.AboveLevel]: {
-    defaultMessage: "I’m interested in promotional opportunities.",
-    id: "d9hLSq",
-    description: "The move interest described as above level.",
-  },
-  [MoveInterest.AtLevel]: {
-    defaultMessage: "I’m interested in opportunities at my current level.",
-    id: "1rhiD1",
-    description: "The move interest described as at level.",
-  },
-  [MoveInterest.BelowLevel]: {
-    defaultMessage: "I’m interested in opportunities below my current level.",
-    id: "T6nzbO",
-    description: "The move interest described as below level.",
-  },
-});
-
-const moveInterestFalseLabels = defineMessages({
-  [MoveInterest.AboveLevel]: {
-    defaultMessage: "I’m not interested in promotional opportunities.",
-    id: "NA889i",
-    description: "The move interest described as above level.",
-  },
-  [MoveInterest.AtLevel]: {
-    defaultMessage: "I’m not interested in opportunities at my current level.",
-    id: "TKORX7",
-    description: "The move interest described as at level.",
-  },
-  [MoveInterest.BelowLevel]: {
-    defaultMessage:
-      "I’m not interested in opportunities below my current level.",
-    id: "LvpKEa",
-    description: "The move interest described as below level.",
-  },
-});
-
-export const getMoveInterest = (
-  moveInterestId: string | number,
-  type?: boolean,
-): MessageDescriptor => {
-  return getOrDisplayError(
-    type || type === undefined ? moveInterestLabels : moveInterestFalseLabels,
-    moveInterestId,
-    `Invalid move interest '${moveInterestId}'`,
-  );
 };
 
 export const MentorshipStatus = {

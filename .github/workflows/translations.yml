@@ -23,7 +23,7 @@ jobs:
     name: Translations
     runs-on: ubuntu-24.04
     env:
-      PNPM_VERSION: "9.12.3"
+      PNPM_VERSION: "10.5.2"
 
     steps:
       - uses: actions/checkout@v4

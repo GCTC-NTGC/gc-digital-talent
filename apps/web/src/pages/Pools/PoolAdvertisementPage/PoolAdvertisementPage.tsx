@@ -682,6 +682,7 @@ export const PoolPoster = ({
                             : "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html#information-technology"
                         }
                         icon={InformationCircleIcon}
+                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                         aria-label={`${intl.formatMessage({
                           defaultMessage:
                             "Information technology (IT) work streams",
@@ -750,6 +751,7 @@ export const PoolPoster = ({
                           ? "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-fra.html#a8"
                           : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
                       }
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about employment durations",
                         id: "zlHeEz",
@@ -802,6 +804,7 @@ export const PoolPoster = ({
                           ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
                           : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
                       }
+                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
                       aria-label={`${intl.formatMessage({
                         defaultMessage: "Learn more about security clearances",
                         id: "WlMSeh",

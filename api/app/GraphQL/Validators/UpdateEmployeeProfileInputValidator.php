@@ -4,9 +4,9 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\TargetRole;
+use App\Enums\TimeFrame;
 use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Support\Arr;
@@ -31,11 +31,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
         $careerObjectiveAllWorkStreams = $careerObjectiveCommunityId ? WorkStream::where('community_id', $careerObjectiveCommunityId)->get('id')->pluck('id') : [];
 
         return [
-            'organizationTypeInterest' => ['nullable'],
-            'organizationTypeInterest.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
-            'moveInterest' => ['nullable'],
-            'moveInterest.*' => [Rule::in(array_column(MoveInterest::cases(), 'name'))],
-            'mentorshipStatus' => ['nullable'],
+            'lateralMoveInterest' => ['nullable', 'boolean'],
+            'lateralMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:lateralMoveInterest,true'],
+            'lateralMoveOrganizationType' => ['nullable', 'required_if:lateralMoveInterest,true'],
+            'lateralMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+
+            'promotionMoveInterest' => ['nullable', 'boolean'],
+            'promotionMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:promotionMoveInterest,true'],
+            'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
+            'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+
             'mentorshipStatus.*' => [Rule::in(array_column(Mentorship::cases(), 'name'))],
             'mentorshipInterest' => ['nullable'],
             'mentorshipInterest.*' => [Rule::in(array_column(Mentorship::cases(), 'name'))],
@@ -49,14 +54,52 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'careerObjectiveJobTitle' => ['nullable', 'string'],
             'nextRoleAdditionalInformation' => ['nullable', 'string'],
             'careerObjectiveAdditionalInformation' => ['nullable', 'string'],
-            'nextRoleCommunity.connect' => ['uuid', 'exists:communities,id'],
-            'careerObjectiveCommunity.connect' => ['uuid', 'exists:communities,id'],
+
+            'nextRoleCommunity.connect' => [
+                'uuid',
+                'exists:communities,id',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunityOther') !== null
+                    )
+                ),
+            ],
+            'careerObjectiveCommunity.connect' => [
+                'uuid',
+                'exists:communities,id',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunityOther') !== null
+                    )
+                ),
+            ],
+            'nextRoleCommunityOther' => [
+                'string',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunity.connect') !== null
+                    )
+                ),
+            ],
+            'careerObjectiveCommunityOther' => [
+                'string',
+                'nullable',
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunity.connect') !== null
+                    )
+                ),
+            ],
+
             'nextRoleClassification.connect' => ['uuid', 'exists:classifications,id'],
             'careerObjectiveClassification.connect' => ['uuid', 'exists:classifications,id'],
 
             'nextRoleWorkStreams' => [
                 Rule::when(
-                    fn (): bool => Arr::has($argsArr, ('nextRoleCommunity.connect')),
+                    fn (): bool => (Arr::has($argsArr, ('nextRoleCommunity.connect'))),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'nextRoleWorkStreams.sync' => ['required'],
@@ -69,11 +112,16 @@ final class UpdateEmployeeProfileInputValidator extends Validator
                 'uuid',
                 'exists:work_streams,id',
                 Rule::in($nextRoleAllWorkStreams),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('nextRoleCommunityOther') !== null
+                    )
+                ),
             ],
 
             'careerObjectiveWorkStreams' => [
                 Rule::when(
-                    fn (): bool => Arr::has($argsArr, ('careerObjectiveCommunity.connect')),
+                    fn (): bool => (Arr::has($argsArr, ('careerObjectiveCommunity.connect'))),
                     [
                         'present', // if community is specified, work streams must also be specified
                         'careerObjectiveCommunity.sync' => ['required'],
@@ -86,6 +134,11 @@ final class UpdateEmployeeProfileInputValidator extends Validator
                 'uuid',
                 'exists:work_streams,id',
                 Rule::in($careerObjectiveAllWorkStreams),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('careerObjectiveCommunityOther') !== null
+                    )
+                ),
             ],
 
             'nextRoleDepartments.sync.*' => ['uuid', 'exists:departments,id'],

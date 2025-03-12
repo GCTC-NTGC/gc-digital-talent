@@ -1,5 +1,5 @@
+/* eslint-disable testing-library/no-debugging-utils */
 // Note: We need snake case for tokens
-/* eslint-disable camelcase */
 import { ReactNode, createContext, useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 

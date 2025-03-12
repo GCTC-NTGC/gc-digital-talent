@@ -17,7 +17,6 @@ const generateLink = (
   chunks: ReactNode,
 ) => (
   // Could be any
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   <Link newTab external href={href} state={state}>
     {chunks}
   </Link>
@@ -83,6 +82,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {`${intl.formatMessage(
                   {
                     defaultMessage: "{time} on {date}",
@@ -119,6 +119,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {`${intl.formatMessage(
                   {
                     defaultMessage: "{time} on {date}",

@@ -19,21 +19,23 @@ const Definition = ({ url, quotedDefinition }: DefinitionProps) => {
 
   return (
     <Well>
-      <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "According to the <link>Statistics Canada definition</link>, this group:",
-            id: "0nP0Wj",
-            description:
-              "Link to Statistics Canada's employment equity definitions",
-          },
-          {
-            link: (chunks: ReactNode) => statCanLink(url, chunks),
-          },
-        )}
+      <p>
+        <span data-h2-font-weight="base(700)">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "According to the <link>Statistics Canada definition</link>, this group ",
+              id: "X3pHUD",
+              description:
+                "Link to Statistics Canada's employment equity definitions",
+            },
+            {
+              link: (chunks: ReactNode) => statCanLink(url, chunks),
+            },
+          )}
+        </span>
+        {quotedDefinition}
       </p>
-      <p>{quotedDefinition}</p>
     </Well>
   );
 };

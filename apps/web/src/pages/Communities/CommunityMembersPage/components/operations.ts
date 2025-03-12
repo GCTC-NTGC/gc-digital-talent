@@ -1,6 +1,5 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
-// eslint-disable-next-line import/prefer-default-export
 export const UpdateUserCommunityRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateCommunityUserRoles(
     $updateUserRolesInput: UpdateUserRolesInput!

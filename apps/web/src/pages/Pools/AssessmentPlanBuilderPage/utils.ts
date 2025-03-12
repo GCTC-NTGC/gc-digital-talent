@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { IntlShape } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";

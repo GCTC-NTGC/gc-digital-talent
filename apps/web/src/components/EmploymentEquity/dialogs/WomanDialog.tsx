@@ -64,8 +64,8 @@ const WomanDialog = ({
             }
             quotedDefinition={intl.formatMessage({
               defaultMessage:
-                '"... includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women."',
-              id: "2yXxyQ",
+                '"includes persons whose reported gender is female. It includes cisgender (cis) and transgender (trans) women."',
+              id: "dycByE",
               description:
                 "Definition of the Woman category from the StatsCan 'Classification of gender' page.",
             })}

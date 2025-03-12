@@ -13,6 +13,8 @@ import {
 import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
+import nodeToString from "~/utils/nodeToString";
+
 import { FormValues } from "../form";
 
 const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
@@ -96,7 +98,7 @@ const FindANewCommunity = ({
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
   workStreamOptions.sort((a, b) =>
-    (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
+    (nodeToString(a.label) ?? "").localeCompare(nodeToString(b.label) ?? ""),
   );
 
   // heading and description change depending on whether the user is creating or updating
@@ -236,25 +238,25 @@ const FindANewCommunity = ({
               idPrefix="trainingInterest"
               name="trainingInterest"
               legend={intl.formatMessage({
-                defaultMessage: "Interest in training opportunities",
-                id: "H1UEd5",
+                defaultMessage: "Interest in training and development",
+                id: "WfX9z1",
                 description:
-                  "Label for the input for choosing interest level in a training opportunity",
+                  "Label for user Interest in training and development for a community",
               })}
               items={[
                 {
                   value: "true",
                   label: intl.formatMessage({
                     defaultMessage:
-                      "I’m interested in being considered for training or development opportunities within this community.",
-                    id: "oEYCLO",
+                      "I’m interested in being considered for training opportunities or development programs within this community.",
+                    id: "gsjH8R",
                     description:
                       "Label for the community interest in training opportunities radio option",
                   }),
                   contentBelow: intl.formatMessage({
                     defaultMessage:
-                      "By indicating that you're interested in training opportunities, you agree to share your profile information with recruiters and hiring managers within this functional community.",
-                    id: "wdBpAX",
+                      "By indicating that you're interested in training or development, you agree to share your profile information with recruiters and hiring managers within this functional community.",
+                    id: "/SOIpV",
                     description:
                       "Context for the 'I'm interested in training opportunities within this community' radio option",
                   }),
@@ -285,8 +287,8 @@ const FindANewCommunity = ({
                 <span id={workStreamListDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please select any of the work streams listed that you would consider working within.",
-                    id: "KpmfLa",
+                      "Please select any of the work streams listed that you would consider for work or training.",
+                    id: "1vpJU6",
                     description:
                       "Introduction for a work stream referral preferences input",
                   })}
@@ -296,8 +298,8 @@ const FindANewCommunity = ({
                   name="interestInWorkStreamIds"
                   legend={intl.formatMessage({
                     defaultMessage:
-                      "Preferred work streams for job opportunities",
-                    id: "loImp5",
+                      "Preferred work streams for job and training opportunities",
+                    id: "EoEEha",
                     description:
                       "Label for the input for selecting work stream referral preferences",
                   })}

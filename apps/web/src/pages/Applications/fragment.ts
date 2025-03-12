@@ -342,6 +342,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
             }
             community {
               id
+              key
               name {
                 localized
               }
@@ -590,6 +591,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           name {
             en
             fr
+          }
+        }
+        workStreams {
+          id
+          key
+          name {
+            localized
+          }
+          community {
+            id
+            key
+            name {
+              localized
+            }
           }
         }
       }

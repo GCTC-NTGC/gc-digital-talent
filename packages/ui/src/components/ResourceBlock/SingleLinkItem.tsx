@@ -1,10 +1,25 @@
 import ArrowSmallRightIcon from "@heroicons/react/20/solid/ArrowSmallRightIcon";
+import { ReactNode } from "react";
 
 import Link, { LinkProps } from "../Link";
 import BaseItem, { BaseItemProps } from "./BaseItem";
+import { HeadingRank } from "../../types";
+
+interface WrapperProps {
+  as?: HeadingRank;
+  children: ReactNode;
+}
+
+const Wrapper = ({ as, children }: WrapperProps) => {
+  if (!as) return <>{children}</>;
+
+  const Heading = as;
+  return <Heading data-h2-font-size="base(body)">{children}</Heading>;
+};
 
 interface SingleLinkItemProps {
   title: string;
+  as?: HeadingRank;
   accessibleLabel?: BaseItemProps["accessibleLabel"];
   href: LinkProps["href"];
   description: BaseItemProps["description"];
@@ -17,33 +32,27 @@ const SingleLinkItem = ({
   href,
   description,
   state,
-}: SingleLinkItemProps) => {
-  return (
-    <BaseItem
-      title={
+  as,
+}: SingleLinkItemProps) => (
+  <BaseItem
+    title={
+      <Wrapper as={as}>
         <Link
           href={href}
           color="black"
           // yuck, style exception 😞
           data-h2-font-weight="base(bold)"
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          utilityIcon={ArrowSmallRightIcon}
         >
           {title}
-          {/* issue #11284 */}
-          <ArrowSmallRightIcon // eslint-disable-line deprecation/deprecation
-            data-h2-width="base(auto)"
-            data-h2-height="base(x0.75)"
-            data-h2-color="base(black.light)"
-            data-h2-margin="base(x0.15)"
-            data-h2-vertical-align="base(top)"
-            aria-hidden
-          />
         </Link>
-      }
-      accessibleLabel={accessibleLabel ?? title}
-      description={description}
-      state={state}
-    />
-  );
-};
+      </Wrapper>
+    }
+    accessibleLabel={accessibleLabel ?? title}
+    description={description}
+    state={state}
+  />
+);
 
 export default SingleLinkItem;

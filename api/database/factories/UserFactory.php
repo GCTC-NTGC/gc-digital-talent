@@ -13,13 +13,13 @@ use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
+use App\Enums\TimeFrame;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -236,9 +236,16 @@ class UserFactory extends Factory
 
     public function withEmployeeProfile()
     {
-        return $this->afterCreating(function (User $user) {
-            $nextRoleCommunity = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
-            $careerObjectiveCommunity = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
+        $lateralMoveInterestBool = $this->faker->boolean();
+        $promotionMoveInterestBool = $this->faker->boolean();
+
+        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool) {
+            $nextRoleCommunity = $this->faker->boolean(80) ?
+                Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
+                null;
+            $careerObjectiveCommunity = $this->faker->boolean(80) ?
+                Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
+                null;
 
             $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
             $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
@@ -248,24 +255,32 @@ class UserFactory extends Factory
             $user->employeeProfile->careerObjectiveDepartments()
                 ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
 
-            $user->employeeProfile->nextRoleWorkStreams()
-                ->sync($this->faker->randomElements(
-                    $nextRoleCommunity
-                        ->workStreams
-                        ->pluck('id'),
-                    $this->faker->numberBetween(0, $nextRoleCommunity->workStreams->count())
-                ));
-            $user->employeeProfile->careerObjectiveWorkStreams()
-                ->sync($this->faker->randomElements(
-                    $careerObjectiveCommunity
-                        ->workStreams
-                        ->pluck('id'),
-                    $this->faker->numberBetween(0, $careerObjectiveCommunity->workStreams->count())
-                ));
+            if (isset($nextRoleCommunity)) {
+                $user->employeeProfile->nextRoleWorkStreams()
+                    ->sync($this->faker->randomElements(
+                        $nextRoleCommunity
+                            ->workStreams
+                            ->pluck('id'),
+                        $this->faker->numberBetween(0, $nextRoleCommunity->workStreams->count())
+                    ));
+            }
+            if (isset($careerObjectiveCommunity)) {
+                $user->employeeProfile->careerObjectiveWorkStreams()
+                    ->sync($this->faker->randomElements(
+                        $careerObjectiveCommunity
+                            ->workStreams
+                            ->pluck('id'),
+                        $this->faker->numberBetween(0, $careerObjectiveCommunity->workStreams->count())
+                    ));
+            }
 
             $user->employeeProfile()->update([
-                'career_planning_organization_type_interest' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
-                'career_planning_move_interest' => $this->faker->randomElements(array_column(MoveInterest::cases(), 'name'), null),
+                'career_planning_lateral_move_interest' => $lateralMoveInterestBool,
+                'career_planning_lateral_move_time_frame' => $lateralMoveInterestBool ? $this->faker->randomElement(array_column(TimeFrame::cases(), 'name')) : null,
+                'career_planning_lateral_move_organization_type' => $lateralMoveInterestBool ? $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name')) : null,
+                'career_planning_promotion_move_interest' => $promotionMoveInterestBool,
+                'career_planning_promotion_move_time_frame' => $promotionMoveInterestBool ? $this->faker->randomElement(array_column(TimeFrame::cases(), 'name')) : null,
+                'career_planning_promotion_move_organization_type' => $promotionMoveInterestBool ? $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name')) : null,
                 'career_planning_mentorship_status' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_mentorship_interest' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_exec_interest' => $this->faker->boolean(),
@@ -278,8 +293,11 @@ class UserFactory extends Factory
                 'career_objective_job_title' => $this->faker->words(3, true),
                 'next_role_additional_information' => $this->faker->paragraph(),
                 'career_objective_additional_information' => $this->faker->paragraph(),
-                'next_role_community_id' => $nextRoleCommunity->id,
-                'career_objective_community_id' => $careerObjectiveCommunity->id,
+                'next_role_community_id' => isset($nextRoleCommunity) ? $nextRoleCommunity->id : null,
+                'career_objective_community_id' => isset($careerObjectiveCommunity) ? $careerObjectiveCommunity->id : null,
+                'next_role_community_other' => ! isset($nextRoleCommunity) ? $this->faker->company() : null,
+                'career_objective_community_other' => ! isset($careerObjectiveCommunity) ? $this->faker->company() : null,
+
                 'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
                 'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
 

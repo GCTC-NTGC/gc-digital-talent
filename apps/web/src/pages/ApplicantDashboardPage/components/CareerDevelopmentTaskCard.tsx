@@ -10,20 +10,42 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import messages from "~/messages/careerDevelopmentMessages";
 
-import MoveInterestsList from "./MoveInterestsList";
-import OrganizationTypeInterestsList from "./OrganizationInterestsList";
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
-const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
+export const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCard on EmployeeProfile {
-    moveInterest {
+    lateralMoveInterest
+    lateralMoveTimeFrame {
       value
+      label {
+        localized
+      }
     }
-    organizationTypeInterest {
+    lateralMoveOrganizationType {
       value
+      label {
+        localized
+      }
+    }
+    promotionMoveInterest
+    promotionMoveTimeFrame {
+      value
+      label {
+        localized
+      }
+    }
+    promotionMoveOrganizationType {
+      value
+      label {
+        localized
+      }
     }
     communityInterests {
       id
@@ -32,34 +54,71 @@ const CareerDevelopmentTaskCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
+  fragment CareerDevelopmentTaskCardOptions on Query {
+    organizationTypeInterest: localizedEnumStrings(
+      enumName: "OrganizationTypeInterest"
+    ) {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+    timeFrame: localizedEnumStrings(enumName: "TimeFrame") {
+      value
+      label {
+        en
+        fr
+        localized
+      }
+    }
+  }
+`);
+
 interface CareerDevelopmentTaskCardProps {
   careerDevelopmentTaskCardQuery: FragmentType<
     typeof CareerDevelopmentTaskCard_Fragment
+  >;
+  careerDevelopmentOptionsQuery: FragmentType<
+    typeof CareerDevelopmentTaskCardOptions_Fragment
   >;
 }
 
 const CareerDevelopmentTaskCard = ({
   careerDevelopmentTaskCardQuery,
+  careerDevelopmentOptionsQuery,
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const careerDevelopmentMessages = messages(intl);
 
   const careerDevelopmentTaskCardFragment = getFragment(
     CareerDevelopmentTaskCard_Fragment,
     careerDevelopmentTaskCardQuery,
   );
 
-  const moveInterestsMapped = careerDevelopmentTaskCardFragment?.moveInterest
-    ? careerDevelopmentTaskCardFragment.moveInterest.map(
-        (interest) => interest.value,
-      )
-    : null;
-  const organizationTypeInterestsMapped =
-    careerDevelopmentTaskCardFragment?.organizationTypeInterest
-      ? careerDevelopmentTaskCardFragment.organizationTypeInterest.map(
-          (interest) => interest.value,
-        )
-      : null;
+  const careerDevelopmentTaskCardOptions = getFragment(
+    CareerDevelopmentTaskCardOptions_Fragment,
+    careerDevelopmentOptionsQuery,
+  );
+
+  const {
+    lateralMoveInterest,
+    lateralMoveTimeFrame,
+    lateralMoveOrganizationType,
+    promotionMoveInterest,
+    promotionMoveTimeFrame,
+    promotionMoveOrganizationType,
+  } = careerDevelopmentTaskCardFragment;
+
+  const lateralMoveOrganizationTypes = unpackMaybes(
+    lateralMoveOrganizationType,
+  ).map((interest) => String(interest.value));
+  const promotionMoveOrganizationTypes = unpackMaybes(
+    promotionMoveOrganizationType,
+  ).map((interest) => String(interest.value));
 
   const careerPlanningMetaData: AccordionMetaData[] = [
     {
@@ -97,6 +156,16 @@ const CareerDevelopmentTaskCard = ({
       ),
     },
   ];
+
+  const missingInfo = (
+    <p data-h2-color="base(error.darker) base:dark(error.lightest)">
+      {intl.formatMessage({
+        defaultMessage: "Missing information",
+        id: "PnSSPo",
+        description: "Missing information, warning",
+      })}
+    </p>
+  );
 
   return (
     <>
@@ -141,56 +210,166 @@ const CareerDevelopmentTaskCard = ({
                     data-h2-gap="base(x1)"
                     data-h2-padding-top="base(x.5)"
                   >
-                    <div>
-                      <p data-h2-font-weight="base(700)">
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Interest in promotions and lateral moves",
-                          id: "TiPh1V",
-                          description:
-                            "Heading for list of user's interest in employment moves",
-                        })}
-                      </p>
-                      {moveInterestsMapped ? (
-                        <MoveInterestsList
-                          moveInterests={moveInterestsMapped}
-                        />
-                      ) : (
-                        <p data-h2-color="base(error.darker) base:dark(error.lightest)">
-                          {intl.formatMessage({
-                            defaultMessage: "Missing information",
-                            id: "PnSSPo",
-                            description: "Missing information, warning",
-                          })}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <p data-h2-font-weight="base(700)">
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Types of organizations you'd like to work for",
-                          id: "WvzD/I",
-                          description:
-                            "Heading for list of user's interest in organizations as employers",
-                        })}
-                      </p>
-                      {organizationTypeInterestsMapped ? (
-                        <OrganizationTypeInterestsList
-                          organizationTypeInterests={
-                            organizationTypeInterestsMapped
-                          }
-                        />
-                      ) : (
-                        <p data-h2-color="base(error.darker) base:dark(error.lightest)">
-                          {intl.formatMessage({
-                            defaultMessage: "Missing information",
-                            id: "PnSSPo",
-                            description: "Missing information, warning",
-                          })}
-                        </p>
-                      )}
-                    </div>
+                    <FieldDisplay
+                      label={careerDevelopmentMessages.lateralMoveInterest}
+                    >
+                      {empty(lateralMoveInterest)
+                        ? missingInfo
+                        : intl.formatMessage(
+                            lateralMoveInterest
+                              ? {
+                                  defaultMessage:
+                                    "I’m interested in receiving opportunities for jobs at, or equivalent to, my current group and level.",
+                                  id: "1TFJ+r",
+                                  description:
+                                    "The lateral move interest described as interested.",
+                                }
+                              : {
+                                  defaultMessage:
+                                    "I’m not looking for lateral movement right now.",
+                                  id: "55IkTu",
+                                  description:
+                                    "The lateral move interest described as not interested.",
+                                },
+                          )}
+                    </FieldDisplay>
+                    {lateralMoveInterest && (
+                      <FieldDisplay
+                        label={careerDevelopmentMessages.lateralMoveTimeFrame}
+                      >
+                        {lateralMoveTimeFrame
+                          ? lateralMoveTimeFrame.label.localized
+                          : missingInfo}
+                      </FieldDisplay>
+                    )}
+                    {lateralMoveInterest && (
+                      <FieldDisplay
+                        label={
+                          careerDevelopmentMessages.lateralMoveOrganizationType
+                        }
+                      >
+                        {lateralMoveOrganizationType ? (
+                          <ul
+                            data-h2-list-style="base(none)"
+                            data-h2-padding="base(0)"
+                          >
+                            {unpackMaybes(
+                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
+                            ).map((x) => {
+                              const iconValue =
+                                lateralMoveOrganizationTypes.includes(x.value);
+                              return (
+                                <li key={x.value}>
+                                  <BoolCheckIcon
+                                    value={iconValue}
+                                    trueLabel={intl.formatMessage({
+                                      defaultMessage: "Interested in",
+                                      id: "AQiPuW",
+                                      description:
+                                        "Label for user expressing interest in a specific work stream",
+                                    })}
+                                    falseLabel={intl.formatMessage({
+                                      defaultMessage: "Not interested in",
+                                      id: "KyLikL",
+                                      description:
+                                        "Label for user expressing they are not interested in a specific work stream",
+                                    })}
+                                  >
+                                    {x.label.localized ??
+                                      intl.formatMessage(
+                                        commonMessages.notFound,
+                                      )}
+                                  </BoolCheckIcon>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          missingInfo
+                        )}
+                      </FieldDisplay>
+                    )}
+                    <FieldDisplay
+                      label={careerDevelopmentMessages.promotionMoveInterest}
+                    >
+                      {empty(promotionMoveInterest)
+                        ? missingInfo
+                        : intl.formatMessage(
+                            promotionMoveInterest
+                              ? {
+                                  defaultMessage:
+                                    "I’m interested in receiving opportunities for promotion and advancement.",
+                                  id: "2tAqF/",
+                                  description:
+                                    "The promotion move interest described as interested.",
+                                }
+                              : {
+                                  defaultMessage:
+                                    "I’m not looking for a promotion or advancement right now.",
+                                  id: "tXLRmG",
+                                  description:
+                                    "The promotion move interest described as not interested.",
+                                },
+                          )}
+                    </FieldDisplay>
+                    {promotionMoveInterest && (
+                      <FieldDisplay
+                        label={careerDevelopmentMessages.promotionMoveTimeFrame}
+                      >
+                        {promotionMoveTimeFrame
+                          ? promotionMoveTimeFrame.label.localized
+                          : missingInfo}
+                      </FieldDisplay>
+                    )}
+                    {promotionMoveInterest && (
+                      <FieldDisplay
+                        label={
+                          careerDevelopmentMessages.promotionMoveOrganizationType
+                        }
+                      >
+                        {promotionMoveOrganizationType ? (
+                          <ul
+                            data-h2-list-style="base(none)"
+                            data-h2-padding="base(0)"
+                          >
+                            {unpackMaybes(
+                              careerDevelopmentTaskCardOptions?.organizationTypeInterest,
+                            ).map((x) => {
+                              const iconValue =
+                                promotionMoveOrganizationTypes.includes(
+                                  x.value,
+                                );
+                              return (
+                                <li key={x.value}>
+                                  <BoolCheckIcon
+                                    value={iconValue}
+                                    trueLabel={intl.formatMessage({
+                                      defaultMessage: "Interested in",
+                                      id: "AQiPuW",
+                                      description:
+                                        "Label for user expressing interest in a specific work stream",
+                                    })}
+                                    falseLabel={intl.formatMessage({
+                                      defaultMessage: "Not interested in",
+                                      id: "KyLikL",
+                                      description:
+                                        "Label for user expressing they are not interested in a specific work stream",
+                                    })}
+                                  >
+                                    {x.label.localized ??
+                                      intl.formatMessage(
+                                        commonMessages.notFound,
+                                      )}
+                                  </BoolCheckIcon>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          missingInfo
+                        )}
+                      </FieldDisplay>
+                    )}
                   </div>
                 </Accordion.Content>
               </Accordion.Item>
@@ -212,6 +391,7 @@ const CareerDevelopmentTaskCard = ({
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
                 >
+                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                   {`${intl.formatMessage({
                     defaultMessage: "Functional communities",
                     id: "OH0wqV",

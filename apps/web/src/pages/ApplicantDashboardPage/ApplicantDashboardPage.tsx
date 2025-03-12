@@ -1,12 +1,15 @@
-/* eslint-disable import/no-unused-modules */
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending, ResourceBlock, NotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  getFragment,
+  ApplicantDashboardQuery,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -114,7 +117,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface DashboardPageProps {
-  applicantDashboardQuery: FragmentType<typeof ApplicantDashboardPage_Fragment>;
+  applicantDashboardQuery: ApplicantDashboardQuery;
 }
 
 export const DashboardPage = ({
@@ -134,8 +137,12 @@ export const DashboardPage = ({
 
   const currentUser = getFragment(
     ApplicantDashboardPage_Fragment,
-    applicantDashboardQuery,
+    applicantDashboardQuery.me,
   );
+
+  if (!currentUser) {
+    throw new NotFoundError();
+  }
 
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||
@@ -217,6 +224,7 @@ export const DashboardPage = ({
               currentUser?.employeeProfile ? (
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
+                  careerDevelopmentOptionsQuery={applicantDashboardQuery}
                 />
               ) : null}
             </div>
@@ -236,6 +244,7 @@ export const DashboardPage = ({
                 })}
               >
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={personalInformationState}
                   title={intl.formatMessage({
                     defaultMessage: "Personal information",
@@ -254,6 +263,7 @@ export const DashboardPage = ({
                 />
                 {currentUser?.isVerifiedGovEmployee ? (
                   <ResourceBlock.SingleLinkItem
+                    as="h3"
                     state={employeeProfileState}
                     title={intl.formatMessage(
                       navigationMessages.employeeProfileGC,
@@ -269,6 +279,7 @@ export const DashboardPage = ({
                   />
                 ) : null}
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={careerExperienceState}
                   title={intl.formatMessage({
                     defaultMessage: "Career experience",
@@ -285,6 +296,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state={skillsPortfolioState}
                   title={intl.formatMessage(navigationMessages.skillPortfolio)}
                   href={paths.skillPortfolio()}
@@ -297,6 +309,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   state="complete"
                   title={intl.formatMessage(navigationMessages.accountSettings)}
                   href={paths.accountSettings()}
@@ -319,6 +332,7 @@ export const DashboardPage = ({
                 })}
               >
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   title={intl.formatMessage({
                     defaultMessage: "Learn about skills",
                     id: "n40Nry",
@@ -333,6 +347,7 @@ export const DashboardPage = ({
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
+                  as="h3"
                   title={intl.formatMessage({
                     defaultMessage: "Contact support",
                     id: "jRnA1D",
@@ -360,6 +375,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
     me {
       ...ApplicantDashboardPage
     }
+    ...CareerDevelopmentTaskCardOptions
   }
 `);
 
@@ -372,7 +388,7 @@ export const ApplicantDashboardPageApi = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <DashboardPage applicantDashboardQuery={data.me} />
+        <DashboardPage applicantDashboardQuery={data} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>

@@ -137,6 +137,7 @@ const JobPosterTemplate = ({
                 </TableOfContents.ListItem>
               </TableOfContents.List>
               {/* The download links will be added in a later issue */}
+              {/* eslint-disable-next-line no-constant-binary-expression */}
               {false && (
                 <>
                   <Separator color="base:all(gray.lighter)" space="sm" />
