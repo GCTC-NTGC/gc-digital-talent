@@ -7882,6 +7882,10 @@
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
   },
+  "dOw5u/": {
+    "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
+    "description": "Default error messsage when an employee could not be found"
+  },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
@@ -10217,10 +10221,6 @@
   "ocTGYr": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'create a community' form"
-  },
-  "occYTR": {
-    "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
-    "description": "Default error messsage when an employee could not be found"
   },
   "og5vUB": {
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
