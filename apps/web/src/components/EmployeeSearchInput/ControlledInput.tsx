@@ -176,7 +176,7 @@ const ControlledInput = ({
           }
           onClick={handleSearch}
         >
-          <span data-h2-display="base(flex)" data-h2-align-items="base(cener)">
+          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
             <MagnifyingGlassIcon data-h2-width="base(x.75)" />
           </span>
         </Button>
