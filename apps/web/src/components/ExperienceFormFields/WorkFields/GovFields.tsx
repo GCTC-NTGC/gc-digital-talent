@@ -243,6 +243,54 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 
+  /**
+   * Reset supervisory fields
+   */
+  useEffect(() => {
+    const resetDirtyField = (name: keyof WorkFormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // reset all supervisory fields
+    if (!watchSupervisoryPosition) {
+      resetDirtyField("supervisedEmployees");
+      resetDirtyField("supervisedEmployeesNumber");
+      resetDirtyField("budgetManagement");
+      resetDirtyField("annualBudgetAllocation");
+      resetDirtyField("seniorManagementStatus");
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+
+    // reset supervised supervisory fields
+    if (!watchSupervisedEmployees) {
+      resetDirtyField("supervisedEmployeesNumber");
+    }
+
+    // reset budget supervisory fields
+    if (!watchBudgetManagement) {
+      resetDirtyField("annualBudgetAllocation");
+    }
+
+    // reset senior management supervisory fields
+    if (!watchSeniorManagementStatus) {
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+
+    // reset senior management supervisory other fields
+    if (watchCSuiteRoleTitle !== CSuiteRoleTitle.Other) {
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+  }, [
+    resetField,
+    watchSupervisoryPosition,
+    watchSupervisedEmployees,
+    watchBudgetManagement,
+    watchSeniorManagementStatus,
+    watchCSuiteRoleTitle,
+  ]);
+
   return (
     <>
       {fetching ? (

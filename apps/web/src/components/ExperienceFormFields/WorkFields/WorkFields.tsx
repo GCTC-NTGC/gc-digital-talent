@@ -152,6 +152,14 @@ const WorkFields = ({
       resetDirtyField("contractorFirmAgencyName");
       resetDirtyField("classificationGroup");
       resetDirtyField("classificationLevel");
+      resetDirtyField("supervisoryPosition");
+      resetDirtyField("supervisedEmployees");
+      resetDirtyField("supervisedEmployeesNumber");
+      resetDirtyField("budgetManagement");
+      resetDirtyField("annualBudgetAllocation");
+      resetDirtyField("seniorManagementStatus");
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
 
       // caf fields
       resetDirtyField("cafEmploymentType");
