@@ -19,7 +19,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import StatusItem from "~/components/StatusItem/StatusItem";
+import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 import {
   hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
   hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
@@ -150,6 +150,16 @@ const EmployeeProfile = ({
     user.employeeProfile,
   );
 
+  let overallStatus: Status = "success";
+  if (
+    careerDevelopmentHasEmptyRequiredFields(careerDevelopment) ||
+    nextRoleHasEmptyRequiredFields(nextRole) ||
+    careerObjectiveHasEmptyRequiredFields(careerObjective) ||
+    goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+  ) {
+    overallStatus = "error";
+  }
+
   return (
     <>
       <SEO title={pageTitle} description={subtitle} />
@@ -165,7 +175,7 @@ const EmployeeProfile = ({
                 <StatusItem
                   asListItem={false}
                   title={intl.formatMessage(commonMessages.careerPlanning)}
-                  status="success"
+                  status={overallStatus}
                   scrollTo={SECTION_ID.CAREER_PLANNING}
                 />
                 <TableOfContents.List
@@ -177,12 +187,14 @@ const EmployeeProfile = ({
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
                       status={
-                        careerDevelopmentHasAllEmptyFields(careerDevelopment)
-                          ? "optional"
-                          : careerDevelopmentHasEmptyRequiredFields(
+                        careerDevelopmentHasEmptyRequiredFields(
+                          careerDevelopment,
+                        )
+                          ? "error"
+                          : careerDevelopmentHasAllEmptyFields(
                                 careerDevelopment,
                               )
-                            ? "error"
+                            ? "optional"
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
