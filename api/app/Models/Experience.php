@@ -292,6 +292,7 @@ class Experience extends Model
         if (isset($properties->$propertyName)) {
             return $properties->$propertyName;
         }
+
         return null;
     }
 
@@ -299,6 +300,7 @@ class Experience extends Model
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
         $properties->$propertyName = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
         return ['properties' => json_encode($properties)];
     }
 
@@ -316,6 +318,7 @@ class Experience extends Model
         if (isset($properties->$propertyName)) {
             return $properties->$propertyName;
         }
+
         return null;
     }
 
@@ -323,6 +326,7 @@ class Experience extends Model
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
         $properties->$propertyName = filter_var($value, FILTER_VALIDATE_INT);
+
         return ['properties' => json_encode($properties)];
     }
 
