@@ -397,12 +397,12 @@ class WorkExperience extends Experience
 
     protected function supervisoryPosition(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('supervisory_position');
+        return $this->makeJsonPropertyBooleanAttribute('supervisory_position');
     }
 
     protected function supervisedEmployees(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('supervised_employees');
+        return $this->makeJsonPropertyBooleanAttribute('supervised_employees');
     }
 
     protected function supervisedEmployeesNumber(): Attribute
@@ -412,7 +412,7 @@ class WorkExperience extends Experience
 
     protected function budgetManagement(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('budget_management');
+        return $this->makeJsonPropertyBooleanAttribute('budget_management');
     }
 
     protected function annualBudgetAllocation(): Attribute
@@ -422,7 +422,7 @@ class WorkExperience extends Experience
 
     protected function seniorManagementStatus(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('senior_management_status');
+        return $this->makeJsonPropertyBooleanAttribute('senior_management_status');
     }
 
     protected function cSuiteRoleTitle(): Attribute
