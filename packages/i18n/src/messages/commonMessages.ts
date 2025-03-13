@@ -400,6 +400,17 @@ const commonMessages = defineMessages({
     id: "fUAej4",
     description: "Expressed lack of interest",
   },
+  accountUpdateSuccessful: {
+    defaultMessage: "Account successfully updated.",
+    id: "g9J8/u",
+    description:
+      "Message displayed to user if account is updated successfully.",
+  },
+  accountUpdateFailed: {
+    defaultMessage: "Error: updating account failed.",
+    id: "cO535E",
+    description: "Message displayed to user if account fails to get updated.",
+  },
 });
 
 export default commonMessages;
