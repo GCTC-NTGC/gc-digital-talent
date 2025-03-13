@@ -947,6 +947,10 @@
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
   },
+  "cO535E": {
+    "defaultMessage": "Erreur : échec de la création du compte.",
+    "description": "Message displayed to user if account fails to get updated."
+  },
   "cP2cZ0": {
     "defaultMessage": "Défaire",
     "description": "Label for undoing an action in the rich text editor"
@@ -1066,6 +1070,10 @@
   "g6az2A": {
     "defaultMessage": "Candidats",
     "description": "Name of Candidates page"
+  },
+  "g9J8/u": {
+    "defaultMessage": "Compte mis à jour avec succès.",
+    "description": "Message displayed to user if account is updated successfully."
   },
   "gBoG9M": {
     "defaultMessage": "Profil et candidatures",
