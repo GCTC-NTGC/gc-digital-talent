@@ -203,7 +203,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationLevel");
     }
 
-    if (watchGovEmploymentType) {
+    if (
+      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
+    ) {
       resetDirtyField("govPositionType");
     }
 
