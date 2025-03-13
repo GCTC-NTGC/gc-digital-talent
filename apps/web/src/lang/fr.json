@@ -7706,10 +7706,6 @@
     "defaultMessage": "Ce ne sont pas toutes les étapes de l’évaluation qui ont été sauvegardées.",
     "description": "Error message displayed after all some steps were not changed"
   },
-  "cO535E": {
-    "defaultMessage": "Erreur : échec de la mise à jour du compte.",
-    "description": "Message displayed to user if account fails to get updated."
-  },
   "cP9CaK": {
     "defaultMessage": "Établir un lien entre une expérience et {skillName}",
     "description": "Instructional text for connecting an experience with a skill"
@@ -8545,10 +8541,6 @@
   "g8Ur9z": {
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
-  },
-  "g9J8/u": {
-    "defaultMessage": "Compte mis à jour avec succès.",
-    "description": "Message displayed to user if account is updated successfully."
   },
   "gASASB": {
     "defaultMessage": "Description (anglais)",
