@@ -263,8 +263,8 @@ importers:
         specifier: workspace:*
         version: link:../env
       '@microsoft/applicationinsights-react-js':
-        specifier: ^17.3.5
-        version: 17.3.5(history@5.3.0)(react@18.3.1)(tslib@2.8.1)
+        specifier: ^17.3.6
+        version: 17.3.6(history@5.3.0)(react@18.3.1)(tslib@2.8.1)
       '@microsoft/applicationinsights-web':
         specifier: ^3.3.6
         version: 3.3.6(tslib@2.8.1)
@@ -2247,18 +2247,8 @@ packages:
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-common@3.3.5':
-    resolution: {integrity: sha512-zZgMOY3ePBhjTrZ8+MXwAb0Y+Yi4iVDKOqIaz/KoCmj1BxX5JKFgaqYiN8Tvu5O0YPJpEKS4coYXRHbStDm/Hw==}
-    peerDependencies:
-      tslib: '>= 1.0.0'
-
   '@microsoft/applicationinsights-common@3.3.6':
     resolution: {integrity: sha512-XuqWwbDSW7DuagcUy9Op7UFZeAyjU9RWuIQppxlTGrITa7PF5QmsyvjCiSsBRy7vMt/q42qnmOYoHwhL7KoyOQ==}
-    peerDependencies:
-      tslib: '>= 1.0.0'
-
-  '@microsoft/applicationinsights-core-js@3.3.5':
-    resolution: {integrity: sha512-8Gg18W5eOE3usXtkZ5iOqWAMU97hyjb7Oi1CtkWmxEoMUHMlQmqUD62n9BmVq/s5YfbUihGZHxc0keMJy0txAA==}
     peerDependencies:
       tslib: '>= 1.0.0'
 
@@ -2277,8 +2267,8 @@ packages:
     peerDependencies:
       tslib: '>= 1.0.0'
 
-  '@microsoft/applicationinsights-react-js@17.3.5':
-    resolution: {integrity: sha512-Du5KXN9CWBr4tAC/H8ShcAZmaxZ9wzM6CmWgH1FCaxTHnBFb6Pu21JJHwwgku+iqkmKMlqfV0qOeOzJn6FB3DQ==}
+  '@microsoft/applicationinsights-react-js@17.3.6':
+    resolution: {integrity: sha512-liy+pYmZ1aq4lPsKiX+/FiVX6FkOnV3DA4blY+s5a2htp3EmPyj7uytVCLJJ8xRT8xDIuaMdFnyMUT8NjDhxdA==}
     peerDependencies:
       history: '>= 4.10.1'
       react: '>= 17.0.1'
@@ -2297,9 +2287,6 @@ packages:
 
   '@nevware21/ts-async@0.5.4':
     resolution: {integrity: sha512-IBTyj29GwGlxfzXw2NPnzty+w0Adx61Eze1/lknH/XIVdxtF9UnOpk76tnrHXWa6j84a1RR9hsOcHQPFv9qJjA==}
-
-  '@nevware21/ts-utils@0.11.6':
-    resolution: {integrity: sha512-OUUJTh3fnaUSzg9DEHgv3d7jC+DnPL65mIO7RaR+jWve7+MmcgIvF79gY97DPQ4frH+IpNR78YAYd/dW4gK3kg==}
 
   '@nevware21/ts-utils@0.11.8':
     resolution: {integrity: sha512-62Y1mHgSu99IK4BRKC3sxdj/uIBHy6SDof3WUd29jom2HQy8sGCUdbYtFwMOkbUS6rahkL11Eg/ImtwsQsCnyw==}
@@ -9254,27 +9241,11 @@ snapshots:
       '@nevware21/ts-utils': 0.11.8
       tslib: 2.8.1
 
-  '@microsoft/applicationinsights-common@3.3.5(tslib@2.8.1)':
-    dependencies:
-      '@microsoft/applicationinsights-core-js': 3.3.5(tslib@2.8.1)
-      '@microsoft/applicationinsights-shims': 3.0.1
-      '@microsoft/dynamicproto-js': 2.0.3
-      '@nevware21/ts-utils': 0.11.8
-      tslib: 2.8.1
-
   '@microsoft/applicationinsights-common@3.3.6(tslib@2.8.1)':
     dependencies:
       '@microsoft/applicationinsights-core-js': 3.3.6(tslib@2.8.1)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
-      '@nevware21/ts-utils': 0.11.8
-      tslib: 2.8.1
-
-  '@microsoft/applicationinsights-core-js@3.3.5(tslib@2.8.1)':
-    dependencies:
-      '@microsoft/applicationinsights-shims': 3.0.1
-      '@microsoft/dynamicproto-js': 2.0.3
-      '@nevware21/ts-async': 0.5.4
       '@nevware21/ts-utils': 0.11.8
       tslib: 2.8.1
 
@@ -9305,13 +9276,13 @@ snapshots:
       '@nevware21/ts-utils': 0.11.8
       tslib: 2.8.1
 
-  '@microsoft/applicationinsights-react-js@17.3.5(history@5.3.0)(react@18.3.1)(tslib@2.8.1)':
+  '@microsoft/applicationinsights-react-js@17.3.6(history@5.3.0)(react@18.3.1)(tslib@2.8.1)':
     dependencies:
-      '@microsoft/applicationinsights-common': 3.3.5(tslib@2.8.1)
-      '@microsoft/applicationinsights-core-js': 3.3.5(tslib@2.8.1)
+      '@microsoft/applicationinsights-common': 3.3.6(tslib@2.8.1)
+      '@microsoft/applicationinsights-core-js': 3.3.6(tslib@2.8.1)
       '@microsoft/applicationinsights-shims': 3.0.1
       '@microsoft/dynamicproto-js': 2.0.3
-      '@nevware21/ts-utils': 0.11.6
+      '@nevware21/ts-utils': 0.11.8
       history: 5.3.0
       react: 18.3.1
       tslib: 2.8.1
@@ -9342,8 +9313,6 @@ snapshots:
   '@nevware21/ts-async@0.5.4':
     dependencies:
       '@nevware21/ts-utils': 0.11.8
-
-  '@nevware21/ts-utils@0.11.6': {}
 
   '@nevware21/ts-utils@0.11.8': {}
 
