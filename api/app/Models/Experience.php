@@ -286,6 +286,31 @@ class Experience extends Model
         );
     }
 
+    protected static function getJsonPropertyBoolean(array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName)) {
+            return $properties->$propertyName;
+        }
+        return null;
+    }
+
+    protected static function setJsonPropertyBoolean(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        $properties->$propertyName = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        return ['properties' => json_encode($properties)];
+    }
+
+    protected function makeJsonPropertyBooleanAttribute(string $propertyName): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyBoolean($attributes, $propertyName),
+            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyBoolean($value, $attributes, $propertyName)
+        );
+    }
+
+
     protected static function getJsonPropertyArray(array $attributes, string $propertyName)
     {
 
