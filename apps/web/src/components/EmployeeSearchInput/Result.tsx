@@ -1,34 +1,20 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
-
-const EmployeeSearchResult_Fragment = graphql(/* GraphQL */ `
-  fragment EmployeeSearchResult on BasicGovEmployeeProfile {
-    firstName
-    lastName
-    role
-    department {
-      name {
-        localized
-      }
-    }
-  }
-`);
+import { EmployeeSearchResult } from "./types";
 
 interface ResultProps {
-  resultQuery?: FragmentType<typeof EmployeeSearchResult_Fragment>;
+  employee: EmployeeSearchResult;
   id: string;
 }
 
-const Result = ({ resultQuery, id }: ResultProps) => {
+const Result = ({ employee, id }: ResultProps) => {
   const intl = useIntl();
-  const employee = getFragment(EmployeeSearchResult_Fragment, resultQuery);
 
   if (!employee) return null;
 
@@ -78,7 +64,7 @@ const Result = ({ resultQuery, id }: ResultProps) => {
           description: "Label for an employees department",
         })}
       >
-        {employee.department?.name.localized ?? notProvided}
+        {employee.department ?? notProvided}
       </FieldDisplay>
     </div>
   );

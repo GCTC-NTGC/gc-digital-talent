@@ -11,7 +11,7 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 import EmployeeSearchInput, {
   EmployeeSearchInputProps,
 } from "./EmployeeSearchInput";
-import { EmployeeSearchDefaultValue_Fragment } from "./ControlledInput";
+import { EmployeeSearchResult_Fragment, fragmentToEmployee } from "./utils";
 
 faker.seed(0);
 
@@ -109,9 +109,11 @@ export const NotGovernmentEmail: Story = {
 export const WithDefaultValue: Story = {
   args: {
     defaultValue: users[0].id,
-    employeeQuery: makeFragmentData(
-      { ...users[0], __typename: "BasicGovEmployeeProfile" },
-      EmployeeSearchDefaultValue_Fragment,
+    employee: fragmentToEmployee(
+      makeFragmentData(
+        { ...users[0], __typename: "BasicGovEmployeeProfile" },
+        EmployeeSearchResult_Fragment,
+      ),
     ),
   },
   parameters: {

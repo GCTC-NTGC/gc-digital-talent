@@ -68,7 +68,7 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 
 interface ErrorProps {
   email?: string;
-  error?: CombinedError;
+  error?: CombinedError | null;
   isNullResponse?: boolean;
   messages?: Partial<ErrorMessages>;
 }

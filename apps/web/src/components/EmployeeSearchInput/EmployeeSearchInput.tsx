@@ -7,9 +7,10 @@ import {
   useFieldState,
 } from "@gc-digital-talent/forms";
 import { HydrogenAttributes } from "@gc-digital-talent/ui";
+import { Maybe } from "@gc-digital-talent/graphql";
 
-import ControlledInput, { DefaultValueFragmentType } from "./ControlledInput";
-import { ErrorMessages } from "./types";
+import ControlledInput from "./ControlledInput";
+import { EmployeeSearchResult, ErrorMessages } from "./types";
 export type { ErrorMessages } from "./types";
 
 interface WrapperProps
@@ -22,7 +23,7 @@ export interface EmployeeSearchInputProps
   buttonLabel?: string;
   wrapperProps?: WrapperProps;
   errorMessages?: Partial<ErrorMessages>;
-  employeeQuery?: DefaultValueFragmentType;
+  employee?: Maybe<EmployeeSearchResult>;
 }
 
 const EmployeeSearchInput = ({
@@ -33,7 +34,7 @@ const EmployeeSearchInput = ({
   buttonLabel,
   wrapperProps,
   errorMessages,
-  employeeQuery,
+  employee,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
@@ -56,7 +57,7 @@ const EmployeeSearchInput = ({
             fieldState={fieldState}
             buttonLabel={buttonLabel}
             errorMessages={errorMessages}
-            employeeQuery={employeeQuery}
+            defaultEmployee={employee}
             inputProps={{
               id,
               "aria-labelledby": `${labelId}${

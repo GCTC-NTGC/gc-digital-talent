@@ -1,17 +1,10 @@
-import {
-  ChangeEventHandler,
-  KeyboardEventHandler,
-  useEffect,
-  useId,
-  useState,
-} from "react";
+import { ChangeEventHandler, KeyboardEvent, useId, useState } from "react";
 import {
   ControllerRenderProps,
   FieldValues,
-  useFormContext,
   UseFormStateReturn,
 } from "react-hook-form";
-import { useQuery } from "urql";
+import { CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 
@@ -20,32 +13,20 @@ import {
   useCommonInputStyles,
   useInputDescribedBy,
 } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql, Maybe } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import Result from "./Result";
 import ErrorMessage from "./Error";
-import { getDefaultValue, getErrors } from "./utils";
-import { ErrorMessages } from "./types";
+import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
+import { EmployeeSearchResult, ErrorMessages } from "./types";
 
-export const EmployeeSearchDefaultValue_Fragment = graphql(/* GraphQL */ `
-  fragment EmployeeSearchDefaultValue on BasicGovEmployeeProfile {
-    id
-    workEmail
-    ...EmployeeSearchResult
-  }
-`);
-
-export type DefaultValueFragmentType = FragmentType<
-  typeof EmployeeSearchDefaultValue_Fragment
->;
+export { fragmentToEmployee };
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
     govEmployeeProfile(workEmail: $workEmail) {
-      id
       ...EmployeeSearchResult
     }
   }
@@ -60,44 +41,49 @@ interface ControlledInputProps {
   buttonLabel?: string;
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
-  employeeQuery?: DefaultValueFragmentType;
+  defaultEmployee?: Maybe<EmployeeSearchResult>;
 }
 
 const ControlledInput = ({
   field: { onChange, name },
-  formState: { defaultValues, errors },
+  formState: { defaultValues, errors: formErrors },
   inputProps,
   buttonLabel,
   describedBy,
   errorMessages,
-  employeeQuery,
+  defaultEmployee,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
+  const client = useClient();
   const inputStyles = useCommonInputStyles();
-  const { setError } = useFormContext();
   const defaultValue = getDefaultValue(defaultValues, name);
-  const inputErrors = getErrors(errors, name);
-  const maybeEmployee = getFragment(
-    EmployeeSearchDefaultValue_Fragment,
-    employeeQuery,
-  );
-  const defaultEmployee =
-    defaultValue && maybeEmployee?.id === defaultValue
-      ? maybeEmployee
-      : undefined;
-
+  const inputErrors = getErrors(formErrors, name);
   const [query, setQuery] = useState<string>(defaultEmployee?.workEmail ?? "");
   const [currentQuery, setCurrentQuery] = useState<string>(
     defaultEmployee?.workEmail ?? "",
   );
-  const [{ data, fetching, error }, executeQuery] = useQuery({
-    query: EmployeeSearch_Query,
-    pause: true,
-    variables: {
-      workEmail: query,
-    },
-  });
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [error, setError] = useState<CombinedError | null>(null);
+  const [employee, setEmployee] = useState<EmployeeSearchResult | null>(
+    defaultValue && defaultEmployee?.id === defaultValue
+      ? defaultEmployee
+      : null,
+  );
+
+  const fetchEmployee = async () => {
+    if (!query) return;
+
+    setFetching(true);
+    const res = await client
+      .query(EmployeeSearch_Query, { workEmail: query })
+      .toPromise();
+    setError(res.error ?? null);
+    const employeeResult = fragmentToEmployee(res.data?.govEmployeeProfile);
+    setEmployee(employeeResult);
+    onChange(employeeResult?.id ?? null);
+    setFetching(false);
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
@@ -106,42 +92,21 @@ const ControlledInput = ({
     return false;
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     setCurrentQuery(query);
-    if (query && !workEmailDomainRegex.test(query)) {
-      setError(name, {
-        type: "isGovEmail",
-      });
-      return;
-    }
-    executeQuery();
+    await fetchEmployee();
   };
 
-  const handleKeyDown: KeyboardEventHandler = (e) => {
+  const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query) {
       e.preventDefault();
       e.stopPropagation();
-      handleSearch();
+      await handleSearch();
     }
   };
 
-  let resultQuery;
-  if (data?.govEmployeeProfile) {
-    resultQuery = data?.govEmployeeProfile;
-  } else if (defaultEmployee) {
-    resultQuery = defaultEmployee;
-  }
-  const employeeId = data?.govEmployeeProfile?.id;
-
-  useEffect(() => {
-    onChange(employeeId ?? defaultEmployee?.id);
-    // Note: Only update when employee ID changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [employeeId]);
-
-  const isNullResponse = data?.govEmployeeProfile === null;
-  const hasErrors =
-    !!error || (inputErrors && inputErrors?.length > 0) || isNullResponse;
+  const isNullResponse = employee === null;
+  const hasErrors = !!error || (inputErrors && inputErrors.length > 0);
   const showContext = !fetching && !hasErrors;
 
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
@@ -212,7 +177,7 @@ const ControlledInput = ({
         data-h2-position="base(relative)"
         data-h2-z-index="base(1)"
       >
-        {showContext && typeof data === "undefined" && (
+        {showContext && !employee && (
           <p data-h2-text-align="base(center)" id={descriptionIds.context}>
             {intl.formatMessage({
               defaultMessage:
@@ -227,8 +192,8 @@ const ControlledInput = ({
             {intl.formatMessage(commonMessages.searching)}
           </p>
         )}
-        {!fetching && resultQuery && !hasErrors && (
-          <Result resultQuery={resultQuery} id={descriptionIds.context} />
+        {!fetching && employee && !hasErrors && (
+          <Result employee={employee} id={descriptionIds.context} />
         )}
         {!fetching && hasErrors && (
           <ErrorMessage
