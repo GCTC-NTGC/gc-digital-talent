@@ -30,7 +30,7 @@ const Actions = () => {
       >
         {prev && (
           <Link
-            href={`${paths.talentNomiation(id)}?step=${prev}`}
+            href={`${paths.talentNomination(id)}?step=${prev}`}
             mode="inline"
             color="secondary"
             icon={ChevronDoubleLeftIcon}

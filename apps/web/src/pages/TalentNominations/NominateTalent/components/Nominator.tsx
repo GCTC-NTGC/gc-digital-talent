@@ -60,7 +60,7 @@ const Nominator = ({ nominatorQuery }: NominatorProps) => {
         {intl.formatMessage({
           defaultMessage:
             "Let’s get started by learning a little about the nominator.",
-          id: "Mu3Hq4",
+          id: "oglvAY",
           description: "Subtitle for nomination nominator step",
         })}
       </p>

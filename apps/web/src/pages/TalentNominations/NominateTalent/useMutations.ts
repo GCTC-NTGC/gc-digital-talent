@@ -69,7 +69,7 @@ const useMutations = (): UseMutationsReturn => {
 
         if (res.data?.updateTalentNomination) {
           if (next && intent === "next-step") {
-            await navigate(`${paths.talentNomiation(id)}?step=${next}`);
+            await navigate(`${paths.talentNomination(id)}?step=${next}`);
           }
 
           if (intent === "save-draft") {

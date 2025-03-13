@@ -119,7 +119,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
     <Stepper
       label={intl.formatMessage({
         defaultMessage: "Nomination steps",
-        id: "stz9hq",
+        id: "QTm+/n",
         description: "Label for the talent nomination stepper navigation",
       })}
       subTitle={

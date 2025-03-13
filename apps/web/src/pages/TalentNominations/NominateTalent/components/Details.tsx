@@ -59,7 +59,7 @@ const Details = ({ detailsQuery }: DetailsProps) => {
         {intl.formatMessage({
           defaultMessage:
             "Now, we'll look at the details of the nomination you'd like to submit.",
-          id: "ZWIfBh",
+          id: "z7m8Nt",
           description: "Subtitle for nomination details step",
         })}
       </p>

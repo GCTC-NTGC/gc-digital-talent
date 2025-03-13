@@ -72,7 +72,7 @@ const NominateTalentPage = () => {
   useEffect(() => {
     if (!current && !isSubmitted) {
       void navigate(
-        `${paths.talentNomiation(id)}?step=${TalentNominationStep.Instructions}`,
+        `${paths.talentNomination(id)}?step=${TalentNominationStep.Instructions}`,
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +94,7 @@ const NominateTalentPage = () => {
           id: "3IwZ47",
           description: "Link text for the form to nominate talent",
         }),
-        url: paths.talentNomiation(id),
+        url: paths.talentNomination(id),
       },
     ],
   });
@@ -102,7 +102,7 @@ const NominateTalentPage = () => {
   const pageTitle = intl.formatMessage(
     {
       defaultMessage: "Nominate talent for {eventName}",
-      id: "7fY684",
+      id: "yKRyJw",
       description: "Page title for the form to nominate talent",
     },
     {
