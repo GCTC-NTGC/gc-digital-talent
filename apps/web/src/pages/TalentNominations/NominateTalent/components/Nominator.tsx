@@ -61,7 +61,7 @@ const Nominator = ({ nominatorQuery }: NominatorProps) => {
           defaultMessage:
             "Let’s get started by learning a little about the nominator.",
           id: "Mu3Hq4",
-          description: "Subtitle for nomiation nominator step",
+          description: "Subtitle for nomination nominator step",
         })}
       </p>
     </UpdateForm>

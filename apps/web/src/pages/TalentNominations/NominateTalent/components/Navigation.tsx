@@ -120,7 +120,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
       label={intl.formatMessage({
         defaultMessage: "Nomination steps",
         id: "stz9hq",
-        description: "Label for the talen nomination stepper navigation",
+        description: "Label for the talent nomination stepper navigation",
       })}
       subTitle={
         talentNomination.talentNominationEvent.closeDate ? (

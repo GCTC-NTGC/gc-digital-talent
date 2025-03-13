@@ -38,7 +38,7 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
   const { current } = useCurrentStep();
   // TO DO: Use in the form population
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const talentNomation = getFragment(
+  const talentNomination = getFragment(
     NominateTalentRationale_Fragment,
     rationaleQuery,
   );
@@ -61,7 +61,7 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
           defaultMessage:
             "The final step in the nomination process is to explain why this candidate is being nominated. If you've nominated an executive or equivalent level employee, please also provide the top 3 key leadership competencies demonstrated by the nominee.",
           id: "jhOq6m",
-          description: "Subtitle for nomiation rationale step",
+          description: "Subtitle for nomination rationale step",
         })}
       </p>
     </UpdateForm>

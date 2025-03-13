@@ -60,7 +60,7 @@ const Details = ({ detailsQuery }: DetailsProps) => {
           defaultMessage:
             "Now, we'll look at the details of the nomination you'd like to submit.",
           id: "ZWIfBh",
-          description: "Subtitle for nomiation details step",
+          description: "Subtitle for nomination details step",
         })}
       </p>
     </UpdateForm>

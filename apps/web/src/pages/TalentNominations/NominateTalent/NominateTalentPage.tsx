@@ -103,7 +103,7 @@ const NominateTalentPage = () => {
     {
       defaultMessage: "Nominate talent for {eventName}",
       id: "7fY684",
-      description: "Page title for the form to nominate talen",
+      description: "Page title for the form to nominate talent",
     },
     {
       eventName:

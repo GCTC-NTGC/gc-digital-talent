@@ -349,7 +349,7 @@ const getRoutes = (lang: Locales) => {
 
     // Communities
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
-    talentNomiation: (nominationId: string) =>
+    talentNomination: (nominationId: string) =>
       `${communitiesUrl}/talent-nominations/${nominationId}`,
 
     // Comptrollership
