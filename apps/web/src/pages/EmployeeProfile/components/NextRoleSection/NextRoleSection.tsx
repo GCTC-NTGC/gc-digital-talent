@@ -17,14 +17,15 @@ import {
   graphql,
   FragmentType,
   getFragment,
-  EmployeeProfile,
   TargetRole,
+  CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   alphaSortOptions,
+  Checkbox,
   Checklist,
   Combobox,
   Input,
@@ -60,6 +61,12 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
       label {
         en
         fr
+      }
+    }
+    cSuiteRoleTitles: localizedEnumStrings(enumName: "CSuiteRoleTitle") {
+      value
+      label {
+        localized
       }
     }
     communities {
@@ -123,6 +130,13 @@ export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
       }
     }
     nextRoleAdditionalInformation
+    nextRoleIsCSuiteRole
+    nextRoleCSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
   }
 `);
 
@@ -148,6 +162,8 @@ interface FormValues {
   workStreamIds: string[] | null | undefined;
   departmentIds: string[] | null | undefined;
   additionalInformation: string | null | undefined;
+  isCSuiteRole: boolean;
+  cSuiteRoleTitle: string | null | undefined;
 }
 
 interface NextRoleSectionProps {
@@ -203,7 +219,9 @@ const NextRoleSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => {
+  const dataToFormValues = (
+    initialData: typeof employeeProfile,
+  ): FormValues => {
     // community and communityOther have a bespoke touch
     const isCommunityOther =
       !initialData.nextRoleCommunity?.id &&
@@ -226,6 +244,8 @@ const NextRoleSection = ({
         (department) => department.id,
       ),
       additionalInformation: initialData.nextRoleAdditionalInformation,
+      isCSuiteRole: !!initialData.nextRoleIsCSuiteRole,
+      cSuiteRoleTitle: initialData.nextRoleCSuiteRoleTitle?.value,
     };
   };
 
@@ -234,8 +254,17 @@ const NextRoleSection = ({
   });
 
   // hooks to watch, needed for conditional rendering
-  const [watchClassificationGroup, watchCommunityId, watchTargetRole] =
-    methods.watch(["classificationGroup", "communityId", "targetRole"]);
+  const [
+    watchClassificationGroup,
+    watchCommunityId,
+    watchTargetRole,
+    watchIsCSuiteRole,
+  ] = methods.watch([
+    "classificationGroup",
+    "communityId",
+    "targetRole",
+    "isCSuiteRole",
+  ]);
 
   /**
    * Reset fields in response to changes
@@ -262,11 +291,19 @@ const NextRoleSection = ({
         defaultValue: null,
       });
     }
+    // reset cSuiteRoleTitle when toggling watchIsCSuiteRole
+    if (watchIsCSuiteRole !== true) {
+      methods.resetField("cSuiteRoleTitle", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [
     watchTargetRole,
     methods,
     watchCommunityId,
     employeeProfile.nextRoleCommunity?.id,
+    watchIsCSuiteRole,
   ]);
 
   const { handleSubmit } = methods;
@@ -282,6 +319,8 @@ const NextRoleSection = ({
     workStreamIds,
     departmentIds,
     additionalInformation,
+    isCSuiteRole,
+    cSuiteRoleTitle,
   }: FormValues) => {
     // should not be possible
     if (!userAuthInfo?.id) {
@@ -324,6 +363,8 @@ const NextRoleSection = ({
           sync: departmentIds,
         },
         nextRoleAdditionalInformation: additionalInformation,
+        nextRoleIsCSuiteRole: isCSuiteRole,
+        nextRoleCSuiteRoleTitle: cSuiteRoleTitle as CSuiteRoleTitle,
       },
     })
       .then((result) => {
@@ -414,6 +455,13 @@ const NextRoleSection = ({
   departmentOptions.sort((a, b) =>
     (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
   );
+  const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
+    unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({
+      value: cSuiteRoleTitle.value,
+      label:
+        cSuiteRoleTitle?.label?.localized ??
+        intl.formatMessage(commonMessages.notProvided),
+    }));
 
   return (
     <ToggleSection.Root
@@ -548,6 +596,35 @@ const NextRoleSection = ({
                     disabled={fetching}
                   />
                 ) : null}
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={intl.formatMessage(
+                    employeeProfileMessages.seniorManagementStatus,
+                  )}
+                  id="isCSuiteRole"
+                  label={intl.formatMessage(
+                    employeeProfileMessages.isChiefDeputyCSuiteRole,
+                  )}
+                  name="isCSuiteRole"
+                />
+                {watchIsCSuiteRole && (
+                  <Select
+                    id="cSuiteRoleTitle"
+                    name="cSuiteRoleTitle"
+                    label={intl.formatMessage(
+                      employeeProfileMessages.cSuiteRoleTitle,
+                    )}
+                    nullSelection={intl.formatMessage(
+                      uiMessages.nullSelectionOption,
+                    )}
+                    options={cSuiteRoleTitleOptions}
+                    doNotSort
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    disabled={fetching}
+                  />
+                )}
                 <Input
                   id="jobTitle"
                   type="text"

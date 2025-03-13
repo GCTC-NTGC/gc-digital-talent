@@ -11,6 +11,8 @@ type EmployeeProfileCareerObjectiveFragment = Pick<
   | "careerObjectiveWorkStreams"
   | "careerObjectiveDepartments"
   | "careerObjectiveAdditionalInformation"
+  | "careerObjectiveIsCSuiteRole"
+  | "careerObjectiveCSuiteRoleTitle"
 >;
 
 export function hasAllEmptyFields({
@@ -23,6 +25,8 @@ export function hasAllEmptyFields({
   careerObjectiveWorkStreams,
   careerObjectiveDepartments,
   careerObjectiveAdditionalInformation,
+  careerObjectiveIsCSuiteRole,
+  careerObjectiveCSuiteRoleTitle,
 }: EmployeeProfileCareerObjectiveFragment): boolean {
   return (
     !careerObjectiveClassification &&
@@ -33,7 +37,10 @@ export function hasAllEmptyFields({
     !careerObjectiveCommunityOther &&
     !(careerObjectiveWorkStreams?.length ?? 0 > 0) &&
     !(careerObjectiveDepartments?.length ?? 0 > 0) &&
-    !careerObjectiveAdditionalInformation
+    !careerObjectiveAdditionalInformation &&
+    (careerObjectiveIsCSuiteRole === undefined ||
+      careerObjectiveIsCSuiteRole === null) &&
+    !careerObjectiveCSuiteRoleTitle
   );
 }
 
@@ -46,6 +53,8 @@ export function hasAnyEmptyFields({
   careerObjectiveWorkStreams,
   careerObjectiveDepartments,
   careerObjectiveAdditionalInformation,
+  careerObjectiveIsCSuiteRole,
+  careerObjectiveCSuiteRoleTitle,
 }: EmployeeProfileCareerObjectiveFragment): boolean {
   return (
     !careerObjectiveClassification ||
@@ -55,7 +64,8 @@ export function hasAnyEmptyFields({
     ((careerObjectiveCommunity?.workStreams?.length ?? 0 > 0) &&
       !(careerObjectiveWorkStreams?.length ?? 0 > 0)) ||
     !(careerObjectiveDepartments?.length ?? 0 > 0) ||
-    !careerObjectiveAdditionalInformation
+    !careerObjectiveAdditionalInformation ||
+    (!!careerObjectiveIsCSuiteRole && !careerObjectiveCSuiteRoleTitle)
   );
 }
 
