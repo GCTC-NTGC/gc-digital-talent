@@ -407,7 +407,7 @@ class WorkExperience extends Experience
 
     protected function supervisedEmployeesNumber(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('supervised_employees_number');
+        return $this->makeJsonPropertyNumberAttribute('supervised_employees_number');
     }
 
     protected function budgetManagement(): Attribute
@@ -417,7 +417,7 @@ class WorkExperience extends Experience
 
     protected function annualBudgetAllocation(): Attribute
     {
-        return $this->makeJsonPropertyStringAttribute('annual_budget_allocation');
+        return $this->makeJsonPropertyNumberAttribute('annual_budget_allocation');
     }
 
     protected function seniorManagementStatus(): Attribute
