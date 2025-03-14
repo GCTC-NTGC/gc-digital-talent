@@ -76,13 +76,11 @@ const OffPlatformProcessesDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="primary" mode="inline">
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "Edit off-platform process information",
-              id: "g17mQL",
-              description: "Button to open dialog to edit information",
-            })}
-          </span>
+          {intl.formatMessage({
+            defaultMessage: "Edit off-platform process information",
+            id: "g17mQL",
+            description: "Button to open dialog to edit information",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
