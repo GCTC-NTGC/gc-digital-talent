@@ -18,9 +18,8 @@ final class CreateCommunityInterestInputValidator extends Validator
      */
     public function rules(): array
     {
-        $community = Community::find($this->arg('community.connect'))
-            ->with('workStreams')
-            ->with('developmentPrograms');
+        $communityId = $this->arg('community.connect');
+        $community = Community::with(['workStreams', 'developmentPrograms'])->find($communityId);
         $workStreamIds = $community->workStreams->pluck('id')->toArray() ?? [];
         $developmentProgramIds = $community->developmentPrograms->pluck('id')->toArray() ?? [];
 

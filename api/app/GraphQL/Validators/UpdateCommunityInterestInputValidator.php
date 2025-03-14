@@ -4,7 +4,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
-use App\Models\Community;
+use App\Models\CommunityInterest;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -18,9 +18,9 @@ final class UpdateCommunityInterestInputValidator extends Validator
      */
     public function rules(): array
     {
-        $community = Community::find($this->arg('id'))
-            ->with('workStreams')
-            ->with('developmentPrograms');
+        $communityInterestId = $this->arg('id');
+        $communityInterest = CommunityInterest::with(['community', 'community.workStreams', 'community.developmentPrograms'])->find($communityInterestId);
+        $community = $communityInterest->community;
         $workStreamIds = $community->workStreams->pluck('id')->toArray() ?? [];
         $developmentProgramIds = $community->developmentPrograms->pluck('id')->toArray() ?? [];
 

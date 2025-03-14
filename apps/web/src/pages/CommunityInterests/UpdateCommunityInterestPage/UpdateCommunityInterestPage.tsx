@@ -160,7 +160,10 @@ const UpdateCommunityInterestForm = ({
                 </>
               ) : null}
               <CardFormSeparator />
-              <AdditionalInformation formDisabled={formDisabled} />
+              <AdditionalInformation
+                optionsQuery={formOptions}
+                formDisabled={formDisabled}
+              />
               <CardFormSeparator />
               <ReviewAndSubmit formDisabled={formDisabled} />
             </div>
