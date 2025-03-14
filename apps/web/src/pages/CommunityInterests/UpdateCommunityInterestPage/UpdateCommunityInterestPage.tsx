@@ -42,6 +42,7 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment UpdateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
+    ...AdditionalInformationOptions_Fragment
 
     communities {
       id

@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'CHIEF_SECURITY_OFFICER' => 'Chief Security Officer (CSO)',
-    'CHIEF_INFORMATION_OFFICER' => 'Chief Information Officer (CIO)',
-    'HEAD_OF_HUMAN_RESOURCES' => 'Head of Human Resources (HHR)',
-    'HEAD_OF_PROCUREMENT' => 'Head of Procurement',
-    'OTHER' => 'Other senior delegated official (SDO) position',
+    'chief_security_officer' => 'Chief Security Officer (CSO)',
+    'chief_information_officer' => 'Chief Information Officer (CIO)',
+    'head_of_human_resources' => 'Head of Human Resources (HHR)',
+    'head_of_procurement' => 'Head of Procurement',
+    'other' => 'Other senior delegated official (SDO) position',
 
 ];
