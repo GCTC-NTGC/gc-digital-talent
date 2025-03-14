@@ -7,6 +7,7 @@ import {
 import { CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
+import { isNull } from "lodash";
 
 import {
   FieldState,
@@ -72,11 +73,24 @@ const ControlledInput = ({
       : null,
   );
 
+  const updateState = (
+    result?: EmployeeSearchResult | null,
+    err?: CombinedError | string[] | null,
+  ) => {
+    setError(err ?? null);
+    setEmployee(result ?? null);
+    onChange(result?.id ?? null);
+    setFetching(false);
+  };
+
   const fetchEmployee = async () => {
-    if (!query) return;
+    if (!query) {
+      updateState(null);
+      return;
+    }
 
     if (!workEmailDomainRegex.test(query)) {
-      setError(["NotGovernmentEmail"]);
+      updateState(null, ["NotGovernmentEmail"]);
       return;
     }
 
@@ -84,11 +98,14 @@ const ControlledInput = ({
     const res = await client
       .query(EmployeeSearch_Query, { workEmail: query })
       .toPromise();
-    setError(res.error ?? null);
+
+    if (!res.data?.govEmployeeProfile) {
+      updateState(null, res.error ?? ["NoProfile"]);
+      return;
+    }
+
     const employeeResult = fragmentToEmployee(res.data?.govEmployeeProfile);
-    setEmployee(employeeResult);
-    onChange(employeeResult?.id ?? null);
-    setFetching(false);
+    updateState(employeeResult, null);
   };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -111,9 +128,8 @@ const ControlledInput = ({
     }
   };
 
-  const isNullResponse = employee === null && error === null;
   const hasErrors = !!error || (inputErrors && inputErrors.length > 0);
-  const showContext = !fetching && !hasErrors;
+  const showContext = !fetching && !hasErrors && query === "" && !employee;
 
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
@@ -183,7 +199,7 @@ const ControlledInput = ({
         data-h2-position="base(relative)"
         data-h2-z-index="base(1)"
       >
-        {showContext && !employee && (
+        {showContext && (
           <p data-h2-text-align="base(center)" id={descriptionIds.context}>
             {intl.formatMessage({
               defaultMessage:
@@ -205,7 +221,6 @@ const ControlledInput = ({
           <ErrorMessage
             email={currentQuery}
             error={error}
-            isNullResponse={isNullResponse}
             messages={errorMessages}
           />
         )}

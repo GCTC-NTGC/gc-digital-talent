@@ -69,30 +69,27 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 interface ErrorProps {
   email?: string;
   error?: CombinedError | string[] | null;
-  isNullResponse?: boolean;
   messages?: Partial<ErrorMessages>;
 }
 
-const Error = ({ email, error, isNullResponse, messages }: ErrorProps) => {
+const Error = ({ email, error, messages }: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
-  if (!error && !isNullResponse) return null;
+  if (!error) return null;
 
-  if (isNullResponse) {
-    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+  let errorCodes: string[] | undefined;
+  if (Array.isArray(error)) {
+    errorCodes = error;
+  } else {
+    errorCodes = extractValidationMessageKeys(error);
   }
 
-  if (error) {
-    let errorCodes: string[] | undefined;
-    if (Array.isArray(error)) {
-      errorCodes = error;
-    } else {
-      errorCodes = extractValidationMessageKeys(error);
-    }
+  if (errorCodes?.includes("NotGovernmentEmail")) {
+    return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
+  }
 
-    if (errorCodes?.includes("NotGovernmentEmail")) {
-      return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
-    }
+  if (errorCodes?.includes("NoProfile")) {
+    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
   }
 
   return null;
