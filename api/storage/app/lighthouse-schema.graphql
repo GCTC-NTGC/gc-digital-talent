@@ -138,6 +138,16 @@ type LocalizedFinalDecision {
   label: LocalizedString!
 }
 
+type LocalizedFinanceChiefDuty {
+  value: FinanceChiefDuty!
+  label: LocalizedString!
+}
+
+type LocalizedFinanceChiefRole {
+  value: FinanceChiefRole!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -698,6 +708,10 @@ type CommunityInterest {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+  financeIsChief: Boolean
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 type DevelopmentProgramInterest {
@@ -1745,6 +1759,10 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+  financeIsChief: Boolean
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 input UpdateCommunityInterestInput {
@@ -1754,6 +1772,10 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+  financeIsChief: Boolean
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -3135,6 +3157,24 @@ enum FinalDecision {
   REMOVED
   TO_ASSESS
   TO_ASSESS_REMOVED
+}
+
+enum FinanceChiefDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
+enum FinanceChiefRole {
+  CHIEF_SECURITY_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  HEAD_OF_HUMAN_RESOURCES
+  HEAD_OF_PROCUREMENT
+  OTHER
 }
 
 enum GenericJobTitleKey {
