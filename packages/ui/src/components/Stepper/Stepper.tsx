@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -36,6 +37,7 @@ const deriveStepState = (
 export interface StepperProps {
   currentIndex: number | undefined;
   headingLevel?: HeadingLevel;
+  subTitle?: ReactNode;
   label: string;
   steps: Maybe<StepType[]>;
 }
@@ -43,16 +45,19 @@ export interface StepperProps {
 const Stepper = ({
   currentIndex,
   headingLevel = "h2",
+  subTitle,
   label,
   steps,
 }: StepperProps) => {
   const intl = useIntl();
   let maxIndex: number | undefined;
   let index: number | undefined;
-  if (steps && currentIndex !== undefined) {
+  if (steps) {
     maxIndex = steps.length - 1;
-    index =
-      currentIndex > maxIndex || currentIndex < 0 ? undefined : currentIndex;
+    if (currentIndex !== undefined) {
+      index =
+        currentIndex > maxIndex || currentIndex < 0 ? undefined : currentIndex;
+    }
   }
 
   return (
@@ -70,6 +75,7 @@ const Stepper = ({
           })}
         </Heading>
       ) : null}
+      {subTitle}
       <ol
         data-h2-align-items="base(flex-start)"
         data-h2-display="base(flex)"

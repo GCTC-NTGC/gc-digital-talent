@@ -71,6 +71,18 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
                     ),
                 },
+                {
+                  path: "talent-nominations",
+                  children: [
+                    {
+                      path: ":id",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominateTalent/NominateTalentPage"
+                        ),
+                    },
+                  ],
+                },
               ],
             },
             {
