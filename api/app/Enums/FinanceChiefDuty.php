@@ -2,9 +2,13 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 // Additional duties that a CFO or DCFO may have
 enum FinanceChiefDuty
 {
+    use HasLocalization;
+
     case CORPORATE_COMMUNICATIONS;
     case FACILITIES_MANAGEMENT_AND_SECURITY;
     case HUMAN_RESOURCES;
