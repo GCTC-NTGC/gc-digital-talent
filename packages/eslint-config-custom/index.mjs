@@ -6,7 +6,7 @@ import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
 import turbo from "eslint-plugin-turbo";
 import testingLibrary from "eslint-plugin-testing-library";
 import noOnlyTests from "eslint-plugin-no-only-tests";
-import prettierConfig from "eslint-config-prettier";
+import prettierConfig from "eslint-config-prettier/flat";
 
 export default tseslint.config(
   eslint.configs.recommended,
