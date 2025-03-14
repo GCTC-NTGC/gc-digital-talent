@@ -23,7 +23,7 @@ export interface EmployeeSearchInputProps
   buttonLabel?: string;
   wrapperProps?: WrapperProps;
   errorMessages?: Partial<ErrorMessages>;
-  employee?: Maybe<EmployeeSearchResult>;
+  employeeOption?: Maybe<EmployeeSearchResult>;
 }
 
 const EmployeeSearchInput = ({
@@ -34,7 +34,7 @@ const EmployeeSearchInput = ({
   buttonLabel,
   wrapperProps,
   errorMessages,
-  employee,
+  employeeOption,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
@@ -57,7 +57,7 @@ const EmployeeSearchInput = ({
             fieldState={fieldState}
             buttonLabel={buttonLabel}
             errorMessages={errorMessages}
-            defaultEmployee={employee}
+            defaultEmployee={employeeOption}
             inputProps={{
               id,
               "aria-labelledby": `${labelId}${
