@@ -76,6 +76,20 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       participationStatus
       completionDate
     }
+    financeIsChief
+    financeAdditionalDuties {
+      value
+      label {
+        localized
+      }
+    }
+    financeOtherRoles {
+      value
+      label {
+        localized
+      }
+    }
+    financeOtherRolesOther
   }
 `);
 

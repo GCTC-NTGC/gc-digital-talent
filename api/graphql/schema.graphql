@@ -1720,9 +1720,9 @@ input CreateCommunityInterestInput @validator {
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeAdditionalDuties: [FinanceChiefDuty!]
     @rename(attribute: "finance_additional_duties")
-  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
 }
@@ -1737,9 +1737,9 @@ input UpdateCommunityInterestInput @validator {
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeAdditionalDuties: [FinanceChiefDuty!]
     @rename(attribute: "finance_additional_duties")
-  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
 }

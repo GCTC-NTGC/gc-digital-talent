@@ -1760,8 +1760,8 @@ input CreateCommunityInterestInput {
   additionalInformation: String
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
-  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeAdditionalDuties: [FinanceChiefDuty!]
+  financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
 }
 
@@ -1773,8 +1773,8 @@ input UpdateCommunityInterestInput {
   additionalInformation: String
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
-  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeAdditionalDuties: [FinanceChiefDuty!]
+  financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
 }
 
