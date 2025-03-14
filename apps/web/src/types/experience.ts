@@ -35,6 +35,7 @@ import {
   GovPositionType,
   GovContractorRoleSeniority,
   GovContractorType,
+  CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 
 export type ExperienceType =
@@ -116,6 +117,14 @@ export type WorkFormValues = FormValueDateRange & {
   cafRank?: CafRank | null;
   currentRole: boolean;
   workStreams?: string[];
+  supervisoryPosition?: boolean;
+  supervisedEmployees?: boolean;
+  supervisedEmployeesNumber?: string | null;
+  budgetManagement?: boolean;
+  annualBudgetAllocation?: string | null;
+  seniorManagementStatus?: boolean;
+  cSuiteRoleTitle?: CSuiteRoleTitle | null;
+  otherCSuiteRoleTitle?: string | null;
 };
 
 export type AllExperienceFormValues = AwardFormValues &
@@ -185,6 +194,14 @@ export interface ExperienceDetailsSubmissionData {
       | undefined;
   };
   workStreamIds?: string[];
+  supervisoryPosition?: boolean;
+  supervisedEmployees?: boolean;
+  supervisedEmployeesNumber?: string | null;
+  budgetManagement?: boolean;
+  annualBudgetAllocation?: string | null;
+  seniorManagementStatus?: boolean;
+  cSuiteRoleTitle?: CSuiteRoleTitle | null;
+  otherCSuiteRoleTitle?: string | null;
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &
@@ -256,4 +273,12 @@ export interface ExperienceDetailsDefaultValues {
   cafForce?: CafForce;
   cafRank?: CafRank;
   skills?: FormSkills;
+  supervisoryPosition?: boolean;
+  supervisedEmployees?: boolean;
+  supervisedEmployeesNumber?: string;
+  budgetManagement?: boolean;
+  annualBudgetAllocation?: string;
+  seniorManagementStatus?: boolean;
+  cSuiteRoleTitle?: CSuiteRoleTitle;
+  otherCSuiteRoleTitle?: string;
 }

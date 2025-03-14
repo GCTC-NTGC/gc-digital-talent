@@ -348,6 +348,19 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
               }
             }
           }
+          supervisoryPosition
+          supervisedEmployees
+          supervisedEmployeesNumber
+          budgetManagement
+          annualBudgetAllocation
+          seniorManagementStatus
+          cSuiteRoleTitle {
+            value
+            label {
+              localized
+            }
+          }
+          otherCSuiteRoleTitle
         }
       }
       workEmail
@@ -607,6 +620,19 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
             }
           }
         }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            localized
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     submittedSteps

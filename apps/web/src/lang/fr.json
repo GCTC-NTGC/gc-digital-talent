@@ -579,6 +579,10 @@
     "defaultMessage": "Date de fin prévue",
     "description": "Label displayed on an Experience form for expected end date input"
   },
+  "0vNb2/": {
+    "defaultMessage": "Nombre d'employées et employés",
+    "description": "Label for number of employees field"
+  },
   "0w59dG": {
     "defaultMessage": "Votre parcours professionnel",
     "description": "Heading for career timeline section of the application review page."
@@ -602,6 +606,10 @@
   "11/un8": {
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
+  },
+  "144l3L": {
+    "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
+    "description": "Label displayed for budget management"
   },
   "14ZYuD": {
     "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
@@ -1662,6 +1670,10 @@
   "6QrhJQ": {
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
+  },
+  "6RGluQ": {
+    "defaultMessage": "J'ai supervisé des employées et employés dans ce rôle.",
+    "description": "Label displayed for supervised employees"
   },
   "6Ru0Ha": {
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
@@ -4387,6 +4399,10 @@
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
   },
+  "KgG9BM": {
+    "defaultMessage": "Titre du rôle de cadre supérieur",
+    "description": "Label for c-suite role title field"
+  },
   "KghI8A": {
     "defaultMessage": "Postulez dès-maintenant",
     "description": "Link text to apply for a pool advertisement"
@@ -4851,6 +4867,10 @@
     "defaultMessage": "Vous pouvez contrôler les types de notifications que vous recevez de façon plus détaillée dans les paramètres de votre compte.",
     "description": "Message on getting started page about email notification consent."
   },
+  "N/1OYS": {
+    "defaultMessage": "Il s'agissait d'un poste de direction ou de supervision.",
+    "description": "Label displayed for supervisory position"
+  },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
@@ -5286,6 +5306,10 @@
   "PS/LFb": {
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
+  },
+  "PSIaKn": {
+    "defaultMessage": "Statut de direction ou de supervision",
+    "description": "Label for supervisory position field"
   },
   "PVo1xK": {
     "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
@@ -5983,6 +6007,10 @@
     "defaultMessage": "– Darcy Pierlot, dirigeant principal de l’information et sous-ministre adjoint, Immigration, Réfugiés et Citoyenneté Canada",
     "description": "Quote attribution for Quote from Darcy Pierlot about working with apprentices"
   },
+  "T5nYy9": {
+    "defaultMessage": "Supervision des employées et employés",
+    "description": "Label for employee supervision field"
+  },
   "T74kMc": {
     "defaultMessage": "Ressources",
     "description": "Nav menu trigger for resource links sub menu"
@@ -6198,6 +6226,10 @@
   "UA37iG": {
     "defaultMessage": "Commis C R 4",
     "description": "CR-04 classification aria label including titles"
+  },
+  "UAscG1": {
+    "defaultMessage": "Statut de cadre supérieur",
+    "description": "Label for senior management status field"
   },
   "UCt8ym": {
     "defaultMessage": "Votre prochain type de poste",
@@ -6978,6 +7010,10 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
+  "YNP0uJ": {
+    "defaultMessage": "Ce rôle ne nécessitait pas la gestion d’un budget dédié ou un pouvoir de signature délégué pour un budget.",
+    "description": "Label displayed for budget management false"
+  },
   "YNXjg7": {
     "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
     "description": "Button text to show the distribution of step statuses"
@@ -7154,6 +7190,10 @@
     "defaultMessage": "Canada.ca",
     "description": "Label for the Canada link in the Footer."
   },
+  "ZEmZm4": {
+    "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
+    "description": "Label for annual budget allocation field"
+  },
   "ZGpncy": {
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
@@ -7166,6 +7206,10 @@
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
   },
+  "ZLKng1": {
+    "defaultMessage": "Autre titre de cadre supérieur",
+    "description": "Label for other c-suite role title field"
+  },
   "ZLPqdF": {
     "defaultMessage": "Aucun prénom fourni",
     "description": "Fallback for first name value"
@@ -7177,6 +7221,10 @@
   "ZNne50": {
     "defaultMessage": "Enregistrez les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
+  },
+  "ZOKEiB": {
+    "defaultMessage": "Il s'agissait d’un rôle de dirigeant(e) ou d’adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Label displayed for senior management"
   },
   "ZP1qNK": {
     "defaultMessage": "Nous allons étiqueter les questions de manière à ce que vous sachiez comment vos réponses seront évaluées.",
@@ -7445,6 +7493,10 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
+  },
+  "ay7kkl": {
+    "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
+    "description": "Label displayed for supervised employees false"
   },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
@@ -8445,6 +8497,10 @@
   "fr8v1+": {
     "defaultMessage": "Collectivités",
     "description": "Title for the index communities page"
+  },
+  "fsTqku": {
+    "defaultMessage": "Il ne s'agissait pas d'un rôle de dirigeant(e) ou d'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Label displayed for senior management false"
   },
   "fsvf1L": {
     "defaultMessage": "La suppression du membre a échoué",
@@ -11234,6 +11290,10 @@
     "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
     "description": "Title for to remove community from experience"
   },
+  "uVtmGg": {
+    "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
+    "description": "Label for budget management field"
+  },
   "uWZgYM": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un volet de travail. Elle devrait être fondée sur le nom anglais du volet de travail et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the work streams 'key' field."
@@ -12177,6 +12237,10 @@
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
+  },
+  "zpIBVf": {
+    "defaultMessage": "Ce rôle n'était pas un poste de direction ou de supervision.",
+    "description": "Label displayed for supervisory position false"
   },
   "zpr5ny": {
     "defaultMessage": "Modifiez cette collectivité",

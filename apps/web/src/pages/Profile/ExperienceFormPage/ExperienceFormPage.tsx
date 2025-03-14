@@ -293,6 +293,19 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       workStreams {
         id
       }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
     }
   }
 `);
