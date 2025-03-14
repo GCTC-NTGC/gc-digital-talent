@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\FinanceChiefDuties;
+use App\Enums\FinanceChiefRoles;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\DevelopmentProgramInterest;
@@ -20,23 +22,28 @@ class CommunityInterestFactory extends Factory
      */
     public function definition(): array
     {
-
-        $user = User::inRandomOrder()->first();
-        if (! $user) {
-            $user = User::factory()->create();
-        }
-
-        $community = Community::inRandomOrder()->first();
-        if (! $community) {
-            $community = Community::factory()->withWorkStreams()->create();
-        }
-
         return [
-            'user_id' => $user,
-            'community_id' => $community,
+            'user_id' => User::inRandomOrder()->firstOr(
+                fn () => User::factory()->create()
+            )->id,
+            'community_id' => Community::inRandomOrder()->firstOr(
+                fn () => Community::factory()->withWorkStreams()->create()
+            )->id,
             'job_interest' => $this->faker->boolean(),
             'training_interest' => $this->faker->boolean(),
             'additional_information' => $this->faker->paragraph(),
+            'finance_is_chief' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'finance'
+                ? $this->faker->boolean()
+                : null,
+            'finance_additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
+                ? $this->faker->randomElements(array_column(FinanceChiefDuties::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefDuties::cases())))
+                : [],
+            'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true
+                ? $this->faker->randomElements(array_column(FinanceChiefRoles::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefRoles::cases())))
+                : [],
+            'finance_other_roles_other' => fn ($attributes) => in_array(FinanceChiefRoles::OTHER->name, $attributes['finance_other_roles'])
+                ? $this->faker->jobTitle()
+                : null,
         ];
     }
 
