@@ -103,7 +103,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
       if (!label) return null;
       const step = {
         label: intl.formatMessage(label),
-        href: `${paths.talentNomiation(id)}?step=${key}`,
+        href: `${paths.talentNomination(id)}?step=${key}`,
         completed: talentNomination.submittedSteps?.includes(key),
         disabled:
           prevSteps.length > 0
@@ -139,7 +139,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
                 date: parseDateTimeUtc(
                   talentNomination.talentNominationEvent.closeDate,
                 ),
-                formatString: "MMMM d, yyyy",
+                formatString: "PPP",
                 intl,
               })}
           </p>
