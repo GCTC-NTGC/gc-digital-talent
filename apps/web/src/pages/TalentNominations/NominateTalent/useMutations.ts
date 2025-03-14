@@ -105,7 +105,7 @@ const useMutations = (): UseMutationsReturn => {
         }
 
         if (res.data?.submitTalentNomination) {
-          await navigate(paths.talentNomiation(id));
+          await navigate(paths.talentNomination(id));
           return;
         }
 
