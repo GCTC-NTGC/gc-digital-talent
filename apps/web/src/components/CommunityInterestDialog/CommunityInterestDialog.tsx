@@ -222,24 +222,30 @@ const CommunityInterestDialog = ({
                 data-h2-list-style="base(none)"
                 data-h2-padding-left="base(0)"
               >
-                {communityDevelopmentPrograms.map((developmentProgram) => {
-                  const interestedProgram =
-                    communityInterest?.interestInDevelopmentPrograms?.find(
-                      (interest) =>
-                        interest?.developmentProgram?.id ===
-                        developmentProgram.id,
-                    );
+                {communityDevelopmentPrograms
+                  .sort((a, b) =>
+                    (a.name?.localized ?? "").localeCompare(
+                      b.name?.localized ?? "",
+                    ),
+                  )
+                  .map((developmentProgram) => {
+                    const interestedProgram =
+                      communityInterest?.interestInDevelopmentPrograms?.find(
+                        (interest) =>
+                          interest?.developmentProgram?.id ===
+                          developmentProgram.id,
+                      );
 
-                  return (
-                    <DevelopmentProgramInterestItem
-                      key={developmentProgram.id}
-                      developmentProgramInterestQuery={interestedProgram}
-                      label={
-                        developmentProgram?.name?.localized ?? notAvailable
-                      }
-                    />
-                  );
-                })}
+                    return (
+                      <DevelopmentProgramInterestItem
+                        key={developmentProgram.id}
+                        developmentProgramInterestQuery={interestedProgram}
+                        label={
+                          developmentProgram?.name?.localized ?? notAvailable
+                        }
+                      />
+                    );
+                  })}
               </ul>
             </>
           )}
