@@ -239,8 +239,9 @@ class UserFactory extends Factory
     {
         $lateralMoveInterestBool = $this->faker->boolean();
         $promotionMoveInterestBool = $this->faker->boolean();
+        $retirementYearKnownBool = $this->faker->boolean();
 
-        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool) {
+        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool, $retirementYearKnownBool) {
             $nextRoleCommunity = $this->faker->boolean(80) ?
                 Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
                 null;
@@ -301,6 +302,8 @@ class UserFactory extends Factory
                 'career_objective_community_id' => isset($careerObjectiveCommunity) ? $careerObjectiveCommunity->id : null,
                 'next_role_community_other' => ! isset($nextRoleCommunity) ? $this->faker->company() : null,
                 'career_objective_community_other' => ! isset($careerObjectiveCommunity) ? $this->faker->company() : null,
+                'eligible_retirement_year_known' => $retirementYearKnownBool,
+                'eligible_retirement_year' => $retirementYearKnownBool ? $this->faker->date(max: '+35 years') : null,
 
                 'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
                 'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,

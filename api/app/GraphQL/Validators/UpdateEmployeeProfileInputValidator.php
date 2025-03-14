@@ -8,6 +8,7 @@ use App\Enums\OrganizationTypeInterest;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Models\WorkStream;
+use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
@@ -25,6 +26,9 @@ final class UpdateEmployeeProfileInputValidator extends Validator
         // args->has doesn't work with dotted syntax
         $argsArr = $this->args->toArray();
 
+        $beginningOfYear = Carbon::now()->startOfYear();
+        $maxRetirementYear = Carbon::now()->addYears(35);
+
         $nextRoleCommunityId = $this->arg('nextRoleCommunity.connect');
         $careerObjectiveCommunityId = $this->arg('careerObjectiveCommunity.connect');
         $nextRoleAllWorkStreams = $nextRoleCommunityId ? WorkStream::where('community_id', $nextRoleCommunityId)->get('id')->pluck('id') : [];
@@ -40,6 +44,15 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'promotionMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+
+            'eligibleRetirementYearKnown' => ['nullable', 'boolean'],
+            'eligibleRetirementYear' => [
+                'nullable',
+                'date',
+                'required_if:eligibleRetirementYearKnown,true',
+                'after_or_equal:'.$beginningOfYear,
+                'before:'.$maxRetirementYear,
+            ],
 
             'mentorshipStatus.*' => [Rule::in(array_column(Mentorship::cases(), 'name'))],
             'mentorshipInterest' => ['nullable'],
