@@ -23,14 +23,41 @@ import Rationale from "./components/Rationale";
 import ReviewAndSubmit from "./components/ReviewAndSubmit";
 import Instructions from "./components/Instructions";
 import Navigation from "./components/Navigation";
-import useCurrentStep from "./useCurrentStep";
+import useCurrentStep, { stepOrder } from "./useCurrentStep";
 import Success from "./components/Success";
+
+const tryGetCurrentStep = (
+  isSubmitted: boolean,
+  current?: TalentNominationStep | null,
+  submittedSteps?: TalentNominationStep[] | null,
+): TalentNominationStep | null => {
+  if (isSubmitted || current) return null;
+
+  let lastSubmittedStep: number | undefined;
+  for (const step of stepOrder) {
+    if (!submittedSteps?.includes(step)) {
+      break;
+    }
+
+    // Add one to go to last non-submitted step
+    lastSubmittedStep = stepOrder.indexOf(step) + 1;
+  }
+
+  if (!lastSubmittedStep) return TalentNominationStep.Instructions;
+
+  if (lastSubmittedStep >= stepOrder.length) {
+    lastSubmittedStep = stepOrder.length - 1;
+  }
+
+  return stepOrder[lastSubmittedStep];
+};
 
 const NominateTalent_Query = graphql(/* GraphQL */ `
   query NominateTalent($id: UUID!) {
     talentNomination(id: $id) {
       id
       submittedAt
+      submittedSteps
       talentNominationEvent {
         name {
           localized
@@ -70,13 +97,18 @@ const NominateTalentPage = () => {
 
   // NOTE: If step is not set and nomination is not submitted, send them to the instructions page
   useEffect(() => {
-    if (!current && !isSubmitted) {
-      void navigate(
-        `${paths.talentNomination(id)}?step=${TalentNominationStep.Instructions}`,
+    if (!fetching) {
+      const targetStep = tryGetCurrentStep(
+        isSubmitted,
+        current,
+        data?.talentNomination?.submittedSteps,
       );
+      if (targetStep) {
+        void navigate(`${paths.talentNomination(id)}?step=${targetStep}`);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current, isSubmitted]);
+  }, [isSubmitted, fetching, current]);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
