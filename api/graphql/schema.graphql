@@ -118,6 +118,7 @@ type User {
 
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
+  govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]

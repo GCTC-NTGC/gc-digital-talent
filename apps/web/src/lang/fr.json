@@ -831,6 +831,10 @@
     "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
     "description": "Second item in list of eligibility requirements section"
   },
+  "2ExR2X": {
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement. »",
+    "description": "Message about the employee found for a search"
+  },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
@@ -5155,6 +5159,10 @@
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
     "description": "Learn more dialog question three paragraph one"
   },
+  "OcN4TN": {
+    "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés. Une fois que vous aurez soumis votre formulaire de mise en candidature, nous l'informerons par courriel.",
+    "description": "Description of default error message when an employee could not be found"
+  },
   "OdfEyd": {
     "defaultMessage": "Qualifié",
     "description": "Simplified status label for qualified recruitments"
@@ -7186,6 +7194,10 @@
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
+  "Z+n7lE": {
+    "defaultMessage": "Saisissez une adresse de courriel professionnelle et utilisez le bouton de recherche pour trouver un utilisateur.",
+    "description": "Instructions to search for a government employee"
+  },
   "Z0G1WA": {
     "defaultMessage": "Processus",
     "description": "Title for processes"
@@ -7969,6 +7981,10 @@
   "dImJqI": {
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
+  },
+  "dOw5u/": {
+    "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
+    "description": "Default error messsage when an employee could not be found"
   },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
@@ -8870,6 +8886,10 @@
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
     "description": "Describes the 'your impact' section of a process' advertisement."
   },
+  "hFm9sL": {
+    "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
+    "description": "Label for when an employee was found"
+  },
   "hGEhAB": {
     "defaultMessage": "Groupe",
     "description": "Label for classification group display"
@@ -9089,6 +9109,10 @@
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
+  },
+  "iIT3zx": {
+    "defaultMessage": "Il semble que l'adresse de courriel saisie ne soit pas une adresse de courriel valide du gouvernement du Canada. Veuillez vérifier que le courriel est correctement saisi, essayez une autre adresse de courriel professionnelle ou demandez de l'aide si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description of default message when an email is not a government of Canada email"
   },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
@@ -10186,6 +10210,10 @@
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
   },
+  "nym1M2": {
+    "defaultMessage": "Ministère ou organisme",
+    "description": "Label for an employees department"
+  },
   "nzF0AE": {
     "defaultMessage": "P",
     "description": "Short form code representing 'priority entitlement'"
@@ -10545,6 +10573,10 @@
   "peTSHR": {
     "defaultMessage": "Notes sur cette demande",
     "description": "Heading for the notes about this request section of the single search request view."
+  },
+  "pfwT4h": {
+    "defaultMessage": "Rechercher une adresse de courriel professionnelle",
+    "description": "Default button text to search for an employee by work email"
   },
   "pgQl5t": {
     "defaultMessage": "Expérience actuelle associée à cette compétence",
@@ -11193,6 +11225,10 @@
   "tlAiJm": {
     "defaultMessage": "La création de la candidature a échoué",
     "description": "Application creation failed"
+  },
+  "tmFU3R": {
+    "defaultMessage": "« {email} » n'est pas une adresse de courriel valide du gouvernement du Canada",
+    "description": "Label for when an employee was found"
   },
   "tmwk97": {
     "defaultMessage": "Les possibilités d'emploi au sein de cette collectivité m'intéressent.",
