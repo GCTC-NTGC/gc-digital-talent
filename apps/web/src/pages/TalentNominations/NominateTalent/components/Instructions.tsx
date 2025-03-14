@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
+import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { ReactNode } from "react";
 
 import { TalentNominationStep } from "@gc-digital-talent/graphql";
@@ -23,7 +23,7 @@ const Instructions = () => {
 
   return (
     <UpdateForm<BaseFormValues>>
-      <SubHeading Icon={ClipboardDocumentIcon}>
+      <SubHeading Icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",
           id: "fhbTHo",
