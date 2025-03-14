@@ -50,7 +50,7 @@ const useStatusInfo = (
         formatString: "MMMM yyyy",
         intl,
       })
-    : intl.formatMessage(commonMessages.notAvailable);
+    : null;
 
   const infoMap = new Map<DevelopmentProgramParticipationStatus, StatusInfo>([
     [
@@ -90,15 +90,23 @@ const useStatusInfo = (
         iconStyles: {
           "data-h2-color": "base(primary) base:dark(primary.light)",
         },
-        message: intl.formatMessage(
-          {
-            defaultMessage: "Currently enrolled, expected completion in {date}",
-            id: "fFihbX",
-            description:
-              "Message displayed when a user is enrolled in a development program",
-          },
-          { date },
-        ),
+        message: date
+          ? intl.formatMessage(
+              {
+                defaultMessage:
+                  "Currently enrolled, expected completion in {date}",
+                id: "fFihbX",
+                description:
+                  "Message displayed when a user is enrolled in a development program",
+              },
+              { date },
+            )
+          : intl.formatMessage({
+              defaultMessage: "Currently enrolled",
+              id: "cHKJC8",
+              description:
+                "Message displayed when a user is enrolled in a development program with no expected end date",
+            }),
       },
     ],
     [
@@ -172,8 +180,7 @@ const DevelopmentProgramInterestItem = ({
         <span>{label}</span>
         <span
           data-h2-font-size="base(caption)"
-          {...(!developmentProgramInterest?.participationStatus ||
-          !developmentProgramInterest?.completionDate
+          {...(!developmentProgramInterest?.participationStatus
             ? {
                 "data-h2-color": "base(error) base:dark(error.lightest)",
               }
