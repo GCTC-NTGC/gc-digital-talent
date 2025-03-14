@@ -68,7 +68,7 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 
 interface ErrorProps {
   email?: string;
-  error?: CombinedError | null;
+  error?: CombinedError | string[] | null;
   isNullResponse?: boolean;
   messages?: Partial<ErrorMessages>;
 }
@@ -85,7 +85,7 @@ const Error = ({ email, error, isNullResponse, messages }: ErrorProps) => {
   if (error) {
     let errorCodes: string[] | undefined;
     if (Array.isArray(error)) {
-      // NOTE: If it is an array, it comes from the input and we don't need to worry about it
+      errorCodes = error;
     } else {
       errorCodes = extractValidationMessageKeys(error);
     }

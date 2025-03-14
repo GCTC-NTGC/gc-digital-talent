@@ -16,6 +16,7 @@ import {
 import { graphql, Maybe } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import Result from "./Result";
 import ErrorMessage from "./Error";
@@ -64,7 +65,7 @@ const ControlledInput = ({
     defaultEmployee?.workEmail ?? "",
   );
   const [fetching, setFetching] = useState<boolean>(false);
-  const [error, setError] = useState<CombinedError | null>(null);
+  const [error, setError] = useState<CombinedError | string[] | null>(null);
   const [employee, setEmployee] = useState<EmployeeSearchResult | null>(
     defaultValue && defaultEmployee?.id === defaultValue
       ? defaultEmployee
@@ -73,6 +74,11 @@ const ControlledInput = ({
 
   const fetchEmployee = async () => {
     if (!query) return;
+
+    if (!workEmailDomainRegex.test(query)) {
+      setError(["NotGovernmentEmail"]);
+      return;
+    }
 
     setFetching(true);
     const res = await client
@@ -105,7 +111,7 @@ const ControlledInput = ({
     }
   };
 
-  const isNullResponse = employee === null;
+  const isNullResponse = employee === null && error === null;
   const hasErrors = !!error || (inputErrors && inputErrors.length > 0);
   const showContext = !fetching && !hasErrors;
 
