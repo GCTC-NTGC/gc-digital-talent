@@ -177,7 +177,11 @@ const ReviewRecruitmentProcessPreviewList = ({
             description: "Off-platform section header",
           })}
         </p>
-        <p data-h2-color="base(black.light)" data-h2-margin-bottom="base(x1)">
+        <p
+          data-h2-color="base(black.light)"
+          data-h2-font-size="base(caption)"
+          data-h2-margin-bottom="base(x1)"
+        >
           {intl.formatMessage({
             defaultMessage:
               "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",

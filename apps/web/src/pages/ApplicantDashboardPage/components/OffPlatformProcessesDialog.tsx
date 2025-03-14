@@ -76,7 +76,7 @@ const OffPlatformProcessesDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="primary" mode="inline">
-          <span data-h2-text-decoration="base(underline)">
+          <span>
             {intl.formatMessage({
               defaultMessage: "Edit off-platform process information",
               id: "g17mQL",
