@@ -21,8 +21,8 @@ import {
   GovContractorType,
   CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
-import { fakeDepartments } from "@gc-digital-talent/fake-data";
 
+import fakeDepartments from "./fakeDepartments";
 import { getStaticSkills } from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
