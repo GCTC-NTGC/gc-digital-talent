@@ -52,10 +52,12 @@ const Stepper = ({
   const intl = useIntl();
   let maxIndex: number | undefined;
   let index: number | undefined;
-  if (steps && currentIndex !== undefined) {
+  if (steps) {
     maxIndex = steps.length - 1;
-    index =
-      currentIndex > maxIndex || currentIndex < 0 ? undefined : currentIndex;
+    if (currentIndex !== undefined) {
+      index =
+        currentIndex > maxIndex || currentIndex < 0 ? undefined : currentIndex;
+    }
   }
 
   return (
