@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 // Additional duties that a CFO or DCFO may have
-enum FinanceChiefDuties
+enum FinanceChiefDuty
 {
     case CORPORATE_COMMUNICATIONS;
     case FACILITIES_MANAGEMENT_AND_SECURITY;
@@ -15,6 +15,6 @@ enum FinanceChiefDuties
 
     public static function getLangFilename(): string
     {
-        return 'finance_chief_duties';
+        return 'finance_chief_duty';
     }
 }

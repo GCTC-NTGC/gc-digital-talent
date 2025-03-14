@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 // Additional roles that a CFO or DCFO may have
-enum FinanceChiefRoles
+enum FinanceChiefRole
 {
     case CHIEF_SECURITY_OFFICER;
     case CHIEF_INFORMATION_OFFICER;
@@ -13,6 +13,6 @@ enum FinanceChiefRoles
 
     public static function getLangFilename(): string
     {
-        return 'finance_chief_roles';
+        return 'finance_chief_role';
     }
 }
