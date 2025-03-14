@@ -5119,6 +5119,10 @@
     "defaultMessage": "Ajouter une compétence",
     "description": "Label for skill dialog trigger on experience skills section."
   },
+  "Of4wHY": {
+    "defaultMessage": "Admissibilité à la retraite",
+    "description": "Label for an employee profile career development preference field"
+  },
   "OgbLp1": {
     "defaultMessage": "Ministère ou organisation d'embauche",
     "description": "Label for department select input in the request form"
@@ -7278,6 +7282,10 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
+  "a5YBuH": {
+    "defaultMessage": "Je ne connais pas l'année à laquelle je suis admissible à la retraite.",
+    "description": "The eligible retirement year described as unknown."
+  },
   "a6FJwN": {
     "defaultMessage": "Vous n'avez pas ajouté d'options d'équité à votre profil.",
     "description": "Message when user has not selected as being in any employment equity groups."
@@ -8253,6 +8261,10 @@
   "f/yvXg": {
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
+  },
+  "f0dhMc": {
+    "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
+    "description": "The eligible retirement year described as known."
   },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
@@ -9633,6 +9645,10 @@
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
+  },
+  "lwYOqk": {
+    "defaultMessage": "Année d'admissibilité à la retraite",
+    "description": "Label for an employee profile career development preference field"
   },
   "lyJ0Ft": {
     "defaultMessage": "Ajouter une collectivité",
