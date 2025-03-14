@@ -145,7 +145,7 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
           </p>
         ) : undefined
       }
-      currentIndex={index ?? 0}
+      currentIndex={index ?? undefined}
       steps={steps}
     />
   );
