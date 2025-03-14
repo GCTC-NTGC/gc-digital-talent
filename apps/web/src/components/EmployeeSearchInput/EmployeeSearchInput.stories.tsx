@@ -109,7 +109,7 @@ export const NotGovernmentEmail: Story = {
 export const WithDefaultValue: Story = {
   args: {
     defaultValue: users[0].id,
-    employee: fragmentToEmployee(
+    employeeOption: fragmentToEmployee(
       makeFragmentData(
         { ...users[0], __typename: "BasicGovEmployeeProfile" },
         EmployeeSearchResult_Fragment,
