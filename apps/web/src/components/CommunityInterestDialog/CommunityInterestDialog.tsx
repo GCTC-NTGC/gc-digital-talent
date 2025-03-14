@@ -15,6 +15,7 @@ export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDialog on CommunityInterest {
     id
     community {
+      key
       workStreams {
         id
         name {
@@ -43,6 +44,18 @@ export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
     jobInterest
     trainingInterest
     additionalInformation
+    financeIsChief
+    financeAdditionalDuties {
+      label {
+        localized
+      }
+    }
+    financeOtherRoles {
+      label {
+        localized
+      }
+    }
+    financeOtherRolesOther
   }
 `);
 
@@ -243,9 +256,44 @@ const CommunityInterestDialog = ({
               </ul>
             </>
           )}
-          {!!communityInterest?.additionalInformation && (
+          {!!communityInterest?.additionalInformation ||
+          communityInterest.community.key === "finance" ? (
             <>
               <Separator orientation="horizontal" decorative space="sm" />
+              {/* Some fields only appear for the finance community */}
+              {communityInterest.community.key === "finance" ? (
+                <>
+                  <p
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x.25)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "CFO or DCFO status",
+                      id: "P3LzUb",
+                      description:
+                        "Bounding box label for the finance chief checkbox",
+                    })}
+                  </p>
+                  <BoolCheckIcon
+                    value={communityInterest.financeIsChief}
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {communityInterest.financeIsChief
+                      ? intl.formatMessage({
+                          defaultMessage:
+                            "I’m a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
+                          id: "RWueRJ",
+                          description: "Message when user is a finance chief",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage:
+                            "I’m not a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
+                          id: "0pOyG1",
+                          description: "Message when user is a finance chief",
+                        })}
+                  </BoolCheckIcon>
+                </>
+              ) : null}
               <p
                 data-h2-font-weight="base(700)"
                 data-h2-margin-bottom="base(x.25)"
@@ -259,7 +307,7 @@ const CommunityInterestDialog = ({
               </p>
               <p>{communityInterest.additionalInformation}</p>
             </>
-          )}
+          ) : null}
           <Dialog.Footer>
             <Link
               mode="solid"
