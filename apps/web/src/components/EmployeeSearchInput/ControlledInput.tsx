@@ -7,7 +7,6 @@ import {
 import { CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
-import { isNull } from "lodash";
 
 import {
   FieldState,
