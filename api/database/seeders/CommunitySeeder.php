@@ -21,12 +21,31 @@ class CommunitySeeder extends Seeder
                     'en' => 'Digital Community',
                     'fr' => 'Communauté numérique',
                 ],
+                'description' => [
+                    'en' => null,
+                    'fr' => null,
+                ],
             ],
             [
                 'key' => 'atip',
                 'name' => [
                     'en' => 'Access to Information and Privacy (ATIP)',
                     'fr' => 'Demande d\'accès à l\'information et de protection des renseignements personnels (AIPRP)',
+                ],
+                'description' => [
+                    'en' => null,
+                    'fr' => null,
+                ],
+            ],
+            [
+                'key' => 'finance',
+                'name' => [
+                    'en' => 'Financial Management Community',
+                    'fr' => 'Collectivité de la gestion financière',
+                ],
+                'description' => [
+                    'en' => 'The Financial Management Community connects financial management professionals (CT-FINs and executives) within the Government of Canada to enhance their skills and grow in their careers through career planning, development programs, and learning.',
+                    'fr' => 'La collectivité de la gestion financière relie les professionnels de la gestion financière (CT-FIN et cadres) au sein du gouvernement du Canada afin d\'améliorer leurs compétences et de progresser dans leur carrière par le biais de la planification de carrière, de programmes de développement et de l\'apprentissage.',
                 ],
             ],
         ];
@@ -38,6 +57,7 @@ class CommunitySeeder extends Seeder
                 ],
                 [
                     'name' => $community['name'],
+                    'description' => $community['description'],
                 ]
             );
         }

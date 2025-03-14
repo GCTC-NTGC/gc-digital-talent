@@ -32,6 +32,7 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment CreateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
+    ...AdditionalInformationOptions_Fragment
 
     communities {
       id
@@ -103,7 +104,10 @@ const CreateCommunityInterestForm = ({
                     </>
                   ) : null}
                   <CardFormSeparator />
-                  <AdditionalInformation formDisabled={formDisabled} />
+                  <AdditionalInformation
+                    optionsQuery={formOptions}
+                    formDisabled={formDisabled}
+                  />
                   <CardFormSeparator />
                   <ReviewAndSubmit formDisabled={formDisabled} />
                 </>

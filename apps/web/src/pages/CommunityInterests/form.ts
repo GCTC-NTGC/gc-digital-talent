@@ -2,6 +2,8 @@ import {
   CreateCommunityInterestInput,
   CreateDevelopmentProgramInterestInput,
   DevelopmentProgramParticipationStatus,
+  FinanceChiefDuty,
+  FinanceChiefRole,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
   UpdateDevelopmentProgramInterestHasMany,
@@ -101,6 +103,22 @@ export function formValuesToApiCreateInput(
     };
   }
 
+  // finance-only fields
+  if (formValues.financeIsChief !== null) {
+    apiInput.financeIsChief = formValues.financeIsChief;
+  }
+  if (formValues.financeAdditionalDuties !== null) {
+    apiInput.financeAdditionalDuties =
+      formValues.financeAdditionalDuties as FinanceChiefDuty[];
+  }
+  if (formValues.financeOtherRoles !== null) {
+    apiInput.financeOtherRoles =
+      formValues.financeOtherRoles as FinanceChiefRole[];
+  }
+  if (formValues.financeOtherRolesOther !== null) {
+    apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
+  }
+
   return apiInput;
 }
 
@@ -155,6 +173,16 @@ export function formValuesToApiUpdateInput(
     trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
     additionalInformation: formValues.additionalInformation,
     interestInDevelopmentPrograms,
+
+    // finance-only fields
+    financeIsChief: formValues.financeIsChief,
+    financeAdditionalDuties: formValues.financeAdditionalDuties
+      ? (formValues.financeAdditionalDuties as FinanceChiefDuty[])
+      : null,
+    financeOtherRoles: formValues.financeOtherRoles
+      ? (formValues.financeOtherRoles as FinanceChiefRole[])
+      : null,
+    financeOtherRolesOther: formValues.financeOtherRolesOther,
   };
 }
 
@@ -188,6 +216,15 @@ export function apiDataToFormValues(
               ? strToFormDate(interest.completionDate)
               : null,
         })) ?? null,
+    // finance-only fields
+    financeIsChief: communityInterest?.financeIsChief ?? null,
+    financeAdditionalDuties: communityInterest?.financeAdditionalDuties
+      ? communityInterest.financeAdditionalDuties.map((duty) => duty.value)
+      : null,
+    financeOtherRoles: communityInterest?.financeOtherRoles
+      ? communityInterest.financeOtherRoles.map((role) => role.value)
+      : null,
+    financeOtherRolesOther: communityInterest?.financeOtherRolesOther ?? null,
     // not saved in the database but if job or training interest is saved, they will have previously consented
     consent:
       !!communityInterest?.jobInterest || !!communityInterest?.trainingInterest,

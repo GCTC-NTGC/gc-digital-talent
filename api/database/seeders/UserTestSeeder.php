@@ -22,6 +22,7 @@ class UserTestSeeder extends Seeder
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
         $testCommunityId = Community::select('id')->where('key', 'test-community')->sole()->id;
+        $financeCommunityId = Community::select('id')->where('key', 'finance')->sole()->id;
 
         // shared auth users for testing
         User::factory()
@@ -52,7 +53,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
-            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
@@ -65,7 +66,7 @@ class UserTestSeeder extends Seeder
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->withEmployeeProfile()
-            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Jaime',
                 'last_name' => 'Bilodeau',
