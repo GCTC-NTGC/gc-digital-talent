@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
     'chief_audit_officer' => 'Dirigeant(e) principal(e) de la vérification',
     'chief_finance_officer' => 'Dirigeant(e) principal(e) des finances',

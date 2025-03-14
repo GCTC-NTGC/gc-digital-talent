@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
@@ -250,6 +251,9 @@ class UserFactory extends Factory
             $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
             $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
 
+            $nextRoleIsCSuite = $this->faker->boolean(40);
+            $careerObjectiveIsCSuite = $this->faker->boolean(40);
+
             $user->employeeProfile->nextRoleDepartments()
                 ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
             $user->employeeProfile->careerObjectiveDepartments()
@@ -310,6 +314,10 @@ class UserFactory extends Factory
                         ? $this->faker->words(3, true)
                         : null,
 
+                'next_role_is_c_suite_role' => $nextRoleIsCSuite,
+                'career_objective_is_c_suite_role' => $careerObjectiveIsCSuite,
+                'next_role_c_suite_role_title' => $nextRoleIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
+                'career_objective_c_suite_role_title' => $careerObjectiveIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
             ]);
         });
     }
@@ -431,6 +439,27 @@ class UserFactory extends Factory
             } else {
                 $community = Community::find($communityId);
                 $community->addCommunityAdmins($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the community talent coordinator role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityTalentCoordinator(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityTalentCoordinator($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityTalentCoordinator($user->id);
             }
         });
     }

@@ -300,6 +300,9 @@ const useMainNavLinks = () => {
     ["process_operator"]: intl.formatMessage(navMenuMessages.community),
     ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
     ["community_admin"]: intl.formatMessage(navMenuMessages.community),
+    ["community_talent_coordinator"]: intl.formatMessage(
+      navMenuMessages.community,
+    ),
     ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
   };
 
@@ -311,6 +314,7 @@ const useMainNavLinks = () => {
     ["process_operator"]: paths.communityDashboard(),
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
+    ["community_talent_coordinator"]: paths.communityDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
   };
 

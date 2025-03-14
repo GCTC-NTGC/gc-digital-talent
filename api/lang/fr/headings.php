@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Lang;
 return [
     'status' => Lang::get('common.status', [], 'fr'),
     'category' => 'Catégorie',
-    'availability' => 'Disponibilité',
+    'availability' => 'Intérêt pour les offres d\'emploi',
     'notes' => 'Notes',
     'current_province' => 'Province actuelle',
     'current_city' => 'Ville',

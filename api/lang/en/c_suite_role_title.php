@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Lang;
+
 return [
     'chief_audit_officer' => 'Chief Audit Officer',
     'chief_finance_officer' => 'Chief Finance Officer',
