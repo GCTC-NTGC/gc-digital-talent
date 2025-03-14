@@ -13,6 +13,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
+import OffPlatformProcessesDialog from "./OffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
@@ -46,10 +47,14 @@ interface ReviewRecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof ReviewRecruitmentProcessPreviewList_Fragment
   >[];
+  userId: string;
+  offPlatformRecruitmentProcesses?: string | null;
 }
 
 const ReviewRecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
+  userId,
+  offPlatformRecruitmentProcesses,
 }: ReviewRecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
@@ -160,6 +165,44 @@ const ReviewRecruitmentProcessPreviewList = ({
           </p>
         </Well>
       )}
+      <div
+        data-h2-margin-top="base(x1)"
+        data-h2-padding-top="base(x1)"
+        data-h2-border-top="base:all(1px solid gray.light)"
+      >
+        <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.125)">
+          {intl.formatMessage({
+            defaultMessage: "Off-platform recruitment processes",
+            id: "tpXtAJ",
+            description: "Off-platform section header",
+          })}
+        </p>
+        <p
+          data-h2-color="base(black.light)"
+          data-h2-font-size="base(caption)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          {intl.formatMessage({
+            defaultMessage:
+              "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",
+            id: "AC/qwa",
+            description: "Off-platform section information",
+          })}
+        </p>
+        <p data-h2-margin-bottom="base(x1)">
+          {offPlatformRecruitmentProcesses ??
+            intl.formatMessage({
+              defaultMessage:
+                "No off-platform process information has been provided.",
+              id: "dbeDy2",
+              description: "Null state for off-platform section",
+            })}
+        </p>
+        <OffPlatformProcessesDialog
+          userId={userId}
+          offPlatformRecruitmentProcesses={offPlatformRecruitmentProcesses}
+        />
+      </div>
     </>
   );
 };

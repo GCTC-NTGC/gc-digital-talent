@@ -130,6 +130,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     experiences {
       id
     }
+    offPlatformRecruitmentProcesses
   }
 `);
 
@@ -239,6 +240,10 @@ export const DashboardPage = ({
                 applicationsProcessesTaskCardQuery={unpackMaybes(
                   currentUser?.poolCandidates,
                 )}
+                userId={currentUser.id}
+                offPlatformRecruitmentProcesses={
+                  currentUser.offPlatformRecruitmentProcesses
+                }
               />
               {currentUser?.isVerifiedGovEmployee &&
               currentUser?.employeeProfile ? (

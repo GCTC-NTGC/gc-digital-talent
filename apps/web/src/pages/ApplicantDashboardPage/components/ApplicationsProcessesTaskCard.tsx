@@ -27,10 +27,14 @@ interface ApplicationsProcessesTaskCardProps {
   applicationsProcessesTaskCardQuery: FragmentType<
     typeof ApplicationsProcessesTaskCard_Fragment
   >[];
+  userId: string;
+  offPlatformRecruitmentProcesses?: string | null;
 }
 
 const ApplicationsProcessesTaskCard = ({
   applicationsProcessesTaskCardQuery,
+  userId,
+  offPlatformRecruitmentProcesses,
 }: ApplicationsProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -137,6 +141,10 @@ const ApplicationsProcessesTaskCard = ({
                     recruitmentProcessesQuery={unpackMaybes(
                       recruitmentProcessesFiltered,
                     )}
+                    userId={userId}
+                    offPlatformRecruitmentProcesses={
+                      offPlatformRecruitmentProcesses
+                    }
                   />
                 </Accordion.Content>
               </Accordion.Item>
