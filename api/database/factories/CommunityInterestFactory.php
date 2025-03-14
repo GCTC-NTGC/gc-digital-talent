@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\FinanceChiefDuties;
-use App\Enums\FinanceChiefRoles;
+use App\Enums\FinanceChiefDuty;
+use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\DevelopmentProgramInterest;
@@ -36,12 +36,12 @@ class CommunityInterestFactory extends Factory
                 ? $this->faker->boolean()
                 : null,
             'finance_additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
-                ? $this->faker->randomElements(array_column(FinanceChiefDuties::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefDuties::cases())))
+                ? $this->faker->randomElements(array_column(FinanceChiefDuty::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefDuty::cases())))
                 : [],
             'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true
-                ? $this->faker->randomElements(array_column(FinanceChiefRoles::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefRoles::cases())))
+                ? $this->faker->randomElements(array_column(FinanceChiefRole::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefRole::cases())))
                 : [],
-            'finance_other_roles_other' => fn ($attributes) => in_array(FinanceChiefRoles::OTHER->name, $attributes['finance_other_roles'])
+            'finance_other_roles_other' => fn ($attributes) => in_array(FinanceChiefRole::OTHER->name, $attributes['finance_other_roles'])
                 ? $this->faker->jobTitle()
                 : null,
         ];
