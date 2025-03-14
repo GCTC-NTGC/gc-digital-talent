@@ -165,6 +165,21 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'aboutYou' => ['nullable', 'string'],
             'learningGoals' => ['nullable', 'string'],
             'workStyle' => ['nullable', 'string'],
+
+            'nextRoleIsCSuiteRole' => ['boolean'],
+            'careerObjectiveIsCSuiteRole' => ['boolean'],
+            'nextRoleCSuiteRoleTitle' => [
+                'nullable',
+                'string',
+                'required_if:nextRoleIsCSuiteRole,true',
+                'prohibited_if:nextRoleIsCSuiteRole,false',
+            ],
+            'careerObjectiveCSuiteRoleTitle' => [
+                'nullable',
+                'string',
+                'required_if:careerObjectiveIsCSuiteRole,true',
+                'prohibited_if:careerObjectiveIsCSuiteRole,false',
+            ],
         ];
     }
 

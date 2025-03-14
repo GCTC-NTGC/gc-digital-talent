@@ -1143,6 +1143,10 @@
     "defaultMessage": "Ne manquez pas de profiter des formations dirigées par un instructeur ou une instructrice réservées aux membres du personnel des TI du gouvernement du Canada. Nous ajoutons régulièrement de nouveaux cours axés sur les compétences et les domaines des TI les plus demandés au gouvernement.",
     "description": "First paragraph of it training opportunities section"
   },
+  "3qzYUJ": {
+    "defaultMessage": "Il s'agit d'un rôle de cadre supérieur.",
+    "description": "Label text for employee profile, is c-suite"
+  },
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
@@ -3014,6 +3018,10 @@
   "DVBh+y": {
     "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
     "description": "first 2024 key change rationale to the directive"
+  },
+  "DVIT0q": {
+    "defaultMessage": "Statut de cadre supérieur",
+    "description": "Label for employee profile senior management status input"
   },
   "DX3z2x": {
     "defaultMessage": "Autre collectivité",
@@ -5810,6 +5818,10 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
+  },
+  "RuTdam": {
+    "defaultMessage": "Titre du rôle de cadre supérieur",
+    "description": "Label text for employee profile c-suite role input"
   },
   "RwXPoj": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -8662,6 +8674,10 @@
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
     "description": "Description of minimum education requirements"
   },
+  "gYn0Zj": {
+    "defaultMessage": "Il ne s'agit pas d'un rôle de cadre supérieur.",
+    "description": "Label text for employee profile, is not c-suite "
+  },
   "gZaILA": {
     "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
     "description": "Link to more information on the directive."
@@ -10721,6 +10737,10 @@
   "rMJ7fd": {
     "defaultMessage": "Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
+  },
+  "rN7Dkj": {
+    "defaultMessage": "Il s'agit d'un rôle de dirigeant(e) ou d'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Checkbox text for employee profile senior management status input"
   },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
