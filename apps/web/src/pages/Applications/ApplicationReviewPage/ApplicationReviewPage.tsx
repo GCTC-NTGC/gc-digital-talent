@@ -38,7 +38,6 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
-import pageTitles from "~/messages/pageTitles";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {

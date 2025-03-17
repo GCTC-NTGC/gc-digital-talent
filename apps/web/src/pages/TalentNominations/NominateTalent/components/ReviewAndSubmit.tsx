@@ -9,12 +9,13 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 
+import pageTitles from "~/messages/pageTitles";
+
 import useCurrentStep from "../useCurrentStep";
 import { BaseFormValues } from "../types";
 import Actions from "./Actions";
-import useMutations from "../useMutations";
 import SubHeading from "./SubHeading";
-import pageTitles from "~/messages/pageTitles";
+import useMutations from "../useMutations";
 
 const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentReviewAndSubmit on TalentNomination {
