@@ -152,8 +152,8 @@ const AdditionalInformation = ({
               label={intl.formatMessage({
                 defaultMessage:
                   "I’m a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
-                id: "k+u1o+",
-                description: "Label for the 'I am a finance chief' checkbox",
+                id: "RWueRJ",
+                description: "Message when user is a finance chief",
               })}
               disabled={formDisabled}
               boundingBox={true}
@@ -181,8 +181,9 @@ const AdditionalInformation = ({
                   name="financeAdditionalDuties"
                   legend={intl.formatMessage({
                     defaultMessage: "Additional duties",
-                    id: "IcZTxt",
-                    description: "Label for the 'Additional duties' checkbox",
+                    id: "E32ToC",
+                    description:
+                      "Label for additional duties of a finance chief",
                   })}
                   items={localizedEnumToOptions(
                     optionsData.financeChiefDuties,
@@ -205,8 +206,8 @@ const AdditionalInformation = ({
                   name="financeOtherRoles"
                   legend={intl.formatMessage({
                     defaultMessage: "Other roles",
-                    id: "+WHhT+",
-                    description: "Label for the 'Other roles' checkbox",
+                    id: "z20NMR",
+                    description: "Label for other roles of a finance chief",
                   })}
                   items={localizedEnumToOptions(
                     optionsData.financeChiefRoles,
