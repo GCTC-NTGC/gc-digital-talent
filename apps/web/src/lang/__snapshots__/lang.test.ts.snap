@@ -55,8 +55,8 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Submit",
     "fr": [
-      "Soumettez",
-      "Soumettre"
+      "Soumettre",
+      "Soumettez"
     ]
   },
   {
