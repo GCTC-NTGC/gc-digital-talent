@@ -10,7 +10,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
- * Class Talent nomination
+ * Class TalentNomination
  *
  * @property string $id
  * @property \Illuminate\Support\Carbon $created_at
