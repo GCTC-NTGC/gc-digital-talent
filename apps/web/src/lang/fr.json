@@ -7790,6 +7790,10 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
+  "cHKJC8": {
+    "defaultMessage": "Programme en cours",
+    "description": "Message displayed when a user is enrolled in a development program with no expected end date"
+  },
   "cHwSqN": {
     "defaultMessage": "Type de poste visé",
     "description": "Label for a employee profile target role field"
