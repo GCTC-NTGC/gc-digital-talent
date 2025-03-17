@@ -579,6 +579,10 @@
     "defaultMessage": "Date de fin prévue",
     "description": "Label displayed on an Experience form for expected end date input"
   },
+  "0vNb2/": {
+    "defaultMessage": "Nombre d'employées et employés",
+    "description": "Label for number of employees field"
+  },
   "0w59dG": {
     "defaultMessage": "Votre parcours professionnel",
     "description": "Heading for career timeline section of the application review page."
@@ -602,6 +606,10 @@
   "11/un8": {
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
+  },
+  "144l3L": {
+    "defaultMessage": "Ce rôle nécessitait la gestion d'un budget dédié ou un pouvoir de signature délégué pour un budget.",
+    "description": "Label displayed for budget management"
   },
   "14ZYuD": {
     "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
@@ -822,6 +830,10 @@
   "2B+d2V": {
     "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
     "description": "Second item in list of eligibility requirements section"
+  },
+  "2ExR2X": {
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement. »",
+    "description": "Message about the employee found for a search"
   },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
@@ -1071,6 +1083,10 @@
     "defaultMessage": "donner des outils aux membres du personnel des TI pour diriger la transformation numérique.",
     "description": "an item in a list of fund objectives"
   },
+  "3IwZ47": {
+    "defaultMessage": "Nommez un talent",
+    "description": "Link text for the form to nominate talent"
+  },
   "3Kt+rj": {
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
@@ -1086,6 +1102,10 @@
   "3QGPJe": {
     "defaultMessage": "Non intéressé(e)",
     "description": "Status label for a qualified application the candidate has marked not interested"
+  },
+  "3RUGGK": {
+    "defaultMessage": "Vous avez des questions? <link>Communiquez avec notre équipe de soutien</link>.",
+    "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
@@ -1143,6 +1163,10 @@
     "defaultMessage": "Ne manquez pas de profiter des formations dirigées par un instructeur ou une instructrice réservées aux membres du personnel des TI du gouvernement du Canada. Nous ajoutons régulièrement de nouveaux cours axés sur les compétences et les domaines des TI les plus demandés au gouvernement.",
     "description": "First paragraph of it training opportunities section"
   },
+  "3qzYUJ": {
+    "defaultMessage": "Il s'agit d'un rôle de cadre supérieur.",
+    "description": "Label text for employee profile, is c-suite"
+  },
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
     "description": "Description of when the user should expect a response to their request"
@@ -1159,6 +1183,10 @@
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
   },
+  "3yMRCt": {
+    "defaultMessage": "Nous demandons aux membres du personnel de décrire leur objectif de carrière ultime. Voici ce qu'ils ont répondu.",
+    "description": "Description for Career objective section of user employee information page"
+  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -1170,6 +1198,10 @@
   "436DA5": {
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
+  },
+  "43Tiyp": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Si vous avez proposé la candidature d'un cadre ou d'un membre du personnel de niveau équivalent, veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
+    "description": "Subtitle for nomination rationale step"
   },
   "43VEQA": {
     "defaultMessage": "Le profil linguistique a été mis à jour avec succès!",
@@ -1311,6 +1343,10 @@
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
   },
+  "4adKE5": {
+    "defaultMessage": "Nommez des talents pour de l'avancement, de la mutation latérale ou des programmes de perfectionnement.",
+    "description": "Subtitle for the form to nominate talent"
+  },
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
@@ -1362,6 +1398,10 @@
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
+  },
+  "4pwxOm": {
+    "defaultMessage": "Je souhaite recevoir des offres d'emploi au sein de mon groupe et à mon niveau actuels ou au sein d'un groupe et à un niveau équivalents.",
+    "description": "The lateral move interest described as interested."
   },
   "4qdoau": {
     "defaultMessage": "Compétence introuvable",
@@ -1603,6 +1643,10 @@
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
+  "5sZWgB": {
+    "defaultMessage": "Objectifs et style de travail",
+    "description": "Title for Goals and work style section of user employee information page"
+  },
   "5wKh/o": {
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
@@ -1659,6 +1703,10 @@
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
   },
+  "6RGluQ": {
+    "defaultMessage": "J'ai supervisé des employées et employés dans ce rôle.",
+    "description": "Label displayed for supervised employees"
+  },
   "6Ru0Ha": {
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
     "description": "GCKey answer for who to contact about GCKey, introduction sentence"
@@ -1686,6 +1734,10 @@
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
+  },
+  "6ZwHMj": {
+    "defaultMessage": "Bienvenue sur le formulaire de mise en candidature des talents. Ce formulaire vous permet de nommer une candidate ou un candidat pour des occasions d'avancement, de mutation latérale ou de perfectionnement propres à son domaine de travail.",
+    "description": "Paragraph one, instructions on how to submit a nomination"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -2435,6 +2487,10 @@
     "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
     "description": "Lead in text for list of items we consider for accessibility"
   },
+  "ASz5R4": {
+    "defaultMessage": "Soumettre",
+    "description": "Link text for submit step of a talent nomination"
+  },
   "ATO0GK": {
     "defaultMessage": "Tâches courantes dans ce poste",
     "description": "Title for key tasks on a pool advertisement."
@@ -2594,6 +2650,10 @@
   "BFvwdM": {
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles",
     "description": "List item one, things designers consider for accessibility"
+  },
+  "BG9koi": {
+    "defaultMessage": "Maintenant que nous en savons un peu plus sur la personne qui présente la candidature, recueillons quelques renseignements sur la personne dont la candidature est présentée. Nous commencerons par vérifier si elle dispose d'un compte sur Talents numériques du GC en utilisant son adresse courriel professionnelle.",
+    "description": "Subtitle for nomination nominee step"
   },
   "BGC19+": {
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
@@ -3003,6 +3063,10 @@
     "defaultMessage": "Les données peuvent être sécurisées par d’autres moyens (p. ex., la plateforme Talents numériques du GC, le contrôle accru des données)",
     "description": "first 2024 key change rationale to the directive"
   },
+  "DVIT0q": {
+    "defaultMessage": "Statut de cadre supérieur",
+    "description": "Label for employee profile senior management status input"
+  },
   "DX3z2x": {
     "defaultMessage": "Autre collectivité",
     "description": "Selection or label referring to adding a community that isn't a provided option"
@@ -3235,6 +3299,10 @@
     "defaultMessage": "<strong>informatique</strong>",
     "description": "Message before skills list in application education page."
   },
+  "Efdmb2": {
+    "defaultMessage": "Informations sur la personne candidate",
+    "description": "Heading for nominee step of a talent nomination"
+  },
   "EkBES+": {
     "defaultMessage": "Membre des FAC :",
     "description": "label for CAF status"
@@ -3278,6 +3346,10 @@
   "Evn5Mo": {
     "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce processus.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
+  },
+  "Ey0mXe": {
+    "defaultMessage": "Sauvegardez l'ébauche",
+    "description": "Button text to save a draft"
   },
   "Ey8cB4": {
     "defaultMessage": "Préférences en matière de développement de carrière",
@@ -3847,6 +3919,10 @@
     "defaultMessage": "Non, je n'ai pas de droit de priorité.",
     "description": "affirm no entitlement"
   },
+  "I7vSfX": {
+    "defaultMessage": "Nous avons reçu votre mise en candidature.",
+    "description": "Heading for success step of a talent nomination"
+  },
   "I8jlr2": {
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
@@ -3923,6 +3999,10 @@
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
   },
+  "ISPFsQ": {
+    "defaultMessage": "Objectif de carrière",
+    "description": "Title for Career objective section of user employee information page"
+  },
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
@@ -3930,10 +4010,6 @@
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
-  },
-  "ITtt88": {
-    "defaultMessage": "Révision et soumission",
-    "description": "Heading for the 'Review and submit' section"
   },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
@@ -3958,6 +4034,10 @@
   "Ifl7BO": {
     "defaultMessage": "Cet utilisateur n’a pas sélectionné de compétences à améliorer.",
     "description": "Message displayed when a user has not added any skills for improvement"
+  },
+  "IgniT6": {
+    "defaultMessage": "Justification",
+    "description": "Link text for rationale step of a talent nomination"
   },
   "Igrveg": {
     "defaultMessage": "Liens rapides",
@@ -4379,6 +4459,10 @@
     "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
     "description": "Descriptive text explaining the personal information section of the application profile"
   },
+  "KgG9BM": {
+    "defaultMessage": "Titre du rôle de cadre supérieur",
+    "description": "Label for c-suite role title field"
+  },
   "KghI8A": {
     "defaultMessage": "Postulez dès-maintenant",
     "description": "Link text to apply for a pool advertisement"
@@ -4503,6 +4587,10 @@
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
+  "LA0AM1": {
+    "defaultMessage": "Justification et commentaires supplémentaires",
+    "description": "Heading for rationale step of a talent nomination"
+  },
   "LC1Rsg": {
     "defaultMessage": "<hidden>Candidature pour </hidden>{poolName}",
     "description": "Text before application pool name in application preview list."
@@ -4615,6 +4703,10 @@
     "defaultMessage": "Pas une employée ou un employé vérifié",
     "description": "Error message for unauthorized employee access"
   },
+  "Ll9cyc": {
+    "defaultMessage": "Renseignez-vous sur leur intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
+    "description": "Description for Career development preferences section of user employee information page"
+  },
   "LpCMiC": {
     "defaultMessage": "Vérifiez votre adresse courriel de contact",
     "description": "Verify your contact email text"
@@ -4630,6 +4722,10 @@
   "LqDVSD": {
     "defaultMessage": "Pour plus d'informations, consulter navigar.ca",
     "description": "A link to a tool named Navigar"
+  },
+  "Lqm83x": {
+    "defaultMessage": "Veuillez prendre connaissance de tous les renseignements recueillis dans le cadre de votre formulaire de mise en candidature avant de le soumettre. Chaque section contient un lien permettant de modifier l'étape associée, si vous avez besoin de faire des modifications.",
+    "description": "Subtitle for submit step of a talent nomination"
   },
   "Lt7tcM": {
     "defaultMessage": "Les comptes de médias sociaux du gouvernement du Canada sont une autre façon d’échanger avec les Canadiens et les Canadiennes, et de diffuser le contenu publié sur son site Web. Ces comptes facilitent l’accès à l’information et aux services du gouvernement du Canada, et donnent l’occasion aux intervenants d’interagir dans un environnement informatif et respectueux.",
@@ -4807,6 +4903,10 @@
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
   },
+  "Mt3GfT": {
+    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "description": "Label for the deadline of a nomination"
+  },
   "MtONBT": {
     "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
     "description": "Employee Status in Government Info Form"
@@ -4843,6 +4943,10 @@
     "defaultMessage": "Vous pouvez contrôler les types de notifications que vous recevez de façon plus détaillée dans les paramètres de votre compte.",
     "description": "Message on getting started page about email notification consent."
   },
+  "N/1OYS": {
+    "defaultMessage": "Il s'agissait d'un poste de direction ou de supervision.",
+    "description": "Label displayed for supervisory position"
+  },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
@@ -4858,6 +4962,10 @@
   "N5qMql": {
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
+  },
+  "N5swJ7": {
+    "defaultMessage": "L'autrice ou l'auteur de la mise en candidature ",
+    "description": "Link text for nominator step of a talent nomination"
   },
   "N5xj2X": {
     "defaultMessage": "URL de la demande (français)",
@@ -5007,6 +5115,10 @@
     "defaultMessage": "Aller à la page suivante",
     "description": "Aria label for next page button in pagination nav"
   },
+  "O5yqIM": {
+    "defaultMessage": "Revoir et soumettre",
+    "description": "Heading for submit page of an form"
+  },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
@@ -5107,6 +5219,10 @@
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
     "description": "Learn more dialog question three paragraph one"
   },
+  "OcN4TN": {
+    "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés. Une fois que vous aurez soumis votre formulaire de mise en candidature, nous l'informerons par courriel.",
+    "description": "Description of default error message when an employee could not be found"
+  },
   "OdfEyd": {
     "defaultMessage": "Qualifié",
     "description": "Simplified status label for qualified recruitments"
@@ -5118,6 +5234,10 @@
   "Oeb04k": {
     "defaultMessage": "Ajouter une compétence",
     "description": "Label for skill dialog trigger on experience skills section."
+  },
+  "Of4wHY": {
+    "defaultMessage": "Admissibilité à la retraite",
+    "description": "Label for an employee profile career development preference field"
   },
   "OgbLp1": {
     "defaultMessage": "Ministère ou organisation d'embauche",
@@ -5279,6 +5399,10 @@
     "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
   },
+  "PSIaKn": {
+    "defaultMessage": "Statut de direction ou de supervision",
+    "description": "Label for supervisory position field"
+  },
   "PVo1xK": {
     "defaultMessage": "Sélectionnez une exigence en matière de sécurité",
     "description": "Placeholder for security requirement field"
@@ -5411,6 +5535,10 @@
     "defaultMessage": "<strong>Heures d’ouverture :</strong> Du lundi au vendredi, de 8 h à 20 h (heure de l’Est)",
     "description": "Hours of operation info"
   },
+  "Q7b1X0": {
+    "defaultMessage": "Apprenez-en davantage sur le ou la membre du personnel et sa façon de travailler.",
+    "description": "Description for Goals and work style section of user employee information page"
+  },
   "Q83U92": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
@@ -5487,6 +5615,10 @@
     "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
     "description": "Subtitle for job placement dialog"
   },
+  "QTm+/n": {
+    "defaultMessage": "Étapes de la nomination",
+    "description": "Label for the talent nomination stepper navigation"
+  },
   "QXB3EX": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
@@ -5554,6 +5686,10 @@
   "QpghXO": {
     "defaultMessage": "Activé",
     "description": "A switch to enable or disable a setting"
+  },
+  "QqwcpX": {
+    "defaultMessage": "Les mises en candidature doivent être parrainées par un cadre dirigeant travaillant dans le domaine de la personne candidate et seront triées par l'équipe de la collectivité fonctionnelle associée. Une fois la mise en candidature confirmée, la personne candidate sera inscrit dans le système de gestion des talents de cette collectivité pour l'année en cours.",
+    "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "QsILUL": {
     "defaultMessage": "Filtrer les candidats par ordre de statut",
@@ -5787,6 +5923,10 @@
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
   },
+  "RuTdam": {
+    "defaultMessage": "Titre du rôle de cadre supérieur",
+    "description": "Label text for employee profile c-suite role input"
+  },
   "RwXPoj": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user attempts to sign out"
@@ -5943,6 +6083,10 @@
     "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
     "description": "Description displayed on the job poster template 'essential technical skills' section."
   },
+  "SqDb3H": {
+    "defaultMessage": "Dans la présente section, le ou la membre du personnel peut faire part de ses souhaits concernant son prochain type de poste.",
+    "description": "Description for Next role section of user employee information page"
+  },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
     "description": "Option label for allowing any employment duration"
@@ -5970,6 +6114,10 @@
   "T4xKEw": {
     "defaultMessage": "– Darcy Pierlot, dirigeant principal de l’information et sous-ministre adjoint, Immigration, Réfugiés et Citoyenneté Canada",
     "description": "Quote attribution for Quote from Darcy Pierlot about working with apprentices"
+  },
+  "T5nYy9": {
+    "defaultMessage": "Supervision des employées et employés",
+    "description": "Label for employee supervision field"
   },
   "T74kMc": {
     "defaultMessage": "Ressources",
@@ -6187,6 +6335,10 @@
     "defaultMessage": "Commis C R 4",
     "description": "CR-04 classification aria label including titles"
   },
+  "UAscG1": {
+    "defaultMessage": "Statut de cadre supérieur",
+    "description": "Label for senior management status field"
+  },
   "UCt8ym": {
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for a users next role"
@@ -6266,6 +6418,10 @@
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
+  },
+  "UlK+Qm": {
+    "defaultMessage": "La mise à jour de la nomination d'un talent a échoué.",
+    "description": "Error message displayed when a talent nomination could not be updated"
   },
   "Ulbls0": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
@@ -6810,6 +6966,10 @@
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
   },
+  "XdOWYL": {
+    "defaultMessage": "Prochain type de poste",
+    "description": "Title for Next role section of user employee information page"
+  },
   "XdynkW": {
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
@@ -6966,6 +7126,10 @@
     "defaultMessage": "Enregistrement des notes réussi!",
     "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
+  "YNP0uJ": {
+    "defaultMessage": "Ce rôle ne nécessitait pas la gestion d’un budget dédié ou un pouvoir de signature délégué pour un budget.",
+    "description": "Label displayed for budget management false"
+  },
   "YNXjg7": {
     "defaultMessage": "Afficher la répartition <hidden> de{stepTitle}</hidden>",
     "description": "Button text to show the distribution of step statuses"
@@ -7106,6 +7270,10 @@
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
+  "Z+n7lE": {
+    "defaultMessage": "Saisissez une adresse de courriel professionnelle et utilisez le bouton de recherche pour trouver un utilisateur.",
+    "description": "Instructions to search for a government employee"
+  },
   "Z0G1WA": {
     "defaultMessage": "Processus",
     "description": "Title for processes"
@@ -7142,6 +7310,10 @@
     "defaultMessage": "Canada.ca",
     "description": "Label for the Canada link in the Footer."
   },
+  "ZEmZm4": {
+    "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
+    "description": "Label for annual budget allocation field"
+  },
   "ZGpncy": {
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
@@ -7154,6 +7326,10 @@
     "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
     "description": "Subtitle displayed above the single search request component."
   },
+  "ZLKng1": {
+    "defaultMessage": "Autre titre de cadre supérieur",
+    "description": "Label for other c-suite role title field"
+  },
   "ZLPqdF": {
     "defaultMessage": "Aucun prénom fourni",
     "description": "Fallback for first name value"
@@ -7162,9 +7338,17 @@
     "defaultMessage": "Créez une autre demande de talents",
     "description": "Link text to start a new talent request"
   },
+  "ZNgKK4": {
+    "defaultMessage": "Soumettez la mise en candidature",
+    "description": "Button text to submit a talent nomination"
+  },
   "ZNne50": {
     "defaultMessage": "Enregistrez les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
+  },
+  "ZOKEiB": {
+    "defaultMessage": "Il s'agissait d’un rôle de dirigeant(e) ou d’adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Label displayed for senior management"
   },
   "ZP1qNK": {
     "defaultMessage": "Nous allons étiqueter les questions de manière à ce que vous sachiez comment vos réponses seront évaluées.",
@@ -7278,6 +7462,10 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
+  "a5YBuH": {
+    "defaultMessage": "Je ne connais pas l'année à laquelle je suis admissible à la retraite.",
+    "description": "The eligible retirement year described as unknown."
+  },
   "a6FJwN": {
     "defaultMessage": "Vous n'avez pas ajouté d'options d'équité à votre profil.",
     "description": "Message when user has not selected as being in any employment equity groups."
@@ -7386,6 +7574,10 @@
     "defaultMessage": "Numéro",
     "description": "Title displayed for the Department table Department # column."
   },
+  "afkBMh": {
+    "defaultMessage": "Erreur dans l'envoi de la nomination d'un talent.",
+    "description": "Error message displayed when a talent nomination could not be submitted"
+  },
   "agcOO1": {
     "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
     "description": "Heading for the items we consider for accessibility."
@@ -7434,6 +7626,10 @@
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
   },
+  "ay7kkl": {
+    "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
+    "description": "Label displayed for supervised employees false"
+  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -7461,6 +7657,10 @@
   "bEY1qp": {
     "defaultMessage": "Lieu précis (anglais)",
     "description": "Label for a pool advertisements specific English Location"
+  },
+  "bF/Cas": {
+    "defaultMessage": "Instructions",
+    "description": "Link text for instructions step of a talent nomination"
   },
   "bGi9fO": {
     "defaultMessage": "Création réussie de la compétence!",
@@ -7674,6 +7874,10 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
+  "cHKJC8": {
+    "defaultMessage": "Programme en cours",
+    "description": "Message displayed when a user is enrolled in a development program with no expected end date"
+  },
   "cHwSqN": {
     "defaultMessage": "Type de poste visé",
     "description": "Label for a employee profile target role field"
@@ -7874,6 +8078,10 @@
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
   },
+  "dOw5u/": {
+    "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
+    "description": "Default error messsage when an employee could not be found"
+  },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
@@ -8001,6 +8209,10 @@
   "dssZUt": {
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
+  },
+  "duXf4a": {
+    "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
+    "description": "Instructions to contact support after nomination submission"
   },
   "dwYJOo": {
     "defaultMessage": "Expérience professionnelle appliquée",
@@ -8254,6 +8466,10 @@
     "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous!",
     "description": "First paragraph about who the program is for"
   },
+  "f0dhMc": {
+    "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
+    "description": "The eligible retirement year described as known."
+  },
   "f3KZGn": {
     "defaultMessage": "Les cercles de partage, l’accès à un·e conseiller·ère en soutien à la formation en TI et les facilitateurs·trices de réussite pour les apprenti·es sont autant de soutiens supplémentaires. Si les facilitateurs·trices sont avant tout une ressource pour les apprenti·es, ils, elles constituent également un système de soutien pour les gestionnaires et les superviseur·es.",
     "description": "Paragraph 2 of the 'Circle of Support' subsection"
@@ -8402,6 +8618,10 @@
     "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
     "description": "Message displayed to user after the personal notes fail to save on the single search request page."
   },
+  "fhbTHo": {
+    "defaultMessage": "Instructions",
+    "description": "Heading for instructions step of a talent nomination"
+  },
   "fhgZRX": {
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
@@ -8433,6 +8653,10 @@
   "fr8v1+": {
     "defaultMessage": "Collectivités",
     "description": "Title for the index communities page"
+  },
+  "fsTqku": {
+    "defaultMessage": "Il ne s'agissait pas d'un rôle de dirigeant(e) ou d'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Label displayed for senior management false"
   },
   "fsvf1L": {
     "defaultMessage": "La suppression du membre a échoué",
@@ -8550,6 +8774,10 @@
     "defaultMessage": "Annonce à l’échelle du site",
     "description": "Page title for the update sitewide announcement page"
   },
+  "gD98oQ": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Heading for details step of a talent nomination"
+  },
   "gDoGSs": {
     "defaultMessage": "Intérêt pour des postes au niveau de la direction",
     "description": "Label for an employee profile career development preference field"
@@ -8598,6 +8826,10 @@
     "defaultMessage": "Reproduction commerciale",
     "description": "Commercial reproduction list in ownership and usage section"
   },
+  "gOy6PW": {
+    "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
+    "description": "The lateral move interest described as not interested."
+  },
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
@@ -8625,6 +8857,10 @@
   "gXFpR1": {
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
     "description": "Description of minimum education requirements"
+  },
+  "gYn0Zj": {
+    "defaultMessage": "Il ne s'agit pas d'un rôle de cadre supérieur.",
+    "description": "Label text for employee profile, is not c-suite "
   },
   "gZaILA": {
     "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
@@ -8762,6 +8998,10 @@
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
     "description": "Describes the 'your impact' section of a process' advertisement."
   },
+  "hFm9sL": {
+    "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
+    "description": "Label for when an employee was found"
+  },
   "hGEhAB": {
     "defaultMessage": "Groupe",
     "description": "Label for classification group display"
@@ -8890,10 +9130,6 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
-  "htxH4r": {
-    "defaultMessage": "Retourner à votre tableau de bord",
-    "description": "Link text to navigate to the profile and applications page"
-  },
   "hx8mTr": {
     "defaultMessage": "Envoyer un autre code.",
     "description": "button to request a new code"
@@ -8981,6 +9217,10 @@
   "iIMpOW": {
     "defaultMessage": "« J’ai passé en revue tout ce qui est écrit dans ma candidature »",
     "description": "Signature list item on sign and submit page."
+  },
+  "iIT3zx": {
+    "defaultMessage": "Il semble que l'adresse de courriel saisie ne soit pas une adresse de courriel valide du gouvernement du Canada. Veuillez vérifier que le courriel est correctement saisi, essayez une autre adresse de courriel professionnelle ou demandez de l'aide si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description of default message when an email is not a government of Canada email"
   },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
@@ -9634,6 +9874,10 @@
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
   },
+  "lwYOqk": {
+    "defaultMessage": "Année d'admissibilité à la retraite",
+    "description": "Label for an employee profile career development preference field"
+  },
   "lyJ0Ft": {
     "defaultMessage": "Ajouter une collectivité",
     "description": "Title for the create community interest page"
@@ -10078,6 +10322,10 @@
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
   },
+  "nym1M2": {
+    "defaultMessage": "Ministère ou organisme",
+    "description": "Label for an employees department"
+  },
   "nzF0AE": {
     "defaultMessage": "P",
     "description": "Short form code representing 'priority entitlement'"
@@ -10213,6 +10461,10 @@
   "ogWg7U": {
     "defaultMessage": "Les candidatures retenues vous permettent d'accéder aux processus de recrutement qui apparaissent automatiquement ici. Sélectionnez un processus dans cette liste pour en consulter les détails ou mettre à jour votre disponibilité pour les possibilités d’emploi.",
     "description": "Subtitle explaining Recruitment processes expandable within applications and processes card"
+  },
+  "oglvAY": {
+    "defaultMessage": "Commençons par en apprendre un peu plus sur l'autrice ou l'auteur de la mise en candidature.",
+    "description": "Subtitle for nomination nominator step"
   },
   "ohLTJS": {
     "defaultMessage": "Candidat non rétabli",
@@ -10438,6 +10690,10 @@
     "defaultMessage": "Notes sur cette demande",
     "description": "Heading for the notes about this request section of the single search request view."
   },
+  "pfwT4h": {
+    "defaultMessage": "Rechercher une adresse de courriel professionnelle",
+    "description": "Default button text to search for an employee by work email"
+  },
   "pgQl5t": {
     "defaultMessage": "Expérience actuelle associée à cette compétence",
     "description": "Label for a specific skills experience level"
@@ -10634,6 +10890,10 @@
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
   },
+  "r65UIr": {
+    "defaultMessage": "Étape précédente",
+    "description": "Link text to navigate to the previous step of a process"
+  },
   "r6L5aI": {
     "defaultMessage": "Auto-déclaration",
     "description": "label for the Indigenous self-declaration input"
@@ -10686,6 +10946,10 @@
     "defaultMessage": "Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
   },
+  "rN7Dkj": {
+    "defaultMessage": "Il s'agit d'un rôle de dirigeant(e) ou d'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).",
+    "description": "Checkbox text for employee profile senior management status input"
+  },
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
@@ -10733,6 +10997,10 @@
   "rcI/H3": {
     "defaultMessage": "Cette compétence possède les expériences connexes suivantes :",
     "description": "An introduction to a list of experiences associated with a skill"
+  },
+  "rdUAvx": {
+    "defaultMessage": "Détails",
+    "description": "Link text for details step of a talent nomination"
   },
   "rdxU+x": {
     "defaultMessage": "Échelle salariale",
@@ -11082,6 +11350,10 @@
     "defaultMessage": "La création de la candidature a échoué",
     "description": "Application creation failed"
   },
+  "tmFU3R": {
+    "defaultMessage": "« {email} » n'est pas une adresse de courriel valide du gouvernement du Canada",
+    "description": "Label for when an employee was found"
+  },
   "tmwk97": {
     "defaultMessage": "Les possibilités d'emploi au sein de cette collectivité m'intéressent.",
     "description": "Label for the community interest in work opportunities radio option"
@@ -11214,6 +11486,10 @@
     "defaultMessage": "Retirez<hidden> {communityName}</hidden>",
     "description": "Title for to remove community from experience"
   },
+  "uVtmGg": {
+    "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
+    "description": "Label for budget management field"
+  },
   "uWZgYM": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un volet de travail. Elle devrait être fondée sur le nom anglais du volet de travail et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
     "description": "Additional context describing the purpose of the work streams 'key' field."
@@ -11337,6 +11613,10 @@
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
+  },
+  "vJD6dl": {
+    "defaultMessage": "Informations sur l'autrice ou l'auteur de la mise en de candidature",
+    "description": "Heading for nominator step of a talent nomination"
   },
   "vKzPT0": {
     "defaultMessage": "La mise à jour des informations sur votre objectif de carrière a échoué",
@@ -11590,6 +11870,10 @@
     "defaultMessage": "Membres du processus",
     "description": "Page title for the manage process members page"
   },
+  "wdFBSc": {
+    "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
+    "description": "First paragraph on success step of a talent nomination"
+  },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
@@ -11617,6 +11901,10 @@
   "wrg4fw": {
     "defaultMessage": "<hidden>Processes de recrutement pour </hidden>{poolName}",
     "description": "Text before recruitment process pool name in recruitment process preview list."
+  },
+  "wrolJv": {
+    "defaultMessage": "Préférences en matière de développement de carrière",
+    "description": "Title for Career development preferences section of user employee information page"
   },
   "wrqRvV": {
     "defaultMessage": "N’a pas réussi au cours de l'évaluation",
@@ -11694,9 +11982,17 @@
     "defaultMessage": "Mettez à jour votre niveau de compétence et gérez les expériences professionnelles associées à cette compétence.",
     "description": "Subtitle for the self skill evaluation page"
   },
+  "xQXV5W": {
+    "defaultMessage": "La personne candidate",
+    "description": "Link text for nominee step of a talent nomination"
+  },
   "xSSp8E": {
     "defaultMessage": "aucune date d’échéance fournie",
     "description": "Message for when an expiration date has not been provided"
+  },
+  "xU771u": {
+    "defaultMessage": "Prochaine étape",
+    "description": "Button text to submit the current step of a process"
   },
   "xUz0TV": {
     "defaultMessage": "Statut de la candidature",
@@ -11882,6 +12178,10 @@
     "defaultMessage": "Niveaux de compétence comportementale",
     "description": "Heading for the skills level definitions of behavioural skills"
   },
+  "yKRyJw": {
+    "defaultMessage": "Nommer des talents pour {eventName}",
+    "description": "Page title for the form to nominate talent"
+  },
   "yKpbHC": {
     "defaultMessage": "Sélectionnez une collectivité fonctionnelle pour continuer.",
     "description": "Message when no community selected"
@@ -11978,6 +12278,10 @@
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
     "description": "Description for the professional designation requirement."
   },
+  "yozvgX": {
+    "defaultMessage": "Apprenez-en davantage sur les aspirations professionnelles de ce ou cette membre du personnel.",
+    "description": "Description for Career planning section of user employee information page"
+  },
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
     "description": "Title for warning message when the user has few assessments to the assessment plan"
@@ -12033,6 +12337,10 @@
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
     "description": "Comments or contributions list item"
+  },
+  "z7m8Nt": {
+    "defaultMessage": "Nous allons maintenant examiner les détails de la candidature que vous souhaitez présenter.",
+    "description": "Subtitle for nomination details step"
   },
   "z8b14H": {
     "defaultMessage": "contiennent des renseignements personnels",
@@ -12157,6 +12465,10 @@
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
+  },
+  "zpIBVf": {
+    "defaultMessage": "Ce rôle n'était pas un poste de direction ou de supervision.",
+    "description": "Label displayed for supervisory position false"
   },
   "zpr5ny": {
     "defaultMessage": "Modifiez cette collectivité",

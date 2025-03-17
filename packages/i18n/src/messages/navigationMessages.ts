@@ -171,6 +171,11 @@ const navigationMessages = defineMessages({
     id: "7hUWc+",
     description: "Link text for users to create a profile",
   },
+  returnToDashboard: {
+    defaultMessage: "Return to your dashboard",
+    id: "Y66jFM",
+    description: "Link text to the dashboard page",
+  },
 });
 
 export default navigationMessages;

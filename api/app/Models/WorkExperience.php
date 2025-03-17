@@ -43,6 +43,14 @@ use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
  * @property ?string $classification_id
  * @property ?string $department_id
  * @property ?string $contractor_firm_agency_name
+ * @property ?bool $supervisory_position
+ * @property ?string $supervised_employees
+ * @property ?string $supervised_employees_number
+ * @property ?bool $budget_management
+ * @property ?string $annual_budget_allocation
+ * @property ?bool $senior_management_status
+ * @property ?string $c_suite_role_title
+ * @property ?string $other_c_suite_role_title
  */
 class WorkExperience extends Experience
 {
@@ -95,6 +103,14 @@ class WorkExperience extends Experience
         'classification_id' => 'classificationId',
         'department_id' => 'departmentId',
         'contractor_firm_agency_name' => 'contractorFirmAgencyName',
+        'supervisory_position' => 'supervisoryPosition',
+        'supervised_employees' => 'supervisedEmployees',
+        'supervised_employees_number' => 'supervisedEmployeesNumber',
+        'budget_management' => 'budgetManagement',
+        'annual_budget_allocation' => 'annualBudgetAllocation',
+        'senior_management_status' => 'seniorManagementStatus',
+        'c_suite_role_title' => 'cSuiteRoleTitle',
+        'other_c_suite_role_title' => 'otherCSuiteRoleTitle',
     ];
 
     /**
@@ -377,5 +393,45 @@ class WorkExperience extends Experience
     public function workStreams(): BelongsToJson
     {
         return $this->belongsToJson(WorkStream::class, 'properties->work_stream_ids');
+    }
+
+    protected function supervisoryPosition(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('supervisory_position');
+    }
+
+    protected function supervisedEmployees(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('supervised_employees');
+    }
+
+    protected function supervisedEmployeesNumber(): Attribute
+    {
+        return $this->makeJsonPropertyNumberAttribute('supervised_employees_number');
+    }
+
+    protected function budgetManagement(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('budget_management');
+    }
+
+    protected function annualBudgetAllocation(): Attribute
+    {
+        return $this->makeJsonPropertyNumberAttribute('annual_budget_allocation');
+    }
+
+    protected function seniorManagementStatus(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('senior_management_status');
+    }
+
+    protected function cSuiteRoleTitle(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('c_suite_role_title');
+    }
+
+    protected function otherCSuiteRoleTitle(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('other_c_suite_role_title');
     }
 }

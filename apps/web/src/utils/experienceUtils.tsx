@@ -296,6 +296,46 @@ export const getExperienceFormLabels = (
       id: "4fV+wX",
       description: "Label for the rank category radio group",
     }),
+    supervisoryPosition: intl.formatMessage({
+      defaultMessage: "Management or supervisory status",
+      id: "PSIaKn",
+      description: "Label for supervisory position field",
+    }),
+    supervisedEmployees: intl.formatMessage({
+      defaultMessage: "Employee supervision",
+      id: "T5nYy9",
+      description: "Label for employee supervision field",
+    }),
+    supervisedEmployeesNumber: intl.formatMessage({
+      defaultMessage: "Number of employees",
+      id: "0vNb2/",
+      description: "Label for number of employees field",
+    }),
+    budgetManagement: intl.formatMessage({
+      defaultMessage: "Budget management or delegated signing authority",
+      id: "uVtmGg",
+      description: "Label for budget management field",
+    }),
+    annualBudgetAllocation: intl.formatMessage({
+      defaultMessage: "Annual budget allocation (CAD$)",
+      id: "ZEmZm4",
+      description: "Label for annual budget allocation field",
+    }),
+    seniorManagementStatus: intl.formatMessage({
+      defaultMessage: "Senior management status",
+      id: "UAscG1",
+      description: "Label for senior management status field",
+    }),
+    cSuiteRoleTitle: intl.formatMessage({
+      defaultMessage: "C-suite role title",
+      id: "KgG9BM",
+      description: "Label for c-suite role title field",
+    }),
+    otherCSuiteRoleTitle: intl.formatMessage({
+      defaultMessage: "Other C-suite title",
+      id: "ZLKng1",
+      description: "Label for other c-suite role title field",
+    }),
   };
 };
 
@@ -348,6 +388,14 @@ export const formValuesToSubmitData = (
     cafForce,
     cafRank,
     workStreams,
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
   } = data;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -407,6 +455,14 @@ export const formValuesToSubmitData = (
       cafForce,
       cafRank,
       workStreamIds: workStreams,
+      supervisoryPosition,
+      supervisedEmployees,
+      supervisedEmployeesNumber,
+      budgetManagement,
+      annualBudgetAllocation,
+      seniorManagementStatus,
+      cSuiteRoleTitle,
+      otherCSuiteRoleTitle,
     },
   };
 
@@ -648,6 +704,14 @@ const getWorkExperienceDefaultValues = (
     cafForce,
     cafRank,
     workStreams,
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
   } = experience;
 
   const isIndeterminate =
@@ -700,6 +764,14 @@ const getWorkExperienceDefaultValues = (
     cafForce: cafForce?.value,
     cafRank: cafRank?.value,
     workStreams: workStreams?.map((item) => item.id),
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle: cSuiteRoleTitle?.value,
+    otherCSuiteRoleTitle,
   };
 };
 
