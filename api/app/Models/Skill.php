@@ -85,4 +85,15 @@ class Skill extends Model
     {
         return $query->where('category', '=', SkillCategory::BEHAVIOURAL->name);
     }
+
+    public function scopeFamilies(Builder $query, ?array $keys): Builder
+    {
+        if (! $keys || ! count($keys)) {
+            return $query;
+        }
+
+        return $query->whereHas('families', function (Builder $query) use ($keys) {
+            $query->whereIn('key', $keys);
+        });
+    }
 }
