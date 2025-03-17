@@ -77,7 +77,7 @@ export const usernameCell = (
   lastName?: Maybe<string>,
 ): JSX.Element => {
   const userName = getFullNameLabel(firstName, lastName, intl);
-  return <Link href={paths.userProfile(userId)}>{userName}</Link>;
+  return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
 };
 
 export function classificationAccessor(

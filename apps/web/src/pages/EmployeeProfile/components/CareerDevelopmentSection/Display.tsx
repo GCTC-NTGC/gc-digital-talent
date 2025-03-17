@@ -8,6 +8,10 @@ import {
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
@@ -45,6 +49,8 @@ const Display = ({
     promotionMoveInterest,
     promotionMoveTimeFrame,
     promotionMoveOrganizationType,
+    eligibleRetirementYearKnown,
+    eligibleRetirementYear,
     mentorshipStatus,
     mentorshipInterest,
     execInterest,
@@ -82,6 +88,8 @@ const Display = ({
         lateralMoveInterest,
         promotionMoveInterest,
         mentorshipStatus,
+        eligibleRetirementYearKnown,
+        eligibleRetirementYear,
         execInterest,
         execCoachingStatus,
       }) && (
@@ -240,6 +248,42 @@ const Display = ({
             )}
           </ToggleForm.FieldDisplay>
         </>
+      )}
+      <ToggleForm.FieldDisplay
+        label={careerDevelopmentMessages.eligibleRetirementYearKnown}
+      >
+        {empty(eligibleRetirementYearKnown)
+          ? notProvided
+          : intl.formatMessage(
+              eligibleRetirementYearKnown
+                ? {
+                    defaultMessage:
+                      "I know the year in which I'm eligible to retire.",
+                    id: "f0dhMc",
+                    description:
+                      "The eligible retirement year described as known.",
+                  }
+                : {
+                    defaultMessage:
+                      "I'm not sure about the year I'm eligible to retire.",
+                    id: "a5YBuH",
+                    description:
+                      "The eligible retirement year described as unknown.",
+                  },
+            )}
+      </ToggleForm.FieldDisplay>
+      {eligibleRetirementYearKnown && (
+        <ToggleForm.FieldDisplay
+          label={careerDevelopmentMessages.eligibleRetirementYear}
+        >
+          {eligibleRetirementYear
+            ? formatDate({
+                date: formDateStringToDate(eligibleRetirementYear),
+                formatString: "yyyy",
+                intl,
+              })
+            : notProvided}
+        </ToggleForm.FieldDisplay>
       )}
       <ToggleForm.FieldDisplay
         hasError={!mentorshipStatus}

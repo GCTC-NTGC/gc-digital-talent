@@ -118,6 +118,7 @@ type User {
 
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
+  govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
@@ -194,6 +195,10 @@ type EmployeeProfile {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
+
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
 
   mentorshipStatus: [LocalizedMentorship!]
     @rename(attribute: "career_planning_mentorship_status")
@@ -899,6 +904,15 @@ type WorkExperience implements Experience {
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
   workStreams: [WorkStream!] @with(relation: "workStreams")
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "c_suite_role_title")
+  otherCSuiteRoleTitle: String
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1654,6 +1668,10 @@ input UpdateEmployeeProfileInput @validator {
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
 
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
+
   mentorshipStatus: [Mentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [Mentorship!]
@@ -2175,6 +2193,15 @@ input WorkExperienceInput {
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
   workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
+  supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
+  supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
+  supervisedEmployeesNumber: String
+    @rename(attribute: "supervised_employees_number")
+  budgetManagement: Boolean @rename(attribute: "budget_management")
+  annualBudgetAllocation: String @rename(attribute: "annual_budget_allocation")
+  seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
+  cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
+  otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 input PersonalExperienceInput {
   title: String

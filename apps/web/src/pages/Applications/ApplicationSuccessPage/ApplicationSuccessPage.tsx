@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -163,12 +163,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           mode="inline"
           color="secondary"
         >
-          {intl.formatMessage({
-            defaultMessage: "Return to your dashboard",
-            id: "htxH4r",
-            description:
-              "Link text to navigate to the profile and applications page",
-          })}
+          {intl.formatMessage(navigationMessages.returnToDashboard)}
         </Link>
       </p>
       <Alert.Footer>

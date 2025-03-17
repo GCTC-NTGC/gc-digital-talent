@@ -665,6 +665,7 @@ type User {
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
+  govEmployeeProfile: BasicGovEmployeeProfile
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -714,6 +715,8 @@ type EmployeeProfile {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: LocalizedTimeFrame
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  eligibleRetirementYearKnown: Boolean
+  eligibleRetirementYear: Date
   mentorshipStatus: [LocalizedMentorship!]
   mentorshipInterest: [LocalizedMentorship!]
   execInterest: Boolean
@@ -1262,6 +1265,14 @@ type WorkExperience implements Experience {
   classification: Classification
   department: Department
   workStreams: [WorkStream!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: LocalizedCSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 type PersonalExperience implements Experience {
@@ -1700,6 +1711,8 @@ input UpdateEmployeeProfileInput {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: TimeFrame
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
+  eligibleRetirementYearKnown: Boolean
+  eligibleRetirementYear: Date
   mentorshipStatus: [Mentorship!]
   mentorshipInterest: [Mentorship!]
   execInterest: Boolean
@@ -2120,6 +2133,14 @@ input WorkExperienceInput {
   classificationId: String
   departmentId: String
   workStreamIds: [UUID!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: CSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 input PersonalExperienceInput {

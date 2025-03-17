@@ -71,6 +71,18 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
                     ),
                 },
+                {
+                  path: "talent-nominations",
+                  children: [
+                    {
+                      path: ":id",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominateTalent/NominateTalentPage"
+                        ),
+                    },
+                  ],
+                },
               ],
             },
             {
@@ -613,6 +625,13 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                           lazy: () =>
                             import(
                               "../pages/Users/UserInformationPage/UserInformationPage"
+                            ),
+                        },
+                        {
+                          path: "employee-profile",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/UserEmployeeInformationPage/UserEmployeeInformationPage"
                             ),
                         },
                         {
