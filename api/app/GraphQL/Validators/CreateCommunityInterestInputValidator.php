@@ -20,8 +20,8 @@ final class CreateCommunityInterestInputValidator extends Validator
     {
         $communityId = $this->arg('community.connect');
         $community = Community::with(['workStreams', 'developmentPrograms'])->find($communityId);
-        $workStreamIds = $community->workStreams->pluck('id')->toArray() ?? [];
-        $developmentProgramIds = $community->developmentPrograms->pluck('id')->toArray() ?? [];
+        $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
+        $developmentProgramIds = $community?->developmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
             'userId' => ['uuid', 'required', 'exists:users,id'],
@@ -35,14 +35,14 @@ final class CreateCommunityInterestInputValidator extends Validator
             'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
             'financeIsChief' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['boolean'],
                     ['prohibited']
                 ),
             ],
             'financeAdditionalDuties' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
@@ -50,7 +50,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'financeAdditionalDuties.*' => [Rule::in(array_column(FinanceChiefDuty::cases(), 'name'))],
             'financeOtherRoles' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
@@ -58,7 +58,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'financeOtherRoles.*' => [Rule::in(array_column(FinanceChiefRole::cases(), 'name'))],
             'financeOtherRolesOther' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     [
                         'string',
                         Rule::requiredIf(in_array(FinanceChiefRole::OTHER->name, $this->arg('financeOtherRoles', []))),

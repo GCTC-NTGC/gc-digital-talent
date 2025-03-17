@@ -20,9 +20,9 @@ final class UpdateCommunityInterestInputValidator extends Validator
     {
         $communityInterestId = $this->arg('id');
         $communityInterest = CommunityInterest::with(['community', 'community.workStreams', 'community.developmentPrograms'])->find($communityInterestId);
-        $community = $communityInterest->community;
-        $workStreamIds = $community->workStreams->pluck('id')->toArray() ?? [];
-        $developmentProgramIds = $community->developmentPrograms->pluck('id')->toArray() ?? [];
+        $community = $communityInterest?->community;
+        $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
+        $developmentProgramIds = $community?->developmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
             'workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreamIds)],
@@ -32,14 +32,14 @@ final class UpdateCommunityInterestInputValidator extends Validator
             'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
             'financeIsChief' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['boolean'],
                     ['prohibited']
                 ),
             ],
             'financeAdditionalDuties' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
@@ -47,7 +47,7 @@ final class UpdateCommunityInterestInputValidator extends Validator
             'financeAdditionalDuties.*' => [Rule::in(array_column(FinanceChiefDuty::cases(), 'name'))],
             'financeOtherRoles' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
@@ -55,7 +55,7 @@ final class UpdateCommunityInterestInputValidator extends Validator
             'financeOtherRoles.*' => [Rule::in(array_column(FinanceChiefRole::cases(), 'name'))],
             'financeOtherRolesOther' => [
                 'nullable',
-                Rule::when($community->key === 'finance',
+                Rule::when($community?->key === 'finance',
                     [
                         'string',
                         Rule::requiredIf(in_array(FinanceChiefRole::OTHER->name, $this->arg('financeOtherRoles', []))),
