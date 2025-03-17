@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import ClipboardDocumentCheckIcon from "@heroicons/react/24/outline/ClipboardDocumentCheckIcon";
 import { useFormContext } from "react-hook-form";
-import { useId } from "react";
+import { useEffect, useId } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import {
@@ -77,12 +77,21 @@ const AdditionalInformation = ({
     optionsQuery,
   );
 
-  const { watch } = useFormContext<FormValues>();
+  const { watch, resetField } = useFormContext<FormValues>();
   const [
     selectedCommunityId,
     selectedFinanceIsChief,
     selectedFinanceOtherRoles,
   ] = watch(["communityId", "financeIsChief", "financeOtherRoles"]);
+
+  useEffect(() => {
+    const resetDirtyField = (name: keyof FormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+    if (!selectedFinanceOtherRoles?.includes(FinanceChiefRole.Other)) {
+      resetDirtyField("financeOtherRolesOther");
+    }
+  }, [resetField, selectedFinanceOtherRoles]);
 
   // some fields are only shown for the finance community
   const financeCommunityId = optionsData.communities.find(
