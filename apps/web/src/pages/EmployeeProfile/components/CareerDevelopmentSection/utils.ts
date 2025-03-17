@@ -85,6 +85,8 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    eligibleRetirementYearKnown
+    eligibleRetirementYear
     mentorshipStatus {
       value
       label {

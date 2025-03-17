@@ -108,6 +108,8 @@ const getRoutes = (lang: Locales) => {
     userTable: () => [adminUrl, "users"].join("/"),
     userCreate: () => [adminUrl, "users", "create"].join("/"),
     userView: (userId: string) => [adminUrl, "users", userId].join("/"),
+    userEmployeeProfile: (userId: string) =>
+      [adminUrl, "users", userId, "employee-profile"].join("/"),
     userProfile: (userId: string) =>
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>
@@ -349,6 +351,10 @@ const getRoutes = (lang: Locales) => {
 
     // Communities
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
+    talentNominationInstructions: (nominationId: string) =>
+      [communitiesUrl, "talent-nominations", nominationId, "instructions"].join(
+        "/",
+      ),
 
     // Comptrollership
     comptrollershipExecutivesPage: () =>

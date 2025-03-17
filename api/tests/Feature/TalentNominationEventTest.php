@@ -24,7 +24,11 @@ class TalentNominationEventTest extends TestCase
 
     protected $admin;
 
+    protected $talentCoordinator;
+
     protected $communityId;
+
+    protected $otherCommunityId;
 
     protected $developmentProgramId;
 
@@ -60,6 +64,9 @@ class TalentNominationEventTest extends TestCase
         $community = Community::factory()->create();
         $this->communityId = $community->id;
 
+        $otherCommunity = Community::factory()->create();
+        $this->otherCommunityId = $otherCommunity->id;
+
         $this->developmentProgramId = DevelopmentProgram::factory()->create(['community_id' => $this->communityId]);
 
         $this->admin = User::factory()
@@ -71,6 +78,12 @@ class TalentNominationEventTest extends TestCase
                 'sub' => 'community-admin-test@test.com',
             ]);
 
+        $this->talentCoordinator = User::factory()
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator([$this->communityId])
+            ->create();
+
         $this->developmentProgramId = $community->developmentPrograms()->sole()->pluck('id')[0];
 
         $this->input = [
@@ -81,9 +94,9 @@ class TalentNominationEventTest extends TestCase
 
     }
 
-    public function testCommunityAdminCanCreate()
+    public function testCreateTalentNominationEvent()
     {
-
+        // community admin can create for any community
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [
                 'talentNominationEvent' => [
@@ -101,14 +114,57 @@ class TalentNominationEventTest extends TestCase
                     ],
                 ],
             ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNominationEvent' => [
+                    ...$this->input,
+                    'community' => ['connect' => $this->otherCommunityId],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createTalentNominationEvent' => [
+                        ...$this->input,
+                        'community' => ['id' => $this->otherCommunityId],
+                    ],
+                ],
+            ]);
+
+        // community talent coordinator can create for own community only
+        $this->actingAs($this->talentCoordinator, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNominationEvent' => [
+                    ...$this->input,
+                    'community' => ['connect' => $this->communityId],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createTalentNominationEvent' => [
+                        ...$this->input,
+                        'community' => ['id' => $this->communityId],
+                    ],
+                ],
+            ]);
+
+        $this->actingAs($this->talentCoordinator, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNominationEvent' => [
+                    ...$this->input,
+                    'community' => ['connect' => $this->otherCommunityId],
+                ],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
-    public function testCommunityAdminCanUpdateTeam()
+    public function testUpdateTalentNominationEvent()
     {
         $talentNominationEvent = TalentNominationEvent::factory()->create([
             'community_id' => $this->communityId,
         ]);
 
+        // community admin/coordinator can both update own community nomination events
         $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
@@ -131,15 +187,54 @@ class TalentNominationEventTest extends TestCase
                     ],
                 ],
             ]);
+
+        $this->actingAs($this->talentCoordinator, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'name' => ['en' => 'Newer EN', 'fr' => 'Newer FR'],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $talentNominationEvent->id,
+                        'name' => ['en' => 'Newer EN', 'fr' => 'Newer FR'],
+                    ],
+                ],
+            ]);
     }
 
-    public function testCommunityAdminCannotUpdateForOtherTeam()
+    public function testCannotUpdateForOtherTeam()
     {
         $talentNominationEvent = TalentNominationEvent::factory()->create([
-            'community_id' => Community::factory()->create()->id,
+            'community_id' => $this->otherCommunityId,
         ]);
 
+        // community admin/coordinator cannot update other community nomination events
         $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'includeLeadershipCompetencies' => false,
+                ],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->talentCoordinator, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
                     updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {

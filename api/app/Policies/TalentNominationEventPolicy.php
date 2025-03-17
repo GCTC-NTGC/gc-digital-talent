@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Community;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
 
@@ -26,9 +27,25 @@ class TalentNominationEventPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, mixed $request): bool
     {
-        return $user->isAbleTo('create-any-talentNominationEvent');
+        if ($user->isAbleTo('create-any-talentNominationEvent')) {
+            return true;
+        }
+
+        $communityId = (isset($request['community']) && isset($request['community']['connect'])) ?
+            $request['community']['connect'] : null;
+
+        if (! is_null($communityId)) {
+            $community = Community::with('team')->findOrFail($communityId);
+
+            if ($user->isAbleTo('create-team-talentNominationEvent', $community->team)) {
+                return true;
+            }
+        }
+
+        // fall through
+        return false;
     }
 
     /**

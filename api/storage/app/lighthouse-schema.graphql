@@ -33,6 +33,11 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
+type LocalizedCSuiteRoleTitle {
+  value: CSuiteRoleTitle!
+  label: LocalizedString!
+}
+
 type LocalizedCafEmploymentType {
   value: CafEmploymentType!
   label: LocalizedString!
@@ -278,6 +283,26 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationLateralMovementOption {
+  value: TalentNominationLateralMovementOption!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationNomineeRelationshipToNominator {
+  value: TalentNominationNomineeRelationshipToNominator!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationSubmitterRelationshipToNominator {
+  value: TalentNominationSubmitterRelationshipToNominator!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationUserReview {
+  value: TalentNominationUserReview!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole {
   value: TargetRole!
   label: LocalizedString!
@@ -336,6 +361,7 @@ type Query {
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNomination(id: UUID!): TalentNomination
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -516,6 +542,9 @@ type Mutation {
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
   updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
+  createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
+  updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
+  submitTalentNomination(id: UUID!): TalentNomination
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -636,6 +665,7 @@ type User {
   acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
+  govEmployeeProfile: BasicGovEmployeeProfile
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -656,6 +686,7 @@ type User {
   enabledInAppNotifications: [NotificationFamily]
   poolBookmarks: [Pool]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+  talentNominationsAsSubmitter: [TalentNomination!]
 }
 
 type CommunityInterest {
@@ -683,6 +714,8 @@ type EmployeeProfile {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: LocalizedTimeFrame
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  eligibleRetirementYearKnown: Boolean
+  eligibleRetirementYear: Date
   mentorshipStatus: [LocalizedMentorship!]
   mentorshipInterest: [LocalizedMentorship!]
   execInterest: Boolean
@@ -709,6 +742,10 @@ type EmployeeProfile {
   careerObjectiveTargetRole: LocalizedTargetRole
   nextRoleTargetRoleOther: String
   careerObjectiveTargetRoleOther: String
+  nextRoleIsCSuiteRole: Boolean
+  careerObjectiveIsCSuiteRole: Boolean
+  nextRoleCSuiteRoleTitle: LocalizedCSuiteRoleTitle
+  careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
   communityInterests(id: UUID): [CommunityInterest!]
   userPublicProfile: UserPublicProfile
 }
@@ -1030,6 +1067,42 @@ type TalentNominationEvent {
   developmentPrograms: [DevelopmentProgram!]
 }
 
+type TalentNomination {
+  id: UUID!
+  submittedSteps: [TalentNominationStep!]
+  talentNominationEvent: TalentNominationEvent!
+  submittedAt: DateTime
+  submitter: BasicGovEmployeeProfile!
+  submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
+  submitterRelationshipToNominatorOther: String
+  nominator: BasicGovEmployeeProfile
+  nominatorFallbackWorkEmail: String
+  nominatorFallbackName: String
+  nominatorFallbackClassification: Classification
+  nominatorFallbackDepartment: Department
+  nominatorReview: LocalizedTalentNominationUserReview
+  nominee: BasicGovEmployeeProfile
+  nomineeReview: LocalizedTalentNominationUserReview
+  nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
+  nomineeRelationshipToNominatorOther: String
+  nominateForAdvancement: Boolean
+  nominateForLateralMovement: Boolean
+  nominateForDevelopmentPrograms: Boolean
+  advancementReference: BasicGovEmployeeProfile
+  advancementReferenceReview: LocalizedTalentNominationUserReview
+  advancementReferenceFallbackWorkEmail: String
+  advancementReferenceFallbackName: String
+  advancementReferenceFallbackClassification: Classification
+  advancementReferenceFallbackDepartment: Department
+  lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
+  lateralMovementOptionsOther: String
+  developmentPrograms: [DevelopmentProgram!]
+  developmentProgramOptionsOther: String
+  nominationRationale: String
+  skills: [Skill]
+  additionalComments: String
+}
+
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
@@ -1191,6 +1264,14 @@ type WorkExperience implements Experience {
   classification: Classification
   department: Department
   workStreams: [WorkStream!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: LocalizedCSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 type PersonalExperience implements Experience {
@@ -1639,6 +1720,8 @@ input UpdateEmployeeProfileInput {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: TimeFrame
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
+  eligibleRetirementYearKnown: Boolean
+  eligibleRetirementYear: Date
   mentorshipStatus: [Mentorship!]
   mentorshipInterest: [Mentorship!]
   execInterest: Boolean
@@ -1665,6 +1748,10 @@ input UpdateEmployeeProfileInput {
   careerObjectiveTargetRole: TargetRole
   nextRoleTargetRoleOther: String
   careerObjectiveTargetRoleOther: String
+  nextRoleIsCSuiteRole: Boolean
+  careerObjectiveIsCSuiteRole: Boolean
+  nextRoleCSuiteRoleTitle: CSuiteRoleTitle
+  careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
 }
 
 input CreateCommunityInterestInput {
@@ -1877,6 +1964,74 @@ input UpdateTalentNominationEventInput {
   developmentPrograms: DevelopmentProgramBelongsToMany
 }
 
+input TalentNominationEventBelongsTo {
+  connect: ID
+}
+
+input CreateTalentNominationInput {
+  talentNominationEvent: TalentNominationEventBelongsTo!
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+  submitterRelationshipToNominatorOther: String
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+  nominatorFallbackName: String
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+  nomineeRelationshipToNominatorOther: String
+  nominateForAdvancement: Boolean
+  nominateForLateralMovement: Boolean
+  nominateForDevelopmentPrograms: Boolean
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+  advancementReferenceFallbackWorkEmail: String
+  advancementReferenceFallbackName: String
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+  lateralMovementOptionsOther: String
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+  nominationRationale: String
+  skills: SkillBelongsToMany
+  additionalComments: String
+}
+
+input UpdateTalentNominationInput {
+  insertSubmittedStep: TalentNominationStep
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+  submitterRelationshipToNominatorOther: String
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+  nominatorFallbackName: String
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+  nomineeRelationshipToNominatorOther: String
+  nominateForAdvancement: Boolean
+  nominateForLateralMovement: Boolean
+  nominateForDevelopmentPrograms: Boolean
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+  advancementReferenceFallbackWorkEmail: String
+  advancementReferenceFallbackName: String
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+  lateralMovementOptionsOther: String
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+  nominationRationale: String
+  skills: SkillBelongsToMany
+  additionalComments: String
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -1987,6 +2142,14 @@ input WorkExperienceInput {
   classificationId: String
   departmentId: String
   workStreamIds: [UUID!]
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: String
+  budgetManagement: Boolean
+  annualBudgetAllocation: String
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: CSuiteRoleTitle
+  otherCSuiteRoleTitle: String
 }
 
 input PersonalExperienceInput {
@@ -2805,6 +2968,24 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum CSuiteRoleTitle {
+  CHIEF_AUDIT_OFFICER
+  CHIEF_FINANCE_OFFICER
+  CHIEF_DATA_OFFICER
+  CHIEF_DIGITAL_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  CHIEF_PRIVACY_OFFICER
+  CHIEF_TECHNOLOGY_OFFICER
+  DEPUTY_CHIEF_AUDIT_OFFICER
+  DEPUTY_CHIEF_FINANCE_OFFICER
+  DEPUTY_CHIEF_DATA_OFFICER
+  DEPUTY_CHIEF_DIGITAL_OFFICER
+  DEPUTY_CHIEF_INFORMATION_OFFICER
+  DEPUTY_CHIEF_PRIVACY_OFFICER
+  DEPUTY_CHIEF_TECHNOLOGY_OFFICER
+  OTHER
+}
+
 enum CafEmploymentType {
   REGULAR_FORCE
   RESERVE_FORCE
@@ -3221,6 +3402,45 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TalentNominationLateralMovementOption {
+  SMALL_DEPARTMENT
+  LARGE_DEPARTMENT
+  CENTRAL_DEPARTMENT
+  NEW_DEPARTMENT
+  PROGRAM_EXPERIENCE
+  POLICY_EXPERIENCE
+  OTHER
+}
+
+enum TalentNominationNomineeRelationshipToNominator {
+  CURRENT_EMPLOYEE
+  FORMER_EMPLOYEE
+  ANOTHER_WORK_EMPLOYEE
+  MENTEE
+  OTHER
+}
+
+enum TalentNominationStep {
+  INSTRUCTIONS
+  NOMINATOR_INFORMATION
+  NOMINEE_INFORMATION
+  NOMINATION_DETAILS
+  RATIONALE
+  REVIEW_AND_SUBMIT
+}
+
+enum TalentNominationSubmitterRelationshipToNominator {
+  SUPPORT_STAFF
+  EMPLOYEE
+  OTHER
+}
+
+enum TalentNominationUserReview {
+  CORRECT
+  INCORRECT
+  OUT_OF_DATE
 }
 
 enum TargetRole {

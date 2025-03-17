@@ -26,7 +26,7 @@ import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
 
@@ -251,6 +251,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

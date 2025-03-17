@@ -85,6 +85,32 @@ const messages = defineMessages({
     id: "U8ZQ2g",
     description: "Additional information about your career objective",
   },
+  seniorManagementStatus: {
+    defaultMessage: "Senior management status",
+    id: "DVIT0q",
+    description: "Label for employee profile senior management status input",
+  },
+  isChiefDeputyCSuiteRole: {
+    defaultMessage: "This is a chief or deputy chief (C-suite) role.",
+    id: "rN7Dkj",
+    description:
+      "Checkbox text for employee profile senior management status input",
+  },
+  cSuiteRoleTitle: {
+    defaultMessage: "C-suite role title",
+    id: "RuTdam",
+    description: "Label text for employee profile c-suite role input",
+  },
+  isCSuiteRoleTitle: {
+    defaultMessage: "This is a C-suite role.",
+    id: "3qzYUJ",
+    description: "Label text for employee profile, is c-suite",
+  },
+  isNotCSuiteRoleTitle: {
+    defaultMessage: "This is not a C-suite role.",
+    id: "gYn0Zj",
+    description: "Label text for employee profile, is not c-suite ",
+  },
 });
 
 export default messages;

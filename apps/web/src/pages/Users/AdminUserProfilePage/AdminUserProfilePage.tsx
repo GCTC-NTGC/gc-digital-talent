@@ -398,6 +398,19 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
             }
           }
         }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            localized
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     topTechnicalSkillsRanking {
@@ -564,6 +577,7 @@ export const Component = () => (
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
     ]}
   >

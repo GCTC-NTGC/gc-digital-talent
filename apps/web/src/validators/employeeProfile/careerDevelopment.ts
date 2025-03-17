@@ -8,6 +8,8 @@ export function hasAllEmptyFields({
   promotionMoveInterest,
   promotionMoveTimeFrame,
   promotionMoveOrganizationType,
+  eligibleRetirementYearKnown,
+  eligibleRetirementYear,
   mentorshipStatus,
   mentorshipInterest,
   execInterest,
@@ -21,6 +23,8 @@ export function hasAllEmptyFields({
   | "promotionMoveInterest"
   | "promotionMoveTimeFrame"
   | "promotionMoveOrganizationType"
+  | "eligibleRetirementYearKnown"
+  | "eligibleRetirementYear"
   | "mentorshipStatus"
   | "mentorshipInterest"
   | "execInterest"
@@ -34,6 +38,8 @@ export function hasAllEmptyFields({
     empty(promotionMoveInterest) &&
     !promotionMoveTimeFrame &&
     !promotionMoveOrganizationType &&
+    empty(eligibleRetirementYearKnown) &&
+    !eligibleRetirementYear &&
     !mentorshipStatus &&
     !mentorshipInterest &&
     empty(execInterest) &&
@@ -45,20 +51,28 @@ export function hasAllEmptyFields({
 export function hasEmptyRequiredFields({
   lateralMoveInterest,
   promotionMoveInterest,
+  eligibleRetirementYearKnown,
+  eligibleRetirementYear,
   mentorshipStatus,
   execInterest,
   execCoachingStatus,
-}: Pick<
-  EmployeeProfile,
-  | "lateralMoveInterest"
-  | "promotionMoveInterest"
-  | "mentorshipStatus"
-  | "execInterest"
-  | "execCoachingStatus"
+}: Partial<
+  Pick<
+    EmployeeProfile,
+    | "lateralMoveInterest"
+    | "promotionMoveInterest"
+    | "eligibleRetirementYearKnown"
+    | "eligibleRetirementYear"
+    | "mentorshipStatus"
+    | "execInterest"
+    | "execCoachingStatus"
+  >
 >): boolean {
   return (
     empty(lateralMoveInterest) ||
     empty(promotionMoveInterest) ||
+    empty(eligibleRetirementYearKnown) ||
+    (eligibleRetirementYearKnown && !eligibleRetirementYear) ||
     !mentorshipStatus ||
     empty(execInterest) ||
     !execCoachingStatus

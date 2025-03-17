@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmploymentCategory, WorkExperience } from "@gc-digital-talent/graphql";
+import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
@@ -10,6 +11,7 @@ import { ContentProps } from "./types";
 import ExternalContent from "./WorkContent/ExternalContent";
 import CafContent from "./WorkContent/CafContent";
 import GovContent from "./WorkContent/GovContent";
+import SupervisoryContent from "./WorkContent/SupervisoryContent";
 
 const WorkContent = ({
   experience,
@@ -25,7 +27,16 @@ const WorkContent = ({
         <ExternalContent experience={experience} headingLevel={headingLevel} />
       );
     case EmploymentCategory.GovernmentOfCanada:
-      return <GovContent experience={experience} headingLevel={headingLevel} />;
+      return (
+        <>
+          <GovContent experience={experience} headingLevel={headingLevel} />
+          <Separator space="sm" decorative />
+          <SupervisoryContent
+            experience={experience}
+            headingLevel={headingLevel}
+          />
+        </>
+      );
     case EmploymentCategory.CanadianArmedForces:
       return <CafContent experience={experience} headingLevel={headingLevel} />;
     default:

@@ -379,6 +379,19 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            localized
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     isProfileComplete
