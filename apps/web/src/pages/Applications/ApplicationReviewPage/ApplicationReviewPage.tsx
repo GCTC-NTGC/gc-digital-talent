@@ -81,7 +81,11 @@ export const getPageInfo: GetPageNavInfo = ({
     ],
     link: {
       url: path,
-      label: intl.formatMessage(pageTitles.reviewAndSubmit),
+      label: intl.formatMessage({
+        defaultMessage: "Review and submit",
+        id: "DXtgrn",
+        description: "Link text for the application review page.",
+      }),
     },
   };
 };

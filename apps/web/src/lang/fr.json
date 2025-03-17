@@ -3039,6 +3039,10 @@
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
     "description": "Text describing expiry dates for candidates, what it is for and a recommendation"
   },
+  "DXtgrn": {
+    "defaultMessage": "Révisez votre candidature et envoyez-la",
+    "description": "Link text for the application review page."
+  },
   "DYhY7Y": {
     "defaultMessage": "<degreeLink>Grade</degreeLink> d’un <postSecondaryLink>établissement d’enseignement postsecondaire reconnu</postSecondaryLink>",
     "description": "Description for the EX graduation with degree requirement."
