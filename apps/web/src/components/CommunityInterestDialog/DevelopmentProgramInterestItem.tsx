@@ -180,7 +180,10 @@ const DevelopmentProgramInterestItem = ({
         <span>{label}</span>
         <span
           data-h2-font-size="base(caption)"
-          {...(!developmentProgramInterest?.participationStatus
+          {...(!developmentProgramInterest?.participationStatus ||
+          (developmentProgramInterest?.participationStatus ===
+            DevelopmentProgramParticipationStatus.Completed &&
+            !developmentProgramInterest?.completionDate)
             ? {
                 "data-h2-color": "base(error) base:dark(error.lightest)",
               }
