@@ -15,6 +15,10 @@ import { SubformValues as FindANewCommunitySubformValues } from "./sections/Find
 import { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
 import { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
 import { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+import {
+  stringArrayToEnumsFinanceChiefDuty,
+  stringArrayToEnumsFinanceChiefRole,
+} from "./util";
 
 export interface FormValues
   extends FindANewCommunitySubformValues,
@@ -108,12 +112,14 @@ export function formValuesToApiCreateInput(
     apiInput.financeIsChief = formValues.financeIsChief;
   }
   if (formValues.financeAdditionalDuties !== null) {
-    apiInput.financeAdditionalDuties =
-      formValues.financeAdditionalDuties as FinanceChiefDuty[];
+    apiInput.financeAdditionalDuties = stringArrayToEnumsFinanceChiefDuty(
+      formValues.financeAdditionalDuties,
+    );
   }
   if (formValues.financeOtherRoles !== null) {
-    apiInput.financeOtherRoles =
-      formValues.financeOtherRoles as FinanceChiefRole[];
+    apiInput.financeOtherRoles = stringArrayToEnumsFinanceChiefRole(
+      formValues.financeOtherRoles,
+    );
   }
   if (formValues.financeOtherRolesOther !== null) {
     apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
