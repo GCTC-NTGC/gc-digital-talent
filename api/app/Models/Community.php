@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -152,5 +153,21 @@ class Community extends Model
     public function developmentPrograms(): HasMany
     {
         return $this->hasMany(DevelopmentProgram::class);
+    }
+
+    /**
+     * Re-useable scope to filter by an array of community ids
+     *
+     * @param  array<string>|null  $communityIds  An array of community ids
+     */
+    public static function scopeCommunitiesByIds(Builder $query, ?array $communityIds): Builder
+    {
+        if (empty($communityIds)) {
+            return $query;
+        }
+
+        $query->whereIn('id', $communityIds);
+
+        return $query;
     }
 }

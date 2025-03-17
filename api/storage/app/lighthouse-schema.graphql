@@ -1455,6 +1455,19 @@ input ClaimVerificationSort {
 
 input CommunityInterestFilterInput {
   userName: String
+  generalSearch: String
+  communities: [UUID]
+  workStreams: [UUID]
+  poolFilters: [UserPoolFilterInput]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  lateralMoveInterest: Boolean
+  promotionMoveInterest: Boolean
+  languageAbility: LanguageAbility
+  positionDuration: [PositionDuration]
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  skills: [UUID]
 }
 
 input ClassificationBelongsTo {

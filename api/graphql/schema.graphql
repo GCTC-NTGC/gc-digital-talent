@@ -1103,6 +1103,19 @@ input ClaimVerificationSort {
 
 input CommunityInterestFilterInput {
   userName: String @scope
+  generalSearch: String @scope
+  communities: [UUID] @scope
+  workStreams: [UUID] @scope
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobInterest: Boolean @scope
+  trainingInterest: Boolean @scope
+  lateralMoveInterest: Boolean @scope
+  promotionMoveInterest: Boolean @scope
+  languageAbility: LanguageAbility @scope
+  positionDuration: [PositionDuration] @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  skills: [UUID] @scope
 }
 
 type Query {
