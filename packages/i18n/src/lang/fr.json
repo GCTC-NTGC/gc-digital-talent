@@ -1047,6 +1047,10 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
+  },
   "fUAej4": {
     "defaultMessage": "Pas d'intérêt",
     "description": "Expressed lack of interest"
