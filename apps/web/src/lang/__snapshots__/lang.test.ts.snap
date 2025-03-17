@@ -60,6 +60,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Review and submit",
+    "fr": [
+      "Révisez votre candidature et envoyez-la",
+      "Revoir et soumettre"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
