@@ -867,6 +867,10 @@
     "defaultMessage": "Démontrée, mais la constance varie considérablement selon le public et les circonstances. Démontrée par intermittence dans des situations quotidiennes et démontrée de façon inconstante auprès de certains publics ou dans des conditions de stress ou dans des situations modérément difficiles. Le potentiel est là, mais il reste encore beaucoup à apprendre.",
     "description": "The behavioural skill level definition for beginner"
   },
+  "Y66jFM": {
+    "defaultMessage": "Retournez au tableau de bord",
+    "description": "Link text to the dashboard page"
+  },
   "YHqVoj": {
     "defaultMessage": "Soumettre",
     "description": "Default text for submit button."

@@ -14,6 +14,7 @@ import { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import useMutations from "../useMutations";
 import SubHeading from "./SubHeading";
+import pageTitles from "~/messages/pageTitles";
 
 const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentReviewAndSubmit on TalentNomination {
@@ -52,11 +53,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <SubHeading level="h2" Icon={DocumentMagnifyingGlassIcon}>
-          {intl.formatMessage({
-            defaultMessage: "Review and submit",
-            id: "29uHtO",
-            description: "Heading for submit step of a talent nomination",
-          })}
+          {intl.formatMessage(pageTitles.reviewAndSubmit)}
         </SubHeading>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({

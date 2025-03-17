@@ -53,10 +53,10 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Review and submit",
+    "en": "Submit",
     "fr": [
-      "Révisez votre candidature et envoyez-la",
-      "Révision et soumission"
+      "Soumettez",
+      "Soumettre"
     ]
   },
   {

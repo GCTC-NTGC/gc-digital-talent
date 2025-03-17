@@ -819,10 +819,6 @@
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
   },
-  "29uHtO": {
-    "defaultMessage": "Revoir et soumettre",
-    "description": "Heading for submit step of a talent nomination"
-  },
   "2B+d2V": {
     "defaultMessage": "Vous avez un profil sur Talents numériques du GC.",
     "description": "Second item in list of eligibility requirements section"
@@ -3043,10 +3039,6 @@
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
     "description": "Text describing expiry dates for candidates, what it is for and a recommendation"
   },
-  "DXtgrn": {
-    "defaultMessage": "Révisez votre candidature et envoyez-la",
-    "description": "Link text for the application review page."
-  },
   "DYhY7Y": {
     "defaultMessage": "<degreeLink>Grade</degreeLink> d’un <postSecondaryLink>établissement d’enseignement postsecondaire reconnu</postSecondaryLink>",
     "description": "Description for the EX graduation with degree requirement."
@@ -3974,10 +3966,6 @@
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
-  },
-  "ITtt88": {
-    "defaultMessage": "Révision et soumission",
-    "description": "Heading for the 'Review and submit' section"
   },
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
@@ -5070,6 +5058,10 @@
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante",
     "description": "Aria label for next page button in pagination nav"
+  },
+  "O5yqIM": {
+    "defaultMessage": "Revoir et soumettre",
+    "description": "Heading for submit page of an form"
   },
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
@@ -6981,10 +6973,6 @@
   "Y63cqS": {
     "defaultMessage": "À qui s'adresse ce processus de recrutement?",
     "description": "Button text to toggle the accordion for who can apply"
-  },
-  "Y66jFM": {
-    "defaultMessage": "Retournez au tableau de bord",
-    "description": "Link text to the dashboard page"
   },
   "Y6X4Ok": {
     "defaultMessage": "Communication générale",
@@ -8993,10 +8981,6 @@
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
-  },
-  "htxH4r": {
-    "defaultMessage": "Retourner à votre tableau de bord",
-    "description": "Link text to navigate to the profile and applications page"
   },
   "hx8mTr": {
     "defaultMessage": "Envoyer un autre code.",

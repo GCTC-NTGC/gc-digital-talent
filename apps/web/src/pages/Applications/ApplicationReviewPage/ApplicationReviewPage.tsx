@@ -38,6 +38,7 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
+import pageTitles from "~/messages/pageTitles";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {
@@ -80,11 +81,7 @@ export const getPageInfo: GetPageNavInfo = ({
     ],
     link: {
       url: path,
-      label: intl.formatMessage({
-        defaultMessage: "Review and submit",
-        id: "DXtgrn",
-        description: "Link text for the application review page.",
-      }),
+      label: intl.formatMessage(pageTitles.reviewAndSubmit),
     },
   };
 };

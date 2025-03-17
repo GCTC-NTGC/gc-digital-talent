@@ -6,6 +6,8 @@ import { Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
+import pageTitles from "~/messages/pageTitles";
+
 import { FormValues, parseMaybeStringToBoolean } from "../form";
 
 export interface SubformValues {
@@ -49,11 +51,7 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
           color="primary"
           data-h2-margin="base(0)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Review and submit",
-            id: "ITtt88",
-            description: "Heading for the 'Review and submit' section",
-          })}
+          {intl.formatMessage(pageTitles.reviewAndSubmit)}
         </Heading>
         <p>
           {intl.formatMessage({
