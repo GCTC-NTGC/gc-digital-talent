@@ -88,7 +88,7 @@ class Skill extends Model
 
     public function scopeFamilies(Builder $query, ?array $keys): Builder
     {
-        if (! $keys || ! count($keys)) {
+        if (! $keys) {
             return $query;
         }
 
