@@ -459,7 +459,7 @@ class CommunityInterestTest extends TestCase
                 'where' => [
                     'jobInterest' => true,
                     'trainingInterest' => false,
-                ]
+                ],
             ]
         )->assertJsonFragment(['total' => 2])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
@@ -472,7 +472,7 @@ class CommunityInterestTest extends TestCase
                 'where' => [
                     'jobInterest' => false,
                     'trainingInterest' => true,
-                ]
+                ],
             ]
         )->assertJsonFragment(['total' => 2])
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
@@ -485,13 +485,12 @@ class CommunityInterestTest extends TestCase
                 'where' => [
                     'jobInterest' => false,
                     'trainingInterest' => false,
-                ]
+                ],
             ]
         )->assertJsonFragment(['total' => 3])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
-            // ->assertJsonFragment(['id' => $communityInterestWithNoInterests->id]);
 
         // Test community interest filter where job interest is true and training interest is true
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
@@ -500,10 +499,9 @@ class CommunityInterestTest extends TestCase
                 'where' => [
                     'jobInterest' => true,
                     'trainingInterest' => true,
-                ]
+                ],
             ]
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
     }
-
 }

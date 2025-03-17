@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class CommunityInterest
@@ -57,21 +55,20 @@ class CommunityInterest extends Model
     /**
      * Scopes/filters
      */
+    public function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
+    {
+        if (empty($searchTerm)) {
+            return $query;
+        }
 
-     public function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
-     {
-         if (empty($searchTerm)) {
-             return $query;
-         }
+        $query->where(function ($query) use ($searchTerm) {
+            $query->whereHas('user', function ($query) use ($searchTerm) {
+                User::scopeGeneralSearch($query, $searchTerm);
+            });
+        });
 
-         $query->where(function ($query) use ($searchTerm) {
-             $query->whereHas('user', function ($query) use ($searchTerm) {
-                 User::scopeGeneralSearch($query, $searchTerm);
-             });
-         });
-
-         return $query;
-     }
+        return $query;
+    }
 
     // scope to search records by name of attached user
     public static function scopeUserName(Builder $query, ?string $name): Builder
@@ -162,7 +159,7 @@ class CommunityInterest extends Model
     public static function scopeJobInterest(Builder $query, ?bool $jobInterest): Builder
     {
         if ($jobInterest) {
-            // $query->where('job_interest', true);
+            $query->where('job_interest', true);
         }
 
         return $query;
@@ -171,7 +168,7 @@ class CommunityInterest extends Model
     public static function scopeTrainingInterest(Builder $query, ?bool $trainingInterest): Builder
     {
         if ($trainingInterest) {
-            // $query->where('training_interest', true);
+            $query->where('training_interest', true);
         }
 
         return $query;
@@ -180,7 +177,7 @@ class CommunityInterest extends Model
     public static function scopeLateralMoveInterest(Builder $query, ?bool $lateralMoveInterest): Builder
     {
         if ($lateralMoveInterest) {
-            $query->whereHas('user', function ($query) use ($lateralMoveInterest) {
+            $query->whereHas('user', function ($query) {
                 $query->where('career_planning_lateral_move_interest', true);
             });
         }
@@ -191,7 +188,7 @@ class CommunityInterest extends Model
     public static function scopePromotionMoveInterest(Builder $query, ?bool $promotionMoveInterest): Builder
     {
         if ($promotionMoveInterest) {
-            $query->whereHas('user', function ($query) use ($promotionMoveInterest) {
+            $query->whereHas('user', function ($query) {
                 $query->where('career_planning_promotion_move_interest', true);
             });
         }
@@ -261,8 +258,8 @@ class CommunityInterest extends Model
             return $query;
         }
 
-         // point at filter on User
-         $query->whereHas('user', function ($query) use ($skillIds) {
+        // point at filter on User
+        $query->whereHas('user', function ($query) use ($skillIds) {
             User::scopeSkillsIntersectional($query, $skillIds);
         });
 

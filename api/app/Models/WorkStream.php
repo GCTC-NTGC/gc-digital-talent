@@ -46,7 +46,7 @@ class WorkStream extends Model
         return $this->belongsTo(Community::class);
     }
 
-        /**
+    /**
      * Re-useable scope to filter by an array of workStream ids
      *
      * @param  array<string>|null  $workStreamIds  An array of workStream ids
