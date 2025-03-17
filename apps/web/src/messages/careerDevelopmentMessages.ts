@@ -39,6 +39,18 @@ const messages = (intl: IntlShape) => ({
     description:
       "Label for an employee profile career development preference field",
   }),
+  eligibleRetirementYearKnown: intl.formatMessage({
+    defaultMessage: "Retirement eligibility",
+    id: "Of4wHY",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
+  eligibleRetirementYear: intl.formatMessage({
+    defaultMessage: "Year of retirement eligibility",
+    id: "lwYOqk",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
   mentorshipStatus: intl.formatMessage({
     defaultMessage: "Mentorship status",
     id: "B524m1",

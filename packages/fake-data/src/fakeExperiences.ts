@@ -19,6 +19,7 @@ import {
   EmploymentCategory,
   WorkExperienceGovEmployeeType,
   GovContractorType,
+  CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 
 import fakeDepartments from "./fakeDepartments";
@@ -185,6 +186,14 @@ const generateWork = (): GeneratedWorkExperience => {
     ),
     govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
     contractorFirmAgencyName: faker.company.name(),
+    supervisoryPosition: true,
+    supervisedEmployees: true,
+    supervisedEmployeesNumber: "50",
+    budgetManagement: true,
+    annualBudgetAllocation: "100000000",
+    seniorManagementStatus: true,
+    cSuiteRoleTitle: toLocalizedEnum(CSuiteRoleTitle.Other),
+    otherCSuiteRoleTitle: `${faker.person.jobDescriptor()} ${faker.person.jobType()} ${faker.person.jobTitle()} ${faker.person.jobArea()}`,
   };
 };
 

@@ -40,6 +40,8 @@ const Display = ({
     nextRoleWorkStreams,
     nextRoleDepartments,
     nextRoleAdditionalInformation,
+    nextRoleIsCSuiteRole,
+    nextRoleCSuiteRoleTitle,
   },
 }: DisplayProps) => {
   const intl = useIntl();
@@ -119,6 +121,22 @@ const Display = ({
             nextRoleTargetRole?.label.localized ??
             notProvided}
         </ToggleForm.FieldDisplay>
+        <ToggleForm.FieldDisplay
+          label={intl.formatMessage(
+            employeeProfileMessages.seniorManagementStatus,
+          )}
+        >
+          {nextRoleIsCSuiteRole
+            ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
+            : intl.formatMessage(employeeProfileMessages.isNotCSuiteRoleTitle)}
+        </ToggleForm.FieldDisplay>
+        {!!nextRoleIsCSuiteRole && (
+          <ToggleForm.FieldDisplay
+            label={intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}
+          >
+            {nextRoleCSuiteRoleTitle?.label?.localized ?? notProvided}
+          </ToggleForm.FieldDisplay>
+        )}
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.jobTitle)}
         >

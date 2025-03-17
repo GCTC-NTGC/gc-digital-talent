@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
@@ -238,8 +239,9 @@ class UserFactory extends Factory
     {
         $lateralMoveInterestBool = $this->faker->boolean();
         $promotionMoveInterestBool = $this->faker->boolean();
+        $retirementYearKnownBool = $this->faker->boolean();
 
-        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool) {
+        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool, $retirementYearKnownBool) {
             $nextRoleCommunity = $this->faker->boolean(80) ?
                 Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
                 null;
@@ -249,6 +251,9 @@ class UserFactory extends Factory
 
             $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
             $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
+
+            $nextRoleIsCSuite = $this->faker->boolean(40);
+            $careerObjectiveIsCSuite = $this->faker->boolean(40);
 
             $user->employeeProfile->nextRoleDepartments()
                 ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
@@ -297,6 +302,8 @@ class UserFactory extends Factory
                 'career_objective_community_id' => isset($careerObjectiveCommunity) ? $careerObjectiveCommunity->id : null,
                 'next_role_community_other' => ! isset($nextRoleCommunity) ? $this->faker->company() : null,
                 'career_objective_community_other' => ! isset($careerObjectiveCommunity) ? $this->faker->company() : null,
+                'eligible_retirement_year_known' => $retirementYearKnownBool,
+                'eligible_retirement_year' => $retirementYearKnownBool ? $this->faker->date(max: '+35 years') : null,
 
                 'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
                 'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
@@ -310,6 +317,10 @@ class UserFactory extends Factory
                         ? $this->faker->words(3, true)
                         : null,
 
+                'next_role_is_c_suite_role' => $nextRoleIsCSuite,
+                'career_objective_is_c_suite_role' => $careerObjectiveIsCSuite,
+                'next_role_c_suite_role_title' => $nextRoleIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
+                'career_objective_c_suite_role_title' => $careerObjectiveIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
             ]);
         });
     }
