@@ -26,22 +26,39 @@ const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const PreviewListItemFunctionalCommunityOptions_Fragment = graphql(
+  /* GraphQL */ `
+    fragment PreviewListItemFunctionalCommunityOptions on Query {
+      ...CommunityInterestDialogOptions
+    }
+  `,
+);
+
 interface FunctionalCommunityListItemProps {
   headingAs?: HeadingLevel;
   functionalCommunityListItemQuery: FragmentType<
     typeof PreviewListItemFunctionalCommunity_Fragment
+  >;
+  functionalCommunityListItemOptionsQuery: FragmentType<
+    typeof PreviewListItemFunctionalCommunityOptions_Fragment
   >;
 }
 
 const FunctionalCommunityListItem = ({
   headingAs,
   functionalCommunityListItemQuery,
+  functionalCommunityListItemOptionsQuery,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
 
   const functionalCommunityListItemFragment = getFragment(
     PreviewListItemFunctionalCommunity_Fragment,
     functionalCommunityListItemQuery,
+  );
+
+  const functionalCommunityListItemOptionsFragment = getFragment(
+    PreviewListItemFunctionalCommunityOptions_Fragment,
+    functionalCommunityListItemOptionsQuery,
   );
 
   type MetaDataProps = React.ComponentProps<
@@ -82,6 +99,9 @@ const FunctionalCommunityListItem = ({
         action={
           <CommunityInterestDialog
             communityInterestQuery={functionalCommunityListItemFragment}
+            communityInterestOptionsQuery={
+              functionalCommunityListItemOptionsFragment
+            }
             trigger={<PreviewList.Button label={title} />}
           />
         }
