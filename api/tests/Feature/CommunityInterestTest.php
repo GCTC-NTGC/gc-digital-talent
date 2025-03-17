@@ -396,4 +396,88 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
     }
+
+    // test mobility type and mobility interest in community interest filter
+    public function testCommunityInterestFilter(): void
+    {
+        CommunityInterest::truncate();
+        $communityInterestWithJobInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => false,
+        ]);
+        $communityInterestWithTrainingInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => false,
+            'training_interest' => true,
+        ]);
+        $communityInterestWithBothInterests = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => true,
+            'training_interest' => true,
+        ]);
+        $communityInterestWithNoInterests = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'job_interest' => false,
+            'training_interest' => false,
+        ]);
+
+        // Test community interest filter where job interest is true and training interest is false
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => true,
+                    'trainingInterest' => false,
+                ]
+            ]
+        )->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+
+        // Test community interest filter where job interest is false and training interest is true
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => false,
+                    'trainingInterest' => true,
+                ]
+            ]
+        )->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+
+        // Test community interest filter where job interest is false and training interest is false
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => false,
+                    'trainingInterest' => false,
+                ]
+            ]
+        )->assertJsonFragment(['total' => 3])
+            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+            // ->assertJsonFragment(['id' => $communityInterestWithNoInterests->id]);
+
+        // Test community interest filter where job interest is true and training interest is true
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => true,
+                    'trainingInterest' => true,
+                ]
+            ]
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+    }
+
 }
