@@ -39,17 +39,17 @@ class DevelopmentProgramsSeeder extends Seeder
             ],
             [
                 'name' => ['en' => 'Comptrollership Leadership Development Program (CLDP)', 'fr' => 'Programme de perfectionnement en leadership de la fonction de contrôleur (PPLFC)'],
-                'description_for_profile' => ['en' => 'The Comptrollership Leadership Development Program (CLDP) is an eight-month program designed for CT-FIN-04 or equivalent employees preparing for executives roles. This program includes workshops, hands-on learning, and coaching. It is aimed at candidates who have been identified as ready for promotion and who are technically competent in their current field.', 'fr' => 'Le programme de perfectionnement en leadership en de la fonction de contrôleur (PPLFC) est un programme de huit mois conçu pour les employés CT-FIN-04 ou équivalents qui se préparent à des postes de direction. Ce programme comprend des ateliers, un apprentissage pratique et un encadrement. Il s\'adresse aux candidats qui ont été identifiés comme étant prêts à être promus et qui sont techniquement compétents dans leur domaine actuel.'],
+                'description_for_profile' => ['en' => 'The Comptrollership Leadership Development Program (CLDP) is an eight-month program designed for CT FIN-04 or equivalent employees preparing for executives roles. This program includes workshops, hands-on learning, and coaching. It is aimed at candidates who have been identified as ready for promotion and who are technically competent in their current field.', 'fr' => 'Le programme de perfectionnement en leadership en de la fonction de contrôleur (PPLFC) est un programme de huit mois conçu pour les employés CT FIN-04 ou équivalents qui se préparent à des postes de direction. Ce programme comprend des ateliers, un apprentissage pratique et un encadrement. Il s\'adresse aux candidats qui ont été identifiés comme étant prêts à être promus et qui sont techniquement compétents dans leur domaine actuel.'],
                 'description_for_nominations' => ['en' => 'By nominating a candidate for this program, you are supporting the time commitment of approximately 25 to 30 days over the course of the program. You are also supporting the cost of $5,500. For more information, please reference this link: https://pdinstitute.uottawa.ca/PDI/Programs/Comptrollership-Leadership-Development-Program/Comptrollership-Leadership-Development-Program.aspx?033973826dfc=1#033973826dfc', 'fr' => 'En nommant un candidat pour ce programme, vous soutenez le temps nécessaire, qui est d\'environ 25 à 30 jours pendant la durée du programme. Vous supportez également le coût de 5 500$. Pour plus d\'informations, veuillez consulter ce lien: https://pdinstitute.uottawa.ca/PDI/Programs/Comptrollership-Leadership-Development-Program/Comptrollership-Leadership-Development-Program.aspx?033973826dfc=1#033973826dfc'],
                 'community_id' => $communityId,
-                'classifications' => ['CT-FIN-04'],
+                'classifications' => ['CT FIN-04'],
             ],
             [
                 'name' => ['en' => 'Canadian Public Finance Accreditation (CPFA)', 'fr' => 'L’agrément canadien en finances publiques (ACFP)'],
-                'description_for_profile' => ['en' => 'The Canadian Public Finance Accreditation (CPFA) is a two-year Accelerated Route to the CPFA designation and is designed exclusively for government leaders (CT-FIN-03 and above) with substantial strategic and public financial management responsibilities, who don’t yet hold a professional accounting qualification. This program is offered in partnership with the  Chartered Institute of Public Finance and Accountancy (CIPFA).', 'fr' => 'L\'Accréditation en finances publiques canadiennes (AFPC) est une voie accélérée de deux ans vers le titre d\'AFPC. Elle est conçue exclusivement pour les leaders gouvernementaux (CT-FIN-03 et supérieur) qui ont des responsabilités considérables en matière de gestion stratégique et de gestion des finances publiques et qui ne détiennent pas encore de titre comptable. Ce programme est offert en partenariat avec le Chartered Institute of Public Finance and Accountancy (CIPFA).'],
+                'description_for_profile' => ['en' => 'The Canadian Public Finance Accreditation (CPFA) is a two-year Accelerated Route to the CPFA designation and is designed exclusively for government leaders (CT FIN-03 and above) with substantial strategic and public financial management responsibilities, who don’t yet hold a professional accounting qualification. This program is offered in partnership with the  Chartered Institute of Public Finance and Accountancy (CIPFA).', 'fr' => 'L\'Accréditation en finances publiques canadiennes (AFPC) est une voie accélérée de deux ans vers le titre d\'AFPC. Elle est conçue exclusivement pour les leaders gouvernementaux (CT FIN-03 et supérieur) qui ont des responsabilités considérables en matière de gestion stratégique et de gestion des finances publiques et qui ne détiennent pas encore de titre comptable. Ce programme est offert en partenariat avec le Chartered Institute of Public Finance and Accountancy (CIPFA).'],
                 'description_for_nominations' => ['en' => 'By nominating a candidate for this program, you are supporting the time commitment required for approximately 52.25 days of guided learning and exams over approximately 28 months, with an additional 50 to 100 days of self-study time, based on the individual. You are also supporting the cost to enroll in the program of $16,999, which is due over the 2 year program.', 'fr' => 'En nommant un candidat pour ce programme, vous soutenez le temps requis pour environ 52,25 jours d\'apprentissage guidé et d\'examens sur une période d\'environ 28 mois, avec 50 à 100 jours supplémentaires de temps d\'auto-apprentissage, selon l\'individu. Vous soutenez également le coût de l\'inscription au programme, qui s\'élève à 16 999$ et qui est réparti sur les deux années du programme.'],
                 'community_id' => $communityId,
-                'classifications' => ['CT-FIN-03', 'CT-FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
+                'classifications' => ['CT FIN-03', 'CT FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
             ],
             [
                 'name' => ['en' => 'Senior Executive Advanced Finance and Accounting Program (SEAFAP)', 'fr' => 'Programme avancé en finance et en comptabilité pour les cadres supérieurs (PCFACS)'],
@@ -77,33 +77,41 @@ class DevelopmentProgramsSeeder extends Seeder
                 'description_for_profile' => ['en' => 'The Chartered Professional Accountant program is a comprehensive, professional development pathway designed for individuals seeking to attain the CPA designation. This program combines rigorous education with practical experience to equip candidates with the expertise needed for leadership roles in accounting and finance.', 'fr' => 'Le programme de Comptable professionnel agréé (CPA) est un parcours de développement professionnel exhaustif conçu pour les personnes souhaitant obtenir le titre de CPA. Ce programme combine une éducation rigoureuse et une expérience pratique afin de fournir aux candidats l\'expertise nécessaire pour occuper des postes de leadership dans les domaines de la comptabilité et de la finance.'],
                 'description_for_nominations' => ['en' => 'N/A', 'fr' => 'N/A'],
                 'community_id' => $communityId,
-                'classifications' => ['CT-FIN-01', 'CT-FIN-02', 'CT-FIN-03', 'CT-FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
+                'classifications' => ['CT FIN-01', 'CT FIN-02', 'CT FIN-03', 'CT FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
             ],
             [
                 'name' => ['en' => 'IIA Certification', 'fr' => 'Certification IAI'],
                 'description_for_profile' => ['en' => 'The IIA Certification program is a specialized, globally recognized credential designed for professionals in internal auditing and risk management. Tailored for individuals seeking to enhance their expertise in internal auditing practices, this program provides in-depth knowledge and skills necessary for leadership roles in auditing, governance, and risk management. Offered by the Institute of Internal Auditors (IIA), the certification supports career advancement and ensures professionals are equipped to meet the dynamic challenges of the auditing profession.', 'fr' => 'Le programme de certification de l\'IAI est un titre spécialisé et internationalement reconnu conçu pour les professionnels de l\'audit interne et de la gestion des risques. Conçu pour les personnes cherchant à améliorer leur expertise en matière de pratiques d\'audit interne, ce programme fournit des connaissances et des compétences approfondies nécessaires pour occuper des postes de direction dans les domaines de l\'audit, de la gouvernance et de la gestion des risques. Offerte par l\'Institut des auditeurs internes (IAI), la certification favorise l\'avancement de la carrière et garantit que les professionnels sont équipés pour relever les défis dynamiques de la profession d\'auditeur.'],
                 'description_for_nominations' => ['en' => 'N/A', 'fr' => 'N/A'],
                 'community_id' => $communityId,
-                'classifications' => ['CT-FIN-01', 'CT-FIN-02', 'CT-FIN-03', 'CT-FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
+                'classifications' => ['CT FIN-01', 'CT FIN-02', 'CT FIN-03', 'CT FIN-04', 'EX-01', 'EX-02', 'EX-03', 'EX-04', 'EX-05'],
             ],
         ];
 
-        // Insert data into development_programs table and classification_development_program table
         foreach ($developmentPrograms as $program) {
-            $developmentProgramId = Str::uuid();
-            DB::table('development_programs')->insert([
-                'id' => $developmentProgramId,
-                'created_at' => now(),
-                'updated_at' => now(),
-                'name' => json_encode($program['name']),
-                'description_for_profile' => json_encode($program['description_for_profile']),
-                'description_for_nominations' => json_encode($program['description_for_nominations']),
-                'community_id' => $program['community_id'],
-            ]);
+            // Check if the program already exists
+            $existingProgram = DB::table('development_programs')
+                ->where('name', json_encode($program['name']))
+                ->first();
+
+            if (! $existingProgram) {
+                $developmentProgramId = Str::uuid();
+                DB::table('development_programs')->insert([
+                    'id' => $developmentProgramId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'name' => json_encode($program['name']),
+                    'description_for_profile' => json_encode($program['description_for_profile']),
+                    'description_for_nominations' => json_encode($program['description_for_nominations']),
+                    'community_id' => $program['community_id'],
+                ]);
+            } else {
+                $developmentProgramId = $existingProgram->id;
+            }
 
             foreach ($program['classifications'] as $classification) {
-                // Handle classifications like CT-FIN-03
-                if (preg_match('/^([A-Z\-]+)-(\d+)$/', $classification, $matches)) {
+                // Handle classifications like CT FIN-03
+                if (preg_match('/^([A-Z ]+)-(\d+)$/', $classification, $matches)) {
                     $group = $matches[1];
                     $level = $matches[2];
                 } else {
@@ -116,11 +124,18 @@ class DevelopmentProgramsSeeder extends Seeder
                     ->value('id');
 
                 if ($classificationId) {
-                    DB::table('classification_development_program')->insert([
-                        'id' => Str::uuid(),
-                        'classification_id' => $classificationId,
-                        'development_program_id' => $developmentProgramId,
-                    ]);
+                    $existingClassification = DB::table('classification_development_program')
+                        ->where('classification_id', $classificationId)
+                        ->where('development_program_id', $developmentProgramId)
+                        ->first();
+
+                    if (! $existingClassification) {
+                        DB::table('classification_development_program')->insert([
+                            'id' => Str::uuid(),
+                            'classification_id' => $classificationId,
+                            'development_program_id' => $developmentProgramId,
+                        ]);
+                    }
                 }
             }
         }
