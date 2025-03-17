@@ -165,6 +165,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Edit off-platform process information",
+    "fr": [
+      "Modifiez les renseignements sur les processus hors plateforme",
+      "Modifier les renseignements sur les processus hors plateforme."
+    ]
+  },
+  {
     "en": "Skill requirements",
     "fr": [
       "Exigences relatives aux compétences",

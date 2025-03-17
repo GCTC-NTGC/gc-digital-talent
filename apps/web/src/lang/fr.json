@@ -2443,6 +2443,10 @@
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
   },
+  "AC/qwa": {
+    "defaultMessage": "Si vous êtes qualifiée ou qualifié dans des processus ou des bassins sur d’autres plateformes du gouvernement du Canada, vous pouvez l’indiquer ici. Ces renseignements seront vérifiés.",
+    "description": "Off-platform section information"
+  },
   "ADPfNp": {
     "defaultMessage": "Valider dès maintenant",
     "description": "Button to start the email address verification process"
@@ -2454,6 +2458,10 @@
   "AH5WDT": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for a users career objective"
+  },
+  "AJXRC6": {
+    "defaultMessage": "Les données que vous fournissez ici seront vérifiées. Vous pouvez ajouter tous les processus et bassins dans lesquels vous êtes qualifiée ou qualifié. Dans la mesure du possible, fournissez les renseignements suivants :",
+    "description": "Explanation of dialog"
   },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
@@ -4230,6 +4238,10 @@
   "JRlnNk": {
     "defaultMessage": "Gestion de la collectivité numérique",
     "description": "Title for the Digital Community Management"
+  },
+  "JThAS2": {
+    "defaultMessage": "Le niveau (par exemple, 01, 02, 03, etc.)",
+    "description": "Info list item"
   },
   "JUejJU": {
     "defaultMessage": "Le bureau de gestion de la collectivité du numérique souhaite vous aider à trouver le bon talent.",
@@ -6107,6 +6119,10 @@
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
   },
+  "T3geYt": {
+    "defaultMessage": "Le groupe professionnel (par exemple, IT, AS, etc.)",
+    "description": "Info list item"
+  },
   "T4LCrR": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez-nous votre histoire en mettant l'accent sur votre avancement professionnel et vos compétences. Votre profil éclairera les décisions en matière de gestion des talents et orientera la planification stratégique en ce qui a trait au recrutement, à la planification de la relève et au perfectionnement de nos cadres de la gestion financière.",
     "description": "Explanation about profile"
@@ -7898,10 +7914,6 @@
     "defaultMessage": "Ce ne sont pas toutes les étapes de l’évaluation qui ont été sauvegardées.",
     "description": "Error message displayed after all some steps were not changed"
   },
-  "cO535E": {
-    "defaultMessage": "Erreur : échec de la mise à jour du compte.",
-    "description": "Message displayed to user if account fails to get updated."
-  },
   "cP9CaK": {
     "defaultMessage": "Établir un lien entre une expérience et {skillName}",
     "description": "Instructional text for connecting an experience with a skill"
@@ -8121,6 +8133,10 @@
   "db3ZDX": {
     "defaultMessage": "Bon retour!",
     "description": "Heading at the top of the sign in page for applicant profiles"
+  },
+  "dbeDy2": {
+    "defaultMessage": "Aucune information sur les processus hors plate-forme n’a été fournie.",
+    "description": "Null state for off-platform section"
   },
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
@@ -8714,6 +8730,10 @@
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
   },
+  "g17mQL": {
+    "defaultMessage": "Modifiez les renseignements sur les processus hors plateforme",
+    "description": "Button to open dialog to edit information"
+  },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Title for add experience page"
@@ -8757,10 +8777,6 @@
   "g8Ur9z": {
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
-  },
-  "g9J8/u": {
-    "defaultMessage": "Compte mis à jour avec succès.",
-    "description": "Message displayed to user if account is updated successfully."
   },
   "gASASB": {
     "defaultMessage": "Description (anglais)",
@@ -9346,6 +9362,10 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
+  "izBEYf": {
+    "defaultMessage": "Renseignements sur les processus hors plateforme",
+    "description": "Form input label"
+  },
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -9530,6 +9550,10 @@
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
   },
+  "jrt4zY": {
+    "defaultMessage": "Modifier les renseignements sur les processus hors plateforme.",
+    "description": "Dialog header informing of purpose"
+  },
   "js5ZcB": {
     "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
     "description": "Caption for the departmental-preference selection limitation"
@@ -9689,6 +9713,10 @@
   "klyOZZ": {
     "defaultMessage": "Ce fichier n'est pas disponible. S'il s'est écoulé plus de 24 heures depuis que vous en avez fait la demande, veuillez tenter de demander le téléchargement une nouvelle fois. S'il s'est écoulé moins de 24 heures ou si le problème persiste, communiquez avec l'équipe de soutien pour obtenir de l'aide.",
     "description": "Error message when a file no longer exists"
+  },
+  "knm4b3": {
+    "defaultMessage": "Parlez-nous des processus de recrutement dans lesquels vous êtes qualifiée ou qualifié sur d’autres plateformes du gouvernement du Canada.",
+    "description": "Dialog subtitle informing of purpose"
   },
   "koX5xF": {
     "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
@@ -10497,6 +10525,10 @@
   "om9QYn": {
     "defaultMessage": "Annulez et revenez aux classifications",
     "description": "Link text to return to classification table"
+  },
+  "ooBbNZ": {
+    "defaultMessage": "Le numéro du processus ou du bassin",
+    "description": "Info list item"
   },
   "opkSia": {
     "defaultMessage": "Gérer « {skillName} »",
@@ -11365,6 +11397,10 @@
   "tpTntk": {
     "defaultMessage": "Démontrée avec les expériences suivantes :",
     "description": "Lead in text for experiences that demonstrate minimum education experience"
+  },
+  "tpXtAJ": {
+    "defaultMessage": "Processus hors plateforme",
+    "description": "Off-platform section header"
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
