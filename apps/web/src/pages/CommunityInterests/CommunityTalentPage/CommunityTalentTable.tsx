@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ColumnDef,
   PaginationState,
@@ -7,26 +7,46 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { SubmitHandler } from "react-hook-form";
+import isEqual from "lodash/isEqual";
+import uniqueId from "lodash/uniqueId";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
   getFragment,
+  CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import useUserDownloads from "~/hooks/useUserDownloads";
+import useSelectedRows from "~/hooks/useSelectedRows";
+import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 
+import CommunityTalentFilterDialog, {
+  FormValues,
+} from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,
   interestAccessor,
+  transformCommunityInterestFilterInputToFormValues,
+  transformCommunityTalentInput,
+  transformFormValuesToCommunityInterestFilterInput,
   transformSortStateToOrderByClause,
   usernameCell,
 } from "./utils";
@@ -55,6 +75,11 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       }
     }
     community {
+      name {
+        localized
+      }
+    }
+    workStreams {
       name {
         localized
       }
@@ -95,6 +120,24 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
 const columnHelper =
   createColumnHelper<CommunityTalentTableCommunityInterestFragmentType>();
 
+const defaultState = {
+  ...INITIAL_STATE,
+  filters: {
+    communities: [],
+    workStreams: [],
+    poolFilters: [],
+    jobInterest: undefined,
+    trainingInterest: undefined,
+    lateralMoveInterest: undefined,
+    promotionalMoveInterest: undefined,
+    languageAbility: undefined,
+    positionDuration: [],
+    locationPreferences: [],
+    operationalRequirements: [],
+    skills: [],
+  },
+};
+
 interface CommunityTalentTableProps {
   title: string;
 }
@@ -102,11 +145,80 @@ interface CommunityTalentTableProps {
 const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const [paginationState, setPaginationState] = useState<PaginationState>(
-    INITIAL_STATE.paginationState,
+  const initialState = getTableStateFromSearchParams(defaultState);
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: CommunityInterestFilterInput | undefined = useMemo(
+    () =>
+      filtersEncoded
+        ? (JSON.parse(filtersEncoded) as CommunityInterestFilterInput)
+        : undefined,
+    [filtersEncoded],
   );
-  const [sortState, setSortState] = useState<SortingState>([]);
+  const filterRef = useRef<CommunityInterestFilterInput | undefined>(
+    initialFilters,
+  );
+  const [paginationState, setPaginationState] = useState<PaginationState>(
+    initialState.paginationState
+      ? {
+          ...initialState.paginationState,
+          pageIndex: initialState.paginationState.pageIndex + 1,
+        }
+      : INITIAL_STATE.paginationState,
+  );
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const [searchState, setSearchState] = useState<SearchState>(
+    initialState.searchState ?? INITIAL_STATE.searchState,
+  );
+  const [sortState, setSortState] = useState<SortingState>(
+    initialState.sortState ?? [],
+  );
+  const [filterState, setFilterState] = useState<CommunityInterestFilterInput>(
+    initialFilters ?? {},
+  );
+
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadCsv,
+    downloadingCsv,
+  } = useUserDownloads();
+
+  const handleDocDownload = (anonymous: boolean) => {
+    if (selectedRows.length === 1) {
+      downloadDoc({
+        id: selectedRows.map((row) =>
+          row.substring(0, row.indexOf("-unique")),
+        )[0],
+        anonymous,
+      });
+    } else {
+      downloadZip({
+        ids: selectedRows.map((row) =>
+          row.substring(0, row.indexOf("-unique")),
+        ),
+        anonymous,
+      });
+    }
+  };
+
+  const handleCsvDownload = () => {
+    downloadCsv({
+      ids: selectedRows.map((row) => row.substring(0, row.indexOf("-unique"))),
+    });
+  };
+
+  const handleCsvDownloadAll = () => {
+    downloadCsv({
+      where: transformCommunityTalentInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+    });
+  };
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -121,13 +233,41 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }));
   };
 
+  const handleSearchStateChange = ({ term, type }: SearchState) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    setSearchState({
+      term: term ?? INITIAL_STATE.searchState.term,
+      type: type ?? INITIAL_STATE.searchState.type,
+    });
+  };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    const transformedData =
+      transformFormValuesToCommunityInterestFilterInput(data);
+    setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
+  };
+
   const [{ data, fetching }] = useQuery({
     query: CommunityTalentTable_Query,
     variables: {
-      where: undefined,
+      where: transformCommunityTalentInput(
+        filterState,
+        searchState.term,
+        searchState.type,
+      ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: [transformSortStateToOrderByClause(sortState)],
+      orderBy: sortState ? [transformSortStateToOrderByClause(sortState)] : [],
     },
   });
 
@@ -233,6 +373,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     ),
   ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];
 
+  const hasSelectedRows = selectedRows.length > 0;
+
   return (
     <Table<CommunityTalentTableCommunityInterestFragmentType>
       data={communityInterestData}
@@ -240,9 +382,62 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       columns={columns}
       hiddenColumnIds={["community", "workEmail", "preferredLang"]}
       isLoading={fetching}
+      search={{
+        internal: false,
+        label: intl.formatMessage({
+          defaultMessage: "Search community talent",
+          id: "0qv7QL",
+          description: "Label for the community talent table search input",
+        }),
+        onChange: ({ term, type }: SearchState) => {
+          handleSearchStateChange({ term, type });
+        },
+        overrideAllTableMsg: intl.formatMessage({
+          defaultMessage: "All community interests",
+          id: "e8sP17",
+          description:
+            "Text in table search form column dropdown when no column is selected.",
+        }),
+      }}
       sort={{
         internal: false,
         onSortChange: setSortState,
+      }}
+      rowSelect={{
+        onRowSelection: setSelectedRows,
+        getRowId: ({ user }) => `${user.id}-unique${uniqueId()}`,
+        cell: ({ row }) =>
+          rowSelectCell({
+            row,
+            label: getFullNameLabel(
+              row.original.user.firstName,
+              row.original.user.lastName,
+              intl,
+            ),
+          }),
+      }}
+      download={{
+        all: {
+          enable: true,
+          onClick: handleCsvDownloadAll,
+          downloading: downloadingCsv,
+        },
+        csv: {
+          enable: true,
+          onClick: handleCsvDownload,
+          downloading: downloadingCsv,
+        },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadUsersDocButton
+              inTable
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
+              isDownloading={downloadingZip || downloadingDoc}
+              onClick={handleDocDownload}
+            />
+          ),
+        },
       }}
       pagination={{
         internal: false,
@@ -253,6 +448,20 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
+      }}
+      filter={{
+        state: filterRef.current,
+        component: (
+          <CommunityTalentFilterDialog
+            onSubmit={handleFilterSubmit}
+            resetValues={transformCommunityInterestFilterInputToFormValues(
+              defaultState.filters,
+            )}
+            initialValues={transformCommunityInterestFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );
