@@ -12,7 +12,6 @@ use App\Models\Department;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
-use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -227,17 +226,6 @@ class TalentNominationFactory extends Factory
                     'submitted_steps' => $stepsArray,
                     'submitted_at' => Carbon::now(),
                 ];
-            })
-            ->afterCreating(function (TalentNomination $talentNomination) {
-                $talentNominationGroup = TalentNominationGroup::where('talent_nomination_event_id', $talentNomination->talent_nomination_event_id)
-                    ->where('nominee_id', $talentNomination->nominee_id)
-                    ->firstOr(fn () => TalentNominationGroup::factory()->create([
-                        'talent_nomination_event_id' => $talentNomination->talent_nomination_event_id,
-                        'nominee_id' => $talentNomination->nominee_id,
-                    ])
-                    );
-                $talentNomination->talent_nomination_group_id = $talentNominationGroup->id;
-                $talentNomination->save();
             });
     }
 }
