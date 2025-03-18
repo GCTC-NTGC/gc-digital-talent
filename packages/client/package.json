@@ -23,7 +23,6 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "@gc-digital-talent/env": "workspace:*",
     "@urql/core": "^5.1.0",
     "@urql/exchange-auth": "^2.2.1",
     "graphql": "^16.10.0",
