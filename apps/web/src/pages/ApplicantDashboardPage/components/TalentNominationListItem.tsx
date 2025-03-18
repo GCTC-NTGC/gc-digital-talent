@@ -5,6 +5,7 @@ import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
 
 import { useMetaDataDate, useMetaDataTalentNominationChip } from "./hooks";
 
@@ -37,6 +38,7 @@ const TalentNominationListItem = ({
   talentNominationListItemQuery,
 }: TalentNominationListItemProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const talentNominationListItemFragment = getFragment(
     PreviewListItemTalentNomination_Fragment,
@@ -51,6 +53,9 @@ const TalentNominationListItem = ({
   const statusChip = useMetaDataTalentNominationChip({
     submittedAt: talentNominationListItemFragment.submittedAt,
   });
+  const nominationEventName =
+    talentNominationListItemFragment.talentNominationEvent?.name?.localized ??
+    intl.formatMessage(commonMessages.notFound);
   const dateElement = useMetaDataDate({
     closeDate: talentNominationListItemFragment.talentNominationEvent.closeDate,
     submittedAt: talentNominationListItemFragment.submittedAt,
@@ -70,9 +75,7 @@ const TalentNominationListItem = ({
     {
       key: "name",
       type: "text",
-      children:
-        talentNominationListItemFragment.talentNominationEvent?.name
-          ?.localized ?? intl.formatMessage(commonMessages.notFound),
+      children: nominationEventName,
     },
     {
       key: "date",
@@ -86,7 +89,22 @@ const TalentNominationListItem = ({
       <PreviewList.Item
         title={fullName}
         metaData={metaDataProps}
-        // action={}
+        action={
+          talentNominationListItemFragment.submittedAt ? null : (
+            <PreviewList.Link
+              label={intl.formatMessage(
+                {
+                  defaultMessage: "Go to draft nomination for {eventName}",
+                  id: "wtjCOv",
+                  description:
+                    "Accessibility text for preview link, points to draft nomination workflow",
+                },
+                { eventName: nominationEventName },
+              )}
+              href={paths.talentNomination(talentNominationListItemFragment.id)}
+            />
+          )
+        }
         headingAs={headingAs}
       ></PreviewList.Item>
     </>
