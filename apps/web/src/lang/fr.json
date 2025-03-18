@@ -2511,6 +2511,10 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
+  "AX1hRL": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -3206,6 +3210,10 @@
   "E2uEWk": {
     "defaultMessage": "Évaluation de langue seconde",
     "description": "Link text for government of canada second language evaluation"
+  },
+  "E32ToC": {
+    "defaultMessage": "Tâches supplémentaires",
+    "description": "Label for additional duties of a finance chief"
   },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
@@ -5319,6 +5327,10 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
+  "P3LzUb": {
+    "defaultMessage": "Statut de DPF ou APDF",
+    "description": "Bounding box label for the finance chief checkbox"
+  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -5866,6 +5878,10 @@
   "RW0Ukc": {
     "defaultMessage": "Volets",
     "description": "Title for streams"
+  },
+  "RWueRJ": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
+    "description": "Message when user is a finance chief"
   },
   "RWvojd": {
     "defaultMessage": "Revenir à l'annonce",
@@ -9658,6 +9674,10 @@
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
   },
+  "kVmWVW": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
+  },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
@@ -10842,6 +10862,10 @@
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
     "description": "Second language level (reading, writing, oral interaction) label"
   },
+  "qQYO+V": {
+    "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
+    "description": "Label for the 'Other role' input"
+  },
   "qQZQj+": {
     "defaultMessage": "L'adéquation des compétences en détail",
     "description": "Heading displayed on the candidate skill match dialog."
@@ -11265,6 +11289,10 @@
   "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
+  },
+  "t1JWwl": {
+    "defaultMessage": "Veuillez indiquer si vous occupez également l'une des fonctions suivantes.",
+    "description": "Description for the 'other roles' checkbox group"
   },
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
@@ -12357,6 +12385,10 @@
   "yzvT6g": {
     "defaultMessage": "Ajoutez un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
+  },
+  "z20NMR": {
+    "defaultMessage": "Autres rôles",
+    "description": "Label for other roles of a finance chief"
   },
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",

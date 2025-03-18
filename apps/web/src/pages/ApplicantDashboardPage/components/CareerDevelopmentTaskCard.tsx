@@ -74,6 +74,7 @@ export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    ...PreviewListItemFunctionalCommunityOptions
   }
 `);
 
@@ -415,6 +416,9 @@ const CareerDevelopmentTaskCard = ({
                               key={functionalCommunityInterestFragment.id}
                               functionalCommunityListItemQuery={
                                 functionalCommunityInterestFragment
+                              }
+                              functionalCommunityListItemOptionsQuery={
+                                careerDevelopmentTaskCardOptions
                               }
                               headingAs="h4"
                             />
