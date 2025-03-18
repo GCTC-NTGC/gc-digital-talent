@@ -163,8 +163,8 @@ const AdditionalInformation = ({
               name="financeIsChief"
               label={intl.formatMessage({
                 defaultMessage:
-                  "I’m a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
-                id: "RWueRJ",
+                  "I'm a Chief Financial Officer (CFO) or Deputy Chief Financial Officer (DCFO).",
+                id: "p8kdz7",
                 description: "Message when user is a finance chief",
               })}
               disabled={formDisabled}
@@ -182,8 +182,8 @@ const AdditionalInformation = ({
                 <p id={financeAdditionalDutiesDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please indicate if you perform any of the following additional duties in your CDO or DCFO role.",
-                    id: "kVmWVW",
+                      "Please indicate if you perform any of the following additional duties in your CFO or DCFO role.",
+                    id: "Kqut8p",
                     description:
                       "Description for the 'Additional duties' checkbox group",
                   })}

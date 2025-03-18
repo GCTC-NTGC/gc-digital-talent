@@ -671,6 +671,10 @@
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
   },
+  "1QNXzN": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "1Qw7ZV": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
     "description": "Message displayed to user after skill details fails to be created."
@@ -2510,10 +2514,6 @@
   "AWk4BX": {
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
-  },
-  "AX1hRL": {
-    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is not a finance chief"
   },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
@@ -4519,6 +4519,10 @@
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
   },
+  "Kqut8p": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
+  },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
@@ -5878,10 +5882,6 @@
   "RW0Ukc": {
     "defaultMessage": "Volets",
     "description": "Title for streams"
-  },
-  "RWueRJ": {
-    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is a finance chief"
   },
   "RWvojd": {
     "defaultMessage": "Revenir à l'annonce",
@@ -9674,10 +9674,6 @@
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
   },
-  "kVmWVW": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
-    "description": "Description for the 'Additional duties' checkbox group"
-  },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
@@ -10617,6 +10613,10 @@
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
+  },
+  "p8kdz7": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
+    "description": "Message when user is a finance chief"
   },
   "p8o9cO": {
     "defaultMessage": "Le contenu de ce site Web a été produit ou rassemblé afin d’offrir aux Canadiens l’accès aux renseignements concernant les programmes et les services offerts par le gouvernement du Canada. Vous pouvez l’utiliser et le reproduire des façons suivantes :",
