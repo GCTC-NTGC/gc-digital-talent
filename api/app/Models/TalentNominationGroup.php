@@ -25,7 +25,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_program_decision
  * @property string $development_program_notes
  * @property string $computed_status
- * @property string $talent_nomination_group_id
  */
 class TalentNominationGroup extends Model
 {
