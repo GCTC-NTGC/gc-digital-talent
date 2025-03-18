@@ -85,13 +85,25 @@ const AdditionalInformation = ({
   ] = watch(["communityId", "financeIsChief", "financeOtherRoles"]);
 
   useEffect(() => {
-    const resetDirtyField = (name: keyof FormValues) => {
-      resetField(name, { keepDirty: false, defaultValue: null });
+    const resetDirtyField = (
+      name: keyof FormValues,
+      defaultValue: null | string[],
+    ) => {
+      resetField(name, { keepDirty: false, defaultValue });
     };
-    if (!selectedFinanceOtherRoles?.includes(FinanceChiefRole.Other)) {
-      resetDirtyField("financeOtherRolesOther");
+
+    // if not a finance chief then clear all finance fields
+    if (!selectedFinanceIsChief) {
+      resetDirtyField("financeAdditionalDuties", []);
+      resetDirtyField("financeOtherRoles", []);
+      resetDirtyField("financeOtherRolesOther", null);
     }
-  }, [resetField, selectedFinanceOtherRoles]);
+
+    // if the "other" role is not selected then clear the other role input
+    if (!selectedFinanceOtherRoles?.includes(FinanceChiefRole.Other)) {
+      resetDirtyField("financeOtherRolesOther", null);
+    }
+  }, [resetField, selectedFinanceIsChief, selectedFinanceOtherRoles]);
 
   // some fields are only shown for the finance community
   const financeCommunityId = optionsData.communities.find(
