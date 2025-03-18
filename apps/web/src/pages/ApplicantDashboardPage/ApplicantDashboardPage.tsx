@@ -28,6 +28,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
+import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -131,6 +132,10 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       id
     }
     offPlatformRecruitmentProcesses
+    talentNominationsAsSubmitter {
+      id
+    }
+    ...TalentManagementTaskCard
   }
 `);
 
@@ -161,6 +166,10 @@ export const DashboardPage = ({
   if (!currentUser) {
     throw new NotFoundError();
   }
+
+  const displayTalentManagementTaskCard =
+    !!currentUser?.talentNominationsAsSubmitter?.length &&
+    currentUser.talentNominationsAsSubmitter.length > 0;
 
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||
@@ -250,6 +259,11 @@ export const DashboardPage = ({
                 <CareerDevelopmentTaskCard
                   careerDevelopmentTaskCardQuery={currentUser.employeeProfile}
                   careerDevelopmentOptionsQuery={applicantDashboardQuery}
+                />
+              ) : null}
+              {displayTalentManagementTaskCard ? (
+                <TalentManagementTaskCard
+                  talentManagementTaskCardQuery={currentUser}
                 />
               ) : null}
             </div>
