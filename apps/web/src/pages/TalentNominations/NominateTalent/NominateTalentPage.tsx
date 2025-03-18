@@ -72,6 +72,8 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
       ...NominateTalentReviewAndSubmit
       ...NominateTalentSuccess
     }
+
+    ...NomineeFieldOptions
   }
 `);
 
@@ -164,7 +166,10 @@ const NominateTalentPage = () => {
               <TableOfContents.Content>
                 <Instructions />
                 <Nominator nominatorQuery={data.talentNomination} />
-                <Nominee nomineeQuery={data.talentNomination} />
+                <Nominee
+                  nomineeQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
                 <Details detailsQuery={data.talentNomination} />
                 <Rationale rationaleQuery={data.talentNomination} />
                 <ReviewAndSubmit reviewAndSubmitQuery={data.talentNomination} />
