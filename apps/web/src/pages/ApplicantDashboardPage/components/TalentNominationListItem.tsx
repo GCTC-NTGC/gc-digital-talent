@@ -7,7 +7,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 
-import { useMetaDataDate, useMetaDataTalentNominationChip } from "./hooks";
+import { useMetaDataTalentNominationChip } from "./hooks";
+import { NominationMetaDataDate } from "./NominationMetaDataDate";
 
 export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {
@@ -56,10 +57,6 @@ const TalentNominationListItem = ({
   const nominationEventName =
     talentNominationListItemFragment.talentNominationEvent?.name?.localized ??
     intl.formatMessage(commonMessages.notFound);
-  const dateElement = useMetaDataDate({
-    closeDate: talentNominationListItemFragment.talentNominationEvent.closeDate,
-    submittedAt: talentNominationListItemFragment.submittedAt,
-  });
 
   type MetaDataProps = React.ComponentProps<
     typeof PreviewList.Item
@@ -80,7 +77,14 @@ const TalentNominationListItem = ({
     {
       key: "date",
       type: "text",
-      children: dateElement,
+      children: (
+        <NominationMetaDataDate
+          closeDate={
+            talentNominationListItemFragment.talentNominationEvent.closeDate
+          }
+          submittedAt={talentNominationListItemFragment.submittedAt}
+        />
+      ),
     },
   ];
 
