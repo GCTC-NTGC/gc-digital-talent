@@ -162,16 +162,15 @@ const AdditionalInformation = ({
               id="financeIsChief"
               name="financeIsChief"
               label={intl.formatMessage({
-                defaultMessage:
-                  "I'm a Chief Financial Officer (CFO) or Deputy Chief Financial Officer (DCFO).",
-                id: "p8kdz7",
+                defaultMessage: "I'm a Chief Financial Officer (CFO).",
+                id: "duKO+o",
                 description: "Message when user is a finance chief",
               })}
               disabled={formDisabled}
               boundingBox={true}
               boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "CFO or DCFO status",
-                id: "P3LzUb",
+                defaultMessage: "CFO status",
+                id: "2KQdGz",
                 description:
                   "Bounding box label for the finance chief checkbox",
               })}
@@ -182,8 +181,8 @@ const AdditionalInformation = ({
                 <p id={financeAdditionalDutiesDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please indicate if you perform any of the following additional duties in your CFO or DCFO role.",
-                    id: "Kqut8p",
+                      "Please indicate if you perform any of the following additional duties in your CFO role.",
+                    id: "DQ2DKZ",
                     description:
                       "Description for the 'Additional duties' checkbox group",
                   })}
