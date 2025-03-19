@@ -3,6 +3,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
+  "+/6UIs": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "+/ZsxX": {
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
@@ -615,10 +619,6 @@
     "defaultMessage": "la participation au processus de gestion des talents est <strong>obligatoire</strong> pour l'ensemble des cadres de la gestion financière, ainsi que pour les dirigeantes et dirigeants principaux des finances, et les dirigeantes et dirigeants adjoints principaux des finances, qui n'occupent pas un poste du groupe EX.",
     "description": "Employee group list item description"
   },
-  "2KQdGz": {
-    "defaultMessage": "Statut de DPF",
-    "description": "Bounding box label for the finance chief checkbox"
-  },
   "159+n7": {
     "defaultMessage": "Compétences sélectionnées ({numOfSkills})",
     "description": "Title for skills section on summary of filters section"
@@ -674,10 +674,6 @@
   "1Q/4Yb": {
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
-  },
-  "+/6UIs": {
-    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF).",
-    "description": "Message when user is not a finance chief"
   },
   "1Qw7ZV": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
@@ -862,6 +858,10 @@
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
+  },
+  "2KQdGz": {
+    "defaultMessage": "Statut de DPF",
+    "description": "Bounding box label for the finance chief checkbox"
   },
   "2Kz16k": {
     "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
@@ -3059,6 +3059,10 @@
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
   },
+  "DQ2DKZ": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
+  },
   "DQ8q0K": {
     "defaultMessage": "Date de publication (heure locale)",
     "description": "A date at which data will be published, in the local time zone"
@@ -4522,10 +4526,6 @@
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
-  },
-  "DQ2DKZ": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF.",
-    "description": "Description for the 'Additional duties' checkbox group"
   },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
@@ -8242,6 +8242,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
   },
+  "duKO+o": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is a finance chief"
+  },
   "duXf4a": {
     "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
     "description": "Instructions to contact support after nomination submission"
@@ -10613,10 +10617,6 @@
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
-  },
-  "duKO+o": {
-    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
-    "description": "Message when user is a finance chief"
   },
   "p8o9cO": {
     "defaultMessage": "Le contenu de ce site Web a été produit ou rassemblé afin d’offrir aux Canadiens l’accès aux renseignements concernant les programmes et les services offerts par le gouvernement du Canada. Vous pouvez l’utiliser et le reproduire des façons suivantes :",
