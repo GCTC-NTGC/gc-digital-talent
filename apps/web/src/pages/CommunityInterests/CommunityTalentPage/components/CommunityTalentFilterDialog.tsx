@@ -117,11 +117,7 @@ const CommunityTalentFilterDialog = ({
         data-h2-gap="base(x1)"
         data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Combobox
             id="communities"
             name="communities"
@@ -133,6 +129,8 @@ const CommunityTalentFilterDialog = ({
               label: name?.localized,
             }))}
           />
+        </div>
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Combobox
             id="workStreams"
             name="workStreams"
@@ -145,14 +143,10 @@ const CommunityTalentFilterDialog = ({
             }))}
           />
         </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div data-h2-grid-column="base(span 2)">
           <PoolFilterInput />
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Checklist
             idPrefix="mobilityInterest"
             name="mobilityInterest"
@@ -183,6 +177,8 @@ const CommunityTalentFilterDialog = ({
               },
             ]}
           />
+        </div>
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Checklist
             idPrefix="mobilityType"
             name="mobilityType"
@@ -215,11 +211,7 @@ const CommunityTalentFilterDialog = ({
             ]}
           />
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Select
             id="languageAbility"
             name="languageAbility"
@@ -231,6 +223,8 @@ const CommunityTalentFilterDialog = ({
               label: label.localized,
             }))}
           />
+        </div>
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Select
             id="employmentDuration"
             name="employmentDuration"
@@ -251,11 +245,7 @@ const CommunityTalentFilterDialog = ({
             }))}
           />
         </div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Checklist
             idPrefix="workRegions"
             name="workRegions"
@@ -265,6 +255,8 @@ const CommunityTalentFilterDialog = ({
               intl,
             )}
           />
+        </div>
+        <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Checklist
             idPrefix="operationalRequirements"
             name="operationalRequirements"
@@ -272,7 +264,7 @@ const CommunityTalentFilterDialog = ({
             items={localizedEnumToOptions(data?.operationalRequirements, intl)}
           />
         </div>
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div data-h2-grid-column="base(span 2)">
           <Combobox
             id="skills"
             name="skills"
