@@ -1,15 +1,10 @@
 import uniqBy from "lodash/uniqBy";
 import { ReactNode, useEffect } from "react";
-import { FieldValues, RegisterOptions, useFormContext } from "react-hook-form";
+import { RegisterOptions, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Combobox, HiddenInput, Select } from "@gc-digital-talent/forms";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -39,12 +34,7 @@ interface ClassificationInputProps {
   classificationsQuery?: FragmentType<typeof ClassificationInput_Fragment>[];
 }
 
-type GroupValue = Record<`${string}Group`, string>;
-type LevelValue = Record<`${string}Level`, string>;
-
-interface BaseFormValues extends GroupValue, LevelValue, FieldValues {}
-
-const ClassificationInput = <TFormValues extends BaseFormValues>({
+const ClassificationInput = ({
   name,
   rules,
   label,
@@ -53,7 +43,11 @@ const ClassificationInput = <TFormValues extends BaseFormValues>({
   const intl = useIntl();
   const groupName = `${name}Group`;
   const levelName = `${name}Level`;
-  const { watch, resetField, setValue } = useFormContext<TFormValues>();
+  const { watch, resetField, setValue } = useFormContext<{
+    [name]?: string;
+    [groupName]: string;
+    [levelName]: string;
+  }>();
   const [group, level] = watch([groupName, levelName]);
   const maybeClassifications = getFragment(
     ClassificationInput_Fragment,
