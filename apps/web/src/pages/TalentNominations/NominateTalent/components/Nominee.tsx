@@ -26,6 +26,7 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import EmployeeSearchWell from "./EmployeeSearchWell";
 
 interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
@@ -78,23 +79,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
 
   return (
     <>
-      <Well>
-        <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
-          {intl.formatMessage({
-            defaultMessage: "See information that is incorrect or out of date?",
-            id: "nfChXG",
-            description: "Heading for review of nominee's information",
-          })}
-        </Heading>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Make sure to check that you’ve entered the correct email address for the user you’re trying to find. If the email is correct, you can indicate to talent management staff that they should review the user’s information before evaluating their nomination using the checkbox provided.",
-            id: "V5OyHp",
-            description: "Description for review of nominee's information",
-          })}
-        </p>
-      </Well>
+      <EmployeeSearchWell />
       <RadioGroup
         idPrefix="nomineeReview"
         id="nomineeReview"
