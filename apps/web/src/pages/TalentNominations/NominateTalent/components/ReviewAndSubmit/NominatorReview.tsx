@@ -100,7 +100,7 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
         data-h2-gap="base(x1)"
       >
         <FieldDisplay
-          data-h2-column-span="base(2)"
+          data-h2-grid-column="base(span 2)"
           label={intl.formatMessage({
             defaultMessage: "Your role",
             description: "Label for submitters role in a nomination",
