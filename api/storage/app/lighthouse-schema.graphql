@@ -293,6 +293,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationGroupStatus {
+  value: TalentNominationGroupStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationLateralMovementOption {
   value: TalentNominationLateralMovementOption!
   label: LocalizedString!
@@ -371,6 +376,7 @@ type Query {
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
@@ -1080,6 +1086,7 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
+  talentNominationGroups: [TalentNominationGroup!]
 }
 
 type TalentNomination {
@@ -1116,6 +1123,23 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  nominee: BasicGovEmployeeProfile
+  nominations: [TalentNomination!]
+  talentNominationEvent: TalentNominationEvent!
+  advancementNominationCount: Int
+  advancementDecision: TalentNominationGroupDecision
+  advancementNotes: Boolean
+  lateralMovementNominationCount: Int
+  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsNominationCount: Int
+  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsNotes: String
+  status: LocalizedTalentNominationGroupStatus
 }
 
 type Team implements HasRoleAssignments {
@@ -3433,6 +3457,18 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TalentNominationGroupDecision {
+  APPROVED
+  REJECTED
+}
+
+enum TalentNominationGroupStatus {
+  IN_PROGRESS
+  APPROVED
+  PARTIALLY_APPROVED
+  REJECTED
 }
 
 enum TalentNominationLateralMovementOption {

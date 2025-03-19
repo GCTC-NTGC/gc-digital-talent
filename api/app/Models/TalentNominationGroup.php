@@ -150,4 +150,14 @@ class TalentNominationGroup extends Model
 
         $this->save();
     }
+
+    /**
+     * Accessor for the computed status
+     */
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['computed_status']
+        );
+    }
 }

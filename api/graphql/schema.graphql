@@ -651,6 +651,9 @@ type TalentNominationEvent {
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  talentNominationGroups: [TalentNominationGroup!]
+    @hasMany
+    @canQuery(ability: "view", model: "TalentNominationGroup")
 }
 
 type TalentNomination {
@@ -714,6 +717,32 @@ type TalentNomination {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: [Skill] @belongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  advancementNominationCount: Int
+    @rename(attribute: "advancement_nomination_count")
+  advancementDecision: TalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementNotes: Boolean @rename(attribute: "advancement_notes")
+  lateralMovementNominationCount: Int
+    @rename(attribute: "lateral_movement_nomination_count")
+  lateralMovementDecision: TalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsNominationCount: Int
+    @rename(attribute: "development_programs_nomination_count")
+  developmentProgramsDecision: TalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
+  status: LocalizedTalentNominationGroupStatus
 }
 
 type Team implements HasRoleAssignments {
@@ -1365,6 +1394,7 @@ type Query {
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
+  talentNominationEvent(id: UUID! @eq): TalentNominationEvent @find
 
   talentNomination(id: UUID! @eq): TalentNomination
     @find
