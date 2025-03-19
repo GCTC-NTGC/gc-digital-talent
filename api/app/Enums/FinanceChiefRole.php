@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-// Additional roles that a CFO or DCFO may have
+// Additional roles that a CFO may have
 enum FinanceChiefRole
 {
     use HasLocalization;
