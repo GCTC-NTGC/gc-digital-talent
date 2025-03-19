@@ -12,7 +12,6 @@ import {
   TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading, Well } from "@gc-digital-talent/ui";
 import {
   Input,
   localizedEnumToOptions,
