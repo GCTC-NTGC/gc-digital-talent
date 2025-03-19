@@ -3,6 +3,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
+  "+/6UIs": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "+/ZsxX": {
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
@@ -854,6 +858,10 @@
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
+  },
+  "2KQdGz": {
+    "defaultMessage": "Statut de DPF",
+    "description": "Bounding box label for the finance chief checkbox"
   },
   "2Kz16k": {
     "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
@@ -2511,10 +2519,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "AX1hRL": {
-    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is not a finance chief"
-  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -3054,6 +3058,10 @@
   "DPfJ30": {
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
+  },
+  "DQ2DKZ": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
   },
   "DQ8q0K": {
     "defaultMessage": "Date de publication (heure locale)",
@@ -5327,10 +5335,6 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
-  "P3LzUb": {
-    "defaultMessage": "Statut de DPF ou APDF",
-    "description": "Bounding box label for the finance chief checkbox"
-  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -5878,10 +5882,6 @@
   "RW0Ukc": {
     "defaultMessage": "Volets",
     "description": "Title for streams"
-  },
-  "RWueRJ": {
-    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is a finance chief"
   },
   "RWvojd": {
     "defaultMessage": "Revenir à l'annonce",
@@ -8242,6 +8242,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
   },
+  "duKO+o": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is a finance chief"
+  },
   "duXf4a": {
     "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
     "description": "Instructions to contact support after nomination submission"
@@ -9673,10 +9677,6 @@
   "kVavip": {
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
-  },
-  "kVmWVW": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
-    "description": "Description for the 'Additional duties' checkbox group"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
