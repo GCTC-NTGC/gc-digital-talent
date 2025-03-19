@@ -10,6 +10,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -20,6 +21,15 @@ const NomineeReview_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
       workEmail
+      department {
+        name {
+          localized
+        }
+      }
+      classification {
+        group
+        level
+      }
     }
   }
 `);
@@ -72,6 +82,30 @@ const NomineeReview = ({ nomineeQuery }: NomineeReviewProps) => {
           })}
         >
           {talentNomination?.nominee?.workEmail ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nominee's classification",
+            id: "sj+5RI",
+            description: "Label for the nominee's classification",
+          })}
+        >
+          {talentNomination?.nominee?.classification
+            ? stringifyGroupLevel(
+                talentNomination.nominee.classification.group,
+                talentNomination.nominee.classification.level,
+              )
+            : intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nominee's department or agency",
+            id: "ksBmA2",
+            description: "Label for the nominee's department",
+          })}
+        >
+          {talentNomination?.nominee?.department?.name.localized ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </div>

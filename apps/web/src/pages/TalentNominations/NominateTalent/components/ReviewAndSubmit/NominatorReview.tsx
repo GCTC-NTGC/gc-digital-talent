@@ -10,6 +10,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -24,9 +25,27 @@ const NominatorReview_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
       workEmail
+      department {
+        name {
+          localized
+        }
+      }
+      classification {
+        group
+        level
+      }
     }
     nominatorFallbackName
     nominatorFallbackWorkEmail
+    nominatorFallbackDepartment {
+      name {
+        localized
+      }
+    }
+    nominatorFallbackClassification {
+      group
+      level
+    }
   }
 `);
 
@@ -51,6 +70,14 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
       intl,
     );
   }
+
+  const nominatorClassification =
+    talentNomination?.nominator?.classification ??
+    talentNomination?.nominatorFallbackClassification;
+
+  const nominatorDepartment =
+    talentNomination?.nominator?.department ??
+    talentNomination?.nominatorFallbackDepartment;
 
   return (
     <>
@@ -112,6 +139,31 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
         >
           {talentNomination?.nominator?.workEmail ??
             talentNomination?.nominatorFallbackWorkEmail ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nominator's classification",
+            id: "sjxFxr",
+            description: "Label for the nominators's classification",
+          })}
+        >
+          {nominatorClassification
+            ? stringifyGroupLevel(
+                nominatorClassification.group,
+                nominatorClassification.level,
+              )
+            : intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Nominators's department or agency",
+            id: "2KlIVa",
+            description: "Label for the nominator's department",
+          })}
+        >
+          {nominatorDepartment?.name.localized ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </div>
