@@ -21,7 +21,6 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { Heading, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -32,6 +31,7 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import EmployeeSearchWell from "./EmployeeSearchWell";
 
 type SubmitterRole = "nominator" | "on-behalf";
 
@@ -220,24 +220,7 @@ const NominatorFields = ({
       />
       {!nominatorUnset && !nominatorNotFound && (
         <>
-          <Well>
-            <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "See information that is incorrect or out of date?",
-                id: "nfChXG",
-                description: "Heading for review of nominee's information",
-              })}
-            </Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Make sure to check that you’ve entered the correct email address for the user you’re trying to find. If the email is correct, you can indicate to talent management staff that they should review the user’s information before evaluating their nomination using the checkbox provided.",
-                id: "V5OyHp",
-                description: "Description for review of nominee's information",
-              })}
-            </p>
-          </Well>
+          <EmployeeSearchWell />
           <RadioGroup
             idPrefix="nominatorReview"
             id="nominatorReview"
