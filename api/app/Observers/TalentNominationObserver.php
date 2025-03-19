@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\TalentNomination;
+use App\Models\TalentNominationGroup;
 
 class TalentNominationObserver
 {
@@ -14,7 +15,10 @@ class TalentNominationObserver
         TalentNomination::withoutEvents(function () use ($talentNomination) {
             $talentNomination->connectToTalentNominationGroupIfMissing();
         });
-        $talentNomination->talentNominationGroup?->updateNominationCounts();
+        TalentNominationGroup::withoutEvents(function () use ($talentNomination) {
+            $talentNomination->talentNominationGroup?->updateStatus();
+        });
+
     }
 
     /**
@@ -25,7 +29,9 @@ class TalentNominationObserver
         TalentNomination::withoutEvents(function () use ($talentNomination) {
             $talentNomination->connectToTalentNominationGroupIfMissing();
         });
-        $talentNomination->talentNominationGroup?->updateNominationCounts();
+        TalentNominationGroup::withoutEvents(function () use ($talentNomination) {
+            $talentNomination->talentNominationGroup?->updateStatus();
+        });
     }
 
     /**

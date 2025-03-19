@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,16 +21,16 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property string $nominee_id
  * @property string $talent_nomination_event_id
- * @property bool $computed_advancement_nomination_count
+ * @property int $advancement_nomination_count
  * @property string $advancement_decision
  * @property bool $advancement_reference_confirmed
  * @property string $advancement_notes
- * @property bool $computed_lateral_movement_nomination_count
+ * @property int $lateral_movement_nomination_count
  * @property string $lateral_movement_decision
  * @property string $lateral_movement_notes
- * @property bool $computed_development_program_nomination_count
- * @property string $development_program_decision
- * @property string $development_program_notes
+ * @property int $development_programs_nomination_count
+ * @property string $development_programs_decision
+ * @property string $development_programs_notes
  * @property string $computed_status
  */
 class TalentNominationGroup extends Model
@@ -75,33 +76,69 @@ class TalentNominationGroup extends Model
         return $this->hasMany(TalentNomination::class, 'talent_nomination_group_id');
     }
 
-    public function updateNominationCounts(): void
+    /**
+     * Get the count of attached nominations which include nomination for advancement.
+     */
+    protected function advancementNominationCount(): Attribute
     {
-        $this->loadMissing('nominations');
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $this->loadMissing('nominations');
 
-        $this->computed_advancement_nomination_count = $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_advancement)->count();
-        $this->computed_lateral_movement_nomination_count = $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_lateral_movement)->count();
-        $this->computed_development_program_nomination_count = $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_development_programs)->count();
-
-        $this->save();
+                return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_advancement)->count();
+            }
+        );
     }
 
+    /**
+     * Get the count of attached nominations which include nomination for lateral movement.
+     */
+    protected function lateralMovementNominationCount(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $this->loadMissing('nominations');
+
+                return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_lateral_movement)->count();
+            }
+        );
+    }
+
+    /**
+     * Get the count of attached nominations which include nomination for development programs.
+     */
+    protected function developmentProgramsNominationCount(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $this->loadMissing('nominations');
+
+                return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_development_programs)->count();
+            }
+        );
+    }
+
+    /**
+     * Recompute and save the status of the nomination group based on the current decisions.
+     * Should only be called by a model observer automatically after another field is updated.
+     */
     public function updateStatus(): void
     {
+        // field is unevaluated if there is a nomination but no decision
         $unevaluatedFieldCount =
-            ($this->computed_advancement_nomination_count > 0 && is_null($this->advancement_decision) ? 1 : 0) +
-            ($this->computed_lateral_movement_nomination_count > 0 && is_null($this->lateral_movement_decision) ? 1 : 0) +
-            ($this->computed_development_program_nomination_count > 0 && is_null($this->development_program_decision) ? 1 : 0);
+            ($this->advancement_nomination_count > 0 && is_null($this->advancement_decision) ? 1 : 0) +
+            ($this->lateral_movement_nomination_count > 0 && is_null($this->lateral_movement_decision) ? 1 : 0) +
+            ($this->development_programs_nomination_count > 0 && is_null($this->development_programs_decision) ? 1 : 0);
 
         $rejectedCount =
             ($this->advancement_decision === TalentNominationGroupDecision::REJECTED->name ? 1 : 0) +
             ($this->lateral_movement_decision === TalentNominationGroupDecision::REJECTED->name ? 1 : 0) +
-            ($this->development_program_decision === TalentNominationGroupDecision::REJECTED->name ? 1 : 0);
+            ($this->development_programs_decision === TalentNominationGroupDecision::REJECTED->name ? 1 : 0);
 
         $approvedCount =
             ($this->advancement_decision === TalentNominationGroupDecision::APPROVED->name ? 1 : 0) +
             ($this->lateral_movement_decision === TalentNominationGroupDecision::APPROVED->name ? 1 : 0) +
-            ($this->development_program_decision === TalentNominationGroupDecision::APPROVED->name ? 1 : 0);
+            ($this->development_programs_decision === TalentNominationGroupDecision::APPROVED->name ? 1 : 0);
 
         $this->computed_status = match (true) {
             $unevaluatedFieldCount > 0 => TalentNominationGroupStatus::IN_PROGRESS->name,

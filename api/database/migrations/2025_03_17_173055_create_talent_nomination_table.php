@@ -18,16 +18,13 @@ return new class extends Migration
 
             $table->foreignUuid('nominee_id')->constrained('users');
             $table->foreignUuid('talent_nomination_event_id')->constrained('talent_nomination_events');
-            $table->integer('computed_advancement_nomination_count')->default(0);
             $table->string('advancement_decision')->nullable();
             $table->boolean('advancement_reference_confirmed')->nullable();
             $table->text('advancement_notes')->nullable();
-            $table->integer('computed_lateral_movement_nomination_count')->default(0);
             $table->string('lateral_movement_decision')->nullable();
             $table->text('lateral_movement_notes')->nullable();
-            $table->integer('computed_development_program_nomination_count')->default(0);
-            $table->string('development_program_decision')->nullable();
-            $table->text('development_program_notes')->nullable();
+            $table->string('development_programs_decision')->nullable();
+            $table->text('development_programs_notes')->nullable();
             $table->string('computed_status')->default('IN_PROGRESS'); // TalentNominationGroupStatus::IN_PROGRESS
 
             $table->unique(['nominee_id', 'talent_nomination_event_id']);
