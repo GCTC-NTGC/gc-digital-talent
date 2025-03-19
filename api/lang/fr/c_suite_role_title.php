@@ -3,14 +3,14 @@
 use Illuminate\Support\Facades\Lang;
 
 return [
-    'chief_audit_officer' => 'Dirigeant(e) principal(e) de l\'audit',
-    'chief_finance_officer' => 'Dirigeant(e) principal(e) des finances',
+    'chief_audit_executive' => 'Dirigeant(e) principal(e) de l\'audit',
+    'chief_financial_officer' => 'Dirigeant(e) principal(e) des finances',
     'chief_data_officer' => 'Dirigeant(e) principal(e) des données',
     'chief_digital_officer' => 'Dirigeant(e) principal(e) du numérique',
     'chief_information_officer' => 'Dirigeant(e) principal(e) de l\'information',
     'chief_privacy_officer' => 'Dirigeant(e) principal(e) de la protection des renseignements personnels',
     'chief_technology_officer' => 'Dirigeant(e) principal(e) de la technologie',
-    'deputy_chief_finance_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) des finances',
+    'deputy_chief_financial_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) des finances',
     'deputy_chief_data_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) des données',
     'deputy_chief_digital_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) du numérique',
     'deputy_chief_information_officer' => 'Adjoint(e) au (à la) dirigeant(e) principal(e) de l\'information',
