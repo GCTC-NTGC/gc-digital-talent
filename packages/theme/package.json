@@ -18,7 +18,6 @@
     "preset": "@gc-digital-talent/jest-presets/jest/browser"
   },
   "dependencies": {
-    "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/storage": "workspace:*"
   },
   "devDependencies": {

@@ -24,13 +24,13 @@
     "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
-    "@gc-digital-talent/graphql": "workspace:*"
+    "@gc-digital-talent/graphql": "workspace:*",
+    "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/logger": "workspace:*"
   },
   "devDependencies": {
     "@formatjs/cli": "^6.6.1",
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@gc-digital-talent/helpers": "workspace:*",
-    "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",

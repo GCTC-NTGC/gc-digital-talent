@@ -21,12 +21,24 @@ use Illuminate\Support\Facades\Auth;
  * @property string $additional_information
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property bool $finance_is_chief
+ * @property array $finance_additional_duties
+ * @property array $finance_other_roles
+ * @property string $finance_other_roles_other
  */
 class CommunityInterest extends Model
 {
     use HasFactory;
 
     protected $keyType = 'string';
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'finance_additional_duties' => 'array',
+        'finance_other_roles' => 'array',
+    ];
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo

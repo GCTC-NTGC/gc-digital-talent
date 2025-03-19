@@ -53,10 +53,17 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Submit",
+    "fr": [
+      "Soumettre",
+      "Soumettez"
+    ]
+  },
+  {
     "en": "Review and submit",
     "fr": [
       "Révisez votre candidature et envoyez-la",
-      "Révision et soumission"
+      "Revoir et soumettre"
     ]
   },
   {
@@ -155,6 +162,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Demander un bon",
       "Demandez un bon"
+    ]
+  },
+  {
+    "en": "Edit off-platform process information",
+    "fr": [
+      "Modifiez les renseignements sur les processus hors plateforme",
+      "Modifier les renseignements sur les processus hors plateforme."
     ]
   },
   {

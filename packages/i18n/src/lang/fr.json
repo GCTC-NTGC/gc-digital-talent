@@ -867,8 +867,12 @@
     "defaultMessage": "Démontrée, mais la constance varie considérablement selon le public et les circonstances. Démontrée par intermittence dans des situations quotidiennes et démontrée de façon inconstante auprès de certains publics ou dans des conditions de stress ou dans des situations modérément difficiles. Le potentiel est là, mais il reste encore beaucoup à apprendre.",
     "description": "The behavioural skill level definition for beginner"
   },
+  "Y66jFM": {
+    "defaultMessage": "Retournez à votre tableau de bord",
+    "description": "Link text to the dashboard page"
+  },
   "YHqVoj": {
-    "defaultMessage": "Soumettre",
+    "defaultMessage": "Soumettez",
     "description": "Default text for submit button."
   },
   "YSNrLG": {
@@ -946,6 +950,10 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
+  },
+  "cO535E": {
+    "defaultMessage": "Erreur : échec de la création du compte.",
+    "description": "Message displayed to user if account fails to get updated."
   },
   "cP2cZ0": {
     "defaultMessage": "Défaire",
@@ -1066,6 +1074,10 @@
   "g6az2A": {
     "defaultMessage": "Candidats",
     "description": "Name of Candidates page"
+  },
+  "g9J8/u": {
+    "defaultMessage": "Compte mis à jour avec succès.",
+    "description": "Message displayed to user if account is updated successfully."
   },
   "gBoG9M": {
     "defaultMessage": "Profil et candidatures",

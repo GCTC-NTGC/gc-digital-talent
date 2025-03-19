@@ -148,6 +148,8 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
@@ -168,6 +170,13 @@ type CommunityInterest {
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -1500,6 +1509,8 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1571,6 +1582,8 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1649,6 +1662,8 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1732,6 +1747,13 @@ input CreateCommunityInterestInput @validator {
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -1742,6 +1764,13 @@ input UpdateCommunityInterestInput @validator {
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
 }
 
 input CreateDevelopmentProgramInterestHasMany {

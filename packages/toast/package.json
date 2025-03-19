@@ -15,6 +15,7 @@
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "dependencies": {
+    "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "react-toastify": "^11.0.5"
   },
@@ -22,7 +23,6 @@
     "@faker-js/faker": "^9.6.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@gc-digital-talent/ui": "workspace:*",
     "@storybook/react": "^8.6.4",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
