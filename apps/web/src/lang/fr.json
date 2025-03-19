@@ -671,10 +671,6 @@
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
   },
-  "1QNXzN": {
-    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is not a finance chief"
-  },
   "1Qw7ZV": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à ajouter des renseignements sur les compétences",
     "description": "Message displayed to user after skill details fails to be created."
@@ -4519,10 +4515,6 @@
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
   },
-  "Kqut8p": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
-    "description": "Description for the 'Additional duties' checkbox group"
-  },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
@@ -5330,10 +5322,6 @@
   "P/tHlt": {
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
-  },
-  "P3LzUb": {
-    "defaultMessage": "Statut de DPF ou APDF",
-    "description": "Bounding box label for the finance chief checkbox"
   },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
@@ -10613,10 +10601,6 @@
   "p8+wKq": {
     "defaultMessage": "Questions de sélection",
     "description": "Title of screening questions"
-  },
-  "p8kdz7": {
-    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is a finance chief"
   },
   "p8o9cO": {
     "defaultMessage": "Le contenu de ce site Web a été produit ou rassemblé afin d’offrir aux Canadiens l’accès aux renseignements concernant les programmes et les services offerts par le gouvernement du Canada. Vous pouvez l’utiliser et le reproduire des façons suivantes :",

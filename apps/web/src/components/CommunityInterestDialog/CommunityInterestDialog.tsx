@@ -313,14 +313,14 @@ const CommunityInterestDialog = ({
                     {communityInterest.financeIsChief
                       ? intl.formatMessage({
                           defaultMessage:
-                            "I'm a Chief Financial Officer (CFO) or Deputy Chief Financial Officer (DCFO).",
-                          id: "p8kdz7",
+                            "I'm a Chief Financial Officer (CFO).",
+                          id: "duKO+o",
                           description: "Message when user is a finance chief",
                         })
                       : intl.formatMessage({
                           defaultMessage:
-                            "I'm not a Chief Financial Officer (CFO) or Deputy Chief Financial Officer (DCFO).",
-                          id: "1QNXzN",
+                            "I'm not a Chief Financial Officer (CFO).",
+                          id: "+/6UIs",
                           description:
                             "Message when user is not a finance chief",
                         })}
