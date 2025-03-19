@@ -12,6 +12,7 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import messages from "../messages";
 
 // TO DO: Populate when building form
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -50,11 +51,7 @@ const Rationale = ({ rationaleQuery }: RationaleProps) => {
   return (
     <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
       <SubHeading level="h2" Icon={ChatBubbleBottomCenterTextIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Rationale and additional comments",
-          id: "LA0AM1",
-          description: "Heading for rationale step of a talent nomination",
-        })}
+        {intl.formatMessage(messages.rationale)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({

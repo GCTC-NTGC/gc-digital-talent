@@ -12,6 +12,7 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import messages from "../messages";
 
 // TO DO: Populate when building form
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -49,11 +50,7 @@ const Details = ({ detailsQuery }: DetailsProps) => {
   return (
     <UpdateForm<FormValues> submitDataTransformer={transformSubmitData}>
       <SubHeading Icon={RectangleGroupIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Nomination details",
-          id: "gD98oQ",
-          description: "Heading for details step of a talent nomination",
-        })}
+        {intl.formatMessage(messages.nominationDetails)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
