@@ -286,7 +286,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "userName",
         header: intl.formatMessage(commonMessages.name),
-        enableColumnFilter: false,
         cell: ({
           row: {
             original: { user },
@@ -392,12 +391,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         onChange: ({ term, type }: SearchState) => {
           handleSearchStateChange({ term, type });
         },
-        overrideAllTableMsg: intl.formatMessage({
-          defaultMessage: "All community interests",
-          id: "e8sP17",
-          description:
-            "Text in table search form column dropdown when no column is selected.",
-        }),
       }}
       sort={{
         internal: false,
