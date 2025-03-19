@@ -1,12 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useEffect } from "react";
-import {
-  useLocation,
-  useNavigate,
-  useSearchParams,
-  type Location,
-} from "react-router";
+import { useLocation, useSearchParams, type Location } from "react-router";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
@@ -111,7 +106,7 @@ const NominateTalentPage = () => {
         current,
         data?.talentNomination?.submittedSteps,
       );
-      if (targetStep && !location.state.submitting) {
+      if (targetStep && !location.state?.submitting) {
         setSearchParams((params) => {
           params.set("step", targetStep);
           return params;
