@@ -653,7 +653,7 @@ type TalentNominationEvent {
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany
-    @canQuery(ability: "view", model: "TalentNominationGroup")
+    @canResolved(ability: "view", model: "TalentNominationGroup")
 }
 
 type TalentNomination {
