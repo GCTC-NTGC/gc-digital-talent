@@ -9,7 +9,7 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import closeButtonStyles from "./styles";
 
-import "./base.css";
+import "react-toastify/ReactToastify.css";
 import "./toast.css";
 
 type CloseButtonProps = ComponentPropsWithoutRef<
