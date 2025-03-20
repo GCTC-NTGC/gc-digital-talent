@@ -29,7 +29,7 @@ server {
 
     add_header X-Frame-Options DENY;
     add_header Reporting-Endpoints csp="/api/csp-report";
-    add_header Content-Security-Policy $csp_header always;
+    add_header Content-Security-Policy-Report-Only $csp_header always;
 
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent {
