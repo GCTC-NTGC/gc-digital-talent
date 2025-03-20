@@ -3,7 +3,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 // test and convert a raw string the enum type FinanceChiefDuty
 export function stringToEnumFinanceChiefDuty(
-  selection: string,
+  selection: string | null | undefined,
 ): FinanceChiefDuty | undefined {
   if (Object.values(FinanceChiefDuty).includes(selection as FinanceChiefDuty)) {
     return selection as FinanceChiefDuty;
@@ -12,10 +12,10 @@ export function stringToEnumFinanceChiefDuty(
 }
 
 export function stringArrayToEnumsFinanceChiefDuty(
-  selections: string[],
+  selections: string[] | null | undefined,
 ): FinanceChiefDuty[] {
   return unpackMaybes(
-    selections.map((selection) => {
+    selections?.map((selection) => {
       return stringToEnumFinanceChiefDuty(selection);
     }),
   );
@@ -23,7 +23,7 @@ export function stringArrayToEnumsFinanceChiefDuty(
 
 // test and convert a raw string the enum type FinanceChiefRole
 export function stringToEnumFinanceChiefRole(
-  selection: string,
+  selection: string | null | undefined,
 ): FinanceChiefRole | undefined {
   if (Object.values(FinanceChiefRole).includes(selection as FinanceChiefRole)) {
     return selection as FinanceChiefRole;
@@ -32,10 +32,10 @@ export function stringToEnumFinanceChiefRole(
 }
 
 export function stringArrayToEnumsFinanceChiefRole(
-  selections: string[],
+  selections: string[] | null | undefined,
 ): FinanceChiefRole[] {
   return unpackMaybes(
-    selections.map((selection) => {
+    selections?.map((selection) => {
       return stringToEnumFinanceChiefRole(selection);
     }),
   );

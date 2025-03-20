@@ -58,7 +58,7 @@ final class UpdateCommunityInterestInputValidator extends Validator
                 Rule::when($community?->key === 'finance',
                     [
                         'string',
-                        Rule::requiredIf(in_array(FinanceChiefRole::OTHER->name, $this->arg('financeOtherRoles', []))),
+                        Rule::requiredIf(in_array(FinanceChiefRole::OTHER->name, $this->arg('financeOtherRoles') ?? [])),
                     ],
                     ['prohibited']
                 ),
