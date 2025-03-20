@@ -12,7 +12,8 @@
 }
 
 .Toastify__toast-container--bottom-right {
-  z-index: 999999; /* Display over everything else */
+  z-index: 999999;
+  /* Display over everything else */
   left: auto;
   bottom: var(--toast-space);
   right: 0.25rem;
