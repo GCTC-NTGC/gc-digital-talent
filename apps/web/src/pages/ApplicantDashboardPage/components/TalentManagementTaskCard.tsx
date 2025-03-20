@@ -121,10 +121,11 @@ const TalentManagementTaskCard = ({
                       </PreviewList.Root>
                     ) : (
                       <Well data-h2-text-align="base(center)">
-                        <p data-h2-font-weight="base(bold)">
+                        <p>
                           {intl.formatMessage({
-                            defaultMessage: "You have no active nominations.",
-                            id: "mEmT94",
+                            defaultMessage:
+                              "<strong>You have no active nominations.</strong>",
+                            id: "a4Wc5h",
                             description:
                               "Notice's title when there are no nominations",
                           })}
