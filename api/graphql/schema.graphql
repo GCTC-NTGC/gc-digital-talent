@@ -1402,6 +1402,12 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view")
+
+  talentNominationGroup(id: UUID! @eq): TalentNominationGroup
+    @find
+    @guard
+    @canQuery(ability: "view")
+
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput

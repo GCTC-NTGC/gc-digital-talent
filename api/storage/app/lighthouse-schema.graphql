@@ -378,6 +378,7 @@ type Query {
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
+  talentNominationGroup(id: UUID!): TalentNominationGroup
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
