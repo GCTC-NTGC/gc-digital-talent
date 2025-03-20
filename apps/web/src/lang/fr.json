@@ -1691,6 +1691,10 @@
     "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
     "description": "Lead-in text explaining the users career plan"
   },
+  "6M8rIa": {
+    "defaultMessage": "Les 3 principales compétences en matière de leadership",
+    "description": "Label for a nominations leadership skill competencies"
+  },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
     "description": "Message before skills list in application education page."
@@ -3471,6 +3475,10 @@
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
   },
+  "FSvySJ": {
+    "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
+    "description": "Error message when the incorrect number of leadership competencies is selected"
+  },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
     "description": "Second section of text on the change candidate status dialog"
@@ -3930,6 +3938,10 @@
   "I9e48q": {
     "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
     "description": "Description on what the skills showcase is."
+  },
+  "IBLDnY": {
+    "defaultMessage": "Commentaires supplémentaires",
+    "description": "Label for additional comments on a nomination's rationale"
   },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
@@ -9525,6 +9537,10 @@
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
+  },
+  "jokoVA": {
+    "defaultMessage": "Justification de la nomination",
+    "description": "Label for a nomination's rationale"
   },
   "jphtnM": {
     "defaultMessage": "Travail à distance facultatif (recommandé)",
