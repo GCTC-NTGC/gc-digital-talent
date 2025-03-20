@@ -118,9 +118,15 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
               data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
               data-h2-padding-left="base(x1)"
             >
-              {employeeProfile.nextRoleWorkStreams.map((workStream) => (
-                <li key={workStream.id}>{workStream?.name?.localized}</li>
-              ))}
+              {employeeProfile.nextRoleWorkStreams
+                .sort((a, b) =>
+                  a.name?.localized && b.name?.localized
+                    ? a.name.localized.localeCompare(b.name.localized)
+                    : 0,
+                )
+                .map((workStream) => (
+                  <li key={workStream.id}>{workStream?.name?.localized}</li>
+                ))}
             </ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
@@ -136,9 +142,15 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
             data-h2-padding-left="base(x1)"
           >
-            {employeeProfile.nextRoleDepartments.map((department) => (
-              <li key={department.id}>{department?.name?.localized}</li>
-            ))}
+            {employeeProfile.nextRoleDepartments
+              .sort((a, b) =>
+                a.name?.localized && b.name?.localized
+                  ? a.name.localized.localeCompare(b.name.localized)
+                  : 0,
+              )
+              .map((department) => (
+                <li key={department.id}>{department?.name?.localized}</li>
+              ))}
           </ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)

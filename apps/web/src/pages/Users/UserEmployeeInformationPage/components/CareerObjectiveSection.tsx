@@ -125,9 +125,15 @@ const CareerObjectiveSection = ({
               data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
               data-h2-padding-left="base(x1)"
             >
-              {employeeProfile.careerObjectiveWorkStreams.map((workStream) => (
-                <li key={workStream.id}>{workStream?.name?.localized}</li>
-              ))}
+              {employeeProfile.careerObjectiveWorkStreams
+                .sort((a, b) =>
+                  a.name?.localized && b.name?.localized
+                    ? a.name.localized.localeCompare(b.name.localized)
+                    : 0,
+                )
+                .map((workStream) => (
+                  <li key={workStream.id}>{workStream?.name?.localized}</li>
+                ))}
             </ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
@@ -143,9 +149,15 @@ const CareerObjectiveSection = ({
             data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
             data-h2-padding-left="base(x1)"
           >
-            {employeeProfile.careerObjectiveDepartments.map((department) => (
-              <li key={department.id}>{department?.name?.localized}</li>
-            ))}
+            {employeeProfile.careerObjectiveDepartments
+              .sort((a, b) =>
+                a.name?.localized && b.name?.localized
+                  ? a.name.localized.localeCompare(b.name.localized)
+                  : 0,
+              )
+              .map((department) => (
+                <li key={department.id}>{department?.name?.localized}</li>
+              ))}
           </ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
