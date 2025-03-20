@@ -21,6 +21,13 @@ export const CareerObjective_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    careerObjectiveIsCSuiteRole
+    careerObjectiveCSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
     careerObjectiveJobTitle
     careerObjectiveCommunity {
       name {
@@ -96,6 +103,22 @@ const CareerObjectiveSection = ({
         {employeeProfile.careerObjectiveTargetRoleOther ??
           employeeProfile.careerObjectiveTargetRole?.label.localized ??
           intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {intl.formatMessage(employeeProfileMessages.seniorManagementStatus)}
+        </span>
+        {employeeProfile.careerObjectiveIsCSuiteRole
+          ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
+          : intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}
+        </span>
+        {employeeProfile.careerObjectiveIsCSuiteRole
+          ? employeeProfile.careerObjectiveCSuiteRoleTitle?.label?.localized
+          : intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
