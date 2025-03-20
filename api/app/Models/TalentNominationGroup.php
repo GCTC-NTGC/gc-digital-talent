@@ -42,6 +42,14 @@ class TalentNominationGroup extends Model
 
     protected $keyType = 'string';
 
+    /**
+     * The attributes that can be filled using mass-assignment.
+     */
+    protected $fillable = [
+        'nominee_id',
+        'talent_nomination_event_id',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

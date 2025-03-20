@@ -178,10 +178,10 @@ class TalentNomination extends Model
             // this is a submitted nomination
             if (is_null($this->talent_nomination_group_id)) {
                 // not yet attached to a group
-                $talentNominationGroup = TalentNominationGroup::firstOrCreate([
-                    'nominee_id' => $this->nominee_id,
-                    'talent_nomination_event_id' => $this->talent_nomination_event_id,
-                ]);
+                $talentNominationGroup = TalentNominationGroup::firstOrCreate(
+                    ['nominee_id' => $this->nominee_id],
+                    ['talent_nomination_event_id' => $this->talent_nomination_event_id],
+                );
 
                 $this->talent_nomination_group_id = $talentNominationGroup->id;
                 $this->save();
