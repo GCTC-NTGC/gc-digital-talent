@@ -267,6 +267,10 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
+  "/JDxnh": {
+    "defaultMessage": "Votre relation avec l'auteur ou l'autrice de la mise en candidature ",
+    "description": "Label for a nomination sumitters relationship to the nominator"
+  },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
@@ -474,6 +478,10 @@
   "0KY1My": {
     "defaultMessage": "Statut des Premières Nations",
     "description": "Legend for selecting First Nations status or non-status"
+  },
+  "0MCsDL": {
+    "defaultMessage": "Vérifiez que l'adresse courriel de l'utilisateur est correcte. Si c'est le cas, utilisez le bouton radio pour informer le personnel de gestion des talents de vérifier les détails de l'utilisateur.",
+    "description": "Description for review of nominee's information"
   },
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
@@ -1527,6 +1535,10 @@
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for managing notification settings"
   },
+  "5HhVG9": {
+    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the text input for the nominators work email"
+  },
   "5LWxHq": {
     "defaultMessage": "Détails",
     "description": "Title for additional comments shorthand"
@@ -1667,6 +1679,10 @@
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
   },
+  "68Yf3f": {
+    "defaultMessage": "Informations incorrectes ou obsolètes?",
+    "description": "Heading for review of nominee's information"
+  },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
@@ -1758,6 +1774,10 @@
   "6cr+Qy": {
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
     "description": "Title for the no notifications message"
+  },
+  "6e33hP": {
+    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the nominator input field on a nomination"
   },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
@@ -2535,6 +2555,10 @@
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de mise en correspondance de qualité avec les gestionnaires. Il s’agit généralement de compétences pouvant être acquises sur le tas et qui ne sont pas nécessaires pour être accepté dans le bassin.",
     "description": "Describes selecting asset skills for a process."
   },
+  "AdmbBO": {
+    "defaultMessage": "Ministère ou organisme de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for a nominators department"
+  },
   "Af4zOR": {
     "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
     "description": "Describing where to go to manage notification settings"
@@ -3246,6 +3270,10 @@
   "EI0GEZ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
     "description": "Instructions on how to add an experience to your career timeline"
+  },
+  "EI62F9": {
+    "defaultMessage": "Étant donné que vous présentez cette candidature au nom de l'auteur ou l'autrice de mise en candidature, nous devons recueillir quelques renseignements sur cette dernière. Cela inclut votre relation de travail avec la personne, son nom, son adresse courriel professionnel et sa classification.",
+    "description": "Help text for filling out information about the nominator"
   },
   "EIM5Jw": {
     "defaultMessage": "Toutes les compétences",
@@ -4527,6 +4555,10 @@
     "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
+  "Kv7YgK": {
+    "defaultMessage": "Votre rôle",
+    "description": "Label for the role of the user submitting a nomination"
+  },
   "KwJigi": {
     "defaultMessage": "Compétences comportementales essentielles - Exemples",
     "description": "Long title of the 'essential behavioural skills' section of the job poster template page"
@@ -5615,6 +5647,10 @@
     "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
     "description": "Subtitle for a section explaining sign in steps"
   },
+  "QNUIxj": {
+    "defaultMessage": "Je suis l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the option when the submitter of a nomination is also the nominator"
+  },
   "QNmxIN": {
     "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
@@ -6650,6 +6686,10 @@
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
   },
+  "Vnh3iD": {
+    "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -7662,6 +7702,10 @@
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
   },
+  "az8apB": {
+    "defaultMessage": "Niveau",
+    "description": "Label for a classification level input"
+  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -8094,6 +8138,10 @@
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
   },
+  "dDdsk2": {
+    "defaultMessage": "Vérifier les informations incorrectes ou obsolètes",
+    "description": "Label for review of nominee information"
+  },
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
@@ -8481,6 +8529,10 @@
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
+  },
+  "exPEA1": {
+    "defaultMessage": "Nom de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the text input for the nominators name"
   },
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
@@ -11674,6 +11726,10 @@
     "defaultMessage": "Les postes au niveau de la direction ne m'intéressent pas.",
     "description": "The executive interest described as not interested."
   },
+  "vIzha1": {
+    "defaultMessage": "Autre relation",
+    "description": "Label for the text input for an other relationship not listed"
+  },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
@@ -12425,6 +12481,10 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
+  },
+  "zBfwbQ": {
+    "defaultMessage": "Groupe",
+    "description": "Label for a classification group input"
   },
   "zDHOiY": {
     "defaultMessage": "Français - À quoi s’attendre",
