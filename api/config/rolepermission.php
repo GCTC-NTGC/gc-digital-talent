@@ -680,6 +680,10 @@ return [
             'en' => 'View a draft talent nomination as the submitter',
             'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
         ],
+        'view-team-talentNomination' => [
+            'en' => 'View a talent nomination as a team member',
+            'fr' => 'Consulter une nomination de talent en tant que membre de l\'équipe',
+        ],
 
         'update-team-talentNominationGroup' => [
             'en' => 'Update a talent nomination group',
@@ -1320,6 +1324,9 @@ return [
             'talentNominationEvent' => [
                 'any' => ['view'],
                 'team' => ['create', 'update'],
+            ],
+            'talentNomination' => [
+                'team' => ['view'],
             ],
             'communityInterest' => [
                 'team' => ['view'],
