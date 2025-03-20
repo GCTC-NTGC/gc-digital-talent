@@ -102,7 +102,7 @@ const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"
-        data-h2-color="base(error)"
+        data-h2-color="base(error.darkest)"
       >
         {inputErrors.map((err) => (
           <p key={err.type}>{err.message}</p>
