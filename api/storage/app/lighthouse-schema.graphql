@@ -561,6 +561,7 @@ type Mutation {
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
   updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
+  updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -1132,7 +1133,8 @@ type TalentNominationGroup {
   talentNominationEvent: TalentNominationEvent!
   advancementNominationCount: Int
   advancementDecision: TalentNominationGroupDecision
-  advancementNotes: Boolean
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
   lateralMovementNominationCount: Int
   lateralMovementDecision: TalentNominationGroupDecision
   lateralMovementNotes: String
@@ -2067,6 +2069,16 @@ input UpdateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+}
+
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
+  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsNotes: String
 }
 
 input CreateApplicantFilterInput {

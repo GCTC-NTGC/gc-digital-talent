@@ -730,7 +730,9 @@ type TalentNominationGroup {
     @rename(attribute: "advancement_nomination_count")
   advancementDecision: TalentNominationGroupDecision
     @rename(attribute: "advancement_decision")
-  advancementNotes: Boolean @rename(attribute: "advancement_notes")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
   lateralMovementNominationCount: Int
     @rename(attribute: "lateral_movement_nomination_count")
   lateralMovementDecision: TalentNominationGroupDecision
@@ -2117,6 +2119,21 @@ input UpdateTalentNominationInput @validator {
   additionalComments: String @rename(attribute: "additional_comments")
 }
 
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
+  lateralMovementDecision: TalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsDecision: TalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
@@ -3099,6 +3116,16 @@ type Mutation {
   submitTalentNomination(id: UUID!): TalentNomination
     @guard
     @canFind(ability: "update", find: "id")
+
+  #Talent nomination group mutations
+  updateTalentNominationGroup(
+    id: UUID!
+    talentNominationGroup: UpdateTalentNominationGroupInput! @spread
+  ): TalentNominationGroup
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
