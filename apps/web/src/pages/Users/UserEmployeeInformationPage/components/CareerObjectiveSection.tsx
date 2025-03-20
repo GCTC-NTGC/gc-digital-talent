@@ -67,6 +67,18 @@ const CareerObjectiveSection = ({
     employeeProfileQuery,
   );
 
+  employeeProfile?.careerObjectiveWorkStreams?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
+
+  employeeProfile?.careerObjectiveDepartments?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
+
   return (
     <CardBasic
       data-h2-display="base(grid)"

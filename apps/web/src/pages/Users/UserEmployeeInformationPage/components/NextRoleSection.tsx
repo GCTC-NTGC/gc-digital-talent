@@ -62,6 +62,18 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
 
   const employeeProfile = getFragment(NextRole_Fragment, employeeProfileQuery);
 
+  employeeProfile?.nextRoleWorkStreams?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
+
+  employeeProfile?.nextRoleDepartments?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
+
   return (
     <CardBasic
       data-h2-display="base(grid)"
