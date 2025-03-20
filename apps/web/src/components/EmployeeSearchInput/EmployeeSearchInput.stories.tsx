@@ -82,6 +82,21 @@ export const NoResult: Story = {
   },
 };
 
+export const Required: Story = {
+  args: {
+    rules: { required: "This field is required" },
+  },
+  parameters: {
+    apiResponses: {
+      EmployeeSearch: {
+        data: {
+          govEmployeeProfile: null,
+        },
+      },
+    },
+  },
+};
+
 export const NotGovernmentEmail: Story = {
   parameters: {
     apiResponses: {

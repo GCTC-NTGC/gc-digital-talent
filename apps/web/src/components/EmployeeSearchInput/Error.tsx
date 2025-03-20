@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
+import { FieldError } from "react-hook-form";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
@@ -68,28 +69,46 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 
 interface ErrorProps {
   email?: string;
+  inputErrors?: FieldError[];
   error?: CombinedError | string[] | null;
   messages?: Partial<ErrorMessages>;
 }
 
-const Error = ({ email, error, messages }: ErrorProps) => {
+const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
-  if (!error) return null;
+  if (!error && !inputErrors) return null;
 
-  let errorCodes: string[] | undefined;
-  if (Array.isArray(error)) {
-    errorCodes = error;
-  } else {
-    errorCodes = extractValidationMessageKeys(error);
+  if (error) {
+    let errorCodes: string[] | undefined;
+    if (Array.isArray(error)) {
+      errorCodes = error;
+    } else {
+      errorCodes = extractValidationMessageKeys(error);
+    }
+
+    if (errorCodes?.includes("NotGovernmentEmail")) {
+      return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
+    }
+
+    if (errorCodes?.includes("NoProfile")) {
+      return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+    }
   }
 
-  if (errorCodes?.includes("NotGovernmentEmail")) {
-    return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
-  }
-
-  if (errorCodes?.includes("NoProfile")) {
-    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+  if (inputErrors) {
+    return (
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x.5)"
+        data-h2-color="base(error)"
+      >
+        {inputErrors.map((err) => (
+          <p key={err.type}>{err.message}</p>
+        ))}
+      </div>
+    );
   }
 
   return null;
