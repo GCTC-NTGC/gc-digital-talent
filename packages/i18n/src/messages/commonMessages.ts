@@ -421,11 +421,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  talentNominations: {
-    defaultMessage: "Talent nominations",
-    id: "v5yYJo",
-    description: "Talent nominations label",
-  },
 });
 
 export default commonMessages;

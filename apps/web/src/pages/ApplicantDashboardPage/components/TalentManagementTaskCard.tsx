@@ -9,7 +9,7 @@ import {
   TaskCard,
   Well,
 } from "@gc-digital-talent/ui";
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -40,6 +40,8 @@ const TalentManagementTaskCard = ({
     TalentManagementTaskCard_Fragment,
     talentManagementTaskCardQuery,
   );
+  const nominationCount =
+    talentManagementTaskCardFragment.talentNominationsAsSubmitter?.length ?? 0;
 
   const talentNominationMetaData: AccordionMetaData[] = [
     {
@@ -84,8 +86,15 @@ const TalentManagementTaskCard = ({
                       "Subtitle explaining talent nominations expandable within Talent management card",
                   })}
                 >
-                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                  {`${intl.formatMessage(commonMessages.talentNominations)} (${talentManagementTaskCardFragment.talentNominationsAsSubmitter?.length ?? 0})`}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "Talent nominations ({nominationCount})",
+                      id: "pOazxP",
+                      description:
+                        "Collapsible header, Talent nominations and then count",
+                    },
+                    { nominationCount: nominationCount },
+                  )}
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={talentNominationMetaData} />
                 <Accordion.Content>
