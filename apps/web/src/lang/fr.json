@@ -475,6 +475,10 @@
     "defaultMessage": "Statut des Premières Nations",
     "description": "Legend for selecting First Nations status or non-status"
   },
+  "0MCsDL": {
+    "defaultMessage": "Vérifiez que l'adresse courriel de l'utilisateur est correcte. Si c'est le cas, utilisez le bouton radio pour informer le personnel de gestion des talents de vérifier les détails de l'utilisateur.",
+    "description": "Description for review of nominee's information"
+  },
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
@@ -1667,6 +1671,10 @@
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
   },
+  "68Yf3f": {
+    "defaultMessage": "Informations incorrectes ou obsolètes?",
+    "description": "Heading for review of nominee's information"
+  },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
@@ -2446,6 +2454,10 @@
   "AC/qwa": {
     "defaultMessage": "Si vous êtes qualifiée ou qualifié dans des processus ou des bassins sur d’autres plateformes du gouvernement du Canada, vous pouvez l’indiquer ici. Ces renseignements seront vérifiés.",
     "description": "Off-platform section information"
+  },
+  "ACCjnC": {
+    "defaultMessage": "Courriel professionnel de la personne candidate",
+    "description": "Label for a nominations nominee"
   },
   "ADPfNp": {
     "defaultMessage": "Valider dès maintenant",
@@ -7582,6 +7594,10 @@
     "defaultMessage": "Types d'organisations que vous envisageriez pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
   },
+  "aYyceB": {
+    "defaultMessage": "Lien entre la personne candidate et l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the nominee's relation to the person nominating them"
+  },
   "aZUxFF": {
     "defaultMessage": "Aucune compétence n’a été sélectionnée. Veuillez vous servir de la page « Informations publicitaires » pour ajouter des compétences.",
     "description": "Error message when there aren't any skills to select"
@@ -8093,6 +8109,10 @@
   "dDHy5d": {
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
+  },
+  "dDdsk2": {
+    "defaultMessage": "Vérifier les informations incorrectes ou obsolètes",
+    "description": "Label for review of nominee information"
   },
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
@@ -11673,6 +11693,10 @@
   "vFV5N8": {
     "defaultMessage": "Les postes au niveau de la direction ne m'intéressent pas.",
     "description": "The executive interest described as not interested."
+  },
+  "vIzha1": {
+    "defaultMessage": "Autre relation",
+    "description": "Label for the text input for an other relationship not listed"
   },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
