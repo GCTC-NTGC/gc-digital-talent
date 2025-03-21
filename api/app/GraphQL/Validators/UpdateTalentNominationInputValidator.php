@@ -55,6 +55,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'exists:departments,id',
             ],
             'nominatorReview' => [
+                'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
             'nominee' => ['required_array_keys:connect'],
