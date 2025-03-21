@@ -1,4 +1,4 @@
-import { FieldErrors, FieldValues, get } from "react-hook-form";
+import { FieldError, FieldErrors, FieldValues, get } from "react-hook-form";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -7,10 +7,6 @@ import { EmployeeSearchResult } from "./types";
 
 const isRecord = (value?: unknown): value is Record<string, unknown> => {
   return value !== null && typeof value === "object";
-};
-
-const getSubValue = (value?: unknown): string | undefined => {
-  return value && typeof value === "string" ? value : undefined;
 };
 
 export const getDefaultValue = (
@@ -27,30 +23,28 @@ export const getDefaultValue = (
   return undefined;
 };
 
-const getSubError = (error?: unknown): string | undefined => {
+const isFieldError = (error?: unknown): error is FieldError => {
   if (isRecord(error)) {
-    if ("type" in error) {
-      return getSubValue(error.type);
+    if ("type" in error && "message" in error) {
+      return true;
     }
   }
 
-  return undefined;
+  return false;
 };
 
 export const getErrors = (
   errors: FieldErrors | undefined,
   name: string,
-): string[] | undefined => {
+): FieldError[] | undefined => {
   if (!errors) return undefined;
-  const rawErrors: unknown = get<FieldErrors>(errors, name) as FieldErrors;
+  const rawError: unknown = get(errors, name);
 
-  if (Array.isArray(rawErrors)) {
-    return unpackMaybes(rawErrors.map((rawError) => getSubError(rawError)));
+  if (Array.isArray(rawError)) {
+    return unpackMaybes(rawError.filter(isFieldError));
   }
 
-  const inputError = getSubError(rawErrors);
-
-  return inputError ? [inputError] : undefined;
+  return isFieldError(rawError) ? [rawError] : undefined;
 };
 
 export const EmployeeSearchResult_Fragment = graphql(/* GraphQL */ `

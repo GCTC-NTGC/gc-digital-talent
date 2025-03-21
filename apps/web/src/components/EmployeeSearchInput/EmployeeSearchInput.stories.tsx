@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 import { action } from "@storybook/addon-actions";
+import { within, userEvent } from "@storybook/test";
 import { CombinedError } from "urql";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -12,7 +13,6 @@ import EmployeeSearchInput, {
   EmployeeSearchInputProps,
 } from "./EmployeeSearchInput";
 import { EmployeeSearchResult_Fragment, fragmentToEmployee } from "./utils";
-
 faker.seed(0);
 
 const users = fakeUsers(1);
@@ -79,6 +79,26 @@ export const NoResult: Story = {
         },
       },
     },
+  },
+};
+
+export const Required: Story = {
+  args: {
+    rules: { required: "This field is required" },
+  },
+  parameters: {
+    apiResponses: {
+      EmployeeSearch: {
+        data: {
+          govEmployeeProfile: null,
+        },
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const submitBtn = canvas.getByRole("button", { name: /submit/i });
+    await userEvent.click(submitBtn);
   },
 };
 
