@@ -67,6 +67,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Additional comments",
+    "fr": [
+      "Autres commentaires",
+      "Commentaires supplémentaires"
+    ]
+  },
+  {
     "en": "Minimum education",
     "fr": [
       "Niveau d'études minimal",
