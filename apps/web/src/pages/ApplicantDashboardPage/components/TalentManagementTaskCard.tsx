@@ -133,8 +133,8 @@ const TalentManagementTaskCard = ({
                         <p>
                           {intl.formatMessage({
                             defaultMessage:
-                              'You can start a nomination by browsing the currently active talent nomination events using the "New nomination" button.',
-                            id: "oQxQJM",
+                              'You can start a nomination by browsing the currently active talent management events using the "New nomination" button.',
+                            id: "x2yC2s",
                             description:
                               "Notice's text when there are no nominations",
                           })}
