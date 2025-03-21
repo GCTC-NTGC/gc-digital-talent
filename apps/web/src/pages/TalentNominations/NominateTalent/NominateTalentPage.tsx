@@ -74,6 +74,7 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
       ...NominateTalentSuccess
     }
 
+    ...NominatorFieldOptions
     # klc = Leadership - Executive behaviours
     skills(families: ["klc"]) {
       ...NominateTalentSkill
@@ -169,7 +170,10 @@ const NominateTalentPage = () => {
               </TableOfContents.Sidebar>
               <TableOfContents.Content>
                 <Instructions />
-                <Nominator nominatorQuery={data.talentNomination} />
+                <Nominator
+                  nominatorQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
                 <Nominee nomineeQuery={data.talentNomination} />
                 <Details detailsQuery={data.talentNomination} />
                 <Rationale
