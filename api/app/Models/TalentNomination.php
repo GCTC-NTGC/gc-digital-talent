@@ -162,7 +162,7 @@ class TalentNomination extends Model
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
     }
 
-    /** @return BelongsTo<Department, $this> */
+    /** @return BelongsTo<TalentNominationGroup, $this> */
     public function talentNominationGroup(): BelongsTo
     {
         return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id');
