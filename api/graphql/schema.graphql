@@ -1338,7 +1338,9 @@ type Query {
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
-  skills: [Skill]! @all @canModel(ability: "viewAny")
+  skills(families: [String!] @scope): [Skill]!
+    @all
+    @canModel(ability: "viewAny")
   genericJobTitle(id: UUID! @eq): GenericJobTitle
     @find
     @canModel(ability: "view")
