@@ -13,6 +13,10 @@ import { SubformValues as FindANewCommunitySubformValues } from "./sections/Find
 import { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
 import { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
 import { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+import {
+  stringArrayToEnumsFinanceChiefDuty,
+  stringArrayToEnumsFinanceChiefRole,
+} from "./util";
 
 export interface FormValues
   extends FindANewCommunitySubformValues,
@@ -101,6 +105,16 @@ export function formValuesToApiCreateInput(
     };
   }
 
+  // finance-only fields
+  apiInput.financeIsChief = formValues.financeIsChief;
+  apiInput.financeAdditionalDuties = formValues.financeAdditionalDuties
+    ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+    : null;
+  apiInput.financeOtherRoles = formValues.financeOtherRoles
+    ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+    : null;
+  apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
+
   return apiInput;
 }
 
@@ -155,6 +169,16 @@ export function formValuesToApiUpdateInput(
     trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
     additionalInformation: formValues.additionalInformation,
     interestInDevelopmentPrograms,
+
+    // finance-only fields
+    financeIsChief: formValues.financeIsChief,
+    financeAdditionalDuties: formValues.financeAdditionalDuties
+      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+      : null,
+    financeOtherRoles: formValues.financeOtherRoles
+      ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+      : null,
+    financeOtherRolesOther: formValues.financeOtherRolesOther,
   };
 }
 
@@ -188,6 +212,15 @@ export function apiDataToFormValues(
               ? strToFormDate(interest.completionDate)
               : null,
         })) ?? null,
+    // finance-only fields
+    financeIsChief: communityInterest?.financeIsChief ?? null,
+    financeAdditionalDuties: communityInterest?.financeAdditionalDuties
+      ? communityInterest.financeAdditionalDuties.map((duty) => duty.value)
+      : null,
+    financeOtherRoles: communityInterest?.financeOtherRoles
+      ? communityInterest.financeOtherRoles.map((role) => role.value)
+      : null,
+    financeOtherRolesOther: communityInterest?.financeOtherRolesOther ?? null,
     // not saved in the database but if job or training interest is saved, they will have previously consented
     consent:
       !!communityInterest?.jobInterest || !!communityInterest?.trainingInterest,

@@ -15,6 +15,10 @@ import {
   Mentorship,
   OrganizationTypeInterest,
 } from "@gc-digital-talent/graphql";
+import {
+  formatDate,
+  formDateStringToDate,
+} from "@gc-digital-talent/date-helpers";
 
 import messages from "~/messages/careerDevelopmentMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
@@ -48,6 +52,8 @@ export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    eligibleRetirementYearKnown
+    eligibleRetirementYear
     mentorshipStatus {
       value
       label {
@@ -167,6 +173,19 @@ const CareerDevelopmentSection = ({
         id: "tXLRmG",
         description: "The promotion move interest described as not interested.",
       });
+
+  const eligibleRetirementYearKnownMessage =
+    employeeProfile.eligibleRetirementYearKnown
+      ? intl.formatMessage({
+          defaultMessage: "I know the year in which I'm eligible to retire.",
+          id: "f0dhMc",
+          description: "The eligible retirement year described as known.",
+        })
+      : intl.formatMessage({
+          defaultMessage: "I'm not sure about the year I'm eligible to retire.",
+          id: "a5YBuH",
+          description: "The eligible retirement year described as unknown.",
+        });
 
   const execInterestMessage = employeeProfile.execInterest
     ? intl.formatMessage({
@@ -299,6 +318,29 @@ const CareerDevelopmentSection = ({
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
+      </div>
+      <CardSeparator space="xs" />
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.eligibleRetirementYearKnown}
+        </span>
+        {empty(employeeProfile.eligibleRetirementYearKnown)
+          ? intl.formatMessage(commonMessages.notProvided)
+          : eligibleRetirementYearKnownMessage}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.eligibleRetirementYear}
+        </span>
+        {employeeProfile.eligibleRetirementYear
+          ? formatDate({
+              date: formDateStringToDate(
+                employeeProfile.eligibleRetirementYear,
+              ),
+              formatString: "yyyy",
+              intl,
+            })
+          : intl.formatMessage(commonMessages.notProvided)}
       </div>
       <CardSeparator space="xs" />
       <div>

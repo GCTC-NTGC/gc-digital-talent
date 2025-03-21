@@ -42,6 +42,7 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment UpdateCommunityInterestFormOptions_Fragment on Query {
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
+    ...AdditionalInformationOptions_Fragment
 
     communities {
       id
@@ -75,6 +76,20 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       participationStatus
       completionDate
     }
+    financeIsChief
+    financeAdditionalDuties {
+      value
+      label {
+        localized
+      }
+    }
+    financeOtherRoles {
+      value
+      label {
+        localized
+      }
+    }
+    financeOtherRolesOther
   }
 `);
 
@@ -145,7 +160,10 @@ const UpdateCommunityInterestForm = ({
                 </>
               ) : null}
               <CardFormSeparator />
-              <AdditionalInformation formDisabled={formDisabled} />
+              <AdditionalInformation
+                optionsQuery={formOptions}
+                formDisabled={formDisabled}
+              />
               <CardFormSeparator />
               <ReviewAndSubmit formDisabled={formDisabled} />
             </div>

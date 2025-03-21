@@ -18,7 +18,7 @@ final class CreateDevelopmentProgramInterestInputValidator extends Validator
     {
         return [
             // developmentProgramId validated in the Create/UpdateCommunityInterestInputValidator
-            'participationStatus' => ['required', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
+            'participationStatus' => ['nullable', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
             'completionDate' => [
                 Rule::when(
                     fn (): bool => $this->arg('participationStatus') === DevelopmentProgramParticipationStatus::COMPLETED->name,

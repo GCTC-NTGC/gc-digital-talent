@@ -1,7 +1,13 @@
 import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FinanceChiefDuty,
+  FinanceChiefRole,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Link, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -15,6 +21,7 @@ export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDialog on CommunityInterest {
     id
     community {
+      key
       workStreams {
         id
         name {
@@ -43,17 +50,45 @@ export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
     jobInterest
     trainingInterest
     additionalInformation
+    financeIsChief
+    financeAdditionalDuties {
+      value
+    }
+    financeOtherRoles {
+      value
+    }
+    financeOtherRolesOther
   }
 `);
 
+export const CommunityInterestDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment CommunityInterestDialogOptions on Query {
+    financeChiefDuties: localizedEnumStrings(enumName: "FinanceChiefDuty") {
+      value
+      label {
+        localized
+      }
+    }
+    financeChiefRoles: localizedEnumStrings(enumName: "FinanceChiefRole") {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 interface CommunityInterestDialogProps {
   communityInterestQuery: FragmentType<typeof CommunityInterestDialog_Fragment>;
+  communityInterestOptionsQuery: FragmentType<
+    typeof CommunityInterestDialogOptions_Fragment
+  >;
   trigger?: ReactNode;
   defaultOpen?: boolean;
 }
 
 const CommunityInterestDialog = ({
   communityInterestQuery,
+  communityInterestOptionsQuery,
   trigger,
   defaultOpen = false,
 }: CommunityInterestDialogProps) => {
@@ -63,6 +98,10 @@ const CommunityInterestDialog = ({
   const communityInterest = getFragment(
     CommunityInterestDialog_Fragment,
     communityInterestQuery,
+  );
+  const communityInterestOptions = getFragment(
+    CommunityInterestDialogOptions_Fragment,
+    communityInterestOptionsQuery,
   );
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const title = communityInterest.community?.name?.localized ?? notAvailable;
@@ -249,9 +288,137 @@ const CommunityInterestDialog = ({
               </ul>
             </>
           )}
-          {!!communityInterest?.additionalInformation && (
+          {!!communityInterest?.additionalInformation ||
+          communityInterest.community.key === "finance" ? (
             <>
               <Separator orientation="horizontal" decorative space="sm" />
+              {/* Some fields only appear for the finance community */}
+              {communityInterest.community.key === "finance" ? (
+                <>
+                  <p
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x.25)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "CFO status",
+                      id: "2KQdGz",
+                      description:
+                        "Bounding box label for the finance chief checkbox",
+                    })}
+                  </p>
+                  <BoolCheckIcon
+                    value={communityInterest.financeIsChief}
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {communityInterest.financeIsChief
+                      ? intl.formatMessage({
+                          defaultMessage:
+                            "I'm a Chief Financial Officer (CFO).",
+                          id: "duKO+o",
+                          description: "Message when user is a finance chief",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage:
+                            "I'm not a Chief Financial Officer (CFO).",
+                          id: "+/6UIs",
+                          description:
+                            "Message when user is not a finance chief",
+                        })}
+                  </BoolCheckIcon>
+                  {communityInterest.financeIsChief ? (
+                    <>
+                      <p
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin-bottom="base(x.25)"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Additional duties",
+                          id: "E32ToC",
+                          description:
+                            "Label for additional duties of a finance chief",
+                        })}
+                      </p>
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                        data-h2-margin-bottom="base(x1)"
+                      >
+                        {communityInterestOptions.financeChiefDuties?.map(
+                          (dutyOption) => (
+                            <li
+                              key={dutyOption.value}
+                              data-h2-margin-bottom="base(x.25)"
+                            >
+                              <BoolCheckIcon
+                                value={communityInterest.financeAdditionalDuties
+                                  ?.map((selectedDuty) => selectedDuty.value)
+                                  .includes(
+                                    dutyOption.value as FinanceChiefDuty,
+                                  )}
+                              >
+                                {dutyOption.label.localized}
+                              </BoolCheckIcon>
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                      <p
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin-bottom="base(x.25)"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Other roles",
+                          id: "z20NMR",
+                          description:
+                            "Label for other roles of a finance chief",
+                        })}
+                      </p>
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                        data-h2-margin-bottom="base(x1)"
+                      >
+                        {communityInterestOptions.financeChiefRoles?.map(
+                          (roleOption) => (
+                            <li
+                              key={roleOption.value}
+                              data-h2-margin-bottom="base(x.25)"
+                            >
+                              <BoolCheckIcon
+                                value={communityInterest.financeOtherRoles
+                                  ?.map((selectedRole) => selectedRole.value)
+                                  .includes(
+                                    roleOption.value as FinanceChiefRole,
+                                  )}
+                              >
+                                {roleOption.label.localized}
+                              </BoolCheckIcon>
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                      {communityInterest.financeOtherRolesOther ? (
+                        <>
+                          <p
+                            data-h2-font-weight="base(700)"
+                            data-h2-margin-bottom="base(x.25)"
+                          >
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Other senior delegated official (SDO) position",
+                              id: "qQYO+V",
+                              description: "Label for the 'Other role' input",
+                            })}
+                          </p>
+                          <p data-h2-margin-bottom="base(x1)">
+                            {communityInterest.financeOtherRolesOther}
+                          </p>
+                        </>
+                      ) : null}
+                    </>
+                  ) : null}
+                </>
+              ) : null}
               <p
                 data-h2-font-weight="base(700)"
                 data-h2-margin-bottom="base(x.25)"
@@ -265,7 +432,7 @@ const CommunityInterestDialog = ({
               </p>
               <p>{communityInterest.additionalInformation}</p>
             </>
-          )}
+          ) : null}
           <Dialog.Footer>
             <Link
               mode="solid"

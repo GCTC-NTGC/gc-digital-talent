@@ -3,6 +3,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
+  "+/6UIs": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "+/ZsxX": {
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
@@ -855,6 +859,10 @@
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
   },
+  "2KQdGz": {
+    "defaultMessage": "Statut de DPF",
+    "description": "Bounding box label for the finance chief checkbox"
+  },
   "2Kz16k": {
     "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
     "description": "Description of the 'Review and submit' section"
@@ -1690,6 +1698,10 @@
   "6KS1jD": {
     "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
     "description": "Lead-in text explaining the users career plan"
+  },
+  "6M8rIa": {
+    "defaultMessage": "Les 3 principales compétences en matière de leadership",
+    "description": "Label for a nominations leadership skill competencies"
   },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
@@ -3051,6 +3063,10 @@
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
   },
+  "DQ2DKZ": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
+  },
   "DQ8q0K": {
     "defaultMessage": "Date de publication (heure locale)",
     "description": "A date at which data will be published, in the local time zone"
@@ -3206,6 +3222,10 @@
   "E2uEWk": {
     "defaultMessage": "Évaluation de langue seconde",
     "description": "Link text for government of canada second language evaluation"
+  },
+  "E32ToC": {
+    "defaultMessage": "Tâches supplémentaires",
+    "description": "Label for additional duties of a finance chief"
   },
   "E9I34y": {
     "defaultMessage": "Titre de la thèse",
@@ -3478,6 +3498,10 @@
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
+  },
+  "FSvySJ": {
+    "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
+    "description": "Error message when the incorrect number of leadership competencies is selected"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
@@ -3938,6 +3962,10 @@
   "I9e48q": {
     "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
     "description": "Description on what the skills showcase is."
+  },
+  "IBLDnY": {
+    "defaultMessage": "Commentaires supplémentaires",
+    "description": "Label for additional comments on a nomination's rationale"
   },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
@@ -8226,6 +8254,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
   },
+  "duKO+o": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is a finance chief"
+  },
   "duXf4a": {
     "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
     "description": "Instructions to contact support after nomination submission"
@@ -9546,6 +9578,10 @@
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
   },
+  "jokoVA": {
+    "defaultMessage": "Justification de la nomination",
+    "description": "Label for a nomination's rationale"
+  },
   "jphtnM": {
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
@@ -10842,6 +10878,10 @@
     "defaultMessage": "Niveau de connaissance de la langue seconde (lecture, écriture, expression orale)",
     "description": "Second language level (reading, writing, oral interaction) label"
   },
+  "qQYO+V": {
+    "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
+    "description": "Label for the 'Other role' input"
+  },
   "qQZQj+": {
     "defaultMessage": "L'adéquation des compétences en détail",
     "description": "Heading displayed on the candidate skill match dialog."
@@ -11265,6 +11305,10 @@
   "t+WUYM": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
+  },
+  "t1JWwl": {
+    "defaultMessage": "Veuillez indiquer si vous occupez également l'une des fonctions suivantes.",
+    "description": "Description for the 'other roles' checkbox group"
   },
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
@@ -12357,6 +12401,10 @@
   "yzvT6g": {
     "defaultMessage": "Ajoutez un rôle dans la collectivité",
     "description": "Button label for the form to add a community membership to a user"
+  },
+  "z20NMR": {
+    "defaultMessage": "Autres rôles",
+    "description": "Label for other roles of a finance chief"
   },
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",

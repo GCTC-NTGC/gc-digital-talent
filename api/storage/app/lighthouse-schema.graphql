@@ -138,6 +138,16 @@ type LocalizedFinalDecision {
   label: LocalizedString!
 }
 
+type LocalizedFinanceChiefDuty {
+  value: FinanceChiefDuty!
+  label: LocalizedString!
+}
+
+type LocalizedFinanceChiefRole {
+  value: FinanceChiefRole!
+  label: LocalizedString!
+}
+
 type LocalizedGovContractorRoleSeniority {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
@@ -349,7 +359,7 @@ type Query {
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
-  skills: [Skill]!
+  skills(families: [String!]): [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
@@ -699,6 +709,10 @@ type CommunityInterest {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+  financeIsChief: Boolean
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 type DevelopmentProgramInterest {
@@ -1753,6 +1767,10 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+  financeIsChief: Boolean
+  financeAdditionalDuties: [FinanceChiefDuty!]
+  financeOtherRoles: [FinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 input UpdateCommunityInterestInput {
@@ -1762,6 +1780,10 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+  financeIsChief: Boolean
+  financeAdditionalDuties: [FinanceChiefDuty!]
+  financeOtherRoles: [FinanceChiefRole!]
+  financeOtherRolesOther: String
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -2960,15 +2982,14 @@ enum AwardedTo {
 }
 
 enum CSuiteRoleTitle {
-  CHIEF_AUDIT_OFFICER
-  CHIEF_FINANCE_OFFICER
+  CHIEF_AUDIT_EXECUTIVE
+  CHIEF_FINANCIAL_OFFICER
   CHIEF_DATA_OFFICER
   CHIEF_DIGITAL_OFFICER
   CHIEF_INFORMATION_OFFICER
   CHIEF_PRIVACY_OFFICER
   CHIEF_TECHNOLOGY_OFFICER
-  DEPUTY_CHIEF_AUDIT_OFFICER
-  DEPUTY_CHIEF_FINANCE_OFFICER
+  DEPUTY_CHIEF_FINANCIAL_OFFICER
   DEPUTY_CHIEF_DATA_OFFICER
   DEPUTY_CHIEF_DIGITAL_OFFICER
   DEPUTY_CHIEF_INFORMATION_OFFICER
@@ -3143,6 +3164,24 @@ enum FinalDecision {
   REMOVED
   TO_ASSESS
   TO_ASSESS_REMOVED
+}
+
+enum FinanceChiefDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
+enum FinanceChiefRole {
+  CHIEF_SECURITY_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  HEAD_OF_HUMAN_RESOURCES
+  HEAD_OF_PROCUREMENT
+  OTHER
 }
 
 enum GenericJobTitleKey {

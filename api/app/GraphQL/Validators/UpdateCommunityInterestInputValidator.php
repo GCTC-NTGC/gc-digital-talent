@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\FinanceChiefDuty;
+use App\Enums\FinanceChiefRole;
 use App\Models\CommunityInterest;
-use App\Models\DevelopmentProgram;
-use App\Models\WorkStream;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -18,16 +18,51 @@ final class UpdateCommunityInterestInputValidator extends Validator
      */
     public function rules(): array
     {
-        $communityId = CommunityInterest::with('community')->find($this->arg('id'))?->community?->id;
-        $workStreams = $communityId ? WorkStream::where('community_id', $communityId)->get('id')->pluck('id') : [];
-        $developmentProgramIds = $communityId ? DevelopmentProgram::where('community_id', $communityId)->get('id')->pluck('id') : [];
+        $communityInterestId = $this->arg('id');
+        $communityInterest = CommunityInterest::with(['community', 'community.workStreams', 'community.developmentPrograms'])->find($communityInterestId);
+        $community = $communityInterest?->community;
+        $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
+        $developmentProgramIds = $community?->developmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
-            'workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreams)],
+            'workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreamIds)],
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
             'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
+            'financeIsChief' => [
+                'nullable',
+                Rule::when($community?->key === 'finance',
+                    ['boolean'],
+                    ['prohibited']
+                ),
+            ],
+            'financeAdditionalDuties' => [
+                'nullable',
+                Rule::when($community?->key === 'finance',
+                    ['array', 'distinct'],
+                    ['prohibited']
+                ),
+            ],
+            'financeAdditionalDuties.*' => [Rule::in(array_column(FinanceChiefDuty::cases(), 'name'))],
+            'financeOtherRoles' => [
+                'nullable',
+                Rule::when($community?->key === 'finance',
+                    ['array', 'distinct'],
+                    ['prohibited']
+                ),
+            ],
+            'financeOtherRoles.*' => [Rule::in(array_column(FinanceChiefRole::cases(), 'name'))],
+            'financeOtherRolesOther' => [
+                'nullable',
+                Rule::when($community?->key === 'finance',
+                    [
+                        'string',
+                        Rule::requiredIf(in_array(FinanceChiefRole::OTHER->name, $this->arg('financeOtherRoles') ?? [])),
+                    ],
+                    ['prohibited']
+                ),
+            ],
         ];
     }
 
