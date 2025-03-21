@@ -373,8 +373,8 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
       !values.nominatorFallbackWorkEmail
     ) {
       return intl.formatMessage({
-        defaultMessage: "Please provide a nominator to continue.",
-        id: "+dcmkP",
+        defaultMessage: "To continue, please let us know who the nominator is.",
+        id: "h+pOLj",
         description:
           "Error message when a nominator has not been set for a nomination",
       });

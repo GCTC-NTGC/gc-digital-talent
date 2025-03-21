@@ -9042,6 +9042,10 @@
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
   },
+  "h+pOLj": {
+    "defaultMessage": "Pour continuer, veuillez nous indiquer qui est l'auteur ou l'autrice de la mise en candidature.",
+    "description": "Error message when a nominator has not been set for a nomination"
+  },
   "h0Mrq9": {
     "defaultMessage": "<strong>technologie de l’information</strong>",
     "description": "List item of experiences required in application education page."
