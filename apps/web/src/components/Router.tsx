@@ -66,10 +66,22 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                 },
                 {
                   path: "talent-events",
-                  lazy: () =>
-                    import(
-                      "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
-                    ),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
+                        ),
+                    },
+                    {
+                      path: ":nominationEventId/create-talent-nomination",
+                      lazy: () =>
+                        import(
+                          "../pages/CreateTalentNominationPage/CreateTalentNominationPage"
+                        ),
+                    },
+                  ],
                 },
                 {
                   path: "talent-nominations",
