@@ -1,0 +1,331 @@
+import { useIntl } from "react-intl";
+
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationStep,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import { stringifyGroupLevel } from "~/utils/classification";
+
+import messages from "../../messages";
+import ReviewHeading from "./ReviewHeading";
+
+interface ListItem {
+  key: string;
+  name: string;
+}
+
+const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
+  fragment NominationDetailsReview on TalentNomination {
+    # Nomination types
+    nominateForAdvancement
+    nominateForLateralMovement
+    nominateForDevelopmentPrograms
+
+    # Advancement details
+    advancementReference {
+      firstName
+      lastName
+      workEmail
+      department {
+        name {
+          localized
+        }
+      }
+      classification {
+        group
+        level
+      }
+    }
+    advancementReferenceFallbackName
+    advancementReferenceFallbackWorkEmail
+    advancementReferenceFallbackDepartment {
+      name {
+        localized
+      }
+    }
+    advancementReferenceFallbackClassification {
+      group
+      level
+    }
+
+    # Lateral movement details
+    lateralMovementOptionsOther
+    lateralMovementOptions {
+      value
+      label {
+        localized
+      }
+    }
+
+    # Development program details
+    developmentProgramOptionsOther
+    developmentPrograms {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
+interface NominationDetailsReviewProps {
+  detailsQuery?: FragmentType<typeof NominationDetailsReview_Fragment>;
+}
+
+const NominationDetailsReview = ({
+  detailsQuery,
+}: NominationDetailsReviewProps) => {
+  const intl = useIntl();
+  const talentNomination = getFragment(
+    NominationDetailsReview_Fragment,
+    detailsQuery,
+  );
+
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+
+  let types: ListItem[] = [];
+  if (talentNomination?.nominateForAdvancement) {
+    types = [
+      {
+        key: "nominationForAdvacement",
+        name: intl.formatMessage({
+          defaultMessage: "Advancement",
+          id: "yB+pio",
+          description: "List item for the advancement nomination type",
+        }),
+      },
+    ];
+  }
+  if (talentNomination?.nominateForLateralMovement) {
+    types = [
+      ...types,
+      {
+        key: "nominationForLateralMovement",
+        name: intl.formatMessage({
+          defaultMessage: "Lateral movement",
+          id: "UPCZrv",
+          description: "List item for the lateral movement nomination type",
+        }),
+      },
+    ];
+  }
+  if (talentNomination?.nominateForDevelopmentPrograms) {
+    types = [
+      ...types,
+      {
+        key: "nominationForDevelopmentPrograms",
+        name: intl.formatMessage({
+          defaultMessage: "Development program",
+          id: "zKW7vX",
+          description: "List item for the development program nomination type",
+        }),
+      },
+    ];
+  }
+
+  let referenceName =
+    talentNomination?.advancementReferenceFallbackName ?? notProvided;
+  if (talentNomination?.advancementReference) {
+    referenceName = getFullNameLabel(
+      talentNomination.advancementReference.firstName,
+      talentNomination.advancementReference.lastName,
+      intl,
+    );
+  }
+
+  const referenceClassification =
+    talentNomination?.advancementReference?.classification ??
+    talentNomination?.advancementReferenceFallbackClassification;
+  const referenceDepartment =
+    talentNomination?.advancementReference?.department ??
+    talentNomination?.advancementReferenceFallbackDepartment;
+
+  const lateralMoveOptions: ListItem[] = unpackMaybes(
+    talentNomination?.lateralMovementOptions,
+  ).map((option) => ({
+    key: option.value,
+    name: option.label.localized ?? "",
+  }));
+
+  const developmentPrograms: ListItem[] = unpackMaybes(
+    talentNomination?.developmentPrograms,
+  ).map((program) => ({
+    key: program.id,
+    name: program.name?.localized ?? "",
+  }));
+
+  return (
+    <>
+      <ReviewHeading
+        link={{
+          to: TalentNominationStep.NominationDetails,
+          name: intl.formatMessage({
+            defaultMessage: "Edit nomination details",
+            id: "0r1Pr3",
+            description: "Link text to edit a nominations details information",
+          }),
+        }}
+      >
+        {intl.formatMessage(messages.nominationDetails)}
+      </ReviewHeading>
+      <div
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(1fr 1fr)"
+        data-h2-gap="base(x1)"
+      >
+        <FieldDisplay
+          data-h2-grid-column="base(span 2)"
+          label={intl.formatMessage({
+            defaultMessage: "Nomination types",
+            description: "Label for the types of the nomination",
+            id: "b7rUBr",
+          })}
+        >
+          {types.length > 0 ? (
+            <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
+              {types.map((t) => (
+                <li key={t.key}>
+                  <BoolCheckIcon value>{t.name}</BoolCheckIcon>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
+        {talentNomination?.nominateForAdvancement && (
+          <>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Reference's name",
+                id: "PLI9Iy",
+                description: "Label for the advancement reference name",
+              })}
+            >
+              {referenceName}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Reference's work email",
+                id: "5lWVQz",
+                description: "Label for the advancement reference work email",
+              })}
+            >
+              {talentNomination.advancementReference?.workEmail ??
+                talentNomination.advancementReferenceFallbackWorkEmail ??
+                notProvided}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Reference's classification",
+                id: "bCZOr9",
+                description:
+                  "Label for the advancement referece classification",
+              })}
+            >
+              {referenceClassification
+                ? stringifyGroupLevel(
+                    referenceClassification.group,
+                    referenceClassification.level,
+                  )
+                : notProvided}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Reference's department or agency",
+                id: "afDvc9",
+                description: "Label for the advancement department",
+              })}
+            >
+              {referenceDepartment?.name?.localized ?? notProvided}
+            </FieldDisplay>
+          </>
+        )}
+        {talentNomination?.nominateForLateralMovement && (
+          <>
+            {lateralMoveOptions.length > 0 && (
+              <FieldDisplay
+                data-h2-grid-column="base(span 2)"
+                label={intl.formatMessage({
+                  defaultMessage: "Lateral movement options",
+                  id: "OC5hUZ",
+                  description: "Label for selected lateral move items",
+                })}
+              >
+                <ul
+                  data-h2-list-style="base(none)"
+                  data-h2-padding-left="base(0)"
+                >
+                  {lateralMoveOptions.map((o) => (
+                    <li key={o.key}>
+                      <BoolCheckIcon value>{o.name}</BoolCheckIcon>
+                    </li>
+                  ))}
+                </ul>
+              </FieldDisplay>
+            )}
+            {talentNomination.lateralMovementOptionsOther && (
+              <FieldDisplay
+                data-h2-grid-column="base(span 2)"
+                label={intl.formatMessage({
+                  defaultMessage: "Other lateral movement option",
+                  id: "ZBxMOx",
+                  description: "Label for the other lateral move item",
+                })}
+              >
+                {talentNomination.lateralMovementOptionsOther}
+              </FieldDisplay>
+            )}
+          </>
+        )}
+        {talentNomination?.nominateForDevelopmentPrograms && (
+          <>
+            {developmentPrograms.length > 0 && (
+              <FieldDisplay
+                data-h2-grid-column="base(span 2)"
+                label={intl.formatMessage({
+                  defaultMessage: "Development program recommendations",
+                  id: "DHIa69",
+                  description: "Label for selected development program items",
+                })}
+              >
+                <ul
+                  data-h2-list-style="base(none)"
+                  data-h2-padding-left="base(0)"
+                >
+                  {developmentPrograms.map((p) => (
+                    <li key={p.key}>
+                      <BoolCheckIcon value>{p.name}</BoolCheckIcon>
+                    </li>
+                  ))}
+                </ul>
+              </FieldDisplay>
+            )}
+            {talentNomination.developmentProgramOptionsOther && (
+              <FieldDisplay
+                data-h2-grid-column="base(span 2)"
+                label={intl.formatMessage({
+                  defaultMessage: "Other development program",
+                  id: "TCO19A",
+                  description: "Label for the other development program item",
+                })}
+              >
+                {talentNomination.developmentProgramOptionsOther}
+              </FieldDisplay>
+            )}
+          </>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default NominationDetailsReview;

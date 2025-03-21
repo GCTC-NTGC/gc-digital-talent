@@ -8,6 +8,7 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
+import { Separator } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 
@@ -16,10 +17,17 @@ import { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
 import useMutations from "../useMutations";
+import NominatorReview from "./ReviewAndSubmit/NominatorReview";
+import NomineeReview from "./ReviewAndSubmit/NomineeReview";
+import NominationDetailsReview from "./ReviewAndSubmit/NominationDetailsReview";
+import RationaleReview from "./ReviewAndSubmit/RationaleReview";
 
 const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentReviewAndSubmit on TalentNomination {
-    id
+    ...NominatorReview
+    ...NomineeReview
+    ...NominationDetailsReview
+    ...RationaleReview
   }
 `);
 
@@ -33,8 +41,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
   const [fetching, { submit }] = useMutations();
-  // TO DO: Use in the form population
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const talentNomination = getFragment(
     NominateTalentReviewAndSubmit_Fragment,
     reviewAndSubmitQuery,
@@ -64,6 +71,14 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
             description: "Subtitle for submit step of a talent nomination",
           })}
         </p>
+        <Separator orientation="horizontal" decorative />
+        <NominatorReview nominatorQuery={talentNomination} />
+        <Separator orientation="horizontal" decorative />
+        <NomineeReview nomineeQuery={talentNomination} />
+        <Separator orientation="horizontal" decorative />
+        <NominationDetailsReview detailsQuery={talentNomination} />
+        <Separator orientation="horizontal" decorative />
+        <RationaleReview rationaleQuery={talentNomination} />
         <Actions />
       </form>
     </FormProvider>
