@@ -107,7 +107,7 @@ export function localizedEnumToOptions(
   }
   return localizedEnums.map(({ value, label }) => ({
     value,
-    label: getLocalizedName(label, intl),
+    label: label.localized ?? getLocalizedName(label, intl),
   }));
 }
 
