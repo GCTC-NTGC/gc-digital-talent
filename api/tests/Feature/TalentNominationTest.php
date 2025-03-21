@@ -173,10 +173,11 @@ class TalentNominationTest extends TestCase
 
     public function testSubmitterCantUpdateTheirOwnSubmittedNominations()
     {
-        $nomination = TalentNomination::factory()->create([
-            'submitter_id' => $this->employee1->id,
-            'submitted_at' => now(),
-        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+            ]);
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
@@ -196,11 +197,10 @@ class TalentNominationTest extends TestCase
                 'include_leadership_competencies' => true,
             ]);
         $nomination = TalentNomination::factory()
-            ->submittedReviewAndSubmit()
+            ->submittedRationale()
             ->hasSkills(SkillFamily::where('key', 'klc')->sole()->skills->take(3))
             ->create([
                 'submitter_id' => $this->employee1->id,
-                'submitted_at' => null,
                 'talent_nomination_event_id' => $event->id,
             ]);
 
@@ -227,11 +227,10 @@ class TalentNominationTest extends TestCase
                 'include_leadership_competencies' => false,
             ]);
         $nomination = TalentNomination::factory()
-            ->submittedReviewAndSubmit()
+            ->submittedRationale()
             ->hasSkills(SkillFamily::where('key', '<>', 'klc')->first()->skills->take(3))
             ->create([
                 'submitter_id' => $this->employee1->id,
-                'submitted_at' => null,
                 'talent_nomination_event_id' => $event->id,
             ]);
 
@@ -273,10 +272,9 @@ class TalentNominationTest extends TestCase
     public function testCantNominateSelf()
     {
         $nomination = TalentNomination::factory()
-            ->submittedReviewAndSubmit()
+            ->submittedRationale()
             ->create([
                 'submitter_id' => $this->employee1->id,
-                'submitted_at' => null,
                 'nominator_id' => $this->employee1->id,
                 'nominee_id' => $this->employee1->id,
             ]);

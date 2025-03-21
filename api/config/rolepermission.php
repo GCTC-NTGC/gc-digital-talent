@@ -86,6 +86,7 @@ return [
         'communityTeamMembers' => 'communityTeamMembers',
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
+        'talentNominationGroup' => 'talentNominationGroup',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
@@ -678,6 +679,19 @@ return [
         'view-own-talentNomination' => [
             'en' => 'View a draft talent nomination as the submitter',
             'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
+        ],
+        'view-team-talentNomination' => [
+            'en' => 'View a talent nomination as a team member',
+            'fr' => 'Consulter une nomination de talent en tant que membre de l\'équipe',
+        ],
+
+        'update-team-talentNominationGroup' => [
+            'en' => 'Update a talent nomination group',
+            'fr' => 'Mettre à jour un groupe de nomination des talents',
+        ],
+        'view-team-talentNominationGroup' => [
+            'en' => 'View a talent nomination group',
+            'fr' => 'Consulter un groupe de nomination des talents',
         ],
 
         'view-any-basicGovEmployeeProfile' => [
@@ -1311,11 +1325,17 @@ return [
                 'any' => ['view'],
                 'team' => ['create', 'update'],
             ],
+            'talentNomination' => [
+                'team' => ['view'],
+            ],
             'communityInterest' => [
                 'team' => ['view'],
             ],
             'communityTeamMembers' => [
                 'team' => ['view'],
+            ],
+            'talentNominationGroup' => [
+                'team' => ['update', 'view'],
             ],
         ],
     ],

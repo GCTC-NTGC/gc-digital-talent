@@ -293,6 +293,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationGroupStatus {
+  value: TalentNominationGroupStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationLateralMovementOption {
   value: TalentNominationLateralMovementOption!
   label: LocalizedString!
@@ -371,7 +376,9 @@ type Query {
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
+  talentNominationGroup(id: UUID!): TalentNominationGroup
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -555,6 +562,7 @@ type Mutation {
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
   updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
+  updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -1080,6 +1088,7 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
+  talentNominationGroups: [TalentNominationGroup!]
 }
 
 type TalentNomination {
@@ -1116,6 +1125,24 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  nominee: BasicGovEmployeeProfile
+  nominations: [TalentNomination!]
+  talentNominationEvent: TalentNominationEvent!
+  advancementNominationCount: Int
+  advancementDecision: TalentNominationGroupDecision
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
+  lateralMovementNominationCount: Int
+  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsNominationCount: Int
+  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsNotes: String
+  status: LocalizedTalentNominationGroupStatus
 }
 
 type Team implements HasRoleAssignments {
@@ -2043,6 +2070,16 @@ input UpdateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+}
+
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
+  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsNotes: String
 }
 
 input CreateApplicantFilterInput {
@@ -3432,6 +3469,18 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TalentNominationGroupDecision {
+  APPROVED
+  REJECTED
+}
+
+enum TalentNominationGroupStatus {
+  IN_PROGRESS
+  APPROVED
+  PARTIALLY_APPROVED
+  REJECTED
 }
 
 enum TalentNominationLateralMovementOption {
