@@ -30,7 +30,7 @@ class TalentNominationGroupTest extends TestCase
             ->create([
                 'email' => $userName.'@test.com',
                 'computed_is_gov_employee' => true,
-                'work_email' => $userName.'gc.ca',
+                'work_email' => $userName.'@gc.ca',
                 'work_email_verified_at' => now(),
             ]);
     }
@@ -42,7 +42,7 @@ class TalentNominationGroupTest extends TestCase
             ->create([
                 'email' => $userName.'@test.com',
                 'computed_is_gov_employee' => true,
-                'work_email' => $userName.'gc.ca',
+                'work_email' => $userName.'@gc.ca',
                 'work_email_verified_at' => now(),
             ]);
     }
@@ -298,10 +298,5 @@ class TalentNominationGroupTest extends TestCase
             ]);
 
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
-    }
-
-    public function testStatusIsComputedCorrectly()
-    {
-        $this->markTestSkipped('This test has not been implemented yet.');
     }
 }

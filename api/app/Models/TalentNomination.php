@@ -58,6 +58,15 @@ class TalentNomination extends Model
     protected $keyType = 'string';
 
     /**
+     * The attributes that can be filled using mass-assignment.
+     */
+    protected $fillable = [
+        'nominate_for_advancement',
+        'nominate_for_lateral_movement',
+        'nominate_for_development_programs',
+    ];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

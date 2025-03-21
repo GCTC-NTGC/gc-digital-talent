@@ -48,6 +48,9 @@ class TalentNominationGroup extends Model
     protected $fillable = [
         'nominee_id',
         'talent_nomination_event_id',
+        'advancement_decision',
+        'lateral_movement_decision',
+        'development_programs_decision',
     ];
 
     public function getActivitylogOptions(): LogOptions
