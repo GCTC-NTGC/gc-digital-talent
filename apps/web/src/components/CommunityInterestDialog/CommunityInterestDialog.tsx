@@ -300,8 +300,8 @@ const CommunityInterestDialog = ({
                     data-h2-margin-bottom="base(x.25)"
                   >
                     {intl.formatMessage({
-                      defaultMessage: "CFO or DCFO status",
-                      id: "P3LzUb",
+                      defaultMessage: "CFO status",
+                      id: "2KQdGz",
                       description:
                         "Bounding box label for the finance chief checkbox",
                     })}
@@ -313,14 +313,14 @@ const CommunityInterestDialog = ({
                     {communityInterest.financeIsChief
                       ? intl.formatMessage({
                           defaultMessage:
-                            "I’m a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
-                          id: "RWueRJ",
+                            "I'm a Chief Financial Officer (CFO).",
+                          id: "duKO+o",
                           description: "Message when user is a finance chief",
                         })
                       : intl.formatMessage({
                           defaultMessage:
-                            "I’m not a Chief Finance Officer (CFO) or Deputy Chief Finance Officer (DCFO).",
-                          id: "AX1hRL",
+                            "I'm not a Chief Financial Officer (CFO).",
+                          id: "+/6UIs",
                           description:
                             "Message when user is not a finance chief",
                         })}

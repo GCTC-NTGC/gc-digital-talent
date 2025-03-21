@@ -40,9 +40,10 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     priorityNumber
     employeeProfile {
       ...CareerDevelopmentTaskCard
-
       lateralMoveInterest
       promotionMoveInterest
+      eligibleRetirementYear
+      eligibleRetirementYearKnown
       mentorshipStatus {
         label {
           localized

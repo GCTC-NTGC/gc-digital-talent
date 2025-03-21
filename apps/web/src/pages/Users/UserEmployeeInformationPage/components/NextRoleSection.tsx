@@ -21,6 +21,13 @@ export const NextRole_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    nextRoleIsCSuiteRole
+    nextRoleCSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
     nextRoleJobTitle
     nextRoleCommunity {
       name {
@@ -54,6 +61,18 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
   const intl = useIntl();
 
   const employeeProfile = getFragment(NextRole_Fragment, employeeProfileQuery);
+
+  employeeProfile?.nextRoleWorkStreams?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
+
+  employeeProfile?.nextRoleDepartments?.sort((a, b) =>
+    a.name?.localized && b.name?.localized
+      ? a.name.localized.localeCompare(b.name.localized)
+      : 0,
+  );
 
   return (
     <CardBasic
@@ -90,6 +109,22 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         {employeeProfile.nextRoleTargetRoleOther ??
           employeeProfile.nextRoleTargetRole?.label.localized ??
           intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {intl.formatMessage(employeeProfileMessages.seniorManagementStatus)}
+        </span>
+        {employeeProfile.nextRoleIsCSuiteRole
+          ? intl.formatMessage(employeeProfileMessages.isCSuiteRoleTitle)
+          : intl.formatMessage(commonMessages.notProvided)}
+      </div>
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {intl.formatMessage(employeeProfileMessages.cSuiteRoleTitle)}
+        </span>
+        {employeeProfile.nextRoleIsCSuiteRole
+          ? employeeProfile.nextRoleCSuiteRoleTitle?.label?.localized
+          : intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
