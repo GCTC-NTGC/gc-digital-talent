@@ -366,6 +366,23 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     return null;
   }
 
+  const preSubmitValidation = (values: FormValues) => {
+    if (
+      values.role !== "nominator" &&
+      !values.nominator &&
+      !values.nominatorFallbackWorkEmail
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Please provide a nominator to continue.",
+        id: "+dcmkP",
+        description:
+          "Error message when a nominator has not been set for a nomination",
+      });
+    }
+
+    return null;
+  };
+
   const nominatorSet =
     !!talentNomination.nominator?.id ||
     !!talentNomination.nominatorFallbackName;
@@ -387,6 +404,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
+      preSubmitValidation={preSubmitValidation}
       defaultValues={{
         submitter: talentNomination.submitter.id,
         role: defaultRole,

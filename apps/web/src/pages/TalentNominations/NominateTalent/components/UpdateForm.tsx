@@ -7,6 +7,7 @@ import { BaseFormValues } from "../types";
 import useMutations from "../useMutations";
 import useCurrentStep from "../useCurrentStep";
 import Actions from "./Actions";
+import { toast } from "@gc-digital-talent/toast";
 
 export type SubmitDataTransformer<TFormValues> = (
   values: TFormValues,
@@ -16,11 +17,15 @@ interface UpdateFormProps<TFormValues extends BaseFormValues> {
   defaultValues?: DefaultValues<TFormValues>;
   submitDataTransformer?: SubmitDataTransformer<TFormValues>;
   children: ReactNode;
+  // Some pre-submit validation to be ran
+  // Returns string of error message or null if it is okay
+  preSubmitValidation?: (values: TFormValues) => string | null;
 }
 
 const UpdateForm = <TFormValues extends BaseFormValues>({
   defaultValues,
   submitDataTransformer,
+  preSubmitValidation,
   children,
 }: UpdateFormProps<TFormValues>) => {
   const [fetching, { update }] = useMutations();
@@ -31,6 +36,12 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
   });
 
   const handleSubmit = async (values: TFormValues) => {
+    const preSubmitValidationError = preSubmitValidation?.(values);
+    if (preSubmitValidationError) {
+      toast.error(preSubmitValidationError);
+      return;
+    }
+
     await update(
       {
         insertSubmittedStep: current,
