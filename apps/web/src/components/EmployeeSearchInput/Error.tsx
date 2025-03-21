@@ -89,7 +89,14 @@ const Error = ({ email, error, messages }: ErrorProps) => {
   }
 
   if (errorCodes?.includes("NoProfile")) {
-    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+    return (
+      <ErrorMessage
+        message={{
+          title: defaultMessages.NO_PROFILE.title,
+          ...errorMessages.NO_PROFILE,
+        }}
+      />
+    );
   }
 
   return null;

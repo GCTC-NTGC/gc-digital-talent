@@ -4539,6 +4539,10 @@
     "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
+  "KtZ5yY": {
+    "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes candidates doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nommées. Veuillez contacter la candidate ou le candidat et leur demander de créer un profil avant de continuer. Vous pouvez sauvegarder cette nomination en tant qu'ébauche en utilisant le lien « Sauvegardez l'ébauche » à la fin du formulaire.",
+    "description": "Body of the error message when the profile of a nominee cannot be found"
+  },
   "KwJigi": {
     "defaultMessage": "Compétences comportementales essentielles - Exemples",
     "description": "Long title of the 'essential behavioural skills' section of the job poster template page"

@@ -224,12 +224,6 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           employeeOption={fragmentToEmployee(talentNomination.nominee)}
           errorMessages={{
             NO_PROFILE: {
-              title: intl.formatMessage({
-                defaultMessage: "We couldn’t find a matching candidate profile",
-                id: "fx2Y2U",
-                description:
-                  "Title of the error message when the profile of a nominee cannot be found",
-              }),
               body: intl.formatMessage({
                 defaultMessage:
                   "It appears that this work email address isn't linked to a profile. We require nominees to have a GC Digital Talent account in order to be nominated. Please contact the nominee and ask them to create a profile before continuing. You can save this nomination as a draft using the “Save draft” link at the end of the form.",
