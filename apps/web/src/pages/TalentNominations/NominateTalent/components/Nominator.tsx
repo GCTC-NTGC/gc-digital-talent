@@ -58,7 +58,7 @@ const NominatorEmployee_Fragment = graphql(/* GraphQL */ `
 
 const NominatorFieldOptions_Fragment = graphql(/* GraphQL */ `
   fragment NominatorFieldOptions on Query {
-    nomineeReivewOptions: localizedEnumStrings(
+    nomineeReviewOptions: localizedEnumStrings(
       enumName: "TalentNominationUserReview"
     ) {
       value
@@ -66,7 +66,7 @@ const NominatorFieldOptions_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    reltionshipToSubmitterOptions: localizedEnumStrings(
+    relationshipToSubmitterOptions: localizedEnumStrings(
       enumName: "TalentNominationSubmitterRelationshipToNominator"
     ) {
       value
@@ -183,7 +183,7 @@ const NominatorFields = ({
             "Label for a nomination sumitters relationship to the nominator",
         })}
         items={localizedEnumToOptions(
-          options?.reltionshipToSubmitterOptions,
+          options?.relationshipToSubmitterOptions,
           intl,
           [
             TalentNominationSubmitterRelationshipToNominator.SupportStaff,
@@ -208,7 +208,7 @@ const NominatorFields = ({
         />
       )}
       <EmployeeSearchInput
-        id="nonminator"
+        id="nominator"
         name="nominator"
         aria-describedby="nominatorHelp"
         employeeOption={fragmentToEmployee(nominatorResult)}
@@ -231,7 +231,7 @@ const NominatorFields = ({
               description: "Label for review of nominee information",
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            items={localizedEnumToOptions(options?.nomineeReivewOptions, intl, [
+            items={localizedEnumToOptions(options?.nomineeReviewOptions, intl, [
               TalentNominationUserReview.Correct,
               TalentNominationUserReview.Incorrect,
               TalentNominationUserReview.OutOfDate,
