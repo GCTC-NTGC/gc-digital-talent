@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>GC Digital Talent Mock Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet" />
+  <style nonce="**CSP_NONCE**">
+    :root {
+      --rounded: 0.375rem;
+      --black: 30, 30, 35;
+      --primary: 0, 195, 183;
+      --focus: 100, 146, 255;
+      --space: 0.625rem 1.3rem;
+    }
+
+    body {
+      background-color: rgba(245, 248, 253, 1);
+      font-size: 100%;
+      font-family: "Open Sans", sans-serif;
+      display: grid;
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    body>div {
+      place-self: center;
+    }
+
+    h1 {
+      font-size: clamp(1.25rem, 2vw + 1rem, 2rem);
+      margin: 2rem 0 1rem 0;
+      text-align: center;
+    }
+
+    input,
+    textarea {
+      border-radius: 0.375rem;
+      border: thin solid rgba(var(--black), 1);
+      padding: var(--space);
+    }
+
+    input:focus-visible,
+    textarea:focus-visible {
+      border-color: rgba(var(--focus), 1);
+      outline: 2px solid rgba(var(--focus), 1);
+      outline-offset: 2px;
+    }
+
+    button {
+      background-color: rgba(var(--primary), 1);
+      border: 3px solid rgba(var(--primary), 1);
+      border-radius: 0.375rem;
+      color: rgba(var(--black), 1);
+      cursor: pointer;
+      font-weight: 700;
+      padding: var(--space);
+      transition: background-color 200ms ease;
+    }
+
+    button:hover {
+      background-color: rgb(191, 245, 241);
+    }
+
+    form {
+      background-color: rgba(255, 255, 255, 1);
+      border-radius: var(--rounded);
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 8.8px 16px -3.2px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 1rem;
+      padding: 2.25rem;
+      max-width: clamp(40rem, 40rem, calc(100% - 1rem));
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div>
+    <h1>GC Digital Talent mock sign in</h1>
+    <form method="post">
+      <input type="text" name="username" autofocus="on" placeholder="Enter any user/subject">
+      <textarea name="claims" rows="15" placeholder="Optional claims JSON value, example:
+{
+  &quot;acr&quot;: &quot;reference&quot;
+}"></textarea>
+      <button type="submit">Sign in</button>
+    </form>
+  </div>
+</body>
+
+</html>
