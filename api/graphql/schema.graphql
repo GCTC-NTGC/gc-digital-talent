@@ -651,6 +651,9 @@ type TalentNominationEvent {
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  talentNominationGroups: [TalentNominationGroup!]
+    @hasMany
+    @canResolved(ability: "view", model: "TalentNominationGroup")
 }
 
 type TalentNomination {
@@ -658,7 +661,7 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   submittedAt: DateTime @rename(attribute: "submitted_at")
-  submitter: BasicGovEmployeeProfile!
+  submitter: BasicGovEmployeeProfile
     @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
@@ -714,6 +717,34 @@ type TalentNomination {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: [Skill] @belongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  advancementNominationCount: Int
+    @rename(attribute: "advancement_nomination_count")
+  advancementDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
+  lateralMovementNominationCount: Int
+    @rename(attribute: "lateral_movement_nomination_count")
+  lateralMovementDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsNominationCount: Int
+    @rename(attribute: "development_programs_nomination_count")
+  developmentProgramsDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
+  status: LocalizedTalentNominationGroupStatus
 }
 
 type Team implements HasRoleAssignments {
@@ -1367,11 +1398,18 @@ type Query {
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
+  talentNominationEvent(id: UUID! @eq): TalentNominationEvent @find
 
   talentNomination(id: UUID! @eq): TalentNomination
     @find
     @guard
     @canQuery(ability: "view")
+
+  talentNominationGroup(id: UUID! @eq): TalentNominationGroup
+    @find
+    @guard
+    @canQuery(ability: "view")
+
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -2087,6 +2125,21 @@ input UpdateTalentNominationInput @validator {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: SkillBelongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+}
+
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
+  lateralMovementDecision: TalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsDecision: TalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
 }
 
 input CreateApplicantFilterInput {
@@ -3071,6 +3124,16 @@ type Mutation {
   submitTalentNomination(id: UUID!): TalentNomination
     @guard
     @canFind(ability: "update", find: "id")
+
+  #Talent nomination group mutations
+  updateTalentNominationGroup(
+    id: UUID!
+    talentNominationGroup: UpdateTalentNominationGroupInput! @spread
+  ): TalentNominationGroup
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
