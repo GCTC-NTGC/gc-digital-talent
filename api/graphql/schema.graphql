@@ -661,7 +661,7 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   submittedAt: DateTime @rename(attribute: "submitted_at")
-  submitter: BasicGovEmployeeProfile!
+  submitter: BasicGovEmployeeProfile
     @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator

@@ -1101,7 +1101,7 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEvent!
   submittedAt: DateTime
-  submitter: BasicGovEmployeeProfile!
+  submitter: BasicGovEmployeeProfile
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: BasicGovEmployeeProfile
