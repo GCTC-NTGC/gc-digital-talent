@@ -1815,6 +1815,7 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
+  disconnect: Boolean
 }
 
 input PoolBelongsTo {

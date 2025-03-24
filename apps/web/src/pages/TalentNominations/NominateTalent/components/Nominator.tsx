@@ -1,3 +1,5 @@
+import { connect } from "http2";
+
 import DocumentCheckIcon from "@heroicons/react/24/outline/DocumentCheckIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
@@ -12,6 +14,7 @@ import {
   TalentNominationStep,
   TalentNominationSubmitterRelationshipToNominator,
   TalentNominationUserReview,
+  UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
   HiddenInput,
@@ -348,11 +351,17 @@ const NominateTalentNominator_Fragment = graphql(/* GraphQL */ `
 const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
   const nominatorId =
     values.role === "nominator" ? values.submitter : values.nominator;
+  let nominator: UpdateTalentNominationInput["nominator"] = nominatorId
+    ? { connect: nominatorId }
+    : null;
+  if (values.nominatorFallbackWorkEmail) {
+    nominator = { disconnect: true };
+  }
   return {
     submitterRelationshipToNominator: values.submitterRelationshipToNominator,
     submitterRelationshipToNominatorOther:
       values.submitterRelationshipToNominatorOther,
-    nominator: nominatorId ? { connect: nominatorId } : null,
+    nominator,
     nominatorReview: values.nominatorReview ?? null,
     nominatorFallbackName: values.nominatorFallbackName ?? null,
     nominatorFallbackWorkEmail: values.nominatorFallbackWorkEmail ?? null,
