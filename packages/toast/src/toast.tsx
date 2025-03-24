@@ -1,4 +1,4 @@
-import { toast as toastify, ToastOptions } from "react-toastify";
+import { toast as toastify, ToastOptions } from "react-toastify/unstyled";
 import { ReactNode } from "react";
 
 import ToastAlert from "./components/ToastAlert/ToastAlert";

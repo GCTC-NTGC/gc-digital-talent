@@ -17,7 +17,7 @@ final class UpdateDevelopmentProgramInterestInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'participationStatus' => ['required', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
+            'participationStatus' => ['nullable', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
             'completionDate' => [
                 'present', // when updating, must specify either date or null
                 Rule::when(
