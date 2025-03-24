@@ -98,7 +98,6 @@ return [
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
 
-        'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
         'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
     ],
 
@@ -492,27 +491,6 @@ return [
         'view-own-searchRequest' => [
             'en' => 'View own SearchRequests',
             'fr' => 'Voir ses propres demandes de recherche',
-        ],
-
-        'view-any-team' => [
-            'en' => 'View Any Team',
-            'fr' => 'Visionner toute équipe',
-        ],
-        'create-any-team' => [
-            'en' => 'Create Any Team',
-            'fr' => 'Créer toute équipe',
-        ],
-        'update-any-team' => [
-            'en' => 'Update Any Team',
-            'fr' => 'Mettre à jour toute équipe',
-        ],
-        'update-team-team' => [
-            'en' => 'Update this Team',
-            'fr' => 'Mettre à jour des équipes',
-        ],
-        'delete-any-team' => [
-            'en' => 'Delete Any Team',
-            'fr' => 'Supprimer toute équipe',
         ],
 
         'create-any-workStream' => [

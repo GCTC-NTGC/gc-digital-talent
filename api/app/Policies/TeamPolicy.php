@@ -34,37 +34,6 @@ class TeamPolicy
     }
 
     /**
-     * Determine whether the user can create models.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        return $user->isAbleTo('create-any-team');
-    }
-
-    /**
-     * Determine whether the user can update models.
-     * Likely to be updated later to allow the team admin to update their own team
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function update(User $user)
-    {
-        return $user->isAbleTo('update-any-team');
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user)
-    {
-        return $user->isAbleTo('delete-any-team');
-    }
-
-    /**
      * Determine whether the user can assign any user to this team (giving them any team-based role)
      *
      * @return \Illuminate\Auth\Access\Response|bool
