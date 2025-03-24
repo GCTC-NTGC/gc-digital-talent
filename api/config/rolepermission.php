@@ -1072,7 +1072,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['create', 'view', 'update', 'delete'], // TODO: remove update and create during #10368 (Post-communities cleanup)
+                'any' => ['view', 'delete'],
             ],
             'userSub' => [
                 'any' => ['update'],
