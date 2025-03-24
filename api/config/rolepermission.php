@@ -681,17 +681,17 @@ return [
             'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
         ],
         'view-team-talentNomination' => [
-            'en' => 'View a talent nomination as a team member',
-            'fr' => 'Consulter une nomination de talent en tant que membre de l\'équipe',
+            'en' => 'View a talent nomination as a team (community) member',
+            'fr' => 'Voir la nomination d\'un talent en tant que membre d\'une équipe (communauté)',
         ],
 
         'update-team-talentNominationGroup' => [
-            'en' => 'Update a talent nomination group',
-            'fr' => 'Mettre à jour un groupe de nomination des talents',
+            'en' => 'Update a team (community) talent nomination group',
+            'fr' => 'Mettre à jour le groupe de nomination des talents d\'une équipe (communauté)',
         ],
         'view-team-talentNominationGroup' => [
-            'en' => 'View a talent nomination group',
-            'fr' => 'Consulter un groupe de nomination des talents',
+            'en' => 'View a team (community) talent nomination group',
+            'fr' => 'Voir le groupe de nomination des talents d\'une équipe (communauté)',
         ],
 
         'view-any-basicGovEmployeeProfile' => [
