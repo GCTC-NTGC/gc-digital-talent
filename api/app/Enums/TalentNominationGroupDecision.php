@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-// How does the information on a talent nomination user look?
+// A decision that a nomination evaluator can make regarding a specific nomination option
 enum TalentNominationGroupDecision
 {
     case APPROVED;

@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Traits\HasLocalization;
 use GraphQL\Type\Definition\Description;
 
-// How does the information on a talent nomination user look?
+// The overall status of a nomination group, based on the decisions made by the evaluators
 enum TalentNominationGroupStatus
 {
     use HasLocalization;
