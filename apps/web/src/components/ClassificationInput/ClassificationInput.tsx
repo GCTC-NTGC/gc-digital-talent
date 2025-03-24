@@ -60,7 +60,7 @@ const ClassificationInput = ({
 
   const groupOptions = uniqBy(
     classifications
-      .filter((c) => !!c.group || !!c.name?.localized)
+      .filter((c) => !!c.group && !!c.name?.localized)
       .map((classification) => ({
         value: classification.group,
         label: classification.group,
