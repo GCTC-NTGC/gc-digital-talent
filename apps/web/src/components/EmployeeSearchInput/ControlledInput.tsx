@@ -11,6 +11,7 @@ import { useIntl } from "react-intl";
 import {
   FieldState,
   useCommonInputStyles,
+  useFieldStateStyles,
   useInputDescribedBy,
 } from "@gc-digital-talent/forms";
 import { graphql, Maybe } from "@gc-digital-talent/graphql";
@@ -60,6 +61,7 @@ const ControlledInput = ({
   const inputStyles = useCommonInputStyles();
   const defaultValue = getDefaultValue(defaultValues, name);
   const inputErrors = getErrors(formErrors, name);
+  const stateStyles = useFieldStateStyles(name, true);
   const [query, setQuery] = useState<string>(defaultEmployee?.workEmail ?? "");
   const [currentQuery, setCurrentQuery] = useState<string>(
     defaultEmployee?.workEmail ?? "",
@@ -159,6 +161,7 @@ const ControlledInput = ({
           type="text"
           defaultValue={defaultEmployee?.workEmail ?? undefined}
           aria-describedby={ariaDescribedBy}
+          {...stateStyles}
           {...inputProps}
           {...inputStyles}
           readOnly={fetching}
@@ -192,6 +195,7 @@ const ControlledInput = ({
       </div>
       <div
         data-h2-background="base(foreground)"
+        {...stateStyles}
         data-h2-border-radius="base(0 0 rounded rounded)"
         data-h2-border-top="base(solid 1px gray)"
         data-h2-padding="base(x1)"
@@ -220,6 +224,7 @@ const ControlledInput = ({
           <ErrorMessage
             email={currentQuery}
             error={error}
+            inputErrors={inputErrors}
             messages={errorMessages}
           />
         )}
