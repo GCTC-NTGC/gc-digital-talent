@@ -149,7 +149,22 @@ const NominatorFields = ({
     }
   }, [nominator, resetField]);
 
-  if (!role || role === "nominator") return null;
+  if (!role) {
+    return (
+      <Well data-h2-text-align="base(center)">
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Please indicate your role to continue.",
+            id: "S4vj9m",
+            description:
+              "Message displayed when submitter has not selected their role in a nomination",
+          })}
+        </p>
+      </Well>
+    );
+  }
+
+  if (role === "nominator") return null;
 
   const options = getFragment(NominatorFieldOptions_Fragment, optionsQuery);
   const nominatorResult = getFragment(
