@@ -412,7 +412,6 @@ type Query {
     excludeIds: [UUID!]
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
-    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
@@ -1462,11 +1461,6 @@ input PoolFilterInput {
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
-}
-
-input PoolTeamDisplayNameOrderByInput {
-  locale: String!
-  order: SortOrder!
 }
 
 input PoolWorkStreamNameOrderByInput {
