@@ -713,7 +713,12 @@ const NextRoleSection = ({
                 >
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save your next role",
+                      id: "dRJLsv",
+                      description:
+                        "Text on a button to save your next role form",
+                    })}
                     color="secondary"
                     mode="solid"
                     isSubmitting={fetching}
