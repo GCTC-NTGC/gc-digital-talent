@@ -40,7 +40,7 @@ class TeamPolicy
      */
     public function assignTeamMembers(User $user, Team $team)
     {
-        return $user->isAbleTo('assign-any-role') || $user->isAbleTo('assign-any-teamRole') || $user->isAbleTo('assign-team-role', $team);
+        return $user->isAbleTo('assign-any-role') || $user->isAbleTo('assign-team-role', $team);
     }
 
     /**

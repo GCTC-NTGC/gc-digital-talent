@@ -97,8 +97,6 @@ return [
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
-
-        'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
     ],
 
     /*
@@ -517,10 +515,6 @@ return [
         'update-any-role' => [
             'en' => 'Update metadata associated with any Role',
             'fr' => 'Mettre à jour des métadonnées associées à tout rôle',
-        ],
-        'assign-any-teamRole' => [
-            'en' => 'Assign any user to any team, with any role.',
-            'fr' => 'Affecter n\'importe quel utilisateur à n\'importe quelle équipe, avec n\'importe quel rôle.',
         ],
 
         'view-any-announcement' => [
@@ -1030,9 +1024,6 @@ return [
             ],
             'team' => [
                 'any' => ['view', 'create', 'update', 'delete'],
-            ],
-            'teamRole' => [
-                'any' => ['assign'],
             ],
             'assessmentPlan' => [
                 'any' => ['view'],
