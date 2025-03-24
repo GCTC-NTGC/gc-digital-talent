@@ -382,7 +382,7 @@ class Pool extends Model
         return PoolStatus::DRAFT->name;
     }
 
-    // is the pool considered "complete", filled out entirely by the pool operator
+    // is the pool considered "complete"
     public function getIsCompleteAttribute()
     {
         $pool = $this->load(['classification', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);

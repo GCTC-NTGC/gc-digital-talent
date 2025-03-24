@@ -714,19 +714,6 @@ return [
         ],
 
         // TODO: remove during #10368 (Post-communities cleanup)
-        'pool_operator' => [
-            'display_name' => [
-                'en' => 'Pool Operator',
-                'fr' => 'Opérateur de bassin',
-            ],
-            'description' => [
-                'en' => 'Runs hiring process by creating Pools (which must be published by other roles) and and screening-in/out applicants.',
-                'fr' => 'Gère le processus de recrutement en créant des bassins (qui doivent être publiés par d\'autres rôles) et en filtrant les candidats.',
-            ],
-            'is_team_based' => true,
-        ],
-
-        // TODO: remove during #10368 (Post-communities cleanup)
         'request_responder' => [
             'display_name' => [
                 'en' => 'Request Responder',
@@ -946,39 +933,6 @@ return [
             ],
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],
-            ],
-        ],
-
-        'pool_operator' => [
-            'draftPool' => [
-                'team' => ['create', 'view', 'update', 'delete'],
-            ],
-            'publishedPool' => [
-                'team' => ['archive'],
-            ],
-            'submittedApplication' => [
-                'team' => ['view'],
-            ],
-            'applicationStatus' => [
-                'team' => ['view', 'update'],
-            ],
-            'applicationAssessment' => [
-                'team' => ['view', 'update'],
-            ],
-            'applicationDecision' => [
-                'team' => ['view', 'update'],
-            ],
-            'applicationPlacement' => [
-                'team' => ['view', 'update'],
-            ],
-            'role' => [
-                'any' => ['view'],
-            ],
-            'applicantProfile' => [
-                'team' => ['view'],
-            ],
-            'assessmentPlan' => [
-                'team' => ['view', 'update'],
             ],
         ],
 

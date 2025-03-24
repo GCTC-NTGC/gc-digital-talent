@@ -382,7 +382,6 @@ export const CommunityDashboardPageApi = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
       ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.CommunityRecruiter,

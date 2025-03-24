@@ -53,7 +53,6 @@ export const isAdvertisementVisible = (
   }
   const allowedRoles: RoleName[] = [
     ROLE_NAME.PlatformAdmin,
-    ROLE_NAME.PoolOperator,
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
