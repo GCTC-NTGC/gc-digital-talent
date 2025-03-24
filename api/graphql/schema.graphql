@@ -728,19 +728,19 @@ type TalentNominationGroup {
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
     @rename(attribute: "advancement_nomination_count")
-  advancementDecision: TalentNominationGroupDecision
+  advancementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "advancement_decision")
   advancementReferenceConfirmed: Boolean
     @rename(attribute: "advancement_reference_confirmed")
   advancementNotes: String @rename(attribute: "advancement_notes")
   lateralMovementNominationCount: Int
     @rename(attribute: "lateral_movement_nomination_count")
-  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "lateral_movement_decision")
   lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
   developmentProgramsNominationCount: Int
     @rename(attribute: "development_programs_nomination_count")
-  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "development_programs_decision")
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")

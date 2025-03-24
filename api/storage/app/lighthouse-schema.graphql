@@ -293,6 +293,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationGroupDecision {
+  value: TalentNominationGroupDecision!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationGroupStatus {
   value: TalentNominationGroupStatus!
   label: LocalizedString!
@@ -1133,14 +1138,14 @@ type TalentNominationGroup {
   nominations: [TalentNomination!]
   talentNominationEvent: TalentNominationEvent!
   advancementNominationCount: Int
-  advancementDecision: TalentNominationGroupDecision
+  advancementDecision: LocalizedTalentNominationGroupDecision
   advancementReferenceConfirmed: Boolean
   advancementNotes: String
   lateralMovementNominationCount: Int
-  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementDecision: LocalizedTalentNominationGroupDecision
   lateralMovementNotes: String
   developmentProgramsNominationCount: Int
-  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsDecision: LocalizedTalentNominationGroupDecision
   developmentProgramsNotes: String
   status: LocalizedTalentNominationGroupStatus
 }
