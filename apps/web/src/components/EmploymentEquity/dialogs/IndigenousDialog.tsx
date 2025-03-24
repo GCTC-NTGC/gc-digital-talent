@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
@@ -35,6 +36,7 @@ const IndigenousDialog = ({
   disabled,
 }: IndigenousDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = useState<boolean>(false);
   const methods = useForm<FormValuesWithSignature>({
     defaultValues: {
       ...apiCommunitiesToFormValues(
@@ -49,21 +51,21 @@ const IndigenousDialog = ({
   const communities = watch("communities");
   const hasCommunitiesSelected = communities && communities.length > 0;
 
-  const submitHandler: SubmitHandler<FormValuesWithSignature> = (
+  const submitHandler: SubmitHandler<FormValuesWithSignature> = async (
     data: FormValuesWithSignature,
   ) => {
     const newCommunities = formValuesToApiCommunities(data);
-    onSave({
+    await onSave({
       indigenousCommunities: newCommunities,
       indigenousDeclarationSignature:
         newCommunities.length > 0 ? data.signature : null,
-    });
+    }).then(() => setOpen(false));
   };
 
   const labels = getSelfDeclarationLabels(intl);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
@@ -89,8 +91,8 @@ const IndigenousDialog = ({
             }
             quotedDefinition={intl.formatMessage({
               defaultMessage:
-                '"... refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada."',
-              id: "AfSlkm",
+                '"refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada."',
+              id: "eX+V6c",
               description:
                 "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page.",
             })}

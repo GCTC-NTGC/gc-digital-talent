@@ -1,5 +1,10 @@
 import ClientProvider from "./components/ClientProvider/ClientProvider";
-import { isUuidError } from "./utils/errors";
+import { isUuidError, extractValidationMessageKeys } from "./utils/errors";
+import canAccessProtectedEndpoint from "./utils/canAccessProtectedEndpoint";
 
 export default ClientProvider;
-export { isUuidError };
+export {
+  isUuidError,
+  canAccessProtectedEndpoint,
+  extractValidationMessageKeys,
+};

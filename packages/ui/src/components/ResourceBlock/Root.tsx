@@ -54,11 +54,13 @@ const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
   },
 };
 
+type MaybeElement = ReactElement<BaseItemProps> | null;
+
 export interface RootProps {
   title: ReactNode;
   headingColor?: CardColor;
   headingAs?: HeadingLevel;
-  children: ReactElement<BaseItemProps> | ReactElement<BaseItemProps>[]; // Restricts children to only expected items;
+  children: MaybeElement | MaybeElement[]; // Restricts children to only expected items;
 }
 
 const Root = ({

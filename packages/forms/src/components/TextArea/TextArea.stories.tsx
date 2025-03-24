@@ -18,13 +18,10 @@ export default {
   },
 };
 
-const TemplateTextArea: StoryFn<TextAreaProps & { maxWidth: string }> = (
-  args,
-) => {
-  const { ...rest } = args;
+const TemplateTextArea: StoryFn<TextAreaProps> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
-      <TextArea {...rest} />
+      <TextArea {...args} />
       <p data-h2-margin-top="base(x1)">
         <Submit />
       </p>

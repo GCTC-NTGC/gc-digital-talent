@@ -78,9 +78,9 @@ const ChangeStatusDialog_UserFragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -123,9 +123,9 @@ export const ChangeStatusDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
     }
     pool {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -264,7 +264,7 @@ const ChangeStatusDialogForm = ({
                     {getShortPoolTitleHtml(
                       intl,
                       {
-                        stream: r.poolCandidate.pool.stream,
+                        workStream: r.poolCandidate.pool.workStream,
                         name: r.poolCandidate.pool.name,
                         publishingGroup: r.poolCandidate.pool.publishingGroup,
                         classification: r.poolCandidate.pool.classification,
@@ -412,7 +412,7 @@ const ChangeStatusDialog = ({
               {
                 status: getLocalizedName(selectedCandidate.status?.label, intl),
                 poolName: getShortPoolTitleLabel(intl, {
-                  stream: selectedCandidate.pool.stream,
+                  workStream: selectedCandidate.pool.workStream,
                   name: selectedCandidate.pool.name,
                   publishingGroup: selectedCandidate.pool.publishingGroup,
                   classification: selectedCandidate.pool.classification,
@@ -439,6 +439,7 @@ const ChangeStatusDialog = ({
                 "First section of text on the change candidate status dialog",
             })}
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p data-h2-font-weight="base(700)">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
@@ -451,9 +452,10 @@ const ChangeStatusDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(700)">
-            -{" "}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {"- "}
             {getShortPoolTitleHtml(intl, {
-              stream: selectedCandidate.pool.stream,
+              workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
               publishingGroup: selectedCandidate.pool.publishingGroup,
               classification: selectedCandidate.pool.classification,

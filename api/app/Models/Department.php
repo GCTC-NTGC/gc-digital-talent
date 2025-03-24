@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +33,7 @@ class Department extends Model
      * The attributes that should be case.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
     ];
 
     /** @return HasMany<PoolCandidateSearchRequest, $this> */

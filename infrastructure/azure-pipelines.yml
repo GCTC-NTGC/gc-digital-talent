@@ -22,13 +22,13 @@ resources:
       type: git
       ref: refs/heads/main
 variables:
-  phpVersion: "8.2"
+  phpVersion: "8.3"
 
 jobs:
   - job: build_artifact
     displayName: Build artifact
     pool:
-      vmImage: ubuntu-22.04
+      vmImage: ubuntu-24.04
     steps:
       - checkout: self
         clean: true

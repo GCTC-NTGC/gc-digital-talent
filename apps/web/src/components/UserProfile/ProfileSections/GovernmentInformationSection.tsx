@@ -110,7 +110,7 @@ const GovernmentInformationSection = ({
                 </span>
                 <span data-h2-font-weight="base(700)">
                   {wrapAbbr(
-                    `${currentClassification?.group}-${currentClassification?.level}`,
+                    `${currentClassification?.group}-${currentClassification?.level < 10 ? "0" : ""}${currentClassification?.level}`,
                     intl,
                   )}
                 </span>
@@ -230,9 +230,8 @@ const GovernmentInformationSection = ({
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {priorityNumber
-                    ? priorityNumber
-                    : intl.formatMessage(commonMessages.notProvided)}
+                  {priorityNumber ??
+                    intl.formatMessage(commonMessages.notProvided)}
                 </span>
               </p>
             </div>

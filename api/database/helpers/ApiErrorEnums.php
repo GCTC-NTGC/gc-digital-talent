@@ -27,6 +27,8 @@ class ApiErrorEnums
 
     const CHANGE_JUSTIFICATION_REQUIRED = 'ChangeJustificationRequired';
 
+    const POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES = 'PoolSkillNotEssentialAndAssetTypes';
+
     // pool candidate field validation
     const EXPIRY_DATE_REQUIRED = 'ExpiryDateRequired';
 
@@ -43,8 +45,55 @@ class ApiErrorEnums
 
     const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';
 
+    // Employee profile validation
+    const COMMUNITY_NOT_FOUND = 'CommunityNotFound';
+
+    const COMMUNITY_INTEREST_EXISTS = 'CommunityInterestExists';
+
+    const CLASSIFICATION_NOT_FOUND = 'ClassificationNotFound';
+
+    const DEPARTMENT_NOT_FOUND = 'DepartmentNotFound';
+
+    const WORK_STREAM_NOT_FOUND = 'WorkStreamNotFound';
+
+    const WORK_STREAM_NOT_IN_COMMUNITY = 'WorkStreamNotInCommunity';
+
+    const DEVELOPMENT_PROGRAM_NOT_FOUND = 'DevelopmentProgramNotFound';
+
+    const DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED = 'DevelopmentProgramCompletionDateRequired';
+
+    const DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED = 'DevelopmentProgramCompletionDateProhibited';
+
+    const DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY = 'DevelopmentProgramNotValidForCommunity';
+
+    // Government Employee Details
+    const NOT_GOVERNMENT_EMAIL = 'NotGovernmentEmail';
+
     // Localized Enums
     const ENUM_NOT_FOUND = 'EnumNotFound';
 
     const ENUM_NOT_LOCALIZED = 'EnumNotLocalized';
+
+    // Talent Nomination
+    const TALENT_NOMINATION_EVENT_NOT_FOUND = 'TALENT_NOMINATION_EVENT_NOT_FOUND';
+
+    const NOMINATOR_NOT_FOUND = 'NOMINATOR_NOT_FOUND';
+
+    const NOMINATOR_CLASSIFICATION_NOT_FOUND = 'NOMINATOR_CLASSIFICATION_NOT_FOUND';
+
+    const NOMINATOR_DEPARTMENT_NOT_FOUND = 'NOMINATOR_DEPARTMENT_NOT_FOUND';
+
+    const NOMINEE_NOT_FOUND = 'NOMINEE_NOT_FOUND';
+
+    const ADVANCEMENT_REFERENCE_NOT_FOUND = 'ADVANCEMENT_REFERENCE_NOT_FOUND';
+
+    const ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND = 'ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND';
+
+    const ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND = 'ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND';
+
+    const SKILL_NOT_FOUND = 'SKILL_NOT_FOUND';
+
+    const SKILL_NOT_KLC = 'SKILL_NOT_KLC';
+
+    const SKILLS_NOT_ALLOWED_FOR_EVENT = 'SKILLS_NOT_ALLOWED_FOR_EVENT';
 }

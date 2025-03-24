@@ -1,4 +1,4 @@
-import { TypeOptions } from "react-toastify";
+import { TypeOptions } from "react-toastify/unstyled";
 
 const closeButtonStyles: Record<TypeOptions, Record<string, string>> = {
   default: {

@@ -7,21 +7,29 @@ import { ReactNode, useState, useEffect } from "react";
 import {
   Button,
   Heading,
+  Link,
   Loading,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  unpackMaybes,
+  notEmpty,
+  buildMailToUri,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   Classification,
   ApplicantFilterInput,
   Skill,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
+import { isClassificationGroup } from "~/types/classificationGroup";
 
 import { formValuesToData } from "../utils";
 import { useCandidateCount, useInitialFilters } from "../hooks";
@@ -44,13 +52,25 @@ const styledCount = (chunks: ReactNode) => (
 interface SearchFormProps {
   classifications: Pick<Classification, "group" | "level" | "id">[];
   skills: Skill[];
+  workStreams: WorkStream[];
 }
 
-export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
+export const SearchForm = ({
+  classifications,
+  skills,
+  workStreams,
+}: SearchFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const logger = useLogger();
   const { defaultValues, initialFilters } = useInitialFilters();
+
+  classifications.forEach(({ group }) => {
+    if (!isClassificationGroup(group)) {
+      logger.error(`Unexpected classification: ${group}`);
+    }
+  });
 
   const [applicantFilter, setApplicantFilter] =
     useState<ApplicantFilterInput>(initialFilters);
@@ -101,6 +121,53 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
     setValue("count", candidateCount);
   };
 
+  const hireAnApprenticeEmailUri = buildMailToUri(
+    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
+    intl.formatMessage({
+      defaultMessage: "I'm interested in offering an apprenticeship",
+      id: "HqtjhD",
+      description: "Subject line of a manager's email for apprenticeship",
+    }),
+    [
+      intl.formatMessage({
+        defaultMessage:
+          "To best support you in your journey to hire an IT Apprentice, please let us know if you",
+        id: "ZKss5S",
+        description: "Paragraph 1 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
+        id: "ipKAvI",
+        description: "Paragraph 2 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
+        id: "18pJdz",
+        description: "Paragraph 3 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage: "3. Other…",
+        id: "Fz49kD",
+        description: "Paragraph 4 of a manager's email for apprenticeship",
+      }),
+      intl.formatMessage({
+        defaultMessage:
+          "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
+        id: "x45gSl",
+        description: "Paragraph 5 of a manager's email for apprenticeship",
+      }),
+    ].join("\n"),
+  );
+
+  const selectedClassificationIsIT1 = applicantFilter.qualifiedClassifications
+    ?.filter(notEmpty)
+    .some(
+      (classification) =>
+        classification.group === "IT" && classification.level === 1,
+    );
+
   return (
     <div
       data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
@@ -145,7 +212,11 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
               </p>
-              <FormFields skills={skills} classifications={classifications} />
+              <FormFields
+                skills={skills}
+                classifications={classifications}
+                workStreams={workStreams}
+              />
             </div>
             <div data-h2-display="base(none) p-tablet(block)">
               <EstimatedCandidates
@@ -219,6 +290,76 @@ export const SearchForm = ({ classifications, skills }: SearchFormProps) => {
                     data-h2-display="base(flex)"
                     data-h2-flex-direction="base(column)"
                   >
+                    {selectedClassificationIsIT1 && (
+                      <div
+                        data-h2-background-color="base(foreground)"
+                        data-h2-shadow="base(larger)"
+                        data-h2-border-left="base(x.5 solid tertiary)"
+                        data-h2-margin="base(x1, 0, 0, 0)"
+                        data-h2-radius="base(0, s, s, 0)"
+                        data-h2-padding="base(x1)"
+                      >
+                        <p
+                          data-h2-font-size="base(h6)"
+                          data-h2-font-weight="base(700)"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Have you considered hiring an Indigenous IT apprentice?",
+                            id: "kyM6sV",
+                            description:
+                              "Title for IT Apprenticeship Program for Indigenous Peoples search card",
+                          })}
+                        </p>
+                        <p
+                          data-h2-margin="base(x.5, 0, x1, 0)"
+                          data-h2-display="base(flex)"
+                          data-h2-gap="base(0, x.5)"
+                        >
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers Indigenous peoples face when it comes to finding employment in the Government of Canada's digital workforce. Become a hiring partner today and discover how you can strengthen your team with Indigenous IT talent and help build a more inclusive public service. Your participation contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
+                            id: "ifqj46",
+                            description:
+                              "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
+                          })}
+                        </p>
+                        <Separator space="sm" />
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(row)"
+                          data-h2-flex-wrap="base(wrap)"
+                          data-h2-align-items="base(center)"
+                          data-h2-gap="base(x1)"
+                          data-h2-margin="base(x1, 0, 0, 0)"
+                        >
+                          <Link
+                            mode="solid"
+                            color="tertiary"
+                            href={hireAnApprenticeEmailUri}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage: "Contact the team",
+                              id: "gJ7CQw",
+                              description: "Link to send an email to the team",
+                            })}
+                          </Link>
+                          <Link
+                            mode="inline"
+                            color="tertiary"
+                            href={paths.iapManager()}
+                          >
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Visit the IT Apprenticeship Program for Indigenous Peoples manager page",
+                              id: "zVGzWa",
+                              description:
+                                "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page",
+                            })}
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                     {results.map(({ pool, candidateCount: resultsCount }) => (
                       <SearchResultCard
                         key={pool.id}
@@ -245,6 +386,13 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       id
       group
       level
+    }
+    workStreams {
+      id
+      name {
+        en
+        fr
+      }
     }
     skills {
       id
@@ -285,10 +433,15 @@ const SearchFormAPI = () => {
 
   const skills = unpackMaybes<Skill>(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
+  const workStreams = unpackMaybes(data?.workStreams);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SearchForm skills={skills} classifications={classifications} />
+      <SearchForm
+        skills={skills}
+        classifications={classifications}
+        workStreams={workStreams}
+      />
     </Pending>
   );
 };

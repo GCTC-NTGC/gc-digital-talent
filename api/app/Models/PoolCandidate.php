@@ -103,6 +103,9 @@ class PoolCandidate extends Model
         'archived_at',
         'submitted_at',
         'suspended_at',
+        'removed_at',
+        'final_decision_at',
+        'placed_at',
         'user_id',
         'pool_id',
         'signature',
@@ -310,7 +313,7 @@ class PoolCandidate extends Model
             })
             // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
-                $query->whereIn('stream', $streams);
+                $query->whereWorkStreamsIn($streams);
             });
 
         return $query;
@@ -388,7 +391,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
 
@@ -940,6 +944,12 @@ class PoolCandidate extends Model
      *               else mark nothing and continue, since the result doesn't actually matter
      *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
      *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     *       no decision for steps that are TO ASSESS but have no results so we can tell when they've been started
+     *
+     *   overallAssessmentStatus is then:
+     *      if any step is UNSUCCESSFUL, then DISQUALIFIED
+     *      else if all steps are fully assessed, and final step is not HOLD, then QUALIFIED
+     *      else TO ASSESS
      */
     public function computeAssessmentStatus()
     {
@@ -954,7 +964,7 @@ class PoolCandidate extends Model
             'user.userSkills',
         ]);
 
-        foreach ($this->pool->assessmentSteps as $step) {
+        foreach ($this->pool->assessmentSteps as $index => $step) {
             $stepId = $step->id;
             $hasFailure = false;
             $hasOnHold = false;
@@ -986,36 +996,36 @@ class PoolCandidate extends Model
                         continue;
                     }
                 } else { // $poolSkill is an ASSET skill
+                    // Asset behavioural skills never need to be assessed
+                    if ($poolSkill->skill->category === SkillCategory::BEHAVIOURAL->name) {
+                        continue;
+                    }
 
                     // We do not need to evaluate non-essential technical skills that are not on
                     // the users snapshot, so skip the result check
-                    if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
-                        $isClaimed = false;
-                        $snapshot = $this->profile_snapshot;
+                    $isClaimed = false;
+                    $snapshot = $this->profile_snapshot;
 
-                        if ($snapshot) {
-                            $experiences = collect($snapshot['experiences']);
+                    if ($snapshot) {
+                        $experiences = collect($snapshot['experiences']);
 
-                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
-                                foreach ($experience['skills'] as $skill) {
-                                    if ($skill['id'] === $poolSkill->skill_id) {
-                                        return true;
-                                    }
+                        $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                            foreach ($experience['skills'] as $skill) {
+                                if ($skill['id'] === $poolSkill->skill_id) {
+                                    return true;
                                 }
+                            }
 
-                                return false;
-                            });
-                        }
+                            return false;
+                        });
+                    }
 
-                        if (! $isClaimed) {
-                            continue;
-                        }
+                    if (! $isClaimed) {
+                        continue;
                     }
 
                     if (! $result || is_null($result->assessment_decision)) {
                         $hasToAssess = true;
-
-                        continue;
                     }
                 }
             }
@@ -1063,17 +1073,21 @@ class PoolCandidate extends Model
             }
 
             if ($hasToAssess) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => null,
-                ];
+                // Don't add the step if it has no results yet to allow differentiating between
+                // not started and in progress steps
+                if (! $stepResults->isEmpty()) {
+                    $decisions[] = [
+                        'step' => $stepId,
+                        'decision' => null,
+                    ];
+                }
 
                 continue;
             }
 
             // Candidate has been assessed and was not unsuccessful so continue to next step
 
-            $previousStepsNotPassed = Arr::where($decisions, function ($decision) {
+            $previousStepsNotPassed = count($decisions) < $index || Arr::where($decisions, function ($decision) {
                 return is_null($decision['decision']) ||
                     $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
             });
@@ -1100,24 +1114,22 @@ class PoolCandidate extends Model
         $totalSteps = $this->pool->assessmentSteps->count();
         $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
-        if ($currentStep >= $totalSteps) {
+        $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
+            return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+        });
+        if (! empty($unsuccessfulDecisions)) {
+            $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
+        } elseif ($currentStep >= $totalSteps && $totalSteps === count($decisions)) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision && $lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
-        } else {
-            $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
-                return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
-            });
-            if (! empty($unsuccessfulDecisions)) {
-                $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
-            }
         }
 
         // While unlikely, current step could go over.
         // So, set it back to total steps
-        if ($currentStep > $totalSteps) {
+        if ($currentStep && $currentStep > $totalSteps) {
             $currentStep = $totalSteps;
         }
 
@@ -1135,7 +1147,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($processNumber) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->processNumber($processNumber);
         });
 
@@ -1148,6 +1161,11 @@ class PoolCandidate extends Model
 
         $status = $this->pool_candidate_status;
         $decision = null;
+
+        // Short circuit for a case which shouldn't really come up. A PoolCandidate should never go from non-draft back to draft, but just in case...
+        if ($status === PoolCandidateStatus::DRAFT->name || $status === PoolCandidateStatus::DRAFT_EXPIRED->name) {
+            return ['decision' => null, 'weight' => null];
+        }
 
         if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
             $assessmentStatus = $this->computed_assessment_status;
@@ -1199,6 +1217,7 @@ class PoolCandidate extends Model
             FinalDecision::DISQUALIFIED->name => 210,
             FinalDecision::QUALIFIED_REMOVED->name => 220,
             FinalDecision::TO_ASSESS_REMOVED->name => 230,
+            FinalDecision::DISQUALIFIED_REMOVED->name => 235, // I don't think this can be reached right now.
             FinalDecision::REMOVED->name => 240,
             FinalDecision::QUALIFIED_EXPIRED->name => 250,
             default => $this->unMatchedDecision($decision)

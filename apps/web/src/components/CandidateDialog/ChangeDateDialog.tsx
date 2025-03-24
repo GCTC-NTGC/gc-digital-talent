@@ -37,9 +37,9 @@ export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
     expiryDate
     pool {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -134,13 +134,12 @@ const ChangeDateDialog = ({
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate
-              ? selectedCandidate.expiryDate
-              : intl.formatMessage({
-                  defaultMessage: "Change date",
-                  id: "DspBFX",
-                  description: "Command to change a date",
-                })}
+            {selectedCandidate?.expiryDate ??
+              intl.formatMessage({
+                defaultMessage: "Change date",
+                id: "DspBFX",
+                description: "Command to change a date",
+              })}
           </span>
         </Button>
       </Dialog.Trigger>
@@ -163,6 +162,7 @@ const ChangeDateDialog = ({
                 "First section of text on the change candidate expiry date dialog",
             })}
           </p>
+          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           <p data-h2-font-weight="base(800)">
             - {getFullNameHtml(firstName, lastName, intl)}
           </p>
@@ -175,9 +175,10 @@ const ChangeDateDialog = ({
             })}
           </p>
           <p data-h2-font-weight="base(800)">
-            -{" "}
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {"- "}
             {getShortPoolTitleHtml(intl, {
-              stream: selectedCandidate.pool.stream,
+              workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
               publishingGroup: selectedCandidate.pool.publishingGroup,
               classification: selectedCandidate.pool.classification,

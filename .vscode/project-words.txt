@@ -19,6 +19,7 @@ colour
 colours
 columnheader
 combobox
+comptrollership
 corejs
 CRTC
 datas
@@ -33,6 +34,7 @@ GCNOTIFY
 gctalent
 heroicons
 ilike
+inclusivity
 Inclusivity
 inuk
 Inuk
@@ -41,6 +43,7 @@ Laratrust
 Laravel
 Lcobucci
 licences
+MENTEE
 Métis
 Mi'kmaw
 Michif
@@ -50,6 +53,7 @@ Nuwave
 OCIO
 personalisation
 pgsql
+PIPSC
 Queueable
 recruitmentimit
 recruitments
@@ -62,10 +66,15 @@ Spatie
 spinbutton
 Staudenmeir
 subcomponents
+Subform
+subproject
+subprojects
 subquery
+SUSPENDABLE
 TALENTSEARCH
 tanstack
 teamable
+telework
 Telework
 TELEWORK
 testid

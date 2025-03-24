@@ -30,11 +30,11 @@ final class PoolIsCompleteValidator extends Validator
             'name.fr' => ['string'],
             'classification_id' => ['required', 'uuid', 'exists:classifications,id'],
             'department_id' => ['required', 'uuid', 'exists:departments,id'],
-            'stream' => ['required', 'string'],
+            'work_stream_id' => ['required', 'uuid', 'exists:work_streams,id'],
             'opportunity_length' => ['required', 'string'],
 
             // Closing date
-            'closing_date' => ['required', /*'date_format:Y-m-d H:i:s',*/ 'after:'.$endOfDay],
+            'closing_date' => ['required', /* 'date_format:Y-m-d H:i:s', */ 'after:'.$endOfDay],
 
             // Your Impact and Work tasks
             'your_impact.en' => ['required', 'string'],

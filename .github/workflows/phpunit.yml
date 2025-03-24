@@ -10,7 +10,7 @@ on:
 jobs:
   phpunit:
     name: PHPUnit
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
       GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN: ${{ vars.GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN }}
@@ -42,7 +42,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2"
+          php-version: "8.3"
           extensions: bcmath
           coverage: pcov
 
@@ -68,6 +68,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: coverage.xml
+          files: coverage.xml
           flags: integrationtests
           fail_ci_if_error: false

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
-import { AnimatePresence, m, usePresence } from "framer-motion";
+import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
@@ -24,7 +24,7 @@ import notificationMessages from "~/messages/notificationMessages";
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
 
-const Overlay = m(DialogPrimitive.Overlay);
+const Overlay = m.create(DialogPrimitive.Overlay);
 
 // For the sake of the bell icon, we only care if the user has at least 1 unread notification
 // This is to query to minimal amount of data to display the badge
@@ -242,11 +242,23 @@ const NotificationDialog = ({
             mode={isSmallScreen ? "solid" : "icon_only"}
             color={isSmallScreen ? "black" : "secondary"}
             icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            aria-label={intl.formatMessage({
-              defaultMessage: "View notifications",
-              id: "ztx8xL",
-              description: "Button text to open the notifications dialog",
-            })}
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "View notifications{count}",
+                id: "l82MWI",
+                description: "Button text to open the notifications dialog",
+              },
+              {
+                count:
+                  notificationCount > 0
+                    ? ` ${intl.formatMessage({
+                        defaultMessage: "(there are unread notifications)",
+                        id: "o+YSXN",
+                        description: "Notice of unread notifications",
+                      })}`
+                    : "",
+              },
+            )}
             data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
             data-icon="true"
             {...(!isSmallScreen && linkColorStyling)}

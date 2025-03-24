@@ -1,4 +1,4 @@
-import { m, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "motion/react";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
@@ -37,6 +37,7 @@ const DisabledAction = () => (
     data-h2-width="base(x.975)"
     data-h2-text-align="base(center)"
     data-h2-vertical-align="base(middle)"
+    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
   >
     &bull;
   </span>

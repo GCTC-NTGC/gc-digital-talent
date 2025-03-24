@@ -61,30 +61,27 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: null,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
-      screen.queryByText(
-        /you are open to opportunities from this recruitment/i,
-      ),
-    ).not.toBeInTheDocument();
+      screen.getByText(/you are open to opportunities from this recruitment/i),
+    ).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/change your availability/i),
-    ).not.toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
       screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(3);
   });
 
   it("PLACED_CASUAL and SUSPENDED", () => {
@@ -95,30 +92,29 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: FAR_PAST_DATE,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
       ),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(
+      screen.getByText(
         /you are not receiving opportunities from this recruitment/i,
       ),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/change your availability/i),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
+    expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
       screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(3);
   });
 
   it("PLACED_INDETERMINATE and UN-SUSPENDED", () => {
@@ -129,12 +125,13 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: null,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -163,12 +160,13 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: FAR_PAST_DATE,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -197,12 +195,13 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: null,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -231,12 +230,13 @@ describe("QualifiedRecruitmentCard", () => {
           ...mockApplication,
           status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: FAR_PAST_DATE,
+          placedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
       ),
     });
 
-    expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/hired/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -270,7 +270,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/ready to hire/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.getByText(/you are open to opportunities from this recruitment/i),
     ).toBeInTheDocument();
@@ -322,7 +322,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/paused/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -356,7 +356,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/paused/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -390,7 +390,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -424,7 +424,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -458,7 +458,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/expired/i)).toBeInTheDocument();
+    expect(screen.getByText(/open to job offers/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,
@@ -492,7 +492,7 @@ describe("QualifiedRecruitmentCard", () => {
       ),
     });
 
-    expect(screen.getByText(/expired/i)).toBeInTheDocument();
+    expect(screen.getByText(/not interested/i)).toBeInTheDocument();
     expect(
       screen.queryByText(
         /you are open to opportunities from this recruitment/i,

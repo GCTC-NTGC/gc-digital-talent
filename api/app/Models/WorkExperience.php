@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\CafForce;
+use App\Enums\EmploymentCategory;
+use App\Enums\GovEmployeeType;
+use App\Events\WorkExperienceSaved;
 use App\Models\Scopes\MatchExperienceType;
+use App\Notifications\System as SystemNotification;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
 
 /**
  * Class WorkExperience
@@ -23,18 +31,26 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property string $employment_category
- * @property string $ext_size_of_organization
- * @property string $ext_role_seniority
- * @property string $gov_employment_type
- * @property string $gov_position_type
- * @property string $gov_contractor_role_seniority
- * @property string $gov_contractor_type
- * @property string $caf_employment_type
- * @property string $caf_force
- * @property string $caf_rank
- * @property string $classification_id
- * @property string $department_id
- * @property string $contractor_firm_agency_name
+ * @property ?string $ext_size_of_organization
+ * @property ?string $ext_role_seniority
+ * @property ?string $gov_employment_type
+ * @property ?string $gov_position_type
+ * @property ?string $gov_contractor_role_seniority
+ * @property ?string $gov_contractor_type
+ * @property ?string $caf_employment_type
+ * @property ?string $caf_force
+ * @property ?string $caf_rank
+ * @property ?string $classification_id
+ * @property ?string $department_id
+ * @property ?string $contractor_firm_agency_name
+ * @property ?bool $supervisory_position
+ * @property ?string $supervised_employees
+ * @property ?string $supervised_employees_number
+ * @property ?bool $budget_management
+ * @property ?string $annual_budget_allocation
+ * @property ?bool $senior_management_status
+ * @property ?string $c_suite_role_title
+ * @property ?string $other_c_suite_role_title
  */
 class WorkExperience extends Experience
 {
@@ -60,6 +76,14 @@ class WorkExperience extends Experience
         'experience_type' => WorkExperience::class,
     ];
 
+    /**
+     * Listeners for model events
+     */
+    protected $dispatchesEvents = [
+        'saved' => WorkExperienceSaved::class,
+        'deleted' => WorkExperienceSaved::class,
+    ];
+
     protected static $hydrationFields = [
         'organization' => 'organization',
         'role' => 'role',
@@ -79,11 +103,92 @@ class WorkExperience extends Experience
         'classification_id' => 'classificationId',
         'department_id' => 'departmentId',
         'contractor_firm_agency_name' => 'contractorFirmAgencyName',
+        'supervisory_position' => 'supervisoryPosition',
+        'supervised_employees' => 'supervisedEmployees',
+        'supervised_employees_number' => 'supervisedEmployeesNumber',
+        'budget_management' => 'budgetManagement',
+        'annual_budget_allocation' => 'annualBudgetAllocation',
+        'senior_management_status' => 'seniorManagementStatus',
+        'c_suite_role_title' => 'cSuiteRoleTitle',
+        'other_c_suite_role_title' => 'otherCSuiteRoleTitle',
     ];
+
+    /**
+     * Boot function for using with Eloquent Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (WorkExperience $workExperience) {
+            // send an in-app notification upon creation of a work experience that is GOV + TERM/INDETERMINATE + CURRENT
+            // only if a work email has not been verified
+
+            $properties = $workExperience->properties;
+            $now = Carbon::now();
+            $user = $workExperience->user;
+            $viewGroup = 'notification_government_experience_verify_work_email';
+
+            if (
+                $user &&
+                is_null($user->work_email_verified_at) &&
+                $properties &&
+                array_key_exists('employment_category', $properties) &&
+                array_key_exists('gov_employment_type', $properties) &&
+                array_key_exists('end_date', $properties)
+            ) {
+
+                if (
+                    $properties['employment_category'] === EmploymentCategory::GOVERNMENT_OF_CANADA->name &&
+                    ($properties['gov_employment_type'] === GovEmployeeType::TERM->name || $properties['gov_employment_type'] === GovEmployeeType::INDETERMINATE->name) &&
+                    ($properties['end_date'] === null || $properties['end_date'] > $now)
+                ) {
+
+                    try {
+                        $notification = new SystemNotification(
+                            channelEmail: false,
+                            channelApp: true,
+                            emailSubjectEn: '',
+                            emailSubjectFr: '',
+                            emailContentEn: '',
+                            emailContentFr: '',
+                            inAppMessageEn: $viewGroup.'.in_app_message_en',
+                            inAppMessageFr: $viewGroup.'.in_app_message_fr',
+                            inAppHrefEn: $viewGroup.'.in_app_href_en',
+                            inAppHrefFr: $viewGroup.'.in_app_href_fr',
+                        );
+                        $user->notify($notification);
+                    } catch (\Throwable $e) {
+                        Log::error('Error sending work experience verification notification to user '.$user->id.' experience '.$workExperience->id.' '.$e->getMessage());
+                        throw $e;
+                    }
+                }
+            }
+        });
+    }
 
     public function getTitle(?string $lang = 'en'): string
     {
-        return sprintf('%s %s %s', $this->role, Lang::get('common.at', [], $lang), $this->organization);
+        if ($this->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
+        }
+
+        if ($this->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
+            /** @var Department | null $department */
+            $department = $this->department_id ? Department::find($this->department_id) : null;
+
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $department ? $department->name[$lang] : Lang::get('common.not_found', [], $lang));
+        }
+
+        if ($this->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            $caf_force = $this->caf_force ? CafForce::localizedString($this->caf_force)[$lang] : Lang::get('common.not_found', [], $lang);
+
+            return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $caf_force);
+        }
+
+        return sprintf('%s %s %s', $this->role, Lang::get('common.with', [], $lang), $this->organization);
     }
 
     // extends dateRange, check if the end date is in the future and append a message if needed
@@ -262,6 +367,14 @@ class WorkExperience extends Experience
     }
 
     /**
+     * Interact with the saved work stream ids
+     */
+    protected function workStreamIds(): Attribute
+    {
+        return $this->makeJsonPropertyArrayAttribute('work_stream_ids');
+    }
+
+    /**
      * Return the classification model from JSON
      */
     public function classification()
@@ -275,5 +388,50 @@ class WorkExperience extends Experience
     public function department()
     {
         return $this->belongsTo(Department::class, 'properties->department_id');
+    }
+
+    public function workStreams(): BelongsToJson
+    {
+        return $this->belongsToJson(WorkStream::class, 'properties->work_stream_ids');
+    }
+
+    protected function supervisoryPosition(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('supervisory_position');
+    }
+
+    protected function supervisedEmployees(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('supervised_employees');
+    }
+
+    protected function supervisedEmployeesNumber(): Attribute
+    {
+        return $this->makeJsonPropertyNumberAttribute('supervised_employees_number');
+    }
+
+    protected function budgetManagement(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('budget_management');
+    }
+
+    protected function annualBudgetAllocation(): Attribute
+    {
+        return $this->makeJsonPropertyNumberAttribute('annual_budget_allocation');
+    }
+
+    protected function seniorManagementStatus(): Attribute
+    {
+        return $this->makeJsonPropertyBooleanAttribute('senior_management_status');
+    }
+
+    protected function cSuiteRoleTitle(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('c_suite_role_title');
+    }
+
+    protected function otherCSuiteRoleTitle(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('other_c_suite_role_title');
     }
 }

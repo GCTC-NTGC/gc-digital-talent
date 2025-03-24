@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 
 import {
   NestedLanguageProvider,

@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import { Page } from "@playwright/test";
 
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -9,6 +8,7 @@ import {
   PoolCandidateStatus,
   Skill,
   SkillCategory,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -21,12 +21,14 @@ import { createUserWithRoles, me } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
+import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   const poolName = `Search pool ${uniqueTestId}`;
   let classification: Classification;
+  let workStream: WorkStream;
   let skill: Skill | undefined;
 
   const expectNoCandidate = async (page: Page) => {
@@ -79,12 +81,16 @@ test.describe("Talent search", () => {
     const classifications = await getClassifications(adminCtx, {});
     classification = classifications[0];
 
+    const workStreams = await getWorkStreams(adminCtx, {});
+    workStream = workStreams[0];
+
     const adminUser = await me(adminCtx, {});
     // Accepted pool
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: adminUser.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       classificationId: classification.id,
+      workStreamId: workStream.id,
       name: {
         en: poolName,
         fr: `${poolName} (FR)`,
@@ -127,7 +133,7 @@ test.describe("Talent search", () => {
     await expectNoCandidate(appPage.page);
 
     await classificationFilter.selectOption({
-      value: `${classification.group}-0${classification.level}`,
+      value: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
     });
 
     const streamFilter = appPage.page.getByRole("combobox", {
@@ -138,7 +144,7 @@ test.describe("Talent search", () => {
     await expectNoCandidate(appPage.page);
 
     await streamFilter.selectOption({
-      label: "Business Line Advisory Services",
+      label: workStream.name?.en ?? "",
     });
 
     await expect(poolCard).toBeVisible();
@@ -214,14 +220,14 @@ test.describe("Talent search", () => {
     await expect(
       appPage.page.getByText(
         new RegExp(
-          `${classification.group}-0${classification.level}: search pool`,
+          `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}: search pool`,
           "i",
         ),
       ),
     ).toBeVisible();
 
     await expect(
-      appPage.page.getByText("Business Line Advisory Services"),
+      appPage.page.getByText(workStream?.name?.en ?? ""),
     ).toBeVisible();
 
     await expect(

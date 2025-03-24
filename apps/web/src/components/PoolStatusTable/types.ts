@@ -24,9 +24,9 @@ const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -51,5 +51,4 @@ const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
   }
 `);
 
-// eslint-disable-next-line import/no-unused-modules
 export default PoolStatusTable_PoolCandidateFragment;

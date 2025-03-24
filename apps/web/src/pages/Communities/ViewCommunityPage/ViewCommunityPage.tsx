@@ -26,7 +26,7 @@ import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
 
@@ -96,17 +96,15 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             hasError={!community.name?.en}
             label={intl.formatMessage(adminMessages.nameEn)}
           >
-            {community.name?.en
-              ? community.name.en
-              : intl.formatMessage(commonMessages.notProvided)}
+            {community.name?.en ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             hasError={!community.name?.fr}
             label={intl.formatMessage(adminMessages.nameFr)}
           >
-            {community.name?.fr
-              ? community.name.fr
-              : intl.formatMessage(commonMessages.notProvided)}
+            {community.name?.fr ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             hasError={!community.description?.en}
@@ -140,9 +138,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
                 "Label displayed on the community form mandate authority field in English.",
             })}
           >
-            {community.mandateAuthority?.en
-              ? community.mandateAuthority.en
-              : intl.formatMessage(commonMessages.notProvided)}
+            {community.mandateAuthority?.en ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -152,9 +149,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
                 "Label displayed on the community form mandate authority field in French.",
             })}
           >
-            {community.mandateAuthority?.fr
-              ? community.mandateAuthority.fr
-              : intl.formatMessage(commonMessages.notProvided)}
+            {community.mandateAuthority?.fr ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <div data-h2-grid-column="p-tablet(span 2)">
             <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
@@ -255,6 +251,7 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
     ]}
   >

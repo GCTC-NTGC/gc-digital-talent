@@ -44,15 +44,12 @@ const NotificationDownload = forwardRef<
         }).catch((err) => {
           if (err instanceof Error && err.message === "not found") {
             toast.error(
-              intl.formatMessage(
-                {
-                  defaultMessage:
-                    "This file is not available. If it's been more than 24 hours since you requested it, please try requesting the download again. If it's been less than 24 hours or the problem persists, contact support for assistance.",
-                  id: "klyOZZ",
-                  description: "Error message when a file no longer exists",
-                },
-                { fileName },
-              ),
+              intl.formatMessage({
+                defaultMessage:
+                  "This file is not available. If it's been more than 24 hours since you requested it, please try requesting the download again. If it's been less than 24 hours or the problem persists, contact support for assistance.",
+                id: "klyOZZ",
+                description: "Error message when a file no longer exists",
+              }),
             );
           } else {
             toast.error(

@@ -9,9 +9,9 @@
   ],
   "license": "AGPL-3.0",
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
+    "devnoiseconsulting/laravel-scout-postgres-tsvector": "^9.2",
     "doctrine/dbal": "^3.1",
-    "gctc-ntgc/laravel-scout-postgres-tsvector": "^1.0",
     "guzzlehttp/guzzle": "^7.4",
     "laravel/framework": "^11.0",
     "laravel/scout": "^10.5",
@@ -22,7 +22,7 @@
     "mll-lab/laravel-graphiql": "^3.0",
     "nunomaduro/collision": "^8.1",
     "nuwave/lighthouse": "^6.15",
-    "phpoffice/phpspreadsheet": "^3.3",
+    "phpoffice/phpspreadsheet": "^4.0",
     "phpoffice/phpword": "^1.2",
     "santigarcor/laratrust": "^8.3.0",
     "spatie/laravel-activitylog": "^4.7",
@@ -62,7 +62,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.2.9"
+      "php": "8.3.9"
     },
     "allow-plugins": {
       "composer/package-versions-deprecated": true

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\PoolBuilder;
+use App\Casts\LocalizedString;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -49,6 +50,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $team_id
  * @property string $department_id
  * @property string $community_id
+ * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
  * @property \Illuminate\Support\Carbon $created_at
@@ -70,15 +72,15 @@ class Pool extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
         'operational_requirements' => 'array',
-        'key_tasks' => 'array',
-        'advertisement_location' => 'array',
-        'your_impact' => 'array',
-        'what_to_expect' => 'array',
-        'special_note' => 'array',
-        'what_to_expect_admission' => 'array',
-        'about_us' => 'array',
+        'key_tasks' => LocalizedString::class,
+        'advertisement_location' => LocalizedString::class,
+        'your_impact' => LocalizedString::class,
+        'what_to_expect' => LocalizedString::class,
+        'special_note' => LocalizedString::class,
+        'what_to_expect_admission' => LocalizedString::class,
+        'about_us' => LocalizedString::class,
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
@@ -95,7 +97,6 @@ class Pool extends Model
         'published_at',
         'name',
         'key_tasks',
-        'stream',
         'security_clearance',
         'advertisement_language',
         'your_impact',
@@ -114,7 +115,6 @@ class Pool extends Model
         'id',
         'name',
         'user_id',
-        'stream',
         'publishing_group',
         'published_at',
         'archived_at',
@@ -129,6 +129,11 @@ class Pool extends Model
         'process_number',
         'department_id',
         'community_id',
+        'area_of_selection',
+        'work_stream_id',
+        'security_clearance',
+        'advertisement_location',
+        'opportunity_length',
     ];
 
     /**

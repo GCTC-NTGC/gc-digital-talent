@@ -1,15 +1,13 @@
 import { Page } from "@playwright/test";
 
-import { Skill, SkillCategory, User } from "@gc-digital-talent/graphql";
+import { SkillCategory, User } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
 import graphql, { GraphQLContext } from "~/utils/graphql";
-import { createUserWithRoles, me } from "~/utils/user";
-import { createAndPublishPool } from "~/utils/pools";
-import { createAndSubmitApplication } from "~/utils/applications";
+import { createUserWithRoles } from "~/utils/user";
 import AppPage from "~/fixtures/AppPage";
 
 test.describe("User information", () => {
@@ -17,7 +15,6 @@ test.describe("User information", () => {
   let uniqueTestId: string;
   let user: User;
   let sub: string;
-  let skill: Skill | undefined;
 
   const loginAndVisitUser = async (
     appPage: AppPage,
@@ -37,12 +34,6 @@ test.describe("User information", () => {
     ).toBeVisible();
     await expect(
       page.getByText(new RegExp(user?.firstName ?? "", "i")).first(),
-    ).toBeVisible();
-  };
-
-  const assertError = async (page: Page) => {
-    await expect(
-      page.getByText(/\[GraphQL\] This action is unauthorized/i).first(),
     ).toBeVisible();
   };
 
@@ -84,7 +75,6 @@ test.describe("User information", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    skill = technicalSkill;
     user = createdUser ?? { id: "" };
   });
 
@@ -97,41 +87,6 @@ test.describe("User information", () => {
         name: /you are not authorized to view this page/i,
       }),
     ).toBeVisible();
-  });
-
-  test("Pool operator access", async ({ appPage }) => {
-    // User is not in a pool for this manager so should error
-    await loginAndVisitUser(appPage, "pool@test.com", user);
-    await assertError(appPage.page);
-
-    const adminUser = await me(adminCtx, {});
-
-    const dcmPool = await createAndPublishPool(adminCtx, {
-      userId: adminUser.id,
-      name: {
-        en: `Playwright DCM Pool ${uniqueTestId} (EN)`,
-        fr: `Playwright DCM Pool ${uniqueTestId} (FR)`,
-      },
-      skillIds: skill ? [skill?.id] : undefined,
-    });
-
-    const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx, {});
-    await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
-      poolId: dcmPool.id,
-      experienceId: applicant?.experiences?.[0]?.id ?? "",
-      signature: `${user?.firstName} signature`,
-    });
-
-    // Pool operator can view now that user has application in their pool
-    await loginAndVisitUser(appPage, "pool@test.com", user);
-    await assertSuccess(appPage.page);
-  });
-
-  test("Request responder can access", async ({ appPage }) => {
-    await loginAndVisitUser(appPage, "request@test.com", user);
-    await assertSuccess(appPage.page);
   });
 
   test("Platform admin can access", async ({ appPage }) => {

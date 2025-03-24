@@ -11,10 +11,12 @@ use App\Enums\AssessmentStepType;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FinalDecision;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
@@ -54,6 +56,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     protected array $RODData = [];
 
+    protected array $finalDecisions = [];
+
     protected array $generatedHeaders = [
         'general_questions' => [],
         'screening_questions' => [],
@@ -90,7 +94,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'department',
         'employee_type',
         'work_email',
-        'current_classification',
+        'classification',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',
@@ -147,7 +151,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 $values = [
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
                     $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
-                    '', // Availability
+                    $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
                     $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
@@ -169,9 +173,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
                     $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
-                    $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
+                    $this->yesOrNo($candidate->user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
+                    $this->localizeEnum($candidate->user->computed_gov_employee_type, GovEmployeeType::class),
                     $candidate->user->work_email, // Work email
                     $candidate->user->getClassification(), // Current classification
                     $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
@@ -274,6 +278,32 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                             }
                         }
                     }
+
+                    $decision = null;
+                    if (is_null($candidate->computed_final_decision) || $candidate->computed_final_decision === FinalDecision::TO_ASSESS->name) {
+                        if (! isset($candidate->computed_assessment_status['overallAssessmentStatus'])) {
+                            $decision = Lang::get('final_decision.to_assess', [], $this->lang);
+                        } else {
+                            if ($candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::DISQUALIFIED->name) {
+                                $decision = Lang::get('final_decision.disqualified_pending', [], $this->lang);
+                            } elseif ($candidate->computed_assessment_status['currentStep'] === null) {
+                                $decision = Lang::get('final_decision.qualified_pending', [], $this->lang);
+                            } else {
+                                $decision = Lang::get('final_decision.to_assess', [], $this->lang)
+                                            .$this->colon()
+                                            .Lang::get('common.step', [], $this->lang)
+                                            .' '
+                                            .$candidate->computed_assessment_status['currentStep'];
+                            }
+                        }
+                    } else {
+                        $decision = $this->localizeEnum($candidate->computed_final_decision, FinalDecision::class);
+                    }
+
+                    $this->finalDecisions[] = [
+                        'candidate' => $currentCandidate,
+                        'value' => $decision,
+                    ];
                 }
 
                 // 1 is added to the key to account for the header row
@@ -398,6 +428,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                                 );
                             }
                         }
+                        $this->generatedHeaders['ROD_details'][] = $this->localizeHeading('final_decision');
                     }
                 }
             });
@@ -446,6 +477,12 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                             $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['notes']);
                         }
                     }
+                }
+            }
+            $currentColumn++;
+            if (isset($this->finalDecisions)) {
+                foreach ($this->finalDecisions as $row) {
+                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
                 }
             }
         }

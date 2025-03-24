@@ -8,21 +8,28 @@ import {
   getLocale,
   errorMessages,
   getLocalizedName,
+  Locales,
 } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 interface SkillsInDetailProps {
   skills: FormSkills;
   onDelete: (id: string) => void;
 }
 
-const MAX_WORDS = 160;
+const TEXT_AREA_MAX_WORDS_EN = 400;
 
 const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { register } = useForm();
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   return (
     <div
@@ -38,6 +45,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
               data-h2-justify-content="base(space-between)"
             >
               <p data-h2-font-weight="base(700)">
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {index + 1}. {name[locale]}
               </p>
               <Button
@@ -81,7 +89,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
               <TextArea
                 id={`skill-in-detail-${id}`}
                 name={`skills.${index}.details`}
-                wordLimit={MAX_WORDS}
+                wordLimit={wordCountLimits[locale]}
                 aria-label={intl.formatMessage(
                   {
                     id: "Opn8nz",

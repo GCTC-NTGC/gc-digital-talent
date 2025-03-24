@@ -46,7 +46,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
 
@@ -269,6 +269,7 @@ export const UpdateSkillFamily = ({
                 <Input
                   id="name_en"
                   name="name.en"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameEn)}
                   type="text"
                   rules={{
@@ -278,6 +279,7 @@ export const UpdateSkillFamily = ({
                 <Input
                   id="name_fr"
                   name="name.fr"
+                  autoComplete="off"
                   label={intl.formatMessage(adminMessages.nameFr)}
                   type="text"
                   rules={{

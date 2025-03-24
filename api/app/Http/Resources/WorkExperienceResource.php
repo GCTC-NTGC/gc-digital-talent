@@ -40,6 +40,15 @@ class WorkExperienceResource extends JsonResource
             'cafRank' => $this->caf_rank,
             'classification' => $this->classification_id ? (new ClassificationResource(Classification::find($this->classification_id))) : null,
             'department' => $this->department_id ? (new DepartmentResource(Department::find($this->department_id))) : null,
+            'workStreams' => WorkStreamResource::collection($this->workStreams),
+            'supervisoryPosition' => $this->supervisory_position,
+            'supervisedEmployees' => $this->supervised_employees,
+            'supervisedEmployeesNumber' => $this->supervised_employees_number,
+            'budgetManagement' => $this->budget_management,
+            'annualBudgetAllocation' => $this->annual_budget_allocation,
+            'seniorManagementStatus' => $this->senior_management_status,
+            'cSuiteRoleTitle' => $this->c_suite_role_title,
+            'otherCSuiteRoleTitle' => $this->other_c_suite_role_title,
         ];
     }
 }

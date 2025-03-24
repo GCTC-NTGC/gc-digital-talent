@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,7 +29,7 @@ class GenericJobTitle extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
+        'name' => LocalizedString::class,
 
     ];
 

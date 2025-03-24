@@ -32,9 +32,9 @@ const RecruitmentAvailabilityDialog_Fragment = graphql(/* GraphQL */ `
     suspendedAt
     pool {
       id
-      stream {
-        value
-        label {
+      workStream {
+        id
+        name {
           en
           fr
         }
@@ -77,7 +77,7 @@ const RecruitmentAvailabilityDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
   const title = poolTitle(intl, {
-    stream: candidate.pool.stream,
+    workStream: candidate.pool.workStream,
     name: candidate.pool.name,
     publishingGroup: candidate.pool.publishingGroup,
     classification: candidate.pool.classification,

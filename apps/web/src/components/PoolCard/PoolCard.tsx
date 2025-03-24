@@ -16,13 +16,10 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
   getLocalizedName,
-  localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  Classification,
   FragmentType,
-  Maybe,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
   PoolSkillType,
@@ -35,15 +32,16 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { filterPoolSkillsByType } from "~/utils/skillUtils";
+import { getSalaryRange } from "~/utils/classification";
 
 import IconLabel from "./IconLabel";
 
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -100,19 +98,6 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const getSalaryRange = (
-  locale: string,
-  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
-) => {
-  if (!classification) return null;
-
-  return localizeSalaryRange(
-    classification.minSalary,
-    classification.maxSalary,
-    locale,
-  );
-};
 
 const deriveWhoCanApplyString = (
   areaOfSelection: PoolAreaOfSelection,
@@ -188,7 +173,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
-        `${pool.classification.group}-0${pool.classification.level}`,
+        `${pool.classification.group}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
         intl,
       )
     : "";
@@ -258,7 +243,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
             {getShortPoolTitleHtml(intl, {
-              stream: pool.stream,
+              workStream: pool.workStream,
               name: pool.name,
               publishingGroup: pool.publishingGroup,
               classification: pool.classification,
@@ -281,11 +266,8 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           <IconLabel
             icon={CalendarIcon}
             label={
-              intl.formatMessage({
-                defaultMessage: "Deadline",
-                id: "FVEh7L",
-                description: "Label for pool advertisement closing date",
-              }) + intl.formatMessage(commonMessages.dividingColon)
+              intl.formatMessage(commonMessages.deadline) +
+              intl.formatMessage(commonMessages.dividingColon)
             }
           >
             {pool.closingDate
@@ -332,11 +314,8 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           <IconLabel
             icon={CurrencyDollarIcon}
             label={
-              intl.formatMessage({
-                defaultMessage: "Salary range",
-                id: "GgBjAd",
-                description: "Label for pool advertisement salary range",
-              }) + intl.formatMessage(commonMessages.dividingColon)
+              intl.formatMessage(commonMessages.salaryRange) +
+              intl.formatMessage(commonMessages.dividingColon)
             }
           >
             {salaryRange ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -346,11 +325,10 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           <div data-h2-margin-bottom="base(x.25)">
             <IconLabel
               icon={BoltIcon}
-              label={intl.formatMessage({
-                id: "V1DqDX",
-                defaultMessage: "Required skills:",
-                description: "Label for the skills required for a pool",
-              })}
+              label={
+                intl.formatMessage(commonMessages.requiredSkills) +
+                intl.formatMessage(commonMessages.dividingColon)
+              }
             />
           </div>
           {essentialSkills.length ? (

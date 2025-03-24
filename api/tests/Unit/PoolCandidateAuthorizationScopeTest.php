@@ -116,55 +116,6 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         ], $candidateIds->toArray());
     }
 
-    // a pool operator should be able to view submitted candidates in their team's pools
-    public function testViewAsPoolOperator(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asPoolOperator($this->teamA->name)
-                    ->create()
-            );
-
-        // the pools in team A only have one submitted candidate
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->candidateSubmitted2A->id,
-        ], $candidateIds->toArray());
-    }
-
-    // a request responder should be able to view submitted candidates in any team
-    public function testViewAsRequestResponder(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asRequestResponder()
-                    ->create()
-            );
-
-        // there is one submitted candidate in each team's pool
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->candidateSubmitted1B->id,
-            $this->candidateSubmitted2A->id,
-        ], $candidateIds->toArray());
-    }
-
-    // community manager role doesn't grant any candidate permissions - nothing viewable
-    public function testViewAsCommunityManager(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(
-                User::factory()
-                    ->asCommunityManager()
-                    ->create()
-            );
-
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([], $candidateIds->toArray());
-    }
-
     // a platform admin should be able to view submitted candidates in any team
     public function testViewAsPlatformAdmin(): void
     {

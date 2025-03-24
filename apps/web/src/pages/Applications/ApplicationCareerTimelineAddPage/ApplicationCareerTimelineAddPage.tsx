@@ -6,11 +6,13 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import experienceMessages from "~/messages/experienceMessages";
+import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -45,10 +47,9 @@ export const getPageInfo: GetPageNavInfo = ({
       {
         url: paths.applicationCareerTimelineAdd(application.id),
         label: intl.formatMessage({
-          defaultMessage: "Add Experience",
-          id: "K+ZIOB",
-          description:
-            "Breadcrumb link text for the application career timeline add experience page",
+          defaultMessage: "Add experience",
+          id: "g1WB3B",
+          description: "Title for add experience page",
         }),
       },
     ],
@@ -70,6 +71,11 @@ const ApplicationCareerTimelineAdd = ({
     application,
     stepOrdinal: currentStepOrdinal,
   });
+
+  const applicationExperiences = unpackMaybes(application.user.experiences);
+  const organizationsForAutocomplete = organizationSuggestionsFromExperiences(
+    applicationExperiences,
+  );
 
   return (
     <>
@@ -169,7 +175,10 @@ const ApplicationCareerTimelineAdd = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <AddExperienceForm applicationId={application.id} />
+      <AddExperienceForm
+        applicationId={application.id}
+        organizationSuggestions={organizationsForAutocomplete}
+      />
     </>
   );
 };

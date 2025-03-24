@@ -1,21 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const navigationMessages = defineMessages({
-  backToProfile: {
-    defaultMessage: "Go back to my profile",
-    id: "u+NuHm",
-    description: "Link text for button to return to user profile",
-  },
-  backToApplication: {
-    defaultMessage: "Go back to my application",
-    id: "HMXnoR",
-    description: "Link text for button to return to user application",
-  },
-  stepOne: {
-    defaultMessage: "Step 1",
-    id: "g08hvq",
-    description: "Breadcrumb back to review application page.",
-  },
   aboutMe: {
     defaultMessage: "About me",
     id: "Gx8qCK",
@@ -91,11 +76,6 @@ const navigationMessages = defineMessages({
     id: "/pzsYm",
     description: "Name of Applicant profile page",
   },
-  managerProfile: {
-    defaultMessage: "Manager profile",
-    id: "oIfw3w",
-    description: "Name of Manager profile page",
-  },
   accountSettings: {
     defaultMessage: "Account settings",
     id: "YSNrLG",
@@ -141,6 +121,11 @@ const navigationMessages = defineMessages({
     id: "dK8pdO",
     description: "Name of job template page",
   },
+  jobAdvertisementTemplates: {
+    defaultMessage: "Job advertisement templates",
+    id: "ZhOciS",
+    description: "Name of job advertisement templates page",
+  },
   announcements: {
     defaultMessage: "Announcements",
     id: "Md1J9+",
@@ -165,6 +150,31 @@ const navigationMessages = defineMessages({
     defaultMessage: "Skill families",
     id: "9RXifp",
     description: "Name of skill families page",
+  },
+  talentManagementEvents: {
+    defaultMessage: "Talent management events",
+    id: "ukd1kY",
+    description: "Name of talent management events page",
+  },
+  applicantDashboard: {
+    defaultMessage: "Applicant dashboard",
+    id: "wqBryV",
+    description: "Name of applicant dashboard page",
+  },
+  employeeProfileGC: {
+    defaultMessage: "GC employee profile",
+    id: "WZ8QTB",
+    description: "Short title for a user's GC employee profile",
+  },
+  createProfile: {
+    defaultMessage: "Create a profile",
+    id: "7hUWc+",
+    description: "Link text for users to create a profile",
+  },
+  returnToDashboard: {
+    defaultMessage: "Return to your dashboard",
+    id: "Y66jFM",
+    description: "Link text to the dashboard page",
   },
 });
 

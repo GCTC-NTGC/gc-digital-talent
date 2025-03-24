@@ -51,6 +51,7 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
+  organizationSuggestionsFromExperiences,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -205,17 +206,118 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       division
       startDate
       endDate
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      classification {
+        id
+        group
+        level
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      workStreams {
+        id
+      }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
     }
   }
 `);
 
-export interface ExperienceFormProps {
+interface ExperienceFormProps {
   edit?: boolean;
   experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
-  experienceType: ExperienceType;
+  experienceType?: ExperienceType;
   skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
+  organizationSuggestions: string[];
 }
 
 export const ExperienceForm = ({
@@ -225,6 +327,7 @@ export const ExperienceForm = ({
   experienceType,
   skillsQuery,
   userId,
+  organizationSuggestions,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -237,7 +340,7 @@ export const ExperienceForm = ({
   const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
 
   const defaultValues =
-    experienceId && experience
+    experienceId && experience && experienceType
       ? queryResultToDefaultValues(experienceType, experience)
       : { experienceType };
 
@@ -387,10 +490,9 @@ export const ExperienceForm = ({
               description: "Title for edit experience page",
             })
           : intl.formatMessage({
-              defaultMessage: "Add Experience",
-              id: "mJ1HE4",
-              description:
-                "Display text for add experience form in breadcrumbs",
+              defaultMessage: "Add experience",
+              id: "g1WB3B",
+              description: "Title for add experience page",
             }),
         url: experience ? paths.editExperience(experience.id) : "#",
       },
@@ -469,7 +571,10 @@ export const ExperienceForm = ({
                 )}
 
                 <TableOfContents.Section id="experience-details">
-                  <ExperienceDetails experienceType={experienceType} />
+                  <ExperienceDetails
+                    organizationSuggestions={organizationSuggestions}
+                    experienceType={experienceType}
+                  />
                 </TableOfContents.Section>
 
                 <TableOfContents.Section id="additional-details">
@@ -664,6 +769,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const experience =
     data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
 
+  const myExperiences = unpackMaybes(data?.me?.experiences);
+  const organizationsForAutocomplete =
+    organizationSuggestionsFromExperiences(myExperiences);
+
   const experienceType = experience
     ? deriveExperienceType(experience)
     : state?.experienceType;
@@ -675,9 +784,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           edit={edit}
           experienceQuery={experience}
           experienceId={experienceId}
-          experienceType={experienceType ?? "personal"}
+          experienceType={experienceType}
           skillsQuery={skills}
           userId={userAuthInfo?.id ?? ""}
+          organizationSuggestions={organizationsForAutocomplete}
         />
       ) : (
         <ThrowNotFound

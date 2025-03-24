@@ -88,13 +88,10 @@ class SnapshotTest extends TestCase
         )->json('data.poolCandidate.profileSnapshot');
 
         $decodedActual = json_decode($actualSnapshot, true);
+        $this->unsetLocalizedKey($decodedActual);
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
-
-        // line-up query format with how the snapshot is ordered
-        $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
-        unset($expectedSnapshot['authInfo']);
 
         // sort experiences the same way as order does not matter for comparison
         usort($expectedSnapshot['experiences'], function ($a, $b) {
@@ -249,5 +246,17 @@ class SnapshotTest extends TestCase
                 ],
             ],
         ], $snapshot);
+    }
+
+    private function unsetLocalizedKey(array &$arr)
+    {
+        if (is_array($arr)) {
+            unset($arr['localized']);
+        }
+        foreach ($arr as &$v) {
+            if (is_array($v)) {
+                $this->unsetLocalizedKey($v);
+            }
+        }
     }
 }

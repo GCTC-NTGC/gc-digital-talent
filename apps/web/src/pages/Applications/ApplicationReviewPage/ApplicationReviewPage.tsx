@@ -127,8 +127,8 @@ const ApplicationReview = ({
         if (!res.error) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "We successfully received your application",
-              id: "7vOa71",
+              defaultMessage: "We've successfully received your application",
+              id: "2SSm+L",
               description:
                 "Success message after submission for the application review page.",
             }),

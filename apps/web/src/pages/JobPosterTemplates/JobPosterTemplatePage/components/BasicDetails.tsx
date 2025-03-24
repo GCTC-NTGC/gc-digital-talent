@@ -11,7 +11,7 @@ import {
 import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
-import FieldDisplay from "~/components/ToggleForm/FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import sections from "../sections";
 
@@ -29,8 +29,8 @@ const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
       group
       level
     }
-    stream {
-      label {
+    workStream {
+      name {
         en
         fr
       }
@@ -121,7 +121,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
                 "Label displayed on the pool form stream/job title field.",
             })}
           >
-            {getLocalizedName(jobPosterTemplate.stream?.label, intl)}
+            {getLocalizedName(jobPosterTemplate.workStream?.name, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

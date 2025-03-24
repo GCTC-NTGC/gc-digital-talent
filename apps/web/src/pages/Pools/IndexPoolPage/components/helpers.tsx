@@ -16,6 +16,7 @@ import {
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
+  PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -32,11 +33,11 @@ import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "stream">,
+  pool: Pick<Pool, "name" | "workStream">,
   intl: IntlShape,
 ) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool?.workStream?.name, intl, true)}`;
 }
 
 export function viewCell(
@@ -49,27 +50,6 @@ export function viewCell(
       {getLocalizedName(pool.name, intl)}
     </Link>
   );
-}
-
-export function viewTeamLinkCell(
-  url: Maybe<string> | undefined,
-  displayName: Maybe<LocalizedString> | undefined,
-  intl: IntlShape,
-) {
-  return url ? (
-    <Link color="black" href={url}>
-      {intl.formatMessage(
-        {
-          defaultMessage: "<hidden>View team: </hidden>{teamName}",
-          id: "ActH9H",
-          description: "Text for a link to the Team table",
-        },
-        {
-          teamName: getLocalizedName(displayName, intl),
-        },
-      )}
-    </Link>
-  ) : null;
 }
 
 export function fullNameCell(
@@ -87,7 +67,7 @@ export function classificationAccessor(
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
 ) {
   return classification
-    ? `${classification.group}-0${classification.level}`
+    ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
     : "";
 }
 
@@ -98,7 +78,8 @@ export function classificationCell(
 
   return (
     <Chip color="primary">
-      {`${classification.group}-0${classification.level}`}
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+      {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
     </Chip>
   );
 }
@@ -173,7 +154,6 @@ export function getOrderByClause(
     ["id", "id"],
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
-    ["stream", "stream"],
     ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
@@ -260,6 +240,20 @@ export function getTeamDisplayNameSort(
   };
 }
 
+export function getWorkStreamNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolWorkStreamNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "workStream");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
 export function getOrderByColumnSort(
   sortingRules?: SortingState,
 ): OrderByColumnInput | undefined {
@@ -296,7 +290,7 @@ export function transformFormValuesToFilterInput(
   return {
     publishingGroups: data.publishingGroups,
     statuses: data.statuses,
-    streams: data.streams,
+    workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
       const [group, level] = classification.split("-");
       return { group, level: Number(level) };
@@ -310,7 +304,7 @@ export function transformPoolFilterInputToFormValues(
   return {
     publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
-    streams: unpackMaybes(input?.streams),
+    workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(
       (c) => `${c.group}-${c.level}`,
     ),

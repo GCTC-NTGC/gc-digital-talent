@@ -1,3 +1,4 @@
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
@@ -118,13 +119,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
-      }
       name {
         en
         fr
@@ -133,13 +127,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         id
         group
         level
-      }
-      stream {
-        value
-        label {
-          en
-          fr
-        }
       }
       assessmentSteps {
         id

@@ -57,8 +57,8 @@ const ManagerInfo = ({
     <>
       <Heading level="h2" size="h4" data-h2-margin-top="base(0)">
         {intl.formatMessage({
-          defaultMessage: "Manager Information",
-          id: "UEsexn",
+          defaultMessage: "Manager information",
+          id: "eyR6B+",
           description:
             "Heading for the manager info section of the single search request view.",
         })}
@@ -91,8 +91,8 @@ const ManagerInfo = ({
                 />
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Government Email",
-                    id: "d3oN4p",
+                    defaultMessage: "Government email",
+                    id: "wLVo1I",
                     description:
                       "Title for the government email block in the manager info section of the single search request view.",
                   })}
@@ -137,8 +137,8 @@ const ManagerInfo = ({
               >
                 <FilterBlock
                   title={intl.formatMessage({
-                    defaultMessage: "Date Received",
-                    id: "r2gD/4",
+                    defaultMessage: "Date received",
+                    id: "m0Qcow",
                     description:
                       "Title displayed on the search request table requested date column.",
                   })}
@@ -296,9 +296,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -367,9 +367,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -389,9 +389,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         group
         level
       }
-      qualifiedStreams {
-        value
-        label {
+      workStreams {
+        id
+        name {
           en
           fr
         }
@@ -498,8 +498,8 @@ export const ViewSearchRequest = ({
         <div>
           <Heading level="h2" size="h4">
             {intl.formatMessage({
-              defaultMessage: "Request Information",
-              id: "AAmd5G",
+              defaultMessage: "Request information",
+              id: "/3mqz9",
               description:
                 "Heading for the request information section of the single search request view.",
             })}
@@ -563,8 +563,8 @@ export const ViewSearchRequest = ({
         <div>
           <Heading level="h2" size="h4">
             {intl.formatMessage({
-              defaultMessage: "Candidate Results",
-              id: "Duswz0",
+              defaultMessage: "Candidate results",
+              id: "bQ4iDW",
               description:
                 "Heading for the candidate results section of the single search request view.",
             })}

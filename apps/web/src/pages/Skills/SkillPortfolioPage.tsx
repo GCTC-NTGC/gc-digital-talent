@@ -67,7 +67,7 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
         url: paths.profileAndApplications(),
       },
       {
@@ -139,15 +139,15 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Your skill showcase allows you to curate lists of skills from your library that present a more targeted story about your strengths and areas of interest. While your skill library acts as a central place to manage all of the skills you add to your profile, the showcases you complete are paired with your job applications to help recruiters and managers see a more complete picture of your talent.",
-                  id: "ccR/uJ",
+                    "Your skill showcase allows you to curate lists of skills from your portfolio that present a more focused and personalized story about your strengths and areas of interest. While your skills portfolio serves as a central place to manage all the skills you add to your profile, the showcase is paired with your job applications. It's shared with recruiters and managers to give them a fuller picture of your talents.",
+                  id: "I9e48q",
                   description: "Description on what the skills showcase is.",
                 })}
               </p>
               <Link color="secondary" mode="solid" href={paths.skillShowcase()}>
                 {intl.formatMessage({
-                  defaultMessage: "Visit your showcase",
-                  id: "Y3rbFp",
+                  defaultMessage: "Visit your skill showcase",
+                  id: "iru4oU",
                   description: "Link text to the skill showcase page.",
                 })}
               </Link>

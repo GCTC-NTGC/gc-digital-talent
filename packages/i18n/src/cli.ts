@@ -130,7 +130,6 @@ const transform = (
 ): Record<string, unknown> => {
   return Object.keys(obj).reduce((memo: Record<string, unknown>, key) => {
     if (predicate(obj[key], key)) {
-      // eslint-disable-next-line no-param-reassign
       memo[key] = obj[key];
     }
     return memo;

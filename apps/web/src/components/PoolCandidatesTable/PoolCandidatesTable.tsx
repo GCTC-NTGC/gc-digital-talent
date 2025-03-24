@@ -195,9 +195,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               group
               level
             }
-            stream {
-              value
-              label {
+            workStream {
+              id
+              name {
                 en
                 fr
               }
@@ -718,7 +718,7 @@ const PoolCandidatesTable = ({
           columnHelper.accessor(
             ({ poolCandidate: { pool } }) =>
               getFullPoolTitleLabel(intl, {
-                stream: pool.stream,
+                workStream: pool.workStream,
                 name: pool.name,
                 publishingGroup: pool.publishingGroup,
                 classification: pool.classification,
@@ -737,7 +737,7 @@ const PoolCandidatesTable = ({
                 processCell(
                   {
                     id: pool.id,
-                    stream: pool.stream,
+                    workStream: pool.workStream,
                     name: pool.name,
                     publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
@@ -952,8 +952,8 @@ const PoolCandidatesTable = ({
           handleSearchStateChange(newState);
         },
         overrideAllTableMsg: intl.formatMessage({
-          defaultMessage: "Full Profile",
-          id: "rN333X",
+          defaultMessage: "Full profile",
+          id: "803us1",
           description:
             "Text in table search form column dropdown when no column is selected.",
         }),

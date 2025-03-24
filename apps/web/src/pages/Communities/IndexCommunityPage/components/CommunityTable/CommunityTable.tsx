@@ -130,9 +130,9 @@ export const CommunityTable = ({
               linkProps: {
                 href: paths.communityCreate(),
                 label: intl.formatMessage({
-                  defaultMessage: "Create a community",
-                  id: "BRd2Xw",
-                  description: "Text to create a community",
+                  defaultMessage: "Create community",
+                  id: "PrTwov",
+                  description: "Text to create a community (action)",
                 }),
                 from: currentUrl,
               },

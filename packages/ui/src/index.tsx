@@ -6,6 +6,7 @@ import {
   IconType,
   IconProps,
   ButtonLinkMode,
+  HydrogenAttributes,
 } from "./types";
 import Accordion, { type AccordionMetaData } from "./components/Accordion";
 import Alert, { type AlertProps } from "./components/Alert";
@@ -21,6 +22,8 @@ import Board from "./components/Board/Board";
 import {
   CardBasic,
   CardFlat,
+  CardForm,
+  CardFormSeparator,
   type CardBasicProps,
   type CardFlatProps,
 } from "./components/Card";
@@ -103,6 +106,7 @@ export type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
+  HydrogenAttributes,
   DownloadCsvProps,
   LinkProps,
   IconProps,
@@ -141,6 +145,8 @@ export {
   Button,
   CardBasic,
   CardFlat,
+  CardForm,
+  CardFormSeparator,
   CardRepeater,
   CardSeparator,
   Chips,

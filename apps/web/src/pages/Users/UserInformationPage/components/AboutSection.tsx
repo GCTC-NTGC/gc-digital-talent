@@ -15,11 +15,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
       <div data-h2-flex-grid="base(normal, x1, x.5)">
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Name:",
-              id: "nok2sR",
-              description: "Display text for the name field on users",
-            })}
+            {intl.formatMessage(commonMessages.name)}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
         </div>
@@ -32,12 +29,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Preferred Communication Language:",
-              id: "LvHCvn",
-              description:
-                "Display text for the preferred communication language field on users",
-            })}
+            {intl.formatMessage(commonMessages.preferredCommunicationLanguage)}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>{getLocalizedName(user.preferredLang?.label, intl)}</p>
         </div>
@@ -104,7 +97,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               })}
             </p>
             <p>
-              {user.currentCity ? user.currentCity : ""}
+              {user.currentCity ?? ""}
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               {user.currentCity && user.currentProvince?.label ? ", " : ""}
               {getLocalizedName(user.currentProvince?.label, intl, true)}
             </p>

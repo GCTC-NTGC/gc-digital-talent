@@ -1,72 +1,22 @@
 import { IntlShape } from "react-intl";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { ReactNode } from "react";
 
-import { Color, IconType } from "@gc-digital-talent/ui";
-import {
-  PoolCandidate,
-  Maybe,
-  PoolCandidateStatus,
-} from "@gc-digital-talent/graphql";
+import { IconType } from "@gc-digital-talent/ui";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { poolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
 import {
-  derivedStatusLabel,
+  getQualifiedRecruitmentStatusChip,
   isInactiveStatus,
-  isNotPlacedStatus,
   isPlacedStatus,
-  isScreenedOutStatus,
   isSuspendedStatus,
+  StatusChipWithDescription,
 } from "~/utils/poolCandidate";
 
-interface StatusChipInfo {
-  color: Color;
-  text: ReactNode;
-  icon?: IconType;
-}
-
-export const getStatusChipInfo = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-  suspendedAt: PoolCandidate["suspendedAt"],
-  intl: IntlShape,
-): StatusChipInfo => {
-  const statusLabelMessage = derivedStatusLabel(status, suspendedAt);
-  const text = statusLabelMessage ? intl.formatMessage(statusLabelMessage) : "";
-
-  if (isNotPlacedStatus(status)) {
-    return {
-      color: "success",
-      text,
-      icon: ShieldCheckIcon,
-    };
-  }
-  if (isPlacedStatus(status)) {
-    return {
-      color: "secondary",
-      text,
-    };
-  }
-  if (status === PoolCandidateStatus.Expired || isScreenedOutStatus(status)) {
-    return {
-      color: "black",
-      text,
-    };
-  }
-  if (isInactiveStatus(status)) {
-    return {
-      color: "warning",
-      text,
-    };
-  }
-  return {
-    color: "primary",
-    text,
-  };
-};
 interface AvailabilityInfo {
   icon: IconType | null;
   color: Record<string, string>;
@@ -87,7 +37,11 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isPlacedStatus(status?.value)) {
+  // placed casual is an exception, it can be suspended
+  const isLongTermPlacedStatus =
+    isPlacedStatus(status?.value) &&
+    status?.value !== PoolCandidateStatus.PlacedCasual;
+  if (isLongTermPlacedStatus) {
     return {
       icon: null,
       color: {},
@@ -127,7 +81,7 @@ const getAvailabilityInfo = (
 };
 
 interface QualifiedRecruitmentInfo {
-  statusChip: StatusChipInfo;
+  statusChip: StatusChipWithDescription;
   availability: AvailabilityInfo;
   title: {
     html: ReactNode;
@@ -140,9 +94,10 @@ export const getQualifiedRecruitmentInfo = (
   intl: IntlShape,
 ): QualifiedRecruitmentInfo => {
   return {
-    statusChip: getStatusChipInfo(
-      candidate.status?.value,
+    statusChip: getQualifiedRecruitmentStatusChip(
       candidate.suspendedAt,
+      candidate.placedAt,
+      candidate.status?.value ?? null,
       intl,
     ),
     availability: getAvailabilityInfo(candidate, intl),

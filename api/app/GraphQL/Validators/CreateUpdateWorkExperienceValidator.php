@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
 use App\Enums\WorkExperienceGovEmployeeType;
@@ -18,9 +19,10 @@ final class CreateUpdateWorkExperienceValidator extends Validator
     public function rules(): array
     {
         return [
-            // 'workExperience.employmentCategory' => [
-            //     'required',
-            // ],
+            'workExperience.employmentCategory' => [
+                'sometimes',
+                'required',
+            ],
             'workExperience.extSizeOfOrganization' => [
                 Rule::requiredIf(
                     (
@@ -61,6 +63,11 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                 Rule::requiredIf(
                     (
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
+                    )
+                ),
+                Rule::prohibitedIf(
+                    (
+                        $this->arg('workExperience.govEmploymentType') !== WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
                 Rule::prohibitedIf(
@@ -141,8 +148,10 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     )
                 ),
             ],
-            'workExperience.classification' => [
+            'workExperience.classificationId' => [
                 Rule::requiredIf(
+                    $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                      &&
                     (
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
                     ) ||
@@ -153,31 +162,45 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                         $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
                     )
                 ),
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
-                ),
-                Rule::exists('classifications', 'id'),
+                // This does not work without proper connect/disconnect in the schema
+                // Rule::exists('classifications', 'id'),
             ],
-            'workExperience.department' => [
+            'workExperience.departmentId' => [
                 Rule::requiredIf(
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::CASUAL->name
-                    ) ||
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::TERM->name
-                    ) ||
-                    (
-                        $this->arg('workExperience.govEmploymentType') === WorkExperienceGovEmployeeType::INDETERMINATE->name
-                    )
+                    $this->arg('workExperience.employmentCategory') === EmploymentCategory::GOVERNMENT_OF_CANADA->name
                 ),
-                Rule::prohibitedIf(
-                    (
-                        $this->arg('workExperience.employmentCategory') !== EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    )
+                // This does not work without proper connect/disconnect in the schema
+                // Rule::exists('departments', 'id'),
+            ],
+            'workExperience.supervisedEmployeesNumber' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.supervisedEmployees') === true
                 ),
-                Rule::exists('departments', 'id'),
+            ],
+            'workExperience.annualBudgetAllocation' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.budgetManagement') === true
+                ),
+            ],
+            'workExperience.cSuiteRoleTitle' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.seniorManagementStatus') === true
+                ),
+            ],
+            'workExperience.otherCSuiteRoleTitle' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.seniorManagementStatus') === true
+                    &&
+                    $this->arg('workExperience.otherCSuiteRoleTitle') === CSuiteRoleTitle::OTHER->name
+                ),
             ],
         ];
     }

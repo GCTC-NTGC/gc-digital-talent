@@ -7,7 +7,7 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
-  // required imports to generate AnExperience to export
+  // required imports to generate an Experience to export
   User,
   ExperienceSkillRecord,
   Skill,
@@ -16,8 +16,13 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
+  EmploymentCategory,
+  WorkExperienceGovEmployeeType,
+  GovContractorType,
+  CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 
+import fakeDepartments from "./fakeDepartments";
 import { getStaticSkills } from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
@@ -167,13 +172,28 @@ const generateWork = (): GeneratedWorkExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     organization: faker.company.name(),
-    role: faker.person.jobTitle(),
+    role: `${faker.person.jobDescriptor()} ${faker.person.jobType()} ${faker.person.jobTitle()} ${faker.person.jobArea()}`,
     division: faker.animal.bird(),
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    department: fakeDepartments()[5],
+    employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
+    govEmploymentType: toLocalizedEnum(
+      WorkExperienceGovEmployeeType.Contractor,
+    ),
+    govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
+    contractorFirmAgencyName: faker.company.name(),
+    supervisoryPosition: true,
+    supervisedEmployees: true,
+    supervisedEmployeesNumber: "50",
+    budgetManagement: true,
+    annualBudgetAllocation: "100000000",
+    seniorManagementStatus: true,
+    cSuiteRoleTitle: toLocalizedEnum(CSuiteRoleTitle.Other),
+    otherCSuiteRoleTitle: `${faker.person.jobDescriptor()} ${faker.person.jobType()} ${faker.person.jobTitle()} ${faker.person.jobArea()}`,
   };
 };
 

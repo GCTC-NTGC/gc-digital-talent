@@ -30,8 +30,8 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
                 description: "Null message on sections for edit pool page.",
               })
             : intl.formatMessage({
-                defaultMessage: "You haven't filled this information out yet.",
-                id: "xsIcls",
+                defaultMessage: "You haven't filled out this information yet.",
+                id: "D3so/C",
                 description: "Null message on sections for edit pool page.",
               })}
         </p>

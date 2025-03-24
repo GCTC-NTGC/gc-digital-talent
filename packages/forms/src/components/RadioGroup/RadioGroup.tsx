@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "motion/react";
 import { ReactNode } from "react";
 
 import Field from "../Field";

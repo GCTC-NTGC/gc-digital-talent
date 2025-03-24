@@ -19,11 +19,14 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
@@ -62,13 +65,14 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $written_level
  * @property ?string $verbal_level
  * @property ?string $estimated_language_ability
- * @property ?bool $is_gov_employee
+ * @property ?bool $computed_is_gov_employee
+ * @property bool $isVerifiedGovEmployee
  * @property ?string $work_email
  * @property ?\Illuminate\Support\Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
  * @property ?string $priority_number
- * @property ?string $department
- * @property ?string $current_classification
+ * @property ?string $computed_department
+ * @property ?string $computed_classification
  * @property ?string $citizenship
  * @property ?string $armed_forces_status
  * @property ?bool $is_woman
@@ -79,7 +83,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $location_exemptions
  * @property ?array $position_duration
  * @property array $accepted_operational_requirements
- * @property ?string $gov_employee_type
+ * @property ?string $computed_gov_employee_type
+ * @property ?string $computed_gov_role
  * @property ?int $priority_weight
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -92,6 +97,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ * @property ?string $off_platform_recruitment_processes
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -105,7 +111,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasFactory;
     use HasLocalizedEnums;
     use HasRelationships;
-    use HasRolesAndPermissions;
+    use HasRolesAndPermissions {
+        roles as baseRoles;
+    }
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
@@ -125,6 +133,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected $fillable = [
         'email',
         'sub',
+        'computed_is_gov_employee',
+        'computed_gov_employee_type',
+        'computed_classification',
+        'computed_department',
+        'computed_gov_position_type',
+        'computed_gov_end_date',
+        'computed_gov_role',
     ];
 
     protected $hidden = [];
@@ -206,6 +221,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
+     * Extends Laratrust roles relationship to
+     * support timestamp updating.
+     */
+    public function roles(): MorphToMany
+    {
+        return $this->baseRoles()->withTimestamps();
+    }
+
+    /**
      * Get the user's preferred locale.
      */
     public function preferredLocale(): string
@@ -234,14 +258,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department')
+        return $this->belongsTo(Department::class, 'computed_department')
             ->select(['id', 'name', 'department_number']);
     }
 
     /** @return BelongsTo<Classification, $this> */
     public function currentClassification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, 'current_classification');
+        return $this->belongsTo(Classification::class, 'computed_classification');
     }
 
     /** @return HasMany<AwardExperience, $this> */
@@ -303,6 +327,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
+    public function employeeProfile(): HasOne
+    {
+        return $this->hasOne(EmployeeProfile::class, 'id');
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -346,18 +375,21 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getClassification()
     {
-        if (! $this->current_classification) {
+
+        if (! $this->computed_classification) {
             return '';
         }
 
-        $classification = $this->currentClassification()->first();
+        $classification = $this->currentClassification;
 
-        return $classification->group.'-0'.$classification->level;
+        $leadingZero = $classification->level < 10 ? '0' : '';
+
+        return $classification->group.'-'.$leadingZero.$classification->level;
     }
 
     public function getDepartment()
     {
-        if (! $this->department) {
+        if (! $this->computed_department) {
             return '';
         }
 
@@ -397,6 +429,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $preferences;
     }
 
+    protected function isVerifiedGovEmployee(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
+        );
+    }
+
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
     {
@@ -414,7 +453,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
-            is_null($this->attributes['is_gov_employee']) or
+            is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['location_preferences']) or
@@ -446,7 +485,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $query->orWhereNotNull('looking_for_french');
                 $query->orWhereNotNull('looking_for_bilingual');
             });
-            $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('computed_is_gov_employee');
             $query->where(function (Builder $query) {
                 $query->where('has_priority_entitlement', false)
                     ->orWhere(function (Builder $query) {
@@ -462,6 +501,52 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $query;
+    }
+
+    /**
+     * Custom logging for adding/removing roles for a user
+     *
+     * This comes from Laratrust so it is missed in the normal
+     * event logging for this model. Since we do not have access to specific data
+     * the shape is slightly different
+     *
+     *  - Subject is the user being affected (role added to or removed from)
+     *  - Properties are the subject users id, role id and if it is a team based role, the team id
+     *
+     * @param  string  $eventName  The action taken `roleAdded` | `roleRemoved`
+     * @param  User  $user  User being affected (subject)
+     * @param  ?string  $roleId  Id of the role being added or removed
+     * @param  mixed  $team  IF team based role, the ID or array of then team ID
+     */
+    private static function logRoleChange(string $eventName, User $user, ?string $roleId, mixed $team)
+    {
+        if (! $roleId) {
+            return;
+        }
+
+        $properties = [
+            'user_id' => $user->id,
+            'role_id' => $roleId,
+        ];
+        if ($team) {
+            $teamId = $team;
+            if (is_array($team)) {
+                if (Arr::isAssoc($team) && isset($team['id'])) {
+                    $teamId = $team['id'];
+                } elseif (isset($team[0]['id'])) {
+                    $teamId = $team[0]['id'];
+                }
+            }
+
+            $properties['team_id'] = $teamId;
+        }
+
+        activity()
+            ->causedBy(Auth::user())
+            ->performedOn($user)
+            ->withProperties(['attributes' => $properties])
+            ->event($eventName)
+            ->log($eventName);
     }
 
     /**
@@ -503,6 +588,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newWorkEmail]);
             }
+        });
+
+        static::roleAdded(function (User $user, string $role, $team) {
+            self::logRoleChange('roleAdded', $user, $role, $team);
+        });
+
+        static::roleRemoved(function (User $user, string $role, $team) {
+            self::logRoleChange('roleRemoved', $user, $role, $team);
         });
     }
 
@@ -779,7 +872,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 }
 
                 if (array_key_exists('qualifiedStreams', $filters)) {
-                    $query->streams($filters['qualifiedStreams']);
+                    $query->whereWorkStreamsIn($filters['qualifiedStreams']);
                 }
             });
 
@@ -995,10 +1088,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
+    public static function scopeExactWorkEmail(Builder $query, string $email): Builder
+    {
+        return $query->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
     public static function scopeIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {
-            $query->where('is_gov_employee', true);
+            $query->where('computed_is_gov_employee', true);
         }
 
         return $query;
@@ -1088,6 +1186,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
             ->sortBy('improve_skills_rank');
+    }
+
+    public function scopeIsVerifiedGovEmployee(Builder $query): void
+    {
+        $query->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNotNull('work_email_verified_at');
     }
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
@@ -1232,6 +1337,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasVerifiedEmail(EmailType::WORK);
     }
 
+    /** @return HasMany<TalentNomination, $this> */
+    public function talentNominationsAsSubmitter(): HasMany
+    {
+        return $this->hasMany(TalentNomination::class, 'submitter_id');
+    }
+
     public static function hydrateSnapshot(mixed $snapshot): User|array
     {
         $user = new User;
@@ -1258,9 +1369,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'written_level' => 'comprehensionLevel',
             'verbal_level' => 'verbalLevel',
             'estimated_language_ability' => 'estimatedLanguageAbility',
-            'is_gov_employee' => 'isGovEmployee',
+            'computed_is_gov_employee' => 'isGovEmployee',
             'work_email' => 'workEmail',
-            'gov_employee_type' => 'govEmployeeType',
+            'computed_gov_employee_type' => 'govEmployeeType',
+            'computed_gov_position_type' => 'govPositionType',
+            'computed_gov_end_date' => 'govEndDate',
+            'computed_gov_role' => 'govRole',
             'has_priority_entitlement' => 'hasPriorityEntitlement',
             'priority_number' => 'priorityNumber',
             'location_preferences' => 'locationPreferences',
@@ -1277,7 +1391,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $user = self::hydrateFields($snapshot, $fields, $user);
 
         if (isset($snapshot['department'])) {
-            $user->department = $snapshot['department']['id'];
+            $user->computed_department = $snapshot['department']['id'];
+        }
+
+        if (isset($snapshot['currentClassification'])) {
+            $user->computed_classification = $snapshot['currentClassification']['id'];
         }
 
         return $user;

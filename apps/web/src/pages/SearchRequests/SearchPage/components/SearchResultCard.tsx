@@ -22,9 +22,9 @@ const testId = (text: ReactNode) => (
 const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -121,7 +121,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         id={`search_pool_${pool.id}`}
       >
         {getShortPoolTitleHtml(intl, {
-          stream: pool.stream,
+          workStream: pool.workStream,
           name: pool.name,
           publishingGroup: pool.publishingGroup,
           classification: pool.classification,
@@ -157,6 +157,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             },
           )}
         </span>
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         <span aria-hidden>&bull;</span>
         <span
           data-h2-font-weight="base(700)"
@@ -197,6 +198,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         {essentialSkills.length > 0
           ? essentialSkills.map((skill, index) => (
               <Fragment key={skill.id}>
+                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {index !== 0 && <span aria-hidden>&bull;</span>}
                 <span key={skill.id} data-h2-color="base(black.light)">
                   {getLocalizedName(skill?.name, intl)}

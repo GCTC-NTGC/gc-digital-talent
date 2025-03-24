@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
+  getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -255,15 +256,7 @@ const LinkCareerTimeline = ({
       if (isWorkExperience(experience)) {
         const workExperience = {
           value: experience.id,
-          label:
-            intl.formatMessage(
-              {
-                defaultMessage: "{role} at {organization}",
-                id: "wTAdQe",
-                description: "Role at organization",
-              },
-              { role: experience.role, organization: experience.organization },
-            ) || "",
+          label: getExperienceName(experience, intl),
         };
 
         return {

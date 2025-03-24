@@ -19,7 +19,6 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Role;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
@@ -66,7 +65,7 @@ class UserTest extends TestCase
                 'location_preferences' => [],
                 'has_diploma' => false,
                 'position_duration' => [],
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
                 'telephone' => null,
                 'first_name' => null,
                 'last_name' => null,
@@ -1267,7 +1266,7 @@ class UserTest extends TestCase
                 'looking_for_bilingual' => null,
                 'telephone' => '+15407608748',
                 'current_city' => 'Somewhere random',
-                'is_gov_employee' => false,
+                'computed_is_gov_employee' => false,
             ]);
 
         // Assert query no isProfileComplete filter will return all users
@@ -1569,12 +1568,12 @@ class UserTest extends TestCase
     {
         // Create initial set of 5 users not with gov.
         User::factory()->count(5)->create([
-            'is_gov_employee' => false,
+            'computed_is_gov_employee' => false,
         ]);
 
         // Create two new users with the government.
         User::factory()->count(2)->create([
-            'is_gov_employee' => true,
+            'computed_is_gov_employee' => true,
         ]);
 
         // Assert query no isGovEmployee filter will return all users
@@ -1834,7 +1833,7 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 9, //including base admin user
+                'countApplicants' => 9, // including base admin user
             ],
         ]);
     }
@@ -2294,13 +2293,10 @@ class UserTest extends TestCase
 
     public function testRoleAssignmentScope(): void
     {
-        $testTeam = Team::factory()->create();
         $testPool = Pool::factory()->create();
         $testCommunity = Community::factory()->create();
 
         $adminId = Role::where('name', 'platform_admin')->value('id');
-        $responderId = Role::where('name', 'request_responder')->value('id');
-        $poolOperatorId = Role::where('name', 'pool_operator')->value('id');
         $processOperatorId = Role::where('name', 'process_operator')->value('id');
         $communityRecruiterId = Role::where('name', 'community_recruiter')->value('id');
         $communityAdminId = Role::where('name', 'community_admin')->value('id');
@@ -2308,8 +2304,6 @@ class UserTest extends TestCase
         // Create users
         User::factory(1)->asAdmin()->create();
         User::factory(3)->asGuest()->create();
-        User::factory(5)->asPoolOperator($testTeam->name)->create();
-        User::factory(7)->asRequestResponder()->create();
         User::factory(11)->asApplicant()->create();
 
         User::factory(2)->asProcessOperator($testPool->id)->create();
@@ -2331,40 +2325,28 @@ class UserTest extends TestCase
         $empty = ['where' => []];
         $nullRoles = ['where' => ['roles' => null]];
         $adminRoles = ['where' => ['roles' => [$adminId]]];
-        $responderRoles = ['where' => ['roles' => [$responderId]]];
-        $poolRoles = ['where' => ['roles' => [$poolOperatorId]]];
         $processRoles = ['where' => ['roles' => [$processOperatorId]]];
         $recruiterRoles = ['where' => ['roles' => [$communityRecruiterId]]];
         $communityAdminRoles = ['where' => ['roles' => [$communityAdminId]]];
         $communityCombinedRoles = ['where' => ['roles' => [$communityAdminId, $communityRecruiterId]]]; // check more than one role at a time
 
-        assertSame(36, count(User::all())); // ensure total user count is expected 36
+        assertSame(24, count(User::all())); // ensure total user count is expected 24
 
         // assert each query returns expected count
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $empty)
             ->assertJsonFragment([
-                'total' => 36,
+                'total' => 24,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $nullRoles)
             ->assertJsonFragment([
-                'total' => 36,
+                'total' => 24,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $adminRoles)
             ->assertJsonFragment([
                 'total' => 2, // includes created and setup admins
-            ]);
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($query, $responderRoles)
-            ->assertJsonFragment([
-                'total' => 7,
-            ]);
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($query, $poolRoles)
-            ->assertJsonFragment([
-                'total' => 5,
             ]);
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, $processRoles)
@@ -2455,7 +2437,6 @@ class UserTest extends TestCase
             ]);
         $adminUser = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -2545,5 +2526,29 @@ class UserTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    public function testIsVerifiedGovermentEmployeeAccessor()
+    {
+        $user = User::factory()
+            ->asGovEmployee()
+            ->create();
+
+        $this->assertTrue($user->isVerifiedGovEmployee);
+
+        $user->work_email_verified_at = null;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
+        $user->work_email_verified_at = now();
+        $user->work_email = null;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
+        $user->work_email = 'email@domain.com';
+        $user->computed_is_gov_employee = false;
+        $user->save();
+        $this->assertFalse($user->isVerifiedGovEmployee);
+
     }
 }

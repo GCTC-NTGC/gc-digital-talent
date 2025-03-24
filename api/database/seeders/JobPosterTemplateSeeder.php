@@ -49,8 +49,12 @@ class JobPosterTemplateSeeder extends Seeder
         //         en
         //         fr
         //       }
-        //       stream {
-        //         value
+        //       workStream {
+        //         id
+        //         name {
+        //           en
+        //           fr
+        //         }
         //       }
         //       classification {
         //         group
@@ -126,7 +130,6 @@ class JobPosterTemplateSeeder extends Seeder
             JobPosterTemplate::updateOrCreate(
                 ['reference_id' => $templateModel->referenceId],
                 [
-                    'stream' => $templateModel->stream->value,
                     'work_stream_id' => $streamObject?->id,
                     'classification_id' => $classificationObject->id,
                     'supervisory_status' => $templateModel->supervisoryStatus,

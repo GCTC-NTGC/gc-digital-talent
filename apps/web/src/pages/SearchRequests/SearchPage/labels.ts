@@ -62,6 +62,26 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "i7nfvV",
       description: "CR-04 classification label including titles",
     },
+    "EX-03": {
+      defaultMessage: "EX-03: Digital Leader",
+      id: "7dOILY",
+      description: "EX-03 classification label including titles",
+    },
+    "EX-04": {
+      defaultMessage: "EX-04: Digital Leader",
+      id: "GwhSUZ",
+      description: "EX-04 classification label including titles",
+    },
+    "AS-03": {
+      defaultMessage: "AS-03: Advisor or Analyst",
+      id: "40Z3LU",
+      description: "AS-03 classification label including titles",
+    },
+    "AS-05": {
+      defaultMessage: "AS-05: Senior Advisor or Analyst",
+      id: "g7zCg/",
+      description: "AS-05 classification label including titles",
+    },
   });
 
 export const classificationAriaLabels: Record<string, MessageDescriptor> =
@@ -125,5 +145,25 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Clerk C R 4",
       id: "UA37iG",
       description: "CR-04 classification aria label including titles",
+    },
+    "EX-03": {
+      defaultMessage: "Digital Leader E X 3",
+      id: "e4nq4j",
+      description: "EX-03 classification aria label including titles",
+    },
+    "EX-04": {
+      defaultMessage: "Digital Leader E X 4",
+      id: "EbG039",
+      description: "EX-04 classification aria label including titles",
+    },
+    "AS-03": {
+      defaultMessage: "Advisor or Analyst A S 3",
+      id: "XZ8zbg",
+      description: "AS-03 classification aria label including titles",
+    },
+    "AS-05": {
+      defaultMessage: "Senior Advisor or Analyst A S 5",
+      id: "n9Q5yf",
+      description: "AS-05 classification aria label including titles",
     },
   });

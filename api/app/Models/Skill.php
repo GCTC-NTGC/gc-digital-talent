@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,8 +37,8 @@ class Skill extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
         'keywords' => 'array',
     ];
 
@@ -83,5 +84,16 @@ class Skill extends Model
     public static function scopeBehavioural(Builder $query)
     {
         return $query->where('category', '=', SkillCategory::BEHAVIOURAL->name);
+    }
+
+    public function scopeFamilies(Builder $query, ?array $keys): Builder
+    {
+        if (! $keys) {
+            return $query;
+        }
+
+        return $query->whereHas('families', function (Builder $query) use ($keys) {
+            $query->whereIn('key', $keys);
+        });
     }
 }

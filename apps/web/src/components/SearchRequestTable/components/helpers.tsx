@@ -18,7 +18,7 @@ export function classificationAccessor(
 ) {
   return classifications
     ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-0${c.level}`)
+    ?.map((c) => `${c.group}-${c.level < 10 ? "0" : ""}${c.level}`)
     ?.join(", ");
 }
 
@@ -34,10 +34,11 @@ export function classificationsCell(
   const chipsArray = filteredClassifications.map((classification) => {
     return (
       <Chip
-        key={`${classification.group}-0${classification.level}`}
+        key={`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
         color="primary"
       >
-        {`${classification.group}-0${classification.level}`}
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+        {`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
       </Chip>
     );
   });

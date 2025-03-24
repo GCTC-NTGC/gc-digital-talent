@@ -196,7 +196,7 @@ const Trigger = forwardRef<
             className="Accordion__Trigger"
             data-h2-align-items="base(flex-start)"
             data-h2-background-color="base(transparent) base:focus-visible(focus)"
-            data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
+            data-h2-color="base(black) base:focus-visible(black) base:children[.Accordion__Subtitle](black.light) base:all:focus-visible:children[*](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
             data-h2-cursor="base(pointer)"
             data-h2-display="base(flex)"
             data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
@@ -290,25 +290,34 @@ interface AccordionMetaDataProps {
 }
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
+  const metadataLength = metadata.length;
+  const separatorSpan = (
+    <span
+      data-h2-display="base(none) p-tablet(inline-block)"
+      data-h2-color="base(black.lighter)"
+      data-h2-margin="p-tablet(0 x.5)"
+      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+    >
+      &bull;
+    </span>
+  );
+
   return (
     <div
       className="Accordion__MetaData"
-      data-h2-display="base(flex) p-tablet:children[::after](inline-block)"
+      data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
       data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-gap="base(x.5 0)"
-      data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-      data-h2-text-decoration="p-tablet:children[::after](none)"
-      data-h2-color="p-tablet:children[::after](black.lighter)"
-      data-h2-margin="base(-x.05 0 x.5 x1.30) p-tablet(-x.55 0 x.5 x1.30) p-tablet:children[:not(:last-child)::after](0 x.5)"
+      data-h2-margin="base(0 0 x.5 x1.30) p-tablet(0 0 x.5 x1.30)"
       data-h2-font-size="base(caption)"
       data-h2-font-weight="base(bold)"
     >
-      {metadata.map(({ type, color, href, children, onClick, key }) => {
+      {metadata.map(({ type, color, href, children, onClick, key }, index) => {
         switch (type) {
           case "text":
-            return (
+            return index + 1 === metadataLength ? (
               <span
                 data-h2-color="base(black.light)"
                 data-h2-font-weight="base(400)"
@@ -316,15 +325,33 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
               >
                 {children}
               </span>
+            ) : (
+              <>
+                <span
+                  data-h2-color="base(black.light)"
+                  data-h2-font-weight="base(400)"
+                  key={key}
+                >
+                  {children}
+                </span>
+                {separatorSpan}
+              </>
             );
           case "chip":
-            return (
+            return index + 1 === metadataLength ? (
               <span key={key}>
                 <Chip color={color ?? "primary"}>{children}</Chip>
               </span>
+            ) : (
+              <>
+                <span key={key}>
+                  <Chip color={color ?? "primary"}>{children}</Chip>
+                </span>
+                {separatorSpan}
+              </>
             );
           case "button":
-            return (
+            return index + 1 === metadataLength ? (
               <Button
                 mode="text"
                 color={color ?? "primary"}
@@ -335,9 +362,23 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
               >
                 {children}
               </Button>
+            ) : (
+              <>
+                <Button
+                  mode="text"
+                  color={color ?? "primary"}
+                  fontSize="caption"
+                  data-h2-font-weight="base(bold)"
+                  onClick={onClick}
+                  key={key}
+                >
+                  {children}
+                </Button>
+                {separatorSpan}
+              </>
             );
           case "link":
-            return (
+            return index + 1 === metadataLength ? (
               <Link
                 color={color ?? "primary"}
                 href={href}
@@ -347,6 +388,19 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
               >
                 {children}
               </Link>
+            ) : (
+              <>
+                <Link
+                  color={color ?? "primary"}
+                  href={href}
+                  fontSize="caption"
+                  data-h2-font-weight="base(bold)"
+                  key={key}
+                >
+                  {children}
+                </Link>
+                {separatorSpan}
+              </>
             );
           default:
             return null;

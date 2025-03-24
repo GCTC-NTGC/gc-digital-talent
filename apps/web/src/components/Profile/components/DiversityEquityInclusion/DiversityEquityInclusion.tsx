@@ -18,7 +18,6 @@ type AccordionItems = "information" | "";
 const DiversityEquityInclusion = ({
   user,
   onUpdate,
-  isUpdating,
   pool,
 }: SectionProps<Pick<Pool, "publishingGroup">>) => {
   const intl = useIntl();
@@ -171,7 +170,6 @@ const DiversityEquityInclusion = ({
         </Accordion.Item>
       </Accordion.Root>
       <EquityOptions
-        isDisabled={isUpdating}
         inApplication={!!pool}
         indigenousCommunities={user.indigenousCommunities}
         indigenousDeclarationSignature={user.indigenousDeclarationSignature}

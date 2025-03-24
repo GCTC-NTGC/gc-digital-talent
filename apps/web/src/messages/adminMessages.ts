@@ -56,10 +56,10 @@ const messages = defineMessages({
     id: "LOjdrP",
     description: "Title for community",
   },
-  pools: {
-    defaultMessage: "Pools",
-    id: "Myfw+L",
-    description: "Title for pools",
+  processes: {
+    defaultMessage: "Processes",
+    id: "Z0G1WA",
+    description: "Title for processes",
   },
   poolCandidates: {
     defaultMessage: "Pool candidates",
@@ -213,6 +213,11 @@ const messages = defineMessages({
     defaultMessage: "Search by keyword",
     id: "dotl8X",
     description: "Label for keyword search input",
+  },
+  communityTalent: {
+    defaultMessage: "Community talent",
+    id: "+365vM",
+    description: "Label for community talent",
   },
 });
 

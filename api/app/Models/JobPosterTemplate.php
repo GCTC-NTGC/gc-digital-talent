@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,14 +37,14 @@ class JobPosterTemplate extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'name' => 'array',
-        'description' => 'array',
-        'work_description' => 'array',
-        'tasks' => 'array',
-        'keywords' => 'array',
-        'essential_technical_skills_notes' => 'array',
-        'essential_behavioural_skills_notes' => 'array',
-        'nonessential_technical_skills_notes' => 'array',
+        'name' => LocalizedString::class,
+        'description' => LocalizedString::class,
+        'work_description' => LocalizedString::class,
+        'tasks' => LocalizedString::class,
+        'keywords' => LocalizedString::class,
+        'essential_technical_skills_notes' => LocalizedString::class,
+        'essential_behavioural_skills_notes' => LocalizedString::class,
+        'nonessential_technical_skills_notes' => LocalizedString::class,
     ];
 
     /**
@@ -53,7 +54,6 @@ class JobPosterTemplate extends Model
         'name',
         'description',
         'key',
-        'stream',
         'supervisory_status',
         'work_description',
         'tasks',

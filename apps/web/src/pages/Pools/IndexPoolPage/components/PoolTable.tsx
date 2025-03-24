@@ -49,7 +49,6 @@ import {
   ownerNameAccessor,
   poolNameAccessor,
   viewCell,
-  viewTeamLinkCell,
   transformPoolInput,
   getTeamDisplayNameSort,
   getOrderByClause,
@@ -59,6 +58,7 @@ import {
   poolBookmarkCell,
   getPoolBookmarkSort,
   getOrderByColumnSort,
+  getWorkStreamNameSort,
 } from "./helpers";
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
@@ -73,9 +73,9 @@ const defaultState = {
 const PoolTable_PoolFragment = graphql(/* GraphQL */ `
   fragment PoolTable_Pool on Pool {
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -129,6 +129,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
     $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    $orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     $orderByColumn: OrderByColumnInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
@@ -145,6 +146,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
       where: $where
       orderByPoolBookmarks: $orderByPoolBookmarks
       orderByTeamDisplayName: $orderByTeamDisplayName
+      orderByWorkStreamName: $orderByWorkStreamName
       orderByColumn: $orderByColumn
       orderBy: $orderBy
       first: $first
@@ -257,6 +259,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       first: paginationState.pageSize,
       orderByPoolBookmarks: getPoolBookmarkSort(),
       orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
+      orderByWorkStreamName: getWorkStreamNameSort(sortState, locale),
       orderByColumn: getOrderByColumnSort(sortState),
       orderBy: sortState ? getOrderByClause(sortState) : undefined,
     },
@@ -299,7 +302,8 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     }),
     columnHelper.accessor(
-      (row) => poolNameAccessor({ name: row.name, stream: row.stream }, intl),
+      (row) =>
+        poolNameAccessor({ name: row.name, workStream: row.workStream }, intl),
       {
         id: "name",
         header: intl.formatMessage(commonMessages.name),
@@ -323,9 +327,9 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         classificationCell(pool.classification),
     }),
     columnHelper.accessor(
-      ({ stream }) => getLocalizedName(stream?.label, intl),
+      ({ workStream }) => getLocalizedName(workStream?.name, intl),
       {
-        id: "stream",
+        id: "workStream",
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
@@ -355,19 +359,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.team?.displayName, intl, true),
-      {
-        id: "team",
-        header: intl.formatMessage(adminMessages.team),
-        cell: ({ row: { original: pool } }) =>
-          viewTeamLinkCell(
-            paths.teamView(pool.team?.id ? pool.team?.id : ""),
-            pool.team?.displayName,
-            intl,
-          ),
-      },
-    ),
     columnHelper.accessor((row) => ownerNameAccessor(row), {
       id: "ownerName",
       // Note: Being removed with communities

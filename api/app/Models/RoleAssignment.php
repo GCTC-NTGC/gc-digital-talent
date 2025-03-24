@@ -23,7 +23,7 @@ class RoleAssignment extends Model
 
     protected $keyType = 'string';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'role_id',

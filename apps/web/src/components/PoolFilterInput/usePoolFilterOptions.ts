@@ -32,9 +32,9 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
             fr
           }
         }
-        stream {
-          value
-          label {
+        workStream {
+          id
+          name {
             en
             fr
           }
@@ -85,7 +85,7 @@ const usePoolFilterOptions = (
       pools.map((pool) => ({
         value: pool.id,
         label: getShortPoolTitleLabel(intl, {
-          stream: pool.stream,
+          workStream: pool.workStream,
           name: pool.name,
           publishingGroup: pool.publishingGroup,
           classification: pool.classification,

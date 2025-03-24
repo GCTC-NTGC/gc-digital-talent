@@ -10,7 +10,6 @@ import {
   ThrowNotFound,
   useAnnouncer,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   PoolLayoutFragment,
@@ -38,9 +37,9 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
     id
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -58,12 +57,9 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
+    community {
+      name {
+        localized
       }
     }
     classification {
@@ -92,7 +88,7 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
     return currentPage?.title;
   }
   return getShortPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -127,14 +123,12 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     id: pool.id,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
-    stream: pool.stream,
+    workStream: pool.workStream,
     classification: pool.classification,
   });
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
-  const subTitle = pool.team
-    ? getLocalizedName(pool.team?.displayName, intl)
-    : currentPage?.subtitle;
+  const subTitle = pool.community?.name?.localized ?? currentPage?.subtitle;
 
   const heroTitleValue = heroTitle({ currentPage, intl, pool });
   const heroSubtitleValue = heroSubtitle({ currentPage, subTitle });

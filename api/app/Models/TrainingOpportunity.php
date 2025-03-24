@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LocalizedString;
 use App\Enums\CourseLanguage;
 use App\Enums\DeadlineStatus;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,12 +35,12 @@ class TrainingOpportunity extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'title' => 'array',
+        'title' => LocalizedString::class,
         'registration_deadline' => 'date',
         'training_start' => 'date',
         'training_end' => 'date',
-        'description' => 'array',
-        'application_url' => 'array',
+        'description' => LocalizedString::class,
+        'application_url' => LocalizedString::class,
     ];
 
     /**

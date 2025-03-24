@@ -23,26 +23,25 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "@gc-digital-talent/env": "workspace:*",
-    "@urql/core": "^5.0.8",
-    "@urql/exchange-auth": "^2.2.0",
-    "graphql": "^16.9.0",
+    "@urql/core": "^5.1.0",
+    "@urql/exchange-auth": "^2.2.1",
+    "graphql": "^16.10.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
-    "react-intl": "^7.0.1",
+    "react-intl": "^7.1.6",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/jest": "^29.5.14",
-    "@types/lodash": "^4.17.13",
-    "@types/node": "^22.10.1",
+    "@types/lodash": "^4.17.16",
+    "@types/node": "^22.13.10",
     "@types/react": "^18.3.13",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.2"
   }
 }

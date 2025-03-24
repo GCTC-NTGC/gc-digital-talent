@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
@@ -24,6 +25,7 @@ const VisibleMinorityDialog = ({
   disabled,
 }: EquityDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = useState<boolean>(false);
   const methods = useForm<FormValues>({
     defaultValues: {
       isVisibleMinority: isAdded,
@@ -31,12 +33,12 @@ const VisibleMinorityDialog = ({
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
-    onSave(data.isVisibleMinority);
+  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await onSave(data.isVisibleMinority).then(() => setOpen(false));
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
@@ -62,8 +64,8 @@ const VisibleMinorityDialog = ({
             }
             quotedDefinition={intl.formatMessage({
               defaultMessage:
-                '"... refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese."',
-              id: "uPQ1t+",
+                '"refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese."',
+              id: "3tu/Mv",
               description:
                 "Definition of Visible minority from the StatsCan 'Visible minority of person' page.",
             })}

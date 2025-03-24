@@ -339,7 +339,7 @@ test.describe("Login and logout", () => {
     // confirm login in first page context
     await expect(
       pageOne.getByRole("heading", {
-        name: "Welcome back, Gul",
+        name: /welcome back/i,
         level: 1,
       }),
     ).toBeVisible();

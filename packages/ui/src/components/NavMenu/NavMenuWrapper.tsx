@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import FocusLock from "react-focus-lock";
-import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   KeyboardEventHandler,
   ReactNode,

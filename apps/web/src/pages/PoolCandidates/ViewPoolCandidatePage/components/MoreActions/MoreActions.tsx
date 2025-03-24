@@ -140,16 +140,20 @@ const MoreActions = ({
                 {poolCandidate.status &&
                   isQualifiedStatus(poolCandidate.status.value) && (
                     <span>
-                      {intl.formatMessage(commonMessages.expiryDate)}
-                      {intl.formatMessage(commonMessages.dividingColon)}
+                      <span aria-hidden="true">
+                        {intl.formatMessage(commonMessages.expiryDate)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                      </span>
                       <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
                     </span>
                   )}
                 {poolCandidate.status &&
                   isQualifiedStatus(poolCandidate.status.value) && (
                     <span>
-                      {intl.formatMessage(commonMessages.jobPlacement)}
-                      {intl.formatMessage(commonMessages.dividingColon)}
+                      <span aria-hidden="true">
+                        {intl.formatMessage(commonMessages.jobPlacement)}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                      </span>
                       <JobPlacementDialog
                         jobPlacementDialogQuery={poolCandidate}
                         optionsQuery={jobPlacementOptions}

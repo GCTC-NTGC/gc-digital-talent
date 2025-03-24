@@ -6,10 +6,13 @@ import { CardFlat, Heading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
 
 const About = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useRoutes();
+
   return (
     <div
       data-h2-background="base(home-footer-linear)"
@@ -44,42 +47,32 @@ const About = () => {
               <CardFlat
                 color="blackFixed"
                 title={intl.formatMessage({
-                  defaultMessage: "Office of the Chief Information Officer",
-                  id: "i9cA5V",
-                  description:
-                    "Title for the Office of the Chief Information Officer",
+                  defaultMessage: "Directive on Digital Talent",
+                  id: "xXwUGs",
+                  description: "Title for the digital talent directive page",
                 })}
                 links={[
                   {
                     external: true,
                     mode: "solid",
-                    href:
-                      locale === "en"
-                        ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
-                        : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeant-principal-information.html",
+                    href: paths.directive(),
                     label: intl.formatMessage({
-                      defaultMessage:
-                        "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",
-                      id: "NjHXGh",
+                      defaultMessage: "Check out the Directive",
+                      id: "sGPKUt",
                       description:
-                        "Link text for the Office of the Chief Information Officer",
+                        "Link text to read the directive on digital talent",
                     }),
                   },
                 ]}
               >
                 <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "<abbreviation>GC</abbreviation> Digital Talent is only one of the many initiatives being led by the Office of the Chief Information Officer of Canada (OCIO). Learn more about OCIO's role in the Government of Canada. Check out Canada's Digital Ambition 2022 to see where OCIO is heading in the future.",
-                      id: "h7URQB",
-                      description:
-                        "Description of the Office of the Chief Information Officer",
-                    },
-                    {
-                      abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-                    },
-                  )}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Learn more about the Directive on Digital Talent. Connected to the Policy on Service and Digital, the Directive sets out reporting and coordination requirements for departments related to digital talent sourcing, from early planning to hiring and contracting.",
+                    id: "L0ugLs",
+                    description:
+                      "Summary of the directive on digital talent featured item",
+                  })}
                 </p>
               </CardFlat>
               <CardFlat

@@ -157,14 +157,14 @@ trait GeneratesUserDoc
     {
         $section->addTitle($this->localizeHeading('government_info'), $headingRank);
 
-        $this->addLabelText($section, $this->localizeHeading('government_employee'), $this->yesOrNo($user->is_gov_employee));
+        $this->addLabelText($section, $this->localizeHeading('government_employee'), $this->yesOrNo($user->computed_is_gov_employee));
 
-        if ($user->is_gov_employee) {
+        if ($user->computed_is_gov_employee) {
             $department = $user->department()->first();
             $this->addLabelText($section, $this->localizeHeading('department'), $department->name[$this->lang] ?? '');
-            $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->gov_employee_type, GovEmployeeType::class));
+            $this->addLabelText($section, $this->localizeHeading('employee_type'), $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class));
             $this->addLabelText($section, $this->localizeHeading('work_email'), $user->work_email);
-            $this->addLabelText($section, $this->localizeHeading('current_classification'), $user->getClassification());
+            $this->addLabelText($section, $this->localizeHeading('classification'), $user->getClassification());
         }
 
         $this->addLabelText($section, $this->localizeHeading('priority_entitlement'), $this->yesOrNo($user->has_priority_entitlement));
@@ -337,13 +337,12 @@ trait GeneratesUserDoc
                     $this->localize('experiences.seniority_role'),
                     $this->localizeEnum($experience->ext_role_seniority, ExternalRoleSeniority::class)
                 );
-            }
-            if ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            } elseif ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $this->localizeEnum($experience->caf_force,
                             CafForce::class),
                     ),
@@ -361,15 +360,14 @@ trait GeneratesUserDoc
                     $this->localize('experiences.rank_category'),
                     $this->localizeEnum($experience->caf_rank, CafRank::class)
                 );
-            }
-            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
+            } elseif ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name) {
                 /** @var Department | null $department */
-                $department = Department::find($experience->department_id);
+                $department = $experience->department_id ? Department::find($experience->department_id) : null;
                 $section->addTitle(
                     sprintf(
                         '%s %s %s',
                         $experience->role,
-                        Lang::get('common.at', [], $this->lang),
+                        Lang::get('common.with', [], $this->lang),
                         $department ? $department->name[$this->lang] : Lang::get('common.not_found', [], $this->lang),
                     ),
                     $headingRank
@@ -424,6 +422,11 @@ trait GeneratesUserDoc
                         $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
+            } else {
+                // null case, so experiences prior to adding employment_category
+                $section->addTitle($experience->getTitle($this->lang), $headingRank);
+                $section->addText($experience->getDateRange($this->lang));
+                $this->addLabelText($section, $this->localize('experiences.team_group_division'), $experience->division);
             }
         }
 
@@ -448,14 +451,14 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generate a users skills showcase
+     * Generate a user's skill showcase
      *
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function skillsShowcase(Section $section, User $user, $headingRank = 3)
+    protected function skillShowcase(Section $section, User $user, $headingRank = 3)
     {
-        $section->addTitle($this->localizeHeading('skills_showcase'), $headingRank);
+        $section->addTitle($this->localizeHeading('skill_showcase'), $headingRank);
         $subHeadingRank = $headingRank + 2;
 
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
@@ -495,7 +498,7 @@ trait GeneratesUserDoc
         $this->dei($section, $user, $headingRank + 2);
 
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
-        $this->skillsShowcase($section, $user, $headingRank + 1);
+        $this->skillShowcase($section, $user, $headingRank + 1);
 
         $section->addPageBreak();
     }

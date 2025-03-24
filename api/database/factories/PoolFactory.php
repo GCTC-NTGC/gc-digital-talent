@@ -9,7 +9,6 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
-use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillLevel;
@@ -99,9 +98,9 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            //slice first set of skills as essential skills
+            // slice first set of skills as essential skills
             $essentialSkills = $skills->slice(0, $essentialCount);
-            //slice next set of  skills as non essential skills
+            // slice next set of  skills as non essential skills
             $nonEssentialSkills = $skills->slice($essentialCount, $nonEssentialCount);
             $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL->name);
             $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL->name);
@@ -188,9 +187,9 @@ class PoolFactory extends Factory
             // the base state is draft already
             $hasSpecialNote = $this->faker->boolean();
             $isRemote = $this->faker->boolean();
-            $workStreamId = WorkStream::inRandomOrder()->first()?->id;
-            if (! $workStreamId) {
-                $workStreamId = WorkStream::factory()->create()->id;
+            $workStream = WorkStream::inRandomOrder()->first();
+            if (! $workStream) {
+                $workStream = WorkStream::factory()->create();
             }
 
             return [
@@ -206,8 +205,7 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $this->faker->boolean,
-                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
-                'work_stream_id' => $workStreamId,
+                'work_stream_id' => $workStream->id,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
@@ -254,7 +252,6 @@ class PoolFactory extends Factory
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
                 'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
                 'is_remote' => $isRemote,
-                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
                 'work_stream_id' => $workStreamId,
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),

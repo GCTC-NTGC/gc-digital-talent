@@ -1,3 +1,4 @@
+/* eslint-disable formatjs/no-literal-string-in-jsx */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
@@ -8,7 +9,6 @@ import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import { ReactNode } from "react";
 
 import {
-  Locales,
   commonMessages,
   getLocalizedName,
   navigationMessages,
@@ -23,8 +23,8 @@ import {
   Maybe,
   Classification,
   Pool,
-  LocalizedPoolStream,
   LocalizedPoolStatus,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -85,12 +85,12 @@ export const formatClassificationString = ({
   group,
   level,
 }: formatClassificationStringProps): string => {
-  return `${group}-0${level}`;
+  return `${group}-${level < 10 ? "0" : ""}${level}`;
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
-  stream?: Maybe<LocalizedPoolStream>;
+  workStream?: Maybe<WorkStream>;
   short?: boolean;
   intl: IntlShape;
 }
@@ -98,14 +98,14 @@ interface formattedPoolPosterTitleProps {
 export const formattedPoolPosterTitle = ({
   title,
   classification,
-  stream,
+  workStream,
   short,
   intl,
 }: formattedPoolPosterTitleProps): {
   html: ReactNode;
   label: string;
 } => {
-  const streamString = stream ? getLocalizedName(stream.label, intl) : "";
+  const streamString = getLocalizedName(workStream?.name, intl, true);
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : "";
@@ -146,7 +146,7 @@ interface PoolTitleOptions {
 }
 
 type PoolTitle = Maybe<
-  Pick<Pool, "name" | "publishingGroup" | "stream"> & {
+  Pick<Pool, "name" | "publishingGroup" | "workStream"> & {
     classification?: Maybe<Pick<Classification, "group" | "level">>;
   }
 >;
@@ -183,7 +183,7 @@ export const poolTitle = (
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
     classification: pool?.classification,
-    stream: pool?.stream,
+    workStream: pool?.workStream,
     short: options?.short,
     intl,
   });
@@ -232,7 +232,7 @@ export const useAdminPoolPages = (
 ) => {
   const paths = useRoutes();
   const poolName = getFullPoolTitleLabel(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -457,7 +457,7 @@ export function getClassificationName(
   { group, level, name }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) {
-  const groupLevelStr = `${group}-0${level}`;
+  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
 
   if (!name) {
     return groupLevelStr;
@@ -466,44 +466,3 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
-
-export const getClassificationSalaryRangeUrl = (
-  locale: Locales,
-  classification?: Maybe<Pick<Classification, "group">>,
-): string | null => {
-  let localizedUrl: Record<Locales, string> | null = null;
-  switch (classification?.group) {
-    case "CS":
-    case "IT":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=1",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=1",
-      };
-      break;
-    case "AS":
-    case "PM":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    case "EC":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=4",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=4",
-      };
-      break;
-    case "CR":
-      localizedUrl = {
-        en: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=15",
-        fr: "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=15",
-      };
-      break;
-    default:
-      break;
-  }
-
-  if (localizedUrl) return localizedUrl[locale];
-
-  return null;
-};

@@ -13,7 +13,6 @@ import {
   PoolLanguage,
   User,
   UserPublicProfile,
-  PoolStream,
   PublishingGroup,
   SecurityStatus,
   Skill,
@@ -27,6 +26,7 @@ import {
   PoolOpportunityLength,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -39,12 +39,14 @@ import toLocalizedString from "./fakeLocalizedString";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeDepartments from "./fakeDepartments";
 import toLocalizedEnum from "./fakeLocalizedEnum";
+import fakeWorkStreams from "./fakeWorkStreams";
 
 const generatePool = (
   users: User[],
   skills: Skill[],
   classifications: Classification[],
   departments: Department[],
+  workStreams: WorkStream[],
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
@@ -106,10 +108,8 @@ const generatePool = (
     },
     classification: faker.helpers.arrayElement<Classification>(classifications),
     department: faker.helpers.arrayElement<Department>(departments),
+    workStream: faker.helpers.arrayElement<WorkStream>(workStreams),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
-    stream: toLocalizedEnum(
-      faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
-    ),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
     publishingGroup: faker.helpers.maybe(() =>
       toLocalizedEnum(
@@ -168,6 +168,7 @@ export default (
   skills = fakeSkills(100, fakeSkillFamilies(6)),
   classifications = fakeClassifications(),
   departments = fakeDepartments(),
+  workStreams = fakeWorkStreams(),
   essentialSkillCount = -1,
 ): Pool[] => {
   const users = fakeUsers();
@@ -180,6 +181,7 @@ export default (
           skills,
           classifications,
           departments,
+          workStreams,
           "CMO",
           "CMO",
           essentialSkillCount,
@@ -191,6 +193,7 @@ export default (
           skills,
           classifications,
           departments,
+          workStreams,
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
@@ -202,6 +205,7 @@ export default (
           skills,
           classifications,
           departments,
+          workStreams,
           "",
           "",
           essentialSkillCount,

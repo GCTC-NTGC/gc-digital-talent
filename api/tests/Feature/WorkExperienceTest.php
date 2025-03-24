@@ -6,6 +6,7 @@ use App\Enums\CafRank;
 use App\Enums\EmploymentCategory;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\GovPositionType;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\Classification;
 use App\Models\Department;
@@ -146,6 +147,31 @@ class WorkExperienceTest extends TestCase
         )->assertGraphQLValidationError('workExperience.extRoleSeniority', 'The work experience.ext role seniority field is required.');
     }
 
+    // test that validation rejects creating experiences with govPositionType when gov employee type is term
+    public function testCreatingExperienceFailsValidatingGovPositionType(): void
+    {
+        $this->actingAs($this->admin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                mutation createWorkExperience($userId: ID!, $workExperience: WorkExperienceInput!) {
+                    createWorkExperience(userId: $userId, workExperience: $workExperience) {
+                        user {
+                            id
+                        }
+                    }
+                }
+                ',
+            [
+                'userId' => $this->admin->id,
+                'workExperience' => [
+                    'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                    'govEmploymentType' => WorkExperienceGovEmployeeType::TERM->name,
+                    'govPositionType' => GovPositionType::SUBSTANTIVE->name,
+                ],
+            ]
+        )->assertGraphQLValidationError('workExperience.govPositionType', 'The work experience.gov position type field is prohibited.');
+    }
+
     // test that a created work experience of government type queries without issue
     public function testQueryingCreatedExperienceGovernment(): void
     {
@@ -168,9 +194,10 @@ class WorkExperienceTest extends TestCase
                 'userId' => $this->admin->id,
                 'workExperience' => [
                     'employmentCategory' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
-                    'govEmploymentType' => WorkExperienceGovEmployeeType::TERM->name,
-                    'classification' => ['connect' => $classification->id],
-                    'department' => ['connect' => $department->id],
+                    'govEmploymentType' => WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    'govPositionType' => GovPositionType::ACTING->name,
+                    'classificationId' => $classification->id,
+                    'departmentId' => $department->id,
                 ],
             ]
         )->assertJsonFragment(

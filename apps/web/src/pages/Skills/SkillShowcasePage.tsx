@@ -167,10 +167,10 @@ export const SkillShowcase = ({
               block={false}
             >
               {intl.formatMessage({
-                defaultMessage: "Return to skill library",
-                id: "jH5V6M",
+                defaultMessage: "Return to skill portfolio",
+                id: "mwVSMJ",
                 description:
-                  "Link text to navigate from skill showcase to the skill library page",
+                  "Link text to navigate from skill showcase to the skill portfolio page",
               })}
             </Link>
           </TableOfContents.Navigation>

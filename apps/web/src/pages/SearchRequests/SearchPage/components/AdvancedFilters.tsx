@@ -157,7 +157,7 @@ const AdvancedFilters = () => {
         data-h2-display="base(flex)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-align-items="base(center)"
-        data-h2-gap="base(0x.5)"
+        data-h2-gap="base(0 x.5)"
         data-h2-justify-content="base(space-between)"
         data-h2-margin="base(x2 0 x.5 0)"
       >
@@ -285,8 +285,8 @@ const AdvancedFilters = () => {
             >
               {intl.formatMessage({
                 defaultMessage:
-                  "Conditions of employment / Operational requirements",
-                id: "laGCzG",
+                  "Conditions of employment or operational requirements",
+                id: "H/zqKa",
                 description:
                   "Heading for operational requirements section of the search form.",
               })}

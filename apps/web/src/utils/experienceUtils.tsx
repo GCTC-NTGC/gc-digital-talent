@@ -7,17 +7,22 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import { ReactNode } from "react";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
 import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
+  EmploymentCategory,
+  GovPositionType,
   Maybe,
   PersonalExperience,
   Skill,
   WorkExperience,
+  WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   AllExperienceFormValues,
@@ -32,6 +37,7 @@ import {
 import { formattedDate, getDateRange } from "./dateUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
+import nodeToString from "./nodeToString";
 
 /**
  * Gets all of the experience form labels
@@ -160,6 +166,12 @@ export const getExperienceFormLabels = (
       id: "cD3QKi",
       description: "Label displayed on an Experience form for end date input",
     }),
+    expectedEndDate: intl.formatMessage({
+      defaultMessage: "Expected end date",
+      id: "0qwyH4",
+      description:
+        "Label displayed on an Experience form for expected end date input",
+    }),
     dateRange: intl.formatMessage({
       defaultMessage: "Start/end date",
       id: "PVzyQl",
@@ -222,6 +234,108 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for how a skill was applied section",
     }),
+    classificationGroup: intl.formatMessage({
+      defaultMessage: "Group",
+      id: "kUqaoo",
+      description:
+        "Label displayed on Work Experience form for classification group input",
+    }),
+    classificationLevel: intl.formatMessage({
+      defaultMessage: "Level",
+      id: "Y7Qop6",
+      description:
+        "Label displayed on Work Experience form for classification level input",
+    }),
+    extSizeOfOrganization: intl.formatMessage({
+      defaultMessage: "Size of the organization",
+      id: "HP5PEg",
+      description: "Label for the size of the organization radio group",
+    }),
+    extRoleSeniority: intl.formatMessage({
+      defaultMessage: "Seniority of the role",
+      id: "34NvoS",
+      description: "Label for the seniority of the role radio group",
+    }),
+    govEmploymentType: intl.formatMessage({
+      defaultMessage: "Employment type",
+      id: "uaEMMO",
+      description: "Label for the employment type radio group",
+    }),
+    classification: intl.formatMessage({
+      defaultMessage: "Classification",
+      id: "d1FYv4",
+      description: "Label displayed on Work Experience card for classification",
+    }),
+    positionType: intl.formatMessage({
+      defaultMessage: "Position type",
+      id: "0Dp1N4",
+      description: "Label for the position type radio group",
+    }),
+    govContractorRoleSeniority: intl.formatMessage({
+      defaultMessage: "Seniority of the role",
+      id: "34NvoS",
+      description: "Label for the seniority of the role radio group",
+    }),
+    govContractorType: intl.formatMessage({
+      defaultMessage: "Contractor type",
+      id: "Ym2fFN",
+      description: "Label for the role seniority radio group",
+    }),
+    contractorFirmAgencyName: intl.formatMessage({
+      defaultMessage: "Contracting firm or agency",
+      id: "Mea0Vt",
+      description: "Label for the contracting firm or agency text field",
+    }),
+    cafEmploymentType: intl.formatMessage({
+      defaultMessage: "Employment type",
+      id: "uaEMMO",
+      description: "Label for the employment type radio group",
+    }),
+    cafRank: intl.formatMessage({
+      defaultMessage: "Rank category",
+      id: "4fV+wX",
+      description: "Label for the rank category radio group",
+    }),
+    supervisoryPosition: intl.formatMessage({
+      defaultMessage: "Management or supervisory status",
+      id: "PSIaKn",
+      description: "Label for supervisory position field",
+    }),
+    supervisedEmployees: intl.formatMessage({
+      defaultMessage: "Employee supervision",
+      id: "T5nYy9",
+      description: "Label for employee supervision field",
+    }),
+    supervisedEmployeesNumber: intl.formatMessage({
+      defaultMessage: "Number of employees",
+      id: "0vNb2/",
+      description: "Label for number of employees field",
+    }),
+    budgetManagement: intl.formatMessage({
+      defaultMessage: "Budget management or delegated signing authority",
+      id: "uVtmGg",
+      description: "Label for budget management field",
+    }),
+    annualBudgetAllocation: intl.formatMessage({
+      defaultMessage: "Annual budget allocation (CAD$)",
+      id: "ZEmZm4",
+      description: "Label for annual budget allocation field",
+    }),
+    seniorManagementStatus: intl.formatMessage({
+      defaultMessage: "Senior management status",
+      id: "UAscG1",
+      description: "Label for senior management status field",
+    }),
+    cSuiteRoleTitle: intl.formatMessage({
+      defaultMessage: "C-suite role title",
+      id: "KgG9BM",
+      description: "Label for c-suite role title field",
+    }),
+    otherCSuiteRoleTitle: intl.formatMessage({
+      defaultMessage: "Other C-suite title",
+      id: "ZLKng1",
+      description: "Label for other c-suite role title field",
+    }),
   };
 };
 
@@ -260,9 +374,35 @@ export const formValuesToSubmitData = (
     experienceTitle,
     experienceDescription,
     currentRole,
+    employmentCategory,
+    extSizeOfOrganization,
+    extRoleSeniority,
+    department: departmentId,
+    govEmploymentType,
+    govPositionType,
+    govContractorRoleSeniority,
+    govContractorType,
+    contractorFirmAgencyName,
+    classificationLevel: classificationId,
+    cafEmploymentType,
+    cafForce,
+    cafRank,
+    workStreams,
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
   } = data;
 
-  const newEndDate = !currentRole && endDate ? endDate : null;
+  // for government employee experiences only, expected end date is present in end date field
+  // SUBSTANTIVE the exception, accessible solely through INDETERMINATE
+  const allowExpectedEndDate =
+    employmentCategory === EmploymentCategory.GovernmentOfCanada &&
+    govPositionType !== GovPositionType.Substantive;
 
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
@@ -277,7 +417,7 @@ export const formValuesToSubmitData = (
       organization,
       project,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     education: {
       type: educationType,
@@ -286,20 +426,43 @@ export const formValuesToSubmitData = (
       institution,
       thesisTitle,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     personal: {
       title: experienceTitle,
       description: experienceDescription,
       startDate,
-      endDate: newEndDate,
+      endDate: !currentRole && endDate ? endDate : null,
     },
     work: {
       role,
       organization,
       division: team,
       startDate,
-      endDate: newEndDate,
+      endDate:
+        allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
+      employmentCategory,
+      extSizeOfOrganization,
+      extRoleSeniority,
+      departmentId: departmentId ?? null,
+      govEmploymentType,
+      govPositionType,
+      govContractorRoleSeniority,
+      govContractorType,
+      contractorFirmAgencyName,
+      classificationId: classificationId ?? null,
+      cafEmploymentType,
+      cafForce,
+      cafRank,
+      workStreamIds: workStreams,
+      supervisoryPosition,
+      supervisedEmployees,
+      supervisedEmployeesNumber,
+      budgetManagement,
+      annualBudgetAllocation,
+      seniorManagementStatus,
+      cSuiteRoleTitle,
+      otherCSuiteRoleTitle,
     },
   };
 
@@ -521,14 +684,94 @@ const getPersonalExperienceDefaultValues = (
 const getWorkExperienceDefaultValues = (
   experience: Omit<WorkExperience, "user">,
 ) => {
-  const { role, organization, division, startDate, endDate } = experience;
+  const {
+    role,
+    organization,
+    division,
+    startDate,
+    endDate,
+    employmentCategory,
+    extSizeOfOrganization,
+    extRoleSeniority,
+    department,
+    classification,
+    govEmploymentType,
+    govPositionType,
+    govContractorRoleSeniority,
+    govContractorType,
+    contractorFirmAgencyName,
+    cafEmploymentType,
+    cafForce,
+    cafRank,
+    workStreams,
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle,
+    otherCSuiteRoleTitle,
+  } = experience;
+
+  const isIndeterminate =
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Indeterminate;
+  const indeterminateActing =
+    isIndeterminate && govPositionType?.value === GovPositionType.Acting;
+  const indeterminateAssignment =
+    isIndeterminate && govPositionType?.value === GovPositionType.Assignment;
+  const indeterminateSecondment =
+    isIndeterminate && govPositionType?.value === GovPositionType.Secondment;
+
+  const expectedEndDate =
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Student ||
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Casual ||
+    govEmploymentType?.value === WorkExperienceGovEmployeeType.Term ||
+    indeterminateActing ||
+    indeterminateAssignment ||
+    indeterminateSecondment;
+
+  let currentRole = false;
+
+  if (endDate) {
+    currentRole = false;
+    if (expectedEndDate) {
+      currentRole = endDate >= strToFormDate(new Date().toISOString());
+    }
+  } else {
+    currentRole = true;
+  }
+
   return {
     role,
     organization,
     team: division,
     startDate,
-    currentRole: endDate === null,
+    currentRole,
     endDate,
+    employmentCategory: employmentCategory?.value,
+    extSizeOfOrganization: extSizeOfOrganization?.value,
+    extRoleSeniority: extRoleSeniority?.value,
+    department: department?.id,
+    classificationGroup: classification?.group,
+    classificationLevel: classification?.id,
+    govEmploymentType: govEmploymentType?.value,
+    govPositionType: govPositionType?.value,
+    govContractorRoleSeniority: govContractorRoleSeniority?.value,
+    govContractorType: govContractorType?.value,
+    contractorFirmAgencyName,
+    cafEmploymentType: cafEmploymentType?.value,
+    cafForce: cafForce?.value,
+    cafRank: cafRank?.value,
+    workStreams: workStreams?.map((item) => item.id),
+    supervisoryPosition,
+    supervisedEmployees,
+    supervisedEmployeesNumber,
+    budgetManagement,
+    annualBudgetAllocation,
+    seniorManagementStatus,
+    cSuiteRoleTitle: cSuiteRoleTitle?.value,
+    otherCSuiteRoleTitle,
   };
 };
 
@@ -620,14 +863,42 @@ export const getExperienceName = (
   }
 
   if (isWorkExperience(experience)) {
-    const { role, organization } = experience;
-    return intl.formatMessage(
-      html ? experienceMessages.workAtHtml : experienceMessages.workAt,
-      {
-        role,
-        organization,
-      },
-    );
+    const { role, organization, employmentCategory, department, cafForce } =
+      experience;
+    switch (employmentCategory?.value) {
+      case EmploymentCategory.ExternalOrganization:
+        return intl.formatMessage(
+          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
+          {
+            role,
+            group: organization,
+          },
+        );
+      case EmploymentCategory.GovernmentOfCanada:
+        return intl.formatMessage(
+          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
+          {
+            role,
+            group: getLocalizedName(department?.name, intl),
+          },
+        );
+      case EmploymentCategory.CanadianArmedForces:
+        return intl.formatMessage(
+          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
+          {
+            role,
+            group: getLocalizedName(cafForce?.label, intl),
+          },
+        );
+      default:
+        return intl.formatMessage(
+          html ? experienceMessages.workAtHtml : experienceMessages.workAt,
+          {
+            role,
+            organization,
+          },
+        );
+    }
   }
 
   // We should never get here but just in case we do, return no provided
@@ -657,6 +928,40 @@ export const getExperienceDate = (
   }
 
   const { startDate, endDate } = experience;
+
+  if (isWorkExperience(experience)) {
+    const isIndeterminate =
+      experience.govEmploymentType?.value ===
+      WorkExperienceGovEmployeeType.Indeterminate;
+    const indeterminateActing =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Acting;
+    const indeterminateAssignment =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Assignment;
+    const indeterminateSecondment =
+      isIndeterminate &&
+      experience.govPositionType?.value === GovPositionType.Secondment;
+
+    const todayDate = strToFormDate(new Date().toISOString());
+    const expectedEndDate =
+      endDate &&
+      endDate >= todayDate &&
+      (experience.govEmploymentType?.value ===
+        WorkExperienceGovEmployeeType.Student ||
+        experience.govEmploymentType?.value ===
+          WorkExperienceGovEmployeeType.Casual ||
+        experience.govEmploymentType?.value ===
+          WorkExperienceGovEmployeeType.Term ||
+        indeterminateActing ||
+        indeterminateAssignment ||
+        indeterminateSecondment);
+
+    return expectedEndDate
+      ? `${getDateRange({ startDate, endDate, intl })} (${getExperienceFormLabels(intl, "work").expectedEndDate})`
+      : getDateRange({ startDate, endDate, intl });
+  }
+
   return getDateRange({ startDate, endDate, intl });
 };
 
@@ -710,11 +1015,45 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   ]);
 
   return {
-    title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
+    title: nodeToString(getExperienceName(experience, intl)) ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
     editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,
     icon: icons.get(experienceType) ?? defaults.icon,
     date: getExperienceDate(experience, intl),
   };
+};
+
+/**
+ * Returns a unique array of organization or similar names pulled from all experiences except personal
+ *
+ * @param experiences SimpleAnyExperience
+ * @return string[]
+ */
+export const organizationSuggestionsFromExperiences = (
+  experiences: SimpleAnyExperience[],
+): string[] => {
+  const experiencesWithoutPersonal = experiences.filter(
+    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
+  );
+  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
+    if (isAwardExperience(exp)) {
+      return exp.issuedBy;
+    }
+    if (isCommunityExperience(exp)) {
+      return exp.organization;
+    }
+    if (isEducationExperience(exp)) {
+      return exp.institution;
+    }
+    if (isWorkExperience(exp)) {
+      return exp.organization;
+    }
+    return undefined;
+  });
+  const organizationsForAutocompleteFiltered: string[] = unpackMaybes(
+    organizationsForAutocomplete,
+  );
+
+  return uniqueItems(organizationsForAutocompleteFiltered);
 };

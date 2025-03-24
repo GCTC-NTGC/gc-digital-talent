@@ -166,21 +166,6 @@ export function matchStringCaseDiacriticInsensitive(
 }
 
 /**
- * Returns a list of strings (haystack) that match the word being searched for (needle).
- * @param needle String that you want to search for.
- * @param haystack List of strings to check against.
- * @returns { string[] } List of string from the haystack matching the needle
- */
-export function matchStringsCaseDiacriticInsensitive(
-  needle: string,
-  haystack: string[],
-): string[] {
-  return haystack.filter((name) =>
-    matchStringCaseDiacriticInsensitive(needle, name),
-  );
-}
-
-/**
  * Returns the total number of words in a string.
  * @param text String that you want to count the number of words.
  * @returns number
@@ -224,19 +209,6 @@ export const objectsToSortedOptions = (
 
 export function htmlToRichTextJSON(html: string): Node {
   return generateJSON(html, [StarterKit, Link]) as Node;
-}
-
-const sanitizeSubstitutions: Record<string, string> = {
-  "\u202F": "\u00A0", // Narrow No-Break Space ➡️ No-Break Space
-} as const;
-
-export function sanitizeString(original: string): string {
-  let str = original;
-  Object.keys(sanitizeSubstitutions).forEach((key) => {
-    const replacement = sanitizeSubstitutions[key];
-    str = str.replace(new RegExp(key, "g"), replacement);
-  });
-  return str;
 }
 
 /**

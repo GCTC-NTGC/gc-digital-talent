@@ -4,6 +4,7 @@
 # refresh_all        # refresh all the components
 # make setup_api     # build the Laravel backend
 # make refresh_api   # refresh the Laravel backend
+# make restart_fpm   # restart the PHP-FPM server
 # make setup_web     # build the React frontend
 # make refresh_web   # refresh the React frontend
 # make git_clean     # use git to remove all untracked files - DANGER!
@@ -32,6 +33,10 @@ refresh_api:
 	php api/artisan migrate
 	php api/artisan lighthouse:print-schema --write
 	php api/artisan optimize:clear
+	docker compose exec webserver sh -c "pkill -o -USR2 php-fpm"
+
+restart_fpm:
+	docker compose exec webserver sh -c "pkill -o -USR2 php-fpm"
 
 setup_web:
 	cp apps/web/.env.example apps/web/.env --preserve=all

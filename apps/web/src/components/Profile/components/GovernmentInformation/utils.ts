@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
-import { empty } from "@gc-digital-talent/helpers";
+import { boolToYesNo } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   Classification,
@@ -124,20 +124,10 @@ export const formValuesToSubmitData = (
 };
 
 export const dataToFormValues = (data: PartialUser): FormValues => {
-  const boolToYesNo = (
-    bool: boolean | null | undefined,
-  ): "yes" | "no" | undefined => {
-    if (empty(bool)) {
-      return undefined;
-    }
-    return bool ? "yes" : "no";
-  };
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
     priorityEntitlementYesNo: boolToYesNo(data?.hasPriorityEntitlement),
-    priorityEntitlementNumber: data?.priorityNumber
-      ? data.priorityNumber
-      : undefined,
+    priorityEntitlementNumber: data?.priorityNumber ?? undefined,
     govEmployeeType: data?.govEmployeeType?.value,
     lateralDeployBool: undefined,
     department: data?.department?.id,
@@ -239,7 +229,7 @@ export const getLevelOptions = (
     .filter((x) => x.group === groupSelection)
     .map((iterator) => {
       return {
-        value: iterator.level.toString(),
+        value: iterator.level,
         label: iterator.level.toString(),
       };
     });

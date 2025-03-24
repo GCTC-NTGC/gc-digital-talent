@@ -46,7 +46,6 @@ import {
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
-  matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
   htmlToRichTextJSON,
@@ -54,7 +53,17 @@ import {
   alphaSortOptions,
 } from "./utils";
 import useInputStyles from "./hooks/useInputStyles";
-import { Option, OptGroup, OptGroupOrOption, FieldLabels } from "./types";
+import useFieldState from "./hooks/useFieldState";
+import useFieldStateStyles from "./hooks/useFieldStateStyles";
+import useInputDescribedBy from "./hooks/useInputDescribedBy";
+import {
+  Option,
+  OptGroup,
+  OptGroupOrOption,
+  FieldLabels,
+  FieldState,
+  CommonInputProps,
+} from "./types";
 
 export {
   DATE_SEGMENT,
@@ -90,6 +99,7 @@ export type {
   CheckboxOption,
   CheckButtonProps,
   ChecklistProps,
+  CommonInputProps,
   ComboboxProps,
   HiddenInputProps,
   InputProps,
@@ -105,6 +115,7 @@ export type {
   WordCounterProps,
   BasicFormProps,
   FieldLabels,
+  FieldState,
   DescriptionsProps,
   LabelProps,
   LegendProps,
@@ -119,10 +130,12 @@ export {
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
-  matchStringsCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
   useInputStyles as useCommonInputStyles,
+  useInputDescribedBy,
+  useFieldState,
+  useFieldStateStyles,
   htmlToRichTextJSON,
   flattenErrors,
   alphaSortOptions,

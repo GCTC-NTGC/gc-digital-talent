@@ -91,7 +91,7 @@ const transformSearchRequestInput = (
     status: filterState?.status,
     departments: filterState?.departments,
     classifications: filterState?.classifications,
-    streams: filterState?.streams,
+    workStreams: filterState?.workStreams,
   };
 };
 
@@ -125,9 +125,9 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             group
             level
           }
-          qualifiedStreams {
-            value
-            label {
+          workStreams {
+            id
+            name {
               en
               fr
             }
@@ -270,8 +270,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor(
       ({ applicantFilter }) =>
         unpackMaybes(
-          applicantFilter?.qualifiedStreams?.map((stream) =>
-            getLocalizedName(stream?.label, intl),
+          applicantFilter?.workStreams?.map((workStream) =>
+            getLocalizedName(workStream?.name, intl),
           ),
         ).join(","),
       {
@@ -287,8 +287,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
           cells.commaList({
             list:
               unpackMaybes(
-                applicantFilter?.qualifiedStreams?.map((stream) =>
-                  getLocalizedName(stream?.label, intl, true),
+                applicantFilter?.workStreams?.map((workStream) =>
+                  getLocalizedName(workStream?.name, intl, true),
                 ),
               ) ?? [],
           }),
@@ -330,8 +330,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         id: "requestedDate",
         enableColumnFilter: false,
         header: intl.formatMessage({
-          defaultMessage: "Date Received",
-          id: "r2gD/4",
+          defaultMessage: "Date received",
+          id: "m0Qcow",
           description:
             "Title displayed on the search request table requested date column.",
         }),

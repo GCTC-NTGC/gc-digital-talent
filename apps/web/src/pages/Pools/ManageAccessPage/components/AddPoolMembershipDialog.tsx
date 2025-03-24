@@ -120,21 +120,25 @@ const AddPoolMembershipDialog = ({
     ),
   }));
 
-  const label = intl.formatMessage({
-    defaultMessage: "Add member",
-    id: "wBMn5c",
-    description: "Label for the add member to community form",
-  });
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button color="secondary" icon={PlusCircleIcon}>
-          {label}
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "MkUz+j",
+            description: "Label for the add member to community form (action)",
+          })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{label}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Add member",
+            id: "IHyNL8",
+            description: "Title for the add member to community form",
+          })}
+        </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>

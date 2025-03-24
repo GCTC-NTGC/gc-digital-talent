@@ -71,7 +71,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     stepOrdinal: currentStepOrdinal,
   });
   const poolName = getShortPoolTitleHtml(intl, {
-    stream: application.pool.stream,
+    workStream: application.pool.workStream,
     name: application.pool.name,
     publishingGroup: application.pool.publishingGroup,
     classification: application.pool.classification,

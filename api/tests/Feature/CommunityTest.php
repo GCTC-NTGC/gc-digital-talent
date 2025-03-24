@@ -47,17 +47,15 @@ class CommunityTest extends TestCase
 
         // Create communities.
         $this->toBeDeletedUUID = $this->faker->UUID();
-        $this->community1 = Community::factory()->create(['name' => 'community1']);
-        $this->community2 = Community::factory()->create(['name' => 'community2']);
+        $this->community1 = Community::factory()->create();
+        $this->community2 = Community::factory()->create();
         $this->community3 = Community::factory()->create([
             'id' => $this->toBeDeletedUUID, // need specific ID for delete community testing.
-            'name' => 'community3',
         ]);
 
         // Create users.
         $this->admin = User::factory()
             ->asApplicant()
-            ->asRequestResponder()
             ->asAdmin()
             ->create([
                 'email' => 'admin-user@test.com',
@@ -65,14 +63,14 @@ class CommunityTest extends TestCase
             ]);
 
         $this->communityRecruiter1 = User::factory()
-            ->asCommunityManager($this->community1->name)
+            ->asCommunityRecruiter($this->community1->id)
             ->create([
                 'email' => 'communityRecruiter1@test.com',
                 'sub' => 'communityRecruiter1@test.com',
             ]);
 
         $this->communityRecruiter2 = User::factory()
-            ->asCommunityManager($this->community2->name)
+            ->asCommunityRecruiter($this->community2->id)
             ->create([
                 'email' => 'communityRecruiter2@test.com',
                 'sub' => 'communityRecruiter2@test.com',

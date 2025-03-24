@@ -4,14 +4,13 @@ import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   PoolStatus,
-  PoolStream,
   PublishingGroup,
   Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -22,7 +21,7 @@ export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: Scalars["UUID"]["output"][];
-  streams: PoolStream[];
+  workStreams: Scalars["UUID"]["output"][];
 }
 
 const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
@@ -45,9 +44,9 @@ const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    streams: localizedEnumStrings(enumName: "PoolStream") {
-      value
-      label {
+    workStreams {
+      id
+      name {
         en
         fr
       }
@@ -92,11 +91,14 @@ const PoolFilterDialog = ({
           options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Combobox
-          id="streams"
-          name="streams"
+          id="workStreams"
+          name="workStreams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={localizedEnumToOptions(data?.streams, intl)}
+          options={unpackMaybes(data?.workStreams).map((workStream) => ({
+            value: workStream.id,
+            label: getLocalizedName(workStream.name, intl),
+          }))}
         />
         <Combobox
           id="classifications"
@@ -106,7 +108,7 @@ const PoolFilterDialog = ({
           options={unpackMaybes(data?.classifications).map(
             ({ group, level }) => ({
               value: `${group}-${level}`,
-              label: `${group}-0${level}`,
+              label: `${group}-${level < 10 ? "0" : ""}${level}`,
             }),
           )}
         />

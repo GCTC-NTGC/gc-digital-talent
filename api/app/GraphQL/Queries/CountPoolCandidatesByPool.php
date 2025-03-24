@@ -28,8 +28,8 @@ final class CountPoolCandidatesByPool
                 $query->whereClassifications($filters['qualifiedClassifications']);
             }
 
-            if (array_key_exists('qualifiedStreams', $filters)) {
-                $query->streams($filters['qualifiedStreams']);
+            if (array_key_exists('workStreams', $filters)) {
+                $query->whereWorkStreamsIn($filters['workStreams']);
             }
         });
 

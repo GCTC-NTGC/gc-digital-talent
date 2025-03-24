@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
@@ -71,9 +70,9 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     closingDate
     processNumber
-    stream {
-      value
-      label {
+    workStream {
+      id
+      name {
         en
         fr
       }
@@ -123,7 +122,7 @@ export const ViewPool = ({
   const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
-    stream: pool.stream,
+    workStream: pool.workStream,
     name: pool.name,
     publishingGroup: pool.publishingGroup,
     classification: pool.classification,
@@ -191,8 +190,8 @@ export const ViewPool = ({
   });
 
   const pageSubtitle = intl.formatMessage({
-    defaultMessage: "Manage and view information about your process. ",
-    id: "pM43Xu",
+    defaultMessage: "Manage and view information about your process.",
+    id: "6+MKIv",
     description: "Subtitle for the individual pool page",
   });
 

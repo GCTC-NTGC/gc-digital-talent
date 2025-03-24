@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const SECTION_KEY = {
   CONTACT: "contact",
   SCREENING: "screening",

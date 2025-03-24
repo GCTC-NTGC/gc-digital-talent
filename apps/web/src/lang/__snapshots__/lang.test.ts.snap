@@ -3,17 +3,25 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
-    "en": "Create team",
+    "en": "Work stream information",
     "fr": [
-      "Créez une équipe",
-      "Créez l'équipe"
+      "Informations sur le volet de travail",
+      "Informations sur les volets de travail"
     ]
   },
   {
-    "en": "Membership roles",
+    "en": "Submitted",
     "fr": [
-      "Rôles des membres",
-      "Rôles dans l'équipe"
+      "Soumise",
+      "Soumis"
+    ]
+  },
+  {
+    "en": "Not interested",
+    "fr": [
+      "Non intéressé(e)",
+      "Ce programme ne m'intéresse pas",
+      "Pas d'intérêt"
     ]
   },
   {
@@ -45,10 +53,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Create a community",
+    "en": "Submit",
     "fr": [
-      "Créez une collectivité",
-      "Créer une collectivité"
+      "Soumettre",
+      "Soumettez"
+    ]
+  },
+  {
+    "en": "Review and submit",
+    "fr": [
+      "Révisez votre candidature et envoyez-la",
+      "Revoir et soumettre"
+    ]
+  },
+  {
+    "en": "Additional comments",
+    "fr": [
+      "Autres commentaires",
+      "Commentaires supplémentaires"
     ]
   },
   {
@@ -73,6 +95,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add member",
+    "fr": [
+      "Ajouter un membre",
+      "Ajoutez un membre"
+    ]
+  },
+  {
     "en": "Apply now",
     "fr": [
       "Postulez dès-maintenant",
@@ -80,24 +109,31 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Remove membership<hidden> in {team}</hidden>",
+    "en": "Qualified",
     "fr": [
-      "Retirez de l'équipe<hidden> dans {team}</hidden>",
-      "Retirer de l'équipe<hidden> dans {team}</hidden>"
+      "Qualifié",
+      "Qualifié(e)"
     ]
   },
   {
-    "en": "Add team role",
-    "fr": [
-      "Ajouter un rôle dans l'équipe",
-      "Ajoutez un rôle dans l'équipe"
-    ]
-  },
-  {
-    "en": "Create a training opportunity",
+    "en": "Create training opportunity",
     "fr": [
       "Créez une possibilité de formation",
-      "Créer une possibilité de formation"
+      "Créez la possibilité de formation"
+    ]
+  },
+  {
+    "en": "Create community",
+    "fr": [
+      "Créez une collectivité",
+      "Créer une collectivité"
+    ]
+  },
+  {
+    "en": "Create work stream",
+    "fr": [
+      "Créez un volet de travail",
+      "Créez le volet de travail"
     ]
   },
   {
@@ -122,6 +158,27 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add work streams",
+    "fr": [
+      "Ajoutez des volets de travail",
+      "Ajoutez les volets de travail"
+    ]
+  },
+  {
+    "en": "Request a voucher",
+    "fr": [
+      "Demander un bon",
+      "Demandez un bon"
+    ]
+  },
+  {
+    "en": "Edit off-platform process information",
+    "fr": [
+      "Modifiez les renseignements sur les processus hors plateforme",
+      "Modifier les renseignements sur les processus hors plateforme."
+    ]
+  },
+  {
     "en": "Skill requirements",
     "fr": [
       "Exigences relatives aux compétences",
@@ -129,17 +186,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Continue draft",
+    "en": "Add a community",
     "fr": [
-      "Poursuivez l'ébauche",
-      "Poursuivre l’ébauche"
+      "Ajoutez une collectivité",
+      "Ajouter une collectivité"
     ]
   },
   {
     "en": "Create skill family",
     "fr": [
-      "Créer un groupe de compétences",
+      "Créez un groupe de compétences",
       "Créez le groupe de compétences"
+    ]
+  },
+  {
+    "en": "Create process",
+    "fr": [
+      "Créer un processus",
+      "Créez un processus"
     ]
   },
   {

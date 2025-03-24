@@ -395,7 +395,7 @@ test.describe("Application", () => {
     await application.waitForGraphqlResponse("Application");
     await expect(
       application.page.getByRole("heading", {
-        name: /we successfully received your application/i,
+        name: /we've successfully received your application/i,
       }),
     ).toBeVisible();
     await expect(
@@ -405,7 +405,7 @@ test.describe("Application", () => {
     ).toBeVisible();
   });
 
-  test("Can view from dashboard", async ({ page }) => {
+  test("Can view from dashboard", async ({ appPage, page }) => {
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for view dashboard ${uniqueTestId}`;
     const pool = await createAndPublishPool(adminCtx, {
@@ -425,6 +425,10 @@ test.describe("Application", () => {
         },
       },
       skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
+    });
+    const application = new ApplicationPage(appPage.page, pool.id);
+    await application.overrideFeatureFlags({
+      FEATURE_NEW_APPLICANT_DASHBOARD: false,
     });
     const applicantCtx = await graphql.newContext(sub);
     const applicant = await me(applicantCtx, {});

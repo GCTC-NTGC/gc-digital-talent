@@ -28,6 +28,7 @@ const getRoutes = (lang: Locales) => {
   const managerUrl = [baseUrl, "manager"].join("/");
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
+  const communitiesUrl = [baseUrl, "communities"].join("/");
 
   return {
     // Main Routes
@@ -107,19 +108,12 @@ const getRoutes = (lang: Locales) => {
     userTable: () => [adminUrl, "users"].join("/"),
     userCreate: () => [adminUrl, "users", "create"].join("/"),
     userView: (userId: string) => [adminUrl, "users", userId].join("/"),
+    userEmployeeProfile: (userId: string) =>
+      [adminUrl, "users", userId, "employee-profile"].join("/"),
     userProfile: (userId: string) =>
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>
       [adminUrl, "users", userId, "edit"].join("/"),
-
-    // Admin - Teams
-    teamTable: () => [adminUrl, "teams"].join("/"),
-    teamCreate: () => [adminUrl, "teams", "create"].join("/"),
-    teamView: (teamId: string) => [adminUrl, "teams", teamId].join("/"),
-    teamMembers: (teamId: string) =>
-      [adminUrl, "teams", teamId, "members"].join("/"),
-    teamUpdate: (teamId: string) =>
-      [adminUrl, "teams", teamId, "edit"].join("/"),
 
     // Admin - Search Requests
     searchRequestTable: () => [adminUrl, "talent-requests"].join("/"),
@@ -265,6 +259,10 @@ const getRoutes = (lang: Locales) => {
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
 
+    // Community interests
+    communityInterest: (communityInterestId: string) =>
+      `${applicantUrl}/community-interests/${communityInterestId}`,
+
     // Profile and Applications
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
@@ -283,6 +281,9 @@ const getRoutes = (lang: Locales) => {
       );
     },
 
+    // Employee profile
+    employeeProfile: () => `${applicantUrl}/employee-profile`,
+
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
     editUserSkill: (skillId: string) =>
@@ -300,15 +301,15 @@ const getRoutes = (lang: Locales) => {
 
     // Directive on digital talent
     directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
-    digitalServicesContractingQuestionnaire: () =>
-      [
-        baseUrl,
-        "directive-on-digital-talent",
-        "digital-services-contracting-questionnaire",
-      ].join("/"),
 
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
+
+    // Community interests
+    createCommunityInterest: () =>
+      [applicantUrl, "community-interests", "create"].join("/"),
+    updateCommunityInterest: (id: string) =>
+      [applicantUrl, "community-interests", id].join("/"),
 
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
@@ -317,13 +318,13 @@ const getRoutes = (lang: Locales) => {
 
     // Manager pages
     manager: () => managerUrl,
-    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
-    managerRequestHistory: () => [managerUrl, "talent-requests"].join("/"),
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
     instructorLedTraining: () =>
       [baseUrl, "it-training-fund", "instructor-led-training"].join("/"),
+    certificationExamVouchers: () =>
+      [baseUrl, "it-training-fund", "certification-exam-vouchers"].join("/"),
 
     // Training Opportunities (Admin)
     trainingOpportunitiesIndex: () =>
@@ -336,6 +337,28 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "training-opportunities", trainingOpportunityId, "edit"].join(
         "/",
       ),
+
+    // Admin - Work Streams
+    workStreamTable: () => [adminUrl, "settings", "work-streams"].join("/"),
+    workStreamCreate: () =>
+      [adminUrl, "settings", "work-streams", "create"].join("/"),
+    workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
+    workStreamUpdate: (workStreamId: string) =>
+      [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
+
+    // Admin - Community Talent
+    communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
+
+    // Communities
+    talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
+    createTalentNomination: (nominationEventId: string) =>
+      `${communitiesUrl}/talent-events/${nominationEventId}/create-talent-nomination`,
+    talentNomination: (nominationId: string) =>
+      `${communitiesUrl}/talent-nominations/${nominationId}`,
+
+    // Comptrollership
+    comptrollershipExecutivesPage: () =>
+      [baseUrl, "comptrollership-executives"].join("/"),
 
     /**
      * Deprecated

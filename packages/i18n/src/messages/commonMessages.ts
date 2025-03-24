@@ -17,29 +17,29 @@ const commonMessages = defineMessages({
     description: "Title displayed for a table initial loading state.",
   },
   loading: {
-    defaultMessage: "Loading...",
-    id: "ErrpJC",
+    defaultMessage: "Loading…",
+    id: "6sIidC",
     description:
       "Text for a component which can't be rendered yet because a data load is in progress.",
   },
   saving: {
-    defaultMessage: "Saving...",
-    id: "Tw90Pi",
+    defaultMessage: "Saving…",
+    id: "Ib6fY4",
     description: "Submitting text for save button.",
   },
   removing: {
-    defaultMessage: "Removing...",
-    id: "14Cv7d",
+    defaultMessage: "Removing…",
+    id: "j4ZYQw",
     description: "Submitting text for delete button.",
   },
   searching: {
-    defaultMessage: "Searching...",
-    id: "w6vHXf",
+    defaultMessage: "Searching…",
+    id: "dyGR7U",
     description: "Message to display when a search is in progress.",
   },
   loadingError: {
-    defaultMessage: "Oh no...",
-    id: "AvBSV+",
+    defaultMessage: "Oh no…",
+    id: "GtVkbt",
     description: "Title displayed for a table error loading state.",
   },
   notFound: {
@@ -67,6 +67,17 @@ const commonMessages = defineMessages({
     defaultMessage: "No information has been provided.",
     id: "euigxa",
     description: "Sentence when some form of information not provided",
+  },
+  missingInformation: {
+    defaultMessage: "Missing information",
+    id: "MuM7SN",
+    description: "Message for when specific item has missing information",
+  },
+  missingOptionalInformation: {
+    defaultMessage: "Missing optional information",
+    id: "AQxes2",
+    description:
+      "Message for when specific item has missing optional information",
   },
   nameNotLoaded: {
     defaultMessage: "Error: name not loaded",
@@ -139,8 +150,8 @@ const commonMessages = defineMessages({
     description: "Title displayed telephone",
   },
   preferredCommunicationLanguage: {
-    defaultMessage: "Preferred Communication Language",
-    id: "Ho94JY",
+    defaultMessage: "Preferred communication language",
+    id: "XiECLl",
     description: "Title displayed preferred communication language",
   },
   workingLanguageAbility: {
@@ -303,6 +314,102 @@ const commonMessages = defineMessages({
     defaultMessage: "Description",
     id: "i+8teP",
     description: "Title for description",
+  },
+  received: {
+    defaultMessage: "Received",
+    id: "SD8i+/",
+    description: "Title for received",
+  },
+  deadlineToApply: {
+    defaultMessage: "Deadline to apply",
+    id: "ZoYqEo",
+    description: "Title for deadline to apply",
+  },
+  qualified: {
+    defaultMessage: "Qualified",
+    id: "jrDTez",
+    description: "Title for qualified",
+  },
+  expires: {
+    defaultMessage: "Expires",
+    id: "eQ8bTh",
+    description: "Title for expires",
+  },
+  close: {
+    defaultMessage: "Close",
+    id: "fhpH9E",
+    description: "Title for close",
+  },
+  salaryRange: {
+    defaultMessage: "Salary range",
+    id: "cR8L3T",
+    description: "Title for salary range",
+  },
+  employmentLength: {
+    defaultMessage: "Employment length",
+    id: "RhkjXE",
+    description: "Title for employment length",
+  },
+  securityClearance: {
+    defaultMessage: "Security clearance",
+    id: "7O5SRa",
+    description: "Title for security clearance",
+  },
+  requiredSkills: {
+    id: "WZ17s5",
+    defaultMessage: "Required skills",
+    description: "Title for required skills",
+  },
+  optionalSkills: {
+    id: "Ojevvl",
+    defaultMessage: "Optional skills",
+    description: "Title for optional skills",
+  },
+  deadline: {
+    id: "1FNzD4",
+    defaultMessage: "Deadline",
+    description: "Title for deadline",
+  },
+  remote: {
+    defaultMessage: "Remote, hybrid or on-site",
+    id: "DUjO/t",
+    description: "Title for remote, hybrid or on-site",
+  },
+  careerPlanning: {
+    defaultMessage: "Career planning",
+    id: "zN7MBv",
+    description: "Title for a users career plan",
+  },
+  jobInterest: {
+    defaultMessage: "Job interest",
+    id: "dYhxhN",
+    description: "Job interest label",
+  },
+  trainingInterest: {
+    defaultMessage: "Training interest",
+    id: "AQeWgK",
+    description: "Training interest label",
+  },
+  interested: {
+    defaultMessage: "Interested",
+    id: "rH9RNh",
+    description: "Expressed interest",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    id: "fUAej4",
+    description: "Expressed lack of interest",
+  },
+  accountUpdateSuccessful: {
+    defaultMessage: "Account successfully updated.",
+    id: "g9J8/u",
+    description:
+      "Message displayed to user if account is updated successfully.",
+  },
+  accountUpdateFailed: {
+    defaultMessage: "Error: updating account failed.",
+    id: "cO535E",
+    description: "Message displayed to user if account fails to get updated.",
   },
 });
 

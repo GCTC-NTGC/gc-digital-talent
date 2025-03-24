@@ -51,8 +51,8 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
             <p data-h2-margin="base(0, 0, x1, 0)">
               {intl.formatMessage({
                 defaultMessage:
-                  "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
-                id: "KKLx+Z",
+                  "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
+                id: "yZ0kfQ",
                 description:
                   "Help text for the experience additional details field",
               })}

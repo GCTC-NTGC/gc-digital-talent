@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Lang;
 return [
     'status' => Lang::get('common.status', [], 'en'),
     'category' => 'Category',
-    'availability' => 'Availability',
+    'availability' => 'Interest in job offers',
     'notes' => 'Notes',
     'current_province' => 'Province',
     'current_city' => 'City',
@@ -34,7 +34,7 @@ return [
     'department' => 'Department',
     'employee_type' => 'Employment type',
     'work_email' => 'Work email',
-    'current_classification' => 'Current classification',
+    'classification' => 'Current classification',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',
@@ -67,7 +67,7 @@ return [
     'career_timeline' => 'Career timeline',
     'screening_questions' => 'Screening questions',
     'general_questions' => 'General questions',
-    'skills_showcase' => 'Skills showcase',
+    'skill_showcase' => 'Skill showcase',
     'top_skills' => 'Top skills',
     'skills_to_improve' => 'Skills to improve',
     'signature' => 'Signature',
@@ -80,4 +80,5 @@ return [
     'decision' => 'Decision',
     'decision_details' => 'Decision details',
     'decision_notes' => 'Decision notes',
+    'final_decision' => 'Final decision',
 ];
