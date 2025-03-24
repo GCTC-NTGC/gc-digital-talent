@@ -254,7 +254,7 @@ const NominatorFields = ({
           />
         </>
       )}
-      {!nominatorUnset && nominatorNotFound && (
+      {nominatorNotFound && (
         <>
           <div
             data-h2-display="base(grid)"
