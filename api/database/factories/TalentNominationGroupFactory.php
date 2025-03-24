@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\TalentNominationGroupDecision;
-use App\Enums\TalentNominationUserReview;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,7 +27,7 @@ class TalentNominationGroupFactory extends Factory
             'lateral_movement_notes' => $this->faker->optional->sentence(),
             'development_program_decision' => $this->faker->optional->randomElement(array_column(TalentNominationGroupDecision::cases(), 'name')),
             'development_program_notes' => $this->faker->optional->sentence(),
-            'computed_status' => $this->faker->optional->randomElement(array_column(TalentNominationUserReview::cases(), 'name')),
+            // 'computed_status' => (calculated by observer call)
         ];
     }
 }
