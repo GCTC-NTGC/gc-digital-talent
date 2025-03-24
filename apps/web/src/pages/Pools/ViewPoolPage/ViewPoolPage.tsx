@@ -586,7 +586,6 @@ const ViewPoolPage = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.CommunityAdmin,

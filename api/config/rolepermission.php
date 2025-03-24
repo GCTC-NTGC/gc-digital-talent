@@ -714,19 +714,6 @@ return [
         ],
 
         // TODO: remove during #10368 (Post-communities cleanup)
-        'request_responder' => [
-            'display_name' => [
-                'en' => 'Request Responder',
-                'fr' => 'Répondant aux demandes',
-            ],
-            'description' => [
-                'en' => 'Responsible for responding to all talent requests, regardless of Team/Department. This requires viewing all published pools, and the applicants who have been qualified within them.',
-                'fr' => 'Responsable de la réponse à toutes les demandes de talents, quelle que soit l\'équipe ou le département. Pour cela, il faut consulter tous les bassins publiés et les candidats qui ont été qualifiés dedans.',
-            ],
-            'is_team_based' => false,
-        ],
-
-        // TODO: remove during #10368 (Post-communities cleanup)
         'community_manager' => [
             'display_name' => [
                 'en' => 'Community Manager',
@@ -932,33 +919,6 @@ return [
                 'own' => ['create', 'update', 'view'],
             ],
             'basicGovEmployeeProfile' => [
-                'any' => ['view'],
-            ],
-        ],
-
-        'request_responder' => [
-            'submittedApplication' => [
-                'any' => ['view'],
-            ],
-            'applicationStatus' => [
-                'any' => ['view', 'update'],
-            ],
-            'applicationAssessment' => [
-                'any' => ['view', 'update'],
-            ],
-            'applicationDecision' => [
-                'any' => ['view', 'update'],
-            ],
-            'applicationPlacement' => [
-                'any' => ['view', 'update'],
-            ],
-            'searchRequest' => [
-                'any' => ['view', 'update', 'delete'],
-            ],
-            'user' => [
-                'any' => ['view'],
-            ],
-            'assessmentPlan' => [
                 'any' => ['view'],
             ],
         ],

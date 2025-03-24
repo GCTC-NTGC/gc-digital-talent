@@ -13,7 +13,6 @@ describe("NavContextContainer", () => {
         "guest",
         "base_user",
         "applicant",
-        "request_responder",
         "community_manager",
         "process_operator",
         "community_recruiter",
@@ -28,7 +27,6 @@ describe("NavContextContainer", () => {
     expect(
       chooseNavRole("admin", [
         "applicant",
-        "request_responder",
         "community_manager",
         "process_operator",
         "community_recruiter",

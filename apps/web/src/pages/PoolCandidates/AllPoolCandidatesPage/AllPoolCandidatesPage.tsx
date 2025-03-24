@@ -55,7 +55,6 @@ export const AllPoolCandidatesPage = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.RequestResponder,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,

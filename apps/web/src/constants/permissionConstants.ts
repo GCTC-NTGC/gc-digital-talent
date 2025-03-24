@@ -2,7 +2,6 @@ import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
 const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   viewCandidates: [
-    ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,
@@ -17,13 +16,11 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   ],
   createProcess: [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
   viewRequests: [
-    ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.PlatformAdmin,
   ],
   viewUsers: [
-    ROLE_NAME.RequestResponder,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,

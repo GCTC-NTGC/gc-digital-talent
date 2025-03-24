@@ -17,13 +17,7 @@ export const SingleSearchRequestPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ]}
-  >
+  <RequireAuth roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}>
     <SingleSearchRequestPage />
   </RequireAuth>
 );

@@ -13,13 +13,13 @@ assignees: ""
 ## ❗ Trigger
 
 <!--
-How is this notification generated? Is it in response to some user action (eg submitting a request) or will it require a cron job which runs on a schedule (eg a job poster closes in 24 hours). If it requires a cron job, how often does it need to run?
+How is this notification generated? Is it in response to some user action (e.g. submitting a request) or will it require a cron job which runs on a schedule (e.g. a job poster closes in 24 hours). If it requires a cron job, how often does it need to run?
  -->
 
 ## 👀 Audience
 
 <!--
-Who will get this notification? (eg all Request Responders, or only applicants with a draft application for related poster)
+Who will get this notification? (e.g. all Process Operators, or only applicants with a draft application for related poster)
  -->
 
 ## 🌎 Copy (localized)

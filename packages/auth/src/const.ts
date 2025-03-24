@@ -11,7 +11,6 @@ export const ROLE_NAME = {
   Guest: "guest",
   BaseUser: "base_user",
   Applicant: "applicant",
-  RequestResponder: "request_responder", // TODO: remove during Communities cleanup, ticket #10368
   CommunityManager: "community_manager", // TODO: remove during Communities cleanup, ticket #10368
   ProcessOperator: "process_operator",
   CommunityRecruiter: "community_recruiter",

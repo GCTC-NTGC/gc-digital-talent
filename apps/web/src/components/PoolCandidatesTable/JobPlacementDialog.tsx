@@ -128,11 +128,7 @@ const JobPlacementDialog = ({
 
   const { roleAssignments } = useAuthorization();
   const canPlace = checkRole(
-    [
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.RequestResponder,
-    ],
+    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
 
