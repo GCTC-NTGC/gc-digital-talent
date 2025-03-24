@@ -216,7 +216,6 @@ const PoolLayout = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,

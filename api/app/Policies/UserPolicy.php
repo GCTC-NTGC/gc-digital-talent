@@ -242,8 +242,6 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-role');
             case 'applicant':
                 return $actor->isAbleTo('assign-any-role');
-            case 'community_manager':
-                return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
 

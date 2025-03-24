@@ -8,7 +8,6 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.PlatformAdmin,
   ],
   viewProcesses: [
-    ROLE_NAME.CommunityManager,
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.ProcessOperator,

@@ -713,19 +713,6 @@ return [
             'is_team_based' => false,
         ],
 
-        // TODO: remove during #10368 (Post-communities cleanup)
-        'community_manager' => [
-            'display_name' => [
-                'en' => 'Community Manager',
-                'fr' => 'Gestionnaire de communauté',
-            ],
-            'description' => [
-                'en' => 'Publishes pools, creates teams, and adds Pool Operators to teams.',
-                'fr' => 'Publie des pools, crée des équipes et ajoute des opérateurs des bassins aux équipes.',
-            ],
-            'is_team_based' => false,
-        ],
-
         'process_operator' => [
             'display_name' => [
                 'en' => 'Process Operator',
@@ -919,27 +906,6 @@ return [
                 'own' => ['create', 'update', 'view'],
             ],
             'basicGovEmployeeProfile' => [
-                'any' => ['view'],
-            ],
-        ],
-
-        'community_manager' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
-            'pool' => [
-                'any' => ['view'],
-            ],
-            'draftPool' => [
-                'any' => ['publish'],
-            ],
-            'publishedPool' => [
-                'any' => ['update', 'archive'],
-            ],
-            'team' => [
-                'any' => ['view', 'create', 'update', 'delete'],
-            ],
-            'assessmentPlan' => [
                 'any' => ['view'],
             ],
         ],
