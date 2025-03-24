@@ -721,7 +721,7 @@ const CareerObjectiveSection = ({
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage(formMessages.saveChanges)}
                     color="secondary"
-                    mode="inline"
+                    mode="solid"
                     isSubmitting={fetching}
                   />
                   <ToggleSection.Close>
