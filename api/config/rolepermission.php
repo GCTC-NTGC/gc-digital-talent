@@ -1089,9 +1089,6 @@ return [
             'assessmentPlan' => [
                 'any' => ['view'],
             ],
-            'application' => [
-                'any' => ['create'], // TODO: remove create any application permission during #10368 (Post-communities cleanup)
-            ],
             'submittedApplication' => [
                 'any' => ['view'],
             ],
