@@ -226,8 +226,8 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
             NO_PROFILE: {
               body: intl.formatMessage({
                 defaultMessage:
-                  "It appears that this work email address isn't linked to a profile. We require nominees to have a GC Digital Talent account in order to be nominated. Please contact the nominee and ask them to create a profile before continuing. You can save this nomination as a draft using the “Save draft” link at the end of the form.",
-                id: "KtZ5yY",
+                  "It appears that this work email address isn't linked to a profile. We require nominees to have a GC Digital Talent account in order to be nominated. Please contact the nominee and ask them to create a profile before continuing.",
+                id: "/eyJbp",
                 description:
                   "Body of the error message when the profile of a nominee cannot be found",
               }),
