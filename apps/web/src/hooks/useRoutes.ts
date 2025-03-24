@@ -355,6 +355,18 @@ const getRoutes = (lang: Locales) => {
       `${communitiesUrl}/talent-events/${nominationEventId}/create-talent-nomination`,
     talentNomination: (nominationId: string) =>
       `${communitiesUrl}/talent-nominations/${nominationId}`,
+    talentNominationGroup: (eventId: string, nominationGroupId: string) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}`,
+    talentNominationGroupProfile: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/profile`,
+    talentNominationGroupExperience: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/career-experience`,
 
     // Comptrollership
     comptrollershipExecutivesPage: () =>
