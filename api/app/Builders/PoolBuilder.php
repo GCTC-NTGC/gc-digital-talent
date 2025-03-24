@@ -64,17 +64,6 @@ class PoolBuilder extends Builder
         return $this->where('process_number', 'ilike', sprintf('%%%s%%', $number));
     }
 
-    public function team(?string $team): self
-    {
-        if (! $team) {
-            return $this;
-        }
-
-        return $this->whereHas('legacyTeam', function ($query) use ($team) {
-            Team::scopeDisplayName($query, $team);
-        });
-    }
-
     public function statuses(?array $statuses): self
     {
         if (! empty($statuses)) {
@@ -300,9 +289,6 @@ class PoolBuilder extends Builder
                     }
                 }
 
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
                 $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
@@ -341,9 +327,6 @@ class PoolBuilder extends Builder
                     }
                 }
 
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
                 $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });

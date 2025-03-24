@@ -185,12 +185,6 @@ class Pool extends Model
         return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
-    /** @return BelongsTo<Team, $this> */
-    public function legacyTeam(): BelongsTo
-    {
-        return $this->belongsTo(Team::class, 'team_id');
-    }
-
     /** @return MorphOne<Team, $this> */
     public function team(): MorphOne
     {

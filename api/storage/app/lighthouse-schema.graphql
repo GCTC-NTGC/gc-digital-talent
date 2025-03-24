@@ -884,7 +884,6 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
-  team: Team
   community: Community
   name: LocalizedString
   classification: Classification
