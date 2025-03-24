@@ -36,7 +36,7 @@ interface FormValues extends BaseFormValues {
 
 const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `
   fragment NomineeFieldOptions on Query {
-    nomineeReivewOptions: localizedEnumStrings(
+    nomineeReviewOptions: localizedEnumStrings(
       enumName: "TalentNominationUserReview"
     ) {
       value
@@ -45,7 +45,7 @@ const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `
       }
     }
 
-    reltionshipToNominatorOptions: localizedEnumStrings(
+    relationshipToNominatorOptions: localizedEnumStrings(
       enumName: "TalentNominationNomineeRelationshipToNominator"
     ) {
       value
@@ -89,7 +89,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
           description: "Label for review of nominee information",
         })}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
-        items={localizedEnumToOptions(options?.nomineeReivewOptions, intl, [
+        items={localizedEnumToOptions(options?.nomineeReviewOptions, intl, [
           TalentNominationUserReview.Correct,
           TalentNominationUserReview.Incorrect,
           TalentNominationUserReview.OutOfDate,
@@ -107,7 +107,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
         })}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         items={localizedEnumToOptions(
-          options?.reltionshipToNominatorOptions,
+          options?.relationshipToNominatorOptions,
           intl,
           [
             TalentNominationNomineeRelationshipToNominator.CurrentEmployee,
