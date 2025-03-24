@@ -236,6 +236,7 @@ const NominatorFields = ({
           id: "6e33hP",
           description: "Label for the nominator input field on a nomination",
         })}
+        errorSeverities={{ NO_PROFILE: "warning" }}
       />
       {!nominatorUnset && !nominatorNotFound && (
         <>

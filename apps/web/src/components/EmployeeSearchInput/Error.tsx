@@ -3,19 +3,31 @@ import { CombinedError } from "urql";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
-import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
+import {
+  ErrorMessages,
+  ErrorSeverity,
+  ErrorSeverities,
+  ErrorMessage as TErrorMessage,
+} from "./types";
 
 interface ErrorMessageProps {
   message: TErrorMessage;
+  severity?: ErrorSeverity;
 }
 
-const ErrorMessage = ({ message }: ErrorMessageProps) => (
+const ErrorMessage = ({ message, severity = "error" }: ErrorMessageProps) => (
   <>
     {message.title && (
       <p
         data-h2-font-weight="base(700)"
         data-h2-margin-bottom="base(x.5)"
-        data-h2-color="base(error)"
+        {...(severity === "error"
+          ? {
+              "data-h2-color": "base(error)",
+            }
+          : {
+              "data-h2-color": "base(warning)",
+            })}
       >
         {message.title}
       </p>
@@ -70,9 +82,10 @@ interface ErrorProps {
   email?: string;
   error?: CombinedError | string[] | null;
   messages?: Partial<ErrorMessages>;
+  severities?: Partial<ErrorSeverities>;
 }
 
-const Error = ({ email, error, messages }: ErrorProps) => {
+const Error = ({ email, error, messages, severities }: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error) return null;
@@ -85,11 +98,21 @@ const Error = ({ email, error, messages }: ErrorProps) => {
   }
 
   if (errorCodes?.includes("NotGovernmentEmail")) {
-    return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
+    return (
+      <ErrorMessage
+        severity={severities?.NOT_GOVERNMENT_EMAIL}
+        message={errorMessages.NOT_GOVERNMENT_EMAIL}
+      />
+    );
   }
 
   if (errorCodes?.includes("NoProfile")) {
-    return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+    return (
+      <ErrorMessage
+        severity={severities?.NO_PROFILE}
+        message={errorMessages.NO_PROFILE}
+      />
+    );
   }
 
   return null;

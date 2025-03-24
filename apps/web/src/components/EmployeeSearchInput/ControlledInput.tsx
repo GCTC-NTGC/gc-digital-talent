@@ -21,7 +21,7 @@ import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import Result from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import { EmployeeSearchResult, ErrorMessages } from "./types";
+import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 
 export { fragmentToEmployee };
 
@@ -42,6 +42,7 @@ interface ControlledInputProps {
   buttonLabel?: string;
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
+  errorSeverities?: Partial<ErrorSeverities>;
   defaultEmployee?: Maybe<EmployeeSearchResult>;
 }
 
@@ -52,6 +53,7 @@ const ControlledInput = ({
   buttonLabel,
   describedBy,
   errorMessages,
+  errorSeverities,
   defaultEmployee,
 }: ControlledInputProps) => {
   const id = useId();
@@ -221,6 +223,7 @@ const ControlledInput = ({
             email={currentQuery}
             error={error}
             messages={errorMessages}
+            severities={errorSeverities}
           />
         )}
       </div>
