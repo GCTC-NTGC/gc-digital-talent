@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Well } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -499,7 +500,11 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
         />
         <NominatorFields
           optionsQuery={optionsQuery}
-          employeeQuery={talentNomination?.nominator ?? undefined}
+          employeeQuery={
+            submitterIsNominator
+              ? undefined
+              : (talentNomination?.nominator ?? undefined)
+          }
         />
       </div>
     </UpdateForm>
