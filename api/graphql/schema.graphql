@@ -749,10 +749,8 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   departments: [Department] @belongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
@@ -1956,18 +1954,14 @@ input CreateTeamInput {
       apply: ["unique:teams,name"]
       messages: [{ rule: "unique", message: "TeamNameInUse" }]
     )
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input UpdateTeamInput {
   name: String
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input CreateCommunityInput {

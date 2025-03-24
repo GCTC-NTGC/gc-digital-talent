@@ -14,9 +14,6 @@ use Laratrust\Models\Team as LaratrustTeam;
  * Class Team
  *
  * @property string $id
- * @property string $displayName
- * @property string $contact_email
- * @property array $display_name
  * @property array $description
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
@@ -28,13 +25,11 @@ class Team extends LaratrustTeam
     protected $keyType = 'string';
 
     protected $casts = [
-        'display_name' => LocalizedString::class,
         'description' => LocalizedString::class,
     ];
 
     protected $fillable = [
         'name',
-        'display_name',
         'teamable_id',
         'teamable_type',
     ];
@@ -63,17 +58,4 @@ class Team extends LaratrustTeam
         return $this->hasMany(RoleAssignment::class);
     }
 
-    public static function scopeDisplayName(Builder $query, ?string $displayName): Builder
-    {
-        if ($displayName) {
-            $query->where(function ($query) use ($displayName) {
-                $term = sprintf('%%%s%%', $displayName);
-
-                return $query->where('display_name->en', 'ilike', $term)
-                    ->orWhere('display_name->fr', 'ilike', $term);
-            });
-        }
-
-        return $query;
-    }
 }

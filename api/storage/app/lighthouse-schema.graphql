@@ -1151,10 +1151,8 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
-  displayName: LocalizedString
   description: LocalizedString
   departments: [Department]
-  contactEmail: Email
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
@@ -1948,18 +1946,14 @@ input CommunityBelongsTo {
 
 input CreateTeamInput {
   name: String!
-  displayName: LocalizedStringInput
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
-  contactEmail: Email
 }
 
 input UpdateTeamInput {
   name: String
-  displayName: LocalizedStringInput
   description: LocalizedStringInput
   departments: DepartmentBelongsToMany
-  contactEmail: Email
 }
 
 input CreateCommunityInput {

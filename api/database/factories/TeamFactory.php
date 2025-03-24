@@ -27,9 +27,7 @@ class TeamFactory extends Factory
 
         return [
             'name' => $this->faker->unique()->word(),
-            'display_name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
-            'contact_email' => $this->faker->email(),
         ];
     }
 
