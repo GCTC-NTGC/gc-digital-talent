@@ -98,7 +98,6 @@ return [
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
 
-        'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
         'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
     ],
@@ -498,14 +497,6 @@ return [
         'view-any-team' => [
             'en' => 'View Any Team',
             'fr' => 'Visionner toute équipe',
-        ],
-        'view-any-teamMembers' => [
-            'en' => 'View who is a member of any Team',
-            'fr' => 'Voir qui est membre de n\'import quell équipe',
-        ],
-        'view-team-teamMembers' => [
-            'en' => 'View who is a member of this Team',
-            'fr' => 'Voir qui est membre de cette équipe',
         ],
         'create-any-team' => [
             'en' => 'Create Any Team',
@@ -1008,9 +999,6 @@ return [
             'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
-            'teamMembers' => [
-                'team' => ['view'],
-            ],
             'role' => [
                 'any' => ['view'],
             ],
@@ -1061,9 +1049,6 @@ return [
             ],
             'publishedPool' => [
                 'any' => ['update', 'archive'],
-            ],
-            'teamMembers' => [
-                'any' => ['view'],
             ],
             'team' => [
                 'any' => ['view', 'create', 'update', 'delete'],
@@ -1277,9 +1262,6 @@ return [
                 'any' => ['view', 'create', 'update', 'delete'],
             ],
             'searchRequest' => [
-                'any' => ['view'],
-            ],
-            'teamMembers' => [
                 'any' => ['view'],
             ],
             'team' => [

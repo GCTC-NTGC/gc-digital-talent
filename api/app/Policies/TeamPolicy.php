@@ -65,16 +65,6 @@ class TeamPolicy
     }
 
     /**
-     * Determine whether the user can view a specific teams, team members.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewTeamMembers(User $user, ?Team $team)
-    {
-        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $team);
-    }
-
-    /**
      * Determine whether the user can assign any user to this team (giving them any team-based role)
      *
      * @return \Illuminate\Auth\Access\Response|bool

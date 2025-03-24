@@ -177,7 +177,6 @@ class RolePermissionTest extends TestCase
             'view-any-pool',
             'view-any-assessmentPlan',
             'create-any-application',
-            'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
             'delete-any-team',

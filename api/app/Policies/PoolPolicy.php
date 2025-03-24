@@ -284,15 +284,14 @@ class PoolPolicy
      */
     public function viewTeamMembers(User $user, Pool $pool)
     {
-        if ($user->isAbleTo('view-any-poolTeamMembers') || $user->isAbleTo('view-any-teamMembers')) {
+        if ($user->isAbleTo('view-any-poolTeamMembers')) {
             return true;
         }
 
-        $pool->loadMissing(['team', 'legacyTeam', 'community.team']);
-        $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-teamMembers', $pool->team) || $user->isAbleTo('view-team-poolTeamMembers', $pool->team));
-        $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('view-team-teamMembers', $pool->legacyTeam);
+        $pool->loadMissing(['team', 'community.team']);
+        $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-poolTeamMembers', $pool->team));
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
 
-        return $teamPermission || $legacyTeamPermission || $communityPermission;
+        return $teamPermission || $communityPermission;
     }
 }
