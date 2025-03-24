@@ -3744,7 +3744,7 @@
     "description": "Message for total estimated matching candidates in pool"
   },
   "GndGRz": {
-    "defaultMessage": "La mise à jour des informations sur votre prochain type de post a échoué.",
+    "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "GplLic": {
