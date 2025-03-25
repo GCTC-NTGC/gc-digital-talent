@@ -719,9 +719,14 @@ const CareerObjectiveSection = ({
                 >
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save your career objective",
+                      id: "v+AFQT",
+                      description:
+                        "Text on a button to your career objective form",
+                    })}
                     color="secondary"
-                    mode="inline"
+                    mode="solid"
                     isSubmitting={fetching}
                   />
                   <ToggleSection.Close>

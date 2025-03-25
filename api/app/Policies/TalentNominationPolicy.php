@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\TalentNomination;
-use App\Models\TalentNominationEvent;
+use App\Models\Team;
 use App\Models\User;
 
 class TalentNominationPolicy
@@ -11,11 +11,22 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, TalentNomination $nomination): bool
+    public function view(User $actor, TalentNomination $talentNomination): bool
     {
-        $isOwn = $nomination->isOwn($user);
+        // can view if the nomination is their own
+        $isOwn = $talentNomination->isOwn($actor);
+        if ($isOwn && $actor->isAbleTo('view-own-talentNomination')) {
+            return true;
+        }
 
-        if ($isOwn && $user->isAbleTo('view-own-talentNomination')) {
+        // can view if the nomination is submitted and is for an event in their community
+        $isDraft = $talentNomination->isDraft();
+        $talentNomination->loadMissing('talentNominationEvent');
+        $communityTeam = Team::with(['teamable.team'])
+            ->where('teamable_type', 'App\Models\Community')
+            ->where('teamable_id', $talentNomination->talentNominationEvent->community_id)
+            ->first();
+        if (! $isDraft && $actor->isAbleTo('view-team-talentNominationGroup', $communityTeam)) {
             return true;
         }
 
@@ -25,9 +36,9 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $actor): bool
     {
-        if ($user->isVerifiedGovEmployee && $user->isAbleTo('create-own-talentNomination')) {
+        if ($actor->isVerifiedGovEmployee && $actor->isAbleTo('create-own-talentNomination')) {
             return true;
         }
 
@@ -37,13 +48,13 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, TalentNomination $nomination): bool
+    public function update(User $actor, TalentNomination $talentNomination): bool
     {
-        $isOwn = $nomination->isOwn($user);
-        $isDraft = $nomination->isDraft();
+        $isOwn = $talentNomination->isOwn($actor);
+        $isDraft = $talentNomination->isDraft();
 
         // can only update your own nomination if it is still in draft
-        if ($isOwn && $isDraft && $user->isAbleTo('update-own-talentNomination')) {
+        if ($isOwn && $isDraft && $actor->isAbleTo('update-own-talentNomination')) {
             return true;
         }
 
@@ -53,7 +64,7 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, TalentNomination $nomination): bool
+    public function delete(User $actor, TalentNomination $talentNomination): bool
     {
         return false;
     }
@@ -61,7 +72,7 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, TalentNominationEvent $talentNominationEvent): bool
+    public function restore(User $actor, TalentNomination $talentNomination): bool
     {
         return false;
     }
@@ -69,7 +80,7 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, TalentNominationEvent $talentNominationEvent): bool
+    public function forceDelete(User $actor, TalentNomination $talentNomination): bool
     {
         return false;
     }

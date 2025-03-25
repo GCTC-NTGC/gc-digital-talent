@@ -3772,7 +3772,7 @@
     "description": "Message for total estimated matching candidates in pool"
   },
   "GndGRz": {
-    "defaultMessage": "La mise à jour des informations sur votre prochain type de post a échoué.",
+    "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "GplLic": {
@@ -8174,6 +8174,10 @@
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
     "description": "Default error messsage when an employee could not be found"
   },
+  "dRJLsv": {
+    "defaultMessage": "Sauvegardez votre prochain type de poste",
+    "description": "Text on a button to save your next role form"
+  },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
@@ -11047,7 +11051,7 @@
     "description": "Label for process French title"
   },
   "rBtIUo": {
-    "defaultMessage": "Enregistrez les préférences en matière de développement de carrière",
+    "defaultMessage": "Sauvegardez les préférences en matière de développement de carrière",
     "description": "Text on a button to save career development preferences form"
   },
   "rCpVpZ": {
@@ -11701,6 +11705,10 @@
   "uzqiPj": {
     "defaultMessage": "Actualiser les paramètres",
     "description": "Link text for the account settings page"
+  },
+  "v+AFQT": {
+    "defaultMessage": "Sauvegardez votre objectif de carrière",
+    "description": "Text on a button to your career objective form"
   },
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",

@@ -30,6 +30,7 @@ final class SubmitTalentNomination
         $nomination->setInsertSubmittedStepAttribute(TalentNominationStep::REVIEW_AND_SUBMIT->name);
 
         $nomination->save();
+        // attaching to a talent nomination group happens in the observer
         $nomination->refresh();
 
         return $nomination;
