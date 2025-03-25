@@ -87,6 +87,7 @@ services:
     image: ghcr.io/navikt/mock-oauth2-server:2.1.5
     volumes:
       - ./infrastructure/conf:/app/conf
+      - ./infrastructure/mockauth/resources/login.html:/app/login/login.html
     # Container shuts down with exit code 143 instead of the standard "0", so
     # we ensure it comes back up after a Docker Desktop console restart.
     # See: https://docs.docker.com/config/containers/start-containers-automatically/#use-a-restart-policy

@@ -38,7 +38,7 @@ export async function loginBySub(
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
-  await page.getByRole("button", { name: /sign-in/i }).click();
+  await page.getByRole("button", { name: /sign in/i }).click();
   await expect(
     page.getByRole(
       "heading",
