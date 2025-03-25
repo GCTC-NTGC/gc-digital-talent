@@ -187,7 +187,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.goto("/en/applicant");
+    await page.goto("/en/applicant/personal-information");
     const request = await req1Promise; // get refresh token 1 from request 1 URL
     const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
@@ -223,7 +223,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.goto("/en/applicant");
+    await page.goto("/en/applicant/career-timeline");
     const request2 = await req2Promise; // get refresh token 2 from request URL
     const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
@@ -259,7 +259,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.goto("/en/applicant");
+    await page.goto("/en/applicant/skills");
     const request3 = await req3Promise; // get refresh token 3 from request URL
     const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
