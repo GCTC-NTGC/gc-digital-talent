@@ -8,16 +8,27 @@ import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
 
 interface ErrorMessageProps {
   id?: string;
+  hasInputErrors?: boolean;
   message: TErrorMessage;
 }
 
-const ErrorMessage = ({ message, id }: ErrorMessageProps) => (
+const ErrorMessage = ({
+  message,
+  id,
+  hasInputErrors = false,
+}: ErrorMessageProps) => (
   <div id={id}>
     {message.title && (
       <p
         data-h2-font-weight="base(700)"
         data-h2-margin-bottom="base(x.5)"
-        data-h2-color="base(error)"
+        {...(hasInputErrors
+          ? {
+              "data-h2-color": "base(error.darkest)",
+            }
+          : {
+              "data-h2-color": "base(error)",
+            })}
       >
         {message.title}
       </p>
@@ -81,6 +92,11 @@ const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !inputErrors) return null;
 
+  const sharedProps = {
+    id,
+    hasInputErrors: !!inputErrors,
+  };
+
   if (error) {
     let errorCodes: string[] | undefined;
     if (Array.isArray(error)) {
@@ -91,14 +107,17 @@ const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
 
     if (errorCodes?.includes("NotGovernmentEmail")) {
       return (
-        <ErrorMessage id={id} message={errorMessages.NOT_GOVERNMENT_EMAIL} />
+        <ErrorMessage
+          {...sharedProps}
+          message={errorMessages.NOT_GOVERNMENT_EMAIL}
+        />
       );
     }
 
     if (errorCodes?.includes("NoProfile")) {
       return (
         <ErrorMessage
-          id={id}
+          {...sharedProps}
           message={{
             title: defaultMessages.NO_PROFILE.title,
             ...errorMessages.NO_PROFILE,
