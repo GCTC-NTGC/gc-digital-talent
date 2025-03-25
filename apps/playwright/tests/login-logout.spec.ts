@@ -3,7 +3,7 @@ import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
-  test.setTimeout(120_000);
+  test.slow();
   test.beforeEach(async ({ page }) => {
     await page.clock.setFixedTime(Date.now());
   });
@@ -182,11 +182,13 @@ test.describe("Login and logout", () => {
       jumpPastExpiryDate(tokenSet1?.accessToken ?? ""),
     );
 
+    const req1Promise = page.waitForRequest(
+      (req) => req.url().includes("/refresh") && req.method() === "GET",
+    );
+
     // navigate to a page
     await page.reload();
-    const request = await page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    ); // get refresh token 1 from request 1 URL
+    const request = await req1Promise; // get refresh token 1 from request 1 URL
     const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
     );
@@ -216,11 +218,13 @@ test.describe("Login and logout", () => {
       jumpPastExpiryDate(tokenSet2?.accessToken ?? ""),
     );
 
+    const req2Promise = page.waitForRequest(
+      (req) => req.url().includes("/refresh") && req.method() === "GET",
+    );
+
     // navigate to a page
     await page.reload();
-    const request2 = await page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    ); // get refresh token 2 from request URL
+    const request2 = await req2Promise; // get refresh token 2 from request URL
     const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
     );
@@ -250,11 +254,13 @@ test.describe("Login and logout", () => {
       jumpPastExpiryDate(tokenSet3?.accessToken ?? ""),
     );
 
+    const req3Promise = page.waitForRequest(
+      (req) => req.url().includes("/refresh") && req.method() === "GET",
+    );
+
     // navigate to a page
     await page.reload();
-    const request3 = await page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    ); // get refresh token 3 from request URL
+    const request3 = await req3Promise; // get refresh token 3 from request URL
     const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
     );
