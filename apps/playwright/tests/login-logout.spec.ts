@@ -3,6 +3,7 @@ import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
+  test.setTimeout(120_000);
   test.beforeEach(async ({ page }) => {
     await page.clock.setFixedTime(Date.now());
   });
@@ -186,7 +187,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.reload({ waitUntil: "domcontentloaded", timeout: 120000 });
+    await page.reload();
     const request = await req1Promise; // get refresh token 1 from request 1 URL
     const refreshToken1 = new URL(request.url()).searchParams.get(
       "refresh_token",
@@ -221,7 +222,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.reload({ waitUntil: "domcontentloaded", timeout: 120000 });
+    await page.reload();
     const request2 = await req2Promise; // get refresh token 2 from request URL
     const refreshToken2 = new URL(request2.url()).searchParams.get(
       "refresh_token",
@@ -256,7 +257,7 @@ test.describe("Login and logout", () => {
     );
 
     // navigate to a page
-    await page.reload({ waitUntil: "domcontentloaded", timeout: 120000 });
+    await page.reload();
     const request3 = await req3Promise; // get refresh token 3 from request URL
     const refreshToken3 = new URL(request3.url()).searchParams.get(
       "refresh_token",
