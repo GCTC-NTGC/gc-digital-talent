@@ -19,3 +19,16 @@ export const getSalaryRange = (
     locale,
   );
 };
+
+/**
+ * Convert group and level to string
+ * @returns string
+ * */
+export const stringifyGroupLevel = (
+  group?: string,
+  level?: number,
+): string | null => {
+  if (!group || !level) return null;
+
+  return `${group}-${String(level).padStart(2, "0")}`;
+};

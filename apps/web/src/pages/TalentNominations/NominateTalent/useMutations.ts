@@ -1,6 +1,6 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 import {
   graphql,
@@ -48,6 +48,7 @@ const useMutations = (): UseMutationsReturn => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
   const paths = useRoutes();
+  const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { next } = useCurrentStep();
   const [{ fetching: updating }, executeUpdateMutation] = useMutation(
@@ -69,7 +70,10 @@ const useMutations = (): UseMutationsReturn => {
 
         if (res.data?.updateTalentNomination) {
           if (next && intent === "next-step") {
-            await navigate(`${paths.talentNomination(id)}?step=${next}`);
+            setSearchParams((params) => {
+              params.set("step", next);
+              return params;
+            });
           }
 
           if (intent === "save-draft") {
@@ -99,13 +103,19 @@ const useMutations = (): UseMutationsReturn => {
     }
 
     return executeSubmitMutation({ id })
-      .then(async (res) => {
+      .then((res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
         }
 
         if (res.data?.submitTalentNomination) {
-          await navigate(paths.talentNomination(id));
+          setSearchParams(
+            (params) => {
+              params.delete("step");
+              return params;
+            },
+            { state: { submitting: true } },
+          );
           return;
         }
 
