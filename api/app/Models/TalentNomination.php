@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\TalentNominationObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
- * Class Talent nomination
+ * Class TalentNomination
  *
  * @property string $id
  * @property \Illuminate\Support\Carbon $created_at
@@ -31,9 +32,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $nominee_review
  * @property string $nominee_relationship_to_nominator
  * @property string $nominee_relationship_to_nominator_other
- * @property string $nominate_for_advancement
- * @property string $nominate_for_lateral_movement
- * @property string $nominate_for_development_programs
+ * @property bool $nominate_for_advancement
+ * @property bool $nominate_for_lateral_movement
+ * @property bool $nominate_for_development_programs
  * @property string $advancement_reference_id
  * @property string $advancement_reference_review
  * @property string $advancement_reference_fallback_work_email
@@ -45,6 +46,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_program_options_other
  * @property string $nomination_rationale
  * @property string $additional_comments
+ * @property string $talent_nomination_group_id
  */
 class TalentNomination extends Model
 {
@@ -54,6 +56,15 @@ class TalentNomination extends Model
     use LogsActivity;
 
     protected $keyType = 'string';
+
+    /**
+     * The attributes that can be filled using mass-assignment.
+     */
+    protected $fillable = [
+        'nominate_for_advancement',
+        'nominate_for_lateral_movement',
+        'nominate_for_development_programs',
+    ];
 
     /**
      * Get the attributes that should be cast.
@@ -75,6 +86,14 @@ class TalentNomination extends Model
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        TalentNomination::observe(TalentNominationObserver::class);
     }
 
     /** @return BelongsTo<TalentNominationEvent, $this> */
@@ -143,6 +162,12 @@ class TalentNomination extends Model
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
     }
 
+    /** @return BelongsTo<TalentNominationGroup, $this> */
+    public function talentNominationGroup(): BelongsTo
+    {
+        return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id');
+    }
+
     /**
      * Take the new application step to insert and add it to the array, preserving uniqueness
      */
@@ -151,6 +176,26 @@ class TalentNomination extends Model
         $nominationSteps = collect([$this->submitted_steps, $nominationStep])->flatten()->unique();
 
         $this->submitted_steps = $nominationSteps->values()->all();
+    }
+
+    /**
+     * Connect a talent nomination to a talent nomination group if it is missing
+     */
+    public function connectToTalentNominationGroupIfMissing()
+    {
+        if (! is_null($this->submitted_at)) {
+            // this is a submitted nomination
+            if (is_null($this->talent_nomination_group_id)) {
+                // not yet attached to a group
+                $talentNominationGroup = TalentNominationGroup::firstOrCreate(
+                    ['nominee_id' => $this->nominee_id],
+                    ['talent_nomination_event_id' => $this->talent_nomination_event_id],
+                );
+
+                $this->talent_nomination_group_id = $talentNominationGroup->id;
+                $this->save();
+            }
+        }
     }
 
     /**

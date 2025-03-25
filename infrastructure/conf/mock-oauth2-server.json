@@ -1,6 +1,7 @@
 {
   "interactiveLogin": true,
   "rotateRefreshToken": true,
+  "loginPagePath": "/app/login/login.html",
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
