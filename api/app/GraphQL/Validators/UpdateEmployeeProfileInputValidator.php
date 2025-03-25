@@ -45,6 +45,11 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
 
+            'interchangeOpportunitiesInterest' => ['nullable', 'boolean'],
+            'academicProgramInterest' => ['nullable', 'boolean'],
+            'peerNetworkingInterest' => ['nullable', 'boolean'],
+            'professionalAccreditationInterest' => ['nullable', 'boolean'],
+
             'eligibleRetirementYearKnown' => ['nullable', 'boolean'],
             'eligibleRetirementYear' => [
                 'nullable',

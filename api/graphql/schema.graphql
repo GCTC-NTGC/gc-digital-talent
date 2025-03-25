@@ -254,6 +254,14 @@ type EmployeeProfile {
   careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
 
+  interchangeOpportunitiesInterest: Boolean
+    @rename(attribute: "interchange_opportunities_interest")
+  academicProgramInterest: Boolean
+    @rename(attribute: "academic_program_interest")
+  peerNetworkingInterest: Boolean @rename(attribute: "peer_networking_interest")
+  professionalAccreditationInterest: Boolean
+    @rename(attribute: "professional_accreditation_interest")
+
   communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
 
   userPublicProfile: UserPublicProfile
