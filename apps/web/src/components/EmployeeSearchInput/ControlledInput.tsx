@@ -130,7 +130,8 @@ const ControlledInput = ({
   };
 
   const hasErrors = !!error || (inputErrors && inputErrors.length > 0);
-  const showContext = !fetching && !hasErrors && query === "" && !employee;
+  const showContext =
+    !fetching && !hasErrors && currentQuery === "" && !employee;
 
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
@@ -222,6 +223,7 @@ const ControlledInput = ({
         )}
         {!fetching && hasErrors && (
           <ErrorMessage
+            id={descriptionIds.error}
             email={currentQuery}
             error={error}
             inputErrors={inputErrors}

@@ -7,11 +7,12 @@ import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
 
 interface ErrorMessageProps {
+  id?: string;
   message: TErrorMessage;
 }
 
-const ErrorMessage = ({ message }: ErrorMessageProps) => (
-  <>
+const ErrorMessage = ({ message, id }: ErrorMessageProps) => (
+  <div id={id}>
     {message.title && (
       <p
         data-h2-font-weight="base(700)"
@@ -22,7 +23,7 @@ const ErrorMessage = ({ message }: ErrorMessageProps) => (
       </p>
     )}
     {message.body}
-  </>
+  </div>
 );
 
 const useDefaultMessages = (email: string | undefined): ErrorMessages => {
@@ -68,13 +69,14 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 };
 
 interface ErrorProps {
+  id?: string;
   email?: string;
   inputErrors?: FieldError[];
   error?: CombinedError | string[] | null;
   messages?: Partial<ErrorMessages>;
 }
 
-const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
+const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !inputErrors) return null;
@@ -88,12 +90,15 @@ const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
     }
 
     if (errorCodes?.includes("NotGovernmentEmail")) {
-      return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
+      return (
+        <ErrorMessage id={id} message={errorMessages.NOT_GOVERNMENT_EMAIL} />
+      );
     }
 
     if (errorCodes?.includes("NoProfile")) {
       return (
         <ErrorMessage
+          id={id}
           message={{
             title: defaultMessages.NO_PROFILE.title,
             ...errorMessages.NO_PROFILE,
@@ -106,6 +111,7 @@ const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
   if (inputErrors) {
     return (
       <div
+        id={id}
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"
