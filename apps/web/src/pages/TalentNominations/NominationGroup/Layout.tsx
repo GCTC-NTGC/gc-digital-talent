@@ -131,12 +131,12 @@ const Layout = ({ query }: LayoutProps) => {
         ]}
       />
       <Sidebar.Wrapper>
-        <Sidebar.Content>
-          <Outlet />
-        </Sidebar.Content>
-        <Sidebar.Sidebar>
+        <Sidebar.Sidebar data-h2-order="l-tablet(2)">
           <>{/* Put the sidebar here */}</>
         </Sidebar.Sidebar>
+        <Sidebar.Content data-h2-order="l-tablet(1)">
+          <Outlet />
+        </Sidebar.Content>
       </Sidebar.Wrapper>
     </>
   );
