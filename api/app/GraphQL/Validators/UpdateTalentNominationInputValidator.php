@@ -72,6 +72,7 @@ final class UpdateTalentNominationInputValidator extends Validator
             'nomineeRelationshipToNominatorOther' => [
                 'required_if:nomineeRelationshipToNominator,'.TalentNominationNomineeRelationshipToNominator::OTHER->name,
                 'prohibited_unless:nomineeRelationshipToNominator,'.TalentNominationNomineeRelationshipToNominator::OTHER->name,
+                'nullable',
                 'string',
             ],
             'nominateForAdvancement' => ['boolean'],
