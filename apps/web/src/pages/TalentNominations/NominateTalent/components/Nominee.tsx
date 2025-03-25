@@ -7,6 +7,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  Maybe,
   Scalars,
   TalentNominationNomineeRelationshipToNominator,
   TalentNominationStep,
@@ -32,7 +33,7 @@ interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
   nomineeReview: TalentNominationUserReview;
   nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator;
-  nomineeRelationshipToNominatorOther?: string;
+  nomineeRelationshipToNominatorOther?: Maybe<string>;
 }
 
 const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `
@@ -75,7 +76,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
 
   const resetField = useCallback(
     (name: keyof FormValues) =>
-      baseReset(name, { defaultValue: "", keepDirty: false }),
+      baseReset(name, { defaultValue: null, keepDirty: false }),
     [baseReset],
   );
 
