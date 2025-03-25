@@ -23,7 +23,7 @@ test.describe("Login and logout", () => {
     await page.locator("input[name=username]").fill("applicant@test.com");
     await page
       .getByRole("button", {
-        name: "Sign-in",
+        name: "Sign in",
       })
       .click();
 
@@ -93,7 +93,7 @@ test.describe("Login and logout", () => {
     await page.locator("input[name=username]").fill("applicant@test.com");
     await page
       .getByRole("button", {
-        name: "Sign-in",
+        name: "Sign in",
       })
       .click();
 
