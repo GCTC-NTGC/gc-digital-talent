@@ -183,6 +183,11 @@ type LocalizedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedLearningOpportunitiesInterest {
+  value: LearningOpportunitiesInterest!
+  label: LocalizedString!
+}
+
 type LocalizedMentorship {
   value: Mentorship!
   label: LocalizedString!
@@ -742,7 +747,7 @@ type EmployeeProfile {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: LocalizedTimeFrame
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
-  learningOpportunitiesInterest: JSON
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
   eligibleRetirementYearKnown: Boolean
   eligibleRetirementYear: Date
   mentorshipStatus: [LocalizedMentorship!]
@@ -1758,6 +1763,7 @@ input UpdateEmployeeProfileInput {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: TimeFrame
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
   eligibleRetirementYearKnown: Boolean
   eligibleRetirementYear: Date
   mentorshipStatus: [Mentorship!]
@@ -3279,6 +3285,13 @@ enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
+}
+
+enum LearningOpportunitiesInterest {
+  INTERCHANGE
+  ACADEMIC_PROGRAM
+  PEER_NETWORKING
+  PROFESSIONAL_ACCREDITATION
 }
 
 enum Mentorship {
