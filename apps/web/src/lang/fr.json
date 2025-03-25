@@ -7822,6 +7822,10 @@
     "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature",
     "description": "Second paragraph for publish process dialog"
   },
+  "bosqug": {
+    "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du lien « Nouvelle mise en candidature ».",
+    "description": "Notice's text when there are no nominations"
+  },
   "bozF1y": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
     "description": "Text to confirm the process to be deleted"
@@ -12041,10 +12045,6 @@
   "x20cWU": {
     "defaultMessage": "Essayez les tests <link>d’auto-évaluation </link> pour vous faire une idée de votre niveau actuel.",
     "description": "Description for bilingual positions in language requirements dialog"
-  },
-  "x2yC2s": {
-    "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du bouton « Nouvelle mise en candidature ».",
-    "description": "Notice's text when there are no nominations"
   },
   "x45gSl": {
     "defaultMessage": "Un membre de l'équipe du Bureau des initiatives autochtones communiquera avec vous sous peu.",
