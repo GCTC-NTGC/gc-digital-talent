@@ -1,6 +1,7 @@
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useCallback, useEffect } from "react";
 
 import {
   FragmentType,
@@ -66,11 +67,23 @@ interface NomineeFieldsProps {
 
 const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
   const intl = useIntl();
-  const { watch } = useFormContext<FormValues>();
+  const { watch, resetField: baseReset } = useFormContext<FormValues>();
   const [nominee, relationship] = watch([
     "nominee",
     "nomineeRelationshipToNominator",
   ]);
+
+  const resetField = useCallback(
+    (name: keyof FormValues) =>
+      baseReset(name, { defaultValue: "", keepDirty: false }),
+    [baseReset],
+  );
+
+  useEffect(() => {
+    if (relationship !== TalentNominationNomineeRelationshipToNominator.Other) {
+      resetField("nomineeRelationshipToNominatorOther");
+    }
+  }, [relationship, resetField]);
 
   if (!nominee) return null;
 
@@ -83,6 +96,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
         idPrefix="nomineeReview"
         id="nomineeReview"
         name="nomineeReview"
+        trackUnsaved={false}
         legend={intl.formatMessage({
           defaultMessage: "Review incorrect or out of date information",
           id: "dDdsk2",
@@ -99,6 +113,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
         idPrefix="nomineeRelationshipToNominator"
         id="nomineeRelationshipToNominator"
         name="nomineeRelationshipToNominator"
+        trackUnsaved={false}
         legend={intl.formatMessage({
           defaultMessage: "Nominee's relationship to nominator",
           id: "aYyceB",
@@ -124,6 +139,7 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
           type="text"
           name="nomineeRelationshipToNominatorOther"
           id="nomineeRelationshipToNominatorOther"
+          trackUnsaved={false}
           label={intl.formatMessage({
             defaultMessage: "Other relationship",
             id: "vIzha1",
