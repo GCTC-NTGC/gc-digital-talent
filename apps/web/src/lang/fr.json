@@ -1851,6 +1851,10 @@
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})",
     "description": "Label for operational requirements filter link"
   },
+  "73rG7Y": {
+    "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du lien « Nouvelle mise en candidature ».",
+    "description": "Notice's text when there are no nominations"
+  },
   "74Npts": {
     "defaultMessage": "Examiner et évaluer les preuves fournies par {candidateName} par rapport aux études requises ou à l’expérience équivalente.",
     "description": "Subtitle for education requirement screening decision dialog."
@@ -7821,10 +7825,6 @@
   "bok2jV": {
     "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature",
     "description": "Second paragraph for publish process dialog"
-  },
-  "bosqug": {
-    "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du lien « Nouvelle mise en candidature ».",
-    "description": "Notice's text when there are no nominations"
   },
   "bozF1y": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
