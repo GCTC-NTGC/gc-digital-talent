@@ -1,5 +1,3 @@
-import { connect } from "http2";
-
 import DocumentCheckIcon from "@heroicons/react/24/outline/DocumentCheckIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
