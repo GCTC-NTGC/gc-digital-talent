@@ -742,6 +742,7 @@ type EmployeeProfile {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: LocalizedTimeFrame
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  learningOpportunitiesInterest: JSON
   eligibleRetirementYearKnown: Boolean
   eligibleRetirementYear: Date
   mentorshipStatus: [LocalizedMentorship!]
