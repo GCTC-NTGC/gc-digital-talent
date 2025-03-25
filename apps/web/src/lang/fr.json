@@ -575,6 +575,10 @@
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
   },
+  "0m1utE": {
+    "defaultMessage": "Examinez le profil d'une personne candidate et approuver ou rejeter sa candidature.",
+    "description": "Description of a talent nomination group"
+  },
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
@@ -3367,6 +3371,10 @@
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
     "description": "Description of a decorative image of a woman and a laptop"
   },
+  "EtjQ8d": {
+    "defaultMessage": "Gestion des talents",
+    "description": "Heading for the talent management page"
+  },
   "EvR6qK": {
     "defaultMessage": "Qualifiez le candidat ou la candidate",
     "description": "Qualify candidate option"
@@ -4938,6 +4946,10 @@
   "MsLKAj": {
     "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
+  },
+  "MsiKO0": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Link text for details about a nomination"
   },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
@@ -6537,6 +6549,10 @@
   "V6wB0a": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
     "description": "list a number of community experiences"
+  },
+  "V8sPIH": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Link text for the experience of a nominee"
   },
   "V8v+/g": {
     "defaultMessage": "Filtre de classification",
@@ -10221,6 +10237,10 @@
   "n4pwef": {
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
+  },
+  "n8Mc9q": {
+    "defaultMessage": "Profil",
+    "description": "Link text for the profile of a nominee"
   },
   "n92mcX": {
     "defaultMessage": "Responsables de l’approvisionnement",
