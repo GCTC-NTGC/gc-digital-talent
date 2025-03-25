@@ -6027,6 +6027,10 @@
     "defaultMessage": "N/D",
     "description": "An abbreviation for not available"
   },
+  "S4vj9m": {
+    "defaultMessage": "Veuillez indiquer votre rôle pour continuer.",
+    "description": "Message displayed when submitter has not selected their role in a nomination"
+  },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
