@@ -5,7 +5,10 @@ import {
   getExecCoachingInterest,
   getMentorshipInterest,
 } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -49,6 +52,7 @@ const Display = ({
     promotionMoveInterest,
     promotionMoveTimeFrame,
     promotionMoveOrganizationType,
+    learningOpportunitiesInterest,
     eligibleRetirementYearKnown,
     eligibleRetirementYear,
     mentorshipStatus,
@@ -78,6 +82,11 @@ const Display = ({
   const execCoachingInterests = unpackMaybes(execCoachingInterest).map(
     (interest) => String(interest.value),
   );
+
+  const learningOpportunitiesInterestType = unpackMaybes(
+    learningOpportunitiesInterest,
+  ).map((interest) => String(interest.value));
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -249,6 +258,45 @@ const Display = ({
           </ToggleForm.FieldDisplay>
         </>
       )}
+
+      <>
+        <ToggleForm.FieldDisplay
+          label={careerDevelopmentMessages.learningOpportunitiesInterest}
+        >
+          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            {unpackMaybes(
+              careerDevelopmentOptions?.learningOpportunitiesInterest,
+            ).map((x) => {
+              const iconValue = Array.isArray(learningOpportunitiesInterest)
+                ? learningOpportunitiesInterestType.includes(x.value)
+                : false;
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon
+                    value={iconValue}
+                    trueLabel={intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "AQiPuW",
+                      description:
+                        "Label for user expressing interest in a specific work stream",
+                    })}
+                    falseLabel={intl.formatMessage({
+                      defaultMessage: "Not interested in",
+                      id: "KyLikL",
+                      description:
+                        "Label for user expressing they are not interested in a specific work stream",
+                    })}
+                  >
+                    {x.label.localized ??
+                      intl.formatMessage(commonMessages.notFound)}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </ul>
+        </ToggleForm.FieldDisplay>
+      </>
+
       <ToggleForm.FieldDisplay
         label={careerDevelopmentMessages.eligibleRetirementYearKnown}
       >
