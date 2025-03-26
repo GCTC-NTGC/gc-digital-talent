@@ -79,6 +79,23 @@ function getStatusWell(
   return assertUnreachable(dialogVariant);
 }
 
+function getFooterButtons(
+  dialogVariant: DialogVariant,
+  intl: IntlShape,
+): ReactNode {
+  if (dialogVariant === "received") {
+    return (
+      <Dialog.Close>
+        <Button color="secondary">
+          {intl.formatMessage(commonMessages.close)}
+        </Button>
+      </Dialog.Close>
+    );
+  }
+  // there will be other button sets in the future for other variants
+  return assertUnreachable(dialogVariant);
+}
+
 interface ReviewTalentNominationDialogProps {
   talentNominationQuery: FragmentType<
     typeof ReviewTalentNominationDialog_Fragment
@@ -97,6 +114,7 @@ const ReviewTalentNominationDialog = ({
 
   const dialogVariant: DialogVariant = "received"; // will have to handle other variants later
   const statusWell = getStatusWell(dialogVariant, intl);
+  const footerButtons = getFooterButtons(dialogVariant, intl);
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
@@ -272,11 +290,7 @@ const ReviewTalentNominationDialog = ({
             data-h2-gap="base(x1 0) p-tablet(0 x1)"
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
-            <Dialog.Close>
-              <Button color="secondary">
-                {intl.formatMessage(commonMessages.close)}
-              </Button>
-            </Dialog.Close>
+            {footerButtons}
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
