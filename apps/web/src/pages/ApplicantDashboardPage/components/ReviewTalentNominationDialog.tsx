@@ -1,37 +1,85 @@
-import { useIntl } from "react-intl";
-import { useState } from "react";
+import { IntlShape, useIntl } from "react-intl";
+import { ReactNode, useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  formMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Dialog,
   Link,
   PreviewList,
   Separator,
+  Well,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { RadioGroup } from "@gc-digital-talent/forms";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import talentRequestMessages from "~/messages/talentRequestMessages";
-import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { getSalaryRange } from "~/utils/classification";
-import { wrapAbbr } from "~/utils/nameUtils";
+import talentNominationMessages from "~/messages/talentNominationMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
-import StatusSummary from "./StatusSummary";
+type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
 
 const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewTalentNominationDialog on TalentNomination {
     id
+    nominee {
+      firstName
+      lastName
+      workEmail
+    }
+    nominateForAdvancement
+    nominateForLateralMovement
+    nominateForDevelopmentPrograms
+    talentNominationEvent {
+      name {
+        localized
+      }
+      community {
+        name {
+          localized
+        }
+      }
+      closeDate
+    }
+    submittedAt
+    nominator {
+      firstName
+      lastName
+      workEmail
+    }
   }
 `);
+
+function getStatusWell(
+  dialogVariant: DialogVariant,
+  intl: IntlShape,
+): ReactNode {
+  if (dialogVariant === "received") {
+    return (
+      <Well color="secondary">
+        <p data-h2-font-weight="base(bold)">
+          {intl.formatMessage({
+            defaultMessage: "Received",
+            id: "lwRIsY",
+            description: "The title of the 'received' nomination status",
+          })}
+        </p>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Your nomination has been successfully submitted and is awaiting review. We’ll notify you when the functional community begins the review process.",
+            id: "VDNYQU",
+            description: "The description of the 'received' nomination status",
+          })}
+        </p>
+      </Well>
+    );
+  }
+  // there will be other wells in the future for other variants
+  return assertUnreachable(dialogVariant);
+}
 
 interface ReviewTalentNominationDialogProps {
   talentNominationQuery: FragmentType<
@@ -43,7 +91,6 @@ const ReviewTalentNominationDialog = ({
   talentNominationQuery,
 }: ReviewTalentNominationDialogProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const talentNomination = getFragment(
@@ -51,67 +98,58 @@ const ReviewTalentNominationDialog = ({
     talentNominationQuery,
   );
 
+  const dialogVariant: DialogVariant = "received"; // will have to handle other variants later
+  const statusWell = getStatusWell(dialogVariant, intl);
+
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  // const status = getQualifiedRecruitmentStatusChip(
-  //   talentNomination.suspendedAt,
-  //   talentNomination.placedAt,
-  //   talentNomination.status?.value ?? null,
-  //   intl,
-  // );
+  const [isOpen, setIsOpen] = useState<boolean>(true); // TODO: default false
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <PreviewList.Button
-          label="click me"
-          // label={
-          //   pool.name?.localized
-          //     ? intl.formatMessage(
-          //         {
-          //           defaultMessage:
-          //             "{poolName}<hidden> recruitment process</hidden>",
-          //           id: "wrg4fw",
-          //           description:
-          //             "Text before recruitment process pool name in recruitment process preview list.",
-          //         },
-          //         {
-          //           poolName: pool.name.localized,
-          //         },
-          //       )
-          //     : nullMessage
-          // }
+          label={
+            talentNomination.nominee
+              ? intl.formatMessage(
+                  {
+                    defaultMessage: "{name}<hidden> talent nomination</hidden>",
+                    id: "uaVogJ",
+                    description:
+                      "Label for talent nomination review dialog button",
+                  },
+                  {
+                    name: `${talentNomination.nominee.firstName} ${talentNomination.nominee.lastName}`,
+                  },
+                )
+              : nullMessage
+          }
         />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Check out the details of a recruitment process you belong to and update your interest in receiving job offers.",
-            id: "Hwt9jD",
-            description: "Subtitle for the review recruitment process dialog",
+              "Check out the details of a nomination you’ve submitted and track its progress.",
+            id: "LOwBJx",
+            description: "Subtitle for the review talent nomination dialog",
           })}
         >
           {intl.formatMessage({
-            defaultMessage: "Review a recruitment process",
-            id: "mivSCS",
-            description: "Title for the review recruitment process dialog",
+            defaultMessage: "Review a nomination",
+            id: "2wbcfE",
+            description: "Title for the review talent nomination dialog",
           })}
         </Dialog.Header>
         <Dialog.Body>
-          {/* <div
+          <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
             data-h2-gap="base(x1)"
           >
-            <StatusSummary
-              label={status.label}
-              description={status.description}
-              color={status.color}
-              data-h2-grid-column="p-tablet(span 2)"
-            />
+            {statusWell ? (
+              <div data-h2-grid-column="p-tablet(span 2)">{statusWell}</div>
+            ) : null}
 
             <Separator
               decorative
@@ -120,57 +158,85 @@ const ReviewTalentNominationDialog = ({
             />
 
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.jobTitle)}
-              data-h2-grid-column="p-tablet(span 2)"
+              label={intl.formatMessage(talentNominationMessages.nomineeName)}
             >
-              {pool.name?.localized ?? nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.classification)}
-            >
-              {pool?.classification
-                ? wrapAbbr(
-                    getClassificationName(pool?.classification, intl),
-                    intl,
-                  )
+              {talentNomination.nominee?.firstName ||
+              talentNomination.nominee?.lastName
+                ? `${talentNomination.nominee?.firstName} ${talentNomination.nominee?.lastName}`.trim()
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(commonMessages.salaryRange)}
+              label={intl.formatMessage(
+                talentNominationMessages.nomineeWorkEmail,
+              )}
             >
-              {pool?.classification
-                ? getSalaryRange(locale, pool.classification)
-                : nullMessage}
+              {talentNomination.nominee?.workEmail ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.workStream)}
+              label={intl.formatMessage(talentNominationMessages.nomineeTypes)}
             >
-              {pool.workStream?.name?.localized}
+              <BoolCheckIcon value={talentNomination.nominateForAdvancement}>
+                {intl.formatMessage(
+                  talentNominationMessages.nominateForAdvancement,
+                )}
+              </BoolCheckIcon>
+              <BoolCheckIcon
+                value={talentNomination.nominateForLateralMovement}
+              >
+                {intl.formatMessage(
+                  talentNominationMessages.nominateForLateralMovement,
+                )}
+              </BoolCheckIcon>
+              <BoolCheckIcon
+                value={talentNomination.nominateForDevelopmentPrograms}
+              >
+                {intl.formatMessage(
+                  talentNominationMessages.nominateForDevelopmentPrograms,
+                )}
+              </BoolCheckIcon>
             </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(processMessages.languageRequirement)}
-            >
-              {pool.language?.label.localized}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(commonMessages.department)}
+            <Separator
+              decorative
               data-h2-grid-column="p-tablet(span 2)"
+              data-h2-margin="base(0)"
+            />
+            <FieldDisplay
+              label={intl.formatMessage(talentNominationMessages.eventName)}
             >
-              {pool.department?.name.localized}
+              {talentNomination.talentNominationEvent.name.localized ??
+                nullMessage}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
-              {talentNomination.finalDecisionAt
+            <FieldDisplay
+              label={intl.formatMessage(
+                talentNominationMessages.functionalCommunity,
+              )}
+            >
+              {talentNomination.talentNominationEvent.community.name
+                ?.localized ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(
+                talentNominationMessages.nominationDeadline,
+              )}
+            >
+              {talentNomination.talentNominationEvent.closeDate
                 ? formatDate({
-                    date: parseDateTimeUtc(talentNomination.finalDecisionAt),
+                    date: parseDateTimeUtc(
+                      talentNomination.talentNominationEvent.closeDate,
+                    ),
                     formatString: "PPP",
                     intl,
                   })
                 : nullMessage}
             </FieldDisplay>
-            <FieldDisplay label={intl.formatMessage(commonMessages.expires)}>
-              {talentNomination.expiryDate
+            <FieldDisplay
+              label={intl.formatMessage(
+                talentNominationMessages.nominationDeadline,
+              )}
+            >
+              {talentNomination.submittedAt
                 ? formatDate({
-                    date: parseDateTimeUtc(talentNomination.expiryDate),
+                    date: parseDateTimeUtc(talentNomination.submittedAt),
                     formatString: "PPP",
                     intl,
                   })
@@ -182,30 +248,19 @@ const ReviewTalentNominationDialog = ({
               data-h2-margin="base(0)"
             />
             <FieldDisplay
-              label={intl.formatMessage(commonMessages.employmentLength)}
-              data-h2-grid-column="p-tablet(span 2)"
+              label={intl.formatMessage(talentNominationMessages.nominatorName)}
             >
-              {pool.opportunityLength?.label.localized}
+              {talentNomination.nominator?.firstName ||
+              talentNomination.nominator?.lastName
+                ? `${talentNomination.nominator?.firstName} ${talentNomination.nominator?.lastName}`.trim()
+                : nullMessage}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage(talentRequestMessages.workLocation)}
-              data-h2-grid-column="p-tablet(span 2)"
+              label={intl.formatMessage(
+                talentNominationMessages.nominatorWorkEmail,
+              )}
             >
-              {pool.isRemote
-                ? intl.formatMessage(commonMessages.remote)
-                : pool.location?.localized}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(commonMessages.securityClearance)}
-              data-h2-grid-column="p-tablet(span 2)"
-            >
-              {pool.securityClearance?.label.localized}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(processMessages.processNumber)}
-              data-h2-grid-column="p-tablet(span 2)"
-            >
-              {pool?.processNumber ?? nullMessage}
+              {talentNomination.nominator?.workEmail ?? nullMessage}
             </FieldDisplay>
 
             <Separator
@@ -219,48 +274,6 @@ const ReviewTalentNominationDialog = ({
               data-h2-gap="base(x1)"
               data-h2-grid-column="p-tablet(span 2)"
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Congratulations on being accepted into this recruitment process! You’ll now be considered for related opportunities. If you’ve recently taken a new job or no longer want to be contacted about opportunities, you can change your availability here. <strong>This choice can be reversed at any time if you change your mind</strong>.",
-                  id: "xHAPBe",
-                  description:
-                    "Message congratulating the applicant into the recruitment process.",
-                })}
-              </p>
-              <RadioGroup
-                legend={intl.formatMessage({
-                  defaultMessage: "Your availability",
-                  id: "jaMIil",
-                  description:
-                    "Label for available for opportunities radio group",
-                })}
-                idPrefix="availability"
-                id="isSuspended"
-                name="isSuspended"
-                items={[
-                  {
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "I am <strong>available</strong> for hire and want to be contacted about opportunities from this recruitment process.",
-                      id: "cAOf3a",
-                      description:
-                        "Radio button label for available for opportunities option",
-                    }),
-                    value: "false",
-                  },
-                  {
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "I am <strong>unavailable</strong> and do not want to be contacted about opportunities from this recruitment process.",
-                      id: "1mYPEx",
-                      description:
-                        "Radio button label for not available for opportunities option",
-                    }),
-                    value: "true",
-                  },
-                ]}
-              />
               <Dialog.Footer
                 data-h2-gap="base(x1 0) p-tablet(0 x1)"
                 data-h2-flex-direction="base(column) p-tablet(row)"
@@ -279,7 +292,7 @@ const ReviewTalentNominationDialog = ({
                     description: "Label for view application link",
                   })}
                 </Link>
-                <Link
+                {/* <Link
                   href={paths.pool(pool.id)}
                   mode="inline"
                   color="secondary"
@@ -289,7 +302,7 @@ const ReviewTalentNominationDialog = ({
                     id: "eZlUrp",
                     description: "Label for view job advertisement link",
                   })}
-                </Link>
+                </Link> */}
                 <Dialog.Close>
                   <Button mode="inline" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
@@ -297,7 +310,7 @@ const ReviewTalentNominationDialog = ({
                 </Dialog.Close>
               </Dialog.Footer>
             </div>
-          </div> */}
+          </div>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
