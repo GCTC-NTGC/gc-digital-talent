@@ -29,33 +29,33 @@ final class UpdateTalentNominationInputValidator extends Validator
                 // can only review and submit using the submit mutation
                 Rule::notIn([TalentNominationStep::REVIEW_AND_SUBMIT->name]),
             ],
-            'nominator' => ['required_array_keys:connect'],
             'nominator.connect' => [
                 'uuid',
                 'exists:users,id',
-                'prohibits:nominatorFallbackWorkEmail,nominatorFallbackName,nominatorFallbackClassification,nominatorFallbackDepartment',
+                'prohibits:nominatorFallbackWorkEmail,nominatorFallbackName,nominatorFallbackClassification.connect,nominatorFallbackDepartment.connect',
             ],
             'submitterRelationshipToNominator' => [
+                'nullable',
                 Rule::in(array_column(TalentNominationSubmitterRelationshipToNominator::cases(), 'name')),
             ],
             'submitterRelationshipToNominatorOther' => [
                 'required_if:submitterRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
                 'prohibited_unless:submitterRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
+                'nullable',
                 'string',
             ],
-            'nominator_fallback_work_email' => [new GovernmentEmailRegex],
-            'nominator_fallback_name' => ['string'],
-            'nominatorFallbackClassification' => ['required_array_keys:connect'],
+            'nominatorFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'nominatorFallbackName' => ['nullable', 'string'],
             'nominatorFallbackClassification.connect' => [
                 'uuid',
                 'exists:classifications,id',
             ],
-            'nominatorFallbackDepartment' => ['required_array_keys:connect'],
             'nominatorFallbackDepartment.connect' => [
                 'uuid',
                 'exists:departments,id',
             ],
             'nominatorReview' => [
+                'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
             'nominee' => ['required_array_keys:connect'],

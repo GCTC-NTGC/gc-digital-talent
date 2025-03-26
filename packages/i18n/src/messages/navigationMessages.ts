@@ -106,6 +106,11 @@ const navigationMessages = defineMessages({
     id: "jDYG3j",
     description: "Name of Dashboard page",
   },
+  communityDashboard: {
+    defaultMessage: "Community dashboard",
+    id: "NQspkZ",
+    description: "Name of the community dashboard page",
+  },
   contactUs: {
     defaultMessage: "Contact us",
     id: "sQt/7l",
