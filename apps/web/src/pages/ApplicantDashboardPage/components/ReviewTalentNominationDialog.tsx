@@ -2,11 +2,10 @@ import { IntlShape, useIntl } from "react-intl";
 import { ReactNode, useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
   Dialog,
-  Link,
   PreviewList,
   Separator,
   Well,
@@ -15,7 +14,6 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import useRoutes from "~/hooks/useRoutes";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
@@ -91,7 +89,6 @@ const ReviewTalentNominationDialog = ({
   talentNominationQuery,
 }: ReviewTalentNominationDialogProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
 
   const talentNomination = getFragment(
     ReviewTalentNominationDialog_Fragment,
@@ -103,7 +100,7 @@ const ReviewTalentNominationDialog = ({
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  const [isOpen, setIsOpen] = useState<boolean>(true); // TODO: default false
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -143,174 +140,144 @@ const ReviewTalentNominationDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
             data-h2-gap="base(x1)"
           >
-            {statusWell ? (
-              <div data-h2-grid-column="p-tablet(span 2)">{statusWell}</div>
-            ) : null}
+            {statusWell ? <div>{statusWell}</div> : null}
 
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
-
-            <FieldDisplay
-              label={intl.formatMessage(talentNominationMessages.nomineeName)}
-            >
-              {talentNomination.nominee?.firstName ||
-              talentNomination.nominee?.lastName
-                ? `${talentNomination.nominee?.firstName} ${talentNomination.nominee?.lastName}`.trim()
-                : nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(
-                talentNominationMessages.nomineeWorkEmail,
-              )}
-            >
-              {talentNomination.nominee?.workEmail ?? nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(talentNominationMessages.nomineeTypes)}
-            >
-              <BoolCheckIcon value={talentNomination.nominateForAdvancement}>
-                {intl.formatMessage(
-                  talentNominationMessages.nominateForAdvancement,
-                )}
-              </BoolCheckIcon>
-              <BoolCheckIcon
-                value={talentNomination.nominateForLateralMovement}
-              >
-                {intl.formatMessage(
-                  talentNominationMessages.nominateForLateralMovement,
-                )}
-              </BoolCheckIcon>
-              <BoolCheckIcon
-                value={talentNomination.nominateForDevelopmentPrograms}
-              >
-                {intl.formatMessage(
-                  talentNominationMessages.nominateForDevelopmentPrograms,
-                )}
-              </BoolCheckIcon>
-            </FieldDisplay>
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
-            <FieldDisplay
-              label={intl.formatMessage(talentNominationMessages.eventName)}
-            >
-              {talentNomination.talentNominationEvent.name.localized ??
-                nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(
-                talentNominationMessages.functionalCommunity,
-              )}
-            >
-              {talentNomination.talentNominationEvent.community.name
-                ?.localized ?? nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(
-                talentNominationMessages.nominationDeadline,
-              )}
-            >
-              {talentNomination.talentNominationEvent.closeDate
-                ? formatDate({
-                    date: parseDateTimeUtc(
-                      talentNomination.talentNominationEvent.closeDate,
-                    ),
-                    formatString: "PPP",
-                    intl,
-                  })
-                : nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(
-                talentNominationMessages.nominationDeadline,
-              )}
-            >
-              {talentNomination.submittedAt
-                ? formatDate({
-                    date: parseDateTimeUtc(talentNomination.submittedAt),
-                    formatString: "PPP",
-                    intl,
-                  })
-                : nullMessage}
-            </FieldDisplay>
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
-            <FieldDisplay
-              label={intl.formatMessage(talentNominationMessages.nominatorName)}
-            >
-              {talentNomination.nominator?.firstName ||
-              talentNomination.nominator?.lastName
-                ? `${talentNomination.nominator?.firstName} ${talentNomination.nominator?.lastName}`.trim()
-                : nullMessage}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(
-                talentNominationMessages.nominatorWorkEmail,
-              )}
-            >
-              {talentNomination.nominator?.workEmail ?? nullMessage}
-            </FieldDisplay>
-
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
+            <Separator decorative data-h2-margin="base(0)" />
 
             <div
               data-h2-display="base(grid)"
+              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
               data-h2-gap="base(x1)"
-              data-h2-grid-column="p-tablet(span 2)"
             >
-              <Dialog.Footer
-                data-h2-gap="base(x1 0) p-tablet(0 x1)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
+              <FieldDisplay
+                label={intl.formatMessage(talentNominationMessages.nomineeName)}
               >
-                <Button type="submit" color="secondary">
-                  {intl.formatMessage(formMessages.saveChanges)}
-                </Button>
-                <Link
-                  href={paths.application(talentNomination.id)}
-                  mode="inline"
-                  color="secondary"
+                {talentNomination.nominee?.firstName ||
+                talentNomination.nominee?.lastName
+                  ? `${talentNomination.nominee?.firstName} ${talentNomination.nominee?.lastName}`.trim()
+                  : nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.nomineeWorkEmail,
+                )}
+              >
+                {talentNomination.nominee?.workEmail ?? nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.nomineeTypes,
+                )}
+              >
+                <BoolCheckIcon value={talentNomination.nominateForAdvancement}>
+                  {intl.formatMessage(
+                    talentNominationMessages.nominateForAdvancement,
+                  )}
+                </BoolCheckIcon>
+                <BoolCheckIcon
+                  value={talentNomination.nominateForLateralMovement}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "View application",
-                    id: "xg/wvH",
-                    description: "Label for view application link",
-                  })}
-                </Link>
-                {/* <Link
-                  href={paths.pool(pool.id)}
-                  mode="inline"
-                  color="secondary"
+                  {intl.formatMessage(
+                    talentNominationMessages.nominateForLateralMovement,
+                  )}
+                </BoolCheckIcon>
+                <BoolCheckIcon
+                  value={talentNomination.nominateForDevelopmentPrograms}
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "View job advertisement",
-                    id: "eZlUrp",
-                    description: "Label for view job advertisement link",
-                  })}
-                </Link> */}
-                <Dialog.Close>
-                  <Button mode="inline" color="warning">
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </Dialog.Close>
-              </Dialog.Footer>
+                  {intl.formatMessage(
+                    talentNominationMessages.nominateForDevelopmentPrograms,
+                  )}
+                </BoolCheckIcon>
+              </FieldDisplay>
+            </div>
+            <Separator decorative data-h2-margin="base(0)" />
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+              data-h2-gap="base(x1)"
+            >
+              <FieldDisplay
+                label={intl.formatMessage(talentNominationMessages.eventName)}
+              >
+                {talentNomination.talentNominationEvent.name.localized ??
+                  nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.functionalCommunity,
+                )}
+              >
+                {talentNomination.talentNominationEvent.community.name
+                  ?.localized ?? nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.nominationDeadline,
+                )}
+              >
+                {talentNomination.talentNominationEvent.closeDate
+                  ? formatDate({
+                      date: parseDateTimeUtc(
+                        talentNomination.talentNominationEvent.closeDate,
+                      ),
+                      formatString: "PPP",
+                      intl,
+                    })
+                  : nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.submissionDate,
+                )}
+              >
+                {talentNomination.submittedAt
+                  ? formatDate({
+                      date: parseDateTimeUtc(talentNomination.submittedAt),
+                      formatString: "PPP",
+                      intl,
+                    })
+                  : nullMessage}
+              </FieldDisplay>
+            </div>
+            <Separator decorative data-h2-margin="base(0)" />
+            <div
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+              data-h2-gap="base(x1)"
+            >
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.nominatorName,
+                )}
+              >
+                {talentNomination.nominator?.firstName ||
+                talentNomination.nominator?.lastName
+                  ? `${talentNomination.nominator?.firstName} ${talentNomination.nominator?.lastName}`.trim()
+                  : nullMessage}
+              </FieldDisplay>
+              <FieldDisplay
+                label={intl.formatMessage(
+                  talentNominationMessages.nominatorWorkEmail,
+                )}
+              >
+                {talentNomination.nominator?.workEmail ?? nullMessage}
+              </FieldDisplay>
             </div>
           </div>
+          <Dialog.Footer
+            data-h2-gap="base(x1 0) p-tablet(0 x1)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
+          >
+            <Dialog.Close>
+              <Button color="secondary">
+                {intl.formatMessage(commonMessages.close)}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
