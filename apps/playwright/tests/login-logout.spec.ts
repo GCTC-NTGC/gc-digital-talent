@@ -135,7 +135,6 @@ test.describe("Login and logout", () => {
         return false;
       })
       .then((res) => res.headerValue("authorization"));
-    await page.waitForLoadState("domcontentloaded");
     const tokenSet2 = await getAuthTokens(page);
     // make sure it uses the second access token
     expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
@@ -206,7 +205,6 @@ test.describe("Login and logout", () => {
         return false;
       })
       .then((res) => res.headerValue("authorization"));
-    await page.waitForLoadState("domcontentloaded");
     // get auth tokens set 2
     const tokenSet2 = await getAuthTokens(page);
     // make sure it uses the second access token
@@ -242,7 +240,6 @@ test.describe("Login and logout", () => {
         return false;
       })
       .then((res) => res.headerValue("authorization"));
-    await page.waitForLoadState("domcontentloaded");
     // get auth tokens set 3
     const tokenSet3 = await getAuthTokens(page);
     // make sure it uses the second access token
