@@ -1,11 +1,11 @@
 import { test, expect } from "~/fixtures";
-import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
+import AuthTokenFixture from "~/fixtures/TokenPage";
+import { getAuthTokens, loginBySub } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
-  test.slow();
   test.beforeEach(async ({ page }) => {
-    await page.clock.setFixedTime(Date.now());
+    await page.clock.setSystemTime(Date.now());
   });
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
@@ -102,43 +102,21 @@ test.describe("Login and logout", () => {
   });
 
   test("refresh the token", async ({ page }) => {
-    const requestPromise = page.waitForRequest(
-      (request) =>
-        request.url().includes("/refresh") && request.method() === "GET",
-    );
-
     await loginBySub(page, "applicant@test.com", false);
+    const fixture = new AuthTokenFixture(page);
 
+    const tokenSet1 = await fixture.getTokens();
     // time travel to when the tokens expire before trying to navigate
-    const tokenSet1 = await getAuthTokens(page);
-    await page.clock.setFixedTime(
-      jumpPastExpiryDate(tokenSet1?.accessToken ?? ""),
-    );
-
-    await page.reload();
-    const request = await requestPromise;
-    const refreshToken = new URL(request.url()).searchParams.get(
-      "refresh_token",
-    );
+    const { refreshTokenUsed, newTokens, authorizationHeader } =
+      await fixture.forceRefreshAndGetNewTokens();
 
     // expect an immediate refresh
-    expect(tokenSet1.refreshToken).toEqual(refreshToken);
+    expect(tokenSet1.refreshToken).toEqual(refreshTokenUsed);
 
-    // get ready to catch the first API request after refresh1
-    const authorization = await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((res) => res.headerValue("authorization"));
-    const tokenSet2 = await getAuthTokens(page);
     // make sure it uses the second access token
-    expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
+    expect(authorizationHeader).toEqual(`Bearer ${newTokens.accessToken}`);
   });
+
   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
   test("share the refresh", async ({ page, context }) => {
     await loginBySub(page, "applicant@test.com", false);
@@ -169,101 +147,54 @@ test.describe("Login and logout", () => {
         );
       });
   });
+
   // will log in, do a token refresh, and do a second token refresh from that
+  // Steps:
+  //     1. Login
+  //     2. Get original tokens
+  //     3. Jump past token expiry
+  //     4. Reload
+  //     5. Get Refresh token from refresh call
+  //     6. Expect refresh token to match original token
+  //     7. Get new tokens from refresh
   test("chain two refreshes", async ({ page }) => {
     // log in
-    await loginBySub(page, "applicant@test.com", false);
+    await loginBySub(page, "applicant-employee@test.com", false);
+
+    const fixture = new AuthTokenFixture(page);
 
     // get auth tokens set 1
-    const tokenSet1 = await getAuthTokens(page);
+    const tokenSet1 = await fixture.getTokens();
+
     // time travel to when the tokens from token set 1 expire before trying to navigate
-    await page.clock.setFixedTime(
-      jumpPastExpiryDate(tokenSet1?.accessToken ?? ""),
-    );
+    const refresh1 = await fixture.forceRefreshAndGetNewTokens();
 
-    const req1Promise = page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    );
-
-    // navigate to a page
-    await page.goto("/en/applicant/personal-information");
-    const request = await req1Promise; // get refresh token 1 from request 1 URL
-    const refreshToken1 = new URL(request.url()).searchParams.get(
-      "refresh_token",
-    );
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
-    expect(tokenSet1.refreshToken).toEqual(refreshToken1);
+    expect(tokenSet1.refreshToken).toEqual(refresh1.refreshTokenUsed);
 
-    // get ready to catch the next graphql request
-    const auth1 = await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((res) => res.headerValue("authorization"));
-    // get auth tokens set 2
-    const tokenSet2 = await getAuthTokens(page);
     // make sure it uses the second access token
-    expect(auth1).toEqual(`Bearer ${tokenSet2.accessToken}`);
-
-    await page.clock.setFixedTime(new Date());
-    // time travel to when the tokens from token set 2 expire before trying to navigate
-    await page.clock.setFixedTime(
-      jumpPastExpiryDate(tokenSet2?.accessToken ?? ""),
+    expect(refresh1.authorizationHeader).toEqual(
+      `Bearer ${refresh1.newTokens.accessToken}`,
     );
 
-    const req2Promise = page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    );
+    // Force a new refresh
+    const refresh2 = await fixture.forceRefreshAndGetNewTokens();
 
-    // navigate to a page
-    await page.goto("/en/applicant/career-timeline");
-    const request2 = await req2Promise; // get refresh token 2 from request URL
-    const refreshToken2 = new URL(request2.url()).searchParams.get(
-      "refresh_token",
-    );
-    // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
-    expect(tokenSet2.refreshToken).toEqual(refreshToken2);
+    // Compare first refresh token to one used in second refresh
+    expect(refresh1.newTokens.refreshToken).toEqual(refresh2.refreshTokenUsed);
 
-    // get ready to catch the next graphql request
-    const auth2 = await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((res) => res.headerValue("authorization"));
-    // get auth tokens set 3
-    const tokenSet3 = await getAuthTokens(page);
     // make sure it uses the second access token
-    expect(auth2).toEqual(`Bearer ${tokenSet3.accessToken}`);
-
-    await page.clock.setFixedTime(new Date());
-    // time travel to when the tokens from token set 3 expire before trying to navigate
-    await page.clock.setFixedTime(
-      jumpPastExpiryDate(tokenSet3?.accessToken ?? ""),
+    expect(refresh2.authorizationHeader).toEqual(
+      `Bearer ${refresh2.newTokens.accessToken}`,
     );
 
-    const req3Promise = page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
-    );
+    // Third refresh for good measure
+    const refresh3 = await fixture.forceRefreshAndGetNewTokens();
 
-    // navigate to a page
-    await page.goto("/en/applicant/skills");
-    const request3 = await req3Promise; // get refresh token 3 from request URL
-    const refreshToken3 = new URL(request3.url()).searchParams.get(
-      "refresh_token",
-    );
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
-    expect(tokenSet3.refreshToken).toEqual(refreshToken3);
+    expect(refresh2.newTokens.refreshToken).toEqual(refresh3.refreshTokenUsed);
   });
+
   test("log out", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
