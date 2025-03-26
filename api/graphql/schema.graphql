@@ -347,6 +347,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   lastName: String @rename(attribute: "last_name")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
+  currentClassification: Classification @belongsTo
 }
 
 type GeneralQuestion {
