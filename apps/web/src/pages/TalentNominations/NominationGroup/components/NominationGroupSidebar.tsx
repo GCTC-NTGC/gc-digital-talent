@@ -18,7 +18,7 @@ import NominatedForList from "./NominatedForList";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
-const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
+export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebar on TalentNominationGroup {
     id
     advancementNominationCount
