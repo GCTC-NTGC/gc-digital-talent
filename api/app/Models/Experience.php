@@ -316,7 +316,7 @@ class Experience extends Model
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
         if (isset($properties->$propertyName)) {
-            return $properties->$propertyName;
+            return (int)$properties->$propertyName;
         }
 
         return null;

@@ -44,10 +44,10 @@ use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
  * @property ?string $department_id
  * @property ?string $contractor_firm_agency_name
  * @property ?bool $supervisory_position
- * @property ?string $supervised_employees
+ * @property ?int $supervised_employees
  * @property ?string $supervised_employees_number
  * @property ?bool $budget_management
- * @property ?string $annual_budget_allocation
+ * @property ?int $annual_budget_allocation
  * @property ?bool $senior_management_status
  * @property ?string $c_suite_role_title
  * @property ?string $other_c_suite_role_title
