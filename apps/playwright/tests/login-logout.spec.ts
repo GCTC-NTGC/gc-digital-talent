@@ -1,5 +1,5 @@
 import { test, expect } from "~/fixtures";
-import AuthTokenFixture from "~/fixtures/TokenPage";
+import AuthTokenFixture from "~/fixtures/AuthTokenFixture";
 import { getAuthTokens, loginBySub } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
 
