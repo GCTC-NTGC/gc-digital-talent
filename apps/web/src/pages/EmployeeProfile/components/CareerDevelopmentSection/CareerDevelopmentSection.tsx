@@ -187,6 +187,7 @@ const CareerDevelopmentSection = ({
   const watchPromotionMoveInterest = watch("promotionMoveInterest");
   const watchRetirementYearKnown = watch("eligibleRetirementYearKnown");
 
+
   useEffect(() => {
     const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
@@ -273,6 +274,7 @@ const CareerDevelopmentSection = ({
             promotionMoveInterest,
             promotionMoveTimeFrame,
             promotionMoveOrganizationType,
+            learningOpportunitiesInterest,
             eligibleRetirementYearKnown,
             eligibleRetirementYear,
             mentorshipStatus,
@@ -478,12 +480,11 @@ const CareerDevelopmentSection = ({
                   legend={
                     careerDevelopmentMessages.learningOpportunitiesInterest
                   }
-                  items={careerDevelopmentOptions?.learningOpportunitiesInterest.map(
+                  items={(careerDevelopmentOptions?.learningOpportunitiesInterest??[]).map(
                     (item) => {
-                      // Get the localized label for the current item
                       const label = getLearningOpportunitiesInterest(
-                        item.value, // This is the message key (e.g., "INTERCHANGE")
-                        true, // Or use `false` based on whether it's interested or not
+                        item.value,
+                        true,
                       );
 
                       return {
