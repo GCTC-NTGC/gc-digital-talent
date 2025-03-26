@@ -17,7 +17,6 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 
 import { RouteParams } from "./types";
-import NominationGroupSidebar from "./components/NominationGroupSidebar";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -70,13 +69,15 @@ const Layout = ({ query }: LayoutProps) => {
       },
       {
         label: intl.formatMessage(pageTitles.talentManagement),
-        url: "#", // NOTE: Page doesn't exist yet
+        url: paths.adminTalentManagementEvents(),
       },
       {
         label:
           talentNominationGroup.talentNominationEvent.name.localized ??
           intl.formatMessage(commonMessages.notAvailable),
-        url: "#", // NOTE: Page does not exist yet
+        url: paths.adminTalentMangementEvent(
+          talentNominationGroup.talentNominationEvent.id,
+        ),
       },
       {
         label: nomineeName,
