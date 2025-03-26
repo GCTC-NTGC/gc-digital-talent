@@ -70,13 +70,15 @@ const Layout = ({ query }: LayoutProps) => {
       },
       {
         label: intl.formatMessage(pageTitles.talentManagement),
-        url: "#", // NOTE: Page doesn't exist yet
+        url: paths.adminTalentManagementEvents(),
       },
       {
         label:
           talentNominationGroup.talentNominationEvent.name.localized ??
           intl.formatMessage(commonMessages.notAvailable),
-        url: "#", // NOTE: Page does not exist yet
+        url: paths.adminTalentMangementEvent(
+          talentNominationGroup.talentNominationEvent.id,
+        ),
       },
       {
         label: nomineeName,
@@ -140,9 +142,6 @@ const Layout = ({ query }: LayoutProps) => {
         <Sidebar.Content data-h2-order="l-tablet(1)">
           <Outlet />
         </Sidebar.Content>
-        <Sidebar.Sidebar>
-          <>{/* Put the sidebar here */}</>
-        </Sidebar.Sidebar>
       </Sidebar.Wrapper>
     </>
   );
