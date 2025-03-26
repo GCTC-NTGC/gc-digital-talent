@@ -411,10 +411,10 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     !!talentNomination.nominator?.id ||
     !!talentNomination.nominatorFallbackName;
   const submitterIsNominator =
-    talentNomination.submitter.id === talentNomination.nominator?.id;
+    talentNomination.submitter?.id === talentNomination.nominator?.id;
   let defaultRole: SubmitterRole | undefined;
   let defaultNominator: Maybe<string> | undefined;
-  if (talentNomination.submitter.id && nominatorSet) {
+  if (talentNomination.submitter?.id && nominatorSet) {
     defaultRole = submitterIsNominator ? "nominator" : "on-behalf";
   }
 
@@ -430,7 +430,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
-        submitter: talentNomination.submitter.id,
+        submitter: talentNomination.submitter?.id,
         role: defaultRole,
         nominator: defaultNominator,
         nominatorReview: talentNomination.nominatorReview?.value,
