@@ -9970,6 +9970,10 @@
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
   },
+  "ldgukM": {
+    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajoutez une collectivité ».",
+    "description": "Body for notice when there are no functional communities a user is a part of"
+  },
   "leFf/M": {
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
@@ -11949,10 +11953,6 @@
   "w63YYp": {
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
-  },
-  "w6JVdk": {
-    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le bouton « Ajoutez une collectivité ».",
-    "description": "Body for notice when there are no functional communities a user is a part of"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
