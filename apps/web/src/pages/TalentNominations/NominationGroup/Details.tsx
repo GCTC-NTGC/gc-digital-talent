@@ -28,7 +28,7 @@ const TalentNominationGroupDetails = ({
     query,
   );
 
-  return null; // TO DO: Add page in #12852
+  return <p>New page here!</p>;
 };
 
 const TalentNominationGroupDetails_Query = graphql(/* GraphQL */ `
