@@ -1,5 +1,4 @@
-import { useIntl, MessageDescriptor } from "react-intl";
-import { get } from "lodash";
+import { useIntl } from "react-intl";
 
 import {
   commonMessages,
