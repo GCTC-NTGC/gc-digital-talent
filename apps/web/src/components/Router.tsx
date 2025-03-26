@@ -797,6 +797,45 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                     ),
                 },
                 {
+                  path: "talent-events",
+                  children: [
+                    {
+                      path: ":eventId/nominations/:talentNominationGroupId",
+                      children: [
+                        {
+                          lazy: () =>
+                            import(
+                              "../pages/TalentNominations/NominationGroup/Layout"
+                            ),
+                          children: [
+                            {
+                              index: true,
+                              lazy: () =>
+                                import(
+                                  "../pages/TalentNominations/NominationGroup/Details"
+                                ),
+                            },
+                            {
+                              path: "profile",
+                              lazy: () =>
+                                import(
+                                  "../pages/TalentNominations/NominationGroup/Profile"
+                                ),
+                            },
+                            {
+                              path: "career-experience",
+                              lazy: () =>
+                                import(
+                                  "../pages/TalentNominations/NominationGroup/CareerExperience"
+                                ),
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
                   path: "talent-requests",
                   children: [
                     {

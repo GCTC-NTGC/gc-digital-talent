@@ -97,4 +97,9 @@ export default defineMessages({
     id: "O5yqIM",
     description: "Heading for submit page of an form",
   },
+  talentManagement: {
+    defaultMessage: "Talent management",
+    id: "EtjQ8d",
+    description: "Heading for the talent management page",
+  },
 });
