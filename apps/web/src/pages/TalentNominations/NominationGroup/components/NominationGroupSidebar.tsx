@@ -14,11 +14,31 @@ import { insertBetween } from "@gc-digital-talent/helpers";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 
+import NominatedForList from "./NominatedForList";
+
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
 const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebar on TalentNominationGroup {
     id
+    advancementNominationCount
+    advancementDecision {
+      value
+    }
+    lateralMovementNominationCount
+    lateralMovementDecision {
+      value
+    }
+    developmentProgramsNominationCount
+    developmentProgramsDecision {
+      value
+    }
+    status {
+      value
+      label {
+        localized
+      }
+    }
     nominee {
       id
       email
@@ -163,6 +183,26 @@ const NominationGroupSidebar = ({
               description: "abc",
             })}
           </p>
+          <NominatedForList
+            advancementCount={
+              talentNominationGroup.advancementNominationCount ?? 0
+            }
+            advancementDecision={
+              talentNominationGroup.advancementDecision?.value
+            }
+            lateralMovementCount={
+              talentNominationGroup.lateralMovementNominationCount ?? 0
+            }
+            lateralMovementDecision={
+              talentNominationGroup.lateralMovementDecision?.value
+            }
+            developmentProgramCount={
+              talentNominationGroup.developmentProgramsNominationCount ?? 0
+            }
+            developmentProgramDecision={
+              talentNominationGroup.developmentProgramsDecision?.value
+            }
+          />
         </div>
         <Accordion.Root
           type="single"
@@ -258,7 +298,7 @@ const NominationGroupSidebar = ({
               })}
             </Accordion.Trigger>
             <Accordion.Content>
-              {/* to fill in later once added to  */}
+              {/* to fill in later once added to backend */}
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
