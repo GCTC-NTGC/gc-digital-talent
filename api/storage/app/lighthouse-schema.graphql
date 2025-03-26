@@ -854,9 +854,12 @@ type UserPublicProfile {
 
 type BasicGovEmployeeProfile {
   id: ID!
+  email: Email
   workEmail: Email
   firstName: String
   lastName: String
+  preferredLang: LocalizedLanguage
+  telephone: String
   role: String
   department: Department
   currentClassification: Classification

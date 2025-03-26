@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -20,9 +21,17 @@ const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     id
     nominee {
       id
+      email
+      workEmail
       firstName
       lastName
       role
+      telephone
+      preferredLang {
+        label {
+          localized
+        }
+      }
       currentClassification {
         id
         group
@@ -35,6 +44,7 @@ const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
       }
     }
     nominations {
+      id
       nominator {
         id
         firstName
@@ -61,7 +71,32 @@ const NominationGroupSidebar = ({
     NominationGroupSidebar_Fragment,
     talentNominationGroupQuery,
   );
-  const def = "abc" + "-123";
+
+  const nominations = talentNominationGroup.nominations ?? [];
+
+  // dialog to go somewhere in span?
+  const nominationsSortedByNominator = nominations.sort((a, b) => {
+    return (
+      (a.nominator?.lastName ?? "").localeCompare(
+        b.nominator?.lastName ?? "",
+      ) ||
+      (a.nominator?.firstName ?? "").localeCompare(b.nominator?.firstName ?? "")
+    );
+  });
+  const nominatorsList = nominationsSortedByNominator.map((nomination) => (
+    <span key={nomination.id}>
+      {getFullNameLabel(
+        nomination.nominator?.firstName,
+        nomination.nominator?.lastName,
+        intl,
+      )}
+    </span>
+  ));
+  const nominatorListCommaSeparated = insertBetween(
+    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+    <span>, </span>,
+    nominatorsList,
+  );
 
   return (
     <div
@@ -109,18 +144,19 @@ const NominationGroupSidebar = ({
             {talentNominationGroup.nominee?.department?.name?.localized ??
               intl.formatMessage(commonMessages.notProvided)}
           </p>
-          <p>{def}</p>
+          <p>{"abc"}</p>
         </div>
         <Separator data-h2-margin="base(x.5 0)" decorative space="none" />
         <div data-h2-padding="base(0 x1.25 x.5 x1.25)">
-          <p>
+          <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Nominated By",
               id: "bXlXXU",
               description: "abc",
             })}
           </p>
-          <p>
+          {nominatorListCommaSeparated}
+          <p data-h2-font-weight="base(700)" data-h2-padding-top="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "Nominated For",
               id: "NIxNTT",
@@ -148,13 +184,65 @@ const NominationGroupSidebar = ({
               })}
             </Accordion.Trigger>
             <Accordion.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Nominated By",
-                  id: "bXlXXU",
-                  description: "abc",
-                })}
-              </p>
+              <div
+                data-h2-display="base(grid)"
+                data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr)) l-tablet(repeat(1, 1fr))"
+                data-h2-gap="base(x1)"
+                data-h2-overflow-wrap="base(anywhere)"
+              >
+                <div>
+                  <span
+                    data-h2-display="base(block)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {intl.formatMessage(commonMessages.email)}
+                  </span>
+
+                  {talentNominationGroup.nominee?.email
+                    ? talentNominationGroup.nominee.email
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </div>
+                <div>
+                  <span
+                    data-h2-display="base(block)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {intl.formatMessage(commonMessages.workEmail)}
+                  </span>
+
+                  {talentNominationGroup.nominee?.workEmail
+                    ? talentNominationGroup.nominee.workEmail
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </div>
+                <div>
+                  <span
+                    data-h2-display="base(block)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {intl.formatMessage(commonMessages.telephone)}
+                  </span>
+
+                  {talentNominationGroup.nominee?.telephone
+                    ? talentNominationGroup.nominee.telephone
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </div>
+                <div>
+                  <span
+                    data-h2-display="base(block)"
+                    data-h2-font-weight="base(700)"
+                  >
+                    {intl.formatMessage(
+                      commonMessages.preferredCommunicationLanguage,
+                    )}
+                  </span>
+
+                  {talentNominationGroup.nominee?.preferredLang?.label
+                    ?.localized
+                    ? talentNominationGroup.nominee.preferredLang.label
+                        .localized
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </div>
+              </div>
             </Accordion.Content>
           </Accordion.Item>
           <Separator decorative space="none" />
@@ -170,13 +258,7 @@ const NominationGroupSidebar = ({
               })}
             </Accordion.Trigger>
             <Accordion.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Nominated By",
-                  id: "bXlXXU",
-                  description: "abc",
-                })}
-              </p>
+              {/* to fill in later once added to  */}
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
