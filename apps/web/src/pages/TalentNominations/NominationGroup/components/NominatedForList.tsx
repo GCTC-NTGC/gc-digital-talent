@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import NoSymbolIcon from "@heroicons/react/24/solid/NoSymbolIcon";
 
@@ -14,18 +14,19 @@ interface ComputedIconProps {
 
 const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   const sharedIconStyling = {
-    "data-h2-height": "base(x.75)",
-    "data-h2-width": "base(x.75)",
+    "data-h2-height": "base(x.70)",
+    "data-h2-width": "base(x.70)",
     "data-h2-display": "base(inline-block)",
     "data-h2-vertical-align": "base(text-bottom)",
     "data-h2-margin-right": "base(x.25)",
+    "data-h2-margin-bottom": "base(x.125)",
   };
 
   if (count === 0) {
     return (
       <span>
         <NoSymbolIcon
-          data-h2-color="base(success) base:dark(success.lighter)"
+          data-h2-color="base(black.lighter) base:dark(black)"
           {...sharedIconStyling}
         />
       </span>
@@ -35,7 +36,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   if (decision === TalentNominationGroupDecision.Approved) {
     return (
       <span>
-        <CheckIcon
+        <CheckCircleIcon
           data-h2-color="base(success) base:dark(success.lighter)"
           {...sharedIconStyling}
         />
@@ -47,7 +48,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
     return (
       <span>
         <XCircleIcon
-          data-h2-color="base(success) base:dark(success.lighter)"
+          data-h2-color="base(error) base:dark(error.lighter)"
           {...sharedIconStyling}
         />
       </span>
@@ -57,7 +58,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   return (
     <span>
       <QuestionMarkCircleIcon
-        data-h2-color="base(success) base:dark(success.lighter)"
+        data-h2-color="base(secondary.dark) base:dark(secondary)"
         {...sharedIconStyling}
       />
     </span>
@@ -84,11 +85,11 @@ const NominatedForList = ({
   const intl = useIntl();
 
   return (
-    <ul data-h2-list-style="base(none)">
+    <ul data-h2-padding="base(0)" data-h2-list-style="base(none)">
       <li>
         <ComputedIcon count={advancementCount} decision={advancementDecision} />
         {intl.formatMessage(commonMessages.advancement)}
-        {advancementCount === 0 ? null : `(${advancementCount})`}
+        {advancementCount === 0 ? null : ` (${advancementCount})`}
       </li>
       <li>
         <ComputedIcon
@@ -96,7 +97,7 @@ const NominatedForList = ({
           decision={lateralMovementDecision}
         />
         {intl.formatMessage(commonMessages.lateralMovement)}
-        {lateralMovementCount === 0 ? null : `(${lateralMovementCount})`}
+        {lateralMovementCount === 0 ? null : ` (${lateralMovementCount})`}
       </li>
       <li>
         <ComputedIcon
@@ -104,7 +105,7 @@ const NominatedForList = ({
           decision={developmentProgramDecision}
         />
         {intl.formatMessage(commonMessages.development)}
-        {developmentProgramCount === 0 ? null : `(${developmentProgramCount})`}
+        {developmentProgramCount === 0 ? null : ` (${developmentProgramCount})`}
       </li>
     </ul>
   );

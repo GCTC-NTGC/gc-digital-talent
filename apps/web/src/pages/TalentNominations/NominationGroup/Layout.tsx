@@ -18,6 +18,7 @@ import pageTitles from "~/messages/pageTitles";
 
 import { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -134,16 +135,18 @@ const Layout = ({ query }: LayoutProps) => {
           },
         ]}
       />
-      <Sidebar.Wrapper>
-        <Sidebar.Sidebar data-h2-order="l-tablet(2)">
-          <NominationGroupSidebar
-            talentNominationGroupQuery={talentNominationGroup}
-          />
-        </Sidebar.Sidebar>
-        <Sidebar.Content data-h2-order="l-tablet(1)">
-          <Outlet />
-        </Sidebar.Content>
-      </Sidebar.Wrapper>
+      <AdminContentWrapper table>
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar data-h2-order="l-tablet(2)">
+            <NominationGroupSidebar
+              talentNominationGroupQuery={talentNominationGroup}
+            />
+          </Sidebar.Sidebar>
+          <Sidebar.Content data-h2-order="l-tablet(1)">
+            <Outlet />
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
+      </AdminContentWrapper>
     </>
   );
 };

@@ -122,7 +122,7 @@ const NominationGroupSidebar = ({
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
-      data-h2-padding="base(x1 x1.5 0 x1.5) l-tablet(x1 x1 0 0)"
+      data-h2-padding="base(0)"
     >
       <CardBasic
         data-h2-display="base(flex)"
@@ -135,7 +135,10 @@ const NominationGroupSidebar = ({
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
         >
-          <p data-h2-padding-bottom="base(x.25)">
+          <p
+            data-h2-padding-bottom="base(x.25)"
+            data-h2-color="base(black.light)"
+          >
             {!!talentNominationGroup.nominee?.currentClassification?.group &&
             !!talentNominationGroup.nominee.currentClassification.level
               ? getClassificationName(
@@ -166,8 +169,8 @@ const NominationGroupSidebar = ({
           </p>
           <p>{"abc"}</p>
         </div>
-        <Separator data-h2-margin="base(x.5 0)" decorative space="none" />
-        <div data-h2-padding="base(0 x1.25 x.5 x1.25)">
+        <Separator data-h2-margin="base(x1 0)" decorative space="none" />
+        <div data-h2-padding="base(0 x1.25 x1 x1.25)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Nominated By",
@@ -176,7 +179,11 @@ const NominationGroupSidebar = ({
             })}
           </p>
           {nominatorListCommaSeparated}
-          <p data-h2-font-weight="base(700)" data-h2-padding-top="base(x.5)">
+          <p
+            data-h2-font-weight="base(700)"
+            data-h2-padding-top="base(x1)"
+            data-h2-padding-bottom="base(x.25)"
+          >
             {intl.formatMessage({
               defaultMessage: "Nominated For",
               id: "NIxNTT",
