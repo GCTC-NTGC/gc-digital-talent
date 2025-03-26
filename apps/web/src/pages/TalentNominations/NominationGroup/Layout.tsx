@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 
 import { RouteParams } from "./types";
+import NominationGroupSidebar from "./components/NominationGroupSidebar";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -30,6 +31,7 @@ const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
     }
+    ...NominationGroupSidebar
   }
 `);
 
@@ -134,7 +136,9 @@ const Layout = ({ query }: LayoutProps) => {
       />
       <Sidebar.Wrapper>
         <Sidebar.Sidebar data-h2-order="l-tablet(2)">
-          <>{/* Put the sidebar here */}</>
+          <NominationGroupSidebar
+            talentNominationGroupQuery={talentNominationGroup}
+          />
         </Sidebar.Sidebar>
         <Sidebar.Content data-h2-order="l-tablet(1)">
           <Outlet />
