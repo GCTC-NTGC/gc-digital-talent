@@ -1,14 +1,13 @@
-import { useIntl } from "react-intl";
+import { useIntl, MessageDescriptor } from "react-intl";
+import { get } from "lodash";
 
 import {
   commonMessages,
   getExecCoachingInterest,
   getMentorshipInterest,
+  getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -83,7 +82,7 @@ const Display = ({
     (interest) => String(interest.value),
   );
 
-  const learningOpportunitiesInterestType = unpackMaybes(
+  const learningOpportunitiesInterestOptions = unpackMaybes(
     learningOpportunitiesInterest,
   ).map((interest) => String(interest.value));
 
@@ -268,7 +267,7 @@ const Display = ({
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
               const iconValue = Array.isArray(learningOpportunitiesInterest)
-                ? learningOpportunitiesInterestType.includes(x.value)
+                ? learningOpportunitiesInterestOptions.includes(x.value)
                 : false;
               return (
                 <li key={x.value}>
@@ -287,8 +286,9 @@ const Display = ({
                         "Label for user expressing they are not interested in a specific work stream",
                     })}
                   >
-                    {x.label.localized ??
-                      intl.formatMessage(commonMessages.notFound)}
+                    {intl.formatMessage(
+                      getLearningOpportunitiesInterest(x.value, iconValue),
+                    )}
                   </BoolCheckIcon>
                 </li>
               );

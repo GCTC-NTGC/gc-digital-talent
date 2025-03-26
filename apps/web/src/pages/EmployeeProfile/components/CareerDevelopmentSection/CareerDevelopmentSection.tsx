@@ -20,6 +20,7 @@ import {
   formMessages,
   getExecCoachingInterest,
   getExecCoachingStatus,
+  getLearningOpportunitiesInterest,
   getMentorshipInterest,
   getMentorshipStatus,
   MentorshipStatus,
@@ -477,9 +478,19 @@ const CareerDevelopmentSection = ({
                   legend={
                     careerDevelopmentMessages.learningOpportunitiesInterest
                   }
-                  items={localizedEnumToOptions(
-                    careerDevelopmentOptions?.learningOpportunitiesInterest,
-                    intl,
+                  items={careerDevelopmentOptions?.learningOpportunitiesInterest.map(
+                    (item) => {
+                      // Get the localized label for the current item
+                      const label = getLearningOpportunitiesInterest(
+                        item.value, // This is the message key (e.g., "INTERCHANGE")
+                        true, // Or use `false` based on whether it's interested or not
+                      );
+
+                      return {
+                        value: item.value,
+                        label: label.defaultMessage,
+                      };
+                    },
                   )}
                 />
                 <Separator data-h2-margin="base(0)" decorative />

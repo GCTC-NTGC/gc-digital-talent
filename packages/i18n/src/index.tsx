@@ -50,6 +50,7 @@ import {
   ExecCoachingStatus,
   getExecCoachingStatus,
   getExecCoachingInterest,
+  getLearningOpportunitiesInterest,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -145,6 +146,7 @@ export {
   ExecCoachingStatus,
   getExecCoachingStatus,
   getExecCoachingInterest,
+  getLearningOpportunitiesInterest,
 };
 
 export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };
