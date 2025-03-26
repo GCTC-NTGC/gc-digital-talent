@@ -390,7 +390,8 @@ query getProfile($userId: UUID!) {
         cSuiteRoleTitle {
           value
           label {
-            localized
+            en
+            fr
           }
         }
         otherCSuiteRoleTitle
