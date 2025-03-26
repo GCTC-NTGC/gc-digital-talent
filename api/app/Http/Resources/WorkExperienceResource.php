@@ -11,7 +11,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin \App\Models\WorkExperience */
 class WorkExperienceResource extends JsonResource
 {
-
     use HasLocalizedEnums;
 
     /**
