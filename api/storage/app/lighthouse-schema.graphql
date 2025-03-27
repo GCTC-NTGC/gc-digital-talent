@@ -386,6 +386,7 @@ type Query {
   talentNominationGroup(id: UUID!): TalentNominationGroup
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
+  developmentPrograms: [DevelopmentProgram]!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -1847,7 +1848,6 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
-  disconnect: Boolean
 }
 
 input PoolBelongsTo {

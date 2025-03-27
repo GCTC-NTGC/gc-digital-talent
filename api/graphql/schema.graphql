@@ -1439,6 +1439,7 @@ type Query {
   ): [CommunityInterest]!
     @guard
     @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
+  developmentPrograms: [DevelopmentProgram]! @all
 }
 
 input ClassificationBelongsTo {
