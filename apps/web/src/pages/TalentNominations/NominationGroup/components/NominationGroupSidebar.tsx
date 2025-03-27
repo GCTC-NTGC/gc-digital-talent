@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import {
   Accordion,
+  Button,
   CardBasic,
   Heading,
   Separator,
@@ -163,11 +165,44 @@ const NominationGroupSidebar = ({
               intl,
             )}
           </Heading>
-          <p data-h2-padding-bottom="base(x.5)">
+          <p data-h2-padding-bottom="base(x1)">
             {talentNominationGroup.nominee?.department?.name?.localized ??
               intl.formatMessage(commonMessages.notProvided)}
           </p>
-          <p>{"abc"}</p>
+          <div data-h2-display="base(flex)">
+            <div
+              data-h2-padding="base(x.5 x5 x.5 x.5) l-tablet(x.5 x2 x.5 x.5)"
+              data-h2-radius="base(x.375 0 0 x.375)"
+              data-h2-background-color="base(primary)"
+              data-h2-border="base(2px solid)"
+              data-h2-border-color="base(tertiary)"
+            >
+              <span
+                data-h2-margin-top="base(x.1)"
+                data-h2-font-weight="base(700)"
+                data-h2-vertical-align="base(middle)"
+                data-h2-color="base(secondary)"
+              >
+                {talentNominationGroup.status?.label.localized ??
+                  intl.formatMessage(commonMessages.notAvailable)}
+              </span>
+            </div>
+            <div
+              data-h2-padding="base(x.375 x.375 x.375 x.375)"
+              data-h2-radius="base(0 x.375 x.375 0)"
+              data-h2-background-color="base(primary)"
+            >
+              {/* Dialog goes here */}
+              <Button
+                data-h2-margin-top="base(x.1)"
+                data-h2-color="base(secondary)"
+                icon={PencilSquareIcon}
+                mode={"icon_only"}
+                fontSize="h4"
+                disabled
+              />
+            </div>
+          </div>
         </div>
         <Separator data-h2-margin="base(x1 0)" decorative space="none" />
         <div data-h2-padding="base(0 x1.25 x1 x1.25)">
