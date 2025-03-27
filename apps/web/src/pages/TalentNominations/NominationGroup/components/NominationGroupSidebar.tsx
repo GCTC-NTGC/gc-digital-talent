@@ -194,7 +194,7 @@ const NominationGroupSidebar = ({
           </p>
           <div data-h2-display="base(flex)">
             <div
-              data-h2-padding="base(x.5 x5 x.5 x.5) l-tablet(x.5 x2 x.5 x.5)"
+              data-h2-padding="base(x.5 x4 x.5 x.5) p-tablet(x.5 x7 x.5 x.5) l-tablet(x.5 x1 x.5 x.5) desktop(x.5 x2 x.5 x.5)"
               data-h2-radius="base(x.375 0 0 x.375)"
               data-h2-background-color={statusColours.textBox}
               data-h2-border="base(1px solid)"
