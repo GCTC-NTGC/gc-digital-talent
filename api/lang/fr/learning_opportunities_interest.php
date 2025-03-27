@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'INTERCHANGE' => 'échange',
-    'ACADEMIC_PROGRAM' => 'Programme académique',
-    'PEER_NETWORKING' => 'Réseautage entre pairs',
-    'PROFESSIONAL_ACCREDITATION' => 'Accréditation professionnelle',
+    'interchange' => 'échange',
+    'academic_program' => 'Programme académique',
+    'peer_networking' => 'Réseautage entre pairs',
+    'professional_accreditation' => 'Accréditation professionnelle',
 ];

@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'INTERCHANGE' => 'Interchange',
-    'ACADEMIC_PROGRAM' => 'Academic Program',
-    'PEER_NETWORKING' => 'Peer Networking',
-    'PROFESSIONAL_ACCREDITATION' => 'Professional Accreditation',
+    'interchange' => 'Interchange',
+    'academic_program' => 'Academic Program',
+    'peer_networking' => 'Peer Networking',
+    'professional_accreditation' => 'Professional Accreditation',
 ];

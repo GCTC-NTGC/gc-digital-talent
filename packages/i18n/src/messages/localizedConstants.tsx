@@ -947,23 +947,32 @@ export const getExecCoachingInterest = (
     `Invalid executive coaching interest '${execCoachingInterestId}'`,
   );
 };
+
+export const LearningOpportunitiesInterestOptions = {
+  Interchange: LearningOpportunitiesInterest.Interchange,
+  AcademicProgram: LearningOpportunitiesInterest.AcademicProgram,
+  PeerNetworking: LearningOpportunitiesInterest.PeerNetworking,
+  ProfessionalAccreditation:
+    LearningOpportunitiesInterest.ProfessionalAccreditation,
+} as const;
+
 const learningOpportunitiesInterestLabels = defineMessages({
-  [LearningOpportunitiesInterest.Interchange]: {
+  Interchange: {
     defaultMessage: "I'm interested in interchange opportunities.",
     id: "3PQs15",
     description: "Interest label for interchange opportunities.",
   },
-  [LearningOpportunitiesInterest.AcademicProgram]: {
+  AcademicProgram: {
     defaultMessage: "I'm interested in participating in an academic program.",
     id: "dKY52V",
     description: "Interest label for academic programs.",
   },
-  [LearningOpportunitiesInterest.PeerNetworking]: {
+  PeerNetworking: {
     defaultMessage: "I'm interested in peer networking opportunities.",
     id: "a+twlj",
     description: "Interest label for peer networking.",
   },
-  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
+  ProfessionalAccreditation: {
     defaultMessage: "I'm interested in pursuing professional accreditation.",
     id: "vYi9m5",
     description: "Interest label for professional accreditation.",
@@ -971,40 +980,36 @@ const learningOpportunitiesInterestLabels = defineMessages({
 });
 
 const learningOpportunitiesInterestFalseLabels = defineMessages({
-  [LearningOpportunitiesInterest.Interchange]: {
+  Interchange: {
     defaultMessage: "I'm not interested in interchange opportunities.",
     id: "nEyBtD",
     description: "Not interested label for interchange opportunities.",
   },
-  [LearningOpportunitiesInterest.AcademicProgram]: {
+  AcademicProgram: {
     defaultMessage:
       "I'm not interested in participating in an academic program.",
     id: "6bpSqk",
     description: "Not interested label for academic programs.",
   },
-  [LearningOpportunitiesInterest.PeerNetworking]: {
+  PeerNetworking: {
     defaultMessage: "I'm not interested in peer networking opportunities.",
     id: "jPxgBV",
     description: "Not interested label for peer networking.",
   },
-  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
-      defaultMessage:
-        "I'm not interested in pursuing professional accreditation.",
-      id: "oxhIEK",
-      description: "Not interested label for professional accreditation.",
-    },
+  ProfessionalAccreditation: {
+    defaultMessage:
+      "I'm not interested in pursuing professional accreditation.",
+    id: "oxhIEK",
+    description: "Not interested label for professional accreditation.",
+  },
 });
 
 export const getLearningOpportunitiesInterest = (
-  messageKey: string ,
+  messageKey: string,
   iconValue?: boolean,
 ): MessageDescriptor => {
-
-  if (!(messageKey in learningOpportunitiesInterestLabels))
- {
-    throw new Error(
-      `Invalid learning opportunity interest '${messageKey}'`,
-    );
+  if (!(messageKey in learningOpportunitiesInterestLabels)) {
+    throw new Error(`Invalid learning opportunity interest '${messageKey}'`);
   }
 
   return getOrDisplayError(
