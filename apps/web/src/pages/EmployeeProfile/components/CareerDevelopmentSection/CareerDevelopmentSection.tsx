@@ -480,7 +480,8 @@ const CareerDevelopmentSection = ({
                     careerDevelopmentMessages.learningOpportunitiesInterest
                   }
                   items={(
-                    careerDevelopmentOptions?.learningOpportunitiesInterest ?? []
+                    careerDevelopmentOptions?.learningOpportunitiesInterest ??
+                    []
                   ).map((item) => {
                     const label = getLearningOpportunitiesInterest(
                       item.value,

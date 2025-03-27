@@ -359,15 +359,15 @@ const CareerDevelopmentSection = ({
                     value={iconValue}
                     trueLabel={intl.formatMessage({
                       defaultMessage: "Interested in",
-                      id: '0drmAJ',
+                      id: "AQiPuW",
                       description:
-                        "Label for user expressing interest in a specific learning opportunity",
+                        "Label for user expressing interest in a specific work stream",
                     })}
                     falseLabel={intl.formatMessage({
                       defaultMessage: "Not interested in",
-                      id: 'Ayt3R1',
+                      id: "KyLikL",
                       description:
-                        "Label for user expressing they are not interested in a specific learning opportunity",
+                        "Label for user expressing they are not interested in a specific work stream",
                     })}
                   >
                     {intl.formatMessage(
