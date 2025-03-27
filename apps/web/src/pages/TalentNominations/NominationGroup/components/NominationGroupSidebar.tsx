@@ -223,6 +223,12 @@ const NominationGroupSidebar = ({
                 mode={"icon_only"}
                 fontSize="h4"
                 disabled
+                aria-label={intl.formatMessage({
+                  defaultMessage: "Approve or reject a nomination",
+                  id: "Pj6afe",
+                  description:
+                    "Accessibility label on button that triggers nomination review dialog",
+                })}
               />
             </div>
           </div>
