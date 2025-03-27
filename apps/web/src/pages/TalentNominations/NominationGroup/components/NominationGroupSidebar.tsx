@@ -232,8 +232,8 @@ const NominationGroupSidebar = ({
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
               defaultMessage: "Nominated By",
-              id: "bXlXXU",
-              description: "abc",
+              id: "Xa/6Jp",
+              description: "Nominated by header",
             })}
           </p>
           {nominatorListCommaSeparated}
@@ -244,8 +244,8 @@ const NominationGroupSidebar = ({
           >
             {intl.formatMessage({
               defaultMessage: "Nominated For",
-              id: "NIxNTT",
-              description: "abc",
+              id: "gg+/9g",
+              description: "Nominated for header",
             })}
           </p>
           <NominatedForList
@@ -267,8 +267,8 @@ const NominationGroupSidebar = ({
             <Accordion.Trigger as="h3">
               {intl.formatMessage({
                 defaultMessage: "Nominee contact information",
-                id: "qJdJfD",
-                description: "abc",
+                id: "W9HNlU",
+                description: "Expandable to see nominee information",
               })}
             </Accordion.Trigger>
             <Accordion.Content>
@@ -341,8 +341,8 @@ const NominationGroupSidebar = ({
             <Accordion.Trigger as="h3">
               {intl.formatMessage({
                 defaultMessage: "Comments",
-                id: "g+AUq0",
-                description: "abc",
+                id: "OluK4D",
+                description: "Expandable to open comments form",
               })}
             </Accordion.Trigger>
             <Accordion.Content>
