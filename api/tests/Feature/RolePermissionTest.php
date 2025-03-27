@@ -388,6 +388,9 @@ class RolePermissionTest extends TestCase
             'update-team-talentNominationEvent',
             'view-team-communityInterest',
             'view-team-communityTeamMembers',
+            'view-team-talentNomination',
+            'update-team-talentNominationGroup',
+            'view-team-talentNominationGroup',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);

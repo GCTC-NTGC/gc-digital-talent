@@ -259,6 +259,7 @@ export const DashboardPage = ({
               data-h2-flex-direction="base(column)"
               data-h2-gap="base(x1)"
               data-h2-max-width="p-tablet(x14)"
+              data-h2-flex-shrink="base(0)"
             >
               <ResourceBlock.Root
                 headingColor="quaternary"
