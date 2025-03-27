@@ -149,14 +149,6 @@ test.describe("Login and logout", () => {
   });
 
   // will log in, do a token refresh, and do a second token refresh from that
-  // Steps:
-  //     1. Login
-  //     2. Get original tokens
-  //     3. Jump past token expiry
-  //     4. Reload
-  //     5. Get Refresh token from refresh call
-  //     6. Expect refresh token to match original token
-  //     7. Get new tokens from refresh
   test("chain two refreshes", async ({ page }) => {
     // log in
     await loginBySub(page, "applicant-employee@test.com", false);
@@ -166,7 +158,7 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await fixture.getTokens();
 
-    // time travel to when the tokens from token set 1 expire before trying to navigate
+    // time travel to when the tokens from token set 1 expire
     const refresh1 = await fixture.forceRefreshAndGetNewTokens();
 
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
