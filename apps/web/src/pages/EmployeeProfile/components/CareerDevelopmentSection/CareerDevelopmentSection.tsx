@@ -187,7 +187,6 @@ const CareerDevelopmentSection = ({
   const watchPromotionMoveInterest = watch("promotionMoveInterest");
   const watchRetirementYearKnown = watch("eligibleRetirementYearKnown");
 
-
   useEffect(() => {
     const resetDirtyField = (name: keyof FormValues) => {
       resetField(name, {
@@ -480,19 +479,20 @@ const CareerDevelopmentSection = ({
                   legend={
                     careerDevelopmentMessages.learningOpportunitiesInterest
                   }
-                  items={(careerDevelopmentOptions?.learningOpportunitiesInterest??[]).map(
-                    (item) => {
-                      const label = getLearningOpportunitiesInterest(
-                        item.value,
-                        true,
-                      );
+                  items={(
+                    careerDevelopmentOptions?.learningOpportunitiesInterest ??
+                    []
+                  ).map((item) => {
+                    const label = getLearningOpportunitiesInterest(
+                      item.value,
+                      true,
+                    );
 
-                      return {
-                        value: item.value,
-                        label: label.defaultMessage,
-                      };
-                    },
-                  )}
+                    return {
+                      value: item.value,
+                      label: label.defaultMessage,
+                    };
+                  })}
                 />
                 <Separator data-h2-margin="base(0)" decorative />
                 <RadioGroup
