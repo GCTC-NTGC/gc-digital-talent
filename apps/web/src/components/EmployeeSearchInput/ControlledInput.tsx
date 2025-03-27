@@ -278,6 +278,7 @@ const ControlledInput = ({
         )}
         {!fetching && hasErrors && (
           <ErrorMessage
+            id={descriptionIds.error}
             email={currentQuery}
             error={error}
             inputErrors={inputErrors}

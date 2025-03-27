@@ -12,16 +12,30 @@ import {
 } from "./types";
 
 interface ErrorMessageProps {
+  id?: string;
+  hasInputErrors?: boolean;
   message: TErrorMessage;
   severity?: ErrorSeverity;
 }
 
-const ErrorMessage = ({ message, severity = "error" }: ErrorMessageProps) => (
-  <>
+const ErrorMessage = ({
+  message,
+  id,
+  hasInputErrors = false,
+  severity = "error",
+}: ErrorMessageProps) => (
+  <div id={id}>
     {message.title && (
       <p
         data-h2-font-weight="base(700)"
         data-h2-margin-bottom="base(x.5)"
+        {...(hasInputErrors
+          ? {
+              "data-h2-color": "base(error.darkest)",
+            }
+          : {
+              "data-h2-color": "base(error) base:dark(error.lightest)",
+            })}
         {...(severity === "error"
           ? {
               "data-h2-color": "base(error)",
@@ -34,7 +48,7 @@ const ErrorMessage = ({ message, severity = "error" }: ErrorMessageProps) => (
       </p>
     )}
     {message.body}
-  </>
+  </div>
 );
 
 const useDefaultMessages = (email: string | undefined): ErrorMessages => {
@@ -80,6 +94,7 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 };
 
 interface ErrorProps {
+  id?: string;
   email?: string;
   inputErrors?: FieldError[];
   error?: CombinedError | string[] | null;
@@ -88,6 +103,7 @@ interface ErrorProps {
 }
 
 const Error = ({
+  id,
   email,
   error,
   inputErrors,
@@ -97,6 +113,11 @@ const Error = ({
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !inputErrors) return null;
+
+  const sharedProps = {
+    id,
+    hasInputErrors: !!inputErrors,
+  };
 
   if (error) {
     let errorCodes: string[] | undefined;
@@ -109,6 +130,7 @@ const Error = ({
     if (errorCodes?.includes("NotGovernmentEmail")) {
       return (
         <ErrorMessage
+          {...sharedProps}
           severity={severities?.NOT_GOVERNMENT_EMAIL}
           message={errorMessages.NOT_GOVERNMENT_EMAIL}
         />
@@ -118,8 +140,12 @@ const Error = ({
     if (errorCodes?.includes("NoProfile")) {
       return (
         <ErrorMessage
+          {...sharedProps}
           severity={severities?.NO_PROFILE}
-          message={errorMessages.NO_PROFILE}
+          message={{
+            title: defaultMessages.NO_PROFILE.title,
+            ...errorMessages.NO_PROFILE,
+          }}
         />
       );
     }
@@ -128,6 +154,7 @@ const Error = ({
   if (inputErrors) {
     return (
       <div
+        id={id}
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"
