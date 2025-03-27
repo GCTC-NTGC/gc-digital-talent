@@ -949,30 +949,30 @@ export const getExecCoachingInterest = (
 };
 
 export const LearningOpportunitiesInterestOptions = {
-  Interchange: LearningOpportunitiesInterest.Interchange,
-  AcademicProgram: LearningOpportunitiesInterest.AcademicProgram,
-  PeerNetworking: LearningOpportunitiesInterest.PeerNetworking,
-  ProfessionalAccreditation:
+  INTERCHANGE: LearningOpportunitiesInterest.Interchange,
+  ACADEMIC_PROGRAM: LearningOpportunitiesInterest.AcademicProgram,
+  PEER_NETWORKING: LearningOpportunitiesInterest.PeerNetworking,
+  PROFESSIONAL_ACCREDITATION:
     LearningOpportunitiesInterest.ProfessionalAccreditation,
 } as const;
 
 const learningOpportunitiesInterestLabels = defineMessages({
-  Interchange: {
+  INTERCHANGE: {
     defaultMessage: "I'm interested in interchange opportunities.",
     id: "3PQs15",
     description: "Interest label for interchange opportunities.",
   },
-  AcademicProgram: {
+  ACADEMIC_PROGRAM: {
     defaultMessage: "I'm interested in participating in an academic program.",
     id: "dKY52V",
     description: "Interest label for academic programs.",
   },
-  PeerNetworking: {
+  PEER_NETWORKING: {
     defaultMessage: "I'm interested in peer networking opportunities.",
     id: "a+twlj",
     description: "Interest label for peer networking.",
   },
-  ProfessionalAccreditation: {
+  PROFESSIONAL_ACCREDITATION: {
     defaultMessage: "I'm interested in pursuing professional accreditation.",
     id: "vYi9m5",
     description: "Interest label for professional accreditation.",
@@ -980,23 +980,23 @@ const learningOpportunitiesInterestLabels = defineMessages({
 });
 
 const learningOpportunitiesInterestFalseLabels = defineMessages({
-  Interchange: {
+  INTERCHANGE: {
     defaultMessage: "I'm not interested in interchange opportunities.",
     id: "nEyBtD",
     description: "Not interested label for interchange opportunities.",
   },
-  AcademicProgram: {
+  ACADEMIC_PROGRAM: {
     defaultMessage:
       "I'm not interested in participating in an academic program.",
     id: "6bpSqk",
     description: "Not interested label for academic programs.",
   },
-  PeerNetworking: {
+  PEER_NETWORKING: {
     defaultMessage: "I'm not interested in peer networking opportunities.",
     id: "jPxgBV",
     description: "Not interested label for peer networking.",
   },
-  ProfessionalAccreditation: {
+  PROFESSIONAL_ACCREDITATION: {
     defaultMessage:
       "I'm not interested in pursuing professional accreditation.",
     id: "oxhIEK",

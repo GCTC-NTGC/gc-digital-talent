@@ -479,20 +479,14 @@ const CareerDevelopmentSection = ({
                   legend={
                     careerDevelopmentMessages.learningOpportunitiesInterest
                   }
-                  items={(
-                    careerDevelopmentOptions?.learningOpportunitiesInterest ??
-                    []
-                  ).map((item) => {
-                    const label = getLearningOpportunitiesInterest(
-                      item.value,
-                      true,
-                    );
-
-                    return {
-                      value: item.value,
-                      label: label.defaultMessage,
-                    };
-                  })}
+                  items={unpackMaybes(
+                    careerDevelopmentOptions?.learningOpportunitiesInterest,
+                  ).map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(
+                      getLearningOpportunitiesInterest(value),
+                    ),
+                  }))}
                 />
                 <Separator data-h2-margin="base(0)" decorative />
                 <RadioGroup
