@@ -59,14 +59,14 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.54.2",
-    "react-intl": "^7.1.6",
+    "react-intl": "^7.1.10",
     "react-router": "^7.4.0",
     "react-to-print": "^3.0.5",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.6.0",
-    "@formatjs/cli": "^6.6.1",
+    "@formatjs/cli": "^6.6.3",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
