@@ -119,7 +119,7 @@ const NominationGroupSidebar = ({
     textBox: "base(success.lightest) base:dark(success.lightest)",
     border: "base(success.darker) base:dark(success.darker)",
     text: "base(success.darker) base:dark(success.darker)",
-    buttonBox: "base(success.darker) base:dark(darker)",
+    buttonBox: "base(success.darker) base:dark(success.darker)",
     button: "base(success.lightest) base:dark(success.lightest)",
   };
   if (
@@ -130,7 +130,7 @@ const NominationGroupSidebar = ({
       "base(secondary.lightest) base:dark(secondary.lightest)";
     statusColours.border = "base(secondary.dark) base:dark(secondary.dark)";
     statusColours.text = "base(secondary.darkest) base:dark(secondary.dark)";
-    statusColours.buttonBox = "base(secondary.dark) base:dark(secondary)";
+    statusColours.buttonBox = "base(secondary.dark) base:dark(secondary.dark)";
     statusColours.button =
       "base(secondary.lightest) base:dark(secondary.lightest)";
   } else if (
@@ -139,7 +139,7 @@ const NominationGroupSidebar = ({
     statusColours.textBox = "base(error.lightest) base:dark(error.lightest)";
     statusColours.border = "base(error.darker) base:dark(error.darker)";
     statusColours.text = "base(error.darker) base:dark(error.darker)";
-    statusColours.buttonBox = "base(error.darker) base:dark(darker)";
+    statusColours.buttonBox = "base(error.darker) base:dark(error.darker)";
     statusColours.button = "base(error.lightest) base:dark(error.lightest)";
   }
 
@@ -195,6 +195,7 @@ const NominationGroupSidebar = ({
           <div data-h2-display="base(flex)">
             <div
               data-h2-padding="base(x.5 x4 x.5 x.5) p-tablet(x.5 x7 x.5 x.5) l-tablet(x.5 x1 x.5 x.5) desktop(x.5 x2 x.5 x.5)"
+              data-h2-width="base(50%) l-tablet(75%)"
               data-h2-radius="base(x.375 0 0 x.375)"
               data-h2-background-color={statusColours.textBox}
               data-h2-border="base(1px solid)"
