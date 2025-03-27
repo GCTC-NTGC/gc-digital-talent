@@ -89,6 +89,7 @@ const NominatedForList = ({
       <li>
         <ComputedIcon count={advancementCount} decision={advancementDecision} />
         {intl.formatMessage(commonMessages.advancement)}
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {advancementCount === 0 ? null : ` (${advancementCount})`}
       </li>
       <li>
@@ -97,6 +98,7 @@ const NominatedForList = ({
           decision={lateralMovementDecision}
         />
         {intl.formatMessage(commonMessages.lateralMovement)}
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {lateralMovementCount === 0 ? null : ` (${lateralMovementCount})`}
       </li>
       <li>
@@ -105,6 +107,7 @@ const NominatedForList = ({
           decision={developmentProgramDecision}
         />
         {intl.formatMessage(commonMessages.development)}
+        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
         {developmentProgramCount === 0 ? null : ` (${developmentProgramCount})`}
       </li>
     </ul>

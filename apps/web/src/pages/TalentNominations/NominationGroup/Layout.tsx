@@ -15,10 +15,10 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {

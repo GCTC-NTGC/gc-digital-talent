@@ -18,7 +18,7 @@ import NominationGroupSidebar, {
 faker.seed(0);
 
 const fakeDepartment = fakeDepartments()[0];
-fakeDepartment["name"]["localized"] = fakeDepartment["name"]["en"];
+fakeDepartment.name.localized = fakeDepartment.name.en;
 
 const talentNominationGroup: NominationGroupSidebarFragmentType = {
   id: "id-123",
