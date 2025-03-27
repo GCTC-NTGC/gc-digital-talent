@@ -109,7 +109,7 @@ const SupervisoryContent = ({
                 headingLevel={headingLevel}
               >
                 {annualBudgetAllocation
-                  ? localizeCurrency(parseInt(annualBudgetAllocation), locale)
+                  ? localizeCurrency(annualBudgetAllocation, locale)
                   : intl.formatMessage(commonMessages.notApplicable)}
               </ContentSection>
               <Separator space="sm" decorative />

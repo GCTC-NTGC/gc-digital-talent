@@ -2,8 +2,6 @@ import {
   CreateCommunityInterestInput,
   CreateDevelopmentProgramInterestInput,
   DevelopmentProgramParticipationStatus,
-  FinanceChiefDuty,
-  FinanceChiefRole,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
   UpdateDevelopmentProgramInterestHasMany,
@@ -108,22 +106,14 @@ export function formValuesToApiCreateInput(
   }
 
   // finance-only fields
-  if (formValues.financeIsChief !== null) {
-    apiInput.financeIsChief = formValues.financeIsChief;
-  }
-  if (formValues.financeAdditionalDuties !== null) {
-    apiInput.financeAdditionalDuties = stringArrayToEnumsFinanceChiefDuty(
-      formValues.financeAdditionalDuties,
-    );
-  }
-  if (formValues.financeOtherRoles !== null) {
-    apiInput.financeOtherRoles = stringArrayToEnumsFinanceChiefRole(
-      formValues.financeOtherRoles,
-    );
-  }
-  if (formValues.financeOtherRolesOther !== null) {
-    apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
-  }
+  apiInput.financeIsChief = formValues.financeIsChief;
+  apiInput.financeAdditionalDuties = formValues.financeAdditionalDuties
+    ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+    : null;
+  apiInput.financeOtherRoles = formValues.financeOtherRoles
+    ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+    : null;
+  apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
 
   return apiInput;
 }
@@ -183,10 +173,10 @@ export function formValuesToApiUpdateInput(
     // finance-only fields
     financeIsChief: formValues.financeIsChief,
     financeAdditionalDuties: formValues.financeAdditionalDuties
-      ? (formValues.financeAdditionalDuties as FinanceChiefDuty[])
+      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
       : null,
     financeOtherRoles: formValues.financeOtherRoles
-      ? (formValues.financeOtherRoles as FinanceChiefRole[])
+      ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
       : null,
     financeOtherRolesOther: formValues.financeOtherRolesOther,
   };

@@ -439,8 +439,8 @@ const CareerDevelopmentTaskCard = ({
                         <p>
                           {intl.formatMessage({
                             defaultMessage:
-                              'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" button.',
-                            id: "w6JVdk",
+                              'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" link.',
+                            id: "ldgukM",
                             description:
                               "Body for notice when there are no functional communities a user is a part of",
                           })}

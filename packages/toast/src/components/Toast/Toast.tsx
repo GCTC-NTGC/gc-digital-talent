@@ -3,12 +3,13 @@ import {
   Slide,
   CloseButton as ReactToastifyCloseButton,
   ToastContainerProps,
-} from "react-toastify";
+} from "react-toastify/unstyled";
 import { ComponentPropsWithoutRef } from "react";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import closeButtonStyles from "./styles";
 
+import "react-toastify/ReactToastify.css";
 import "./toast.css";
 
 type CloseButtonProps = ComponentPropsWithoutRef<

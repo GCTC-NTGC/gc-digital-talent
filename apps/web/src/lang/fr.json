@@ -3,6 +3,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
     "description": "Description for bilingual positions in language requirements dialog"
   },
+  "+/6UIs": {
+    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is not a finance chief"
+  },
   "+/ZsxX": {
     "defaultMessage": "Ces informations permettent aux candidates et candidats de savoir à quoi s’attendre après avoir postulé : examens supplémentaires, rencontres directes avec les gestionnaires, délais éventuels.",
     "description": "Describes the 'what to expect after applying' section of a process' advertisement."
@@ -267,6 +271,10 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
+  "/JDxnh": {
+    "defaultMessage": "Votre relation avec l'auteur ou l'autrice de la mise en candidature ",
+    "description": "Label for a nomination sumitters relationship to the nominator"
+  },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
@@ -475,6 +483,10 @@
     "defaultMessage": "Statut des Premières Nations",
     "description": "Legend for selecting First Nations status or non-status"
   },
+  "0MCsDL": {
+    "defaultMessage": "Vérifiez que l'adresse courriel de l'utilisateur est correcte. Si c'est le cas, utilisez le bouton radio pour informer le personnel de gestion des talents de vérifier les détails de l'utilisateur.",
+    "description": "Description for review of nominee's information"
+  },
   "0Ma07A": {
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
@@ -570,6 +582,10 @@
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
     "description": "Label for a process' English work tasks"
+  },
+  "0m1utE": {
+    "defaultMessage": "Examinez le profil d'une personne candidate et approuver ou rejeter sa candidature.",
+    "description": "Description of a talent nomination group"
   },
   "0ox2XB": {
     "defaultMessage": "Compétences techniques",
@@ -854,6 +870,10 @@
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
+  },
+  "2KQdGz": {
+    "defaultMessage": "Statut de DPF",
+    "description": "Bounding box label for the finance chief checkbox"
   },
   "2Kz16k": {
     "defaultMessage": "Veuillez revoir les informations que vous avez fournies. Une fois qu'une collectivité est ajoutée à votre profil, vous pouvez mettre à jour ces informations à tout moment.",
@@ -1527,6 +1547,10 @@
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for managing notification settings"
   },
+  "5HhVG9": {
+    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the text input for the nominators work email"
+  },
   "5LWxHq": {
     "defaultMessage": "Détails",
     "description": "Title for additional comments shorthand"
@@ -1667,6 +1691,10 @@
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
   },
+  "68Yf3f": {
+    "defaultMessage": "Informations incorrectes ou obsolètes?",
+    "description": "Heading for review of nominee's information"
+  },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
@@ -1690,6 +1718,10 @@
   "6KS1jD": {
     "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
     "description": "Lead-in text explaining the users career plan"
+  },
+  "6M8rIa": {
+    "defaultMessage": "Les 3 principales compétences en matière de leadership",
+    "description": "Label for a nominations leadership skill competencies"
   },
   "6Q1N7Z": {
     "defaultMessage": "Veuillez sélectionner les expériences dans :",
@@ -1758,6 +1790,10 @@
   "6cr+Qy": {
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
     "description": "Title for the no notifications message"
+  },
+  "6e33hP": {
+    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the nominator input field on a nomination"
   },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
@@ -2511,10 +2547,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "AX1hRL": {
-    "defaultMessage": "Je ne suis pas dirigeant(e) principal(e) des finances (DPF) ni adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is not a finance chief"
-  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -2534,6 +2566,10 @@
   "AdRTuc": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de mise en correspondance de qualité avec les gestionnaires. Il s’agit généralement de compétences pouvant être acquises sur le tas et qui ne sont pas nécessaires pour être accepté dans le bassin.",
     "description": "Describes selecting asset skills for a process."
+  },
+  "AdmbBO": {
+    "defaultMessage": "Ministère ou organisme de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for a nominators department"
   },
   "Af4zOR": {
     "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte.",
@@ -3055,6 +3091,10 @@
     "defaultMessage": "La compétence <strong>sera associée aux expériences auxquelles elle était précédemment associée.</strong>",
     "description": "Notice that re-adding a skill will re-add it to any linked experiences"
   },
+  "DQ2DKZ": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF.",
+    "description": "Description for the 'Additional duties' checkbox group"
+  },
   "DQ8q0K": {
     "defaultMessage": "Date de publication (heure locale)",
     "description": "A date at which data will be published, in the local time zone"
@@ -3247,6 +3287,10 @@
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
+  "EI62F9": {
+    "defaultMessage": "Étant donné que vous présentez cette candidature au nom de l'auteur ou l'autrice de mise en candidature, nous devons recueillir quelques renseignements sur cette dernière. Cela inclut votre relation de travail avec la personne, son nom, son adresse courriel professionnel et sa classification.",
+    "description": "Help text for filling out information about the nominator"
+  },
   "EIM5Jw": {
     "defaultMessage": "Toutes les compétences",
     "description": "Label for removing the skill family filter"
@@ -3354,6 +3398,10 @@
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
     "description": "Description of a decorative image of a woman and a laptop"
+  },
+  "EtjQ8d": {
+    "defaultMessage": "Gestion des talents",
+    "description": "Heading for the talent management page"
   },
   "EvR6qK": {
     "defaultMessage": "Qualifiez le candidat ou la candidate",
@@ -3486,6 +3534,10 @@
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
+  },
+  "FSvySJ": {
+    "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
+    "description": "Error message when the incorrect number of leadership competencies is selected"
   },
   "FUxE8S": {
     "defaultMessage": "À partir du bassin suivant :",
@@ -3728,7 +3780,7 @@
     "description": "Message for total estimated matching candidates in pool"
   },
   "GndGRz": {
-    "defaultMessage": "La mise à jour des informations sur votre prochain type de post a échoué.",
+    "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
   },
   "GplLic": {
@@ -3946,6 +3998,10 @@
   "I9e48q": {
     "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
     "description": "Description on what the skills showcase is."
+  },
+  "IBLDnY": {
+    "defaultMessage": "Commentaires supplémentaires",
+    "description": "Label for additional comments on a nomination's rationale"
   },
   "IBc2sp": {
     "defaultMessage": "Nom complet",
@@ -4527,6 +4583,10 @@
     "defaultMessage": "Veuillez noter que votre adresse courriel professionnelle doit être une adresse courriel valide du gouvernement du Canada et qu'elle sera vérifiée.",
     "description": "Message on getting started page about the contact email address - part 1."
   },
+  "Kv7YgK": {
+    "defaultMessage": "Votre rôle",
+    "description": "Label for the role of the user submitting a nomination"
+  },
   "KwJigi": {
     "defaultMessage": "Compétences comportementales essentielles - Exemples",
     "description": "Long title of the 'essential behavioural skills' section of the job poster template page"
@@ -4918,6 +4978,10 @@
   "MsLKAj": {
     "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
+  },
+  "MsiKO0": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Link text for details about a nomination"
   },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
@@ -5327,10 +5391,6 @@
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
   },
-  "P3LzUb": {
-    "defaultMessage": "Statut de DPF ou APDF",
-    "description": "Bounding box label for the finance chief checkbox"
-  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -5615,6 +5675,10 @@
     "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
     "description": "Subtitle for a section explaining sign in steps"
   },
+  "QNUIxj": {
+    "defaultMessage": "Je suis l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the option when the submitter of a nomination is also the nominator"
+  },
   "QNmxIN": {
     "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
@@ -5879,10 +5943,6 @@
     "defaultMessage": "Volets",
     "description": "Title for streams"
   },
-  "RWueRJ": {
-    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF) ou adjoint(e) au (à la) dirigeant(e) principal(e) des finances (ADPF).",
-    "description": "Message when user is a finance chief"
-  },
   "RWvojd": {
     "defaultMessage": "Revenir à l'annonce",
     "description": "Link text to return to a pool advertisement during the application"
@@ -5978,6 +6038,10 @@
   "S4eHnR": {
     "defaultMessage": "N/D",
     "description": "An abbreviation for not available"
+  },
+  "S4vj9m": {
+    "defaultMessage": "Veuillez indiquer votre rôle pour continuer.",
+    "description": "Message displayed when submitter has not selected their role in a nomination"
   },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
@@ -6526,6 +6590,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience de participation au sein de la collectivité} =1 {1 expérience de participation au sein de la collectivité} other {# expériences de participation au sein de la collectivité}}",
     "description": "list a number of community experiences"
   },
+  "V8sPIH": {
+    "defaultMessage": "Expérience professionnelle",
+    "description": "Link text for the experience of a nominee"
+  },
   "V8v+/g": {
     "defaultMessage": "Filtre de classification",
     "description": "Label for classification filter in search form."
@@ -6649,6 +6717,10 @@
   "VlI6x0": {
     "defaultMessage": "membre d'une minorité visible.",
     "description": "Statement for when someone indicates they are a visible minority"
+  },
+  "Vnh3iD": {
+    "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
   },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
@@ -7662,6 +7734,10 @@
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
   },
+  "az8apB": {
+    "defaultMessage": "Niveau",
+    "description": "Label for a classification level input"
+  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -8094,6 +8170,10 @@
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
   },
+  "dDdsk2": {
+    "defaultMessage": "Vérifier les informations incorrectes ou obsolètes",
+    "description": "Label for review of nominee information"
+  },
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
@@ -8109,6 +8189,10 @@
   "dOw5u/": {
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
     "description": "Default error messsage when an employee could not be found"
+  },
+  "dRJLsv": {
+    "defaultMessage": "Sauvegardez votre prochain type de poste",
+    "description": "Text on a button to save your next role form"
   },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
@@ -8241,6 +8325,10 @@
   "dssZUt": {
     "defaultMessage": "Nom de famille",
     "description": "Label for surname field"
+  },
+  "duKO+o": {
+    "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
+    "description": "Message when user is a finance chief"
   },
   "duXf4a": {
     "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
@@ -8481,6 +8569,10 @@
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
     "description": "Message displayed to user after user is updated successfully."
+  },
+  "exPEA1": {
+    "defaultMessage": "Nom de l'auteur ou l'autrice de la mise en candidature",
+    "description": "Label for the text input for the nominators name"
   },
   "exxM/M": {
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
@@ -8973,6 +9065,10 @@
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
+  },
+  "h+pOLj": {
+    "defaultMessage": "Pour continuer, veuillez nous indiquer qui est l'auteur ou l'autrice de la mise en candidature.",
+    "description": "Error message when a nominator has not been set for a nomination"
   },
   "h0Mrq9": {
     "defaultMessage": "<strong>technologie de l’information</strong>",
@@ -9562,6 +9658,10 @@
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
   },
+  "jokoVA": {
+    "defaultMessage": "Justification de la nomination",
+    "description": "Label for a nomination's rationale"
+  },
   "jphtnM": {
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
@@ -9673,10 +9773,6 @@
   "kVavip": {
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
-  },
-  "kVmWVW": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l'une des fonctions supplémentaires suivantes dans votre rôle de DPF ou d'ADPF.",
-    "description": "Description for the 'Additional duties' checkbox group"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
@@ -9873,6 +9969,10 @@
   "lb7SoP": {
     "defaultMessage": "Anglais - Votre travail",
     "description": "Label for the English - Your Work textarea in the edit pool page."
+  },
+  "ldgukM": {
+    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajoutez une collectivité ».",
+    "description": "Body for notice when there are no functional communities a user is a part of"
   },
   "leFf/M": {
     "defaultMessage": "Copier l’identifiant de {title} dans le presse-papiers",
@@ -10202,6 +10302,10 @@
     "defaultMessage": "Rôle actuel",
     "description": "Label displayed on an Experience form for current role bounded box"
   },
+  "n8Mc9q": {
+    "defaultMessage": "Profil",
+    "description": "Link text for the profile of a nominee"
+  },
   "n92mcX": {
     "defaultMessage": "Responsables de l’approvisionnement",
     "description": "Title for procurement officer resource card"
@@ -10343,7 +10447,7 @@
     "description": "Message displayed to users to sign out of the application"
   },
   "nmokFS": {
-    "defaultMessage": "Gestion des talents des cadres exerçant une fonction de contrôle",
+    "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for the comptrollership executives talent management page"
   },
   "nmx1ym": {
@@ -10971,7 +11075,7 @@
     "description": "Label for process French title"
   },
   "rBtIUo": {
-    "defaultMessage": "Enregistrez les préférences en matière de développement de carrière",
+    "defaultMessage": "Sauvegardez les préférences en matière de développement de carrière",
     "description": "Text on a button to save career development preferences form"
   },
   "rCpVpZ": {
@@ -11626,6 +11730,10 @@
     "defaultMessage": "Actualiser les paramètres",
     "description": "Link text for the account settings page"
   },
+  "v+AFQT": {
+    "defaultMessage": "Sauvegardez votre objectif de carrière",
+    "description": "Text on a button to your career objective form"
+  },
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
@@ -11673,6 +11781,10 @@
   "vFV5N8": {
     "defaultMessage": "Les postes au niveau de la direction ne m'intéressent pas.",
     "description": "The executive interest described as not interested."
+  },
+  "vIzha1": {
+    "defaultMessage": "Autre relation",
+    "description": "Label for the text input for an other relationship not listed"
   },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
@@ -11841,10 +11953,6 @@
   "w63YYp": {
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
-  },
-  "w6JVdk": {
-    "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le bouton « Ajoutez une collectivité ».",
-    "description": "Body for notice when there are no functional communities a user is a part of"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
@@ -12425,6 +12533,10 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
+  },
+  "zBfwbQ": {
+    "defaultMessage": "Groupe",
+    "description": "Label for a classification group input"
   },
   "zDHOiY": {
     "defaultMessage": "Français - À quoi s’attendre",

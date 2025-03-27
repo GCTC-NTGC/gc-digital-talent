@@ -293,6 +293,16 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationGroupDecision {
+  value: TalentNominationGroupDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationGroupStatus {
+  value: TalentNominationGroupStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationLateralMovementOption {
   value: TalentNominationLateralMovementOption!
   label: LocalizedString!
@@ -359,7 +369,7 @@ type Query {
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
-  skills: [Skill]!
+  skills(families: [String!]): [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
@@ -371,7 +381,9 @@ type Query {
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
+  talentNominationGroup(id: UUID!): TalentNominationGroup
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   usersPaginated(
@@ -555,6 +567,7 @@ type Mutation {
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
   updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
+  updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
@@ -1081,6 +1094,7 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
+  talentNominationGroups: [TalentNominationGroup!]
 }
 
 type TalentNomination {
@@ -1088,7 +1102,7 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEvent!
   submittedAt: DateTime
-  submitter: BasicGovEmployeeProfile!
+  submitter: BasicGovEmployeeProfile
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
   nominator: BasicGovEmployeeProfile
@@ -1117,6 +1131,24 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  nominee: BasicGovEmployeeProfile
+  nominations: [TalentNomination!]
+  talentNominationEvent: TalentNominationEvent!
+  advancementNominationCount: Int
+  advancementDecision: LocalizedTalentNominationGroupDecision
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
+  lateralMovementNominationCount: Int
+  lateralMovementDecision: LocalizedTalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsNominationCount: Int
+  developmentProgramsDecision: LocalizedTalentNominationGroupDecision
+  developmentProgramsNotes: String
+  status: LocalizedTalentNominationGroupStatus
 }
 
 type Team implements HasRoleAssignments {
@@ -1282,9 +1314,9 @@ type WorkExperience implements Experience {
   workStreams: [WorkStream!]
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: String
+  annualBudgetAllocation: Int
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -1816,6 +1848,7 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
+  disconnect: Boolean
 }
 
 input PoolBelongsTo {
@@ -2046,6 +2079,16 @@ input UpdateTalentNominationInput {
   additionalComments: String
 }
 
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+  advancementReferenceConfirmed: Boolean
+  advancementNotes: String
+  lateralMovementDecision: TalentNominationGroupDecision
+  lateralMovementNotes: String
+  developmentProgramsDecision: TalentNominationGroupDecision
+  developmentProgramsNotes: String
+}
+
 input CreateApplicantFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
@@ -2158,9 +2201,9 @@ input WorkExperienceInput {
   workStreamIds: [UUID!]
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: String
+  annualBudgetAllocation: Int
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -2983,15 +3026,14 @@ enum AwardedTo {
 }
 
 enum CSuiteRoleTitle {
-  CHIEF_AUDIT_OFFICER
-  CHIEF_FINANCE_OFFICER
+  CHIEF_AUDIT_EXECUTIVE
+  CHIEF_FINANCIAL_OFFICER
   CHIEF_DATA_OFFICER
   CHIEF_DIGITAL_OFFICER
   CHIEF_INFORMATION_OFFICER
   CHIEF_PRIVACY_OFFICER
   CHIEF_TECHNOLOGY_OFFICER
-  DEPUTY_CHIEF_AUDIT_OFFICER
-  DEPUTY_CHIEF_FINANCE_OFFICER
+  DEPUTY_CHIEF_FINANCIAL_OFFICER
   DEPUTY_CHIEF_DATA_OFFICER
   DEPUTY_CHIEF_DIGITAL_OFFICER
   DEPUTY_CHIEF_INFORMATION_OFFICER
@@ -3434,6 +3476,18 @@ enum TalentNominationEventStatus {
   ACTIVE
   UPCOMING
   PAST
+}
+
+enum TalentNominationGroupDecision {
+  APPROVED
+  REJECTED
+}
+
+enum TalentNominationGroupStatus {
+  IN_PROGRESS
+  APPROVED
+  PARTIALLY_APPROVED
+  REJECTED
 }
 
 enum TalentNominationLateralMovementOption {

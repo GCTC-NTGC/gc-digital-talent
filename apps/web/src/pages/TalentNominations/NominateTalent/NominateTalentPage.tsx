@@ -7,6 +7,7 @@ import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import SEO from "~/components/SEO/SEO";
@@ -71,6 +72,12 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
       ...NominateTalentRationale
       ...NominateTalentReviewAndSubmit
       ...NominateTalentSuccess
+    }
+
+    ...NominatorFieldOptions
+    # klc = Leadership - Executive behaviours
+    skills(families: ["klc"]) {
+      ...NominateTalentSkill
     }
   }
 `);
@@ -178,10 +185,16 @@ const NominateTalentPage = () => {
               </TableOfContents.Sidebar>
               <TableOfContents.Content>
                 <Instructions />
-                <Nominator nominatorQuery={data.talentNomination} />
+                <Nominator
+                  nominatorQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
                 <Nominee nomineeQuery={data.talentNomination} />
                 <Details detailsQuery={data.talentNomination} />
-                <Rationale rationaleQuery={data.talentNomination} />
+                <Rationale
+                  rationaleQuery={data.talentNomination}
+                  skillsQuery={unpackMaybes(data?.skills)}
+                />
                 <ReviewAndSubmit reviewAndSubmitQuery={data.talentNomination} />
                 <Success successQuery={data.talentNomination} />
               </TableOfContents.Content>
