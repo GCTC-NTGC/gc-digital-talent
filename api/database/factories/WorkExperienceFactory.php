@@ -161,7 +161,7 @@ class WorkExperienceFactory extends Factory
                     $this->faker->randomElement(CSuiteRoleTitle::cases())->name : null;
             },
             'other_c_suite_role_title' => function (array $attributes) {
-                return $attributes['c_suite_role_title'] === CSuiteRoleTitle::OTHER ?
+                return $attributes['c_suite_role_title'] === CSuiteRoleTitle::OTHER->name ?
                 $this->faker->jobTitle() : null;
             },
         ];

@@ -4,18 +4,25 @@ import { FieldError } from "react-hook-form";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
-import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
+import {
+  ErrorMessages,
+  ErrorSeverity,
+  ErrorSeverities,
+  ErrorMessage as TErrorMessage,
+} from "./types";
 
 interface ErrorMessageProps {
   id?: string;
   hasInputErrors?: boolean;
   message: TErrorMessage;
+  severity?: ErrorSeverity;
 }
 
 const ErrorMessage = ({
   message,
   id,
   hasInputErrors = false,
+  severity = "error",
 }: ErrorMessageProps) => (
   <div id={id}>
     {message.title && (
@@ -28,6 +35,13 @@ const ErrorMessage = ({
             }
           : {
               "data-h2-color": "base(error) base:dark(error.lightest)",
+            })}
+        {...(severity === "error"
+          ? {
+              "data-h2-color": "base(error)",
+            }
+          : {
+              "data-h2-color": "base(warning)",
             })}
       >
         {message.title}
@@ -85,9 +99,17 @@ interface ErrorProps {
   inputErrors?: FieldError[];
   error?: CombinedError | string[] | null;
   messages?: Partial<ErrorMessages>;
+  severities?: Partial<ErrorSeverities>;
 }
 
-const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
+const Error = ({
+  id,
+  email,
+  error,
+  inputErrors,
+  messages,
+  severities,
+}: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !inputErrors) return null;
@@ -109,6 +131,7 @@ const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
       return (
         <ErrorMessage
           {...sharedProps}
+          severity={severities?.NOT_GOVERNMENT_EMAIL}
           message={errorMessages.NOT_GOVERNMENT_EMAIL}
         />
       );
@@ -118,6 +141,7 @@ const Error = ({ id, email, error, inputErrors, messages }: ErrorProps) => {
       return (
         <ErrorMessage
           {...sharedProps}
+          severity={severities?.NO_PROFILE}
           message={{
             title: defaultMessages.NO_PROFILE.title,
             ...errorMessages.NO_PROFILE,

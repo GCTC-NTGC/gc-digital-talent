@@ -1,4 +1,11 @@
-import { ChangeEventHandler, KeyboardEvent, useId, useState } from "react";
+import {
+  ChangeEventHandler,
+  KeyboardEvent,
+  MouseEvent,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -7,6 +14,7 @@ import {
 import { CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 import {
   FieldState,
@@ -22,7 +30,7 @@ import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import Result from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import { EmployeeSearchResult, ErrorMessages } from "./types";
+import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 
 export { fragmentToEmployee };
 
@@ -43,6 +51,7 @@ interface ControlledInputProps {
   buttonLabel?: string;
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
+  errorSeverities?: Partial<ErrorSeverities>;
   defaultEmployee?: Maybe<EmployeeSearchResult>;
 }
 
@@ -53,11 +62,13 @@ const ControlledInput = ({
   buttonLabel,
   describedBy,
   errorMessages,
+  errorSeverities,
   defaultEmployee,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
   const client = useClient();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const inputStyles = useCommonInputStyles();
   const defaultValue = getDefaultValue(defaultValues, name);
   const inputErrors = getErrors(formErrors, name);
@@ -121,6 +132,20 @@ const ControlledInput = ({
     await fetchEmployee();
   };
 
+  const handleReset = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentQuery("");
+    setQuery("");
+    setError(null);
+    setEmployee(null);
+    onChange(undefined);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.focus();
+    }
+  };
+
   const handleKeyDown = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query) {
       e.preventDefault();
@@ -156,23 +181,53 @@ const ControlledInput = ({
         data-h2-position="base(relative)"
         data-h2-z-index="base(2)"
       >
-        <input
-          name={`${name}-${id}`}
-          id={`${name}-${id}`}
-          type="text"
-          defaultValue={defaultEmployee?.workEmail ?? undefined}
-          aria-describedby={ariaDescribedBy}
-          {...stateStyles}
-          {...inputProps}
-          {...inputStyles}
-          readOnly={fetching}
-          data-h2-background="base(foreground)"
+        <div
+          data-h2-display="base(flex)"
           data-h2-flex-grow="base(1)"
-          data-h2-border-width="base(0)"
-          data-h2-radius="base(rounded 0 0 0)"
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
+          data-h2-width="base(100%)"
+          data-h2-position="base(relative)"
+        >
+          <input
+            ref={inputRef}
+            name={`${name}-${id}`}
+            id={`${name}-${id}`}
+            type="text"
+            defaultValue={defaultEmployee?.workEmail ?? undefined}
+            aria-describedby={ariaDescribedBy}
+            {...stateStyles}
+            {...inputProps}
+            {...inputStyles}
+            readOnly={fetching}
+            data-h2-background="base(foreground)"
+            data-h2-flex-grow="base(1)"
+            data-h2-border-width="base(0)"
+            data-h2-radius="base(rounded 0 0 0)"
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+          />
+          {(currentQuery || query || employee) && (
+            <button
+              type="button"
+              data-h2-background-color="base(transparent) base:hover(gray.lightest)"
+              data-h2-border="base(2px solid transparent) base:focus-visible(2px solid secondary)"
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-radius="base(input)"
+              data-h2-cursor="base(pointer)"
+              data-h2-location="base(x.25, x.25, x.25, auto)"
+              data-h2-position="base(absolute)"
+              data-h2-outline="base(none)"
+              data-h2-flex-shrink="base(0)"
+              onClick={handleReset}
+            >
+              <XMarkIcon
+                data-h2-height="base(1rem)"
+                data-h2-width="base(1rem)"
+                data-h2-color="base(black.light)"
+              />
+            </button>
+          )}
+        </div>
         <Button
           type="button"
           mode="solid"
@@ -228,6 +283,7 @@ const ControlledInput = ({
             error={error}
             inputErrors={inputErrors}
             messages={errorMessages}
+            severities={errorSeverities}
           />
         )}
       </div>
