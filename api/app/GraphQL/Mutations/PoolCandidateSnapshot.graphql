@@ -128,6 +128,8 @@ query getProfile($userId: UUID!) {
         en
         fr
       }
+      maxSalary
+      minSalary
     }
     isWoman
     hasDisability
@@ -388,7 +390,8 @@ query getProfile($userId: UUID!) {
         cSuiteRoleTitle {
           value
           label {
-            localized
+            en
+            fr
           }
         }
         otherCSuiteRoleTitle

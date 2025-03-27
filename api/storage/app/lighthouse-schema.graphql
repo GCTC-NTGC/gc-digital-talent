@@ -1313,9 +1313,9 @@ type WorkExperience implements Experience {
   workStreams: [WorkStream!]
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: String
+  annualBudgetAllocation: Int
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -1847,6 +1847,7 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
+  disconnect: Boolean
 }
 
 input PoolBelongsTo {
@@ -2199,9 +2200,9 @@ input WorkExperienceInput {
   workStreamIds: [UUID!]
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: String
+  annualBudgetAllocation: Int
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String
