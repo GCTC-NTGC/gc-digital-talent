@@ -28,18 +28,7 @@ type AccordionStates = "nominee-contact-information" | "comments" | "";
 export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebar on TalentNominationGroup {
     id
-    advancementNominationCount
-    advancementDecision {
-      value
-    }
-    lateralMovementNominationCount
-    lateralMovementDecision {
-      value
-    }
-    developmentProgramsNominationCount
-    developmentProgramsDecision {
-      value
-    }
+    ...NominationGroupSidebarForList
     status {
       value
       label {
@@ -260,24 +249,7 @@ const NominationGroupSidebar = ({
             })}
           </p>
           <NominatedForList
-            advancementCount={
-              talentNominationGroup.advancementNominationCount ?? 0
-            }
-            advancementDecision={
-              talentNominationGroup.advancementDecision?.value
-            }
-            lateralMovementCount={
-              talentNominationGroup.lateralMovementNominationCount ?? 0
-            }
-            lateralMovementDecision={
-              talentNominationGroup.lateralMovementDecision?.value
-            }
-            developmentProgramCount={
-              talentNominationGroup.developmentProgramsNominationCount ?? 0
-            }
-            developmentProgramDecision={
-              talentNominationGroup.developmentProgramsDecision?.value
-            }
+            nominationGroupSidebarForListQuery={talentNominationGroup}
           />
         </div>
         <Accordion.Root

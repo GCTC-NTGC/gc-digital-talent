@@ -5,7 +5,12 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import NoSymbolIcon from "@heroicons/react/24/solid/NoSymbolIcon";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationGroupDecision,
+} from "@gc-digital-talent/graphql";
 
 interface ComputedIconProps {
   count: number;
@@ -65,50 +70,84 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   );
 };
 
+const NominationGroupSidebarForList_Fragment = graphql(/* GraphQL */ `
+  fragment NominationGroupSidebarForList on TalentNominationGroup {
+    advancementNominationCount
+    advancementDecision {
+      value
+    }
+    lateralMovementNominationCount
+    lateralMovementDecision {
+      value
+    }
+    developmentProgramsNominationCount
+    developmentProgramsDecision {
+      value
+    }
+  }
+`);
+
 interface NominatedForListProps {
-  advancementCount: number;
-  advancementDecision?: TalentNominationGroupDecision;
-  lateralMovementCount: number;
-  lateralMovementDecision?: TalentNominationGroupDecision;
-  developmentProgramCount: number;
-  developmentProgramDecision?: TalentNominationGroupDecision;
+  nominationGroupSidebarForListQuery: FragmentType<
+    typeof NominationGroupSidebarForList_Fragment
+  >;
 }
 
 const NominatedForList = ({
-  advancementCount,
-  advancementDecision,
-  lateralMovementCount,
-  lateralMovementDecision,
-  developmentProgramCount,
-  developmentProgramDecision,
+  nominationGroupSidebarForListQuery,
 }: NominatedForListProps) => {
   const intl = useIntl();
+
+  const nominationGroupSidebarForList = getFragment(
+    NominationGroupSidebarForList_Fragment,
+    nominationGroupSidebarForListQuery,
+  );
+
+  const {
+    advancementNominationCount,
+    advancementDecision,
+    lateralMovementNominationCount,
+    lateralMovementDecision,
+    developmentProgramsNominationCount,
+    developmentProgramsDecision,
+  } = nominationGroupSidebarForList;
 
   return (
     <ul data-h2-padding="base(0)" data-h2-list-style="base(none)">
       <li>
-        <ComputedIcon count={advancementCount} decision={advancementDecision} />
+        <ComputedIcon
+          count={advancementNominationCount ?? 0}
+          decision={advancementDecision?.value}
+        />
         {intl.formatMessage(commonMessages.advancement)}
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {advancementCount === 0 ? null : ` (${advancementCount})`}
+        {!!advancementNominationCount && advancementNominationCount !== 0
+          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            ` (${advancementNominationCount})`
+          : null}
       </li>
       <li>
         <ComputedIcon
-          count={lateralMovementCount}
-          decision={lateralMovementDecision}
+          count={lateralMovementNominationCount ?? 0}
+          decision={lateralMovementDecision?.value}
         />
         {intl.formatMessage(commonMessages.lateralMovement)}
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {lateralMovementCount === 0 ? null : ` (${lateralMovementCount})`}
+        {!!lateralMovementNominationCount &&
+        lateralMovementNominationCount !== 0
+          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            ` (${lateralMovementNominationCount})`
+          : null}
       </li>
       <li>
         <ComputedIcon
-          count={developmentProgramCount}
-          decision={developmentProgramDecision}
+          count={developmentProgramsNominationCount ?? 0}
+          decision={developmentProgramsDecision?.value}
         />
         {intl.formatMessage(commonMessages.development)}
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {developmentProgramCount === 0 ? null : ` (${developmentProgramCount})`}
+        {!!developmentProgramsNominationCount &&
+        developmentProgramsNominationCount !== 0
+          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            ` (${developmentProgramsNominationCount})`
+          : null}
       </li>
     </ul>
   );
