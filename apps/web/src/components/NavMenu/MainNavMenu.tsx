@@ -1,15 +1,23 @@
 /* eslint-disable react/forbid-elements */
 import FocusLock from "react-focus-lock";
 import { m, AnimatePresence, useReducedMotion } from "motion/react";
-import { useEffect, useState, KeyboardEventHandler, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  KeyboardEventHandler,
+  useCallback,
+  useRef,
+} from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
+import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   localizePath,
+  navigationMessages,
   oppositeLocale,
   uiMessages,
 } from "@gc-digital-talent/i18n";
@@ -25,6 +33,8 @@ import {
   useAuthorization,
 } from "@gc-digital-talent/auth";
 
+import useRoutes from "~/hooks/useRoutes";
+
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 import useNavContext from "../NavContext/useNavContext";
 import useMainNavLinks from "./useMainNavLinks";
@@ -34,6 +44,7 @@ import navMenuMessages from "./messages";
 const MainNavMenu = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
 
   const shouldReduceMotion = useReducedMotion();
@@ -119,6 +130,12 @@ const MainNavMenu = () => {
   const showMenu = !isSmallScreen || isMenuOpen;
   const showOverlay = isSmallScreen && isMenuOpen;
 
+  const homeLinkRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (isMenuOpen && homeLinkRef.current) homeLinkRef.current.focus();
+  }, [isMenuOpen]);
+
   return (
     <FocusLock returnFocus disabled={!showOverlay}>
       <NavMenuProvider
@@ -166,7 +183,16 @@ const MainNavMenu = () => {
                     data-h2-align-items="base(center)"
                     data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
                   >
-                    <div data-h2-flex="base(1) l-tablet(auto)">{homeLink}</div>
+                    <div data-h2-flex="base(1) l-tablet(auto)">
+                      <NavMenu.Link
+                        ref={homeLinkRef}
+                        href={paths.home()}
+                        icon={HomeIcon}
+                        mode="icon_only"
+                        ariaLabel={intl.formatMessage(navigationMessages.home)}
+                      />
+                    </div>
+
                     <div
                       data-h2-display="base(flex)"
                       data-h2-flex="base(2) l-tablet(auto)"
