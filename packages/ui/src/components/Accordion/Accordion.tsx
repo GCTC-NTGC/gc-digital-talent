@@ -8,13 +8,19 @@ import {
   forwardRef,
   ElementRef,
   ReactNode,
+  Fragment,
 } from "react";
+
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
 import Chip from "../Chip/Chip";
 import Link from "../Link";
 import Button from "../Button";
+import MetadataStatusItem, {
+  AccordionMetadataStatusItemProps,
+} from "./MetadataStatusItem";
 
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   mode?: AccordionMode;
@@ -277,16 +283,30 @@ const Trigger = forwardRef<
   },
 );
 
-export interface AccordionMetaData {
+// every item must have a key and type
+interface AccordionMetadataBase {
+  key: string;
+  type: string;
+}
+
+// the older props combined everything into one interface
+interface AccordionMetadataCombined extends AccordionMetadataBase {
   children: ReactNode;
   color?: Color;
   href?: string;
-  key: string;
   type: "button" | "link" | "text" | "chip";
   onClick?: () => void;
 }
-interface AccordionMetaDataProps {
-  metadata: AccordionMetaData[];
+
+// status items have their own prop interface
+interface AccordionMetadataStatusItem
+  extends AccordionMetadataBase,
+    AccordionMetadataStatusItemProps {
+  type: "status_item";
+}
+
+export interface AccordionMetaDataProps {
+  metadata: (AccordionMetadataCombined | AccordionMetadataStatusItem)[];
 }
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
@@ -314,38 +334,38 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
       data-h2-font-size="base(caption)"
       data-h2-font-weight="base(bold)"
     >
-      {metadata.map(({ type, color, href, children, onClick, key }, index) => {
-        switch (type) {
+      {metadata.map((datum, index) => {
+        switch (datum.type) {
           case "text":
             return index + 1 === metadataLength ? (
               <span
                 data-h2-color="base(black.light)"
                 data-h2-font-weight="base(400)"
-                key={key}
+                key={datum.key}
               >
-                {children}
+                {datum.children}
               </span>
             ) : (
               <>
                 <span
                   data-h2-color="base(black.light)"
                   data-h2-font-weight="base(400)"
-                  key={key}
+                  key={datum.key}
                 >
-                  {children}
+                  {datum.children}
                 </span>
                 {separatorSpan}
               </>
             );
           case "chip":
             return index + 1 === metadataLength ? (
-              <span key={key}>
-                <Chip color={color ?? "primary"}>{children}</Chip>
+              <span key={datum.key}>
+                <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
               </span>
             ) : (
               <>
-                <span key={key}>
-                  <Chip color={color ?? "primary"}>{children}</Chip>
+                <span key={datum.key}>
+                  <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
                 </span>
                 {separatorSpan}
               </>
@@ -354,25 +374,25 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
             return index + 1 === metadataLength ? (
               <Button
                 mode="text"
-                color={color ?? "primary"}
+                color={datum.color ?? "primary"}
                 fontSize="caption"
                 data-h2-font-weight="base(bold)"
-                onClick={onClick}
-                key={key}
+                onClick={datum.onClick}
+                key={datum.key}
               >
-                {children}
+                {datum.children}
               </Button>
             ) : (
               <>
                 <Button
                   mode="text"
-                  color={color ?? "primary"}
+                  color={datum.color ?? "primary"}
                   fontSize="caption"
                   data-h2-font-weight="base(bold)"
-                  onClick={onClick}
-                  key={key}
+                  onClick={datum.onClick}
+                  key={datum.key}
                 >
-                  {children}
+                  {datum.children}
                 </Button>
                 {separatorSpan}
               </>
@@ -380,30 +400,38 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
           case "link":
             return index + 1 === metadataLength ? (
               <Link
-                color={color ?? "primary"}
-                href={href}
+                color={datum.color ?? "primary"}
+                href={datum.href}
                 fontSize="caption"
                 data-h2-font-weight="base(bold)"
-                key={key}
+                key={datum.key}
               >
-                {children}
+                {datum.children}
               </Link>
             ) : (
               <>
                 <Link
-                  color={color ?? "primary"}
-                  href={href}
+                  color={datum.color ?? "primary"}
+                  href={datum.href}
                   fontSize="caption"
                   data-h2-font-weight="base(bold)"
-                  key={key}
+                  key={datum.key}
                 >
-                  {children}
+                  {datum.children}
                 </Link>
                 {separatorSpan}
               </>
             );
+          // just wrap with a key and display "as-is"
+          case "status_item":
+            return (
+              <Fragment key={datum.key}>
+                <MetadataStatusItem label={datum.label} status={datum.status} />
+                {index + 1 < metadataLength ? separatorSpan : null}
+              </Fragment>
+            );
           default:
-            return null;
+            return assertUnreachable(datum);
         }
       })}
     </div>
