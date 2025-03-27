@@ -591,6 +591,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
   },
+  "NQspkZ": {
+    "defaultMessage": "Tableau de bord de la collectivité",
+    "description": "Name of the community dashboard page"
+  },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"

@@ -945,9 +945,9 @@ type WorkExperience implements Experience {
   workStreams: [WorkStream!] @with(relation: "workStreams")
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: String
+  annualBudgetAllocation: Int
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
@@ -1833,6 +1833,7 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
+  disconnect: Boolean
 }
 
 input PoolBelongsTo {
@@ -2273,10 +2274,10 @@ input WorkExperienceInput {
   workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
   supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
   supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
-  supervisedEmployeesNumber: String
+  supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: String @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")

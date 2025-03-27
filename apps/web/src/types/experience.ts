@@ -119,9 +119,9 @@ export type WorkFormValues = FormValueDateRange & {
   workStreams?: string[];
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;
-  supervisedEmployeesNumber?: string | null;
+  supervisedEmployeesNumber?: number | null;
   budgetManagement?: boolean;
-  annualBudgetAllocation?: string | null;
+  annualBudgetAllocation?: number | null;
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
@@ -196,9 +196,9 @@ export interface ExperienceDetailsSubmissionData {
   workStreamIds?: string[];
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;
-  supervisedEmployeesNumber?: string | null;
+  supervisedEmployeesNumber?: number | null;
   budgetManagement?: boolean;
-  annualBudgetAllocation?: string | null;
+  annualBudgetAllocation?: number | null;
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
@@ -275,9 +275,9 @@ export interface ExperienceDetailsDefaultValues {
   skills?: FormSkills;
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;
-  supervisedEmployeesNumber?: string;
+  supervisedEmployeesNumber?: number;
   budgetManagement?: boolean;
-  annualBudgetAllocation?: string;
+  annualBudgetAllocation?: number;
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle;
   otherCSuiteRoleTitle?: string;
