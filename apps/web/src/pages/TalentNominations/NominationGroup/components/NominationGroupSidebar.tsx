@@ -9,7 +9,12 @@ import {
   Heading,
   Separator,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationGroupStatus,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
 
@@ -120,6 +125,35 @@ const NominationGroupSidebar = ({
     nominatorsList,
   );
 
+  // set the styling colours of the status bar and button
+  const statusColours = {
+    textBox: "base(success.lightest) base:dark(success.lightest)",
+    border: "base(success.darker) base:dark(success.darker)",
+    text: "base(success.darker) base:dark(success.darker)",
+    buttonBox: "base(success.darker) base:dark(darker)",
+    button: "base(success.lightest) base:dark(success.lightest)",
+  };
+  if (
+    talentNominationGroup.status?.value ===
+    TalentNominationGroupStatus.InProgress
+  ) {
+    statusColours.textBox =
+      "base(secondary.lightest) base:dark(secondary.lightest)";
+    statusColours.border = "base(secondary.dark) base:dark(secondary.dark)";
+    statusColours.text = "base(secondary.darkest) base:dark(secondary.dark)";
+    statusColours.buttonBox = "base(secondary.dark) base:dark(secondary)";
+    statusColours.button =
+      "base(secondary.lightest) base:dark(secondary.lightest)";
+  } else if (
+    talentNominationGroup.status?.value === TalentNominationGroupStatus.Rejected
+  ) {
+    statusColours.textBox = "base(error.lightest) base:dark(error.lightest)";
+    statusColours.border = "base(error.darker) base:dark(error.darker)";
+    statusColours.text = "base(error.darker) base:dark(error.darker)";
+    statusColours.buttonBox = "base(error.darker) base:dark(darker)";
+    statusColours.button = "base(error.lightest) base:dark(error.lightest)";
+  }
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -173,15 +207,15 @@ const NominationGroupSidebar = ({
             <div
               data-h2-padding="base(x.5 x5 x.5 x.5) l-tablet(x.5 x2 x.5 x.5)"
               data-h2-radius="base(x.375 0 0 x.375)"
-              data-h2-background-color="base(primary)"
-              data-h2-border="base(2px solid)"
-              data-h2-border-color="base(tertiary)"
+              data-h2-background-color={statusColours.textBox}
+              data-h2-border="base(1px solid)"
+              data-h2-border-color={statusColours.border}
             >
               <span
                 data-h2-margin-top="base(x.1)"
                 data-h2-font-weight="base(700)"
                 data-h2-vertical-align="base(middle)"
-                data-h2-color="base(secondary)"
+                data-h2-color={statusColours.text}
               >
                 {talentNominationGroup.status?.label.localized ??
                   intl.formatMessage(commonMessages.notAvailable)}
@@ -190,12 +224,12 @@ const NominationGroupSidebar = ({
             <div
               data-h2-padding="base(x.375 x.375 x.375 x.375)"
               data-h2-radius="base(0 x.375 x.375 0)"
-              data-h2-background-color="base(primary)"
+              data-h2-background-color={statusColours.buttonBox}
             >
               {/* Dialog goes here */}
               <Button
                 data-h2-margin-top="base(x.1)"
-                data-h2-color="base(secondary)"
+                data-h2-color={statusColours.button}
                 icon={PencilSquareIcon}
                 mode={"icon_only"}
                 fontSize="h4"

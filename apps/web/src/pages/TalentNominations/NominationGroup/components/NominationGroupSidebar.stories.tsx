@@ -5,6 +5,7 @@ import {
   makeFragmentData,
   NominationGroupSidebarFragment as NominationGroupSidebarFragmentType,
   TalentNominationGroupDecision,
+  TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import {
   fakeClassifications,
@@ -26,6 +27,10 @@ const talentNominationGroup: NominationGroupSidebarFragmentType = {
   advancementDecision: { value: TalentNominationGroupDecision.Approved },
   lateralMovementNominationCount: 1,
   lateralMovementDecision: { value: TalentNominationGroupDecision.Rejected },
+  status: {
+    value: TalentNominationGroupStatus.InProgress,
+    label: { localized: "In progress" },
+  },
   nominee: {
     id: "nominee-123",
     firstName: "Forename",
