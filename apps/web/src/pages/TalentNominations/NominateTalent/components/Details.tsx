@@ -24,6 +24,7 @@ import {
 import {
   commonMessages,
   errorMessages,
+  getTalentNominationLateralMovementOption,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Well } from "@gc-digital-talent/ui";
@@ -445,7 +446,22 @@ const DetailsFields = ({ optionsQuery, employeeQuery }: DetailsFieldsProps) => {
                     TalentNominationLateralMovementOption.PolicyExperience,
                     TalentNominationLateralMovementOption.Other,
                   ],
-                )}
+                ).map((item) => {
+                  const other: string =
+                    TalentNominationLateralMovementOption.Other;
+                  if (item.value === other) {
+                    return {
+                      ...item,
+                    };
+                  }
+
+                  return {
+                    ...item,
+                    contentBelow: intl.formatMessage(
+                      getTalentNominationLateralMovementOption(item.value),
+                    ),
+                  };
+                })}
               />
               {lateralMovementOptionOther && (
                 <Input
