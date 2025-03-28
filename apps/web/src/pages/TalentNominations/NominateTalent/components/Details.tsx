@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
 import {
+  DevelopmentProgram,
   FragmentType,
   getFragment,
   graphql,
@@ -67,15 +68,6 @@ const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    developmentPrograms {
-      id
-      name {
-        localized
-      }
-      descriptionForNominations {
-        localized
-      }
-    }
   }
 `);
 
@@ -111,11 +103,16 @@ type DetailsFieldsOptionsFragmentType = FragmentType<
 >;
 
 interface DetailsFieldsProps {
+  developmentProgramOptions: DevelopmentProgram[];
   optionsQuery?: DetailsFieldsOptionsFragmentType;
   employeeQuery?: FragmentType<typeof DetailsEmployee_Fragment>;
 }
 
-const DetailsFields = ({ optionsQuery, employeeQuery }: DetailsFieldsProps) => {
+const DetailsFields = ({
+  optionsQuery,
+  employeeQuery,
+  developmentProgramOptions,
+}: DetailsFieldsProps) => {
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
@@ -519,7 +516,7 @@ const DetailsFields = ({ optionsQuery, employeeQuery }: DetailsFieldsProps) => {
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 items={[
-                  ...unpackMaybes(options?.developmentPrograms).map((dp) => ({
+                  ...developmentProgramOptions.map((dp) => ({
                     value: dp.id,
                     label: dp.name?.localized ?? "",
                     contentBelow: dp.descriptionForNominations?.localized ?? "",
@@ -557,6 +554,17 @@ const DetailsFields = ({ optionsQuery, employeeQuery }: DetailsFieldsProps) => {
 const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
+    talentNominationEvent {
+      developmentPrograms {
+        id
+        name {
+          localized
+        }
+        descriptionForNominations {
+          localized
+        }
+      }
+    }
     nominateForAdvancement
     advancementReference {
       id
@@ -758,6 +766,11 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         })}
       </p>
       <DetailsFields
+        developmentProgramOptions={
+          unpackMaybes(
+            talentNomination?.talentNominationEvent?.developmentPrograms,
+          ) ?? []
+        }
         optionsQuery={optionsQuery}
         employeeQuery={talentNomination?.advancementReference ?? undefined}
       />
