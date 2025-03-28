@@ -675,20 +675,23 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
+  let nominationOptions: Maybe<NominationOption>[] = [];
+  if (talentNomination?.nominateForAdvancement) {
+    nominationOptions = [...nominationOptions, "advancement"];
+  }
+  if (talentNomination?.nominateForLateralMovement) {
+    nominationOptions = [...nominationOptions, "lateralMovement"];
+  }
+  if (talentNomination?.nominateForDevelopmentPrograms) {
+    nominationOptions = [...nominationOptions, "developmentProgram"];
+  }
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
-        nominationOptions: [
-          talentNomination?.nominateForAdvancement ? "advancement" : null,
-          talentNomination?.nominateForLateralMovement
-            ? "lateralMovement"
-            : null,
-          talentNomination?.nominateForDevelopmentPrograms
-            ? "developmentProgram"
-            : null,
-        ],
+        nominationOptions,
         advancementReference:
           talentNomination?.advancementReference?.id ?? null,
         advancementReferenceReview:
