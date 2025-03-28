@@ -59,7 +59,7 @@ const Layout = ({ query }: LayoutProps) => {
       },
       {
         label: pageTitle,
-        url: paths.adminTalentMangementEvent(eventId),
+        url: paths.adminTalentManagementEvent(eventId),
       },
     ],
   });
@@ -73,7 +73,7 @@ const Layout = ({ query }: LayoutProps) => {
         crumbs={crumbs}
         navTabs={[
           {
-            url: paths.adminTalentMangementEvent(eventId),
+            url: paths.adminTalentManagementEvent(eventId),
             label: intl.formatMessage({
               defaultMessage: "Event details",
               id: "jnd5HF",
@@ -81,7 +81,7 @@ const Layout = ({ query }: LayoutProps) => {
             }),
           },
           {
-            url: paths.adminTalentMangementEventNominations(eventId),
+            url: paths.adminTalentManagementEventNominations(eventId),
             label: intl.formatMessage({
               defaultMessage: "Nominations",
               id: "tgPKAn",
