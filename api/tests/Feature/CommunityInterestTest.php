@@ -479,6 +479,7 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
 
         // Test community interest filter where job interest is false and training interest is false
+        // NOTE: Should only assert a total of 3 results since we only show users with at least one of the interests
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
