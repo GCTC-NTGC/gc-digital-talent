@@ -78,23 +78,21 @@ final class CreateTalentNominationInputValidator extends Validator
             'nominateForLateralMovement' => ['boolean'],
             'nominateForDevelopmentPrograms' => ['boolean'],
 
-            'advancementReference' => ['required_array_keys:connect'],
             'advancementReference.connect' => [
                 'uuid',
                 'exists:users,id',
-                'prohibits:advancementReferenceFallbackWorkEmail,advancementReferenceFallbackName,advancementReferenceFallbackClassification,advancementReferenceFallbackDepartment',
+                'prohibits:advancementReferenceFallbackWorkEmail,advancementReferenceFallbackName,advancementReferenceFallbackClassification.connect,advancementReferenceFallbackDepartment.connect',
             ],
             'advancementReferenceReview' => [
+                'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
-            'advancementReferenceFallbackWorkEmail' => [new GovernmentEmailRegex],
-            'advancementReferenceFallbackName' => ['string'],
-            'advancementReferenceFallbackClassification' => ['required_array_keys:connect'],
+            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'advancementReferenceFallbackName' => ['string', 'nullable'],
             'advancementReferenceFallbackClassification.connect' => [
                 'uuid',
                 'exists:classifications,id',
             ],
-            'advancementReferenceFallbackDepartment' => ['required_array_keys:connect'],
             'advancementReferenceFallbackDepartment.connect' => [
                 'uuid',
                 'exists:departments,id',
@@ -107,6 +105,7 @@ final class CreateTalentNominationInputValidator extends Validator
             ],
             'lateralMovementOptionsOther' => [
                 'string',
+                'nullable',
                 Rule::requiredIf(in_array(TalentNominationLateralMovementOption::OTHER->name, $this->arg('lateralMovementOptions') ?? [])),
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->arg('lateralMovementOptions') ?? [])),
             ],
@@ -116,7 +115,7 @@ final class CreateTalentNominationInputValidator extends Validator
                 'array',
                 'exists:development_programs,id',
             ],
-            'developmentProgramOptionsOther' => ['string'],
+            'developmentProgramOptionsOther' => ['string', 'nullable'],
 
             'nominationRationale' => ['string'],
             'skills' => ['required_array_keys:sync'],

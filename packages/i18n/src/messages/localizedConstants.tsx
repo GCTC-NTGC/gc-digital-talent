@@ -12,6 +12,7 @@ import {
   SkillLevel,
   Mentorship,
   ExecCoaching,
+  TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -944,5 +945,60 @@ export const getExecCoachingInterest = (
       : execCoachingInterestFalseLabels,
     execCoachingInterestId,
     `Invalid executive coaching interest '${execCoachingInterestId}'`,
+  );
+};
+
+const talentNominationLateralMovementOptionDescriptions = defineMessages({
+  [TalentNominationLateralMovementOption.SmallDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a small department or agency.",
+    id: "s7lyFN",
+    description:
+      "The talent nomination lateral movement option description for small department",
+  },
+  [TalentNominationLateralMovementOption.LargeDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a large department or agency.",
+    id: "W87tD/",
+    description:
+      "The talent nomination lateral movement option description for large department",
+  },
+  [TalentNominationLateralMovementOption.CentralDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a central department or agency.",
+    id: "kv960y",
+    description:
+      "The talent nomination lateral movement option description for central department",
+  },
+  [TalentNominationLateralMovementOption.NewDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to any other department or agency, regardless of size or type.",
+    id: "vrgXIT",
+    description:
+      "The talent nomination lateral movement option description for new department",
+  },
+  [TalentNominationLateralMovementOption.ProgramExperience]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a program within another department or agency.",
+    id: "m2cqv9",
+    description:
+      "The talent nomination lateral movement option description for program experience",
+  },
+  [TalentNominationLateralMovementOption.PolicyExperience]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to another policy domain.",
+    id: "vMc12L",
+    description:
+      "The talent nomination lateral movement option description for policy experience",
+  },
+});
+
+export const getTalentNominationLateralMovementOption = (
+  talentNominationLateralMovementOptionId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    talentNominationLateralMovementOptionDescriptions,
+    talentNominationLateralMovementOptionId,
+    `Invalid talent nomination lateral movement '${talentNominationLateralMovementOptionId}'`,
   );
 };
