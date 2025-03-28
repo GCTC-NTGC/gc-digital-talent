@@ -181,6 +181,11 @@ const navigationMessages = defineMessages({
     id: "Y66jFM",
     description: "Link text to the dashboard page",
   },
+  newNomination: {
+    defaultMessage: "New nomination",
+    id: "s3u05D",
+    description: "Link text to create a new nomination",
+  },
 });
 
 export default navigationMessages;
