@@ -238,7 +238,7 @@ const DetailsFields = ({ optionsQuery, employeeQuery }: DetailsFieldsProps) => {
         ]}
       />
       {noOptionsSelected ? (
-        <Well>
+        <Well data-h2-text-align="base(center)">
           <p>
             {intl.formatMessage({
               defaultMessage:
