@@ -1,6 +1,6 @@
 import { defineMessages } from "react-intl";
 
-const messages = defineMessages({
+export const detailTabMessages = defineMessages({
   nominationDetailsPageTitle: {
     defaultMessage: "Nomination details",
     id: "MsiKO0",
@@ -18,4 +18,25 @@ const messages = defineMessages({
   },
 });
 
-export default messages;
+export const formMessages = defineMessages({
+  referenceName: {
+    defaultMessage: "Reference’s name",
+    id: "v8f0hJ",
+    description: "Label for the advancement reference name",
+  },
+  referenceWorkEmail: {
+    defaultMessage: "Reference’s work email",
+    id: "stqS2E",
+    description: "Label for the advancement reference work email",
+  },
+  referenceClassification: {
+    defaultMessage: "Reference’s classification",
+    id: "qUQRPP",
+    description: "Label for the advancement reference classification",
+  },
+  referenceDepartment: {
+    defaultMessage: "Reference’s department or agency",
+    id: "tvM7zB",
+    description: "Label for the advancement reference department",
+  },
+});

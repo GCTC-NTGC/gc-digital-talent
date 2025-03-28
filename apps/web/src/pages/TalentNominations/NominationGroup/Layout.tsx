@@ -19,7 +19,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 
 import { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
-import messages from "./messages";
+import { detailTabMessages } from "./messages";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -106,7 +106,9 @@ const Layout = ({ query }: LayoutProps) => {
               talentNominationGroup.talentNominationEvent.id,
               talentNominationGroupId,
             ),
-            label: intl.formatMessage(messages.nominationDetailsPageTitle),
+            label: intl.formatMessage(
+              detailTabMessages.nominationDetailsPageTitle,
+            ),
           },
           {
             url: paths.talentNominationGroupProfile(

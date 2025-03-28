@@ -8,6 +8,8 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatClassificationString } from "~/utils/poolUtils";
 
+import { formMessages } from "../messages";
+
 const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationAccordionItem on TalentNomination {
     id
@@ -198,11 +200,7 @@ const TalentNominationAccordionItem = ({
                     data-h2-padding-top="base(x.5)"
                   >
                     <FieldDisplay
-                      label={intl.formatMessage({
-                        defaultMessage: "Reference’s name",
-                        id: "v8f0hJ",
-                        description: "Label for the advancement reference name",
-                      })}
+                      label={intl.formatMessage(formMessages.referenceName)}
                     >
                       {(advancementReferenceIsAUser
                         ? getFullNameLabel(
@@ -214,12 +212,9 @@ const TalentNominationAccordionItem = ({
                         intl.formatMessage(commonMessages.notFound)}
                     </FieldDisplay>
                     <FieldDisplay
-                      label={intl.formatMessage({
-                        defaultMessage: "Reference’s work email",
-                        id: "stqS2E",
-                        description:
-                          "Label for the advancement reference work email",
-                      })}
+                      label={intl.formatMessage(
+                        formMessages.referenceWorkEmail,
+                      )}
                     >
                       {(advancementReferenceIsAUser
                         ? talentNomination.advancementReference?.workEmail
@@ -227,12 +222,9 @@ const TalentNominationAccordionItem = ({
                         intl.formatMessage(commonMessages.notFound)}
                     </FieldDisplay>
                     <FieldDisplay
-                      label={intl.formatMessage({
-                        defaultMessage: "Reference’s classification",
-                        id: "qUQRPP",
-                        description:
-                          "Label for the advancement reference classification",
-                      })}
+                      label={intl.formatMessage(
+                        formMessages.referenceClassification,
+                      )}
                     >
                       {(advancementReferenceIsAUser
                         ? intl.formatMessage(commonMessages.notFound) // TODO
@@ -241,12 +233,9 @@ const TalentNominationAccordionItem = ({
                           )) ?? intl.formatMessage(commonMessages.notFound)}
                     </FieldDisplay>
                     <FieldDisplay
-                      label={intl.formatMessage({
-                        defaultMessage: "Reference’s department or agency",
-                        id: "tvM7zB",
-                        description:
-                          "Label for the advancement reference department",
-                      })}
+                      label={intl.formatMessage(
+                        formMessages.referenceDepartment,
+                      )}
                     >
                       {(advancementReferenceIsAUser
                         ? talentNomination.advancementReference?.department

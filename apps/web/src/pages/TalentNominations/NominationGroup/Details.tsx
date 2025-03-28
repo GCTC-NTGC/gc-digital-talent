@@ -18,7 +18,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import { RouteParams } from "./types";
-import messages from "./messages";
+import { detailTabMessages } from "./messages";
 import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
 
 const TalentNominationGroupDetails_Fragment = graphql(/* GraphQL */ `
@@ -71,12 +71,12 @@ const TalentNominationGroupDetails = ({
               data-h2-font-weight="base(400)"
               data-h2-margin="base(0)"
             >
-              {intl.formatMessage(messages.nominationDetailsPageTitle)}
+              {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
             </Heading>
           </div>
           <div>
             <Button type="button" mode="inline" color="secondary">
-              {intl.formatMessage(messages.expandNominations)}
+              {intl.formatMessage(detailTabMessages.expandNominations)}
             </Button>
           </div>
         </div>
