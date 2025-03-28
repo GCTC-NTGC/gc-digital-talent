@@ -12,6 +12,7 @@ import {
   SkillLevel,
   Mentorship,
   ExecCoaching,
+  LearningOpportunitiesInterest,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -944,5 +945,78 @@ export const getExecCoachingInterest = (
       : execCoachingInterestFalseLabels,
     execCoachingInterestId,
     `Invalid executive coaching interest '${execCoachingInterestId}'`,
+  );
+};
+
+export const LearningOpportunitiesInterestOptions = {
+  INTERCHANGE: LearningOpportunitiesInterest.Interchange,
+  ACADEMIC_PROGRAM: LearningOpportunitiesInterest.AcademicProgram,
+  PEER_NETWORKING: LearningOpportunitiesInterest.PeerNetworking,
+  PROFESSIONAL_ACCREDITATION:
+    LearningOpportunitiesInterest.ProfessionalAccreditation,
+} as const;
+
+const learningOpportunitiesInterestLabels = defineMessages({
+  INTERCHANGE: {
+    defaultMessage: "I'm interested in interchange opportunities.",
+    id: "3PQs15",
+    description: "Interest label for interchange opportunities.",
+  },
+  ACADEMIC_PROGRAM: {
+    defaultMessage: "I'm interested in participating in an academic program.",
+    id: "dKY52V",
+    description: "Interest label for academic programs.",
+  },
+  PEER_NETWORKING: {
+    defaultMessage: "I'm interested in peer networking opportunities.",
+    id: "a+twlj",
+    description: "Interest label for peer networking.",
+  },
+  PROFESSIONAL_ACCREDITATION: {
+    defaultMessage: "I'm interested in pursuing professional accreditation.",
+    id: "vYi9m5",
+    description: "Interest label for professional accreditation.",
+  },
+});
+
+const learningOpportunitiesInterestFalseLabels = defineMessages({
+  INTERCHANGE: {
+    defaultMessage: "I'm not interested in interchange opportunities.",
+    id: "nEyBtD",
+    description: "Not interested label for interchange opportunities.",
+  },
+  ACADEMIC_PROGRAM: {
+    defaultMessage:
+      "I'm not interested in participating in an academic program.",
+    id: "6bpSqk",
+    description: "Not interested label for academic programs.",
+  },
+  PEER_NETWORKING: {
+    defaultMessage: "I'm not interested in peer networking opportunities.",
+    id: "jPxgBV",
+    description: "Not interested label for peer networking.",
+  },
+  PROFESSIONAL_ACCREDITATION: {
+    defaultMessage:
+      "I'm not interested in pursuing professional accreditation.",
+    id: "oxhIEK",
+    description: "Not interested label for professional accreditation.",
+  },
+});
+
+export const getLearningOpportunitiesInterest = (
+  messageKey: string,
+  iconValue?: boolean,
+): MessageDescriptor => {
+  if (!(messageKey in learningOpportunitiesInterestLabels)) {
+    throw new Error(`Invalid learning opportunity interest '${messageKey}'`);
+  }
+
+  return getOrDisplayError(
+    iconValue === undefined || iconValue
+      ? learningOpportunitiesInterestLabels
+      : learningOpportunitiesInterestFalseLabels,
+    messageKey,
+    `Invalid learning opportunity interest '${messageKey}'`,
   );
 };
