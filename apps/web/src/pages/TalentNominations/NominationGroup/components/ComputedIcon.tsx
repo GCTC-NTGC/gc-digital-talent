@@ -29,6 +29,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <span>
         <NoSymbolIcon
           data-h2-color="base(black.lighter) base:dark(black)"
+          aria-hidden="false"
           aria-label={intl.formatMessage(commonMessages.notApplicable)}
           {...sharedIconStyling}
         />
@@ -41,6 +42,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <span>
         <CheckCircleIcon
           data-h2-color="base(success) base:dark(success.lighter)"
+          aria-hidden="false"
           aria-label={intl.formatMessage(commonMessages.approved)}
           {...sharedIconStyling}
         />
@@ -53,6 +55,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <span>
         <XCircleIcon
           data-h2-color="base(error) base:dark(error.lighter)"
+          aria-hidden="false"
           aria-label={intl.formatMessage(commonMessages.rejected)}
           {...sharedIconStyling}
         />
@@ -64,6 +67,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
     <span>
       <QuestionMarkCircleIcon
         data-h2-color="base(secondary.dark) base:dark(secondary)"
+        aria-hidden="false"
         aria-label={intl.formatMessage(commonMessages.inProgress)}
         {...sharedIconStyling}
       />
