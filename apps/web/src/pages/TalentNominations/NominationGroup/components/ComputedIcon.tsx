@@ -26,52 +26,44 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
 
   if (count === 0) {
     return (
-      <span>
-        <NoSymbolIcon
-          data-h2-color="base(black.lighter) base:dark(black)"
-          aria-hidden="false"
-          aria-label={intl.formatMessage(commonMessages.notApplicable)}
-          {...sharedIconStyling}
-        />
-      </span>
+      <NoSymbolIcon
+        data-h2-color="base(black.lighter) base:dark(black)"
+        aria-hidden="false"
+        aria-label={intl.formatMessage(commonMessages.notApplicable)}
+        {...sharedIconStyling}
+      />
     );
   }
 
   if (decision === TalentNominationGroupDecision.Approved) {
     return (
-      <span>
-        <CheckCircleIcon
-          data-h2-color="base(success) base:dark(success.lighter)"
-          aria-hidden="false"
-          aria-label={intl.formatMessage(commonMessages.approved)}
-          {...sharedIconStyling}
-        />
-      </span>
+      <CheckCircleIcon
+        data-h2-color="base(success) base:dark(success.lighter)"
+        aria-hidden="false"
+        aria-label={intl.formatMessage(commonMessages.approved)}
+        {...sharedIconStyling}
+      />
     );
   }
 
   if (decision === TalentNominationGroupDecision.Rejected) {
     return (
-      <span>
-        <XCircleIcon
-          data-h2-color="base(error) base:dark(error.lighter)"
-          aria-hidden="false"
-          aria-label={intl.formatMessage(commonMessages.rejected)}
-          {...sharedIconStyling}
-        />
-      </span>
+      <XCircleIcon
+        data-h2-color="base(error) base:dark(error.lighter)"
+        aria-hidden="false"
+        aria-label={intl.formatMessage(commonMessages.rejected)}
+        {...sharedIconStyling}
+      />
     );
   }
 
   return (
-    <span>
-      <QuestionMarkCircleIcon
-        data-h2-color="base(secondary.dark) base:dark(secondary)"
-        aria-hidden="false"
-        aria-label={intl.formatMessage(commonMessages.inProgress)}
-        {...sharedIconStyling}
-      />
-    </span>
+    <QuestionMarkCircleIcon
+      data-h2-color="base(secondary.dark) base:dark(secondary)"
+      aria-hidden="false"
+      aria-label={intl.formatMessage(commonMessages.inProgress)}
+      {...sharedIconStyling}
+    />
   );
 };
 
