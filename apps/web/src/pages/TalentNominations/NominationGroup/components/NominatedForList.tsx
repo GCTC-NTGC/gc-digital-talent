@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import ComputedIcon from "./ComputedIcon";
@@ -54,35 +53,55 @@ const NominatedForList = ({
           count={advancementNominationCount ?? 0}
           decision={advancementDecision?.value}
         />
-        {intl.formatMessage(commonMessages.advancement)}
-        {!!advancementNominationCount && advancementNominationCount !== 0
-          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            ` (${advancementNominationCount})`
-          : null}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "{advancementNominationCount, plural, =0 {Advancement} other {Advancement ({advancementNominationCount, number})}}",
+            id: "fOilMx",
+            description:
+              "Advancement nominations, conditional rendered off count",
+          },
+          {
+            advancementNominationCount: advancementNominationCount ?? 0,
+          },
+        )}
       </li>
       <li>
         <ComputedIcon
           count={lateralMovementNominationCount ?? 0}
           decision={lateralMovementDecision?.value}
         />
-        {intl.formatMessage(commonMessages.lateralMovement)}
-        {!!lateralMovementNominationCount &&
-        lateralMovementNominationCount !== 0
-          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            ` (${lateralMovementNominationCount})`
-          : null}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "{lateralMovementNominationCount, plural, =0 {Lateral movement} other {Lateral movement ({lateralMovementNominationCount, number})}}",
+            id: "4ozix3",
+            description:
+              "Lateral movement nominations, conditional rendered off count",
+          },
+          {
+            lateralMovementNominationCount: lateralMovementNominationCount ?? 0,
+          },
+        )}
       </li>
       <li>
         <ComputedIcon
           count={developmentProgramsNominationCount ?? 0}
           decision={developmentProgramsDecision?.value}
         />
-        {intl.formatMessage(commonMessages.development)}
-        {!!developmentProgramsNominationCount &&
-        developmentProgramsNominationCount !== 0
-          ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-            ` (${developmentProgramsNominationCount})`
-          : null}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "{developmentProgramsNominationCount, plural, =0 {Development} other {Development ({developmentProgramsNominationCount, number})}}",
+            id: "+UTd4G",
+            description:
+              "Development nominations, conditional rendered off count",
+          },
+          {
+            developmentProgramsNominationCount:
+              developmentProgramsNominationCount ?? 0,
+          },
+        )}
       </li>
     </ul>
   );

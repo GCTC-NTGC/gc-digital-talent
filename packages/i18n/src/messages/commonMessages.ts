@@ -411,21 +411,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  advancement: {
-    defaultMessage: "Advancement",
-    id: "z7ZTqu",
-    description: "Advancement for talent nominations",
-  },
-  lateralMovement: {
-    defaultMessage: "Lateral movement",
-    id: "KJBtAu",
-    description: "Lateral movement for talent nominations",
-  },
-  development: {
-    defaultMessage: "Development",
-    id: "fK9JXA",
-    description: "Development for talent nominations",
-  },
   approved: {
     defaultMessage: "Approved",
     id: "oCFl63",
