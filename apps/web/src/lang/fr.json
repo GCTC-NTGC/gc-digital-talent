@@ -991,10 +991,6 @@
     "defaultMessage": "Trier les expériences par ordre de",
     "description": "Label for selector to choose experience sort options"
   },
-  "4yXZLY": {
-    "defaultMessage": "Options de nomination",
-    "description": "Label for the nomination type(s)"
-  },
   "2ohWuK": {
     "defaultMessage": "Oui, l’évaluation de l’anglais a été effectuée",
     "description": "Completed an English language evaluation"
@@ -1494,6 +1490,10 @@
   "4wIDU6": {
     "defaultMessage": "Compétences comportementales essentielles",
     "description": "Short title of the 'essential behavioural skills' section of the job poster template page"
+  },
+  "4yXZLY": {
+    "defaultMessage": "Options de nomination",
+    "description": "Label for the nomination type(s)"
   },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
@@ -2386,10 +2386,6 @@
   "9Y3w6l": {
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"
-  },
-  "V0U1Pu": {
-    "defaultMessage": "Soumise",
-    "description": "Label for the submission date"
   },
   "9aW0M6": {
     "defaultMessage": "Ministère",
@@ -6662,6 +6658,10 @@
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
   },
+  "V0U1Pu": {
+    "defaultMessage": "Soumise",
+    "description": "Label for the submission date"
+  },
   "V0U95l": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences essentielles",
     "description": "Null message title for essential skills table."
@@ -9422,6 +9422,10 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
+  "i31jc0": {
+    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "description": "Label for the deadline to nominate"
+  },
   "i37tmL": {
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Description for a form input for adding Additional information"
@@ -10361,10 +10365,6 @@
   "mfBsJY": {
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
-  },
-  "i31jc0": {
-    "defaultMessage": "Date limite de présentation des mises en candidature",
-    "description": "Label for the deadline to nominate"
   },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
