@@ -1703,10 +1703,6 @@
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
   },
-  "61+g1V": {
-    "defaultMessage": "Volet de travail",
-    "description": "Label for work stream"
-  },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
@@ -9290,6 +9286,10 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
+  "ht9CfC": {
+    "defaultMessage": "Collectivités",
+    "description": "Label for communities"
+  },
   "hx8mTr": {
     "defaultMessage": "Envoyer un autre code.",
     "description": "button to request a new code"
@@ -11081,6 +11081,10 @@
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
+  },
+  "r5n5qA": {
+    "defaultMessage": "Volets de travail",
+    "description": "Label for work streams"
   },
   "r65UIr": {
     "defaultMessage": "Étape précédente",
