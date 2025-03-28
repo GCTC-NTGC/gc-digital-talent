@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
@@ -106,6 +107,7 @@ const TalentNominationListItem = ({
                 { eventName: nominationEventName },
               )}
               href={paths.talentNomination(talentNominationListItemFragment.id)}
+              icon={PencilSquareIcon}
             />
           )
         }
