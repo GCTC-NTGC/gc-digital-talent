@@ -5504,7 +5504,7 @@
     "description": "Label for the start/end date for an experience"
   },
   "PWqSgG": {
-    "defaultMessage": "nous invitons les cadres du gouvernement du Canada exerçant une fonction de contrôle ou travaillant dans d’autres secteurs et qui souhaiteraient se lancer dans une carrière en gestion financière à créer un profil.",
+    "defaultMessage": "nous invitons les cadres du gouvernement du Canada exerçant une fonction de contrôleur ou travaillant dans d’autres secteurs et qui souhaiteraient se lancer dans une carrière en gestion financière à créer un profil.",
     "description": "Employee group list item description"
   },
   "PYMFoh": {
@@ -10127,7 +10127,7 @@
     "description": "Language ability"
   },
   "mL1sax": {
-    "defaultMessage": "D'autres groupes de fonctionnaires exerçant une fonction de contrôle, comme les cadres qui travaillent actuellement à la vérification interne, à l’approvisionnement, à la gestion du matériel, aux biens immobiliers et à la gestion de projets, pourraient s'ajouter.",
+    "defaultMessage": "D'autres groupes de fonctionnaires travaillant dans la fonction de contrôleur, tels que les cadres travaillant actuellement dans l'audit interne, l'approvisionnement, la gestion du matériel, les biens immobiliers et la gestion de projet, pourraient être ajoutés au champ d'application de cet exercice à l'avenir.",
     "description": "Closing remark about future relevant employees"
   },
   "mLmPpf": {
@@ -11911,7 +11911,7 @@
     "description": "Message displayed when a user successfully updates employee profile information"
   },
   "vtE73H": {
-    "defaultMessage": "Gestion des talents pour les cadres exerçant une fonction de contrôle",
+    "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
   },
   "vvnsjr": {
