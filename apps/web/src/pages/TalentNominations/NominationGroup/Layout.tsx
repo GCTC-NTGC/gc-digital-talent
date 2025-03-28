@@ -75,7 +75,7 @@ const Layout = ({ query }: LayoutProps) => {
         label:
           talentNominationGroup.talentNominationEvent.name.localized ??
           intl.formatMessage(commonMessages.notAvailable),
-        url: paths.adminTalentMangementEvent(
+        url: paths.adminTalentManagementEvent(
           talentNominationGroup.talentNominationEvent.id,
         ),
       },

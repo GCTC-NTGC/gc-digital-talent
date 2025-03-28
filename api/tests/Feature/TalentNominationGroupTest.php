@@ -225,7 +225,7 @@ class TalentNominationGroupTest extends TestCase
                 'talentNominationEventId' => $talentNominationEvent->id,
             ]);
 
-        $response->assertGraphQLErrorMessage('This action is unauthorized.');
+        $response->assertJsonFragment(['talentNominationGroups' => []]);
     }
 
     public function testCommunityCoordinatorCanEditNominationGroup()
