@@ -107,7 +107,7 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
             id: "CKofej",
           })}
         >
-          {talentNomination?.submitter.id === talentNomination?.nominator?.id
+          {talentNomination?.submitter?.id === talentNomination?.nominator?.id
             ? intl.formatMessage({
                 defaultMessage: "I'm the nominator",
                 id: "Fek9he",
