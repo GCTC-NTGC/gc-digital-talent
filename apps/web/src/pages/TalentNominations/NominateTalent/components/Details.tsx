@@ -709,7 +709,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
       defaultValues={{
         nominationOptions,
         advancementReference:
-          talentNomination?.advancementReference?.id ?? null,
+          talentNomination?.advancementReference?.id ?? undefined,
         advancementReferenceReview:
           talentNomination?.advancementReferenceReview?.value,
         advancementReferenceFallbackWorkEmail:
