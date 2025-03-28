@@ -105,6 +105,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: permissionConstants.viewCandidates,
     },
     {
+      label: intl.formatMessage(pageTitles.talentManagement),
+      href: adminRoutes.adminTalentManagementEvents(),
+      roles: permissionConstants.viewCommunityTalentNominations,
+    },
+    {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
       roles: permissionConstants.viewProcesses,
