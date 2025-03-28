@@ -1,17 +1,33 @@
 import { useQuery } from "urql";
+import { useIntl } from "react-intl";
+import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Button,
+  CardForm,
+  CardFormSeparator,
+  Heading,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import { RouteParams } from "./types";
+import messages from "./messages";
+import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
 
 const TalentNominationGroupDetails_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupDetails on TalentNominationGroup {
     id
+    nominations {
+      id
+      ...TalentNominationAccordionItem
+    }
   }
 `);
 
@@ -22,13 +38,60 @@ interface TalentNominationGroupDetailsProps {
 const TalentNominationGroupDetails = ({
   query,
 }: TalentNominationGroupDetailsProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const talentNominationGroup = getFragment(
     TalentNominationGroupDetails_Fragment,
     query,
   );
+  const intl = useIntl();
 
-  return <p>New page here!</p>;
+  // if there's only one then open it, otherwise start closed
+  const openAccordions =
+    talentNominationGroup.nominations?.length === 1
+      ? [talentNominationGroup.nominations[0].id]
+      : [];
+
+  return (
+    <CardForm>
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-gap="base(x1) l-tablet(x1.5)"
+      >
+        {/* heading section */}
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-justify-content="base(space-between)"
+        >
+          <div>
+            <Heading
+              level="h2"
+              Icon={ClipboardDocumentListIcon}
+              color="primary"
+              data-h2-font-weight="base(400)"
+              data-h2-margin="base(0)"
+            >
+              {intl.formatMessage(messages.nominationDetailsPageTitle)}
+            </Heading>
+          </div>
+          <div>
+            <Button type="button" mode="inline" color="secondary">
+              {intl.formatMessage(messages.expandNominations)}
+            </Button>
+          </div>
+        </div>
+        <CardFormSeparator />
+        <Accordion.Root mode="simple" type="multiple" value={openAccordions}>
+          {talentNominationGroup.nominations?.map((nomination) => (
+            <TalentNominationAccordionItem
+              key={nomination.id}
+              query={nomination}
+            />
+          ))}
+        </Accordion.Root>
+      </div>
+    </CardForm>
+  );
 };
 
 const TalentNominationGroupDetails_Query = graphql(/* GraphQL */ `
