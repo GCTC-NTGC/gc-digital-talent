@@ -3795,6 +3795,10 @@
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
   },
+  "GrHEFV": {
+    "defaultMessage": "Aucune",
+    "description": "None"
+  },
   "GrfidX": {
     "defaultMessage": "Candidat {poolCandidateId} non trouvé.",
     "description": "Message displayed for pool candidate not found."
@@ -3934,6 +3938,10 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "HkFHt6": {
+    "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} =1 {1 personne candidate} other {# personnes candidates}}",
+    "description": "Count of nominees"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -4606,6 +4614,10 @@
   "Kwfc/6": {
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
+  },
+  "KxsYhl": {
+    "defaultMessage": "Nominations",
+    "description": "Header for Nominations"
   },
   "KyLikL": {
     "defaultMessage": "Pas d'intérêt pour",
@@ -11014,6 +11026,10 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for a users goals and work style"
   },
+  "qaZ6OZ": {
+    "defaultMessage": "Date d'ouverture",
+    "description": "Header for Opening date"
+  },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
     "description": "Instructions on how to manage notifications"
@@ -11473,6 +11489,10 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
+  },
+  "tPCmUl": {
+    "defaultMessage": "Date de clôture",
+    "description": "Header for Closing date"
   },
   "tSvuK1": {
     "defaultMessage": "À propos de vous",
@@ -11965,6 +11985,10 @@
   "w63YYp": {
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
+  },
+  "w6GbHK": {
+    "defaultMessage": "Consulter un résumé de tous les événements de gestion des talents et de leur statut.",
+    "description": "Subtitle for talent event table"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
