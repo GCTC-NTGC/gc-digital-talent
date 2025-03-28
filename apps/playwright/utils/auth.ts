@@ -8,7 +8,7 @@ export interface AuthTokens {
   refreshToken?: string | null;
 }
 
-interface AuthTokenResponse {
+export interface AuthTokenResponse {
   id_token?: string;
   access_token?: string;
   refresh_token?: string;
@@ -135,7 +135,7 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
   const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
-  const newDate = new Date(expiry + 1 * 1000);
+  const newDate = new Date((expiry + 1) * 1000);
   return newDate;
 }
 
