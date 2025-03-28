@@ -15,8 +15,10 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
+import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
 import { RouteParams } from "./types";
+import messages from "./messages";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -102,11 +104,7 @@ const Layout = ({ query }: LayoutProps) => {
               talentNominationGroup.talentNominationEvent.id,
               talentNominationGroupId,
             ),
-            label: intl.formatMessage({
-              defaultMessage: "Nomination details",
-              id: "MsiKO0",
-              description: "Link text for details about a nomination",
-            }),
+            label: intl.formatMessage(messages.nominationDetailsPageTitle),
           },
           {
             url: paths.talentNominationGroupProfile(
@@ -132,14 +130,16 @@ const Layout = ({ query }: LayoutProps) => {
           },
         ]}
       />
-      <Sidebar.Wrapper>
-        <Sidebar.Sidebar data-h2-order="l-tablet(2)">
-          <>{/* Put the sidebar here */}</>
-        </Sidebar.Sidebar>
-        <Sidebar.Content data-h2-order="l-tablet(1)">
-          <Outlet />
-        </Sidebar.Content>
-      </Sidebar.Wrapper>
+      <AdminContentWrapper>
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar data-h2-order="l-tablet(2)">
+            <>{/* Put the sidebar here */}</>
+          </Sidebar.Sidebar>
+          <Sidebar.Content data-h2-order="l-tablet(1)">
+            <Outlet />
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
+      </AdminContentWrapper>
     </>
   );
 };

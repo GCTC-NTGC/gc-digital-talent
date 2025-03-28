@@ -1,6 +1,6 @@
-import { AccordionMetaData } from "./Accordion";
+import { AccordionMetaDataProps } from "./Accordion";
 
-export const testMetaData: AccordionMetaData[] = [
+export const testMetaData: AccordionMetaDataProps["metadata"] = [
   {
     key: "button-id",
     type: "button",
@@ -22,5 +22,11 @@ export const testMetaData: AccordionMetaData[] = [
     key: "text-2-id",
     type: "text",
     children: "Text",
+  },
+  {
+    key: "status-item",
+    label: "status",
+    status: "selected",
+    type: "status_item",
   },
 ];
