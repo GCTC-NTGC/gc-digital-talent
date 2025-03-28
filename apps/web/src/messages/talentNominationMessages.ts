@@ -12,8 +12,8 @@ const messages = defineMessages({
     description: "Label for the nominee's work email",
   },
   nomineeTypes: {
-    defaultMessage: "Nomination type(s)",
-    id: "2oQSCv",
+    defaultMessage: "Nomination option(s)",
+    id: "4yXZLY",
     description: "Label for the nomination type(s)",
   },
   nominateForAdvancement: {
@@ -42,13 +42,13 @@ const messages = defineMessages({
     description: "Label for Functional community value",
   },
   nominationDeadline: {
-    defaultMessage: "Deadline to nominate",
-    id: "mh/q0a",
+    defaultMessage: "Nomination deadline",
+    id: "i31jc0",
     description: "Label for the deadline to nominate",
   },
   submissionDate: {
-    defaultMessage: "Date submitted",
-    id: "9Zj3ZM",
+    defaultMessage: "Submitted",
+    id: "V0U1Pu",
     description: "Label for the submission date",
   },
   nominatorName: {

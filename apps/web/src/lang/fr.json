@@ -991,7 +991,7 @@
     "defaultMessage": "Trier les expériences par ordre de",
     "description": "Label for selector to choose experience sort options"
   },
-  "2oQSCv": {
+  "4yXZLY": {
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
   },
@@ -2387,7 +2387,7 @@
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"
   },
-  "9Zj3ZM": {
+  "V0U1Pu": {
     "defaultMessage": "Soumise",
     "description": "Label for the submission date"
   },
@@ -10362,7 +10362,7 @@
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
   },
-  "mh/q0a": {
+  "i31jc0": {
     "defaultMessage": "Date limite de présentation des mises en candidature",
     "description": "Label for the deadline to nominate"
   },
