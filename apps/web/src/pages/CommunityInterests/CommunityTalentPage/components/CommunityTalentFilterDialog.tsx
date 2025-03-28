@@ -123,7 +123,7 @@ const CommunityTalentFilterDialog = ({
             name="communities"
             {...{ fetching }}
             isMulti
-            label={intl.formatMessage(adminMessages.community)}
+            label={intl.formatMessage(adminMessages.communities)}
             options={communities.map(({ id, name }) => ({
               value: id,
               label: name?.localized,
@@ -136,7 +136,7 @@ const CommunityTalentFilterDialog = ({
             name="workStreams"
             {...{ fetching }}
             isMulti
-            label={intl.formatMessage(adminMessages.workStream)}
+            label={intl.formatMessage(adminMessages.workStreams)}
             options={workStreams.map(({ id, name }) => ({
               value: id,
               label: name?.localized,
