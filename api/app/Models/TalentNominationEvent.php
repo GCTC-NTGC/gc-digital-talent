@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Casts\LocalizedString;
 use App\Enums\TalentNominationEventStatus;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -66,6 +68,26 @@ class TalentNominationEvent extends Model
     public function developmentPrograms(): BelongsToMany
     {
         return $this->belongsToMany(DevelopmentProgram::class);
+    }
+
+    protected function status(): Attribute
+    {
+        /** @disregard P1003 Not using values */
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                if (Carbon::parse($attributes['open_date'])->isPast() && Carbon::parse($attributes['close_date'])->isFuture()) {
+                    return TalentNominationEventStatus::ACTIVE->name;
+                }
+                if (Carbon::parse($attributes['close_date'])->isFuture()) {
+                    return TalentNominationEventStatus::UPCOMING->name;
+                }
+                if (Carbon::parse($attributes['close_date'])->isPast()) {
+                    return TalentNominationEventStatus::PAST->name;
+                }
+
+                return null;
+            },
+        );
     }
 
     public static function scopeStatus(Builder $query, ?string $status)
