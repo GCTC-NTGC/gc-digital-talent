@@ -33,8 +33,9 @@ export const IndexTalentEventPage = () => {
 
   const pageTitle = intl.formatMessage(pageTitles.talentManagement);
   const pageSubtitle = intl.formatMessage({
-    defaultMessage: "View a summary of all nomination events and their status.",
-    id: "EJznz2",
+    defaultMessage:
+      "View a summary of all talent management events and their status.",
+    id: "w6GbHK",
     description: "Subtitle for talent event table",
   });
 
