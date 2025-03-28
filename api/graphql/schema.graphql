@@ -652,8 +652,9 @@ type TalentNominationEvent {
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany
+    @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view", model: "TalentNominationGroup")
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {

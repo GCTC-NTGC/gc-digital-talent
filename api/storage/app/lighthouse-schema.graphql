@@ -293,6 +293,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationEventStatus {
+  value: TalentNominationEventStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationGroupDecision {
   value: TalentNominationGroupDecision!
   label: LocalizedString!
@@ -1094,6 +1099,7 @@ type TalentNominationEvent {
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {
