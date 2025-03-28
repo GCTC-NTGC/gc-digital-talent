@@ -9,7 +9,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
-import uniqueId from "lodash/uniqueId";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -44,6 +43,7 @@ import CommunityTalentFilterDialog, {
 import {
   classificationAccessor,
   interestAccessor,
+  removeDuplicateIds,
   transformCommunityInterestFilterInputToFormValues,
   transformCommunityTalentInput,
   transformFormValuesToCommunityInterestFilterInput,
@@ -189,16 +189,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const handleDocDownload = (anonymous: boolean) => {
     if (selectedRows.length === 1) {
       downloadDoc({
-        id: selectedRows.map((row) =>
-          row.substring(0, row.indexOf("-unique")),
-        )[0],
+        id: selectedRows[0],
         anonymous,
       });
     } else {
       downloadZip({
-        ids: selectedRows.map((row) =>
-          row.substring(0, row.indexOf("-unique")),
-        ),
+        ids: removeDuplicateIds(selectedRows),
         anonymous,
       });
     }
@@ -206,7 +202,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
 
   const handleCsvDownload = () => {
     downloadCsv({
-      ids: selectedRows.map((row) => row.substring(0, row.indexOf("-unique"))),
+      ids: removeDuplicateIds(selectedRows),
     });
   };
 
@@ -398,7 +394,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       }}
       rowSelect={{
         onRowSelection: setSelectedRows,
-        getRowId: ({ user }) => `${user.id}-unique${uniqueId()}`,
+        getRowId: ({ id, user }) => `${id}-userId#${user.id}`,
         cell: ({ row }) =>
           rowSelectCell({
             row,

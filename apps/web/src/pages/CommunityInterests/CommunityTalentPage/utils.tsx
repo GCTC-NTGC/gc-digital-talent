@@ -14,7 +14,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -215,4 +215,9 @@ export function transformCommunityInterestFilterInputToFormValues(
       input?.operationalRequirements?.filter(notEmpty) ?? [],
     skills: input?.skills?.filter(notEmpty).map((id) => id) ?? [],
   };
+}
+
+export function removeDuplicateIds(ids: string[]): string[] {
+  const userIds = ids.map((id) => id.split("-userId#")[1]);
+  return uniqueItems(userIds);
 }
