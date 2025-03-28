@@ -991,6 +991,10 @@
     "defaultMessage": "Trier les expériences par ordre de",
     "description": "Label for selector to choose experience sort options"
   },
+  "2oQSCv": {
+    "defaultMessage": "Options de nomination",
+    "description": "Label for the nomination type(s)"
+  },
   "2ohWuK": {
     "defaultMessage": "Oui, l’évaluation de l’anglais a été effectuée",
     "description": "Completed an English language evaluation"
@@ -1022,6 +1026,10 @@
   "2vdIG6": {
     "defaultMessage": "L'équipe du Développement de la collectivité de la gestion financière (DCGF) du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière fédérale à améliorer leurs compétences et à progresser dans leur carrière grâce au recrutement, au perfectionnement et au réseautage.",
     "description": "Card description, team"
+  },
+  "2wbcfE": {
+    "defaultMessage": "Revoir une mise en candidature",
+    "description": "Title for the review talent nomination dialog"
   },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
@@ -2379,6 +2387,10 @@
     "defaultMessage": "Il y a actuellement des questions sans réponse dans cette section. Cliquez sur le bouton « Modifiez » pour examiner les champs obligatoires et répondre aux questions.",
     "description": "Message for unanswered questions in this section"
   },
+  "9Zj3ZM": {
+    "defaultMessage": "Soumise",
+    "description": "Label for the submission date"
+  },
   "9aW0M6": {
     "defaultMessage": "Ministère",
     "description": "Title for department"
@@ -3002,6 +3014,10 @@
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "Ch6OCd": {
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
+    "description": "Label for the nominator's work email"
   },
   "Cn73yN": {
     "defaultMessage": "Sélectionnez les rôles",
@@ -3662,6 +3678,10 @@
   "Fz49kD": {
     "defaultMessage": "3. Autre…",
     "description": "Paragraph 4 of a manager's email for apprenticeship"
+  },
+  "FzaSAD": {
+    "defaultMessage": "Mutation latérale",
+    "description": "Label for the lateral movement nomination type"
   },
   "G+dXAH": {
     "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
@@ -4555,6 +4575,10 @@
     "defaultMessage": "Masquer les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
   },
+  "Kbt6SJ": {
+    "defaultMessage": "Nom de l'événement",
+    "description": "Label for the event name"
+  },
   "KdXvmY": {
     "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
     "description": "Learn more dialog question seven heading"
@@ -4774,6 +4798,10 @@
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
+  },
+  "LOwBJx": {
+    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise et suivez son évolution.",
+    "description": "Subtitle for the review talent nomination dialog"
   },
   "LQ0a0a": {
     "defaultMessage": "Participation au programme",
@@ -5498,6 +5526,10 @@
   "PH68o/": {
     "defaultMessage": "Présentez votre demande",
     "description": "Label for apply now button in instructor led training"
+  },
+  "PIJLkW": {
+    "defaultMessage": "Avancement",
+    "description": "Label for the advancement nomination type"
   },
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
@@ -6690,6 +6722,10 @@
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
   },
+  "VDNYQU": {
+    "defaultMessage": "Votre mise en candidature a été soumise et est en attente d'examen. Nous vous informerons lorsque la collectivité fonctionnelle entamera le processus de révision.",
+    "description": "The description of the 'received' nomination status"
+  },
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Phrase marking lack of interest in community work opportunities"
@@ -6717,6 +6753,10 @@
   "VR79Ue": {
     "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading an anonymous user profile."
+  },
+  "VRAtKh": {
+    "defaultMessage": "Nom de la personne candidate",
+    "description": "Label for the nominee's name"
   },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
@@ -6825,6 +6865,10 @@
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
+  },
+  "W2s794": {
+    "defaultMessage": "Programme de perfectionnement",
+    "description": "Label for the development program nomination type"
   },
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
@@ -10126,6 +10170,10 @@
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
   },
+  "lwRIsY": {
+    "defaultMessage": "Reçue",
+    "description": "The title of the 'received' nomination status"
+  },
   "lwYOqk": {
     "defaultMessage": "Année d'admissibilité à la retraite",
     "description": "Label for an employee profile career development preference field"
@@ -10313,6 +10361,10 @@
   "mfBsJY": {
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
+  },
+  "mh/q0a": {
+    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "description": "Label for the deadline to nominate"
   },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
@@ -11154,6 +11206,10 @@
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
     "description": "Title for the compliance enforcement section."
   },
+  "qvQlEj": {
+    "defaultMessage": "Courriel professionnel de la personne candidate",
+    "description": "Label for the nominee's work email"
+  },
   "qvfSHZ": {
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
@@ -11797,6 +11853,10 @@
   "uaEMMO": {
     "defaultMessage": "Type d'emploi",
     "description": "Label for the employment type radio group"
+  },
+  "uaVogJ": {
+    "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
+    "description": "Label for talent nomination review dialog button"
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
@@ -12753,6 +12813,10 @@
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
     "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
+  },
+  "zYKPdV": {
+    "defaultMessage": "Nom de l'autrice ou l'auteur de la mise en candidature",
+    "description": "Label for the nominator's name"
   },
   "zbmWLG": {
     "defaultMessage": "Le gouvernement du Canada lira les commentaires et participera aux discussions, au besoin. Vos commentaires et vos contributions doivent être pertinents et respectueux.",
