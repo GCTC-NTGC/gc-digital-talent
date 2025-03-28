@@ -112,7 +112,9 @@ const NominateTalentPage = () => {
         data?.talentNomination?.submittedSteps,
       );
       if (targetStep) {
-        void navigate(`${paths.talentNomination(id)}?step=${targetStep}`);
+        void navigate(`${paths.talentNomination(id)}?step=${targetStep}`, {
+          replace: true,
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
