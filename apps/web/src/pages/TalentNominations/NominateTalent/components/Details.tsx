@@ -28,7 +28,7 @@ import {
   getTalentNominationLateralMovementOption,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Well } from "@gc-digital-talent/ui";
+import { Heading, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -260,14 +260,14 @@ const DetailsFields = ({
               data-h2-gap="base(x1)"
             >
               <div>
-                <p data-h2-font-weight="base(700)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Advancement options",
                     id: "e0v7Fl",
                     description:
                       "Title for advancement options section in nominations details step",
                   })}
-                </p>
+                </Heading>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -401,14 +401,14 @@ const DetailsFields = ({
               data-h2-gap="base(x1)"
             >
               <div>
-                <p data-h2-font-weight="base(700)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Lateral movement options",
                     id: "4nhr77",
                     description:
                       "Title for lateral movement options section in nominations details step",
                   })}
-                </p>
+                </Heading>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -485,14 +485,14 @@ const DetailsFields = ({
               data-h2-gap="base(x1)"
             >
               <div>
-                <p data-h2-font-weight="base(700)">
+                <Heading level="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Development program options",
                     id: "PZEAt8",
                     description:
                       "Title for development program options section in nominations details step",
                   })}
-                </p>
+                </Heading>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
