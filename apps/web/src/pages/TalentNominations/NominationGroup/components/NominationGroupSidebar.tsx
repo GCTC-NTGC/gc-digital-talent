@@ -20,6 +20,7 @@ import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import NominatedForList from "./NominatedForList";
 
@@ -285,58 +286,36 @@ const NominationGroupSidebar = ({
                 data-h2-gap="base(x1)"
                 data-h2-overflow-wrap="base(anywhere)"
               >
-                <div>
-                  <span
-                    data-h2-display="base(block)"
-                    data-h2-font-weight="base(700)"
-                  >
-                    {intl.formatMessage(commonMessages.email)}
-                  </span>
-
+                <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
                   {talentNominationGroup.nominee?.email
                     ? talentNominationGroup.nominee.email
                     : intl.formatMessage(commonMessages.notProvided)}
-                </div>
-                <div>
-                  <span
-                    data-h2-display="base(block)"
-                    data-h2-font-weight="base(700)"
-                  >
-                    {intl.formatMessage(commonMessages.workEmail)}
-                  </span>
-
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(commonMessages.workEmail)}
+                >
                   {talentNominationGroup.nominee?.workEmail
                     ? talentNominationGroup.nominee.workEmail
                     : intl.formatMessage(commonMessages.notProvided)}
-                </div>
-                <div>
-                  <span
-                    data-h2-display="base(block)"
-                    data-h2-font-weight="base(700)"
-                  >
-                    {intl.formatMessage(commonMessages.telephone)}
-                  </span>
-
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(commonMessages.telephone)}
+                >
                   {talentNominationGroup.nominee?.telephone
                     ? talentNominationGroup.nominee.telephone
                     : intl.formatMessage(commonMessages.notProvided)}
-                </div>
-                <div>
-                  <span
-                    data-h2-display="base(block)"
-                    data-h2-font-weight="base(700)"
-                  >
-                    {intl.formatMessage(
-                      commonMessages.preferredCommunicationLanguage,
-                    )}
-                  </span>
-
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(
+                    commonMessages.preferredCommunicationLanguage,
+                  )}
+                >
                   {talentNominationGroup.nominee?.preferredLang?.label
                     ?.localized
                     ? talentNominationGroup.nominee.preferredLang.label
                         .localized
                     : intl.formatMessage(commonMessages.notProvided)}
-                </div>
+                </FieldDisplay>
               </div>
             </Accordion.Content>
           </Accordion.Item>
