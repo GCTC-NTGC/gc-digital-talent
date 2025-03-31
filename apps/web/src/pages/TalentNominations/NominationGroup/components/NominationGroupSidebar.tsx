@@ -16,13 +16,13 @@ import {
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import NominatedForList from "./NominatedForList";
+import NominatorList from "./NominatorList";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -87,32 +87,6 @@ const NominationGroupSidebar = ({
   const talentNominationGroup = getFragment(
     NominationGroupSidebar_Fragment,
     talentNominationGroupQuery,
-  );
-
-  const nominations = talentNominationGroup.nominations ?? [];
-
-  // dialog to go somewhere in span?
-  const nominationsSortedByNominator = nominations.sort((a, b) => {
-    return (
-      (a.nominator?.lastName ?? "").localeCompare(
-        b.nominator?.lastName ?? "",
-      ) ||
-      (a.nominator?.firstName ?? "").localeCompare(b.nominator?.firstName ?? "")
-    );
-  });
-  const nominatorsList = nominationsSortedByNominator.map((nomination) => (
-    <span key={nomination.id}>
-      {getFullNameLabel(
-        nomination.nominator?.firstName,
-        nomination.nominator?.lastName,
-        intl,
-      )}
-    </span>
-  ));
-  const nominatorListCommaSeparated = insertBetween(
-    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-    <span>, </span>,
-    nominatorsList,
   );
 
   // set the styling colours of the status bar and button
@@ -244,7 +218,9 @@ const NominationGroupSidebar = ({
               description: "Nominated by header",
             })}
           </p>
-          {nominatorListCommaSeparated}
+          <NominatorList
+            talentNominations={talentNominationGroup.nominations}
+          />
           <p
             data-h2-font-weight="base(700)"
             data-h2-padding-top="base(x1)"
