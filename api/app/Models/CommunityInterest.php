@@ -98,10 +98,14 @@ class CommunityInterest extends Model
 
     // scope the query to CommunityInterests the current user can view
     // belongs to your community and one or more of jobInterest or trainingInterest is TRUE
-    public function scopeAuthorizedToView(Builder $query)
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null)
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
+
+        if (isset($args['userId'])) {
+            $user = User::findOrFail($args['userId']);
+        }
 
         if ($user?->isAbleTo('view-team-communityInterest')) {
 
@@ -272,7 +276,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($skillIds) {
-            User::scopeSkillsIntersectional($query, $skillIds);
+            User::scopeSkillsAdditive($query, $skillIds);
         });
 
         return $query;

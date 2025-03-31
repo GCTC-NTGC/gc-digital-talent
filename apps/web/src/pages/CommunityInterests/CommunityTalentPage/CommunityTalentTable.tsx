@@ -6,7 +6,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -17,7 +17,8 @@ import {
   getFragment,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -117,6 +118,15 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadCommunityInterestsCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityInterestsCsv(
+    $ids: [UUID!]
+    $where: CommunityInterestFilterInput
+  ) {
+    downloadCommunityInterestsCsv(ids: $ids, where: $where)
+  }
+`);
+
 const columnHelper =
   createColumnHelper<CommunityTalentTableCommunityInterestFragmentType>();
 
@@ -177,6 +187,10 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     initialFilters ?? {},
   );
 
+  const [{ fetching: downloadingAllCsv }, downloadAllCsv] = useMutation(
+    DownloadCommunityInterestsCsv_Mutation,
+  );
+
   const {
     downloadDoc,
     downloadingDoc,
@@ -206,14 +220,28 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     });
   };
 
+  const handleDownloadError = () => {
+    toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
+  };
+
+  const handleDownloadRes = (hasData: boolean) => {
+    if (hasData) {
+      toast.info(intl.formatMessage(commonMessages.preparingDownload));
+    } else {
+      handleDownloadError();
+    }
+  };
+
   const handleCsvDownloadAll = () => {
-    downloadCsv({
+    downloadAllCsv({
       where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-    });
+    })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
   };
 
   const handlePaginationStateChange = ({
@@ -409,20 +437,27 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleCsvDownloadAll,
-          downloading: downloadingCsv,
+          downloading: downloadingCsv || downloadingAllCsv,
         },
         csv: {
           enable: true,
           onClick: handleCsvDownload,
-          downloading: downloadingCsv,
+          downloading: downloadingCsv || downloadingAllCsv,
         },
         doc: {
           enable: true,
           component: (
             <DownloadUsersDocButton
               inTable
-              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
-              isDownloading={downloadingZip || downloadingDoc}
+              disabled={
+                !hasSelectedRows ||
+                downloadingZip ||
+                downloadingDoc ||
+                downloadingAllCsv
+              }
+              isDownloading={
+                downloadingZip || downloadingDoc || downloadingAllCsv
+              }
               onClick={handleDocDownload}
             />
           ),
