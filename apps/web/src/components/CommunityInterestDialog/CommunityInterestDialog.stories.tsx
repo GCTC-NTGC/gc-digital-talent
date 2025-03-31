@@ -6,8 +6,8 @@ import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
 
 import CommunityInterestDialog, {
   CommunityInterestDialog_Fragment,
-  CommunityInterestDialogOptions_Fragment,
 } from "./CommunityInterestDialog";
+import { CommunityInterestOptions_Fragment } from "../CommunityInterest/CommunityInterest";
 
 const meta = {
   component: CommunityInterestDialog,
@@ -36,7 +36,7 @@ const communityInterestOptionsQuery = makeFragmentData(
       { value: "2", label: { localized: "Role 2" } },
     ],
   },
-  CommunityInterestDialogOptions_Fragment,
+  CommunityInterestOptions_Fragment,
 );
 
 export const Default: StoryObj<typeof CommunityInterestDialog> = {
