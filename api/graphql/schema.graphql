@@ -254,7 +254,9 @@ type EmployeeProfile {
   careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
 
-  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany
+    @canResolved(ability: "view")
 
   userPublicProfile: UserPublicProfile
 }
