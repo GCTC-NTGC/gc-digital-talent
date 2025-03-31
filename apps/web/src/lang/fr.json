@@ -3151,6 +3151,10 @@
     "defaultMessage": "Ce compte d'utilisateur a été supprimé. Veuillez <inlineLink>communiquer avec nous</inlineLink> si vous avez des questions.",
     "description": "Message displayed to a user after signing into a deleted account"
   },
+  "DbS8sT": {
+    "defaultMessage": "Consultez les détails de l'événement et triez les nominations.",
+    "description": "Description of a talent event"
+  },
   "DbWxZl": {
     "defaultMessage": "Cherchez les rôles dans des processus",
     "description": "Label for the process roles table search input"
@@ -9662,6 +9666,10 @@
     "defaultMessage": "Créez le volet de travail",
     "description": "Button text to create a work stream"
   },
+  "jnd5HF": {
+    "defaultMessage": "Détails de l'événement",
+    "description": "Link text for details about a nomination event"
+  },
   "jno96W": {
     "defaultMessage": "Modifiez la planification de carrière",
     "description": "Link to a page to edit your career planning information"
@@ -11501,6 +11509,10 @@
   "tcL+WV": {
     "defaultMessage": "Détails de base",
     "description": "Title of the 'basic details' section of the job poster template page"
+  },
+  "tgPKAn": {
+    "defaultMessage": "Nominations",
+    "description": "Link text for the nominations of a specific talent nomination event"
   },
   "tgtpgb": {
     "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
