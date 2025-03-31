@@ -21,6 +21,12 @@ import { RouteParams } from "./types";
 import { detailTabMessages } from "./messages";
 import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
 
+const TalentNominationGroupDetailsOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationGroupDetailsOptions on Query {
+    ...TalentNominationAccordionItemOptions
+  }
+`);
+
 const TalentNominationGroupDetails_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupDetails on TalentNominationGroup {
     id
@@ -33,14 +39,22 @@ const TalentNominationGroupDetails_Fragment = graphql(/* GraphQL */ `
 
 interface TalentNominationGroupDetailsProps {
   query: FragmentType<typeof TalentNominationGroupDetails_Fragment>;
+  optionsQuery: FragmentType<
+    typeof TalentNominationGroupDetailsOptions_Fragment
+  >;
 }
 
 const TalentNominationGroupDetails = ({
   query,
+  optionsQuery,
 }: TalentNominationGroupDetailsProps) => {
   const talentNominationGroup = getFragment(
     TalentNominationGroupDetails_Fragment,
     query,
+  );
+  const options = getFragment(
+    TalentNominationGroupDetailsOptions_Fragment,
+    optionsQuery,
   );
   const intl = useIntl();
 
@@ -86,6 +100,7 @@ const TalentNominationGroupDetails = ({
             <TalentNominationAccordionItem
               key={nomination.id}
               query={nomination}
+              optionsQuery={options}
             />
           ))}
         </Accordion.Root>
@@ -96,6 +111,7 @@ const TalentNominationGroupDetails = ({
 
 const TalentNominationGroupDetails_Query = graphql(/* GraphQL */ `
   query TalentNominationGroupDetails($talentNominationGroupId: UUID!) {
+    ...TalentNominationGroupDetailsOptions
     talentNominationGroup(id: $talentNominationGroupId) {
       ...TalentNominationGroupDetails
     }
@@ -114,7 +130,10 @@ const TalentNominationGroupDetailsPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNominationGroup ? (
-        <TalentNominationGroupDetails query={data.talentNominationGroup} />
+        <TalentNominationGroupDetails
+          query={data.talentNominationGroup}
+          optionsQuery={data}
+        />
       ) : (
         <ThrowNotFound />
       )}

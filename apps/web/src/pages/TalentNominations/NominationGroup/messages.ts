@@ -39,4 +39,14 @@ export const formMessages = defineMessages({
     id: "tvM7zB",
     description: "Label for the advancement reference department",
   },
+  lateralMovementOptions: {
+    defaultMessage: "Lateral experience recommendations",
+    id: "syqHHS",
+    description: "Label for the lateral movement options",
+  },
+  lateralMovementOptionsOther: {
+    defaultMessage: "Other",
+    id: "vhJAk2",
+    description: "Label for the lateral movement 'other' option",
+  },
 });

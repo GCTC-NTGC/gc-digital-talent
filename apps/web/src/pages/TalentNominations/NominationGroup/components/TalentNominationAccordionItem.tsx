@@ -1,14 +1,34 @@
 import { defineMessage, useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationLateralMovementOption,
+} from "@gc-digital-talent/graphql";
 import { Accordion } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatClassificationString } from "~/utils/poolUtils";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { formMessages } from "../messages";
+
+const TalentNominationAccordionItemOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationAccordionItemOptions on Query {
+    talentNominationLateralMovementOptions: localizedEnumStrings(
+      enumName: "TalentNominationLateralMovementOption"
+    ) {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
 
 const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationAccordionItem on TalentNomination {
@@ -44,6 +64,14 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+
+    lateralMovementOptions {
+      value
+      label {
+        localized
+      }
+    }
+    lateralMovementOptionsOther
   }
 `);
 
@@ -59,16 +87,24 @@ function formatMaybeClassificationString(
 
 interface TalentNominationAccordionItemProps {
   query: FragmentType<typeof TalentNominationAccordionItem_Fragment>;
+  optionsQuery: FragmentType<
+    typeof TalentNominationAccordionItemOptions_Fragment
+  >;
 }
 
 const TalentNominationAccordionItem = ({
   query,
+  optionsQuery,
   ...rest
 }: TalentNominationAccordionItemProps) => {
   const intl = useIntl();
   const talentNomination = getFragment(
     TalentNominationAccordionItem_Fragment,
     query,
+  );
+  const options = getFragment(
+    TalentNominationAccordionItemOptions_Fragment,
+    optionsQuery,
   );
 
   const advancementStatusDescription = talentNomination.nominateForAdvancement
@@ -120,6 +156,25 @@ const TalentNominationAccordionItem = ({
         });
 
   const advancementReferenceIsAUser = !!talentNomination.advancementReference;
+
+  const nominationLateralMovementOptionValues =
+    talentNomination.lateralMovementOptions?.map((option) => option.value) ??
+    [];
+
+  // I don't actually need a set of options but the sort is handy
+  const lateralMovementOptionsList = localizedEnumToOptions(
+    options?.talentNominationLateralMovementOptions,
+    intl,
+    [
+      TalentNominationLateralMovementOption.SmallDepartment,
+      TalentNominationLateralMovementOption.LargeDepartment,
+      TalentNominationLateralMovementOption.CentralDepartment,
+      TalentNominationLateralMovementOption.NewDepartment,
+      TalentNominationLateralMovementOption.ProgramExperience,
+      TalentNominationLateralMovementOption.PolicyExperience,
+      TalentNominationLateralMovementOption.Other,
+    ],
+  );
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -250,7 +305,78 @@ const TalentNominationAccordionItem = ({
               </Accordion.Item>
             </Accordion.Root>
           ) : null}
-          <p>Lateral movement options</p>
+          {/* fields only rendered if nominated for lateral movement */}
+          {talentNomination.nominateForLateralMovement ? (
+            <Accordion.Root mode="simple" type="multiple">
+              <Accordion.Item value="Lateral movement options">
+                <Accordion.Trigger
+                  subtitle={intl.formatMessage({
+                    defaultMessage:
+                      "A nomination for lateral movement requires the nominator to recommend one or more types of experience for the nominee.",
+                    id: "HhL+EB",
+                    description: "Trigger subtitle for lateral movement",
+                  })}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Lateral movement options",
+                    id: "ohS7IA",
+                    description: "Trigger title for lateral movement",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <div
+                    data-h2-display="base(grid)"
+                    data-h2-gap="base(x1)"
+                    data-h2-grid-template-columns="p-tablet(repeat(1, 1fr))"
+                    data-h2-padding-top="base(x.5)"
+                  >
+                    <FieldDisplay
+                      label={intl.formatMessage(
+                        formMessages.lateralMovementOptions,
+                      )}
+                    >
+                      {lateralMovementOptionsList.map((option) => (
+                        <li
+                          key={option.value}
+                          data-h2-display="base(flex)"
+                          data-h2-align-items="base(flex-start)"
+                          data-h2-gap="base(x.25)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          <BoolCheckIcon
+                            value={nominationLateralMovementOptionValues.includes(
+                              option.value as TalentNominationLateralMovementOption,
+                            )}
+                          >
+                            {option.label}
+                          </BoolCheckIcon>
+                        </li>
+                      ))}
+                    </FieldDisplay>
+                    {/* only display the OTHER option if it is selected */}
+                    {nominationLateralMovementOptionValues.includes(
+                      TalentNominationLateralMovementOption.Other,
+                    ) ? (
+                      <FieldDisplay
+                        label={intl.formatMessage(
+                          formMessages.lateralMovementOptionsOther,
+                        )}
+                      >
+                        {talentNomination.lateralMovementOptionsOther ? (
+                          <BoolCheckIcon value={true}>
+                            {talentNomination.lateralMovementOptionsOther}
+                          </BoolCheckIcon>
+                        ) : (
+                          intl.formatMessage(commonMessages.notFound)
+                        )}
+                      </FieldDisplay>
+                    ) : null}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          ) : null}
+
           <p>Development program recommendations</p>
           <p>Rationale</p>
           <p>Top 3 key leadership competencies</p>
