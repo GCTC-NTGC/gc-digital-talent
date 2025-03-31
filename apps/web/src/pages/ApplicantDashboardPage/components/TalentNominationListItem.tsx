@@ -59,7 +59,7 @@ const TalentNominationListItem = ({
   const localizedDateString = talentNominationListItemFragment.createdAt
     ? formatDate({
         date: parseDateTimeUtc(talentNominationListItemFragment.createdAt),
-        formatString: "PPP",
+        formatString: "p PPP",
         intl,
       })
     : intl.formatMessage(commonMessages.notProvided);

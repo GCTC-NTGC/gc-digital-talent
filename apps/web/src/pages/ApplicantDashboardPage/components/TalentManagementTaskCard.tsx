@@ -10,7 +10,6 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -19,11 +18,8 @@ import TalentNominationListItem from "./TalentNominationListItem";
 // render creation date if nominee is null or present multiple times
 const shouldRenderCreatedDateComputation = (
   nomineeId: string | undefined,
-  allNomineeIds: string[],
+  allNomineeIds: (string | undefined)[],
 ) => {
-  if (!nomineeId) {
-    return true;
-  }
   if (
     allNomineeIds.reduce(
       (accumulator, currentValue) =>
@@ -67,10 +63,10 @@ const TalentManagementTaskCard = ({
   );
   const nominationCount =
     talentManagementTaskCardFragment.talentNominationsAsSubmitter?.length ?? 0;
-  const allNomineeIds: string[] =
-    talentManagementTaskCardFragment.talentNominationsAsSubmitter
-      ?.map((nomination) => nomination.nominee?.id)
-      .filter(notEmpty) ?? [];
+  const allNomineeIds: (string | undefined)[] =
+    talentManagementTaskCardFragment.talentNominationsAsSubmitter?.map(
+      (nomination) => nomination.nominee?.id,
+    ) ?? [];
 
   const talentNominationMetaData: AccordionMetaData[] = [
     {
