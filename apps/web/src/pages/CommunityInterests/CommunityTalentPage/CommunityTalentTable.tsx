@@ -189,7 +189,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const handleDocDownload = (anonymous: boolean) => {
     if (selectedRows.length === 1) {
       downloadDoc({
-        id: selectedRows[0],
+        id: selectedRows[0].split("-userId#")[1],
         anonymous,
       });
     } else {
