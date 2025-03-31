@@ -271,8 +271,8 @@ const DetailsFields = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Provide a secondary senior leader reference that can support the candidate's readiness for promotion.",
-                    id: "V1lvcE",
+                      "Provide a secondary senior leader reference who can confirm the candidate's readiness for promotion.",
+                    id: "fhpWug",
                     description:
                       "Description for advancement options section in nominations details step",
                   })}
@@ -334,8 +334,8 @@ const DetailsFields = ({
                         required: intl.formatMessage(errorMessages.required),
                       }}
                       label={intl.formatMessage({
-                        defaultMessage: "References’s name",
-                        id: "w5yHyo",
+                        defaultMessage: "Reference’s name",
+                        id: "x4/XMp",
                         description:
                           "Label for the text input for the reference's name",
                       })}
@@ -496,8 +496,8 @@ const DetailsFields = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Indicate one or more movement options that are recommended for the nominee.",
-                    id: "oiYxBW",
+                      "Indicate one or more options that are recommended for the nominee.",
+                    id: "lu11dr",
                     description:
                       "Description for development program options section in nominations details step",
                   })}
