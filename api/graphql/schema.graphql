@@ -342,12 +342,27 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
 
 type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   id: ID!
+  # can view full user profile
   email: Email
+    @guard
+    @canRoot(
+      model: "User"
+      ability: "view"
+      action: "RETURN_VALUE"
+      returnValue: null
+    )
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   telephone: String
+    @guard
+    @canRoot(
+      model: "User"
+      ability: "view"
+      action: "RETURN_VALUE"
+      returnValue: null
+    )
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   currentClassification: Classification @belongsTo
