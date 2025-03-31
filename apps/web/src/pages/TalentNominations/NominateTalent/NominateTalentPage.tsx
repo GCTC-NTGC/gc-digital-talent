@@ -115,10 +115,13 @@ const NominateTalentPage = () => {
         data?.talentNomination?.submittedSteps,
       );
       if (targetStep && !location.state?.submitting) {
-        setSearchParams((params) => {
-          params.set("step", targetStep);
-          return params;
-        });
+        setSearchParams(
+          (params) => {
+            params.set("step", targetStep);
+            return params;
+          },
+          { replace: true },
+        );
       } else if (isSubmitted) {
         // Prevent navigating to steps after submission
         setSearchParams(
