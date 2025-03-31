@@ -1879,6 +1879,10 @@
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount})",
     "description": "Label for operational requirements filter link"
   },
+  "73rG7Y": {
+    "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du lien « Nouvelle mise en candidature ».",
+    "description": "Notice's text when there are no nominations"
+  },
   "74Npts": {
     "defaultMessage": "Examiner et évaluer les preuves fournies par {candidateName} par rapport aux études requises ou à l’expérience équivalente.",
     "description": "Subtitle for education requirement screening decision dialog."
@@ -7578,6 +7582,10 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
+  "a4Wc5h": {
+    "defaultMessage": "<strong>Vous n'avez aucune mise en candidature active.</strong>",
+    "description": "Notice's title when there are no nominations"
+  },
   "a5YBuH": {
     "defaultMessage": "Je ne connais pas l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as unknown."
@@ -10810,6 +10818,10 @@
     "defaultMessage": "Dissimuler les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
+  "pOazxP": {
+    "defaultMessage": "Mises en candidature des talent ({nominationCount})",
+    "description": "Collapsible header, Talent nominations and then count"
+  },
   "pPOGwF": {
     "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis",
     "description": "IAP Requirement list item one"
@@ -11922,6 +11934,10 @@
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
+  "voqC0s": {
+    "defaultMessage": "Gestion des talents",
+    "description": "Card title for Talent management"
+  },
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
@@ -12113,6 +12129,10 @@
   "wsNG8a": {
     "defaultMessage": "La <langActLink>Loi sur les langues officielles</langActLink>, le <langRegulationsLink>Règlement sur les langues officielles – communications avec le public et prestation des services</langRegulationsLink> et les exigences des politiques du Conseil du Trésor prévoient les circonstances où nous employons le français et l’anglais dans la prestation des services au public. S’il n’y a pas d’obligation d’offrir le contenu dans les deux langues officielles, celui-ci pourrait être offert uniquement dans une des langues officielles. L’information offerte par des entités non assujetties à la <langActLink>Loi sur les langues officielles</langActLink> est diffusée que dans la langue dans laquelle elle est fournie. Toute information dans une langue autre que l’anglais ou le français est offerte seulement à titre gracieux aux visiteurs de notre site Web.",
     "description": "Paragraph describing providing content section"
+  },
+  "wtjCOv": {
+    "defaultMessage": "Aller à l'ébauche de mise en candidature pour {eventName}",
+    "description": "Accessibility text for preview link, points to draft nomination workflow"
   },
   "wvxZxx": {
     "defaultMessage": "portent atteinte à la propriété intellectuelle ou à un droit de propriété",
@@ -12561,6 +12581,10 @@
   "zBfwbQ": {
     "defaultMessage": "Groupe",
     "description": "Label for a classification group input"
+  },
+  "zCjdD9": {
+    "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
+    "description": "Subtitle explaining talent nominations expandable within Talent management card"
   },
   "zDHOiY": {
     "defaultMessage": "Français - À quoi s’attendre",
