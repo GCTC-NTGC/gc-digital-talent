@@ -44,9 +44,19 @@ export const formMessages = defineMessages({
     id: "syqHHS",
     description: "Label for the lateral movement options",
   },
-  lateralMovementOptionsOther: {
+  otherOption: {
     defaultMessage: "Other",
-    id: "vhJAk2",
-    description: "Label for the lateral movement 'other' option",
+    id: "ccmHc8",
+    description: "Label for an 'other' option",
+  },
+  developmentPrograms: {
+    defaultMessage: "Development program recommendations",
+    id: "B1WCUa",
+    description: "Label for the list of development programs",
+  },
+  rationale: {
+    defaultMessage: "Rationale",
+    id: "2jX97r",
+    description: "Label for the rationale field",
   },
 });

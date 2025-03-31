@@ -72,6 +72,24 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
       }
     }
     lateralMovementOptionsOther
+
+    developmentPrograms {
+      id
+      name {
+        localized
+      }
+    }
+    developmentProgramOptionsOther
+    talentNominationEvent {
+      developmentPrograms {
+        id
+        name {
+          localized
+        }
+      }
+    }
+
+    nominationRationale
   }
 `);
 
@@ -157,12 +175,12 @@ const TalentNominationAccordionItem = ({
 
   const advancementReferenceIsAUser = !!talentNomination.advancementReference;
 
-  const nominationLateralMovementOptionValues =
+  const lateralMovementOptionValuesInThisNomination =
     talentNomination.lateralMovementOptions?.map((option) => option.value) ??
     [];
 
   // I don't actually need a set of options but the sort is handy
-  const lateralMovementOptionsList = localizedEnumToOptions(
+  const lateralMovementListItems = localizedEnumToOptions(
     options?.talentNominationLateralMovementOptions,
     intl,
     [
@@ -174,7 +192,34 @@ const TalentNominationAccordionItem = ({
       TalentNominationLateralMovementOption.PolicyExperience,
       TalentNominationLateralMovementOption.Other,
     ],
-  );
+  ).map((option) => ({
+    key: option.value,
+    value: lateralMovementOptionValuesInThisNomination.includes(
+      option.value as TalentNominationLateralMovementOption,
+    ),
+    label: option.label,
+  }));
+
+  const developmentProgramIdsInThisNomination =
+    talentNomination.developmentPrograms?.map((program) => program.id) ?? [];
+
+  const developmentProgramListItems =
+    talentNomination.talentNominationEvent.developmentPrograms?.map(
+      (program) => ({
+        key: program.id,
+        value: developmentProgramIdsInThisNomination.includes(program.id),
+        label:
+          program.name?.localized ??
+          intl.formatMessage(commonMessages.notFound),
+      }),
+    ) ?? [];
+
+  // OTHER is not a real development program so we have to add a fake option
+  developmentProgramListItems.push({
+    key: "OTHER",
+    value: !!talentNomination.developmentProgramOptionsOther,
+    label: intl.formatMessage(formMessages.otherOption),
+  });
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -305,6 +350,7 @@ const TalentNominationAccordionItem = ({
               </Accordion.Item>
             </Accordion.Root>
           ) : null}
+
           {/* fields only rendered if nominated for lateral movement */}
           {talentNomination.nominateForLateralMovement ? (
             <Accordion.Root mode="simple" type="multiple">
@@ -335,32 +381,26 @@ const TalentNominationAccordionItem = ({
                         formMessages.lateralMovementOptions,
                       )}
                     >
-                      {lateralMovementOptionsList.map((option) => (
+                      {lateralMovementListItems.map((item) => (
                         <li
-                          key={option.value}
+                          key={item.key}
                           data-h2-display="base(flex)"
                           data-h2-align-items="base(flex-start)"
                           data-h2-gap="base(x.25)"
                           data-h2-margin-bottom="base(x.25)"
                         >
-                          <BoolCheckIcon
-                            value={nominationLateralMovementOptionValues.includes(
-                              option.value as TalentNominationLateralMovementOption,
-                            )}
-                          >
-                            {option.label}
+                          <BoolCheckIcon value={item.value}>
+                            {item.label}
                           </BoolCheckIcon>
                         </li>
                       ))}
                     </FieldDisplay>
                     {/* only display the OTHER option if it is selected */}
-                    {nominationLateralMovementOptionValues.includes(
+                    {lateralMovementOptionValuesInThisNomination.includes(
                       TalentNominationLateralMovementOption.Other,
                     ) ? (
                       <FieldDisplay
-                        label={intl.formatMessage(
-                          formMessages.lateralMovementOptionsOther,
-                        )}
+                        label={intl.formatMessage(formMessages.otherOption)}
                       >
                         {talentNomination.lateralMovementOptionsOther ? (
                           <BoolCheckIcon value={true}>
@@ -377,8 +417,73 @@ const TalentNominationAccordionItem = ({
             </Accordion.Root>
           ) : null}
 
-          <p>Development program recommendations</p>
-          <p>Rationale</p>
+          {/* fields only rendered if nominated for development programs */}
+          {talentNomination.nominateForDevelopmentPrograms ? (
+            <Accordion.Root mode="simple" type="multiple">
+              <Accordion.Item value="Development program recommendations">
+                <Accordion.Trigger
+                  subtitle={intl.formatMessage({
+                    defaultMessage:
+                      "A nomination for development programs requires the nominator to select which of the training and development programs offered by the functional community would benefit the nominee.",
+                    id: "x1oBLr",
+                    description: "Trigger subtitle for development programs",
+                  })}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Development program recommendations",
+                    id: "nF//P1",
+                    description: "Trigger title for development programs",
+                  })}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <div
+                    data-h2-display="base(grid)"
+                    data-h2-gap="base(x1)"
+                    data-h2-grid-template-columns="p-tablet(repeat(1, 1fr))"
+                    data-h2-padding-top="base(x.5)"
+                  >
+                    <FieldDisplay
+                      label={intl.formatMessage(
+                        formMessages.developmentPrograms,
+                      )}
+                    >
+                      {developmentProgramListItems.map((item) => (
+                        <li
+                          key={item.key}
+                          data-h2-display="base(flex)"
+                          data-h2-align-items="base(flex-start)"
+                          data-h2-gap="base(x.25)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          <BoolCheckIcon value={item.value}>
+                            {item.label}
+                          </BoolCheckIcon>
+                        </li>
+                      ))}
+                    </FieldDisplay>
+                    {/* only display the OTHER option if it is selected */}
+                    {talentNomination.developmentProgramOptionsOther ? (
+                      <FieldDisplay
+                        label={intl.formatMessage(formMessages.otherOption)}
+                      >
+                        <BoolCheckIcon value={true}>
+                          {talentNomination.developmentProgramOptionsOther}
+                        </BoolCheckIcon>
+                      </FieldDisplay>
+                    ) : null}
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          ) : null}
+
+          <FieldDisplay label={intl.formatMessage(formMessages.rationale)}>
+            <p>
+              {talentNomination.nominationRationale ??
+                intl.formatMessage(commonMessages.notFound)}
+            </p>
+          </FieldDisplay>
+
           <p>Top 3 key leadership competencies</p>
           <p>Additional comments</p>
         </div>
