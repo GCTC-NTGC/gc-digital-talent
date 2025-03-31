@@ -795,6 +795,10 @@
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
   },
+  "Vnygk+": {
+    "defaultMessage": "Soumis",
+    "description": "Item's state is submitted"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
@@ -1050,6 +1054,10 @@
   "fO0cRR": {
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
+  },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
   },
   "fUAej4": {
     "defaultMessage": "Pas d'intérêt",
@@ -1382,6 +1390,10 @@
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
+  },
+  "s3u05D": {
+    "defaultMessage": "Nouvelle mise en candidature",
+    "description": "Link text to create a new nomination"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
