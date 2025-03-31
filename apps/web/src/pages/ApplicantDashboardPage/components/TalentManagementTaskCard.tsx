@@ -10,15 +10,40 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import TalentNominationListItem from "./TalentNominationListItem";
 
+// render creation date if nominee is null or present multiple times
+const shouldRenderCreatedDateComputation = (
+  nomineeId: string | undefined,
+  allNomineeIds: string[],
+) => {
+  if (!nomineeId) {
+    return true;
+  }
+  if (
+    allNomineeIds.reduce(
+      (accumulator, currentValue) =>
+        currentValue === nomineeId ? accumulator + 1 : accumulator,
+      0,
+    ) > 1
+  ) {
+    return true;
+  }
+
+  return false;
+};
+
 const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment TalentManagementTaskCard on User {
     talentNominationsAsSubmitter {
       id
+      nominee {
+        id
+      }
       ...PreviewListItemTalentNomination
     }
   }
@@ -42,6 +67,10 @@ const TalentManagementTaskCard = ({
   );
   const nominationCount =
     talentManagementTaskCardFragment.talentNominationsAsSubmitter?.length ?? 0;
+  const allNomineeIds: string[] =
+    talentManagementTaskCardFragment.talentNominationsAsSubmitter
+      ?.map((nomination) => nomination.nominee?.id)
+      .filter(notEmpty) ?? [];
 
   const talentNominationMetaData: AccordionMetaData[] = [
     {
@@ -112,6 +141,10 @@ const TalentManagementTaskCard = ({
                             <TalentNominationListItem
                               key={talentNominationItem.id}
                               headingAs="h4"
+                              displayCreatedDate={shouldRenderCreatedDateComputation(
+                                talentNominationItem.nominee?.id,
+                                allNomineeIds,
+                              )}
                               talentNominationListItemQuery={
                                 talentNominationItem
                               }

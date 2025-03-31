@@ -4,6 +4,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -14,6 +15,7 @@ import { NominationMetaDataDate } from "./NominationMetaDataDate";
 export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {
     id
+    createdAt
     submittedAt
     talentNominationEvent {
       name {
@@ -30,6 +32,7 @@ export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
 
 interface TalentNominationListItemProps {
   headingAs?: HeadingLevel;
+  displayCreatedDate: boolean;
   talentNominationListItemQuery: FragmentType<
     typeof PreviewListItemTalentNomination_Fragment
   >;
@@ -37,6 +40,7 @@ interface TalentNominationListItemProps {
 
 const TalentNominationListItem = ({
   headingAs,
+  displayCreatedDate,
   talentNominationListItemQuery,
 }: TalentNominationListItemProps) => {
   const intl = useIntl();
@@ -52,6 +56,16 @@ const TalentNominationListItem = ({
     talentNominationListItemFragment.nominee?.lastName,
     intl,
   );
+  const localizedDateString = talentNominationListItemFragment.createdAt
+    ? formatDate({
+        date: parseDateTimeUtc(talentNominationListItemFragment.createdAt),
+        formatString: "PPP",
+        intl,
+      })
+    : intl.formatMessage(commonMessages.notProvided);
+  const title = displayCreatedDate
+    ? `${fullName} (${localizedDateString})`
+    : `${fullName}`;
   const statusChip = useMetaDataTalentNominationChip({
     submittedAt: talentNominationListItemFragment.submittedAt,
   });
@@ -92,7 +106,7 @@ const TalentNominationListItem = ({
   return (
     <>
       <PreviewList.Item
-        title={fullName}
+        title={title}
         metaData={metaDataProps}
         action={
           talentNominationListItemFragment.submittedAt ? null : (
