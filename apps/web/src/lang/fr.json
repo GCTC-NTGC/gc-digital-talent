@@ -55,6 +55,10 @@
     "defaultMessage": "Certificat numérique",
     "description": "Title of the 'Digital certificate credential' subsection"
   },
+  "+CU+6M": {
+    "defaultMessage": "Intérêt pour la mutation latérale (mobilité de même niveau)",
+    "description": "Label for interested in lateral movement checkbox for mobility type checklist"
+  },
   "+DMD0L": {
     "defaultMessage": "À propos du programme",
     "description": "Title of the 'About the program' section"
@@ -595,6 +599,10 @@
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skill rank card"
   },
+  "0qv7QL": {
+    "defaultMessage": "Chercher des talents de la collectivité",
+    "description": "Label for the community talent table search input"
+  },
   "0qwyH4": {
     "defaultMessage": "Date de fin prévue",
     "description": "Label displayed on an Experience form for expected end date input"
@@ -690,6 +698,10 @@
   "1Q/4Yb": {
     "defaultMessage": "Publier une annonce",
     "description": "Title to publish an advertisement of a process"
+  },
+  "1Q4qv9": {
+    "defaultMessage": "Intérêt pour la formation",
+    "description": "Label for interested in training checkbox for mobility interest checklist"
   },
   "1QKTXO": {
     "defaultMessage": "Courriel professionnel de la personne de référence",
@@ -798,6 +810,10 @@
   "1syFdp": {
     "defaultMessage": "<strong>{role}</strong> à {group}",
     "description": "Role with group, HTML"
+  },
+  "1t7mzf": {
+    "defaultMessage": "Intérêt pour l'emploi",
+    "description": "Label for interested in jobs checkbox for mobility interest checklist"
   },
   "1uoeR6": {
     "defaultMessage": "Pour obtenir un bon, vous devez remplir le formulaire de demande. Votre profil sur Talents numériques du GC nous permettra de vérifier si vous êtes admissible. Avant de présenter votre demande, prenez le temps de revoir et de mettre à jour les renseignements dans votre profil, ou de vous en créer un si vous ne l'avez pas déjà fait.",
@@ -2663,6 +2679,10 @@
     "defaultMessage": "Langue de contact préférée",
     "description": "Legend text for required language preference in getting started form"
   },
+  "Avr7yn": {
+    "defaultMessage": "Type de mobilité",
+    "description": "Legend for mobility type checklist in community talent filter dialog"
+  },
   "AwIGg0": {
     "defaultMessage": "Vous avez une question précise? Vous souhaitez faire part de vos commentaires ou signaler un bogue? Envoyez-nous un message au moyen de ce formulaire.",
     "description": "Support form paragraph one"
@@ -3774,6 +3794,10 @@
   "GTqXN1": {
     "defaultMessage": "constituent une violation de cet avis de quelque autre manière que ce soit",
     "description": "Comments or contributions list item"
+  },
+  "GVShpq": {
+    "defaultMessage": "Intérêt pour la mobilité",
+    "description": "Legend for mobility interest checklist in community talent filter dialog"
   },
   "GVeb32": {
     "defaultMessage": "Mi'kmaw",
@@ -9162,6 +9186,10 @@
     "defaultMessage": "<strong>technologie de l’information</strong>",
     "description": "List item of experiences required in application education page."
   },
+  "h0mWc3": {
+    "defaultMessage": "Promotions et l'avancement",
+    "description": "Label for interested in promotional movement checkbox for mobility type checklist"
+  },
   "h1UJ1Q": {
     "defaultMessage": "Exigences linguistiques sur la plateforme Talents numériques du GC",
     "description": "Sub-heading for language requirements dialog"
@@ -9345,6 +9373,10 @@
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
+  },
+  "ht9CfC": {
+    "defaultMessage": "Collectivités",
+    "description": "Label for communities"
   },
   "hx8mTr": {
     "defaultMessage": "Envoyer un autre code.",
@@ -11161,6 +11193,10 @@
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
+  },
+  "r5n5qA": {
+    "defaultMessage": "Volets de travail",
+    "description": "Label for work streams"
   },
   "r65UIr": {
     "defaultMessage": "Étape précédente",
