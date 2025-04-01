@@ -811,6 +811,10 @@
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
   },
+  "W87tD/": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un grand ministère ou un grand organisme.",
+    "description": "The talent nomination lateral movement option description for large department"
+  },
   "W9SXxj": {
     "defaultMessage": "Trier par",
     "description": "Label for the links to change how the list is sorted"
@@ -1211,6 +1215,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
   },
+  "kv960y": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
+    "description": "The talent nomination lateral movement option description for central department"
+  },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
@@ -1242,6 +1250,10 @@
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."
+  },
+  "m2cqv9": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un programme au sein d'un autre ministère ou d'un autre organisme.",
+    "description": "The talent nomination lateral movement option description for program experience"
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1403,6 +1415,10 @@
     "defaultMessage": "Nouvelle mise en candidature",
     "description": "Link text to create a new nomination"
   },
+  "s7lyFN": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un petit ministère ou un petit organisme.",
+    "description": "The talent nomination lateral movement option description for small department"
+  },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
@@ -1515,6 +1531,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vMc12L": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
+    "description": "The talent nomination lateral movement option description for policy experience"
+  },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
@@ -1526,6 +1546,10 @@
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vrgXIT": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
+    "description": "The talent nomination lateral movement option description for new department"
   },
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
