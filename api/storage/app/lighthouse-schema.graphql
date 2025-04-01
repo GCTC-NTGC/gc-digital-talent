@@ -385,7 +385,7 @@ type Query {
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
-  talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
   talentNominationGroup(id: UUID!): TalentNominationGroup
@@ -2546,6 +2546,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
   createdAt: DateRange
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus
+  canManage: Boolean
 }
 
 input ConnectJobPosterTemplateSkillInput {

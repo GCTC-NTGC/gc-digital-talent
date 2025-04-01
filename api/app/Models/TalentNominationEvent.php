@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -104,6 +105,34 @@ class TalentNominationEvent extends Model
         if ($status === TalentNominationEventStatus::PAST->name) {
             return $query->where('close_date', '<', now());
         }
+    }
+
+    public function scopeCanManage(Builder $query, ?bool $canManage): void
+    {
+        if (! $canManage) {
+            return;
+        }
+
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('update-team-talentNominationEvent')) {
+            $communities = $user->rolesTeams()
+                ->where('teamable_type', "App\Models\Community")
+                ->get();
+            $communityIds = $communities->filter(function ($community) use ($user) {
+                return $user->isAbleTo('update-team-talentNominationEvent', $community);
+            })->pluck('teamable_id');
+
+            $query->whereHas('community', function (Builder $query) use ($communityIds) {
+                return $query->whereIn('community_id', $communityIds);
+            });
+
+            return;
+        }
+
+        // fall through, return nothing
+        $query->where('id', null);
     }
 
     /** @return HasMany<TalentNominationGroup, $this> */

@@ -20,7 +20,7 @@ import TalentEventTable from "./components/TalentEventTable";
 
 const TalentEvents_Query = graphql(/* GraphQL */ `
   query TalentEvents {
-    talentNominationEvents {
+    talentNominationEvents(where: { canManage: true }) {
       id
       ...TalentEventTableRow
     }

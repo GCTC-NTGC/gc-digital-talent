@@ -1409,7 +1409,7 @@ type Query {
 
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(
-    status: TalentNominationEventStatus @scope
+    where: TalentNominationEventsFilterInput
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
@@ -2654,6 +2654,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus @scope
+  canManage: Boolean @scope
 }
 
 input ConnectJobPosterTemplateSkillInput {
