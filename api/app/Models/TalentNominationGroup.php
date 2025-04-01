@@ -177,24 +177,25 @@ class TalentNominationGroup extends Model
         );
     }
 
-    public function scopeAuthorizedToView(Builder $query): void
+    public function scopeAuthorizedToView(Builder $query): Builder
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-team-talentNominationGroup')) {
-            $communityIds = $user->rolesTeams()
+            $communities = $user->rolesTeams()
                 ->where('teamable_type', "App\Models\Community")
-                ->pluck('teamable_id')
-                ->toArray();
-            $query->whereHas('talentNominationEvent.community', function (Builder $query) use ($communityIds) {
+                ->get();
+            $communityIds = $communities->filter(function ($community) use ($user) {
+                return $user->isAbleTo('view-team-talentNominationGroup', $community);
+            })->pluck('teamable_id');
+
+            return $query->whereHas('talentNominationEvent.community', function (Builder $query) use ($communityIds) {
                 return $query->whereIn('community_id', $communityIds);
             });
-
-            return;
         }
 
         // fall through, return nothing
-        $query->where('id', null);
+        return $query->where('id', null);
     }
 }
