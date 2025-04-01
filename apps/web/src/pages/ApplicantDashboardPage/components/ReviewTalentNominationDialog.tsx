@@ -1,5 +1,5 @@
-import { IntlShape, useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import { useIntl } from "react-intl";
+import { useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -50,10 +50,8 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-function getStatusWell(
-  dialogVariant: DialogVariant,
-  intl: IntlShape,
-): ReactNode {
+function StatusWell({ dialogVariant }: { dialogVariant: DialogVariant }) {
+  const intl = useIntl();
   if (dialogVariant === "received") {
     return (
       <Well color="secondary">
@@ -76,13 +74,12 @@ function getStatusWell(
     );
   }
   // there will be other wells in the future for other variants
-  return assertUnreachable(dialogVariant);
+  assertUnreachable(dialogVariant);
+  return null;
 }
 
-function getFooterButtons(
-  dialogVariant: DialogVariant,
-  intl: IntlShape,
-): ReactNode {
+function FooterButtons({ dialogVariant }: { dialogVariant: DialogVariant }) {
+  const intl = useIntl();
   if (dialogVariant === "received") {
     return (
       <Dialog.Close>
@@ -93,7 +90,8 @@ function getFooterButtons(
     );
   }
   // there will be other button sets in the future for other variants
-  return assertUnreachable(dialogVariant);
+  assertUnreachable(dialogVariant);
+  return null;
 }
 
 interface ReviewTalentNominationDialogProps {
@@ -113,8 +111,6 @@ const ReviewTalentNominationDialog = ({
   );
 
   const dialogVariant: DialogVariant = "received"; // will have to handle other variants later
-  const statusWell = getStatusWell(dialogVariant, intl);
-  const footerButtons = getFooterButtons(dialogVariant, intl);
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
@@ -162,7 +158,7 @@ const ReviewTalentNominationDialog = ({
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x1)"
           >
-            {statusWell ? <div>{statusWell}</div> : null}
+            <StatusWell dialogVariant={dialogVariant} />
 
             <Separator decorative data-h2-margin="base(0)" />
 
@@ -290,7 +286,7 @@ const ReviewTalentNominationDialog = ({
             data-h2-gap="base(x1 0) p-tablet(0 x1)"
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
-            {footerButtons}
+            <FooterButtons dialogVariant={dialogVariant} />
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
