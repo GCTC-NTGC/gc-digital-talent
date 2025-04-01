@@ -13,6 +13,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
+import labels from "../../labels";
 
 const RationaleReview_Fragment = graphql(/* GraphQL */ `
   fragment RationaleReview on TalentNomination {
@@ -57,22 +58,13 @@ const RationaleReview = ({ rationaleQuery }: RationaleReviewProps) => {
       </ReviewHeading>
       <FieldDisplay
         data-h2-margin-bottom="base(x1)"
-        label={intl.formatMessage({
-          defaultMessage: "Nomination rationale",
-          description: "Label for the rationale of a specific nomination",
-          id: "gjQpW3",
-        })}
+        label={intl.formatMessage(labels.nominationRationale)}
       >
         {talentNomination?.nominationRationale ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         data-h2-margin-bottom="base(x1)"
-        label={intl.formatMessage({
-          defaultMessage: "Top 3 key leadership competencies",
-          id: "/MDg+f",
-          description:
-            "Label for the leadership skills associated with the nominee",
-        })}
+        label={intl.formatMessage(labels.leadershipCompetencies)}
       >
         {skills.length > 0 ? (
           <ul>
@@ -84,14 +76,7 @@ const RationaleReview = ({ rationaleQuery }: RationaleReviewProps) => {
           notProvided
         )}
       </FieldDisplay>
-      <FieldDisplay
-        label={intl.formatMessage({
-          defaultMessage: "Additional comments",
-          description:
-            "Label for the additional comments for a specific nomination",
-          id: "XloV0z",
-        })}
-      >
+      <FieldDisplay label={intl.formatMessage(labels.additionalComments)}>
         {talentNomination?.additionalComments ?? notProvided}
       </FieldDisplay>
     </>

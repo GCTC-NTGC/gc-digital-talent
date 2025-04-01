@@ -16,6 +16,7 @@ import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
+import labels from "../../labels";
 
 interface ListItem {
   key: string;
@@ -96,11 +97,7 @@ const NominationDetailsReview = ({
     types = [
       {
         key: "nominationForAdvacement",
-        name: intl.formatMessage({
-          defaultMessage: "Advancement",
-          id: "yB+pio",
-          description: "List item for the advancement nomination type",
-        }),
+        name: intl.formatMessage(labels.advancement),
       },
     ];
   }
@@ -109,11 +106,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForLateralMovement",
-        name: intl.formatMessage({
-          defaultMessage: "Lateral movement",
-          id: "UPCZrv",
-          description: "List item for the lateral movement nomination type",
-        }),
+        name: intl.formatMessage(labels.lateralMovement),
       },
     ];
   }
@@ -122,11 +115,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForDevelopmentPrograms",
-        name: intl.formatMessage({
-          defaultMessage: "Development program",
-          id: "zKW7vX",
-          description: "List item for the development program nomination type",
-        }),
+        name: intl.formatMessage(labels.developmentProgram),
       },
     ];
   }
@@ -203,21 +192,11 @@ const NominationDetailsReview = ({
         </FieldDisplay>
         {talentNomination?.nominateForAdvancement && (
           <>
-            <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Reference's name",
-                id: "PLI9Iy",
-                description: "Label for the advancement reference name",
-              })}
-            >
+            <FieldDisplay label={intl.formatMessage(labels.referencesName)}>
               {referenceName}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Reference's work email",
-                id: "5lWVQz",
-                description: "Label for the advancement reference work email",
-              })}
+              label={intl.formatMessage(labels.referencesWorkEmail)}
             >
               {talentNomination.advancementReference?.workEmail ??
                 talentNomination.advancementReferenceFallbackWorkEmail ??
@@ -239,11 +218,7 @@ const NominationDetailsReview = ({
                 : notProvided}
             </FieldDisplay>
             <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Reference's department or agency",
-                id: "afDvc9",
-                description: "Label for the advancement department",
-              })}
+              label={intl.formatMessage(labels.referencesDepartment)}
             >
               {referenceDepartment?.name?.localized ?? notProvided}
             </FieldDisplay>
@@ -254,11 +229,7 @@ const NominationDetailsReview = ({
             {lateralMoveOptions.length > 0 && (
               <FieldDisplay
                 data-h2-grid-column="base(span 2)"
-                label={intl.formatMessage({
-                  defaultMessage: "Lateral movement options",
-                  id: "OC5hUZ",
-                  description: "Label for selected lateral move items",
-                })}
+                label={intl.formatMessage(labels.lateralMovementOptions)}
               >
                 <ul
                   data-h2-list-style="base(none)"
@@ -275,11 +246,7 @@ const NominationDetailsReview = ({
             {talentNomination.lateralMovementOptionsOther && (
               <FieldDisplay
                 data-h2-grid-column="base(span 2)"
-                label={intl.formatMessage({
-                  defaultMessage: "Other lateral movement option",
-                  id: "ZBxMOx",
-                  description: "Label for the other lateral move item",
-                })}
+                label={intl.formatMessage(labels.otherLateralMovement)}
               >
                 {talentNomination.lateralMovementOptionsOther}
               </FieldDisplay>
@@ -312,11 +279,7 @@ const NominationDetailsReview = ({
             {talentNomination.developmentProgramOptionsOther && (
               <FieldDisplay
                 data-h2-grid-column="base(span 2)"
-                label={intl.formatMessage({
-                  defaultMessage: "Other development program",
-                  id: "TCO19A",
-                  description: "Label for the other development program item",
-                })}
+                label={intl.formatMessage(labels.otherDevelopmentProgram)}
               >
                 {talentNomination.developmentProgramOptionsOther}
               </FieldDisplay>

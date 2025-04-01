@@ -1427,10 +1427,6 @@
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
-  "4nhr77": {
-    "defaultMessage": "Options de mutation latérale",
-    "description": "Title for lateral movement options section in nominations details step"
-  },
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"

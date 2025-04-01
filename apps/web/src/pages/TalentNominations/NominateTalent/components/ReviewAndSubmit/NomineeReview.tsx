@@ -14,6 +14,7 @@ import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
+import labels from "../../labels";
 
 const NomineeReview_Fragment = graphql(/* GraphQL */ `
   fragment NomineeReview on TalentNomination {
@@ -74,13 +75,7 @@ const NomineeReview = ({ nomineeQuery }: NomineeReviewProps) => {
             intl,
           )}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Nominee's work email",
-            id: "u+qPJf",
-            description: "Label for the nominee's work email",
-          })}
-        >
+        <FieldDisplay label={intl.formatMessage(labels.nomineeWorkEmail)}>
           {talentNomination?.nominee?.workEmail ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>

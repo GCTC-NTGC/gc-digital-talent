@@ -20,6 +20,7 @@ import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
+import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
   nominationRationale?: Maybe<string>;
@@ -118,11 +119,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
           name="nominationRationale"
           wordLimit={1000 * wordLimitMultiplier}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          label={intl.formatMessage({
-            defaultMessage: "Nomination rationale",
-            id: "jokoVA",
-            description: "Label for a nomination's rationale",
-          })}
+          label={intl.formatMessage(labels.nominationRationale)}
         />
         {talentNomination?.talentNominationEvent
           .includeLeadershipCompetencies && (
@@ -141,12 +138,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
                 message: intl.formatMessage(leadershipSkillsRangeError),
               },
             }}
-            label={intl.formatMessage({
-              defaultMessage: "Top 3 key leadership competencies",
-              id: "6M8rIa",
-              description:
-                "Label for a nominations leadership skill competencies",
-            })}
+            label={intl.formatMessage(labels.leadershipCompetencies)}
             options={unpackMaybes(skills).map((skill) => ({
               value: skill.id,
               label: skill.name.localized,
@@ -158,12 +150,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
           name="additionalComments"
           wordLimit={500 * wordLimitMultiplier}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          label={intl.formatMessage({
-            defaultMessage: "Additional comments",
-            id: "IBLDnY",
-            description:
-              "Label for additional comments on a nomination's rationale",
-          })}
+          label={intl.formatMessage(labels.additionalComments)}
         />
       </div>
     </UpdateForm>

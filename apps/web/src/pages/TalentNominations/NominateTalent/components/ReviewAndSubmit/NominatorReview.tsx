@@ -14,6 +14,7 @@ import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
+import labels from "../../labels";
 
 const NominatorReview_Fragment = graphql(/* GraphQL */ `
   fragment NominatorReview on TalentNomination {
@@ -101,42 +102,16 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
       >
         <FieldDisplay
           data-h2-grid-column="base(span 2)"
-          label={intl.formatMessage({
-            defaultMessage: "Your role",
-            description: "Label for submitters role in a nomination",
-            id: "CKofej",
-          })}
+          label={intl.formatMessage(labels.yourRole)}
         >
           {talentNomination?.submitter?.id === talentNomination?.nominator?.id
-            ? intl.formatMessage({
-                defaultMessage: "I'm the nominator",
-                id: "Fek9he",
-                description:
-                  "Message diplsyed when someone is submitting a nomination on anothers behalf",
-              })
-            : intl.formatMessage({
-                defaultMessage: "I’m submitting on the nominator's behalf.",
-                id: "ZdpkiP",
-                description:
-                  "Message displayed when the person submitting a nomination is also the person doing the nominating",
-              })}
+            ? intl.formatMessage(labels.imNominator)
+            : intl.formatMessage(labels.onBehalf)}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Nominator's name",
-            id: "NPQZgb",
-            description: "Label for the name of the nominator",
-          })}
-        >
+        <FieldDisplay label={intl.formatMessage(labels.nominatorName)}>
           {nominatorName}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Nominator's work email",
-            id: "egYVyh",
-            description: "Label for the nominator's work email",
-          })}
-        >
+        <FieldDisplay label={intl.formatMessage(labels.nominatorWorkEmail)}>
           {talentNomination?.nominator?.workEmail ??
             talentNomination?.nominatorFallbackWorkEmail ??
             intl.formatMessage(commonMessages.notProvided)}
@@ -156,13 +131,7 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
               )
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Nominators's department or agency",
-            id: "2KlIVa",
-            description: "Label for the nominator's department",
-          })}
-        >
+        <FieldDisplay label={intl.formatMessage(labels.nominatorDepartment)}>
           {nominatorDepartment?.name.localized ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
