@@ -71,9 +71,9 @@ const messages = defineMessages({
     id: "xmAF0A",
     description: "Label or header",
   },
-  nominator: {
-    defaultMessage: "Nominator",
-    id: "mcplV2",
+  nominators: {
+    defaultMessage: "Nominators",
+    id: "9bG59n",
     description: "Label or header",
   },
 });
