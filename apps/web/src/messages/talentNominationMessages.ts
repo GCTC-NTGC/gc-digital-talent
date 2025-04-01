@@ -61,6 +61,11 @@ const messages = defineMessages({
     id: "Ch6OCd",
     description: "Label for the nominator's work email",
   },
+  talentNominations: {
+    defaultMessage: "Talent nominations",
+    id: "5j19WZ",
+    description: "Label or header",
+  },
 });
 
 export default messages;
