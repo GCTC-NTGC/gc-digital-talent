@@ -38,12 +38,10 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     }
     nominee {
       id
-      email
       workEmail
       firstName
       lastName
       role
-      telephone
       preferredLang {
         label {
           localized
@@ -262,23 +260,11 @@ const NominationGroupSidebar = ({
                 data-h2-gap="base(x1)"
                 data-h2-overflow-wrap="base(anywhere)"
               >
-                <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
-                  {talentNominationGroup.nominee?.email
-                    ? talentNominationGroup.nominee.email
-                    : intl.formatMessage(commonMessages.notProvided)}
-                </FieldDisplay>
                 <FieldDisplay
                   label={intl.formatMessage(commonMessages.workEmail)}
                 >
                   {talentNominationGroup.nominee?.workEmail
                     ? talentNominationGroup.nominee.workEmail
-                    : intl.formatMessage(commonMessages.notProvided)}
-                </FieldDisplay>
-                <FieldDisplay
-                  label={intl.formatMessage(commonMessages.telephone)}
-                >
-                  {talentNominationGroup.nominee?.telephone
-                    ? talentNominationGroup.nominee.telephone
                     : intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
                 <FieldDisplay
