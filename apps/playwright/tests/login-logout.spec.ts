@@ -227,7 +227,6 @@ test.describe("Login and logout", () => {
 
     // Third refresh for good measure
     await fixture.jumpPastExpiry(tokenSet3);
-
     const listenters3 = fixture.createListeners();
 
     await fixture.page.reload();
@@ -235,6 +234,9 @@ test.describe("Login and logout", () => {
     const refreshToken3 = await fixture.getRefreshTokenUsed(
       listenters3.refresh,
     );
+
+    await fixture.resetClock();
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
 
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
     expect(tokenSet3.refreshToken).toEqual(refreshToken3);
