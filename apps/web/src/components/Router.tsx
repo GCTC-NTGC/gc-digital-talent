@@ -802,34 +802,62 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                     import("../pages/TalentEvents/IndexTalentEventPage"),
                   children: [
                     {
-                      path: ":eventId/nominations/:talentNominationGroupId",
+                      path: ":eventId",
                       children: [
                         {
                           lazy: () =>
-                            import(
-                              "../pages/TalentNominations/NominationGroup/Layout"
-                            ),
+                            import("../pages/TalentEvents/TalentEvent/Layout"),
                           children: [
                             {
                               index: true,
                               lazy: () =>
                                 import(
-                                  "../pages/TalentNominations/NominationGroup/Details"
+                                  "../pages/TalentEvents/TalentEvent/DetailsPage"
                                 ),
                             },
                             {
-                              path: "profile",
+                              path: "nominations",
                               lazy: () =>
                                 import(
-                                  "../pages/TalentNominations/NominationGroup/Profile"
+                                  "../pages/TalentEvents/TalentEvent/NominationsPage"
                                 ),
-                            },
-                            {
-                              path: "career-experience",
-                              lazy: () =>
-                                import(
-                                  "../pages/TalentNominations/NominationGroup/CareerExperience"
-                                ),
+                              children: [
+                                {
+                                  path: ":talentNominationGroupId",
+
+                                  children: [
+                                    {
+                                      lazy: () =>
+                                        import(
+                                          "../pages/TalentNominations/NominationGroup/Layout"
+                                        ),
+                                      children: [
+                                        {
+                                          index: true,
+                                          lazy: () =>
+                                            import(
+                                              "../pages/TalentNominations/NominationGroup/Details"
+                                            ),
+                                        },
+                                        {
+                                          path: "profile",
+                                          lazy: () =>
+                                            import(
+                                              "../pages/TalentNominations/NominationGroup/Profile"
+                                            ),
+                                        },
+                                        {
+                                          path: "career-experience",
+                                          lazy: () =>
+                                            import(
+                                              "../pages/TalentNominations/NominationGroup/CareerExperience"
+                                            ),
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              ],
                             },
                           ],
                         },

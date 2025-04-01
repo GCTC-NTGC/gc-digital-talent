@@ -17,6 +17,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Interested in training",
+    "fr": [
+      "Intérêt pour la formation",
+      "La formation m'intéresse"
+    ]
+  },
+  {
     "en": "Not interested",
     "fr": [
       "Non intéressé(e)",

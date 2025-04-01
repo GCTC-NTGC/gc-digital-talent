@@ -83,7 +83,7 @@ class TalentNominationGroup extends Model
     /** @return BelongsTo<User, $this> */
     public function nominee(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominee_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'nominee_id');
     }
 
     /** @return HasMany<TalentNomination, $this> */
