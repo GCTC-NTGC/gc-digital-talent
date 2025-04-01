@@ -59,4 +59,14 @@ export const formMessages = defineMessages({
     id: "2jX97r",
     description: "Label for the rationale field",
   },
+  top3LeadershipCompetencies: {
+    defaultMessage: "Top 3 key leadership competencies",
+    id: "aWpavW",
+    description: "Label for top 3 leadership competencies",
+  },
+  additionalComments: {
+    defaultMessage: "Additional comments",
+    id: "in2t79",
+    description: "Label for additional comments field",
+  },
 });

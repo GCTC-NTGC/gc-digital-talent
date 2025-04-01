@@ -9,6 +9,7 @@ import {
 import { Accordion } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { localizedEnumToOptions } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -33,6 +34,17 @@ const TalentNominationAccordionItemOptions_Fragment = graphql(/* GraphQL */ `
 const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationAccordionItem on TalentNomination {
     id
+
+    talentNominationEvent {
+      developmentPrograms {
+        id
+        name {
+          localized
+        }
+      }
+      includeLeadershipCompetencies
+    }
+
     nominator {
       firstName
       lastName
@@ -80,16 +92,17 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
       }
     }
     developmentProgramOptionsOther
-    talentNominationEvent {
-      developmentPrograms {
-        id
-        name {
-          localized
-        }
+
+    nominationRationale
+
+    skills {
+      id
+      name {
+        localized
       }
     }
 
-    nominationRationale
+    additionalComments
   }
 `);
 
@@ -220,6 +233,14 @@ const TalentNominationAccordionItem = ({
     value: !!talentNomination.developmentProgramOptionsOther,
     label: intl.formatMessage(formMessages.otherOption),
   });
+
+  const skillListItems =
+    unpackMaybes(talentNomination.skills).map((skill) => ({
+      key: skill.id,
+      label:
+        skill.name.localized ?? intl.formatMessage(commonMessages.notFound),
+    })) ?? [];
+  skillListItems.sort();
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -484,8 +505,38 @@ const TalentNominationAccordionItem = ({
             </p>
           </FieldDisplay>
 
-          <p>Top 3 key leadership competencies</p>
-          <p>Additional comments</p>
+          {/* leadership competencies only displayed if enabled for the event */}
+          {talentNomination.talentNominationEvent
+            .includeLeadershipCompetencies ? (
+            <FieldDisplay
+              label={intl.formatMessage(
+                formMessages.top3LeadershipCompetencies,
+              )}
+            >
+              {skillListItems.length > 0 ? (
+                <ul
+                  data-h2-margin-top="base(x.25)"
+                  data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
+                  data-h2-padding-inline-start="base(x1)"
+                >
+                  {skillListItems.map((skill) => (
+                    <li key={skill.key}>{skill.label}</li>
+                  ))}
+                </ul>
+              ) : (
+                intl.formatMessage(commonMessages.notFound)
+              )}
+            </FieldDisplay>
+          ) : null}
+
+          <FieldDisplay
+            label={intl.formatMessage(formMessages.additionalComments)}
+          >
+            <p>
+              {talentNomination.additionalComments ??
+                intl.formatMessage(commonMessages.notFound)}
+            </p>
+          </FieldDisplay>
         </div>
       </Accordion.Content>
     </Accordion.Item>
