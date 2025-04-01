@@ -66,6 +66,16 @@ const messages = defineMessages({
     id: "5j19WZ",
     description: "Label or header",
   },
+  nominee: {
+    defaultMessage: "Nominee",
+    id: "xmAF0A",
+    description: "Label or header",
+  },
+  nominator: {
+    defaultMessage: "Nominator",
+    id: "mcplV2",
+    description: "Label or header",
+  },
 });
 
 export default messages;

@@ -421,6 +421,11 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
+  types: {
+    defaultMessage: "Types",
+    id: "pLM39W",
+    description: "label or header for something referred to as a type",
+  },
 });
 
 export default commonMessages;
