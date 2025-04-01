@@ -105,10 +105,26 @@ test.describe("Login and logout", () => {
     await loginBySub(page, "applicant@test.com", false);
     const fixture = new AuthTokenFixture(page);
 
+    // Get tokens and set clock
     const tokenSet1 = await fixture.getTokens();
-    // time travel to when the tokens expire before trying to navigate
-    const { refreshTokenUsed, newTokens, authorizationHeader } =
-      await fixture.forceRefreshAndGetNewTokens();
+    await fixture.jumpPastExpiry(tokenSet1);
+
+    // Create listeners to intercept requests
+    const listeners = fixture.createListeners();
+
+    await fixture.page.reload();
+
+    const refreshTokenUsed = await fixture.getRefreshTokenUsed(
+      listeners.refresh,
+    );
+
+    await fixture.resetClock();
+
+    const authorizationHeader = await fixture.getAuthHeader(listeners.graphql);
+
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const newTokens = await fixture.getTokens();
 
     // expect an immediate refresh
     expect(tokenSet1.refreshToken).toEqual(refreshTokenUsed);
@@ -158,33 +174,70 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await fixture.getTokens();
 
-    // time travel to when the tokens from token set 1 expire
-    const refresh1 = await fixture.forceRefreshAndGetNewTokens();
+    // Time travel past the expiry darte of token set 1
+    await fixture.jumpPastExpiry(tokenSet1);
+
+    // Setup request listeners
+    const listenters1 = fixture.createListeners();
+
+    // Reload page to force refresh
+    await fixture.page.reload();
+
+    // Get refresh token used
+    const refreshToken1 = await fixture.getRefreshTokenUsed(
+      listenters1.refresh,
+    );
+
+    // Reset clock to avoid unecessary refreshes
+    await fixture.resetClock();
+
+    const authHeader1 = await fixture.getAuthHeader(listenters1.graphql);
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const tokenSet2 = await fixture.getTokens();
 
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
-    expect(tokenSet1.refreshToken).toEqual(refresh1.refreshTokenUsed);
+    expect(tokenSet1.refreshToken).toEqual(refreshToken1);
 
     // make sure it uses the second access token
-    expect(refresh1.authorizationHeader).toEqual(
-      `Bearer ${refresh1.newTokens.accessToken}`,
+    expect(authHeader1).toEqual(`Bearer ${tokenSet2.accessToken}`);
+
+    //  Repeat steps with the second token set
+    await fixture.jumpPastExpiry(tokenSet2);
+    const listenters2 = fixture.createListeners();
+
+    await fixture.page.reload();
+
+    const refreshToken2 = await fixture.getRefreshTokenUsed(
+      listenters2.refresh,
     );
 
-    // Force a new refresh
-    const refresh2 = await fixture.forceRefreshAndGetNewTokens();
+    await fixture.resetClock();
+
+    const authHeader2 = await fixture.getAuthHeader(listenters2.graphql);
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const tokenSet3 = await fixture.getTokens();
 
     // Compare first refresh token to one used in second refresh
-    expect(refresh1.newTokens.refreshToken).toEqual(refresh2.refreshTokenUsed);
+    expect(tokenSet2.refreshToken).toEqual(refreshToken2);
 
     // make sure it uses the second access token
-    expect(refresh2.authorizationHeader).toEqual(
-      `Bearer ${refresh2.newTokens.accessToken}`,
-    );
+    expect(authHeader2).toEqual(`Bearer ${tokenSet3.accessToken}`);
 
     // Third refresh for good measure
-    const refresh3 = await fixture.forceRefreshAndGetNewTokens();
+    await fixture.jumpPastExpiry(tokenSet3);
+
+    const listenters3 = fixture.createListeners();
+
+    await fixture.page.reload();
+
+    const refreshToken3 = await fixture.getRefreshTokenUsed(
+      listenters3.refresh,
+    );
 
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
-    expect(refresh2.newTokens.refreshToken).toEqual(refresh3.refreshTokenUsed);
+    expect(tokenSet3.refreshToken).toEqual(refreshToken3);
   });
 
   test("log out", async ({ page }) => {

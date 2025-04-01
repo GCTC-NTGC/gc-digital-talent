@@ -1,13 +1,7 @@
-import { type Page, expect } from "@playwright/test";
+import { type Page, Request } from "@playwright/test";
 
 import { AuthTokens, getAuthTokens, jumpPastExpiryDate } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
-
-interface RefreshedTokens {
-  authorizationHeader: string | null;
-  refreshTokenUsed: string | null;
-  newTokens: AuthTokens;
-}
 
 class AuthTokenFixture {
   public readonly page: Page;
@@ -16,31 +10,32 @@ class AuthTokenFixture {
     this.page = p;
   }
 
+  // Get current auth tokens from local storage
   async getTokens(): Promise<AuthTokens> {
     return await getAuthTokens(this.page);
   }
 
+  // Set system time to one second after an access tokens expiry time
   async jumpPastExpiry(tokens?: AuthTokens) {
     await this.page.clock.setSystemTime(
       jumpPastExpiryDate(tokens?.accessToken ?? ""),
     );
   }
 
-  /**
-   * Force a token refresh and store the new tokens for assertions
-   */
-  async forceRefreshAndGetNewTokens(): Promise<RefreshedTokens> {
-    // Get the current tokens and move clock past the expiration time
-    const currentTokens = await this.getTokens();
-    await this.jumpPastExpiry(currentTokens);
+  // Reset system time back to current time
+  async resetClock() {
+    await this.page.clock.setSystemTime(Date.now());
+  }
 
+  // Create both refresh and graphql request listeners (Request promises)
+  createListeners() {
     // Prepare the refresh listener
-    const refreshPromise = this.page.waitForRequest(
+    const refresh = this.page.waitForRequest(
       (req) => req.url().includes("/refresh") && req.method() === "GET",
     );
 
     // Prepare a graphql request listener
-    const authReqPromise = this.page.waitForRequest(async (req) => {
+    const graphql = this.page.waitForRequest(async (req) => {
       if (req.url()?.includes("/graphql")) {
         const reqJson = (await req?.postDataJSON()) as GraphQLOperation | null;
         return typeof reqJson?.operationName !== "undefined";
@@ -48,31 +43,19 @@ class AuthTokenFixture {
       return false;
     });
 
-    // Reload page to force the token refresh
-    await this.page.reload();
+    return { refresh, graphql };
+  }
 
-    // Get the token used to refresh from search params
-    const refreshTokenUsed = await refreshPromise.then((req) =>
+  // Get the refresh token used in the last refresh request made
+  async getRefreshTokenUsed(listener: Promise<Request>) {
+    return await listener.then((req) =>
       new URL(req.url()).searchParams.get("refresh_token"),
     );
+  }
 
-    // Reset clock to avoid causing refresh issues
-    // NOTE: Not sure but think the auth server clock is out of sync?
-    await this.page.clock.setSystemTime(new Date());
-    // Get the authorization header from the request
-    const authorizationHeader = await authReqPromise.then((res) =>
-      res.headerValue("authorization"),
-    );
-    // Wait until the page has settled to avoid interrupting getting new tokens
-    await expect(this.page.getByRole("heading", { level: 1 })).toBeVisible();
-    // Get the new tokens after a refresh
-    const newTokens = await this.getTokens();
-
-    return {
-      authorizationHeader,
-      newTokens,
-      refreshTokenUsed,
-    };
+  // Get the authorization header from the last graphql request
+  async getAuthHeader(listener: Promise<Request>) {
+    return await listener.then((res) => res.headerValue("authorization"));
   }
 }
 
