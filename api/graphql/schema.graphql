@@ -3233,7 +3233,7 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestsCsv(
+  downloadCommunityInterestUsersCsv(
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard

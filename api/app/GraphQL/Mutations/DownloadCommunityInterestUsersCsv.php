@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\CommunityInterestCsvGenerator;
+use App\Generators\CommunityInterestUserCsvGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadCommunityInterestsCsv
+final class DownloadCommunityInterestUsersCsv
 {
     /**
      * Dispatches the generation of a
@@ -27,7 +27,7 @@ final class DownloadCommunityInterestsCsv
         $filters = $args['where'] ?? null;
 
         try {
-            $generator = new CommunityInterestCsvGenerator(
+            $generator = new CommunityInterestUserCsvGenerator(
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),

@@ -118,12 +118,12 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityInterestsCsv_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityInterestsCsv(
+const DownloadCommunityInterestUsersCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityInterestUsersCsv(
     $ids: [UUID!]
     $where: CommunityInterestFilterInput
   ) {
-    downloadCommunityInterestsCsv(ids: $ids, where: $where)
+    downloadCommunityInterestUsersCsv(ids: $ids, where: $where)
   }
 `);
 
@@ -188,7 +188,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   );
 
   const [{ fetching: downloadingAllCsv }, downloadAllCsv] = useMutation(
-    DownloadCommunityInterestsCsv_Mutation,
+    DownloadCommunityInterestUsersCsv_Mutation,
   );
 
   const {
