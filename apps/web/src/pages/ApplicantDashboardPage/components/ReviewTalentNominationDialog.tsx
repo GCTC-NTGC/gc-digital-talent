@@ -16,6 +16,7 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
 
@@ -172,7 +173,11 @@ const ReviewTalentNominationDialog = ({
               >
                 {talentNomination.nominee?.firstName ||
                 talentNomination.nominee?.lastName
-                  ? `${talentNomination.nominee?.firstName} ${talentNomination.nominee?.lastName}`.trim()
+                  ? getFullNameLabel(
+                      talentNomination.nominee?.firstName,
+                      talentNomination.nominee?.lastName,
+                      intl,
+                    )
                   : nullMessage}
               </FieldDisplay>
               <FieldDisplay
@@ -270,7 +275,11 @@ const ReviewTalentNominationDialog = ({
               >
                 {talentNomination.nominator?.firstName ||
                 talentNomination.nominator?.lastName
-                  ? `${talentNomination.nominator?.firstName} ${talentNomination.nominator?.lastName}`.trim()
+                  ? getFullNameLabel(
+                      talentNomination.nominator?.firstName,
+                      talentNomination.nominator?.lastName,
+                      intl,
+                    )
                   : nullMessage}
               </FieldDisplay>
               <FieldDisplay
