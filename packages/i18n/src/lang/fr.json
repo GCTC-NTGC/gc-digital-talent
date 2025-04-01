@@ -111,6 +111,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
+  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
