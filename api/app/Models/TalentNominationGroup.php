@@ -193,9 +193,9 @@ class TalentNominationGroup extends Model
             $query->whereHas('talentNominationEvent.community', function (Builder $query) use ($communityIds) {
                 return $query->whereIn('community_id', $communityIds);
             });
-        }
 
-        return;
+            return;
+        }
 
         // fall through, return nothing
         $query->where('id', null);
