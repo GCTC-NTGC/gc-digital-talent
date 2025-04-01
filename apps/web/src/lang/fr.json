@@ -1039,6 +1039,10 @@
     "defaultMessage": "L'équipe du Développement de la collectivité de la gestion financière (DCGF) du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière fédérale à améliorer leurs compétences et à progresser dans leur carrière grâce au recrutement, au perfectionnement et au réseautage.",
     "description": "Card description, team"
   },
+  "2wbcfE": {
+    "defaultMessage": "Revoir une mise en candidature",
+    "description": "Title for the review talent nomination dialog"
+  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -1503,6 +1507,10 @@
     "defaultMessage": "Compétences comportementales essentielles",
     "description": "Short title of the 'essential behavioural skills' section of the job poster template page"
   },
+  "4yXZLY": {
+    "defaultMessage": "Options de nomination",
+    "description": "Label for the nomination type(s)"
+  },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
@@ -1580,7 +1588,7 @@
     "description": "Title for managing notification settings"
   },
   "5HhVG9": {
-    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the text input for the nominators work email"
   },
   "5LWxHq": {
@@ -1832,7 +1840,7 @@
     "description": "Title for the no notifications message"
   },
   "6e33hP": {
-    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the nominator input field on a nomination"
   },
   "6eCvv1": {
@@ -3023,6 +3031,10 @@
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
+  "Ch6OCd": {
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
+    "description": "Label for the nominator's work email"
+  },
   "Cn73yN": {
     "defaultMessage": "Sélectionnez les rôles",
     "description": "Placeholder text for role selection input"
@@ -3682,6 +3694,10 @@
   "Fz49kD": {
     "defaultMessage": "3. Autre…",
     "description": "Paragraph 4 of a manager's email for apprenticeship"
+  },
+  "FzaSAD": {
+    "defaultMessage": "Mutation latérale",
+    "description": "Label for the lateral movement nomination type"
   },
   "G+dXAH": {
     "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
@@ -4587,6 +4603,10 @@
     "defaultMessage": "Masquer les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
   },
+  "Kbt6SJ": {
+    "defaultMessage": "Nom de l'événement",
+    "description": "Label for the event name"
+  },
   "KdXvmY": {
     "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
     "description": "Learn more dialog question seven heading"
@@ -4810,6 +4830,10 @@
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
+  },
+  "LOwBJx": {
+    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise et suivez son évolution.",
+    "description": "Subtitle for the review talent nomination dialog"
   },
   "LQ0a0a": {
     "defaultMessage": "Participation au programme",
@@ -5534,6 +5558,10 @@
   "PH68o/": {
     "defaultMessage": "Présentez votre demande",
     "description": "Label for apply now button in instructor led training"
+  },
+  "PIJLkW": {
+    "defaultMessage": "Avancement",
+    "description": "Label for the advancement nomination type"
   },
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
@@ -6666,6 +6694,10 @@
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
   },
+  "V0U1Pu": {
+    "defaultMessage": "Soumise",
+    "description": "Label for the submission date"
+  },
   "V0U95l": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences essentielles",
     "description": "Null message title for essential skills table."
@@ -6726,6 +6758,10 @@
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
   },
+  "VDNYQU": {
+    "defaultMessage": "Votre mise en candidature a été soumise et est en attente d'examen. Nous vous informerons lorsque la collectivité fonctionnelle entamera le processus de révision.",
+    "description": "The description of the 'received' nomination status"
+  },
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Phrase marking lack of interest in community work opportunities"
@@ -6753,6 +6789,10 @@
   "VR79Ue": {
     "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading an anonymous user profile."
+  },
+  "VRAtKh": {
+    "defaultMessage": "Nom de la personne candidate",
+    "description": "Label for the nominee's name"
   },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
@@ -6861,6 +6901,10 @@
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
+  },
+  "W2s794": {
+    "defaultMessage": "Programme de perfectionnement",
+    "description": "Label for the development program nomination type"
   },
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
@@ -8687,7 +8731,7 @@
     "description": "Message displayed to user after user is updated successfully."
   },
   "exPEA1": {
-    "defaultMessage": "Nom de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Nom de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the text input for the nominators name"
   },
   "exxM/M": {
@@ -9083,7 +9127,7 @@
     "description": "Radio option for exam validity input on language information form."
   },
   "gSyRKu": {
-    "defaultMessage": "Programmes de perfectionnement",
+    "defaultMessage": "Programme de perfectionnement",
     "description": "Label for the development program nomination option on the details step"
   },
   "gU/nxf": {
@@ -9421,6 +9465,10 @@
   "i2LB7R": {
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
+  },
+  "i31jc0": {
+    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "description": "Label for the deadline to nominate"
   },
   "i37tmL": {
     "defaultMessage": "Renseignements supplémentaires",
@@ -10169,6 +10217,10 @@
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
+  },
+  "lwRIsY": {
+    "defaultMessage": "Reçue",
+    "description": "The title of the 'received' nomination status"
   },
   "lwYOqk": {
     "defaultMessage": "Année d'admissibilité à la retraite",
@@ -11202,6 +11254,10 @@
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
     "description": "Title for the compliance enforcement section."
   },
+  "qvQlEj": {
+    "defaultMessage": "Courriel professionnel de la personne candidate",
+    "description": "Label for the nominee's work email"
+  },
   "qvfSHZ": {
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
@@ -11853,6 +11909,10 @@
   "uaEMMO": {
     "defaultMessage": "Type d'emploi",
     "description": "Label for the employment type radio group"
+  },
+  "uaVogJ": {
+    "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
+    "description": "Label for talent nomination review dialog button"
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
@@ -12813,6 +12873,10 @@
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
     "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
+  },
+  "zYKPdV": {
+    "defaultMessage": "Nom de l'autrice ou l'auteur de la mise en candidature",
+    "description": "Label for the nominator's name"
   },
   "zbmWLG": {
     "defaultMessage": "Le gouvernement du Canada lira les commentaires et participera aux discussions, au besoin. Vos commentaires et vos contributions doivent être pertinents et respectueux.",
