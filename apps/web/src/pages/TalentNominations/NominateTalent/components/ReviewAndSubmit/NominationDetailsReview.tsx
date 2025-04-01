@@ -172,11 +172,7 @@ const NominationDetailsReview = ({
       >
         <FieldDisplay
           data-h2-grid-column="base(span 2)"
-          label={intl.formatMessage({
-            defaultMessage: "Nomination types",
-            description: "Label for the types of the nomination",
-            id: "b7rUBr",
-          })}
+          label={intl.formatMessage(labels.nominationOptions)}
         >
           {types.length > 0 ? (
             <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">

@@ -46,6 +46,12 @@ const labels = defineMessages({
     id: "ACCjnC",
     description: "Label for a nominations nominee",
   },
+  nominationOptions: {
+    defaultMessage: "Nomination options",
+    id: "khfdlt",
+    description:
+      "Label for the nomination options checklist on the details step",
+  },
   nominationRationale: {
     defaultMessage: "Nomination rationale",
     id: "jokoVA",
