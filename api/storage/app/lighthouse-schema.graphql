@@ -1101,6 +1101,7 @@ type TalentNomination {
   id: UUID!
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEvent!
+  createdAt: DateTime
   submittedAt: DateTime
   submitter: BasicGovEmployeeProfile
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator

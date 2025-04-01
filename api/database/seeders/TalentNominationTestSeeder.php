@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\TalentNomination;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class TalentNominationTestSeeder extends Seeder
@@ -14,6 +15,8 @@ class TalentNominationTestSeeder extends Seeder
      */
     public function run()
     {
+        $admin = User::where('sub', 'admin@test.com')->sole();
+
         TalentNomination::factory()
             ->count(3)
             ->noSubmittedSteps()
@@ -49,5 +52,18 @@ class TalentNominationTestSeeder extends Seeder
             ->submittedReviewAndSubmit()
             ->create();
 
+        // seed some to a specific user
+        TalentNomination::factory()
+            ->count(1)
+            ->noSubmittedSteps()
+            ->create([
+                'submitter_id' => $admin->id,
+            ]);
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $admin->id,
+            ]);
     }
 }
