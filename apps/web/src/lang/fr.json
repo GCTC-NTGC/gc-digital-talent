@@ -1572,7 +1572,7 @@
     "description": "Title for managing notification settings"
   },
   "5HhVG9": {
-    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the text input for the nominators work email"
   },
   "5LWxHq": {
@@ -1824,7 +1824,7 @@
     "description": "Title for the no notifications message"
   },
   "6e33hP": {
-    "defaultMessage": "Courriel professionnel de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the nominator input field on a nomination"
   },
   "6eCvv1": {
@@ -8695,7 +8695,7 @@
     "description": "Message displayed to user after user is updated successfully."
   },
   "exPEA1": {
-    "defaultMessage": "Nom de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Nom de l'autrice ou l'auteur de la mise en candidature",
     "description": "Label for the text input for the nominators name"
   },
   "exxM/M": {
@@ -9091,7 +9091,7 @@
     "description": "Radio option for exam validity input on language information form."
   },
   "gSyRKu": {
-    "defaultMessage": "Programmes de perfectionnement",
+    "defaultMessage": "Programme de perfectionnement",
     "description": "Label for the development program nomination option on the details step"
   },
   "gU/nxf": {
