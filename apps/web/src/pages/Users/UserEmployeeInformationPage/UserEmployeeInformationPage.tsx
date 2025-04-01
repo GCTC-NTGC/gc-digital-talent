@@ -161,8 +161,8 @@ export const UserEmployeeInformation = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "This employee has agreed to share their profile with the following communities for job opportunities or training.",
-                id: "9vNHXm",
+                  "This employee has agreed to share their profile with the following functional communities for job opportunities or training.",
+                id: "d8HawO",
                 description:
                   "Description for Community interest section of user employee information page",
               })}
