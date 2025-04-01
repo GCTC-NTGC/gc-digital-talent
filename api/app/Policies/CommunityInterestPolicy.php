@@ -53,6 +53,6 @@ class CommunityInterestPolicy
         $communityInterest->loadMissing('community.team');
 
         return ! is_null($communityInterest->community->team)
-            && $user->isAbleTo('view-team-communityInterest', $communityInterest->community->team);
+            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team);
     }
 }

@@ -38,7 +38,7 @@ class UserPolicy
                     $user->rolesTeams()->get()->pluck('id')
                 )
             ) ||
-            ($user->isAbleTo('view-team-communityInterest')
+            ($user->isAbleTo('view-team-communityTalent')
                 && $this->userIsACommunityTalentInCommunities(
                     $model,
                     $user->rolesTeams()
