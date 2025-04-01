@@ -660,6 +660,7 @@ type TalentNomination {
   id: UUID!
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
+  createdAt: DateTime @rename(attribute: "created_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   submitter: BasicGovEmployeeProfile
     @belongsTo
@@ -1232,6 +1233,19 @@ input ClaimVerificationSort {
 
 input CommunityInterestFilterInput {
   userName: String @scope
+  generalSearch: String @scope
+  communities: [UUID] @scope
+  workStreams: [UUID] @scope
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobInterest: Boolean @scope
+  trainingInterest: Boolean @scope
+  lateralMoveInterest: Boolean @scope
+  promotionMoveInterest: Boolean @scope
+  languageAbility: LanguageAbility @scope
+  positionDuration: [PositionDuration] @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  skills: [UUID] @scope
 }
 
 type Query {
@@ -3219,6 +3233,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityInterestUsersCsv(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
 
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard
