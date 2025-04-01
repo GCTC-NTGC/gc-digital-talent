@@ -59,8 +59,6 @@ class AuthTokenFixture {
     // Reset clock to avoid causing refresh issues
     // NOTE: Not sure but think the auth server clock is out of sync?
     await this.page.clock.setSystemTime(new Date());
-    // Reload page to force a graphql request with new tokens
-    await this.page.reload();
     // Get the authorization header from the request
     const authorizationHeader = await authReqPromise.then((res) =>
       res.headerValue("authorization"),
