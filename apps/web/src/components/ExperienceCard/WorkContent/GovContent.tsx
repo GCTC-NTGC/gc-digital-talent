@@ -157,7 +157,8 @@ const GovContent = ({
             headingLevel={headingLevel}
           >
             {classification
-              ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
+              ? // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
               : intl.formatMessage(commonMessages.notAvailable)}
           </ContentSection>
         </div>
