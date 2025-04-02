@@ -30,7 +30,14 @@ export function nominatorsAccessor(
   nominators: TalentNominator[],
   intl: IntlShape,
 ): string {
-  const nominatorsNamesArray = nominators.map((nominator) =>
+  const nominatorsSorted = nominators.sort((a, b) => {
+    return (
+      (a.lastName ?? "").localeCompare(b.lastName ?? "") ||
+      (a.firstName ?? "").localeCompare(b.firstName ?? "")
+    );
+  });
+
+  const nominatorsNamesArray = nominatorsSorted.map((nominator) =>
     getFullNameLabel(nominator?.firstName, nominator?.lastName, intl),
   );
   const uniqueNamesToDisplay = uniqueItems(nominatorsNamesArray);
