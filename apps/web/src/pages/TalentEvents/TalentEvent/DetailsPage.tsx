@@ -168,7 +168,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                 href={talentEvent.learnMoreUrl.fr}
                 data-h2-word-break="base(break-all)"
               >
-                {talentEvent.learnMoreUrl.en}
+                {talentEvent.learnMoreUrl.fr}
               </Link>
             ) : (
               intl.formatMessage(commonMessages.notProvided)
