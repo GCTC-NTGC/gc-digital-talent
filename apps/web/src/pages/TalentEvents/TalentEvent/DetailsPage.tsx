@@ -160,8 +160,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         >
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Nomination open date",
-              id: "HPIGM6",
+              defaultMessage: "Nomination opening date",
+              id: "JhEMHT",
               description:
                 "Label for nomination event date to start accepting nominations",
             })}
@@ -176,8 +176,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
-              defaultMessage: "Nomination close date",
-              id: "1Tqhw6",
+              defaultMessage: "Nomination closing date",
+              id: "pq/4js",
               description:
                 "Label for nomination event date to stop accepting nominations",
             })}
