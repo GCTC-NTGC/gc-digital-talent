@@ -119,12 +119,7 @@ class CommunityInterest extends Model
                 return $query->whereIn('community_id', $communityIds);
             });
 
-            $query->where(function (Builder $query) {
-                $query->orWhere('job_interest', true);
-                $query->orWhere('training_interest', true);
-
-                return $query;
-            });
+            $query->where('consent_to_share_profile', true);
 
             return $query;
         }
