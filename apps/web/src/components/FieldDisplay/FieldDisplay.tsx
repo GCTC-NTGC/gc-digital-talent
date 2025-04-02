@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 
-interface FieldDisplayProps {
+interface FieldDisplayProps extends HTMLAttributes<HTMLDivElement> {
   label: ReactNode;
   children?: ReactNode;
   hasError?: boolean | null;
