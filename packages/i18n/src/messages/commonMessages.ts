@@ -426,6 +426,11 @@ const commonMessages = defineMessages({
     id: "pLM39W",
     description: "label or header for something referred to as a type",
   },
+  communityInterest: {
+    defaultMessage: "Community interest",
+    id: "1uBif7",
+    description: "Community interest label",
+  },
 });
 
 export default commonMessages;

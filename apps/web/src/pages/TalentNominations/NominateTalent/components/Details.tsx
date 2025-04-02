@@ -39,7 +39,9 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
+import labels from "../labels";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
   fragment DetailsFieldsOptions on Query {
@@ -187,12 +189,7 @@ const DetailsFields = ({
         items={[
           {
             value: "advancement",
-            label: intl.formatMessage({
-              defaultMessage: "Advancement",
-              id: "uQaK9e",
-              description:
-                "Label for the advancement nomination option on the details step",
-            }),
+            label: intl.formatMessage(labels.advancement),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee consistently and effectively demonstrates expected behaviours related to advanced skill and merit, as well as the potential and desire for a more senior role. Promotion may be the best approach to maximize their contribution to the organization and the public service.",
@@ -203,12 +200,7 @@ const DetailsFields = ({
           },
           {
             value: "lateralMovement",
-            label: intl.formatMessage({
-              defaultMessage: "Lateral movement",
-              id: "B3loug",
-              description:
-                "Label for the lateral movement nomination option on the details step",
-            }),
+            label: intl.formatMessage(labels.lateralMovement),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee demonstrates the expected behaviours related to skill and merit and has maximized professional development in their current position. Lateral opportunities would allow them to gain broader experience, enhance skills, satisfy current aspirations, and maintain engagement. An employee must have valid second language evaluation (SLE) results to be assessed as ready for lateral movement.",
@@ -219,12 +211,7 @@ const DetailsFields = ({
           },
           {
             value: "developmentProgram",
-            label: intl.formatMessage({
-              defaultMessage: "Development program",
-              id: "gSyRKu",
-              description:
-                "Label for the development program nomination option on the details step",
-            }),
+            label: intl.formatMessage(labels.developmentProgram),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
@@ -282,12 +269,7 @@ const DetailsFields = ({
                 id="advancementReference"
                 name="advancementReference"
                 employeeOption={fragmentToEmployee(advancementReferenceData)}
-                label={intl.formatMessage({
-                  defaultMessage: "Reference's work email",
-                  id: "1QKTXO",
-                  description:
-                    "Label for the reference's input field in nominations details step",
-                })}
+                label={intl.formatMessage(labels.referencesWorkEmail)}
                 errorSeverities={{ NO_PROFILE: "warning" }}
               />
               {!advancementReferenceUnset && !advancementReferenceNotFound && (
@@ -333,12 +315,7 @@ const DetailsFields = ({
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
-                      label={intl.formatMessage({
-                        defaultMessage: "Reference’s name",
-                        id: "x4/XMp",
-                        description:
-                          "Label for the text input for the reference's name",
-                      })}
+                      label={intl.formatMessage(labels.referencesName)}
                     />
                     <Input
                       type="email"
@@ -375,11 +352,7 @@ const DetailsFields = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    label={intl.formatMessage({
-                      defaultMessage: "Reference's department or agency",
-                      id: "lgF8zK",
-                      description: "Label for a reference's department",
-                    })}
+                    label={intl.formatMessage(labels.referencesDepartment)}
                     nullSelection={intl.formatMessage(
                       uiMessages.nullSelectionOption,
                     )}
@@ -402,12 +375,7 @@ const DetailsFields = ({
             >
               <div>
                 <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Lateral movement options",
-                    id: "4nhr77",
-                    description:
-                      "Title for lateral movement options section in nominations details step",
-                  })}
+                  {intl.formatMessage(labels.lateralMovementOptions)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
@@ -422,12 +390,7 @@ const DetailsFields = ({
               <Checklist
                 idPrefix="lateralMovementOptions"
                 name="lateralMovementOptions"
-                legend={intl.formatMessage({
-                  defaultMessage: "Lateral movement options",
-                  id: "zLnqLc",
-                  description:
-                    "Label for the lateral movement options checklist on the details step",
-                })}
+                legend={intl.formatMessage(labels.lateralMovementOptions)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -465,12 +428,7 @@ const DetailsFields = ({
                   type="text"
                   id="lateralMovementOptionsOther"
                   name="lateralMovementOptionsOther"
-                  label={intl.formatMessage({
-                    defaultMessage: "Other lateral move option",
-                    id: "BNSbyC",
-                    description:
-                      "Label other lateral move option input on the details step",
-                  })}
+                  label={intl.formatMessage(labels.otherLateralMovement)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -532,12 +490,7 @@ const DetailsFields = ({
                   type="text"
                   id="developmentProgramOptionsOther"
                   name="developmentProgramOptionsOther"
-                  label={intl.formatMessage({
-                    defaultMessage: "Other development program option",
-                    id: "xidShX",
-                    description:
-                      "Label other development program option input on the details step",
-                  })}
+                  label={intl.formatMessage(labels.otherDevelopmentProgram)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -751,11 +704,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
       }}
     >
       <SubHeading Icon={RectangleGroupIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Nomination details",
-          id: "gD98oQ",
-          description: "Heading for details step of a talent nomination",
-        })}
+        {intl.formatMessage(messages.nominationDetails)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({

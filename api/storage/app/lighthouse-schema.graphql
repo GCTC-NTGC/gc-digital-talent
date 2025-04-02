@@ -860,6 +860,7 @@ type BasicGovEmployeeProfile {
   lastName: String
   role: String
   department: Department
+  classification: Classification
 }
 
 type GeneralQuestion {
