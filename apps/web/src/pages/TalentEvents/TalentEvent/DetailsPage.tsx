@@ -55,7 +55,11 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   const intl = useIntl();
 
   const talentEvent = getFragment(TalentEventDetails_Fragment, query);
-  const developmentPrograms = unpackMaybes(talentEvent.developmentPrograms);
+  const developmentPrograms = unpackMaybes(
+    talentEvent.developmentPrograms,
+  ).sort((a, b) =>
+    (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+  );
 
   return (
     <>
