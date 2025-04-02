@@ -436,6 +436,11 @@ const commonMessages = defineMessages({
     id: "xVBxp3",
     description: "In progress status",
   },
+  communityInterest: {
+    defaultMessage: "Community interest",
+    id: "1uBif7",
+    description: "Community interest label",
+  },
 });
 
 export default commonMessages;

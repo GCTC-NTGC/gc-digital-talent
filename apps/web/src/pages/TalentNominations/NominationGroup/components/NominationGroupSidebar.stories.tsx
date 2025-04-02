@@ -38,7 +38,7 @@ const talentNominationGroup = {
     lastName: "Surname",
     workEmail: "test@gc.ca",
     preferredLang: { label: { localized: "LANG" } },
-    currentClassification: fakeClassifications()[0],
+    classification: fakeClassifications()[0],
     department: fakeDepartment,
   },
   nominations: [

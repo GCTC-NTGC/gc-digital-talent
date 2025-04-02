@@ -348,7 +348,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
-  currentClassification: Classification @belongsTo
+  classification: Classification @belongsTo(relation: "currentClassification")
 }
 
 type GeneralQuestion {

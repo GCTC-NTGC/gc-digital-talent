@@ -47,7 +47,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      currentClassification {
+      classification {
         id
         group
         level
@@ -137,14 +137,12 @@ const NominationGroupSidebar = ({
             data-h2-padding-bottom="base(x.25)"
             data-h2-color="base(black.light)"
           >
-            {!!talentNominationGroup.nominee?.currentClassification?.group &&
-            !!talentNominationGroup.nominee.currentClassification.level
+            {!!talentNominationGroup.nominee?.classification?.group &&
+            !!talentNominationGroup.nominee.classification.level
               ? getClassificationName(
                   {
-                    group:
-                      talentNominationGroup.nominee.currentClassification.group,
-                    level:
-                      talentNominationGroup.nominee.currentClassification.level,
+                    group: talentNominationGroup.nominee.classification.group,
+                    level: talentNominationGroup.nominee.classification.level,
                   },
                   intl,
                 )

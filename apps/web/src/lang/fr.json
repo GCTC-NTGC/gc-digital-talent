@@ -607,6 +607,10 @@
     "defaultMessage": "Date de fin prévue",
     "description": "Label displayed on an Experience form for expected end date input"
   },
+  "0r1Pr3": {
+    "defaultMessage": "Modifiez les détails de la mise en candidature",
+    "description": "Link text to edit a nominations details information"
+  },
   "0vNb2/": {
     "defaultMessage": "Nombre d'employées et employés",
     "description": "Label for number of employees field"
@@ -1446,10 +1450,6 @@
   "4nP41q": {
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
-  },
-  "4nhr77": {
-    "defaultMessage": "Options de mutation latérale",
-    "description": "Title for lateral movement options section in nominations details step"
   },
   "4p0QdF": {
     "defaultMessage": "Fermer",
@@ -3139,6 +3139,10 @@
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
+  "DHIa69": {
+    "defaultMessage": "Recommandations de programmes de perfectionnement",
+    "description": "Label for selected development program items"
+  },
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
@@ -3234,6 +3238,10 @@
   "DcpFle": {
     "defaultMessage": "Demande réussie",
     "description": "Page title for the request confirmation page."
+  },
+  "DePuGA": {
+    "defaultMessage": "Modifiez les infos sur la personne candidate",
+    "description": "Link text to edit a nominations nominee information"
   },
   "DgMIfz": {
     "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
@@ -6666,6 +6674,10 @@
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
   },
+  "Usof4a": {
+    "defaultMessage": "Nom de personne candidate",
+    "description": "Label for nominees name in a nomination"
+  },
   "UuAN//": {
     "defaultMessage": "Chez Talents numériques du GC, nous reconnaissons que les gens acquièrent des compétences grâce à différents parcours de vie. Il existe de nombreuses façons d’acquérir les qualifications nécessaires pour un emploi.",
     "description": "Paragraph 1, our commitment to inclusivity and equity"
@@ -6785,6 +6797,10 @@
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
     "description": "Label for First Nations community"
+  },
+  "VUsGFc": {
+    "defaultMessage": "Modifiez les infos sur l'autrice ou l'auteur de la mise en candidature",
+    "description": "Link text to edit a nominations nominator information"
   },
   "VWEwki": {
     "defaultMessage": "Salaire minimal",
@@ -7898,6 +7914,10 @@
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
     "description": "List item four, things developers consider for accessibility"
   },
+  "bCZOr9": {
+    "defaultMessage": "Classification de la personne de référence",
+    "description": "Label for the advancement referece classification"
+  },
   "bDmp5T": {
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
@@ -8293,6 +8313,10 @@
   "d8CQJr": {
     "defaultMessage": "Création réussie du groupe de compétences!",
     "description": "Message displayed to user after skill family is created successfully."
+  },
+  "d8HawO": {
+    "defaultMessage": "Ce membre du personnel a accepté de partager son profil avec les collectivités fonctionnelles suivantes pour des possibilités d’emploi ou de formation.",
+    "description": "Description for Community interest section of user employee information page"
   },
   "d8j/Sr": {
     "defaultMessage": "Processus de recrutement auxquels vous vous êtes qualifié(e)",
@@ -10022,6 +10046,10 @@
     "defaultMessage": "Niveau de compréhension",
     "description": "Label displayed on the language information form reading comprehension field."
   },
+  "ksBmA2": {
+    "defaultMessage": "Ministère ou organisme de la personne candidate",
+    "description": "Label for the nominee's department"
+  },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
     "description": "Message displayed to user after skill fails to get created."
@@ -10685,6 +10713,10 @@
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
     "description": "Label displayed on education form for institution input"
+  },
+  "o1qvlP": {
+    "defaultMessage": "Modifiez la justification",
+    "description": "Link text to edit a nominations rationale"
   },
   "o4EnIo": {
     "defaultMessage": "Ce processus est programmé pour se clôturer automatiquement le : ",
@@ -11545,6 +11577,14 @@
   "sigMut": {
     "defaultMessage": "La durée de l’étude est équivalente à l’exigence du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
+  },
+  "sj+5RI": {
+    "defaultMessage": "Classification de la personne candidate",
+    "description": "Label for the nominee's classification"
+  },
+  "sjxFxr": {
+    "defaultMessage": "Classification de l'autrice ou l'auteur de la mise en candidature",
+    "description": "Label for the nominators's classification"
   },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",

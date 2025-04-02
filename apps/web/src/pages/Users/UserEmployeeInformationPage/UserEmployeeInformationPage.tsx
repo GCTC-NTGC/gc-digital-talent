@@ -1,8 +1,10 @@
 import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import { useQuery } from "urql";
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 
 import {
+  Accordion,
   Heading,
   Pending,
   TableOfContents,
@@ -21,6 +23,9 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import CommunityInterest, {
+  CommunityInterestOptions_Fragment,
+} from "~/components/CommunityInterest/CommunityInterest";
 
 import CareerDevelopmentSection, {
   CareerDevelopmentOptions_Fragment,
@@ -30,6 +35,7 @@ import CareerObjectiveSection from "./components/CareerObjectiveSection";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 
 const SECTION_ID = {
+  COMMUNITY_INTEREST: "community-interest-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE: "next-role-section",
@@ -39,6 +45,15 @@ const SECTION_ID = {
 
 const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
   fragment UserEmployeeInformation on EmployeeProfile {
+    communityInterests {
+      id
+      community {
+        name {
+          localized
+        }
+      }
+      ...CommunityInterest
+    }
     ...CareerDevelopment
     ...NextRole
     ...CareerObjective
@@ -48,6 +63,9 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 
 interface UserEmployeeInformationProps {
   employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
+  communityInterestOptionsQuery: FragmentType<
+    typeof CommunityInterestOptions_Fragment
+  >;
   careerDevelopmentOptionsQuery: FragmentType<
     typeof CareerDevelopmentOptions_Fragment
   >;
@@ -56,6 +74,7 @@ interface UserEmployeeInformationProps {
 export const UserEmployeeInformation = ({
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
+  communityInterestOptionsQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
 
@@ -68,6 +87,11 @@ export const UserEmployeeInformation = ({
     <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={SECTION_ID.COMMUNITY_INTEREST}>
+              {intl.formatMessage(commonMessages.communityInterest)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink id={SECTION_ID.CAREER_PLANNING}>
               {intl.formatMessage(commonMessages.careerPlanning)}
@@ -123,6 +147,52 @@ export const UserEmployeeInformation = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x1 0)"
         >
+          <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
+            <Heading
+              level="h2"
+              Icon={FlagIcon}
+              color="primary"
+              data-h2-margin-top="base(0)"
+              data-h2-font-weight="base(400)"
+              data-h2-text-align="base(center) l-tablet(initial)"
+            >
+              {intl.formatMessage(commonMessages.communityInterest)}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This employee has agreed to share their profile with the following functional communities for job opportunities or training.",
+                id: "d8HawO",
+                description:
+                  "Description for Community interest section of user employee information page",
+              })}
+            </p>
+            <Accordion.Root
+              type="multiple"
+              mode="card"
+              data-h2-margin="base(x1 0)"
+            >
+              {employeeProfile.communityInterests?.map((communityInterest) => (
+                <Accordion.Item
+                  value={communityInterest.id}
+                  key={communityInterest.id}
+                >
+                  <Accordion.Trigger as="h3">
+                    {communityInterest.community?.name?.localized ??
+                      intl.formatMessage(commonMessages.notAvailable)}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <CommunityInterest
+                      communityInterestQuery={communityInterest}
+                      communityInterestOptionsQuery={
+                        communityInterestOptionsQuery
+                      }
+                    />
+                  </Accordion.Content>
+                </Accordion.Item>
+              ))}
+            </Accordion.Root>
+          </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
               level="h2"
@@ -242,6 +312,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
       }
     }
     ...CareerDevelopmentOptions
+    ...CommunityInterestOptions
   }
 `);
 
@@ -265,6 +336,7 @@ const UserEmployeeInformationPage = () => {
           <UserEmployeeInformation
             employeeProfileQuery={data?.user?.employeeProfile}
             careerDevelopmentOptionsQuery={data}
+            communityInterestOptionsQuery={data}
           />
         ) : (
           <ThrowNotFound />
