@@ -174,7 +174,7 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await fixture.getTokens();
 
-    // Time travel past the expiry darte of token set 1
+    // Time travel past the expiry date of token set 1
     await fixture.jumpPastExpiry(tokenSet1);
 
     // Setup request listeners
@@ -186,7 +186,7 @@ test.describe("Login and logout", () => {
     // Get refresh token used
     const refreshToken1 = await fixture.getRefreshTokenUsed(listeners1.refresh);
 
-    // Reset clock to avoid unecessary refreshes
+    // Reset clock to avoid unnecessary refreshes
     await fixture.resetClock();
 
     const authHeader1 = await fixture.getAuthHeader(listeners1.graphql);
