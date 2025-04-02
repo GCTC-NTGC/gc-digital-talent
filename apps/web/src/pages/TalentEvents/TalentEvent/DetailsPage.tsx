@@ -7,6 +7,7 @@ import {
   CardBasic,
   CardSeparator,
   Heading,
+  Link,
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -137,10 +138,19 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                 "Label for nomination event more information link in English",
             })}
           >
-            <span data-h2-word-break="base(break-all)">
-              {talentEvent.learnMoreUrl?.en ??
-                intl.formatMessage(commonMessages.notProvided)}
-            </span>
+            {talentEvent.learnMoreUrl?.en ? (
+              <Link
+                mode="text"
+                external
+                newTab
+                href={talentEvent.learnMoreUrl.en}
+                data-h2-word-break="base(break-all)"
+              >
+                {talentEvent.learnMoreUrl.en}
+              </Link>
+            ) : (
+              intl.formatMessage(commonMessages.notProvided)
+            )}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({
@@ -150,10 +160,19 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                 "Label for nomination event more information link in French",
             })}
           >
-            <span data-h2-word-break="base(break-all)">
-              {talentEvent.learnMoreUrl?.fr ??
-                intl.formatMessage(commonMessages.notProvided)}
-            </span>
+            {talentEvent.learnMoreUrl?.fr ? (
+              <Link
+                mode="text"
+                external
+                newTab
+                href={talentEvent.learnMoreUrl.fr}
+                data-h2-word-break="base(break-all)"
+              >
+                {talentEvent.learnMoreUrl.en}
+              </Link>
+            ) : (
+              intl.formatMessage(commonMessages.notProvided)
+            )}
           </FieldDisplay>
         </div>
         <CardSeparator space="sm" decorative />
