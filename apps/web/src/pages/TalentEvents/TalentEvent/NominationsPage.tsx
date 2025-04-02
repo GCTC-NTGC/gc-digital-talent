@@ -18,12 +18,41 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import messages from "~/messages/talentNominationMessages";
+import { normalizedText } from "~/components/Table/sortingFns";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import { RouteParams } from "./types";
+import {
+  nominationsToNominators,
+  nominatorsAccessor,
+  statusCell,
+} from "./util";
 
 const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventNominationsTable on TalentNominationGroup {
     id
+    status {
+      value
+      label {
+        localized
+      }
+    }
+    nominee {
+      firstName
+      lastName
+      department {
+        name {
+          localized
+        }
+      }
+    }
+    nominations {
+      id
+      nominator {
+        firstName
+        lastName
+      }
+    }
   }
 `);
 
@@ -47,13 +76,69 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
   );
 
   const columns = [
-    columnHelper.accessor(({ id }) => id, {
-      id: "id",
-      header: intl.formatMessage(commonMessages.name),
-      enableColumnFilter: false,
-      meta: {
-        isRowTitle: true,
+    columnHelper.accessor(
+      ({ nominee }) =>
+        getFullNameLabel(nominee?.firstName, nominee?.lastName, intl),
+      {
+        id: "nominee",
+        header: intl.formatMessage(messages.nominee),
+        sortingFn: normalizedText,
+        // cell: ({
+        //   row: {
+        //     original: { nominee },
+        //   },
+        // }) =>
+        //   candidateNameCell(
+        //     poolCandidate.id,
+        //     paths,
+        //     intl,
+        //     candidateIdsFromFilterData,
+        //     poolCandidate.user.firstName,
+        //     poolCandidate.user.lastName,
+        //   ),
+        meta: {
+          isRowTitle: true,
+        },
       },
+    ),
+    columnHelper.accessor(({ status }) => status?.label?.localized, {
+      id: "status",
+      header: intl.formatMessage(commonMessages.status),
+      sortingFn: normalizedText,
+      cell: ({
+        row: {
+          original: { status },
+        },
+      }) => statusCell(status),
+      enableSorting: false,
+    }),
+    columnHelper.accessor(({ id }) => id, {
+      id: "received",
+      header: intl.formatMessage(commonMessages.received),
+      enableSorting: false,
+    }),
+    columnHelper.accessor(
+      ({ nominations }) =>
+        nominatorsAccessor(nominationsToNominators(nominations), intl),
+      {
+        id: "nominators",
+        header: intl.formatMessage(messages.nominators),
+      },
+    ),
+    columnHelper.accessor(
+      ({ nominee }) =>
+        nominee?.department?.name?.localized ??
+        intl.formatMessage(commonMessages.notProvided),
+      {
+        id: "department",
+        header: intl.formatMessage(commonMessages.department),
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(({ id }) => id, {
+      id: "types",
+      header: intl.formatMessage(commonMessages.types),
+      enableSorting: false,
     }),
   ] as ColumnDef<TalentEventNominationsTableFragmentType>[];
 
@@ -69,6 +154,19 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
         internal: true,
         total: talentEventNominations.length,
         pageSizes: [10, 20, 50],
+      }}
+      nullMessage={{
+        title: intl.formatMessage({
+          defaultMessage: "This table doesn't have any data to display.",
+          id: "Rw9JVt",
+          description: "Null message title for talent nominations table.",
+        }),
+        description: intl.formatMessage({
+          defaultMessage:
+            "As talent nominations for this event are received, they will automatically appear here.",
+          id: "soHyUi",
+          description: "Null message description for talent nominations table.",
+        }),
       }}
     />
   );
