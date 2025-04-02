@@ -184,9 +184,7 @@ test.describe("Login and logout", () => {
     await fixture.page.reload();
 
     // Get refresh token used
-    const refreshToken1 = await fixture.getRefreshTokenUsed(
-      listeners1.refresh,
-    );
+    const refreshToken1 = await fixture.getRefreshTokenUsed(listeners1.refresh);
 
     // Reset clock to avoid unecessary refreshes
     await fixture.resetClock();
@@ -208,9 +206,7 @@ test.describe("Login and logout", () => {
 
     await fixture.page.reload();
 
-    const refreshToken2 = await fixture.getRefreshTokenUsed(
-      listeners2.refresh,
-    );
+    const refreshToken2 = await fixture.getRefreshTokenUsed(listeners2.refresh);
 
     await fixture.resetClock();
 
@@ -231,9 +227,7 @@ test.describe("Login and logout", () => {
 
     await fixture.page.reload();
 
-    const refreshToken3 = await fixture.getRefreshTokenUsed(
-      listeners3.refresh,
-    );
+    const refreshToken3 = await fixture.getRefreshTokenUsed(listeners3.refresh);
 
     await fixture.resetClock();
     await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
