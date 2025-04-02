@@ -20,17 +20,26 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import messages from "~/messages/talentNominationMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
+import accessors from "~/components/Table/accessors";
+import cells from "~/components/Table/cells";
 
 import { RouteParams } from "./types";
 import {
   nominationsToNominators,
   nominatorsAccessor,
+  nomineeNameCell,
   statusCell,
+  typesAccessor,
 } from "./util";
 
 const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventNominationsTable on TalentNominationGroup {
     id
+    createdAt
+    advancementNominationCount
+    lateralMovementNominationCount
+    developmentProgramsNominationCount
     status {
       value
       label {
@@ -53,6 +62,9 @@ const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
         lastName
       }
     }
+    talentNominationEvent {
+      id
+    }
   }
 `);
 
@@ -65,6 +77,7 @@ interface TalentEventNominationsProps {
 
 const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const talentEventNominations = getFragment(
     TalentEventNominationsTable_Fragment,
@@ -83,19 +96,12 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
         id: "nominee",
         header: intl.formatMessage(messages.nominee),
         sortingFn: normalizedText,
-        // cell: ({
-        //   row: {
-        //     original: { nominee },
-        //   },
-        // }) =>
-        //   candidateNameCell(
-        //     poolCandidate.id,
-        //     paths,
-        //     intl,
-        //     candidateIdsFromFilterData,
-        //     poolCandidate.user.firstName,
-        //     poolCandidate.user.lastName,
-        //   ),
+        cell: ({
+          row: {
+            original: { id, nominee, talentNominationEvent },
+          },
+        }) =>
+          nomineeNameCell(talentNominationEvent.id, id, nominee, paths, intl),
         meta: {
           isRowTitle: true,
         },
@@ -110,12 +116,17 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
           original: { status },
         },
       }) => statusCell(status),
-      enableSorting: false,
     }),
-    columnHelper.accessor(({ id }) => id, {
+    // received is how creation of a TalentNominationGroup is referenced
+    columnHelper.accessor(({ createdAt }) => accessors.date(createdAt), {
       id: "received",
       header: intl.formatMessage(commonMessages.received),
-      enableSorting: false,
+      sortingFn: "datetime",
+      cell: ({
+        row: {
+          original: { createdAt },
+        },
+      }) => cells.date(createdAt, intl),
     }),
     columnHelper.accessor(
       ({ nominations }) =>
@@ -132,14 +143,25 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
       {
         id: "department",
         header: intl.formatMessage(commonMessages.department),
-        enableSorting: false,
       },
     ),
-    columnHelper.accessor(({ id }) => id, {
-      id: "types",
-      header: intl.formatMessage(commonMessages.types),
-      enableSorting: false,
-    }),
+    columnHelper.accessor(
+      ({
+        advancementNominationCount,
+        lateralMovementNominationCount,
+        developmentProgramsNominationCount,
+      }) =>
+        typesAccessor(
+          advancementNominationCount ?? 0,
+          lateralMovementNominationCount ?? 0,
+          developmentProgramsNominationCount ?? 0,
+          intl,
+        ),
+      {
+        id: "types",
+        header: intl.formatMessage(commonMessages.types),
+      },
+    ),
   ] as ColumnDef<TalentEventNominationsTableFragmentType>[];
 
   return (

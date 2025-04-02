@@ -6,9 +6,11 @@ import {
   TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
-import { Chip } from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
+import messages from "~/messages/talentNominationMessages";
 
 import { TalentNominator } from "./types";
 
@@ -60,4 +62,53 @@ export function statusCell(
   }
 
   return null;
+}
+
+export const nomineeNameCell = (
+  eventId: string,
+  nominationGroupId: string,
+  nominee: TalentEventNominationsTableFragmentType["nominee"],
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+) => {
+  const nomineeName = getFullNameLabel(
+    nominee?.firstName,
+    nominee?.lastName,
+    intl,
+  );
+
+  return (
+    <Link href={paths.talentNominationGroupProfile(eventId, nominationGroupId)}>
+      {nomineeName}
+    </Link>
+  );
+};
+
+export function typesAccessor(
+  advancementNominationCount: number,
+  lateralMovementNominationCount: number,
+  developmentProgramsNominationCount: number,
+  intl: IntlShape,
+): string {
+  let arrayOfTypes: string[] = [];
+
+  if (advancementNominationCount > 0) {
+    arrayOfTypes = [
+      ...arrayOfTypes,
+      intl.formatMessage(messages.nominateForAdvancement),
+    ];
+  }
+
+  if (lateralMovementNominationCount > 0) {
+    arrayOfTypes = [
+      ...arrayOfTypes,
+      intl.formatMessage(messages.nominateForLateralMovement),
+    ];
+  }
+
+  if (developmentProgramsNominationCount > 0) {
+    arrayOfTypes = [...arrayOfTypes, intl.formatMessage(messages.development)];
+  }
+
+  return arrayOfTypes.join(", ");
 }

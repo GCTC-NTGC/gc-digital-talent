@@ -1136,6 +1136,7 @@ type TalentNomination {
 
 type TalentNominationGroup {
   id: UUID!
+  createdAt: DateTime
   nominee: BasicGovEmployeeProfile
   nominations: [TalentNomination!]
   talentNominationEvent: TalentNominationEvent!

@@ -31,6 +31,11 @@ const messages = defineMessages({
     id: "W2s794",
     description: "Label for the development program nomination type",
   },
+  development: {
+    defaultMessage: "Development",
+    id: "Kzbu79",
+    description: "Label for the development nomination type",
+  },
   eventName: {
     defaultMessage: "Event name",
     id: "Kbt6SJ",

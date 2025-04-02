@@ -722,6 +722,7 @@ type TalentNomination {
 
 type TalentNominationGroup {
   id: UUID!
+  createdAt: DateTime @rename(attribute: "created_at")
   nominee: BasicGovEmployeeProfile
     @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
