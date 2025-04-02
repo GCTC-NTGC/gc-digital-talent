@@ -23,6 +23,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
+import adminMessages from "~/messages/adminMessages";
 
 import { RouteParams } from "./types";
 import {
@@ -127,6 +128,7 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
           original: { createdAt },
         },
       }) => cells.date(createdAt, intl),
+      enableColumnFilter: false,
     }),
     columnHelper.accessor(
       ({ nominations }) =>
@@ -169,6 +171,10 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
       data={talentEventNominationsData}
       caption={intl.formatMessage(messages.talentNominations)}
       columns={columns}
+      search={{
+        internal: true,
+        label: intl.formatMessage(adminMessages.searchByKeyword),
+      }}
       sort={{
         internal: true,
       }}
