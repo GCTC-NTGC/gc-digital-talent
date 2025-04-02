@@ -45,7 +45,8 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'promotionMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
-            'learningOpportunitiesInterest.*' => ['nullable', Rule::in(array_column(LearningOpportunitiesInterest::cases(), 'name'))],
+            'learningOpportunitiesInterest' => ['nullable', 'array'],
+            'learningOpportunitiesInterest.*' => [Rule::in(array_column(LearningOpportunitiesInterest::cases(), 'name'))],
 
             'eligibleRetirementYearKnown' => ['nullable', 'boolean'],
             'eligibleRetirementYear' => [
