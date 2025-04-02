@@ -134,19 +134,17 @@ const useStatusInfo = (
   return infoMap.get(status) ?? defaultStatusInfo;
 };
 
-const CommunityInterestDialogDevelopmentProgram_Fragment = graphql(
-  /* GraphQL */ `
-    fragment CommunityInterestDialogDevelopmentProgramInterest on DevelopmentProgramInterest {
-      participationStatus
-      completionDate
-    }
-  `,
-);
+const CommunityInterestDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
+  fragment CommunityInterestDevelopmentProgramInterest on DevelopmentProgramInterest {
+    participationStatus
+    completionDate
+  }
+`);
 
 interface DevelopmentProgramInterestItemProps {
   label: string;
   developmentProgramInterestQuery?: FragmentType<
-    typeof CommunityInterestDialogDevelopmentProgram_Fragment
+    typeof CommunityInterestDevelopmentProgram_Fragment
   >;
 }
 
@@ -155,7 +153,7 @@ const DevelopmentProgramInterestItem = ({
   developmentProgramInterestQuery,
 }: DevelopmentProgramInterestItemProps) => {
   const developmentProgramInterest = getFragment(
-    CommunityInterestDialogDevelopmentProgram_Fragment,
+    CommunityInterestDevelopmentProgram_Fragment,
     developmentProgramInterestQuery,
   );
   const { Icon, iconStyles, message } = useStatusInfo(

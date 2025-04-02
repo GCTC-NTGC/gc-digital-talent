@@ -29,7 +29,7 @@ const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
 const PreviewListItemFunctionalCommunityOptions_Fragment = graphql(
   /* GraphQL */ `
     fragment PreviewListItemFunctionalCommunityOptions on Query {
-      ...CommunityInterestDialogOptions
+      ...CommunityInterestOptions
     }
   `,
 );
