@@ -106,8 +106,8 @@ const ReviewAndSubmit = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "When you express interest in job or training opportunities through a functional community, you’re agreeing to share your profile information with recruiters and potential hiring managers. This includes information shared in your profile, your career experience, and your skills portfolio.",
-              id: "mv2nt/",
+                "When you add a functional community to your profile, you agree to share your information with its talent managers, recruiters, and potential hiring managers. This includes your profile information, career experience, and skills portfolio. Your information may be used to connect you with relevant opportunities and gather insights on the functional community’s workforce.",
+              id: "R6kZ1/",
               description:
                 "statement for the 'Review and submit' consent section, paragraph 1",
             })}
