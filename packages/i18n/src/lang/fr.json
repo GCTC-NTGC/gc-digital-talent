@@ -111,6 +111,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
+  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
@@ -803,6 +807,10 @@
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
   },
+  "Vnygk+": {
+    "defaultMessage": "Soumis",
+    "description": "Item's state is submitted"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
@@ -810,6 +818,10 @@
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
+  },
+  "W87tD/": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un grand ministère ou un grand organisme.",
+    "description": "The talent nomination lateral movement option description for large department"
   },
   "W9SXxj": {
     "defaultMessage": "Trier par",
@@ -1067,6 +1079,10 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
+  },
   "fUAej4": {
     "defaultMessage": "Pas d'intérêt",
     "description": "Expressed lack of interest"
@@ -1219,6 +1235,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
   },
+  "kv960y": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
+    "description": "The talent nomination lateral movement option description for central department"
+  },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
@@ -1250,6 +1270,10 @@
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."
+  },
+  "m2cqv9": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un programme au sein d'un autre ministère ou d'un autre organisme.",
+    "description": "The talent nomination lateral movement option description for program experience"
   },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
@@ -1411,6 +1435,14 @@
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
   },
+  "s3u05D": {
+    "defaultMessage": "Nouvelle mise en candidature",
+    "description": "Link text to create a new nomination"
+  },
+  "s7lyFN": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un petit ministère ou un petit organisme.",
+    "description": "The talent nomination lateral movement option description for small department"
+  },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
@@ -1523,6 +1555,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vMc12L": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
+    "description": "The talent nomination lateral movement option description for policy experience"
+  },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
@@ -1538,6 +1574,10 @@
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vrgXIT": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
+    "description": "The talent nomination lateral movement option description for new department"
   },
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",

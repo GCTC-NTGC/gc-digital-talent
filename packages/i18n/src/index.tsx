@@ -50,6 +50,7 @@ import {
   ExecCoachingStatus,
   getExecCoachingStatus,
   getExecCoachingInterest,
+  getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
 } from "./messages/localizedConstants";
 import {
@@ -146,6 +147,7 @@ export {
   ExecCoachingStatus,
   getExecCoachingStatus,
   getExecCoachingInterest,
+  getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
 };
 
