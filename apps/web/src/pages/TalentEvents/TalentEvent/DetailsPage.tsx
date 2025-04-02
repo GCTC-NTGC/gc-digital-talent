@@ -79,8 +79,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Review the details of the event, manage deadlines, and access talent management tools for nominations and talent placement.",
-          id: "ds0NaU",
+            "Review and edit the details of this talent management event.",
+          id: "7E14Li",
           description: "Description for the details of a nomination event",
         })}
       </p>

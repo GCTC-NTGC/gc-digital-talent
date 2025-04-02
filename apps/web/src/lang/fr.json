@@ -1427,6 +1427,10 @@
     "defaultMessage": "Je souhaite recevoir des offres d'emploi au sein de mon groupe et à mon niveau actuels ou au sein d'un groupe et à un niveau équivalents.",
     "description": "The lateral move interest described as interested."
   },
+  "4q/R7/": {
+    "defaultMessage": "Lien pour plus d'informations (français)",
+    "description": "Label for nomination event more information link in French"
+  },
   "4qdoau": {
     "defaultMessage": "Compétence introuvable",
     "description": "Link to suggestions on what to do if you can't find a skill in the skill browser."
@@ -1902,6 +1906,10 @@
   "7DYnwq": {
     "defaultMessage": "Nous avons reçu votre demande",
     "description": "Paragraph one, message to user the request was received"
+  },
+  "7E14Li": {
+    "defaultMessage": "Revoyez et modifiez les détails de l'événement de gestion des talents.",
+    "description": "Description for the details of a nomination event"
   },
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
@@ -2762,6 +2770,10 @@
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
+  },
+  "BisYQJ": {
+    "defaultMessage": "Nom de l'événement (français)",
+    "description": "Label for nomination event name in French"
   },
   "Bkxf6p": {
     "defaultMessage": "Sélectionnez un statut de bassin",
@@ -4367,6 +4379,10 @@
     "defaultMessage": "Questions supplémentaires",
     "description": "Title of additional questions"
   },
+  "JhEMHT": {
+    "defaultMessage": "Date d'ouverture des nominations",
+    "description": "Label for nomination event date to start accepting nominations"
+  },
   "Ji2C9w": {
     "defaultMessage": "Profil linguistique",
     "description": "Title of the Language Information link section"
@@ -5558,6 +5574,10 @@
   "Pn0zAn": {
     "defaultMessage": "Tous",
     "description": "Link text for all items in a list"
+  },
+  "PnHH9A": {
+    "defaultMessage": "Détails de l'événement",
+    "description": "Subheading for nomination event details"
   },
   "PnSSPo": {
     "defaultMessage": "Renseignements manquants",
@@ -7742,6 +7762,10 @@
     "defaultMessage": "Texte de rechange en langage clair",
     "description": "Column header for plain language name in work streams table"
   },
+  "axPXQ9": {
+    "defaultMessage": "Description de l'événement (anglais)",
+    "description": "Label for nomination event description in English"
+  },
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
@@ -8286,6 +8310,10 @@
     "defaultMessage": "Quelles sont les exigences en matière d’études – puis-je présenter une demande si je n’ai pas de diplôme collégial ou universitaire?",
     "description": "Learn more dialog question twelve heading"
   },
+  "dgQIEG": {
+    "defaultMessage": "Lien pour plus d'informations (anglais)",
+    "description": "Label for nomination event more information link in English"
+  },
   "dh2xc5": {
     "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
     "description": "Explanation on how employment equity information will be used, item one"
@@ -8413,6 +8441,10 @@
   "e6hj69": {
     "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
     "description": "Paragraph one, description of the managers community"
+  },
+  "e7vPeZ": {
+    "defaultMessage": "Description de l'événement (français)",
+    "description": "Label for nomination event description in French"
   },
   "e8SFXx": {
     "defaultMessage": "Inscrivez-vous en utilisant CléGC",
@@ -8993,6 +9025,10 @@
   "gV0mRk": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for Functional community value"
+  },
+  "gXF4Rj": {
+    "defaultMessage": "Nom de l'événement (anglais)",
+    "description": "Label for nomination event name in English"
   },
   "gXFpR1": {
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
@@ -10454,6 +10490,10 @@
     "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
     "description": "An item in a list of points about instructor-led classes"
   },
+  "nhqlFu": {
+    "defaultMessage": "Programmes de perfectionnement pertinents",
+    "description": "Label for development programs relevant to a nomination event"
+  },
   "njBzmn": {
     "defaultMessage": "Collectivité fonctionnelle souhaitée",
     "description": "Label for a employee profile desired functional community field"
@@ -10901,6 +10941,10 @@
   "pp+b1H": {
     "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to collapse all experiences"
+  },
+  "pq/4js": {
+    "defaultMessage": "Date de clôture des nominations",
+    "description": "Label for nomination event date to stop accepting nominations"
   },
   "prb1eH": {
     "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. <strong>Si les deux s'appliquent à vous, sélectionnez les critères d'études.</strong>",
