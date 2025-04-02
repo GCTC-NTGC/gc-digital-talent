@@ -178,20 +178,20 @@ test.describe("Login and logout", () => {
     await fixture.jumpPastExpiry(tokenSet1);
 
     // Setup request listeners
-    const listenters1 = fixture.createListeners();
+    const listeners1 = fixture.createListeners();
 
     // Reload page to force refresh
     await fixture.page.reload();
 
     // Get refresh token used
     const refreshToken1 = await fixture.getRefreshTokenUsed(
-      listenters1.refresh,
+      listeners1.refresh,
     );
 
     // Reset clock to avoid unecessary refreshes
     await fixture.resetClock();
 
-    const authHeader1 = await fixture.getAuthHeader(listenters1.graphql);
+    const authHeader1 = await fixture.getAuthHeader(listeners1.graphql);
     await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
 
     const tokenSet2 = await fixture.getTokens();
@@ -204,17 +204,17 @@ test.describe("Login and logout", () => {
 
     //  Repeat steps with the second token set
     await fixture.jumpPastExpiry(tokenSet2);
-    const listenters2 = fixture.createListeners();
+    const listeners2 = fixture.createListeners();
 
     await fixture.page.reload();
 
     const refreshToken2 = await fixture.getRefreshTokenUsed(
-      listenters2.refresh,
+      listeners2.refresh,
     );
 
     await fixture.resetClock();
 
-    const authHeader2 = await fixture.getAuthHeader(listenters2.graphql);
+    const authHeader2 = await fixture.getAuthHeader(listeners2.graphql);
     await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
 
     const tokenSet3 = await fixture.getTokens();
@@ -227,12 +227,12 @@ test.describe("Login and logout", () => {
 
     // Third refresh for good measure
     await fixture.jumpPastExpiry(tokenSet3);
-    const listenters3 = fixture.createListeners();
+    const listeners3 = fixture.createListeners();
 
     await fixture.page.reload();
 
     const refreshToken3 = await fixture.getRefreshTokenUsed(
-      listenters3.refresh,
+      listeners3.refresh,
     );
 
     await fixture.resetClock();
