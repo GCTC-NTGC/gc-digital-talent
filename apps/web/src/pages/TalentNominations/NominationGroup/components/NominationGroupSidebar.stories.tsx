@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import {
   makeFragmentData,
-  NominationGroupSidebarFragment as NominationGroupSidebarFragmentType,
   TalentNominationGroupDecision,
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
@@ -15,26 +14,20 @@ import {
 import NominationGroupSidebar, {
   NominationGroupSidebar_Fragment,
 } from "./NominationGroupSidebar";
-import { NominationGroupSidebarForList_Fragment } from "./NominatedForList";
 
 faker.seed(0);
 
 const fakeDepartment = fakeDepartments()[0];
 fakeDepartment.name.localized = fakeDepartment.name.en;
 
-const talentNominationGroup: NominationGroupSidebarFragmentType = {
+const talentNominationGroup = {
   id: "id-123",
-  ...makeFragmentData(
-    {
-      advancementNominationCount: 3,
-      advancementDecision: { value: TalentNominationGroupDecision.Approved },
-      lateralMovementNominationCount: 1,
-      lateralMovementDecision: {
-        value: TalentNominationGroupDecision.Rejected,
-      },
-    },
-    NominationGroupSidebarForList_Fragment,
-  ),
+  advancementNominationCount: 3,
+  advancementDecision: { value: TalentNominationGroupDecision.Approved },
+  lateralMovementNominationCount: 1,
+  lateralMovementDecision: {
+    value: TalentNominationGroupDecision.Rejected,
+  },
   status: {
     value: TalentNominationGroupStatus.InProgress,
     label: { localized: "In progress" },
