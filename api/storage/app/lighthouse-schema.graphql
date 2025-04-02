@@ -727,6 +727,7 @@ type CommunityInterest {
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 type DevelopmentProgramInterest {
@@ -1818,6 +1819,7 @@ input CreateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -1831,6 +1833,7 @@ input UpdateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input CreateDevelopmentProgramInterestHasMany {

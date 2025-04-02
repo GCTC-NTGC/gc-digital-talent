@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property array $finance_additional_duties
  * @property array $finance_other_roles
  * @property string $finance_other_roles_other
+ * @property bool $consent_to_share_profile
  */
 class CommunityInterest extends Model
 {
