@@ -219,6 +219,16 @@ const messages = defineMessages({
     id: "+365vM",
     description: "Label for community talent",
   },
+  workStreams: {
+    defaultMessage: "Work streams",
+    id: "r5n5qA",
+    description: "Label for work streams",
+  },
+  communities: {
+    defaultMessage: "Communities",
+    id: "ht9CfC",
+    description: "Label for communities",
+  },
 });
 
 export default messages;

@@ -590,6 +590,7 @@ type Mutation {
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
   downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
@@ -726,6 +727,7 @@ type CommunityInterest {
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 type DevelopmentProgramInterest {
@@ -859,6 +861,7 @@ type BasicGovEmployeeProfile {
   lastName: String
   role: String
   department: Department
+  classification: Classification
 }
 
 type GeneralQuestion {
@@ -1100,6 +1103,7 @@ type TalentNomination {
   id: UUID!
   submittedSteps: [TalentNominationStep!]
   talentNominationEvent: TalentNominationEvent!
+  createdAt: DateTime
   submittedAt: DateTime
   submitter: BasicGovEmployeeProfile
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
@@ -1583,6 +1587,19 @@ input ClaimVerificationSort {
 
 input CommunityInterestFilterInput {
   userName: String
+  generalSearch: String
+  communities: [UUID]
+  workStreams: [UUID]
+  poolFilters: [UserPoolFilterInput]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  lateralMoveInterest: Boolean
+  promotionMoveInterest: Boolean
+  languageAbility: LanguageAbility
+  positionDuration: [PositionDuration]
+  locationPreferences: [WorkRegion]
+  operationalRequirements: [OperationalRequirement]
+  skills: [UUID]
 }
 
 input ClassificationBelongsTo {
@@ -1803,6 +1820,7 @@ input CreateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -1816,6 +1834,7 @@ input UpdateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input CreateDevelopmentProgramInterestHasMany {

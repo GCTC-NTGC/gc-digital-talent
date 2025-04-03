@@ -27,8 +27,8 @@ class CiSeeder extends Seeder
             // convenient test data
             CommunityTestSeeder::class,
             TalentNominationEventTestSeeder::class,
-            TalentNominationTestSeeder::class,
             UserTestSeeder::class,
+            TalentNominationTestSeeder::class,
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,

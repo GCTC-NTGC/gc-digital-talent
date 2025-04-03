@@ -320,6 +320,16 @@ const commonMessages = defineMessages({
     id: "SD8i+/",
     description: "Title for received",
   },
+  draft: {
+    defaultMessage: "Draft",
+    id: "fRyPvR",
+    description: "Item's state is draft",
+  },
+  submitted: {
+    defaultMessage: "Submitted",
+    id: "Vnygk+",
+    description: "Item's state is submitted",
+  },
   deadlineToApply: {
     defaultMessage: "Deadline to apply",
     id: "ZoYqEo",
@@ -410,6 +420,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Error: updating account failed.",
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
+  },
+  communityInterest: {
+    defaultMessage: "Community interest",
+    id: "1uBif7",
+    description: "Community interest label",
   },
 });
 

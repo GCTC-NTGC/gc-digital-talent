@@ -44,6 +44,7 @@ class CommunityInterestFactory extends Factory
             'finance_other_roles_other' => fn ($attributes) => in_array(FinanceChiefRole::OTHER->name, $attributes['finance_other_roles'])
                 ? $this->faker->jobTitle()
                 : null,
+            'consent_to_share_profile' => true,
         ];
     }
 

@@ -142,6 +142,7 @@ class CommunityInterestTest extends TestCase
                         ...$this->input,
                         'userId' => $this->applicant->id,
                         'community' => ['connect' => $this->communityId],
+                        'consentToShareProfile' => true,
                         'workStreams' => [
                             'sync' => [
                                 $this->workStreamIds[0],
@@ -179,6 +180,7 @@ class CommunityInterestTest extends TestCase
                 'communityInterest' => [
                     'id' => $communityInterestId,
                     'additionalInformation' => 'new info',
+                    'consentToShareProfile' => true,
                 ],
             ])
             ->assertJson([
@@ -229,6 +231,7 @@ class CommunityInterestTest extends TestCase
                 'communityInterest' => [
                     ...$this->input,
                     'userId' => $otherId,
+                    'consentToShareProfile' => true,
                     'community' => ['connect' => $this->communityId],
                     'workStreams' => ['sync' => $this->workStreamIds],
                 ],
@@ -291,8 +294,7 @@ class CommunityInterestTest extends TestCase
         CommunityInterest::truncate();
         $communityInterestModel = CommunityInterest::factory()->create([
             'community_id' => $this->communityId,
-            'job_interest' => true,
-            'training_interest' => true,
+            'consent_to_share_profile' => true,
         ]);
 
         // these roles cannot see the created model
@@ -359,67 +361,132 @@ class CommunityInterestTest extends TestCase
     public function testCommunityInterestsPaginatedAuthorizedToView(): void
     {
         CommunityInterest::truncate();
-        $communityInterestWithBothInterests = CommunityInterest::factory()->create([
+        $communityInterestWithConsent = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => $this->communityId,
-            'job_interest' => true,
-            'training_interest' => true,
+            'consent_to_share_profile' => true,
         ]);
+        $communityInterestWithoutConsent = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => false,
+        ]);
+        $otherCommunityInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => Community::factory(),
+            'consent_to_share_profile' => true,
+        ]);
+
+        // three records in total
+        assertEquals(3, count(CommunityInterest::all()));
+
+        // one result should be returned in total for both roles
+        // communityInterestWithConsent
+
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestWithConsent->id]);
+
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestWithConsent->id]);
+
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestWithConsent->id]);
+    }
+
+    // test mobility type and mobility interest in community interest filter
+    public function testCommunityInterestFilter(): void
+    {
+        CommunityInterest::truncate();
         $communityInterestWithJobInterest = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
             'job_interest' => true,
             'training_interest' => false,
         ]);
         $communityInterestWithTrainingInterest = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
             'job_interest' => false,
+            'training_interest' => true,
+        ]);
+        $communityInterestWithBothInterests = CommunityInterest::factory()->create([
+            'user_id' => User::factory(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'job_interest' => true,
             'training_interest' => true,
         ]);
         $communityInterestWithNoInterests = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => $this->communityId,
-            'job_interest' => false,
-            'training_interest' => false,
-        ]);
-        $otherCommunityInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
-            'community_id' => Community::factory(),
+            'consent_to_share_profile' => true,
             'job_interest' => false,
             'training_interest' => false,
         ]);
 
-        // five records in total
-        assertEquals(5, count(CommunityInterest::all()));
-
-        // three results should be returned in total for both roles
-        // communityInterestWithBothInterests
-        // communityInterestWithJobInterest
-        // communityInterestWithTrainingInterest
-
-        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
-            $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 3])
-            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
-            ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
-            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
-
+        // Test community interest filter where job interest is true and training interest is false
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 3])
-            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            [
+                'where' => [
+                    'jobInterest' => true,
+                    'trainingInterest' => false,
+                ],
+            ]
+        )->assertJsonFragment(['total' => 2])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
-            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
 
-        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+        // Test community interest filter where job interest is false and training interest is true
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 3])
-            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            [
+                'where' => [
+                    'jobInterest' => false,
+                    'trainingInterest' => true,
+                ],
+            ]
+        )->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+
+        // Test community interest filter where job interest is false and training interest is false
+        // NOTE: Should assert a total of 4 results since we show any user as long as they consented to share their profile
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => false,
+                    'trainingInterest' => false,
+                ],
+            ]
+        )->assertJsonFragment(['total' => 4])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
-            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id]);
+            ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            ->assertJsonFragment(['id' => $communityInterestWithNoInterests->id]);
+
+        // Test community interest filter where job interest is true and training interest is true
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'jobInterest' => true,
+                    'trainingInterest' => true,
+                ],
+            ]
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
     }
 }

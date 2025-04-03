@@ -177,6 +177,7 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -349,6 +350,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   lastName: String @rename(attribute: "last_name")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
+  classification: Classification @belongsTo(relation: "currentClassification")
 }
 
 type GeneralQuestion {
@@ -662,6 +664,7 @@ type TalentNomination {
   id: UUID!
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
+  createdAt: DateTime @rename(attribute: "created_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   submitter: BasicGovEmployeeProfile
     @belongsTo
@@ -1234,6 +1237,19 @@ input ClaimVerificationSort {
 
 input CommunityInterestFilterInput {
   userName: String @scope
+  generalSearch: String @scope
+  communities: [UUID] @scope
+  workStreams: [UUID] @scope
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobInterest: Boolean @scope
+  trainingInterest: Boolean @scope
+  lateralMoveInterest: Boolean @scope
+  promotionMoveInterest: Boolean @scope
+  languageAbility: LanguageAbility @scope
+  positionDuration: [PositionDuration] @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  skills: [UUID] @scope
 }
 
 type Query {
@@ -1783,6 +1799,7 @@ input CreateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -1800,6 +1817,7 @@ input UpdateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -3221,6 +3239,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityInterestUsersCsv(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
 
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard

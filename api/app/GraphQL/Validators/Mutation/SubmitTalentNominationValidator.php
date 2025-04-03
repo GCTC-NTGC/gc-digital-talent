@@ -52,7 +52,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'required_without_all:nominator_fallback_work_email,nominator_fallback_name,nominator_fallback_classification_id,nominator_fallback_department_id',
             ],
             'nominator_review' => [
-                'required_unless:nominator_id,null',
+                Rule::requiredIf(fn () => ! is_null($this->nomination->nominator_id) && $this->nomination->nominator_id !== $this->nomination->submitter_id),
                 'prohibited_if:nominator_id,null',
             ],
             'nominator_fallback_work_email' => [
