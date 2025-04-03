@@ -1,6 +1,7 @@
 import { useQuery } from "urql";
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -13,6 +14,8 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -32,6 +35,11 @@ const TalentNominationGroupDetails_Fragment = graphql(/* GraphQL */ `
     id
     nominations {
       id
+      nominator {
+        firstName
+        lastName
+      }
+      submittedAt
       ...TalentNominationAccordionItem
     }
   }
@@ -56,13 +64,40 @@ const TalentNominationGroupDetails = ({
     TalentNominationGroupDetailsOptions_Fragment,
     optionsQuery,
   );
-  const intl = useIntl();
+
+  // sort nominations by last name, first name, submitted date
+  const talentNominations = unpackMaybes(talentNominationGroup.nominations);
+  talentNominations.sort(
+    (a, b) =>
+      (a.nominator?.lastName?.localeCompare(b.nominator?.lastName ?? "") ??
+        0) ||
+      (a.nominator?.firstName?.localeCompare(b.nominator?.firstName ?? "") ??
+        0) ||
+      (a.submittedAt?.localeCompare(b.submittedAt ?? "") ?? 0),
+  );
 
   // if there's only one then open it, otherwise start closed
-  const openAccordions =
+  const defaultExpandedNominations =
     talentNominationGroup.nominations?.length === 1
       ? [talentNominationGroup.nominations[0].id]
       : [];
+
+  const intl = useIntl();
+  const [expandedNominationsValue, setExpandedNominationsValue] = useState<
+    string[]
+  >(defaultExpandedNominations);
+
+  const toggleExpandedNominationsValue = () => {
+    if (expandedNominationsValue.length > 0) {
+      setExpandedNominationsValue([]);
+    } else {
+      const keys =
+        talentNominationGroup.nominations?.map((nomination) => nomination.id) ??
+        [];
+
+      setExpandedNominationsValue(keys);
+    }
+  };
 
   return (
     <CardForm>
@@ -89,13 +124,27 @@ const TalentNominationGroupDetails = ({
             </Heading>
           </div>
           <div>
-            <Button type="button" mode="inline" color="secondary">
-              {intl.formatMessage(detailTabMessages.expandNominations)}
+            <Button
+              type="button"
+              mode="inline"
+              color="secondary"
+              onClick={toggleExpandedNominationsValue}
+            >
+              {intl.formatMessage(
+                expandedNominationsValue.length > 0
+                  ? detailTabMessages.collapseNominations
+                  : detailTabMessages.expandNominations,
+              )}
             </Button>
           </div>
         </div>
         <CardFormSeparator />
-        <Accordion.Root mode="simple" type="multiple" value={openAccordions}>
+        <Accordion.Root
+          mode="simple"
+          type="multiple"
+          value={expandedNominationsValue}
+          onValueChange={setExpandedNominationsValue}
+        >
           {talentNominationGroup.nominations?.map((nomination) => (
             <TalentNominationAccordionItem
               key={nomination.id}
