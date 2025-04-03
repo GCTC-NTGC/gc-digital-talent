@@ -181,12 +181,7 @@ class UserPolicy
     {
         return CommunityInterest::where('user_id', $user->id)
             ->whereIn('community_id', $communityIds)
-            ->where(function ($query) {
-                $query->orWhere('job_interest', true);
-                $query->orWhere('training_interest', true);
-
-                return $query;
-            })
+            ->where('consent_to_share_profile', true)
             ->exists();
     }
 
