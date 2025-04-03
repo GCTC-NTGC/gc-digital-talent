@@ -58,9 +58,9 @@
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
-    "react-hook-form": "^7.54.2",
+    "react-hook-form": "^7.55.0",
     "react-intl": "^7.1.10",
-    "react-router": "^7.4.0",
+    "react-router": "^7.4.1",
     "react-to-print": "^3.0.5",
     "urql": "^4.2.1"
   },
