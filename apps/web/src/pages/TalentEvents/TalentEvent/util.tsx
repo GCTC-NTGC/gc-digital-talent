@@ -73,16 +73,9 @@ export function statusCell(
 export const nomineeNameCell = (
   eventId: string,
   nominationGroupId: string,
-  nominee: TalentEventNominationsTableFragmentType["nominee"],
+  nomineeName: string,
   paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
 ) => {
-  const nomineeName = getFullNameLabel(
-    nominee?.firstName,
-    nominee?.lastName,
-    intl,
-  );
-
   return (
     <Link href={paths.talentNominationGroupProfile(eventId, nominationGroupId)}>
       {nomineeName}

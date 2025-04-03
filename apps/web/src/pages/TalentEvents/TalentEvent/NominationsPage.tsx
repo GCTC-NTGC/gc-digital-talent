@@ -98,11 +98,11 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
         header: intl.formatMessage(messages.nominee),
         sortingFn: normalizedText,
         cell: ({
+          getValue,
           row: {
-            original: { id, nominee, talentNominationEvent },
+            original: { id, talentNominationEvent },
           },
-        }) =>
-          nomineeNameCell(talentNominationEvent.id, id, nominee, paths, intl),
+        }) => nomineeNameCell(talentNominationEvent.id, id, getValue(), paths),
         meta: {
           isRowTitle: true,
         },
