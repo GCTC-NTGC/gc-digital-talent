@@ -23,10 +23,9 @@ import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
 import CareerTimelineSection from "./CareerTimelineSection";
 
 const subTitle = defineMessage({
-  defaultMessage: "Manage your experience and qualified recruitment processes.",
-  id: "zJKngJ",
-  description:
-    "Description for the Career timeline and recruitment page in applicant profile.",
+  defaultMessage: "Describe your experiences across work, school, and life.",
+  id: "66WkNy",
+  description: "Description for the Career timeline page in applicant profile.",
 });
 
 export type ExperienceForDate =

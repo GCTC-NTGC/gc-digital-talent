@@ -42,9 +42,8 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage:
-    "Learn about GCKey, manage notifications, and update your availability.",
-  id: "WwuIcM",
+  defaultMessage: "Learn about GCKey and manage your notifications.",
+  id: "HR2ouB",
   description: "Subtitle for the account settings page.",
 });
 

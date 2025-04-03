@@ -1739,6 +1739,10 @@
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
   },
+  "66WkNy": {
+    "defaultMessage": "Décrivez vos expériences, au travail, à l’école et dans la vie.",
+    "description": "Description for the Career timeline page in applicant profile."
+  },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
@@ -3986,6 +3990,10 @@
   "HPaQCC": {
     "defaultMessage": "Apprenez-en davantage sur les événements axés sur la promotion des talents, les mutations latérales et le perfectionnement professionnel.",
     "description": "Subtitle for talent management events page"
+  },
+  "HR2ouB": {
+    "defaultMessage": "En savoir plus sur CléGC et gérer vos notifications.",
+    "description": "Subtitle for the account settings page."
   },
   "HRmtdK": {
     "defaultMessage": "Bien que les Procédures obligatoires soient également efficaces, il est possible d’en améliorer la clarté, de réduire la charge de travail des ministères en matière de rapports et de mieux les aligner sur les nouvelles <link>procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels</link> menées par le Bureau du contrôleur général du Canada (BCG).",
