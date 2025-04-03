@@ -12,7 +12,11 @@ class CommunityInterestPolicy
      */
     public function view(User $user, CommunityInterest $communityInterest): bool
     {
-        return $user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id;
+        $communityInterest->loadMissing('community.team');
+
+        return ($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id) ||
+            (! is_null($communityInterest->community->team)
+            && $user->isAbleTo('view-team-communityInterest', $communityInterest->community->team));
     }
 
     /**
