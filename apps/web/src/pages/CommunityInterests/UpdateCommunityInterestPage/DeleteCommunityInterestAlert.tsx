@@ -70,8 +70,8 @@ const DeleteCommunintyInterestAlert = ({
   };
 
   const label = intl.formatMessage({
-    defaultMessage: "Delete community",
-    id: "w8Fhml",
+    defaultMessage: "Remove community",
+    id: "35YecI",
     description: "Button text to delete a community from a users profile",
   });
 
@@ -87,8 +87,8 @@ const DeleteCommunintyInterestAlert = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Are you sure you want to remove the “{communityName}” from your profile?",
-              id: "HkdbNP",
+                "Are you sure you want to remove the {communityName} community from your profile?",
+              id: "WHe63/",
               description:
                 "Title for the deletion confirmation dialog of a community interest",
             },
@@ -102,8 +102,8 @@ const DeleteCommunintyInterestAlert = ({
         <AlertDialog.Description>
           {intl.formatMessage({
             defaultMessage:
-              "By deleting this functional community from your profile, your information will no longer be shared with recruiters and HR staff in this community. You can re-add this community to your profile at any time to opt back in.",
-            id: "AnE0w9",
+              "By removing this functional community, your information will no longer be shared with its talent managers, HR staff, and hiring managers. You can re-add this community to your profile at any time to opt back in.",
+            id: "cl4Ix6",
             description:
               "Description of what deleting a community means for a user",
           })}
