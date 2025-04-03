@@ -40,9 +40,9 @@ class UserPolicy
             ) ||
             count(
                 array_filter(
-                    $this->communitiesUserHasSharedProfileWith($model),
-                    function (string $community) use ($user) {
-                        return $user->isAbleTo('view-team-communityTalent', $community);
+                    $this->teamsUserHasSharedProfileWith($model),
+                    function (string $team) use ($user) {
+                        return $user->isAbleTo('view-team-communityTalent', $team);
                     }
                 )
             ) > 0;
@@ -176,11 +176,11 @@ class UserPolicy
     /*******************  COMMUNITY TALENT QUERIES  *******************/
 
     // a community talent is a user with a community interest and job and/or training interest
-    protected function communitiesUserHasSharedProfileWith(User $user)
+    protected function teamsUserHasSharedProfileWith(User $user)
     {
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
-            ->pluck('community_id')
+            ->pluck('team_id')
             ->toArray();
     }
 
