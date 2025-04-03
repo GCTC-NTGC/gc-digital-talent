@@ -374,7 +374,7 @@ class CommunityInterestTest extends TestCase
         $otherCommunityInterest = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => Community::factory(),
-            'consent_to_share_profile' => false,
+            'consent_to_share_profile' => true,
         ]);
 
         // three records in total
@@ -430,7 +430,7 @@ class CommunityInterestTest extends TestCase
         $communityInterestWithNoInterests = CommunityInterest::factory()->create([
             'user_id' => User::factory(),
             'community_id' => $this->communityId,
-            'consent_to_share_profile' => false,
+            'consent_to_share_profile' => true,
             'job_interest' => false,
             'training_interest' => false,
         ]);
@@ -462,7 +462,7 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
 
         // Test community interest filter where job interest is false and training interest is false
-        // NOTE: Should only assert a total of 3 results since we only show users with at least one of the interests
+        // NOTE: Should assert a total of 4 results since show any user as long as they consented to share their profile
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
@@ -471,7 +471,7 @@ class CommunityInterestTest extends TestCase
                     'trainingInterest' => false,
                 ],
             ]
-        )->assertJsonFragment(['total' => 3])
+        )->assertJsonFragment(['total' => 4])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
