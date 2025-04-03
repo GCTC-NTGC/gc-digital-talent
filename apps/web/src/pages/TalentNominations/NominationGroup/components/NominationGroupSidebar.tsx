@@ -239,8 +239,8 @@ const NominationGroupSidebar = ({
         <div data-h2-padding="base(0 x1.25 x1 x1.25)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
-              defaultMessage: "Nominated By",
-              id: "Xa/6Jp",
+              defaultMessage: "Nominated by",
+              id: "ULsL3v",
               description: "Nominated by header",
             })}
           </p>
@@ -253,8 +253,8 @@ const NominationGroupSidebar = ({
             data-h2-padding-bottom="base(x.25)"
           >
             {intl.formatMessage({
-              defaultMessage: "Nominated For",
-              id: "gg+/9g",
+              defaultMessage: "Nominated for",
+              id: "OODa6h",
               description: "Nominated for header",
             })}
           </p>
