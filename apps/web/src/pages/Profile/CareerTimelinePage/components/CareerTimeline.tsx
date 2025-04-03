@@ -236,15 +236,12 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface CareerTimelineAndRecruitmentProps {
+interface CareerTimelineProps {
   userId: string;
   experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
 }
 
-const CareerTimelineAndRecruitment = ({
-  experiencesQuery,
-  userId,
-}: CareerTimelineAndRecruitmentProps) => {
+const CareerTimeline = ({ experiencesQuery, userId }: CareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const experiences = getFragment(
@@ -262,7 +259,7 @@ const CareerTimelineAndRecruitment = ({
       },
       {
         label: intl.formatMessage(pageTitle),
-        url: paths.careerTimelineAndRecruitment(),
+        url: paths.careerTimeline(),
       },
     ],
   });
@@ -298,9 +295,9 @@ const CareerTimelineAndRecruitment = ({
             {intl.formatMessage({
               defaultMessage:
                 "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-              id: "49MghK",
+              id: "0m3FMH",
               description:
-                "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
+                "Descriptive paragraph for the career timeline page.",
             })}
           </p>
           <div data-h2-margin-top="base(x1)">
@@ -315,4 +312,4 @@ const CareerTimelineAndRecruitment = ({
   );
 };
 
-export default CareerTimelineAndRecruitment;
+export default CareerTimeline;

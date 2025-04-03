@@ -264,11 +264,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
           a1: (chunks: ReactNode) =>
             buildLink(paths.profile(), chunks, "whiteFixed"),
           a2: (chunks: ReactNode) =>
-            buildLink(
-              paths.careerTimelineAndRecruitment(),
-              chunks,
-              "whiteFixed",
-            ),
+            buildLink(paths.careerTimeline(), chunks, "whiteFixed"),
           a3: (chunks: ReactNode) =>
             buildLink(paths.skillPortfolio(), chunks, "whiteFixed"),
           a4: (chunks: ReactNode) =>
@@ -493,7 +489,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             description:
               "Profile and applications card title for career timeline card",
           })}
-          href={paths.careerTimelineAndRecruitment()}
+          href={paths.careerTimeline()}
         >
           <StatusItem
             layout="hero"

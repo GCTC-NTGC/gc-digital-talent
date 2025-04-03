@@ -9,7 +9,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
+import CareerTimeline from "./components/CareerTimeline";
 
 export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   query CareerTimelineExperiences($id: UUID!) {
@@ -22,7 +22,7 @@ export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const CareerTimelineAndRecruitmentPage = () => {
+const CareerTimelinePage = () => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
   const [{ data, fetching, error }] = useQuery({
@@ -33,7 +33,7 @@ const CareerTimelineAndRecruitmentPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.user ? (
-        <CareerTimelineAndRecruitment
+        <CareerTimeline
           userId={data?.user.id}
           experiencesQuery={unpackMaybes(data?.user.experiences)}
         />
@@ -48,10 +48,10 @@ const CareerTimelineAndRecruitmentPage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CareerTimelineAndRecruitmentPage />
+    <CareerTimelinePage />
   </RequireAuth>
 );
 
-Component.displayName = "CareerTimelineAndRecruitmentPage";
+Component.displayName = "CareerTimelinePage";
 
-export default CareerTimelineAndRecruitmentPage;
+export default CareerTimelinePage;
