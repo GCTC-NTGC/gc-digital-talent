@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useFormContext } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
@@ -16,9 +17,10 @@ export interface SubformValues {
 
 interface ReviewAndSubmitProps {
   formDisabled: boolean;
+  actions?: ReactNode;
 }
 
-const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
+const ReviewAndSubmit = ({ formDisabled, actions }: ReviewAndSubmitProps) => {
   const intl = useIntl();
 
   const { watch } = useFormContext<FormValues>();
@@ -144,6 +146,7 @@ const ReviewAndSubmit = ({ formDisabled }: ReviewAndSubmitProps) => {
         data-h2-justify-content="base(flex-end)"
         data-h2-gap="base(x1)"
       >
+        {actions}
         <Submit
           disabled={formDisabled}
           text={intl.formatMessage({
