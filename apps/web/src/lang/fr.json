@@ -967,10 +967,6 @@
     "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
   },
-  "2dpDPq": {
-    "defaultMessage": "Recrutements qualifiés",
-    "description": "Title for qualified recruitments section"
-  },
   "2ekC5r": {
     "defaultMessage": "Groupe de compétences mis à jour avec succès!",
     "description": "Message displayed to user after skillFamily is updated successfully."
@@ -3846,10 +3842,6 @@
   "GYcxDu": {
     "defaultMessage": "Évaluée",
     "description": "Label for assessed metadata"
-  },
-  "GZXf3A": {
-    "defaultMessage": "Gérer le recrutement",
-    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "GZqEuI": {
     "defaultMessage": "Échec de l'ajout de l'utilisateur",
@@ -7597,10 +7589,6 @@
   "ZP1qNK": {
     "defaultMessage": "Nous allons étiqueter les questions de manière à ce que vous sachiez comment vos réponses seront évaluées.",
     "description": "Application step for additional questions, introduction description, paragraph two"
-  },
-  "ZQbSfP": {
-    "defaultMessage": "Lorsqu’une candidature a été évaluée avec succès, le <a>recrutement qualifié sera ajouté à votre parcours professionnel</a> automatiquement afin que les gestionnaires puissent voir vos réalisations.",
-    "description": "Description for the track applications section on the applicant dashboard, paragraph two."
   },
   "ZTlEei": {
     "defaultMessage": "Message (Français)",
@@ -11929,10 +11917,6 @@
   "utS0s1": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
     "description": "Title for admin dashboard on the talent cloud admin portal."
-  },
-  "utl6O/": {
-    "defaultMessage": "Gérer le recrutement {title}",
-    "description": "Link text to direct a user to the recruitment section on the career timeline page"
   },
   "utlf9l": {
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",

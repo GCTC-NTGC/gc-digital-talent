@@ -7,7 +7,6 @@ import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { ReactNode, ReactElement } from "react";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -42,9 +41,7 @@ import {
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/constants/sections/userProfile";
-import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 import experienceMessages from "~/messages/experienceMessages";
-import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 function buildLink(
   href: string,
@@ -213,7 +210,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const user = getFragment(DashboardHeadingUser_Fragment, userQuery);
 
   const notEmptyExperiences = unpackMaybes(user.experiences);
-  const notEmptyApplications = unpackMaybes(user.poolCandidates);
 
   const awardExperiences = notEmptyExperiences?.filter(isAwardExperience) || [];
   const communityExperiences =
@@ -532,24 +528,6 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             title={intl.formatMessage(experienceMessages.award)}
             itemCount={awardExperiences?.length}
             icon={StarIcon}
-          />
-          <StatusItem
-            layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Qualified recruitments",
-              id: "2dpDPq",
-              description: "Title for qualified recruitments section",
-            })}
-            itemCount={
-              notEmptyApplications.filter((application) =>
-                isQualifiedStatus(application.status?.value),
-              ).length
-            }
-            icon={ShieldCheckIcon}
-            href={paths.careerTimelineAndRecruitment({
-              section:
-                CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
-            })}
           />
         </HeroCard>
         <HeroCard
