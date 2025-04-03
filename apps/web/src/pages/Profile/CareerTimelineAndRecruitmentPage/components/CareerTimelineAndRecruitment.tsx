@@ -1,8 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import { TableOfContents, Heading, Link } from "@gc-digital-talent/ui";
+import { TableOfContents, Heading } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import {
   AwardExperience,
@@ -20,10 +19,8 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
-import { QualifiedRecruitmentCardCategories_Fragment } from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 
 import CareerTimelineSection from "./CareerTimelineSection";
-import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
 const subTitle = defineMessage({
   defaultMessage: "Manage your experience and qualified recruitment processes.",
@@ -235,43 +232,13 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
-  fragment CareerTimelineApplication on PoolCandidate {
-    ...QualifiedRecruitmentsCandidate
-    id
-    status {
-      value
-    }
-    archivedAt
-    submittedAt
-    suspendedAt
-    pool {
-      id
-      closingDate
-      name {
-        en
-        fr
-      }
-      publishingGroup {
-        value
-      }
-    }
-  }
-`);
-
 interface CareerTimelineAndRecruitmentProps {
   userId: string;
   experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
-  applicationsQuery: FragmentType<typeof CareerTimelineApplication_Fragment>[];
-  categoriesQuery: FragmentType<
-    typeof QualifiedRecruitmentCardCategories_Fragment
-  >;
 }
 
 const CareerTimelineAndRecruitment = ({
   experiencesQuery,
-  applicationsQuery,
-  categoriesQuery,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
@@ -279,10 +246,6 @@ const CareerTimelineAndRecruitment = ({
   const experiences = getFragment(
     CareerTimelineExperience_Fragment,
     experiencesQuery,
-  );
-  const applications = getFragment(
-    CareerTimelineApplication_Fragment,
-    applicationsQuery,
   );
 
   const crumbs = useBreadcrumbs({
@@ -316,13 +279,6 @@ const CareerTimelineAndRecruitment = ({
                   {intl.formatMessage(titles.manageYourCareerTimeline)}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
-                >
-                  {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
@@ -353,42 +309,6 @@ const CareerTimelineAndRecruitment = ({
                   userId={userId}
                 />
               </div>
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES}
-              data-h2-margin="base(x3, 0, 0, 0)"
-            >
-              <div data-h2-flex-grid="base(center, x1, x1)">
-                <Heading
-                  Icon={IdentificationIcon}
-                  color="secondary"
-                  data-h2-font-weight="base(400)"
-                  size="h3"
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                >
-                  {intl.formatMessage(titles.qualifiedRecruitmentProcesses)}
-                </Heading>
-                <Link
-                  href={paths.browsePools()}
-                  data-h2-flex-item="base(1of1) p-tablet(content)"
-                  mode="inline"
-                >
-                  {intl.formatMessage(navigationMessages.browseJobs)}
-                </Link>
-              </div>
-              <p data-h2-margin="base(x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",
-                  id: "4r4MJP",
-                  description:
-                    "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
-                })}
-              </p>
-              <QualifiedRecruitmentsSection
-                applicationsQuery={[...applications]}
-                categoriesQuery={categoriesQuery}
-              />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

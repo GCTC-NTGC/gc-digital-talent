@@ -103,12 +103,6 @@ test.describe("Profile Page", () => {
           level: 2,
         }),
       ).toBeVisible();
-      await expect(
-        appPage.page.getByRole("heading", {
-          name: "Qualified recruitment processes",
-          level: 2,
-        }),
-      ).toBeVisible();
     });
   });
 });

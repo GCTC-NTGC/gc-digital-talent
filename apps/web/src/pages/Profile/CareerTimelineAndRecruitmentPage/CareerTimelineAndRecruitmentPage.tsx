@@ -18,11 +18,7 @@ export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
       experiences {
         ...CareerTimelineExperience
       }
-      poolCandidates {
-        ...CareerTimelineApplication
-      }
     }
-    ...QualifiedRequirementCardCategories
   }
 `);
 
@@ -40,8 +36,6 @@ const CareerTimelineAndRecruitmentPage = () => {
         <CareerTimelineAndRecruitment
           userId={data?.user.id}
           experiencesQuery={unpackMaybes(data?.user.experiences)}
-          applicationsQuery={unpackMaybes(data?.user.poolCandidates)}
-          categoriesQuery={data}
         />
       ) : (
         <ThrowNotFound
