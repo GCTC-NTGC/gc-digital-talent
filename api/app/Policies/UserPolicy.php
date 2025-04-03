@@ -38,15 +38,14 @@ class UserPolicy
                     $user->rolesTeams()->get()->pluck('id')
                 )
             ) ||
-            ($user->isAbleTo('view-team-communityTalent')
-                && $this->userIsACommunityTalentInCommunities(
-                    $model,
-                    $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->pluck('teamable_id')
-                        ->toArray(),
+            count(
+                array_filter(
+                    $this->communitiesUserHasSharedProfileWith($model),
+                    function (string $community) use ($user) {
+                        return $user->isAbleTo('view-team-communityTalent', $community);
+                    }
                 )
-            );
+            ) > 0;
     }
 
     /**
@@ -177,12 +176,12 @@ class UserPolicy
     /*******************  COMMUNITY TALENT QUERIES  *******************/
 
     // a community talent is a user with a community interest and job and/or training interest
-    protected function userIsACommunityTalentInCommunities(User $user, $communityIds)
+    protected function communitiesUserHasSharedProfileWith(User $user)
     {
         return CommunityInterest::where('user_id', $user->id)
-            ->whereIn('community_id', $communityIds)
             ->where('consent_to_share_profile', true)
-            ->exists();
+            ->pluck('community_id')
+            ->toArray();
     }
 
     /*******************  ROLE CHECKING  *******************/
