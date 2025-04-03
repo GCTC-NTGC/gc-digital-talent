@@ -64,6 +64,10 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      currentClassification {
+        group
+        level
+      }
     }
     advancementReferenceFallbackWorkEmail
     advancementReferenceFallbackName
