@@ -63,6 +63,7 @@ final class UpdateCommunityInterestInputValidator extends Validator
                     ['prohibited']
                 ),
             ],
+            'consentToShareProfile' => ['accepted'],
         ];
     }
 
