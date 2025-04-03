@@ -88,32 +88,56 @@ const NominationGroupSidebar = ({
   );
 
   // set the styling colours of the status bar and button
-  const statusColours = {
-    textBox: "base(success.lightest) base:dark(success.lightest)",
-    border: "base(success.darker) base:dark(success.darker)",
-    text: "base(success.darker) base:dark(success.darker)",
-    buttonBox: "base(success.darker) base:dark(success.darker)",
-    button: "base(success.lightest) base:dark(success.lightest)",
+  let statusTextboxColours;
+  let statusButtonColours;
+  const approvedStatusTextboxColours = {
+    "data-h2-background-color":
+      "base(success.lightest) base:dark(success.lightest)",
+    "data-h2-border-color": "base(success.darker) base:dark(success.darker)",
+    "data-h2-color": "base(success.darker) base:dark(success.darker)",
   };
+  const approvedStatusButtonColours = {
+    "data-h2-background-color":
+      "base(success.darkest) base:dark(success.darkest)",
+    "data-h2-color": "base(success.lightest) base:dark(success.lightest)",
+  };
+
+  const inProgressStatusTextboxColours = {
+    "data-h2-background-color":
+      "base(secondary.lightest) base:dark(secondary.lightest)",
+    "data-h2-border-color": "base(secondary.dark) base:dark(secondary.dark)",
+    "data-h2-color": "base(secondary.darkest) base:dark(secondary.dark)",
+  };
+  const inProgressStatusButtonColours = {
+    "data-h2-background-color":
+      "base(secondary.darkest) base:dark(secondary.darkest)",
+    "data-h2-color": "base(secondary.lightest) base:dark(secondary.lightest)",
+  };
+
+  const rejectedStatusTextboxColours = {
+    "data-h2-background-color":
+      "base(error.lightest) base:dark(error.lightest)",
+    "data-h2-border-color": "base(error.darker) base:dark(error.darker)",
+    "data-h2-color": "base(error.darker) base:dark(error.darker)",
+  };
+  const rejectedStatusButtonColours = {
+    "data-h2-background-color": "base(error.darkest) base:dark(error.darkest)",
+    "data-h2-color": "base(error.lightest) base:dark(error.lightest)",
+  };
+
+  statusTextboxColours = approvedStatusTextboxColours;
+  statusButtonColours = approvedStatusButtonColours;
   if (
     talentNominationGroup.status?.value ===
     TalentNominationGroupStatus.InProgress
   ) {
-    statusColours.textBox =
-      "base(secondary.lightest) base:dark(secondary.lightest)";
-    statusColours.border = "base(secondary.dark) base:dark(secondary.dark)";
-    statusColours.text = "base(secondary.darkest) base:dark(secondary.dark)";
-    statusColours.buttonBox = "base(secondary.dark) base:dark(secondary.dark)";
-    statusColours.button =
-      "base(secondary.lightest) base:dark(secondary.lightest)";
+    statusTextboxColours = inProgressStatusTextboxColours;
+    statusButtonColours = inProgressStatusButtonColours;
   } else if (
     talentNominationGroup.status?.value === TalentNominationGroupStatus.Rejected
   ) {
-    statusColours.textBox = "base(error.lightest) base:dark(error.lightest)";
-    statusColours.border = "base(error.darker) base:dark(error.darker)";
-    statusColours.text = "base(error.darker) base:dark(error.darker)";
-    statusColours.buttonBox = "base(error.darker) base:dark(error.darker)";
-    statusColours.button = "base(error.lightest) base:dark(error.lightest)";
+    statusTextboxColours = rejectedStatusTextboxColours;
+    statusButtonColours = rejectedStatusButtonColours;
   }
 
   return (
@@ -168,15 +192,19 @@ const NominationGroupSidebar = ({
               data-h2-padding="base(x.5 x4 x.5 x.5) p-tablet(x.5 x7 x.5 x.5) l-tablet(x.5 x1 x.5 x.5) desktop(x.5 x2 x.5 x.5)"
               data-h2-width="base(50%) l-tablet(75%)"
               data-h2-radius="base(x.375 0 0 x.375)"
-              data-h2-background-color={statusColours.textBox}
+              data-h2-background-color={
+                statusTextboxColours["data-h2-background-color"]
+              }
               data-h2-border="base(1px solid)"
-              data-h2-border-color={statusColours.border}
+              data-h2-border-color={
+                statusTextboxColours["data-h2-border-color"]
+              }
             >
               <span
                 data-h2-margin-top="base(x.1)"
                 data-h2-font-weight="base(700)"
                 data-h2-vertical-align="base(middle)"
-                data-h2-color={statusColours.text}
+                data-h2-color={statusTextboxColours["data-h2-color"]}
               >
                 {talentNominationGroup.status?.label.localized ??
                   intl.formatMessage(commonMessages.notAvailable)}
@@ -185,12 +213,14 @@ const NominationGroupSidebar = ({
             <div
               data-h2-padding="base(x.375 x.375 x.375 x.375)"
               data-h2-radius="base(0 x.375 x.375 0)"
-              data-h2-background-color={statusColours.buttonBox}
+              data-h2-background-color={
+                statusButtonColours["data-h2-background-color"]
+              }
             >
               {/* Dialog goes here */}
               <Button
                 data-h2-margin-top="base(x.1)"
-                data-h2-color={statusColours.button}
+                data-h2-color={statusButtonColours["data-h2-color"]}
                 icon={PencilSquareIcon}
                 mode={"icon_only"}
                 fontSize="h4"
