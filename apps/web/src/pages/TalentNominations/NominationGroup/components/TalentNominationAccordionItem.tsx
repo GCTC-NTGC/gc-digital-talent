@@ -64,7 +64,7 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      currentClassification {
+      classification {
         group
         level
       }
@@ -353,7 +353,10 @@ const TalentNominationAccordionItem = ({
                       )}
                     >
                       {(advancementReferenceIsAUser
-                        ? intl.formatMessage(commonMessages.notFound) // TODO
+                        ? formatMaybeClassificationString(
+                            talentNomination.advancementReference
+                              ?.classification,
+                          )
                         : formatMaybeClassificationString(
                             talentNomination.advancementReferenceFallbackClassification,
                           )) ?? intl.formatMessage(commonMessages.notFound)}
