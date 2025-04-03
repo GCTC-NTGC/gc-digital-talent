@@ -95,7 +95,7 @@ describe("ApplicationCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
