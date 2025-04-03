@@ -177,6 +177,7 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -1797,6 +1798,7 @@ input CreateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -1814,6 +1816,7 @@ input UpdateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
