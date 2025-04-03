@@ -462,7 +462,7 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
 
         // Test community interest filter where job interest is false and training interest is false
-        // NOTE: Should assert a total of 4 results since show any user as long as they consented to share their profile
+        // NOTE: Should assert a total of 4 results since we show any user as long as they consented to share their profile
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
@@ -474,7 +474,8 @@ class CommunityInterestTest extends TestCase
         )->assertJsonFragment(['total' => 4])
             ->assertJsonFragment(['id' => $communityInterestWithJobInterest->id])
             ->assertJsonFragment(['id' => $communityInterestWithTrainingInterest->id])
-            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+            ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id])
+            ->assertJsonFragment(['id' => $communityInterestWithNoInterests->id]);
 
         // Test community interest filter where job interest is true and training interest is true
         $this->actingAs($this->communityAdmin, 'api')->graphQL(
