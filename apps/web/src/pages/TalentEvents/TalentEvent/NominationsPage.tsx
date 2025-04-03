@@ -231,8 +231,8 @@ const TalentEventNominationsPage = () => {
       <p data-h2-margin-bottom="base(x1.5)">
         {intl.formatMessage({
           defaultMessage:
-            'Manage and action nominations received from managers and executives. Nominations will arrive as "Unassigned", from which you can choose to assign them to team members to triage and assess. When approved, a nomination will automatically add the candidate to the candidates table for you to talent manage.',
-          id: "1Q6Elv",
+            "View and manage all the nominations received for this talent management event.",
+          id: "Q9yLca",
           description: "Talent nominations table page, table information",
         })}
       </p>
