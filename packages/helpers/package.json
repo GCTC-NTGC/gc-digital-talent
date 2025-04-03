@@ -17,13 +17,13 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "graphql": "^16.10.0",
     "lodash": "^4.17.21",
-    "react": "^18.3.1",
+    "react": "^19.1.0",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/lodash": "^4.17.16",
-    "@types/react": "^18.3.13",
+    "@types/react": "^19.1.0",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*"
   }
