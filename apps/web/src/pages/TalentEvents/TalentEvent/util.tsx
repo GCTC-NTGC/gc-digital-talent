@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 import { JSX } from "react";
 
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
   TalentNominationGroupStatus,
@@ -17,13 +17,12 @@ import { TalentNominator } from "./types";
 export function nominationsToNominators(
   nominations: TalentEventNominationsTableFragmentType["nominations"],
 ): TalentNominator[] {
-  const nominationsFiltered = nominations?.filter(notEmpty) ?? [];
+  const nominationsFiltered = unpackMaybes(nominations);
   const nominators = nominationsFiltered.map(
     (nomination) => nomination?.nominator,
   );
-  const nominatorsFiltered = nominators?.filter(notEmpty) ?? [];
 
-  return nominatorsFiltered;
+  return unpackMaybes(nominators);
 }
 
 export function nominatorsAccessor(
