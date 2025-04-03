@@ -248,7 +248,7 @@ const TalentNominationAccordionItem = ({
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
-      <Accordion.Trigger>
+      <Accordion.Trigger as="h3">
         {intl.formatMessage(
           {
             defaultMessage: "Nominated by {name}",
@@ -304,6 +304,7 @@ const TalentNominationAccordionItem = ({
             <Accordion.Root mode="simple" type="multiple">
               <Accordion.Item value="Secondary reference for advancement">
                 <Accordion.Trigger
+                  as="h4"
                   subtitle={intl.formatMessage({
                     defaultMessage:
                       "A nomination for advancement requires that the nominator provide a secondary reference. If the reference’s work email matched a profile on the platform, we used their most recent information. If we couldn’t find a match, the nominator provided basic contact information.",
@@ -381,6 +382,7 @@ const TalentNominationAccordionItem = ({
             <Accordion.Root mode="simple" type="multiple">
               <Accordion.Item value="Lateral movement options">
                 <Accordion.Trigger
+                  as="h4"
                   subtitle={intl.formatMessage({
                     defaultMessage:
                       "A nomination for lateral movement requires the nominator to recommend one or more types of experience for the nominee.",
@@ -447,6 +449,7 @@ const TalentNominationAccordionItem = ({
             <Accordion.Root mode="simple" type="multiple">
               <Accordion.Item value="Development program recommendations">
                 <Accordion.Trigger
+                  as="h4"
                   subtitle={intl.formatMessage({
                     defaultMessage:
                       "A nomination for development programs requires the nominator to select which of the training and development programs offered by the functional community would benefit the nominee.",
