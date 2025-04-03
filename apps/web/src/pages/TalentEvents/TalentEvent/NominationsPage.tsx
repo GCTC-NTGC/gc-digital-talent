@@ -224,6 +224,7 @@ const TalentEventNominationsPage = () => {
       <Heading
         Icon={EnvelopeOpenIcon}
         color="primary"
+        data-h2-margin-top="base(0)"
         data-h2-margin-bottom="base(x1)"
       >
         {intl.formatMessage(messages.talentNominations)}
