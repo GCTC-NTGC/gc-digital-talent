@@ -20,7 +20,7 @@ import TalentNominationEventCard from "~/components/TalentNominationEventCard/Ta
 
 const TalentManagementEventsPage_Query = graphql(/* GraphQL */ `
   query TalentManagementEventsPage {
-    activeEvents: talentNominationEvents(status: ACTIVE) {
+    activeEvents: talentNominationEvents(where: { status: ACTIVE }) {
       id
       ...TalentNominationEventCard
     }

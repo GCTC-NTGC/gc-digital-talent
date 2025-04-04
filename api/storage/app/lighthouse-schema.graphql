@@ -298,6 +298,11 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationEventStatus {
+  value: TalentNominationEventStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTalentNominationGroupDecision {
   value: TalentNominationGroupDecision!
   label: LocalizedString!
@@ -385,7 +390,7 @@ type Query {
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
-  talentNominationEvents(status: TalentNominationEventStatus): [TalentNominationEvent]!
+  talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
   talentNominationGroup(id: UUID!): TalentNominationGroup
@@ -1104,6 +1109,7 @@ type TalentNominationEvent {
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {
@@ -2552,6 +2558,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean
   readAt: DateRange
   createdAt: DateRange
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus
+  canManage: Boolean
 }
 
 input ConnectJobPosterTemplateSkillInput {
