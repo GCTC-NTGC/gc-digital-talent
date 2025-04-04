@@ -1,17 +1,12 @@
 import { test, expect } from "~/fixtures";
-import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
-import ClockHelper from "~/utils/clock";
+import AuthTokenFixture from "~/fixtures/AuthTokenFixture";
+import { getAuthTokens, loginBySub } from "~/utils/auth";
 import { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
-  let clockHelper: ClockHelper;
-
-  test.beforeEach(async ({ page, context }) => {
-    // Arrange
-    clockHelper = new ClockHelper(page, context);
-    await clockHelper.setupFakeTimers();
+  test.beforeEach(async ({ page }) => {
+    await page.clock.setSystemTime(Date.now());
   });
-
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
@@ -105,42 +100,39 @@ test.describe("Login and logout", () => {
       }),
     ).toBeVisible();
   });
+
   test("refresh the token", async ({ page }) => {
-    const requestPromise = page.waitForRequest(
-      (request) =>
-        request.url().includes("/refresh") && request.method() === "GET",
-    );
-
     await loginBySub(page, "applicant@test.com", false);
+    const fixture = new AuthTokenFixture(page);
 
-    // time travel to when the tokens expire before trying to navigate
-    const tokenSet1 = await getAuthTokens(page);
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
+    // Get tokens and set clock
+    const tokenSet1 = await fixture.getTokens();
+    await fixture.jumpPastExpiry(tokenSet1);
 
-    const request = await requestPromise;
-    await page.goto("/en/applicant");
-    const refreshToken = new URL(request.url()).searchParams.get(
-      "refresh_token",
+    // Create listeners to intercept requests
+    const listeners = fixture.createListeners();
+
+    await fixture.page.reload();
+
+    const refreshTokenUsed = await fixture.getRefreshTokenUsed(
+      listeners.refresh,
     );
+
+    await fixture.resetClock();
+
+    const authorizationHeader = await fixture.getAuthHeader(listeners.graphql);
+
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const newTokens = await fixture.getTokens();
 
     // expect an immediate refresh
-    expect(tokenSet1.refreshToken).toEqual(refreshToken);
+    expect(tokenSet1.refreshToken).toEqual(refreshTokenUsed);
 
-    const tokenSet2 = await getAuthTokens(page);
-    // get ready to catch the first API request after refresh1
-    const authorization = await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((res) => res.headerValue("authorization"));
     // make sure it uses the second access token
-    expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
+    expect(authorizationHeader).toEqual(`Bearer ${newTokens.accessToken}`);
   });
+
   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
   test("share the refresh", async ({ page, context }) => {
     await loginBySub(page, "applicant@test.com", false);
@@ -171,101 +163,79 @@ test.describe("Login and logout", () => {
         );
       });
   });
+
   // will log in, do a token refresh, and do a second token refresh from that
   test("chain two refreshes", async ({ page }) => {
-    const requestPromise = page.waitForRequest(
-      (request) =>
-        request.url().includes("/refresh") && request.method() === "GET",
-    );
-
     // log in
-    await loginBySub(page, "applicant@test.com", false);
+    await loginBySub(page, "applicant-employee@test.com", false);
+
+    const fixture = new AuthTokenFixture(page);
 
     // get auth tokens set 1
-    const tokenSet1 = await getAuthTokens(page);
-    // time travel to when the tokens from token set 1 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1?.accessToken ?? ""));
+    const tokenSet1 = await fixture.getTokens();
 
-    const request = await requestPromise;
-    // navigate to a page
-    await page.goto("/en/applicant");
-    // get refresh token 1 from request 1 URL
-    const refreshToken1 = new URL(request.url()).searchParams.get(
-      "refresh_token",
-    );
+    // Time travel past the expiry date of token set 1
+    await fixture.jumpPastExpiry(tokenSet1);
+
+    // Setup request listeners
+    const listeners1 = fixture.createListeners();
+
+    // Reload page to force refresh
+    await fixture.page.reload();
+
+    // Get refresh token used
+    const refreshToken1 = await fixture.getRefreshTokenUsed(listeners1.refresh);
+
+    // Reset clock to avoid unnecessary refreshes
+    await fixture.resetClock();
+
+    const authHeader1 = await fixture.getAuthHeader(listeners1.graphql);
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const tokenSet2 = await fixture.getTokens();
+
     // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
     expect(tokenSet1.refreshToken).toEqual(refreshToken1);
 
-    // get auth tokens set 2
-    const tokenSet2 = await getAuthTokens(page);
+    // make sure it uses the second access token
+    expect(authHeader1).toEqual(`Bearer ${tokenSet2.accessToken}`);
 
-    // get ready to catch the next graphql request
-    await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((req) => {
-        // make sure it uses the second access token
-        expect(req.headers().authorization).toEqual(
-          `Bearer ${tokenSet2.accessToken}`,
-        );
-      });
+    //  Repeat steps with the second token set
+    await fixture.jumpPastExpiry(tokenSet2);
+    const listeners2 = fixture.createListeners();
 
-    // reset clock
-    await clockHelper.restore();
-    // time travel to when the tokens from token set 2 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2?.accessToken ?? ""));
+    await fixture.page.reload();
 
-    const request2 = await requestPromise;
-    // navigate to a page
-    await page.goto("/en/applicant");
-    // get refresh token 2 from request URL
-    const refreshToken2 = new URL(request2.url()).searchParams.get(
-      "refresh_token",
-    );
-    // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
+    const refreshToken2 = await fixture.getRefreshTokenUsed(listeners2.refresh);
+
+    await fixture.resetClock();
+
+    const authHeader2 = await fixture.getAuthHeader(listeners2.graphql);
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
+    const tokenSet3 = await fixture.getTokens();
+
+    // Compare first refresh token to one used in second refresh
     expect(tokenSet2.refreshToken).toEqual(refreshToken2);
 
-    // get auth tokens set 3
-    const tokenSet3 = await getAuthTokens(page);
+    // make sure it uses the second access token
+    expect(authHeader2).toEqual(`Bearer ${tokenSet3.accessToken}`);
 
-    // get ready to catch the next graphql request
-    await page
-      .waitForRequest(async (req) => {
-        if (req.url()?.includes("/graphql")) {
-          const reqJson =
-            (await req?.postDataJSON()) as GraphQLOperation | null;
-          return typeof reqJson?.operationName !== "undefined";
-        }
-        return false;
-      })
-      .then((req) => {
-        // make sure it uses the third access token
-        expect(req.headers().authorization).toEqual(
-          `Bearer ${tokenSet3.accessToken}`,
-        );
-      });
+    // Third refresh for good measure
+    await fixture.jumpPastExpiry(tokenSet3);
+    const listeners3 = fixture.createListeners();
 
-    // reset clock
-    await clockHelper.restore();
-    // time travel to when the tokens from token set 3 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3?.accessToken ?? ""));
+    await fixture.page.reload();
 
-    const request3 = await requestPromise;
-    // navigate to a page
-    await page.goto("/en/applicant");
-    // get refresh token 3 from request URL
-    const refreshToken3 = new URL(request3.url()).searchParams.get(
-      "refresh_token",
-    );
+    const refreshToken3 = await fixture.getRefreshTokenUsed(listeners3.refresh);
+
+    await fixture.resetClock();
+    await expect(fixture.page.getByRole("heading", { level: 1 })).toBeVisible();
+
     // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
     expect(tokenSet3.refreshToken).toEqual(refreshToken3);
   });
+
   test("log out", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
