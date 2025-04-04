@@ -87,8 +87,8 @@ const DeleteCommunintyInterestAlert = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Are you sure you want to remove the {communityName} community from your profile?",
-              id: "WHe63/",
+                "Are you sure you want to remove the {communityName} from your profile?",
+              id: "nM+Vlp",
               description:
                 "Title for the deletion confirmation dialog of a community interest",
             },
