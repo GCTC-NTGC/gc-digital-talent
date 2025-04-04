@@ -1,9 +1,21 @@
 import { useIntl } from "react-intl";
+import { JSX } from "react";
 
 import { NominationGroupSidebarFragment as NominationGroupSidebarFragmentType } from "@gc-digital-talent/graphql";
-import { insertBetween } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+
+// effectively insertBetween(), but specialized specifically for the purpose of unique key values
+const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
+  return arr.reduce<JSX.Element[]>((prev, curr, i) => {
+    if (i > 0) {
+      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+      prev.push(<span key={i}>, </span>);
+    }
+    prev.push(curr);
+    return prev;
+  }, []);
+};
 
 interface NominatorListProps {
   talentNominations: NominationGroupSidebarFragmentType["nominations"];
@@ -33,11 +45,7 @@ const NominatorList = ({ talentNominations }: NominatorListProps) => {
       )}
     </span>
   ));
-  const nominatorListCommaSeparated = insertBetween(
-    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-    <span>, </span>,
-    nominatorsList,
-  );
+  const nominatorListCommaSeparated = commaSeparator(nominatorsList);
 
   return <>{nominatorListCommaSeparated}</>;
 };
