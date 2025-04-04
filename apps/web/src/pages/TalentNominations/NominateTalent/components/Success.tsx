@@ -92,7 +92,7 @@ const Success = ({ successQuery }: SuccessProps) => {
         )}
       </p>
       <p data-h2-margin="base(x1 0)">
-        <Link href="" mode="solid" color="secondary">
+        <Link href={paths.applicantDashboard()} mode="solid" color="secondary">
           {intl.formatMessage(navigationMessages.returnToDashboard)}
         </Link>
       </p>

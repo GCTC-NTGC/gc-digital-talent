@@ -4,15 +4,15 @@ import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
 
-import CommunityInterestDialog, {
-  CommunityInterestDialog_Fragment,
-  CommunityInterestDialogOptions_Fragment,
-} from "./CommunityInterestDialog";
+import CommunityInterest, {
+  CommunityInterest_Fragment,
+  CommunityInterestOptions_Fragment,
+} from "../CommunityInterest/CommunityInterest";
 
 const meta = {
-  component: CommunityInterestDialog,
+  component: CommunityInterest,
   decorators: [OverlayOrDialogDecorator],
-} satisfies Meta<typeof CommunityInterestDialog>;
+} satisfies Meta<typeof CommunityInterest>;
 
 export default meta;
 
@@ -23,7 +23,7 @@ const communityInterestQuery = makeFragmentData(
     jobInterest: false,
     trainingInterest: true,
   },
-  CommunityInterestDialog_Fragment,
+  CommunityInterest_Fragment,
 );
 const communityInterestOptionsQuery = makeFragmentData(
   {
@@ -36,14 +36,13 @@ const communityInterestOptionsQuery = makeFragmentData(
       { value: "2", label: { localized: "Role 2" } },
     ],
   },
-  CommunityInterestDialogOptions_Fragment,
+  CommunityInterestOptions_Fragment,
 );
 
-export const Default: StoryObj<typeof CommunityInterestDialog> = {
+export const Default: StoryObj<typeof CommunityInterest> = {
   render: () => (
-    <CommunityInterestDialog
+    <CommunityInterest
       communityInterestQuery={communityInterestQuery}
-      defaultOpen
       communityInterestOptionsQuery={communityInterestOptionsQuery}
     />
   ),

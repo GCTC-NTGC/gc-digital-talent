@@ -111,6 +111,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
+  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
@@ -150,6 +154,10 @@
   "3Nd6dv": {
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
+  },
+  "3PQs15": {
+    "defaultMessage": "Les possibilités d'échange m'intéressent",
+    "description": "Interest label for interchange opportunities."
   },
   "3SDRDg": {
     "defaultMessage": "Parcourir la bibliothèque de compétences",
@@ -214,6 +222,10 @@
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
+  },
+  "6bpSqk": {
+    "defaultMessage": "Je ne souhaite pas participer à un programme d'études.",
+    "description": "Not interested label for academic programs."
   },
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
@@ -543,6 +555,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "M9k8b8": {
+    "defaultMessage": "Rejetée",
+    "description": "Rejected status"
+  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -795,6 +811,10 @@
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
   },
+  "Vnygk+": {
+    "defaultMessage": "Soumis",
+    "description": "Item's state is submitted"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
@@ -802,6 +822,10 @@
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
+  },
+  "W87tD/": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un grand ministère ou un grand organisme.",
+    "description": "The talent nomination lateral movement option description for large department"
   },
   "W9SXxj": {
     "defaultMessage": "Trier par",
@@ -919,6 +943,10 @@
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
   },
+  "a+twlj": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs m\\'intéressent.",
+    "description": "Interest label for peer networking."
+  },
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
@@ -987,6 +1015,10 @@
     "defaultMessage": "Trouver un modèle d'emploi",
     "description": "Name of job template page"
   },
+  "dKY52V": {
+    "defaultMessage": "Je souhaite participer à un programme d'études.",
+    "description": "Interest label for academic programs."
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
@@ -1050,6 +1082,10 @@
   "fO0cRR": {
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
+  },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
   },
   "fUAej4": {
     "defaultMessage": "Pas d'intérêt",
@@ -1151,6 +1187,10 @@
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
   },
+  "jPxgBV": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs ne m\\'intéressent pas.",
+    "description": "Not interested label for peer networking."
+  },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "Name of Bilingual (English and French)"
@@ -1199,6 +1239,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
   },
+  "kv960y": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
+    "description": "The talent nomination lateral movement option description for central department"
+  },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
@@ -1231,6 +1275,10 @@
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."
   },
+  "m2cqv9": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un programme au sein d'un autre ministère ou d'un autre organisme.",
+    "description": "The talent nomination lateral movement option description for program experience"
+  },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
@@ -1250,6 +1298,10 @@
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
+  },
+  "nEyBtD": {
+    "defaultMessage": "Les possibilités d'échange ne m'intéressent pas.",
+    "description": "Not interested label for interchange opportunities."
   },
   "nICORU": {
     "defaultMessage": "Sélectionnez un groupe",
@@ -1283,6 +1335,10 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
+  "oCFl63": {
+    "defaultMessage": "Approuvée",
+    "description": "Approved status"
+  },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
     "description": "Error message that the pool closing date is required."
@@ -1310,6 +1366,10 @@
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that qualifying a candidate failed"
+  },
+  "oxhIEK": {
+    "defaultMessage": "Je ne souhaite pas obtenir une accréditation professionnelle.",
+    "description": "Not interested label for professional accreditation."
   },
   "pOL68A": {
     "defaultMessage": "Adresse courriel professionnelle",
@@ -1382,6 +1442,14 @@
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
+  },
+  "s3u05D": {
+    "defaultMessage": "Nouvelle mise en candidature",
+    "description": "Link text to create a new nomination"
+  },
+  "s7lyFN": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un petit ministère ou un petit organisme.",
+    "description": "The talent nomination lateral movement option description for small department"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
@@ -1495,6 +1563,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vMc12L": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
+    "description": "The talent nomination lateral movement option description for policy experience"
+  },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
@@ -1503,9 +1575,17 @@
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
+  "vYi9m5": {
+    "defaultMessage": "Je souhaite obtenir une accréditation professionnelle.",
+    "description": "Interest label for professional accreditation."
+  },
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vrgXIT": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
+    "description": "The talent nomination lateral movement option description for new department"
   },
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
@@ -1554,6 +1634,10 @@
   "xSecEX": {
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
+  },
+  "xVBxp3": {
+    "defaultMessage": "En cours",
+    "description": "In progress status"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",

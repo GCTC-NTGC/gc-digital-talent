@@ -798,40 +798,61 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                 },
                 {
                   path: "talent-events",
+                  lazy: () =>
+                    import("../pages/TalentEvents/IndexTalentEventPage"),
                   children: [
                     {
-                      path: ":eventId/nominations/:talentNominationGroupId",
+                      path: ":eventId",
                       children: [
                         {
                           lazy: () =>
-                            import(
-                              "../pages/TalentNominations/NominationGroup/Layout"
-                            ),
+                            import("../pages/TalentEvents/TalentEvent/Layout"),
                           children: [
                             {
                               index: true,
                               lazy: () =>
                                 import(
-                                  "../pages/TalentNominations/NominationGroup/Details"
+                                  "../pages/TalentEvents/TalentEvent/DetailsPage"
                                 ),
                             },
                             {
-                              path: "profile",
+                              path: "nominations",
                               lazy: () =>
                                 import(
-                                  "../pages/TalentNominations/NominationGroup/Profile"
-                                ),
-                            },
-                            {
-                              path: "career-experience",
-                              lazy: () =>
-                                import(
-                                  "../pages/TalentNominations/NominationGroup/CareerExperience"
+                                  "../pages/TalentEvents/TalentEvent/NominationsPage"
                                 ),
                             },
                           ],
                         },
                       ],
+                    },
+                  ],
+                },
+                {
+                  path: "talent-events/:eventId/nominations/:talentNominationGroupId",
+                  lazy: () =>
+                    import("../pages/TalentNominations/NominationGroup/Layout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Details"
+                        ),
+                    },
+                    {
+                      path: "profile",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Profile"
+                        ),
+                    },
+                    {
+                      path: "career-experience",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/CareerExperience"
+                        ),
                     },
                   ],
                 },
