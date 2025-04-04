@@ -1083,6 +1083,10 @@
     "defaultMessage": "L'ancienneté du poste",
     "description": "Label for the seniority of the role radio group"
   },
+  "35YecI": {
+    "defaultMessage": "Supprimez la collectivité",
+    "description": "Button text to delete a community from a users profile"
+  },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
@@ -4350,6 +4354,10 @@
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
     "description": "Link text for explore skills page"
+  },
+  "J7GhW4": {
+    "defaultMessage": "Vous pouvez annuler ce consentement en tout temps en modifiant les collectivités fonctionnelles que vous avez ajoutées à votre profil et en sélectionnant le bouton « Supprimer la collectivité ».",
+    "description": "statement for the 'Review and submit' consent section, paragraph 2"
   },
   "J8Nltm": {
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
@@ -8314,6 +8322,10 @@
     "defaultMessage": "Planification et établissement de rapports",
     "description": "Heading for the directives planning and reporting component"
   },
+  "cl4Ix6": {
+    "defaultMessage": "En supprimant cette collectivité fonctionnelle, vos renseignements ne seront plus transmis aux gestionnaires de talents, au personnel des RH et aux gestionnaires d'embauche. Vous pouvez rajouter cette collectivité à votre profil en tout temps.",
+    "description": "Description of what deleting a community means for a user"
+  },
   "clAZjC": {
     "defaultMessage": "Réponse à la question {number}",
     "description": "Label for answer to specific question field"
@@ -10662,6 +10674,10 @@
     "defaultMessage": "Disponibilité pour recrutement",
     "description": "Title for the recruitment availability."
   },
+  "nM+Vlp": {
+    "defaultMessage": "Voulez-vous vraiment supprimer la {communityName} de votre profil?",
+    "description": "Title for the deletion confirmation dialog of a community interest"
+  },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
@@ -12977,6 +12993,10 @@
   "zVGzWa": {
     "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
     "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
+  },
+  "zWR47V": {
+    "defaultMessage": "La collectivité n'a pas été supprimée. Veuillez réessayer.",
+    "description": "Error message displayed when something went wrong deleting a community interest"
   },
   "zXWJ/5": {
     "defaultMessage": "Intérêt pour la promotion et l'avancement",

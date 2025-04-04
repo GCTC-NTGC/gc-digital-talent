@@ -667,6 +667,10 @@ return [
             'en' => 'View community interest records associated with a community',
             'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
         ],
+        'delete-own-communityInterest' => [
+            'en' => 'Delete own community interests',
+            'fr' => 'Supprimer ses propres intérêts communautaires',
+        ],
 
         'create-own-talentNomination' => [
             'en' => 'Create a draft talent nomination as the submitter',
@@ -983,6 +987,9 @@ return [
             ],
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],
+            ],
+            'communityInterest' => [
+                'own' => ['delete'],
             ],
         ],
 
