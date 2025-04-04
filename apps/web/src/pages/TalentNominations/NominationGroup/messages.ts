@@ -19,54 +19,19 @@ export const detailTabMessages = defineMessages({
 });
 
 export const formMessages = defineMessages({
-  referenceName: {
-    defaultMessage: "Reference’s name",
-    id: "v8f0hJ",
-    description: "Label for the advancement reference name",
-  },
-  referenceWorkEmail: {
-    defaultMessage: "Reference’s work email",
-    id: "stqS2E",
-    description: "Label for the advancement reference work email",
-  },
-  referenceClassification: {
-    defaultMessage: "Reference’s classification",
-    id: "qUQRPP",
-    description: "Label for the advancement reference classification",
-  },
-  referenceDepartment: {
-    defaultMessage: "Reference’s department or agency",
-    id: "tvM7zB",
-    description: "Label for the advancement reference department",
-  },
   lateralMovementOptions: {
     defaultMessage: "Lateral experience recommendations",
     id: "syqHHS",
     description: "Label for the lateral movement options",
   },
-  otherOption: {
-    defaultMessage: "Other",
-    id: "ccmHc8",
-    description: "Label for an 'other' option",
-  },
   developmentPrograms: {
     defaultMessage: "Development program recommendations",
-    id: "B1WCUa",
-    description: "Label for the list of development programs",
+    id: "DHIa69",
+    description: "Label for selected development program items",
   },
   rationale: {
     defaultMessage: "Rationale",
-    id: "2jX97r",
-    description: "Label for the rationale field",
-  },
-  top3LeadershipCompetencies: {
-    defaultMessage: "Top 3 key leadership competencies",
-    id: "aWpavW",
-    description: "Label for top 3 leadership competencies",
-  },
-  additionalComments: {
-    defaultMessage: "Additional comments",
-    id: "in2t79",
-    description: "Label for additional comments field",
+    id: "IgniT6",
+    description: "Link text for rationale step of a talent nomination",
   },
 });

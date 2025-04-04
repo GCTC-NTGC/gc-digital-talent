@@ -17,6 +17,7 @@ import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { formMessages } from "../messages";
+import nominationLabels from "../../NominateTalent/labels";
 
 const TalentNominationAccordionItemOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationAccordionItemOptions on Query {
@@ -235,7 +236,7 @@ const TalentNominationAccordionItem = ({
   developmentProgramListItems.push({
     key: "OTHER",
     value: !!talentNomination.developmentProgramOptionsOther,
-    label: intl.formatMessage(formMessages.otherOption),
+    label: intl.formatMessage(commonMessages.other),
   });
 
   const skillListItems =
@@ -326,7 +327,9 @@ const TalentNominationAccordionItem = ({
                     data-h2-padding-top="base(x.5)"
                   >
                     <FieldDisplay
-                      label={intl.formatMessage(formMessages.referenceName)}
+                      label={intl.formatMessage(
+                        nominationLabels.referencesName,
+                      )}
                     >
                       {(advancementReferenceIsAUser
                         ? getFullNameLabel(
@@ -339,7 +342,7 @@ const TalentNominationAccordionItem = ({
                     </FieldDisplay>
                     <FieldDisplay
                       label={intl.formatMessage(
-                        formMessages.referenceWorkEmail,
+                        nominationLabels.referencesWorkEmail,
                       )}
                     >
                       {(advancementReferenceIsAUser
@@ -349,7 +352,7 @@ const TalentNominationAccordionItem = ({
                     </FieldDisplay>
                     <FieldDisplay
                       label={intl.formatMessage(
-                        formMessages.referenceClassification,
+                        nominationLabels.referencesClassification,
                       )}
                     >
                       {(advancementReferenceIsAUser
@@ -363,7 +366,7 @@ const TalentNominationAccordionItem = ({
                     </FieldDisplay>
                     <FieldDisplay
                       label={intl.formatMessage(
-                        formMessages.referenceDepartment,
+                        nominationLabels.referencesDepartment,
                       )}
                     >
                       {(advancementReferenceIsAUser
@@ -430,7 +433,7 @@ const TalentNominationAccordionItem = ({
                       TalentNominationLateralMovementOption.Other,
                     ) ? (
                       <FieldDisplay
-                        label={intl.formatMessage(formMessages.otherOption)}
+                        label={intl.formatMessage(commonMessages.other)}
                       >
                         {talentNomination.lateralMovementOptionsOther ? (
                           <BoolCheckIcon value={true}>
@@ -495,7 +498,7 @@ const TalentNominationAccordionItem = ({
                     {/* only display the OTHER option if it is selected */}
                     {talentNomination.developmentProgramOptionsOther ? (
                       <FieldDisplay
-                        label={intl.formatMessage(formMessages.otherOption)}
+                        label={intl.formatMessage(commonMessages.other)}
                       >
                         <BoolCheckIcon value={true}>
                           {talentNomination.developmentProgramOptionsOther}
@@ -520,7 +523,7 @@ const TalentNominationAccordionItem = ({
             .includeLeadershipCompetencies ? (
             <FieldDisplay
               label={intl.formatMessage(
-                formMessages.top3LeadershipCompetencies,
+                nominationLabels.leadershipCompetencies,
               )}
             >
               {skillListItems.length > 0 ? (
@@ -540,7 +543,7 @@ const TalentNominationAccordionItem = ({
           ) : null}
 
           <FieldDisplay
-            label={intl.formatMessage(formMessages.additionalComments)}
+            label={intl.formatMessage(nominationLabels.additionalComments)}
           >
             <p>
               {talentNomination.additionalComments ??
