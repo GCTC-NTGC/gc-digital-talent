@@ -1855,10 +1855,6 @@
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
     "description": "Title for the no notifications message"
   },
-  "6e33hP": {
-    "defaultMessage": "Courriel professionnel de l'autrice ou l'auteur de la mise en candidature",
-    "description": "Label for the nominator input field on a nomination"
-  },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
@@ -2718,6 +2714,10 @@
   "Awtr05": {
     "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
+  },
+  "Ax4fN+": {
+    "defaultMessage": "Rechercher le courriel professionnel de la personne candidate",
+    "description": "Label for search nominee input field on a nomination"
   },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
@@ -7674,6 +7674,10 @@
     "defaultMessage": "Nous allons étiqueter les questions de manière à ce que vous sachiez comment vos réponses seront évaluées.",
     "description": "Application step for additional questions, introduction description, paragraph two"
   },
+  "ZPedK3": {
+    "defaultMessage": "Rechercher le courriel professionnel de la personne de référence",
+    "description": "Label for search reference input field on a nomination"
+  },
   "ZQbSfP": {
     "defaultMessage": "Lorsqu’une candidature a été évaluée avec succès, le <a>recrutement qualifié sera ajouté à votre parcours professionnel</a> automatiquement afin que les gestionnaires puissent voir vos réalisations.",
     "description": "Description for the track applications section on the applicant dashboard, paragraph two."
@@ -11873,6 +11877,10 @@
   "tmFU3R": {
     "defaultMessage": "« {email} » n'est pas une adresse de courriel valide du gouvernement du Canada",
     "description": "Label for when an employee was found"
+  },
+  "tmRaL3": {
+    "defaultMessage": "Rechercher le courriel professionnel de l'auteur(trice) de la mise en candidature",
+    "description": "Label for search nominator input field on a nomination"
   },
   "tmwk97": {
     "defaultMessage": "Les possibilités d'emploi au sein de cette collectivité m'intéressent.",
