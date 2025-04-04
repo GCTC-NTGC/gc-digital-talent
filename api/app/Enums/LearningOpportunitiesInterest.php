@@ -3,7 +3,6 @@
 namespace App\Enums;
 
 use App\Traits\HasLocalization;
-
 enum LearningOpportunitiesInterest
 {
     use HasLocalization;
