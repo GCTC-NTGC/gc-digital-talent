@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useFormContext } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
@@ -29,9 +30,11 @@ export interface SubformValues {
 interface ReviewAndSubmitProps {
   optionsQuery: FragmentType<typeof ReviewAndSubmitOptions_Fragment>;
   formDisabled: boolean;
+  actions?: ReactNode;
 }
 
 const ReviewAndSubmit = ({
+  actions,
   optionsQuery,
   formDisabled,
 }: ReviewAndSubmitProps) => {
@@ -112,6 +115,15 @@ const ReviewAndSubmit = ({
                 "statement for the 'Review and submit' consent section, paragraph 1",
             })}
           </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You can rescind this consent at any time by editing the functional communities you've added to your profile and using the “Remove community” button.",
+              id: "J7GhW4",
+              description:
+                "statement for the 'Review and submit' consent section, paragraph 2",
+            })}
+          </p>
         </div>
         <Checkbox
           id="consent"
@@ -143,6 +155,7 @@ const ReviewAndSubmit = ({
         data-h2-justify-content="base(flex-end)"
         data-h2-gap="base(x1)"
       >
+        {actions}
         <Submit
           disabled={formDisabled}
           text={intl.formatMessage({

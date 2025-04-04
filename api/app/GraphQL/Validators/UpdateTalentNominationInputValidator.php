@@ -131,7 +131,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 ),
             ],
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
-            'additionalComments' => ['string'],
+            'additionalComments' => ['nullable', 'string'],
         ];
     }
 

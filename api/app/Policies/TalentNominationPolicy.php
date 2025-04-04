@@ -26,7 +26,7 @@ class TalentNominationPolicy
             ->where('teamable_type', 'App\Models\Community')
             ->where('teamable_id', $talentNomination->talentNominationEvent->community_id)
             ->first();
-        if (! $isDraft && $actor->isAbleTo('view-team-talentNominationGroup', $communityTeam)) {
+        if (! $isDraft && $actor->isAbleTo('view-team-talentNomination', $communityTeam)) {
             return true;
         }
 

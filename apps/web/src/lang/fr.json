@@ -111,6 +111,10 @@
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
   },
+  "+UTd4G": {
+    "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement ({developmentProgramsNominationCount, number})}}",
+    "description": "Development nominations, conditional rendered off count"
+  },
   "+UjXSM": {
     "defaultMessage": "le réseautage.",
     "description": "Seventh item in list of certification topics section"
@@ -1079,6 +1083,10 @@
     "defaultMessage": "L'ancienneté du poste",
     "description": "Label for the seniority of the role radio group"
   },
+  "35YecI": {
+    "defaultMessage": "Supprimez la collectivité",
+    "description": "Button text to delete a community from a users profile"
+  },
   "37mBAU": {
     "defaultMessage": "Faites croître votre carrière et trouvez des talents pour votre équipe.",
     "description": "Subtitle for the manager homepage"
@@ -1450,6 +1458,10 @@
   "4nP41q": {
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
+  },
+  "4ozix3": {
+    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale ({lateralMovementNominationCount, number})}}",
+    "description": "Lateral movement nominations, conditional rendered off count"
   },
   "4p0QdF": {
     "defaultMessage": "Fermer",
@@ -3891,6 +3903,10 @@
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
   },
+  "GrHEFV": {
+    "defaultMessage": "Aucune",
+    "description": "None"
+  },
   "GrfidX": {
     "defaultMessage": "Candidat {poolCandidateId} non trouvé.",
     "description": "Message displayed for pool candidate not found."
@@ -4030,6 +4046,10 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "HkFHt6": {
+    "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} =1 {1 personne candidate} other {# personnes candidates}}",
+    "description": "Count of nominees"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -4334,6 +4354,10 @@
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
     "description": "Link text for explore skills page"
+  },
+  "J7GhW4": {
+    "defaultMessage": "Vous pouvez annuler ce consentement en tout temps en modifiant les collectivités fonctionnelles que vous avez ajoutées à votre profil et en sélectionnant le bouton « Supprimer la collectivité ».",
+    "description": "statement for the 'Review and submit' consent section, paragraph 2"
   },
   "J8Nltm": {
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
@@ -4710,6 +4734,10 @@
   "Kwfc/6": {
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
+  },
+  "KxsYhl": {
+    "defaultMessage": "Nominations",
+    "description": "Header for Nominations"
   },
   "KyLikL": {
     "defaultMessage": "Pas d'intérêt pour",
@@ -5383,6 +5411,10 @@
     "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences.",
     "description": "Lead in text for a users skill showcase for admins."
   },
+  "OODa6h": {
+    "defaultMessage": "Nomination pour",
+    "description": "Nominated for header"
+  },
   "OPbfwn": {
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
@@ -5474,6 +5506,10 @@
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
+  },
+  "OluK4D": {
+    "defaultMessage": "Commentaires",
+    "description": "Expandable to open comments form"
   },
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
@@ -5654,6 +5690,10 @@
   "Pi5icf": {
     "defaultMessage": "Gérer un critère de compétences",
     "description": "Title for the find a skill dialog within a pool"
+  },
+  "Pj6afe": {
+    "defaultMessage": "Approuver ou rejeter une nomination",
+    "description": "Accessibility label on button that triggers nomination review dialog"
   },
   "PjK/4B": {
     "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
@@ -6603,6 +6643,10 @@
     "defaultMessage": "Volet de travail",
     "description": "Label displayed on the pool form stream/job title field."
   },
+  "ULsL3v": {
+    "defaultMessage": "Nomination par",
+    "description": "Nominated by header"
+  },
   "UNEVD9": {
     "defaultMessage": "Recrutement",
     "description": "Header for section called recruitment"
@@ -6949,6 +6993,10 @@
   "W5vrNy": {
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
+  },
+  "W9HNlU": {
+    "defaultMessage": "Coordonnées de la personne candidate",
+    "description": "Expandable to see nominee information"
   },
   "WAO4vD": {
     "defaultMessage": "Date d'expiration",
@@ -8274,6 +8322,10 @@
     "defaultMessage": "Planification et établissement de rapports",
     "description": "Heading for the directives planning and reporting component"
   },
+  "cl4Ix6": {
+    "defaultMessage": "En supprimant cette collectivité fonctionnelle, vos renseignements ne seront plus transmis aux gestionnaires de talents, au personnel des RH et aux gestionnaires d'embauche. Vous pouvez rajouter cette collectivité à votre profil en tout temps.",
+    "description": "Description of what deleting a community means for a user"
+  },
   "clAZjC": {
     "defaultMessage": "Réponse à la question {number}",
     "description": "Label for answer to specific question field"
@@ -8869,6 +8921,10 @@
   "fOP6Ny": {
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Descriptive text explaining education requirement for CR group"
+  },
+  "fOilMx": {
+    "defaultMessage": "{advancementNominationCount, plural, =0 {Avancement} other {Avancement ({advancementNominationCount, number})}}",
+    "description": "Advancement nominations, conditional rendered off count"
   },
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
@@ -10490,6 +10546,10 @@
     "defaultMessage": "Compétences techniques facultatives",
     "description": "Title for optional technical skills section"
   },
+  "mnGISd": {
+    "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
+    "description": "Label for an employee profile career development preference field"
+  },
   "moKAQP": {
     "defaultMessage": "Erreur : l'ajout de l'expérience a échoué",
     "description": "Message displayed to user after experience fails to be created."
@@ -10613,6 +10673,10 @@
   "nKwVX7": {
     "defaultMessage": "Disponibilité pour recrutement",
     "description": "Title for the recruitment availability."
+  },
+  "nM+Vlp": {
+    "defaultMessage": "Voulez-vous vraiment supprimer la {communityName} de votre profil?",
+    "description": "Title for the deletion confirmation dialog of a community interest"
   },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
@@ -11266,6 +11330,10 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for a users goals and work style"
   },
+  "qaZ6OZ": {
+    "defaultMessage": "Date d'ouverture",
+    "description": "Header for Opening date"
+  },
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
     "description": "Instructions on how to manage notifications"
@@ -11741,6 +11809,10 @@
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
     "description": "First condition for selecting an employment equity group"
+  },
+  "tPCmUl": {
+    "defaultMessage": "Date de clôture",
+    "description": "Header for Closing date"
   },
   "tSvuK1": {
     "defaultMessage": "À propos de vous",
@@ -12249,6 +12321,10 @@
   "w63YYp": {
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
+  },
+  "w6GbHK": {
+    "defaultMessage": "Consulter un résumé de tous les événements de gestion des talents et de leur statut.",
+    "description": "Subtitle for talent event table"
   },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
@@ -12917,6 +12993,10 @@
   "zVGzWa": {
     "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
     "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
+  },
+  "zWR47V": {
+    "defaultMessage": "La collectivité n'a pas été supprimée. Veuillez réessayer.",
+    "description": "Error message displayed when something went wrong deleting a community interest"
   },
   "zXWJ/5": {
     "defaultMessage": "Intérêt pour la promotion et l'avancement",

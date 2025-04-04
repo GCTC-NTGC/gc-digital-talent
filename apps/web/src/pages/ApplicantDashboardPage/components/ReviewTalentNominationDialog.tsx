@@ -28,6 +28,8 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       lastName
       workEmail
     }
+    nominatorFallbackName
+    nominatorFallbackWorkEmail
     nominateForAdvancement
     nominateForLateralMovement
     nominateForDevelopmentPrograms
@@ -116,6 +118,15 @@ const ReviewTalentNominationDialog = ({
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  let nominatorName = talentNomination?.nominatorFallbackName ?? nullMessage;
+  if (talentNomination?.nominator) {
+    nominatorName = getFullNameLabel(
+      talentNomination.nominator.firstName,
+      talentNomination.nominator.lastName,
+      intl,
+    );
+  }
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -273,21 +284,16 @@ const ReviewTalentNominationDialog = ({
                   talentNominationMessages.nominatorName,
                 )}
               >
-                {talentNomination.nominator?.firstName ||
-                talentNomination.nominator?.lastName
-                  ? getFullNameLabel(
-                      talentNomination.nominator?.firstName,
-                      talentNomination.nominator?.lastName,
-                      intl,
-                    )
-                  : nullMessage}
+                {nominatorName}
               </FieldDisplay>
               <FieldDisplay
                 label={intl.formatMessage(
                   talentNominationMessages.nominatorWorkEmail,
                 )}
               >
-                {talentNomination.nominator?.workEmail ?? nullMessage}
+                {talentNomination?.nominator?.workEmail ??
+                  talentNomination?.nominatorFallbackWorkEmail ??
+                  intl.formatMessage(commonMessages.notProvided)}
               </FieldDisplay>
             </div>
           </div>

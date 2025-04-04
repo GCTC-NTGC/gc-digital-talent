@@ -20,6 +20,7 @@ import {
   formMessages,
   getExecCoachingInterest,
   getExecCoachingStatus,
+  getLearningOpportunitiesInterest,
   getMentorshipInterest,
   getMentorshipStatus,
   MentorshipStatus,
@@ -32,6 +33,7 @@ import {
   UpdateEmployeeProfileInput,
   TimeFrame,
   OrganizationTypeInterest,
+  LearningOpportunitiesInterest,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import {
@@ -81,6 +83,7 @@ const dataToFormValues = ({
   promotionMoveInterest,
   promotionMoveTimeFrame,
   promotionMoveOrganizationType,
+  learningOpportunitiesInterest,
   eligibleRetirementYearKnown,
   eligibleRetirementYear,
   mentorshipStatus,
@@ -97,6 +100,8 @@ const dataToFormValues = ({
   promotionMoveTimeFrame: promotionMoveTimeFrame?.value,
   promotionMoveOrganizationType:
     promotionMoveOrganizationType?.map((x) => x.value) ?? [],
+  learningOpportunitiesInterest:
+    learningOpportunitiesInterest?.map((x) => x.value) ?? [],
   eligibleRetirementYearKnown: boolToYesNo(eligibleRetirementYearKnown),
   eligibleRetirementYear: eligibleRetirementYear ?? null,
   mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
@@ -116,6 +121,7 @@ export type FormValues = Pick<
   promotionMoveInterest?: "yes" | "no";
   promotionMoveTimeFrame?: TimeFrame | null;
   promotionMoveOrganizationType?: OrganizationTypeInterest[] | null;
+  learningOpportunitiesInterest?: LearningOpportunitiesInterest[] | null;
   eligibleRetirementYearKnown?: "yes" | "no";
   eligibleRetirementYear?: Scalars["Date"]["input"] | null;
   mentorshipStatus?: string | null;
@@ -216,6 +222,7 @@ const CareerDevelopmentSection = ({
     promotionMoveInterest,
     promotionMoveTimeFrame,
     promotionMoveOrganizationType,
+    learningOpportunitiesInterest,
     eligibleRetirementYearKnown,
     eligibleRetirementYear,
     mentorshipStatus,
@@ -237,6 +244,7 @@ const CareerDevelopmentSection = ({
         promotionMoveInterest: promotionMoveInterest === "yes",
         promotionMoveTimeFrame,
         promotionMoveOrganizationType: promotionMoveOrganizationType ?? null,
+        learningOpportunitiesInterest: learningOpportunitiesInterest ?? null,
         eligibleRetirementYearKnown: eligibleRetirementYearKnown === "yes",
         eligibleRetirementYear: eligibleRetirementYear ?? null,
         mentorshipStatus: mentorshipStatusToData(mentorshipStatus),
@@ -265,6 +273,7 @@ const CareerDevelopmentSection = ({
             promotionMoveInterest,
             promotionMoveTimeFrame,
             promotionMoveOrganizationType,
+            learningOpportunitiesInterest,
             eligibleRetirementYearKnown,
             eligibleRetirementYear,
             mentorshipStatus,
@@ -462,6 +471,23 @@ const CareerDevelopmentSection = ({
                     />
                   </>
                 )}
+                <Separator data-h2-margin="base(0)" decorative />
+
+                <Checklist
+                  idPrefix="learningOpportunitiesInterest"
+                  name="learningOpportunitiesInterest"
+                  legend={
+                    careerDevelopmentMessages.learningOpportunitiesInterest
+                  }
+                  items={unpackMaybes(
+                    careerDevelopmentOptions?.learningOpportunitiesInterest,
+                  ).map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(
+                      getLearningOpportunitiesInterest(value),
+                    ),
+                  }))}
+                />
                 <Separator data-h2-margin="base(0)" decorative />
                 <RadioGroup
                   idPrefix="eligibleRetirementYearKnown"

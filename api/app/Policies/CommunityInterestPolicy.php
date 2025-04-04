@@ -46,7 +46,7 @@ class CommunityInterestPolicy
      */
     public function delete(User $user, CommunityInterest $communityInterest): bool
     {
-        return $user->isAbleTo('update-own-employeeProfile') && $user->id === $communityInterest->user_id;
+        return $user->isAbleTo('delete-own-communityInterest') && $user->id === $communityInterest->user_id;
     }
 
     /**

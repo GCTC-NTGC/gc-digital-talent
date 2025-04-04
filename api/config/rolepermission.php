@@ -672,6 +672,10 @@ return [
             'en' => 'View users who are community talent in a community',
             'fr' => 'Voir les utilisateurs qui sont des talents de la communauté dans une communauté',
         ],
+        'delete-own-communityInterest' => [
+            'en' => 'Delete own community interests',
+            'fr' => 'Supprimer ses propres intérêts communautaires',
+        ],
 
         'create-own-talentNomination' => [
             'en' => 'Create a draft talent nomination as the submitter',
@@ -988,6 +992,9 @@ return [
             ],
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],
+            ],
+            'communityInterest' => [
+                'own' => ['delete'],
             ],
         ],
 
