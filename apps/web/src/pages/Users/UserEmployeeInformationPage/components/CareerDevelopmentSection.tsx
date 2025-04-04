@@ -5,6 +5,7 @@ import {
   commonMessages,
   getExecCoachingInterest,
   getMentorshipInterest,
+  getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { CardBasic, CardSeparator } from "@gc-digital-talent/ui";
 import {
@@ -47,6 +48,12 @@ export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
       }
     }
     promotionMoveOrganizationType {
+      value
+      label {
+        localized
+      }
+    }
+    learningOpportunitiesInterest {
       value
       label {
         localized
@@ -99,6 +106,14 @@ export const CareerDevelopmentOptions_Fragment = graphql(/* GraphQL */ `
       }
     }
     execCoaching: localizedEnumStrings(enumName: "ExecCoaching") {
+      value
+      label {
+        localized
+      }
+    }
+    learningOpportunitiesInterest: localizedEnumStrings(
+      enumName: "LearningOpportunitiesInterest"
+    ) {
       value
       label {
         localized
@@ -199,6 +214,10 @@ const CareerDevelopmentSection = ({
         id: "vFV5N8",
         description: "The executive interest described as not interested.",
       });
+
+  const learningOpportunitiesInterestOptions = unpackMaybes(
+    employeeProfile.learningOpportunitiesInterest,
+  ).map((interest) => String(interest.value));
 
   return (
     <CardBasic
@@ -310,6 +329,50 @@ const CareerDevelopmentSection = ({
                   >
                     {x.label.localized ??
                       intl.formatMessage(commonMessages.notFound)}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          intl.formatMessage(commonMessages.notProvided)
+        )}
+      </div>
+      <CardSeparator space="xs" />
+      <div>
+        <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
+          {careerDevelopmentMessages.learningOpportunitiesInterest}
+        </span>
+        {employeeProfile.learningOpportunitiesInterest ? (
+          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            {unpackMaybes(
+              careerDevelopmentOptions?.learningOpportunitiesInterest,
+            ).map((x) => {
+              const iconValue = Array.isArray(
+                learningOpportunitiesInterestOptions,
+              )
+                ? learningOpportunitiesInterestOptions.includes(x.value)
+                : false;
+              return (
+                <li key={x.value}>
+                  <BoolCheckIcon
+                    value={iconValue}
+                    trueLabel={intl.formatMessage({
+                      defaultMessage: "Interested in",
+                      id: "AQiPuW",
+                      description:
+                        "Label for user expressing interest in a specific work stream",
+                    })}
+                    falseLabel={intl.formatMessage({
+                      defaultMessage: "Not interested in",
+                      id: "KyLikL",
+                      description:
+                        "Label for user expressing they are not interested in a specific work stream",
+                    })}
+                  >
+                    {intl.formatMessage(
+                      getLearningOpportunitiesInterest(x.value, iconValue),
+                    )}
                   </BoolCheckIcon>
                 </li>
               );

@@ -203,7 +203,8 @@ type EmployeeProfile {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
@@ -1730,7 +1731,8 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")

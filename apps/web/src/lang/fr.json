@@ -10490,6 +10490,10 @@
     "defaultMessage": "Compétences techniques facultatives",
     "description": "Title for optional technical skills section"
   },
+  "mnGISd": {
+    "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
+    "description": "Label for an employee profile career development preference field"
+  },
   "moKAQP": {
     "defaultMessage": "Erreur : l'ajout de l'expérience a échoué",
     "description": "Message displayed to user after experience fails to be created."
