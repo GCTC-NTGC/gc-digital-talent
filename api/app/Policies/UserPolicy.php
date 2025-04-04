@@ -175,12 +175,13 @@ class UserPolicy
 
     /*******************  COMMUNITY TALENT QUERIES  *******************/
 
-    // a community talent is a user with a community interest and job and/or training interest
+    // a community talent is a user with a community interest
     protected function teamsUserHasSharedProfileWith(User $user)
     {
         return CommunityInterest::where('user_id', $user->id)
             ->where('consent_to_share_profile', true)
-            ->pluck('team_id')
+            ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
+            ->pluck('teams.name')
             ->toArray();
     }
 
