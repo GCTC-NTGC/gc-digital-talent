@@ -36,7 +36,7 @@ import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
-import DeleteCommunintyInterestAlert from "./DeleteCommunityInterestAlert";
+import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
 const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
@@ -171,7 +171,7 @@ const UpdateCommunityInterestForm = ({
               <CardFormSeparator />
               <ReviewAndSubmit
                 formDisabled={formDisabled}
-                actions={<DeleteCommunintyInterestAlert query={formData} />}
+                actions={<DeleteCommunityInterestAlert query={formData} />}
                 optionsQuery={formOptions}
               />
             </div>

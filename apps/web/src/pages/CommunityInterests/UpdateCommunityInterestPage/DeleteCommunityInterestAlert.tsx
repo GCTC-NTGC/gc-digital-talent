@@ -32,13 +32,13 @@ interface DeleteCommunityInterestAlertProps {
   query: FragmentType<typeof DeleteCommunityInterestAlert_Fragment>;
 }
 
-const DeleteCommunintyInterestAlert = ({
+const DeleteCommunityInterestAlert = ({
   query,
 }: DeleteCommunityInterestAlertProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ fetching }, executeMutatation] = useMutation(
+  const [{ fetching }, executeMutation] = useMutation(
     DeleteCommunityInterest_Mutation,
   );
   const communityInterest = getFragment(
@@ -48,7 +48,7 @@ const DeleteCommunintyInterestAlert = ({
 
   const handleDelete = () => {
     if (fetching) return; // Prevent duplicate deletion attempts
-    executeMutatation({ id: communityInterest.id })
+    executeMutation({ id: communityInterest.id })
       .then(async (res) => {
         if (res.error) throw new Error(res.error.message);
         if (!res.data?.deleteCommunityInterest?.id)
@@ -125,4 +125,4 @@ const DeleteCommunintyInterestAlert = ({
   );
 };
 
-export default DeleteCommunintyInterestAlert;
+export default DeleteCommunityInterestAlert;
