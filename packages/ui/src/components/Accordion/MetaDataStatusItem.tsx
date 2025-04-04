@@ -17,7 +17,7 @@ type Status =
   | "interested"
   | "in_program";
 
-export interface AccordionMetadataStatusItemProps {
+export interface AccordionMetaDataStatusItemProps {
   label: string;
   status: Status;
 }
@@ -79,10 +79,10 @@ function getColorStyles(status: Status): HydrogenAttributes {
 }
 
 // based on the BoolCheckIcon component
-function MetadataStatusItem({
+function MetaDataStatusItem({
   label,
   status,
-}: AccordionMetadataStatusItemProps) {
+}: AccordionMetaDataStatusItemProps) {
   const Icon = getIcon(status);
   const colorStyles = getColorStyles(status);
 
@@ -104,4 +104,4 @@ function MetadataStatusItem({
   );
 }
 
-export default MetadataStatusItem;
+export default MetaDataStatusItem;

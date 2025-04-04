@@ -18,9 +18,9 @@ import { AccordionMode } from "./types";
 import Chip from "../Chip/Chip";
 import Link from "../Link";
 import Button from "../Button";
-import MetadataStatusItem, {
-  AccordionMetadataStatusItemProps,
-} from "./MetadataStatusItem";
+import MetaDataStatusItem, {
+  AccordionMetaDataStatusItemProps,
+} from "./MetaDataStatusItem";
 
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   mode?: AccordionMode;
@@ -284,13 +284,13 @@ const Trigger = forwardRef<
 );
 
 // every item must have a key and type
-interface AccordionMetadataBase {
+interface AccordionMetaDataBase {
   key: string;
   type: string;
 }
 
 // the older props combined everything into one interface
-interface AccordionMetadataCombined extends AccordionMetadataBase {
+export interface AccordionMetaData extends AccordionMetaDataBase {
   children: ReactNode;
   color?: Color;
   href?: string;
@@ -299,14 +299,14 @@ interface AccordionMetadataCombined extends AccordionMetadataBase {
 }
 
 // status items have their own prop interface
-interface AccordionMetadataStatusItem
-  extends AccordionMetadataBase,
-    AccordionMetadataStatusItemProps {
+interface AccordionMetaDataStatusItem
+  extends AccordionMetaDataBase,
+    AccordionMetaDataStatusItemProps {
   type: "status_item";
 }
 
 export interface AccordionMetaDataProps {
-  metadata: (AccordionMetadataCombined | AccordionMetadataStatusItem)[];
+  metadata: (AccordionMetaData | AccordionMetaDataStatusItem)[];
 }
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
@@ -426,7 +426,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
           case "status_item":
             return (
               <Fragment key={datum.key}>
-                <MetadataStatusItem label={datum.label} status={datum.status} />
+                <MetaDataStatusItem label={datum.label} status={datum.status} />
                 {index + 1 < metadataLength ? separatorSpan : null}
               </Fragment>
             );
