@@ -77,7 +77,7 @@ export const nomineeNameCell = (
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
-    <Link href={paths.talentNominationGroupProfile(eventId, nominationGroupId)}>
+    <Link href={paths.talentNominationGroup(eventId, nominationGroupId)}>
       {nomineeName}
     </Link>
   );
