@@ -44,6 +44,7 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...FindANewCommunityOptions_Fragment
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
     ...AdditionalInformationOptions_Fragment
+    ...ReviewAndSubmitOptions_Fragment
 
     communities {
       id
@@ -92,6 +93,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     financeOtherRolesOther
     ...DeleteCommunintyInterestAlert
+    consentToShareProfile
   }
 `);
 
@@ -170,6 +172,7 @@ const UpdateCommunityInterestForm = ({
               <ReviewAndSubmit
                 formDisabled={formDisabled}
                 actions={<DeleteCommunintyInterestAlert query={formData} />}
+                optionsQuery={formOptions}
               />
             </div>
           </CardForm>

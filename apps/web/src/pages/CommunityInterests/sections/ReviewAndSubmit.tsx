@@ -3,36 +3,53 @@ import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMag
 import { useFormContext } from "react-hook-form";
 import { ReactNode } from "react";
 
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import pageTitles from "~/messages/pageTitles";
 
-import { FormValues, parseMaybeStringToBoolean } from "../form";
+import { FormValues } from "../form";
+
+const ReviewAndSubmitOptions_Fragment = graphql(/* GraphQL */ `
+  fragment ReviewAndSubmitOptions_Fragment on Query {
+    communities {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 export interface SubformValues {
   consent: boolean | null;
 }
 
 interface ReviewAndSubmitProps {
+  optionsQuery: FragmentType<typeof ReviewAndSubmitOptions_Fragment>;
   formDisabled: boolean;
   actions?: ReactNode;
 }
 
-const ReviewAndSubmit = ({ formDisabled, actions }: ReviewAndSubmitProps) => {
+const ReviewAndSubmit = ({
+  actions,
+  optionsQuery,
+  formDisabled,
+}: ReviewAndSubmitProps) => {
   const intl = useIntl();
+  const optionsData = getFragment(
+    ReviewAndSubmitOptions_Fragment,
+    optionsQuery,
+  );
 
   const { watch } = useFormContext<FormValues>();
-  const [selectedJobInterest, selectedTrainingInterest] = watch([
-    "jobInterest",
-    "trainingInterest",
-  ]);
-
-  // only require consent if user has expressed interest in job or training
-  const formRequiresConsent =
-    parseMaybeStringToBoolean(selectedJobInterest) ||
-    parseMaybeStringToBoolean(selectedTrainingInterest);
+  const [selectedCommunityId] = watch(["communityId"]);
+  const selectedCommunityName =
+    optionsData.communities.find(
+      (community) => community?.id === selectedCommunityId,
+    )?.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   return (
     <div
@@ -92,8 +109,8 @@ const ReviewAndSubmit = ({ formDisabled, actions }: ReviewAndSubmitProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "When you express interest in job or training opportunities through a functional community, you’re agreeing to share your profile information with recruiters and potential hiring managers. This includes information shared in your profile, your career experience, and your skills portfolio.",
-              id: "mv2nt/",
+                "When you add a functional community to your profile, you agree to share your information with its talent managers, recruiters, and potential hiring managers. This includes your profile information, career experience, and skills portfolio. Your information may be used to connect you with relevant opportunities and gather insights on the functional community’s workforce.",
+              id: "R6kZ1/",
               description:
                 "statement for the 'Review and submit' consent section, paragraph 1",
             })}
@@ -108,37 +125,29 @@ const ReviewAndSubmit = ({ formDisabled, actions }: ReviewAndSubmitProps) => {
             })}
           </p>
         </div>
-        {formRequiresConsent ? (
-          <Checkbox
-            id="consent"
-            name="consent"
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Consent to share",
-              id: "AlOrGy",
-              description: "Label for the input for the consent check",
-            })}
-            label={intl.formatMessage({
+        <Checkbox
+          id="consent"
+          name="consent"
+          boundingBoxLabel={intl.formatMessage({
+            defaultMessage: "Consent to share",
+            id: "AlOrGy",
+            description: "Label for the input for the consent check",
+          })}
+          label={intl.formatMessage(
+            {
               defaultMessage:
-                "I agree that by indicating my interest in work or training opportunities that my profile will be shared with HR staff and hiring managers in this functional community.",
-              id: "CCSgzj",
+                "I agree that by adding the {communityName} to my profile that my information will be shared with talent managers, HR staff, and hiring managers in this functional community.",
+              id: "2BCHZm",
               description: "Statement for the input for the consent check",
-            })}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            disabled={formDisabled}
-            boundingBox
-          />
-        ) : (
-          <Well>
-            {intl.formatMessage({
-              defaultMessage:
-                "You've indicated that you aren't interested in job opportunities or training in this community, so your profile information will <strong>not be shared</strong> as part of these features.",
-              id: "/HKgWb",
-              description: "Message displayed when consent is not required",
-            })}
-          </Well>
-        )}
+            },
+            { communityName: selectedCommunityName },
+          )}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          disabled={formDisabled}
+          boundingBox
+        />
       </div>
       {/* submit button */}
       <div

@@ -183,6 +183,11 @@ type LocalizedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedLearningOpportunitiesInterest {
+  value: LearningOpportunitiesInterest!
+  label: LocalizedString!
+}
+
 type LocalizedMentorship {
   value: Mentorship!
   label: LocalizedString!
@@ -727,6 +732,7 @@ type CommunityInterest {
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 type DevelopmentProgramInterest {
@@ -743,6 +749,7 @@ type EmployeeProfile {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: LocalizedTimeFrame
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
   eligibleRetirementYearKnown: Boolean
   eligibleRetirementYear: Date
   mentorshipStatus: [LocalizedMentorship!]
@@ -1773,6 +1780,7 @@ input UpdateEmployeeProfileInput {
   promotionMoveInterest: Boolean
   promotionMoveTimeFrame: TimeFrame
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
   eligibleRetirementYearKnown: Boolean
   eligibleRetirementYear: Date
   mentorshipStatus: [Mentorship!]
@@ -1819,6 +1827,7 @@ input CreateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -1832,6 +1841,7 @@ input UpdateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -3295,6 +3305,13 @@ enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
+}
+
+enum LearningOpportunitiesInterest {
+  INTERCHANGE
+  ACADEMIC_PROGRAM
+  PEER_NETWORKING
+  PROFESSIONAL_ACCREDITATION
 }
 
 enum Mentorship {

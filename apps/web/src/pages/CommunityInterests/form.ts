@@ -115,6 +115,8 @@ export function formValuesToApiCreateInput(
     : null;
   apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
 
+  apiInput.consentToShareProfile = formValues.consent;
+
   return apiInput;
 }
 
@@ -179,6 +181,8 @@ export function formValuesToApiUpdateInput(
       ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
       : null,
     financeOtherRolesOther: formValues.financeOtherRolesOther,
+
+    consentToShareProfile: formValues.consent,
   };
 }
 
@@ -221,8 +225,7 @@ export function apiDataToFormValues(
       ? communityInterest.financeOtherRoles.map((role) => role.value)
       : null,
     financeOtherRolesOther: communityInterest?.financeOtherRolesOther ?? null,
-    // not saved in the database but if job or training interest is saved, they will have previously consented
-    consent:
-      !!communityInterest?.jobInterest || !!communityInterest?.trainingInterest,
+
+    consent: communityInterest?.consentToShareProfile ?? false,
   };
 }
