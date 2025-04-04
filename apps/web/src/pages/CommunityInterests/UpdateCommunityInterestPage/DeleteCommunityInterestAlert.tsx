@@ -10,7 +10,7 @@ import { toast } from "@gc-digital-talent/toast";
 import useRoutes from "~/hooks/useRoutes";
 
 const DeleteCommunityInterestAlert_Fragment = graphql(/** GraphQL */ `
-  fragment DeleteCommunintyInterestAlert on CommunityInterest {
+  fragment DeleteCommunityInterestAlert on CommunityInterest {
     id
     community {
       name {

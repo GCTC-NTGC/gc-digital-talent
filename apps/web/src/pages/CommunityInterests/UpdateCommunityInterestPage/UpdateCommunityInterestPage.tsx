@@ -92,7 +92,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
-    ...DeleteCommunintyInterestAlert
+    ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
 `);
