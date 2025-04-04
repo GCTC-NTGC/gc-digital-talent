@@ -36,6 +36,7 @@ import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
 const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
@@ -91,6 +92,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
 `);
@@ -168,8 +170,9 @@ const UpdateCommunityInterestForm = ({
               />
               <CardFormSeparator />
               <ReviewAndSubmit
-                optionsQuery={formOptions}
                 formDisabled={formDisabled}
+                actions={<DeleteCommunityInterestAlert query={formData} />}
+                optionsQuery={formOptions}
               />
             </div>
           </CardForm>
