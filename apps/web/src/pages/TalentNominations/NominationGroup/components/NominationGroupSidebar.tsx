@@ -106,7 +106,7 @@ const NominationGroupSidebar = ({
     "data-h2-background-color":
       "base(secondary.lightest) base:dark(secondary.lightest)",
     "data-h2-border-color": "base(secondary.dark) base:dark(secondary.dark)",
-    "data-h2-color": "base(secondary.darkest) base:dark(secondary.dark)",
+    "data-h2-color": "base(secondary.darkest) base:dark(secondary.darkest)",
   };
   const inProgressStatusButtonColours = {
     "data-h2-background-color":
