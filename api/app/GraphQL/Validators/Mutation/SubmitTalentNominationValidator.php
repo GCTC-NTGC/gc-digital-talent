@@ -1,4 +1,4 @@
-<?phpSubmitTal
+<?php
 
 namespace App\GraphQL\Validators\Mutation;
 
