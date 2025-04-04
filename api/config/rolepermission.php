@@ -90,6 +90,7 @@ return [
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
+        'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
 
         'platformAdminMembership' => 'platformAdminMembership',
@@ -667,6 +668,10 @@ return [
             'en' => 'View community interest records associated with a community',
             'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
         ],
+        'view-team-communityTalent' => [
+            'en' => 'View users who are community talent in a community',
+            'fr' => 'Voir les utilisateurs qui sont des talents de la communauté dans une communauté',
+        ],
         'delete-own-communityInterest' => [
             'en' => 'Delete own community interests',
             'fr' => 'Supprimer ses propres intérêts communautaires',
@@ -1162,6 +1167,9 @@ return [
             'communityInterest' => [
                 'team' => ['view'],
             ],
+            'communityTalent' => [
+                'team' => ['view'],
+            ],
         ],
 
         'community_admin' => [
@@ -1336,6 +1344,9 @@ return [
                 'team' => ['view'],
             ],
             'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
                 'team' => ['view'],
             ],
             'communityTeamMembers' => [
