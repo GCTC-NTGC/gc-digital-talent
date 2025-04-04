@@ -426,6 +426,21 @@ const commonMessages = defineMessages({
     id: "pLM39W",
     description: "label or header for something referred to as a type",
   },
+  approved: {
+    defaultMessage: "Approved",
+    id: "oCFl63",
+    description: "Approved status",
+  },
+  rejected: {
+    defaultMessage: "Rejected",
+    id: "M9k8b8",
+    description: "Rejected status",
+  },
+  inProgress: {
+    defaultMessage: "In progress",
+    id: "xVBxp3",
+    description: "In progress status",
+  },
   communityInterest: {
     defaultMessage: "Community interest",
     id: "1uBif7",
