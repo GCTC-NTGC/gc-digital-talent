@@ -101,8 +101,8 @@ const ReviewAndSubmit = ({ formDisabled, actions }: ReviewAndSubmitProps) => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "You can rescind this consent at any time by opting out of job referrals and interest in training.",
-              id: "ot7s0V",
+                "You can rescind this consent at any time by editing the functional communities you've added to your profile and using the “Remove community” button.",
+              id: "J7GhW4",
               description:
                 "statement for the 'Review and submit' consent section, paragraph 2",
             })}
