@@ -278,7 +278,7 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       index: true,
                       lazy: () =>
                         import(
-                          "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+                          "../pages/Profile/CareerTimelinePage/CareerTimelinePage"
                         ),
                     },
                     {

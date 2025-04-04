@@ -327,7 +327,7 @@ export const DashboardPage = ({
                     id: "UfjJ9P",
                     description: "Link to the 'Career experience' page",
                   })}
-                  href={paths.careerTimelineAndRecruitment()}
+                  href={paths.careerTimeline()}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Work, education, volunteering, awards, and more.",

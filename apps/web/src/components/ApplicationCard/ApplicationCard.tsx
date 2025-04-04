@@ -243,11 +243,6 @@ const ApplicationCard = ({
           poolId={application.pool.id}
           title={applicationTitleString}
         />
-
-        <ApplicationActions.VisitCareerTimelineAction
-          show={isApplicantQualified}
-          title={applicationTitleString}
-        />
         <ApplicationActions.DeleteAction
           show={applicationIsDraft}
           title={applicationTitleString}

@@ -7,7 +7,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 
 interface ActionProps {
   show: boolean;
@@ -203,46 +202,6 @@ const CopyApplicationIdAction = ({
   );
 };
 
-const VisitCareerTimelineAction = ({ show, title }: ActionProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  if (!show) {
-    return null;
-  }
-
-  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment({
-    section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
-  });
-
-  return (
-    <Link
-      href={recruitmentSectionUrl}
-      mode="inline"
-      color="black"
-      fontSize="caption"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "Manage the {title} recruitment",
-          id: "utl6O/",
-          description:
-            "Link text to direct a user to the recruitment section on the career timeline page",
-        },
-        {
-          title,
-        },
-      )}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Manage recruitment",
-        id: "GZXf3A",
-        description:
-          "Link text to direct a user to the recruitment section on the career timeline page",
-      })}
-    </Link>
-  );
-};
-
 interface DeleteActionProps extends ActionProps {
   onDelete: () => void;
 }
@@ -329,5 +288,4 @@ export default {
   DeleteAction,
   ViewAction,
   CopyApplicationIdAction,
-  VisitCareerTimelineAction,
 };

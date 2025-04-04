@@ -81,9 +81,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
               <TableOfContents.AnchorLink
                 id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
               >
-                {intl.formatMessage(
-                  navigationMessages.careerTimelineAndRecruitment,
-                )}
+                {intl.formatMessage(navigationMessages.careerTimeline)}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
             <TableOfContents.ListItem>
@@ -152,9 +150,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
               icon={BoltIcon}
               data-h2-margin="base(x1.5 0 x1 0)"
             >
-              {intl.formatMessage(
-                navigationMessages.careerTimelineAndRecruitment,
-              )}
+              {intl.formatMessage(navigationMessages.careerTimeline)}
             </TableOfContents.Heading>
             <ExperienceSection
               headingLevel={contentHeadingLevel}

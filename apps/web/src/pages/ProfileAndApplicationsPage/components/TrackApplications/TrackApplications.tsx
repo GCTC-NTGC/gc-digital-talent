@@ -1,19 +1,14 @@
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
-import { ReactNode, ReactElement, useState } from "react";
+import { useState } from "react";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress } from "~/utils/applicationUtils";
-import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
-
-function buildLink(href: string, chunks: ReactNode): ReactElement {
-  return <Link href={href}>{chunks}</Link>;
-}
 
 export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment TrackApplicationsCandidate on PoolCandidate {
@@ -82,27 +77,6 @@ const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
             description:
               "Description for the track applications section on the profile and applications, paragraph one.",
           })}
-        </p>
-        <p data-h2-margin="base(x.5, 0, x1, 0)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "After an application is successfully assessed, the <a>qualified recruitment will be added to your career timeline</a> automatically so that managers can see your accomplishments.",
-              id: "ZQbSfP",
-              description:
-                "Description for the track applications section on the applicant dashboard, paragraph two.",
-            },
-            {
-              a: (chunks: ReactNode) =>
-                buildLink(
-                  paths.careerTimelineAndRecruitment({
-                    section:
-                      CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
-                  }),
-                  chunks,
-                ),
-            },
-          )}
         </p>
       </div>
       <div>

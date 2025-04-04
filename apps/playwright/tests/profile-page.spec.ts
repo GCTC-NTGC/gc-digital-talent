@@ -97,18 +97,6 @@ test.describe("Profile Page", () => {
           level: 1,
         }),
       ).toBeVisible();
-      await expect(
-        appPage.page.getByRole("heading", {
-          name: "Manage your career timeline",
-          level: 2,
-        }),
-      ).toBeVisible();
-      await expect(
-        appPage.page.getByRole("heading", {
-          name: "Qualified recruitment processes",
-          level: 2,
-        }),
-      ).toBeVisible();
     });
   });
 });

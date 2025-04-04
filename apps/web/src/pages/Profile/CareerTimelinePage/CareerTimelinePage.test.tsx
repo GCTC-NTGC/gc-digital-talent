@@ -5,7 +5,7 @@ import { User, Experience } from "@gc-digital-talent/graphql";
 
 import { compareByDate } from "~/utils/experienceUtils";
 
-import { ExperienceForDate } from "./components/CareerTimelineAndRecruitment";
+import { ExperienceForDate } from "./components/CareerTimeline";
 
 const user: User = { email: "blank", id: "blank" };
 const generateExperience = (
@@ -18,7 +18,7 @@ const generateExperience = (
   startDate,
 });
 
-describe("CareerTimelineAndRecruitment tests", () => {
+describe("CareerTimeline tests", () => {
   test("Should sort experiences by date correctly with no end date", () => {
     const e1 = generateExperience("1990-01-01");
     const e2 = generateExperience("1995-01-02");

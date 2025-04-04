@@ -21,8 +21,6 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import { PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
-
 import ApplicationCard, {
   ApplicationCardProps,
   ApplicationCard_Fragment,
@@ -97,7 +95,7 @@ describe("ApplicationCard", () => {
     });
 
     const links = screen.queryAllByRole("link");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(mockApplication.id),
@@ -109,12 +107,6 @@ describe("ApplicationCard", () => {
       expect.stringContaining(mockApplication.pool.id),
     );
     expect(links[1]).toHaveTextContent("Review job ad");
-
-    expect(links[2]).toHaveTextContent("Manage recruitment");
-    expect(links[2]).toHaveAttribute(
-      "href",
-      expect.stringContaining(PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES),
-    );
 
     const successfulLabel = screen.queryByText("Qualified in process");
     expect(successfulLabel).toBeInTheDocument();

@@ -41,7 +41,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   return (
     <>
       <Heading Icon={UserCircleIcon} color="tertiary">
-        {intl.formatMessage(navigationMessages.careerTimelineAndRecruitment)}
+        {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
       <div
         data-h2-display="base(flex)"

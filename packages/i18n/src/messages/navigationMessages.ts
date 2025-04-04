@@ -31,7 +31,7 @@ const navigationMessages = defineMessages({
     id: "nnMYWr",
     description: "Name of Work preferences page",
   },
-  careerTimelineAndRecruitment: {
+  careerTimeline: {
     defaultMessage: "Career timeline",
     id: "TUfJUD",
     description: "Name of Career timeline page",
