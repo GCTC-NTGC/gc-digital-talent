@@ -1,4 +1,4 @@
-<?php
+<?phpSubmitTal
 
 namespace App\GraphQL\Validators\Mutation;
 
@@ -163,7 +163,6 @@ final class SubmitTalentNominationValidator extends Validator
             'skills.*.skill_id' => [
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
             ],
-            'additional_comments' => ['required'],
         ];
     }
 
