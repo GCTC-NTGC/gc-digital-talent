@@ -325,13 +325,9 @@ const DetailsFields = ({
                         required: intl.formatMessage(errorMessages.required),
                         pattern: {
                           value: workEmailDomainRegex,
-                          message: intl.formatMessage({
-                            defaultMessage:
-                              "This does not appear to be a Government of Canada email. If you are entering a Government of Canada email and still getting this error, please contact our support team.",
-                            id: "BLOt/e",
-                            description:
-                              "Description for rule pattern on work email field",
-                          }),
+                          message: intl.formatMessage(
+                            errorMessages.notGovernmentEmail,
+                          ),
                         },
                       }}
                       label={intl.formatMessage({
