@@ -347,6 +347,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")

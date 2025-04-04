@@ -555,6 +555,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "M9k8b8": {
+    "defaultMessage": "Rejetée",
+    "description": "Rejected status"
+  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -1331,6 +1335,10 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
+  "oCFl63": {
+    "defaultMessage": "Approuvée",
+    "description": "Approved status"
+  },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
     "description": "Error message that the pool closing date is required."
@@ -1626,6 +1634,10 @@
   "xSecEX": {
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
+  },
+  "xVBxp3": {
+    "defaultMessage": "En cours",
+    "description": "In progress status"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",

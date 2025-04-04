@@ -865,6 +865,7 @@ type BasicGovEmployeeProfile {
   workEmail: Email
   firstName: String
   lastName: String
+  preferredLang: LocalizedLanguage
   role: String
   department: Department
   classification: Classification

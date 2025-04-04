@@ -111,6 +111,10 @@
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
   },
+  "+UTd4G": {
+    "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement ({developmentProgramsNominationCount, number})}}",
+    "description": "Development nominations, conditional rendered off count"
+  },
   "+UjXSM": {
     "defaultMessage": "le réseautage.",
     "description": "Seventh item in list of certification topics section"
@@ -1450,6 +1454,10 @@
   "4nP41q": {
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
+  },
+  "4ozix3": {
+    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale ({lateralMovementNominationCount, number})}}",
+    "description": "Lateral movement nominations, conditional rendered off count"
   },
   "4p0QdF": {
     "defaultMessage": "Fermer",
@@ -5383,6 +5391,10 @@
     "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences.",
     "description": "Lead in text for a users skill showcase for admins."
   },
+  "OODa6h": {
+    "defaultMessage": "Nomination pour",
+    "description": "Nominated for header"
+  },
   "OPbfwn": {
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
@@ -5474,6 +5486,10 @@
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
+  },
+  "OluK4D": {
+    "defaultMessage": "Commentaires",
+    "description": "Expandable to open comments form"
   },
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
@@ -5654,6 +5670,10 @@
   "Pi5icf": {
     "defaultMessage": "Gérer un critère de compétences",
     "description": "Title for the find a skill dialog within a pool"
+  },
+  "Pj6afe": {
+    "defaultMessage": "Approuver ou rejeter une nomination",
+    "description": "Accessibility label on button that triggers nomination review dialog"
   },
   "PjK/4B": {
     "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
@@ -6603,6 +6623,10 @@
     "defaultMessage": "Volet de travail",
     "description": "Label displayed on the pool form stream/job title field."
   },
+  "ULsL3v": {
+    "defaultMessage": "Nomination par",
+    "description": "Nominated by header"
+  },
   "UNEVD9": {
     "defaultMessage": "Recrutement",
     "description": "Header for section called recruitment"
@@ -6949,6 +6973,10 @@
   "W5vrNy": {
     "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign up -> mfa step."
+  },
+  "W9HNlU": {
+    "defaultMessage": "Coordonnées de la personne candidate",
+    "description": "Expandable to see nominee information"
   },
   "WAO4vD": {
     "defaultMessage": "Date d'expiration",
@@ -8869,6 +8897,10 @@
   "fOP6Ny": {
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Descriptive text explaining education requirement for CR group"
+  },
+  "fOilMx": {
+    "defaultMessage": "{advancementNominationCount, plural, =0 {Avancement} other {Avancement ({advancementNominationCount, number})}}",
+    "description": "Advancement nominations, conditional rendered off count"
   },
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
