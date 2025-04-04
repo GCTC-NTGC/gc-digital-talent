@@ -732,6 +732,7 @@ type CommunityInterest {
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 type DevelopmentProgramInterest {
@@ -865,6 +866,7 @@ type BasicGovEmployeeProfile {
   lastName: String
   role: String
   department: Department
+  classification: Classification
 }
 
 type GeneralQuestion {
@@ -1824,6 +1826,7 @@ input CreateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -1837,6 +1840,7 @@ input UpdateCommunityInterestInput {
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
+  consentToShareProfile: Boolean
 }
 
 input CreateDevelopmentProgramInterestHasMany {
