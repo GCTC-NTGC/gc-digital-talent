@@ -1004,7 +1004,6 @@ export const getTalentNominationLateralMovementOption = (
   );
 };
 
-
 const learningOpportunitiesInterestLabels = defineMessages({
   [LearningOpportunitiesInterest.Interchange]: {
     defaultMessage: "I'm interested in interchange opportunities.",
