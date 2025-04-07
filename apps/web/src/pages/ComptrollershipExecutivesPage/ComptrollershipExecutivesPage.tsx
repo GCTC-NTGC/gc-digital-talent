@@ -309,7 +309,7 @@ export const Component = () => {
                     src={teamImage}
                     alt=""
                     data-h2-display="base(block)"
-                    data-h2-height="base(251px) p-tablet(216px) l-tablet(238px)"
+                    data-h2-height="base(auto) p-tablet(238px)"
                   />
                   <div
                     data-h2-padding="base(x1)"
@@ -381,7 +381,7 @@ export const Component = () => {
                     src={newsletterImage}
                     alt=""
                     data-h2-display="base(block)"
-                    data-h2-height="base(251px) p-tablet(216px) l-tablet(238px)"
+                    data-h2-height="base(auto) p-tablet(238px)"
                   />
                   <div
                     data-h2-padding="base(x1)"
@@ -453,7 +453,7 @@ export const Component = () => {
                     src={connectWithPeersImage}
                     alt=""
                     data-h2-display="base(block)"
-                    data-h2-height="base(251px) p-tablet(216px) l-tablet(238px)"
+                    data-h2-height="base(auto) p-tablet(238px)"
                   />
                   <div
                     data-h2-padding="base(x1)"
