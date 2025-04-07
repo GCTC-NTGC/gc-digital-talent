@@ -29,7 +29,6 @@ import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
-import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
