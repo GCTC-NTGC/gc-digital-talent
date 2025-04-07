@@ -16,4 +16,5 @@ module.exports = {
   },
   preset: "ts-jest",
   setupFilesAfterEnv: [path.join(__dirname, "../../setup.ts")],
+  workerIdleMemoryLimit: "512MB", // https://stackoverflow.com/a/76730397
 };
