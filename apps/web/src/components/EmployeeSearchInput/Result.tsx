@@ -8,17 +8,54 @@ import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import { EmployeeSearchResult } from "./types";
 
+export type SearchMessageCases = "base" | "emailNotification";
+
 interface ResultProps {
   employee: EmployeeSearchResult;
   id: string;
+  searchMessageCase?: SearchMessageCases;
 }
 
-const Result = ({ employee, id }: ResultProps) => {
+const Result = ({ employee, id, searchMessageCase = "base" }: ResultProps) => {
   const intl = useIntl();
 
   if (!employee) return null;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+
+  const userFoundMessageBase = intl.formatMessage(
+    {
+      defaultMessage:
+        "It looks like {name} already has an account with us. We've auto-populated their information based on their profile.",
+      id: "YYbOQz",
+      description: "Message that the employee was found for a search",
+    },
+    {
+      name:
+        employee.firstName ??
+        employee.lastName ??
+        intl.formatMessage(commonMessages.notFound),
+    },
+  );
+  const userFoundMessageWillEmail = intl.formatMessage(
+    {
+      defaultMessage:
+        "It looks like {name} already has an account with us. We've auto-populated their information based on their profile. After you submit this nomination, we'll notify them by email.",
+      id: "xeMOuD",
+      description:
+        "Message that the employee was found for a search and will be emailed",
+    },
+    {
+      name:
+        employee.firstName ??
+        employee.lastName ??
+        intl.formatMessage(commonMessages.notFound),
+    },
+  );
+  let childMessageToDisplay = userFoundMessageBase;
+  if (searchMessageCase === "emailNotification") {
+    childMessageToDisplay = userFoundMessageWillEmail;
+  }
 
   return (
     <div
@@ -35,20 +72,7 @@ const Result = ({ employee, id }: ResultProps) => {
             description: "Label for when an employee was found",
           })}
         >
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "It looks like {name} already has an account with us. We've auto-populated their information based on their profile. After you submit this nomination, we'll notify them and they'll be able to review the submission details and progress.",
-              id: "2ExR2X",
-              description: "Message about the employee found for a search",
-            },
-            {
-              name:
-                employee.firstName ??
-                employee.lastName ??
-                intl.formatMessage(commonMessages.notFound),
-            },
-          )}
+          {childMessageToDisplay}
         </FieldDisplay>
       </div>
       <FieldDisplay label={intl.formatMessage(commonMessages.name)}>
