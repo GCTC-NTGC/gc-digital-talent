@@ -41,7 +41,7 @@ const ErrorMessage = ({
               "data-h2-color": "base(error)",
             }
           : {
-              "data-h2-color": "base(warning)",
+              "data-h2-color": "base(warning.darker) base:dark(warning)",
             })}
       >
         {message.title}
