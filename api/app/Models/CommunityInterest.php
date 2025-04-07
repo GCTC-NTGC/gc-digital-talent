@@ -108,35 +108,34 @@ class CommunityInterest extends Model
             $user = User::findOrFail($args['userId']);
         }
 
-        if ($user?->isAbleTo('view-own-employeeProfile') || $user?->isAbleTo('view-team-communityInterest')) {
-            $query->where(function (Builder $query) use ($user) {
-                if ($user?->isAbleTo('view-own-employeeProfile')) {
-                    $query->orWhere('user_id', $user->id);
-                }
-
-                if ($user?->isAbleTo('view-team-communityInterest')) {
-                    $query->orWhere(function (Builder $query) use ($user) {
-                        $query->where(function (Builder $query) use ($user) {
-                            $communityIds = $user->rolesTeams()
-                                ->where('teamable_type', "App\Models\Community")
-                                ->pluck('teamable_id')
-                                ->toArray();
-
-                            return $query->whereIn('community_id', $communityIds);
-                        });
-
-                        $query->where('consent_to_share_profile', true);
-                    });
-
-                    return $query;
-                }
-            });
-
-            return $query;
+        if (! $user?->isAbleTo('view-own-employeeProfile') && ! $user?->isAbleTo('view-team-communityInterest')) {
+            return $query->where('id', null);
         }
 
-        // fallback
-        return $query->where('id', null);
+        $query->where(function (Builder $query) use ($user) {
+            if ($user?->isAbleTo('view-own-employeeProfile')) {
+                $query->orWhere('user_id', $user->id);
+            }
+
+            if ($user?->isAbleTo('view-team-communityInterest')) {
+                $query->orWhere(function (Builder $query) use ($user) {
+                    $query->where(function (Builder $query) use ($user) {
+                        $communityIds = $user->rolesTeams()
+                            ->where('teamable_type', "App\Models\Community")
+                            ->pluck('teamable_id')
+                            ->toArray();
+
+                        return $query->whereIn('community_id', $communityIds);
+                    });
+
+                    $query->where('consent_to_share_profile', true);
+                });
+
+                return $query;
+            }
+        });
+
+        return $query;
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder
