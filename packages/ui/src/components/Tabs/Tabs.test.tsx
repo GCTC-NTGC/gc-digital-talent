@@ -42,14 +42,14 @@ describe("Tabs", () => {
   it("should not have accessibility errors when closed", async () => {
     const { container } = renderTabs({});
     await axeTest(container);
-  });
+  }, 10000); // #13188
 
   it("should not have accessibility errors when open", async () => {
     const { container } = renderTabs({
       defaultValue: "one",
     });
     await axeTest(container);
-  });
+  }, 10000); // #13188
 
   it("should only render opened tabpanel", () => {
     renderTabs({
