@@ -231,6 +231,7 @@ const NominatorFields = ({
         name="nominator"
         aria-describedby="nominatorHelp"
         employeeOption={fragmentToEmployee(nominatorResult)}
+        searchMessageCase="emailNotification"
         label={intl.formatMessage({
           defaultMessage: "Search nominator's work email",
           id: "tmRaL3",
