@@ -7479,7 +7479,7 @@
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
   "YYbOQz": {
-    "defaultMessage": "Il semble que {username} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
     "description": "Message that the employee was found for a search"
   },
   "YZtE49": {
