@@ -346,16 +346,15 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 {datum.children}
               </span>
             ) : (
-              <>
+              <Fragment key={datum.key}>
                 <span
                   data-h2-color="base(black.light)"
                   data-h2-font-weight="base(400)"
-                  key={datum.key}
                 >
                   {datum.children}
                 </span>
                 {separatorSpan}
-              </>
+              </Fragment>
             );
           case "chip":
             return index + 1 === metadataLength ? (
@@ -363,12 +362,12 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
               </span>
             ) : (
-              <>
-                <span key={datum.key}>
+              <Fragment key={datum.key}>
+                <span>
                   <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
                 </span>
                 {separatorSpan}
-              </>
+              </Fragment>
             );
           case "button":
             return index + 1 === metadataLength ? (
@@ -383,19 +382,18 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 {datum.children}
               </Button>
             ) : (
-              <>
+              <Fragment key={datum.key}>
                 <Button
                   mode="text"
                   color={datum.color ?? "primary"}
                   fontSize="caption"
                   data-h2-font-weight="base(bold)"
                   onClick={datum.onClick}
-                  key={datum.key}
                 >
                   {datum.children}
                 </Button>
                 {separatorSpan}
-              </>
+              </Fragment>
             );
           case "link":
             return index + 1 === metadataLength ? (
@@ -409,18 +407,17 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 {datum.children}
               </Link>
             ) : (
-              <>
+              <Fragment key={datum.key}>
                 <Link
                   color={datum.color ?? "primary"}
                   href={datum.href}
                   fontSize="caption"
                   data-h2-font-weight="base(bold)"
-                  key={datum.key}
                 >
                   {datum.children}
                 </Link>
                 {separatorSpan}
-              </>
+              </Fragment>
             );
           // just wrap with a key and display "as-is"
           case "status_item":
