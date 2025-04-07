@@ -48,8 +48,6 @@ jobs:
           pnpm run build:fresh
 
       - name: "Run Unit Tests: all workspaces with coverage"
-        env:
-          NODE_OPTIONS: --max_old_space_size=1024 # https://github.com/actions/runner-images/issues/70
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
