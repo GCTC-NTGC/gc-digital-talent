@@ -53,9 +53,9 @@ jobs:
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            pnpm run test -- --coverage
+            pnpm -r --workspace-concurrency=1 run test -- --coverage
           else
-            pnpm run test
+            pnpm -r --workspace-concurrency=1 run test
           fi
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
