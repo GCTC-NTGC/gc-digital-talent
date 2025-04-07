@@ -160,8 +160,8 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
           intl,
         ),
       {
-        id: "types",
-        header: intl.formatMessage(commonMessages.types),
+        id: "options",
+        header: intl.formatMessage(commonMessages.options),
       },
     ),
   ] as ColumnDef<TalentEventNominationsTableFragmentType>[];
