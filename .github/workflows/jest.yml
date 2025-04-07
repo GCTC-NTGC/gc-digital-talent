@@ -53,7 +53,7 @@ jobs:
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            pnpm -r --workspace-concurrency=1 run test --passWithNoTests -- --coverage
+            pnpm -r --workspace-concurrency=1 run test --passWithNoTests --coverage
           else
             pnpm -r --workspace-concurrency=1 run test --passWithNoTests
           fi
