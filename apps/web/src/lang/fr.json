@@ -883,10 +883,6 @@
     "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
     "description": "Description for lateral movement options section in nominations details step"
   },
-  "2ExR2X": {
-    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement.",
-    "description": "Message about the employee found for a search"
-  },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
@@ -5455,10 +5451,6 @@
     "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
     "description": "Learn more dialog question three paragraph one"
   },
-  "OcN4TN": {
-    "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés. Une fois que vous aurez soumis votre formulaire de mise en candidature, nous l'informerons par courriel.",
-    "description": "Description of default error message when an employee could not be found"
-  },
   "OdfEyd": {
     "defaultMessage": "Qualifié",
     "description": "Simplified status label for qualified recruitments"
@@ -7482,6 +7474,10 @@
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
+  "YYbOQz": {
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
+    "description": "Message that the employee was found for a search"
+  },
   "YZtE49": {
     "defaultMessage": "Obtenez une attestation de vos compétences liées à des domaines clés des TI.",
     "description": "Page subtitle for certification exam vouchers page"
@@ -8873,6 +8869,10 @@
   "fCgDxi": {
     "defaultMessage": "réduire la dépendance à l’égard de la sous-traitance;",
     "description": "an item in a list of fund objectives"
+  },
+  "fDwDJU": {
+    "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés.",
+    "description": "Description of default error message when an employee could not be found"
   },
   "fEcEv3": {
     "defaultMessage": "Signée",
@@ -12589,6 +12589,10 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "xeMOuD": {
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette mise en candidature, nous l'informerons par courriel.",
+    "description": "Message that the employee was found for a search and will be emailed"
   },
   "xfdk0g": {
     "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont désormais accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
