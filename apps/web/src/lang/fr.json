@@ -883,10 +883,6 @@
     "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
     "description": "Description for lateral movement options section in nominations details step"
   },
-  "2ExR2X": {
-    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette candidature, nous l'informerons et il ou elle pourra consulter les détails de la mise en candidature et l'état d'avancement.",
-    "description": "Message about the employee found for a search"
-  },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
@@ -7482,6 +7478,10 @@
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
     "description": "Lead-in text to points of concern when deleting a skill on how to re-add it"
   },
+  "YYbOQz": {
+    "defaultMessage": "Il semble que {username} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
+    "description": "Message that the employee was found for a search"
+  },
   "YZtE49": {
     "defaultMessage": "Obtenez une attestation de vos compétences liées à des domaines clés des TI.",
     "description": "Page subtitle for certification exam vouchers page"
@@ -12589,6 +12589,10 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "xeMOuD": {
+    "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette mise en candidature, nous l'informerons par courriel.",
+    "description": "Message that the employee was found for a search and will be emailed"
   },
   "xfdk0g": {
     "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont désormais accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
