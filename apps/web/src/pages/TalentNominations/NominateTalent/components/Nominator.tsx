@@ -232,9 +232,9 @@ const NominatorFields = ({
         aria-describedby="nominatorHelp"
         employeeOption={fragmentToEmployee(nominatorResult)}
         label={intl.formatMessage({
-          defaultMessage: "Nominator’s work email",
-          id: "6e33hP",
-          description: "Label for the nominator input field on a nomination",
+          defaultMessage: "Search nominator's work email",
+          id: "tmRaL3",
+          description: "Label for search nominator input field on a nomination",
         })}
         errorSeverities={{ NO_PROFILE: "warning" }}
       />

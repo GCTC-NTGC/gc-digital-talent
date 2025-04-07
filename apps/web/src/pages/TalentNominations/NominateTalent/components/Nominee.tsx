@@ -29,7 +29,6 @@ import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
-import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
@@ -230,7 +229,11 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
         <EmployeeSearchInput
           id="nominee"
           name="nominee"
-          label={intl.formatMessage(labels.nomineeWorkEmail)}
+          label={intl.formatMessage({
+            defaultMessage: "Search nominee's work email",
+            id: "Ax4fN+",
+            description: "Label for search nominee input field on a nomination",
+          })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           employeeOption={fragmentToEmployee(talentNomination.nominee)}
           errorMessages={{

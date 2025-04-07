@@ -798,6 +798,8 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                 },
                 {
                   path: "talent-events",
+                  lazy: () =>
+                    import("../pages/TalentEvents/IndexTalentEventPage"),
                   children: [
                     {
                       path: ":eventId",

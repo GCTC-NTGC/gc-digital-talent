@@ -41,6 +41,7 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   newApplicantDashboard: checkFeatureFlag("FEATURE_NEW_APPLICANT_DASHBOARD"),
+  adminNomination: checkFeatureFlag("FEATURE_ADMIN_NOMINATION"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
