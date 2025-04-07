@@ -113,11 +113,11 @@ class CommunityInterest extends Model
         }
 
         $query->where(function (Builder $query) use ($user) {
-            if ($user?->isAbleTo('view-own-employeeProfile')) {
+            if ($user->isAbleTo('view-own-employeeProfile')) {
                 $query->orWhere('user_id', $user->id);
             }
 
-            if ($user?->isAbleTo('view-team-communityInterest')) {
+            if ($user->isAbleTo('view-team-communityInterest')) {
                 $query->orWhere(function (Builder $query) use ($user) {
                     $query->where(function (Builder $query) use ($user) {
                         $communityIds = $user->rolesTeams()
