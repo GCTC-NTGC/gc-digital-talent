@@ -98,7 +98,7 @@ class CommunityInterest extends Model
     }
 
     // scope the query to CommunityInterests the current user can view
-    // belongs to your community and one or more of jobInterest or trainingInterest is TRUE
+    // own interest or belongs to your community and consentToShareProfile is TRUE
     public function scopeAuthorizedToView(Builder $query, ?array $args = null)
     {
         /** @var \App\Models\User | null */
@@ -108,10 +108,8 @@ class CommunityInterest extends Model
             $user = User::findOrFail($args['userId']);
         }
 
-        if (! $user?->isAbleTo('view-own-employeeProfile') && ! $user?->isAbleTo('view-team-communityInterest')) {
-            return $query->where('id', null);
-        }
-
+        // we might want to add some filters for some candidates
+        $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
             if ($user->isAbleTo('view-own-employeeProfile')) {
                 $query->orWhere('user_id', $user->id);
@@ -135,7 +133,13 @@ class CommunityInterest extends Model
             }
         });
 
-        return $query;
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
+        }
+
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder
