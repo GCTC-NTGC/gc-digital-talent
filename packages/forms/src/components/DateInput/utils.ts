@@ -1,9 +1,16 @@
 import { format } from "date-fns/format";
+import { parse } from "date-fns/parse";
 import { IntlShape } from "react-intl";
+import { getDaysInMonth } from "date-fns/getDaysInMonth";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import { DateSegment, DATE_SEGMENT, SegmentObject } from "./types";
+import {
+  DateSegment,
+  DATE_SEGMENT,
+  SegmentObject,
+  RoundingMethod,
+} from "./types";
 
 /**
  * Split the form value into each segment
@@ -73,6 +80,7 @@ interface SetComputedValueArgs {
   show: DateSegment[];
   segment: DateSegment;
   value: string | null;
+  round?: RoundingMethod;
 }
 
 type SetComputedValueFunc = (args: SetComputedValueArgs) => string | undefined;
@@ -88,6 +96,7 @@ export const setComputedValue: SetComputedValueFunc = ({
   value,
   segment,
   show,
+  round,
 }) => {
   const { year, month, day } = splitSegments(initialValue);
 
@@ -100,20 +109,35 @@ export const setComputedValue: SetComputedValueFunc = ({
     show: show.includes(DATE_SEGMENT.Year),
   });
 
+  let defaultMonth = "01";
+  if (!show.includes(DATE_SEGMENT.Month) && round) {
+    defaultMonth = "12";
+  }
   const newMonth = getComputedSegmentValue({
     values: {
       new: segment === DATE_SEGMENT.Month ? value : null,
       current: month,
-      default: "01",
+      default: defaultMonth,
     },
     show: show.includes(DATE_SEGMENT.Month),
   });
 
+  let defaultDay = "01";
+  if (!show.includes(DATE_SEGMENT.Day) && round) {
+    if (round === "ceil") {
+      const currentDay = parse(
+        `${newYear}-${newMonth}-${defaultDay}`,
+        "yyyy-MM-dd",
+        new Date(),
+      );
+      defaultDay = String(getDaysInMonth(currentDay));
+    }
+  }
   const newDay = getComputedSegmentValue({
     values: {
       new: segment === DATE_SEGMENT.Day ? value : null,
       current: day,
-      default: "01",
+      default: defaultDay,
     },
     show: show.includes(DATE_SEGMENT.Day),
   });
