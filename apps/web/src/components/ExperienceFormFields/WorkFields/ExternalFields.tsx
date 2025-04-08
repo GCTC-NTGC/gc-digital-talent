@@ -151,6 +151,7 @@ const ExternalFields = ({
                 legend={labels.endDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                round="ceil"
                 rules={
                   watchCurrentRole
                     ? {}

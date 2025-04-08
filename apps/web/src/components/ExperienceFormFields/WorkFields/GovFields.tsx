@@ -455,6 +455,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 legend={labels.expectedEndDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                round="ceil"
                 rules={
                   watchCurrentRole
                     ? {
