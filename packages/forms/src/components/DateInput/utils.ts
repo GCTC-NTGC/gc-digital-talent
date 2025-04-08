@@ -4,6 +4,7 @@ import { IntlShape } from "react-intl";
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
+import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
 import {
   DateSegment,
@@ -110,35 +111,33 @@ export const setComputedValue: SetComputedValueFunc = ({
     show: show.includes(DATE_SEGMENT.Year),
   });
 
-  let defaultMonth = "01";
+  let currentMonth = month;
   if (!show.includes(DATE_SEGMENT.Month) && round) {
-    defaultMonth = "12";
+    currentMonth = round === "ceil" ? "12" : "01";
   }
   const newMonth = getComputedSegmentValue({
     values: {
       new: segment === DATE_SEGMENT.Month ? value : null,
-      current: month,
-      default: defaultMonth,
+      current: currentMonth,
+      default: "01",
     },
     show: show.includes(DATE_SEGMENT.Month),
   });
 
-  let defaultDay = "01";
+  let currentDay = day;
   if (!show.includes(DATE_SEGMENT.Day) && round) {
     if (round === "ceil") {
-      const currentDay = parse(
-        `${newYear || defaultYear}-${newMonth || defaultMonth}-${defaultDay}`,
-        "yyyy-MM-dd",
-        new Date(),
-      );
-      defaultDay = String(getDaysInMonth(currentDay));
+      const currentDate = formDateStringToDate(`${newYear || defaultYear}-${newMonth}-01`);
+      currentDay = String(getDaysInMonth(currentDate));
+    } else {
+      currentDay = "01";
     }
   }
   const newDay = getComputedSegmentValue({
     values: {
       new: segment === DATE_SEGMENT.Day ? value : null,
-      current: day,
-      default: defaultDay,
+      current: currentDay,
+      default: "01",
     },
     show: show.includes(DATE_SEGMENT.Day),
   });
