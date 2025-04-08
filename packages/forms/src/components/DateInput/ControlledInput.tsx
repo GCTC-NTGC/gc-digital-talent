@@ -59,6 +59,7 @@ const ControlledInput = ({
       value: segmentValue,
       segment,
       show,
+      round,
     });
 
     onChange(newValue);
