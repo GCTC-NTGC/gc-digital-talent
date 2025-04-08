@@ -403,7 +403,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       data={communityInterestData}
       caption={title}
       columns={columns}
-      hiddenColumnIds={["community", "workEmail", "preferredLang"]}
+      hiddenColumnIds={["community", "preferredLang"]}
       isLoading={fetching}
       search={{
         internal: false,
