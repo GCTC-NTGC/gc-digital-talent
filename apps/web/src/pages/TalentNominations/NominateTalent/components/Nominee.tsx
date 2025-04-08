@@ -236,6 +236,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           employeeOption={fragmentToEmployee(talentNomination.nominee)}
+          searchMessageCase="base"
           errorMessages={{
             NO_PROFILE: {
               body: intl.formatMessage({

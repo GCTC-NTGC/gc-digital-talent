@@ -269,6 +269,7 @@ const DetailsFields = ({
                 id="advancementReference"
                 name="advancementReference"
                 employeeOption={fragmentToEmployee(advancementReferenceData)}
+                searchMessageCase="base"
                 label={intl.formatMessage({
                   defaultMessage: "Search reference's work email",
                   id: "ZPedK3",
