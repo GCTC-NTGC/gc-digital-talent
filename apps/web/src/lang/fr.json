@@ -1683,6 +1683,10 @@
     "defaultMessage": "Il n'y a pas d'événements actifs pour le moment.",
     "description": "Message title displayed when no active events"
   },
+  "5j19WZ": {
+    "defaultMessage": "Nominations de talents",
+    "description": "Label or header"
+  },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
@@ -2422,6 +2426,10 @@
   "9b+Xtt": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the community information section of a form"
+  },
+  "9bG59n": {
+    "defaultMessage": "Auteur(trice)s de mise en candidature",
+    "description": "Label or header"
   },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
@@ -4743,6 +4751,10 @@
     "defaultMessage": "Définissez les renseignements et les exigences de ce processus de recrutement.",
     "description": "Description of a process' advertisement"
   },
+  "Kzbu79": {
+    "defaultMessage": "Perfectionnement",
+    "description": "Label for the development nomination type"
+  },
   "L0eho2": {
     "defaultMessage": "Ouvert au public",
     "description": "Combined eligibility string for 'open to the public'"
@@ -5799,6 +5811,10 @@
     "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
     "description": "Paragraph 2, importance of self-declaration"
   },
+  "Q9yLca": {
+    "defaultMessage": "Consultez et gérez toutes les nominations reçues pour cet événement axé sur la gestion des talents.",
+    "description": "Talent nominations table page, table information"
+  },
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
     "description": "Message displayed for training opportunity not found."
@@ -6190,6 +6206,10 @@
   "RuTdam": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label text for employee profile c-suite role input"
+  },
+  "Rw9JVt": {
+    "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
+    "description": "Null message title for talent nominations table."
   },
   "RwXPoj": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
@@ -11706,6 +11726,10 @@
     "defaultMessage": "Candidat retiré avec succès",
     "description": "Success message for removing a candidate"
   },
+  "soHyUi": {
+    "defaultMessage": "Au fur et à mesure que les nominations de talents pour cet événement seront reçues, elles apparaîtront automatiquement ici.",
+    "description": "Null message description for talent nominations table."
+  },
   "sp9OKU": {
     "defaultMessage": "Informations sur le ministère",
     "description": "Nav tab label for department information"
@@ -12629,6 +12653,10 @@
   "xm2o/k": {
     "defaultMessage": "Ces renseignements sont facultatifs",
     "description": "Null message on sections for edit pool page."
+  },
+  "xmAF0A": {
+    "defaultMessage": "Personne candidate",
+    "description": "Label or header"
   },
   "xnNnwu": {
     "defaultMessage": "Qu’il s’agisse d’un poste de cadre débutant ou d’un poste de DPI au sein du gouvernement du Canada, vous êtes au bon endroit pour franchir une nouvelle étape dans le leadership numérique.",
