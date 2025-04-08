@@ -11,6 +11,7 @@ import { Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
 import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
+import { SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 
 interface WrapperProps
@@ -25,6 +26,7 @@ export interface EmployeeSearchInputProps
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
   employeeOption?: Maybe<EmployeeSearchResult>;
+  searchMessageCase?: SearchMessageCases;
 }
 
 const EmployeeSearchInput = ({
@@ -37,6 +39,7 @@ const EmployeeSearchInput = ({
   errorMessages,
   errorSeverities,
   employeeOption,
+  searchMessageCase,
   "aria-describedby": describedBy,
   "aria-labelledby": labelledBy,
 }: EmployeeSearchInputProps) => {
@@ -61,6 +64,7 @@ const EmployeeSearchInput = ({
             errorMessages={errorMessages}
             errorSeverities={errorSeverities}
             defaultEmployee={employeeOption}
+            searchMessageCase={searchMessageCase}
             inputProps={{
               id,
               "aria-labelledby": `${labelId}${

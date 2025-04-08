@@ -53,6 +53,16 @@ export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
           localized
         }
       }
+      learningOpportunitiesInterest: localizedEnumStrings(
+        enumName: "LearningOpportunitiesInterest"
+      ) {
+        value
+        label {
+          en
+          fr
+          localized
+        }
+      }
     }
   `,
 );
@@ -80,6 +90,12 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
       }
     }
     promotionMoveOrganizationType {
+      value
+      label {
+        localized
+      }
+    }
+    learningOpportunitiesInterest {
       value
       label {
         localized

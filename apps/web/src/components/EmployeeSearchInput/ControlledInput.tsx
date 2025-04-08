@@ -27,7 +27,7 @@ import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
-import Result from "./Result";
+import Result, { SearchMessageCases } from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
 import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
@@ -53,6 +53,7 @@ interface ControlledInputProps {
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
   defaultEmployee?: Maybe<EmployeeSearchResult>;
+  searchMessageCase?: SearchMessageCases;
 }
 
 const ControlledInput = ({
@@ -64,6 +65,7 @@ const ControlledInput = ({
   errorMessages,
   errorSeverities,
   defaultEmployee,
+  searchMessageCase,
 }: ControlledInputProps) => {
   const id = useId();
   const intl = useIntl();
@@ -274,7 +276,11 @@ const ControlledInput = ({
           </p>
         )}
         {!fetching && employee && !hasErrors && (
-          <Result employee={employee} id={descriptionIds.context} />
+          <Result
+            employee={employee}
+            id={descriptionIds.context}
+            searchMessageCase={searchMessageCase}
+          />
         )}
         {!fetching && hasErrors && (
           <ErrorMessage

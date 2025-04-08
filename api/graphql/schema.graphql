@@ -203,7 +203,8 @@ type EmployeeProfile {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
@@ -346,6 +347,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
@@ -654,8 +656,9 @@ type TalentNominationEvent {
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany
+    @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view", model: "TalentNominationGroup")
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {
@@ -1410,7 +1413,7 @@ type Query {
 
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(
-    status: TalentNominationEventStatus @scope
+    where: TalentNominationEventsFilterInput
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
@@ -1730,7 +1733,8 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
@@ -2657,6 +2661,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus @scope
+  canManage: Boolean @scope
 }
 
 input ConnectJobPosterTemplateSkillInput {
