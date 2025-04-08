@@ -292,6 +292,7 @@ class CommunityInterestTest extends TestCase
     public function testCommunityInterestsPaginatedRoles(): void
     {
         CommunityInterest::truncate();
+        /** @var \App\Models\User */
         $owningUser = User::factory()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
