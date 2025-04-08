@@ -51,9 +51,9 @@ jobs:
         working-directory: ./
         run: |
           if [ github.actor != 'dependabot[bot]' ]; then
-            pnpm -r --sequential run test --passWithNoTests --workerIdleMemoryLimit=512MB --coverage
+            pnpm run test -- --coverage
           else
-            pnpm -r --sequential run test --passWithNoTests --workerIdleMemoryLimit=512MB
+            pnpm run test
           fi
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
