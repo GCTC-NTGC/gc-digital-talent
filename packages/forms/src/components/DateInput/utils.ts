@@ -100,11 +100,12 @@ export const setComputedValue: SetComputedValueFunc = ({
 }) => {
   const { year, month, day } = splitSegments(initialValue);
 
+  const defaultYear = format(new Date(), "yyyy");
   const newYear = getComputedSegmentValue({
     values: {
       new: segment === DATE_SEGMENT.Year ? value : null,
       current: year,
-      default: format(new Date(), "yyyy"),
+      default: defaultYear,
     },
     show: show.includes(DATE_SEGMENT.Year),
   });
@@ -126,7 +127,7 @@ export const setComputedValue: SetComputedValueFunc = ({
   if (!show.includes(DATE_SEGMENT.Day) && round) {
     if (round === "ceil") {
       const currentDay = parse(
-        `${newYear}-${newMonth}-${defaultDay}`,
+        `${newYear || defaultYear}-${newMonth || defaultMonth}-${defaultDay}`,
         "yyyy-MM-dd",
         new Date(),
       );
