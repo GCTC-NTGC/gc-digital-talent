@@ -365,7 +365,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     columnHelper.accessor(({ user }) => user?.workEmail, {
       id: "workEmail",
       header: intl.formatMessage(commonMessages.workEmail),
-      enableColumnFilter: false,
       cell: ({ getValue }) => cells.email(getValue()),
     }),
     columnHelper.accessor(
