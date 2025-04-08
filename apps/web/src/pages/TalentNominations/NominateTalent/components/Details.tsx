@@ -269,7 +269,13 @@ const DetailsFields = ({
                 id="advancementReference"
                 name="advancementReference"
                 employeeOption={fragmentToEmployee(advancementReferenceData)}
-                label={intl.formatMessage(labels.referencesWorkEmail)}
+                searchMessageCase="base"
+                label={intl.formatMessage({
+                  defaultMessage: "Search reference's work email",
+                  id: "ZPedK3",
+                  description:
+                    "Label for search reference input field on a nomination",
+                })}
                 errorSeverities={{ NO_PROFILE: "warning" }}
               />
               {!advancementReferenceUnset && !advancementReferenceNotFound && (
