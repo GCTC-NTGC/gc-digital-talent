@@ -23,3 +23,5 @@ interface DateMinMax {
 
 export type DateRegisterOptions = Omit<RegisterOptions, "min" | "max"> &
   Partial<DateMinMax>;
+
+export type RoundingMethod = "floor" | "ceil";
