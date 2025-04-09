@@ -1639,6 +1639,10 @@
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
   },
+  "xUhyIU": {
+    "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description for rule pattern on work email field"
+  },
   "xVBxp3": {
     "defaultMessage": "En cours",
     "description": "In progress status"
