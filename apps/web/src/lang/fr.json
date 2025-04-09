@@ -12814,6 +12814,10 @@
     "defaultMessage": "Télécharger le guide",
     "description": "Link text for guidance resource download"
   },
+  "yVf0d/": {
+    "defaultMessage": "Présentez une mise en candidature",
+    "description": "Link text to navigate to talent nomination events list"
+  },
   "yW8bEZ": {
     "defaultMessage": "Texte de rechange en langage clair (anglais)",
     "description": "Label for plain language alt english input"
