@@ -128,8 +128,6 @@ class CommunityInterest extends Model
 
                     $query->where('consent_to_share_profile', true);
                 });
-
-                return $query;
             }
         });
 
