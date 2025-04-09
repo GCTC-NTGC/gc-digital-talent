@@ -1,5 +1,4 @@
 import { format } from "date-fns/format";
-import { parse } from "date-fns/parse";
 import { IntlShape } from "react-intl";
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 
