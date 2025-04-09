@@ -9,7 +9,7 @@ const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
   return arr.reduce<JSX.Element[]>((prev, curr, i) => {
     if (i > 0) {
       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-      prev.push(<span key={i}>, </span>);
+      prev.push(<span key={i}> , </span>);
     }
     prev.push(curr);
     return prev;
