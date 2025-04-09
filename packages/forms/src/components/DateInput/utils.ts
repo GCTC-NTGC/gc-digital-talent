@@ -127,7 +127,9 @@ export const setComputedValue: SetComputedValueFunc = ({
   let currentDay = day;
   if (!show.includes(DATE_SEGMENT.Day) && round) {
     if (round === "ceil") {
-      const currentDate = formDateStringToDate(`${newYear || defaultYear}-${newMonth}-01`);
+      const currentDate = formDateStringToDate(
+        `${newYear || defaultYear}-${newMonth}-01`,
+      );
       currentDay = String(getDaysInMonth(currentDate));
     } else {
       currentDay = "01";
