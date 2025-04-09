@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Separator } from "@gc-digital-talent/ui";
 import {
   graphql,
   FragmentType,
   getFragment,
   TalentNominationNomineeRelationshipToNominator,
   NominatorInfoDialog_NominationFragment as NominatorInfoDialogNominationFragmentType,
+  TalentNominationSubmitterRelationshipToNominator,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -69,6 +70,17 @@ const NominatorInfoDialog_NominationFragment = graphql(/* GraphQL */ `
   }
 `);
 
+const displaySubmitterSection = (
+  nominatorId: string | undefined,
+  submitterId: string | undefined,
+): boolean => {
+  if (submitterId && nominatorId !== submitterId) {
+    return true;
+  }
+
+  return false;
+};
+
 const generateNominatorNomineeRelation = (
   relationEnumObject: NominatorInfoDialogNominationFragmentType["nomineeRelationshipToNominator"],
   otherValue: string | null | undefined,
@@ -78,6 +90,25 @@ const generateNominatorNomineeRelation = (
     if (
       relationEnumObject.value !==
       TalentNominationNomineeRelationshipToNominator.Other
+    ) {
+      return relationEnumObject.label.localized;
+    } else if (otherValue) {
+      return otherValue;
+    }
+  }
+
+  return intlShape.formatMessage(commonMessages.notProvided);
+};
+
+const generateNominatorSubmitterRelation = (
+  relationEnumObject: NominatorInfoDialogNominationFragmentType["submitterRelationshipToNominator"],
+  otherValue: string | null | undefined,
+  intlShape: IntlShape,
+): string => {
+  if (!!relationEnumObject?.label?.localized && !!relationEnumObject.value) {
+    if (
+      relationEnumObject.value !==
+      TalentNominationSubmitterRelationshipToNominator.Other
     ) {
       return relationEnumObject.label.localized;
     } else if (otherValue) {
@@ -187,6 +218,76 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
               )}
             </FieldDisplay>
           </div>
+          {displaySubmitterSection(
+            nomination.nominator?.id,
+            nomination.submitter?.id,
+          ) && (
+            <>
+              <Separator space="none" data-h2-margin="base(x1 0)" />
+              <p data-h2-margin-bottom="base(x1)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Someone else submitted this nomination on behalf of the nominator. Their information can be found here.",
+                  id: "Xb11ag",
+                  description:
+                    "Information in dialog about submitter being different from nominator",
+                })}
+              </p>
+              <div
+                data-h2-display="base(grid)"
+                data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                data-h2-gap="base(x1)"
+                data-h2-overflow-wrap="base(anywhere)"
+              >
+                <FieldDisplay
+                  label={intl.formatMessage(messages.submitterName)}
+                >
+                  {getFullNameLabel(
+                    nomination.submitter?.firstName,
+                    nomination.submitter?.lastName,
+                    intl,
+                  )}
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(messages.submitterWorkEmail)}
+                >
+                  {nomination.submitter?.workEmail ??
+                    intl.formatMessage(commonMessages.notProvided)}
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(messages.submitterClassification)}
+                >
+                  {!!nomination.submitter?.classification?.group &&
+                  !!nomination.submitter.classification.level
+                    ? getClassificationName(
+                        {
+                          group: nomination.submitter.classification.group,
+                          level: nomination.submitter.classification.level,
+                        },
+                        intl,
+                      )
+                    : intl.formatMessage(commonMessages.notProvided)}
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(messages.submitterDepartmentAgency)}
+                >
+                  {nomination.submitter?.department?.name?.localized ??
+                    intl.formatMessage(commonMessages.notProvided)}
+                </FieldDisplay>
+                <FieldDisplay
+                  label={intl.formatMessage(
+                    messages.submitterRelationNominator,
+                  )}
+                >
+                  {generateNominatorSubmitterRelation(
+                    nomination.submitterRelationshipToNominator,
+                    nomination.submitterRelationshipToNominatorOther,
+                    intl,
+                  )}
+                </FieldDisplay>
+              </div>
+            </>
+          )}
           <Dialog.Footer
             data-h2-gap="base(x1 0) p-tablet(0 x1)"
             data-h2-flex-direction="base(column) p-tablet(row)"
