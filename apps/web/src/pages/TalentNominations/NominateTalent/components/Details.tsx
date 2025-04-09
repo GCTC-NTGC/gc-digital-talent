@@ -29,7 +29,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Well } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -269,7 +269,13 @@ const DetailsFields = ({
                 id="advancementReference"
                 name="advancementReference"
                 employeeOption={fragmentToEmployee(advancementReferenceData)}
-                label={intl.formatMessage(labels.referencesWorkEmail)}
+                searchMessageCase="base"
+                label={intl.formatMessage({
+                  defaultMessage: "Search reference's work email",
+                  id: "ZPedK3",
+                  description:
+                    "Label for search reference input field on a nomination",
+                })}
                 errorSeverities={{ NO_PROFILE: "warning" }}
               />
               {!advancementReferenceUnset && !advancementReferenceNotFound && (
@@ -323,6 +329,12 @@ const DetailsFields = ({
                       name="advancementReferenceFallbackWorkEmail"
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
+                        pattern: {
+                          value: workEmailDomainRegex,
+                          message: intl.formatMessage(
+                            errorMessages.notGovernmentEmail,
+                          ),
+                        },
                       }}
                       label={intl.formatMessage({
                         defaultMessage: "Reference's work email",

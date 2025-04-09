@@ -226,6 +226,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
       "À propos de ce rôle",
       "Au sujet de ce rôle"
     ]
+  },
+  {
+    "en": "Nominee",
+    "fr": [
+      "La personne candidate",
+      "Personne candidate"
+    ]
   }
 ]"
 `;

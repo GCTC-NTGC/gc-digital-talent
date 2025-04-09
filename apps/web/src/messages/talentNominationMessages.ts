@@ -31,6 +31,11 @@ const messages = defineMessages({
     id: "W2s794",
     description: "Label for the development program nomination type",
   },
+  development: {
+    defaultMessage: "Development",
+    id: "Kzbu79",
+    description: "Label for the development nomination type",
+  },
   eventName: {
     defaultMessage: "Event name",
     id: "Kbt6SJ",
@@ -60,6 +65,21 @@ const messages = defineMessages({
     defaultMessage: "Nominator’s work email",
     id: "Ch6OCd",
     description: "Label for the nominator's work email",
+  },
+  talentNominations: {
+    defaultMessage: "Talent nominations",
+    id: "5j19WZ",
+    description: "Label or header",
+  },
+  nominee: {
+    defaultMessage: "Nominee",
+    id: "xmAF0A",
+    description: "Label or header",
+  },
+  nominators: {
+    defaultMessage: "Nominators",
+    id: "9bG59n",
+    description: "Label or header",
   },
 });
 

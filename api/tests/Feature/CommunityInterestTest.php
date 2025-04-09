@@ -292,7 +292,10 @@ class CommunityInterestTest extends TestCase
     public function testCommunityInterestsPaginatedRoles(): void
     {
         CommunityInterest::truncate();
+        /** @var \App\Models\User */
+        $owningUser = User::factory()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
+            'user_id' => $owningUser->id,
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
@@ -315,7 +318,7 @@ class CommunityInterestTest extends TestCase
             [],
         )->assertJsonFragment(['total' => 0]);
 
-        // only community recruiter/admin/coordinator can see the model
+        // community recruiter/admin/coordinator can see the model
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
@@ -327,6 +330,12 @@ class CommunityInterestTest extends TestCase
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestModel->id]);
         $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
+        // base user can see their own community interest
+        $this->actingAs($owningUser, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])
