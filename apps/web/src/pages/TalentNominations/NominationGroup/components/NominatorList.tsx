@@ -1,9 +1,8 @@
-import { useIntl } from "react-intl";
 import { JSX } from "react";
 
 import { NominationGroupSidebarFragment as NominationGroupSidebarFragmentType } from "@gc-digital-talent/graphql";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
+import NominatorInfoDialog from "./NominatorInfoDialog";
 
 // effectively insertBetween(), but specialized specifically for the purpose of unique key values
 const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
@@ -22,8 +21,6 @@ interface NominatorListProps {
 }
 
 const NominatorList = ({ talentNominations }: NominatorListProps) => {
-  const intl = useIntl();
-
   const nominationsSortedByNominator = (talentNominations ?? []).sort(
     (a, b) => {
       return (
@@ -37,13 +34,7 @@ const NominatorList = ({ talentNominations }: NominatorListProps) => {
     },
   );
   const nominatorsList = nominationsSortedByNominator.map((nomination) => (
-    <span key={nomination.id}>
-      {getFullNameLabel(
-        nomination.nominator?.firstName,
-        nomination.nominator?.lastName,
-        intl,
-      )}
-    </span>
+    <NominatorInfoDialog key={nomination.id} nominationQuery={nomination} />
   ));
   const nominatorListCommaSeparated = commaSeparator(nominatorsList);
 
