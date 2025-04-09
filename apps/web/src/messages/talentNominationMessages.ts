@@ -81,6 +81,31 @@ const messages = defineMessages({
     id: "nPc3eL",
     description: "Label for the nominator's relation to nominee",
   },
+  submitterName: {
+    defaultMessage: "Submitter's name",
+    id: "rgmr0x",
+    description: "Label for the submitter's name",
+  },
+  submitterWorkEmail: {
+    defaultMessage: "Submitter's work email",
+    id: "/Wgawu",
+    description: "Label for the submitter's work email",
+  },
+  submitterClassification: {
+    defaultMessage: "Submitter's classification",
+    id: "iC/wHw",
+    description: "Label for the submitter's classification",
+  },
+  submitterDepartmentAgency: {
+    defaultMessage: "Submitter's department or agency",
+    id: "oljVrD",
+    description: "Label for the submitter's department/agency",
+  },
+  submitterRelationNominator: {
+    defaultMessage: "Submitter's relationship to nominator",
+    id: "Fygh/q",
+    description: "Label for the submitter's relation to nominator",
+  },
   talentNominations: {
     defaultMessage: "Talent nominations",
     id: "5j19WZ",
