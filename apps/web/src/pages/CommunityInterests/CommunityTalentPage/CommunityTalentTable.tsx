@@ -327,6 +327,16 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       enableSorting: false,
     }),
     columnHelper.accessor(
+      ({ workStreams }) =>
+        workStreams?.map((workStream) => workStream.name?.localized).join(", "),
+      {
+        id: "workStreams",
+        header: intl.formatMessage(adminMessages.workStreams),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
       ({
         user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
       }) => {
