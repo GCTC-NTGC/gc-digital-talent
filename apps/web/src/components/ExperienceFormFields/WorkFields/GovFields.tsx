@@ -488,6 +488,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                     id="endDate"
                     legend={labels.endDate}
                     name="endDate"
+                    round="ceil"
                     show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
