@@ -66,6 +66,21 @@ const messages = defineMessages({
     id: "Ch6OCd",
     description: "Label for the nominator's work email",
   },
+  nominatorClassification: {
+    defaultMessage: "Nominator's classification",
+    id: "b44Vd5",
+    description: "Label for the nominator's classification",
+  },
+  nominatorDepartmentAgency: {
+    defaultMessage: "Nominator's department or agency",
+    id: "lZpu2u",
+    description: "Label for the nominator's department/agency",
+  },
+  nominatorRelationNominee: {
+    defaultMessage: "Nominator's relationship to nominee",
+    id: "nPc3eL",
+    description: "Label for the nominator's relation to nominee",
+  },
   talentNominations: {
     defaultMessage: "Talent nominations",
     id: "5j19WZ",
