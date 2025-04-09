@@ -27,7 +27,6 @@ import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 export interface FormValues {
   communities: string[];
   workStreams: string[];
-  pools: string[];
   mobilityInterest: string[];
   mobilityType: string[];
   languageAbility: string;
@@ -142,9 +141,6 @@ const CommunityTalentFilterDialog = ({
               label: name?.localized,
             }))}
           />
-        </div>
-        <div data-h2-grid-column="base(span 2)">
-          <PoolFilterInput />
         </div>
         <div data-h2-grid-column="base(span 2) l-tablet(span 1)">
           <Checklist

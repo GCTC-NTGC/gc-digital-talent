@@ -135,7 +135,6 @@ const defaultState = {
   filters: {
     communities: [],
     workStreams: [],
-    poolFilters: [],
     jobInterest: undefined,
     trainingInterest: undefined,
     lateralMoveInterest: undefined,
