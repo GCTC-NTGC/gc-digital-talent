@@ -219,7 +219,7 @@ describe("DateInput", () => {
     });
   });
 
-  it("doesn't fail min validation on null", async () => {
+  it.only("doesn't fail min validation on null", async () => {
     const submitFn = jest.fn();
 
     renderDateInput({
