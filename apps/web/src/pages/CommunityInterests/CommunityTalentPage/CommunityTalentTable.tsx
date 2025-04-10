@@ -520,7 +520,13 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       data={communityInterestData}
       caption={title}
       columns={columns}
-      hiddenColumnIds={["community", "preferredLang"]}
+      hiddenColumnIds={[
+        "community",
+        "preferredLang",
+        "positionDuration",
+        "locationPreferences",
+        "acceptedOperationalRequirements",
+      ]}
       isLoading={fetching}
       search={{
         internal: false,
