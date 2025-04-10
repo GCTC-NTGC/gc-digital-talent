@@ -52,12 +52,12 @@ function getColorStyles(status: Status): HydrogenAttributes {
   }
   if (status === "empty") {
     return {
-      "data-h2-color": "base(black.lighter) base:dark(black.darker-50)",
+      "data-h2-color": "base(black.lighter) base:dark(black.5)",
     };
   }
   if (status === "declined") {
     return {
-      "data-h2-color": "base(black.lighter) base:dark(black.darker-50)",
+      "data-h2-color": "base(black.lighter) base:dark(black.5)",
     };
   }
   if (status === "error") {
