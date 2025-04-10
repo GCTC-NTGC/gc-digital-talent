@@ -1460,7 +1460,11 @@ type Query {
       )
   ): [CommunityInterest]!
     @guard
-    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 500
+      scopes: ["authorizedToView", "isVerifiedGovEmployee"]
+    )
 }
 
 input ClassificationBelongsTo {
