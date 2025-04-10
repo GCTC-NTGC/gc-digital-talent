@@ -245,7 +245,7 @@ const TalentNominationAccordionItem = ({
       label:
         skill.name.localized ?? intl.formatMessage(commonMessages.notFound),
     })) ?? [];
-  skillListItems.sort();
+  skillListItems.sort((a, b) => a.label.localeCompare(b.label));
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
