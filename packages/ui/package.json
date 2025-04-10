@@ -66,6 +66,6 @@
     "react-dom": "^18.3.1",
     "react-intl": "^7.1.10",
     "tsconfig": "workspace:*",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }
