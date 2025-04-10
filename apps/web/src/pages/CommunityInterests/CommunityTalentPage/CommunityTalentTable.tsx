@@ -88,6 +88,12 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      acceptedOperationalRequirements {
+        value
+        label {
+          localized
+        }
+      }
       employeeProfile {
         lateralMoveInterest
         promotionMoveInterest
@@ -413,6 +419,27 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       {
         id: "locationPreferences",
         header: intl.formatMessage(talentRequestMessages.workLocation),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.acceptedOperationalRequirements
+          ? user?.acceptedOperationalRequirements
+              .map(
+                (acceptedOperationalRequirement) =>
+                  acceptedOperationalRequirement?.label?.localized,
+              )
+              .join(", ")
+          : "",
+      {
+        id: "acceptedOperationalRequirements",
+        header: intl.formatMessage({
+          defaultMessage: "Work preferences",
+          id: "nnMYWr",
+          description: "Name of Work preferences page",
+        }),
         enableColumnFilter: false,
         enableSorting: false,
       },
