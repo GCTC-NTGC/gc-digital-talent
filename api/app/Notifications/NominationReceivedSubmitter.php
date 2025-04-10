@@ -62,8 +62,8 @@ class NominationReceivedSubmitter extends Notification implements CanBeSentViaGc
         $combinedNominationOptionDescriptions = match ($nominationOptionDescriptions->count()) {
             0 => Lang::get('common.not_provided', [], $locale),
             1 => $nominationOptionDescriptions->sole(),
-            2 => $nominationOptionDescriptions->join(Lang::get('common.and', [], $locale)),
-            default => $nominationOptionDescriptions->join(', ', Lang::get('common.join_last_item_in_a_comma_list')),
+            2 => $nominationOptionDescriptions->join(Lang::get('join.and_list', [], $locale)),
+            default => $nominationOptionDescriptions->join(', ', Lang::get('join.last_item_in_comma_list')),
         };
 
         if ($locale == Language::EN->value) {

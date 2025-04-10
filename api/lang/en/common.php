@@ -25,6 +25,4 @@ return [
     'step' => 'Step',
     'open_to_job_offers' => 'Open to job offers',
     'not_interested' => 'Not interested',
-    'and' => 'and',
-    'join_last_item_in_a_comma_list' => ', and', // oxford comma for English
 ];
