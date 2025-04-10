@@ -77,6 +77,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       }
       employeeProfile {
         lateralMoveInterest
+        promotionMoveInterest
       }
     }
     community {
@@ -347,6 +348,20 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         header: intl.formatMessage(
           talentNominationMessages.nominateForLateralMovement,
         ),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        interestAccessor(intl, user?.employeeProfile?.promotionMoveInterest),
+      {
+        id: "promotionMoveInterest",
+        header: intl.formatMessage({
+          defaultMessage: "Promotions and advancement",
+          id: "h0mWc3",
+          description:
+            "Label for interested in promotional movement checkbox for mobility type checklist",
+        }),
         enableColumnFilter: false,
       },
     ),
