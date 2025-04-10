@@ -17,7 +17,11 @@ import {
   getFragment,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import Table, {
@@ -38,6 +42,7 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -75,6 +80,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
         group
         level
       }
+      positionDuration
       employeeProfile {
         lateralMoveInterest
         promotionMoveInterest
@@ -361,6 +367,31 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           id: "h0mWc3",
           description:
             "Label for interested in promotional movement checkbox for mobility type checklist",
+        }),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.positionDuration
+          ? intl.formatMessage(
+              getEmploymentDuration(
+                positionDurationToEmploymentDuration(user?.positionDuration),
+                "short",
+              ),
+            )
+          : intl.formatMessage({
+              defaultMessage: "Any duration",
+              id: "Swq+OD",
+              description: "Option label for allowing any employment duration",
+            }),
+
+      {
+        id: "positionDuration",
+        header: intl.formatMessage({
+          defaultMessage: "Duration preferences",
+          id: "2ingb6",
+          description: "Label for the employment duration field",
         }),
         enableColumnFilter: false,
       },
