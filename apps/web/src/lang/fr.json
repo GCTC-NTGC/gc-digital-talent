@@ -492,7 +492,7 @@
     "description": "Legend for selecting First Nations status or non-status"
   },
   "0MCsDL": {
-    "defaultMessage": "Vérifiez que l'adresse courriel de l'utilisateur est correcte. Si ce n'est pas le cas, utilisez le bouton radio pour informer le personnel de gestion des talents de vérifier les détails de l'utilisateur.",
+    "defaultMessage": "Vérifiez que l'adresse courriel de l'utilisateur est correcte. Si c'est le cas, utilisez le bouton radio pour informer le personnel de gestion des talents de vérifier les détails de l'utilisateur.",
     "description": "Description for review of nominee's information"
   },
   "0Ma07A": {
