@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Events\TalentNominationSubmitted;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
 
@@ -19,6 +20,7 @@ class TalentNominationObserver
             $talentNomination->talentNominationGroup?->updateStatus();
         });
 
+        TalentNominationSubmitted::dispatchIf(! is_null($talentNomination->submitted_at), $talentNomination);
     }
 
     /**
@@ -32,6 +34,10 @@ class TalentNominationObserver
         TalentNominationGroup::withoutEvents(function () use ($talentNomination) {
             $talentNomination->talentNominationGroup?->updateStatus();
         });
+
+        $oldSubmittedAt = $talentNomination->getOriginal('submitted_at');
+        $newSubmittedAt = $talentNomination->submitted_at;
+        TalentNominationSubmitted::dispatchIf(is_null($oldSubmittedAt) && ! is_null($newSubmittedAt), $talentNomination);
     }
 
     /**
