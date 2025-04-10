@@ -22,8 +22,6 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
-
 export interface FormValues {
   communities: string[];
   workStreams: string[];
