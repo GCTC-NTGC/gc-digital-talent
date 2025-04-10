@@ -17,7 +17,7 @@
     "@gc-digital-talent/theme": "workspace:*",
     "@storybook/react": "^8.6.12",
     "@urql/core": "^5.1.0",
-    "chromatic": "^11.27.0",
+    "chromatic": "^11.28.0",
     "graphql": "^16.10.0",
     "lodash": "^4.17.21",
     "motion": "^12.6.3",
