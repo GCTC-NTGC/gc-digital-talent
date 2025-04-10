@@ -43,6 +43,7 @@ import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDoc
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -81,6 +82,12 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
         level
       }
       positionDuration
+      locationPreferences {
+        value
+        label {
+          localized
+        }
+      }
       employeeProfile {
         lateralMoveInterest
         promotionMoveInterest
@@ -394,6 +401,20 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           description: "Label for the employment duration field",
         }),
         enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.locationPreferences
+          ? user?.locationPreferences
+              .map((locationPreference) => locationPreference?.label?.localized)
+              .join(", ")
+          : "",
+      {
+        id: "locationPreferences",
+        header: intl.formatMessage(talentRequestMessages.workLocation),
+        enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(
