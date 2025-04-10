@@ -29,7 +29,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Heading, Well } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -329,6 +329,12 @@ const DetailsFields = ({
                       name="advancementReferenceFallbackWorkEmail"
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
+                        pattern: {
+                          value: workEmailDomainRegex,
+                          message: intl.formatMessage(
+                            errorMessages.notGovernmentEmail,
+                          ),
+                        },
                       }}
                       label={intl.formatMessage({
                         defaultMessage: "Reference's work email",

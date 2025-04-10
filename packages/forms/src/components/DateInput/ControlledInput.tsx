@@ -11,7 +11,7 @@ import get from "lodash/get";
 import { dateMessages } from "@gc-digital-talent/i18n";
 
 import useInputStyles from "../../hooks/useInputStyles";
-import { DateSegment, DATE_SEGMENT } from "./types";
+import { DateSegment, DATE_SEGMENT, RoundingMethod } from "./types";
 import {
   getMonthOptions,
   getMonthSpan,
@@ -26,12 +26,14 @@ interface ControlledInputProps {
   formState: UseFormStateReturn<FieldValues>;
   show: DateSegment[];
   stateStyles: StyleRecord;
+  round?: RoundingMethod;
 }
 
 const ControlledInput = ({
   field: { onChange, value, name },
   formState: { defaultValues },
   show,
+  round,
   stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
@@ -57,6 +59,7 @@ const ControlledInput = ({
       value: segmentValue,
       segment,
       show,
+      round,
     });
 
     onChange(newValue);
