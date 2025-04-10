@@ -12,7 +12,7 @@
     "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --forceExit --passWithNoTests"
+    "test": "NODE_OPTIONS=--max-old-space-size=8000 jest"
   },
   "jest": {
     "preset": "@gc-digital-talent/jest-presets/jest/browser"
