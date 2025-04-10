@@ -100,8 +100,10 @@ const AdditionalInformation = ({
     }
 
     // if the "other" role is not selected then clear the other role input
-    if (!Array.isArray(selectedFinanceOtherRoles) ||
-      !selectedFinanceOtherRoles.includes(FinanceChiefRole.Other)) {
+    if (
+      !Array.isArray(selectedFinanceOtherRoles) ||
+      !selectedFinanceOtherRoles.includes(FinanceChiefRole.Other)
+    ) {
       resetDirtyField("financeOtherRolesOther", null);
     }
   }, [resetField, selectedFinanceIsChief, selectedFinanceOtherRoles]);
