@@ -37,6 +37,7 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -73,6 +74,9 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       currentClassification {
         group
         level
+      }
+      employeeProfile {
+        lateralMoveInterest
       }
     }
     community {
@@ -333,6 +337,17 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         header: intl.formatMessage(adminMessages.workStreams),
         enableColumnFilter: false,
         enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        interestAccessor(intl, user?.employeeProfile?.lateralMoveInterest),
+      {
+        id: "lateralMoveInterest",
+        header: intl.formatMessage(
+          talentNominationMessages.nominateForLateralMovement,
+        ),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
