@@ -22,7 +22,7 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -231,10 +231,11 @@ const NominatorFields = ({
         name="nominator"
         aria-describedby="nominatorHelp"
         employeeOption={fragmentToEmployee(nominatorResult)}
+        searchMessageCase="emailNotification"
         label={intl.formatMessage({
-          defaultMessage: "Nominator’s work email",
-          id: "6e33hP",
-          description: "Label for the nominator input field on a nomination",
+          defaultMessage: "Search nominator's work email",
+          id: "tmRaL3",
+          description: "Label for search nominator input field on a nomination",
         })}
         errorSeverities={{ NO_PROFILE: "warning" }}
       />
@@ -277,7 +278,13 @@ const NominatorFields = ({
               type="email"
               id="nominatorFallbackWorkEmail"
               name="nominatorFallbackWorkEmail"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                pattern: {
+                  value: workEmailDomainRegex,
+                  message: intl.formatMessage(errorMessages.notGovernmentEmail),
+                },
+              }}
               label={intl.formatMessage(labels.nominatorWorkEmail)}
             />
           </div>

@@ -176,7 +176,7 @@ const CreateTrainingOpportunityPage = () => {
     crumbs: [
       {
         label: intl.formatMessage(pageTitles.trainingOpportunities),
-        url: routes.departmentTable(),
+        url: routes.trainingOpportunitiesIndex(),
       },
       {
         label: intl.formatMessage({

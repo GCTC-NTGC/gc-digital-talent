@@ -256,7 +256,9 @@ type EmployeeProfile {
   careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
 
-  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 
   userPublicProfile: UserPublicProfile
 }
@@ -656,8 +658,9 @@ type TalentNominationEvent {
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany
+    @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view", model: "TalentNominationGroup")
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {
@@ -727,6 +730,7 @@ type TalentNomination {
 
 type TalentNominationGroup {
   id: UUID!
+  createdAt: DateTime @rename(attribute: "created_at")
   nominee: BasicGovEmployeeProfile
     @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
@@ -1413,7 +1417,7 @@ type Query {
 
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(
-    status: TalentNominationEventStatus @scope
+    where: TalentNominationEventsFilterInput
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
@@ -2661,6 +2665,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus @scope
+  canManage: Boolean @scope
 }
 
 input ConnectJobPosterTemplateSkillInput {
