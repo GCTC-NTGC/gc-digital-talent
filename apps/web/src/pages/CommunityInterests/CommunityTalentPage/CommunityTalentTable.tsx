@@ -44,6 +44,7 @@ import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import profileMessages from "~/messages/profileMessages";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -343,6 +344,73 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         },
       },
     ),
+    columnHelper.accessor(
+      ({
+        user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+      }) => {
+        const arr = [];
+        if (lookingForEnglish) {
+          arr.push(intl.formatMessage(commonMessages.english));
+        }
+        if (lookingForFrench) {
+          arr.push(intl.formatMessage(commonMessages.french));
+        }
+        if (lookingForBilingual) {
+          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
+        }
+        return arr.join(", ");
+      },
+      {
+        id: "languageAbility",
+        header: intl.formatMessage(commonMessages.workingLanguageAbility),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user: { currentClassification } }) =>
+        classificationAccessor(
+          currentClassification?.group,
+          currentClassification?.level,
+        ),
+      {
+        id: "classification",
+        header: intl.formatMessage(processMessages.classification),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(({ user }) => user?.workEmail, {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
+      cell: ({ getValue }) => cells.email(getValue()),
+    }),
+    columnHelper.accessor(
+      ({ jobInterest }) => interestAccessor(intl, jobInterest),
+      {
+        id: "jobInterest",
+        header: intl.formatMessage(commonMessages.jobInterest),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ trainingInterest }) => interestAccessor(intl, trainingInterest),
+      {
+        id: "trainingInterest",
+        header: intl.formatMessage(commonMessages.trainingInterest),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user: { preferredLang } }) => preferredLang?.label?.localized,
+      {
+        id: "preferredLang",
+        enableColumnFilter: false,
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
+      },
+    ),
     columnHelper.accessor(({ community }) => community.name?.localized, {
       id: "community",
       header: intl.formatMessage(adminMessages.community),
@@ -435,80 +503,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
           : "",
       {
         id: "acceptedOperationalRequirements",
-        header: intl.formatMessage({
-          defaultMessage: "Work preferences",
-          id: "nnMYWr",
-          description: "Name of Work preferences page",
-        }),
+        header: intl.formatMessage(profileMessages.acceptableRequirements),
         enableColumnFilter: false,
         enableSorting: false,
-      },
-    ),
-    columnHelper.accessor(
-      ({
-        user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
-      }) => {
-        const arr = [];
-        if (lookingForEnglish) {
-          arr.push(intl.formatMessage(commonMessages.english));
-        }
-        if (lookingForFrench) {
-          arr.push(intl.formatMessage(commonMessages.french));
-        }
-        if (lookingForBilingual) {
-          arr.push(intl.formatMessage(commonMessages.bilingualEnglishFrench));
-        }
-        return arr.join(", ");
-      },
-      {
-        id: "languageAbility",
-        header: intl.formatMessage(commonMessages.workingLanguageAbility),
-        enableColumnFilter: false,
-        enableSorting: false,
-      },
-    ),
-    columnHelper.accessor(
-      ({ user: { currentClassification } }) =>
-        classificationAccessor(
-          currentClassification?.group,
-          currentClassification?.level,
-        ),
-      {
-        id: "classification",
-        header: intl.formatMessage(processMessages.classification),
-        enableColumnFilter: false,
-        enableSorting: false,
-      },
-    ),
-    columnHelper.accessor(({ user }) => user?.workEmail, {
-      id: "workEmail",
-      header: intl.formatMessage(commonMessages.workEmail),
-      cell: ({ getValue }) => cells.email(getValue()),
-    }),
-    columnHelper.accessor(
-      ({ jobInterest }) => interestAccessor(intl, jobInterest),
-      {
-        id: "jobInterest",
-        header: intl.formatMessage(commonMessages.jobInterest),
-        enableColumnFilter: false,
-      },
-    ),
-    columnHelper.accessor(
-      ({ trainingInterest }) => interestAccessor(intl, trainingInterest),
-      {
-        id: "trainingInterest",
-        header: intl.formatMessage(commonMessages.trainingInterest),
-        enableColumnFilter: false,
-      },
-    ),
-    columnHelper.accessor(
-      ({ user: { preferredLang } }) => preferredLang?.label?.localized,
-      {
-        id: "preferredLang",
-        enableColumnFilter: false,
-        header: intl.formatMessage(
-          commonMessages.preferredCommunicationLanguage,
-        ),
       },
     ),
   ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];
