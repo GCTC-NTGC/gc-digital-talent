@@ -1,10 +1,6 @@
 import { defineMessages, useIntl } from "react-intl";
-import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
-import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-} from "@heroicons/react/20/solid";
+import ChevronDoubleLeftIcon from "@heroicons/react/20/solid/ChevronDoubleLeftIcon";
+import ChevronDoubleRightIcon from "@heroicons/react/20/solid/ChevronDoubleRightIcon";
 
 import { CardBasic, Link, LinkProps, Separator } from "@gc-digital-talent/ui";
 
