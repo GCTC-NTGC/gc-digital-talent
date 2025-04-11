@@ -145,14 +145,14 @@ const TalentNominationAccordionItem = ({
 
   const advancementStatusDescription = talentNomination.nominateForAdvancement
     ? defineMessage({
-        defaultMessage: "Advancement<hidden> nomination accepted</hidden>",
-        id: "BPNvxn",
+        defaultMessage: "Advancement<hidden> nomination approved</hidden>",
+        id: "fhDfQt",
         description:
           "Status description when the nomination includes the advancement option",
       })
     : defineMessage({
-        defaultMessage: "Advancement<hidden> nomination declined</hidden>",
-        id: "gtm9Tl",
+        defaultMessage: "Advancement<hidden> nomination not supported</hidden>",
+        id: "BVlGhZ",
         description:
           "Status description when the nomination doest not include the advancement option",
       });
@@ -161,15 +161,15 @@ const TalentNominationAccordionItem = ({
     talentNomination.nominateForLateralMovement
       ? defineMessage({
           defaultMessage:
-            "Lateral movement<hidden> nomination accepted</hidden>",
-          id: "kvk5vt",
+            "Lateral movement<hidden> nomination approved</hidden>",
+          id: "G4TRsY",
           description:
             "Status description when the nomination includes the lateral movement option",
         })
       : defineMessage({
           defaultMessage:
-            "Lateral movement<hidden> nomination declined</hidden>",
-          id: "2VqFMs",
+            "Lateral movement<hidden> nomination not supported</hidden>",
+          id: "yMYKzr",
           description:
             "Status description when the nomination doest not include the lateral movement option",
         });
@@ -178,15 +178,15 @@ const TalentNominationAccordionItem = ({
     talentNomination.nominateForDevelopmentPrograms
       ? defineMessage({
           defaultMessage:
-            "Development programs<hidden> nomination accepted</hidden>",
-          id: "13C3j8",
+            "Development programs<hidden> nomination approved</hidden>",
+          id: "cwsyfz",
           description:
             "Status description when the nomination includes the development programs option",
         })
       : defineMessage({
           defaultMessage:
-            "Development programs<hidden> nomination declined</hidden>",
-          id: "DRrUMl",
+            "Development programs<hidden> nomination not supported</hidden>",
+          id: "/rcZF1",
           description:
             "Status description when the nomination doest not include the development programs option",
         });
@@ -308,8 +308,8 @@ const TalentNominationAccordionItem = ({
                   as="h4"
                   subtitle={intl.formatMessage({
                     defaultMessage:
-                      "A nomination for advancement requires that the nominator provide a secondary reference. If the reference’s work email matched a profile on the platform, we used their most recent information. If we couldn’t find a match, the nominator provided basic contact information.",
-                    id: "veMhwl",
+                      "A nomination for advancement requires that the nominator provide a secondary reference. If the reference's work email matched a profile on the platform, we used their most recent information. If we couldn't find a match, the nominator provided basic contact information.",
+                    id: "t3lsT1",
                     description: "Trigger subtitle for advancement reference",
                   })}
                 >
