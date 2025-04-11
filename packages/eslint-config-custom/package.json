@@ -9,7 +9,6 @@
   "type": "module",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@eslint/compat": "^1.2.7",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
     "eslint-config-prettier": "^10.1.1",
