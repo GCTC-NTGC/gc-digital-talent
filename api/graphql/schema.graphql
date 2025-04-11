@@ -703,6 +703,7 @@ type TalentNomination {
     @rename(attribute: "nominate_for_development_programs")
 
   advancementReference: BasicGovEmployeeProfile
+    @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   advancementReferenceReview: LocalizedTalentNominationUserReview
     @rename(attribute: "advancement_reference_review")
