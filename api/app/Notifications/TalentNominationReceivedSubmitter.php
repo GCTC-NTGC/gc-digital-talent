@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Enums\Language;
+use App\Models\TalentNomination;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use App\Notifications\Utils\NominationUtils;
@@ -16,18 +17,34 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
 {
     use Queueable;
 
+    protected string $eventNameEn;
+
+    protected string $eventNameFr;
+
+    protected string $nomineeName;
+
+    protected bool $nominateForAdvancement;
+
+    protected bool $nominateForLateralMovement;
+
+    protected bool $nominateForDevelopmentPrograms;
+
+    protected string $nominatorName;
+
     /**
      * Create a new notification instance.
      */
     public function __construct(
-        public string $eventNameEn,
-        public string $eventNameFr,
-        public string $nomineeName,
-        public bool $nominateForAdvancement,
-        public bool $nominateForLateralMovement,
-        public bool $nominateForDevelopmentPrograms,
-        public string $nominatorName,
-    ) {}
+        TalentNomination $talentNomination
+    ) {
+        $this->eventNameEn = $talentNomination->talentNominationEvent->name['en'];
+        $this->eventNameFr = $talentNomination->talentNominationEvent->name['fr'];
+        $this->nomineeName = $talentNomination->nominee->full_name;
+        $this->nominateForAdvancement = $talentNomination->nominate_for_advancement;
+        $this->nominateForLateralMovement = $talentNomination->nominate_for_lateral_movement;
+        $this->nominateForDevelopmentPrograms = $talentNomination->nominate_for_development_programs;
+        $this->nominatorName = $talentNomination->nominator->full_name;
+    }
 
     /**
      * Get the notification's delivery channels.
