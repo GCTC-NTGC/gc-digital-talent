@@ -89,6 +89,8 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
     [talentEventNominations],
   );
 
+  const nominationIds = talentEventNominationsData.map((nom) => nom.id);
+
   const columns = [
     columnHelper.accessor(
       ({ nominee }) =>
@@ -102,7 +104,14 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
           row: {
             original: { id, talentNominationEvent },
           },
-        }) => nomineeNameCell(talentNominationEvent.id, id, getValue(), paths),
+        }) =>
+          nomineeNameCell(
+            talentNominationEvent.id,
+            id,
+            getValue(),
+            nominationIds,
+            paths,
+          ),
         meta: {
           isRowTitle: true,
         },

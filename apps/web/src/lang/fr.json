@@ -1923,6 +1923,10 @@
     "defaultMessage": "Du processus suivant :",
     "description": "Follow in text for the process being updated"
   },
+  "7+jEIT": {
+    "defaultMessage": "Nomination suivante",
+    "description": "Link label to view next nomination page"
+  },
   "71+GZq": {
     "defaultMessage": "Un groupe d’Autochtones qui se tiennent debout avec un tambour à main peint.",
     "description": "Indigenous Apprenticeship hero image text alternative"
@@ -3735,6 +3739,10 @@
     "defaultMessage": "Sélectionnez les rôles à confier au membre :",
     "description": "Label for the roles select field on process team dialog"
   },
+  "FuuXpa": {
+    "defaultMessage": "Suivant",
+    "description": "Link text to navigate to the next item"
+  },
   "FvbONe": {
     "defaultMessage": "Compétences à améliorer",
     "description": "Title for skills to improve showcase section"
@@ -5031,6 +5039,10 @@
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
   },
+  "M0rL3I": {
+    "defaultMessage": "Nomination précédente",
+    "description": "Link label to view previous nomination page"
+  },
   "M1Q9CE": {
     "defaultMessage": "Supprimez  « {skillName} » de votre profil",
     "description": "Title for the confirmation alert to delete a skill"
@@ -5959,6 +5971,10 @@
     "defaultMessage": "La formation ou le perfectionnement m'intéresse*",
     "description": "Message when user expresses interest in training or development opportunities"
   },
+  "Qhl5J9": {
+    "defaultMessage": "Précédent",
+    "description": "Link text to navigate to the previous item"
+  },
   "Qibs21": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
@@ -6622,6 +6638,10 @@
   "Txu5Yq": {
     "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à :",
     "description": "Lead in text for accessibility contact information"
+  },
+  "TzlRpv": {
+    "defaultMessage": "Revenir aux nominations",
+    "description": "Link label to return to assessment tracker"
   },
   "U/Lv8i": {
     "defaultMessage": "Expérience inconnue",
