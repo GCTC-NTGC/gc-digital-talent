@@ -11,7 +11,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
 
-class NominationReceivedSubmitter extends Notification implements CanBeSentViaGcNotifyEmail
+class TalentNominationReceivedSubmitter extends Notification implements CanBeSentViaGcNotifyEmail
 {
     use Queueable;
 

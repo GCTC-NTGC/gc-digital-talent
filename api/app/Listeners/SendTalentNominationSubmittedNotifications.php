@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\TalentNominationSubmitted;
-use App\Notifications\NominationReceivedSubmitter;
+use App\Notifications\TalentNominationReceivedSubmitter;
 
 class SendTalentNominationSubmittedNotifications
 {
@@ -22,7 +22,7 @@ class SendTalentNominationSubmittedNotifications
     {
         $talentNominationEvent = $event->talentNomination->talentNominationEvent;
 
-        $submitterNotification = new NominationReceivedSubmitter(
+        $submitterNotification = new TalentNominationReceivedSubmitter(
             $talentNominationEvent->name['en'],
             $talentNominationEvent->name['fr'],
             $event->talentNomination->nominee->full_name,
