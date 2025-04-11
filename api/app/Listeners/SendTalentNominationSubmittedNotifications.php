@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\TalentNominationSubmitted;
+use App\Notifications\TalentNominationReceivedNominator;
 use App\Notifications\TalentNominationReceivedSubmitter;
 
 class SendTalentNominationSubmittedNotifications
@@ -35,7 +36,7 @@ class SendTalentNominationSubmittedNotifications
 
         // only send the nominator email if there's a nominator who's different from the submitter
         if ($event->talentNomination->submitter->id != $event->talentNomination->nominator->id) {
-            $nominatorNotification = new TalentNominationReceivedSubmitter(
+            $nominatorNotification = new TalentNominationReceivedNominator(
                 $talentNominationEvent->name['en'],
                 $talentNominationEvent->name['fr'],
                 $event->talentNomination->nominee->full_name,
