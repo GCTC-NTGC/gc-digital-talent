@@ -1,4 +1,4 @@
-import type { StoryFn } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
@@ -10,6 +10,7 @@ import {
   fakeClassifications,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
+import { RouterDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import NominationGroupSidebar, {
   NominationGroupSidebar_Fragment,
@@ -57,20 +58,35 @@ const talentNominationGroup = {
   ],
 };
 
-export default {
+const ids = [faker.string.uuid(), faker.string.uuid(), faker.string.uuid()];
+
+const meta = {
   component: NominationGroupSidebar,
-};
+  parameters: {
+    defaultPath: {
+      path: `/:locale/admin/talent-events/:eventId/nominations/:talentNominationGroupId`,
+      initialEntries: [
+        {
+          pathname: `/en/admin/talent-events/${faker.string.uuid()}/nominations/${ids[1]}`,
+          state: { nominationIds: ids },
+        },
+      ],
+    },
+  },
+} satisfies Meta<typeof NominationGroupSidebar>;
 
-const Template: StoryFn<typeof NominationGroupSidebar> = (args) => (
-  <aside data-h2-width="base(50%)">
-    <NominationGroupSidebar {...args} />
-  </aside>
-);
+export default meta;
 
-export const Default = Template.bind({});
-Default.args = {
-  talentNominationGroupQuery: makeFragmentData(
-    talentNominationGroup,
-    NominationGroupSidebar_Fragment,
+export const Default: StoryObj<typeof NominationGroupSidebar> = {
+  args: {
+    talentNominationGroupQuery: makeFragmentData(
+      talentNominationGroup,
+      NominationGroupSidebar_Fragment,
+    ),
+  },
+  render: (args) => (
+    <aside data-h2-width="base(50%)">
+      <NominationGroupSidebar {...args} />
+    </aside>
   ),
 };
