@@ -175,6 +175,10 @@
     "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
     "description": "La région de travail du Canada décrite comme l'Atlantique."
   },
+  "45ZCXX": {
+    "defaultMessage": "Options",
+    "description": "label or header for something referred to as an option, plural"
+  },
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
@@ -944,7 +948,7 @@
     "description": "declare self to be a CAF veteran"
   },
   "a+twlj": {
-    "defaultMessage": "Les possibilités de réseautage entre pairs m\\'intéressent.",
+    "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
   },
   "a5edSg": {
@@ -1188,7 +1192,7 @@
     "description": "Name of Dashboard page"
   },
   "jPxgBV": {
-    "defaultMessage": "Les possibilités de réseautage entre pairs ne m\\'intéressent pas.",
+    "defaultMessage": "Les possibilités de réseautage entre pairs ne m'intéressent pas.",
     "description": "Not interested label for peer networking."
   },
   "jStpFw": {
@@ -1634,6 +1638,10 @@
   "xSecEX": {
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
+  },
+  "xUhyIU": {
+    "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description for rule pattern on work email field"
   },
   "xVBxp3": {
     "defaultMessage": "En cours",

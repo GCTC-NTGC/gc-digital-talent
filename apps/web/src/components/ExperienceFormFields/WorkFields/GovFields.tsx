@@ -423,6 +423,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               id="startDate"
               legend={labels.startDate}
               name="startDate"
+              round="floor"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -455,6 +456,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 legend={labels.expectedEndDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                round="ceil"
                 rules={
                   watchCurrentRole
                     ? {
@@ -486,6 +488,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                     id="endDate"
                     legend={labels.endDate}
                     name="endDate"
+                    round="ceil"
                     show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),

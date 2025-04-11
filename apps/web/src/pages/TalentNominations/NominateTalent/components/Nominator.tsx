@@ -22,7 +22,7 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -278,7 +278,13 @@ const NominatorFields = ({
               type="email"
               id="nominatorFallbackWorkEmail"
               name="nominatorFallbackWorkEmail"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                pattern: {
+                  value: workEmailDomainRegex,
+                  message: intl.formatMessage(errorMessages.notGovernmentEmail),
+                },
+              }}
               label={intl.formatMessage(labels.nominatorWorkEmail)}
             />
           </div>

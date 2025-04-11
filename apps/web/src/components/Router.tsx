@@ -798,31 +798,30 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                 },
                 {
                   path: "talent-events",
-                  lazy: () =>
-                    import("../pages/TalentEvents/IndexTalentEventPage"),
                   children: [
                     {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/TalentEvents/IndexTalentEventPage"),
+                    },
+                    {
                       path: ":eventId",
+                      lazy: () =>
+                        import("../pages/TalentEvents/TalentEvent/Layout"),
                       children: [
                         {
+                          index: true,
                           lazy: () =>
-                            import("../pages/TalentEvents/TalentEvent/Layout"),
-                          children: [
-                            {
-                              index: true,
-                              lazy: () =>
-                                import(
-                                  "../pages/TalentEvents/TalentEvent/DetailsPage"
-                                ),
-                            },
-                            {
-                              path: "nominations",
-                              lazy: () =>
-                                import(
-                                  "../pages/TalentEvents/TalentEvent/NominationsPage"
-                                ),
-                            },
-                          ],
+                            import(
+                              "../pages/TalentEvents/TalentEvent/DetailsPage"
+                            ),
+                        },
+                        {
+                          path: "nominations",
+                          lazy: () =>
+                            import(
+                              "../pages/TalentEvents/TalentEvent/NominationsPage"
+                            ),
                         },
                       ],
                     },
