@@ -177,6 +177,7 @@ type CommunityInterest {
   financeOtherRoles: [LocalizedFinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
@@ -202,7 +203,8 @@ type EmployeeProfile {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
@@ -254,7 +256,9 @@ type EmployeeProfile {
   careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
 
-  communityInterests(id: UUID @eq): [CommunityInterest!] @belongsToMany
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 
   userPublicProfile: UserPublicProfile
 }
@@ -345,8 +349,10 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
+  classification: Classification @belongsTo(relation: "currentClassification")
 }
 
 type GeneralQuestion {
@@ -652,8 +658,9 @@ type TalentNominationEvent {
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany
+    @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view", model: "TalentNominationGroup")
+  status: LocalizedTalentNominationEventStatus
 }
 
 type TalentNomination {
@@ -722,6 +729,7 @@ type TalentNomination {
 
 type TalentNominationGroup {
   id: UUID!
+  createdAt: DateTime @rename(attribute: "created_at")
   nominee: BasicGovEmployeeProfile
     @belongsTo
     @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
@@ -1408,7 +1416,7 @@ type Query {
 
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(
-    status: TalentNominationEventStatus @scope
+    where: TalentNominationEventsFilterInput
   ): [TalentNominationEvent]!
     @all
     @orderBy(column: "close_date", direction: ASC)
@@ -1728,7 +1736,8 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_planning_promotion_move_time_frame")
   promotionMoveOrganizationType: [OrganizationTypeInterest!]
     @rename(attribute: "career_planning_promotion_move_organization_type")
-
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
   eligibleRetirementYearKnown: Boolean
     @rename(attribute: "eligible_retirement_year_known")
   eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
@@ -1795,6 +1804,7 @@ input CreateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -1812,6 +1822,7 @@ input UpdateCommunityInterestInput @validator {
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -2653,6 +2664,11 @@ input NotificationFilterInput {
   onlyUnread: Boolean @scope
   readAt: DateRange @whereBetween(key: "read_at")
   createdAt: DateRange @whereBetween(key: "created_at")
+}
+
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus @scope
+  canManage: Boolean @scope
 }
 
 input ConnectJobPosterTemplateSkillInput {

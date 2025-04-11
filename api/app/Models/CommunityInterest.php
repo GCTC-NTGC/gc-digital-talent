@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property array $finance_additional_duties
  * @property array $finance_other_roles
  * @property string $finance_other_roles_other
+ * @property bool $consent_to_share_profile
  */
 class CommunityInterest extends Model
 {
@@ -97,7 +98,7 @@ class CommunityInterest extends Model
     }
 
     // scope the query to CommunityInterests the current user can view
-    // belongs to your community and one or more of jobInterest or trainingInterest is TRUE
+    // own interest or belongs to your community and consentToShareProfile is TRUE
     public function scopeAuthorizedToView(Builder $query, ?array $args = null)
     {
         /** @var \App\Models\User | null */
@@ -107,29 +108,36 @@ class CommunityInterest extends Model
             $user = User::findOrFail($args['userId']);
         }
 
-        if ($user?->isAbleTo('view-team-communityInterest')) {
+        // we might want to add some filters for some candidates
+        $filterCountBefore = count($query->getQuery()->wheres);
+        $query->where(function (Builder $query) use ($user) {
+            if ($user->isAbleTo('view-own-employeeProfile')) {
+                $query->orWhere('user_id', $user->id);
+            }
 
-            $query->where(function (Builder $query) use ($user) {
-                $communityIds = $user->rolesTeams()
-                    ->where('teamable_type', "App\Models\Community")
-                    ->pluck('teamable_id')
-                    ->toArray();
+            if ($user->isAbleTo('view-team-communityInterest')) {
+                $query->orWhere(function (Builder $query) use ($user) {
+                    $query->where(function (Builder $query) use ($user) {
+                        $communityIds = $user->rolesTeams()
+                            ->where('teamable_type', "App\Models\Community")
+                            ->pluck('teamable_id')
+                            ->toArray();
 
-                return $query->whereIn('community_id', $communityIds);
-            });
+                        return $query->whereIn('community_id', $communityIds);
+                    });
 
-            $query->where(function (Builder $query) {
-                $query->orWhere('job_interest', true);
-                $query->orWhere('training_interest', true);
+                    $query->where('consent_to_share_profile', true);
+                });
+            }
+        });
 
-                return $query;
-            });
-
-            return $query;
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return;
         }
 
-        // fallback
-        return $query->where('id', null);
+        // fall through - query will return nothing
+        $query->where('id', null);
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder

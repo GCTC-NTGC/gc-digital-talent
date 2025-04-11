@@ -27,6 +27,7 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 
 interface FormValues extends BaseFormValues {
@@ -210,11 +211,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
       }}
     >
       <SubHeading level="h2" Icon={UserCircleIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Nominee information",
-          id: "Efdmb2",
-          description: "Heading for nominee step of a talent nomination",
-        })}
+        {intl.formatMessage(messages.nomineeInfo)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
@@ -233,12 +230,13 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           id="nominee"
           name="nominee"
           label={intl.formatMessage({
-            defaultMessage: "Nominee's work email",
-            id: "ACCjnC",
-            description: "Label for a nominations nominee",
+            defaultMessage: "Search nominee's work email",
+            id: "Ax4fN+",
+            description: "Label for search nominee input field on a nomination",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           employeeOption={fragmentToEmployee(talentNomination.nominee)}
+          searchMessageCase="base"
           errorMessages={{
             NO_PROFILE: {
               body: intl.formatMessage({

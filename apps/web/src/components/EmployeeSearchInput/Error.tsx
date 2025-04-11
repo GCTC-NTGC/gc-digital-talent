@@ -41,7 +41,7 @@ const ErrorMessage = ({
               "data-h2-color": "base(error)",
             }
           : {
-              "data-h2-color": "base(warning)",
+              "data-h2-color": "base(warning.darker) base:dark(warning)",
             })}
       >
         {message.title}
@@ -66,8 +66,8 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
       ),
       body: intl.formatMessage({
         defaultMessage:
-          "It appears that this work email address isn't linked to a profile. Try searching for another email address or provide the information requested. Once you submit your nomination form, we’ll notify them by email.",
-        id: "OcN4TN",
+          "It appears that this work email address isn't linked to a profile. Try searching for another email address or provide the information requested.",
+        id: "fDwDJU",
         description:
           "Description of default error message when an employee could not be found",
       }),

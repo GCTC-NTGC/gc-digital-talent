@@ -69,7 +69,6 @@ import PreviewList, {
   type MetaDataProps as PreviewMetaData,
 } from "./components/PreviewList/PreviewList";
 import ResourceBlock from "./components/ResourceBlock";
-import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
@@ -175,7 +174,6 @@ export {
   ResourceBlock,
   NotFound,
   ThrowNotFound,
-  ScrollArea,
   Separator,
   Sidebar,
   Spoiler,

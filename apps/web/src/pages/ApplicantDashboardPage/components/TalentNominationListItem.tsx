@@ -11,6 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import { useMetaDataTalentNominationChip } from "./hooks";
 import { NominationMetaDataDate } from "./NominationMetaDataDate";
+import ReviewTalentNominationDialog from "./ReviewTalentNominationDialog";
 
 export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {
@@ -27,6 +28,7 @@ export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
     }
+    ...ReviewTalentNominationDialog
   }
 `);
 
@@ -109,7 +111,11 @@ const TalentNominationListItem = ({
         title={title}
         metaData={metaDataProps}
         action={
-          talentNominationListItemFragment.submittedAt ? null : (
+          talentNominationListItemFragment.submittedAt ? (
+            <ReviewTalentNominationDialog
+              talentNominationQuery={talentNominationListItemFragment}
+            />
+          ) : (
             <PreviewList.Link
               label={intl.formatMessage(
                 {

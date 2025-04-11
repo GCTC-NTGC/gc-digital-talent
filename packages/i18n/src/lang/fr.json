@@ -111,6 +111,10 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
+  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
@@ -151,6 +155,10 @@
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
   },
+  "3PQs15": {
+    "defaultMessage": "Les possibilités d'échange m'intéressent",
+    "description": "Interest label for interchange opportunities."
+  },
   "3SDRDg": {
     "defaultMessage": "Parcourir la bibliothèque de compétences",
     "description": "Name of skill library page"
@@ -166,6 +174,10 @@
   "3f6YzQ": {
     "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
     "description": "La région de travail du Canada décrite comme l'Atlantique."
+  },
+  "45ZCXX": {
+    "defaultMessage": "Options",
+    "description": "label or header for something referred to as an option, plural"
   },
   "4MKYKl": {
     "defaultMessage": "aaaa",
@@ -214,6 +226,10 @@
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
+  },
+  "6bpSqk": {
+    "defaultMessage": "Je ne souhaite pas participer à un programme d'études.",
+    "description": "Not interested label for academic programs."
   },
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
@@ -542,6 +558,10 @@
   "M3c9Yo": {
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
+  },
+  "M9k8b8": {
+    "defaultMessage": "Rejetée",
+    "description": "Rejected status"
   },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
@@ -927,6 +947,10 @@
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
   },
+  "a+twlj": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
+    "description": "Interest label for peer networking."
+  },
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
@@ -994,6 +1018,10 @@
   "dK8pdO": {
     "defaultMessage": "Trouver un modèle d'emploi",
     "description": "Name of job template page"
+  },
+  "dKY52V": {
+    "defaultMessage": "Je souhaite participer à un programme d'études.",
+    "description": "Interest label for academic programs."
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
@@ -1163,6 +1191,10 @@
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
   },
+  "jPxgBV": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs ne m'intéressent pas.",
+    "description": "Not interested label for peer networking."
+  },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "Name of Bilingual (English and French)"
@@ -1271,6 +1303,10 @@
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
   },
+  "nEyBtD": {
+    "defaultMessage": "Les possibilités d'échange ne m'intéressent pas.",
+    "description": "Not interested label for interchange opportunities."
+  },
   "nICORU": {
     "defaultMessage": "Sélectionnez un groupe",
     "description": "Null selection og group for select input."
@@ -1303,6 +1339,10 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
+  "oCFl63": {
+    "defaultMessage": "Approuvée",
+    "description": "Approved status"
+  },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
     "description": "Error message that the pool closing date is required."
@@ -1330,6 +1370,10 @@
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that qualifying a candidate failed"
+  },
+  "oxhIEK": {
+    "defaultMessage": "Je ne souhaite pas obtenir une accréditation professionnelle.",
+    "description": "Not interested label for professional accreditation."
   },
   "pOL68A": {
     "defaultMessage": "Adresse courriel professionnelle",
@@ -1535,6 +1579,10 @@
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
+  "vYi9m5": {
+    "defaultMessage": "Je souhaite obtenir une accréditation professionnelle.",
+    "description": "Interest label for professional accreditation."
+  },
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
@@ -1590,6 +1638,14 @@
   "xSecEX": {
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
+  },
+  "xUhyIU": {
+    "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description for rule pattern on work email field"
+  },
+  "xVBxp3": {
+    "defaultMessage": "En cours",
+    "description": "In progress status"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",

@@ -12,7 +12,11 @@ class CommunityInterestPolicy
      */
     public function view(User $user, CommunityInterest $communityInterest): bool
     {
-        return $user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id;
+        $communityInterest->loadMissing('community.team');
+
+        return ($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id) ||
+            (! is_null($communityInterest->community->team)
+            && $user->isAbleTo('view-team-communityInterest', $communityInterest->community->team));
     }
 
     /**
@@ -42,14 +46,17 @@ class CommunityInterestPolicy
      */
     public function delete(User $user, CommunityInterest $communityInterest): bool
     {
-        return $user->isAbleTo('update-own-employeeProfile') && $user->id === $communityInterest->user_id;
+        return $user->isAbleTo('delete-own-communityInterest') && $user->id === $communityInterest->user_id;
     }
 
     /**
      * Determine whether the user can access user profiles associated with models.
      */
-    public function viewUser(User $user): bool
+    public function viewUser(User $user, CommunityInterest $communityInterest): bool
     {
-        return $user->isAbleTo('view-team-communityInterest');
+        $communityInterest->loadMissing('community.team');
+
+        return ! is_null($communityInterest->community->team)
+            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team);
     }
 }

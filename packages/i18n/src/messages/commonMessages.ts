@@ -421,6 +421,32 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
+  options: {
+    defaultMessage: "Options",
+    id: "45ZCXX",
+    description:
+      "label or header for something referred to as an option, plural",
+  },
+  approved: {
+    defaultMessage: "Approved",
+    id: "oCFl63",
+    description: "Approved status",
+  },
+  rejected: {
+    defaultMessage: "Rejected",
+    id: "M9k8b8",
+    description: "Rejected status",
+  },
+  inProgress: {
+    defaultMessage: "In progress",
+    id: "xVBxp3",
+    description: "In progress status",
+  },
+  communityInterest: {
+    defaultMessage: "Community interest",
+    id: "1uBif7",
+    description: "Community interest label",
+  },
 });
 
 export default commonMessages;

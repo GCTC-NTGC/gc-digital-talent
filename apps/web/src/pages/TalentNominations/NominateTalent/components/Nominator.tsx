@@ -22,7 +22,7 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
@@ -33,7 +33,9 @@ import { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
 import SubHeading from "./SubHeading";
+import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
+import labels from "../labels";
 
 type SubmitterRole = "nominator" | "on-behalf";
 
@@ -229,10 +231,11 @@ const NominatorFields = ({
         name="nominator"
         aria-describedby="nominatorHelp"
         employeeOption={fragmentToEmployee(nominatorResult)}
+        searchMessageCase="emailNotification"
         label={intl.formatMessage({
-          defaultMessage: "Nominator’s work email",
-          id: "6e33hP",
-          description: "Label for the nominator input field on a nomination",
+          defaultMessage: "Search nominator's work email",
+          id: "tmRaL3",
+          description: "Label for search nominator input field on a nomination",
         })}
         errorSeverities={{ NO_PROFILE: "warning" }}
       />
@@ -269,23 +272,20 @@ const NominatorFields = ({
               id="nominatorFallbackName"
               name="nominatorFallbackName"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
-              label={intl.formatMessage({
-                defaultMessage: "Nominator’s name",
-                id: "exPEA1",
-                description: "Label for the text input for the nominators name",
-              })}
+              label={intl.formatMessage(labels.nominatorName)}
             />
             <Input
               type="email"
               id="nominatorFallbackWorkEmail"
               name="nominatorFallbackWorkEmail"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              label={intl.formatMessage({
-                defaultMessage: "Nominator’s work email",
-                id: "5HhVG9",
-                description:
-                  "Label for the text input for the nominators work email",
-              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                pattern: {
+                  value: workEmailDomainRegex,
+                  message: intl.formatMessage(errorMessages.notGovernmentEmail),
+                },
+              }}
+              label={intl.formatMessage(labels.nominatorWorkEmail)}
             />
           </div>
           <ClassificationInput
@@ -300,11 +300,7 @@ const NominatorFields = ({
             id="nominatorFallbackDepartment"
             name="nominatorFallbackDepartment"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            label={intl.formatMessage({
-              defaultMessage: "Nominator’s department or agency",
-              id: "AdmbBO",
-              description: "Label for a nominators department",
-            })}
+            label={intl.formatMessage(labels.nominatorDepartment)}
             nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             options={unpackMaybes(options?.departments).map((department) => ({
               value: department.id,
@@ -453,11 +449,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
       }}
     >
       <SubHeading level="h2" Icon={DocumentCheckIcon}>
-        {intl.formatMessage({
-          defaultMessage: "Nominator information",
-          id: "vJD6dl",
-          description: "Heading for nominator step of a talent nomination",
-        })}
+        {intl.formatMessage(messages.nominatorInfo)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
@@ -478,31 +470,15 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
           id="role"
           name="role"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          legend={intl.formatMessage({
-            defaultMessage: "Your role",
-            id: "Kv7YgK",
-            description:
-              "Label for the role of the user submitting a nomination",
-          })}
+          legend={intl.formatMessage(labels.yourRole)}
           items={[
             {
               value: "nominator",
-              label: intl.formatMessage({
-                defaultMessage: "I'm the nominator",
-                id: "QNUIxj",
-                description:
-                  "Label for the option when the submitter of a nomination is also the nominator",
-              }),
+              label: intl.formatMessage(labels.imNominator),
             },
             {
               value: "on-behalf",
-              label: intl.formatMessage({
-                defaultMessage:
-                  "I’m submitting the nomination on the nominator’s behalf",
-                id: "Vnh3iD",
-                description:
-                  "Label for the option when the submitter is submitting a nomination on behalf of someone else",
-              }),
+              label: intl.formatMessage(labels.onBehalf),
             },
           ]}
         />

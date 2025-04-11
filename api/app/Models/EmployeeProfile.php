@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $career_planning_about_you
  * @property string $career_planning_learning_goals
  * @property string $career_planning_work_style
+ * @property ?array $career_planning_learning_opportunities_interest
  * @property string $next_role_target_role
  * @property string $career_objective_target_role
  * @property string $next_role_target_role_other
@@ -61,6 +62,7 @@ class EmployeeProfile extends Model
         'career_planning_exec_interest' => 'boolean',
         'career_planning_exec_coaching_status' => 'array',
         'career_planning_exec_coaching_interest' => 'array',
+        'career_planning_learning_opportunities_interest' => 'array',
     ];
 
     /** @return BelongsTo<Community, $this> */
