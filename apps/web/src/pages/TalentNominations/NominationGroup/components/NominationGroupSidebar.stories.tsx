@@ -10,7 +10,6 @@ import {
   fakeClassifications,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-import { RouterDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import NominationGroupSidebar, {
   NominationGroupSidebar_Fragment,
