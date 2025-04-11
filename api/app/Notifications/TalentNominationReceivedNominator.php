@@ -46,6 +46,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
     /**
      * Get the GC Notify representation of the notification.
      * $notifiable is the NOMINATOR
+     * Always sent to the work email
      */
     public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
@@ -61,7 +62,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_en'),
-                $notifiable->email,
+                $notifiable->work_email,
                 [
                     'submitter name' => $this->submitterName,
                     'event name' => $this->eventNameEn,
@@ -74,7 +75,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
             // French notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_fr'),
-                $notifiable->email,
+                $notifiable->work_email,
                 [
                     'submitter name' => $this->submitterName,
                     'event name' => $this->eventNameFr,
