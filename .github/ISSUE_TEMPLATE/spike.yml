@@ -1,0 +1,38 @@
+name: "Spike"
+description: Learn more about something we cannot yet estimate.
+title: "🦔 "
+projects: ["GCTC-NTGC/8"]
+type: "Spike"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this spike issue!
+  - type: textarea
+    id: description
+    attributes:
+      label: 🦔 Spike
+      description: Describe the spike.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: More details, background context, or ideas for how to approach this.
+    validations:
+      required: true
+  - type: textarea
+    id: questions-to-answer
+    attributes:
+      label: ❓ Questions to answer
+      description: What specific questions need to have been answered for this task to be considered complete?
+    validations:
+      required: true
+  - type: textarea
+    id: timebox
+    attributes:
+      label: 🕙 Timebox
+      description: How many days are we expected to spend on this?
+    validations:
+      required: true

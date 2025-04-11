@@ -1,0 +1,59 @@
+name: Notification
+description: A new type of notification.
+title: "❗ "
+projects: ["GCTC-NTGC/8"]
+type: "Feature"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description-feature
+    attributes:
+      label: ✨ Purpose
+      description: What is this notification intended to convey, and why?
+    validations:
+      required: true
+  - type: textarea
+    id: trigger
+    attributes:
+      label: ❗ Trigger
+      description: How is this notification generated? Is it in response to some user action (e.g. submitting a request) or will it require a cron job which runs on a schedule (e.g. a job poster closes in 24 hours). If it requires a cron job, how often does it need to run?
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 👀 Audience
+      description: Who will get this notification (e.g. all Process operators, or only applicants with a draft application for related poster)?
+  - type: textarea
+    id: copy-email-templates
+    attributes:
+      label: 🌎 Email templates (English and French)
+      description: Content of this notification if received as an email.
+  - type: textarea
+    id: copy-in-app-string
+    attributes:
+      label: 🌎 In-app string (English and French)
+      description: How does this notification appear on the notifications page?
+  - type: input
+    id: copy-in-app-string
+    attributes:
+      label: 🔗 Link
+      description: What page of the app is most relevant to this notification? (You will be sent there if you click this notification in-app.) Consider if this link should be part of the email template.
+  - type: textarea
+    id: content
+    attributes:
+      label: 💾 Content
+      description: "What Notification Family does this belong to (see #9555)? What is the minimal set of data we need to store in the database in order to generate in-app string and link?"
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the bug was addressed.
+      placeholder: |
+        - [ ] Email template exists in GC Notify
+        - [ ] Notification class exists in Laravel
+        - [ ] Notification is triggered by appropriate event and send to appropriate users (including NOT any users who are ignoring this notification's Notification Family)
+        - [ ] Notification type added to schema
+        - [ ] Notification type rendered appropriately on frontend
+        - [ ] Tests?

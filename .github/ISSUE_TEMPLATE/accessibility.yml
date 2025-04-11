@@ -1,0 +1,83 @@
+name: "Accessibility"
+description: Something that needs to be improved or removed related to accessibility
+title: "⌨ "
+projects: ["GCTC-NTGC/8"]
+type: "Bug"
+labels: accessibility
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this accessibility issue!
+  - type: textarea
+    id: description-and-expected-behaviour
+    attributes:
+      label: ⌨ Accessibility and Expected Behaviour
+      description: Describe the problem with the existing implementation. What should be happening?
+    validations:
+      required: true
+  - type: textarea
+    id: wcag
+    attributes:
+      label: WCAG 2.1 Criteria
+      description: List any relevant criteria that is failing.
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: 📋 Steps to Reproduce
+      description: How can we make this happen again when testing?
+      placeholder: |
+        1. ...
+        2. ...
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with the development of the refactor.
+  - type: dropdown
+    id: os
+    attributes:
+      label: What operating systems are you encountering the problem on?
+      multiple: true
+      options:
+        - macOS
+        - Linux
+        - Windows
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you encountering the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: dropdown
+    id: os
+    attributes:
+      label: What assistive technologies are you encountering the problem on?
+      multiple: true
+      options:
+        - JAWS
+        - Microsoft Narrator
+        - NonVisual Desktop Access (NVDA)
+        - VoiceOver
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 Screenshot
+      description: Paste a screenshot to help illustrate the problem.
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 🙋‍♀️ Proposed Solution
+      description: How do you think we can improve this?
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the issue was addressed.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2

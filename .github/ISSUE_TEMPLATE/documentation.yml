@@ -1,0 +1,36 @@
+name: "Documentation"
+description: Updates or addition to the documentation
+title: "✏️ "
+projects: ["GCTC-NTGC/8"]
+type: "Debt"
+labels: documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this documentation issue!
+  - type: textarea
+    id: description
+    attributes:
+      label: ✏️ Documentation
+      description: Describe the update/addition that you are proposing.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with the implementation of the documentation.
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 🙋‍♀️ Proposed Solution
+      description: How do you think we can improve this?
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the documentation has been added/updated appropriately.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
