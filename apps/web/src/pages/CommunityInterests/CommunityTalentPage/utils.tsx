@@ -153,10 +153,6 @@ export function transformFormValuesToCommunityInterestFilterInput(
   return {
     communities: data.communities.map((id) => id),
     workStreams: data.workStreams.map((id) => id),
-    poolFilters: data.pools.map((pool) => {
-      const poolString = pool;
-      return { poolId: poolString };
-    }),
     jobInterest: data.mobilityInterest.includes("jobInterest"),
     trainingInterest: data.mobilityInterest.includes("trainingInterest"),
     lateralMoveInterest: data.mobilityType.includes("lateralMoveInterest"),
@@ -198,10 +194,6 @@ export function transformCommunityInterestFilterInputToFormValues(
   return {
     communities: input?.communities?.filter(notEmpty).map((id) => id) ?? [],
     workStreams: input?.workStreams?.filter(notEmpty).map((id) => id) ?? [],
-    pools:
-      input?.poolFilters
-        ?.filter(notEmpty)
-        .map((poolFilter) => poolFilter.poolId) ?? [],
     mobilityInterest,
     mobilityType,
     languageAbility: input?.languageAbility ?? "",
