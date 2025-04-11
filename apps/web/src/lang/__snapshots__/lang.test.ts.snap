@@ -118,7 +118,7 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Apply now",
     "fr": [
-      "Postulez dès-maintenant",
+      "Postulez dès maintenant",
       "Présentez votre demande"
     ]
   },
