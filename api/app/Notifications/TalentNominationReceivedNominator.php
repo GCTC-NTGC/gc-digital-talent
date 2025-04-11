@@ -10,9 +10,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
 /**
- * A notification sent to the submitter to confirm that the nomination was received
+ * A notification sent to the nominator (in case it is different from the submitter) to confirm that the nomination was received
  */
-class TalentNominationReceivedSubmitter extends Notification implements CanBeSentViaGcNotifyEmail
+class TalentNominationReceivedNominator extends Notification implements CanBeSentViaGcNotifyEmail
 {
     use Queueable;
 
@@ -26,7 +26,7 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
         public bool $nominateForAdvancement,
         public bool $nominateForLateralMovement,
         public bool $nominateForDevelopmentPrograms,
-        public string $nominatorName,
+        public string $submitterName,
     ) {}
 
     /**
@@ -45,7 +45,7 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
 
     /**
      * Get the GC Notify representation of the notification.
-     * $notifiable is the SUBMITTER
+     * $notifiable is the NOMINATOR
      */
     public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
@@ -60,27 +60,27 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
         if ($locale == Language::EN->value) {
             // English notification
             $message = new GcNotifyEmailMessage(
-                config('notify.templates.nomination_received_submitter_en'),
+                config('notify.templates.nomination_received_nominator_en'),
                 $notifiable->email,
                 [
-                    'submitter name' => $notifiable->full_name,
+                    'submitter name' => $this->submitterName,
                     'event name' => $this->eventNameEn,
                     'nominee name' => $this->nomineeName,
                     'selected nomination options' => $combinedNominationOptionDescriptions,
-                    'nominator name' => $this->nominatorName,
+                    'nominator name' => $notifiable->full_name,
                 ]
             );
         } else {
             // French notification
             $message = new GcNotifyEmailMessage(
-                config('notify.templates.nomination_received_submitter_fr'),
+                config('notify.templates.nomination_received_nominator_fr'),
                 $notifiable->email,
                 [
-                    'submitter name' => $notifiable->full_name,
+                    'submitter name' => $this->submitterName,
                     'event name' => $this->eventNameFr,
                     'nominee name' => $this->nomineeName,
                     'selected nomination options' => $combinedNominationOptionDescriptions,
-                    'nominator name' => $this->nominatorName,
+                    'nominator name' => $notifiable->full_name,
                 ]
             );
         }
