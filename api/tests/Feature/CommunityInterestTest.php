@@ -17,6 +17,7 @@ use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 
 class CommunityInterestTest extends TestCase
 {
@@ -83,6 +84,7 @@ class CommunityInterestTest extends TestCase
         $this->applicant = User::factory()
             ->asGuest()
             ->asApplicant()
+            ->asGovEmployee()
             ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())
             ->create([
                 'email' => 'community-interested-user@test.com',
@@ -293,7 +295,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         /** @var \App\Models\User */
-        $owningUser = User::factory()->create();
+        $owningUser = User::factory()->asGovEmployee()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
             'community_id' => $this->communityId,
@@ -371,17 +373,17 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         $communityInterestWithConsent = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
         ]);
         $communityInterestWithoutConsent = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => false,
         ]);
         $otherCommunityInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => Community::factory(),
             'consent_to_share_profile' => true,
         ]);
@@ -416,28 +418,28 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         $communityInterestWithJobInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => true,
             'training_interest' => false,
         ]);
         $communityInterestWithTrainingInterest = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => false,
             'training_interest' => true,
         ]);
         $communityInterestWithBothInterests = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => true,
             'training_interest' => true,
         ]);
         $communityInterestWithNoInterests = CommunityInterest::factory()->create([
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->asGovEmployee(),
             'community_id' => $this->communityId,
             'consent_to_share_profile' => true,
             'job_interest' => false,
@@ -497,5 +499,34 @@ class CommunityInterestTest extends TestCase
             ]
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+    }
+
+    // test scope called off user model
+    public function testScopeIsVerifiedGovEmployee(): void
+    {
+        CommunityInterest::truncate();
+        $isEmployee = CommunityInterest::factory()->create([
+            'user_id' => User::factory()->asGovEmployee(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'job_interest' => true,
+            'training_interest' => false,
+        ]);
+        $notEmployee = CommunityInterest::factory()->create([
+            'user_id' => User::factory()->create(['computed_is_gov_employee' => false]),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'job_interest' => false,
+            'training_interest' => true,
+        ]);
+
+        // two records, but scope only returns $isEmployee
+        assertEquals(2, count(CommunityInterest::all()));
+
+        $query = CommunityInterest::query();
+        $communityInterestIds = CommunityInterest::scopeIsVerifiedGovEmployee($query)->get()->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $isEmployee->id,
+        ], $communityInterestIds);
     }
 }
