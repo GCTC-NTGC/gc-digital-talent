@@ -13,14 +13,14 @@ class TalentNominationObserver
      */
     public function created(TalentNomination $talentNomination): void
     {
+        TalentNominationSubmitted::dispatchIf(! is_null($talentNomination->submitted_at), $talentNomination);
+
         TalentNomination::withoutEvents(function () use ($talentNomination) {
             $talentNomination->connectToTalentNominationGroupIfMissing();
         });
         TalentNominationGroup::withoutEvents(function () use ($talentNomination) {
             $talentNomination->talentNominationGroup?->updateStatus();
         });
-
-        TalentNominationSubmitted::dispatchIf(! is_null($talentNomination->submitted_at), $talentNomination);
     }
 
     /**
@@ -28,16 +28,17 @@ class TalentNominationObserver
      */
     public function updated(TalentNomination $talentNomination): void
     {
+        $oldSubmittedAt = $talentNomination->getOriginal('submitted_at');
+        $newSubmittedAt = $talentNomination->submitted_at;
+        TalentNominationSubmitted::dispatchIf(is_null($oldSubmittedAt) && ! is_null($newSubmittedAt), $talentNomination);
+
+        // these updates will affect calls to getOriginal
         TalentNomination::withoutEvents(function () use ($talentNomination) {
             $talentNomination->connectToTalentNominationGroupIfMissing();
         });
         TalentNominationGroup::withoutEvents(function () use ($talentNomination) {
             $talentNomination->talentNominationGroup?->updateStatus();
         });
-
-        $oldSubmittedAt = $talentNomination->getOriginal('submitted_at');
-        $newSubmittedAt = $talentNomination->submitted_at;
-        TalentNominationSubmitted::dispatchIf(is_null($oldSubmittedAt) && ! is_null($newSubmittedAt), $talentNomination);
     }
 
     /**

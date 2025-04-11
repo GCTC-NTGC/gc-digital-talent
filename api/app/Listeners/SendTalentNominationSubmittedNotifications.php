@@ -23,8 +23,8 @@ class SendTalentNominationSubmittedNotifications
         $talentNominationEvent = $event->talentNomination->talentNominationEvent;
 
         $submitterNotification = new NominationReceivedSubmitter(
-            $talentNominationEvent->name->en,
-            $talentNominationEvent->name->fr,
+            $talentNominationEvent->name['en'],
+            $talentNominationEvent->name['fr'],
             $event->talentNomination->nominee->full_name,
             $event->talentNomination->nominate_for_advancement,
             $event->talentNomination->nominate_for_lateral_movement,
