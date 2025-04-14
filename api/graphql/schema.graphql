@@ -733,7 +733,7 @@ type TalentNominationGroup {
   createdAt: DateTime @rename(attribute: "created_at")
   nominee: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
