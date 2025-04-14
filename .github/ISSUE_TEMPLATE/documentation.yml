@@ -17,16 +17,6 @@ body:
     validations:
       required: true
   - type: textarea
-    id: details
-    attributes:
-      label: 🕵️ Details
-      description: Add any additional details that could assist with the implementation of the documentation.
-  - type: textarea
-    id: proposed-solution
-    attributes:
-      label: 🙋‍♀️ Proposed Solution
-      description: How do you think we can improve this?
-  - type: textarea
     id: acceptance-criteria
     attributes:
       label: ✅ Acceptance Criteria
