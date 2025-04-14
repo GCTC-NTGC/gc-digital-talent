@@ -54,7 +54,7 @@ body:
         - Safari
         - Microsoft Edge
   - type: dropdown
-    id: os
+    id: assistive-technologies
     attributes:
       label: What assistive technologies are you encountering the problem on?
       multiple: true
