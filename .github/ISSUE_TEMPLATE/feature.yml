@@ -26,7 +26,7 @@ body:
       label: 🎨 Design file
       description: Include a link to the design file (if it exists).
   - type: input
-    id: design
+    id: designer
     attributes:
       label: 🎨 Designer
       description: Include the author of the linked design file's name for future reference.
