@@ -74,10 +74,14 @@ export const nomineeNameCell = (
   eventId: string,
   nominationGroupId: string,
   nomineeName: string,
+  nominationIds: string[],
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
-    <Link href={paths.talentNominationGroup(eventId, nominationGroupId)}>
+    <Link
+      href={paths.talentNominationGroup(eventId, nominationGroupId)}
+      state={{ nominationIds }}
+    >
       {nomineeName}
     </Link>
   );
