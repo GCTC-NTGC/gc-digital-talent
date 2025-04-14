@@ -69,3 +69,9 @@ body:
       options:
         - label: This issue has met our Definition of Ready
           required: true
+  - type: textarea
+    id: blocking-issues
+    attributes:
+      label: 🛑 Blocking Issues
+      description: Issues that block this issue.
+      value: "Blocked by "
