@@ -36,7 +36,7 @@ body:
       label: 🌎 In-app string (English and French)
       description: How does this notification appear on the notifications page?
   - type: input
-    id: copy-in-app-string
+    id: copy-link
     attributes:
       label: 🔗 Link
       description: What page of the app is most relevant to this notification? (You will be sent there if you click this notification in-app.) Consider if this link should be part of the email template.
