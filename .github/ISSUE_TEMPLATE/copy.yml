@@ -21,7 +21,6 @@ body:
     attributes:
       label: 🕵️ Details
       description: Add any additional details that could assist with the implementation of the new or existing copy.
-  - type: textarea
     id: proposed-solution
     attributes:
       label: 🙋‍♀️ Proposed Solution
