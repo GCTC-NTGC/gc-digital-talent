@@ -21,11 +21,6 @@ body:
       label: 🕵️ Details
       description: Add any additional details that could assist with the development of the refactor.
   - type: textarea
-    id: screenshot
-    attributes:
-      label: 📸 Screenshot
-      description: Paste a screenshot to help illustrate the problem.
-  - type: textarea
     id: proposed-solution
     attributes:
       label: 🙋‍♀️ Proposed Solution
