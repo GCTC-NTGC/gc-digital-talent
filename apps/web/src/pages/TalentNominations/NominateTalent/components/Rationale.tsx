@@ -149,7 +149,6 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
           id="additionalComments"
           name="additionalComments"
           wordLimit={500 * wordLimitMultiplier}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
           label={intl.formatMessage(labels.additionalComments)}
         />
       </div>

@@ -39,6 +39,12 @@ const messages = (intl: IntlShape) => ({
     description:
       "Label for an employee profile career development preference field",
   }),
+  learningOpportunitiesInterest: intl.formatMessage({
+    defaultMessage: "Interest in learning opportunities",
+    id: "mnGISd",
+    description:
+      "Label for an employee profile career development preference field",
+  }),
   eligibleRetirementYearKnown: intl.formatMessage({
     defaultMessage: "Retirement eligibility",
     id: "Of4wHY",

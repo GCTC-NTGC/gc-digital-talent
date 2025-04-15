@@ -1,4 +1,4 @@
-import * as fr from "./lang/frCompiled.json";
+import fr from "./lang/frCompiled.json";
 import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
@@ -51,6 +51,7 @@ import {
   getExecCoachingStatus,
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
+  getLearningOpportunitiesInterest,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -147,6 +148,7 @@ export {
   getExecCoachingStatus,
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
+  getLearningOpportunitiesInterest,
 };
 
 export type { Locales, Messages, MaybeLocalizedEnums, GenericLocalizedEnum };

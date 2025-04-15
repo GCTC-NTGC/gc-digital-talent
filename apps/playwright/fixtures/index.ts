@@ -1,6 +1,5 @@
 import { test as base } from "@playwright/test";
-import { AxeBuilder } from "@axe-core/playwright";
-import * as sinon from "sinon";
+import AxeBuilder from "@axe-core/playwright";
 
 import AppPage from "./AppPage";
 
@@ -9,8 +8,6 @@ interface AppFixtures {
   appPage: AppPage;
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
-  // Fake clock for changing system time
-  fakeClock: sinon.SinonFakeTimers;
 }
 
 // Extend base text with our fixtures

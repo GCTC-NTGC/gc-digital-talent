@@ -14,10 +14,7 @@ type NavMenuProviderProps = {
   children: ReactNode;
 } & NavMenuContextValue;
 
-export const NavMenuProvider = ({
-  children,
-  ...context
-}: NavMenuProviderProps) => {
+const NavMenuProvider = ({ children, ...context }: NavMenuProviderProps) => {
   const { open, onOpenToggle, onOpenChange } = context;
   const value = useMemo(
     () => ({
@@ -38,3 +35,5 @@ export const useNavMenuContext = () => {
 
   return context;
 };
+
+export default NavMenuProvider;

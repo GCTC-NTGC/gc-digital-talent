@@ -4,12 +4,15 @@ namespace App\Models;
 
 use App\Casts\LocalizedString;
 use App\Enums\TalentNominationEventStatus;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -68,6 +71,26 @@ class TalentNominationEvent extends Model
         return $this->belongsToMany(DevelopmentProgram::class);
     }
 
+    protected function status(): Attribute
+    {
+        /** @disregard P1003 Not using values */
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                if (Carbon::parse($attributes['open_date'])->isPast() && Carbon::parse($attributes['close_date'])->isFuture()) {
+                    return TalentNominationEventStatus::ACTIVE->name;
+                }
+                if (Carbon::parse($attributes['close_date'])->isFuture()) {
+                    return TalentNominationEventStatus::UPCOMING->name;
+                }
+                if (Carbon::parse($attributes['close_date'])->isPast()) {
+                    return TalentNominationEventStatus::PAST->name;
+                }
+
+                return null;
+            },
+        );
+    }
+
     public static function scopeStatus(Builder $query, ?string $status)
     {
         if (! $status) {
@@ -82,6 +105,34 @@ class TalentNominationEvent extends Model
         if ($status === TalentNominationEventStatus::PAST->name) {
             return $query->where('close_date', '<', now());
         }
+    }
+
+    public function scopeCanManage(Builder $query, ?bool $canManage): void
+    {
+        if (! $canManage) {
+            return;
+        }
+
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('update-team-talentNominationEvent')) {
+            $communities = $user->rolesTeams()
+                ->where('teamable_type', "App\Models\Community")
+                ->get();
+            $communityIds = $communities->filter(function ($community) use ($user) {
+                return $user->isAbleTo('update-team-talentNominationEvent', $community);
+            })->pluck('teamable_id');
+
+            $query->whereHas('community', function (Builder $query) use ($communityIds) {
+                return $query->whereIn('community_id', $communityIds);
+            });
+
+            return;
+        }
+
+        // fall through, return nothing
+        $query->where('id', null);
     }
 
     /** @return HasMany<TalentNominationGroup, $this> */

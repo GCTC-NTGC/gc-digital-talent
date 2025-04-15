@@ -128,6 +128,12 @@ const errorMessages = defineMessages({
     id: "EW8RHQ",
     description: "Error message when a file download fails",
   },
+  notGovernmentEmail: {
+    defaultMessage:
+      "This doesn't appear to be a valid Government of Canada email address. Please double check it or reach out to support if you think this is an error.",
+    id: "xUhyIU",
+    description: "Description for rule pattern on work email field",
+  },
 });
 
 export default errorMessages;

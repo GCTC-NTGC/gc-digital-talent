@@ -70,6 +70,7 @@ class DevelopmentProgramInterestTest extends TestCase
                                 ],
                             ],
                         ],
+                        'consentToShareProfile' => true,
                     ],
                 ])
             ->assertJson([
