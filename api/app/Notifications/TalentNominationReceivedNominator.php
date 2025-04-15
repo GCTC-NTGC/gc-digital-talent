@@ -26,6 +26,8 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
 
     protected ?string $nominatorName;
 
+    protected ?string $nominatorWorkEmail;
+
     protected ?string $nomineeName;
 
     protected bool $nominateForAdvancement;
@@ -48,6 +50,9 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
         $this->nominatorName = ! is_null($talentNomination->nominator_id)
             ? $talentNomination->nominator?->full_name
             : $talentNomination->nominator_fallback_name;
+        $this->nominatorWorkEmail = ! is_null($talentNomination->nominator_id)
+            ? $talentNomination->nominator?->work_email
+            : $talentNomination->nominator_fallback_work_email;
         $this->nomineeName = $talentNomination->nominee?->full_name;
         $this->nominateForAdvancement = $talentNomination->nominate_for_advancement;
         $this->nominateForLateralMovement = $talentNomination->nominate_for_lateral_movement;
@@ -86,7 +91,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
 
         $recipientEmailAddress = match (get_class($notifiable)) {
             User::class => $notifiable->work_email,
-            AnonymousNotifiable::class => $notifiable[GcNotifyEmailMessage::class]['recipientEmailAddress']
+            AnonymousNotifiable::class => $this->nominatorWorkEmail, // we don't know exactly who it will be sent to, so guess the nominator
         };
 
         $combinedNominationOptionDescriptions = NominationUtils::combineNominationOptionDescriptions(

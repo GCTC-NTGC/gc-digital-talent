@@ -52,13 +52,8 @@ class SendTalentNominationSubmittedNotifications
 
         // only send the nominator email if there's a nominator who's different from the submitter
         if (! is_null($nominatorWorkEmailAddress) && $talentNomination->submitter?->work_email != $nominatorWorkEmailAddress) {
-            Notification::route(GcNotifyEmailChannel::class, [
-                'recipientEmailAddress' => $nominatorWorkEmailAddress,
-            ])
-                ->notify(
-                    (new TalentNominationReceivedNominator($talentNomination))
-                        ->locale($nominatorLocale)
-                );
+            Notification::route(GcNotifyEmailChannel::class, [])
+                ->notify((new TalentNominationReceivedNominator($talentNomination))->locale($nominatorLocale));
         }
 
     }
