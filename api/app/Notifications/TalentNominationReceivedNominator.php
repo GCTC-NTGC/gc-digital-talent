@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use App\Notifications\Utils\NominationUtils;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Notifications\Notification;
 
 /**
@@ -44,7 +45,9 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
         $this->eventNameEn = $talentNomination->talentNominationEvent?->name['en'];
         $this->eventNameFr = $talentNomination->talentNominationEvent?->name['fr'];
         $this->submitterName = $talentNomination->submitter?->full_name;
-        $this->nominatorName = $talentNomination->nominator?->full_name;
+        $this->nominatorName = ! is_null($talentNomination->nominator_id)
+            ? $talentNomination->nominator?->full_name
+            : $talentNomination->nominator_fallback_name;
         $this->nomineeName = $talentNomination->nominee?->full_name;
         $this->nominateForAdvancement = $talentNomination->nominate_for_advancement;
         $this->nominateForLateralMovement = $talentNomination->nominate_for_lateral_movement;
@@ -56,7 +59,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
      *
      * @return array<int, string>
      */
-    public function via(User $notifiable): array
+    public function via(User|AnonymousNotifiable $notifiable): array
     {
         // Can't ignore system messages
         // $notificationFamily = NotificationFamily::SYSTEM_MESSAGE->name;
@@ -69,9 +72,22 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
      * Get the GC Notify representation of the notification.
      * Always sent to the work email
      */
-    public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
+    public function toGcNotifyEmail(User|AnonymousNotifiable $notifiable): GcNotifyEmailMessage
     {
-        $locale = $this->locale ?? $notifiable->preferredLocale();
+        $locale = match (get_class($notifiable)) {
+            User::class => $this->locale ?? $notifiable->preferredLocale(),
+            AnonymousNotifiable::class => $this->locale ?? 'en', // hopefully the locale of the notification was manually set when instantiated
+        };
+
+        $recipientName = match (get_class($notifiable)) {
+            User::class => $notifiable->full_name,
+            AnonymousNotifiable::class => $this->nominatorName, // we don't know exactly who it will be sent to, so guess the nominator
+        };
+
+        $recipientEmailAddress = match (get_class($notifiable)) {
+            User::class => $notifiable->work_email,
+            AnonymousNotifiable::class => $notifiable[GcNotifyEmailMessage::class]['recipientEmailAddress']
+        };
 
         $combinedNominationOptionDescriptions = NominationUtils::combineNominationOptionDescriptions(
             $locale,
@@ -83,9 +99,9 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_en'),
-                $notifiable->work_email,
+                $recipientEmailAddress,
                 [
-                    'recipient name' => $notifiable->full_name,
+                    'recipient name' => $recipientName,
                     'submitter name' => $this->submitterName,
                     'nominator name' => $this->nominatorName,
                     'nominee name' => $this->nomineeName,
@@ -97,9 +113,9 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
             // French notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_fr'),
-                $notifiable->work_email,
+                $recipientEmailAddress,
                 [
-                    'recipient name' => $notifiable->full_name,
+                    'recipient name' => $recipientName,
                     'submitter name' => $this->submitterName,
                     'nominator name' => $this->nominatorName,
                     'nominee name' => $this->nomineeName,

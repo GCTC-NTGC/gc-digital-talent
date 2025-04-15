@@ -44,7 +44,9 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
         $this->eventNameEn = $talentNomination->talentNominationEvent?->name['en'];
         $this->eventNameFr = $talentNomination->talentNominationEvent?->name['fr'];
         $this->submitterName = $talentNomination->submitter?->full_name;
-        $this->nominatorName = $talentNomination->nominator?->full_name;
+        $this->nominatorName = ! is_null($talentNomination->nominator_id)
+            ? $talentNomination->nominator?->full_name
+            : $talentNomination->nominator_fallback_name;
         $this->nomineeName = $talentNomination->nominee?->full_name;
         $this->nominateForAdvancement = $talentNomination->nominate_for_advancement;
         $this->nominateForLateralMovement = $talentNomination->nominate_for_lateral_movement;
