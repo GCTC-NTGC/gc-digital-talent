@@ -23,6 +23,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
+import NominationNavigation from "./NominationNavigation/NominationNavigation";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -146,6 +147,7 @@ const NominationGroupSidebar = ({
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-padding="base(0)"
+      data-h2-gap="base(x.5)"
     >
       <CardBasic
         data-h2-display="base(flex)"
@@ -328,6 +330,7 @@ const NominationGroupSidebar = ({
           </Accordion.Item>
         </Accordion.Root>
       </CardBasic>
+      <NominationNavigation />
     </div>
   );
 };

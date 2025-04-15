@@ -105,6 +105,12 @@ const labels = defineMessages({
     description:
       "Label for the reference's input field in nominations details step",
   },
+  referencesClassification: {
+    defaultMessage: "Reference's classification",
+    id: "TiDfH2",
+    description:
+      "Label for the reference's input field in nominations details step",
+  },
   yourRole: {
     defaultMessage: "Your role",
     id: "Kv7YgK",
