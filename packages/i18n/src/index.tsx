@@ -1,4 +1,4 @@
-import * as fr from "./lang/frCompiled.json";
+import fr from "./lang/frCompiled.json";
 import richTextElements from "./components/richTextElements";
 import LanguageProvider from "./components/LanguageProvider";
 import LocaleProvider from "./components/LocaleProvider";
