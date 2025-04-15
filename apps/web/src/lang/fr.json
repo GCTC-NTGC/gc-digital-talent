@@ -5511,10 +5511,6 @@
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
   },
-  "OluK4D": {
-    "defaultMessage": "Commentaires",
-    "description": "Expandable to open comments form"
-  },
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
@@ -9309,6 +9305,10 @@
   "gj0bQO": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "gk/x2T": {
+    "defaultMessage": "Commentaires",
+    "description": "Label for comments"
   },
   "gkLEbN": {
     "defaultMessage": "0 des 0",
