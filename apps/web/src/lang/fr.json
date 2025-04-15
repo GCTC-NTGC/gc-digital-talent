@@ -1511,10 +1511,6 @@
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
   },
-  "51B5l9": {
-    "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
-    "description": "Link text to continue a specific application"
-  },
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
@@ -1594,10 +1590,6 @@
   "5MFMo5": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une occasion de perfectionnement ou d'apprentissage pour le préparer à son prochain poste.",
     "description": "Description for the development program nomination option on the details step"
-  },
-  "5O4CY1": {
-    "defaultMessage": "Supprimer votre demande pour le poste {title}",
-    "description": "Link text to delete a specific application"
   },
   "5PUycY": {
     "defaultMessage": "Sélectionnez un type",
@@ -1694,14 +1686,6 @@
   "5pQfyv": {
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
-  },
-  "5pTphq": {
-    "defaultMessage": "Examiner l’offre d’emploi {title}",
-    "description": "Link text to see an applications advertisement"
-  },
-  "5pZFQ3": {
-    "defaultMessage": "Êtes-vous certain de vouloir supprimer la candidature {name}?",
-    "description": "Question displayed when user attempts to delete an application"
   },
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
@@ -2835,10 +2819,6 @@
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"
   },
-  "BdsZwe": {
-    "defaultMessage": "Candidature soumise",
-    "description": "Label for showing the submitted date of an application."
-  },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
@@ -2950,10 +2930,6 @@
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
-  },
-  "CH6FQA": {
-    "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
-    "description": "Link text to delete a specific application"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -3583,10 +3559,6 @@
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
   },
-  "FFD16/": {
-    "defaultMessage": "Supprimer la candidature",
-    "description": "Title for the modal that appears when a user attempts to delete an application"
-  },
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
@@ -4034,10 +4006,6 @@
   "HhL+EB": {
     "defaultMessage": "Une nomination pour une mutation latérale exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour la personne candidate.",
     "description": "Trigger subtitle for lateral movement"
-  },
-  "HhuKq4": {
-    "defaultMessage": "Examiner l’offre d’emploi<hidden> {name}</hidden>",
-    "description": "Link text to see an applications advertisement"
   },
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
@@ -4615,10 +4583,6 @@
     "defaultMessage": "Les échelles salariales de tous les postes de la fonction publique fédérale sont <link>publiquement accessibles</link>. Les annonces d’emploi indiquent l’échelle complète pour un poste donné.",
     "description": "First paragraph for the pool application salary ranges dialog"
   },
-  "KZtBcM": {
-    "defaultMessage": "Examiner la demande<hidden> {name}</hidden>",
-    "description": "Link text to view a specific application"
-  },
   "KaisAC": {
     "defaultMessage": "Métis",
     "description": "Label for Métis community"
@@ -4686,10 +4650,6 @@
   "Kp3Bqu": {
     "defaultMessage": "Critères essentiels",
     "description": "Essential criteria heading"
-  },
-  "KqAp09": {
-    "defaultMessage": "Poursuivez l’ébauche de votre demande pour le poste {applicationTitle}",
-    "description": "Link text to apply for a pool advertisement"
   },
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
@@ -7014,10 +6974,6 @@
     "defaultMessage": "Créez un ministère",
     "description": "Heading displayed above the Create Department form."
   },
-  "WJSVBr": {
-    "defaultMessage": "Copier l'identifiant de votre candidature {title}",
-    "description": "Button text to copy a specific application ID"
-  },
   "WKAzau": {
     "defaultMessage": "Niveau démontré",
     "description": "Label for demonstrated level radio group in the screening decision dialog."
@@ -7285,10 +7241,6 @@
   "Xh1nV6": {
     "defaultMessage": "Vous avez indiqué que vous faites partie d’un groupe visé aux fins de l’équité en matière d’emploi. Vous pouvez ajouter d’autres groupes visés par l’équité en matière d’emploi à votre profil en modifiant cette section, le cas échéant",
     "description": "Text explaining how to edit employment equity information"
-  },
-  "XhQ7Ky": {
-    "defaultMessage": "Examiner votre demande pour le poste {title}",
-    "description": "Link text to view a specific application"
   },
   "Xhfkfg": {
     "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
@@ -9006,10 +8958,6 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
-  "ftg8sT": {
-    "defaultMessage": "L'identifiant de votre candidature {title} a été copié",
-    "description": "Button text to indicate that a specific application’s ID has been copied"
-  },
   "fvsYkj": {
     "defaultMessage": "Qu’est-ce que j’apprendrai dans le cadre de ce programme d’apprentissage?",
     "description": "What applicants will learn sections heading"
@@ -9105,10 +9053,6 @@
   "gASASB": {
     "defaultMessage": "Description (anglais)",
     "description": "Title for description in English."
-  },
-  "gBAz/G": {
-    "defaultMessage": "Identifiant de candidature copié",
-    "description": "Button text to indicate that a specific application’s ID has been copied"
   },
   "gChYmW": {
     "defaultMessage": "Annonce à l’échelle du site",
@@ -9869,10 +9813,6 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
-  },
-  "jiJ8qo": {
-    "defaultMessage": "Poursuivez l'ébauche",
-    "description": "Link text to continue a specific application that is in draft state."
   },
   "jkY75T": {
     "defaultMessage": "Créez le volet de travail",
@@ -11454,10 +11394,6 @@
     "defaultMessage": "Erreur : Échec de la création du processus de recrutement",
     "description": "Message displayed to pool after pool fails to get created."
   },
-  "rvoNoQ": {
-    "defaultMessage": "Copier l'identifiant de candidature",
-    "description": "Button text to copy a specific application ID"
-  },
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
@@ -12473,10 +12409,6 @@
   "xcsYTa": {
     "defaultMessage": "Échec de l’enregistrement de l’évaluation",
     "description": "Message displayed to user if assessment result fails to get created/updated."
-  },
-  "xdGPxT": {
-    "defaultMessage": "Candidature supprimée!",
-    "description": "Message displayed to user after application is deleted successfully."
   },
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
