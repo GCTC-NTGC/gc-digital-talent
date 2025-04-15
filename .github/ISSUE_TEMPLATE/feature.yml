@@ -56,10 +56,10 @@ body:
   - type: checkboxes
     id: definition-of-ready
     attributes:
-      label: Definition of Ready
-      description: Does this meet our [Definition of Ready](documentation/definition-of-ready.md)?
+      label: 🚢 Definition of Ready
+      description: Does this meet issue meet the criteria in our [Definition of Ready](documentation/definition-of-ready.md)?
       options:
-        - label: This issue has met our Definition of Ready
+        - label: This issue has met the criteria in our Definition of Ready
           required: true
   - type: textarea
     id: blocking-issues
