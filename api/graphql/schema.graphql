@@ -671,14 +671,14 @@ type TalentNomination {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   submitter: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")
   submitterRelationshipToNominatorOther: String
     @rename(attribute: "submitter_relationship_to_nominator_other")
   nominator: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominatorFallbackWorkEmail: String
     @rename(attribute: "nominator_fallback_work_email")
   nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
@@ -688,7 +688,7 @@ type TalentNomination {
     @rename(attribute: "nominator_review")
   nominee: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nomineeReview: LocalizedTalentNominationUserReview
     @rename(attribute: "nominee_review")
   nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
@@ -704,7 +704,7 @@ type TalentNomination {
 
   advancementReference: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   advancementReferenceReview: LocalizedTalentNominationUserReview
     @rename(attribute: "advancement_reference_review")
   advancementReferenceFallbackWorkEmail: String
@@ -733,7 +733,7 @@ type TalentNominationGroup {
   createdAt: DateTime @rename(attribute: "created_at")
   nominee: BasicGovEmployeeProfile
     @belongsTo
-    @canQuery(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
