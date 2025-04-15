@@ -21,17 +21,19 @@ class SendTalentNominationSubmittedNotifications
      */
     public function handle(TalentNominationSubmitted $event): void
     {
-        $submitterNotification = new TalentNominationReceivedSubmitter(
-            $event->talentNomination
-        );
-        $event->talentNomination->submitter->notify($submitterNotification);
+        $talentNomination = $event->talentNomination;
+        $talentNomination->loadMissing(['submitter', 'nominator']);
+
+        $submitterNotification = new TalentNominationReceivedSubmitter($talentNomination);
+        $talentNomination->submitter->notify($submitterNotification);
 
         // only send the nominator email if there's a nominator who's different from the submitter
-        if ($event->talentNomination->submitter->id != $event->talentNomination->nominator->id) {
+        // TODO: check in case nominator is null
+        if ($talentNomination->submitter->id != $talentNomination->nominator?->id && ! is_null($talentNomination->nominator_id)) {
             $nominatorNotification = new TalentNominationReceivedNominator(
-                $event->talentNomination
+                $talentNomination
             );
-            $event->talentNomination->nominator->notify($nominatorNotification);
+            $talentNomination->nominator->notify($nominatorNotification);
         }
 
     }

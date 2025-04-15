@@ -17,15 +17,15 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
 {
     use Queueable;
 
-    protected string $eventNameEn;
+    protected ?string $eventNameEn;
 
-    protected string $eventNameFr;
+    protected ?string $eventNameFr;
 
-    protected string $submitterName;
+    protected ?string $submitterName;
 
-    protected string $nominatorName;
+    protected ?string $nominatorName;
 
-    protected string $nomineeName;
+    protected ?string $nomineeName;
 
     protected bool $nominateForAdvancement;
 
@@ -39,11 +39,13 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
     public function __construct(
         TalentNomination $talentNomination
     ) {
-        $this->eventNameEn = $talentNomination->talentNominationEvent->name['en'];
-        $this->eventNameFr = $talentNomination->talentNominationEvent->name['fr'];
-        $this->submitterName = $talentNomination->submitter->full_name;
-        $this->nominatorName = $talentNomination->nominator->full_name;
-        $this->nomineeName = $talentNomination->nominee->full_name;
+        $talentNomination->loadMissing(['talentNominationEvent', 'submitter', 'nominator', 'nominee']);
+
+        $this->eventNameEn = $talentNomination->talentNominationEvent?->name['en'];
+        $this->eventNameFr = $talentNomination->talentNominationEvent?->name['fr'];
+        $this->submitterName = $talentNomination->submitter?->full_name;
+        $this->nominatorName = $talentNomination->nominator?->full_name;
+        $this->nomineeName = $talentNomination->nominee?->full_name;
         $this->nominateForAdvancement = $talentNomination->nominate_for_advancement;
         $this->nominateForLateralMovement = $talentNomination->nominate_for_lateral_movement;
         $this->nominateForDevelopmentPrograms = $talentNomination->nominate_for_development_programs;
