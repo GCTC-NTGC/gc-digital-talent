@@ -754,6 +754,7 @@ type TalentNominationGroup {
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
   status: LocalizedTalentNominationGroupStatus
+  comments: String
 }
 
 type Team implements HasRoleAssignments {
@@ -2166,6 +2167,7 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_decision")
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
+  comments: String
 }
 
 input CreateApplicantFilterInput {
