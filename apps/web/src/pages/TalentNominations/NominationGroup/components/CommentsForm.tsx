@@ -13,7 +13,6 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   FragmentType,
-  Maybe,
   TalentNominationGroup,
   getFragment,
   graphql,
@@ -51,35 +50,6 @@ const TalentNominationEvent_UpdateCommentsMutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const Display = ({ comments }: { comments?: Maybe<string> }) => {
-  const intl = useIntl();
-  const hasComments = !!comments;
-  return (
-    <>
-      <RichTextRenderer node={htmlToRichTextJSON(comments ?? "")} />
-      {hasComments ? (
-        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
-          {intl.formatMessage({
-            defaultMessage: "Edit comments",
-            id: "wrQN7E",
-            description:
-              "Button text to start editing talent nomination group comments",
-          })}
-        </ToggleForm.Trigger>
-      ) : (
-        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
-          {intl.formatMessage({
-            defaultMessage: "Add a comment",
-            id: "lICSL7",
-            description:
-              "Button text to start adding a talent nomination group comment",
-          })}
-        </ToggleForm.Trigger>
-      )}
-    </>
-  );
-};
 
 const CommentsForm = ({
   nominationGroup: nominationGroupQuery,
@@ -159,9 +129,22 @@ const CommentsForm = ({
       id="comments-form"
       open={isEditing}
       onOpenChange={setIsEditing}
+      data-h2-gap="base(x1, 0, 0, 0)"
     >
       <ToggleSection.InitialContent>
-        <Display comments={nominationGroup.comments} />
+        <RichTextRenderer
+          node={htmlToRichTextJSON(nominationGroup.comments ?? "")}
+        />
+        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+          <Button mode="inline" type="button" color="primary">
+            {intl.formatMessage({
+              defaultMessage: "Edit comments",
+              id: "wrQN7E",
+              description:
+                "Button text to start editing talent nomination group comments",
+            })}
+          </Button>
+        </ToggleForm.Trigger>
       </ToggleSection.InitialContent>
       <ToggleSection.OpenContent>
         <FormProvider {...methods}>
@@ -169,7 +152,7 @@ const CommentsForm = ({
             onSubmit={handleSubmit(handleFormSubmit)}
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.5)"
+            data-h2-gap="base(x1)"
           >
             <RichTextInput
               id="comments"
@@ -188,7 +171,7 @@ const CommentsForm = ({
                   id: "8R8ip4",
                   description: "Label for saving comments",
                 })}
-                color="primary"
+                color="secondary"
                 mode="solid"
                 isSubmitting={fetching}
               />
