@@ -880,7 +880,7 @@
     "description": "Second item in list of eligibility requirements section"
   },
   "2BCHZm": {
-    "defaultMessage": "En ajoutant la {communityname} à mon profil, j’accepte mes informations soient partagés avec les gestionnaires de talents, le personnel des ressources humaines et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
+    "defaultMessage": "En ajoutant la {communityName} à mon profil, j’accepte mes informations soient partagés avec les gestionnaires de talents, le personnel des ressources humaines et les gestionnaires d'embauche de cette collectivité fonctionnelle.",
     "description": "Statement for the input for the consent check"
   },
   "2CzVQo": {
