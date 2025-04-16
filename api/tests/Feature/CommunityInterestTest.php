@@ -319,14 +319,13 @@ class CommunityInterestTest extends TestCase
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 0]);
-
-        // community recruiter/admin/coordinator can see the model
-        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
-        )->assertJsonFragment(['total' => 1])
-            ->assertJsonFragment(['id' => $communityInterestModel->id]);
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+        )->assertJsonFragment(['total' => 0]);
+
+        // community recruiter/coordinator can see the model
+        $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])
@@ -367,7 +366,7 @@ class CommunityInterestTest extends TestCase
         )->assertJsonFragment(['total' => 0]);
     }
 
-    // test scopeAuthorizedToView for community admin/recruiter/coordinator
+    // test scopeAuthorizedToView for community recruiter/coordinator
     // scope acts on community and job/training interest
     public function testCommunityInterestsPaginatedAuthorizedToView(): void
     {
@@ -399,13 +398,6 @@ class CommunityInterestTest extends TestCase
             [],
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestWithConsent->id]);
-
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
-            $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 1])
-            ->assertJsonFragment(['id' => $communityInterestWithConsent->id]);
-
         $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
@@ -447,7 +439,7 @@ class CommunityInterestTest extends TestCase
         ]);
 
         // Test community interest filter where job interest is true and training interest is false
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
                 'where' => [
@@ -460,7 +452,7 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
 
         // Test community interest filter where job interest is false and training interest is true
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
                 'where' => [
@@ -474,7 +466,7 @@ class CommunityInterestTest extends TestCase
 
         // Test community interest filter where job interest is false and training interest is false
         // NOTE: Should assert a total of 4 results since we show any user as long as they consented to share their profile
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
                 'where' => [
@@ -489,7 +481,7 @@ class CommunityInterestTest extends TestCase
             ->assertJsonFragment(['id' => $communityInterestWithNoInterests->id]);
 
         // Test community interest filter where job interest is true and training interest is true
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [
                 'where' => [
