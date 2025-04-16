@@ -28,6 +28,11 @@ const CommentsForm_Fragment = graphql(/* Graphql */ `
   fragment CommentsForm on TalentNominationGroup {
     id
     comments
+    talentNominationEvent {
+      name {
+        localized
+      }
+    }
   }
 `);
 
@@ -78,13 +83,20 @@ const CommentsForm = ({
 
   const handleError = () => {
     toast.error(
-      intl.formatMessage({
-        defaultMessage:
-          "Error: could not update talent nomination group comments",
-        id: "1L+U6w",
-        description:
-          "Message displayed when an error occurs while an admin updates a nomination group",
-      }),
+      intl.formatMessage(
+        {
+          defaultMessage:
+            "Failed updating the comments about the nominations of this nominee for {eventName}.",
+          id: "kWfAux",
+          description:
+            "Message displayed when an error occurs while an admin updates a nomination group",
+        },
+        {
+          eventName:
+            nominationGroup.talentNominationEvent.name.localized ??
+            intl.formatMessage(commonMessages.notFound),
+        },
+      ),
     );
   };
 
@@ -100,13 +112,20 @@ const CommentsForm = ({
       .then((result) => {
         if (result.data?.updateTalentNominationGroup) {
           toast.success(
-            intl.formatMessage({
-              defaultMessage:
-                "Talent nomination group comments updated successfully",
-              id: "cHHVLz",
-              description:
-                "Message displayed when a nomination group has been updated by an admin",
-            }),
+            intl.formatMessage(
+              {
+                defaultMessage:
+                  "Comments about the nominations of this nominee for {eventName} updated successfully.",
+                id: "P8bsme",
+                description:
+                  "Message displayed when a nomination group has been updated by an admin",
+              },
+              {
+                eventName:
+                  nominationGroup.talentNominationEvent.name.localized ??
+                  intl.formatMessage(commonMessages.notFound),
+              },
+            ),
           );
         } else {
           handleError();
