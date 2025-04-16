@@ -90,6 +90,9 @@ test.describe("Application", () => {
     });
     const [skillOne, skillTwo] = technicalSkills;
     const application = new ApplicationPage(appPage.page, pool.id);
+    await application.overrideFeatureFlags({
+      FEATURE_NEW_APPLICANT_DASHBOARD: true,
+    });
     await loginBySub(application.page, sub, false);
 
     await application.create();
@@ -242,6 +245,9 @@ test.describe("Application", () => {
     });
 
     const application = new ApplicationPage(appPage.page, pool.id);
+    await application.overrideFeatureFlags({
+      FEATURE_NEW_APPLICANT_DASHBOARD: true,
+    });
     await loginBySub(application.page, sub, false);
 
     await application.create();
