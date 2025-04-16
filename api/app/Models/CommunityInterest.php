@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Team as TeamModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -123,7 +124,15 @@ class CommunityInterest extends Model
                             ->pluck('teamable_id')
                             ->toArray();
 
-                        return $query->whereIn('community_id', $communityIds);
+                        // filter for communities where the permission applies first
+                        $communitiesFiltered = array_filter(
+                            $communityIds,
+                            function (string $communityId) use ($user) {
+                                return $user->isAbleTo('view-team-communityInterest', TeamModel::where('teamable_id', $communityId)->sole());
+                            }
+                        );
+
+                        return $query->whereIn('community_id', $communitiesFiltered);
                     });
 
                     $query->where('consent_to_share_profile', true);
