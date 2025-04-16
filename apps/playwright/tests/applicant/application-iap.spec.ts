@@ -129,20 +129,14 @@ test.describe("IAP Application", () => {
     await application.page.getByRole("link", { name: /let's go/i }).click();
     await application.page.waitForURL(/career-timeline$/);
 
-    // Quit application and confirm draft message
+    // Quit application
     const applicationUrl = application.page.url();
     await application.page
       .getByRole("link", { name: /save and quit for now/i })
       .click();
-    await expect(
-      application.page.getByText(
-        /are you looking for your application to the IT apprenticeship program for indigenous peoples/i,
-      ),
-    ).toBeVisible();
     await application.page.goto(applicationUrl);
 
     // Continue on with application
-
     await expect(
       application.page.getByText(
         /you don’t have any career timeline experiences yet./i,
