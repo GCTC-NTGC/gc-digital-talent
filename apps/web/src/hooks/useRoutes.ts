@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
-import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/constants/sections/careerTimeline";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -247,13 +246,8 @@ const getRoutes = (lang: Locales) => {
     },
     verifyWorkEmail: () => [applicantUrl, "verify-work-email"].join("/"),
 
-    // Career timeline and recruitment Routes
-    careerTimelineAndRecruitment: (opts?: {
-      section?: CareerTimelineAndRecruitmentPageSectionId;
-    }) => {
-      const fragment = opts?.section ? `#${opts.section}` : "";
-      return `${[applicantUrl, "career-timeline"].join("/")}${fragment}`;
-    },
+    // Career timeline
+    careerTimeline: () => [applicantUrl, "career-timeline"].join("/"),
     editExperience: (experienceId: string) =>
       [applicantUrl, "career-timeline", experienceId, "edit"].join("/"),
     createExperience: () =>

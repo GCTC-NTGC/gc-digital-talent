@@ -99,11 +99,11 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
       >
         <div
           ref={forwardedRef}
-          {...rest}
           data-state={open ? "open" : "closed"}
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x1, 0)"
+          {...rest}
         >
           {children}
         </div>
