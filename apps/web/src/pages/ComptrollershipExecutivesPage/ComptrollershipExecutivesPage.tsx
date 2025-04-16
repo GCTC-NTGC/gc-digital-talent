@@ -317,7 +317,16 @@ export const Component = () => {
                   data-h2-justify-content="base(space-between)"
                   data-h2-flex-grow="base(1)"
                 >
-                  <img src={teamImage} alt="" data-h2-display="base(block)" />
+                  <img
+                    src={teamImage}
+                    alt=""
+                    data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
+                  />
                   <div
                     data-h2-padding="base(x1)"
                     data-h2-flex-grow="base(1)"
@@ -388,6 +397,11 @@ export const Component = () => {
                     src={newsletterImage}
                     alt=""
                     data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
                   />
                   <div
                     data-h2-padding="base(x1)"
@@ -459,6 +473,11 @@ export const Component = () => {
                     src={connectWithPeersImage}
                     alt=""
                     data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
                   />
                   <div
                     data-h2-padding="base(x1)"

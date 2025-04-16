@@ -289,4 +289,13 @@ class CommunityInterest extends Model
 
         return $query;
     }
+
+    public static function scopeIsVerifiedGovEmployee(Builder $query): Builder
+    {
+        $query->whereHas('user', function ($query) {
+            User::scopeIsVerifiedGovEmployee($query);
+        });
+
+        return $query;
+    }
 }
