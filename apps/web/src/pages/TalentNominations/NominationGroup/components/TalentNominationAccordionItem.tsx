@@ -46,6 +46,7 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
       includeLeadershipCompetencies
     }
 
+    nominatorFallbackName
     nominator {
       firstName
       lastName
@@ -247,6 +248,17 @@ const TalentNominationAccordionItem = ({
     })) ?? [];
   skillListItems.sort((a, b) => a.label.localeCompare(b.label));
 
+  let nominatorName =
+    talentNomination?.nominatorFallbackName ??
+    intl.formatMessage(commonMessages.notProvided);
+  if (talentNomination?.nominator) {
+    nominatorName = getFullNameLabel(
+      talentNomination.nominator.firstName,
+      talentNomination.nominator.lastName,
+      intl,
+    );
+  }
+
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
       <Accordion.Trigger as="h3">
@@ -257,11 +269,7 @@ const TalentNominationAccordionItem = ({
             description: "Nomination group accordion trigger title ",
           },
           {
-            name: getFullNameLabel(
-              talentNomination.nominator?.firstName,
-              talentNomination.nominator?.lastName,
-              intl,
-            ),
+            name: nominatorName,
           },
         )}
       </Accordion.Trigger>
