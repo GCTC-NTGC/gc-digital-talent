@@ -2187,6 +2187,10 @@
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répond à vos critères.",
     "description": "Text telling users that their search produced no candidates"
   },
+  "8R8ip4": {
+    "defaultMessage": "Enregistrez les commentaires",
+    "description": "Label for saving comments"
+  },
   "8TyO/X": {
     "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
     "description": "Reminder what screening questions are used for."
@@ -5535,10 +5539,6 @@
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
   },
-  "OluK4D": {
-    "defaultMessage": "Commentaires",
-    "description": "Expandable to open comments form"
-  },
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
@@ -5582,6 +5582,10 @@
   "P40FEe": {
     "defaultMessage": "Oiseau-mouche en plein vol, qui représente le messager de la joie au sein de plusieurs communautés autochtones",
     "description": "Description of a decorative image of a hummingbird"
+  },
+  "P8bsme": {
+    "defaultMessage": "Les commentaires sur les nominations de cette personne candidate pour {eventName} ont été mis à jour avec succès.",
+    "description": "Message displayed when a nomination group has been updated by an admin"
   },
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
@@ -9322,6 +9326,10 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Homepage title for IT Apprenticeship Program for Indigenous Peoples"
   },
+  "gk/x2T": {
+    "defaultMessage": "Commentaires",
+    "description": "Label for comments"
+  },
   "gkLEbN": {
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
@@ -10089,6 +10097,10 @@
   "kVavip": {
     "defaultMessage": "Ministère de placement",
     "description": "Title displayed on the Pool Candidates table placed department column"
+  },
+  "kWfAux": {
+    "defaultMessage": "Échec de la mise à jour des commentaires sur les nominations de cette personne candidate pour {eventName}.",
+    "description": "Message displayed when an error occurs while an admin updates a nomination group"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
@@ -12449,6 +12461,10 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
+  },
+  "wrQN7E": {
+    "defaultMessage": "Modifiez les commentaires",
+    "description": "Button text to start editing talent nomination group comments"
   },
   "wrg4fw": {
     "defaultMessage": "<hidden>Processes de recrutement pour </hidden>{poolName}",
