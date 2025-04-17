@@ -4,22 +4,10 @@ import { Chip, Color, Link } from "@gc-digital-talent/ui";
 import {
   LocalizedTalentNominationEventStatus,
   Maybe,
-  TalentNomination,
   TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-
-interface TalentNominationGrouping {
-  nominations?: Partial<TalentNomination>[] | null;
-}
-
-export const getNominationCount = (
-  talentNominationGroups?: TalentNominationGrouping[] | null,
-) =>
-  talentNominationGroups?.reduce((acc, i) => {
-    return acc + (i.nominations?.length ?? 0);
-  }, 0) ?? 0;
 
 const getTalentNominationEventStatusColor = (
   talentNominationEventStatus?: Maybe<TalentNominationEventStatus>,
