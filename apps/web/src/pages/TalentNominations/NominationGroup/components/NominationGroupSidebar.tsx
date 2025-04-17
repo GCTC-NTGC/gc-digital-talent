@@ -16,6 +16,7 @@ import {
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -63,6 +64,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     }
     nominations {
       id
+      ...NominatorList
       nominator {
         id
         firstName
@@ -250,7 +252,7 @@ const NominationGroupSidebar = ({
             })}
           </p>
           <NominatorList
-            talentNominations={talentNominationGroup.nominations}
+            query={unpackMaybes(talentNominationGroup.nominations)}
           />
           <p
             data-h2-font-weight="base(700)"
