@@ -61,6 +61,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     }
     nominations {
       id
+      ...NominatorList
       nominator {
         id
         firstName
@@ -246,9 +247,7 @@ const NominationGroupSidebar = ({
               description: "Nominated by header",
             })}
           </p>
-          <NominatorList
-            talentNominations={talentNominationGroup.nominations}
-          />
+          <NominatorList query={talentNominationGroup.nominations} />
           <p
             data-h2-font-weight="base(700)"
             data-h2-padding-top="base(x1)"
