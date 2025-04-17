@@ -150,7 +150,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_en',
-            'selected nomination options' => 'advancement, lateral movement, and development programs',
+            'selected nomination options' => 'advancement, lateral movement, and development program',
         ],
             $message->messageVariables);
     }
@@ -181,7 +181,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_fr',
-            'selected nomination options' => 'advancement, lateral movement et development programs',
+            'selected nomination options' => 'avancement, mutation latérale et programme de perfectionnement',
         ],
             $message->messageVariables);
     }
@@ -230,7 +230,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_en',
-            'selected nomination options' => 'advancement, lateral movement, and development programs',
+            'selected nomination options' => 'advancement, lateral movement, and development program',
         ],
             $message->messageVariables);
     }
@@ -261,7 +261,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_fr',
-            'selected nomination options' => 'advancement, lateral movement et development programs',
+            'selected nomination options' => 'avancement, mutation latérale et programme de perfectionnement',
         ],
             $message->messageVariables);
     }

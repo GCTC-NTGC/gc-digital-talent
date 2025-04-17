@@ -20,7 +20,7 @@ class NominationUtils
             $nominationOptionDescriptions->push(Lang::get('talent_nomination_option.lateral_movement', [], $locale));
         }
         if ($nominateForDevelopmentPrograms) {
-            $nominationOptionDescriptions->push(Lang::get('talent_nomination_option.development_programs', [], $locale));
+            $nominationOptionDescriptions->push(Lang::get('talent_nomination_option.development_program', [], $locale));
         }
 
         $combinedNominationOptionDescriptions = match ($nominationOptionDescriptions->count()) {
