@@ -34,7 +34,23 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses:
+          actions/checkout@v4
+
+          # Allows SSH access into CI environment for up to 1h.
+      # Use `touch ~/continue` with session to end each one.
+      # Only enable when trying to troubleshoot.
+      #
+      # Note: Be cautious, as secrets in environment can be compromised.
+      #   Consider using in PRs from forks, without secrets available.
+      #
+      # See: https://github.com/lhotari/action-upterm
+      - name: Create upterm session for debug
+        uses: lhotari/action-upterm@v1
+        # if: ${{ false }}
+        if: ${{ always() }}
+        with:
+          limit-access-to-actor: true
 
       - name: Add postgres extension pgcrypto # not included with postgres 12
         run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
