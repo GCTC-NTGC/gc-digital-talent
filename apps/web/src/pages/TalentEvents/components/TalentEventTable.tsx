@@ -82,16 +82,8 @@ export const TalentEventTable = ({
           id: "KxsYhl",
           description: "Header for Nominations",
         }),
-        cell: ({
-          row: { id },
-          getValue
-        }) =>
-          nominationsCell(
-            id,
-            getValue(),
-            routes,
-            intl,
-          ),
+        cell: ({ row: { id }, getValue }) =>
+          nominationsCell(id, getValue(), routes, intl),
         meta: {
           isRowTitle: true,
         },
