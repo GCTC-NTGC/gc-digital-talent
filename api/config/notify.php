@@ -40,6 +40,10 @@ return [
         'verify_email_fr' => env('GCNOTIFY_TEMPLATE_VERIFY_EMAIL_FR', ''),
         'system_notification_en' => env('GCNOTIFY_TEMPLATE_SYSTEM_NOTIFICATION_EN', ''),
         'system_notification_fr' => env('GCNOTIFY_TEMPLATE_SYSTEM_NOTIFICATION_FR', ''),
+        'nomination_received_submitter_en' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN', ''),
+        'nomination_received_submitter_fr' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_FR', ''),
+        'nomination_received_nominator_en' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_EN', ''),
+        'nomination_received_nominator_fr' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR', ''),
     ],
 
     /*

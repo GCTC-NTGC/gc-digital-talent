@@ -11,6 +11,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
@@ -26,6 +27,8 @@ class TalentNominationGroupStatusTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        Notification::fake(); // don't try to send any "nomination received" notifications
 
         $this->seed(RolePermissionSeeder::class);
         $this->seed(SkillFamilySeeder::class);
