@@ -17,21 +17,21 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
 {
     use Queueable;
 
-    protected ?string $eventNameEn;
+    public ?string $eventNameEn;
 
-    protected ?string $eventNameFr;
+    public ?string $eventNameFr;
 
-    protected ?string $submitterName;
+    public ?string $submitterName;
 
-    protected ?string $nominatorName;
+    public ?string $nominatorName;
 
-    protected ?string $nomineeName;
+    public ?string $nomineeName;
 
-    protected bool $nominateForAdvancement;
+    public bool $nominateForAdvancement;
 
-    protected bool $nominateForLateralMovement;
+    public bool $nominateForLateralMovement;
 
-    protected bool $nominateForDevelopmentPrograms;
+    public bool $nominateForDevelopmentPrograms;
 
     /**
      * Create a new notification instance.

@@ -2,16 +2,22 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Events\TalentNominationSubmitted;
+use App\Listeners\SendTalentNominationSubmittedNotifications;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
 use App\Notifications\ApplicationStatusChanged;
+use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentNominationReceivedNominator;
 use App\Notifications\TalentNominationReceivedSubmitter;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
@@ -275,5 +281,187 @@ class TalentNominationReceivedTest extends TestCase
         $message = $notification->toGcNotifyEmail(TalentNominationReceivedTest::makeGovEmployee('recipient'));
 
         assertEquals($message->messageVariables['nominator name'], 'fallback_nominator');
+    }
+
+    // submitting a talent nomination fires the event
+    public function testNominationSubmissionFiresEvent(): void
+    {
+        Event::fake([TalentNominationSubmitted::class]);
+
+        $talentNomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create();
+
+        Event::assertNotDispatched(TalentNominationSubmitted::class);
+
+        $talentNomination->submitted_at = Carbon::now();
+        $talentNomination->save();
+
+        Event::assertDispatched(TalentNominationSubmitted::class);
+    }
+
+    // listener for the event sends one notification if the submitter and nominator are the same
+    public function testListenerForSubmitterAndNominatorSame(): void
+    {
+        $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
+
+        Event::fake([TalentNominationSubmitted::class]);
+        /** @var \App\Models\TalentNomination */
+        $talentNomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $submitter->id,
+                'nominator_id' => $submitter->id,
+            ]);
+
+        $event = new TalentNominationSubmitted($talentNomination);
+        $listener = new SendTalentNominationSubmittedNotifications();
+
+        Notification::fake();
+        $listener->handle($event);
+
+        Notification::assertCount(1);  // should only have sent the submitter notification and not a separate nominator notification
+
+        Notification::assertSentTo(
+            $submitter,
+            function (TalentNominationReceivedSubmitter $notification, array $channels) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'submitter_first_name submitter_last_name';
+            }
+        );
+    }
+
+    // handler for the event fires two notification if the submitter and nominator are different
+    public function testListenerForSubmitterAndNominatorDifferent(): void
+    {
+        $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
+        $nominator = TalentNominationReceivedTest::makeGovEmployee('nominator');
+
+        Event::fake([TalentNominationSubmitted::class]);
+        /** @var \App\Models\TalentNomination */
+        $talentNomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $submitter->id,
+                'nominator_id' => $nominator->id,
+            ]);
+
+        $event = new TalentNominationSubmitted($talentNomination);
+        $listener = new SendTalentNominationSubmittedNotifications();
+
+        Notification::fake();
+        $listener->handle($event);
+
+        Notification::assertCount(2);  // should send one to the submitter and one to the nominator
+
+        Notification::assertSentTo(
+            $submitter,
+            function (TalentNominationReceivedSubmitter $notification, array $channels) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'nominator_first_name nominator_last_name';
+            }
+        );
+
+        Notification::assertSentTo(
+            $nominator,
+            function (TalentNominationReceivedNominator $notification, array $channels) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'nominator_first_name nominator_last_name';
+            }
+        );
+    }
+
+    // listener for the event sends one notification if the submitter and nominator are the same, fallback nominator
+    public function testListenerForSubmitterAndNominatorSameWithFallbackNominator(): void
+    {
+        $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
+
+        Event::fake([TalentNominationSubmitted::class]);
+        /** @var \App\Models\TalentNomination */
+        $talentNomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $submitter->id,
+                'nominator_id' => null,
+                'nominator_fallback_work_email' => 'submitter@gc.ca',
+                'nominator_fallback_name' => 'fallback_nominator_name',
+            ]);
+
+        $event = new TalentNominationSubmitted($talentNomination);
+        $listener = new SendTalentNominationSubmittedNotifications();
+
+        Notification::fake();
+        $listener->handle($event);
+
+        Notification::assertCount(1);  // should only have sent the submitter notification and not a separate nominator notification
+
+        Notification::assertSentTo(
+            $submitter,
+            function (TalentNominationReceivedSubmitter $notification, array $channels) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'fallback_nominator_name';
+            }
+        );
+    }
+
+    // handler for the event fires two notification if the submitter and nominator are different
+    public function testListenerForSubmitterAndNominatorDifferentWithFallbackNominator(): void
+    {
+        $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
+
+        Event::fake([TalentNominationSubmitted::class]);
+        /** @var \App\Models\TalentNomination */
+        $talentNomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'submitter_id' => $submitter->id,
+                'nominator_id' => null,
+                'nominator_fallback_work_email' => 'fallback_nominator@gc.ca',
+                'nominator_fallback_name' => 'fallback_nominator_name',
+            ]);
+
+        $event = new TalentNominationSubmitted($talentNomination);
+        $listener = new SendTalentNominationSubmittedNotifications();
+
+        Notification::fake();
+        $listener->handle($event);
+
+        Notification::assertCount(2);  // should send one to the submitter and one to the nominator
+
+        Notification::assertSentTo(
+            $submitter,
+            function (TalentNominationReceivedSubmitter $notification, array $channels) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'fallback_nominator_name';
+            }
+        );
+
+        Notification::assertSentOnDemand(
+            TalentNominationReceivedNominator::class,
+            function (TalentNominationReceivedNominator $notification, array $channels, object $notifiable) {
+                return
+                    count($channels) == 1 &&
+                    $channels[0] == GcNotifyEmailChannel::class &&
+                    $notification->submitterName == 'submitter_first_name submitter_last_name' &&
+                    $notification->nominatorName == 'fallback_nominator_name' &&
+                    $notification->nominatorWorkEmail == 'fallback_nominator@gc.ca';
+            }
+
+        );
     }
 }
