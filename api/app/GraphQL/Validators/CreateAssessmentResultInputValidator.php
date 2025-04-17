@@ -26,6 +26,17 @@ final class CreateAssessmentResultInputValidator extends Validator
                     $this->arg('poolCandidateId'),
                     $this->arg('poolSkillId')
                 ),
+
+                Rule::unique('assessment_results', 'assessment_step_id')
+                    ->where(function ($query) {
+                        return $query
+                            ->where('pool_candidate_id', $this->arg('poolCandidateId'))
+                            ->where('assessment_result_type', $this->arg('assessmentResultType'))
+                            ->when($this->arg('poolSkillId'),
+                                fn ($query) => $query->where('pool_skill_id', $this->arg('poolSkillId')),
+                                fn ($query) => $query->whereNull('pool_skill_id')
+                            );
+                    }),
             ],
             'poolSkillId' => [
                 Rule::requiredIf($this->arg('assessmentResultType') === AssessmentResultType::SKILL->name),
@@ -56,6 +67,7 @@ final class CreateAssessmentResultInputValidator extends Validator
         return [
             'poolSkillId' => 'SkillAssessmentResultMissingSkill',
             'assessmentDecisionLevel.prohibited' => 'CannotSetAssessmentDecisionLevelForThisTypeOrDecision',
+            'assessmentStepId.unique' => 'AssessmentResultAlreadyExists',
         ];
     }
 }
