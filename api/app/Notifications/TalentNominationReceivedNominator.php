@@ -81,17 +81,17 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
     {
         $locale = match (get_class($notifiable)) {
             User::class => $this->locale ?? $notifiable->preferredLocale(),
-            AnonymousNotifiable::class => $this->locale ?? 'en', // hopefully the locale of the notification was manually set when instantiated
+            default => $this->locale ?? 'en', // hopefully the locale of the notification was manually set when instantiated
         };
 
         $recipientName = match (get_class($notifiable)) {
             User::class => $notifiable->full_name,
-            AnonymousNotifiable::class => $this->nominatorName, // we don't know exactly who it will be sent to, so guess the nominator
+            default => $this->nominatorName, // we don't know exactly who it will be sent to, so guess the nominator
         };
 
         $recipientEmailAddress = match (get_class($notifiable)) {
             User::class => $notifiable->work_email,
-            AnonymousNotifiable::class => $this->nominatorWorkEmail, // we don't know exactly who it will be sent to, so guess the nominator
+            default => $this->nominatorWorkEmail, // we don't know exactly who it will be sent to, so guess the nominator
         };
 
         $combinedNominationOptionDescriptions = NominationUtils::combineNominationOptionDescriptions(
