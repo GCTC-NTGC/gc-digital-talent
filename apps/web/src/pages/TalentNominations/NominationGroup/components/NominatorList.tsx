@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { getSortedNominatorNames } from "~/utils/talentNominations";
 
 const NominatorList_Fragment = graphql(/** GraphQL */ `

@@ -16,6 +16,7 @@ import {
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -247,7 +248,9 @@ const NominationGroupSidebar = ({
               description: "Nominated by header",
             })}
           </p>
-          <NominatorList query={talentNominationGroup.nominations} />
+          <NominatorList
+            query={unpackMaybes(talentNominationGroup.nominations)}
+          />
           <p
             data-h2-font-weight="base(700)"
             data-h2-padding-top="base(x1)"
