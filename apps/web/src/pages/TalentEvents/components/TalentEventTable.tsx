@@ -1,7 +1,7 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
   graphql,
@@ -15,7 +15,7 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
 
-import { getNominationCount, nominationsCell, statusCell } from "./helpers";
+import { nominationsCell, statusCell } from "./helpers";
 
 const columnHelper = createColumnHelper<TalentEventTableRowFragment>();
 
@@ -74,7 +74,7 @@ export const TalentEventTable = ({
       },
     }),
     columnHelper.accessor(
-      (row) => getNominationCount(row?.talentNominationGroups ?? null),
+      (row) => unpackMaybes(row?.talentNominationGroups).length,
       {
         id: "nominations",
         header: intl.formatMessage({
@@ -83,13 +83,12 @@ export const TalentEventTable = ({
           description: "Header for Nominations",
         }),
         cell: ({
-          row: {
-            original: { id, talentNominationGroups },
-          },
+          row: { id },
+          getValue
         }) =>
           nominationsCell(
             id,
-            getNominationCount(talentNominationGroups ?? null),
+            getValue(),
             routes,
             intl,
           ),
