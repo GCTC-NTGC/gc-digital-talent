@@ -64,11 +64,6 @@ class TalentNominationReceivedTest extends TestCase
 
     }
 
-    public function testCombineNotificationOptions(): void
-    {
-        $this->markTestSkipped('todo');
-    }
-
     // Build the notification and send it to the live GC Notify service
     public function testCanSendGcNotifyToSubmitter(): void
     {
