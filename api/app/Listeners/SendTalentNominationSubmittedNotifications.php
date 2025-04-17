@@ -7,16 +7,19 @@ use App\Models\TalentNomination;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentNominationReceivedNominator;
 use App\Notifications\TalentNominationReceivedSubmitter;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
 class SendTalentNominationSubmittedNotifications
 {
+    protected bool $canSendNotifications;
+
     /**
      * Create the event listener.
      */
     public function __construct()
     {
-        //
+        $this->canSendNotifications = ! empty(config('notify.client.apiKey'));
     }
 
     /**
@@ -24,6 +27,12 @@ class SendTalentNominationSubmittedNotifications
      */
     public function handle(TalentNominationSubmitted $event): void
     {
+        if (! $this->canSendNotifications) {
+            Log::debug('Can\'t send talent nomination submitted notification from listener');
+
+            return;
+        }
+
         $talentNomination = $event->talentNomination;
         $talentNomination->loadMissing(['submitter', 'nominator']);
 
