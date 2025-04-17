@@ -1,44 +1,40 @@
-import { JSX } from "react";
+import { useIntl } from "react-intl";
 
-import { NominationGroupSidebarFragment as NominationGroupSidebarFragmentType } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import NominatorInfoDialog from "./NominatorInfoDialog";
+import { getSortedNominatorNames } from "~/utils/talentNominations";
 
-// effectively insertBetween(), but specialized specifically for the purpose of unique key values
-const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
-  return arr.reduce<JSX.Element[]>((prev, curr, i) => {
-    if (i > 0) {
-      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-      prev.push(<span key={i}> , </span>);
+const NominatorList_Fragment = graphql(/** GraphQL */ `
+  fragment NominatorList on TalentNomination {
+    id
+    nominatorFallbackName
+    nominator {
+      firstName
+      lastName
     }
-    prev.push(curr);
-    return prev;
-  }, []);
-};
+  }
+`);
 
 interface NominatorListProps {
-  talentNominations: NominationGroupSidebarFragmentType["nominations"];
+  query?: FragmentType<typeof NominatorList_Fragment>[];
 }
 
-const NominatorList = ({ talentNominations }: NominatorListProps) => {
-  const nominationsSortedByNominator = (talentNominations ?? []).sort(
-    (a, b) => {
-      return (
-        (a.nominator?.lastName ?? "").localeCompare(
-          b.nominator?.lastName ?? "",
-        ) ||
-        (a.nominator?.firstName ?? "").localeCompare(
-          b.nominator?.firstName ?? "",
-        )
-      );
-    },
+const NominatorList = ({ query }: NominatorListProps) => {
+  const intl = useIntl();
+  const talentNominations = getFragment(NominatorList_Fragment, query);
+  const sortedNominators = getSortedNominatorNames(
+    unpackMaybes(talentNominations),
+    intl,
   );
-  const nominatorsList = nominationsSortedByNominator.map((nomination) => (
-    <NominatorInfoDialog key={nomination.id} nominationQuery={nomination} />
-  ));
-  const nominatorListCommaSeparated = commaSeparator(nominatorsList);
 
-  return <>{nominatorListCommaSeparated}</>;
+  return sortedNominators.map((nominator, index) => (
+    <span key={nominator.id}>
+      {nominator.name}
+      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+      {index + 1 < sortedNominators.length ? ", " : ""}
+    </span>
+  ));
 };
 
 export default NominatorList;
