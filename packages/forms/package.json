@@ -35,10 +35,10 @@
     "date-fns": "^3.6.0",
     "downshift": "^9.0.9",
     "lodash": "^4.17.21",
-    "motion": "^12.6.3"
+    "motion": "^12.7.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.6.0",
+    "@faker-js/faker": "^9.7.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
@@ -51,7 +51,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.16",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",
     "jest": "^29.7.0",

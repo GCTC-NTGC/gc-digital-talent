@@ -16,14 +16,17 @@ import {
   TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import adminMessages from "~/messages/adminMessages";
 
 import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
 import NominationNavigation from "./NominationNavigation/NominationNavigation";
+import CommentsForm from "./CommentsForm";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -61,12 +64,14 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     }
     nominations {
       id
+      ...NominatorList
       nominator {
         id
         firstName
         lastName
       }
     }
+    ...CommentsForm
   }
 `);
 
@@ -247,7 +252,7 @@ const NominationGroupSidebar = ({
             })}
           </p>
           <NominatorList
-            talentNominations={talentNominationGroup.nominations}
+            query={unpackMaybes(talentNominationGroup.nominations)}
           />
           <p
             data-h2-font-weight="base(700)"
@@ -317,14 +322,10 @@ const NominationGroupSidebar = ({
             data-h2-padding="base(x.5 x1.25 x.5 x1.25)"
           >
             <Accordion.Trigger as="h3">
-              {intl.formatMessage({
-                defaultMessage: "Comments",
-                id: "OluK4D",
-                description: "Expandable to open comments form",
-              })}
+              {intl.formatMessage(adminMessages.comments)}
             </Accordion.Trigger>
             <Accordion.Content>
-              {/* to fill in later once added to backend */}
+              <CommentsForm nominationGroup={talentNominationGroup} />
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>

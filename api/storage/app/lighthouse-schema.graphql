@@ -1166,6 +1166,7 @@ type TalentNominationGroup {
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
   developmentProgramsNotes: String
   status: LocalizedTalentNominationGroupStatus
+  comments: String
 }
 
 type Team implements HasRoleAssignments {
@@ -2120,6 +2121,7 @@ input UpdateTalentNominationGroupInput {
   lateralMovementNotes: String
   developmentProgramsDecision: TalentNominationGroupDecision
   developmentProgramsNotes: String
+  comments: String
 }
 
 input CreateApplicantFilterInput {

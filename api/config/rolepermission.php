@@ -1225,9 +1225,6 @@ return [
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
-            'communityInterest' => [
-                'team' => ['view'],
-            ],
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
             ],
