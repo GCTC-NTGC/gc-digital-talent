@@ -63,7 +63,6 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
       }
     }
     nominations {
-      ...NominatorInfoDialog_Nomination
       id
       ...NominatorList
       nominator {
