@@ -16,24 +16,32 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import messages from "~/messages/talentNominationMessages";
 import { getClassificationName } from "~/utils/poolUtils";
+import {
+  getNominatorClassification,
+  getNominatorDepartment,
+  getNominatorName,
+  getNominatorWorkEmail,
+} from "~/utils/talentNominations";
 
 const NominatorInfoDialog_NominationFragment = graphql(/* GraphQL */ `
   fragment NominatorInfoDialog_Nomination on TalentNomination {
     id
+    nominatorFallbackName
+    nominatorFallbackWorkEmail
+    nomineeRelationshipToNominatorOther
+    submitterRelationshipToNominatorOther
     nomineeRelationshipToNominator {
       value
       label {
         localized
       }
     }
-    nomineeRelationshipToNominatorOther
     submitterRelationshipToNominator {
       value
       label {
         localized
       }
     }
-    submitterRelationshipToNominatorOther
     nominee {
       firstName
     }
@@ -43,13 +51,28 @@ const NominatorInfoDialog_NominationFragment = graphql(/* GraphQL */ `
       lastName
       workEmail
       department {
+        id
+        departmentNumber
         name {
           localized
         }
       }
       classification {
+        id
         group
         level
+      }
+    }
+    nominatorFallbackClassification {
+      id
+      group
+      level
+    }
+    nominatorFallbackDepartment {
+      id
+      departmentNumber
+      name {
+        localized
       }
     }
     submitter {
@@ -133,14 +156,23 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
     nominationQuery,
   );
 
+  const classificationToShow = getNominatorClassification(
+    nomination.nominator,
+    nomination.nominatorFallbackClassification,
+  );
+  const departmentToShow = getNominatorDepartment(
+    nomination.nominator,
+    nomination.nominatorFallbackDepartment,
+  );
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="black" mode="inline" data-h2-padding="base(0)">
           <span data-h2-text-decoration="base(underline)">
-            {getFullNameLabel(
-              nomination.nominator?.firstName,
-              nomination.nominator?.lastName,
+            {getNominatorName(
+              nomination.nominator,
+              nomination.nominatorFallbackName,
               intl,
             )}
           </span>
@@ -176,27 +208,29 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
             data-h2-overflow-wrap="base(anywhere)"
           >
             <FieldDisplay label={intl.formatMessage(messages.nominatorName)}>
-              {getFullNameLabel(
-                nomination.nominator?.firstName,
-                nomination.nominator?.lastName,
+              {getNominatorName(
+                nomination.nominator,
+                nomination.nominatorFallbackName,
                 intl,
               )}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(messages.nominatorWorkEmail)}
             >
-              {nomination.nominator?.workEmail ??
-                intl.formatMessage(commonMessages.notProvided)}
+              {getNominatorWorkEmail(
+                nomination.nominator,
+                nomination.nominatorFallbackWorkEmail,
+                intl,
+              )}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(messages.nominatorClassification)}
             >
-              {!!nomination.nominator?.classification?.group &&
-              !!nomination.nominator.classification.level
+              {classificationToShow?.group && classificationToShow.level
                 ? getClassificationName(
                     {
-                      group: nomination.nominator.classification.group,
-                      level: nomination.nominator.classification.level,
+                      group: classificationToShow.group,
+                      level: classificationToShow.level,
                     },
                     intl,
                   )
@@ -205,7 +239,7 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
             <FieldDisplay
               label={intl.formatMessage(messages.nominatorDepartmentAgency)}
             >
-              {nomination.nominator?.department?.name?.localized ??
+              {departmentToShow?.name?.localized ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <FieldDisplay
