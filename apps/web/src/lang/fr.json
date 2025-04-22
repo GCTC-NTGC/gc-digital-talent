@@ -311,6 +311,10 @@
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
   },
+  "/Wgawu": {
+    "defaultMessage": "Courriel professionnel de la personne déposante",
+    "description": "Label for the submitter's work email"
+  },
   "/YaoWc": {
     "defaultMessage": "Vos principales compétences",
     "description": "Title for the top skills section of a users skill showcase"
@@ -3695,6 +3699,10 @@
     "defaultMessage": "Suivant",
     "description": "Link text to navigate to the next item"
   },
+  "Fygh/q": {
+    "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’autreur de la mise en candidature",
+    "description": "Label for the submitter's relation to nominator"
+  },
   "Fz49kD": {
     "defaultMessage": "3. Autre…",
     "description": "Paragraph 4 of a manager's email for apprenticeship"
@@ -4314,6 +4322,10 @@
   "J3yJhp": {
     "defaultMessage": "Votre lieu de résidence actuel",
     "description": "Legend for users current location"
+  },
+  "J6HyzP": {
+    "defaultMessage": "L’autrice ou l’auteur de la mise en candidature de {nomineeName}",
+    "description": "Dialog header, nominee's nominator"
   },
   "J6atIv": {
     "defaultMessage": "Liste de compétences",
@@ -7218,6 +7230,10 @@
     "defaultMessage": "Conseiller(ère) ou analyste A S 3",
     "description": "AS-03 classification aria label including titles"
   },
+  "Xb11ag": {
+    "defaultMessage": "Une personne tierce a soumis cette candidature au nom de l’autrice ou l’auteur de la mise en candidature. Vous trouverez leurs coordonnées ici.",
+    "description": "Information in dialog about submitter being different from nominator"
+  },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
     "description": "Message displayed to user when a role has been removed from a user"
@@ -7505,6 +7521,10 @@
   "YueN6y": {
     "defaultMessage": "Éliminé(e) selon la demande",
     "description": "Screened out on application option"
+  },
+  "YvFsW9": {
+    "defaultMessage": "Examinez les renseignements relatifs à l’autrice ou l’auteur de la mise en candidature et, le cas échéant, ceux de la personne qui a présenté la proposition en son nom.",
+    "description": "Nominator information view subtitle for dialog"
   },
   "YwO4XP": {
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
@@ -7893,6 +7913,10 @@
   "b3VnhM": {
     "defaultMessage": "Classification {classificationId} introuvable.",
     "description": "Message displayed for classification not found."
+  },
+  "b44Vd5": {
+    "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
+    "description": "Label for the nominator's classification"
   },
   "bBIZ3a": {
     "defaultMessage": "Recherchez vos compétences",
@@ -9506,6 +9530,10 @@
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
   },
+  "iC/wHw": {
+    "defaultMessage": "Classification de la personne déposante",
+    "description": "Label for the submitter's classification"
+  },
   "iEIzSc": {
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table column header My roles"
@@ -10146,6 +10174,10 @@
     "defaultMessage": "Process mis en signet.",
     "description": "Alert displayed to the user when they mark a pool as bookmarked."
   },
+  "lZpu2u": {
+    "defaultMessage": "Ministère ou organisme de l’auteur(trice) de la mise en candidature",
+    "description": "Label for the nominator's department/agency"
+  },
   "lZwkcR": {
     "defaultMessage": "Étapes à suivre pour créer votre compte CléGC",
     "description": "Subtitle for a section explaining the create steps"
@@ -10554,6 +10586,10 @@
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
   },
+  "nPc3eL": {
+    "defaultMessage": "Lien de parenté entre l’autrice ou l’auteur de la mise en candidature et la personne candidate",
+    "description": "Label for the nominator's relation to nominee"
+  },
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
@@ -10833,6 +10869,10 @@
   "okRYhl": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Title of a quotes section"
+  },
+  "oljVrD": {
+    "defaultMessage": "Ministère ou organisme de la personne déposante",
+    "description": "Label for the submitter's department/agency"
   },
   "om2bZu": {
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
@@ -11369,6 +11409,10 @@
   "rfDHc0": {
     "defaultMessage": "(Aucun changement)",
     "description": "Null state, nothing changed yet."
+  },
+  "rgmr0x": {
+    "defaultMessage": "Nom de la personne déposante",
+    "description": "Label for the submitter's name"
   },
   "rhW3iW": {
     "defaultMessage": "Gérez votre carrière",
