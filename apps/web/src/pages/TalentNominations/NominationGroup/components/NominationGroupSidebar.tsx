@@ -33,6 +33,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebar on TalentNominationGroup {
     id
     ...NominationGroupSidebarForList
+    ...NominationGroupEvaluationDialog
     status {
       value
       label {
@@ -225,6 +226,7 @@ const NominationGroupSidebar = ({
             >
               <NominationGroupEvaluationDialog
                 triggerButtonColor={statusButtonColours["data-h2-color"]}
+                talentNominationGroupQuery={talentNominationGroup}
               />
             </div>
           </div>
