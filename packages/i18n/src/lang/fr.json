@@ -163,17 +163,9 @@
     "defaultMessage": "Parcourir la bibliothèque de compétences",
     "description": "Name of skill library page"
   },
-  "3agw4G": {
-    "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
-    "description": "The work region of Canada described as Ontario."
-  },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
-  },
-  "3f6YzQ": {
-    "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
-    "description": "La région de travail du Canada décrite comme l'Atlantique."
   },
   "45ZCXX": {
     "defaultMessage": "Options",
@@ -274,10 +266,6 @@
   "7woRF/": {
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
-  },
-  "8JxN4A": {
-    "defaultMessage": "<strong> Région de la capitale nationale</strong>(Ottawa, en Ontario et Gatineau, au Québec).",
-    "description": "The work region of Canada described as National Capital."
   },
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
@@ -935,10 +923,6 @@
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
   },
-  "ZoFcYn": {
-    "defaultMessage": "<strong> Région de Québec</strong>(excluant Gatineau)",
-    "description": "The work region of Canada described as Quebec."
-  },
   "ZoYqEo": {
     "defaultMessage": "Date limite",
     "description": "Title for deadline to apply"
@@ -1383,10 +1367,6 @@
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
-  "pmoexB": {
-    "defaultMessage": "<strong>Virtuel</strong> (travail à domicile, partout au Canada)",
-    "description": "The work region of Canada described as Telework."
-  },
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
@@ -1491,10 +1471,6 @@
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
   },
-  "suvoSt": {
-    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta)",
-    "description": "The work region of Canada described as Prairie."
-  },
   "t4F/0R": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
     "description": "Error message that the pool advertisement must have a security clearance."
@@ -1514,10 +1490,6 @@
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
     "description": "Error message that Work Tasks in English must be filled"
-  },
-  "tgt0og": {
-    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
-    "description": "The work region of Canada described as British Columbia."
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
@@ -1542,10 +1514,6 @@
   "ukd1kY": {
     "defaultMessage": "Événements axés sur la gestion des talents",
     "description": "Name of talent management events page"
-  },
-  "us8fY4": {
-    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut)",
-    "description": "The work region of Canada described as North."
   },
   "uu2OuP": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",

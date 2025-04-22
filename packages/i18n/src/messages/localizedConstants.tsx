@@ -280,54 +280,6 @@ export const getEmploymentDuration = (
   );
 };
 
-const workRegionsDetailed = defineMessages({
-  [WorkRegion.Telework]: {
-    defaultMessage:
-      "<strong>Virtual</strong> (work from home, anywhere in Canada)",
-    id: "pmoexB",
-    description: "The work region of Canada described as Telework.",
-  },
-  [WorkRegion.NationalCapital]: {
-    defaultMessage:
-      "<strong>National Capital Region</strong> (Ottawa, Ontario and Gatineau, Quebec)",
-    id: "8JxN4A",
-    description: "The work region of Canada described as National Capital.",
-  },
-  [WorkRegion.Atlantic]: {
-    defaultMessage:
-      "<strong>Atlantic Region</strong> (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
-    id: "3f6YzQ",
-    description: "The work region of Canada described as Atlantic.",
-  },
-  [WorkRegion.Quebec]: {
-    defaultMessage: "<strong>Quebec Region</strong> (excluding Gatineau)",
-    id: "ZoFcYn",
-    description: "The work region of Canada described as Quebec.",
-  },
-  [WorkRegion.Ontario]: {
-    defaultMessage: "<strong>Ontario Region</strong> (excluding Ottawa)",
-    id: "3agw4G",
-    description: "The work region of Canada described as Ontario.",
-  },
-  [WorkRegion.Prairie]: {
-    defaultMessage:
-      "<strong>Prairie Region</strong> (Manitoba, Saskatchewan, Alberta)",
-    id: "suvoSt",
-    description: "The work region of Canada described as Prairie.",
-  },
-  [WorkRegion.BritishColumbia]: {
-    defaultMessage: "<strong>British Columbia Region</strong>",
-    id: "tgt0og",
-    description: "The work region of Canada described as British Columbia.",
-  },
-  [WorkRegion.North]: {
-    defaultMessage:
-      "<strong>North Region</strong> (Yukon, Northwest Territories and Nunavut)",
-    id: "us8fY4",
-    description: "The work region of Canada described as North.",
-  },
-});
-
 const workRegionsDetailedNoBold = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage: "Virtual (work from home, anywhere in Canada)",
