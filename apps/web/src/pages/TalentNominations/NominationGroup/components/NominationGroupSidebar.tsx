@@ -25,7 +25,7 @@ import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
 import NominationNavigation from "./NominationNavigation/NominationNavigation";
 import CommentsForm from "./CommentsForm";
-import NominationGroupEvaluationDialog from "./NominationGroupEvaluationDialog";
+import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 

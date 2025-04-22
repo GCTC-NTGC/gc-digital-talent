@@ -11,7 +11,7 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import talentNominationMessages from "../../../../messages/talentNominationMessages";
+import talentNominationMessages from "../../../messages/talentNominationMessages";
 
 const dialogTitle = defineMessage({
   defaultMessage: "Submit the evaluation of this nomination",
