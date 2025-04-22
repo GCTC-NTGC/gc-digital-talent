@@ -1,43 +1,22 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useState } from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { Button, Dialog, Heading, Separator } from "@gc-digital-talent/ui";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Separator } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { RadioGroup } from "@gc-digital-talent/forms";
-
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import talentNominationMessages from "../../../messages/talentNominationMessages";
-
-const dialogTitle = defineMessage({
-  defaultMessage: "Submit the evaluation of this nomination",
-  id: "3I3F9y",
-  description: "Title for dialog to evaluate a nomination group",
-});
-
-const dialogSubtitle = defineMessage({
-  defaultMessage:
-    "Record the decision on whether this nomination has been approved for talent management.",
-  id: "po01Az",
-  description: "Subtitle for dialog to evaluate a nomination group",
-});
+import { dialogMessages } from "./messages";
+import AdvancementSection from "./components/AdvancementSection";
 
 const NominationGroupEvaluationDialog_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupEvaluationDialog on TalentNominationGroup {
+    ...NominationGroupEvaluationDialogAdvancement
     id
     nominee {
       firstName
-    }
-    nominations {
-      nominateForAdvancement
-      advancementReference {
-        workEmail
-      }
-      advancementReferenceFallbackWorkEmail
     }
     advancementNominationCount
     lateralMovementNominationCount
@@ -46,7 +25,7 @@ const NominationGroupEvaluationDialog_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  offPlatformRecruitmentProcesses: string | null | undefined;
+  nominationForAdvancementDecision: string | null | undefined;
 }
 
 interface NominationGroupEvaluationDialogProps {
@@ -80,18 +59,6 @@ const NominationGroupEvaluationDialog = ({
   const isNominatedForDevelopmentPrograms =
     talentNominationGroup?.developmentProgramsNominationCount;
 
-  const nominations = talentNominationGroup.nominations ?? [];
-
-  const advancementReferenceWorkEmails = nominations
-    .filter((n) => n.nominateForAdvancement)
-    .map(
-      (n) =>
-        n.advancementReference?.workEmail ??
-        n.advancementReferenceFallbackWorkEmail,
-    )
-    .filter(notEmpty)
-    .join(", ");
-
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
@@ -121,12 +88,12 @@ const NominationGroupEvaluationDialog = ({
           icon={PencilSquareIcon}
           mode={"icon_only"}
           fontSize="h4"
-          aria-label={intl.formatMessage(dialogTitle)}
+          aria-label={intl.formatMessage(dialogMessages.title)}
         />
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header subtitle={intl.formatMessage(dialogSubtitle)}>
-          {intl.formatMessage(dialogTitle)}
+        <Dialog.Header subtitle={intl.formatMessage(dialogMessages.subtitle)}>
+          {intl.formatMessage(dialogMessages.title)}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
@@ -191,70 +158,9 @@ const NominationGroupEvaluationDialog = ({
                 {isNominatedForAdvancement ? (
                   <>
                     <Separator data-h2-margin="base(0)" />
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-flex-direction="base(column)"
-                      data-h2-gap="base(x1)"
-                    >
-                      <Heading
-                        level="h3"
-                        size="h6"
-                        data-h2-margin="base(0)"
-                        data-h2-font-weight="base(normal)"
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Nomination for advancement",
-                          id: "5qopVO",
-                          description:
-                            "heading for advancement nomination section",
-                        })}
-                      </Heading>
-                      <FieldDisplay
-                        label={intl.formatMessage({
-                          defaultMessage: "Reference’s work email",
-                          id: "aqlXBz",
-                          description: "Reference work email field",
-                        })}
-                      >
-                        {advancementReferenceWorkEmails ||
-                          intl.formatMessage(commonMessages.notFound)}
-                      </FieldDisplay>
-                      <RadioGroup
-                        idPrefix="nominationForAdvancementDecision"
-                        name="nominationForAdvancementDecision"
-                        legend={intl.formatMessage({
-                          defaultMessage: "Advancement approval",
-                          id: "MHQ2RT",
-                          description:
-                            "Label for an nomination for advancement decision",
-                        })}
-                        items={[
-                          {
-                            value: "true",
-                            label: intl.formatMessage({
-                              defaultMessage:
-                                "This nomination for advancement is approved.",
-                              id: "lgp1Jx",
-                              description:
-                                "Label for advancement nomination is approved",
-                            }),
-                          },
-                          {
-                            value: "false",
-                            label: intl.formatMessage({
-                              defaultMessage:
-                                "This nomination for advancement is not supported.",
-                              id: "nG1cQZ",
-                              description:
-                                "Label for advancement nomination is not approved",
-                            }),
-                          },
-                        ]}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
-                    </div>
+                    <AdvancementSection
+                      talentNominationGroupQuery={talentNominationGroup}
+                    />
                   </>
                 ) : null}
                 {isNominatedForLateralMovement ? (
