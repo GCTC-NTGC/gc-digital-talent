@@ -376,7 +376,7 @@
     "description": "Error message that advertisement locations must be filled in English and French."
   },
   "ChFxsM": {
-    "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
+    "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard)",
     "description": "The work region of Canada described as Atlantic."
   },
   "CrzH4k": {
@@ -1040,7 +1040,7 @@
     "description": "Title for the applied work experience requirements"
   },
   "dxjUnU": {
-    "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
+    "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec)",
     "description": "The work region of Canada described as National Capital."
   },
   "dyGR7U": {
@@ -1352,7 +1352,7 @@
     "description": "Text for the close button on alerts"
   },
   "oPhurq": {
-    "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
+    "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta)",
     "description": "The work region of Canada described as Prairie."
   },
   "oR0evm": {
@@ -1384,7 +1384,7 @@
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
   "pmoexB": {
-    "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
+    "defaultMessage": "<strong>Virtuel</strong> (travail à domicile, partout au Canada)",
     "description": "The work region of Canada described as Telework."
   },
   "qIOz/5": {
@@ -1492,7 +1492,7 @@
     "description": "Select the option to sort or filter by all types"
   },
   "suvoSt": {
-    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta.)",
+    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta)",
     "description": "The work region of Canada described as Prairie."
   },
   "t4F/0R": {
@@ -1544,7 +1544,7 @@
     "description": "Name of talent management events page"
   },
   "us8fY4": {
-    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
+    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut)",
     "description": "The work region of Canada described as North."
   },
   "uu2OuP": {
@@ -1616,7 +1616,7 @@
     "description": "Name of the third month"
   },
   "x8v6Qp": {
-    "defaultMessage": "Virtuel (travail à domicile, partout au Canada.)",
+    "defaultMessage": "Virtuel (travail à domicile, partout au Canada)",
     "description": "The work region of Canada described as Telework."
   },
   "xAxxmc": {
