@@ -5431,10 +5431,6 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
-  "OhN2Ud": {
-    "defaultMessage": "Je consens à travailler dans…",
-    "description": "Legend for work regions check list in work preferences form"
-  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
