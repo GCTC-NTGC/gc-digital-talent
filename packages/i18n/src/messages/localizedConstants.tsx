@@ -375,7 +375,6 @@ const workRegionsDetailedNoBold = defineMessages({
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
-  showBold = true,
 ): MessageDescriptor =>
   getOrDisplayError(
     workRegionsDetailedNoBold,
