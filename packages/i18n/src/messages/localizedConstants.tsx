@@ -294,37 +294,37 @@ const workRegionsDetailed = defineMessages({
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "I am willing to work in the Atlantic Region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island).",
-    id: "S1y92B",
+      "I am willing to work in the Atlantic region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island).",
+    id: "O5Lq+h",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
     defaultMessage:
-      "I am willing to work in the Quebec Region (excluding Gatineau).",
-    id: "ZSU242",
+      "I am willing to work in the Quebec region (excluding Gatineau).",
+    id: "64H+pl",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
     defaultMessage:
-      "I am willing to work in the Ontario Region (excluding Ottawa).",
-    id: "Prrttj",
+      "I am willing to work in the Ontario region (excluding Ottawa).",
+    id: "x9dfvs",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "I am willing to work in the Prairie Region (Manitoba, Saskatchewan, Alberta).",
-    id: "Q17Nro",
+      "I am willing to work in the Prairie region (Manitoba, Saskatchewan, Alberta).",
+    id: "PPSXML",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
-    defaultMessage: "I am willing to work in the British Columbia Region.",
-    id: "BY7pT4",
+    defaultMessage: "I am willing to work in the British Columbia region.",
+    id: "wdfDZH",
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "I am willing to work in the North Region (Yukon, Northwest Territories and Nunavut).",
-    id: "QlXPG6",
+      "I am willing to work in the North region (Yukon, Northwest Territories and Nunavut).",
+    id: "D3+nw/",
     description: "The work region of Canada described as North.",
   },
 });

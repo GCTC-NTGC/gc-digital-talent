@@ -215,6 +215,10 @@
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
   },
+  "64H+pl": {
+    "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
+    "description": "The work region of Canada described as Quebec."
+  },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
@@ -339,10 +343,6 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
-  "BY7pT4": {
-    "defaultMessage": "Je consens à travailler dans la Région de la Colombie-Britannique.",
-    "description": "The work region of Canada described as British Columbia."
-  },
   "C/2HT9": {
     "defaultMessage": "Cette clé de collectivité est déjà utilisé",
     "description": "Error message that the given community key is already in use"
@@ -370,6 +370,10 @@
   "CrzH4k": {
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
+  },
+  "D3+nw/": {
+    "defaultMessage": "Je consens à travailler dans la région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
+    "description": "The work region of Canada described as North."
   },
   "DIK7Z1": {
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
@@ -603,6 +607,10 @@
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
   },
+  "O5Lq+h": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
+    "description": "The work region of Canada described as Atlantic."
+  },
   "OAoFzw": {
     "defaultMessage": "Je suis actuellement en train de coacher quelqu'un d'autre.",
     "description": "The executive coaching status described as coaching."
@@ -663,17 +671,13 @@
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
+  "PPSXML": {
+    "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
+    "description": "The work region of Canada described as Prairie."
+  },
   "Pj4lW9": {
     "defaultMessage": "Accepté",
     "description": "Indicates a user has accepted some criteria"
-  },
-  "Prrttj": {
-    "defaultMessage": "Je consens à travailler dans la Région de l'Ontario (excluant Ottawa).",
-    "description": "The work region of Canada described as Ontario."
-  },
-  "Q17Nro": {
-    "defaultMessage": "Je consens à travailler dans la Région des Prairies (Manitoba, Saskatchewan, Alberta).",
-    "description": "The work region of Canada described as Prairie."
   },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
@@ -690,10 +694,6 @@
   "QhRU19": {
     "defaultMessage": "Doit posséder un permis de conduire valide ou une mobilité personnelle du degré normalement associé à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
-  },
-  "QlXPG6": {
-    "defaultMessage": "Je consens à travailler dans la Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
-    "description": "The work region of Canada described as North."
   },
   "Qn/95I": {
     "defaultMessage": "Équité en matière d'emploi",
@@ -730,10 +730,6 @@
   "S0w3o5": {
     "defaultMessage": "Complet",
     "description": "Simple status label for a complete item"
-  },
-  "S1y92B": {
-    "defaultMessage": "Je consens à travailler dans la Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
-    "description": "The work region of Canada described as Atlantic."
   },
   "S2BTqm": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Note spéciale pour ce processus",
@@ -926,10 +922,6 @@
   "ZMVV2z": {
     "defaultMessage": "Je ne participe à aucun programme de mentorat.",
     "description": "The mentorship status described as not participating."
-  },
-  "ZSU242": {
-    "defaultMessage": "Je consens à travailler dans la Région de Québec (excluant Gatineau).",
-    "description": "The work region of Canada described as Quebec."
   },
   "ZhOciS": {
     "defaultMessage": "Modèles d'offres d'emploi",
@@ -1579,6 +1571,10 @@
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
   },
+  "wdfDZH": {
+    "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
+    "description": "The work region of Canada described as British Columbia."
+  },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
@@ -1586,6 +1582,10 @@
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
+  },
+  "x9dfvs": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Ontario (excluant Ottawa).",
+    "description": "The work region of Canada described as Ontario."
   },
   "xAxxmc": {
     "defaultMessage": "Oups! Vous avez des erreurs!",
