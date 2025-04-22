@@ -168,6 +168,7 @@ const DetailsFields = ({
       resetField("advancementReferenceReview");
     }
   }, [advancementReference, resetField]);
+
   return (
     <div
       data-h2-display="base(flex)"
@@ -675,14 +676,25 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     nominationOptions = [...nominationOptions, "developmentProgram"];
   }
 
+  const referenceSet =
+    !!talentNomination.advancementReference?.id ||
+    !!talentNomination.advancementReferenceFallbackName;
+
+  let defaultReference: Maybe<string> | undefined;
+
+  if (referenceSet) {
+    defaultReference = talentNomination.advancementReference?.id
+      ? talentNomination.advancementReference.id
+      : null;
+  }
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
         nominationOptions,
-        advancementReference:
-          talentNomination?.advancementReference?.id ?? undefined,
+        advancementReference: defaultReference,
         advancementReferenceReview:
           talentNomination?.advancementReferenceReview?.value,
         advancementReferenceFallbackWorkEmail:
