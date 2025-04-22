@@ -378,7 +378,7 @@ export const getWorkRegionsDetailed = (
   showBold = true,
 ): MessageDescriptor =>
   getOrDisplayError(
-    showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
+    workRegionsDetailedNoBold,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
