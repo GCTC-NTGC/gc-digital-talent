@@ -280,7 +280,7 @@ export const getEmploymentDuration = (
   );
 };
 
-const workRegionsDetailedNoBold = defineMessages({
+const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage: "Virtual (work from home, anywhere in Canada)",
     id: "x8v6Qp",
@@ -329,7 +329,7 @@ export const getWorkRegionsDetailed = (
   workRegionId: string | number,
 ): MessageDescriptor =>
   getOrDisplayError(
-    workRegionsDetailedNoBold,
+    workRegionsDetailed,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
