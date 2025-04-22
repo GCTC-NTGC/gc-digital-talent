@@ -9,6 +9,7 @@ import {
   TaskCard,
   Well,
 } from "@gc-digital-talent/ui";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -33,8 +34,6 @@ const shouldRenderCreatedDateComputation = (
 
   return false;
 };
-
-const maxDate = new Date(8640000000000000);
 
 const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment TalentManagementTaskCard on User {
@@ -88,8 +87,8 @@ const TalentManagementTaskCard = ({
     talentManagementTaskCardFragment.talentNominationsAsSubmitter,
   )
     .sort((a, b) => {
-      const aUpdated = a?.updatedAt ? new Date(a.updatedAt) : maxDate;
-      const bUpdated = b?.updatedAt ? new Date(b.updatedAt) : maxDate;
+      const aUpdated = a?.updatedAt ? new Date(a.updatedAt) : MAX_DATE;
+      const bUpdated = b?.updatedAt ? new Date(b.updatedAt) : MAX_DATE;
       return aUpdated.getTime() - bUpdated.getTime();
     })
     .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
