@@ -35,11 +35,6 @@ export const getLabels = (intl: IntlShape) => ({
     id: "ahK7mI",
     description: "Legend for the work location preferences section",
   }),
-  locationPreferences: intl.formatMessage({
-    defaultMessage: "I am willing to work in the…",
-    id: "OhN2Ud",
-    description: "Legend for work regions check list in work preferences form",
-  }),
   locationExemptions: intl.formatMessage({
     defaultMessage:
       "Please indicate if there is a city that you would like to exclude from a region.",

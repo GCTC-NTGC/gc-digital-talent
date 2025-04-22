@@ -282,103 +282,58 @@ export const getEmploymentDuration = (
 
 const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage:
-      "<strong>Virtual</strong> (work from home, anywhere in Canada)",
-    id: "pmoexB",
+    defaultMessage: "I am willing to work remotely.",
+    id: "8shuWS",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage:
-      "<strong>National Capital Region</strong> (Ottawa, Ontario and Gatineau, Quebec)",
-    id: "8JxN4A",
+      "I am willing to work in the National Capital Region (Ottawa, Ontario and Gatineau, Quebec).",
+    id: "F9efQO",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<strong>Atlantic Region</strong> (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
-    id: "3f6YzQ",
+      "I am willing to work in the Atlantic region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island).",
+    id: "O5Lq+h",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<strong>Quebec Region</strong> (excluding Gatineau)",
-    id: "ZoFcYn",
+    defaultMessage:
+      "I am willing to work in the Quebec region (excluding Gatineau).",
+    id: "64H+pl",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "<strong>Ontario Region</strong> (excluding Ottawa)",
-    id: "3agw4G",
+    defaultMessage:
+      "I am willing to work in the Ontario region (excluding Ottawa).",
+    id: "x9dfvs",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<strong>Prairie Region</strong> (Manitoba, Saskatchewan, Alberta)",
-    id: "suvoSt",
+      "I am willing to work in the Prairie region (Manitoba, Saskatchewan, Alberta).",
+    id: "PPSXML",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
-    defaultMessage: "<strong>British Columbia Region</strong>",
-    id: "tgt0og",
+    defaultMessage: "I am willing to work in the British Columbia region.",
+    id: "wdfDZH",
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "<strong>North Region</strong> (Yukon, Northwest Territories and Nunavut)",
-    id: "us8fY4",
-    description: "The work region of Canada described as North.",
-  },
-});
-
-const workRegionsDetailedNoBold = defineMessages({
-  [WorkRegion.Telework]: {
-    defaultMessage: "Virtual (work from home, anywhere in Canada)",
-    id: "x8v6Qp",
-    description: "The work region of Canada described as Telework.",
-  },
-  [WorkRegion.NationalCapital]: {
-    defaultMessage:
-      "National Capital Region (Ottawa, Ontario and Gatineau, Quebec)",
-    id: "dxjUnU",
-    description: "The work region of Canada described as National Capital.",
-  },
-  [WorkRegion.Atlantic]: {
-    defaultMessage:
-      "Atlantic Region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
-    id: "ChFxsM",
-    description: "The work region of Canada described as Atlantic.",
-  },
-  [WorkRegion.Quebec]: {
-    defaultMessage: "Quebec Region (excluding Gatineau)",
-    id: "Jpq6MK",
-    description: "The work region of Canada described as Quebec.",
-  },
-  [WorkRegion.Ontario]: {
-    defaultMessage: "Ontario Region (excluding Ottawa)",
-    id: "CGNfbu",
-    description: "The work region of Canada described as Ontario.",
-  },
-  [WorkRegion.Prairie]: {
-    defaultMessage: "Prairie Region (Manitoba, Saskatchewan, Alberta)",
-    id: "oPhurq",
-    description: "The work region of Canada described as Prairie.",
-  },
-  [WorkRegion.BritishColumbia]: {
-    defaultMessage: "British Columbia Region",
-    id: "qtJrUr",
-    description: "The work region of Canada described as British Columbia.",
-  },
-  [WorkRegion.North]: {
-    defaultMessage: "North Region (Yukon, Northwest Territories and Nunavut)",
-    id: "P9roJ7",
+      "I am willing to work in the North region (Yukon, Northwest Territories and Nunavut).",
+    id: "D3+nw/",
     description: "The work region of Canada described as North.",
   },
 });
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
-  showBold = true,
 ): MessageDescriptor =>
   getOrDisplayError(
-    showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
+    workRegionsDetailed,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );

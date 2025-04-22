@@ -150,7 +150,7 @@ const FormFields = ({
         </Field.Legend>
         <Checklist
           idPrefix="work-location"
-          legend={labels.locationPreferences}
+          legend={labels.workLocationPreferences}
           name="locationPreferences"
           id="locationPreferences"
           items={localizedEnumToOptions(

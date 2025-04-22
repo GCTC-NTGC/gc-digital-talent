@@ -5443,10 +5443,6 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
-  "OhN2Ud": {
-    "defaultMessage": "Je consens à travailler dans…",
-    "description": "Legend for work regions check list in work preferences form"
-  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -8181,10 +8177,6 @@
   "cPOQCk": {
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
-  },
-  "cS73MC": {
-    "defaultMessage": "Je consens à travailler dans",
-    "description": "Start of sentence describing a users accepted work regions"
   },
   "cT6KeA": {
     "defaultMessage": "Veuillez choisir une option pour continuer.",
