@@ -8154,10 +8154,6 @@
     "defaultMessage": "Toute expérience que vous avez ajoutée à votre parcours professionnel et qui met en avant cette compétence peut être gérée dans cette section. Vous pouvez également associer cette compétence à d’autres expériences à l’aide du bouton à cet effet.",
     "description": "Lead-in text describing how to link experiences to a skill"
   },
-  "cS73MC": {
-    "defaultMessage": "Je consens à travailler dans",
-    "description": "Start of sentence describing a users accepted work regions"
-  },
   "cT6KeA": {
     "defaultMessage": "Veuillez choisir une option pour continuer.",
     "description": "Alert message informing user to select an option first in application education page."

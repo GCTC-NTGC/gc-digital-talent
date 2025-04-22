@@ -85,15 +85,7 @@ const Display = ({
           <ul>
             {locations.map((location) => (
               <li key={location.value}>
-                {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                {`${intl.formatMessage({
-                  defaultMessage: "I am willing to work in the",
-                  id: "cS73MC",
-                  description:
-                    "Start of sentence describing a users accepted work regions",
-                })} ${intl.formatMessage(
-                  getWorkRegionsDetailed(location.value),
-                )}.`}
+                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
               </li>
             ))}
           </ul>
