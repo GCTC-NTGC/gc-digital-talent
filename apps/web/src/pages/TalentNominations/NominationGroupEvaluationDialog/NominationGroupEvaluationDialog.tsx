@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useState } from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useQuery } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import {
   Button,
@@ -14,17 +14,20 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
+  Scalars,
   TalentNominationGroupDecision,
+  UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 
 import talentNominationMessages from "../../../messages/talentNominationMessages";
-import { dialogMessages } from "./messages";
+import { dialogMessages, formMessages } from "./messages";
 import AdvancementSection from "./components/AdvancementSection";
 import LateralMovementSection from "./components/LateralMovementSection";
 import DevelopmentProgramsSection from "./components/DevelopmentProgramsSection";
 
 const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
-  query NominationGroupEvaluationDialog($talentNominationGroupId: UUID!) {
+  query NominationGroupEvaluationDialog_Query($talentNominationGroupId: UUID!) {
     talentNominationGroup(id: $talentNominationGroupId) {
       ...NominationGroupEvaluationDialogAdvancement
       ...NominationGroupEvaluationDialogLateralMovement
@@ -40,6 +43,21 @@ const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
     ...NominationGroupEvaluationDialogLateralMovementOptions
   }
 `);
+
+const NominationGroupEvaluationDialog_Mutation = graphql(/* GraphQL */ `
+  mutation NominationGroupEvaluationDialog_Mutation(
+    $id: UUID!
+    $talentNominationGroup: UpdateTalentNominationGroupInput!
+  ) {
+    updateTalentNominationGroup(
+      id: $id
+      talentNominationGroup: $talentNominationGroup
+    ) {
+      id
+    }
+  }
+`);
+
 export interface FormValues {
   advancementDecision: TalentNominationGroupDecision | null | undefined;
   advancementReferenceConfirmed: boolean | null | undefined;
@@ -64,13 +82,28 @@ const NominationGroupEvaluationDialog = ({
   const [open, setOpen] = useState(true);
   const methods = useForm<FormValues>();
 
-  const [{ data, fetching, error }] = useQuery({
-    query: NominationGroupEvaluationDialog_Query,
-    variables: { talentNominationGroupId },
-    pause: !open,
-  });
+  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+    useQuery({
+      query: NominationGroupEvaluationDialog_Query,
+      variables: { talentNominationGroupId },
+      pause: !open,
+    });
 
-  const talentNominationGroup = data?.talentNominationGroup;
+  const [{ fetching: mutationFetching }, executeMutation] = useMutation(
+    NominationGroupEvaluationDialog_Mutation,
+  );
+  const handleUpdateTalentNominationGroup = async (
+    id: Scalars["UUID"]["input"],
+    talentNominationGroup: UpdateTalentNominationGroupInput,
+  ) =>
+    executeMutation({ id, talentNominationGroup }).then((result) => {
+      if (result.data?.updateTalentNominationGroup?.id) {
+        return result.data.updateTalentNominationGroup.id;
+      }
+      return Promise.reject(new Error(result.error?.toString()));
+    });
+
+  const talentNominationGroup = queryData?.talentNominationGroup;
 
   const isNominatedForAdvancement =
     talentNominationGroup?.advancementNominationCount;
@@ -82,20 +115,15 @@ const NominationGroupEvaluationDialog = ({
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    return Promise.resolve();
-    // await requestMutation(userId, {
-    //   offPlatformRecruitmentProcesses:
-    //     formValues.offPlatformRecruitmentProcesses ?? null,
-    // })
-    //   .then(() => {
-    //     toast.success(
-    //       intl.formatMessage(commonMessages.accountUpdateSuccessful),
-    //     );
-    //     setOpen(false);
-    //   })
-    //   .catch(() => {
-    //     toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
-    //   });
+    if (mutationFetching) return; // avoid multiple submits
+    await handleUpdateTalentNominationGroup(talentNominationGroupId, formValues)
+      .then(() => {
+        toast.success(intl.formatMessage(formMessages.submissionSuccessful));
+        setOpen(false);
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(formMessages.submissionFailed));
+      });
   };
   const { handleSubmit } = methods;
 
@@ -116,8 +144,8 @@ const NominationGroupEvaluationDialog = ({
           {intl.formatMessage(dialogMessages.title)}
         </Dialog.Header>
         <Dialog.Body>
-          <Pending fetching={fetching} error={error} inline>
-            {data?.talentNominationGroup?.id ? (
+          <Pending fetching={queryFetching} error={queryError} inline>
+            {queryData?.talentNominationGroup?.id ? (
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(submitForm)}>
                   <div
@@ -191,7 +219,7 @@ const NominationGroupEvaluationDialog = ({
                         <Separator data-h2-margin="base(0)" />
                         <LateralMovementSection
                           talentNominationGroupQuery={talentNominationGroup}
-                          talentNominationGroupOptionsQuery={data}
+                          talentNominationGroupOptionsQuery={queryData}
                         />
                       </>
                     ) : null}

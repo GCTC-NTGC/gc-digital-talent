@@ -94,4 +94,14 @@ export const formMessages = defineMessages({
     id: "X5xhRt",
     description: "Label for development programs nomination is rejected",
   },
+  submissionSuccessful: {
+    defaultMessage: "Evaluation submission successful",
+    id: "y5Pf0S",
+    description: "Submission success in evaluation dialog",
+  },
+  submissionFailed: {
+    defaultMessage: "Evaluation submission failed",
+    id: "kTM8Gi",
+    description: "Submission failure in evaluation dialog",
+  },
 });
