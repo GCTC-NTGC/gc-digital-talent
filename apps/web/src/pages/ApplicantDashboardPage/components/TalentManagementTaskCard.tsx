@@ -44,6 +44,9 @@ const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
       }
       submittedAt
       updatedAt
+      talentNominationEvent {
+        closeDate
+      }
 
       ...PreviewListItemTalentNomination
     }
@@ -90,6 +93,15 @@ const TalentManagementTaskCard = ({
       const aUpdated = a?.updatedAt ? new Date(a.updatedAt) : MAX_DATE;
       const bUpdated = b?.updatedAt ? new Date(b.updatedAt) : MAX_DATE;
       return aUpdated.getTime() - bUpdated.getTime();
+    })
+    .sort((a, b) => {
+      const aDeadline = a?.talentNominationEvent.closeDate
+        ? new Date(a.talentNominationEvent.closeDate)
+        : MAX_DATE;
+      const bDeadline = b?.talentNominationEvent.closeDate
+        ? new Date(b.talentNominationEvent.closeDate)
+        : MAX_DATE;
+      return aDeadline.getTime() - bDeadline.getTime();
     })
     .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
