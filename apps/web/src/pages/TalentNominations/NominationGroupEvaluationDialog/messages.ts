@@ -30,9 +30,30 @@ export const formMessages = defineMessages({
     id: "lgp1Jx",
     description: "Label for advancement nomination is approved",
   },
-  advancementNominationDecisionNotApproved: {
+  advancementNominationDecisionRejected: {
     defaultMessage: "This nomination for advancement is not supported.",
-    id: "nG1cQZ",
-    description: "Label for advancement nomination is not approved",
+    id: "QiQoIq",
+    description: "Label for advancement nomination is rejected",
+  },
+  referenceConfirmationLabel: {
+    defaultMessage: "Reference confirmation",
+    id: "By8ofA",
+    description: "Confirmation that the reference was checked",
+  },
+  referenceConfirmationStatement: {
+    defaultMessage:
+      "I’ve confirmed this nominee’s eligibility by contacting the secondary reference provided by the nominator.",
+    id: "FcHUIQ",
+    description: "Statement of confirmation for reference check",
+  },
+  approvalNotes: {
+    defaultMessage: "Additional notes",
+    id: "h9XSU5",
+    description: "Label for approval notes",
+  },
+  rejectionNotes: {
+    defaultMessage: "Reason for not supporting this nomination",
+    id: "9gklPf",
+    description: "label for rejection notes",
   },
 });

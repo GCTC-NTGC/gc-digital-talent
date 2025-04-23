@@ -5,7 +5,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
 import { Button, Dialog, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationGroupDecision,
+} from "@gc-digital-talent/graphql";
 
 import talentNominationMessages from "../../../messages/talentNominationMessages";
 import { dialogMessages } from "./messages";
@@ -24,8 +29,10 @@ const NominationGroupEvaluationDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface FormValues {
-  nominationForAdvancementDecision: string | null | undefined;
+export interface FormValues {
+  advancementDecision: TalentNominationGroupDecision | null | undefined;
+  advancementReferenceConfirmed: boolean | null | undefined;
+  advancementNotes: string | null | undefined;
 }
 
 interface NominationGroupEvaluationDialogProps {

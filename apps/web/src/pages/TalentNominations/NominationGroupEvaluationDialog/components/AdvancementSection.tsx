@@ -1,14 +1,22 @@
 import { useIntl } from "react-intl";
+import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
 
-import { RadioGroup } from "@gc-digital-talent/forms";
-import { Heading } from "@gc-digital-talent/ui";
+import { Checkbox, RadioGroup, RichTextInput } from "@gc-digital-talent/forms";
+import { Heading, Well } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TalentNominationGroupDecision,
+} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import { formMessages } from "../messages";
+import { FormValues } from "../NominationGroupEvaluationDialog";
 
 const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
   /* GraphQL */ `
@@ -35,6 +43,31 @@ const AdvancementSection = ({
   talentNominationGroupQuery,
 }: AdvancementSectionProps) => {
   const intl = useIntl();
+
+  const { watch, resetField } = useFormContext<FormValues>();
+  const [selectedAdvancementDecision] = watch(["advancementDecision"]);
+
+  useEffect(() => {
+    const resetDirtyField = (
+      name: keyof FormValues,
+      defaultValue: null | string | boolean,
+    ) => {
+      resetField(name, { keepDirty: false, defaultValue });
+    };
+
+    if (
+      selectedAdvancementDecision !== TalentNominationGroupDecision.Approved
+    ) {
+      resetDirtyField("advancementReferenceConfirmed", null);
+      resetDirtyField("advancementNotes", null);
+    }
+
+    if (
+      selectedAdvancementDecision !== TalentNominationGroupDecision.Rejected
+    ) {
+      resetDirtyField("advancementNotes", null);
+    }
+  }, [resetField, selectedAdvancementDecision]);
 
   const talentNominationGroup = getFragment(
     NominationGroupEvaluationDialogAdvancement_Fragment,
@@ -77,22 +110,22 @@ const AdvancementSection = ({
           intl.formatMessage(commonMessages.notFound)}
       </FieldDisplay>
       <RadioGroup
-        idPrefix="nominationForAdvancementDecision"
-        name="nominationForAdvancementDecision"
+        idPrefix="advancementDecision"
+        name="advancementDecision"
         legend={intl.formatMessage(
           formMessages.advancementNominationDecisionLabel,
         )}
         items={[
           {
-            value: "true",
+            value: TalentNominationGroupDecision.Approved,
             label: intl.formatMessage(
               formMessages.advancementNominationDecisionApproved,
             ),
           },
           {
-            value: "false",
+            value: TalentNominationGroupDecision.Rejected,
             label: intl.formatMessage(
-              formMessages.advancementNominationDecisionNotApproved,
+              formMessages.advancementNominationDecisionRejected,
             ),
           },
         ]}
@@ -100,6 +133,48 @@ const AdvancementSection = ({
           required: intl.formatMessage(errorMessages.required),
         }}
       />
+      {selectedAdvancementDecision == TalentNominationGroupDecision.Approved ? (
+        <>
+          <Checkbox
+            id="advancementReferenceConfirmed"
+            name="advancementReferenceConfirmed"
+            label={intl.formatMessage(
+              formMessages.referenceConfirmationStatement,
+            )}
+            boundingBox={true}
+            boundingBoxLabel={intl.formatMessage(
+              formMessages.referenceConfirmationLabel,
+            )}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <RichTextInput
+            id="advancementNotes"
+            name="advancementNotes"
+            label={intl.formatMessage(formMessages.approvalNotes)}
+          />
+        </>
+      ) : null}
+      {selectedAdvancementDecision == TalentNominationGroupDecision.Rejected ? (
+        <RichTextInput
+          id="advancementNotes"
+          name="advancementNotes"
+          label={intl.formatMessage(formMessages.rejectionNotes)}
+        />
+      ) : null}
+      {selectedAdvancementDecision == null ||
+      selectedAdvancementDecision == undefined ? (
+        <Well data-h2-text-align="base(center)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Please select the evaluation of this nomination to continue.",
+            id: "Bb9Pe0",
+            description:
+              "Prompt for the user to evaluate the nomination before continuing",
+          })}
+        </Well>
+      ) : null}
     </div>
   );
 };
