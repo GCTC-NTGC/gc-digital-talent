@@ -215,8 +215,7 @@ const DevelopmentProgramsSection = ({
           }}
         />
       ) : null}
-      {selectedDevelopmentProgramsDecision == null ||
-      selectedDevelopmentProgramsDecision == undefined ? (
+      {selectedDevelopmentProgramsDecision == null ? (
         <Well data-h2-text-align="base(center)">
           {intl.formatMessage(formMessages.decisionNullState)}
         </Well>

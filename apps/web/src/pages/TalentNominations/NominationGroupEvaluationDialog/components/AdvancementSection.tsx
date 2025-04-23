@@ -166,8 +166,7 @@ const AdvancementSection = ({
           }}
         />
       ) : null}
-      {selectedAdvancementDecision == null ||
-      selectedAdvancementDecision == undefined ? (
+      {selectedAdvancementDecision == null ? (
         <Well data-h2-text-align="base(center)">
           {intl.formatMessage(formMessages.decisionNullState)}
         </Well>

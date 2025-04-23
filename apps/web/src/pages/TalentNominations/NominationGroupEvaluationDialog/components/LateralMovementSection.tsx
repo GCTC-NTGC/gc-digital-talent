@@ -239,8 +239,7 @@ const LateralMovementSection = ({
           }}
         />
       ) : null}
-      {selectedLateralMovementDecision == null ||
-      selectedLateralMovementDecision == undefined ? (
+      {selectedLateralMovementDecision == null ? (
         <Well data-h2-text-align="base(center)">
           {intl.formatMessage(formMessages.decisionNullState)}
         </Well>
