@@ -34,6 +34,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_programs_decision
  * @property string $development_programs_notes
  * @property string $computed_status
+ * @property string $comments
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()

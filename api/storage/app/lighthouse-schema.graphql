@@ -365,10 +365,16 @@ type Query {
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
+  publishedPools(
+    closingAfter: DateTime
+    publishingGroup: PublishingGroup
+  ): [Pool!]!
+  pools: [Pool]!
+    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
+  countPoolCandidatesByPool(
+    where: ApplicantFilterInput
+  ): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
@@ -390,7 +396,9 @@ type Query {
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
-  talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
+  talentNominationEvents(
+    where: TalentNominationEventsFilterInput
+  ): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
   talentNominationGroup(id: UUID!): TalentNominationGroup
@@ -493,20 +501,39 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
-  updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
-  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  updateEmployeeProfile(
+    id: UUID!
+    employeeProfile: UpdateEmployeeProfileInput!
+  ): EmployeeProfile
+  createCommunityInterest(
+    communityInterest: CreateCommunityInterestInput!
+  ): CommunityInterest
+  updateCommunityInterest(
+    communityInterest: UpdateCommunityInterestInput!
+  ): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   sendUserEmailVerification(emailType: EmailType): User
   verifyUserEmail(emailType: EmailType, code: String!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
+  createPoolCandidateAsAdmin(
+    poolCandidate: CreatePoolCandidateAsAdminInput!
+  ): PoolCandidate
+  updatePoolCandidateStatus(
+    id: UUID!
+    poolCandidate: UpdatePoolCandidateStatusInput!
+  ): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
-  updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
+  updatePoolCandidateClaimVerification(
+    id: UUID!
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput!
+  ): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
-  removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
+  removeCandidate(
+    id: UUID!
+    removalReason: CandidateRemovalReason!
+    removalReasonOther: String
+  ): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
@@ -514,36 +541,81 @@ type Mutation {
   revertFinalDecision(id: UUID!): PoolCandidate
   placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
-  createClassification(classification: CreateClassificationInput!): Classification
-  updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
+  createClassification(
+    classification: CreateClassificationInput!
+  ): Classification
+  updateClassification(
+    id: ID!
+    classification: UpdateClassificationInput!
+  ): Classification
   deleteClassification(id: ID!): Classification
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
-  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createPoolCandidateSearchRequest(
+    poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(
+    id: ID!
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+  ): PoolCandidateSearchRequest
   deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
   deleteSkill(id: UUID!): Skill
-  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
-  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
-  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
-  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
-  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
-  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  createWorkExperience(
+    userId: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  createPersonalExperience(
+    userId: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  createCommunityExperience(
+    userId: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  createEducationExperience(
+    userId: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  createAwardExperience(
+    userId: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
+  updateWorkExperience(
+    id: ID!
+    workExperience: WorkExperienceInput!
+  ): WorkExperience
+  updatePersonalExperience(
+    id: ID!
+    personalExperience: PersonalExperienceInput!
+  ): PersonalExperience
+  updateCommunityExperience(
+    id: ID!
+    communityExperience: CommunityExperienceInput!
+  ): CommunityExperience
+  updateEducationExperience(
+    id: ID!
+    educationExperience: EducationExperienceInput!
+  ): EducationExperience
+  updateAwardExperience(
+    id: ID!
+    awardExperience: AwardExperienceInput!
+  ): AwardExperience
   deleteWorkExperience(id: ID!): WorkExperience
   deletePersonalExperience(id: ID!): PersonalExperience
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, teamId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
+  createPool(
+    userId: ID!
+    teamId: ID!
+    communityId: ID!
+    pool: CreatePoolInput!
+  ): Pool
   duplicatePool(id: ID!, teamId: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -561,9 +633,16 @@ type Mutation {
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
-  updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
-  createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
-  updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
+  updateApplication(
+    id: ID!
+    application: UpdateApplicationInput!
+  ): PoolCandidate
+  createJobPosterTemplate(
+    jobPosterTemplate: CreateJobPosterTemplateInput!
+  ): JobPosterTemplate
+  updateJobPosterTemplate(
+    jobPosterTemplate: UpdateJobPosterTemplateInput!
+  ): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
   updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
@@ -572,35 +651,85 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
-  createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
-  updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
-  createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
-  updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
+  createTalentNominationEvent(
+    talentNominationEvent: CreateTalentNominationEventInput!
+  ): TalentNominationEvent
+  updateTalentNominationEvent(
+    id: UUID!
+    talentNominationEvent: UpdateTalentNominationEventInput!
+  ): TalentNominationEvent
+  createTalentNomination(
+    talentNomination: CreateTalentNominationInput!
+  ): TalentNomination
+  updateTalentNomination(
+    id: UUID!
+    talentNomination: UpdateTalentNominationInput!
+  ): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
-  updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
+  updateTalentNominationGroup(
+    id: UUID!
+    talentNominationGroup: UpdateTalentNominationGroupInput!
+  ): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
-  updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily], enabledInAppNotifications: [NotificationFamily]): User
-  createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
+  updateEnabledNotifications(
+    enabledEmailNotifications: [NotificationFamily]
+    enabledInAppNotifications: [NotificationFamily]
+  ): User
+  createUserSkill(
+    userId: UUID!
+    skillId: UUID!
+    userSkill: CreateUserSkillInput
+  ): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
-  updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
+  updateUserSkillRankings(
+    userId: UUID!
+    userSkillRanking: UpdateUserSkillRankingsInput!
+  ): User
   deleteUserSkill(id: UUID!): UserSkill
-  createAssessmentStep(poolId: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
-  updateAssessmentStep(id: UUID!, assessmentStep: AssessmentStepInput): AssessmentStep
+  createAssessmentStep(
+    poolId: UUID!
+    assessmentStep: AssessmentStepInput
+  ): AssessmentStep
+  updateAssessmentStep(
+    id: UUID!
+    assessmentStep: AssessmentStepInput
+  ): AssessmentStep
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
-  createOrUpdateScreeningQuestionAssessmentStep(poolId: UUID!, screeningQuestions: [SyncScreeningQuestionsInput], assessmentStep: ScreeningQuestionAssessmentStepInput): Pool
+  createOrUpdateScreeningQuestionAssessmentStep(
+    poolId: UUID!
+    screeningQuestions: [SyncScreeningQuestionsInput]
+    assessmentStep: ScreeningQuestionAssessmentStepInput
+  ): Pool
   deleteAssessmentStep(id: UUID!): AssessmentStep
-  createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
-  updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
+  createAssessmentResult(
+    createAssessmentResult: CreateAssessmentResultInput!
+  ): AssessmentResult
+  updateAssessmentResult(
+    updateAssessmentResult: UpdateAssessmentResultInput!
+  ): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
-  updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
-  createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
-  updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  downloadPoolCandidatesCsv(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
+  updateSitewideAnnouncement(
+    sitewideAnnouncementInput: SitewideAnnouncementInput!
+  ): SitewideAnnouncement
+  createTrainingOpportunity(
+    createTrainingOpportunity: CreateTrainingOpportunityInput!
+  ): TrainingOpportunity
+  updateTrainingOpportunity(
+    updateTrainingOpportunity: UpdateTrainingOpportunityInput!
+  ): TrainingOpportunity
+  downloadPoolCandidatesCsv(
+    ids: [UUID!]
+    where: PoolCandidateSearchInput
+    withROD: Boolean
+  ): Boolean!
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean!
-  downloadCommunityInterestUsersCsv(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
+  downloadCommunityInterestUsersCsv(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadPoolCandidatesZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
@@ -624,7 +753,7 @@ scalar PhoneNumber
 "A human readable ID"
 scalar KeyString
 
-"Arbitrary data encoded in JavaScript Object Notation. See https:\/\/www.json.org."
+"Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
 scalar JSON
 
 "128 bit universally unique identifier (UUID)"
@@ -1167,6 +1296,7 @@ type TalentNominationGroup {
   developmentProgramsNotes: String
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean
+  comments: String
 }
 
 type Team implements HasRoleAssignments {
@@ -1251,7 +1381,8 @@ type PoolCandidateSearchRequest {
   status: LocalizedPoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
+  poolCandidateFilter: PoolCandidateFilter
+    @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -2121,6 +2252,7 @@ input UpdateTalentNominationGroupInput {
   lateralMovementNotes: String
   developmentProgramsDecision: TalentNominationGroupDecision
   developmentProgramsNotes: String
+  comments: String
 }
 
 input CreateApplicantFilterInput {

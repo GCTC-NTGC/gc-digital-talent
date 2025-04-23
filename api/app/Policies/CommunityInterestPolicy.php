@@ -54,6 +54,11 @@ class CommunityInterestPolicy
      */
     public function viewUser(User $user, CommunityInterest $communityInterest): bool
     {
+        // if it is the user's own community interest, shortcut to allow seeing attached user
+        if (($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id)) {
+            return true;
+        }
+
         $communityInterest->loadMissing('community.team');
 
         return ! is_null($communityInterest->community->team)

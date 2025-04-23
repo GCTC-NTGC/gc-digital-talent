@@ -16,6 +16,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEquals;
+
 class TalentNominationGroupTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -298,5 +300,36 @@ class TalentNominationGroupTest extends TestCase
             ]);
 
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testConnectToTalentNominationGroupIfMissingMultipleEvents()
+    {
+        // connectToTalentNominationGroupIfMissing()
+        // testing nominating one nominee for multiple events
+
+        $nominee = $this->makeEmployee('nominee');
+
+        TalentNomination::truncate();
+        TalentNominationGroup::truncate();
+        TalentNomination::factory()->count(3)->submittedReviewAndSubmit()->create([
+            'nominee_id' => $nominee->id,
+            'talent_nomination_event_id' => TalentNominationEvent::factory(),
+        ]);
+
+        $nominationGroups = TalentNominationGroup::all()->load('nominations');
+
+        // assert three nomination groups were created, one per event, but all point at the one nominee
+        assertEquals(3, count($nominationGroups));
+        assertEquals(3, count(TalentNominationGroup::where('nominee_id', $nominee->id)->get()));
+
+        // iterate through the groups and nominations and assert the nominee and events are the same
+        foreach ($nominationGroups as $nominationGroup) {
+
+            $nominations = $nominationGroup->nominations;
+            foreach ($nominations as $nomination) {
+                assertEquals($nominationGroup->nominee_id, $nomination->nominee_id);
+                assertEquals($nominationGroup->talent_nomination_event_id, $nomination->talent_nomination_event_id);
+            }
+        }
     }
 }

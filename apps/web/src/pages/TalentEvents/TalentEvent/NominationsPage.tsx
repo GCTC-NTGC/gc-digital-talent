@@ -13,6 +13,7 @@ import {
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -24,15 +25,10 @@ import useRoutes from "~/hooks/useRoutes";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
+import { getSortedNominatorNames } from "~/utils/talentNominations";
 
 import { RouteParams } from "./types";
-import {
-  nominationsToNominators,
-  nominatorsAccessor,
-  nomineeNameCell,
-  statusCell,
-  typesAccessor,
-} from "./util";
+import { nomineeNameCell, statusCell, typesAccessor } from "./util";
 
 const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventNominationsTable on TalentNominationGroup {
@@ -58,6 +54,7 @@ const TalentEventNominationsTable_Fragment = graphql(/* GraphQL */ `
     }
     nominations {
       id
+      nominatorFallbackName
       nominator {
         firstName
         lastName
@@ -89,6 +86,8 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
     [talentEventNominations],
   );
 
+  const nominationIds = talentEventNominationsData.map((nom) => nom.id);
+
   const columns = [
     columnHelper.accessor(
       ({ nominee }) =>
@@ -102,7 +101,14 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
           row: {
             original: { id, talentNominationEvent },
           },
-        }) => nomineeNameCell(talentNominationEvent.id, id, getValue(), paths),
+        }) =>
+          nomineeNameCell(
+            talentNominationEvent.id,
+            id,
+            getValue(),
+            nominationIds,
+            paths,
+          ),
         meta: {
           isRowTitle: true,
         },
@@ -132,7 +138,9 @@ const TalentEventNominations = ({ query }: TalentEventNominationsProps) => {
     }),
     columnHelper.accessor(
       ({ nominations }) =>
-        nominatorsAccessor(nominationsToNominators(nominations), intl),
+        getSortedNominatorNames(unpackMaybes(nominations), intl)
+          .flatMap((n) => n.name)
+          .join(", "),
       {
         id: "nominators",
         header: intl.formatMessage(messages.nominators),

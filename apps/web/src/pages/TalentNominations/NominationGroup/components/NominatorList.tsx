@@ -1,16 +1,31 @@
 import { useIntl } from "react-intl";
 import { JSX } from "react";
 
-import { NominationGroupSidebarFragment as NominationGroupSidebarFragmentType } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
+import { getNominatorName } from "~/utils/talentNominations";
+
+import NominatorInfoDialog from "./NominatorInfoDialog";
+
+const NominatorList_Fragment = graphql(/** GraphQL */ `
+  fragment NominatorList on TalentNomination {
+    ...NominatorInfoDialog_Nomination
+    id
+    nominatorFallbackName
+    nominator {
+      firstName
+      lastName
+    }
+  }
+`);
 
 // effectively insertBetween(), but specialized specifically for the purpose of unique key values
 const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
   return arr.reduce<JSX.Element[]>((prev, curr, i) => {
     if (i > 0) {
       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-      prev.push(<span key={i}>, </span>);
+      prev.push(<span key={i}> , </span>);
     }
     prev.push(curr);
     return prev;
@@ -18,32 +33,25 @@ const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
 };
 
 interface NominatorListProps {
-  talentNominations: NominationGroupSidebarFragmentType["nominations"];
+  query?: FragmentType<typeof NominatorList_Fragment>[];
 }
 
-const NominatorList = ({ talentNominations }: NominatorListProps) => {
+const NominatorList = ({ query }: NominatorListProps) => {
   const intl = useIntl();
 
-  const nominationsSortedByNominator = (talentNominations ?? []).sort(
-    (a, b) => {
-      return (
-        (a.nominator?.lastName ?? "").localeCompare(
-          b.nominator?.lastName ?? "",
-        ) ||
-        (a.nominator?.firstName ?? "").localeCompare(
-          b.nominator?.firstName ?? "",
-        )
-      );
-    },
+  const talentNominations = unpackMaybes(
+    getFragment(NominatorList_Fragment, query),
   );
+
+  const nominationsSortedByNominator = talentNominations.sort((a, b) => {
+    const aName = getNominatorName(a.nominator, a.nominatorFallbackName, intl);
+    const bName = getNominatorName(b.nominator, b.nominatorFallbackName, intl);
+
+    return aName.localeCompare(bName);
+  });
+
   const nominatorsList = nominationsSortedByNominator.map((nomination) => (
-    <span key={nomination.id}>
-      {getFullNameLabel(
-        nomination.nominator?.firstName,
-        nomination.nominator?.lastName,
-        intl,
-      )}
-    </span>
+    <NominatorInfoDialog key={nomination.id} nominationQuery={nomination} />
   ));
   const nominatorListCommaSeparated = commaSeparator(nominatorsList);
 
