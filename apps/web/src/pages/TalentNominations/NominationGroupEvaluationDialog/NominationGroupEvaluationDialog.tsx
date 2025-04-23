@@ -21,12 +21,14 @@ import talentNominationMessages from "../../../messages/talentNominationMessages
 import { dialogMessages } from "./messages";
 import AdvancementSection from "./components/AdvancementSection";
 import LateralMovementSection from "./components/LateralMovementSection";
+import DevelopmentProgramsSection from "./components/DevelopmentProgramsSection";
 
 const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
   query NominationGroupEvaluationDialog($talentNominationGroupId: UUID!) {
     talentNominationGroup(id: $talentNominationGroupId) {
       ...NominationGroupEvaluationDialogAdvancement
       ...NominationGroupEvaluationDialogLateralMovement
+      ...NominationGroupEvaluationDialogDevelopmentPrograms
       id
       nominee {
         firstName
@@ -196,7 +198,9 @@ const NominationGroupEvaluationDialog = ({
                     {isNominatedForDevelopmentPrograms ? (
                       <>
                         <Separator data-h2-margin="base(0)" />
-                        <div>development programs section</div>
+                        <DevelopmentProgramsSection
+                          talentNominationGroupQuery={talentNominationGroup}
+                        />
                       </>
                     ) : null}
                   </div>

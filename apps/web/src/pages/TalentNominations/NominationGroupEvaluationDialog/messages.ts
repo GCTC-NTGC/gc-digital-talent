@@ -15,6 +15,13 @@ export const dialogMessages = defineMessages({
 });
 
 export const formMessages = defineMessages({
+  decisionNullState: {
+    defaultMessage:
+      "Please select the evaluation of this nomination to continue.",
+    id: "Bb9Pe0",
+    description:
+      "Prompt for the user to evaluate the nomination before continuing",
+  },
   advancementReferenceWorkEmail: {
     defaultMessage: "Reference’s work email",
     id: "aqlXBz",
@@ -70,5 +77,21 @@ export const formMessages = defineMessages({
     defaultMessage: "This nomination for lateral movement is not supported.",
     id: "kzmlCw",
     description: "Label for lateral movement nomination is rejected",
+  },
+  developmentProgramsNominationDecisionLabel: {
+    defaultMessage: "Development programs approval",
+    id: "RA4afJ",
+    description: "Label for an nomination for development programs decision",
+  },
+  developmentProgramsNominationDecisionApproved: {
+    defaultMessage: "This nomination for development programs is approved.",
+    id: "UBOv+U",
+    description: "Label for development programs nomination is approved",
+  },
+  developmentProgramsNominationDecisionRejected: {
+    defaultMessage:
+      "This nomination for development programs is not supported.",
+    id: "X5xhRt",
+    description: "Label for development programs nomination is rejected",
   },
 });

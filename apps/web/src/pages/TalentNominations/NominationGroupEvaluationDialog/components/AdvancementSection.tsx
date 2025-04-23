@@ -169,13 +169,7 @@ const AdvancementSection = ({
       {selectedAdvancementDecision == null ||
       selectedAdvancementDecision == undefined ? (
         <Well data-h2-text-align="base(center)">
-          {intl.formatMessage({
-            defaultMessage:
-              "Please select the evaluation of this nomination to continue.",
-            id: "Bb9Pe0",
-            description:
-              "Prompt for the user to evaluate the nomination before continuing",
-          })}
+          {intl.formatMessage(formMessages.decisionNullState)}
         </Well>
       ) : null}
     </div>
