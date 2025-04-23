@@ -149,6 +149,11 @@ const commonMessages = defineMessages({
     id: "imR1U4",
     description: "Title displayed telephone",
   },
+  personalPhone: {
+    defaultMessage: "Personal phone",
+    id: "rOVdph",
+    description: "Title displayed personal phone",
+  },
   preferredCommunicationLanguage: {
     defaultMessage: "Preferred communication language",
     id: "XiECLl",
@@ -446,6 +451,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Community interest",
     id: "1uBif7",
     description: "Community interest label",
+  },
+  asterisk: {
+    defaultMessage: "*",
+    id: "nSENOg",
+    description: "Asterisk symbol",
   },
 });
 
