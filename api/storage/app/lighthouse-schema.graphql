@@ -1166,6 +1166,7 @@ type TalentNominationGroup {
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
   developmentProgramsNotes: String
   status: LocalizedTalentNominationGroupStatus
+  consentToShareProfile: Boolean
 }
 
 type Team implements HasRoleAssignments {

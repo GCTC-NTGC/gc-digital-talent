@@ -754,6 +754,7 @@ type TalentNominationGroup {
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
   status: LocalizedTalentNominationGroupStatus
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 type Team implements HasRoleAssignments {
