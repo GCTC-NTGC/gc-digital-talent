@@ -163,10 +163,8 @@ const useMainNavLinks = () => {
   const CareerTimeline = (
     <NavItem
       key="careerTimeline"
-      href={paths.careerTimelineAndRecruitment()}
-      title={intl.formatMessage(
-        navigationMessages.careerTimelineAndRecruitment,
-      )}
+      href={paths.careerTimeline()}
+      title={intl.formatMessage(navigationMessages.careerTimeline)}
       subMenu
     />
   );

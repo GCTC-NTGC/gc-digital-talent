@@ -1,0 +1,69 @@
+name: Feature Request
+description: A new feature or change to existing functionality.
+title: "✨ "
+projects: ["GCTC-NTGC/8"]
+type: "Feature"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature issue!
+  - type: textarea
+    id: description-feature
+    attributes:
+      label: ✨ Feature Request
+      description: Describe the feature that is being requested.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with the development of the new feature.
+  - type: input
+    id: design
+    attributes:
+      label: 🎨 Design file
+      description: Include a link to the design file (if it exists).
+  - type: input
+    id: designer
+    attributes:
+      label: 🎨 Designer
+      description: Include the author of the linked design file's name for future reference.
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 Screenshot
+      description: Paste a screenshot to help illustrate the feature.
+  - type: textarea
+    id: proposed-implementation
+    attributes:
+      label: 🙋‍♀️ Proposed Implementation
+      description: Do you have a proposed implementation?
+  - type: textarea
+    id: localization
+    attributes:
+      label: 🌎 Localization
+      description: Provide any new copy along with translations available.
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the bug was addressed.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2
+  - type: checkboxes
+    id: definition-of-ready
+    attributes:
+      label: 🚢 Definition of Ready
+      description: Does this meet issue meet the criteria in our [Definition of Ready](documentation/definition-of-ready.md)?
+      options:
+        - label: This issue has met the criteria in our Definition of Ready
+          required: true
+  - type: textarea
+    id: blocking-issues
+    attributes:
+      label: 🛑 Blocking Issues
+      description: Issues that block this issue.
+      value: "Blocked by "

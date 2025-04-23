@@ -229,6 +229,11 @@ const messages = defineMessages({
     id: "ht9CfC",
     description: "Label for communities",
   },
+  comments: {
+    defaultMessage: "Comments",
+    id: "gk/x2T",
+    description: "Label for comments",
+  },
 });
 
 export default messages;

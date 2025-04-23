@@ -27,7 +27,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
   if (count === 0) {
     return (
       <NoSymbolIcon
-        data-h2-color="base(black.lighter) base:dark(black)"
+        data-h2-color="base(black.lighter) base:dark(black.5)"
         aria-hidden="false"
         aria-label={intl.formatMessage(commonMessages.notApplicable)}
         {...sharedIconStyling}

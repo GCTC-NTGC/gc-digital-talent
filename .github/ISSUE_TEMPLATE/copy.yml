@@ -1,0 +1,40 @@
+name: "Copy"
+description: Additions or updates to the copy
+title: "🔤 "
+projects: ["GCTC-NTGC/8"]
+type: "Feature"
+labels: copy
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this copy issue!
+  - type: textarea
+    id: description
+    attributes:
+      label: 🔤 Copy
+      description: Describe the update or addition to the copy that you are proposing.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with the implementation of the new or existing copy.
+    id: proposed-solution
+    attributes:
+      label: 🙋‍♀️ Proposed Solution
+      description: Do you have any copy that you would like to propose?
+  - type: textarea
+    id: localization
+    attributes:
+      label: 🌎 Localization
+      description: Provide any new copy along with translations available.
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the copy has been added or updated appropriately.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2

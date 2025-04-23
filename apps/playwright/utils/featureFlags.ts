@@ -1,6 +1,6 @@
-import * as path from "path";
+import path from "path";
 
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 
 export type FeatureFlags = Record<`FEATURE_${string}`, boolean | null>;
 

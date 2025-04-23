@@ -10,6 +10,7 @@ import {
   getLocale,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -49,6 +50,7 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const { createNomination } = useFeatureFlags();
 
   return (
     <>
@@ -232,7 +234,7 @@ export const Component = () => {
                   description: "Card label, for nomination feature",
                 })}
               >
-                <p>
+                <p data-h2-margin-bottom="base(x.5)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Are you a Chief Financial Officer who knows a high-potential leader with the ability to enhance public service to Canadians? Help them progress in their career by nominating them for advancement, lateral movement, or development opportunities.",
@@ -240,16 +242,26 @@ export const Component = () => {
                     description: "card description, for nomination feature",
                   })}
                 </p>
-                <p
-                  data-h2-margin-top="base(x.5)"
-                  data-h2-font-weight="base(bold)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Available in April",
-                    id: "Wg+Buu",
-                    description: "Availability blurb",
-                  })}
-                </p>
+                {createNomination ? (
+                  <p>
+                    <Link mode="inline" href={paths.talentManagementEvents()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Nominate talent",
+                        id: "yVf0d/",
+                        description:
+                          "Link text to navigate to talent nomination events list",
+                      })}
+                    </Link>
+                  </p>
+                ) : (
+                  <p data-h2-font-weight="base(bold)">
+                    {intl.formatMessage({
+                      defaultMessage: "Available in April",
+                      id: "Wg+Buu",
+                      description: "Availability blurb",
+                    })}
+                  </p>
+                )}
               </CardFlat>
             </div>
           </div>
@@ -305,7 +317,16 @@ export const Component = () => {
                   data-h2-justify-content="base(space-between)"
                   data-h2-flex-grow="base(1)"
                 >
-                  <img src={teamImage} alt="" data-h2-display="base(block)" />
+                  <img
+                    src={teamImage}
+                    alt=""
+                    data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
+                  />
                   <div
                     data-h2-padding="base(x1)"
                     data-h2-flex-grow="base(1)"
@@ -376,6 +397,11 @@ export const Component = () => {
                     src={newsletterImage}
                     alt=""
                     data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
                   />
                   <div
                     data-h2-padding="base(x1)"
@@ -447,6 +473,11 @@ export const Component = () => {
                     src={connectWithPeersImage}
                     alt=""
                     data-h2-display="base(block)"
+                    data-h2-height="base(auto) l-tablet(238px)"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "50% 10%",
+                    }}
                   />
                   <div
                     data-h2-padding="base(x1)"

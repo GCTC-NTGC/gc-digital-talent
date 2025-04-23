@@ -163,17 +163,9 @@
     "defaultMessage": "Parcourir la bibliothèque de compétences",
     "description": "Name of skill library page"
   },
-  "3agw4G": {
-    "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
-    "description": "The work region of Canada described as Ontario."
-  },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
-  },
-  "3f6YzQ": {
-    "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
-    "description": "La région de travail du Canada décrite comme l'Atlantique."
   },
   "45ZCXX": {
     "defaultMessage": "Options",
@@ -222,6 +214,10 @@
   "6/U6rm": {
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
+  },
+  "64H+pl": {
+    "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
+    "description": "The work region of Canada described as Quebec."
   },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
@@ -275,10 +271,6 @@
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
   },
-  "8JxN4A": {
-    "defaultMessage": "<strong> Région de la capitale nationale</strong>(Ottawa, en Ontario et Gatineau, au Québec).",
-    "description": "The work region of Canada described as National Capital."
-  },
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
@@ -286,6 +278,10 @@
   "8kUa5H": {
     "defaultMessage": "Une erreur s’est produite au moment de placer le candidat. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that placing a candidate failed"
+  },
+  "8shuWS": {
+    "defaultMessage": "Je consens à travailler à distance.",
+    "description": "The work region of Canada described as Telework."
   },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
@@ -367,21 +363,17 @@
     "defaultMessage": "Administration des programmes",
     "description": "Full name of abbreviation for PM"
   },
-  "CGNfbu": {
-    "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
-    "description": "The work region of Canada described as Ontario."
-  },
   "CYirJF": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
   },
-  "ChFxsM": {
-    "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
-    "description": "The work region of Canada described as Atlantic."
-  },
   "CrzH4k": {
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
+  },
+  "D3+nw/": {
+    "defaultMessage": "Je consens à travailler dans la région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
+    "description": "The work region of Canada described as North."
   },
   "DIK7Z1": {
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
@@ -410,6 +402,10 @@
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
+  },
+  "F9efQO": {
+    "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
+    "description": "The work region of Canada described as National Capital."
   },
   "FYrmhH": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
@@ -515,10 +511,6 @@
     "defaultMessage": "Français",
     "description": "Name of French language"
   },
-  "Jpq6MK": {
-    "defaultMessage": "Région de Québec (excluant Gatineau)",
-    "description": "The work region of Canada described as Quebec."
-  },
   "JqjYZq": {
     "defaultMessage": "Ce champ est obligatoire. Veuillez inscrire une valeur.",
     "description": "Error message that this field must filled for the form to be valid."
@@ -615,6 +607,10 @@
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
   },
+  "O5Lq+h": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
+    "description": "The work region of Canada described as Atlantic."
+  },
   "OAoFzw": {
     "defaultMessage": "Je suis actuellement en train de coacher quelqu'un d'autre.",
     "description": "The executive coaching status described as coaching."
@@ -663,10 +659,6 @@
     "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
     "description": "The mentorship interest described as mentee."
   },
-  "P9roJ7": {
-    "defaultMessage": "Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut)",
-    "description": "The work region of Canada described as North."
-  },
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
@@ -678,6 +670,10 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "PPSXML": {
+    "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
+    "description": "The work region of Canada described as Prairie."
   },
   "Pj4lW9": {
     "defaultMessage": "Accepté",
@@ -935,10 +931,6 @@
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
   },
-  "ZoFcYn": {
-    "defaultMessage": "<strong> Région de Québec</strong>(excluant Gatineau)",
-    "description": "The work region of Canada described as Quebec."
-  },
   "ZoYqEo": {
     "defaultMessage": "Date limite",
     "description": "Title for deadline to apply"
@@ -948,7 +940,7 @@
     "description": "declare self to be a CAF veteran"
   },
   "a+twlj": {
-    "defaultMessage": "Les possibilités de réseautage entre pairs m\\'intéressent.",
+    "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
   },
   "a5edSg": {
@@ -1038,10 +1030,6 @@
   "dwYJOo": {
     "defaultMessage": "Exigences en matière de travail pratique",
     "description": "Title for the applied work experience requirements"
-  },
-  "dxjUnU": {
-    "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
-    "description": "The work region of Canada described as National Capital."
   },
   "dyGR7U": {
     "defaultMessage": "Recherche…",
@@ -1192,7 +1180,7 @@
     "description": "Name of Dashboard page"
   },
   "jPxgBV": {
-    "defaultMessage": "Les possibilités de réseautage entre pairs ne m\\'intéressent pas.",
+    "defaultMessage": "Les possibilités de réseautage entre pairs ne m'intéressent pas.",
     "description": "Not interested label for peer networking."
   },
   "jStpFw": {
@@ -1351,10 +1339,6 @@
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
   },
-  "oPhurq": {
-    "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
-    "description": "The work region of Canada described as Prairie."
-  },
   "oR0evm": {
     "defaultMessage": "La date doit être égale ou supérieure au {date}",
     "description": "Error message when a date was entered that is less than the minimum required"
@@ -1383,10 +1367,6 @@
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
-  "pmoexB": {
-    "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
-    "description": "The work region of Canada described as Telework."
-  },
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
@@ -1394,10 +1374,6 @@
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
     "description": "Error message that the pool closing date isn't in the future."
-  },
-  "qtJrUr": {
-    "defaultMessage": "Région de la Colombie-Britannique",
-    "description": "The work region of Canada described as British Columbia."
   },
   "qtqJ6q": {
     "defaultMessage": "Compétences",
@@ -1491,10 +1467,6 @@
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
   },
-  "suvoSt": {
-    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta.)",
-    "description": "The work region of Canada described as Prairie."
-  },
   "t4F/0R": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
     "description": "Error message that the pool advertisement must have a security clearance."
@@ -1514,10 +1486,6 @@
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
     "description": "Error message that Work Tasks in English must be filled"
-  },
-  "tgt0og": {
-    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
-    "description": "The work region of Canada described as British Columbia."
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
@@ -1542,10 +1510,6 @@
   "ukd1kY": {
     "defaultMessage": "Événements axés sur la gestion des talents",
     "description": "Name of talent management events page"
-  },
-  "us8fY4": {
-    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
-    "description": "The work region of Canada described as North."
   },
   "uu2OuP": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
@@ -1607,6 +1571,10 @@
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
   },
+  "wdfDZH": {
+    "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
+    "description": "The work region of Canada described as British Columbia."
+  },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
@@ -1615,9 +1583,9 @@
     "defaultMessage": "Mars",
     "description": "Name of the third month"
   },
-  "x8v6Qp": {
-    "defaultMessage": "Virtuel (travail à domicile, partout au Canada.)",
-    "description": "The work region of Canada described as Telework."
+  "x9dfvs": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Ontario (excluant Ottawa).",
+    "description": "The work region of Canada described as Ontario."
   },
   "xAxxmc": {
     "defaultMessage": "Oups! Vous avez des erreurs!",

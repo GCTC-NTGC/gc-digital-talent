@@ -332,7 +332,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment();
+  const returnPath = paths.careerTimeline();
   const experience = getFragment(
     ExperienceFormExperience_Fragment,
     experienceQuery,
@@ -477,9 +477,7 @@ export const ExperienceForm = ({
         url: paths.profileAndApplications(),
       },
       {
-        label: intl.formatMessage(
-          navigationMessages.careerTimelineAndRecruitment,
-        ),
+        label: intl.formatMessage(navigationMessages.careerTimeline),
         url: returnPath,
       },
       {

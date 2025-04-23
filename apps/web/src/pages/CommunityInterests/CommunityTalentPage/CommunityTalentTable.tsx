@@ -17,7 +17,11 @@ import {
   getFragment,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import Table, {
@@ -37,6 +41,10 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import talentNominationMessages from "~/messages/talentNominationMessages";
+import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import profileMessages from "~/messages/profileMessages";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -73,6 +81,23 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
       currentClassification {
         group
         level
+      }
+      positionDuration
+      locationPreferences {
+        value
+        label {
+          localized
+        }
+      }
+      acceptedOperationalRequirements {
+        value
+        label {
+          localized
+        }
+      }
+      employeeProfile {
+        lateralMoveInterest
+        promotionMoveInterest
       }
     }
     community {
@@ -135,7 +160,6 @@ const defaultState = {
   filters: {
     communities: [],
     workStreams: [],
-    poolFilters: [],
     jobInterest: undefined,
     trainingInterest: undefined,
     lateralMoveInterest: undefined,
@@ -320,12 +344,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         },
       },
     ),
-    columnHelper.accessor(({ community }) => community.name?.localized, {
-      id: "community",
-      header: intl.formatMessage(adminMessages.community),
-      enableColumnFilter: false,
-      enableSorting: false,
-    }),
     columnHelper.accessor(
       ({
         user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
@@ -365,7 +383,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     columnHelper.accessor(({ user }) => user?.workEmail, {
       id: "workEmail",
       header: intl.formatMessage(commonMessages.workEmail),
-      enableColumnFilter: false,
       cell: ({ getValue }) => cells.email(getValue()),
     }),
     columnHelper.accessor(
@@ -394,6 +411,103 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         ),
       },
     ),
+    columnHelper.accessor(({ community }) => community.name?.localized, {
+      id: "community",
+      header: intl.formatMessage(adminMessages.community),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
+    columnHelper.accessor(
+      ({ workStreams }) =>
+        workStreams?.map((workStream) => workStream.name?.localized).join(", "),
+      {
+        id: "workStreams",
+        header: intl.formatMessage(adminMessages.workStreams),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        interestAccessor(intl, user?.employeeProfile?.lateralMoveInterest),
+      {
+        id: "lateralMoveInterest",
+        header: intl.formatMessage(
+          talentNominationMessages.nominateForLateralMovement,
+        ),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        interestAccessor(intl, user?.employeeProfile?.promotionMoveInterest),
+      {
+        id: "promotionMoveInterest",
+        header: intl.formatMessage({
+          defaultMessage: "Promotions and advancement",
+          id: "h0mWc3",
+          description:
+            "Label for interested in promotional movement checkbox for mobility type checklist",
+        }),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.positionDuration
+          ? intl.formatMessage(
+              getEmploymentDuration(
+                positionDurationToEmploymentDuration(user?.positionDuration),
+                "short",
+              ),
+            )
+          : intl.formatMessage({
+              defaultMessage: "Any duration",
+              id: "Swq+OD",
+              description: "Option label for allowing any employment duration",
+            }),
+
+      {
+        id: "positionDuration",
+        header: intl.formatMessage({
+          defaultMessage: "Duration preferences",
+          id: "2ingb6",
+          description: "Label for the employment duration field",
+        }),
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.locationPreferences
+          ? user?.locationPreferences
+              .map((locationPreference) => locationPreference?.label?.localized)
+              .join(", ")
+          : "",
+      {
+        id: "locationPreferences",
+        header: intl.formatMessage(talentRequestMessages.workLocation),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ user }) =>
+        user?.acceptedOperationalRequirements
+          ? user?.acceptedOperationalRequirements
+              .map(
+                (acceptedOperationalRequirement) =>
+                  acceptedOperationalRequirement?.label?.localized,
+              )
+              .join(", ")
+          : "",
+      {
+        id: "acceptedOperationalRequirements",
+        header: intl.formatMessage(profileMessages.acceptableRequirements),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
   ] as ColumnDef<CommunityTalentTableCommunityInterestFragmentType>[];
 
   const hasSelectedRows = selectedRows.length > 0;
@@ -403,7 +517,13 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       data={communityInterestData}
       caption={title}
       columns={columns}
-      hiddenColumnIds={["community", "workEmail", "preferredLang"]}
+      hiddenColumnIds={[
+        "community",
+        "preferredLang",
+        "positionDuration",
+        "locationPreferences",
+        "acceptedOperationalRequirements",
+      ]}
       isLoading={fetching}
       search={{
         internal: false,

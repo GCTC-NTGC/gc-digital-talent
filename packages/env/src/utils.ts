@@ -40,8 +40,8 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  newApplicantDashboard: checkFeatureFlag("FEATURE_NEW_APPLICANT_DASHBOARD"),
   adminNomination: checkFeatureFlag("FEATURE_ADMIN_NOMINATION"),
+  createNomination: checkFeatureFlag("FEATURE_CREATE_NOMINATION"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

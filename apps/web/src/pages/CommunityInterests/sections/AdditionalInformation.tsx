@@ -100,7 +100,10 @@ const AdditionalInformation = ({
     }
 
     // if the "other" role is not selected then clear the other role input
-    if (!selectedFinanceOtherRoles?.includes(FinanceChiefRole.Other)) {
+    if (
+      !Array.isArray(selectedFinanceOtherRoles) ||
+      !selectedFinanceOtherRoles.includes(FinanceChiefRole.Other)
+    ) {
       resetDirtyField("financeOtherRolesOther", null);
     }
   }, [resetField, selectedFinanceIsChief, selectedFinanceOtherRoles]);
@@ -228,7 +231,8 @@ const AdditionalInformation = ({
                   aria-describedby={financeOtherRolesDescription}
                 />
                 {/* Other position input only appears if the user selects "Other" in the other roles checklist */}
-                {selectedFinanceOtherRoles?.includes(FinanceChiefRole.Other) ? (
+                {Array.isArray(selectedFinanceOtherRoles) &&
+                selectedFinanceOtherRoles.includes(FinanceChiefRole.Other) ? (
                   <Input
                     id="financeOtherRolesOther"
                     name="financeOtherRolesOther"
