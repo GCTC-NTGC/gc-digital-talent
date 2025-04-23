@@ -56,4 +56,19 @@ export const formMessages = defineMessages({
     id: "9gklPf",
     description: "label for rejection notes",
   },
+  lateralMovementNominationDecisionLabel: {
+    defaultMessage: "Lateral movement approval",
+    id: "D7/cN1",
+    description: "Label for an nomination for lateral movement decision",
+  },
+  lateralMovementNominationDecisionApproved: {
+    defaultMessage: "This nomination for lateral movement is approved.",
+    id: "We0XLh",
+    description: "Label for lateral movement nomination is approved",
+  },
+  lateralMovementNominationDecisionRejected: {
+    defaultMessage: "This nomination for lateral movement is not supported.",
+    id: "kzmlCw",
+    description: "Label for lateral movement nomination is rejected",
+  },
 });

@@ -161,6 +161,9 @@ const AdvancementSection = ({
           id="advancementNotes"
           name="advancementNotes"
           label={intl.formatMessage(formMessages.rejectionNotes)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
         />
       ) : null}
       {selectedAdvancementDecision == null ||
