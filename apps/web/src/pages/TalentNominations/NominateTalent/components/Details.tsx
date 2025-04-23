@@ -683,9 +683,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
   let defaultReference: Maybe<string> | undefined;
 
   if (referenceSet) {
-    defaultReference = talentNomination.advancementReference?.id
-      ? talentNomination.advancementReference.id
-      : null;
+    defaultReference = talentNomination.advancementReference?.id ?? null;
   }
 
   return (
