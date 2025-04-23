@@ -9,7 +9,9 @@ import {
   TaskCard,
   Well,
 } from "@gc-digital-talent/ui";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -40,6 +42,12 @@ const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
       nominee {
         id
       }
+      submittedAt
+      updatedAt
+      talentNominationEvent {
+        closeDate
+      }
+
       ...PreviewListItemTalentNomination
     }
   }
@@ -77,6 +85,25 @@ const TalentManagementTaskCard = ({
       children: <>{intl.formatMessage(navigationMessages.newNomination)}</>,
     },
   ];
+
+  const sortedNominations = unpackMaybes(
+    talentManagementTaskCardFragment.talentNominationsAsSubmitter,
+  )
+    .sort((a, b) => {
+      const aUpdated = a?.updatedAt ? new Date(a.updatedAt) : MAX_DATE;
+      const bUpdated = b?.updatedAt ? new Date(b.updatedAt) : MAX_DATE;
+      return aUpdated.getTime() - bUpdated.getTime();
+    })
+    .sort((a, b) => {
+      const aDeadline = a?.talentNominationEvent.closeDate
+        ? new Date(a.talentNominationEvent.closeDate)
+        : MAX_DATE;
+      const bDeadline = b?.talentNominationEvent.closeDate
+        ? new Date(b.talentNominationEvent.closeDate)
+        : MAX_DATE;
+      return aDeadline.getTime() - bDeadline.getTime();
+    })
+    .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
   return (
     <>
@@ -129,24 +156,19 @@ const TalentManagementTaskCard = ({
                     data-h2-gap="base(x1)"
                     data-h2-padding-top="base(x.5)"
                   >
-                    {talentManagementTaskCardFragment
-                      .talentNominationsAsSubmitter?.length ? (
+                    {sortedNominations.length ? (
                       <PreviewList.Root>
-                        {talentManagementTaskCardFragment.talentNominationsAsSubmitter.map(
-                          (talentNominationItem) => (
-                            <TalentNominationListItem
-                              key={talentNominationItem.id}
-                              headingAs="h4"
-                              displayCreatedDate={shouldRenderCreatedDateComputation(
-                                talentNominationItem.nominee?.id,
-                                allNomineeIds,
-                              )}
-                              talentNominationListItemQuery={
-                                talentNominationItem
-                              }
-                            />
-                          ),
-                        )}
+                        {sortedNominations.map((talentNominationItem) => (
+                          <TalentNominationListItem
+                            key={talentNominationItem.id}
+                            headingAs="h4"
+                            displayCreatedDate={shouldRenderCreatedDateComputation(
+                              talentNominationItem.nominee?.id,
+                              allNomineeIds,
+                            )}
+                            talentNominationListItemQuery={talentNominationItem}
+                          />
+                        ))}
                       </PreviewList.Root>
                     ) : (
                       <Well data-h2-text-align="base(center)">
