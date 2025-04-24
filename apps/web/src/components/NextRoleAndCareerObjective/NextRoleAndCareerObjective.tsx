@@ -42,11 +42,13 @@ const NextRoleAndCareerObjective = ({
             description: "Subtitle for next role and career objective section",
           })}
         >
-          {intl.formatMessage({
-            defaultMessage: "Next role and career objective",
-            id: "QhFxW1",
-            description: "Title for next role and career objective section",
-          })}
+          <span data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "Next role and career objective",
+              id: "QhFxW1",
+              description: "Title for next role and career objective section",
+            })}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <PreviewList.Root>

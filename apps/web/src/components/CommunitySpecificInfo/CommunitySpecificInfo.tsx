@@ -83,11 +83,13 @@ const CommunitySpecificInfo = ({
             },
           )}
         >
-          {intl.formatMessage({
-            defaultMessage: "Community-specific information",
-            id: "BPFC5k",
-            description: "Title for community-specific information section",
-          })}
+          <span data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "Community-specific information",
+              id: "BPFC5k",
+              description: "Title for community-specific information section",
+            })}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <CommunityInterest

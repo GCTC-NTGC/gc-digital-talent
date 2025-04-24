@@ -49,11 +49,13 @@ const BasicInformation = ({
             description: "Subtitle for basic profile information section",
           })}
         >
-          {intl.formatMessage({
-            defaultMessage: "Basic profile information",
-            id: "kAB20A",
-            description: "Title for basic profile information section",
-          })}
+          <span data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "Basic profile information",
+              id: "kAB20A",
+              description: "Title for basic profile information section",
+            })}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <PersonalContactInfo personalContactQuery={basicInfo} />

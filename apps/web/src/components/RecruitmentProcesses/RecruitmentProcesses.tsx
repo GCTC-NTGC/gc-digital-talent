@@ -58,7 +58,12 @@ const RecruitmentProcesses = ({
             description: "Subtitle for recruitment processes section",
           })}
         >
-          {recruitmentProcessesTitle(recruitmentProcessesFiltered.length, intl)}
+          <span data-h2-font-weight="base(400)">
+            {recruitmentProcessesTitle(
+              recruitmentProcessesFiltered.length,
+              intl,
+            )}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <RecruitmentProcessPreviewList

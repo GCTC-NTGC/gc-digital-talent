@@ -38,11 +38,13 @@ const GoalsAndWorkStyle = ({
             description: "Subtitle for goals and work style section",
           })}
         >
-          {intl.formatMessage({
-            defaultMessage: "Goals and work style",
-            id: "GDCKBX",
-            description: "Title for goals and work style section",
-          })}
+          <span data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "Goals and work style",
+              id: "GDCKBX",
+              description: "Title for goals and work style section",
+            })}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <Display goalsAndWorkStyleQuery={goalsAndWorkStyle} />

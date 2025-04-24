@@ -57,11 +57,13 @@ const TalentManagementPreferences = ({
             description: "Subtitle for talent management preferences section",
           })}
         >
-          {intl.formatMessage({
-            defaultMessage: "Talent management preferences",
-            id: "IKaWRI",
-            description: "Title for talent management preferences section",
-          })}
+          <span data-h2-font-weight="base(400)">
+            {intl.formatMessage({
+              defaultMessage: "Talent management preferences",
+              id: "IKaWRI",
+              description: "Title for talent management preferences section",
+            })}
+          </span>
         </Accordion.Trigger>
         <Accordion.Content>
           <CareerDevelopmentPreferences
