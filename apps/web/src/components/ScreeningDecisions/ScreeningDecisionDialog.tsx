@@ -361,6 +361,8 @@ export const ScreeningDecisionDialog = ({
     skill: poolSkill?.skill,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const parsedSnapshot = JSON.parse(
     String(poolCandidate.profileSnapshot),
   ) as Maybe<User>;
@@ -511,7 +513,15 @@ export const ScreeningDecisionDialog = ({
             <SupportingEvidence experiences={experiences} skill={skill} />
           )}
           <BasicForm
-            onSubmit={onSubmit}
+            onSubmit={async (values) => {
+              if (isSubmitting) return; // Prevent double submission
+              setIsSubmitting(true);
+              try {
+                await onSubmit(values);
+              } finally {
+                setIsSubmitting(false);
+              }
+            }}
             labels={labels}
             options={{
               defaultValues: initialValues ?? defaultValues,
