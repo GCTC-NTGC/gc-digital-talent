@@ -40,7 +40,8 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
     currentProvince {
       value
       label {
-        localized
+        en
+        fr
       }
     }
   }
