@@ -1255,10 +1255,6 @@
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
   },
-  "43Tiyp": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Si vous avez proposé la candidature d'un cadre ou d'un membre du personnel de niveau équivalent, veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
-    "description": "Subtitle for nomination rationale step"
-  },
   "43VEQA": {
     "defaultMessage": "Le profil linguistique a été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their language profile."
@@ -2558,6 +2554,10 @@
   "AH5WDT": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for a users career objective"
+  },
+  "AJ9XL4": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
+    "description": "Subtitle for nomination rationale step with leadership competencies"
   },
   "AJXRC6": {
     "defaultMessage": "Les données que vous fournissez ici seront vérifiées. Vous pouvez ajouter tous les processus et bassins dans lesquels vous êtes qualifiée ou qualifié. Dans la mesure du possible, fournissez les renseignements suivants :",
@@ -9985,6 +9985,10 @@
   "kY05h1": {
     "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
     "description": "Message displayed when a user successfully updates sitewide announcement information"
+  },
+  "kYuVEA": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée.",
+    "description": "Subtitle for nomination rationale step without leadership competencies"
   },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
