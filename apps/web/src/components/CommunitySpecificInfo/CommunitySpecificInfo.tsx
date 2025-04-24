@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import CommunityInterest from "../CommunityInterest/CommunityInterest";
 
@@ -11,6 +12,9 @@ export const CommunitySpecificInfo_Fragment = graphql(/* GraphQL */ `
     communityInterests {
       community {
         id
+        name {
+          localized
+        }
       }
       ...CommunityInterest
     }
@@ -64,12 +68,20 @@ const CommunitySpecificInfo = ({
       <Accordion.Item value={sectionKey}>
         <Accordion.Trigger
           as="h3"
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "The nominee's interest in opportunities in the Financial Management Community.",
-            id: "kx17OL",
-            description: "Subtitle for community-specific information section",
-          })}
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage:
+                "The nominee's interest in opportunities in the {communityName}.",
+              id: "QbEUq9",
+              description:
+                "Subtitle for community-specific information section",
+            },
+            {
+              communityName:
+                communityInterest.community.name?.localized ??
+                intl.formatMessage(commonMessages.notFound),
+            },
+          )}
         >
           {intl.formatMessage({
             defaultMessage: "Community-specific information",
