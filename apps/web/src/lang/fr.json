@@ -1255,10 +1255,6 @@
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
   },
-  "43Tiyp": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Si vous avez proposé la candidature d'un cadre ou d'un membre du personnel de niveau équivalent, veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
-    "description": "Subtitle for nomination rationale step"
-  },
   "43VEQA": {
     "defaultMessage": "Le profil linguistique a été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their language profile."
@@ -8297,6 +8293,10 @@
   "d1FYv4": {
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
+  },
+  "d1gdaZ": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
+    "description": "Subtitle for nomination rationale step"
   },
   "d3HIMV": {
     "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",

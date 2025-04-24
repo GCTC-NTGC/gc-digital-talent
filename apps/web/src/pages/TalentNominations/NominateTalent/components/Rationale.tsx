@@ -104,8 +104,8 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
       <p data-h2-margin="base(x1 0)">
         {intl.formatMessage({
           defaultMessage:
-            "The final step in the nomination process is to explain why this candidate is being nominated. If you've nominated an executive or equivalent level employee, please also provide the top 3 key leadership competencies demonstrated by the nominee.",
-          id: "43Tiyp",
+            "The final step in the nomination process is to explain why this candidate is being nominated. Please also provide the top 3 key leadership competencies demonstrated by the nominee.",
+          id: "d1gdaZ",
           description: "Subtitle for nomination rationale step",
         })}
       </p>
