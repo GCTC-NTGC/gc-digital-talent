@@ -23,8 +23,10 @@ import {
 
 import messages from "~/messages/careerDevelopmentMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-
-import { displayExecCoachingStatus, displayMentorshipStatus } from "./utils";
+import {
+  displayExecCoachingStatus,
+  displayMentorshipStatus,
+} from "~/components/CareerDevelopmentPreferences/utils";
 
 export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopment on EmployeeProfile {

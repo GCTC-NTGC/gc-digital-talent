@@ -18,10 +18,12 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
-
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
+} from "~/components/CareerDevelopmentPreferences/utils";
+
+import {
   EmployeeProfileCareerDevelopment_Fragment,
   EmployeeProfileCareerDevelopmentOptions_Fragment,
 } from "./utils";
