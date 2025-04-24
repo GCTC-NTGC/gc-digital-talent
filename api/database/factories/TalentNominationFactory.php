@@ -164,19 +164,41 @@ class TalentNominationFactory extends Factory
                         ? $this->faker->jobTitle()
                         : null,
 
-                    'development_program_options_other' => fn ($attributes) => $attributes['nominate_for_development_programs'] && $this->faker->boolean(10)
-                        ? $this->faker->jobTitle()
-                        : null,
+                    'development_program_options_other' => function ($attributes) use ($parentEvent) {
+                        // if nomination for development programs was selected then it is possible to have an 'other' program
+                        $nominateForDevelopmentProgramsOptionsSelected = $attributes['nominate_for_development_programs'];
+                        // if nominated for development programs then it is possible to have an 'other' program
+                        $thereAreDevelopmentProgramsForEvent = $parentEvent->developmentPrograms->count() > 0;
+
+                        $fakedOtherOption = $this->faker->jobTitle();
+
+                        if ($nominateForDevelopmentProgramsOptionsSelected) {
+
+                            if ($thereAreDevelopmentProgramsForEvent) {
+                                // if there are other options, a small chance that the OTHER option will be used
+                                return $this->faker->boolean(10)
+                                    ? $fakedOtherOption
+                                    : null;
+                            }
+
+                            // if there are no other options, mandatory that the OTHER option will be used
+                            return $fakedOtherOption;
+                        }
+
+                        return null;
+                    },
                 ];
             })
             ->afterCreating(function (TalentNomination $talentNomination) {
+                $developmentProgramIdsForEvent = $talentNomination->talentNominationEvent->developmentPrograms->pluck('id')->toArray();
+
                 if ($talentNomination->nominate_for_development_programs) {
                     $talentNomination->developmentPrograms()->attach(
                         $this->faker->randomElements(
-                            $talentNomination->talentNominationEvent->developmentPrograms->pluck('id')->toArray(),
+                            $developmentProgramIdsForEvent,
                             $this->faker->numberBetween(
                                 ! is_null($talentNomination->development_program_options_other) ? 0 : 1, // if there is an "other" option already, we can select 0 programs
-                                $talentNomination->talentNominationEvent->developmentPrograms->count()
+                                count($developmentProgramIdsForEvent)
                             )
                         )
                     );
