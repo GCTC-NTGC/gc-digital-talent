@@ -5699,10 +5699,6 @@
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
   },
-  "Pva73v": {
-    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature. Le lien « En savoir plus » figurant sur chaque carte d'événement permet d'obtenir des informations détaillées sur les exigences et les critères d'admissibilité.",
-    "description": "Description for active events section"
-  },
   "PwB71+": {
     "defaultMessage": "Veuillez sélectionner une ou plusieurs options de nomination pour continuer.",
     "description": "Null message displayed when no nomination options are selected on details step"
@@ -11169,6 +11165,10 @@
   "qD0lyZ": {
     "defaultMessage": "Le niveau « A » est le niveau le moins élevé en matière de bilinguisme et indique un niveau débutant.",
     "description": "Proficiency level on language requirements dialog"
+  },
+  "qEU5rz": {
+    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
+    "description": "Description for active events section"
   },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
