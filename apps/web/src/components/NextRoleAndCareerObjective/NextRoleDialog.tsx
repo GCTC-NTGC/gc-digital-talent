@@ -30,13 +30,18 @@ const NextRoleDialog = ({
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
   const nextRole = getFragment(NextRoleDialog_Fragment, nextRoleDialogQuery);
-  const title =
-    `${nextRole.firstName}'s ` +
-    intl.formatMessage({
-      defaultMessage: "next role",
-      id: "CvIcP7",
+
+  const title = intl.formatMessage(
+    {
+      defaultMessage: "{firstName}'s next role",
+      id: "F7hMI9",
       description: "Title for next role dialog",
-    });
+    },
+    {
+      firstName:
+        nextRole.firstName ?? intl.formatMessage(commonMessages.notFound),
+    },
+  );
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
