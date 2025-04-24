@@ -1,7 +1,10 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getEmploymentEquityGroup,
+} from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -46,11 +49,7 @@ const DiversityEquityInfo = ({
               // trueLabel={} Suggestion: "I'm"
               // falseLabel={} Suggestion: "I'm not"
             >
-              {intl.formatMessage({
-                defaultMessage: "Indigenous identity",
-                id: "ku5rdU",
-                description: "Label for indigenous identity field value",
-              })}
+              {intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
             </BoolCheckIcon>
           </li>
           <li>
@@ -59,11 +58,7 @@ const DiversityEquityInfo = ({
               // trueLabel={} Suggestion: "I'm"
               // falseLabel={} Suggestion: "I'm not"
             >
-              {intl.formatMessage({
-                defaultMessage: "Persons with a disability",
-                id: "dTs237",
-                description: "Label for has disability field value",
-              })}
+              {intl.formatMessage(getEmploymentEquityGroup("disability"))}
             </BoolCheckIcon>
           </li>
           <li>
@@ -72,11 +67,7 @@ const DiversityEquityInfo = ({
               // trueLabel={} Suggestion: "I'm"
               // falseLabel={} Suggestion: "I'm not"
             >
-              {intl.formatMessage({
-                defaultMessage: "Visible minority",
-                id: "TButZM",
-                description: "Label for visible minority field value",
-              })}
+              {intl.formatMessage(getEmploymentEquityGroup("minority"))}
             </BoolCheckIcon>
           </li>
           <li>
@@ -85,11 +76,7 @@ const DiversityEquityInfo = ({
               // trueLabel={} Suggestion: "I'm"
               // falseLabel={} Suggestion: "I'm not"
             >
-              {intl.formatMessage({
-                defaultMessage: "Woman",
-                id: "w6vRmC",
-                description: "Label for woman field value",
-              })}
+              {intl.formatMessage(getEmploymentEquityGroup("woman"))}
             </BoolCheckIcon>
           </li>
         </ul>
