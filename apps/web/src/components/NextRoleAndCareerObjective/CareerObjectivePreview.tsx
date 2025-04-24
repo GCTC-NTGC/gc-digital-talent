@@ -89,9 +89,9 @@ const CareerObjectivePreview = ({
     <>
       <>
         {intl.formatMessage({
-          defaultMessage: "Next role",
-          id: "Sth/c4",
-          description: "Title for next role dialog",
+          defaultMessage: "Career objective",
+          id: "iJoahz",
+          description: "Title for career objective dialog",
         })}
         {intl.formatMessage(commonMessages.dividingColon)}{" "}
       </>
