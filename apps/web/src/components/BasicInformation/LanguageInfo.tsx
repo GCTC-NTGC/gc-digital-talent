@@ -1,16 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  EstimatedLanguageAbility,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
+import { getEstimatedLanguageAbility } from "./utils";
 
 export const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   fragment LanguageInfo on User {
@@ -169,53 +165,15 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
                 data-h2-flex-direction="base(column)"
               >
                 <span>{estimatedLanguageAbility?.label.localized}</span>
-                {estimatedLanguageAbility.value ===
-                  EstimatedLanguageAbility.Beginner && (
-                  <span
-                    data-h2-font-weight="base(400)"
-                    data-h2-font-size="base(caption)"
-                    data-h2-color="base(black.light)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Basic reading, writing and verbal communication skills",
-                      id: "iusldC",
-                      description:
-                        "Description for the beginner language ability",
-                    })}
-                  </span>
-                )}
-                {estimatedLanguageAbility.value ===
-                  EstimatedLanguageAbility.Intermediate && (
-                  <span
-                    data-h2-font-weight="base(400)"
-                    data-h2-font-size="base(caption)"
-                    data-h2-color="base(black.light)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Strong reading, writing and verbal communication skills",
-                      id: "69icSD",
-                      description:
-                        "Description for the intermediate language ability",
-                    })}
-                  </span>
-                )}
-                {estimatedLanguageAbility.value ===
-                  EstimatedLanguageAbility.Advanced && (
-                  <span
-                    data-h2-font-weight="base(400)"
-                    data-h2-font-size="base(caption)"
-                    data-h2-color="base(black.light)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Completely fluent",
-                      id: "NzUwa2",
-                      description:
-                        "Description for the advanced language ability",
-                    })}
-                  </span>
-                )}
+                <span
+                  data-h2-font-weight="base(400)"
+                  data-h2-font-size="base(caption)"
+                  data-h2-color="base(black.light)"
+                >
+                  {intl.formatMessage(
+                    getEstimatedLanguageAbility(estimatedLanguageAbility.value),
+                  )}
+                </span>
               </div>
             ) : (
               notProvided
