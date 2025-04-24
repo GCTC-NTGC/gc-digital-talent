@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  EmploymentDuration,
+  getEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   getFragment,
@@ -132,12 +136,13 @@ const WorkPreferences = ({
             ) : (
               <>
                 <span>
-                  {intl.formatMessage({
-                    defaultMessage: "Indeterminate",
-                    id: "s9BEfe",
-                    description: "Message for position duration field display",
-                  })}
-                </span>
+                  {intl.formatMessage(
+                    getEmploymentDuration(
+                      EmploymentDuration.Indeterminate,
+                      "short",
+                    ),
+                  )}
+                </span>{" "}
                 <span
                   data-h2-font-weight="base(400)"
                   data-h2-font-size="base(caption)"
