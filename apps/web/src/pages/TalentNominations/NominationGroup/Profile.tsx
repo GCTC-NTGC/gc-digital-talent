@@ -98,29 +98,31 @@ const TalentNominationGroupProfile = ({
                 "Heading for nominee profile page accordion sections",
             })}
           </Heading>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-end)"
-            data-h2-gap="base(0 x.5)"
-          >
-            <Button mode="inline" color="secondary" onClick={toggleSections}>
-              {hasOpenSections
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "Collapse all <hidden>profile and career plan</hidden>sections",
-                    id: "/UoSSQ",
-                    description:
-                      "Button text to close all profile and career plan accordions",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "Expand all <hidden>profile and career plan</hidden>sections",
-                    id: "tS5VSg",
-                    description:
-                      "Button text to open all profile and career plan accordions",
-                  })}
-            </Button>
-          </div>
+          {shareProfile && (
+            <div
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(flex-end)"
+              data-h2-gap="base(0 x.5)"
+            >
+              <Button mode="inline" color="secondary" onClick={toggleSections}>
+                {hasOpenSections
+                  ? intl.formatMessage({
+                      defaultMessage:
+                        "Collapse all <hidden>profile and career plan</hidden>sections",
+                      id: "/UoSSQ",
+                      description:
+                        "Button text to close all profile and career plan accordions",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage:
+                        "Expand all <hidden>profile and career plan</hidden>sections",
+                      id: "tS5VSg",
+                      description:
+                        "Button text to open all profile and career plan accordions",
+                    })}
+              </Button>
+            </div>
+          )}
         </div>
         <p data-h2-margin="base(x1 0)">
           {intl.formatMessage({
