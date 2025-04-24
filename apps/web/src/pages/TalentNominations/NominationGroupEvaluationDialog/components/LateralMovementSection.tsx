@@ -88,13 +88,13 @@ const LateralMovementSection = ({
     if (
       selectedLateralMovementDecision !== TalentNominationGroupDecision.Approved
     ) {
-      resetDirtyField("lateralMovementNotes", null);
+      resetDirtyField("lateralMovementApprovedNotes", null);
     }
 
     if (
       selectedLateralMovementDecision !== TalentNominationGroupDecision.Rejected
     ) {
-      resetDirtyField("lateralMovementNotes", null);
+      resetDirtyField("lateralMovementRejectedNotes", null);
     }
   }, [resetField, selectedLateralMovementDecision]);
 
@@ -223,16 +223,16 @@ const LateralMovementSection = ({
       {selectedLateralMovementDecision ==
       TalentNominationGroupDecision.Approved ? (
         <RichTextInput
-          id="lateralMovementNotes"
-          name="lateralMovementNotes"
+          id="lateralMovementApprovedNotes"
+          name="lateralMovementApprovedNotes"
           label={intl.formatMessage(formMessages.approvalNotes)}
         />
       ) : null}
       {selectedLateralMovementDecision ==
       TalentNominationGroupDecision.Rejected ? (
         <RichTextInput
-          id="lateralMovementNotes"
-          name="lateralMovementNotes"
+          id="lateralMovementRejectedNotes"
+          name="lateralMovementRejectedNotes"
           label={intl.formatMessage(formMessages.rejectionNotes)}
           rules={{
             required: intl.formatMessage(errorMessages.required),

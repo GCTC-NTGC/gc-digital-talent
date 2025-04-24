@@ -59,13 +59,13 @@ const AdvancementSection = ({
       selectedAdvancementDecision !== TalentNominationGroupDecision.Approved
     ) {
       resetDirtyField("advancementReferenceConfirmed", null);
-      resetDirtyField("advancementNotes", null);
+      resetDirtyField("advancementApprovedNotes", null);
     }
 
     if (
       selectedAdvancementDecision !== TalentNominationGroupDecision.Rejected
     ) {
-      resetDirtyField("advancementNotes", null);
+      resetDirtyField("advancementRejectedNotes", null);
     }
   }, [resetField, selectedAdvancementDecision]);
 
@@ -150,16 +150,16 @@ const AdvancementSection = ({
             }}
           />
           <RichTextInput
-            id="advancementNotes"
-            name="advancementNotes"
+            id="advancementApprovedNotes"
+            name="advancementApprovedNotes"
             label={intl.formatMessage(formMessages.approvalNotes)}
           />
         </>
       ) : null}
       {selectedAdvancementDecision == TalentNominationGroupDecision.Rejected ? (
         <RichTextInput
-          id="advancementNotes"
-          name="advancementNotes"
+          id="advancementRejectedNotes"
+          name="advancementRejectedNotes"
           label={intl.formatMessage(formMessages.rejectionNotes)}
           rules={{
             required: intl.formatMessage(errorMessages.required),

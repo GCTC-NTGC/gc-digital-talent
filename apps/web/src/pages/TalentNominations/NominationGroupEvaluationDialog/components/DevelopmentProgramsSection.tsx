@@ -74,14 +74,14 @@ const DevelopmentProgramsSection = ({
       selectedDevelopmentProgramsDecision !==
       TalentNominationGroupDecision.Approved
     ) {
-      resetDirtyField("developmentProgramsNotes", null);
+      resetDirtyField("developmentProgramsApprovedNotes", null);
     }
 
     if (
       selectedDevelopmentProgramsDecision !==
       TalentNominationGroupDecision.Rejected
     ) {
-      resetDirtyField("developmentProgramsNotes", null);
+      resetDirtyField("developmentProgramsRejectedNotes", null);
     }
   }, [resetField, selectedDevelopmentProgramsDecision]);
 
@@ -199,16 +199,16 @@ const DevelopmentProgramsSection = ({
       {selectedDevelopmentProgramsDecision ==
       TalentNominationGroupDecision.Approved ? (
         <RichTextInput
-          id="developmentProgramsNotes"
-          name="developmentProgramsNotes"
+          id="developmentProgramsApprovedNotes"
+          name="developmentProgramsApprovedNotes"
           label={intl.formatMessage(formMessages.approvalNotes)}
         />
       ) : null}
       {selectedDevelopmentProgramsDecision ==
       TalentNominationGroupDecision.Rejected ? (
         <RichTextInput
-          id="developmentProgramsNotes"
-          name="developmentProgramsNotes"
+          id="developmentProgramsRejectedNotes"
+          name="developmentProgramsRejectedNotes"
           label={intl.formatMessage(formMessages.rejectionNotes)}
           rules={{
             required: intl.formatMessage(errorMessages.required),

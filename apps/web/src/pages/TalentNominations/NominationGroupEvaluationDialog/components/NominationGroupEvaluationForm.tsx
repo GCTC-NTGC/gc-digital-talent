@@ -7,7 +7,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
 
-import { convertApiDataToFormData, FormValues } from "../form";
+import { convertQueryDataToFormData, FormValues } from "../form";
 import AdvancementSection from "./AdvancementSection";
 import LateralMovementSection from "./LateralMovementSection";
 import DevelopmentProgramsSection from "./DevelopmentProgramsSection";
@@ -77,7 +77,7 @@ const NominationGroupEvaluationForm = ({
   );
 
   const methods = useForm<FormValues>({
-    defaultValues: convertApiDataToFormData(talentNominationGroup),
+    defaultValues: convertQueryDataToFormData(talentNominationGroup),
   });
   const { handleSubmit } = methods;
 

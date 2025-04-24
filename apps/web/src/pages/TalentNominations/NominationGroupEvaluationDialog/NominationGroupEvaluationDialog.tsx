@@ -13,7 +13,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 import { dialogMessages, formMessages } from "./messages";
-import { FormValues } from "./form";
+import { convertFormValuesToMutationInput, FormValues } from "./form";
 import NominationGroupEvaluationForm from "./components/NominationGroupEvaluationForm";
 
 const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
@@ -80,7 +80,8 @@ const NominationGroupEvaluationDialog = ({
     formValues: FormValues,
   ) => {
     if (mutationFetching) return; // avoid multiple submits
-    await updateTalentNominationGroup(talentNominationGroupId, formValues)
+    const mutationInput = convertFormValuesToMutationInput(formValues);
+    await updateTalentNominationGroup(talentNominationGroupId, mutationInput)
       .then(() => {
         toast.success(intl.formatMessage(formMessages.submissionSuccessful));
         setOpen(false);
