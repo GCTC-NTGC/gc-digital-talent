@@ -5,6 +5,7 @@ import {
   commonMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import { NoList } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -42,7 +43,7 @@ const DiversityEquityInfo = ({
         data-h2-grid-column="base(span 2)"
         label={intl.formatMessage(commonMessages.employmentEquity)}
       >
-        <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+        <NoList>
           <li>
             <BoolCheckIcon
               value={!!indigenousCommunities?.length}
@@ -79,7 +80,7 @@ const DiversityEquityInfo = ({
               {intl.formatMessage(getEmploymentEquityGroup("woman"))}
             </BoolCheckIcon>
           </li>
-        </ul>
+        </NoList>
       </FieldDisplay>
     </div>
   );

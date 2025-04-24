@@ -12,6 +12,7 @@ import {
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
+import { NoList } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
@@ -166,7 +167,7 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.acceptableRequirements)}
       >
         {operationalRequirements?.length ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {operationalRequirements.map((requirement) => (
               <li key={requirement.value}>
                 <BoolCheckIcon
@@ -178,7 +179,7 @@ const WorkPreferences = ({
                 </BoolCheckIcon>
               </li>
             ))}
-          </ul>
+          </NoList>
         ) : (
           notProvided
         )}

@@ -7,7 +7,7 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { Separator } from "@gc-digital-talent/ui";
+import { NoList, Separator } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   formatDate,
@@ -121,7 +121,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.lateralMoveOrganizationType}
             >
               {lateralMoveOrganizationType ? (
-                <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+                <NoList>
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -151,7 +151,7 @@ const CareerDevelopmentPreferences = ({
                       </li>
                     );
                   })}
-                </ul>
+                </NoList>
               ) : (
                 notProvided
               )}
@@ -195,7 +195,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.promotionMoveOrganizationType}
             >
               {promotionMoveOrganizationType ? (
-                <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+                <NoList>
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -225,7 +225,7 @@ const CareerDevelopmentPreferences = ({
                       </li>
                     );
                   })}
-                </ul>
+                </NoList>
               ) : (
                 notProvided
               )}
@@ -238,7 +238,7 @@ const CareerDevelopmentPreferences = ({
         <FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -269,7 +269,7 @@ const CareerDevelopmentPreferences = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         </FieldDisplay>
       </div>
       <Separator decorative space="sm" />
@@ -320,7 +320,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.mentorshipInterest}>
           {mentorshipInterest ? (
-            <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            <NoList>
               {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
                 const iconValue = mentorshipInterests.includes(x.value);
                 return (
@@ -333,7 +333,7 @@ const CareerDevelopmentPreferences = ({
                   </li>
                 );
               })}
-            </ul>
+            </NoList>
           ) : (
             notProvided
           )}
@@ -367,7 +367,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.execCoachingInterest}>
           {execCoachingInterest ? (
-            <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+            <NoList>
               {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
                 const iconValue = execCoachingInterests.includes(x.value);
                 return (
@@ -380,7 +380,7 @@ const CareerDevelopmentPreferences = ({
                   </li>
                 );
               })}
-            </ul>
+            </NoList>
           ) : (
             notProvided
           )}
