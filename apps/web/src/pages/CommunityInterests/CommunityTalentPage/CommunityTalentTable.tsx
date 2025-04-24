@@ -357,7 +357,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: sortState ? [transformSortStateToOrderByClause(sortState)] : [],
+      orderBy: sortState
+        ? [transformSortStateToOrderByClause(sortState, filterState)]
+        : [],
     },
   });
 
