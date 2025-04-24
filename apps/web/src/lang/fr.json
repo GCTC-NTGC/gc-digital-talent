@@ -2555,6 +2555,10 @@
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for a users career objective"
   },
+  "AJ9XL4": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
+    "description": "Subtitle for nomination rationale step with leadership competencies"
+  },
   "AJXRC6": {
     "defaultMessage": "Les données que vous fournissez ici seront vérifiées. Vous pouvez ajouter tous les processus et bassins dans lesquels vous êtes qualifiée ou qualifié. Dans la mesure du possible, fournissez les renseignements suivants :",
     "description": "Explanation of dialog"
@@ -8294,10 +8298,6 @@
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
   },
-  "d1gdaZ": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
-    "description": "Subtitle for nomination rationale step"
-  },
   "d3HIMV": {
     "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
     "description": "Introductory text displayed in login and authentication accordion."
@@ -9985,6 +9985,10 @@
   "kY05h1": {
     "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
     "description": "Message displayed when a user successfully updates sitewide announcement information"
+  },
+  "kYuVEA": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée.",
+    "description": "Subtitle for nomination rationale step without leadership competencies"
   },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",

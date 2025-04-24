@@ -102,12 +102,21 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         {intl.formatMessage(messages.rationale)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">
-        {intl.formatMessage({
-          defaultMessage:
-            "The final step in the nomination process is to explain why this candidate is being nominated. Please also provide the top 3 key leadership competencies demonstrated by the nominee.",
-          id: "d1gdaZ",
-          description: "Subtitle for nomination rationale step",
-        })}
+        {talentNomination?.talentNominationEvent.includeLeadershipCompetencies
+          ? intl.formatMessage({
+              defaultMessage:
+                "The final step in the nomination process is to explain why this candidate is being nominated. Please also provide the top 3 key leadership competencies demonstrated by the nominee.",
+              id: "AJ9XL4",
+              description:
+                "Subtitle for nomination rationale step with leadership competencies",
+            })
+          : intl.formatMessage({
+              defaultMessage:
+                "The final step in the nomination process is to explain why this candidate is being nominated.",
+              id: "kYuVEA",
+              description:
+                "Subtitle for nomination rationale step without leadership competencies",
+            })}
       </p>
       <div
         data-h2-display="base(flex)"
