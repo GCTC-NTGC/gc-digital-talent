@@ -80,10 +80,10 @@ const TalentNominationGroupProfile = ({
       <CardBasic data-h2-border-radius="base(6px 6px 0 0)">
         <div
           data-h2-display="base(flex)"
-          data-h2-align-items="l-tablet(flex-end)"
+          data-h2-align-items="base(center)"
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+          data-h2-gap="base(x1 0) l-tablet(0 x.5)"
           data-h2-margin-bottom="base(x1)"
         >
           <Heading
