@@ -36,13 +36,18 @@ const CareerObjectiveDialog = ({
     careerObjectiveDialogQuery,
   );
 
-  const title =
-    `${careerObjective.firstName}'s ` +
-    intl.formatMessage({
-      defaultMessage: "career objective",
-      id: "Ra0pg6",
+  const title = intl.formatMessage(
+    {
+      defaultMessage: "{firstName}'s career objective",
+      id: "kXd/03",
       description: "Title for career objective dialog",
-    });
+    },
+    {
+      firstName:
+        careerObjective.firstName ??
+        intl.formatMessage(commonMessages.notFound),
+    },
+  );
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
