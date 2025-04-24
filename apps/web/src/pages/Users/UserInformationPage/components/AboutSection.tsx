@@ -4,12 +4,13 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { getLabels } from "~/components/Profile/components/LanguageProfile/utils";
 
 import { BasicUserInformationProps } from "../types";
 
 const AboutSection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
-
+  const labels = getLabels(intl);
   return (
     <Well>
       <div data-h2-flex-grid="base(normal, x1, x.5)">
@@ -36,11 +37,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Preferred spoken interview language",
-              id: "DB9pFd",
-              description: "Title for preferred spoken interview language",
-            })}
+            {}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>
@@ -53,11 +50,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Preferred written exam language",
-              id: "fg2wla",
-              description: "Title for preferred written exam language",
-            })}
+            {labels.prefWrittenExamLang}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>

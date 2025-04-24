@@ -159,13 +159,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
       </FieldDisplay>
       {lookingForBilingual && (
         <>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "First official language",
-              id: "Fj98cE",
-              description: "Label for first official language on field display",
-            })}
-          >
+          <FieldDisplay label={labels.firstOfficialLang}>
             {firstOfficialLanguage?.label.localized ?? notProvided}
           </FieldDisplay>
           <FieldDisplay label={labels.estimatedLanguageAbility}>
@@ -283,22 +277,10 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
         data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
         data-h2-gap="base(x1, 0) l-tablet(0, x1)"
       >
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Preferred spoken interview language",
-            id: "DB9pFd",
-            description: "Title for preferred spoken interview language",
-          })}
-        >
+        <FieldDisplay label={labels.prefSpokenInterviewLang}>
           {preferredLanguageForInterview?.label.localized ?? notProvided}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Preferred written exam language",
-            id: "fg2wla",
-            description: "Title for preferred written exam language",
-          })}
-        >
+        <FieldDisplay label={labels.prefWrittenExamLang}>
           {preferredLanguageForExam?.label.localized ?? notProvided}
         </FieldDisplay>
       </div>
