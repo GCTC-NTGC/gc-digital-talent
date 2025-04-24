@@ -133,8 +133,8 @@ importers:
         specifier: ^7.55.0
         version: 7.55.0(react@18.3.1)
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       react-router:
         specifier: ^7.5.0
         version: 7.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -149,8 +149,8 @@ importers:
         specifier: ^9.7.0
         version: 9.7.0
       '@formatjs/cli':
-        specifier: ^6.6.3
-        version: 6.6.3
+        specifier: ^6.6.4
+        version: 6.6.4
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -358,8 +358,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
@@ -413,8 +413,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -671,8 +671,8 @@ importers:
         specifier: ^7.55.0
         version: 7.55.0(react@18.3.1)
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -751,8 +751,8 @@ importers:
         version: link:../logger
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.6.3
-        version: 6.6.3
+        specifier: ^6.6.4
+        version: 6.6.4
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -781,8 +781,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       react-router:
         specifier: ^7.5.0
         version: 7.5.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
@@ -811,8 +811,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       react-router:
         specifier: ^7.5.0
         version: 7.5.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
@@ -987,7 +987,7 @@ importers:
         version: 8.6.12(prettier@3.5.3)
       storybook-react-intl:
         specifier: ^3.2.3
-        version: 3.2.3(react-intl@7.1.10(react@18.3.1)(typescript@5.8.3))
+        version: 3.2.3(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3))
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1198,8 +1198,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-intl:
-        specifier: ^7.1.10
-        version: 7.1.10(react@18.3.1)(typescript@5.8.3)
+        specifier: ^7.1.11
+        version: 7.1.11(react@18.3.1)(typescript@5.8.3)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1855,8 +1855,8 @@ packages:
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
-  '@formatjs/cli@6.6.3':
-    resolution: {integrity: sha512-vW9EQdHmxQg/+s9K39ZwKcIyyhmEMHOtsv1KyQFtjv+pbE3XmiB5ohoo4wAx3HDsrufrTsplGnQdQ+KB2wY/bA==}
+  '@formatjs/cli@6.6.4':
+    resolution: {integrity: sha512-VSDPsT7AO/mtth1rEBwl97Us5dMgqZpI8v7QJXakB4f90pDJsqHBdBeTbjHYrlFr2WvBLVo3/6mGPw9DeX7PUg==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -6190,6 +6190,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -6799,8 +6800,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
-  react-intl@7.1.10:
-    resolution: {integrity: sha512-I5eB73BAqBbkd2M3wL8gTSE/xFvJRmxZcjS1HMnBT3KXya2PUSI7nDO/tlapX8khchoDoliliMsmyIURB/ww1g==}
+  react-intl@7.1.11:
+    resolution: {integrity: sha512-tnVoRCWvW5Ie2ikYSdPF7z3+880yCe/9xPmitFeRPw3RYDcCfR4m8ZYa4MBq19W4adt9Z+PQA4FaMBCJ7E+HCQ==}
     peerDependencies:
       react: 16 || 17 || 18 || 19
       typescript: ^5.6.0
@@ -8456,7 +8457,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.9': {}
 
-  '@formatjs/cli@6.6.3': {}
+  '@formatjs/cli@6.6.4': {}
 
   '@formatjs/ecma402-abstract@2.3.4':
     dependencies:
@@ -14432,7 +14433,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  react-intl@7.1.10(react@18.3.1)(typescript@5.8.3):
+  react-intl@7.1.11(react@18.3.1)(typescript@5.8.3):
     dependencies:
       '@formatjs/ecma402-abstract': 2.3.4
       '@formatjs/icu-messageformat-parser': 2.11.2
@@ -14854,9 +14855,9 @@ snapshots:
 
   storybook-i18n@3.1.1: {}
 
-  storybook-react-intl@3.2.3(react-intl@7.1.10(react@18.3.1)(typescript@5.8.3)):
+  storybook-react-intl@3.2.3(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3)):
     dependencies:
-      react-intl: 7.1.10(react@18.3.1)(typescript@5.8.3)
+      react-intl: 7.1.11(react@18.3.1)(typescript@5.8.3)
       storybook-i18n: 3.1.1
 
   storybook@8.6.12(prettier@3.5.3):
