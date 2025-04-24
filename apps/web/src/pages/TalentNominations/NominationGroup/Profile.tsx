@@ -133,9 +133,9 @@ const TalentNominationGroupProfile = ({
               "Description for the nominee profile page accordion sections",
           })}
         </p>
-        {!shareProfile && (
+        {shareProfile && (
           <Well color="error">
-            <p data-h2-margin-bottom="base(x1)">
+            <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
               {intl.formatMessage({
                 defaultMessage:
                   "This nominee has not agreed to share their information with your community",
