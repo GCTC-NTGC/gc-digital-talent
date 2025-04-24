@@ -18,7 +18,7 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { formMessages as talentNominationGroupMessages } from "../../NominationGroup/messages";
 import { formMessages } from "../messages";
-import { FormValues } from "../NominationGroupEvaluationDialog";
+import { FormValues } from "../form";
 
 const NominationGroupEvaluationDialogDevelopmentPrograms_Fragment = graphql(
   /* GraphQL */ `

@@ -16,7 +16,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import { formMessages } from "../messages";
-import { FormValues } from "../NominationGroupEvaluationDialog";
+import { FormValues } from "../form";
 
 const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
   /* GraphQL */ `
