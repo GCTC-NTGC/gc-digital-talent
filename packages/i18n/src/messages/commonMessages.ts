@@ -457,6 +457,11 @@ const commonMessages = defineMessages({
     id: "nSENOg",
     description: "Asterisk symbol",
   },
+  fullName: {
+    defaultMessage: "Full name",
+    id: "IBc2sp",
+    description: "Label for full name",
+  },
 });
 
 export default commonMessages;

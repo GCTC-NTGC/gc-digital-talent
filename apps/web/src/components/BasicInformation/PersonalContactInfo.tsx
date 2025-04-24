@@ -53,11 +53,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
     >
       <FieldDisplay
         data-h2-grid-column="base(span 2)"
-        label={intl.formatMessage({
-          defaultMessage: "Full name",
-          id: "GuItSM",
-          description: "Label for full name field",
-        })}
+        label={intl.formatMessage(commonMessages.fullName)}
       >
         {getFullNameLabel(firstName, lastName, intl)}
       </FieldDisplay>
