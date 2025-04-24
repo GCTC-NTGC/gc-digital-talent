@@ -55,7 +55,7 @@ const CommunitySpecificInfo = ({
     communitySpecificInfo.communityInterests,
   ).find((cI) => cI.community.id === communityId);
 
-  if (communityInterest === undefined) {
+  if (typeof communityInterest === "undefined") {
     return <ThrowNotFound />;
   }
 
