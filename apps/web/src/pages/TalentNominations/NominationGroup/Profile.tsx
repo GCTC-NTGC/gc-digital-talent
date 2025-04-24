@@ -70,8 +70,9 @@ const TalentNominationGroupProfile = ({
   const hasOpenSections = openSections.length > 0;
 
   const toggleSections = () => {
-    const newValue = hasOpenSections ? [] : Object.values(SECTION_KEY);
-    setOpenSections(newValue);
+    setOpenSections((currentOpen) => {
+      return currentOpen.length > 0 ? [] : Object.values(SECTION_KEY);
+    });
   };
 
   return (
