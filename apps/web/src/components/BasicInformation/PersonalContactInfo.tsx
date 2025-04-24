@@ -4,6 +4,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 export const PersonalContact_Fragment = graphql(/* GraphQL */ `
   fragment PersonalContact on User {
@@ -58,8 +59,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
           description: "Label for full name field",
         })}
       >
-        {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        {firstName && lastName ? `${firstName} ${lastName}` : notProvided}
+        {getFullNameLabel(firstName, lastName, intl)}
       </FieldDisplay>
       <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
         {email ?? notProvided}
