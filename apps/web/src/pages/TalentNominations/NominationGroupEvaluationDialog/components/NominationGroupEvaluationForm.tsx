@@ -105,18 +105,18 @@ const NominationGroupEvaluationForm = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Ready to submit the evaluation of this nomination? Please complete the form for the selected nomination options.",
-                id: "aZN5v9",
+                id: "eGlL1Q",
                 description:
-                  "Introduction for for dialog to evaluate a nomination group",
+                  "Introduction for form to evaluate a nomination group",
               })}
             </p>
             <p>
               {intl.formatMessage(
                 {
                   defaultMessage: "{nomineeName} has been nominated for: ",
-                  id: "SG6Kuf",
+                  id: "OJPiPD",
                   description:
-                    "Introduction for for dialog to evaluate a nomination group",
+                    "Introduction for list of nomination options for form to evaluate a nomination group",
                 },
                 {
                   nomineeName: talentNominationGroup?.nominee?.firstName,
