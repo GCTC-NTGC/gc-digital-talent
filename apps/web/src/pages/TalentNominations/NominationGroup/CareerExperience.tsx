@@ -6,6 +6,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import ExperienceByTypeListing from "~/components/UserProfile/ExperienceByTypeListing";
 
 import { RouteParams } from "./types";
 
@@ -28,7 +29,29 @@ const TalentNominationGroupCareerExperience = ({
     query,
   );
 
-  return null; // TO DO: Add page in #12854
+  const experiences = [
+    {
+      id: "1",
+      title: "Experience 1",
+      description: "Description of experience 1",
+      startDate: "2022-01-01",
+      endDate: "2022-12-31",
+    },
+    {
+      id: "2",
+      title: "Experience 2",
+      description: "Description of experience 2",
+      startDate: "2023-01-01",
+      endDate: "2023-12-31",
+    },
+  ];
+
+  return (
+    <ExperienceByTypeListing
+      experiences={experiences}
+      editParam={undefined} 
+    />
+  );
 };
 
 const TalentNominationGroupCareerExperience_Query = graphql(/* GraphQL */ `
