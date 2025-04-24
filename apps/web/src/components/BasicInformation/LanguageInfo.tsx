@@ -185,15 +185,13 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
                 label={labels.secondLanguageExamCompletedBoundingBoxLabel}
               >
                 <BoolCheckIcon value={secondLanguageExamCompleted}>
-                  {secondLanguageExamCompleted
-                    ? intl.formatMessage({
-                        defaultMessage:
-                          "Completed a Public Service Commission evaluation of their second official language.",
-                        id: "y/F2My",
-                        description:
-                          "Message for official exam status field display",
-                      })
-                    : notProvided}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Completed a Public Service Commission evaluation of their second official language.",
+                    id: "y/F2My",
+                    description:
+                      "Message for official exam status field display",
+                  })}
                 </BoolCheckIcon>
               </FieldDisplay>
               <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
