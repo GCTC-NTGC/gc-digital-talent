@@ -8,6 +8,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
+import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
 import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
@@ -129,12 +130,10 @@ const ApplicationsProcessesTaskCard = ({
                       "Subtitle explaining Recruitment processes expandable within applications and processes card",
                   })}
                 >
-                  {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                  {`${intl.formatMessage({
-                    defaultMessage: "Recruitment processes",
-                    id: "wPDwMb",
-                    description: "Recruitment processes expandable",
-                  })} (${recruitmentProcessesFiltered?.length ?? 0})`}
+                  {recruitmentProcessesTitle(
+                    recruitmentProcessesFiltered.length,
+                    intl,
+                  )}
                 </Accordion.Trigger>
                 <Accordion.Content>
                   <ReviewRecruitmentProcessPreviewList

@@ -7,6 +7,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
 import RecruitmentProcessPreviewList from "./RecruitmentProcessesPreviewList";
+import { recruitmentProcessesTitle } from "./utils";
 
 const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcesses on User {
@@ -57,12 +58,7 @@ const RecruitmentProcesses = ({
             description: "Subtitle for recruitment processes section",
           })}
         >
-          {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          {`${intl.formatMessage({
-            defaultMessage: "Recruitment processes",
-            id: "wPDwMb",
-            description: "Recruitment processes expandable",
-          })} (${recruitmentProcessesFiltered?.length ?? 0})`}
+          {recruitmentProcessesTitle(recruitmentProcessesFiltered.length, intl)}
         </Accordion.Trigger>
         <Accordion.Content>
           <RecruitmentProcessPreviewList
