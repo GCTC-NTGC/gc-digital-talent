@@ -4,7 +4,13 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
-import { Button, Dialog, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  HydrogenAttributes,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import {
   graphql,
   Scalars,
@@ -41,12 +47,12 @@ const NominationGroupEvaluationDialog_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface NominationGroupEvaluationDialogProps {
-  triggerButtonColor: string;
+  triggerButtonStyle: HydrogenAttributes;
   talentNominationGroupId: string;
 }
 
 const NominationGroupEvaluationDialog = ({
-  triggerButtonColor,
+  triggerButtonStyle,
   talentNominationGroupId,
 }: NominationGroupEvaluationDialogProps) => {
   const intl = useIntl();
@@ -95,8 +101,8 @@ const NominationGroupEvaluationDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button
+          {...triggerButtonStyle}
           data-h2-margin-top="base(x.1)"
-          data-h2-color={triggerButtonColor}
           icon={PencilSquareIcon}
           mode={"icon_only"}
           fontSize="h4"

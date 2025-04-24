@@ -5,6 +5,7 @@ import {
   Accordion,
   CardBasic,
   Heading,
+  HydrogenAttributes,
   Separator,
 } from "@gc-digital-talent/ui";
 import {
@@ -26,6 +27,12 @@ import NominatorList from "./NominatorList";
 import NominationNavigation from "./NominationNavigation/NominationNavigation";
 import CommentsForm from "./CommentsForm";
 import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
+
+// return a new object consisting of a single entry from a set of attributes
+const extractHydrogenEntry = <T extends HydrogenAttributes>(
+  attributes: T,
+  key: keyof T,
+): { [key]: unknown } => ({ [key]: attributes[key] });
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -224,7 +231,10 @@ const NominationGroupSidebar = ({
               }
             >
               <NominationGroupEvaluationDialog
-                triggerButtonColor={statusButtonColours["data-h2-color"]}
+                triggerButtonStyle={extractHydrogenEntry(
+                  statusButtonColours,
+                  "data-h2-color",
+                )}
                 talentNominationGroupId={talentNominationGroup.id}
               />
             </div>
