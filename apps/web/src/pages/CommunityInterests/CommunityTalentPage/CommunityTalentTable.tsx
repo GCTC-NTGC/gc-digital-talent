@@ -60,7 +60,6 @@ import {
   transformSortStateToOrderByClause,
   usernameCell,
 } from "./utils";
-import tableMessages from "./tableMessages";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
   fragment CommunityTalentTableCommunityInterest on CommunityInterestWithSkillCount {
@@ -398,7 +397,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage(tableMessages.skillCount),
+      header: intl.formatMessage(adminMessages.skills),
       cell: ({
         row: {
           original: {
