@@ -125,7 +125,6 @@ const TalentNominationGroupCareerExperience = ({
           {!shareProfile && (
             <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
               <p
-                data-h2-margin="base(0 x1 x1 x1)"
                 data-h2-margin-bottom="base(x1)"
                 data-h2-font-weight="base(700)"
               >
