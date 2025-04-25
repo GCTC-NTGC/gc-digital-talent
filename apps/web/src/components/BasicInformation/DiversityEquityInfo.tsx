@@ -43,44 +43,24 @@ const DiversityEquityInfo = ({
         data-h2-grid-column="base(span 2)"
         label={intl.formatMessage(commonMessages.employmentEquity)}
       >
-        <NoList>
-          <li>
-            <BoolCheckIcon
-              value={!!indigenousCommunities?.length}
-              // trueLabel={} Suggestion: "I'm"
-              // falseLabel={} Suggestion: "I'm not"
-            >
+        <ul>
+          {!!indigenousCommunities?.length && (
+            <li>
               {intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
-            </BoolCheckIcon>
-          </li>
-          <li>
-            <BoolCheckIcon
-              value={hasDisability}
-              // trueLabel={} Suggestion: "I'm"
-              // falseLabel={} Suggestion: "I'm not"
-            >
+            </li>
+          )}
+          {hasDisability && (
+            <li>
               {intl.formatMessage(getEmploymentEquityGroup("disability"))}
-            </BoolCheckIcon>
-          </li>
-          <li>
-            <BoolCheckIcon
-              value={isVisibleMinority}
-              // trueLabel={} Suggestion: "I'm"
-              // falseLabel={} Suggestion: "I'm not"
-            >
-              {intl.formatMessage(getEmploymentEquityGroup("minority"))}
-            </BoolCheckIcon>
-          </li>
-          <li>
-            <BoolCheckIcon
-              value={isWoman}
-              // trueLabel={} Suggestion: "I'm"
-              // falseLabel={} Suggestion: "I'm not"
-            >
-              {intl.formatMessage(getEmploymentEquityGroup("woman"))}
-            </BoolCheckIcon>
-          </li>
-        </NoList>
+            </li>
+          )}
+          {isVisibleMinority && (
+            <li>{intl.formatMessage(getEmploymentEquityGroup("minority"))}</li>
+          )}
+          {isWoman && (
+            <li>{intl.formatMessage(getEmploymentEquityGroup("woman"))}</li>
+          )}
+        </ul>
       </FieldDisplay>
     </div>
   );
