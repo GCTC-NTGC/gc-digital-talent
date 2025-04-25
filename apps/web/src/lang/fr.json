@@ -1255,10 +1255,6 @@
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
   },
-  "43Tiyp": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Si vous avez proposé la candidature d'un cadre ou d'un membre du personnel de niveau équivalent, veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
-    "description": "Subtitle for nomination rationale step"
-  },
   "43VEQA": {
     "defaultMessage": "Le profil linguistique a été mis à jour avec succès!",
     "description": "Message displayed when a user successfully updates their language profile."
@@ -2558,6 +2554,10 @@
   "AH5WDT": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for a users career objective"
+  },
+  "AJ9XL4": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
+    "description": "Subtitle for nomination rationale step with leadership competencies"
   },
   "AJXRC6": {
     "defaultMessage": "Les données que vous fournissez ici seront vérifiées. Vous pouvez ajouter tous les processus et bassins dans lesquels vous êtes qualifiée ou qualifié. Dans la mesure du possible, fournissez les renseignements suivants :",
@@ -5698,10 +5698,6 @@
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
-  },
-  "Pva73v": {
-    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature. Le lien « En savoir plus » figurant sur chaque carte d'événement permet d'obtenir des informations détaillées sur les exigences et les critères d'admissibilité.",
-    "description": "Description for active events section"
   },
   "PwB71+": {
     "defaultMessage": "Veuillez sélectionner une ou plusieurs options de nomination pour continuer.",
@@ -9986,6 +9982,10 @@
     "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
     "description": "Message displayed when a user successfully updates sitewide announcement information"
   },
+  "kYuVEA": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée.",
+    "description": "Subtitle for nomination rationale step without leadership competencies"
+  },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
     "description": "Heading for the pool work location dialog"
@@ -11165,6 +11165,10 @@
   "qD0lyZ": {
     "defaultMessage": "Le niveau « A » est le niveau le moins élevé en matière de bilinguisme et indique un niveau débutant.",
     "description": "Proficiency level on language requirements dialog"
+  },
+  "qEU5rz": {
+    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
+    "description": "Description for active events section"
   },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",

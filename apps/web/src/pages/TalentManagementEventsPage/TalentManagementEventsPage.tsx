@@ -102,8 +102,8 @@ export const Component = () => {
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    'Events found in this section are currently accepting nominations. Use the "Learn more" link on each event card to find details outlining eligibility criteria and requirements.',
-                  id: "Pva73v",
+                    "Events found in this section are currently accepting nominations.",
+                  id: "qEU5rz",
                   description: "Description for active events section",
                 })}
               </p>
