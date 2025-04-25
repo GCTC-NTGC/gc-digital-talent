@@ -83,12 +83,19 @@ describe("experience utils test", () => {
       const experience = fakeCommunityExperience("1970-01-01", null);
       const months = experienceDurationMonths(experience);
       expect(months).toBe(1);
+      jest.setSystemTime(jest.getRealSystemTime());
     });
     test("future end date", () => {
       jest.useFakeTimers().setSystemTime(new Date("1970-01-31"));
       const experience = fakeCommunityExperience("1970-01-01", "2000-01-01");
       const months = experienceDurationMonths(experience);
       expect(months).toBe(1);
+      jest.setSystemTime(jest.getRealSystemTime());
+    });
+    test("over a year", () => {
+      const experience = fakeCommunityExperience("1970-01-01", "1971-01-31");
+      const months = experienceDurationMonths(experience);
+      expect(months).toBe(13);
     });
   });
 });
