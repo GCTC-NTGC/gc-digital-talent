@@ -1135,6 +1135,10 @@
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
   },
+  "3I3F9y": {
+    "defaultMessage": "Soumettre l'évaluation de cette mise en candidature",
+    "description": "Title for dialog to evaluate a nomination group"
+  },
   "3I8R7b": {
     "defaultMessage": "donner des outils aux membres du personnel des TI pour diriger la transformation numérique.",
     "description": "an item in a list of fund objectives"
@@ -1694,6 +1698,10 @@
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
+  },
+  "5qopVO": {
+    "defaultMessage": "Nomination pour l'avancement",
+    "description": "heading for advancement nomination section"
   },
   "5r2C2L": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat ou de la candidate à « En cours d'évaluation »?",
@@ -2439,6 +2447,10 @@
     "defaultMessage": "Nous répondrons à votre demande dans les sept jours ouvrables. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
     "description": "First paragraph of what to expect section"
   },
+  "9gklPf": {
+    "defaultMessage": "Raison de ne pas retenir cette nomination",
+    "description": "label for rejection notes"
+  },
   "9i2N/g": {
     "defaultMessage": "Modifier le compte utilisateur",
     "description": "Title for the user edit page"
@@ -2458,6 +2470,10 @@
   "9nwXXJ": {
     "defaultMessage": "Vous pouvez lier de nouvelles compétences en modifiant cette expérience ou en ajoutant la compétence à votre portfolio de compétences. Les compétences ajoutées à cette expérience dans le cadre d'une demande d'emploi apparaissent également ici.",
     "description": "Lead in text for list of skills linked to a specific experience"
+  },
+  "9oEgJL": {
+    "defaultMessage": "Nomination pour les programmes de perfectionnement",
+    "description": "heading for development programs nomination section"
   },
   "9oUpdh": {
     "defaultMessage": "la cybersécurité;",
@@ -2815,6 +2831,10 @@
     "defaultMessage": "Groupe/Organisation/Collectivité",
     "description": "Label displayed on Community Experience form for organization input"
   },
+  "Bb9Pe0": {
+    "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
+    "description": "Prompt for the user to evaluate the nomination before continuing"
+  },
   "BbI16K": {
     "defaultMessage": "L'ajout du membre a échoué",
     "description": "Alert displayed to user when a community member was not added to a community"
@@ -2878,6 +2898,10 @@
   "BwEf/S": {
     "defaultMessage": "« Je ne suis pas membre d’un groupe autochtone mais j’aimerais bénéficier d’autres occasions »",
     "description": "Text for the option to self-declare as not an Indigenous person"
+  },
+  "By8ofA": {
+    "defaultMessage": "Confirmation de la référence",
+    "description": "Confirmation that the reference was checked"
   },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
@@ -3122,6 +3146,10 @@
   "D6f8hs": {
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
     "description": "Text for first sign up -> mfa step."
+  },
+  "D7/cN1": {
+    "defaultMessage": "Approbation pour une mutation latérale",
+    "description": "Label for an nomination for lateral movement decision"
   },
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
@@ -3650,6 +3678,10 @@
   "FZ5qdE": {
     "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
     "description": "Link text to more information about information technology work streams"
+  },
+  "FcHUIQ": {
+    "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
+    "description": "Statement of confirmation for reference check"
   },
   "Fe9Cje": {
     "defaultMessage": "IT-01 : Technicien(ne)",
@@ -5003,6 +5035,10 @@
     "defaultMessage": "Les processus de recrutement apparaîtront automatiquement dans cette section si votre candidature est retenue.",
     "description": "Body for notice when there are no Recruitment processes"
   },
+  "MHQ2RT": {
+    "defaultMessage": "Approbation pour un avancement",
+    "description": "Label for an nomination for advancement decision"
+  },
   "MHZ1CD": {
     "defaultMessage": "Titre (Anglais)",
     "description": "The title, in English"
@@ -5643,10 +5679,6 @@
     "defaultMessage": "Gérer un critère de compétences",
     "description": "Title for the find a skill dialog within a pool"
   },
-  "Pj6afe": {
-    "defaultMessage": "Approuver ou rejeter une nomination",
-    "description": "Accessibility label on button that triggers nomination review dialog"
-  },
   "PjK/4B": {
     "defaultMessage": "N'a pas été identifié comme membre d'un groupe d'équité en matière d'emploi.",
     "description": "Text on view-user page that the user isn't part of any employment equity groups"
@@ -5871,6 +5903,10 @@
     "defaultMessage": "Précédent",
     "description": "Link text to navigate to the previous item"
   },
+  "QiQoIq": {
+    "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
+    "description": "Label for advancement nomination is rejected"
+  },
   "Qibs21": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Sub title for  skill requirements"
@@ -6002,6 +6038,10 @@
   "R8Naqm": {
     "defaultMessage": "Filtrage et évaluation",
     "description": "Heading for the information of an application"
+  },
+  "RA4afJ": {
+    "defaultMessage": "Approbation pour les programmes de perfectionnement",
+    "description": "Label for an nomination for development programs decision"
   },
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
@@ -6575,6 +6615,10 @@
     "defaultMessage": "Statut de cadre supérieur",
     "description": "Label for senior management status field"
   },
+  "UBOv+U": {
+    "defaultMessage": "Cette nomination pour les programmes de perfectionnement est approuvée.",
+    "description": "Label for development programs nomination is approved"
+  },
   "UCt8ym": {
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for a users next role"
@@ -7030,6 +7074,10 @@
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
   },
+  "We0XLh": {
+    "defaultMessage": "Cette nomination pour une mutation latérale est approuvée.",
+    "description": "Label for lateral movement nomination is approved"
+  },
   "WfX9z1": {
     "defaultMessage": "Intérêt pour la formation ou le perfectionnement",
     "description": "Label for user Interest in training and development for a community"
@@ -7149,6 +7197,10 @@
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
     "description": "Title for no skills in a users library"
+  },
+  "X5xhRt": {
+    "defaultMessage": "Cette nomination pour les programmes de perfectionnement n'est pas retenue.",
+    "description": "Label for development programs nomination is rejected"
   },
   "X6+rc1": {
     "defaultMessage": "Une femme autochtone sourit, portant un chandail brun et des verres.",
@@ -7702,6 +7754,10 @@
     "defaultMessage": "Examinez et vérifiez le statut prioritaire du candidat",
     "description": "Subtitle for verifying a candidate's priority claim"
   },
+  "Zw4Pdj": {
+    "defaultMessage": "{nomineeName} a été nommé(e) pour",
+    "description": "Introduction for list of nomination options for form to evaluate a nomination group"
+  },
   "ZyA0CC": {
     "defaultMessage": "Les principales compétences du candidat",
     "description": "Heading for a users top skills"
@@ -7869,6 +7925,10 @@
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
     "description": "Link text to register instead of signing in"
+  },
+  "aqlXBz": {
+    "defaultMessage": "Courriel professionnel de la personne de référence",
+    "description": "Reference work email field"
   },
   "asjJwj": {
     "defaultMessage": "Groupe de compétences {skillFamilyId} non trouvé.",
@@ -8598,6 +8658,10 @@
     "defaultMessage": "Sélection des compétences",
     "description": "Title for the skill filters on search page."
   },
+  "eGlL1Q": {
+    "defaultMessage": "Souhaitez-vous soumettre l'évaluation de cette nomination? Veuillez remplir le formulaire pour les options de nomination sélectionnées.",
+    "description": "Introduction for form to evaluate a nomination group"
+  },
   "eGqjYh": {
     "defaultMessage": "Rôles dans le processus",
     "description": "Heading for updating a user's process roles"
@@ -9066,6 +9130,10 @@
     "defaultMessage": "AS-05 : Conseiller(ère) principal(e) ou analyste",
     "description": "AS-05 classification label including titles"
   },
+  "g82nk3": {
+    "defaultMessage": "Soumettez l'évaluation",
+    "description": "Button to submit an evaluation form"
+  },
   "g8Ur9z": {
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
@@ -9297,6 +9365,10 @@
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
+  },
+  "h9XSU5": {
+    "defaultMessage": "Notes complémentaires",
+    "description": "Label for approval notes"
   },
   "hAAMFa": {
     "defaultMessage": "Agrandir toutes les sections d'informations complémentaires",
@@ -9958,6 +10030,10 @@
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
   },
+  "kTM8Gi": {
+    "defaultMessage": "Échec de la soumission de l'évaluation",
+    "description": "Submission failure in evaluation dialog"
+  },
   "kUHaE/": {
     "defaultMessage": "Inuk",
     "description": "Label for Inuk community"
@@ -10086,6 +10162,10 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
+  "kzmlCw": {
+    "defaultMessage": "Cette nomination pour une mutation latérale n'est pas retenue.",
+    "description": "Label for lateral movement nomination is rejected"
+  },
   "l0EXuk": {
     "defaultMessage": "Votre candidature a été soumise et est en attente d'examen. Vous ne pouvez plus modifier votre candidature.",
     "description": "Status description for a submitted (but not reviewed) application"
@@ -10189,6 +10269,10 @@
   "lgF8zK": {
     "defaultMessage": "Ministère ou organisme de la personne de référence",
     "description": "Label for a reference's department"
+  },
+  "lgp1Jx": {
+    "defaultMessage": "Cette nomination pour un avancement est approuvée.",
+    "description": "Label for advancement nomination is approved"
   },
   "lhCCs2": {
     "defaultMessage": "Titre du prix",
@@ -11098,6 +11182,10 @@
     "defaultMessage": "Chercher les demandes",
     "description": "Label for the search request table search input"
   },
+  "po01Az": {
+    "defaultMessage": "Enregistrez la décision concernant l'approbation de cette nomination pour la gestion des talents.",
+    "description": "Subtitle for dialog to evaluate a nomination group"
+  },
   "pp+b1H": {
     "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to collapse all experiences"
@@ -11349,6 +11437,10 @@
   "rNVDaA": {
     "defaultMessage": "Désolé. Une erreur s'est produite. Veuillez envoyer un courriel à <anchorTag>{emailAddress}</anchorTag> et mentionner ce code d’erreur : {errorCode}.",
     "description": "Support form toast message error"
+  },
+  "rPUWP5": {
+    "defaultMessage": "Nomination pour une mutation latérale",
+    "description": "heading for lateral movement nomination section"
   },
   "rQ3Gbb": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
@@ -12561,6 +12653,10 @@
   "y3+Iw5": {
     "defaultMessage": "Objectifs du Fonds",
     "description": "Heading for the fund objectives card"
+  },
+  "y5Pf0S": {
+    "defaultMessage": "Soumission de l'évaluation réussie",
+    "description": "Submission success in evaluation dialog"
   },
   "y5xvLj": {
     "defaultMessage": "La collectivité de la gestion financière",
