@@ -54,7 +54,7 @@ interface RecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof RecruitmentProcessPreviewList_Fragment
   >;
-  communityId: string;
+  communityId?: string;
 }
 
 const RecruitmentProcessPreviewList = ({
