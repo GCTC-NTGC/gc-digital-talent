@@ -101,9 +101,8 @@ const TalentNominationGroupCareerExperience = ({
           >
             {intl.formatMessage({
               defaultMessage: "Current position",
-              id: "w9oKhQ",
-              description:
-                "Heading for nominee profile page accordion sections",
+              id: "elMgS2",
+              description: "Heading for current position",
             })}
           </Heading>
           <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
