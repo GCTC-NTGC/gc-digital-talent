@@ -41,6 +41,9 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
           minSalary
           maxSalary
         }
+        community {
+          id
+        }
       }
     }
     offPlatformRecruitmentProcesses
@@ -51,10 +54,12 @@ interface RecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
     typeof RecruitmentProcessPreviewList_Fragment
   >;
+  communityId: string;
 }
 
 const RecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
+  communityId,
 }: RecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
@@ -76,6 +81,13 @@ const RecruitmentProcessPreviewList = ({
           isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
       )
     : []; // filter for qualified recruitment processes
+
+  // Add additional filtering for community if communityId exists
+  if (communityId) {
+    recruitmentProcessesFiltered.filter(
+      (recruitment) => recruitment.pool.community?.id === communityId,
+    );
+  }
 
   return (
     <>

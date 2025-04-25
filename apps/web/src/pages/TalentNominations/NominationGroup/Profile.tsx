@@ -189,6 +189,7 @@ const TalentNominationGroupProfile = ({
           <RecruitmentProcesses
             sectionKey={SECTION_KEY.RECRUITMENT_PROCESSES}
             recruitmentProcessesQuery={data.user}
+            communityId={communityId}
           />
         </Accordion.Root>
       ) : null}

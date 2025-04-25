@@ -16,6 +16,12 @@ const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
         value
       }
       finalDecisionAt
+      pool {
+        id
+        community {
+          id
+        }
+      }
     }
     ...RecruitmentProcessPreviewList
   }
@@ -24,11 +30,13 @@ const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
 interface RecruitmentProcessesProps {
   recruitmentProcessesQuery: FragmentType<typeof RecruitmentProcesses_Fragment>;
   sectionKey: string;
+  communityId?: string;
 }
 
 const RecruitmentProcesses = ({
   recruitmentProcessesQuery,
   sectionKey,
+  communityId,
 }: RecruitmentProcessesProps) => {
   const intl = useIntl();
   const recruitmentProcessesFragment = getFragment(
@@ -45,6 +53,13 @@ const RecruitmentProcesses = ({
           isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
       )
     : []; // filter for qualified recruitment processes
+
+  // Add additional filtering for community if communityId exists
+  if (communityId) {
+    recruitmentProcessesFiltered.filter(
+      (recruitment) => recruitment.pool.community?.id === communityId,
+    );
+  }
 
   return (
     <>
@@ -67,6 +82,7 @@ const RecruitmentProcesses = ({
         <Accordion.Content>
           <RecruitmentProcessPreviewList
             recruitmentProcessesQuery={recruitmentProcessesFragment}
+            communityId={communityId}
           />
         </Accordion.Content>
       </Accordion.Item>
