@@ -1,6 +1,7 @@
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { currentDate } from "@gc-digital-talent/date-helpers";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
@@ -177,6 +178,11 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = workExperiences.filter((exp) =>
     isCurrentExperience(exp.endDate),
   );
+  const sorted = currentWorkExperiences.sort((a, b) => {
+    const aStart = a?.startDate ? new Date(a.startDate) : MAX_DATE;
+    const bStart = b?.startDate ? new Date(b.startDate) : MAX_DATE;
+    return bStart.getTime() - aStart.getTime(); // more recent start sorted higher
+  });
 
   return (
     <div>
@@ -185,7 +191,7 @@ const CurrentPositionExperiences = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5 0)"
       >
-        {currentWorkExperiences.map((exp) => (
+        {sorted.map((exp) => (
           <ExperienceCard key={exp.id} experience={exp} showEdit={false} />
         ))}
       </div>
