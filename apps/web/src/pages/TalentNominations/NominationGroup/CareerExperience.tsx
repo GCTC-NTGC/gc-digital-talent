@@ -151,7 +151,10 @@ const TalentNominationGroupCareerExperience = ({
             <Separator data-h2-margin="base(x1 0)" space="none" />
           )}
           {shareProfile && (
-            <p data-h2-margin="base(0 x1 x1.5 x1)">
+            <p
+              data-h2-color="base(black.light)"
+              data-h2-margin="base(0 x1 x1.5 x1)"
+            >
               {intl.formatMessage(
                 {
                   defaultMessage:
