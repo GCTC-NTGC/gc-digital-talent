@@ -30,8 +30,7 @@ const handleCommunity = (
 
   return intl.formatMessage(commonMessages.missingOptionalInformation);
 };
-
-interface DisplayProps {
+interface GovRole {
   classification?: Maybe<Classification>;
   targetRole?: Maybe<LocalizedTargetRole>;
   targetRoleOther?: Maybe<string>;
@@ -45,18 +44,24 @@ interface DisplayProps {
   cSuiteRoleTitle?: Maybe<LocalizedCSuiteRoleTitle>;
 }
 
+interface DisplayProps {
+  govRole: GovRole;
+}
+
 const Display = ({
-  classification,
-  targetRole,
-  targetRoleOther,
-  jobTitle,
-  community,
-  communityOther,
-  workStreams,
-  departments,
-  additionalInformation,
-  isCSuiteRole,
-  cSuiteRoleTitle,
+  govRole: {
+    classification,
+    targetRole,
+    targetRoleOther,
+    jobTitle,
+    community,
+    communityOther,
+    workStreams,
+    departments,
+    additionalInformation,
+    isCSuiteRole,
+    cSuiteRoleTitle,
+  },
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(

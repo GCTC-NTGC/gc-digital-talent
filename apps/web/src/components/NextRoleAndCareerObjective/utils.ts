@@ -1,4 +1,9 @@
+import { IntlShape } from "react-intl";
+
 import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+
+import messages from "./messages";
 
 export const NextRoleInfo_Fragment = graphql(/* GraphQL */ `
   fragment NextRoleInfo on EmployeeProfile {
@@ -99,3 +104,18 @@ export const CareerObjectiveInfo_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
+// bespoke rendering of community field
+export const handleCommunity = (
+  communityNameLocalized: string | null | undefined,
+  communityOther: string | null | undefined,
+  intl: IntlShape,
+): string => {
+  if (communityNameLocalized) {
+    return communityNameLocalized;
+  } else if (communityOther) {
+    return intl.formatMessage(messages.otherCommunity);
+  }
+
+  return intl.formatMessage(commonMessages.missingOptionalInformation);
+};
