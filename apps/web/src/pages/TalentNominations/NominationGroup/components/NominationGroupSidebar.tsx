@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import {
   Accordion,
-  Button,
   CardBasic,
   Heading,
+  HydrogenAttributes,
   Separator,
 } from "@gc-digital-talent/ui";
 import {
@@ -27,6 +26,13 @@ import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";
 import NominationNavigation from "./NominationNavigation/NominationNavigation";
 import CommentsForm from "./CommentsForm";
+import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDialog/NominationGroupEvaluationDialog";
+
+// return a new object consisting of a single entry from a set of attributes
+const extractHydrogenEntry = <T extends HydrogenAttributes>(
+  attributes: T,
+  key: keyof T,
+): { [key]: unknown } => ({ [key]: attributes[key] });
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
@@ -224,20 +230,12 @@ const NominationGroupSidebar = ({
                 statusButtonColours["data-h2-background-color"]
               }
             >
-              {/* Dialog goes here */}
-              <Button
-                data-h2-margin-top="base(x.1)"
-                data-h2-color={statusButtonColours["data-h2-color"]}
-                icon={PencilSquareIcon}
-                mode={"icon_only"}
-                fontSize="h4"
-                disabled
-                aria-label={intl.formatMessage({
-                  defaultMessage: "Approve or reject a nomination",
-                  id: "Pj6afe",
-                  description:
-                    "Accessibility label on button that triggers nomination review dialog",
-                })}
+              <NominationGroupEvaluationDialog
+                triggerButtonStyle={extractHydrogenEntry(
+                  statusButtonColours,
+                  "data-h2-color",
+                )}
+                talentNominationGroupId={talentNominationGroup.id}
               />
             </div>
           </div>

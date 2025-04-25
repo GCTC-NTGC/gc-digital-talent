@@ -668,6 +668,7 @@ type TalentNomination {
   submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
   talentNominationEvent: TalentNominationEvent! @belongsTo
   createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   submitter: BasicGovEmployeeProfile
     @belongsTo

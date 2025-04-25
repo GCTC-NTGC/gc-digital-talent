@@ -18,6 +18,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
+  MAX_DATE,
 } from "./const";
 
 export {
@@ -26,6 +27,7 @@ export {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
+  MAX_DATE,
 };
 
 /**
