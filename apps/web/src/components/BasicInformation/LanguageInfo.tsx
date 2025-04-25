@@ -97,12 +97,12 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
             <li>
               <BoolCheckIcon
                 value={lookingForEnglish}
-                // trueLabel={}
-                // falseLabel={}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
               >
                 {intl.formatMessage({
-                  defaultMessage: "English only",
-                  id: "8MD4lr",
+                  defaultMessage: "English-only positions",
+                  id: "oHIWzo",
                   description: "Label for language for english field",
                 })}
               </BoolCheckIcon>
@@ -110,12 +110,12 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
             <li>
               <BoolCheckIcon
                 value={lookingForFrench}
-                // trueLabel={}
-                // falseLabel={}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
               >
                 {intl.formatMessage({
-                  defaultMessage: "French only",
-                  id: "dVPMVD",
+                  defaultMessage: "French-only positions",
+                  id: "BsNhUK",
                   description: "Label for language for french field",
                 })}
               </BoolCheckIcon>
@@ -123,30 +123,14 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
             <li>
               <BoolCheckIcon
                 value={lookingForBilingual}
-                // trueLabel={}
-                // falseLabel={}
+                trueLabel={intl.formatMessage(commonMessages.interested)}
+                falseLabel={intl.formatMessage(commonMessages.notInterested)}
               >
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Bilingual",
-                    id: "iILaqk",
-                    description: "Label for language for bilingual field",
-                  })}
-                  <span
-                    data-h2-font-weight="base(400)"
-                    data-h2-font-size="base(caption)"
-                    data-h2-color="base(black.light)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "English and French",
-                      id: "xjXGCi",
-                      description: "Description for bilingual label",
-                    })}
-                  </span>
-                </div>
+                {intl.formatMessage({
+                  defaultMessage: "Bilingual positions",
+                  id: "Mwq0NB",
+                  description: "Label for language for bilingual field",
+                })}
               </BoolCheckIcon>
             </li>
           </NoList>
