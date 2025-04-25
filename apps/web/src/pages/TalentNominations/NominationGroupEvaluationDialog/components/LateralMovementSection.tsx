@@ -172,12 +172,7 @@ const LateralMovementSection = ({
           data-h2-margin-top="base(x0.15)"
         >
           {lateralMovementListItems.map((item) => (
-            <li
-              key={item.key}
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.25)"
-            >
+            <li key={item.key}>
               <BoolCheckIcon value={item.value}>{item.label}</BoolCheckIcon>
             </li>
           ))}
@@ -195,12 +190,7 @@ const LateralMovementSection = ({
             data-h2-margin-top="base(x0.15)"
           >
             {lateralMovementOptionsOthers.map((item) => (
-              <li
-                key={item}
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(flex-start)"
-                data-h2-gap="base(x.25)"
-              >
+              <li key={item}>
                 <BoolCheckIcon value={true}>{item}</BoolCheckIcon>
               </li>
             ))}
