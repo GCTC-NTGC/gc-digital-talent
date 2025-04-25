@@ -59,10 +59,9 @@ const RecruitmentProcesses = ({
           })}
         >
           <span data-h2-font-weight="base(400)">
-            {recruitmentProcessesTitle(
-              recruitmentProcessesFiltered.length,
-              intl,
-            )}
+            {intl.formatMessage(recruitmentProcessesTitle, {
+              numOfProcesses: recruitmentProcessesFiltered.length,
+            })}
           </span>
         </Accordion.Trigger>
         <Accordion.Content>

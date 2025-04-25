@@ -130,10 +130,9 @@ const ApplicationsProcessesTaskCard = ({
                       "Subtitle explaining Recruitment processes expandable within applications and processes card",
                   })}
                 >
-                  {recruitmentProcessesTitle(
-                    recruitmentProcessesFiltered.length,
-                    intl,
-                  )}
+                  {intl.formatMessage(recruitmentProcessesTitle, {
+                    numOfProcesses: recruitmentProcessesFiltered.length,
+                  })}
                 </Accordion.Trigger>
                 <Accordion.Content>
                   <ReviewRecruitmentProcessPreviewList
