@@ -334,6 +334,8 @@ interface ScreeningDecisionDialogProps {
   onSubmit: SubmitHandler<FormValues>;
   isOpen: boolean;
   onOpenChanged: (newOpen: boolean) => void;
+  isCreating?: boolean;
+  isUpdating?: boolean;
 }
 
 export const ScreeningDecisionDialog = ({
@@ -348,6 +350,8 @@ export const ScreeningDecisionDialog = ({
   onSubmit,
   isOpen,
   onOpenChanged,
+  isCreating,
+  isUpdating,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -360,8 +364,6 @@ export const ScreeningDecisionDialog = ({
     requiredLevel: poolSkill?.requiredLevel,
     skill: poolSkill?.skill,
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const parsedSnapshot = JSON.parse(
     String(poolCandidate.profileSnapshot),
@@ -514,13 +516,8 @@ export const ScreeningDecisionDialog = ({
           )}
           <BasicForm
             onSubmit={async (values) => {
-              if (isSubmitting) return; // Prevent double submission
-              setIsSubmitting(true);
-              try {
-                await onSubmit(values);
-              } finally {
-                setIsSubmitting(false);
-              }
+              if (isCreating || isUpdating) return; // Prevent multiple submissions
+              await onSubmit(values);
             }}
             labels={labels}
             options={{
@@ -649,10 +646,10 @@ const ScreeningDecisionDialogApi = ({
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
   };
 
-  const [, executeCreateMutation] = useMutation(
+  const [{ fetching: createFetching }, executeCreateMutation] = useMutation(
     CreateAssessmentResult_Mutation,
   );
-  const [, executeUpdateMutation] = useMutation(
+  const [{ fetching: updateFetching }, executeUpdateMutation] = useMutation(
     UpdateAssessmentResult_Mutation,
   );
 
@@ -720,6 +717,8 @@ const ScreeningDecisionDialogApi = ({
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
       experiences={unpackMaybes(experiences)}
+      isCreating={createFetching}
+      isUpdating={updateFetching}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(
