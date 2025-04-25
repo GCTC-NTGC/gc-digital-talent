@@ -113,15 +113,15 @@ const NominationGroupEvaluationForm = ({
             <p>
               {intl.formatMessage(
                 {
-                  defaultMessage: "{nomineeName} has been nominated for: ",
-                  id: "OJPiPD",
+                  defaultMessage: "{nomineeName} has been nominated for",
+                  id: "Zw4Pdj",
                   description:
                     "Introduction for list of nomination options for form to evaluate a nomination group",
                 },
                 {
                   nomineeName: talentNominationGroup?.nominee?.firstName,
                 },
-              )}
+              ) + intl.formatMessage(commonMessages.dividingColon)}
             </p>
             <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
               {isNominatedForAdvancement ? (
