@@ -104,14 +104,14 @@ export const formMessages = defineMessages({
     id: "kTM8Gi",
     description: "Submission failure in evaluation dialog",
   },
-  nominatedTrue: {
-    defaultMessage: "nominated",
-    id: "HdezJB",
+  nominationRecommendedTrue: {
+    defaultMessage: "Recommended",
+    id: "BDQ9ZB",
     description: "Status item in a nomination list, true",
   },
-  nominatedFalse: {
-    defaultMessage: "not nominated",
-    id: "bBqAnz",
+  nominationRecommendedFalse: {
+    defaultMessage: "Not recommended",
+    id: "zahHKE",
     description: "Status item in a nomination list, false",
   },
 });

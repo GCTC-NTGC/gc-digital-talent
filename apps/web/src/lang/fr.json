@@ -2783,6 +2783,10 @@
     "defaultMessage": "Il n’y a aucun résultat de candidats à cette étape.",
     "description": "Message displayed when no candidates are being assessed in a step"
   },
+  "BDQ9ZB": {
+    "defaultMessage": "Recommandée",
+    "description": "Status item in a nomination list, true"
+  },
   "BDrP1l": {
     "defaultMessage": "« Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
@@ -12997,6 +13001,10 @@
   "zYKPdV": {
     "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's name"
+  },
+  "zahHKE": {
+    "defaultMessage": "Non recommandée",
+    "description": "Status item in a nomination list, false"
   },
   "zbmWLG": {
     "defaultMessage": "Le gouvernement du Canada lira les commentaires et participera aux discussions, au besoin. Vos commentaires et vos contributions doivent être pertinents et respectueux.",

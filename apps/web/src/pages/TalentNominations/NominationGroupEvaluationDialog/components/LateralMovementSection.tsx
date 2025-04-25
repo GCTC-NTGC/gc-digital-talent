@@ -175,8 +175,12 @@ const LateralMovementSection = ({
             <li key={item.key}>
               <BoolCheckIcon
                 value={item.value}
-                trueLabel={intl.formatMessage(formMessages.nominatedTrue)}
-                falseLabel={intl.formatMessage(formMessages.nominatedFalse)}
+                trueLabel={intl.formatMessage(
+                  formMessages.nominationRecommendedTrue,
+                )}
+                falseLabel={intl.formatMessage(
+                  formMessages.nominationRecommendedFalse,
+                )}
               >
                 {item.label}
               </BoolCheckIcon>
@@ -199,8 +203,12 @@ const LateralMovementSection = ({
               <li key={item}>
                 <BoolCheckIcon
                   value={true}
-                  trueLabel={intl.formatMessage(formMessages.nominatedTrue)}
-                  falseLabel={intl.formatMessage(formMessages.nominatedFalse)}
+                  trueLabel={intl.formatMessage(
+                    formMessages.nominationRecommendedTrue,
+                  )}
+                  falseLabel={intl.formatMessage(
+                    formMessages.nominationRecommendedFalse,
+                  )}
                 >
                   {item}
                 </BoolCheckIcon>
