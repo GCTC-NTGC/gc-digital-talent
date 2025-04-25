@@ -173,7 +173,13 @@ const LateralMovementSection = ({
         >
           {lateralMovementListItems.map((item) => (
             <li key={item.key}>
-              <BoolCheckIcon value={item.value}>{item.label}</BoolCheckIcon>
+              <BoolCheckIcon
+                value={item.value}
+                trueLabel={intl.formatMessage(formMessages.nominatedTrue)}
+                falseLabel={intl.formatMessage(formMessages.nominatedFalse)}
+              >
+                {item.label}
+              </BoolCheckIcon>
             </li>
           ))}
         </ul>
@@ -191,7 +197,13 @@ const LateralMovementSection = ({
           >
             {lateralMovementOptionsOthers.map((item) => (
               <li key={item}>
-                <BoolCheckIcon value={true}>{item}</BoolCheckIcon>
+                <BoolCheckIcon
+                  value={true}
+                  trueLabel={intl.formatMessage(formMessages.nominatedTrue)}
+                  falseLabel={intl.formatMessage(formMessages.nominatedFalse)}
+                >
+                  {item}
+                </BoolCheckIcon>
               </li>
             ))}
           </ul>
