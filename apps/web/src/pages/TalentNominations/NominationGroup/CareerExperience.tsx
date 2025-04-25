@@ -82,7 +82,10 @@ const TalentNominationGroupCareerExperience = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <CardBasic data-h2-border-radius="base(6px 6px 0 0)">
+      <CardBasic
+        data-h2-border-radius="base(6px 6px 0 0)"
+        data-h2-padding="base(0)"
+      >
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
@@ -93,7 +96,7 @@ const TalentNominationGroupCareerExperience = ({
             Icon={FlagIcon}
             level="h2"
             color="primary"
-            data-h2-margin="base(0)"
+            data-h2-margin="base(x1 x1 0 x1)"
             data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
@@ -103,7 +106,7 @@ const TalentNominationGroupCareerExperience = ({
                 "Heading for nominee profile page accordion sections",
             })}
           </Heading>
-          <p data-h2-margin="base(x1 0)">
+          <p data-h2-margin="base(x1 x1 0 x1)">
             {intl.formatMessage({
               defaultMessage:
                 "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
@@ -116,11 +119,14 @@ const TalentNominationGroupCareerExperience = ({
             <Separator data-h2-margin="base(x1 0)" space="none" />
           )}
           {shareProfile && (
-            <CurrentPositionExperiences query={workExperiences} />
+            <div data-h2-margin="base(0 x1)">
+              <CurrentPositionExperiences query={workExperiences} />
+            </div>
           )}
           {!shareProfile && (
-            <Well color="error">
+            <Well data-h2-margin="base(0 x1)" color="error">
               <p
+                data-h2-margin="base(0 x1 x1 x1)"
                 data-h2-margin-bottom="base(x1)"
                 data-h2-font-weight="base(700)"
               >
@@ -145,7 +151,7 @@ const TalentNominationGroupCareerExperience = ({
             <Separator data-h2-margin="base(x1 0)" space="none" />
           )}
           {shareProfile && (
-            <p>
+            <p data-h2-margin="base(0 x1 x1.5 x1)">
               {intl.formatMessage(
                 {
                   defaultMessage:
