@@ -5,11 +5,8 @@ import {
   commonMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
-import { NoList } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-
-import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 export const DiversityEquityInfo_Fragment = graphql(/* GraphQL */ `
   fragment DiversityEquityInfo on User {
