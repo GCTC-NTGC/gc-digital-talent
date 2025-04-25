@@ -83,18 +83,13 @@ const NextRolePreview = ({
     : notProvided;
   const title = (
     <>
-      <>
-        {intl.formatMessage({
-          defaultMessage: "Next role",
-          id: "Sth/c4",
-          description: "Title for next role dialog",
-        })}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
-      </>
-      {/* TODO: What should title be if user hasn't selected a classification or added a job title? */}
-      <>
-        {classificationName} {employeeProfile?.nextRoleJobTitle ?? notProvided}
-      </>
+      {intl.formatMessage({
+        defaultMessage: "Next role",
+        id: "Sth/c4",
+        description: "Title for next role dialog",
+      })}
+      {intl.formatMessage(commonMessages.dividingColon)} {classificationName}{" "}
+      {employeeProfile?.nextRoleJobTitle ?? notProvided}
     </>
   );
   // Functional community - target role - # of desired work streams - # of desired departments

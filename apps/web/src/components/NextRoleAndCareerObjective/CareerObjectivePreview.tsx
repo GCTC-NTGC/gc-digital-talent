@@ -87,23 +87,16 @@ const CareerObjectivePreview = ({
     : notProvided;
   const title = (
     <>
-      <>
-        {intl.formatMessage({
-          defaultMessage: "Career objective",
-          id: "iJoahz",
-          description: "Title for career objective dialog",
-        })}
-        {intl.formatMessage(commonMessages.dividingColon)}{" "}
-      </>
-      {/* TODO: What should title be if user hasn't selected a classification or added a job title? */}
-      <>
-        {classificationName}{" "}
-        {employeeProfile?.careerObjectiveJobTitle ?? notProvided}
-      </>
+      {intl.formatMessage({
+        defaultMessage: "Career objective",
+        id: "iJoahz",
+        description: "Title for career objective dialog",
+      })}
+      {intl.formatMessage(commonMessages.dividingColon)} {classificationName}{" "}
+      {employeeProfile?.careerObjectiveJobTitle ?? notProvided}
     </>
   );
   // Functional community - target role - # of desired work streams - # of desired departments
-  // TODO: Move metadata to utils, and show other community title if it exists
   let metadata: PreviewMetaData[] = [];
   if (employeeProfile?.careerObjectiveCommunity) {
     metadata = [
