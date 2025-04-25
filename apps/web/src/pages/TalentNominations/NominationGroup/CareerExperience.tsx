@@ -159,6 +159,9 @@ const TalentNominationGroupCareerExperience = ({
           )}
         </div>
       </CardBasic>
+      {/* <CardBasic>
+        Full career card
+      </CardBasic> */}
     </Pending>
   );
 };
