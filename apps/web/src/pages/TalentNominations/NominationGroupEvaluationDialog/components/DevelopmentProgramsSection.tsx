@@ -144,32 +144,44 @@ const DevelopmentProgramsSection = ({
           talentNominationGroupMessages.developmentPrograms,
         )}
       >
-        {developmentProgramListItems.map((item) => (
-          <li
-            key={item.key}
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.25)"
-            data-h2-margin-bottom="base(x.25)"
-          >
-            <BoolCheckIcon value={item.value}>{item.label}</BoolCheckIcon>
-          </li>
-        ))}
+        <ul
+          data-h2-list-style="base(none)"
+          data-h2-padding="base(0)"
+          data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
+          data-h2-margin-top="base(x0.15)"
+        >
+          {developmentProgramListItems.map((item) => (
+            <li
+              key={item.key}
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.25)"
+            >
+              <BoolCheckIcon value={item.value}>{item.label}</BoolCheckIcon>
+            </li>
+          ))}
+        </ul>
       </FieldDisplay>
       {/* only display the OTHER option if it is selected */}
       {otherDevelopmentProgramsInThisNominationGroup.length > 0 ? (
         <FieldDisplay label={intl.formatMessage(commonMessages.other)}>
-          {otherDevelopmentProgramsInThisNominationGroup.map((item) => (
-            <li
-              key={item}
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.25)"
-              data-h2-margin-bottom="base(x.25)"
-            >
-              <BoolCheckIcon value={true}>{item}</BoolCheckIcon>
-            </li>
-          ))}
+          <ul
+            data-h2-list-style="base(none)"
+            data-h2-padding="base(0)"
+            data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
+            data-h2-margin-top="base(x0.15)"
+          >
+            {otherDevelopmentProgramsInThisNominationGroup.map((item) => (
+              <li
+                key={item}
+                data-h2-display="base(flex)"
+                data-h2-align-items="base(flex-start)"
+                data-h2-gap="base(x.25)"
+              >
+                <BoolCheckIcon value={true}>{item}</BoolCheckIcon>
+              </li>
+            ))}
+          </ul>
         </FieldDisplay>
       ) : null}
       <RadioGroup
