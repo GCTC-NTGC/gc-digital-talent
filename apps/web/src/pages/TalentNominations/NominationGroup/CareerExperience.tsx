@@ -96,7 +96,7 @@ const TalentNominationGroupCareerExperience = ({
             Icon={FlagIcon}
             level="h2"
             color="primary"
-            data-h2-margin="base(x1 x1 0 x1)"
+            data-h2-margin="base(x1.5 x1.5 0 x1.5)"
             data-h2-font-weight="base(400)"
           >
             {intl.formatMessage({
@@ -106,7 +106,7 @@ const TalentNominationGroupCareerExperience = ({
                 "Heading for nominee profile page accordion sections",
             })}
           </Heading>
-          <p data-h2-margin="base(x1 x1 0 x1)">
+          <p data-h2-margin="base(x1 x1.5 x1 x1.5)">
             {intl.formatMessage({
               defaultMessage:
                 "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
@@ -119,12 +119,12 @@ const TalentNominationGroupCareerExperience = ({
             <Separator data-h2-margin="base(x1 0)" space="none" />
           )}
           {shareProfile && (
-            <div data-h2-margin="base(0 x1)">
+            <div data-h2-margin="base(0 x1.5)">
               <CurrentPositionExperiences query={workExperiences} />
             </div>
           )}
           {!shareProfile && (
-            <Well data-h2-margin="base(0 x1)" color="error">
+            <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
               <p
                 data-h2-margin="base(0 x1 x1 x1)"
                 data-h2-margin-bottom="base(x1)"
@@ -153,7 +153,7 @@ const TalentNominationGroupCareerExperience = ({
           {shareProfile && (
             <p
               data-h2-color="base(black.light)"
-              data-h2-margin="base(0 x1 x1.5 x1)"
+              data-h2-margin="base(0 x1.5 x1.75 x1.5)"
             >
               {intl.formatMessage(
                 {
