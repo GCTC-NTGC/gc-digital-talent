@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
-import uniq from "lodash/uniq";
 
 import {
   localizedEnumToOptions,
@@ -17,7 +16,7 @@ import {
   TalentNominationGroupDecision,
   TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
@@ -138,7 +137,7 @@ const LateralMovementSection = ({
     .filter((n) => n.nominateForLateralMovement)
     .map((n) => n.lateralMovementOptionsOther)
     .filter(notEmpty);
-  const lateralMovementOptionsOthers = uniq(
+  const lateralMovementOptionsOthers = uniqueItems(
     lateralMovementOptionsOthersWithDuplicates,
   );
   lateralMovementOptionsOthers.sort((a, b) => a.localeCompare(b));
