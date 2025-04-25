@@ -6,6 +6,9 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import { ReactNode } from "react";
+import { parseISO } from "date-fns/parseISO";
+import { differenceInMonths } from "date-fns/differenceInMonths";
+import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
@@ -26,7 +29,10 @@ import {
   nodeToString,
   uniqueItems,
   unpackMaybes,
+  assertUnreachable,
+  empty,
 } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import {
   AllExperienceFormValues,
@@ -1060,3 +1066,48 @@ export const organizationSuggestionsFromExperiences = (
 
   return uniqueItems(organizationsForAutocompleteFiltered);
 };
+
+export const experienceDurationMonths = (experience: AnyExperience): number => {
+  if (experience.__typename == null || experience.__typename == undefined) {
+    return 0;
+  }
+  if (isAwardExperience(experience)) {
+    // award experiences don't have a date range
+    return 0;
+  }
+  if (
+    isCommunityExperience(experience) ||
+    isEducationExperience(experience) ||
+    isPersonalExperience(experience) ||
+    isWorkExperience(experience)
+  ) {
+    // if missing start date, we can't do anything with it
+    if (empty(experience.startDate)) {
+      defaultLogger.warning(
+        "Tried to get the duration of an experience with not start date",
+      );
+      return 0;
+    }
+
+    const startDate = parseISO(experience.startDate);
+    const endDate =
+      !empty(experience.endDate) && isPast(experience.endDate)
+        ? parseISO(experience.endDate)
+        : new Date().toLocaleDateString(); // if end date is unknown or in the future, calculate duration based on ending today
+
+    const completeMonths = differenceInMonths(endDate, startDate);
+    // add an extra month to account for the final, incomplete month
+    const ceilingMonths = completeMonths + 1;
+
+    return ceilingMonths;
+  }
+  assertUnreachable(experience);
+  return 0;
+};
+
+export const experiencesDurationMonths = (
+  experiences: AnyExperience[],
+): number =>
+  experiences
+    .map((experience) => experienceDurationMonths(experience))
+    .reduce((acc, months) => acc + months, 0);
