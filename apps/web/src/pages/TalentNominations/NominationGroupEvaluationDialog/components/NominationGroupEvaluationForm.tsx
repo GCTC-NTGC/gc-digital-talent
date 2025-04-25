@@ -123,7 +123,7 @@ const NominationGroupEvaluationForm = ({
                 },
               ) + intl.formatMessage(commonMessages.dividingColon)}
             </p>
-            <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+            <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)">
               {isNominatedForAdvancement ? (
                 <li>
                   {intl.formatMessage(
