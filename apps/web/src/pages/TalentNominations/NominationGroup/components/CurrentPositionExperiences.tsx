@@ -108,24 +108,14 @@ const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
       id
       key
       name {
-        en
-        fr
+        localized
       }
       community {
         id
         key
         name {
-          en
-          fr
+          localized
         }
-        description {
-          en
-          fr
-        }
-      }
-      plainLanguageName {
-        en
-        fr
       }
     }
     supervisoryPosition
@@ -151,10 +141,6 @@ const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
         }
       }
       name {
-        en
-        fr
-      }
-      description {
         en
         fr
       }
