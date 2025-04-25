@@ -77,14 +77,16 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <CardBasic data-h2-border-radius="base(6px 6px 0 0)">
+      <CardBasic
+        data-h2-background-color="base(transparent)"
+        style={{ borderRadius: "6px 6px 0 0" }}
+      >
         <div
           data-h2-display="base(flex)"
           data-h2-align-items="base(center)"
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-justify-content="base(space-between)"
           data-h2-gap="base(x1 0) l-tablet(0 x.5)"
-          data-h2-margin-bottom="base(x1)"
         >
           <Heading
             Icon={UserCircleIcon}
@@ -158,7 +160,7 @@ const TalentNominationGroupProfile = ({
           value={openSections}
           onValueChange={setOpenSections}
           data-h2-margin-top="base(0)"
-          data-h2-border-radius="base(0 0 6px 6px)" // TODO: Won't it override accordion radius
+          style={{ borderRadius: "0 0 6px 6px" }}
         >
           <BasicInformation
             sectionKey={SECTION_KEY.BASIC}
