@@ -106,7 +106,7 @@ const TalentNominationGroupCareerExperience = ({
                 "Heading for nominee profile page accordion sections",
             })}
           </Heading>
-          <p data-h2-margin="base(x1 x1.5 x1 x1.5)">
+          <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
             {intl.formatMessage({
               defaultMessage:
                 "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
@@ -116,7 +116,7 @@ const TalentNominationGroupCareerExperience = ({
             })}
           </p>
           {shareProfile && (
-            <Separator data-h2-margin="base(x1 0)" space="none" />
+            <Separator data-h2-margin="base(0 0 x1 0)" space="none" />
           )}
           {shareProfile && (
             <div data-h2-margin="base(0 x1.5)">
