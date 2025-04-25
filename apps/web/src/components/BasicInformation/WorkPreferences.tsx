@@ -18,7 +18,6 @@ import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
-import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferences on User {
@@ -167,19 +166,15 @@ const WorkPreferences = ({
       <FieldDisplay
         label={intl.formatMessage(profileMessages.acceptableRequirements)}
       >
-        {operationalRequirements?.length ? (
+        {acceptedRequirements?.length ? (
           <NoList>
-            {operationalRequirements.map((requirement) => (
-              <li key={requirement.value}>
-                <BoolCheckIcon
-                  value={acceptedRequirements.includes(requirement.value)}
-                  // trueLabel={} Suggestion: "Yes to" (e.g. Shift-work)
-                  // falseLabel={} Suggestion: "No to" (e.g. Shift-work)
-                >
-                  {requirement?.label.localized}
-                </BoolCheckIcon>
-              </li>
-            ))}
+            {acceptedRequirements.map((requirement) => {
+              const label =
+                operationalRequirements.find(
+                  (or) => String(or.value) === requirement,
+                )?.label.localized ?? requirement;
+              return <li key={requirement}>{label}</li>;
+            })}
           </NoList>
         ) : (
           notProvided
