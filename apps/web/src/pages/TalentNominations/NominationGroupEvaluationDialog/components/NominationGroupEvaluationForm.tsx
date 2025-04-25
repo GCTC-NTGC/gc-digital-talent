@@ -149,7 +149,7 @@ const NominationGroupEvaluationForm = ({
           </div>
           {isNominatedForAdvancement ? (
             <>
-              <Separator data-h2-margin="base(0)" />
+              <Separator data-h2-margin="base(0)" decorative />
               <AdvancementSection
                 talentNominationGroupQuery={talentNominationGroup}
               />
@@ -157,7 +157,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
           {isNominatedForLateralMovement ? (
             <>
-              <Separator data-h2-margin="base(0)" />
+              <Separator data-h2-margin="base(0)" decorative />
               <LateralMovementSection
                 talentNominationGroupQuery={talentNominationGroup}
                 talentNominationGroupOptionsQuery={talentNominationGroupOptions}
@@ -166,7 +166,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
           {isNominatedForDevelopmentPrograms ? (
             <>
-              <Separator data-h2-margin="base(0)" />
+              <Separator data-h2-margin="base(0)" decorative />
               <DevelopmentProgramsSection
                 talentNominationGroupQuery={talentNominationGroup}
               />
