@@ -1,8 +1,10 @@
 import { useQuery } from "urql";
 import useIntl from "react-intl/src/components/useIntl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import React from "react";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import { graphql } from "@gc-digital-talent/graphql";
+import { Experience, graphql } from "@gc-digital-talent/graphql";
 import {
   CardBasic,
   Heading,
@@ -22,25 +24,96 @@ import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
+import FullCareerExperiences from "./components/FullCareerExperiences";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
     user(id: $nomineeId) {
       updatedDate
       experiences {
+        # profileExperience fragment
         id
         __typename
-        # ... on AwardExperience {
-        #   title
-        # }
-        # ... on CommunityExperience {
-        #   title
-        # }
-        # ... on EducationExperience {
-        #   institution
-        # }
-        # ... on PersonalExperience {
-        #   title
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          awardedScope {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
         ... on WorkExperience {
           ...CurrentPositionWorkExperience
         }
@@ -60,7 +133,9 @@ const TalentNominationGroupCareerExperience = ({
 }: TalentNominationGroupCareerExperienceProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery<{
+    data: { user: { updatedDate: string; experiences: Experience[] } };
+  }>({
     query: NomineeExperiences_Query,
     variables: { nomineeId },
     pause: !shareProfile,
@@ -74,7 +149,7 @@ const TalentNominationGroupCareerExperience = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
-  const experiences = unpackMaybes(data?.user?.experiences);
+  const experiences = unpackMaybes(data?.user?.experiences || []);
 
   const workExperiences = experiences.filter((experience) =>
     isWorkExperience(experience),
@@ -166,9 +241,40 @@ const TalentNominationGroupCareerExperience = ({
           )}
         </div>
       </CardBasic>
-      {/* <CardBasic>
-        Full career card
-      </CardBasic> */}
+      <CardBasic>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          <Heading
+            level="h2"
+            color="primary"
+            data-h2-margin="base(x1.5 x1.5 0 x1.5)"
+            data-h2-font-weight="base(400)"
+            Icon={NewspaperIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Full career",
+              id: "+mG20j",
+              description: "Heading for career experience",
+            })}
+          </Heading>
+          <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
+            {intl.formatMessage({
+              defaultMessage:
+                "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided",
+              id: "gu2wRn",
+              description:
+                "Description for the career page full career section",
+            })}
+          </p>
+          <div>
+            <FullCareerExperiences experiences={experiences} />
+          </div>
+        </div>
+      </CardBasic>
     </Pending>
   );
 };
