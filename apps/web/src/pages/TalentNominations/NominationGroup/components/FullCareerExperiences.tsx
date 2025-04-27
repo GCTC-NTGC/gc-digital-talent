@@ -34,6 +34,7 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
               startDate={startDate}
               endDate={endDate}
               isCurrentPosition={false}
+              showEdit={false}
             />
           );
         }),
