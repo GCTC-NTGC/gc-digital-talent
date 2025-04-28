@@ -252,7 +252,10 @@ export const Component = () => {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
         opportunityLanguage: trainingOpportunitiesFilteredBy,
       },
-      orderBy: [{ column: "registration_deadline", order: SortOrder.Asc }],
+      orderBy: [
+        { column: "pinned", order: SortOrder.Desc },
+        { column: "registration_deadline", order: SortOrder.Asc },
+      ],
     },
   });
 
