@@ -81,5 +81,10 @@ class GenericJobTitleTest extends TestCase
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($query, $variables)
             ->assertJsonFragment($variables);
+    public function testViewAnyGenericJobTitle()
+    {
+        $this->actingAs($this->baseUser, 'api')
+            ->graphQL('query { genericJobTitles { id } }')
+            ->assertJsonFragment(['id' => $this->genericJobTitle->id]);
     }
 }

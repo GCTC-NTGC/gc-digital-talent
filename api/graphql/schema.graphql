@@ -1301,10 +1301,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
-  pools: [Pool]!
-    @all(scopes: ["authorizedToView", "whereNotArchived"])
-    @canResolved(ability: "view")
-    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1397,9 +1393,6 @@ type Query {
   skills(families: [String!] @scope): [Skill]!
     @all
     @canModel(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle
-    @find
-    @canModel(ability: "view")
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
