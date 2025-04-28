@@ -2901,12 +2901,6 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id")
-  deletePoolCandidateSearchRequest(
-    id: ID! @whereKey
-  ): PoolCandidateSearchRequest
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
