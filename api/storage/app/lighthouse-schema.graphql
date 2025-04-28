@@ -1161,6 +1161,7 @@ type TalentNominationGroup {
   developmentProgramsNominationCount: Int
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
   developmentProgramsNotes: String
+  consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
 }

@@ -201,4 +201,24 @@ class TalentNominationGroup extends Model
         // fall through, return nothing
         $query->where('id', null);
     }
+
+    public function consentToShareProfile(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $this->loadMissing('talentNominationEvent');
+
+                // get the nominee's user id
+                $userId = $this->nominee_id;
+                // get the community id from the talent nomination event
+                $communityId = $this->talentNominationEvent->community_id;
+                // Get the community interest (if exists)
+                $communityInterest = CommunityInterest::where('user_id', $userId)
+                    ->where('community_id', $communityId)
+                    ->first();
+
+                return $communityInterest && $communityInterest->consent_to_share_profile;
+            }
+        );
+    }
 }
