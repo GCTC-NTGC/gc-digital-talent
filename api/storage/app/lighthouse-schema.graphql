@@ -379,7 +379,6 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
   skills(families: [String!]): [Skill]!
-  genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
   communities: [Community]!

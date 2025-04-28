@@ -1393,9 +1393,6 @@ type Query {
   skills(families: [String!] @scope): [Skill]!
     @all
     @canModel(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle
-    @find
-    @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
 
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
