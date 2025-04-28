@@ -508,7 +508,6 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
-  deletePoolCandidate(id: ID!): PoolCandidate
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
   disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
   revertFinalDecision(id: UUID!): PoolCandidate
