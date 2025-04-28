@@ -4763,10 +4763,6 @@
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and sourcing component"
   },
-  "L6MPML": {
-    "defaultMessage": "Accessible dès maintenant",
-    "description": "Statement that something is available now"
-  },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
@@ -10726,8 +10722,8 @@
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
   },
-  "nhfKqB": {
-    "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+  "26OHuo": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
     "description": "An item in a list of points about instructor-led classes"
   },
   "nhqlFu": {
@@ -13018,8 +13014,8 @@
     "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
     "description": "Paragraph describing trademark notice section"
   },
-  "zdGy4D": {
-    "defaultMessage": "<strong>Inscription</strong> : les places seront limitées. Vous devrez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+  "gYvHOD": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
     "description": "An item in a list of points about cert exams"
   },
   "zdeoxH": {
