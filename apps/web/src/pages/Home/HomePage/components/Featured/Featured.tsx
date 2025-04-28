@@ -27,8 +27,8 @@ const Featured = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Through this fund, IT employees can now access a variety of additional training opportunities, including self-paced learning, instructor-led courses, and certification exam vouchers.",
-            id: "xfdk0g",
+              "Through this fund, IT employees can access a variety of additional training opportunities, including self-paced learning, instructor-led courses, and certification exam vouchers.",
+            id: "5+xTkq",
             description: "Summary of the it training fund featured item",
           })}
         </p>
