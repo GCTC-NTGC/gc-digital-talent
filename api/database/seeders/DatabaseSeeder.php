@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,
+            TrainingOpportunityTestSeeder::class,
 
             // random data to fill it out
             TeamRandomSeeder::class,

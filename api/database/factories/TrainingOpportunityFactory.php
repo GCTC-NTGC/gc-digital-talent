@@ -39,11 +39,21 @@ class TrainingOpportunityFactory extends Factory
             'training_end' => $trainingEnd,
             'course_language' => $this->faker->randomElement(CourseLanguage::cases())->name,
             'course_format' => $this->faker->randomElement(CourseFormat::cases())->name,
+            'pinned' => $this->faker->boolean(0.1),
         ];
     }
 
     public function configure()
     {
         return $this;
+    }
+
+    public function registrationOpen()
+    {
+        return $this->state(function () {
+            return [
+                'registration_deadline' => $this->faker->dateTimeBetween('now', '6 months'),
+            ];
+        });
     }
 }
