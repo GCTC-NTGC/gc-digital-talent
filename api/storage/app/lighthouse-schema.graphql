@@ -366,7 +366,6 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
@@ -380,8 +379,6 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
   skills(families: [String!]): [Skill]!
-  genericJobTitle(id: UUID!): GenericJobTitle
-  genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
   communities: [Community]!
   team(id: UUID!): Team
@@ -508,7 +505,6 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
-  deletePoolCandidate(id: ID!): PoolCandidate
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
   disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
   revertFinalDecision(id: UUID!): PoolCandidate
@@ -522,7 +518,6 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
