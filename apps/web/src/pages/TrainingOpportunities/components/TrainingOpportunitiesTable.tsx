@@ -114,6 +114,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
         }
         trainingStart
         trainingEnd
+        pinned
       }
       paginatorInfo {
         count
