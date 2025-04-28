@@ -1411,10 +1411,6 @@
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
   },
-  "4ddL8K": {
-    "defaultMessage": "Vous avez un compte Navigar actif.",
-    "description": "Third item in list of eligibility requirements section"
-  },
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
