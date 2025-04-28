@@ -85,6 +85,19 @@ const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
         fr
       }
     }
+    supervisoryPosition
+    supervisedEmployees
+    supervisedEmployeesNumber
+    budgetManagement
+    annualBudgetAllocation
+    seniorManagementStatus
+    cSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
+    otherCSuiteRoleTitle
     classification {
       id
       name {
