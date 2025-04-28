@@ -40,6 +40,7 @@ import pageTitles from "~/messages/pageTitles";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import CourseLanguageChip from "./CourseLanguageChip";
+import PinnedIcon from "./PinnedIcon";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunities(
@@ -83,6 +84,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
           en
           fr
         }
+        pinned
       }
       paginatorInfo {
         count
@@ -453,7 +455,11 @@ export const Component = () => {
                           data-h2-margin-bottom="base(x.5)"
                         >
                           <Heading
-                            Icon={CalendarIcon}
+                            Icon={
+                              trainingOpportunity.pinned
+                                ? PinnedIcon
+                                : CalendarIcon
+                            }
                             level="h4"
                             size="h5"
                             data-h2-font-weight="base(700)"
