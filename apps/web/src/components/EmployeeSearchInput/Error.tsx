@@ -4,25 +4,51 @@ import { FieldError } from "react-hook-form";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
-import { ErrorMessages, ErrorMessage as TErrorMessage } from "./types";
+import {
+  ErrorMessages,
+  ErrorSeverity,
+  ErrorSeverities,
+  ErrorMessage as TErrorMessage,
+} from "./types";
 
 interface ErrorMessageProps {
+  id?: string;
+  hasInputErrors?: boolean;
   message: TErrorMessage;
+  severity?: ErrorSeverity;
 }
 
-const ErrorMessage = ({ message }: ErrorMessageProps) => (
-  <>
+const ErrorMessage = ({
+  message,
+  id,
+  hasInputErrors = false,
+  severity = "error",
+}: ErrorMessageProps) => (
+  <div id={id}>
     {message.title && (
       <p
         data-h2-font-weight="base(700)"
         data-h2-margin-bottom="base(x.5)"
-        data-h2-color="base(error)"
+        {...(hasInputErrors
+          ? {
+              "data-h2-color": "base(error.darkest)",
+            }
+          : {
+              "data-h2-color": "base(error) base:dark(error.lightest)",
+            })}
+        {...(severity === "error"
+          ? {
+              "data-h2-color": "base(error)",
+            }
+          : {
+              "data-h2-color": "base(warning.darker) base:dark(warning)",
+            })}
       >
         {message.title}
       </p>
     )}
     {message.body}
-  </>
+  </div>
 );
 
 const useDefaultMessages = (email: string | undefined): ErrorMessages => {
@@ -40,8 +66,8 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
       ),
       body: intl.formatMessage({
         defaultMessage:
-          "It appears that this work email address isn't linked to a profile. Try searching for another email address or provide the information requested. Once you submit your nomination form, we’ll notify them by email.",
-        id: "OcN4TN",
+          "It appears that this work email address isn't linked to a profile. Try searching for another email address or provide the information requested.",
+        id: "fDwDJU",
         description:
           "Description of default error message when an employee could not be found",
       }),
@@ -68,16 +94,30 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
 };
 
 interface ErrorProps {
+  id?: string;
   email?: string;
   inputErrors?: FieldError[];
   error?: CombinedError | string[] | null;
   messages?: Partial<ErrorMessages>;
+  severities?: Partial<ErrorSeverities>;
 }
 
-const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
+const Error = ({
+  id,
+  email,
+  error,
+  inputErrors,
+  messages,
+  severities,
+}: ErrorProps) => {
   const defaultMessages = useDefaultMessages(email);
   const errorMessages = { ...defaultMessages, ...messages };
   if (!error && !inputErrors) return null;
+
+  const sharedProps = {
+    id,
+    hasInputErrors: !!inputErrors,
+  };
 
   if (error) {
     let errorCodes: string[] | undefined;
@@ -88,17 +128,33 @@ const Error = ({ email, error, inputErrors, messages }: ErrorProps) => {
     }
 
     if (errorCodes?.includes("NotGovernmentEmail")) {
-      return <ErrorMessage message={errorMessages.NOT_GOVERNMENT_EMAIL} />;
+      return (
+        <ErrorMessage
+          {...sharedProps}
+          severity={severities?.NOT_GOVERNMENT_EMAIL}
+          message={errorMessages.NOT_GOVERNMENT_EMAIL}
+        />
+      );
     }
 
     if (errorCodes?.includes("NoProfile")) {
-      return <ErrorMessage message={errorMessages.NO_PROFILE} />;
+      return (
+        <ErrorMessage
+          {...sharedProps}
+          severity={severities?.NO_PROFILE}
+          message={{
+            title: defaultMessages.NO_PROFILE.title,
+            ...errorMessages.NO_PROFILE,
+          }}
+        />
+      );
     }
   }
 
   if (inputErrors) {
     return (
       <div
+        id={id}
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"

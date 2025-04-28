@@ -182,18 +182,8 @@ class PoolCandidateSearchRequestTest extends TestCase
                 }
             }
         ';
-        $mutationDeleteSearchRequest =
-            /** @lang GraphQL */
-            '
-            mutation deletePoolCandidateSearchRequest($id: ID!) {
-                deletePoolCandidateSearchRequest(id: $id) {
-                    id
-                }
-            }
-        ';
 
         $whereSearchRequest1 = ['id' => $searchRequest1->id];
-        $whereSearchRequest2 = ['id' => $searchRequest2->id];
         $whereUpdateSearchRequest1 = [
             'id' => $searchRequest1->id,
             'poolCandidateSearchRequest' => [
@@ -228,19 +218,6 @@ class PoolCandidateSearchRequestTest extends TestCase
             ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
         $this->actingAs($communityRecruiter, 'api')
             ->graphQL($mutationUpdateSearchRequest, $whereUpdateSearchRequest2)
-            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-
-        // test deleting a search request
-        $this->actingAs($baseUser, 'api')
-            ->graphQL($mutationDeleteSearchRequest, $whereSearchRequest1)
-            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
-
-        // community recruiter can only delete searchRequest 1
-        $this->actingAs($communityRecruiter, 'api')
-            ->graphQL($mutationDeleteSearchRequest, $whereUpdateSearchRequest1)
-            ->assertJsonFragment(['id' => $searchRequest1->id]);
-        $this->actingAs($communityRecruiter, 'api')
-            ->graphQL($mutationDeleteSearchRequest, $whereUpdateSearchRequest2)
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 

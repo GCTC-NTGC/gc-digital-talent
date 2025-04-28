@@ -28,6 +28,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
+import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -132,6 +133,10 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
       id
     }
     offPlatformRecruitmentProcesses
+    talentNominationsAsSubmitter {
+      id
+    }
+    ...TalentManagementTaskCard
   }
 `);
 
@@ -162,6 +167,10 @@ export const DashboardPage = ({
   if (!currentUser) {
     throw new NotFoundError();
   }
+
+  const displayTalentManagementTaskCard =
+    !!currentUser?.talentNominationsAsSubmitter?.length &&
+    currentUser.talentNominationsAsSubmitter.length > 0;
 
   const personalInformationState =
     aboutSectionHasEmptyRequiredFields(currentUser) ||
@@ -253,6 +262,11 @@ export const DashboardPage = ({
                   careerDevelopmentOptionsQuery={applicantDashboardQuery}
                 />
               ) : null}
+              {displayTalentManagementTaskCard ? (
+                <TalentManagementTaskCard
+                  talentManagementTaskCardQuery={currentUser}
+                />
+              ) : null}
             </div>
             <div
               data-h2-display="base(flex)"
@@ -313,7 +327,7 @@ export const DashboardPage = ({
                     id: "UfjJ9P",
                     description: "Link to the 'Career experience' page",
                   })}
-                  href={paths.careerTimelineAndRecruitment()}
+                  href={paths.careerTimeline()}
                   description={intl.formatMessage({
                     defaultMessage:
                       "Work, education, volunteering, awards, and more.",

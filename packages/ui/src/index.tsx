@@ -57,6 +57,8 @@ import Link, {
 import Loading, { type LoadingProps } from "./components/Loading";
 import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
 import { getNavLinkStyling } from "./components/NavMenu";
+import NavMenu from "./components/NavMenu/NavMenu";
+import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, {
@@ -67,7 +69,6 @@ import PreviewList, {
   type MetaDataProps as PreviewMetaData,
 } from "./components/PreviewList/PreviewList";
 import ResourceBlock from "./components/ResourceBlock";
-import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
@@ -90,8 +91,6 @@ import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
-import NavMenu from "./components/NavMenu/NavMenu";
-import NavMenuWrapper from "./components/NavMenu/NavMenuWrapper";
 
 export type {
   Color,
@@ -166,7 +165,7 @@ export {
   MenuLink,
   Metadata,
   NavMenu,
-  NavMenuWrapper,
+  NavMenuProvider,
   NavTabs,
   Loading,
   LoadingErrorMessage,
@@ -175,7 +174,6 @@ export {
   ResourceBlock,
   NotFound,
   ThrowNotFound,
-  ScrollArea,
   Separator,
   Sidebar,
   Spoiler,

@@ -17,6 +17,20 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Interested in training",
+    "fr": [
+      "Intérêt pour la formation",
+      "La formation m'intéresse"
+    ]
+  },
+  {
+    "en": "Nominate talent",
+    "fr": [
+      "Nommez un talent",
+      "Présentez une mise en candidature"
+    ]
+  },
+  {
     "en": "Not interested",
     "fr": [
       "Non intéressé(e)",
@@ -104,7 +118,7 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Apply now",
     "fr": [
-      "Postulez dès-maintenant",
+      "Postulez dès maintenant",
       "Présentez votre demande"
     ]
   },
@@ -218,6 +232,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "À propos de ce rôle",
       "Au sujet de ce rôle"
+    ]
+  },
+  {
+    "en": "Nominee",
+    "fr": [
+      "La personne candidate",
+      "Personne candidate"
     ]
   }
 ]"

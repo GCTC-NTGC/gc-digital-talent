@@ -33,6 +33,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
@@ -1188,7 +1189,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             ->sortBy('improve_skills_rank');
     }
 
-    public function scopeIsVerifiedGovEmployee(Builder $query): void
+    public static function scopeIsVerifiedGovEmployee(Builder $query): void
     {
         $query->where('computed_is_gov_employee', true)
             ->whereNotNull('work_email')
@@ -1396,5 +1397,13 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $user;
+    }
+
+    /**
+     * Combine the first name and last name into a full name
+     */
+    public function getFullNameAttribute()
+    {
+        return Str::trim($this->first_name.' '.$this->last_name);
     }
 }

@@ -155,14 +155,13 @@ class UserPolicyTest extends TestCase
         CommunityInterest::factory()->create([
             'user_id' => $this->applicant->id,
             'community_id' => $this->community->id,
-            'job_interest' => true,
-            'training_interest' => true,
+            'consent_to_share_profile' => true,
         ]);
 
-        // admin/recruiter/coordinator but not process operator can now view applicant as they are a community talent (CommunityInterest with interest)
+        // recruiter/coordinator but not admin/process operator can now view applicant as they are a community talent (CommunityInterest with interest)
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
-        $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
         $this->assertTrue($this->communityTalentCoordinator->can('view', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
         $this->assertFalse($this->processOperator->can('view', $this->applicant));
     }
 

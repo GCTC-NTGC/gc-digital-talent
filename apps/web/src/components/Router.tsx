@@ -6,9 +6,8 @@ import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { NotFoundError } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
-const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
+const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -228,24 +227,16 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                 {
                   index: true,
                   lazy: () =>
-                    newApplicantDashboard
-                      ? import(
-                          "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                        )
-                      : import(
-                          "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-                        ),
+                    import(
+                      "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                    ),
                 },
                 {
                   path: "dashboard",
                   lazy: () =>
-                    newApplicantDashboard
-                      ? import(
-                          "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                        )
-                      : import(
-                          "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-                        ),
+                    import(
+                      "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                    ),
                 },
                 {
                   path: "settings",
@@ -278,7 +269,7 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                       index: true,
                       lazy: () =>
                         import(
-                          "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+                          "../pages/Profile/CareerTimelinePage/CareerTimelinePage"
                         ),
                     },
                     {
@@ -797,6 +788,65 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
                     ),
                 },
                 {
+                  path: "talent-events",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/TalentEvents/IndexTalentEventPage"),
+                    },
+                    {
+                      path: ":eventId",
+                      lazy: () =>
+                        import("../pages/TalentEvents/TalentEvent/Layout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/TalentEvents/TalentEvent/DetailsPage"
+                            ),
+                        },
+                        {
+                          path: "nominations",
+                          lazy: () =>
+                            import(
+                              "../pages/TalentEvents/TalentEvent/NominationsPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "talent-events/:eventId/nominations/:talentNominationGroupId",
+                  lazy: () =>
+                    import("../pages/TalentNominations/NominationGroup/Layout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Details"
+                        ),
+                    },
+                    {
+                      path: "profile",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Profile"
+                        ),
+                    },
+                    {
+                      path: "career-experience",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/CareerExperience"
+                        ),
+                    },
+                  ],
+                },
+                {
                   path: "talent-requests",
                   children: [
                     {
@@ -1099,8 +1149,7 @@ const createRoute = (locale: Locales, newApplicantDashboard: boolean) =>
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const { newApplicantDashboard } = useFeatureFlags();
-  const router = createRoute(locale, newApplicantDashboard);
+  const router = createRoute(locale);
 
   return <RouterProvider router={router} />;
 };

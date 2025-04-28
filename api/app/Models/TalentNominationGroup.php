@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -32,6 +34,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_programs_decision
  * @property string $development_programs_notes
  * @property string $computed_status
+ * @property string $comments
+ *
+ * @method Builder|static authorizedToView()
+ * @method static Builder|static query()
  */
 class TalentNominationGroup extends Model
 {
@@ -78,7 +84,7 @@ class TalentNominationGroup extends Model
     /** @return BelongsTo<User, $this> */
     public function nominee(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominee_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'nominee_id');
     }
 
     /** @return HasMany<TalentNomination, $this> */
@@ -170,5 +176,29 @@ class TalentNominationGroup extends Model
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['computed_status']
         );
+    }
+
+    public function scopeAuthorizedToView(Builder $query): void
+    {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-team-talentNominationGroup')) {
+            $communities = $user->rolesTeams()
+                ->where('teamable_type', "App\Models\Community")
+                ->get();
+            $communityIds = $communities->filter(function ($community) use ($user) {
+                return $user->isAbleTo('view-team-talentNominationGroup', $community);
+            })->pluck('teamable_id');
+
+            $query->whereHas('talentNominationEvent.community', function (Builder $query) use ($communityIds) {
+                return $query->whereIn('community_id', $communityIds);
+            });
+
+            return;
+        }
+
+        // fall through, return nothing
+        $query->where('id', null);
     }
 }

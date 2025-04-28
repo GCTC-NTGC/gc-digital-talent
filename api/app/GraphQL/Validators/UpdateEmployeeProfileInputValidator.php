@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ExecCoaching;
+use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\TargetRole;
@@ -44,6 +45,8 @@ final class UpdateEmployeeProfileInputValidator extends Validator
             'promotionMoveTimeFrame' => ['nullable', Rule::in(array_column(TimeFrame::cases(), 'name')), 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType' => ['nullable', 'required_if:promotionMoveInterest,true'],
             'promotionMoveOrganizationType.*' => [Rule::in(array_column(OrganizationTypeInterest::cases(), 'name'))],
+            'learningOpportunitiesInterest' => ['nullable', 'array'],
+            'learningOpportunitiesInterest.*' => [Rule::in(array_column(LearningOpportunitiesInterest::cases(), 'name'))],
 
             'eligibleRetirementYearKnown' => ['nullable', 'boolean'],
             'eligibleRetirementYear' => [

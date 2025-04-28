@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
-import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/constants/sections/careerTimeline";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -247,13 +246,8 @@ const getRoutes = (lang: Locales) => {
     },
     verifyWorkEmail: () => [applicantUrl, "verify-work-email"].join("/"),
 
-    // Career timeline and recruitment Routes
-    careerTimelineAndRecruitment: (opts?: {
-      section?: CareerTimelineAndRecruitmentPageSectionId;
-    }) => {
-      const fragment = opts?.section ? `#${opts.section}` : "";
-      return `${[applicantUrl, "career-timeline"].join("/")}${fragment}`;
-    },
+    // Career timeline
+    careerTimeline: () => [applicantUrl, "career-timeline"].join("/"),
     editExperience: (experienceId: string) =>
       [applicantUrl, "career-timeline", experienceId, "edit"].join("/"),
     createExperience: () =>
@@ -349,12 +343,29 @@ const getRoutes = (lang: Locales) => {
     // Admin - Community Talent
     communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
 
-    // Communities
+    // Talent management
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
+    adminTalentManagementEvents: () => `${adminUrl}/talent-events`,
+    adminTalentManagementEvent: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}`,
+    adminTalentManagementEventNominations: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}/nominations`,
     createTalentNomination: (nominationEventId: string) =>
       `${communitiesUrl}/talent-events/${nominationEventId}/create-talent-nomination`,
     talentNomination: (nominationId: string) =>
       `${communitiesUrl}/talent-nominations/${nominationId}`,
+    talentNominationGroup: (eventId: string, nominationGroupId: string) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}`,
+    talentNominationGroupProfile: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/profile`,
+    talentNominationGroupExperience: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/career-experience`,
 
     // Comptrollership
     comptrollershipExecutivesPage: () =>

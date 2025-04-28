@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useSearchParams, type Location } from "react-router";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
@@ -74,6 +74,9 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
       ...NominateTalentSuccess
     }
 
+    ...NomineeFieldOptions
+    ...NominatorFieldOptions
+    ...DetailsFieldsOptions
     # klc = Leadership - Executive behaviours
     skills(families: ["klc"]) {
       ...NominateTalentSkill
@@ -88,11 +91,14 @@ const subTitle = defineMessage({
   description: "Subtitle for the form to nominate talent",
 });
 
+type TLocation = Location<{ submitting?: boolean }>;
+
 const NominateTalentPage = () => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
   const { current } = useCurrentStep();
-  const navigate = useNavigate();
+  const location: TLocation = useLocation() as TLocation;
+  const [, setSearchParams] = useSearchParams();
   const paths = useRoutes();
   const [{ data, fetching, error }] = useQuery({
     query: NominateTalent_Query,
@@ -109,12 +115,27 @@ const NominateTalentPage = () => {
         current,
         data?.talentNomination?.submittedSteps,
       );
-      if (targetStep) {
-        void navigate(`${paths.talentNomination(id)}?step=${targetStep}`);
+      if (targetStep && !location.state?.submitting) {
+        setSearchParams(
+          (params) => {
+            params.set("step", targetStep);
+            return params;
+          },
+          { replace: true },
+        );
+      } else if (isSubmitted) {
+        // Prevent navigating to steps after submission
+        setSearchParams(
+          (params) => {
+            params.delete("step");
+            return params;
+          },
+          { replace: true },
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitted, fetching, current]);
+  }, [isSubmitted, fetching, current, location.state]);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -169,9 +190,18 @@ const NominateTalentPage = () => {
               </TableOfContents.Sidebar>
               <TableOfContents.Content>
                 <Instructions />
-                <Nominator nominatorQuery={data.talentNomination} />
-                <Nominee nomineeQuery={data.talentNomination} />
-                <Details detailsQuery={data.talentNomination} />
+                <Nominator
+                  nominatorQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
+                <Nominee
+                  nomineeQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
+                <Details
+                  detailsQuery={data.talentNomination}
+                  optionsQuery={data}
+                />
                 <Rationale
                   rationaleQuery={data.talentNomination}
                   skillsQuery={unpackMaybes(data?.skills)}

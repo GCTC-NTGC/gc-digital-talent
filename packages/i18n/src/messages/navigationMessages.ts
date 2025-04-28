@@ -31,7 +31,7 @@ const navigationMessages = defineMessages({
     id: "nnMYWr",
     description: "Name of Work preferences page",
   },
-  careerTimelineAndRecruitment: {
+  careerTimeline: {
     defaultMessage: "Career timeline",
     id: "TUfJUD",
     description: "Name of Career timeline page",
@@ -106,6 +106,11 @@ const navigationMessages = defineMessages({
     id: "jDYG3j",
     description: "Name of Dashboard page",
   },
+  communityDashboard: {
+    defaultMessage: "Community dashboard",
+    id: "NQspkZ",
+    description: "Name of the community dashboard page",
+  },
   contactUs: {
     defaultMessage: "Contact us",
     id: "sQt/7l",
@@ -175,6 +180,11 @@ const navigationMessages = defineMessages({
     defaultMessage: "Return to your dashboard",
     id: "Y66jFM",
     description: "Link text to the dashboard page",
+  },
+  newNomination: {
+    defaultMessage: "New nomination",
+    id: "s3u05D",
+    description: "Link text to create a new nomination",
   },
 });
 
