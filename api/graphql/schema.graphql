@@ -2828,10 +2828,6 @@ type Mutation {
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-  deletePoolCandidate(id: ID! @whereKey): PoolCandidate
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
