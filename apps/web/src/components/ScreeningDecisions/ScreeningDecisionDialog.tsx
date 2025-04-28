@@ -334,6 +334,8 @@ interface ScreeningDecisionDialogProps {
   onSubmit: SubmitHandler<FormValues>;
   isOpen: boolean;
   onOpenChanged: (newOpen: boolean) => void;
+  isCreating?: boolean;
+  isUpdating?: boolean;
 }
 
 export const ScreeningDecisionDialog = ({
@@ -348,6 +350,8 @@ export const ScreeningDecisionDialog = ({
   onSubmit,
   isOpen,
   onOpenChanged,
+  isCreating,
+  isUpdating,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -511,7 +515,10 @@ export const ScreeningDecisionDialog = ({
             <SupportingEvidence experiences={experiences} skill={skill} />
           )}
           <BasicForm
-            onSubmit={onSubmit}
+            onSubmit={async (values) => {
+              if (isCreating || isUpdating) return; // Prevent multiple submissions
+              await onSubmit(values);
+            }}
             labels={labels}
             options={{
               defaultValues: initialValues ?? defaultValues,
@@ -639,10 +646,10 @@ const ScreeningDecisionDialogApi = ({
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
   };
 
-  const [, executeCreateMutation] = useMutation(
+  const [{ fetching: createFetching }, executeCreateMutation] = useMutation(
     CreateAssessmentResult_Mutation,
   );
-  const [, executeUpdateMutation] = useMutation(
+  const [{ fetching: updateFetching }, executeUpdateMutation] = useMutation(
     UpdateAssessmentResult_Mutation,
   );
 
@@ -710,6 +717,8 @@ const ScreeningDecisionDialogApi = ({
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
       experiences={unpackMaybes(experiences)}
+      isCreating={createFetching}
+      isUpdating={updateFetching}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(
