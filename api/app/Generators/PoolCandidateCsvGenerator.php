@@ -528,7 +528,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         /** @var Builder<\App\Models\User> $query */
-        $query->authorizedToView(['userId' => $this->userId]);
+        $query->authorizedToView(['userId' => $this->userId])->notDraft();
 
         return $query;
     }
