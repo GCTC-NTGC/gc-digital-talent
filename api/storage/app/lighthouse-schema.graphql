@@ -1163,7 +1163,6 @@ type TalentNominationGroup {
   developmentProgramsNotes: String
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
-  consentToShareProfile: Boolean
   comments: String
 }
 
