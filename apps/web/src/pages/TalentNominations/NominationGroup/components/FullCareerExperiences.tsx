@@ -124,7 +124,7 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
           description: "Heading for career experience",
         })}
         <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
-          <Button mode="inline" onClick={() => toggleAllExpanded(sectionIds)}>
+          <Button mode="inline" onClick={toggleAllExpanded}>
             {intl.formatMessage(
               hasExpanded
                 ? experienceMessages.collapseDetails

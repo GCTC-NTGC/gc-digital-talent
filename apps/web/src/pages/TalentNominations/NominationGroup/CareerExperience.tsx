@@ -153,6 +153,7 @@ const TalentNominationGroupCareerExperience = ({
     isWorkExperience(experience),
   );
 
+
   return (
     <Pending fetching={fetching} error={error}>
       <CardBasic
