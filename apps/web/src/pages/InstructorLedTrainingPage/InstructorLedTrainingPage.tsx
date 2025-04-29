@@ -38,9 +38,9 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import { wrapAbbr } from "~/utils/nameUtils";
+import PinnedIcon from "~/components/Svg/PinnedIcon";
 
 import CourseLanguageChip from "./CourseLanguageChip";
-import PinnedIcon from "./PinnedIcon";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunities(
