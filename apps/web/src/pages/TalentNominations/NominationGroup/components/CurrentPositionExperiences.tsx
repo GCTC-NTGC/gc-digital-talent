@@ -177,6 +177,7 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = workExperiences.filter((exp) =>
     isCurrentExperience(exp.endDate),
   );
+  
   const sorted = currentWorkExperiences.sort((a, b) => {
     const aStart = a?.startDate ? new Date(a.startDate) : MAX_DATE;
     const bStart = b?.startDate ? new Date(b.startDate) : MAX_DATE;
