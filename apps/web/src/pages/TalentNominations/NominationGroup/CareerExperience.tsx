@@ -1,7 +1,6 @@
 import { useQuery } from "urql";
 import useIntl from "react-intl/src/components/useIntl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
-import React from "react";
 
 import { Experience, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -24,6 +23,7 @@ import { isWorkExperience } from "~/utils/experienceUtils";
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
+import React from "react";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
@@ -133,7 +133,7 @@ const TalentNominationGroupCareerExperience = ({
   const intl = useIntl();
 
   const [{ data, fetching, error }] = useQuery<{
-    data: { user: { updatedDate: string; experiences: Experience[] } };
+    user?: { updatedDate: string; experiences: Experience[] };
   }>({
     query: NomineeExperiences_Query,
     variables: { nomineeId },
@@ -148,7 +148,7 @@ const TalentNominationGroupCareerExperience = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
-  const experiences = unpackMaybes(data?.user?.experiences || []);
+  const experiences = unpackMaybes(data?.user?.experiences ?? []);
 
   const workExperiences = experiences.filter((experience) =>
     isWorkExperience(experience),
@@ -273,13 +273,15 @@ const TalentNominationGroupCareerExperiencePage = () => {
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
   );
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery<{
+    talentNominationGroup?: { consentToShareProfile: boolean; nominee: { id: string } };
+  }>({
     query: TalentNominationGroupCareerExperience_Query,
     variables: { talentNominationGroupId },
   });
 
-  const nomineeId = data?.talentNominationGroup?.nominee?.id;
-  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
+  const nomineeId = data?.talentNominationGroup?.nominee?.id ?? null;
+  const shareProfile = data?.talentNominationGroup?.consentToShareProfile ?? false;
 
   return (
     <Pending fetching={fetching} error={error}>
