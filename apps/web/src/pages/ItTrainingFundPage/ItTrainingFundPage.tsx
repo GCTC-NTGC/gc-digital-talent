@@ -451,8 +451,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "<strong>How to apply</strong>: Spaces are limited. You need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
-                              id: "26OHuo",
+                                "<strong>How to apply</strong>: Spaces are limited. You need to apply and meet the prerequisites to participate.",
+                              id: "BlFUsz",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -564,8 +564,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to apply</strong>: Access is limited. You need to request a voucher and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
-                            id: "gYvHOD",
+                              "<strong>How to apply</strong>: Access is limited. You need to request a voucher and meet the prerequisites.",
+                            id: "vmVdJt",
                             description:
                               "An item in a list of points about cert exams",
                           })}
