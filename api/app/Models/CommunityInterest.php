@@ -41,6 +41,13 @@ class CommunityInterest extends Model
         'finance_other_roles' => 'array',
     ];
 
+    /**
+     * The attributes that can be filled using mass-assignment.
+     */
+    protected $fillable = [
+        'consent_to_share_profile',
+    ];
+
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
