@@ -101,9 +101,7 @@ const Display = ({
             employeeProfileMessages.targetClassificationGroup,
           )}
         >
-          {nextRoleClassification?.group
-            ? nextRoleClassification.group
-            : notProvided}
+          {nextRoleClassification?.group ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(
@@ -140,7 +138,7 @@ const Display = ({
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.jobTitle)}
         >
-          {nextRoleJobTitle ? nextRoleJobTitle : notProvided}
+          {nextRoleJobTitle ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.community)}
@@ -204,9 +202,7 @@ const Display = ({
           )}
           data-h2-grid-column="l-tablet(span 2)"
         >
-          {nextRoleAdditionalInformation
-            ? nextRoleAdditionalInformation
-            : notProvided}
+          {nextRoleAdditionalInformation ?? notProvided}
         </ToggleForm.FieldDisplay>
       </div>
     </div>

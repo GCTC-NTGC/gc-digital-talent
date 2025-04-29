@@ -86,9 +86,8 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             employeeProfileMessages.targetClassificationGroup,
           )}
         </span>
-        {employeeProfile.nextRoleClassification?.group
-          ? employeeProfile.nextRoleClassification.group
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleClassification?.group ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
@@ -130,17 +129,15 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.jobTitle)}
         </span>
-        {employeeProfile.nextRoleJobTitle
-          ? employeeProfile.nextRoleJobTitle
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleJobTitle ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div data-h2-grid-column="l-tablet(span 2)">
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.community)}
         </span>
-        {employeeProfile.nextRoleCommunity?.name?.localized
-          ? employeeProfile.nextRoleCommunity.name.localized
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleCommunity?.name?.localized ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       {employeeProfile.nextRoleCommunity?.workStreams?.length ||
       employeeProfile.nextRoleWorkStreams?.length ? (
@@ -185,9 +182,8 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             employeeProfileMessages.additionalInformationNextRole,
           )}
         </span>
-        {employeeProfile.nextRoleAdditionalInformation
-          ? employeeProfile.nextRoleAdditionalInformation
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleAdditionalInformation ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
     </CardBasic>
   );

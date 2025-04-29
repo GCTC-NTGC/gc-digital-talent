@@ -14,7 +14,7 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
@@ -34,7 +34,6 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
-import nodeToString from "./nodeToString";
 
 /**
  * Determine if the advertisement can be

@@ -45,19 +45,19 @@ const Display = ({
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
-        {aboutYou ? aboutYou : nullField}
+        {aboutYou ?? nullField}
       </ToggleForm.FieldDisplay>
       <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
-        {learningGoals ? learningGoals : nullField}
+        {learningGoals ?? nullField}
       </ToggleForm.FieldDisplay>
       <CardSeparator data-h2-margin="base(0)" />
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
-        {workStyle ? workStyle : nullField}
+        {workStyle ?? nullField}
       </ToggleForm.FieldDisplay>
     </div>
   );

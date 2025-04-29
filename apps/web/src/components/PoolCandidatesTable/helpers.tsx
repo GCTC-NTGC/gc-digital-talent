@@ -410,12 +410,8 @@ export function transformPoolCandidateSearchInputToFormValues(
       input?.applicantFilter?.skills?.filter(notEmpty).map((s) => s.id) ?? [],
     priorityWeight: input?.priorityWeight?.map((pw) => String(pw)) ?? [],
     poolCandidateStatus: input?.poolCandidateStatus?.filter(notEmpty) ?? [],
-    expiryStatus: input?.expiryStatus
-      ? input.expiryStatus
-      : CandidateExpiryFilter.Active,
-    suspendedStatus: input?.suspendedStatus
-      ? input.suspendedStatus
-      : CandidateSuspendedFilter.Active,
+    expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
+    suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     govEmployee: input?.isGovEmployee ? "true" : "",
     community: input?.applicantFilter?.community?.id ?? "",
   };

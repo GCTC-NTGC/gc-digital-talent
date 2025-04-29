@@ -282,9 +282,7 @@ export const RequestForm = ({
       },
       applicantFilter: {
         create: {
-          positionDuration: applicantFilter?.positionDuration
-            ? applicantFilter.positionDuration
-            : null,
+          positionDuration: applicantFilter?.positionDuration ?? null,
           hasDiploma: applicantFilter?.hasDiploma
             ? applicantFilter?.hasDiploma
             : false,
@@ -306,9 +304,7 @@ export const RequestForm = ({
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
               : [],
           },
-          locationPreferences: applicantFilter?.locationPreferences
-            ? applicantFilter?.locationPreferences
-            : [],
+          locationPreferences: applicantFilter?.locationPreferences ?? [],
           skills: {
             sync: applicantFilter?.skills
               ? applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id)

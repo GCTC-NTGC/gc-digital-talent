@@ -76,13 +76,9 @@ export const formValuesToSubmitData = (
     en: formValues.specificTitleEn,
     fr: formValues.specificTitleFr,
   },
-  processNumber: formValues.processNumber ? formValues.processNumber : null,
-  publishingGroup: formValues.publishingGroup
-    ? formValues.publishingGroup
-    : undefined, // can't be set to null, assume not updating if empty
-  opportunityLength: formValues.opportunityLength
-    ? formValues.opportunityLength
-    : null, // can't be set to null, assume not updating if empty
+  processNumber: formValues.processNumber ?? null,
+  publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
+  opportunityLength: formValues.opportunityLength ?? null, // can't be set to null, assume not updating if empty
 });
 
 export const getClassificationOptions = (

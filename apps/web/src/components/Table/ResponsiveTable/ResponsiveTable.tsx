@@ -13,10 +13,8 @@ import {
 import isEmpty from "lodash/isEmpty";
 import { ReactNode, useEffect, useId, useMemo, useRef } from "react";
 
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { empty, nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
-
-import nodeToString from "~/utils/nodeToString";
 
 import Table from "./Table";
 import SearchForm from "./SearchForm";
