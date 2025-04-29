@@ -131,9 +131,7 @@ const TalentNominationGroupCareerExperience = ({
 }: TalentNominationGroupCareerExperienceProps) => {
   const intl = useIntl();
 
-  const [{ data, fetching, error }] = useQuery<{
-    user?: { updatedDate: string; experiences: Experience[] };
-  }>({
+  const [{ data, fetching, error }] = useQuery({
     query: NomineeExperiences_Query,
     variables: { nomineeId },
     pause: !shareProfile,
@@ -147,12 +145,11 @@ const TalentNominationGroupCareerExperience = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
-  const experiences = unpackMaybes(data?.user?.experiences ?? []);
+  const experiences = unpackMaybes(data?.user?.experiences);
 
   const workExperiences = experiences.filter((experience) =>
     isWorkExperience(experience),
   );
-
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -283,9 +280,8 @@ const TalentNominationGroupCareerExperiencePage = () => {
     variables: { talentNominationGroupId },
   });
 
-  const nomineeId = data?.talentNominationGroup?.nominee?.id ?? null;
-  const shareProfile =
-    data?.talentNominationGroup?.consentToShareProfile ?? false;
+  const nomineeId = data?.talentNominationGroup?.nominee?.id;
+  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
 
   return (
     <Pending fetching={fetching} error={error}>

@@ -3,13 +3,7 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
@@ -22,7 +16,6 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import { Experience } from "~/components/ExperienceCard/types";
 
 interface FullCareerExperiencesProps {
   experiences?: Omit<Experience, "user">[];
@@ -43,13 +36,13 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
           }) as AwardExperience & { startDate: string; endDate: string },
       )
       .sort(compareByDate) ?? [];
-  const communityExperiences: Omit<CommunityExperience, "user">[] =
+  const communityExperiences =
     experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
-  const educationExperiences: Omit<EducationExperience, "user">[] =
+  const educationExperiences =
     experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
-  const personalExperiences: Omit<PersonalExperience, "user">[] =
+  const personalExperiences =
     experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
-  const workExperiences: Omit<WorkExperience, "user">[] =
+  const workExperiences =
     experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
   const experienceSections = [
