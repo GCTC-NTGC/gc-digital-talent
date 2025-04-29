@@ -2,7 +2,6 @@ import { useQuery } from "urql";
 import useIntl from "react-intl/src/components/useIntl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import React from "react";
-import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { Experience, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -17,18 +16,14 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { isWorkExperience } from "~/utils/experienceUtils";
-import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
+import { isWorkExperience } from "./utils/experienceUtils";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
@@ -129,13 +124,9 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
 interface TalentNominationGroupCareerExperienceProps {
   nomineeId: string;
   shareProfile?: boolean;
-  nomineeId: string;
-  shareProfile?: boolean;
 }
 
 const TalentNominationGroupCareerExperience = ({
-  nomineeId,
-  shareProfile,
   nomineeId,
   shareProfile,
 }: TalentNominationGroupCareerExperienceProps) => {
@@ -290,12 +281,9 @@ const TalentNominationGroupCareerExperiencePage = () => {
   const nomineeId = data?.talentNominationGroup?.nominee?.id;
   const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
 
-  const nomineeId = data?.talentNominationGroup?.nominee?.id;
-  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
       {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
         <TalentNominationGroupCareerExperience
           nomineeId={nomineeId}
