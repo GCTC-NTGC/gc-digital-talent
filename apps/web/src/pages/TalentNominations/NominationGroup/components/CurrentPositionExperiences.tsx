@@ -85,6 +85,19 @@ const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
         fr
       }
     }
+    supervisoryPosition
+    supervisedEmployees
+    supervisedEmployeesNumber
+    budgetManagement
+    annualBudgetAllocation
+    seniorManagementStatus
+    cSuiteRoleTitle {
+      value
+      label {
+        localized
+      }
+    }
+    otherCSuiteRoleTitle
     classification {
       id
       name {
@@ -118,19 +131,6 @@ const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
-    supervisoryPosition
-    supervisedEmployees
-    supervisedEmployeesNumber
-    budgetManagement
-    annualBudgetAllocation
-    seniorManagementStatus
-    cSuiteRoleTitle {
-      value
-      label {
-        localized
-      }
-    }
-    otherCSuiteRoleTitle
     skills {
       id
       key
@@ -177,7 +177,6 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = workExperiences.filter((exp) =>
     isCurrentExperience(exp.endDate),
   );
-  
   const sorted = currentWorkExperiences.sort((a, b) => {
     const aStart = a?.startDate ? new Date(a.startDate) : MAX_DATE;
     const bStart = b?.startDate ? new Date(b.startDate) : MAX_DATE;

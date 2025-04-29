@@ -1302,10 +1302,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
-  pools: [Pool]!
-    @all(scopes: ["authorizedToView", "whereNotArchived"])
-    @canResolved(ability: "view")
-    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1398,11 +1394,6 @@ type Query {
   skills(families: [String!] @scope): [Skill]!
     @all
     @canModel(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle
-    @find
-    @canModel(ability: "view")
-  genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
-
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
@@ -2836,10 +2827,6 @@ type Mutation {
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-  deletePoolCandidate(id: ID! @whereKey): PoolCandidate
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
@@ -2902,12 +2889,6 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id")
-  deletePoolCandidateSearchRequest(
-    id: ID! @whereKey
-  ): PoolCandidateSearchRequest
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create

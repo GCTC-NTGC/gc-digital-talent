@@ -17,9 +17,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import { isWorkExperience } from "~/utils/experienceUtils";
 import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
@@ -125,9 +129,13 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
 interface TalentNominationGroupCareerExperienceProps {
   nomineeId: string;
   shareProfile?: boolean;
+  nomineeId: string;
+  shareProfile?: boolean;
 }
 
 const TalentNominationGroupCareerExperience = ({
+  nomineeId,
+  shareProfile,
   nomineeId,
   shareProfile,
 }: TalentNominationGroupCareerExperienceProps) => {
@@ -262,6 +270,10 @@ const TalentNominationGroupCareerExperience_Query = graphql(/* GraphQL */ `
       nominee {
         id
       }
+      consentToShareProfile
+      nominee {
+        id
+      }
     }
   }
 `);
@@ -278,10 +290,16 @@ const TalentNominationGroupCareerExperiencePage = () => {
   const nomineeId = data?.talentNominationGroup?.nominee?.id;
   const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
 
+  const nomineeId = data?.talentNominationGroup?.nominee?.id;
+  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
+      {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
         <TalentNominationGroupCareerExperience
+          nomineeId={nomineeId}
+          shareProfile={shareProfile}
           nomineeId={nomineeId}
           shareProfile={shareProfile}
         />
