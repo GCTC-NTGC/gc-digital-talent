@@ -194,6 +194,7 @@ const AssessmentStepTracker = ({
       ) : (
         <Well>
           <p>
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {intl.formatMessage(processMessages.noAssessmentPlan)}{" "}
             {intl.formatMessage(processMessages.viewTalentPlacement, {
               a: (chunks: ReactNode) =>

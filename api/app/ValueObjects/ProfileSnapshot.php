@@ -7,6 +7,7 @@ use App\Enums\CafEmploymentType;
 use App\Enums\CafForce;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
@@ -69,6 +70,7 @@ class ProfileSnapshot implements Castable
                 'cafEmploymentType' => CafEmploymentType::class,
                 'cafForce' => CafForce::class,
                 'cafRank' => CafRank::class,
+                'cSuiteRoleTitle' => CSuiteRoleTitle::class,
             ];
 
             $iterator = new RecursiveArrayIterator($snapshot);
@@ -116,6 +118,7 @@ class ProfileSnapshot implements Castable
                     'personalExperiences.skills',
                     'workExperiences',
                     'workExperiences.skills',
+                    'workExperiences.workStreams',
                 ])->findOrFail($value['userId']);
 
                 // collect skills attached to the Pool to pass into resource collection

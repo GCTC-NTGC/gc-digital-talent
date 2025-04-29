@@ -40,7 +40,6 @@ const NavItem = ({ href, title, subMenu, state, ...rest }: NavItemProps) => {
       <NavMenu.Link
         type={subMenu ? "subMenuLink" : "link"}
         // NOTE: Comes from react-router
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         {...{ state, href }}
       >
         {title}
@@ -91,23 +90,6 @@ const useMainNavLinks = () => {
     <NavItem
       key="applicantDashboard"
       href={paths.applicantDashboard()}
-      title={intl.formatMessage(navigationMessages.dashboard)}
-    />
-  );
-
-  const ManagerHomePage = (
-    <NavMenu.Link
-      href={paths.manager()}
-      icon={HomeIcon}
-      mode="icon_only"
-      ariaLabel={intl.formatMessage(navigationMessages.home)}
-    />
-  );
-
-  const ManagerDashboard = (
-    <NavItem
-      key="managerDashboard"
-      href={paths.managerDashboard()}
       title={intl.formatMessage(navigationMessages.dashboard)}
     />
   );
@@ -181,10 +163,8 @@ const useMainNavLinks = () => {
   const CareerTimeline = (
     <NavItem
       key="careerTimeline"
-      href={paths.careerTimelineAndRecruitment()}
-      title={intl.formatMessage(
-        navigationMessages.careerTimelineAndRecruitment,
-      )}
+      href={paths.careerTimeline()}
+      title={intl.formatMessage(navigationMessages.careerTimeline)}
       subMenu
     />
   );
@@ -194,15 +174,6 @@ const useMainNavLinks = () => {
       key="skillPortfolio"
       href={paths.skillPortfolio()}
       title={intl.formatMessage(navigationMessages.skillPortfolio)}
-      subMenu
-    />
-  );
-
-  const ManagerProfile = (
-    <NavItem
-      key="managerProfile"
-      href={paths.profile()}
-      title={intl.formatMessage(navigationMessages.managerProfile)}
       subMenu
     />
   );
@@ -321,25 +292,27 @@ const useMainNavLinks = () => {
 
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
-    ["manager"]: intl.formatMessage(navMenuMessages.manager),
     ["pool_operator"]: intl.formatMessage(navMenuMessages.community),
     ["request_responder"]: intl.formatMessage(navMenuMessages.community),
     ["community_manager"]: intl.formatMessage(navMenuMessages.community),
     ["process_operator"]: intl.formatMessage(navMenuMessages.community),
     ["community_recruiter"]: intl.formatMessage(navMenuMessages.community),
     ["community_admin"]: intl.formatMessage(navMenuMessages.community),
+    ["community_talent_coordinator"]: intl.formatMessage(
+      navMenuMessages.community,
+    ),
     ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
   };
 
   const getRoleLink: Record<string, string> = {
     ["applicant"]: paths.applicantDashboard(),
-    ["manager"]: paths.managerDashboard(),
     ["pool_operator"]: paths.communityDashboard(),
     ["request_responder"]: paths.communityDashboard(),
     ["community_manager"]: paths.communityDashboard(),
     ["process_operator"]: paths.communityDashboard(),
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
+    ["community_talent_coordinator"]: paths.communityDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
   };
 
@@ -400,16 +373,6 @@ const useMainNavLinks = () => {
             ]
           : null,
         resourceLinks: [ContactSupport, SkillLibrary],
-      };
-    case "manager":
-      return {
-        ...defaultLinks,
-        homeLink: ManagerHomePage,
-        mainLinks: [ManagerDashboard, FindTalent],
-        accountLinks: loggedIn
-          ? [ManagerProfile, AccountSettings, SignOut]
-          : null,
-        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "community":
       return {

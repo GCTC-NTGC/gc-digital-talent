@@ -23,6 +23,5 @@ export const SEARCH_PARAM_KEY = {
   FILTERS: "f",
 } as const;
 
-// eslint-disable-next-line import/no-unused-modules
 export type SearchParamKey =
   (typeof SEARCH_PARAM_KEY)[keyof typeof SEARCH_PARAM_KEY];

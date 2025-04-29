@@ -1,15 +1,9 @@
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useQuery } from "urql";
 import { ReactNode } from "react";
 
-import {
-  Link,
-  Pending,
-  TableOfContents,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -22,7 +16,6 @@ import profileMessages from "~/messages/profileMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AccountManagement from "./AccountManagement";
-import RecruitmentAvailability from "./RecruitmentAvailability";
 import NotificationSettings from "./NotificationSettings";
 
 const AccountSettings_Query = graphql(/* GraphQL */ `
@@ -31,17 +24,11 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
       id
       enabledEmailNotifications
       enabledInAppNotifications
-      poolCandidates {
-        ...RecruitmentAvailabilityCandidate
-      }
     }
   }
 `);
 
-export type SectionKey =
-  | "accountManagement"
-  | "notificationSettings"
-  | "recruitmentAvailability";
+export type SectionKey = "accountManagement" | "notificationSettings";
 
 interface Section {
   id: string;
@@ -55,17 +42,10 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage:
-    "Learn about GCKey, manage notifications, and update your availability.",
-  id: "WwuIcM",
+  defaultMessage: "Learn about GCKey and manage your notifications.",
+  id: "HR2ouB",
   description: "Subtitle for the account settings page.",
 });
-
-const inlineLink = (href: string, chunks: ReactNode) => (
-  <Link href={href} color="black">
-    {chunks}
-  </Link>
-);
 
 const AccountSettingsPage = () => {
   const intl = useIntl();
@@ -100,14 +80,6 @@ const AccountSettingsPage = () => {
         defaultMessage: "Notification settings",
         id: "mZ1C/0",
         description: "Title for the notification settings.",
-      }),
-    },
-    recruitmentAvailability: {
-      id: "recruitment_availability",
-      title: intl.formatMessage({
-        defaultMessage: "Recruitment availability",
-        id: "nKwVX7",
-        description: "Title for the recruitment availability.",
       }),
     },
   };
@@ -194,37 +166,6 @@ const AccountSettingsPage = () => {
                   <NotificationSettings
                     enabledEmailNotifications={enabledEmailNotifications}
                     enabledInAppNotifications={enabledInAppNotifications}
-                  />
-                </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sections.recruitmentAvailability.id}
-                  data-h2-margin-top="base(x2) p-tablet(x3)"
-                >
-                  <TableOfContents.Heading
-                    size="h3"
-                    icon={IdentificationIcon}
-                    color="tertiary"
-                    data-h2-margin="base(0, 0, x1, 0)"
-                  >
-                    {sections.recruitmentAvailability.title}
-                  </TableOfContents.Heading>
-                  <p data-h2-margin="base(0, 0, x1, 0)">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage: `When you are admitted into a talent recruitment process, you agree to receive notifications about potential opportunities that meet the criteria of the process. These notifications will only be sent if you've enabled "Job alert" notifications in the "Notification settings" section of this page. You can also disable these notifications on a per process basis using the controls found on the cards provided.
-                        `,
-                        id: "wYct8d",
-                        description:
-                          "Subtitle for recruitment availability section on account settings page.",
-                      },
-                      {
-                        link: (chunks: ReactNode) =>
-                          inlineLink(paths.profileAndApplications(), chunks),
-                      },
-                    )}
-                  </p>
-                  <RecruitmentAvailability
-                    candidatesQuery={unpackMaybes(data.me.poolCandidates)}
                   />
                 </TableOfContents.Section>
               </TableOfContents.Content>

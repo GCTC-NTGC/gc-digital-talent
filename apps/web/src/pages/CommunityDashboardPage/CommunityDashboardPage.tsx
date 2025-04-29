@@ -33,6 +33,7 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
@@ -90,6 +91,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
+  const { adminNomination } = useFeatureFlags();
 
   interface CardLinkInfo {
     label: string;
@@ -104,6 +106,15 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.poolCandidates(),
       roles: permissionConstants.viewCandidates,
     },
+    ...(adminNomination
+      ? [
+          {
+            label: intl.formatMessage(pageTitles.talentManagement),
+            href: adminRoutes.adminTalentManagementEvents(),
+            roles: permissionConstants.viewCommunityTalentNominations,
+          },
+        ]
+      : []),
     {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
@@ -113,6 +124,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(pageTitles.talentRequests),
       href: adminRoutes.searchRequestTable(),
       roles: permissionConstants.viewRequests,
+    },
+    {
+      label: intl.formatMessage(adminMessages.communityTalent),
+      href: adminRoutes.communityTalentPage(),
+      roles: permissionConstants.viewCommunityTalent,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
@@ -191,6 +207,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [
         ROLE_NAME.CommunityAdmin,
         ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityTalentCoordinator,
         ROLE_NAME.PlatformAdmin,
       ],
     },
@@ -381,6 +398,7 @@ export const Component = () => (
       ROLE_NAME.CommunityManager,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
     ]}
   >

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
@@ -18,48 +18,85 @@ import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { isVerifiedGovEmployee } from "~/utils/userUtils";
 import profileMessages from "~/messages/profileMessages";
-import StatusItem from "~/components/StatusItem/StatusItem";
+import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
+import {
+  hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
+  hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerDevelopment";
+import {
+  hasAllEmptyFields as nextRoleHasAllEmptyFields,
+  hasEmptyRequiredFields as nextRoleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/nextRole";
+import {
+  hasAllEmptyFields as careerObjectiveHasAllEmptyFields,
+  hasEmptyRequiredFields as careerObjectiveHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/careerObjective";
+import {
+  hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
+  hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
+} from "~/validators/employeeProfile/goalsWorkStyle";
 
 import messages from "./messages";
-import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import GoalsWorkStyleSection, {
+  EmployeeProfileGoalsWorkStyle_Fragment,
+} from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection/CareerDevelopmentSection";
+import { EmployeeProfileCareerDevelopment_Fragment } from "./components/CareerDevelopmentSection/utils";
+import NextRoleSection, {
+  EmployeeProfileNextRole_Fragment,
+} from "./components/NextRoleSection/NextRoleSection";
+import CareerObjectiveSection, {
+  EmployeeProfileCareerObjective_Fragment,
+} from "./components/CareerObjective/CareerObjectiveSection";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
-  DREAM_ROLE: "dream-role-section",
+  NEXT_ROLE: "next-role-section",
+  CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
+const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeProfileOptions on Query {
+    ...EmployeeProfileCareerDevelopmentOptions
+    ...EmployeeProfileNextRoleOptions
+    ...EmployeeProfileCareerObjectiveOptions
+  }
+`);
+
 const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
-    isGovEmployee
-    workEmail
-    isWorkEmailVerified
+    isVerifiedGovEmployee
     employeeProfile {
+      ...EmployeeProfileCareerDevelopment
+      ...EmployeeProfileCareerObjective
+      ...EmployeeProfileNextRole
       ...EmployeeProfileGoalsWorkStyle
     }
   }
 `);
 
 interface EmployeeProfileProps {
-  userQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  employeeProfileQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
-const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
+const EmployeeProfile = ({
+  employeeProfileQuery,
+  optionsQuery,
+}: EmployeeProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, userQuery);
-  const { isGovEmployee, workEmail, isWorkEmailVerified } = user;
+  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery);
+  const options = getFragment(EmployeeProfileOptions_Fragment, optionsQuery);
 
-  if (!user.employeeProfile) {
+  if (!user?.employeeProfile) {
     throw new NotFoundError();
   }
 
-  if (
-    !isVerifiedGovEmployee({ isGovEmployee, workEmail, isWorkEmailVerified })
-  ) {
+  if (!user?.isVerifiedGovEmployee) {
     throw new UnauthorizedError(
       intl.formatMessage({
         defaultMessage: "Not a verified employee",
@@ -70,9 +107,9 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   }
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Your employee profile",
-    id: "u+lXsz",
-    description: "Page title for a users employee profile",
+    defaultMessage: "Your GC employee profile",
+    id: "cUSI4/",
+    description: "Page title for a user's GC employee profile",
   });
 
   const subtitle = intl.formatMessage({
@@ -85,19 +122,43 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
         url: paths.profileAndApplications(),
       },
       {
         url: paths.employeeProfile(),
-        label: intl.formatMessage({
-          defaultMessage: "Employee profile",
-          id: "FThj7q",
-          description: "Short title for a users employee profile",
-        }),
+        label: intl.formatMessage(navigationMessages.employeeProfileGC),
       },
     ],
   });
+
+  // for validation
+  const careerDevelopment = getFragment(
+    EmployeeProfileCareerDevelopment_Fragment,
+    user.employeeProfile,
+  );
+  const nextRole = getFragment(
+    EmployeeProfileNextRole_Fragment,
+    user.employeeProfile,
+  );
+  const careerObjective = getFragment(
+    EmployeeProfileCareerObjective_Fragment,
+    user.employeeProfile,
+  );
+  const goalsWorkStyle = getFragment(
+    EmployeeProfileGoalsWorkStyle_Fragment,
+    user.employeeProfile,
+  );
+
+  let overallStatus: Status = "success";
+  if (
+    careerDevelopmentHasEmptyRequiredFields(careerDevelopment) ||
+    nextRoleHasEmptyRequiredFields(nextRole) ||
+    careerObjectiveHasEmptyRequiredFields(careerObjective) ||
+    goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+  ) {
+    overallStatus = "error";
+  }
 
   return (
     <>
@@ -113,8 +174,8 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem={false}
-                  title={intl.formatMessage(messages.careerPlanning)}
-                  status="success"
+                  title={intl.formatMessage(commonMessages.careerPlanning)}
+                  status={overallStatus}
                   scrollTo={SECTION_ID.CAREER_PLANNING}
                 />
                 <TableOfContents.List
@@ -125,23 +186,59 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
-                      status="success"
+                      status={
+                        careerDevelopmentHasEmptyRequiredFields(
+                          careerDevelopment,
+                        )
+                          ? "error"
+                          : careerDevelopmentHasAllEmptyFields(
+                                careerDevelopment,
+                              )
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
-                      title={intl.formatMessage(messages.dreamRole)}
-                      status="success"
-                      scrollTo={SECTION_ID.DREAM_ROLE}
+                      title={intl.formatMessage(messages.yourNextRole)}
+                      status={
+                        nextRoleHasEmptyRequiredFields(nextRole)
+                          ? "error"
+                          : nextRoleHasAllEmptyFields(nextRole)
+                            ? "optional"
+                            : "success"
+                      }
+                      scrollTo={SECTION_ID.NEXT_ROLE}
+                    />
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <StatusItem
+                      asListItem={false}
+                      title={intl.formatMessage(messages.careerObjective)}
+                      status={
+                        careerObjectiveHasEmptyRequiredFields(careerObjective)
+                          ? "error"
+                          : careerObjectiveHasAllEmptyFields(careerObjective)
+                            ? "optional"
+                            : "success"
+                      }
+                      scrollTo={SECTION_ID.CAREER_OBJECTIVE}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
-                      status="success"
+                      status={
+                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+                          ? "error"
+                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
+                            ? "optional"
+                            : "success"
+                      }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
                     />
                   </TableOfContents.ListItem>
@@ -164,7 +261,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   data-h2-font-weight="base(400)"
                   data-h2-text-align="base(center) l-tablet(initial)"
                 >
-                  {intl.formatMessage(messages.careerPlanning)}
+                  {intl.formatMessage(commonMessages.careerPlanning)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
@@ -176,12 +273,24 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
                   })}
                 </p>
               </TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.CAREER_DEVELOPMENT}
-              ></TableOfContents.Section>
-              <TableOfContents.Section
-                id={SECTION_ID.DREAM_ROLE}
-              ></TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.CAREER_DEVELOPMENT}>
+                <CareerDevelopmentSection
+                  employeeProfileQuery={user.employeeProfile}
+                  careerDevelopmentOptionsQuery={options}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.NEXT_ROLE}>
+                <NextRoleSection
+                  employeeProfileQuery={user.employeeProfile}
+                  optionsQuery={options}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
+                <CareerObjectiveSection
+                  employeeProfileQuery={user.employeeProfile}
+                  optionsQuery={options}
+                />
+              </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}
@@ -197,6 +306,7 @@ const EmployeeProfile = ({ userQuery }: EmployeeProfileProps) => {
 
 const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
   query EmployeeProfilePage {
+    ...EmployeeProfileOptions
     me {
       ...EmployeeProfile
     }
@@ -212,7 +322,7 @@ const EmployeeProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile userQuery={data.me} />
+        <EmployeeProfile employeeProfileQuery={data.me} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}

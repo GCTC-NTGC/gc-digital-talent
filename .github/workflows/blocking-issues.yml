@@ -12,7 +12,7 @@ jobs:
     name: Checks for blocking issues
 
     steps:
-      - uses: tristan-orourke/blocking-issues@v1.2
+      - uses: Levi-Lesches/blocking-issues@v2
         with:
           # Optional: Choose an existing label to use instead of creating a new one.
           # If the label cannot be found, the default one will be created and used.

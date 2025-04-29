@@ -29,8 +29,8 @@ const mailLink = (chunks: ReactNode) => (
 );
 
 const requestAVoucherUrl = {
-  en: "https://forms-formulaires.alpha.canada.ca/en/id/cm5ffyomv00jtsdyfv7pt4qu9",
-  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm5ffyomv00jtsdyfv7pt4qu9",
+  en: "https://forms-formulaires.alpha.canada.ca/en/id/cm8hx7lwz000uyl693aju6upq",
+  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm8hx7lwz000uyl693aju6upq",
 } as const;
 
 const pageSubtitle = defineMessage({
@@ -228,8 +228,8 @@ export const Component = () => {
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
-                      "You're currently an IT-classified Government of Canada employee represented by PIPSC",
-                    id: "eQkmhS",
+                      "You're currently an IT-classified Government of Canada employee covered by the IT collective agreement",
+                    id: "7abz0A",
                     description:
                       "First item in list of eligibility requirements section",
                   })}

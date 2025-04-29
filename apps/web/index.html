@@ -63,6 +63,7 @@
       rel="stylesheet"
     />
   </head>
+
   <body>
     <div
       id="root"
@@ -92,7 +93,16 @@
           ],
 
           // Feature flags
-          [],
+          [
+            "FEATURE_ADMIN_NOMINATION",
+            filterUnusable("$FEATURE_ADMIN_NOMINATION") ??
+              "<%= FEATURE_ADMIN_NOMINATION %>",
+          ],
+          [
+            "FEATURE_CREATE_NOMINATION",
+            filterUnusable("$FEATURE_CREATE_NOMINATION") ??
+              "<%= FEATURE_CREATE_NOMINATION %>",
+          ],
 
           // Azure application insights not used in dev
           [

@@ -1,0 +1,35 @@
+name: "Debt/Refactor"
+description: Something that needs to be improved or removed (without affecting expected functionality)
+title: "♻️ "
+projects: ["GCTC-NTGC/8"]
+type: "Debt"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this debt issue!
+  - type: textarea
+    id: description-and-expected-behaviour
+    attributes:
+      label: ♻️ Debt/Refactor
+      description: Describe the problem with the existing implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: 🕵️ Details
+      description: Add any additional details that could assist with the development of the refactor.
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 🙋‍♀️ Proposed Solution
+      description: How do you think we can improve this?
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: ✅ Acceptance Criteria
+      description: A set of assumptions which, when tested, verify that the debt was addressed and expected functionality has not been affected.
+      placeholder: |
+        - [ ] Criteria 1
+        - [ ] Criteria 2

@@ -2,13 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\CSuiteRoleTitle;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin \App\Models\WorkExperience */
 class WorkExperienceResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -40,6 +44,15 @@ class WorkExperienceResource extends JsonResource
             'cafRank' => $this->caf_rank,
             'classification' => $this->classification_id ? (new ClassificationResource(Classification::find($this->classification_id))) : null,
             'department' => $this->department_id ? (new DepartmentResource(Department::find($this->department_id))) : null,
+            'workStreams' => WorkStreamResource::collection($this->workStreams),
+            'supervisoryPosition' => $this->supervisory_position,
+            'supervisedEmployees' => $this->supervised_employees,
+            'supervisedEmployeesNumber' => $this->supervised_employees_number,
+            'budgetManagement' => $this->budget_management,
+            'annualBudgetAllocation' => $this->annual_budget_allocation,
+            'seniorManagementStatus' => $this->senior_management_status,
+            'cSuiteRoleTitle' => $this->localizeEnum($this->c_suite_role_title, CSuiteRoleTitle::class),
+            'otherCSuiteRoleTitle' => $this->other_c_suite_role_title,
         ];
     }
 }

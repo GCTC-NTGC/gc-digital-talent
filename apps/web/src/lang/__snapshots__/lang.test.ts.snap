@@ -10,6 +10,35 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Submitted",
+    "fr": [
+      "Soumise",
+      "Soumis"
+    ]
+  },
+  {
+    "en": "Interested in training",
+    "fr": [
+      "Intérêt pour la formation",
+      "La formation m'intéresse"
+    ]
+  },
+  {
+    "en": "Nominate talent",
+    "fr": [
+      "Nommez un talent",
+      "Présentez une mise en candidature"
+    ]
+  },
+  {
+    "en": "Not interested",
+    "fr": [
+      "Non intéressé(e)",
+      "Ce programme ne m'intéresse pas",
+      "Pas d'intérêt"
+    ]
+  },
+  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -35,6 +64,27 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajoutez un rôle individuel",
       "Ajouter un rôle individue"
+    ]
+  },
+  {
+    "en": "Submit",
+    "fr": [
+      "Soumettre",
+      "Soumettez"
+    ]
+  },
+  {
+    "en": "Review and submit",
+    "fr": [
+      "Révisez votre candidature et envoyez-la",
+      "Revoir et soumettre"
+    ]
+  },
+  {
+    "en": "Additional comments",
+    "fr": [
+      "Autres commentaires",
+      "Commentaires supplémentaires"
     ]
   },
   {
@@ -68,8 +118,15 @@ exports[`message files should have no changes to duplicate strings 1`] = `
   {
     "en": "Apply now",
     "fr": [
-      "Postulez dès-maintenant",
+      "Postulez dès maintenant",
       "Présentez votre demande"
+    ]
+  },
+  {
+    "en": "Qualified",
+    "fr": [
+      "Qualifié",
+      "Qualifié(e)"
     ]
   },
   {
@@ -115,6 +172,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add work streams",
+    "fr": [
+      "Ajoutez des volets de travail",
+      "Ajoutez les volets de travail"
+    ]
+  },
+  {
     "en": "Request a voucher",
     "fr": [
       "Demander un bon",
@@ -122,10 +186,24 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Edit off-platform process information",
+    "fr": [
+      "Modifiez les renseignements sur les processus hors plateforme",
+      "Modifier les renseignements sur les processus hors plateforme."
+    ]
+  },
+  {
     "en": "Skill requirements",
     "fr": [
       "Exigences relatives aux compétences",
       "Exigences en matière de compétences"
+    ]
+  },
+  {
+    "en": "Add a community",
+    "fr": [
+      "Ajoutez une collectivité",
+      "Ajouter une collectivité"
     ]
   },
   {
@@ -154,6 +232,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "À propos de ce rôle",
       "Au sujet de ce rôle"
+    ]
+  },
+  {
+    "en": "Nominee",
+    "fr": [
+      "La personne candidate",
+      "Personne candidate"
     ]
   }
 ]"

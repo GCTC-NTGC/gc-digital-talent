@@ -26,15 +26,14 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
-    "react-router": "^7.1.3",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/react": "^18.3.13",
-    "eslint": "^8.57.0",
+    "eslint": "^9.20.1",
     "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.7.2"
+    "typescript": "^5.8.3"
   }
 }

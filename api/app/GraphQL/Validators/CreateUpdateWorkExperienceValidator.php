@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
 use App\Enums\WorkExperienceGovEmployeeType;
@@ -170,6 +171,36 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                 ),
                 // This does not work without proper connect/disconnect in the schema
                 // Rule::exists('departments', 'id'),
+            ],
+            'workExperience.supervisedEmployeesNumber' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.supervisedEmployees') === true
+                ),
+            ],
+            'workExperience.annualBudgetAllocation' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.budgetManagement') === true
+                ),
+            ],
+            'workExperience.cSuiteRoleTitle' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.seniorManagementStatus') === true
+                ),
+            ],
+            'workExperience.otherCSuiteRoleTitle' => [
+                Rule::requiredIf(
+                    $this->arg('workExperience.supervisoryPosition') === true
+                    &&
+                    $this->arg('workExperience.seniorManagementStatus') === true
+                    &&
+                    $this->arg('workExperience.otherCSuiteRoleTitle') === CSuiteRoleTitle::OTHER->name
+                ),
             ],
         ];
     }

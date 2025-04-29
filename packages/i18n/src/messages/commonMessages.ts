@@ -68,6 +68,17 @@ const commonMessages = defineMessages({
     id: "euigxa",
     description: "Sentence when some form of information not provided",
   },
+  missingInformation: {
+    defaultMessage: "Missing information",
+    id: "MuM7SN",
+    description: "Message for when specific item has missing information",
+  },
+  missingOptionalInformation: {
+    defaultMessage: "Missing optional information",
+    id: "AQxes2",
+    description:
+      "Message for when specific item has missing optional information",
+  },
   nameNotLoaded: {
     defaultMessage: "Error: name not loaded",
     id: "DdOEWx",
@@ -303,6 +314,138 @@ const commonMessages = defineMessages({
     defaultMessage: "Description",
     id: "i+8teP",
     description: "Title for description",
+  },
+  received: {
+    defaultMessage: "Received",
+    id: "SD8i+/",
+    description: "Title for received",
+  },
+  draft: {
+    defaultMessage: "Draft",
+    id: "fRyPvR",
+    description: "Item's state is draft",
+  },
+  submitted: {
+    defaultMessage: "Submitted",
+    id: "Vnygk+",
+    description: "Item's state is submitted",
+  },
+  deadlineToApply: {
+    defaultMessage: "Deadline to apply",
+    id: "ZoYqEo",
+    description: "Title for deadline to apply",
+  },
+  qualified: {
+    defaultMessage: "Qualified",
+    id: "jrDTez",
+    description: "Title for qualified",
+  },
+  expires: {
+    defaultMessage: "Expires",
+    id: "eQ8bTh",
+    description: "Title for expires",
+  },
+  close: {
+    defaultMessage: "Close",
+    id: "fhpH9E",
+    description: "Title for close",
+  },
+  salaryRange: {
+    defaultMessage: "Salary range",
+    id: "cR8L3T",
+    description: "Title for salary range",
+  },
+  employmentLength: {
+    defaultMessage: "Employment length",
+    id: "RhkjXE",
+    description: "Title for employment length",
+  },
+  securityClearance: {
+    defaultMessage: "Security clearance",
+    id: "7O5SRa",
+    description: "Title for security clearance",
+  },
+  requiredSkills: {
+    id: "WZ17s5",
+    defaultMessage: "Required skills",
+    description: "Title for required skills",
+  },
+  optionalSkills: {
+    id: "Ojevvl",
+    defaultMessage: "Optional skills",
+    description: "Title for optional skills",
+  },
+  deadline: {
+    id: "1FNzD4",
+    defaultMessage: "Deadline",
+    description: "Title for deadline",
+  },
+  remote: {
+    defaultMessage: "Remote, hybrid or on-site",
+    id: "DUjO/t",
+    description: "Title for remote, hybrid or on-site",
+  },
+  careerPlanning: {
+    defaultMessage: "Career planning",
+    id: "zN7MBv",
+    description: "Title for a users career plan",
+  },
+  jobInterest: {
+    defaultMessage: "Job interest",
+    id: "dYhxhN",
+    description: "Job interest label",
+  },
+  trainingInterest: {
+    defaultMessage: "Training interest",
+    id: "AQeWgK",
+    description: "Training interest label",
+  },
+  interested: {
+    defaultMessage: "Interested",
+    id: "rH9RNh",
+    description: "Expressed interest",
+  },
+  notInterested: {
+    defaultMessage: "Not interested",
+    id: "fUAej4",
+    description: "Expressed lack of interest",
+  },
+  accountUpdateSuccessful: {
+    defaultMessage: "Account successfully updated.",
+    id: "g9J8/u",
+    description:
+      "Message displayed to user if account is updated successfully.",
+  },
+  accountUpdateFailed: {
+    defaultMessage: "Error: updating account failed.",
+    id: "cO535E",
+    description: "Message displayed to user if account fails to get updated.",
+  },
+  options: {
+    defaultMessage: "Options",
+    id: "45ZCXX",
+    description:
+      "label or header for something referred to as an option, plural",
+  },
+  approved: {
+    defaultMessage: "Approved",
+    id: "oCFl63",
+    description: "Approved status",
+  },
+  rejected: {
+    defaultMessage: "Rejected",
+    id: "M9k8b8",
+    description: "Rejected status",
+  },
+  inProgress: {
+    defaultMessage: "In progress",
+    id: "xVBxp3",
+    description: "In progress status",
+  },
+  communityInterest: {
+    defaultMessage: "Community interest",
+    id: "1uBif7",
+    description: "Community interest label",
   },
 });
 

@@ -31,7 +31,7 @@ const navigationMessages = defineMessages({
     id: "nnMYWr",
     description: "Name of Work preferences page",
   },
-  careerTimelineAndRecruitment: {
+  careerTimeline: {
     defaultMessage: "Career timeline",
     id: "TUfJUD",
     description: "Name of Career timeline page",
@@ -76,11 +76,6 @@ const navigationMessages = defineMessages({
     id: "/pzsYm",
     description: "Name of Applicant profile page",
   },
-  managerProfile: {
-    defaultMessage: "Manager profile",
-    id: "oIfw3w",
-    description: "Name of Manager profile page",
-  },
   accountSettings: {
     defaultMessage: "Account settings",
     id: "YSNrLG",
@@ -110,6 +105,11 @@ const navigationMessages = defineMessages({
     defaultMessage: "Dashboard",
     id: "jDYG3j",
     description: "Name of Dashboard page",
+  },
+  communityDashboard: {
+    defaultMessage: "Community dashboard",
+    id: "NQspkZ",
+    description: "Name of the community dashboard page",
   },
   contactUs: {
     defaultMessage: "Contact us",
@@ -155,6 +155,36 @@ const navigationMessages = defineMessages({
     defaultMessage: "Skill families",
     id: "9RXifp",
     description: "Name of skill families page",
+  },
+  talentManagementEvents: {
+    defaultMessage: "Talent management events",
+    id: "ukd1kY",
+    description: "Name of talent management events page",
+  },
+  applicantDashboard: {
+    defaultMessage: "Applicant dashboard",
+    id: "wqBryV",
+    description: "Name of applicant dashboard page",
+  },
+  employeeProfileGC: {
+    defaultMessage: "GC employee profile",
+    id: "WZ8QTB",
+    description: "Short title for a user's GC employee profile",
+  },
+  createProfile: {
+    defaultMessage: "Create a profile",
+    id: "7hUWc+",
+    description: "Link text for users to create a profile",
+  },
+  returnToDashboard: {
+    defaultMessage: "Return to your dashboard",
+    id: "Y66jFM",
+    description: "Link text to the dashboard page",
+  },
+  newNomination: {
+    defaultMessage: "New nomination",
+    id: "s3u05D",
+    description: "Link text to create a new nomination",
   },
 });
 

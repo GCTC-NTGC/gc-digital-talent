@@ -19,6 +19,7 @@ import {
   PoolSkillType,
   Scalars,
   Skill,
+  SkillCategory,
   UpdateAssessmentResultInput,
   User,
   graphql,
@@ -333,6 +334,8 @@ interface ScreeningDecisionDialogProps {
   onSubmit: SubmitHandler<FormValues>;
   isOpen: boolean;
   onOpenChanged: (newOpen: boolean) => void;
+  isCreating?: boolean;
+  isUpdating?: boolean;
 }
 
 export const ScreeningDecisionDialog = ({
@@ -347,6 +350,8 @@ export const ScreeningDecisionDialog = ({
   onSubmit,
   isOpen,
   onOpenChanged,
+  isCreating,
+  isUpdating,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -354,7 +359,7 @@ export const ScreeningDecisionDialog = ({
   const dialogType = useDialogType(
     educationRequirement ? undefined : { type: assessmentStep?.type },
   );
-  const skill = poolSkill?.skill ? poolSkill.skill : undefined;
+  const skill = poolSkill?.skill ?? undefined;
   const skillLevel = getSkillLevelMessage(intl, {
     requiredLevel: poolSkill?.requiredLevel,
     skill: poolSkill?.skill,
@@ -484,7 +489,9 @@ export const ScreeningDecisionDialog = ({
             <>
               {intl.formatMessage(
                 poolSkill?.type?.value === PoolSkillType.Nonessential &&
-                  !experienceAttachedToSkill
+                  (!experienceAttachedToSkill ||
+                    poolSkill?.skill?.category.value ===
+                      SkillCategory.Behavioural)
                   ? poolCandidateMessages.unclaimed
                   : poolCandidateMessages.toAssess,
               )}
@@ -508,7 +515,10 @@ export const ScreeningDecisionDialog = ({
             <SupportingEvidence experiences={experiences} skill={skill} />
           )}
           <BasicForm
-            onSubmit={onSubmit}
+            onSubmit={async (values) => {
+              if (isCreating || isUpdating) return; // Prevent multiple submissions
+              await onSubmit(values);
+            }}
             labels={labels}
             options={{
               defaultValues: initialValues ?? defaultValues,
@@ -636,10 +646,10 @@ const ScreeningDecisionDialogApi = ({
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
   };
 
-  const [, executeCreateMutation] = useMutation(
+  const [{ fetching: createFetching }, executeCreateMutation] = useMutation(
     CreateAssessmentResult_Mutation,
   );
-  const [, executeUpdateMutation] = useMutation(
+  const [{ fetching: updateFetching }, executeUpdateMutation] = useMutation(
     UpdateAssessmentResult_Mutation,
   );
 
@@ -707,6 +717,8 @@ const ScreeningDecisionDialogApi = ({
       hasBeenAssessed={hasBeenAssessed}
       educationRequirement={educationRequirement}
       experiences={unpackMaybes(experiences)}
+      isCreating={createFetching}
+      isUpdating={updateFetching}
       onSubmit={(formValues) =>
         hasBeenAssessed
           ? handleUpdateAssessment(

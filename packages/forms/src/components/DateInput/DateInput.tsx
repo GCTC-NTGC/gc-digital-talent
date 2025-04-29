@@ -18,7 +18,12 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
-import { DateRegisterOptions, DateSegment, DATE_SEGMENT } from "./types";
+import {
+  DateRegisterOptions,
+  DateSegment,
+  DATE_SEGMENT,
+  RoundingMethod,
+} from "./types";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
@@ -31,6 +36,8 @@ export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
     rules?: DateRegisterOptions;
     /** Select which segments are visible to the user */
     show?: DateSegment[];
+    /** Round the date to the nearest segment */
+    round?: RoundingMethod;
   };
 
 /**
@@ -45,6 +52,7 @@ const DateInput = ({
   context,
   hideLegend,
   show = [DATE_SEGMENT.Year, DATE_SEGMENT.Month, DATE_SEGMENT.Day],
+  round,
   trackUnsaved = true,
   ...rest
 }: DateInputProps) => {
@@ -155,6 +163,7 @@ const DateInput = ({
             render={(props) => (
               <ControlledInput
                 {...props}
+                round={round}
                 show={show}
                 stateStyles={stateStyles}
               />

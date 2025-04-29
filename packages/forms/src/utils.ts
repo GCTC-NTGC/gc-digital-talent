@@ -107,7 +107,7 @@ export function localizedEnumToOptions(
   }
   return localizedEnums.map(({ value, label }) => ({
     value,
-    label: getLocalizedName(label, intl),
+    label: label.localized ?? getLocalizedName(label, intl),
   }));
 }
 
@@ -162,21 +162,6 @@ export function matchStringCaseDiacriticInsensitive(
       .replace(/[\u0300-\u036f]/g, "") // Using a regex character class to match the U+0300 → U+036F range, it is now trivial to globally get rid of the diacritics, which the Unicode standard conveniently groups as the Combining Diacritical Marks Unicode block.
       .search(new RegExp(escapedNeedle, "i")) !== -1 ||
     compareString.search(new RegExp(escapedNeedle, "i")) !== -1 // This simple comparison is needed to match a string with diacritics to itself.  Refer to the "it matches strings with diacritics to the same string" test.
-  );
-}
-
-/**
- * Returns a list of strings (haystack) that match the word being searched for (needle).
- * @param needle String that you want to search for.
- * @param haystack List of strings to check against.
- * @returns { string[] } List of string from the haystack matching the needle
- */
-export function matchStringsCaseDiacriticInsensitive(
-  needle: string,
-  haystack: string[],
-): string[] {
-  return haystack.filter((name) =>
-    matchStringCaseDiacriticInsensitive(needle, name),
   );
 }
 

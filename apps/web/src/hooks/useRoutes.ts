@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
-import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/constants/sections/careerTimeline";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -28,6 +27,7 @@ const getRoutes = (lang: Locales) => {
   const managerUrl = [baseUrl, "manager"].join("/");
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
+  const communitiesUrl = [baseUrl, "communities"].join("/");
 
   return {
     // Main Routes
@@ -107,6 +107,8 @@ const getRoutes = (lang: Locales) => {
     userTable: () => [adminUrl, "users"].join("/"),
     userCreate: () => [adminUrl, "users", "create"].join("/"),
     userView: (userId: string) => [adminUrl, "users", userId].join("/"),
+    userEmployeeProfile: (userId: string) =>
+      [adminUrl, "users", userId, "employee-profile"].join("/"),
     userProfile: (userId: string) =>
       [adminUrl, "users", userId, "profile"].join("/"),
     userUpdate: (userId: string) =>
@@ -244,17 +246,16 @@ const getRoutes = (lang: Locales) => {
     },
     verifyWorkEmail: () => [applicantUrl, "verify-work-email"].join("/"),
 
-    // Career timeline and recruitment Routes
-    careerTimelineAndRecruitment: (opts?: {
-      section?: CareerTimelineAndRecruitmentPageSectionId;
-    }) => {
-      const fragment = opts?.section ? `#${opts.section}` : "";
-      return `${[applicantUrl, "career-timeline"].join("/")}${fragment}`;
-    },
+    // Career timeline
+    careerTimeline: () => [applicantUrl, "career-timeline"].join("/"),
     editExperience: (experienceId: string) =>
       [applicantUrl, "career-timeline", experienceId, "edit"].join("/"),
     createExperience: () =>
       [applicantUrl, "career-timeline", "create"].join("/"),
+
+    // Community interests
+    communityInterest: (communityInterestId: string) =>
+      `${applicantUrl}/community-interests/${communityInterestId}`,
 
     // Profile and Applications
     profileAndApplications: (opts?: {
@@ -298,6 +299,12 @@ const getRoutes = (lang: Locales) => {
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
+    // Community interests
+    createCommunityInterest: () =>
+      [applicantUrl, "community-interests", "create"].join("/"),
+    updateCommunityInterest: (id: string) =>
+      [applicantUrl, "community-interests", id].join("/"),
+
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),
     jobPosterTemplate: (templateId: string) =>
@@ -305,8 +312,6 @@ const getRoutes = (lang: Locales) => {
 
     // Manager pages
     manager: () => managerUrl,
-    managerDashboard: () => [managerUrl, "dashboard"].join("/"),
-    managerRequestHistory: () => [managerUrl, "talent-requests"].join("/"),
 
     // IT Training Fund
     itTrainingFund: () => [baseUrl, "it-training-fund"].join("/"),
@@ -334,6 +339,37 @@ const getRoutes = (lang: Locales) => {
     workStreamView: (id: string) => `${adminUrl}/settings/work-streams/${id}`,
     workStreamUpdate: (workStreamId: string) =>
       [adminUrl, "settings", "work-streams", workStreamId, "edit"].join("/"),
+
+    // Admin - Community Talent
+    communityTalentPage: () => [adminUrl, "community-talent"].join("/"),
+
+    // Talent management
+    talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
+    adminTalentManagementEvents: () => `${adminUrl}/talent-events`,
+    adminTalentManagementEvent: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}`,
+    adminTalentManagementEventNominations: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}/nominations`,
+    createTalentNomination: (nominationEventId: string) =>
+      `${communitiesUrl}/talent-events/${nominationEventId}/create-talent-nomination`,
+    talentNomination: (nominationId: string) =>
+      `${communitiesUrl}/talent-nominations/${nominationId}`,
+    talentNominationGroup: (eventId: string, nominationGroupId: string) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}`,
+    talentNominationGroupProfile: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/profile`,
+    talentNominationGroupExperience: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/career-experience`,
+
+    // Comptrollership
+    comptrollershipExecutivesPage: () =>
+      [baseUrl, "comptrollership-executives"].join("/"),
 
     /**
      * Deprecated

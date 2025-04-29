@@ -70,6 +70,7 @@ const RequestConfirmationPrintDocument = forwardRef<
                 id: "3rbRfI",
                 description:
                   "Description of when the user should expect a response to their request",
+                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
               })}{" "}
               {intl.formatMessage({
                 defaultMessage:

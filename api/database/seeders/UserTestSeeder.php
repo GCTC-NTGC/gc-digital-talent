@@ -22,11 +22,12 @@ class UserTestSeeder extends Seeder
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
         $testCommunityId = Community::select('id')->where('key', 'test-community')->sole()->id;
+        $financeCommunityId = Community::select('id')->where('key', 'finance')->sole()->id;
 
         // shared auth users for testing
         User::factory()
             ->asApplicant()
-            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
+            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->asAdmin()
             ->withSkillsAndExperiences()
             ->asGovEmployee()
@@ -52,7 +53,7 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
-            ->withCommunityInterests([$testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Gul',
                 'last_name' => 'Fields',
@@ -65,7 +66,7 @@ class UserTestSeeder extends Seeder
             ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->withEmployeeProfile()
-            ->withCommunityInterests([$testCommunityId])
+            ->withCommunityInterests([$digitalCommunityId, $atipCommunityId, $testCommunityId, $financeCommunityId])
             ->create([
                 'first_name' => 'Jaime',
                 'last_name' => 'Bilodeau',
@@ -116,12 +117,13 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asManager()
+            ->asCommunityTalentCoordinator([$digitalCommunityId, $atipCommunityId])
+            ->asGovEmployee()
             ->create([
-                'first_name' => 'Maisy',
-                'last_name' => 'Ware',
-                'email' => 'manager@test.com',
-                'sub' => 'manager@test.com',
+                'first_name' => 'Berlin',
+                'last_name' => 'Sky',
+                'email' => 'talent-coordinator@test.com',
+                'sub' => 'talent-coordinator@test.com',
             ]);
     }
 }

@@ -84,14 +84,20 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'talentNominationEvent' => 'talentNominationEvent',
+        'talentNomination' => 'talentNomination',
+        'talentNominationGroup' => 'talentNominationGroup',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
+        'communityInterest' => 'communityInterest',
+        'communityTalent' => 'communityTalent',
+        'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
-        'managerMembership' => 'managerMembership',
+        'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
         'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
@@ -611,9 +617,13 @@ return [
             'en' => 'Add or remove the Process Operator role, for any POOL in this COMMUNITY, for any user',
             'fr' => 'Ajouter ou supprimer le rôle d\'opérateur de processus, pour n\'importe quel BASSIN dans cette COMMUNAUTÉ, pour n\'importe quel utilisateur',
         ],
-        'update-any-managerMembership' => [
-            'en' => 'Add or remove the Manager role from any user',
-            'fr' => 'Ajouter ou supprimer le rôle de gestionnaire à n\'importe quel utilisateur',
+        'update-any-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à n\'importe quel utilisateur',
+        ],
+        'update-team-communityTalentCoordinatorMembership' => [
+            'en' => 'Add or remove the Community Talent Coordinator role from a community user',
+            'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
         ],
 
         'view-any-poolTeamMembers' => [
@@ -636,6 +646,66 @@ return [
         'create-any-trainingOpportunity' => [
             'en' => 'Create or update a training opportunity',
             'fr' => 'Créer ou mettre à jour une opportunité de formation',
+        ],
+
+        'view-any-talentNominationEvent' => [
+            'en' => 'View any talent nomination event',
+            'fr' => 'Voir tout événement de nomination de talents',
+        ],
+        'create-any-talentNominationEvent' => [
+            'en' => 'Create any talent nomination event',
+            'fr' => 'Créer n\'importe quel événement de nomination de talents',
+        ],
+        'create-team-talentNominationEvent' => [
+            'en' => 'Create a team talent nomination event',
+            'fr' => 'Créer un événement de nomination des talents de l\'équipe',
+        ],
+        'update-team-talentNominationEvent' => [
+            'en' => 'Update team talent nomination event',
+            'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
+        ],
+        'view-team-communityInterest' => [
+            'en' => 'View community interest records associated with a community',
+            'fr' => 'Consulter les fiches d\'intérêt communautaire associées à une communauté',
+        ],
+        'view-team-communityTalent' => [
+            'en' => 'View users who are community talent in a community',
+            'fr' => 'Voir les utilisateurs qui sont des talents de la communauté dans une communauté',
+        ],
+        'delete-own-communityInterest' => [
+            'en' => 'Delete own community interests',
+            'fr' => 'Supprimer ses propres intérêts communautaires',
+        ],
+
+        'create-own-talentNomination' => [
+            'en' => 'Create a draft talent nomination as the submitter',
+            'fr' => 'Créer un projet de nomination de talents en tant qu\'auteur de la proposition',
+        ],
+        'update-own-talentNomination' => [
+            'en' => 'Update a draft talent nomination as the submitter',
+            'fr' => 'Mise à jour d\'un projet de nomination de talent en tant que déposant',
+        ],
+        'view-own-talentNomination' => [
+            'en' => 'View a draft talent nomination as the submitter',
+            'fr' => 'Consulter un projet de nomination de talent en tant que déposant',
+        ],
+        'view-team-talentNomination' => [
+            'en' => 'View a talent nomination as a team (community) member',
+            'fr' => 'Voir la nomination d\'un talent en tant que membre d\'une équipe (communauté)',
+        ],
+
+        'update-team-talentNominationGroup' => [
+            'en' => 'Update a team (community) talent nomination group',
+            'fr' => 'Mettre à jour le groupe de nomination des talents d\'une équipe (communauté)',
+        ],
+        'view-team-talentNominationGroup' => [
+            'en' => 'View a team (community) talent nomination group',
+            'fr' => 'Voir le groupe de nomination des talents d\'une équipe (communauté)',
+        ],
+
+        'view-any-basicGovEmployeeProfile' => [
+            'en' => 'View any basic government employee profile',
+            'fr' => 'Voir tout profil de base d\'employé du gouvernement',
         ],
     ],
 
@@ -776,16 +846,16 @@ return [
             'is_team_based' => false,
         ],
 
-        'manager' => [
+        'community_talent_coordinator' => [
             'display_name' => [
-                'en' => 'Manager',
-                'fr' => 'Gestionnaire',
+                'en' => 'Community Talent Coordinator',
+                'fr' => 'Coordonnateur des talents de la collectivité',
             ],
             'description' => [
-                'en' => 'Can search for talent and submit talent requests.',
-                'fr' => 'Possibilité de rechercher des talents et de soumettre des demandes de talents.',
+                'en' => 'Access to the talent event and talent nomination management flows',
+                'fr' => 'Accès aux flux de gestion des événements et des nominations de talents',
             ],
-            'is_team_based' => false,
+            'is_team_based' => true,
         ],
     ],
 
@@ -837,6 +907,9 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
             ],
             'team' => [
                 'any' => ['view'],
@@ -913,6 +986,15 @@ return [
             ],
             'applicationPlacement' => [
                 'own' => ['view'],
+            ],
+            'talentNomination' => [
+                'own' => ['create', 'update', 'view'],
+            ],
+            'basicGovEmployeeProfile' => [
+                'any' => ['view'],
+            ],
+            'communityInterest' => [
+                'own' => ['delete'],
             ],
         ],
 
@@ -1082,6 +1164,12 @@ return [
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
+                'team' => ['view'],
+            ],
         ],
 
         'community_admin' => [
@@ -1118,6 +1206,10 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
+                'team' => ['update'],
+            ],
             'community' => [
                 'team' => ['view', 'update'],
             ],
@@ -1131,6 +1223,9 @@ return [
                 'team' => ['view'],
             ],
             'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
             ],
         ],
@@ -1220,9 +1315,6 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
-            'managerMembership' => [
-                'any' => ['update'],
-            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
@@ -1235,9 +1327,31 @@ return [
             'workStream' => [
                 'any' => ['create', 'update'],
             ],
+            'communityTalentCoordinatorMembership' => [
+                'any' => ['update'],
+            ],
         ],
-        'manager' => [
-            // granted permissions will be defined later
+
+        'community_talent_coordinator' => [
+            'talentNominationEvent' => [
+                'any' => ['view'],
+                'team' => ['create', 'update'],
+            ],
+            'talentNomination' => [
+                'team' => ['view'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
+                'team' => ['view'],
+            ],
+            'communityTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'talentNominationGroup' => [
+                'team' => ['update', 'view'],
+            ],
         ],
     ],
 ];

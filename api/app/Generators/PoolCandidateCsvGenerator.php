@@ -94,7 +94,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         'department',
         'employee_type',
         'work_email',
-        'current_classification',
+        'classification',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',
@@ -151,7 +151,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 $values = [
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
                     $this->localizeEnum($candidate->user->priority, PriorityWeight::class),
-                    '', // Availability
+                    $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
                     $this->localizeEnum($candidate->user->current_province, ProvinceOrTerritory::class), // Current province
                     $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
@@ -173,9 +173,9 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
                     $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class),
-                    $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
+                    $this->yesOrNo($candidate->user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($candidate->user->gov_employee_type, GovEmployeeType::class),
+                    $this->localizeEnum($candidate->user->computed_gov_employee_type, GovEmployeeType::class),
                     $candidate->user->work_email, // Work email
                     $candidate->user->getClassification(), // Current classification
                     $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement

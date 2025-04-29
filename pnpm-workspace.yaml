@@ -1,5 +1,5 @@
 packages:
-  # all apps
-  - "apps/*"
-  # all packages
-  - "packages/*"
+  - apps/*
+  - packages/*
+onlyBuiltDependencies:
+  - unrs-resolver

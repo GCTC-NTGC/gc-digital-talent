@@ -1116,7 +1116,7 @@ class PoolTest extends TestCase
     /**
      * @group paginated
      */
-    public function testPoolStreamsScope(): void
+    public function testWorkStreamsScope(): void
     {
         $stream1 = WorkStream::factory()->create();
         $stream2 = WorkStream::factory()->create();

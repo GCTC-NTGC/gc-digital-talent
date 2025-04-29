@@ -10,6 +10,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\WorkExperience;
 use App\ValueObjects\ProfileSnapshot;
 use Database\Seeders\RolePermissionSeeder;
 use Faker;
@@ -50,6 +51,7 @@ class SnapshotTest extends TestCase
         $user = User::factory()
             ->asApplicant()
             ->create();
+        WorkExperience::factory()->create(['user_id' => $user->id]);
 
         $pool1 = Pool::factory()->published()->create();
         $pool2 = Pool::factory()->published()->create();
@@ -92,10 +94,6 @@ class SnapshotTest extends TestCase
 
         // Add version number
         $expectedSnapshot['version'] = ProfileSnapshot::$VERSION;
-
-        // line-up query format with how the snapshot is ordered
-        $expectedSnapshot['sub'] = $expectedSnapshot['authInfo']['sub'];
-        unset($expectedSnapshot['authInfo']);
 
         // sort experiences the same way as order does not matter for comparison
         usort($expectedSnapshot['experiences'], function ($a, $b) {

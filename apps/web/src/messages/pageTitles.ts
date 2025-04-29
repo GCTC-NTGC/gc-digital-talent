@@ -92,4 +92,14 @@ export default defineMessages({
     id: "uK9/a4",
     description: "Title for the index work streams page",
   },
+  reviewAndSubmit: {
+    defaultMessage: "Review and submit",
+    id: "O5yqIM",
+    description: "Heading for submit page of an form",
+  },
+  talentManagement: {
+    defaultMessage: "Talent management",
+    id: "EtjQ8d",
+    description: "Heading for the talent management page",
+  },
 });

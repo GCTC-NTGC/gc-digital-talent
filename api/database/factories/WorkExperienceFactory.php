@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\CafEmploymentType;
 use App\Enums\CafForce;
 use App\Enums\CafRank;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
@@ -16,6 +17,7 @@ use App\Models\Classification;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use App\Traits\ExperienceFactoryWithSkills;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -123,6 +125,44 @@ class WorkExperienceFactory extends Factory
                 }
 
                 return null;
+            },
+            'work_stream_ids' => function () {
+                if ($this->faker->boolean()) {
+                    $count = $this->faker->numberBetween(1, 3);
+
+                    return WorkStream::inRandomOrder()->limit($count)->get()->modelKeys();
+                }
+
+                return null;
+            },
+            'supervisory_position' => $this->faker->boolean(),
+            'supervised_employees' => function (array $attributes) {
+                return $attributes['supervisory_position'] === true ?
+                $this->faker->boolean() : null;
+            },
+            'supervised_employees_number' => function (array $attributes) {
+                return $attributes['supervised_employees'] === true ?
+                $this->faker->numberBetween(1, 100) : null;
+            },
+            'budget_management' => function (array $attributes) {
+                return $attributes['supervisory_position'] === true ?
+                $this->faker->boolean() : null;
+            },
+            'annual_budget_allocation' => function (array $attributes) {
+                return $attributes['budget_management'] === true ?
+                $this->faker->numberBetween(1, 1000000) : null;
+            },
+            'senior_management_status' => function (array $attributes) {
+                return $attributes['supervisory_position'] === true ?
+                $this->faker->boolean() : null;
+            },
+            'c_suite_role_title' => function (array $attributes) {
+                return $attributes['senior_management_status'] === true ?
+                    $this->faker->randomElement(CSuiteRoleTitle::cases())->name : null;
+            },
+            'other_c_suite_role_title' => function (array $attributes) {
+                return $attributes['c_suite_role_title'] === CSuiteRoleTitle::OTHER->name ?
+                $this->faker->jobTitle() : null;
             },
         ];
     }

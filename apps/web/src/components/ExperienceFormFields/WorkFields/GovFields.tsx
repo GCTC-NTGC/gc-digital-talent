@@ -21,6 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
+  CSuiteRoleTitle,
   GovContractorType,
   GovFieldOptionsQuery,
   GovPositionType,
@@ -83,6 +84,13 @@ const GovFieldOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    cSuiteRoleTitles: localizedEnumStrings(enumName: "cSuiteRoleTitle") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -109,6 +117,21 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   });
   const watchGovContractorType = useWatch<WorkFormValues>({
     name: "govContractorType",
+  });
+  const watchSupervisoryPosition = useWatch<WorkFormValues>({
+    name: "supervisoryPosition",
+  });
+  const watchSupervisedEmployees = useWatch<WorkFormValues>({
+    name: "supervisedEmployees",
+  });
+  const watchBudgetManagement = useWatch<WorkFormValues>({
+    name: "budgetManagement",
+  });
+  const watchSeniorManagementStatus = useWatch<WorkFormValues>({
+    name: "seniorManagementStatus",
+  });
+  const watchCSuiteRoleTitle = useWatch<WorkFormValues>({
+    name: "cSuiteRoleTitle",
   });
 
   const departmentOptions = unpackMaybes(data?.departments).map(
@@ -192,9 +215,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
    */
   useEffect(() => {
     const resetDirtyField = (name: keyof WorkFormValues) => {
-      resetField(name, {
-        keepDirty: false,
-      });
+      resetField(name, { keepDirty: false, defaultValue: null });
     };
 
     if (
@@ -205,7 +226,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       resetDirtyField("classificationLevel");
     }
 
-    if (watchGovEmploymentType) {
+    if (
+      watchGovEmploymentType !== WorkExperienceGovEmployeeType.Indeterminate
+    ) {
       resetDirtyField("govPositionType");
     }
 
@@ -218,12 +241,57 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
       watchGovContractorType === GovContractorType.SelfEmployed ||
       watchGovEmploymentType !== WorkExperienceGovEmployeeType.Contractor
     ) {
-      resetField("contractorFirmAgencyName", {
-        keepDirty: false,
-        defaultValue: undefined,
-      });
+      resetDirtyField("contractorFirmAgencyName");
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
+
+  /**
+   * Reset supervisory fields
+   */
+  useEffect(() => {
+    const resetDirtyField = (name: keyof WorkFormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: null });
+    };
+
+    // reset all supervisory fields
+    if (!watchSupervisoryPosition) {
+      resetDirtyField("supervisedEmployees");
+      resetDirtyField("supervisedEmployeesNumber");
+      resetDirtyField("budgetManagement");
+      resetDirtyField("annualBudgetAllocation");
+      resetDirtyField("seniorManagementStatus");
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+
+    // reset supervised supervisory fields
+    if (!watchSupervisedEmployees) {
+      resetDirtyField("supervisedEmployeesNumber");
+    }
+
+    // reset budget supervisory fields
+    if (!watchBudgetManagement) {
+      resetDirtyField("annualBudgetAllocation");
+    }
+
+    // reset senior management supervisory fields
+    if (!watchSeniorManagementStatus) {
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+
+    // reset senior management supervisory other fields
+    if (watchCSuiteRoleTitle !== CSuiteRoleTitle.Other) {
+      resetDirtyField("otherCSuiteRoleTitle");
+    }
+  }, [
+    resetField,
+    watchSupervisoryPosition,
+    watchSupervisedEmployees,
+    watchBudgetManagement,
+    watchSeniorManagementStatus,
+    watchCSuiteRoleTitle,
+  ]);
 
   return (
     <>
@@ -355,6 +423,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               id="startDate"
               legend={labels.startDate}
               name="startDate"
+              round="floor"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -387,6 +456,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 legend={labels.expectedEndDate}
                 name="endDate"
                 show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                round="ceil"
                 rules={
                   watchCurrentRole
                     ? {
@@ -418,6 +488,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                     id="endDate"
                     legend={labels.endDate}
                     name="endDate"
+                    round="ceil"
                     show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
@@ -437,6 +508,144 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               </>
             )}
           </div>
+          <div data-h2-flex-item="base(1of1)">
+            <Checkbox
+              boundingBox
+              boundingBoxLabel={labels.supervisoryPosition}
+              id="supervisoryPosition"
+              name="supervisoryPosition"
+              label={intl.formatMessage({
+                defaultMessage:
+                  "This role was a management or supervisory position.",
+                id: "N/1OYS",
+                description: "Label displayed for supervisory position",
+              })}
+            />
+          </div>
+          {watchSupervisoryPosition && (
+            <>
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.supervisedEmployees}
+                  id="supervisedEmployees"
+                  name="supervisedEmployees"
+                  label={intl.formatMessage({
+                    defaultMessage: "I supervised employees in this role.",
+                    id: "6RGluQ",
+                    description: "Label displayed for supervised employees",
+                  })}
+                />
+              </div>
+              {watchSupervisedEmployees && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="supervisedEmployeesNumber"
+                    name="supervisedEmployeesNumber"
+                    label={labels.supervisedEmployeesNumber}
+                    type="number"
+                    min="1"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: 1,
+                        message: intl.formatMessage(
+                          errorMessages.mustBeGreater,
+                          {
+                            value: 1,
+                          },
+                        ),
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.budgetManagement}
+                  id="budgetManagement"
+                  name="budgetManagement"
+                  label={intl.formatMessage({
+                    defaultMessage:
+                      "This role required that I managed a dedicated budget or had delegated signing authority for a budget.",
+                    id: "144l3L",
+                    description: "Label displayed for budget management",
+                  })}
+                />
+              </div>
+              {watchBudgetManagement && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="annualBudgetAllocation"
+                    name="annualBudgetAllocation"
+                    label={labels.annualBudgetAllocation}
+                    type="number"
+                    min="1"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                      min: {
+                        value: 1,
+                        message: intl.formatMessage(
+                          errorMessages.mustBeGreater,
+                          {
+                            value: 1,
+                          },
+                        ),
+                      },
+                    }}
+                  />
+                </div>
+              )}
+              <div data-h2-flex-item="base(1of1)">
+                <Checkbox
+                  boundingBox
+                  boundingBoxLabel={labels.seniorManagementStatus}
+                  id="seniorManagementStatus"
+                  name="seniorManagementStatus"
+                  label={intl.formatMessage({
+                    defaultMessage:
+                      "This was a chief or deputy chief (C-suite) role.",
+                    id: "ZOKEiB",
+                    description: "Label displayed for senior management",
+                  })}
+                />
+              </div>
+              {watchSeniorManagementStatus && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Select
+                    id="cSuiteRoleTitle"
+                    name="cSuiteRoleTitle"
+                    label={labels.cSuiteRoleTitle}
+                    nullSelection={intl.formatMessage(
+                      uiMessages.nullSelectionOption,
+                    )}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={localizedEnumToOptions(
+                      data?.cSuiteRoleTitles,
+                      intl,
+                    )}
+                    doNotSort
+                  />
+                </div>
+              )}
+              {watchCSuiteRoleTitle === CSuiteRoleTitle.Other && (
+                <div data-h2-flex-item="base(1of1)">
+                  <Input
+                    id="otherCSuiteRoleTitle"
+                    name="otherCSuiteRoleTitle"
+                    label={labels.otherCSuiteRoleTitle}
+                    type="text"
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
     </>

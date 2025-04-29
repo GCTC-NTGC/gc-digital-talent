@@ -126,7 +126,6 @@ const ThemeProvider = ({
     hydrogen.forEach((item) => {
       if (item instanceof HTMLElement) {
         //  NOTE: We are setting DOM attrs here so it should be fine
-        // eslint-disable-next-line no-param-reassign
         item.dataset.h2 = themeString;
       }
     });

@@ -6,11 +6,12 @@ import {
 } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { ChangeEvent } from "react";
+import get from "lodash/get";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
 import useInputStyles from "../../hooks/useInputStyles";
-import { DateSegment, DATE_SEGMENT } from "./types";
+import { DateSegment, DATE_SEGMENT, RoundingMethod } from "./types";
 import {
   getMonthOptions,
   getMonthSpan,
@@ -25,18 +26,26 @@ interface ControlledInputProps {
   formState: UseFormStateReturn<FieldValues>;
   show: DateSegment[];
   stateStyles: StyleRecord;
+  round?: RoundingMethod;
 }
 
 const ControlledInput = ({
   field: { onChange, value, name },
   formState: { defaultValues },
   show,
+  round,
   stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
   const inputStyles = useInputStyles();
   const selectStyles = useInputStyles("select");
-  const defaultValue = defaultValues ? String(defaultValues[name]) : undefined;
+  const rawDefaultValue: unknown = get(defaultValues, name);
+  const defaultValue =
+    rawDefaultValue !== null && rawDefaultValue !== undefined
+      ? // It's a input field so it should be stringable
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        String(rawDefaultValue)
+      : undefined;
   const { year, month, day } = splitSegments(defaultValue);
   const ID = {
     YEAR: `${name}Year`,
@@ -50,6 +59,7 @@ const ControlledInput = ({
       value: segmentValue,
       segment,
       show,
+      round,
     });
 
     onChange(newValue);

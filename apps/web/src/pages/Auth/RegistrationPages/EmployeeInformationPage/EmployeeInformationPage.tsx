@@ -620,12 +620,7 @@ const EmployeeInformation = () => {
     await handleUpdateEmployee(meId, input)
       .then(async () => {
         toast.success(
-          intl.formatMessage({
-            defaultMessage: "Account successfully updated.",
-            id: "g9J8/u",
-            description:
-              "Message displayed to user if account is updated successfully.",
-          }),
+          intl.formatMessage(commonMessages.accountUpdateSuccessful),
         );
         if (skipVerification) {
           const navigationTarget = from ?? paths.profileAndApplications();
@@ -638,14 +633,7 @@ const EmployeeInformation = () => {
         }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating account failed.",
-            id: "cO535E",
-            description:
-              "Message displayed to user if account fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(commonMessages.accountUpdateFailed));
       });
   };
 

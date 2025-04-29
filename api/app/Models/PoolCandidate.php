@@ -103,6 +103,9 @@ class PoolCandidate extends Model
         'archived_at',
         'submitted_at',
         'suspended_at',
+        'removed_at',
+        'final_decision_at',
+        'placed_at',
         'user_id',
         'pool_id',
         'signature',
@@ -388,7 +391,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($publishingGroups) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
 
@@ -992,36 +996,36 @@ class PoolCandidate extends Model
                         continue;
                     }
                 } else { // $poolSkill is an ASSET skill
+                    // Asset behavioural skills never need to be assessed
+                    if ($poolSkill->skill->category === SkillCategory::BEHAVIOURAL->name) {
+                        continue;
+                    }
 
                     // We do not need to evaluate non-essential technical skills that are not on
                     // the users snapshot, so skip the result check
-                    if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
-                        $isClaimed = false;
-                        $snapshot = $this->profile_snapshot;
+                    $isClaimed = false;
+                    $snapshot = $this->profile_snapshot;
 
-                        if ($snapshot) {
-                            $experiences = collect($snapshot['experiences']);
+                    if ($snapshot) {
+                        $experiences = collect($snapshot['experiences']);
 
-                            $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
-                                foreach ($experience['skills'] as $skill) {
-                                    if ($skill['id'] === $poolSkill->skill_id) {
-                                        return true;
-                                    }
+                        $isClaimed = $experiences->contains(function ($experience) use ($poolSkill) {
+                            foreach ($experience['skills'] as $skill) {
+                                if ($skill['id'] === $poolSkill->skill_id) {
+                                    return true;
                                 }
+                            }
 
-                                return false;
-                            });
-                        }
+                            return false;
+                        });
+                    }
 
-                        if (! $isClaimed) {
-                            continue;
-                        }
+                    if (! $isClaimed) {
+                        continue;
                     }
 
                     if (! $result || is_null($result->assessment_decision)) {
                         $hasToAssess = true;
-
-                        continue;
                     }
                 }
             }
@@ -1143,7 +1147,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+        $query = $query->whereHas('pool', function (Builder $query) use ($processNumber) {
+            /** @var \App\Builders\PoolBuilder $query */
             $query->processNumber($processNumber);
         });
 

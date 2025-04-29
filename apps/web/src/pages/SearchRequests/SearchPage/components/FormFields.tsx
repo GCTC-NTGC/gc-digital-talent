@@ -137,8 +137,8 @@ const FormFields = ({
             label={intl.formatMessage(processMessages.stream)}
             name="stream"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Select a job stream",
-              id: "QJ5uDV",
+              defaultMessage: "Select a stream",
+              id: "qobo/x",
               description: "Placeholder for stream filter in search form.",
             })}
             options={workStreamOptions}

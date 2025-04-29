@@ -3,8 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { RichTextInput, Submit } from "@gc-digital-talent/forms";
+import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
+import { Submit, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   formMessages,
@@ -17,9 +17,9 @@ import {
   getFragment,
   EmployeeProfile,
 } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
-import { toast } from "@gc-digital-talent/toast";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
@@ -29,10 +29,9 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
 import Display from "./Display";
 
-const EmployeeProfileGoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
+export const EmployeeProfileGoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileGoalsWorkStyle on EmployeeProfile {
     aboutYou
-    careerGoals
     learningGoals
     workStyle
   }
@@ -45,7 +44,6 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
       aboutYou
-      careerGoals
       learningGoals
       workStyle
     }
@@ -54,7 +52,6 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
 
 interface FormValues {
   aboutYou?: string;
-  careerGoals?: string;
   learningGoals?: string;
   workStyle?: string;
 }
@@ -65,7 +62,7 @@ interface GoalsWorkStyleSectionProps {
   >;
 }
 
-const TEXT_AREA_MAX_WORDS_EN = 100;
+const TEXT_AREA_MAX_WORDS_EN = 200;
 
 const wordCountLimits: Record<Locales, number> = {
   en: TEXT_AREA_MAX_WORDS_EN,
@@ -76,8 +73,8 @@ const GoalsWorkStyleSection = ({
   employeeProfileQuery,
 }: GoalsWorkStyleSectionProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const { userAuthInfo } = useAuthorization();
+  const locale = getLocale(intl);
   const [{ fetching }, executeMutation] = useMutation(
     UpdateEmployeeProfile_Mutation,
   );
@@ -107,7 +104,6 @@ const GoalsWorkStyleSection = ({
 
   const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
     aboutYou: initialData.aboutYou ?? "",
-    careerGoals: initialData.careerGoals ?? "",
     learningGoals: initialData.learningGoals ?? "",
     workStyle: initialData.workStyle ?? "",
   });
@@ -119,19 +115,16 @@ const GoalsWorkStyleSection = ({
 
   const handleSave = async ({
     aboutYou,
-    careerGoals,
     learningGoals,
     workStyle,
   }: FormValues) => {
     if (!userAuthInfo?.id) {
       throw new UnauthorizedError();
     }
-
     return executeMutation({
-      id: userAuthInfo?.id,
+      id: userAuthInfo.id,
       employeeProfile: {
         aboutYou,
-        careerGoals,
         learningGoals,
         workStyle,
       },
@@ -151,7 +144,6 @@ const GoalsWorkStyleSection = ({
           methods.reset(
             {
               aboutYou,
-              careerGoals,
               learningGoals,
               workStyle,
             },
@@ -217,21 +209,14 @@ const GoalsWorkStyleSection = ({
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1)"
               >
-                <RichTextInput
+                <TextArea
                   id="aboutYou"
                   label={intl.formatMessage(employeeProfileMessages.aboutYou)}
                   name="aboutYou"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <RichTextInput
-                  id="careerGoals"
-                  label={intl.formatMessage(
-                    employeeProfileMessages.careerGoals,
-                  )}
-                  name="careerGoals"
-                  wordLimit={wordCountLimits[locale]}
-                />
-                <RichTextInput
+                <CardSeparator data-h2-margin="base(0)" />
+                <TextArea
                   id="learningGoals"
                   label={intl.formatMessage(
                     employeeProfileMessages.learningGoals,
@@ -239,15 +224,17 @@ const GoalsWorkStyleSection = ({
                   name="learningGoals"
                   wordLimit={wordCountLimits[locale]}
                 />
-                <RichTextInput
+                <CardSeparator data-h2-margin="base(0)" />
+                <TextArea
                   id="workStyle"
                   label={intl.formatMessage(employeeProfileMessages.workStyle)}
                   name="workStyle"
                   wordLimit={wordCountLimits[locale]}
                 />
+                <CardSeparator data-h2-margin="base(0)" />
                 <div
                   data-h2-display="base(flex)"
-                  data-h2-gap="base(x.5)"
+                  data-h2-gap="base(x1)"
                   data-h2-align-items="base(center)"
                   data-h2-flex-wrap="base(wrap)"
                 >

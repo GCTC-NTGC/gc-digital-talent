@@ -83,11 +83,16 @@ type User {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
+  isVerifiedGovEmployee: Boolean
   workEmail: Email @rename(attribute: "work_email")
   isWorkEmailVerified: Boolean
   govEmployeeType: LocalizedGovEmployeeType
-    @rename(attribute: "gov_employee_type")
+    @rename(attribute: "computed_gov_employee_type")
+  govRole: String @rename(attribute: "computed_gov_role")
+  govPositionType: LocalizedGovPositionType
+    @rename(attribute: "computed_gov_position_type")
+  govEndDate: Date @rename(attribute: "computed_gov_end_date")
   currentClassification: Classification @belongsTo # Users current classification
   department: Department @belongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -103,9 +108,7 @@ type User {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [LocalizedWorkRegion]
     @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
@@ -115,6 +118,7 @@ type User {
 
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
+  govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
@@ -144,38 +148,67 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Bookmarks
   poolBookmarks: [Pool] @belongsToMany
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+  # Nominations
+  talentNominationsAsSubmitter: [TalentNomination!]
+    @hasMany
+    @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
+  user: User! @belongsTo @canRoot(ability: "viewUser")
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [LocalizedFinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 # A pivot table for employees to express interest in the development programs of a community.
 type DevelopmentProgramInterest {
   id: UUID!
   developmentProgram: DevelopmentProgram! @belongsTo
-  communityInterest: CommunityInterest! @belongsTo
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
 }
 
 type EmployeeProfile {
-  organizationTypeInterest: [LocalizedOrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [LocalizedMoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: LocalizedTimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [LocalizedOrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+  learningOpportunitiesInterest: [LocalizedLearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
+
   mentorshipStatus: [LocalizedMentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [LocalizedMentorship!]
@@ -186,18 +219,46 @@ type EmployeeProfile {
   execCoachingInterest: [LocalizedExecCoaching!]
     @rename(attribute: "career_planning_exec_coaching_interest")
   aboutYou: String @rename(attribute: "career_planning_about_you")
-  careerGoals: String @rename(attribute: "career_planning_career_goals")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: Community @belongsTo
-  dreamRoleClassification: Classification @belongsTo
-  dreamRoleWorkStream: WorkStream @belongsTo
-  dreamRoleDepartments: [Department!] @belongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: Community @belongsTo
+  careerObjectiveCommunity: Community @belongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
+  nextRoleClassification: Classification @belongsTo
+  careerObjectiveClassification: Classification @belongsTo
+  nextRoleWorkStreams: [WorkStream!] @belongsToMany
+  careerObjectiveWorkStreams: [WorkStream!] @belongsToMany
+  nextRoleDepartments: [Department!] @belongsToMany
+  careerObjectiveDepartments: [Department!] @belongsToMany
+  nextRoleTargetRole: LocalizedTargetRole
+    @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: LocalizedTargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
 
-  communityInterests: [CommunityInterest!] @belongsToMany
+  nextRoleIsCSuiteRole: Boolean @rename(attribute: "next_role_is_c_suite_role")
+  careerObjectiveIsCSuiteRole: Boolean
+    @rename(attribute: "career_objective_is_c_suite_role")
+  nextRoleCSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "next_role_c_suite_role_title")
+  careerObjectiveCSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "career_objective_c_suite_role_title")
+
+  communityInterests(id: UUID @eq): [CommunityInterest!]
+    @belongsToMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 
   userPublicProfile: UserPublicProfile
 }
@@ -281,6 +342,17 @@ type UserPublicProfile @model(class: "\\App\\Models\\User") {
   email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
+}
+
+type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
+  classification: Classification @belongsTo(relation: "currentClassification")
 }
 
 type GeneralQuestion {
@@ -559,6 +631,7 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
 }
 
@@ -571,6 +644,120 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_nominations")
   community: Community @belongsTo
   eligibleClassifications: [Classification!] @belongsToMany
+}
+
+type TalentNominationEvent {
+  id: UUID!
+  name: LocalizedString!
+  description: LocalizedString
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedString @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean!
+    @rename(attribute: "include_leadership_competencies")
+  community: Community! @belongsTo
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  talentNominationGroups: [TalentNominationGroup!]
+    @hasMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view", model: "TalentNominationGroup")
+  status: LocalizedTalentNominationEventStatus
+}
+
+type TalentNomination {
+  id: UUID!
+  submittedSteps: [TalentNominationStep!] @rename(attribute: "submitted_steps")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+  submittedAt: DateTime @rename(attribute: "submitted_at")
+  submitter: BasicGovEmployeeProfile
+    @belongsTo
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: BasicGovEmployeeProfile
+    @belongsTo
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: Classification @belongsTo
+  nominatorFallbackDepartment: Department @belongsTo
+  nominatorReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nomineeReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: BasicGovEmployeeProfile
+    @belongsTo
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  advancementReferenceReview: LocalizedTalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: Classification @belongsTo
+  advancementReferenceFallbackDepartment: Department @belongsTo
+
+  lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: [Skill] @belongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
+type TalentNominationGroup {
+  id: UUID!
+  createdAt: DateTime @rename(attribute: "created_at")
+  nominee: BasicGovEmployeeProfile
+    @belongsTo
+    @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
+  nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  advancementNominationCount: Int
+    @rename(attribute: "advancement_nomination_count")
+  advancementDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
+  lateralMovementNominationCount: Int
+    @rename(attribute: "lateral_movement_nomination_count")
+  lateralMovementDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsNominationCount: Int
+    @rename(attribute: "development_programs_nomination_count")
+  developmentProgramsDecision: LocalizedTalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  status: LocalizedTalentNominationGroupStatus
+  comments: String
 }
 
 type Team implements HasRoleAssignments {
@@ -626,9 +813,7 @@ input EquitySelectionsInput {
 type PoolCandidateFilter {
   id: ID!
   classifications: [Classification] @belongsToMany
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
     @rename(attribute: "language_ability")
@@ -641,9 +826,7 @@ type PoolCandidateFilter {
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
 type ApplicantFilter {
   id: ID!
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelections
   languageAbility: LocalizedLanguageAbility
     @rename(attribute: "language_ability")
@@ -771,6 +954,16 @@ type WorkExperience implements Experience {
   cafRank: LocalizedCafRank @rename(attribute: "caf_rank")
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
+  workStreams: [WorkStream!] @with(relation: "workStreams")
+  supervisoryPosition: Boolean
+  supervisedEmployees: Boolean
+  supervisedEmployeesNumber: Int
+  budgetManagement: Boolean
+  annualBudgetAllocation: Int
+  seniorManagementStatus: Boolean
+  cSuiteRoleTitle: LocalizedCSuiteRoleTitle
+    @rename(attribute: "c_suite_role_title")
+  otherCSuiteRoleTitle: String
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -951,7 +1144,7 @@ input OrderByColumnInput {
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
-  hasDiploma: Boolean @scope @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @scope
   languageAbility: LanguageAbility @scope
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
@@ -1050,10 +1243,33 @@ input ClaimVerificationSort {
   useBookmark: Boolean
 }
 
+input CommunityInterestFilterInput {
+  userName: String @scope
+  generalSearch: String @scope
+  communities: [UUID] @scope
+  workStreams: [UUID] @scope
+  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  jobInterest: Boolean @scope
+  trainingInterest: Boolean @scope
+  lateralMoveInterest: Boolean @scope
+  promotionMoveInterest: Boolean @scope
+  languageAbility: LanguageAbility @scope
+  positionDuration: [PositionDuration] @scope
+  locationPreferences: [WorkRegion] @scope
+  operationalRequirements: [OperationalRequirement] @scope
+  skills: [UUID] @scope
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
+  govEmployeeProfile(
+    workEmail: String! @scope(name: "exactWorkEmail")
+  ): BasicGovEmployeeProfile
+    @guard
+    @validator
+    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -1086,10 +1302,6 @@ type Query {
   ): [Pool!]!
     @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
-  pools: [Pool]!
-    @all(scopes: ["authorizedToView", "whereNotArchived"])
-    @canResolved(ability: "view")
-    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1179,12 +1391,9 @@ type Query {
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
-  skills: [Skill]! @all @canModel(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle
-    @find
-    @canModel(ability: "view")
-  genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
-
+  skills(families: [String!] @scope): [Skill]!
+    @all
+    @canModel(ability: "viewAny")
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
@@ -1201,6 +1410,23 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+  talentNominationEvents(
+    where: TalentNominationEventsFilterInput
+  ): [TalentNominationEvent]!
+    @all
+    @orderBy(column: "close_date", direction: ASC)
+  talentNominationEvent(id: UUID! @eq): TalentNominationEvent @find
+
+  talentNomination(id: UUID! @eq): TalentNomination
+    @find
+    @guard
+    @canQuery(ability: "view")
+
+  talentNominationGroup(id: UUID! @eq): TalentNominationGroup
+    @find
+    @guard
+    @canQuery(ability: "view")
+
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1216,6 +1442,24 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+  communityInterestsPaginated(
+    where: CommunityInterestFilterInput
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: ["first_name", "work_email", "preferred_lang"]
+          }
+        ]
+      )
+  ): [CommunityInterest]!
+    @guard
+    @paginate(
+      defaultCount: 10
+      maxCount: 500
+      scopes: ["authorizedToView", "isVerifiedGovEmployee"]
+    )
 }
 
 input ClassificationBelongsTo {
@@ -1277,7 +1521,7 @@ input CreateUserInput {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email
     @rename(attribute: "work_email")
     @lowerCase
@@ -1290,7 +1534,8 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1306,14 +1551,14 @@ input CreateUserInput {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1360,9 +1605,10 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1378,14 +1624,14 @@ input UpdateUserAsAdminInput @validator {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1439,9 +1685,10 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "estimated_language_ability")
 
   # Gov info
-  isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+  isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
   workEmail: Email @rename(attribute: "work_email") @lowerCase
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: GovEmployeeType
+    @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -1457,14 +1704,14 @@ input UpdateUserAsUserInput @validator {
     @rename(attribute: "indigenous_declaration_signature")
 
   # Applicant info
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
+  offPlatformRecruitmentProcesses: String
+    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -1475,10 +1722,25 @@ input UpdateUserAsUserInput @validator {
 }
 
 input UpdateEmployeeProfileInput @validator {
-  organizationTypeInterest: [OrganizationTypeInterest!]
-    @rename(attribute: "career_planning_organization_type_interest")
-  moveInterest: [MoveInterest!]
-    @rename(attribute: "career_planning_move_interest")
+  lateralMoveInterest: Boolean
+    @rename(attribute: "career_planning_lateral_move_interest")
+  lateralMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_lateral_move_time_frame")
+  lateralMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_lateral_move_organization_type")
+
+  promotionMoveInterest: Boolean
+    @rename(attribute: "career_planning_promotion_move_interest")
+  promotionMoveTimeFrame: TimeFrame
+    @rename(attribute: "career_planning_promotion_move_time_frame")
+  promotionMoveOrganizationType: [OrganizationTypeInterest!]
+    @rename(attribute: "career_planning_promotion_move_organization_type")
+  learningOpportunitiesInterest: [LearningOpportunitiesInterest!]
+    @rename(attribute: "career_planning_learning_opportunities_interest")
+  eligibleRetirementYearKnown: Boolean
+    @rename(attribute: "eligible_retirement_year_known")
+  eligibleRetirementYear: Date @rename(attribute: "eligible_retirement_year")
+
   mentorshipStatus: [Mentorship!]
     @rename(attribute: "career_planning_mentorship_status")
   mentorshipInterest: [Mentorship!]
@@ -1489,16 +1751,41 @@ input UpdateEmployeeProfileInput @validator {
   execCoachingInterest: [ExecCoaching!]
     @rename(attribute: "career_planning_exec_coaching_interest")
   aboutYou: String @rename(attribute: "career_planning_about_you")
-  careerGoals: String @rename(attribute: "career_planning_career_goals")
   learningGoals: String @rename(attribute: "career_planning_learning_goals")
   workStyle: String @rename(attribute: "career_planning_work_style")
-  dreamRoleTitle: String @rename(attribute: "dream_role_title")
-  dreamRoleAdditionalInformation: String
-    @rename(attribute: "dream_role_additional_information")
-  dreamRoleCommunity: CommunityBelongsTo
-  dreamRoleClassification: ClassificationBelongsTo
-  dreamRoleWorkStream: WorkStreamBelongsTo
-  dreamRoleDepartments: DepartmentBelongsToMany
+  nextRoleJobTitle: String @rename(attribute: "next_role_job_title")
+  careerObjectiveJobTitle: String
+    @rename(attribute: "career_objective_job_title")
+  nextRoleAdditionalInformation: String
+    @rename(attribute: "next_role_additional_information")
+  careerObjectiveAdditionalInformation: String
+    @rename(attribute: "career_objective_additional_information")
+  nextRoleCommunity: CommunityBelongsTo
+  careerObjectiveCommunity: CommunityBelongsTo
+  nextRoleCommunityOther: String @rename(attribute: "next_role_community_other")
+  careerObjectiveCommunityOther: String
+    @rename(attribute: "career_objective_community_other")
+  nextRoleClassification: ClassificationBelongsTo
+  careerObjectiveClassification: ClassificationBelongsTo
+  nextRoleWorkStreams: WorkStreamBelongsToMany
+  careerObjectiveWorkStreams: WorkStreamBelongsToMany
+  nextRoleDepartments: DepartmentBelongsToMany
+  careerObjectiveDepartments: DepartmentBelongsToMany
+  nextRoleTargetRole: TargetRole @rename(attribute: "next_role_target_role")
+  careerObjectiveTargetRole: TargetRole
+    @rename(attribute: "career_objective_target_role")
+  nextRoleTargetRoleOther: String
+    @rename(attribute: "next_role_target_role_other")
+  careerObjectiveTargetRoleOther: String
+    @rename(attribute: "career_objective_target_role_other")
+
+  nextRoleIsCSuiteRole: Boolean @rename(attribute: "next_role_is_c_suite_role")
+  careerObjectiveIsCSuiteRole: Boolean
+    @rename(attribute: "career_objective_is_c_suite_role")
+  nextRoleCSuiteRoleTitle: CSuiteRoleTitle
+    @rename(attribute: "next_role_c_suite_role_title")
+  careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
+    @rename(attribute: "career_objective_c_suite_role_title")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -1509,14 +1796,32 @@ input CreateCommunityInterestInput @validator {
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input UpdateCommunityInterestInput @validator {
+  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
   interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
 input CreateDevelopmentProgramInterestHasMany {
@@ -1550,6 +1855,7 @@ input LocalizedStringInput {
 
 input UserBelongsTo {
   connect: ID
+  disconnect: Boolean
 }
 
 input PoolBelongsTo {
@@ -1672,7 +1978,8 @@ input PoolBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID!
+  connect: UUID
+  disconnect: Boolean
 }
 
 input CreateTeamInput {
@@ -1709,10 +2016,160 @@ input UpdateCommunityInput {
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
+input DevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CreateTalentNominationEventInput @validator {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  openDate: DateTime! @rename(attribute: "open_date")
+  closeDate: DateTime! @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo!
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input UpdateTalentNominationEventInput @validator {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  openDate: DateTime @rename(attribute: "open_date")
+  closeDate: DateTime @rename(attribute: "close_date")
+  learnMoreUrl: LocalizedStringInput @rename(attribute: "learn_more_url")
+  includeLeadershipCompetencies: Boolean
+    @rename(attribute: "include_leadership_competencies")
+  community: CommunityBelongsTo
+  developmentPrograms: DevelopmentProgramBelongsToMany
+}
+
+input TalentNominationEventBelongsTo {
+  connect: ID
+  # no need for disconnect at the moment
+}
+
+input CreateTalentNominationInput @validator {
+  talentNominationEvent: TalentNominationEventBelongsTo!
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: SkillBelongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
+input UpdateTalentNominationInput @validator {
+  # can only connect a step, not disconnect or sync
+  insertSubmittedStep: TalentNominationStep
+  submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
+    @rename(attribute: "submitter_relationship_to_nominator")
+  submitterRelationshipToNominatorOther: String
+    @rename(attribute: "submitter_relationship_to_nominator_other")
+  nominator: UserBelongsTo
+  nominatorFallbackWorkEmail: String
+    @rename(attribute: "nominator_fallback_work_email")
+  nominatorFallbackName: String @rename(attribute: "nominator_fallback_name")
+  nominatorFallbackClassification: ClassificationBelongsTo
+  nominatorFallbackDepartment: DepartmentBelongsTo
+  nominatorReview: TalentNominationUserReview
+    @rename(attribute: "nominator_review")
+  nominee: UserBelongsTo
+  nomineeReview: TalentNominationUserReview @rename(attribute: "nominee_review")
+  nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator
+    @rename(attribute: "nominee_relationship_to_nominator")
+  nomineeRelationshipToNominatorOther: String
+    @rename(attribute: "nominee_relationship_to_nominator_other")
+
+  nominateForAdvancement: Boolean @rename(attribute: "nominate_for_advancement")
+  nominateForLateralMovement: Boolean
+    @rename(attribute: "nominate_for_lateral_movement")
+  nominateForDevelopmentPrograms: Boolean
+    @rename(attribute: "nominate_for_development_programs")
+
+  advancementReference: UserBelongsTo
+  advancementReferenceReview: TalentNominationUserReview
+    @rename(attribute: "advancement_reference_review")
+  advancementReferenceFallbackWorkEmail: String
+    @rename(attribute: "advancement_reference_fallback_work_email")
+  advancementReferenceFallbackName: String
+    @rename(attribute: "advancement_reference_fallback_name")
+  advancementReferenceFallbackClassification: ClassificationBelongsTo
+  advancementReferenceFallbackDepartment: DepartmentBelongsTo
+
+  lateralMovementOptions: [TalentNominationLateralMovementOption!]
+    @rename(attribute: "lateral_movement_options")
+  lateralMovementOptionsOther: String
+    @rename(attribute: "lateral_movement_options_other")
+
+  developmentPrograms: DevelopmentProgramBelongsToMany
+  developmentProgramOptionsOther: String
+    @rename(attribute: "development_program_options_other")
+
+  nominationRationale: String @rename(attribute: "nomination_rationale")
+  skills: SkillBelongsToMany
+  additionalComments: String @rename(attribute: "additional_comments")
+}
+
+input UpdateTalentNominationGroupInput {
+  advancementDecision: TalentNominationGroupDecision
+    @rename(attribute: "advancement_decision")
+  advancementReferenceConfirmed: Boolean
+    @rename(attribute: "advancement_reference_confirmed")
+  advancementNotes: String @rename(attribute: "advancement_notes")
+  lateralMovementDecision: TalentNominationGroupDecision
+    @rename(attribute: "lateral_movement_decision")
+  lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
+  developmentProgramsDecision: TalentNominationGroupDecision
+    @rename(attribute: "development_programs_decision")
+  developmentProgramsNotes: String
+    @rename(attribute: "development_programs_notes")
+  comments: String
+}
+
 input CreateApplicantFilterInput {
-  hasDiploma: Boolean
-    @rename(attribute: "has_diploma")
-    @deprecated(reason: "hasDiploma to be replaced")
+  hasDiploma: Boolean @rename(attribute: "has_diploma")
   equity: EquitySelectionsInput @spread
   languageAbility: LanguageAbility @rename(attribute: "language_ability")
   operationalRequirements: [OperationalRequirement]
@@ -1837,6 +2294,16 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
+  workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
+  supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
+  supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
+  supervisedEmployeesNumber: Int
+    @rename(attribute: "supervised_employees_number")
+  budgetManagement: Boolean @rename(attribute: "budget_management")
+  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
+  cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
+  otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 input PersonalExperienceInput {
   title: String
@@ -2016,7 +2483,9 @@ input UpdatePublishedPoolInput @validator {
   aboutUs: LocalizedStringInput @rename(attribute: "about_us")
 }
 
-input CreatePoolSkillInput {
+input CreatePoolSkillInput @validator {
+  poolId: ID! @rename(attribute: "pool_id")
+  skillId: ID! @rename(attribute: "skill_id")
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
@@ -2197,6 +2666,11 @@ input NotificationFilterInput {
   createdAt: DateRange @whereBetween(key: "created_at")
 }
 
+input TalentNominationEventsFilterInput {
+  status: TalentNominationEventStatus @scope
+  canManage: Boolean @scope
+}
+
 input ConnectJobPosterTemplateSkillInput {
   id: UUID!
   type: PoolSkillType!
@@ -2220,7 +2694,6 @@ input CreateJobPosterTemplateInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput!
   supervisoryStatus: SupervisoryStatus! @rename(attribute: "supervisory_status")
-  stream: PoolStream!
   workStream: WorkStreamBelongsTo!
   workDescription: LocalizedStringInput @rename(attribute: "work_description")
   tasks: LocalizedStringInput!
@@ -2293,7 +2766,6 @@ type Mutation {
     @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
-    id: UUID!
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard
@@ -2355,10 +2827,6 @@ type Mutation {
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-  deletePoolCandidate(id: ID! @whereKey): PoolCandidate
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
@@ -2421,12 +2889,6 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id")
-  deletePoolCandidateSearchRequest(
-    id: ID! @whereKey
-  ): PoolCandidateSearchRequest
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
@@ -2547,11 +3009,7 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
 
-  createPoolSkill(
-    poolId: ID! @rename(attribute: "pool_id")
-    skillId: ID! @rename(attribute: "skill_id")
-    poolSkill: CreatePoolSkillInput! @spread
-  ): PoolSkill
+  createPoolSkill(poolSkill: CreatePoolSkillInput! @spread): PoolSkill
     @create
     @guard
     @canFind(
@@ -2657,6 +3115,47 @@ type Mutation {
     community: UpdateCommunityInput! @spread
   ): Community @update @canFind(ability: "update", find: "id") @validator
 
+  # Talent nomination event mutations
+  createTalentNominationEvent(
+    talentNominationEvent: CreateTalentNominationEventInput! @spread
+  ): TalentNominationEvent
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+  updateTalentNominationEvent(
+    id: UUID!
+    talentNominationEvent: UpdateTalentNominationEventInput! @spread
+  ): TalentNominationEvent
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+
+  #Talent nomination mutations
+  createTalentNomination(
+    talentNomination: CreateTalentNominationInput! @spread
+  ): TalentNomination
+    @create
+    @inject(context: "user.id", name: "submitter_id")
+    @guard
+    @canModel(ability: "create")
+  updateTalentNomination(
+    id: UUID!
+    talentNomination: UpdateTalentNominationInput! @spread
+  ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
+  submitTalentNomination(id: UUID!): TalentNomination
+    @guard
+    @canFind(ability: "update", find: "id")
+
+  #Talent nomination group mutations
+  updateTalentNominationGroup(
+    id: UUID!
+    talentNominationGroup: UpdateTalentNominationGroupInput! @spread
+  ): TalentNominationGroup
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
+
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
   markNotificationAsUnread(id: UUID!): Notification @guard
@@ -2740,6 +3239,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersCsv(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityInterestUsersCsv(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
 
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard

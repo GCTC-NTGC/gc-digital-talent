@@ -8,7 +8,7 @@ export interface AuthTokens {
   refreshToken?: string | null;
 }
 
-interface AuthTokenResponse {
+export interface AuthTokenResponse {
   id_token?: string;
   access_token?: string;
   refresh_token?: string;
@@ -38,7 +38,7 @@ export async function loginBySub(
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
-  await page.getByRole("button", { name: /sign-in/i }).click();
+  await page.getByRole("button", { name: /sign in/i }).click();
   await expect(
     page.getByRole(
       "heading",
@@ -135,7 +135,7 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
   const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
-  const newDate = new Date(expiry + 1 * 1000);
+  const newDate = new Date((expiry + 1) * 1000);
   return newDate;
 }
 

@@ -84,8 +84,6 @@ const RequireAuth = ({
     throw new UnauthorizedError();
   }
 
-  // Note: Need to return a ReactElement
-  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
 

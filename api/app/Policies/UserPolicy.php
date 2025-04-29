@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
 use App\Models\Role;
 use App\Models\Team;
@@ -29,13 +30,22 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isAbleTo('view-any-user')
-            || ($user->isAbleTo('view-own-user') && $user->id === $model->id) || ($user->isAbleTo('view-team-applicantProfile')
+        return $user->isAbleTo('view-any-user') ||
+            ($user->isAbleTo('view-own-user') && $user->id === $model->id) ||
+            ($user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams(
                     $model,
                     $user->rolesTeams()->get()->pluck('id')
                 )
-            );
+            ) ||
+            count(
+                array_filter(
+                    $this->teamsUserHasSharedProfileWith($model),
+                    function (string $team) use ($user) {
+                        return $user->isAbleTo('view-team-communityTalent', $team);
+                    }
+                )
+            ) > 0;
     }
 
     /**
@@ -163,6 +173,18 @@ class UserPolicy
             ->exists();
     }
 
+    /*******************  COMMUNITY TALENT QUERIES  *******************/
+
+    // a community talent is a user with a community interest
+    protected function teamsUserHasSharedProfileWith(User $user)
+    {
+        return CommunityInterest::where('user_id', $user->id)
+            ->where('consent_to_share_profile', true)
+            ->join('teams', 'community_interests.community_id', '=', 'teams.teamable_id')
+            ->pluck('teams.name')
+            ->toArray();
+    }
+
     /*******************  ROLE CHECKING  *******************/
 
     /**
@@ -194,6 +216,8 @@ class UserPolicy
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
                 return $actor->isAbleTo('update-any-communityAdminMembership') || $actor->isAbleTo('update-team-communityAdminMembership', $team);
+            case 'community_talent_coordinator':
+                return $actor->isAbleTo('update-any-communityTalentCoordinatorMembership') || $actor->isAbleTo('update-team-communityTalentCoordinatorMembership', $team);
         }
 
         return false; // reject unknown roles
@@ -221,11 +245,17 @@ class UserPolicy
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
-            case 'manager':
-                return $actor->isAbleTo('update-any-managerMembership ') || $actor->isAbleTo('assign-any-role');
 
         }
 
         return false; // reject unknown roles
+    }
+
+    /**
+     * Determine whether the user can view a more limited version of the User model.
+     */
+    public function viewAnyBasicGovEmployeeProfile(User $user): bool
+    {
+        return $user->isAbleTo('view-any-basicGovEmployeeProfile');
     }
 }

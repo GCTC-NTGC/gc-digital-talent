@@ -40,20 +40,6 @@ const createRoute = (locale: Locales) =>
                   lazy: () =>
                     import("../pages/Home/ManagerHomePage/ManagerHomePage"),
                 },
-                {
-                  path: "dashboard",
-                  lazy: () =>
-                    import(
-                      "../pages/Manager/ManagerDashboardPage/ManagerDashboardPage"
-                    ),
-                },
-                {
-                  path: "talent-requests",
-                  lazy: () =>
-                    import(
-                      "../pages/Manager/ManagerRequestHistoryPage/ManagerRequestHistoryPage"
-                    ),
-                },
               ],
             },
             {
@@ -65,6 +51,48 @@ const createRoute = (locale: Locales) =>
                     import(
                       "../pages/CommunityDashboardPage/CommunityDashboardPage"
                     ),
+                },
+              ],
+            },
+            {
+              path: "communities",
+              children: [
+                {
+                  index: true,
+                  loader: () => {
+                    throw new NotFoundError();
+                  },
+                },
+                {
+                  path: "talent-events",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TalentManagementEventsPage/TalentManagementEventsPage"
+                        ),
+                    },
+                    {
+                      path: ":nominationEventId/create-talent-nomination",
+                      lazy: () =>
+                        import(
+                          "../pages/CreateTalentNominationPage/CreateTalentNominationPage"
+                        ),
+                    },
+                  ],
+                },
+                {
+                  path: "talent-nominations",
+                  children: [
+                    {
+                      path: ":id",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominateTalent/NominateTalentPage"
+                        ),
+                    },
+                  ],
                 },
               ],
             },
@@ -200,16 +228,16 @@ const createRoute = (locale: Locales) =>
                   index: true,
                   lazy: () =>
                     import(
-                      "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
+                      "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
                     ),
                 },
-                // {
-                //   path: "dashboard-test",
-                //   lazy: () =>
-                //     import(
-                //       "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
-                //     ),
-                // },
+                {
+                  path: "dashboard",
+                  lazy: () =>
+                    import(
+                      "../pages/ApplicantDashboardPage/ApplicantDashboardPage"
+                    ),
+                },
                 {
                   path: "settings",
                   lazy: () =>
@@ -241,7 +269,7 @@ const createRoute = (locale: Locales) =>
                       index: true,
                       lazy: () =>
                         import(
-                          "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+                          "../pages/Profile/CareerTimelinePage/CareerTimelinePage"
                         ),
                     },
                     {
@@ -325,6 +353,31 @@ const createRoute = (locale: Locales) =>
                     import(
                       "../pages/EmailVerificationPages/ProfileWorkEmailVerificationPage"
                     ),
+                },
+                {
+                  path: "community-interests",
+                  children: [
+                    {
+                      index: true,
+                      loader: () => {
+                        throw new NotFoundError();
+                      },
+                    },
+                    {
+                      path: ":communityInterestId",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage"
+                        ),
+                    },
+                    {
+                      path: "create",
+                      lazy: () =>
+                        import(
+                          "../pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage"
+                        ),
+                    },
+                  ],
                 },
               ],
             },
@@ -544,6 +597,13 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "comptrollership-executives",
+              lazy: () =>
+                import(
+                  "../pages/ComptrollershipExecutivesPage/ComptrollershipExecutivesPage"
+                ),
+            },
+            {
               path: "admin",
               children: [
                 {
@@ -568,6 +628,13 @@ const createRoute = (locale: Locales) =>
                           lazy: () =>
                             import(
                               "../pages/Users/UserInformationPage/UserInformationPage"
+                            ),
+                        },
+                        {
+                          path: "employee-profile",
+                          lazy: () =>
+                            import(
+                              "../pages/Users/UserEmployeeInformationPage/UserEmployeeInformationPage"
                             ),
                         },
                         {
@@ -719,6 +786,65 @@ const createRoute = (locale: Locales) =>
                     import(
                       "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
                     ),
+                },
+                {
+                  path: "talent-events",
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/TalentEvents/IndexTalentEventPage"),
+                    },
+                    {
+                      path: ":eventId",
+                      lazy: () =>
+                        import("../pages/TalentEvents/TalentEvent/Layout"),
+                      children: [
+                        {
+                          index: true,
+                          lazy: () =>
+                            import(
+                              "../pages/TalentEvents/TalentEvent/DetailsPage"
+                            ),
+                        },
+                        {
+                          path: "nominations",
+                          lazy: () =>
+                            import(
+                              "../pages/TalentEvents/TalentEvent/NominationsPage"
+                            ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "talent-events/:eventId/nominations/:talentNominationGroupId",
+                  lazy: () =>
+                    import("../pages/TalentNominations/NominationGroup/Layout"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Details"
+                        ),
+                    },
+                    {
+                      path: "profile",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/Profile"
+                        ),
+                    },
+                    {
+                      path: "career-experience",
+                      lazy: () =>
+                        import(
+                          "../pages/TalentNominations/NominationGroup/CareerExperience"
+                        ),
+                    },
+                  ],
                 },
                 {
                   path: "talent-requests",
@@ -966,6 +1092,13 @@ const createRoute = (locale: Locales) =>
                   ],
                 },
                 {
+                  path: "community-talent",
+                  lazy: () =>
+                    import(
+                      "../pages/CommunityInterests/CommunityTalentPage/CommunityTalentPage"
+                    ),
+                },
+                {
                   path: "*",
                   loader: () => {
                     throw new NotFoundError();
@@ -1017,6 +1150,7 @@ const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const router = createRoute(locale);
+
   return <RouterProvider router={router} />;
 };
 

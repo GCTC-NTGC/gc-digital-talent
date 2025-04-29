@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
 import { Checklist } from "@gc-digital-talent/forms";
@@ -24,6 +25,7 @@ const DisabilityDialog = ({
   disabled,
 }: EquityDialogProps) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = useState<boolean>(false);
   const methods = useForm<FormValues>({
     defaultValues: {
       hasDisability: isAdded,
@@ -31,12 +33,12 @@ const DisabilityDialog = ({
   });
   const { handleSubmit } = methods;
 
-  const submitHandler: SubmitHandler<FormValues> = (data: FormValues) => {
-    onSave(data.hasDisability);
+  const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await onSave(data.hasDisability).then(() => setOpen(false));
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>{children}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
@@ -62,8 +64,8 @@ const DisabilityDialog = ({
             }
             quotedDefinition={intl.formatMessage({
               defaultMessage:
-                '"... refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition."',
-              id: "66qMwD",
+                '"refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition."',
+              id: "JbSK7q",
               description:
                 "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page.",
             })}

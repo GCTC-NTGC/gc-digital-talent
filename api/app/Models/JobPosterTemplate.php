@@ -54,7 +54,6 @@ class JobPosterTemplate extends Model
         'name',
         'description',
         'key',
-        'stream',
         'supervisory_status',
         'work_description',
         'tasks',

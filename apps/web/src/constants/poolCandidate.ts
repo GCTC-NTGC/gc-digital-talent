@@ -68,8 +68,7 @@ export const INACTIVE_STATUSES = [
   PoolCandidateStatus.QualifiedWithdrew,
 ];
 
-export const SCREENED_OUT_STATUSES = [
-  PoolCandidateStatus.ScreenedOutNotInterested,
-  PoolCandidateStatus.ScreenedOutNotResponsive,
-  PoolCandidateStatus.Removed,
+export const SUSPENDABLE_STATUSES = [
+  PoolCandidateStatus.QualifiedAvailable,
+  PoolCandidateStatus.PlacedCasual,
 ];

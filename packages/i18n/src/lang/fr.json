@@ -83,6 +83,10 @@
     "defaultMessage": "Fils d’Ariane",
     "description": "Label for the links to page ancestors"
   },
+  "0pIr++": {
+    "defaultMessage": "Je n'ai pas envie de coacher quelqu'un d'autre.",
+    "description": "The executive coaching interest status described as coaching."
+  },
   "16AY+M": {
     "defaultMessage": "Incapable de postuler pour ce bassin",
     "description": "Message displayed when user attempts to apply to an unpublished pool"
@@ -90,6 +94,10 @@
   "17dZD4": {
     "defaultMessage": "Nous informerons le candidat ou la candidate de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
+  },
+  "1FNzD4": {
+    "defaultMessage": "Date limite",
+    "description": "Title for deadline"
   },
   "1UX8RD": {
     "defaultMessage": "Address courriel de correspondance",
@@ -102,6 +110,10 @@
   "1i0PsT": {
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
+  },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
   },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
@@ -131,6 +143,10 @@
     "defaultMessage": "Modifiez",
     "description": "Text to trigger edit action"
   },
+  "3I0zLF": {
+    "defaultMessage": "Je souhaite coacher quelqu'un d'autre.",
+    "description": "The executive coaching interest status described as coaching."
+  },
   "3I2Qke": {
     "defaultMessage": "S’ouvre dans un nouvel onglet",
     "description": "Label for setting a link to open in a new tab in the rich text editor"
@@ -139,21 +155,21 @@
     "defaultMessage": "Sur cette page",
     "description": "Title for  pages table of contents."
   },
+  "3PQs15": {
+    "defaultMessage": "Les possibilités d'échange m'intéressent",
+    "description": "Interest label for interchange opportunities."
+  },
   "3SDRDg": {
     "defaultMessage": "Parcourir la bibliothèque de compétences",
     "description": "Name of skill library page"
-  },
-  "3agw4G": {
-    "defaultMessage": "<strong> Région de l'Ontario</strong>(excluant Ottawa)",
-    "description": "The work region of Canada described as Ontario."
   },
   "3e4sM7": {
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
   },
-  "3f6YzQ": {
-    "defaultMessage": "<strong> Région de l'Atlantique</strong> (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
-    "description": "La région de travail du Canada décrite comme l'Atlantique."
+  "45ZCXX": {
+    "defaultMessage": "Options",
+    "description": "label or header for something referred to as an option, plural"
   },
   "4MKYKl": {
     "defaultMessage": "aaaa",
@@ -199,9 +215,17 @@
     "defaultMessage": "Décision finale relative à l’évaluation",
     "description": "Final assessment decision"
   },
+  "64H+pl": {
+    "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
+    "description": "The work region of Canada described as Quebec."
+  },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
+  },
+  "6bpSqk": {
+    "defaultMessage": "Je ne souhaite pas participer à un programme d'études.",
+    "description": "Not interested label for academic programs."
   },
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
@@ -227,17 +251,25 @@
     "defaultMessage": "Vous ne pouvez pas archiver un bassin à moins que le statut indique qu'il soit fermé.",
     "description": "Error message when attempting to archive a pool with an invalid status."
   },
+  "7O5SRa": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Title for security clearance"
+  },
   "7QH2G/": {
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
+  },
+  "7hUWc+": {
+    "defaultMessage": "Créer un profil",
+    "description": "Link text for users to create a profile"
   },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
   },
-  "8JxN4A": {
-    "defaultMessage": "<strong> Région de la capitale nationale</strong>(Ottawa, en Ontario et Gatineau, au Québec).",
-    "description": "The work region of Canada described as National Capital."
+  "7woRF/": {
+    "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
+    "description": "The executive coaching status described as not participating."
   },
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
@@ -246,6 +278,10 @@
   "8kUa5H": {
     "defaultMessage": "Une erreur s’est produite au moment de placer le candidat. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that placing a candidate failed"
+  },
+  "8shuWS": {
+    "defaultMessage": "Je consens à travailler à distance.",
+    "description": "The work region of Canada described as Telework."
   },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
@@ -283,6 +319,18 @@
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
   },
+  "APggfy": {
+    "defaultMessage": "Je ne souhaite pas bénéficier du coaching des cadres.",
+    "description": "The executive coaching interest status described as learning."
+  },
+  "AQeWgK": {
+    "defaultMessage": "Intérêt pour la formation",
+    "description": "Training interest label"
+  },
+  "AQxes2": {
+    "defaultMessage": "Renseignements facultatifs manquants",
+    "description": "Message for when specific item has missing optional information"
+  },
   "AiFpbo": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -315,25 +363,25 @@
     "defaultMessage": "Administration des programmes",
     "description": "Full name of abbreviation for PM"
   },
-  "CGNfbu": {
-    "defaultMessage": "Région de l'Ontario (excluant Ottawa)",
-    "description": "The work region of Canada described as Ontario."
-  },
   "CYirJF": {
     "defaultMessage": "Vous devez indiquer le lieu précis en anglais et en français si l'annonce ne vise pas un poste à distance.",
     "description": "Error message that advertisement locations must be filled in English and French."
-  },
-  "ChFxsM": {
-    "defaultMessage": "Région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard.)",
-    "description": "The work region of Canada described as Atlantic."
   },
   "CrzH4k": {
     "defaultMessage": "Constamment démontrée comme étant bien développée auprès de tous les publics, même dans des conditions de stress important et dans des situations difficiles. Le comportement est nuancé et adapté à la situation sans s’éloigner de sa valeur fondamentale.",
     "description": "The behavioural skill level definition for lead"
   },
+  "D3+nw/": {
+    "defaultMessage": "Je consens à travailler dans la région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut).",
+    "description": "The work region of Canada described as North."
+  },
   "DIK7Z1": {
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
     "description": "Message for when the download request failed"
+  },
+  "DUjO/t": {
+    "defaultMessage": "À distance, hybride ou sur site",
+    "description": "Title for remote, hybrid or on-site"
   },
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
@@ -354,6 +402,10 @@
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
+  },
+  "F9efQO": {
+    "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
+    "description": "The work region of Canada described as National Capital."
   },
   "FYrmhH": {
     "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
@@ -459,10 +511,6 @@
     "defaultMessage": "Français",
     "description": "Name of French language"
   },
-  "Jpq6MK": {
-    "defaultMessage": "Région de Québec (excluant Gatineau)",
-    "description": "The work region of Canada described as Quebec."
-  },
   "JqjYZq": {
     "defaultMessage": "Ce champ est obligatoire. Veuillez inscrire une valeur.",
     "description": "Error message that this field must filled for the form to be valid."
@@ -503,6 +551,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "M9k8b8": {
+    "defaultMessage": "Rejetée",
+    "description": "Rejected status"
+  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -531,6 +583,10 @@
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
   },
+  "MuM7SN": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message for when specific item has missing information"
+  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
@@ -538,6 +594,10 @@
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
+  },
+  "NQspkZ": {
+    "defaultMessage": "Tableau de bord de la collectivité",
+    "description": "Name of the community dashboard page"
   },
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
@@ -547,9 +607,21 @@
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
   },
+  "O5Lq+h": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "OAoFzw": {
+    "defaultMessage": "Je suis actuellement en train de coacher quelqu'un d'autre.",
+    "description": "The executive coaching status described as coaching."
+  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
+  },
+  "OLs1UJ": {
+    "defaultMessage": "J'aimerais que quelqu'un me serve de mentor ou mentore.",
+    "description": "The mentorship interest described as mentee."
   },
   "OOVZSs": {
     "defaultMessage": "Ajouter un nouvel élément",
@@ -567,6 +639,10 @@
     "defaultMessage": "Trouver des talents",
     "description": "Name of Find talent (search) page"
   },
+  "Ojevvl": {
+    "defaultMessage": "Compétences optionnelles",
+    "description": "Title for optional skills"
+  },
   "Ork8sR": {
     "defaultMessage": "La nouvelle date de clôture doit être ultérieure à la date de clôture actuelle.",
     "description": "Error message that the pool closing date isn't after the existing one"
@@ -579,9 +655,9 @@
     "defaultMessage": "J'accepte de travailler par quarts.",
     "description": "The operational requirement described as shift work."
   },
-  "P9roJ7": {
-    "defaultMessage": "Région du Nord (Yukon, Territoires du Nord-Ouest et Nunavut)",
-    "description": "The work region of Canada described as North."
+  "P7AWrP": {
+    "defaultMessage": "Je ne souhaite pas que quelqu'un me serve de mentor ou mentore.",
+    "description": "The mentorship interest described as mentee."
   },
   "PAXoFY": {
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
@@ -595,6 +671,10 @@
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
+  "PPSXML": {
+    "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
+    "description": "The work region of Canada described as Prairie."
+  },
   "Pj4lW9": {
     "defaultMessage": "Accepté",
     "description": "Indicates a user has accepted some criteria"
@@ -602,6 +682,10 @@
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
     "description": "The operational requirement described as regular overtime."
+  },
+  "QUnymn": {
+    "defaultMessage": "Le rôle de mentor ou mentore ne m'intéresse pas.",
+    "description": "The mentorship interest described as mentor."
   },
   "QZpZQh": {
     "defaultMessage": "Personne handicapée",
@@ -631,6 +715,10 @@
     "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
     "description": "Text for the option to self-declare as Indigenous"
   },
+  "RhkjXE": {
+    "defaultMessage": "Durée de l'emploi",
+    "description": "Title for employment length"
+  },
   "RkxqoB": {
     "defaultMessage": "La date ne doit pas être antérieure {value}",
     "description": "Error message that the date provided must follow and not precede some referenced date"
@@ -650,6 +738,14 @@
   "S9BRBL": {
     "defaultMessage": "Durée (court terme, long terme)",
     "description": "Duration of a non-permanent length"
+  },
+  "SD8i+/": {
+    "defaultMessage": "Reçue",
+    "description": "Title for received"
+  },
+  "SKJjYS": {
+    "defaultMessage": "J'ai actuellement un ou une coach.",
+    "description": "The executive coaching status described as learning."
   },
   "SUYPIt": {
     "defaultMessage": "Trop de demandes, veuillez patienter une minute et réessayer.",
@@ -715,6 +811,10 @@
     "defaultMessage": "Retour",
     "description": "An action to go back to a previous location"
   },
+  "Vnygk+": {
+    "defaultMessage": "Soumis",
+    "description": "Item's state is submitted"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
@@ -722,6 +822,10 @@
   "W5Dkd1": {
     "defaultMessage": "Économique et services de sciences sociales",
     "description": "Full name of abbreviation for EC"
+  },
+  "W87tD/": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un grand ministère ou un grand organisme.",
+    "description": "The talent nomination lateral movement option description for large department"
   },
   "W9SXxj": {
     "defaultMessage": "Trier par",
@@ -734,6 +838,14 @@
   "WL3bq/": {
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
+  },
+  "WZ17s5": {
+    "defaultMessage": "Compétences requises",
+    "description": "Title for required skills"
+  },
+  "WZ8QTB": {
+    "defaultMessage": "Profil d'employé(e) du GC",
+    "description": "Short title for a user's GC employee profile"
   },
   "WhLeuS": {
     "defaultMessage": "Nom",
@@ -783,8 +895,12 @@
     "defaultMessage": "Démontrée, mais la constance varie considérablement selon le public et les circonstances. Démontrée par intermittence dans des situations quotidiennes et démontrée de façon inconstante auprès de certains publics ou dans des conditions de stress ou dans des situations modérément difficiles. Le potentiel est là, mais il reste encore beaucoup à apprendre.",
     "description": "The behavioural skill level definition for beginner"
   },
+  "Y66jFM": {
+    "defaultMessage": "Retournez à votre tableau de bord",
+    "description": "Link text to the dashboard page"
+  },
   "YHqVoj": {
-    "defaultMessage": "Soumettre",
+    "defaultMessage": "Soumettez",
     "description": "Default text for submit button."
   },
   "YSNrLG": {
@@ -803,6 +919,10 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
+  "ZMVV2z": {
+    "defaultMessage": "Je ne participe à aucun programme de mentorat.",
+    "description": "The mentorship status described as not participating."
+  },
   "ZhOciS": {
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Name of job advertisement templates page"
@@ -811,13 +931,17 @@
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
   },
-  "ZoFcYn": {
-    "defaultMessage": "<strong> Région de Québec</strong>(excluant Gatineau)",
-    "description": "The work region of Canada described as Quebec."
+  "ZoYqEo": {
+    "defaultMessage": "Date limite",
+    "description": "Title for deadline to apply"
   },
   "ZpTNbt": {
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
+  },
+  "a+twlj": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
+    "description": "Interest label for peer networking."
   },
   "a5edSg": {
     "defaultMessage": "Jour",
@@ -847,13 +971,25 @@
     "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
     "description": "Error message that the user has attempted to set an invalid notification family as ignored."
   },
+  "by5WLz": {
+    "defaultMessage": "Je souhaite devenir mentor ou mentore.",
+    "description": "The mentorship interest described as mentor."
+  },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
   },
+  "cO535E": {
+    "defaultMessage": "Erreur : échec de la création du compte.",
+    "description": "Message displayed to user if account fails to get updated."
+  },
   "cP2cZ0": {
     "defaultMessage": "Défaire",
     "description": "Label for undoing an action in the rich text editor"
+  },
+  "cR8L3T": {
+    "defaultMessage": "Échelle salariale",
+    "description": "Title for salary range"
   },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
@@ -875,9 +1011,17 @@
     "defaultMessage": "Trouver un modèle d'emploi",
     "description": "Name of job template page"
   },
+  "dKY52V": {
+    "defaultMessage": "Je souhaite participer à un programme d'études.",
+    "description": "Interest label for academic programs."
+  },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
+  },
+  "dYhxhN": {
+    "defaultMessage": "Intérêt pour l'emploi",
+    "description": "Job interest label"
   },
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
@@ -886,10 +1030,6 @@
   "dwYJOo": {
     "defaultMessage": "Exigences en matière de travail pratique",
     "description": "Title for the applied work experience requirements"
-  },
-  "dxjUnU": {
-    "defaultMessage": "Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec.)",
-    "description": "The work region of Canada described as National Capital."
   },
   "dyGR7U": {
     "defaultMessage": "Recherche…",
@@ -902,6 +1042,10 @@
   "eBNZxB": {
     "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
+  },
+  "eQ8bTh": {
+    "defaultMessage": "Expire",
+    "description": "Title for expires"
   },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
@@ -931,6 +1075,14 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
+  },
+  "fUAej4": {
+    "defaultMessage": "Pas d'intérêt",
+    "description": "Expressed lack of interest"
+  },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
@@ -943,6 +1095,10 @@
     "defaultMessage": "Capacité démontrée à déterminer, définir, entreprendre et exécuter des tâches d’une grande complexité avec de vastes domaines de répercussions, même dans des circonstances difficiles. Capacité démontrée à diriger le développement de tâches, et potentiellement d’équipes, pour l’organisation dans ce domaine. Généralement associée à des postes de gestionnaire ou de responsable technique.",
     "description": "The technical skill level definition for lead"
   },
+  "fhpH9E": {
+    "defaultMessage": "Fermer",
+    "description": "Title for close"
+  },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."
@@ -950,6 +1106,10 @@
   "g6az2A": {
     "defaultMessage": "Candidats",
     "description": "Name of Candidates page"
+  },
+  "g9J8/u": {
+    "defaultMessage": "Compte mis à jour avec succès.",
+    "description": "Message displayed to user if account is updated successfully."
   },
   "gBoG9M": {
     "defaultMessage": "Profil et candidatures",
@@ -999,6 +1159,10 @@
     "defaultMessage": "Numéro de téléphone",
     "description": "Title displayed telephone"
   },
+  "inlUs4": {
+    "defaultMessage": "Je participe à la fois en tant que coach et en tant qu'apprenant.",
+    "description": "The executive coaching status described as both learning and coaching."
+  },
   "iqD8qE": {
     "defaultMessage": "Erreur inconnue",
     "description": "Fallback text when an error message is not supplied"
@@ -1015,6 +1179,10 @@
     "defaultMessage": "Tableau de bord",
     "description": "Name of Dashboard page"
   },
+  "jPxgBV": {
+    "defaultMessage": "Les possibilités de réseautage entre pairs ne m'intéressent pas.",
+    "description": "Not interested label for peer networking."
+  },
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "Name of Bilingual (English and French)"
@@ -1022,6 +1190,10 @@
   "jqyjFm": {
     "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran without bolding"
+  },
+  "jrDTez": {
+    "defaultMessage": "Qualifié(e)",
+    "description": "Title for qualified"
   },
   "juklNA": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre incidence",
@@ -1047,6 +1219,10 @@
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
   },
+  "kHtt2N": {
+    "defaultMessage": "Vous ne pouvez pas inclure une compétence à la fois comme essentielle et comme atout dans le même processus. Veuillez en choisir une et la retirer de l'autre section.",
+    "description": "Error message that the pool advertisement skills cannot be both essential and asset"
+  },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
     "description": "Error message when human readable message not found"
@@ -1054,6 +1230,10 @@
   "kg28xx": {
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
+  },
+  "kv960y": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
+    "description": "The talent nomination lateral movement option description for central department"
   },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
@@ -1087,6 +1267,10 @@
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."
   },
+  "m2cqv9": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un programme au sein d'un autre ministère ou d'un autre organisme.",
+    "description": "The talent nomination lateral movement option description for program experience"
+  },
   "mDOWWQ": {
     "defaultMessage": "Soumission",
     "description": "Default text for submitting button."
@@ -1106,6 +1290,10 @@
   "n3Gt3n": {
     "defaultMessage": "Technologie de l’information",
     "description": "Full name of abbreviation for IT"
+  },
+  "nEyBtD": {
+    "defaultMessage": "Les possibilités d'échange ne m'intéressent pas.",
+    "description": "Not interested label for interchange opportunities."
   },
   "nICORU": {
     "defaultMessage": "Sélectionnez un groupe",
@@ -1127,6 +1315,10 @@
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
   },
+  "nwBZ4v": {
+    "defaultMessage": "Je suis actuellement le mentor ou la mentore d'une personne.",
+    "description": "The mentorship status described as mentor."
+  },
   "o/6zAs": {
     "defaultMessage": "Chargement",
     "description": "Title displayed for a table initial loading state."
@@ -1135,6 +1327,10 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
+  "oCFl63": {
+    "defaultMessage": "Approuvée",
+    "description": "Approved status"
+  },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
     "description": "Error message that the pool closing date is required."
@@ -1142,14 +1338,6 @@
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
-  },
-  "oIfw3w": {
-    "defaultMessage": "Profil de gestionnaire",
-    "description": "Name of Manager profile page"
-  },
-  "oPhurq": {
-    "defaultMessage": "Région des Prairies (Manitoba, Saskatchewan, Alberta.)",
-    "description": "The work region of Canada described as Prairie."
   },
   "oR0evm": {
     "defaultMessage": "La date doit être égale ou supérieure au {date}",
@@ -1167,6 +1355,10 @@
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that qualifying a candidate failed"
   },
+  "oxhIEK": {
+    "defaultMessage": "Je ne souhaite pas obtenir une accréditation professionnelle.",
+    "description": "Not interested label for professional accreditation."
+  },
   "pOL68A": {
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Title for work email address"
@@ -1175,10 +1367,6 @@
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
   },
-  "pmoexB": {
-    "defaultMessage": "<strong> Virtuel</strong>  (travail à domicile, partout au Canada.)",
-    "description": "The work region of Canada described as Telework."
-  },
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
@@ -1186,10 +1374,6 @@
   "qmEyxS": {
     "defaultMessage": "Le bassin doit avoir une date de clôture postérieure à aujourd’hui.",
     "description": "Error message that the pool closing date isn't in the future."
-  },
-  "qtJrUr": {
-    "defaultMessage": "Région de la Colombie-Britannique",
-    "description": "The work region of Canada described as British Columbia."
   },
   "qtqJ6q": {
     "defaultMessage": "Compétences",
@@ -1203,6 +1387,10 @@
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
     "description": "Body text for the unexpected error page."
   },
+  "r1QzK4": {
+    "defaultMessage": "Je participe à la fois en tant que mentor ou mentore et en tant que mentoré ou mentorée.",
+    "description": "The mentorship status described as both mentee and mentor."
+  },
   "rCXko4": {
     "defaultMessage": "Novembre",
     "description": "Name of the eleventh month"
@@ -1210,6 +1398,10 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
+  },
+  "rH9RNh": {
+    "defaultMessage": "Intérêt",
+    "description": "Expressed interest"
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
@@ -1230,6 +1422,14 @@
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
+  },
+  "s3u05D": {
+    "defaultMessage": "Nouvelle mise en candidature",
+    "description": "Link text to create a new nomination"
+  },
+  "s7lyFN": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un petit ministère ou un petit organisme.",
+    "description": "The talent nomination lateral movement option description for small department"
   },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
@@ -1267,10 +1467,6 @@
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
   },
-  "suvoSt": {
-    "defaultMessage": "<strong> Région des Prairies</strong> (Manitoba, Saskatchewan, Alberta.)",
-    "description": "The work region of Canada described as Prairie."
-  },
   "t4F/0R": {
     "defaultMessage": "Un champ obligatoire est vide : Exigence relative à la sécurité",
     "description": "Error message that the pool advertisement must have a security clearance."
@@ -1283,13 +1479,13 @@
     "defaultMessage": "Retiré",
     "description": "Removed"
   },
+  "tHeY7N": {
+    "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
+    "description": "The executive coaching interest status described as learning."
+  },
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",
     "description": "Error message that Work Tasks in English must be filled"
-  },
-  "tgt0og": {
-    "defaultMessage": "<strong>Région de la Colombie-Britannique</strong>",
-    "description": "The work region of Canada described as British Columbia."
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",
@@ -1311,9 +1507,9 @@
     "defaultMessage": "Introuvable",
     "description": "Title displayed when an item cannot be found."
   },
-  "us8fY4": {
-    "defaultMessage": "<strong> Région du Nord</strong> (Yukon, Territoires du Nord-Ouest et Nunavut.)",
-    "description": "The work region of Canada described as North."
+  "ukd1kY": {
+    "defaultMessage": "Événements axés sur la gestion des talents",
+    "description": "Name of talent management events page"
   },
   "uu2OuP": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
@@ -1335,6 +1531,10 @@
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
   },
+  "vMc12L": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
+    "description": "The talent nomination lateral movement option description for policy experience"
+  },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
@@ -1343,9 +1543,17 @@
     "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
+  "vYi9m5": {
+    "defaultMessage": "Je souhaite obtenir une accréditation professionnelle.",
+    "description": "Interest label for professional accreditation."
+  },
   "vpTBA0": {
     "defaultMessage": "J'accepte de travailler <strong>par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7</strong>.",
     "description": "The operational requirement described as 24/7 on-call."
+  },
+  "vrgXIT": {
+    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
+    "description": "The talent nomination lateral movement option description for new department"
   },
   "vvtqRv": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement).",
@@ -1363,13 +1571,21 @@
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
   },
+  "wdfDZH": {
+    "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "wqBryV": {
+    "defaultMessage": "Tableau de bord du (de la) candidat(e)",
+    "description": "Name of applicant dashboard page"
+  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
   },
-  "x8v6Qp": {
-    "defaultMessage": "Virtuel (travail à domicile, partout au Canada.)",
-    "description": "The work region of Canada described as Telework."
+  "x9dfvs": {
+    "defaultMessage": "Je consens à travailler dans la région de l'Ontario (excluant Ottawa).",
+    "description": "The work region of Canada described as Ontario."
   },
   "xAxxmc": {
     "defaultMessage": "Oups! Vous avez des erreurs!",
@@ -1391,6 +1607,14 @@
     "defaultMessage": "Cette chaîne de compétences clés est déjà utilisée",
     "description": "Error message that the given skill key is already in use."
   },
+  "xUhyIU": {
+    "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
+    "description": "Description for rule pattern on work email field"
+  },
+  "xVBxp3": {
+    "defaultMessage": "En cours",
+    "description": "In progress status"
+  },
   "y4oBW4": {
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
@@ -1410,6 +1634,14 @@
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zM99Vm": {
+    "defaultMessage": "J'ai actuellement un mentor ou une mentore.",
+    "description": "The mentorship status described as mentee."
+  },
+  "zN7MBv": {
+    "defaultMessage": "Planification de carrière",
+    "description": "Title for a users career plan"
   },
   "zXRf0L": {
     "defaultMessage": "Mai",

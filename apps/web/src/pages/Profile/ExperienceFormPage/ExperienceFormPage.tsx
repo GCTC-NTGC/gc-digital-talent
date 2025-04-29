@@ -290,6 +290,22 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      workStreams {
+        id
+      }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
     }
   }
 `);
@@ -316,7 +332,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment();
+  const returnPath = paths.careerTimeline();
   const experience = getFragment(
     ExperienceFormExperience_Fragment,
     experienceQuery,
@@ -461,9 +477,7 @@ export const ExperienceForm = ({
         url: paths.profileAndApplications(),
       },
       {
-        label: intl.formatMessage(
-          navigationMessages.careerTimelineAndRecruitment,
-        ),
+        label: intl.formatMessage(navigationMessages.careerTimeline),
         url: returnPath,
       },
       {
@@ -474,10 +488,9 @@ export const ExperienceForm = ({
               description: "Title for edit experience page",
             })
           : intl.formatMessage({
-              defaultMessage: "Add Experience",
-              id: "mJ1HE4",
-              description:
-                "Display text for add experience form in breadcrumbs",
+              defaultMessage: "Add experience",
+              id: "g1WB3B",
+              description: "Title for add experience page",
             }),
         url: experience ? paths.editExperience(experience.id) : "#",
       },

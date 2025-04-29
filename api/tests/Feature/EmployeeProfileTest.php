@@ -4,8 +4,9 @@ namespace Tests\Feature;
 
 use App\Enums\ExecCoaching;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\OrganizationTypeInterest;
+use App\Enums\TargetRole;
+use App\Enums\TimeFrame;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -51,21 +52,36 @@ class EmployeeProfileTest extends TestCase
                 query {
                     me {
                         employeeProfile {
-                            organizationTypeInterest { value }
-                            moveInterest { value }
+                            lateralMoveInterest
+                            lateralMoveTimeFrame { value }
+                            lateralMoveOrganizationType { value }
+                            promotionMoveInterest
+                            promotionMoveTimeFrame { value }
+                            promotionMoveOrganizationType { value }
                             mentorshipStatus { value }
                             mentorshipInterest { value }
                             execInterest
                             execCoachingStatus { value }
                             execCoachingInterest { value }
-                            dreamRoleTitle
-                            dreamRoleAdditionalInformation
-                            dreamRoleClassification { id }
-                            dreamRoleCommunity { id }
-                            dreamRoleWorkStream { id }
-                            dreamRoleDepartments { id }
+                            nextRoleJobTitle
+                            careerObjectiveJobTitle
+                            nextRoleAdditionalInformation
+                            careerObjectiveAdditionalInformation
+                            nextRoleClassification { id }
+                            careerObjectiveClassification { id }
+                            nextRoleCommunity { id }
+                            careerObjectiveCommunity { id }
+                            nextRoleCommunityOther
+                            careerObjectiveCommunityOther
+                            nextRoleWorkStreams { id }
+                            careerObjectiveWorkStreams { id }
+                            nextRoleDepartments { id }
+                            careerObjectiveDepartments { id }
+                            nextRoleTargetRole { value }
+                            careerObjectiveTargetRole { value }
+                            nextRoleTargetRoleOther
+                            careerObjectiveTargetRoleOther
                             aboutYou
-                            careerGoals
                             learningGoals
                             workStyle
                         }
@@ -73,21 +89,38 @@ class EmployeeProfileTest extends TestCase
                 }
                 GRAPHQL)
             ->assertJsonFragment([
-                'organizationTypeInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_organization_type_interest),
-                'moveInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_move_interest),
+                'lateralMoveInterest' => $this->user->employeeProfile->career_planning_lateral_move_interest,
+                'lateralMoveTimeFrame' => $this->user->employeeProfile->career_planning_lateral_move_interest ? ['value' => $this->user->employeeProfile->career_planning_lateral_move_time_frame] : null,
+                'lateralMoveOrganizationType' => $this->user->employeeProfile->career_planning_lateral_move_interest ? $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_lateral_move_organization_type) : null,
+                'promotionMoveInterest' => $this->user->employeeProfile->career_planning_promotion_move_interest,
+                'promotionMoveTimeFrame' => $this->user->employeeProfile->career_planning_promotion_move_interest ? ['value' => $this->user->employeeProfile->career_planning_promotion_move_time_frame] : null,
+                'promotionMoveOrganizationType' => $this->user->employeeProfile->career_planning_promotion_move_interest ? $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_promotion_move_organization_type) : null,
                 'mentorshipStatus' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_status),
                 'mentorshipInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_mentorship_interest),
                 'execInterest' => $this->user->employeeProfile->career_planning_exec_interest,
                 'execCoachingStatus' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_exec_coaching_status),
                 'execCoachingInterest' => $this->arrayToLocalizedEnum($this->user->employeeProfile->career_planning_exec_coaching_interest),
-                'dreamRoleTitle' => $this->user->employeeProfile->dream_role_title,
-                'dreamRoleAdditionalInformation' => $this->user->employeeProfile->dream_role_additional_information,
-                'dreamRoleClassification' => ['id' => $this->user->employeeProfile->dreamRoleClassification->id],
-                'dreamRoleCommunity' => ['id' => $this->user->employeeProfile->dreamRoleCommunity->id],
-                'dreamRoleWorkStream' => ['id' => $this->user->employeeProfile->dreamRoleWorkStream->id],
-                'dreamRoleDepartments' => Arr::map($this->user->employeeProfile->dreamRoleDepartments->toArray(), fn ($value) => ['id' => $value['id']]),
+                'nextRoleJobTitle' => $this->user->employeeProfile->next_role_job_title,
+                'careerObjectiveJobTitle' => $this->user->employeeProfile->career_objective_job_title,
+                'nextRoleAdditionalInformation' => $this->user->employeeProfile->next_role_additional_information,
+                'careerObjectiveAdditionalInformation' => $this->user->employeeProfile->career_objective_additional_information,
+                'nextRoleClassification' => ['id' => $this->user->employeeProfile->nextRoleClassification?->id],
+                'careerObjectiveClassification' => ['id' => $this->user->employeeProfile->careerObjectiveClassification?->id],
+                'nextRoleCommunity' => $this->user->employeeProfile->nextRoleCommunity?->id ?
+                    ['id' => $this->user->employeeProfile->nextRoleCommunity->id] : null,
+                'careerObjectiveCommunity' => $this->user->employeeProfile->careerObjectiveCommunity?->id ?
+                    ['id' => $this->user->employeeProfile->careerObjectiveCommunity->id] : null,
+                'nextRoleCommunityOther' => $this->user->employeeProfile->next_role_community_other,
+                'careerObjectiveCommunityOther' => $this->user->employeeProfile->career_objective_community_other,
+                'nextRoleWorkStreams' => Arr::map($this->user->employeeProfile->nextRoleWorkStreams->toArray(), fn ($value) => ['id' => $value['id']]),
+                'careerObjectiveWorkStreams' => Arr::map($this->user->employeeProfile->careerObjectiveWorkStreams->toArray(), fn ($value) => ['id' => $value['id']]),
+                'nextRoleDepartments' => Arr::map($this->user->employeeProfile->nextRoleDepartments->toArray(), fn ($value) => ['id' => $value['id']]),
+                'careerObjectiveDepartments' => Arr::map($this->user->employeeProfile->careerObjectiveDepartments->toArray(), fn ($value) => ['id' => $value['id']]),
+                'nextRoleTargetRole' => ['value' => $this->user->employeeProfile->next_role_target_role],
+                'careerObjectiveTargetRole' => ['value' => $this->user->employeeProfile->career_objective_target_role],
+                'nextRoleTargetRoleOther' => $this->user->employeeProfile->next_role_target_role_other,
+                'careerObjectiveTargetRoleOther' => $this->user->employeeProfile->career_objective_target_role_other,
                 'aboutYou' => $this->user->employeeProfile->career_planning_about_you,
-                'careerGoals' => $this->user->employeeProfile->career_planning_career_goals,
                 'learningGoals' => $this->user->employeeProfile->career_planning_learning_goals,
                 'workStyle' => $this->user->employeeProfile->career_planning_work_style,
             ]);
@@ -96,23 +129,39 @@ class EmployeeProfileTest extends TestCase
     public function testCanUpdateEmployeeProfile()
     {
 
-        $community = Community::factory()->withWorkStreams()->create();
+        $nextRoleCommunity = Community::factory()->withWorkStreams()->create();
+        $careerObjectiveCommunity = Community::factory()->withWorkStreams()->create();
         $input = [
-            'organizationTypeInterest' => [OrganizationTypeInterest::CURRENT->name],
-            'moveInterest' => [MoveInterest::AT_LEVEL->name],
+            'lateralMoveInterest' => true,
+            'lateralMoveTimeFrame' => TimeFrame::THREE_OR_MORE_YEARS->name,
+            'lateralMoveOrganizationType' => [OrganizationTypeInterest::CURRENT->name],
+            'promotionMoveInterest' => true,
+            'promotionMoveTimeFrame' => TimeFrame::THIS_YEAR->name,
+            'promotionMoveOrganizationType' => [OrganizationTypeInterest::SCIENCE_REGULATORY_AGENCY->name],
             'mentorshipStatus' => [Mentorship::MENTOR->name],
             'mentorshipInterest' => array_column(Mentorship::cases(), 'name'),
             'execInterest' => true,
             'execCoachingStatus' => null,
             'execCoachingInterest' => [ExecCoaching::LEARNING->name],
-            'dreamRoleTitle' => 'test dream role',
-            'dreamRoleAdditionalInformation' => 'test additional information',
-            'dreamRoleClassification' => ['connect' => Classification::factory()->create()->id],
-            'dreamRoleCommunity' => ['connect' => $community->id],
-            'dreamRoleWorkStream' => ['connect' => $community->workStreams->first()->id],
-            'dreamRoleDepartments' => ['sync' => [Department::factory()->create()->id]],
+            'nextRoleJobTitle' => 'test next role job title',
+            'careerObjectiveJobTitle' => 'test career objective job title',
+            'nextRoleAdditionalInformation' => 'next role additional information',
+            'careerObjectiveAdditionalInformation' => 'career objective additional information',
+            'nextRoleClassification' => ['connect' => Classification::factory()->create()->id],
+            'careerObjectiveClassification' => ['connect' => Classification::factory()->create()->id],
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => $careerObjectiveCommunity->id],
+            'nextRoleCommunityOther' => null,
+            'careerObjectiveCommunityOther' => null,
+            'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
+            'careerObjectiveWorkStreams' => ['sync' => [$careerObjectiveCommunity->workStreams->first()->id]],
+            'nextRoleDepartments' => ['sync' => [Department::factory()->create()->id]],
+            'careerObjectiveDepartments' => ['sync' => [Department::factory()->create()->id]],
+            'nextRoleTargetRole' => TargetRole::INDIVIDUAL_CONTRIBUTOR->name,
+            'nextRoleTargetRoleOther' => null,
+            'careerObjectiveTargetRole' => TargetRole::OTHER->name,
+            'careerObjectiveTargetRoleOther' => 'test other',
             'aboutYou' => 'test about',
-            'careerGoals' => 'test careerGoals',
             'learningGoals' => 'test learningGoals',
             'workStyle' => 'test workStyle',
         ];
@@ -121,41 +170,71 @@ class EmployeeProfileTest extends TestCase
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
                     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-                            organizationTypeInterest { value }
-                            moveInterest { value }
+                            lateralMoveInterest
+                            lateralMoveTimeFrame { value }
+                            lateralMoveOrganizationType { value }
+                            promotionMoveInterest
+                            promotionMoveTimeFrame { value }
+                            promotionMoveOrganizationType { value }
                             mentorshipStatus { value }
                             mentorshipInterest { value }
                             execInterest
                             execCoachingStatus { value }
                             execCoachingInterest { value }
-                            dreamRoleTitle
-                            dreamRoleAdditionalInformation
-                            dreamRoleClassification { id }
-                            dreamRoleCommunity { id }
-                            dreamRoleWorkStream { id }
-                            dreamRoleDepartments { id }
+                            nextRoleJobTitle
+                            careerObjectiveJobTitle
+                            nextRoleAdditionalInformation
+                            careerObjectiveAdditionalInformation
+                            nextRoleClassification { id }
+                            careerObjectiveClassification { id }
+                            nextRoleCommunity { id }
+                            careerObjectiveCommunity { id }
+                            nextRoleCommunityOther
+                            careerObjectiveCommunityOther
+                            nextRoleWorkStreams { id }
+                            careerObjectiveWorkStreams { id }
+                            nextRoleDepartments { id }
+                            careerObjectiveDepartments { id }
+                            nextRoleTargetRole { value }
+                            nextRoleTargetRoleOther
+                            careerObjectiveTargetRole { value }
+                            careerObjectiveTargetRoleOther
                             aboutYou
-                            careerGoals
                             learningGoals
-                        workStyle
+                            workStyle
                     }
                 }
                 GRAPHQL, ['id' => $this->user->id, 'employeeProfile' => $input])->assertJsonFragment([
-                'organizationTypeInterest' => $this->arrayToLocalizedEnum($input['organizationTypeInterest']),
-                'moveInterest' => $this->arrayToLocalizedEnum($input['moveInterest']),
+                'lateralMoveInterest' => $input['lateralMoveInterest'],
+                'lateralMoveTimeFrame' => ['value' => $input['lateralMoveTimeFrame']],
+                'lateralMoveOrganizationType' => $this->arrayToLocalizedEnum($input['lateralMoveOrganizationType']),
+                'promotionMoveInterest' => $input['promotionMoveInterest'],
+                'promotionMoveTimeFrame' => ['value' => $input['promotionMoveTimeFrame']],
+                'promotionMoveOrganizationType' => $this->arrayToLocalizedEnum($input['promotionMoveOrganizationType']),
                 'mentorshipStatus' => $this->arrayToLocalizedEnum($input['mentorshipStatus']),
                 'mentorshipInterest' => $this->arrayToLocalizedEnum($input['mentorshipInterest']),
                 'execInterest' => $input['execInterest'],
                 'execCoachingStatus' => $this->arrayToLocalizedEnum($input['execCoachingStatus']),
                 'execCoachingInterest' => $this->arrayToLocalizedEnum($input['execCoachingInterest']),
-                'dreamRoleTitle' => $input['dreamRoleTitle'],
-                'dreamRoleAdditionalInformation' => $input['dreamRoleAdditionalInformation'],
-                'dreamRoleClassification' => ['id' => $input['dreamRoleClassification']['connect']],
-                'dreamRoleCommunity' => ['id' => $input['dreamRoleCommunity']['connect']],
-                'dreamRoleWorkStream' => ['id' => $input['dreamRoleWorkStream']['connect']],
-                'dreamRoleDepartments' => [['id' => $input['dreamRoleDepartments']['sync'][0]]],
+                'nextRoleJobTitle' => $input['nextRoleJobTitle'],
+                'careerObjectiveJobTitle' => $input['careerObjectiveJobTitle'],
+                'nextRoleAdditionalInformation' => $input['nextRoleAdditionalInformation'],
+                'careerObjectiveAdditionalInformation' => $input['careerObjectiveAdditionalInformation'],
+                'nextRoleClassification' => ['id' => $input['nextRoleClassification']['connect']],
+                'careerObjectiveClassification' => ['id' => $input['careerObjectiveClassification']['connect']],
+                'nextRoleCommunity' => ['id' => $input['nextRoleCommunity']['connect']],
+                'careerObjectiveCommunity' => ['id' => $input['careerObjectiveCommunity']['connect']],
+                'nextRoleCommunityOther' => null,
+                'careerObjectiveCommunityOther' => null,
+                'nextRoleWorkStreams' => [['id' => $input['nextRoleWorkStreams']['sync'][0]]],
+                'careerObjectiveWorkStreams' => [['id' => $input['careerObjectiveWorkStreams']['sync'][0]]],
+                'nextRoleDepartments' => [['id' => $input['nextRoleDepartments']['sync'][0]]],
+                'careerObjectiveDepartments' => [['id' => $input['careerObjectiveDepartments']['sync'][0]]],
+                'nextRoleTargetRole' => ['value' => $input['nextRoleTargetRole']],
+                'nextRoleTargetRoleOther' => $input['nextRoleTargetRoleOther'],
+                'careerObjectiveTargetRole' => ['value' => $input['careerObjectiveTargetRole']],
+                'careerObjectiveTargetRoleOther' => $input['careerObjectiveTargetRoleOther'],
                 'aboutYou' => $input['aboutYou'],
-                'careerGoals' => $input['careerGoals'],
                 'learningGoals' => $input['learningGoals'],
                 'workStyle' => $input['workStyle'],
             ]);
@@ -165,12 +244,17 @@ class EmployeeProfileTest extends TestCase
     {
 
         $unassociatedWorkStream = WorkStream::factory()->create();
-        $community = Community::factory()->withWorkStreams()->create();
+        $nextRoleCommunity = Community::factory()->withWorkStreams()->create();
+        $careerObjectiveCommunity = Community::factory()->withWorkStreams()->create();
         $input = [
-            'dreamRoleClassification' => ['connect' => Str::uuid()],
-            'dreamRoleCommunity' => ['connect' => $community->id],
-            'dreamRoleWorkStream' => ['connect' => $unassociatedWorkStream->id],
-            'dreamRoleDepartments' => ['sync' => [Str::uuid()]],
+            'nextRoleClassification' => ['connect' => Str::uuid()],
+            'careerObjectiveClassification' => ['connect' => Str::uuid()],
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => $careerObjectiveCommunity->id],
+            'nextRoleWorkStreams' => ['sync' => [$unassociatedWorkStream->id]],
+            'careerObjectiveWorkStreams' => ['sync' => [$unassociatedWorkStream->id]],
+            'nextRoleDepartments' => ['sync' => [Str::uuid()]],
+            'careerObjectiveDepartments' => ['sync' => [Str::uuid()]],
         ];
 
         $this->actingAs($this->user, 'api')
@@ -185,9 +269,72 @@ class EmployeeProfileTest extends TestCase
                     'id' => $this->user->id,
                     'employeeProfile' => $input,
                 ])
-            ->assertGraphQLValidationError('employeeProfile.dreamRoleClassification.connect', ApiErrorEnums::CLASSIFICATION_NOT_FOUND)
-            ->assertGraphQLValidationError('employeeProfile.dreamRoleWorkStream.connect', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
-            ->assertGraphQLValidationError('employeeProfile.dreamRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
+            ->assertGraphQLValidationError('employeeProfile.nextRoleClassification.connect', ApiErrorEnums::CLASSIFICATION_NOT_FOUND)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveClassification.connect', ApiErrorEnums::CLASSIFICATION_NOT_FOUND)
+            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', ApiErrorEnums::WORK_STREAM_NOT_IN_COMMUNITY)
+            ->assertGraphQLValidationError('employeeProfile.nextRoleDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND)
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveDepartments.sync.0', ApiErrorEnums::DEPARTMENT_NOT_FOUND);
+    }
+
+    public function testUpdateEmployeeProfileCommunityOtherCommunityValidation()
+    {
+        $nextRoleCommunity = Community::factory()->withWorkStreams()->create();
+        $careerObjectiveCommunity = Community::factory()->withWorkStreams()->create();
+        $input = [
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => $careerObjectiveCommunity->id],
+            'nextRoleCommunityOther' => 'Imaginary community',
+            'careerObjectiveCommunityOther' => 'Imaginary community',
+            'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
+            'careerObjectiveWorkStreams' => ['sync' => [$careerObjectiveCommunity->workStreams->first()->id]],
+        ];
+        $input2 = [
+            'nextRoleCommunity' => ['connect' => $nextRoleCommunity->id],
+            'careerObjectiveCommunity' => ['connect' => null],
+            'nextRoleCommunityOther' => null,
+            'careerObjectiveCommunityOther' => 'Imaginary community',
+            'nextRoleWorkStreams' => ['sync' => [$nextRoleCommunity->workStreams->first()->id]],
+            'careerObjectiveWorkStreams' => ['sync' => []],
+        ];
+
+        // fails due to passing in community and community other values, check validation errors present
+        $this->actingAs($this->user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
+                    updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
+                        userPublicProfile { email }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $this->user->id,
+                    'employeeProfile' => $input,
+                ])
+            ->assertGraphQLValidationError('employeeProfile.nextRoleCommunity.connect', 'The employee profile.next role community.connect field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunity.connect', 'The employee profile.career objective community.connect field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.nextRoleCommunityOther', 'The employee profile.next role community other field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveCommunityOther', 'The employee profile.career objective community other field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.nextRoleWorkStreams.sync.0', 'The employeeProfile.nextRoleWorkStreams.sync.0 field is prohibited.')
+            ->assertGraphQLValidationError('employeeProfile.careerObjectiveWorkStreams.sync.0', 'The employeeProfile.careerObjectiveWorkStreams.sync.0 field is prohibited.');
+
+        // mutation successful now with the second input
+        $this->actingAs($this->user, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
+                    updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
+                        userPublicProfile { email }
+                        nextRoleCommunityOther
+                        careerObjectiveCommunityOther
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $this->user->id,
+                    'employeeProfile' => $input2,
+                ])
+            ->assertJsonFragment(['nextRoleCommunityOther' => null])
+            ->assertJsonFragment(['careerObjectiveCommunityOther' => 'Imaginary community']);
     }
 
     public function testCannotEditAnotherUsersEmployeeProfile()
@@ -199,12 +346,14 @@ class EmployeeProfileTest extends TestCase
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateOtherUserEmployeeProfile($id: UUID!, $employeeProfile: UpdateEmployeeProfileInput!) {
                     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-                        dreamRoleTitle
+                        nextRoleAdditionalInformation
                     }
                 }
             GRAPHQL, [
                 'id' => $this->user->id,
-                'employeeProfile' => ['dreamRoleTitle' => 'test'],
+                'employeeProfile' => [
+                    'nextRoleAdditionalInformation' => 'next role additional information',
+                ],
             ])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
     }

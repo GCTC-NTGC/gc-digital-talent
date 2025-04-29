@@ -8,6 +8,7 @@ import { IntlShape, defineMessages } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
+import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -37,7 +38,7 @@ import {
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
   INACTIVE_STATUSES,
-  SCREENED_OUT_STATUSES,
+  SUSPENDABLE_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { NullableDecision } from "./assessmentResults";
@@ -70,10 +71,6 @@ export const isNotPlacedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
 
-export const isScreenedOutStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean => (status ? SCREENED_OUT_STATUSES.includes(status) : false);
-
 export const isInactiveStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
@@ -84,7 +81,9 @@ export const isSuspendedStatus = (
 ): boolean => {
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
-  return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
+  return !!(
+    isSuspended && (status ? SUSPENDABLE_STATUSES.includes(status) : false)
+  );
 };
 
 export const isDraft = (
@@ -103,7 +102,7 @@ export const isExpired = (
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
 };
 
-export const isDisqualifiedFinalDecision = (
+const isDisqualifiedFinalDecision = (
   status: Maybe<FinalDecision> | undefined,
 ): boolean => {
   return status
@@ -232,9 +231,39 @@ const computeInAssessmentStatusChip = (
   };
 };
 
+/** Application statuses */
+export const applicationStatus = {
+  EXPIRED: "EXPIRED",
+  DRAFT: "DRAFT",
+  RECEIVED: "RECEIVED",
+  UNDER_REVIEW: "UNDER_REVIEW",
+  APPLICATION_REVIEWED: "APPLICATION_REVIEWED",
+  UNDER_ASSESSMENT: "UNDER_ASSESSMENT",
+  UNSUCCESSFUL: "UNSUCCESSFUL",
+  SUCCESSFUL: "SUCCESSFUL",
+} as const;
+
+type ApplicationStatus =
+  (typeof applicationStatus)[keyof typeof applicationStatus];
+
+/** Qualified recruitment statuses */
+export const qualifiedRecruitmentStatus = {
+  HIRED: "HIRED",
+  NOT_INTERESTED: "NOT_INTERESTED",
+  OPEN_TO_JOBS: "OPEN_TO_JOBS",
+} as const;
+
+type QualifiedRecruitmentStatus =
+  (typeof qualifiedRecruitmentStatus)[keyof typeof qualifiedRecruitmentStatus];
+
 interface StatusChip {
   color: Color;
   label: ReactNode;
+}
+
+export interface StatusChipWithDescription extends StatusChip {
+  description?: ReactNode;
+  value: ApplicationStatus | QualifiedRecruitmentStatus;
 }
 
 /**
@@ -365,10 +394,6 @@ const applicationStatusDescriptions = defineMessages({
   },
 });
 
-export interface StatusChipWithDescription extends StatusChip {
-  description?: ReactNode;
-}
-
 /**
  * Returns a status chip for displaying to applicants. General information about application status.
  */
@@ -390,12 +415,14 @@ export const getApplicationStatusChip = (
         color: "black",
         label: intl.formatMessage(applicationStatusLabels.EXPIRED),
         description: intl.formatMessage(applicationStatusDescriptions.EXPIRED),
+        value: applicationStatus.EXPIRED,
       };
     } else {
       return {
         color: "primary",
         label: intl.formatMessage(applicationStatusLabels.DRAFT),
         description: intl.formatMessage(applicationStatusDescriptions.DRAFT),
+        value: applicationStatus.DRAFT,
       };
     }
   }
@@ -412,6 +439,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_EMPLOYEE,
         ),
+        value: applicationStatus.UNSUCCESSFUL,
       };
     } else {
       return {
@@ -420,6 +448,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC,
         ),
+        value: applicationStatus.UNSUCCESSFUL,
       };
     }
   }
@@ -430,6 +459,7 @@ export const getApplicationStatusChip = (
       color: "success",
       label: intl.formatMessage(applicationStatusLabels.SUCCESSFUL),
       description: intl.formatMessage(applicationStatusDescriptions.SUCCESSFUL),
+      value: applicationStatus.SUCCESSFUL,
     };
   }
 
@@ -444,13 +474,12 @@ export const getApplicationStatusChip = (
       description: intl.formatMessage(
         applicationStatusDescriptions.UNDER_ASSESSMENT,
       ),
+      value: applicationStatus.UNDER_ASSESSMENT,
     };
   }
 
   // Partially assessed applications
-  const currentStep = assessmentStatus?.currentStep
-    ? assessmentStatus?.currentStep
-    : 0;
+  const currentStep = assessmentStatus?.currentStep ?? 0;
   const numberOfScreeningSteps =
     screeningQuestions && screeningQuestions?.length > 0 ? 2 : 1;
   const numberOfStepStatuses =
@@ -463,6 +492,7 @@ export const getApplicationStatusChip = (
       description: intl.formatMessage(
         applicationStatusDescriptions.UNDER_REVIEW,
       ),
+      value: applicationStatus.UNDER_REVIEW,
     };
   }
   if (currentStep > numberOfScreeningSteps) {
@@ -473,6 +503,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.APPLICATION_REVIEWED,
         ),
+        value: applicationStatus.APPLICATION_REVIEWED,
       };
     } else {
       return {
@@ -481,6 +512,7 @@ export const getApplicationStatusChip = (
         description: intl.formatMessage(
           applicationStatusDescriptions.UNDER_ASSESSMENT,
         ),
+        value: applicationStatus.UNDER_ASSESSMENT,
       };
     }
   }
@@ -489,6 +521,7 @@ export const getApplicationStatusChip = (
     color: "secondary",
     label: intl.formatMessage(applicationStatusLabels.RECEIVED),
     description: intl.formatMessage(applicationStatusDescriptions.RECEIVED),
+    value: applicationStatus.RECEIVED,
   };
 };
 
@@ -542,15 +575,18 @@ const qualifiedRecruitmentStatusDescriptions = defineMessages({
 export const getQualifiedRecruitmentStatusChip = (
   suspendedAt: PoolCandidate["suspendedAt"],
   placedAt: PoolCandidate["placedAt"],
+  status: PoolCandidateStatus | null,
   intl: IntlShape,
 ): StatusChipWithDescription => {
-  if (placedAt) {
+  // placed casual is an exception
+  if (placedAt && status !== PoolCandidateStatus.PlacedCasual) {
     return {
       color: "secondary",
       label: intl.formatMessage(qualifiedRecruitmentStatusLabels.HIRED),
       description: intl.formatMessage(
         qualifiedRecruitmentStatusDescriptions.HIRED,
       ),
+      value: qualifiedRecruitmentStatus.HIRED,
     };
   }
 
@@ -563,6 +599,7 @@ export const getQualifiedRecruitmentStatusChip = (
       description: intl.formatMessage(
         qualifiedRecruitmentStatusDescriptions.NOT_INTERESTED,
       ),
+      value: qualifiedRecruitmentStatus.NOT_INTERESTED,
     };
   }
 
@@ -572,6 +609,7 @@ export const getQualifiedRecruitmentStatusChip = (
     description: intl.formatMessage(
       qualifiedRecruitmentStatusDescriptions.OPEN_TO_JOBS,
     ),
+    value: qualifiedRecruitmentStatus.OPEN_TO_JOBS,
   };
 };
 
@@ -633,4 +671,24 @@ export const priorityWeightAfterVerification = (
 
   // final fallback - last (Other)
   return 40;
+};
+
+/**
+ * Determines if the application is expired, or within 3 days of the pool closing when the application is a draft.
+ * @param closingDate
+ * @param status
+ * @returns
+ */
+export const deadlineToApply = (
+  closingDate: Pool["closingDate"],
+  status: StatusChipWithDescription["value"],
+): boolean => {
+  const lessThanThreeDaysTillClosingDate = closingDate
+    ? differenceInDays(parseDateTimeUtc(closingDate), Date.now()) < 3
+    : null;
+
+  return (
+    (status === applicationStatus.DRAFT && lessThanThreeDaysTillClosingDate) ||
+    status === applicationStatus.EXPIRED
+  );
 };

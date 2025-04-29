@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "jest-axe": "^9.0.0",
-    "ts-jest": "^29.2.3"
+    "jest-axe": "^10.0.0",
+    "ts-jest": "^29.3.2"
   },
   "devDependencies": {
     "jest-environment-jsdom": "^29.7.0"

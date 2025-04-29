@@ -10,6 +10,10 @@ import {
   ArmedForcesStatus,
   EducationRequirementOption,
   SkillLevel,
+  Mentorship,
+  ExecCoaching,
+  TalentNominationLateralMovementOption,
+  LearningOpportunitiesInterest,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -278,103 +282,58 @@ export const getEmploymentDuration = (
 
 const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage:
-      "<strong>Virtual</strong> (work from home, anywhere in Canada)",
-    id: "pmoexB",
+    defaultMessage: "I am willing to work remotely.",
+    id: "8shuWS",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage:
-      "<strong>National Capital Region</strong> (Ottawa, Ontario and Gatineau, Quebec)",
-    id: "8JxN4A",
+      "I am willing to work in the National Capital Region (Ottawa, Ontario and Gatineau, Quebec).",
+    id: "F9efQO",
     description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<strong>Atlantic Region</strong> (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
-    id: "3f6YzQ",
+      "I am willing to work in the Atlantic region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island).",
+    id: "O5Lq+h",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<strong>Quebec Region</strong> (excluding Gatineau)",
-    id: "ZoFcYn",
+    defaultMessage:
+      "I am willing to work in the Quebec region (excluding Gatineau).",
+    id: "64H+pl",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
-    defaultMessage: "<strong>Ontario Region</strong> (excluding Ottawa)",
-    id: "3agw4G",
+    defaultMessage:
+      "I am willing to work in the Ontario region (excluding Ottawa).",
+    id: "x9dfvs",
     description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<strong>Prairie Region</strong> (Manitoba, Saskatchewan, Alberta)",
-    id: "suvoSt",
+      "I am willing to work in the Prairie region (Manitoba, Saskatchewan, Alberta).",
+    id: "PPSXML",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
-    defaultMessage: "<strong>British Columbia Region</strong>",
-    id: "tgt0og",
+    defaultMessage: "I am willing to work in the British Columbia region.",
+    id: "wdfDZH",
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.North]: {
     defaultMessage:
-      "<strong>North Region</strong> (Yukon, Northwest Territories and Nunavut)",
-    id: "us8fY4",
-    description: "The work region of Canada described as North.",
-  },
-});
-
-const workRegionsDetailedNoBold = defineMessages({
-  [WorkRegion.Telework]: {
-    defaultMessage: "Virtual (work from home, anywhere in Canada)",
-    id: "x8v6Qp",
-    description: "The work region of Canada described as Telework.",
-  },
-  [WorkRegion.NationalCapital]: {
-    defaultMessage:
-      "National Capital Region (Ottawa, Ontario and Gatineau, Quebec)",
-    id: "dxjUnU",
-    description: "The work region of Canada described as National Capital.",
-  },
-  [WorkRegion.Atlantic]: {
-    defaultMessage:
-      "Atlantic Region (New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island)",
-    id: "ChFxsM",
-    description: "The work region of Canada described as Atlantic.",
-  },
-  [WorkRegion.Quebec]: {
-    defaultMessage: "Quebec Region (excluding Gatineau)",
-    id: "Jpq6MK",
-    description: "The work region of Canada described as Quebec.",
-  },
-  [WorkRegion.Ontario]: {
-    defaultMessage: "Ontario Region (excluding Ottawa)",
-    id: "CGNfbu",
-    description: "The work region of Canada described as Ontario.",
-  },
-  [WorkRegion.Prairie]: {
-    defaultMessage: "Prairie Region (Manitoba, Saskatchewan, Alberta)",
-    id: "oPhurq",
-    description: "The work region of Canada described as Prairie.",
-  },
-  [WorkRegion.BritishColumbia]: {
-    defaultMessage: "British Columbia Region",
-    id: "qtJrUr",
-    description: "The work region of Canada described as British Columbia.",
-  },
-  [WorkRegion.North]: {
-    defaultMessage: "North Region (Yukon, Northwest Territories and Nunavut)",
-    id: "P9roJ7",
+      "I am willing to work in the North region (Yukon, Northwest Territories and Nunavut).",
+    id: "D3+nw/",
     description: "The work region of Canada described as North.",
   },
 });
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
-  showBold = true,
 ): MessageDescriptor =>
   getOrDisplayError(
-    showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
+    workRegionsDetailed,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
@@ -779,4 +738,288 @@ export const getSkillLevelMessages = (
     name: getSkillLevelName(skillLevel, skillCategory),
     definition: getSkillLevelDefinition(skillLevel, skillCategory),
   };
+};
+
+export const MentorshipStatus = {
+  NOT_PARTICIPATING: "NOT_PARTICIPATING",
+  MENTEE: Mentorship.Mentee,
+  MENTOR: Mentorship.Mentor,
+  MENTEE_AND_MENTOR: "MENTEE_AND_MENTOR",
+} as const;
+
+const mentorshipStatusLabels = defineMessages({
+  [MentorshipStatus.NOT_PARTICIPATING]: {
+    defaultMessage: "I’m not participating in a mentorship program.",
+    id: "ZMVV2z",
+    description: "The mentorship status described as not participating.",
+  },
+  [MentorshipStatus.MENTEE]: {
+    defaultMessage: "I currently have a mentor.",
+    id: "zM99Vm",
+    description: "The mentorship status described as mentee.",
+  },
+  [MentorshipStatus.MENTOR]: {
+    defaultMessage: "I’m currently mentoring someone.",
+    id: "nwBZ4v",
+    description: "The mentorship status described as mentor.",
+  },
+  [MentorshipStatus.MENTEE_AND_MENTOR]: {
+    defaultMessage: "I’m participating as both a mentor and as a mentee.",
+    id: "r1QzK4",
+    description: "The mentorship status described as both mentee and mentor.",
+  },
+});
+
+export const getMentorshipStatus = (
+  mentorshipStatusId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    mentorshipStatusLabels,
+    mentorshipStatusId,
+    `Invalid mentorship status '${mentorshipStatusId}'`,
+  );
+};
+
+const mentorshipInterestLabels = defineMessages({
+  [Mentorship.Mentee]: {
+    defaultMessage: "I'm interested in having someone mentor me.",
+    id: "OLs1UJ",
+    description: "The mentorship interest described as mentee.",
+  },
+  [Mentorship.Mentor]: {
+    defaultMessage: "I'm interested in being a mentor.",
+    id: "by5WLz",
+    description: "The mentorship interest described as mentor.",
+  },
+});
+
+const mentorshipInterestFalseLabels = defineMessages({
+  [Mentorship.Mentee]: {
+    defaultMessage: "I'm not interested in having someone mentor me.",
+    id: "P7AWrP",
+    description: "The mentorship interest described as mentee.",
+  },
+  [Mentorship.Mentor]: {
+    defaultMessage: "I'm not interested in being a mentor.",
+    id: "QUnymn",
+    description: "The mentorship interest described as mentor.",
+  },
+});
+
+export const getMentorshipInterest = (
+  mentorshipInterestId: string | number,
+  type?: boolean,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    type || type === undefined
+      ? mentorshipInterestLabels
+      : mentorshipInterestFalseLabels,
+    mentorshipInterestId,
+    `Invalid mentorship interest '${mentorshipInterestId}'`,
+  );
+};
+
+export const ExecCoachingStatus = {
+  NOT_PARTICIPATING: "NOT_PARTICIPATING",
+  LEARNING: ExecCoaching.Learning,
+  COACHING: ExecCoaching.Coaching,
+  LEARNING_AND_COACHING: "LEARNING_AND_COACHING",
+} as const;
+
+const execCoachingStatusLabels = defineMessages({
+  [ExecCoachingStatus.NOT_PARTICIPATING]: {
+    defaultMessage: "I'm not participating in an executive coaching program.",
+    id: "7woRF/",
+    description:
+      "The executive coaching status described as not participating.",
+  },
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I currently have an executive coach.",
+    id: "SKJjYS",
+    description: "The executive coaching status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm currently coaching someone else.",
+    id: "OAoFzw",
+    description: "The executive coaching status described as coaching.",
+  },
+  [ExecCoachingStatus.LEARNING_AND_COACHING]: {
+    defaultMessage: "I'm participating as both a coach and learner.",
+    id: "inlUs4",
+    description:
+      "The executive coaching status described as both learning and coaching.",
+  },
+});
+
+export const getExecCoachingStatus = (
+  execCoachingId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    execCoachingStatusLabels,
+    execCoachingId,
+    `Invalid executive coaching status '${execCoachingId}'`,
+  );
+};
+
+const execCoachingInterestLabels = defineMessages({
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I'm interested in receiving executive coaching.",
+    id: "tHeY7N",
+    description:
+      "The executive coaching interest status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm interested in coaching another employee.",
+    id: "3I0zLF",
+    description:
+      "The executive coaching interest status described as coaching.",
+  },
+});
+
+const execCoachingInterestFalseLabels = defineMessages({
+  [ExecCoachingStatus.LEARNING]: {
+    defaultMessage: "I'm not interested in receiving executive coaching.",
+    id: "APggfy",
+    description:
+      "The executive coaching interest status described as learning.",
+  },
+  [ExecCoachingStatus.COACHING]: {
+    defaultMessage: "I'm not interested in coaching another employee.",
+    id: "0pIr++",
+    description:
+      "The executive coaching interest status described as coaching.",
+  },
+});
+
+export const getExecCoachingInterest = (
+  execCoachingInterestId: string | number,
+  type?: boolean,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    type || type === undefined
+      ? execCoachingInterestLabels
+      : execCoachingInterestFalseLabels,
+    execCoachingInterestId,
+    `Invalid executive coaching interest '${execCoachingInterestId}'`,
+  );
+};
+
+const talentNominationLateralMovementOptionDescriptions = defineMessages({
+  [TalentNominationLateralMovementOption.SmallDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a small department or agency.",
+    id: "s7lyFN",
+    description:
+      "The talent nomination lateral movement option description for small department",
+  },
+  [TalentNominationLateralMovementOption.LargeDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a large department or agency.",
+    id: "W87tD/",
+    description:
+      "The talent nomination lateral movement option description for large department",
+  },
+  [TalentNominationLateralMovementOption.CentralDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a central department or agency.",
+    id: "kv960y",
+    description:
+      "The talent nomination lateral movement option description for central department",
+  },
+  [TalentNominationLateralMovementOption.NewDepartment]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to any other department or agency, regardless of size or type.",
+    id: "vrgXIT",
+    description:
+      "The talent nomination lateral movement option description for new department",
+  },
+  [TalentNominationLateralMovementOption.ProgramExperience]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to a program within another department or agency.",
+    id: "m2cqv9",
+    description:
+      "The talent nomination lateral movement option description for program experience",
+  },
+  [TalentNominationLateralMovementOption.PolicyExperience]: {
+    defaultMessage:
+      "The employee would benefit from a lateral move to another policy domain.",
+    id: "vMc12L",
+    description:
+      "The talent nomination lateral movement option description for policy experience",
+  },
+});
+
+export const getTalentNominationLateralMovementOption = (
+  talentNominationLateralMovementOptionId: string | number,
+): MessageDescriptor => {
+  return getOrDisplayError(
+    talentNominationLateralMovementOptionDescriptions,
+    talentNominationLateralMovementOptionId,
+    `Invalid talent nomination lateral movement '${talentNominationLateralMovementOptionId}'`,
+  );
+};
+
+const learningOpportunitiesInterestLabels = defineMessages({
+  [LearningOpportunitiesInterest.Interchange]: {
+    defaultMessage: "I'm interested in interchange opportunities.",
+    id: "3PQs15",
+    description: "Interest label for interchange opportunities.",
+  },
+  [LearningOpportunitiesInterest.AcademicProgram]: {
+    defaultMessage: "I'm interested in participating in an academic program.",
+    id: "dKY52V",
+    description: "Interest label for academic programs.",
+  },
+  [LearningOpportunitiesInterest.PeerNetworking]: {
+    defaultMessage: "I'm interested in peer networking opportunities.",
+    id: "a+twlj",
+    description: "Interest label for peer networking.",
+  },
+  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
+    defaultMessage: "I'm interested in pursuing professional accreditation.",
+    id: "vYi9m5",
+    description: "Interest label for professional accreditation.",
+  },
+});
+
+const learningOpportunitiesInterestFalseLabels = defineMessages({
+  [LearningOpportunitiesInterest.Interchange]: {
+    defaultMessage: "I'm not interested in interchange opportunities.",
+    id: "nEyBtD",
+    description: "Not interested label for interchange opportunities.",
+  },
+  [LearningOpportunitiesInterest.AcademicProgram]: {
+    defaultMessage:
+      "I'm not interested in participating in an academic program.",
+    id: "6bpSqk",
+    description: "Not interested label for academic programs.",
+  },
+  [LearningOpportunitiesInterest.PeerNetworking]: {
+    defaultMessage: "I'm not interested in peer networking opportunities.",
+    id: "jPxgBV",
+    description: "Not interested label for peer networking.",
+  },
+  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
+    defaultMessage:
+      "I'm not interested in pursuing professional accreditation.",
+    id: "oxhIEK",
+    description: "Not interested label for professional accreditation.",
+  },
+});
+
+export const getLearningOpportunitiesInterest = (
+  messageKey: string,
+  iconValue?: boolean,
+): MessageDescriptor => {
+  if (!(messageKey in learningOpportunitiesInterestLabels)) {
+    throw new Error(`Invalid learning opportunity interest '${messageKey}'`);
+  }
+
+  return getOrDisplayError(
+    iconValue === undefined || iconValue
+      ? learningOpportunitiesInterestLabels
+      : learningOpportunitiesInterestFalseLabels,
+    messageKey,
+    `Invalid learning opportunity interest '${messageKey}'`,
+  );
 };

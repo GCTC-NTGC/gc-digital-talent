@@ -3,10 +3,6 @@
 query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
-    authInfo {
-      id
-      sub
-    }
     firstName
     lastName
     email
@@ -107,6 +103,15 @@ query getProfile($userId: UUID!) {
         fr
       }
     }
+    govPositionType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    govEndDate
+    govRole
     department {
       id
       departmentNumber
@@ -123,6 +128,8 @@ query getProfile($userId: UUID!) {
         en
         fr
       }
+      maxSalary
+      minSalary
     }
     isWoman
     hasDisability
@@ -350,6 +357,44 @@ query getProfile($userId: UUID!) {
           }
           departmentNumber
         }
+        workStreams {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          community {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+          }
+          plainLanguageName {
+            en
+            fr
+          }
+        }
+        supervisoryPosition
+        supervisedEmployees
+        supervisedEmployeesNumber
+        budgetManagement
+        annualBudgetAllocation
+        seniorManagementStatus
+        cSuiteRoleTitle {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        otherCSuiteRoleTitle
       }
     }
     isProfileComplete

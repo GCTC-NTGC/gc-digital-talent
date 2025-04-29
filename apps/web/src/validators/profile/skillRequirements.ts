@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import flatMap from "lodash/flatMap";
 
 import { notEmpty } from "@gc-digital-talent/helpers";

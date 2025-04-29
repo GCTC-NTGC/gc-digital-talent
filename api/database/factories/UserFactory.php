@@ -4,20 +4,24 @@ namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\Mentorship;
-use App\Enums\MoveInterest;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\TargetRole;
+use App\Enums\TimeFrame;
+use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -50,8 +54,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $randomDepartment = Department::inRandomOrder()->first();
-        $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
         $isDeclared = $this->faker->boolean();
@@ -105,10 +107,8 @@ class UserFactory extends Factory
             'verbal_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'is_gov_employee' => $isGovEmployee,
+            'computed_is_gov_employee' => $isGovEmployee,
             'work_email' => $isGovEmployee ? $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca' : null,
-            'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
-            'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
@@ -131,7 +131,6 @@ class UserFactory extends Factory
                 array_column(PositionDuration::cases(), 'name')
                 : [PositionDuration::PERMANENT->name], // always accepting PERMANENT
             'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-            'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
             'armed_forces_status' => $this->faker->boolean() ?
                 ArmedForcesStatus::NON_CAF->name
@@ -142,6 +141,7 @@ class UserFactory extends Factory
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
             'enabled_email_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
             'enabled_in_app_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
+            'off_platform_recruitment_processes' => $this->faker->optional->paragraph(7),
         ];
     }
 
@@ -189,11 +189,14 @@ class UserFactory extends Factory
         return $this->state(function () use ($isGovEmployee, $isVerified) {
             if (! $isGovEmployee) {
                 return [
-                    'is_gov_employee' => false,
                     'work_email' => null,
-                    'current_classification' => null,
-                    'gov_employee_type' => null,
-                    'department' => null,
+                    'computed_is_gov_employee' => false,
+                    'computed_classification' => null,
+                    'computed_gov_employee_type' => null,
+                    'computed_gov_position_type' => null,
+                    'computed_gov_end_date' => null,
+                    'computed_department' => null,
+                    'computed_gov_role' => null,
 
                 ];
             }
@@ -201,13 +204,15 @@ class UserFactory extends Factory
             $randomDepartment = Department::inRandomOrder()->first();
 
             return [
-                'is_gov_employee' => true,
                 'work_email' => $this->faker->firstName().'_'.$this->faker->unique()->userName().'@gc.ca',
                 'work_email_verified_at' => $isVerified ? $this->faker->dateTimeBetween('-1 year', 'now') : null,
-                'current_classification' => $randomClassification ? $randomClassification->id : null,
-                'gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
-                'department' => $randomDepartment ? $randomDepartment->id : null,
-
+                'computed_is_gov_employee' => true,
+                'computed_classification' => $randomClassification ? $randomClassification->id : null,
+                'computed_department' => $randomDepartment ? $randomDepartment->id : null,
+                'computed_gov_employee_type' => $this->faker->randomElement(GovEmployeeType::cases())->name,
+                'computed_gov_position_type' => $this->faker->randomElement(GovPositionType::cases())->name,
+                'computed_gov_end_date' => $this->faker->dateTimeBetween('now', '+30 years'),
+                'computed_gov_role' => $this->faker->jobTitle(),
             ];
         })->afterCreating(function (User $user) use ($isGovEmployee) {
             if (! $isGovEmployee) {
@@ -222,6 +227,10 @@ class UserFactory extends Factory
                 'user_id' => $user->id,
                 'end_date' => null,
                 'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+                'gov_employment_type' => $this->faker->randomElement([
+                    WorkExperienceGovEmployeeType::INDETERMINATE->name,
+                    WorkExperienceGovEmployeeType::TERM->name,
+                ]),
             ]);
             $this->createExperienceAndSyncSkills($user, $userSkills, $factory);
         });
@@ -229,37 +238,90 @@ class UserFactory extends Factory
 
     public function withEmployeeProfile()
     {
-        return $this->afterCreating(function (User $user) {
-            $community = Community::inRandomOrder()->first();
-            if (is_null($community)) {
-                $community = Community::factory()->withWorkStreams()->create();
-            }
-            $classification = Classification::inRandomOrder()->first();
-            if (is_null($classification)) {
-                $classification = Classification::factory()->create();
-            }
-            $workStream = $this->faker->randomElement($community->workStreams);
-            $departments = Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get();
+        $lateralMoveInterestBool = $this->faker->boolean();
+        $promotionMoveInterestBool = $this->faker->boolean();
+        $retirementYearKnownBool = $this->faker->boolean();
 
-            $user->employeeProfile->dreamRoleDepartments()->sync($departments);
+        return $this->afterCreating(function (User $user) use ($lateralMoveInterestBool, $promotionMoveInterestBool, $retirementYearKnownBool) {
+            $nextRoleCommunity = $this->faker->boolean(80) ?
+                Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
+                null;
+            $careerObjectiveCommunity = $this->faker->boolean(80) ?
+                Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create()) :
+                null;
+
+            $nextRoleTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
+            $careerObjectiveTargetRole = $this->faker->randomElement(array_column(TargetRole::cases(), 'name'));
+
+            $nextRoleIsCSuite = $this->faker->boolean(40);
+            $careerObjectiveIsCSuite = $this->faker->boolean(40);
+
+            $user->employeeProfile->nextRoleDepartments()
+                ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
+            $user->employeeProfile->careerObjectiveDepartments()
+                ->sync(Department::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get('id'));
+
+            if (isset($nextRoleCommunity)) {
+                $user->employeeProfile->nextRoleWorkStreams()
+                    ->sync($this->faker->randomElements(
+                        $nextRoleCommunity
+                            ->workStreams
+                            ->pluck('id'),
+                        $this->faker->numberBetween(0, $nextRoleCommunity->workStreams->count())
+                    ));
+            }
+            if (isset($careerObjectiveCommunity)) {
+                $user->employeeProfile->careerObjectiveWorkStreams()
+                    ->sync($this->faker->randomElements(
+                        $careerObjectiveCommunity
+                            ->workStreams
+                            ->pluck('id'),
+                        $this->faker->numberBetween(0, $careerObjectiveCommunity->workStreams->count())
+                    ));
+            }
 
             $user->employeeProfile()->update([
-                'career_planning_organization_type_interest' => $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name'), null),
-                'career_planning_move_interest' => $this->faker->randomElements(array_column(MoveInterest::cases(), 'name'), null),
+                'career_planning_lateral_move_interest' => $lateralMoveInterestBool,
+                'career_planning_lateral_move_time_frame' => $lateralMoveInterestBool ? $this->faker->randomElement(array_column(TimeFrame::cases(), 'name')) : null,
+                'career_planning_lateral_move_organization_type' => $lateralMoveInterestBool ? $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name')) : null,
+                'career_planning_promotion_move_interest' => $promotionMoveInterestBool,
+                'career_planning_promotion_move_time_frame' => $promotionMoveInterestBool ? $this->faker->randomElement(array_column(TimeFrame::cases(), 'name')) : null,
+                'career_planning_promotion_move_organization_type' => $promotionMoveInterestBool ? $this->faker->randomElements(array_column(OrganizationTypeInterest::cases(), 'name')) : null,
                 'career_planning_mentorship_status' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_mentorship_interest' => $this->faker->optional(weight: 70)->randomElements(array_column(Mentorship::cases(), 'name'), null),
                 'career_planning_exec_interest' => $this->faker->boolean(),
                 'career_planning_exec_coaching_status' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
                 'career_planning_exec_coaching_interest' => $this->faker->optional(weight: 80)->randomElements(array_column(ExecCoaching::cases(), 'name'), null),
                 'career_planning_about_you' => $this->faker->paragraph(),
-                'career_planning_career_goals' => $this->faker->paragraph(),
                 'career_planning_learning_goals' => $this->faker->paragraph(),
                 'career_planning_work_style' => $this->faker->paragraph(),
-                'dream_role_title' => $this->faker->words(3, true),
-                'dream_role_additional_information' => $this->faker->paragraph(),
-                'dream_role_community_id' => $community->id,
-                'dream_role_classification_id' => $classification->id,
-                'dream_role_work_stream_id' => $workStream?->id,
+                'next_role_job_title' => $this->faker->words(3, true),
+                'career_objective_job_title' => $this->faker->words(3, true),
+                'next_role_additional_information' => $this->faker->paragraph(),
+                'career_objective_additional_information' => $this->faker->paragraph(),
+                'next_role_community_id' => isset($nextRoleCommunity) ? $nextRoleCommunity->id : null,
+                'career_objective_community_id' => isset($careerObjectiveCommunity) ? $careerObjectiveCommunity->id : null,
+                'next_role_community_other' => ! isset($nextRoleCommunity) ? $this->faker->company() : null,
+                'career_objective_community_other' => ! isset($careerObjectiveCommunity) ? $this->faker->company() : null,
+                'eligible_retirement_year_known' => $retirementYearKnownBool,
+                'eligible_retirement_year' => $retirementYearKnownBool ? $this->faker->date(max: '+35 years') : null,
+
+                'next_role_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
+                'career_objective_classification_id' => Classification::inRandomOrder()->firstOr(fn () => Classification::factory()->create())->id,
+
+                'next_role_target_role' => $nextRoleTargetRole,
+                'career_objective_target_role' => $careerObjectiveTargetRole,
+                'next_role_target_role_other' => $nextRoleTargetRole === TargetRole::OTHER->name
+                        ? $this->faker->words(3, true)
+                        : null,
+                'career_objective_target_role_other' => $careerObjectiveTargetRole === TargetRole::OTHER->name
+                        ? $this->faker->words(3, true)
+                        : null,
+
+                'next_role_is_c_suite_role' => $nextRoleIsCSuite,
+                'career_objective_is_c_suite_role' => $careerObjectiveIsCSuite,
+                'next_role_c_suite_role_title' => $nextRoleIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
+                'career_objective_c_suite_role_title' => $careerObjectiveIsCSuite ? $this->faker->randomElement(array_column(CSuiteRoleTitle::cases(), 'name')) : null,
             ]);
         });
     }
@@ -386,14 +448,23 @@ class UserFactory extends Factory
     }
 
     /**
-     * Attach the manager role to a user after creation.
+     * Attach the community talent coordinator role to a user after creation.
      *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
      * @return $this
      */
-    public function asManager()
+    public function asCommunityTalentCoordinator(string|array $communityId)
     {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('manager');
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityTalentCoordinator($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityTalentCoordinator($user->id);
+            }
         });
     }
 
@@ -413,6 +484,9 @@ class UserFactory extends Factory
             $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
             })->inRandomOrder()->take($count)->get();
+            if (! $allSkills->count()) {
+                $allSkills = Skill::factory($count)->create();
+            }
         }
         $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 

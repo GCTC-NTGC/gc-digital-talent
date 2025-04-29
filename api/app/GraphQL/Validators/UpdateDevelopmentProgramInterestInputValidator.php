@@ -17,11 +17,17 @@ final class UpdateDevelopmentProgramInterestInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'participationStatus' => [Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
+            'participationStatus' => ['nullable', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
             'completionDate' => [
-                'date',
-                'required_if:participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
-                'prohibited_unless:participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
+                'present', // when updating, must specify either date or null
+                Rule::when(
+                    fn (): bool => $this->arg('participationStatus') === DevelopmentProgramParticipationStatus::COMPLETED->name,
+                    ['date']
+                ),
+                Rule::when(
+                    fn (): bool => $this->arg('participationStatus') !== DevelopmentProgramParticipationStatus::COMPLETED->name,
+                    ['prohibited']
+                ),
             ],
         ];
     }
@@ -29,8 +35,9 @@ final class UpdateDevelopmentProgramInterestInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'completionDate.required_if' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
-            'completionDate.prohibited_unless' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED,
+            'completionDate.present' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
+            'completionDate.date' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED,
+            'completionDate.prohibited' => ApiErrorEnums::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED,
         ];
     }
 }

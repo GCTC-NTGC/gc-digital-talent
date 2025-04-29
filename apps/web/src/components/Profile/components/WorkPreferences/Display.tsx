@@ -85,14 +85,7 @@ const Display = ({
           <ul>
             {locations.map((location) => (
               <li key={location.value}>
-                {`${intl.formatMessage({
-                  defaultMessage: "I am willing to work in the",
-                  id: "cS73MC",
-                  description:
-                    "Start of sentence describing a users accepted work regions",
-                })} ${intl.formatMessage(
-                  getWorkRegionsDetailed(location.value, false),
-                )}.`}
+                {intl.formatMessage(getWorkRegionsDetailed(location.value))}
               </li>
             ))}
           </ul>

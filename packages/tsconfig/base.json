@@ -3,13 +3,18 @@
   "compilerOptions": {
     "target": "es5",
     "module": "ES2020",
-    "lib": ["ES2020", "dom"],
+    "lib": [
+      "ES2020",
+      "dom"
+    ],
     "jsx": "react-jsx",
     "sourceMap": true,
     "inlineSourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -19,9 +24,7 @@
     "preserveSymlinks": true
   },
   "exclude": [
-    "node_modules",
-    "!node_modules/@types",
-    "*/node_modules",
-    "!*/node_modules/@types"
+    "**/node_modules",
+    "**/.*/"
   ]
 }

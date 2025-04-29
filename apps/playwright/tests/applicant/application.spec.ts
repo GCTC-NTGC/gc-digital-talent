@@ -10,15 +10,13 @@ import {
   User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, me, updateUser } from "~/utils/user";
+import { createUserWithRoles } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
-import { createApplication } from "~/utils/applications";
 import { getSkills } from "~/utils/skills";
 
 test.describe("Application", () => {
@@ -395,79 +393,12 @@ test.describe("Application", () => {
     await application.waitForGraphqlResponse("Application");
     await expect(
       application.page.getByRole("heading", {
-        name: /we successfully received your application/i,
+        name: /we've successfully received your application/i,
       }),
     ).toBeVisible();
     await expect(
       application.page.getByRole("link", {
         name: /return to your dashboard/i,
-      }),
-    ).toBeVisible();
-  });
-
-  test("Can view from dashboard", async ({ page }) => {
-    const adminCtx = await graphql.newContext();
-    const poolName = `application test pool for view dashboard ${uniqueTestId}`;
-    const pool = await createAndPublishPool(adminCtx, {
-      name: {
-        en: `${poolName} (EN)`,
-        fr: `${poolName} (FR)`,
-      },
-      userId: user?.id ?? "",
-      input: {
-        generalQuestions: {
-          create: [
-            {
-              question: { en: "Question EN", fr: "Question FR" },
-              sortOrder: 1,
-            },
-          ],
-        },
-      },
-      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
-    });
-    const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx, {});
-    const technicalSkill = await getSkills(applicantCtx, {}).then((skills) => {
-      return skills.find((s) => s.category.value === SkillCategory.Technical);
-    });
-
-    await updateUser(applicantCtx, {
-      id: applicant.id,
-      user: {
-        personalExperiences: {
-          create: [
-            {
-              description: "Test Experience Description",
-              details: "A Playwright test personal experience",
-              skills: {
-                sync: [
-                  {
-                    details: `Test Skill ${technicalSkill?.name.en}`,
-                    id: technicalSkill?.id ?? "",
-                  },
-                ],
-              },
-              startDate: FAR_PAST_DATE,
-              title: "Test Experience",
-            },
-          ],
-        },
-      },
-    });
-    const applicantWithExperiences = await me(applicantCtx, {});
-    await createApplication(applicantCtx, {
-      userId: applicantWithExperiences.id,
-      poolId: pool.id,
-      experienceId: applicantWithExperiences?.experiences?.[0]?.id ?? "",
-    });
-
-    await loginBySub(page, sub, false);
-
-    await expect(
-      page.getByRole("heading", {
-        name: new RegExp(poolName, "i"),
-        level: 2,
       }),
     ).toBeVisible();
   });

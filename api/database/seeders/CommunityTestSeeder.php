@@ -18,6 +18,7 @@ class CommunityTestSeeder extends Seeder
         Community::factory()
             ->has(DevelopmentProgram::factory()
                 ->withEligibleClassifications())
+            ->withTalentNominationEvents()
             ->create([
                 'key' => 'test-community',
                 'name' => [
