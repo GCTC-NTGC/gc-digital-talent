@@ -491,6 +491,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
 
     private function buildQuery()
     {
+        /** @var Builder<\App\Models\PoolCandidate> $query */
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -527,7 +528,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'community' => 'candidatesInCommunity',
         ]);
 
-        /** @var Builder<\App\Models\User> $query */
+        /** @var Builder<\App\Models\PoolCandidate> $query */
         $query->authorizedToView(['userId' => $this->userId])->notDraft();
 
         return $query;
