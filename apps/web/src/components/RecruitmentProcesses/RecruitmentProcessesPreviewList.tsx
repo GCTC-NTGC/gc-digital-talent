@@ -148,7 +148,7 @@ const RecruitmentProcessPreviewList = ({
         </PreviewList.Root>
       ) : (
         <Well data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.5)">
+          <p data-h2-font-weight="base(bold)">
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active recruitment processes at the moment.",
@@ -168,7 +168,7 @@ const RecruitmentProcessPreviewList = ({
           level="h3"
           data-h2-font-size="base(body)"
           data-h2-font-weight="base(bold)"
-          data-h2-margin-bottom="base(x.125)"
+          data-h2-margin-top="base(0)"
         >
           {intl.formatMessage({
             defaultMessage: "Off-platform recruitment processes",
