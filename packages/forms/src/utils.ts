@@ -16,7 +16,7 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
+import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import { Node } from "./components/RichTextInput/types";
@@ -266,7 +266,10 @@ export function alphaSortOptions(
 ): OptGroupOrOption[] {
   return list
     ? list.sort((a, b) =>
-        Intl.Collator(locale).compare(String(a.label), String(b.label)),
+        Intl.Collator(locale).compare(
+          nodeToString(a.label),
+          nodeToString(b.label),
+        ),
       )
     : [];
 }

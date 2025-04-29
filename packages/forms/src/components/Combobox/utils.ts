@@ -5,18 +5,16 @@ import isNumber from "lodash/isNumber";
 import isObject from "lodash/isObject";
 import isString from "lodash/isString";
 
+import { nodeToString } from "@gc-digital-talent/helpers";
+
 import { ComboboxValue, Option } from "./types";
 
 const orderItems = (options: Option[]): Option[] => {
-  return orderBy(
-    options,
-    (o) => o?.label?.toLocaleString().toLowerCase(),
-    "asc",
-  );
+  return orderBy(options, (o) => nodeToString(o?.label).toLowerCase(), "asc");
 };
 
 const optionQueryMatcher = (option: Option, query: string): boolean =>
-  !!option.label?.toLocaleString().toLowerCase().includes(query.toLowerCase());
+  !!nodeToString(option.label).toLowerCase().includes(query.toLowerCase());
 
 interface GetFilteredItemsArgs {
   options: Option[];
@@ -42,7 +40,7 @@ export function getSingleFilteredItems({
     query &&
     !(
       selected &&
-      selected.label?.toLocaleString().toLowerCase() === query.toLowerCase()
+      nodeToString(selected.label).toLowerCase() === query.toLowerCase()
     )
   ) {
     available = options.filter((option) => {
@@ -84,7 +82,7 @@ export function getMultiFilteredItems({
 }
 
 export function itemToString<T extends Option>(item: T | null): string {
-  return item?.label?.toString() ?? "";
+  return nodeToString(item?.label) ?? "";
 }
 
 export function isItemSelected<T extends Option>(
