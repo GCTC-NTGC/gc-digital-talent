@@ -273,14 +273,18 @@ const TalentNominationGroupCareerExperiencePage = () => {
     "talentNominationGroupId",
   );
   const [{ data, fetching, error }] = useQuery<{
-    talentNominationGroup?: { consentToShareProfile: boolean; nominee: { id: string } };
+    talentNominationGroup?: {
+      consentToShareProfile: boolean;
+      nominee: { id: string };
+    };
   }>({
     query: TalentNominationGroupCareerExperience_Query,
     variables: { talentNominationGroupId },
   });
 
   const nomineeId = data?.talentNominationGroup?.nominee?.id ?? null;
-  const shareProfile = data?.talentNominationGroup?.consentToShareProfile ?? false;
+  const shareProfile =
+    data?.talentNominationGroup?.consentToShareProfile ?? false;
 
   return (
     <Pending fetching={fetching} error={error}>

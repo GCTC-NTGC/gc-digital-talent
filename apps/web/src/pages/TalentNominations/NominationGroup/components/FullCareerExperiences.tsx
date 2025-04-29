@@ -3,7 +3,13 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
-import { AwardExperience, CommunityExperience, EducationExperience, PersonalExperience, WorkExperience } from "@gc-digital-talent/graphql";
+import {
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  PersonalExperience,
+  WorkExperience,
+} from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
