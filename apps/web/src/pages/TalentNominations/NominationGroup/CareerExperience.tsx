@@ -23,7 +23,6 @@ import { isWorkExperience } from "~/utils/experienceUtils";
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
-import React from "react";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {

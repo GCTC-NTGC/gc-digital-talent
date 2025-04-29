@@ -1,12 +1,9 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
-import { AwardExperience } from "@gc-digital-talent/graphql";
+import { AwardExperience, CommunityExperience, EducationExperience, PersonalExperience, WorkExperience } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
@@ -22,7 +19,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { Experience } from "~/components/ExperienceCard/types";
 
 interface FullCareerExperiencesProps {
-  experiences: Experience[];
+  experiences?: Omit<Experience, "user">[];
 }
 
 const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
@@ -40,13 +37,13 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
           }) as AwardExperience & { startDate: string; endDate: string },
       )
       .sort(compareByDate) ?? [];
-  const communityExperiences =
+  const communityExperiences: Omit<CommunityExperience, "user">[] =
     experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
-  const educationExperiences =
+  const educationExperiences: Omit<EducationExperience, "user">[] =
     experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
-  const personalExperiences =
+  const personalExperiences: Omit<PersonalExperience, "user">[] =
     experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
-  const workExperiences: Experience[] =
+  const workExperiences: Omit<WorkExperience, "user">[] =
     experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
   const experienceSections = [
@@ -175,25 +172,15 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
                     data-h2-box-shadow="base(0 0 0 x.5)"
                   >
                     {unpackMaybes(
-                      sectionExperiences.map((experience) => {
-                        const startDate = parseDateTimeUtc(
-                          experience?.startDate ?? "",
-                        );
-                        const endDate = experience?.endDate
-                          ? parseDateTimeUtc(experience?.endDate ?? "")
-                          : MAX_DATE;
-
+                      sectionExperiences?.map((experience) => {
                         return (
                           <ExperienceCard
-                            key={experience?.id ?? ""}
-                            experience={experience ?? {}}
-                            startDate={startDate}
-                            endDate={endDate}
-                            isCurrentPosition={false}
+                            key={experience?.id}
+                            experience={experience}
                             showEdit={false}
-                            isOpen={isExpanded(experience?.id ?? "")}
+                            isOpen={isExpanded(experience?.id)}
                             onOpenChange={() =>
-                              toggleExpandedItem(experience?.id ?? "")
+                              toggleExpandedItem(experience?.id)
                             }
                           />
                         );

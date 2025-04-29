@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useControlledCollapsibleGroup = (ids: string[]) => {
+const useControlledCollapsibleGroup = () => {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   const hasExpanded = expandedItems.length > 0;
