@@ -19,11 +19,11 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
-import { isWorkExperience } from "./utils/experienceUtils";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
@@ -281,13 +281,10 @@ const TalentNominationGroupCareerExperiencePage = () => {
   const nomineeId = data?.talentNominationGroup?.nominee?.id;
   const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
 
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
         <TalentNominationGroupCareerExperience
-          nomineeId={nomineeId}
-          shareProfile={shareProfile}
           nomineeId={nomineeId}
           shareProfile={shareProfile}
         />
