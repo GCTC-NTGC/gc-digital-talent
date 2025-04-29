@@ -379,7 +379,6 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
   skills(families: [String!]): [Skill]!
-  genericJobTitles: [GenericJobTitle]!
   community(id: UUID!): Community
   communities: [Community]!
   team(id: UUID!): Team
@@ -506,7 +505,6 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
-  deletePoolCandidate(id: ID!): PoolCandidate
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
   disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
   revertFinalDecision(id: UUID!): PoolCandidate
@@ -520,7 +518,6 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  deletePoolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -1164,6 +1161,7 @@ type TalentNominationGroup {
   developmentProgramsNominationCount: Int
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
   developmentProgramsNotes: String
+  consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
 }
