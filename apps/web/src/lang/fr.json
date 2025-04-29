@@ -867,10 +867,6 @@
     "defaultMessage": "Masquer les renseignements sur la meilleure façon de décrire votre expérience de la compétence",
     "description": "Button text to close accordion describing skill experience"
   },
-  "BlFUsz": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about instructor-led classes"
-  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -1518,10 +1514,6 @@
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
-  },
-  "dOs1f3": {
-    "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont accès à plusieurs possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
-    "description": "Summary of the it training fund featured item"
   },
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
@@ -2882,6 +2874,10 @@
   "Bkxf6p": {
     "defaultMessage": "Sélectionnez un statut de bassin",
     "description": "Placeholder displayed on the status field of the change candidate status dialog."
+  },
+  "BlFUsz": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
+    "description": "An item in a list of points about instructor-led classes"
   },
   "BnSa6Y": {
     "defaultMessage": "Échec de la mise à jour du statut",
@@ -8422,6 +8418,10 @@
     "defaultMessage": "Publiez votre annonce pour commencer à recevoir des candidatures",
     "description": "Instructions on a draft process on how to start getting applicants"
   },
+  "dOs1f3": {
+    "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont accès à plusieurs possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
+    "description": "Summary of the it training fund featured item"
+  },
   "dOw5u/": {
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
     "description": "Default error messsage when an employee could not be found"
@@ -9257,10 +9257,6 @@
   "gYn0Zj": {
     "defaultMessage": "Il ne s'agit pas d'un rôle de cadre supérieur.",
     "description": "Label text for employee profile, is not c-suite "
-  },
-  "vmVdJt": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about cert exams"
   },
   "gZaILA": {
     "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
@@ -12261,6 +12257,10 @@
   "vm9mFv": {
     "defaultMessage": "Veuillez passer en revue le code et essayer de le saisir à nouveau.",
     "description": "Error message when the code is not valid."
+  },
+  "vmVdJt": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
+    "description": "An item in a list of points about cert exams"
   },
   "vmj/E4": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
