@@ -183,8 +183,8 @@ const RecruitmentProcessPreviewList = ({
         >
           {intl.formatMessage({
             defaultMessage:
-              "Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.",
-            id: "p+XS58",
+              "This information is provided by the nominee and has not been verified. Please confirm its validity before using it for hiring or placement purposes.",
+            id: "1GOD0g",
             description: "Off-platform section information",
           })}
         </p>

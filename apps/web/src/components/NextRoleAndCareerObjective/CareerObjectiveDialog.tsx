@@ -56,8 +56,8 @@ const CareerObjectiveDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Learn more about the role this nominee wants to achieve as the pinnacle of their career.",
-            id: "TJH1VD",
+              "Learn more about the role this nominee is working toward as their main career objective.",
+            id: "1LkIfy",
             description: "Subtitle for dialog viewing career objective info",
           })}
         >

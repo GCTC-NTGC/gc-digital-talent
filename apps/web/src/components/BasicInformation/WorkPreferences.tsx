@@ -127,8 +127,8 @@ const WorkPreferences = ({
                   data-h2-color="base(black.light)"
                 >
                   {intl.formatMessage({
-                    defaultMessage: "Short term, long term, indeterminate",
-                    id: "8xmrbK",
+                    defaultMessage: "Short term, long term, or indeterminate",
+                    id: "deKE7f",
                     description:
                       "Description for position duration field display",
                   })}
@@ -184,11 +184,7 @@ const WorkPreferences = ({
         {formatLocation({ city: currentCity, region: currentProvince, intl })}
       </FieldDisplay>
       <FieldDisplay
-        label={intl.formatMessage({
-          defaultMessage: "Location options",
-          id: "PCeVpT",
-          description: "Label for location options field display",
-        })}
+        label={intl.formatMessage(profileMessages.workLocationPreferences)}
       >
         {locations?.length ? (
           <ul>

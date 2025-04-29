@@ -55,8 +55,8 @@ const NextRoleAndCareerObjective = ({
           as="h3"
           subtitle={intl.formatMessage({
             defaultMessage:
-              "The next role the nominee intends to achieve and their primary career objective, including classification, work streams, and departments.",
-            id: "iwDEuu",
+              "The next role the nominee intends to achieve and their main career objective, including classification, work streams, and departments.",
+            id: "MsXEJK",
             description: "Subtitle for next role and career objective section",
           })}
         >
@@ -93,8 +93,8 @@ const NextRoleAndCareerObjective = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "The nominee has not provided information about their final career objective.",
-                    id: "zXgAWv",
+                      "The nominee has not provided information about their ultimate career objective.",
+                    id: "wL95nl",
                     description:
                       "Message displayed if nominee hasn't filled out career objective info",
                   })}

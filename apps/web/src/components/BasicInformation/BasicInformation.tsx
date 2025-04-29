@@ -44,8 +44,8 @@ const BasicInformation = ({
           as="h3"
           subtitle={intl.formatMessage({
             defaultMessage:
-              "The nominee's core profile information that includes contact details, language levels and evaluations, and employment equity.",
-            id: "ApPUq3",
+              "The nominee's core profile information including contact details, language levels and evaluations, and employment equity.",
+            id: "rOl7Xv",
             description: "Subtitle for basic profile information section",
           })}
         >
