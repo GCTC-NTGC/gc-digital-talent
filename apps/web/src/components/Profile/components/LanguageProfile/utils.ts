@@ -95,8 +95,8 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
 
 export const getLabels = (intl: IntlShape) => ({
   consideredPositionLanguages: intl.formatMessage({
-    defaultMessage: "Language of positions you would like to be considered for",
-    id: "D1ZXOz",
+    defaultMessage: "Language of positions they'd like to be considered for",
+    id: "96w8Lm",
     description:
       "Legend for considered position languages check list in language information form",
   }),

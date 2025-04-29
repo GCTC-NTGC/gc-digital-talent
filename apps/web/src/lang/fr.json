@@ -2327,6 +2327,10 @@
     "defaultMessage": "Vous avez répondu aux questions générales suivantes :",
     "description": "Message in general questions section of the application review page."
   },
+  "96w8Lm": {
+    "defaultMessage": "Langue des postes pour lesquels ils aimeraient être pris en considération",
+    "description": "Legend for considered position languages check list in language information form"
+  },
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
     "description": "Label displayed on Personal Experience form for experience title input"
@@ -3178,10 +3182,6 @@
   "D0cHjz": {
     "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Page title for the registration pages"
-  },
-  "D1ZXOz": {
-    "defaultMessage": "Langue des postes pour lesquels vous souhaitez être pris en considération",
-    "description": "Legend for considered position languages check list in language information form"
   },
   "D3mwyg": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative novatrice du gouvernement du Canada qui offre une voie d’accès à l’emploi dans la fonction publique fédérale aux personnes autochtones passionnées par les technologies de l’information.",
