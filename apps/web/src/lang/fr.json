@@ -867,6 +867,10 @@
     "defaultMessage": "Masquer les renseignements sur la meilleure façon de décrire votre expérience de la compétence",
     "description": "Button text to close accordion describing skill experience"
   },
+  "26OHuo": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+    "description": "An item in a list of points about instructor-led classes"
+  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -1510,6 +1514,10 @@
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
+  },
+  "5+xTkq": {
+    "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
+    "description": "Summary of the it training fund featured item"
   },
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
@@ -9234,6 +9242,10 @@
     "defaultMessage": "Il ne s'agit pas d'un rôle de cadre supérieur.",
     "description": "Label text for employee profile, is not c-suite "
   },
+  "gYvHOD": {
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
+    "description": "An item in a list of points about cert exams"
+  },
   "gZaILA": {
     "defaultMessage": "Apprenez-en davantage sur la <directiveLink>Directive sur les talents numériques</directiveLink>.",
     "description": "Link to more information on the directive."
@@ -10717,10 +10729,6 @@
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
     "description": "Descriptive text explaining the work preferences section of the application profile"
-  },
-  "26OHuo": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
-    "description": "An item in a list of points about instructor-led classes"
   },
   "nhqlFu": {
     "defaultMessage": "Programmes de perfectionnement pertinents",
@@ -12562,10 +12570,6 @@
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette mise en candidature, nous l'informerons par courriel.",
     "description": "Message that the employee was found for a search and will be emailed"
   },
-  "5+xTkq": {
-    "defaultMessage": "Grâce à ce fonds, les membres du personnel des TI ont accès à plusieurs autres possibilités de formation (apprentissage autonome en ligne, cours et camps d’entrainement dirigés par un instructeur ou une instructrice, bons pour examens de certification).",
-    "description": "Summary of the it training fund featured item"
-  },
   "xg/wvH": {
     "defaultMessage": "Voir la demande",
     "description": "Label for view application link"
@@ -13009,10 +13013,6 @@
   "zcr51k": {
     "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
     "description": "Paragraph describing trademark notice section"
-  },
-  "gYvHOD": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables. Les renseignements seront affichés dans la plateforme Talents numériques du GC lorsque les cours seront disponibles à l’hiver 2024-2025.",
-    "description": "An item in a list of points about cert exams"
   },
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
