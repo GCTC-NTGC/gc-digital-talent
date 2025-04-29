@@ -88,7 +88,11 @@ import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
-import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+import {
+  incrementHeadingRank,
+  decrementHeadingRank,
+  hrefToString,
+} from "./utils";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard";
 
@@ -195,4 +199,5 @@ export {
   useCardRepeaterContext,
   useControllableState,
   getNavLinkStyling,
+  hrefToString,
 };
