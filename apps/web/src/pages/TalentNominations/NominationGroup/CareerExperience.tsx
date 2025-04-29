@@ -248,31 +248,7 @@ const TalentNominationGroupCareerExperience = ({
           data-h2-gap="base(x.5 0)"
           data-h2-margin-bottom="base(x1)"
         >
-          <Heading
-            level="h2"
-            color="primary"
-            data-h2-margin="base(x1.5 x1.5 0 x1.5)"
-            data-h2-font-weight="base(400)"
-            Icon={NewspaperIcon}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Full career",
-              id: "+mG20j",
-              description: "Heading for career experience",
-            })}
-          </Heading>
-          <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
-            {intl.formatMessage({
-              defaultMessage:
-                "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided",
-              id: "gu2wRn",
-              description:
-                "Description for the career page full career section",
-            })}
-          </p>
-          <div>
-            <FullCareerExperiences experiences={experiences} />
-          </div>
+          <FullCareerExperiences experiences={experiences} />
         </div>
       </CardBasic>
     </Pending>

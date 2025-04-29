@@ -16,15 +16,22 @@ const useControlledCollapsibleGroup = (ids: string[]) => {
     });
   };
 
-  const toggleAllExpanded = () => {
+  const toggleAllExpanded = (allIds: string[]) => {
     if (hasExpanded) {
       setExpandedItems([]);
     } else {
-      setExpandedItems(ids);
+      setExpandedItems(allIds);
     }
   };
 
-  return { hasExpanded, toggleExpandedItem, toggleAllExpanded, isExpanded };
+  return {
+    hasExpanded,
+    toggleExpandedItem,
+    toggleAllExpanded,
+    isExpanded,
+    expandedItems,
+    setExpandedItems,
+  };
 };
 
 export default useControlledCollapsibleGroup;

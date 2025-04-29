@@ -1,12 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
-import { Accordion, CardBasic } from "@gc-digital-talent/ui";
+import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
 import { AwardExperience } from "@gc-digital-talent/graphql";
 
+import experienceMessages from "~/messages/experienceMessages";
+import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import {
   compareByDate,
   isAwardExperience,
@@ -93,62 +96,116 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
       experiences: personalExperiences,
     },
   ];
+  const sectionIds = experienceSections.map((section) => section.id);
+  const {
+    hasExpanded,
+    toggleAllExpanded,
+    toggleExpandedItem,
+    isExpanded,
+    expandedItems,
+    setExpandedItems,
+  } = useControlledCollapsibleGroup(sectionIds);
 
   return (
-    <Accordion.Root
-      type="multiple"
-      mode="card"
-      collapsible
-      data-h2-margin="base(0, 0)"
-    >
-      {experienceSections
-        .filter(
-          ({ experiences: sectionExperiences }) =>
-            sectionExperiences.length > 0,
-        )
-        .map(({ id, title, experiences: sectionExperiences }) => (
-          <Accordion.Item key={id} value={id}>
-            <Accordion.Trigger>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "{title} ({count})",
-                  id: "Rb4Khk",
-                  description: "Title with the count of experiences",
-                },
-                { title, count: experiences.length },
-              )}
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <CardBasic
-                data-h2-padding="base(0 0 0 x.5)"
-                data-h2-border-radius="base(0 0 0 x.5)"
-                data-h2-background-color="base(white)"
-                data-h2-box-shadow="base(0 0 0 x.5)"
-              >
-                {unpackMaybes(
-                  sectionExperiences.map((experience) => {
-                    const startDate = parseDateTimeUtc(experience.startDate);
-                    const endDate = experience.endDate
-                      ? parseDateTimeUtc(experience.endDate)
-                      : MAX_DATE;
+    <>
+      <Heading
+        level="h2"
+        color="quaternary"
+        data-h2-margin="base(x1.5 x1.5 0 x1.5)"
+        data-h2-font-weight="base(400)"
+        Icon={NewspaperIcon}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Full career",
+          id: "+mG20j",
+          description: "Heading for career experience",
+        })}
+        <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
+          <Button mode="inline" onClick={() => toggleAllExpanded(sectionIds)}>
+            {intl.formatMessage(
+              hasExpanded
+                ? experienceMessages.collapseDetails
+                : experienceMessages.expandDetails,
+            )}
+          </Button>
+        </p>
+      </Heading>
 
-                    return (
-                      <ExperienceCard
-                        key={experience.id}
-                        experience={experience}
-                        startDate={startDate}
-                        endDate={endDate}
-                        isCurrentPosition={false}
-                        showEdit={false}
-                      />
-                    );
-                  }),
-                )}
-              </CardBasic>
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
-    </Accordion.Root>
+      <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided",
+          id: "gu2wRn",
+          description: "Description for the career page full career section",
+        })}
+      </p>
+      <div>
+        <Accordion.Root
+          type="multiple"
+          mode="card"
+          value={expandedItems}
+          onValueChange={(values) => setExpandedItems(values)} // Sync state with Accordion
+          data-h2-margin="base(0, 0)"
+        >
+          {experienceSections
+            .filter(
+              ({ experiences: sectionExperiences }) =>
+                sectionExperiences.length > 0,
+            )
+            .map(({ id, title, experiences: sectionExperiences }) => (
+              <Accordion.Item key={`accordion-item-${id}`} value={id}>
+                <Accordion.Trigger
+                  onClick={() => toggleExpandedItem(id)}
+                  aria-expanded={isExpanded(id)}
+                >
+                  {intl.formatMessage(
+                    {
+                      defaultMessage: "{title} ({count})",
+                      id: "Rb4Khk",
+                      description: "Title with the count of experiences",
+                    },
+                    { title, count: sectionExperiences.length },
+                  )}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <CardBasic
+                    data-h2-padding="base(0 0 0 x.5)"
+                    data-h2-border-radius="base(0 0 0 x.5)"
+                    data-h2-background-color="base(white)"
+                    data-h2-box-shadow="base(0 0 0 x.5)"
+                  >
+                    {unpackMaybes(
+                      sectionExperiences.map((experience) => {
+                        const startDate = parseDateTimeUtc(
+                          experience?.startDate ?? "",
+                        );
+                        const endDate = experience?.endDate
+                          ? parseDateTimeUtc(experience?.endDate ?? "")
+                          : MAX_DATE;
+
+                        return (
+                          <ExperienceCard
+                            key={experience?.id ?? ""}
+                            experience={experience ?? {}}
+                            startDate={startDate}
+                            endDate={endDate}
+                            isCurrentPosition={false}
+                            showEdit={false}
+                            isOpen={isExpanded(experience?.id ?? "")}
+                            onOpenChange={() =>
+                              toggleExpandedItem(experience?.id ?? "")
+                            }
+                          />
+                        );
+                      }),
+                    )}
+                  </CardBasic>
+                </Accordion.Content>
+              </Accordion.Item>
+            ))}
+        </Accordion.Root>
+      </div>
+    </>
   );
 };
 
