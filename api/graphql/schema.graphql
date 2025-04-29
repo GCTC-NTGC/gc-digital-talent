@@ -754,6 +754,7 @@ type TalentNominationGroup {
     @rename(attribute: "development_programs_decision")
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   status: LocalizedTalentNominationGroupStatus
   comments: String
 }
