@@ -696,7 +696,7 @@
     "description": "Button to remove the link between experience and skill"
   },
   "1GOD0g": {
-    "defaultMessage": "En savoir plus sur le rôle que cette personne candidate vise comme principal objectif de carrière.",
+    "defaultMessage": "Ces renseignements sont fournis par la personne candidate et n'ont pas été vérifiés. Veuillez confirmer sa validité avant de l'utiliser à des fins d'embauche ou de placement.",
     "description": "Off-platform section information"
   },
   "1HPhji": {
@@ -1770,6 +1770,10 @@
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
+  },
+  "69icSD": {
+    "defaultMessage": "strong reading, writing and verbal communication skills",
+    "description": "Description for the intermediate language ability"
   },
   "6B6xPa": {
     "defaultMessage": "Bulletin d'information",
@@ -5407,6 +5411,10 @@
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
   },
+  "NzUwa2": {
+    "defaultMessage": "parfaitement bilingue.",
+    "description": "Description for the advanced language ability"
+  },
   "NzbVyB": {
     "defaultMessage": "Compétences comportementales",
     "description": "Title for the behavioural skill rank card"
@@ -6186,6 +6194,10 @@
   "ROfrit": {
     "defaultMessage": "Rétablir les filtres",
     "description": "Button text to reset table filters to the default values"
+  },
+  "RRIxHw": {
+    "defaultMessage": "Compétences de base en lecture, écriture et communication verbale.",
+    "description": "Description for the beginner language ability"
   },
   "RRlKyW": {
     "defaultMessage": "{label} navigation de page",
