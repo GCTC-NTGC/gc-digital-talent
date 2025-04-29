@@ -1495,6 +1495,10 @@
     "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
     "description": "Filename for skills CSV file download"
   },
+  "4ujr5X": {
+    "defaultMessage": "La personne candidate n'a pas accepté de partager ses renseignements avec votre collectivité",
+    "description": "Null message for nominee profile"
+  },
   "4ujx9e": {
     "defaultMessage": "Utilisez le bouton « Créez un groupe de compétences » pour commencer.",
     "description": "Instructions for adding a skill family item."
@@ -2246,6 +2250,10 @@
   "8p4ty0": {
     "defaultMessage": "Qu’est-ce que le Fonds de formation et de perfectionnement de la collectivité de la TI?",
     "description": "Heading for section describing the training fund"
+  },
+  "8plD42": {
+    "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
+    "description": "Null secondary message for nominee profile"
   },
   "8t1KYs": {
     "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
@@ -6015,6 +6023,10 @@
     "defaultMessage": "Information sur la demande",
     "description": "Heading for the information of an application"
   },
+  "R1QSIY": {
+    "defaultMessage": "Cette section indique le poste actuel de la personne candidate. S'il s'agit d'un poste intérimaire, le poste d'attache de la personne candidate sera également affiché ici, s'il a été précisé. Sélectionnez une expérience pour obtenir plus de détails.",
+    "description": "Description for the career page current role section"
+  },
   "R1yINv": {
     "defaultMessage": "Si vous ne savez pas comment décrire au mieux votre utilisation de la compétence, essayez de répondre à certaines des questions fournies ci-dessous.",
     "description": "Instructions on how to describe a skill"
@@ -8770,6 +8782,10 @@
     "defaultMessage": "Télécharger le profil",
     "description": "Button text to download pool candidate profiles"
   },
+  "elMgS2": {
+    "defaultMessage": "Poste actuel",
+    "description": "Heading for current position"
+  },
   "emx1cK": {
     "defaultMessage": "Résumé des filtres",
     "description": "Title of Summary of filters section"
@@ -9321,6 +9337,10 @@
   "gto/zD": {
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
+  },
+  "guYbEb": {
+    "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
+    "description": "Last time user's profile was updated"
   },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
