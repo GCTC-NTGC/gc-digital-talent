@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
@@ -15,7 +16,8 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+
+import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
 
 interface FullCareerExperiencesProps {
   experiences?: Omit<Experience, "user">[];
@@ -23,7 +25,9 @@ interface FullCareerExperiencesProps {
 
 const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
   const intl = useIntl();
-
+  const [selectedView, setSelectedView] = useState<"type" | "workStream">(
+    "type",
+  );
   const awardExperiences =
     experiences
       ?.filter(isAwardExperience)
@@ -150,60 +154,68 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
         })}
       </p>
       <div>
-        <Accordion.Root
-          type="multiple"
-          mode="card"
-          value={expandedItems}
-          onValueChange={(values) => setExpandedItems(values)} // Sync state with Accordion
-          data-h2-margin="base(0, 0)"
+        <div
+          data-h2-display="base(flex)"
+          data-h2-align-items="base(center)"
+          data-h2-gap="base(x1)"
         >
-          {experienceSections
-            .filter(
-              ({ experiences: sectionExperiences }) =>
-                sectionExperiences.length > 0,
-            )
-            .map(({ id, title, experiences: sectionExperiences }) => (
-              <Accordion.Item key={`accordion-item-${id}`} value={id}>
-                <Accordion.Trigger
-                  onClick={() => toggleExpandedItem(id)}
-                  aria-expanded={isExpanded(id)}
-                >
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "{title} ({count})",
-                      id: "Rb4Khk",
-                      description: "Title with the count of experiences",
-                    },
-                    { title, count: sectionExperiences.length },
-                  )}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <CardBasic
-                    data-h2-padding="base(0 0 0 x.5)"
-                    data-h2-border-radius="base(0 0 0 x.5)"
-                    data-h2-background-color="base(white)"
-                    data-h2-box-shadow="base(0 0 0 x.5)"
-                  >
-                    {unpackMaybes(
-                      sectionExperiences?.map((experience) => {
-                        return (
-                          <ExperienceCard
-                            key={experience?.id}
-                            experience={experience}
-                            showEdit={false}
-                            isOpen={isExpanded(experience?.id)}
-                            onOpenChange={() =>
-                              toggleExpandedItem(experience?.id)
-                            }
-                          />
-                        );
-                      }),
-                    )}
-                  </CardBasic>
-                </Accordion.Content>
-              </Accordion.Item>
-            ))}
-        </Accordion.Root>
+          <p data-h2-margin="base(0)">
+            {intl.formatMessage({
+              defaultMessage: "Show experience by:",
+              id: "KR4kRt",
+              description: "Label for experience sorting options",
+            })}
+          </p>
+          <Button
+            type="button"
+            mode="inline"
+            color="secondary"
+            onClick={() => setSelectedView("type")}
+            data-h2-font-weight={
+              selectedView === "type" ? "base(700)" : "base(400)"
+            }
+          >
+            {intl.formatMessage({
+              defaultMessage: "Type",
+              id: "trerKD",
+              description: "Button to filter experiences by type",
+            })}
+          </Button>
+          <Button
+            type="button"
+            mode="inline"
+            color="secondary"
+            onClick={() => setSelectedView("workStream")} // Set view to "workStream"
+            data-h2-font-weight={
+              selectedView === "workStream" ? "base(700)" : "base(400)"
+            } // Bold when selected
+            aria-pressed={selectedView === "workStream"}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Work Stream",
+              id: "27YVit",
+              description: "Button to filter experiences by work stream",
+            })}
+          </Button>
+        </div>
+      </div>
+      <div>
+        {selectedView === "type" && (
+          <ExperienceByTypeAccordion
+            experienceSections={experienceSections}
+            expandedItems={expandedItems}
+            setExpandedItems={setExpandedItems}
+            toggleExpandedItem={toggleExpandedItem}
+            isExpanded={isExpanded}
+          />
+        )}
+        {selectedView === "workStream" && (
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x1 0)"
+          ></div>
+        )}
       </div>
     </>
   );
