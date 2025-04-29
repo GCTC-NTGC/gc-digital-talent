@@ -2,7 +2,7 @@ import { useQuery } from "urql";
 import useIntl from "react-intl/src/components/useIntl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 
-import { Experience, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   CardBasic,
   Heading,
