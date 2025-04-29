@@ -104,28 +104,42 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
 
   return (
     <>
-      <Heading
-        level="h2"
-        color="quaternary"
-        data-h2-margin="base(x1.5 x1.5 0 x1.5)"
-        data-h2-font-weight="base(400)"
-        Icon={NewspaperIcon}
+      {/* heading section */}
+      <div
+        data-h2-display="base(flex)"
+        data-h2-align-items="base(center)"
+        data-h2-justify-content="base(space-between)"
       >
-        {intl.formatMessage({
-          defaultMessage: "Full career",
-          id: "+mG20j",
-          description: "Heading for career experience",
-        })}
-        <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
-          <Button mode="inline" onClick={toggleAllExpanded}>
+        <div>
+          <Heading
+            level="h2"
+            Icon={NewspaperIcon}
+            color="quaternary"
+            data-h2-font-weight="base(400)"
+            data-h2-margin="base(0)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Full career",
+              id: "+mG20j",
+              description: "Heading for career experience",
+            })}
+          </Heading>
+        </div>
+        <div>
+          <Button
+            type="button"
+            mode="inline"
+            color="secondary"
+            onClick={toggleAllExpanded}
+          >
             {intl.formatMessage(
               hasExpanded
                 ? experienceMessages.collapseDetails
                 : experienceMessages.expandDetails,
             )}
           </Button>
-        </p>
-      </Heading>
+        </div>
+      </div>
 
       <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
         {intl.formatMessage({
