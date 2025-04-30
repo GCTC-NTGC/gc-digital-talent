@@ -616,7 +616,7 @@ type WorkStream {
   name: LocalizedString
   plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
   community: Community @belongsTo
-  talentSearchable: Boolean! @rename(attribute: "talent_searchable")
+  talentSearchable: Boolean @rename(attribute: "talent_searchable")
 }
 
 type Community implements HasRoleAssignments {

@@ -1069,7 +1069,7 @@ type WorkStream {
   name: LocalizedString
   plainLanguageName: LocalizedString
   community: Community
-  talentSearchable: Boolean!
+  talentSearchable: Boolean
 }
 
 type Community implements HasRoleAssignments {
