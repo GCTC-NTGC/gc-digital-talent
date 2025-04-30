@@ -31,6 +31,7 @@ class WorkStreamTest extends TestCase
 
     protected $input = [
         'key' => 'test-work-stream',
+        'talentSearchable' => true,
         'name' => [
             'en' => 'Test work stream (EN)',
             'fr' => 'Test work stream (FR)',
