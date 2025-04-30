@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
+import { Button, Heading } from "@gc-digital-talent/ui";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
