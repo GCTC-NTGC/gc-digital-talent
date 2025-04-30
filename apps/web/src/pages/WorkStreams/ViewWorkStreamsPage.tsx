@@ -42,6 +42,7 @@ export const WorkStreamView_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    talentSearchable
     community {
       id
       key
@@ -150,12 +151,21 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
                 {workStream.community?.name?.localized}
               </FieldDisplay>
             </div>
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-                {workStream.key ??
-                  intl.formatMessage(commonMessages.notProvided)}
-              </FieldDisplay>
-            </div>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Searchable on request",
+                id: "Yzx90B",
+                description:
+                  "Label for if a work stream appears on the search page",
+              })}
+            >
+              {workStream.talentSearchable
+                ? intl.formatMessage(commonMessages.yes)
+                : intl.formatMessage(commonMessages.no)}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+              {workStream.key ?? intl.formatMessage(commonMessages.notProvided)}
+            </FieldDisplay>
           </div>
           <CardSeparator />
           <div
