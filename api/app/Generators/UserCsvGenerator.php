@@ -58,6 +58,44 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'visible_minority',
         'disability',
         'skills',
+        'career_planning_lateral_move_interest',
+        // 'career_planning_lateral_move_time_frame',
+        // 'career_planning_lateral_move_organization_type',
+        // 'career_planning_promotion_move_interest',
+        // 'career_planning_promotion_move_time_frame',
+        // 'career_planning_promotion_move_organization_type',
+        // 'career_planning_learning_opportunities_interest',
+        // 'eligible_retirement_year',
+        // 'career_planning_mentorship_status',
+        // 'career_planning_mentorship_interest',
+        // 'career_planning_exec_interest',
+        // 'career_planning_exec_coaching_status',
+        // 'career_planning_exec_coaching_interest',
+        // 'next_role_classification_id', // next role - target classification group
+        // '', // Next role - Target classification level: empty/ answer as on platform
+        // 'next_role_target_role',
+        // 'next_role_is_c_suite_role',
+        // 'next_role_c_suite_role_title',
+        // 'next_role_job_title',
+        // 'next_role_community_id', // Next role - Functional community: empty/ answer as on platform
+        // '', // Next role - Work streams: empty/ answer as on platform
+        // '', // Next role - Departments: empty/ answer as on platform
+        // 'next_role_additional_information',
+        // 'career_objective_classification_id', // career objective - target classification group
+        // '', // career objective -target classification level
+        // 'career_objective_target_role', // Career objective - Target classification group: empty/ answer as on platform
+        // '', // Career objective - Target classification level: empty/ answer as on platform
+        // '', // Career objective - Target role: empty/ answer as on platform
+        // 'career_objective_is_c_suite_role',
+        // 'career_objective_c_suite_role_title',
+        // 'career_objective_job_title',
+        // 'career_objective_community_other', // Career objective - Functional community: empty/ answer as on platform
+        // '', // Career objective - Work streams: empty/ answer as on platform
+        // '', // Career objective - Departments: empty/ answer as on platform
+        // 'career_objective_additional_information',
+        // 'career_planning_about_you',
+        // 'career_planning_learning_goals',
+        // 'career_planning_work_style',
     ];
 
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
@@ -119,6 +157,9 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->yesOrNo($user->is_visible_minority), // Visible minority
                     $this->yesOrNo($user->has_disability), // Disability
                     $userSkills->join(', '),
+                    // Career planning - Lateral move interest
+                    $user->career_planning_lateral_move_interest,
+
                 ];
 
                 // 1 is added to the key to account for the header row

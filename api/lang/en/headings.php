@@ -51,6 +51,7 @@ return [
     'education_requirement' => 'Education requirement',
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
+    'career_planning_lateral_move_interest' => 'Interest in lateral movement',
     // Section headings
     'application_snapshot' => 'Application snapshot',
     'candidate_profiles' => 'Candidate profiles',
