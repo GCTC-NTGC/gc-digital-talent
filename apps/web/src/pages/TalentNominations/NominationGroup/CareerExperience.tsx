@@ -244,7 +244,10 @@ const TalentNominationGroupCareerExperience = ({
           data-h2-gap="base(x.5 0)"
           data-h2-margin-bottom="base(x1)"
         >
-          <FullCareerExperiences experiences={experiences} />
+          <FullCareerExperiences
+            experiences={experiences}
+            shareProfile={shareProfile}
+          />
         </div>
       </CardBasic>
     </Pending>

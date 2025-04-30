@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import { Button, Heading } from "@gc-digital-talent/ui";
+import { Button, Heading, Well } from "@gc-digital-talent/ui";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
@@ -20,9 +20,13 @@ import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
 
 interface FullCareerExperiencesProps {
   experiences?: Omit<Experience, "user">[];
+  shareProfile?: boolean;
 }
 
-const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
+const FullCareerExperiences = ({
+  experiences,
+  shareProfile,
+}: FullCareerExperiencesProps) => {
   const intl = useIntl();
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
@@ -128,20 +132,22 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
             })}
           </Heading>
         </div>
-        <div>
-          <Button
-            type="button"
-            mode="inline"
-            color="secondary"
-            onClick={toggleAllExpanded}
-          >
-            {intl.formatMessage(
-              hasExpanded
-                ? experienceMessages.collapseDetails
-                : experienceMessages.expandDetails,
-            )}
-          </Button>
-        </div>
+        {shareProfile && (
+          <div>
+            <Button
+              type="button"
+              mode="inline"
+              color="secondary"
+              onClick={toggleAllExpanded}
+            >
+              {intl.formatMessage(
+                hasExpanded
+                  ? experienceMessages.collapseDetails
+                  : experienceMessages.expandDetails,
+              )}
+            </Button>
+          </div>
+        )}
       </div>
 
       <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
@@ -153,53 +159,75 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
         })}
       </p>
       <div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(x1)"
-        >
-          <p data-h2-margin="base(0)">
-            {intl.formatMessage({
-              defaultMessage: "Show experience by:",
-              id: "KR4kRt",
-              description: "Label for experience sorting options",
-            })}
-          </p>
-          <Button
-            type="button"
-            mode="inline"
-            color="secondary"
-            onClick={() => setSelectedView("type")}
-            data-h2-font-weight={
-              selectedView === "type" ? "base(700)" : "base(400)"
-            }
+        {shareProfile && (
+          <div
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(center)"
+            data-h2-gap="base(x1)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Type",
-              id: "trerKD",
-              description: "Button to filter experiences by type",
-            })}
-          </Button>
-          <Button
-            type="button"
-            mode="inline"
-            color="secondary"
-            onClick={() => setSelectedView("workStream")} // Set view to "workStream"
-            data-h2-font-weight={
-              selectedView === "workStream" ? "base(700)" : "base(400)"
-            } // Bold when selected
-            aria-pressed={selectedView === "workStream"}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Work Stream",
-              id: "27YVit",
-              description: "Button to filter experiences by work stream",
-            })}
-          </Button>
-        </div>
+            <p data-h2-margin="base(0)">
+              {intl.formatMessage({
+                defaultMessage: "Show experience by:",
+                id: "KR4kRt",
+                description: "Label for experience sorting options",
+              })}
+            </p>
+            <Button
+              type="button"
+              mode="inline"
+              color="secondary"
+              onClick={() => setSelectedView("type")}
+              data-h2-font-weight={
+                selectedView === "type" ? "base(700)" : "base(400)"
+              }
+            >
+              {intl.formatMessage({
+                defaultMessage: "Type",
+                id: "trerKD",
+                description: "Button to filter experiences by type",
+              })}
+            </Button>
+            <Button
+              type="button"
+              mode="inline"
+              color="secondary"
+              onClick={() => setSelectedView("workStream")} // Set view to "workStream"
+              data-h2-font-weight={
+                selectedView === "workStream" ? "base(700)" : "base(400)"
+              } // Bold when selected
+              aria-pressed={selectedView === "workStream"}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Work Stream",
+                id: "27YVit",
+                description: "Button to filter experiences by work stream",
+              })}
+            </Button>
+          </div>
+        )}
+        {!shareProfile && (
+          <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
+            <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "This nominee has not agreed to share their information with your community",
+                id: "4ujr5X",
+                description: "Null message for nominee profile",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+                id: "8plD42",
+                description: "Null secondary message for nominee profile",
+              })}
+            </p>
+          </Well>
+        )}
       </div>
       <div>
-        {selectedView === "type" && (
+        {shareProfile && selectedView === "type" && (
           <ExperienceByTypeAccordion
             experienceSections={experienceSections}
             expandedItems={expandedItems}
@@ -208,7 +236,7 @@ const FullCareerExperiences = ({ experiences }: FullCareerExperiencesProps) => {
             isExpanded={isExpanded}
           />
         )}
-        {selectedView === "workStream" && (
+        {shareProfile && selectedView === "workStream" && (
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
