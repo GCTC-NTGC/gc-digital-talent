@@ -501,10 +501,6 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
     pool(id: $id) {
       ...ViewPool
-      team {
-        id
-        name
-      }
     }
     departments {
       ...DuplicatePoolDepartment
@@ -536,11 +532,7 @@ const ViewPoolPage = () => {
               return mutations.close(poolId, reason);
             }}
             onDuplicate={async ({ department }) => {
-              return mutations.duplicate(
-                poolId,
-                data?.pool?.team?.id ?? "",
-                department,
-              );
+              return mutations.duplicate(poolId, department);
             }}
             onArchive={async () => {
               return mutations.archive(poolId);

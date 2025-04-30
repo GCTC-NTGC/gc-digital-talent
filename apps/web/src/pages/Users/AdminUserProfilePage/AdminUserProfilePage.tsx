@@ -184,14 +184,6 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
       }
     }
     department {

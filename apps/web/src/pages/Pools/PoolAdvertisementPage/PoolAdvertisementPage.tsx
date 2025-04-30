@@ -273,14 +273,6 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    team {
-      id
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-    }
     ...AreaOfSelectionNote
     ...WhoCanApplyText
   }
@@ -386,7 +378,8 @@ export const PoolPoster = ({
     ),
   );
 
-  const contactEmail = pool.team?.contactEmail;
+  // TODO: community does have a contactEmail field
+  const contactEmail = "";
 
   const canApply = !!(pool?.status?.value === PoolStatus.Published);
 
@@ -1143,7 +1136,7 @@ export const PoolPoster = ({
                         },
                         {
                           a: (chunks: ReactNode) =>
-                            anchorTag(chunks, contactEmail),
+                            anchorTag(chunks, contactEmail), // TODO: what is the new source of the contactEmail?
                         },
                       )}
                     </Text>

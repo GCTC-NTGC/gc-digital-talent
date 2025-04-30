@@ -270,16 +270,10 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
   mutation CreatePool(
     $userId: ID!
-    $teamId: ID!
     $communityId: ID!
     $pool: CreatePoolInput!
   ) {
-    createPool(
-      userId: $userId
-      teamId: $teamId
-      communityId: $communityId
-      pool: $pool
-    ) {
+    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
       id
       name {
         en

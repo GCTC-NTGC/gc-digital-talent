@@ -537,8 +537,8 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, teamId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
-  duplicatePool(id: ID!, teamId: ID!, pool: DuplicatePoolInput!): Pool
+  createPool(userId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
+  duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   togglePoolUserBookmark(poolId: UUID!): Pool

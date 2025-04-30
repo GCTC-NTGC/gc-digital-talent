@@ -106,14 +106,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       group
       level
     }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
-      }
-    }
     owner {
       id
       firstName

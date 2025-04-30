@@ -835,9 +835,6 @@ return [
             'talentNominationEvent' => [
                 'any' => ['view'],
             ],
-            'team' => [
-                'any' => ['view'],
-            ],
             'announcement' => [
                 'any' => ['view'],
             ],
@@ -883,9 +880,6 @@ return [
             'searchRequest' => [
                 'any' => ['create'],
                 'own' => ['view'],
-            ],
-            'team' => [
-                'any' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
@@ -1121,9 +1115,6 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['view'],
-            ],
-            'team' => [
-                'any' => ['view', 'create', 'update', 'delete'],
             ],
             'role' => [
                 'any' => ['view', 'assign'],

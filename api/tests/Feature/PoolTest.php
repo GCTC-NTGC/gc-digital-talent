@@ -1696,13 +1696,10 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $teamId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, teamId: $teamId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
                     owner {
-                        id
-                    }
-                    team {
                         id
                     }
                     community {
