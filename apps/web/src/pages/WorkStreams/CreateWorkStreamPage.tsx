@@ -38,6 +38,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
+
 import messages from "./messages";
 
 const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
@@ -96,7 +97,6 @@ export const CreateWorkStreamForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (data) => {
-    console.log(data);
     return executeMutation({ workStream: formValuesToSubmitData(data) })
       .then(async (result) => {
         if (result.data?.createWorkStream) {
