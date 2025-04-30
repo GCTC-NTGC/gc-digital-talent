@@ -90,6 +90,20 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
           "Description of default message when an email is not a government of Canada email",
       }),
     },
+    NOT_VERIFIED_GOVERNMENT_EMPLOYEE: {
+      title: intl.formatMessage({
+        defaultMessage: "This user hasn't verified their employee status",
+        id: "zVGK45",
+        description: "Label for when an employee was found but not verified",
+      }),
+      body: intl.formatMessage({
+        defaultMessage:
+          "We found a user with the email address provided, but they haven’t confirmed their status as an employee. Only verified employees can be nominated at this time. The user can verify their status as an employee by logging into the platform and verifying their work email.",
+        id: "hYuDZ2",
+        description:
+          "Descrioption of default message when user was found but not a verified employee",
+      }),
+    },
   };
 };
 
@@ -133,6 +147,16 @@ const Error = ({
           {...sharedProps}
           severity={severities?.NOT_GOVERNMENT_EMAIL}
           message={errorMessages.NOT_GOVERNMENT_EMAIL}
+        />
+      );
+    }
+
+    if (errorCodes?.includes("NotVerifiedGovEmployee")) {
+      return (
+        <ErrorMessage
+          {...sharedProps}
+          severity={severities?.NOT_VERIFIED_GOVERNMENT_EMPLOYEE}
+          message={errorMessages.NOT_VERIFIED_GOVERNMENT_EMPLOYEE}
         />
       );
     }
