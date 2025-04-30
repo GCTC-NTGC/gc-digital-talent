@@ -13,8 +13,6 @@ const generateTeam = (departments: Department[]): Team => {
   return {
     id: faker.string.uuid(),
     name: faker.string.sample(),
-    contactEmail: faker.internet.email(),
-    displayName: toLocalizedString(faker.company.name()),
     description: toLocalizedString(faker.lorem.paragraph()),
     departments: [departments[index]],
   };
