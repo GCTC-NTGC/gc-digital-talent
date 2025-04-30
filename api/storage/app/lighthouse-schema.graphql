@@ -1568,6 +1568,7 @@ type TrainingOpportunity {
   description: LocalizedString
   applicationUrl: LocalizedString
   courseFormat: LocalizedCourseFormat
+  pinned: Boolean!
 }
 
 input TrainingOpportunitiesFilterInput {
@@ -2440,6 +2441,7 @@ input CreateTrainingOpportunityInput {
   description: LocalizedStringInput!
   applicationUrl: LocalizedStringInput!
   courseFormat: CourseFormat!
+  pinned: Boolean!
 }
 
 input UpdateTrainingOpportunityInput {
@@ -2452,6 +2454,7 @@ input UpdateTrainingOpportunityInput {
   description: LocalizedStringInput
   applicationUrl: LocalizedStringInput
   courseFormat: CourseFormat
+  pinned: Boolean
 }
 
 input PoolSkillBelongsToMany {

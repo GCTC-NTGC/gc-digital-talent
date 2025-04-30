@@ -38,6 +38,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import { wrapAbbr } from "~/utils/nameUtils";
+import PinnedIcon from "~/components/Svg/PinnedIcon";
 
 import CourseLanguageChip from "./CourseLanguageChip";
 
@@ -83,6 +84,7 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
           en
           fr
         }
+        pinned
       }
       paginatorInfo {
         count
@@ -252,7 +254,10 @@ export const Component = () => {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
         opportunityLanguage: trainingOpportunitiesFilteredBy,
       },
-      orderBy: [{ column: "registration_deadline", order: SortOrder.Asc }],
+      orderBy: [
+        { column: "pinned", order: SortOrder.Desc },
+        { column: "registration_deadline", order: SortOrder.Asc },
+      ],
     },
   });
 
@@ -450,7 +455,11 @@ export const Component = () => {
                           data-h2-margin-bottom="base(x.5)"
                         >
                           <Heading
-                            Icon={CalendarIcon}
+                            Icon={
+                              trainingOpportunity.pinned
+                                ? PinnedIcon
+                                : CalendarIcon
+                            }
                             level="h4"
                             size="h5"
                             data-h2-font-weight="base(700)"

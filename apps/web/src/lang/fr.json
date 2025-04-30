@@ -6335,6 +6335,10 @@
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
     "description": "Title to get hiring experience"
   },
+  "Shp2Bo": {
+    "defaultMessage": "Épinglé en haut des possibilités de formation",
+    "description": "Message displayed indicating a training opportunity is pinned to the top of the list"
+  },
   "SjISKL": {
     "defaultMessage": "Indiquez la raison du changement.",
     "description": "Help text for justifying updating published pool"
@@ -9374,6 +9378,10 @@
     "defaultMessage": "De quelle manière sera vérifié le statut?",
     "description": "Heading for the self-declaration verification dialog"
   },
+  "h4qlyy": {
+    "defaultMessage": "Épinglé",
+    "description": "Label for pinning something to the top of a list"
+  },
   "h5AUW9": {
     "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à ce processus :",
     "description": "Label for the user select field on process team dialog"
@@ -10785,6 +10793,10 @@
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
+  },
+  "nvPSBj": {
+    "defaultMessage": "Non épinglé en haut des possibilités de formation",
+    "description": "Message displayed indicating a training opportunity is not pinned to the top of the list"
   },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
@@ -12741,6 +12753,10 @@
   "yK0vlP": {
     "defaultMessage": "Dates de la formation",
     "description": "Label for training dates meta data"
+  },
+  "yKDTtM": {
+    "defaultMessage": "Épingler en haut des possibilités de formation",
+    "description": "Label to pin an opportunity to the top of the list"
   },
   "yKQGy8": {
     "defaultMessage": "Niveaux de compétence comportementale",
