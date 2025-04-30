@@ -30,6 +30,12 @@ const DiversityEquityInfo = ({
   const { indigenousCommunities, hasDisability, isVisibleMinority, isWoman } =
     getFragment(DiversityEquityInfo_Fragment, diversityEquityInfoQuery);
 
+  const hasAllEmptyFields =
+    !indigenousCommunities?.length &&
+    !hasDisability &&
+    !isVisibleMinority &&
+    !isWoman;
+
   return (
     <div
       data-h2-display="base(grid)"
@@ -40,24 +46,30 @@ const DiversityEquityInfo = ({
         data-h2-grid-column="base(span 2)"
         label={intl.formatMessage(commonMessages.employmentEquity)}
       >
-        <ul>
-          {!!indigenousCommunities?.length && (
-            <li>
-              {intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
-            </li>
-          )}
-          {hasDisability && (
-            <li>
-              {intl.formatMessage(getEmploymentEquityGroup("disability"))}
-            </li>
-          )}
-          {isVisibleMinority && (
-            <li>{intl.formatMessage(getEmploymentEquityGroup("minority"))}</li>
-          )}
-          {isWoman && (
-            <li>{intl.formatMessage(getEmploymentEquityGroup("woman"))}</li>
-          )}
-        </ul>
+        {hasAllEmptyFields ? (
+          <>{intl.formatMessage(commonMessages.notProvided)}</>
+        ) : (
+          <ul>
+            {!!indigenousCommunities?.length && (
+              <li>
+                {intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
+              </li>
+            )}
+            {hasDisability && (
+              <li>
+                {intl.formatMessage(getEmploymentEquityGroup("disability"))}
+              </li>
+            )}
+            {isVisibleMinority && (
+              <li>
+                {intl.formatMessage(getEmploymentEquityGroup("minority"))}
+              </li>
+            )}
+            {isWoman && (
+              <li>{intl.formatMessage(getEmploymentEquityGroup("woman"))}</li>
+            )}
+          </ul>
+        )}
       </FieldDisplay>
     </div>
   );
