@@ -15,7 +15,6 @@ import {
   Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
-  PoolTeamDisplayNameOrderByInput,
   PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
