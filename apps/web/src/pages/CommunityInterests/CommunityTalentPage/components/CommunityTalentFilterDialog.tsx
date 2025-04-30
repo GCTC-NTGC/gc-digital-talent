@@ -123,7 +123,7 @@ const CommunityTalentFilterDialog = ({
             label={intl.formatMessage(adminMessages.communities)}
             options={communities.map(({ id, name }) => ({
               value: id,
-              label: name?.localized,
+              label: name?.localized ?? "",
             }))}
           />
         </div>
@@ -136,7 +136,7 @@ const CommunityTalentFilterDialog = ({
             label={intl.formatMessage(adminMessages.workStreams)}
             options={workStreams.map(({ id, name }) => ({
               value: id,
-              label: name?.localized,
+              label: name?.localized ?? "",
             }))}
           />
         </div>
@@ -267,7 +267,7 @@ const CommunityTalentFilterDialog = ({
             label={intl.formatMessage(adminMessages.skills)}
             options={skills.map(({ id, name }) => ({
               value: id,
-              label: name?.localized,
+              label: name?.localized ?? "",
             }))}
           />
         </div>

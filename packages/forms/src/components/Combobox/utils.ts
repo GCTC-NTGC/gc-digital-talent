@@ -82,7 +82,7 @@ export function getMultiFilteredItems({
 }
 
 export function itemToString<T extends Option>(item: T | null): string {
-  return nodeToString(item?.label) ?? "";
+  return item?.label ?? "";
 }
 
 export function isItemSelected<T extends Option>(

@@ -150,7 +150,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
             label={intl.formatMessage(labels.leadershipCompetencies)}
             options={unpackMaybes(skills).map((skill) => ({
               value: skill.id,
-              label: skill.name.localized,
+              label: skill.name.localized ?? "",
             }))}
           />
         )}

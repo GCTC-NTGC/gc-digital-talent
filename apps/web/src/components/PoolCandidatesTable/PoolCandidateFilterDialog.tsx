@@ -216,7 +216,7 @@ const PoolCandidateFilterDialog = ({
           label={intl.formatMessage(adminMessages.streams)}
           options={workStreams.map((workStream) => ({
             value: workStream.id,
-            label: workStream.name?.localized,
+            label: workStream.name?.localized ?? "",
           }))}
         />
         <Combobox

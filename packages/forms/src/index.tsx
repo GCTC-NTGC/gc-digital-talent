@@ -8,7 +8,7 @@ import Checklist, {
   type ChecklistProps,
   type CheckboxOption,
 } from "./components/Checklist";
-import Combobox, { ComboboxProps } from "./components/Combobox";
+import Combobox, { ComboboxProps, ComboboxOption } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
@@ -101,6 +101,7 @@ export type {
   ChecklistProps,
   CommonInputProps,
   ComboboxProps,
+  ComboboxOption,
   HiddenInputProps,
   InputProps,
   Radio,
