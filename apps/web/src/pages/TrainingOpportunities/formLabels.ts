@@ -56,6 +56,11 @@ const formLabels = defineMessages({
     id: "N5xj2X",
     description: "The French application URL of the training opportunity",
   },
+  pinned: {
+    defaultMessage: "Pinned",
+    id: "h4qlyy",
+    description: "Label for pinning something to the top of a list",
+  },
 });
 
 export default formLabels;

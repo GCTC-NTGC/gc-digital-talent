@@ -100,9 +100,21 @@ export const ViewTrainingOpportunityForm = ({
           >
             {trainingOpportunity.registrationDeadline}
           </FieldDisplay>
-          <div data-h2-display="base(none) p-tablet(inherit)">
-            {/* intentionally left blank */}
-          </div>
+          <FieldDisplay label={intl.formatMessage(formLabels.pinned)}>
+            {trainingOpportunity.pinned
+              ? intl.formatMessage({
+                  defaultMessage: "Pinned to top of training opportunities",
+                  id: "Shp2Bo",
+                  description:
+                    "Message displayed indicating a training opportunity is pinned to the top of the list",
+                })
+              : intl.formatMessage({
+                  defaultMessage: "Not pinned to top of training opportunities",
+                  id: "nvPSBj",
+                  description:
+                    "Message displayed indicating a training opportunity is not pinned to the top of the list",
+                })}
+          </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage(formLabels.trainingStartDate)}
           >
