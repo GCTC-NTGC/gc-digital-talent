@@ -91,7 +91,14 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
       data-h2-grid-template-columns="p-tablet(1fr)"
       data-h2-gap="base(x1)"
     >
-      <FieldDisplay label={labels.consideredPositionLanguages}>
+      <FieldDisplay
+        label={intl.formatMessage({
+          defaultMessage:
+            "Language of positions they'd like to be considered for",
+          id: "DQKNn+",
+          description: "Label for considered languages field view",
+        })}
+      >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
           <NoList>
             <li>
