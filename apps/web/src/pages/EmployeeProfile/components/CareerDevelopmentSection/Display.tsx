@@ -7,7 +7,7 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { Well } from "@gc-digital-talent/ui";
+import { NoList, Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   formatDate,
@@ -18,10 +18,12 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { hasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
-
 import {
   displayExecCoachingStatus,
   displayMentorshipStatus,
+} from "~/components/CareerDevelopmentPreferences/utils";
+
+import {
   EmployeeProfileCareerDevelopment_Fragment,
   EmployeeProfileCareerDevelopmentOptions_Fragment,
 } from "./utils";
@@ -146,7 +148,7 @@ const Display = ({
             label={careerDevelopmentMessages.lateralMoveOrganizationType}
           >
             {lateralMoveOrganizationType ? (
-              <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+              <NoList>
                 {unpackMaybes(
                   careerDevelopmentOptions?.organizationTypeInterest,
                 ).map((x) => {
@@ -176,7 +178,7 @@ const Display = ({
                     </li>
                   );
                 })}
-              </ul>
+              </NoList>
             ) : (
               notProvided
             )}
@@ -219,7 +221,7 @@ const Display = ({
             label={careerDevelopmentMessages.promotionMoveOrganizationType}
           >
             {promotionMoveOrganizationType ? (
-              <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+              <NoList>
                 {unpackMaybes(
                   careerDevelopmentOptions?.organizationTypeInterest,
                 ).map((x) => {
@@ -249,7 +251,7 @@ const Display = ({
                     </li>
                   );
                 })}
-              </ul>
+              </NoList>
             ) : (
               notProvided
             )}
@@ -261,7 +263,7 @@ const Display = ({
         <ToggleForm.FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -292,7 +294,7 @@ const Display = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         </ToggleForm.FieldDisplay>
       </>
 
@@ -344,7 +346,7 @@ const Display = ({
         label={careerDevelopmentMessages.mentorshipInterest}
       >
         {mentorshipInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
               const iconValue = mentorshipInterests.includes(x.value);
               return (
@@ -357,7 +359,7 @@ const Display = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           notProvided
         )}
@@ -396,7 +398,7 @@ const Display = ({
         label={careerDevelopmentMessages.execCoachingInterest}
       >
         {execCoachingInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
               const iconValue = execCoachingInterests.includes(x.value);
               return (
@@ -409,7 +411,7 @@ const Display = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           notProvided
         )}

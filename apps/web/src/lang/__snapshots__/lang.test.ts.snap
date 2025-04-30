@@ -39,6 +39,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Citizenship status",
+    "fr": [
+      "Statut de citoyenneté",
+      "Statut de citoyen"
+    ]
+  },
+  {
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
@@ -71,6 +78,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     "fr": [
       "Soumettre",
       "Soumettez"
+    ]
+  },
+  {
+    "en": "Preferred contact language",
+    "fr": [
+      "Langue de contact préférée",
+      "Langue de correspondance préférée"
     ]
   },
   {

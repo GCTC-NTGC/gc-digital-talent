@@ -8,66 +8,72 @@ import {
   PreviewMetaData,
   Well,
 } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
-import {
-  getQualifiedRecruitmentStatusChip,
-  isQualifiedFinalDecision,
-} from "~/utils/poolCandidate";
-import { wrapAbbr } from "~/utils/nameUtils";
+import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
-import { RecruitmentDate } from "./MetadataDate";
-import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import OffPlatformProcessesDialog from "./OffPlatformProcessesDialog";
+import RecruitmentProcessDialog from "./RecruitmentProcessDialog";
 
-const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
-  fragment ReviewRecruitmentProcessPreviewList on PoolCandidate {
-    ...ReviewRecruitmentProcessDialog
-    id
-    finalDecisionAt
-    suspendedAt
-    placedAt
-    status {
-      value
-    }
-    finalDecision {
-      value
-    }
-    pool {
+const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
+  fragment RecruitmentProcessPreviewList on User {
+    poolCandidates {
+      ...RecruitmentProcessDialog
       id
-      name {
-        localized
+      expiryDate
+      finalDecisionAt
+      suspendedAt
+      placedAt
+      status {
+        value
       }
-      classification {
-        group
-        level
-        minSalary
-        maxSalary
+      finalDecision {
+        value
+      }
+      pool {
+        id
+        name {
+          localized
+        }
+        classification {
+          group
+          level
+          minSalary
+          maxSalary
+        }
+        community {
+          id
+        }
       }
     }
+    offPlatformRecruitmentProcesses
   }
 `);
 
-interface ReviewRecruitmentProcessPreviewListProps {
+interface RecruitmentProcessPreviewListProps {
   recruitmentProcessesQuery: FragmentType<
-    typeof ReviewRecruitmentProcessPreviewList_Fragment
-  >[];
-  userId: string;
-  offPlatformRecruitmentProcesses?: string | null;
+    typeof RecruitmentProcessPreviewList_Fragment
+  >;
+  communityId?: string;
 }
 
-const ReviewRecruitmentProcessPreviewList = ({
+const RecruitmentProcessPreviewList = ({
   recruitmentProcessesQuery,
-  userId,
-  offPlatformRecruitmentProcesses,
-}: ReviewRecruitmentProcessPreviewListProps) => {
+  communityId,
+}: RecruitmentProcessPreviewListProps) => {
   const intl = useIntl();
 
-  const recruitmentProcesses = getFragment(
-    ReviewRecruitmentProcessPreviewList_Fragment,
+  const recruitmentProcessesFragment = getFragment(
+    RecruitmentProcessPreviewList_Fragment,
     recruitmentProcessesQuery,
   );
 
+  const offPlatformRecruitmentProcesses =
+    recruitmentProcessesFragment.offPlatformRecruitmentProcesses;
+
+  const recruitmentProcesses = unpackMaybes(
+    recruitmentProcessesFragment.poolCandidates,
+  );
   const recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
         (recruitmentProcess) =>
@@ -76,45 +82,36 @@ const ReviewRecruitmentProcessPreviewList = ({
       )
     : []; // filter for qualified recruitment processes
 
+  // Add additional filtering for community if communityId exists
+  if (communityId) {
+    recruitmentProcessesFiltered.filter(
+      (recruitment) => recruitment.pool.community?.id === communityId,
+    );
+  }
+
   return (
     <>
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt } = recruitmentProcess;
-
-            const status = getQualifiedRecruitmentStatusChip(
-              recruitmentProcess.suspendedAt,
-              recruitmentProcess.placedAt,
-              recruitmentProcess.status?.value ?? null,
-              intl,
-            );
+            const { id, pool, expiryDate } = recruitmentProcess;
 
             const applicationMetadata: PreviewMetaData[] = [
               {
-                key: "status",
-                type: "chip",
-                color: status.color,
-                children: status.label,
-              },
-              {
-                key: "classification",
-                type: "text",
-                children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
-                  : intl.formatMessage(commonMessages.notFound),
-              },
-              {
-                key: "date",
+                key: "expiry-date",
                 type: "text",
                 children: (
-                  <RecruitmentDate
-                    finalDecisionAt={finalDecisionAt}
-                    status={status.value}
-                  />
+                  <span>
+                    {intl.formatMessage(commonMessages.expires)}
+                    {intl.formatMessage(commonMessages.dividingColon)}
+                    {expiryDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(expiryDate),
+                          formatString: "PPP",
+                          intl,
+                        })
+                      : intl.formatMessage(commonMessages.notFound)}
+                  </span>
                 ),
               },
             ];
@@ -140,7 +137,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 }
                 metaData={applicationMetadata}
                 action={
-                  <ReviewRecruitmentProcessDialog
+                  <RecruitmentProcessDialog
                     recruitmentProcessQuery={recruitmentProcess}
                   />
                 }
@@ -151,21 +148,13 @@ const ReviewRecruitmentProcessPreviewList = ({
         </PreviewList.Root>
       ) : (
         <Well data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.5)">
+          <p data-h2-font-weight="base(bold)">
             {intl.formatMessage({
               defaultMessage:
                 "You don't have any active recruitment processes at the moment.",
               id: "vVAqzB",
               description:
                 "Title for notice when there are no recruitment processes",
-            })}
-          </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: `Recruitment processes will appear in this section automatically if your application is successful.`,
-              id: "MGYlS0",
-              description:
-                "Body for notice when there are no Recruitment processes",
             })}
           </p>
         </Well>
@@ -179,7 +168,7 @@ const ReviewRecruitmentProcessPreviewList = ({
           level="h3"
           data-h2-font-size="base(body)"
           data-h2-font-weight="base(bold)"
-          data-h2-margin-bottom="base(x.125)"
+          data-h2-margin-top="base(0)"
         >
           {intl.formatMessage({
             defaultMessage: "Off-platform recruitment processes",
@@ -194,8 +183,8 @@ const ReviewRecruitmentProcessPreviewList = ({
         >
           {intl.formatMessage({
             defaultMessage:
-              "If you're qualified in processes or pools on other Government of Canada platforms, you can tell us here. This information will be verified.",
-            id: "AC/qwa",
+              "This information is provided by the nominee and has not been verified. Please confirm its validity before using it for hiring or placement purposes.",
+            id: "1GOD0g",
             description: "Off-platform section information",
           })}
         </p>
@@ -208,13 +197,9 @@ const ReviewRecruitmentProcessPreviewList = ({
               description: "Null state for off-platform section",
             })}
         </p>
-        <OffPlatformProcessesDialog
-          userId={userId}
-          offPlatformRecruitmentProcesses={offPlatformRecruitmentProcesses}
-        />
       </div>
     </>
   );
 };
 
-export default ReviewRecruitmentProcessPreviewList;
+export default RecruitmentProcessPreviewList;
