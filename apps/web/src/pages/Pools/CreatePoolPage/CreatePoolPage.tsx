@@ -79,7 +79,6 @@ interface CreatePoolFormProps {
   communitiesQuery: FragmentType<typeof CreatePoolCommunity_Fragment>[];
   handleCreatePool: (
     userId: string,
-    teamId: string,
     communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
@@ -126,7 +125,6 @@ export const CreatePoolForm = ({
     await handleCreatePool(
       userId,
       teamFromCommunity?.teamIdForRoleAssignment ?? "",
-      data.community,
       formValuesToSubmitData(data),
     )
       .then(async (result) => {
@@ -303,11 +301,10 @@ const CreatePoolPage = () => {
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
-    teamId: string,
     communityId: string,
     pool: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, communityId, pool }).then((result) => {
+    executeMutation({ userId, communityId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }

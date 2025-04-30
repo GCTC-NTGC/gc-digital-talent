@@ -357,10 +357,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const duplicatePool = async (
     id: string,
-    teamId: string,
     departmentId: string | undefined,
   ) => {
-    await executeDuplicateMutation({ id, teamId, pool: { departmentId } })
+    await executeDuplicateMutation({ id, pool: { departmentId } })
       .then(async (result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(

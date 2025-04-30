@@ -139,7 +139,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             },
             {
               team: pool?.community
-                ? pool.community.name.localized
+                ? pool.community?.name?.localized
                 : intl.formatMessage({
                     defaultMessage: "Digital Community Management Team",
                     id: "S82O61",
