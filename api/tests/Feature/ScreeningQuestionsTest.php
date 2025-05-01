@@ -101,11 +101,11 @@ class ScreeningQuestionsTest extends TestCase
             'key' => 'test-community']);
         Skill::factory()->count(3)->create();
         $this->pool = Pool::factory()->draft()->withPoolSkills(2, 2)->create([
-            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
+            'community_id' => $this->community->id,
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
         $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'team_id' => $this->community->getTeamIdForRoleAssignmentAttribute(),
+            'community_id' => $this->community->id,
         ]);
         $this->adminUser = User::factory()
             ->asApplicant()
