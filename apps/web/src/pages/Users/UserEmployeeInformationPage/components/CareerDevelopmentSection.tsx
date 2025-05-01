@@ -7,7 +7,7 @@ import {
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import { CardBasic, CardSeparator } from "@gc-digital-talent/ui";
+import { CardBasic, CardSeparator, NoList } from "@gc-digital-talent/ui";
 import {
   ExecCoaching,
   FragmentType,
@@ -23,8 +23,10 @@ import {
 
 import messages from "~/messages/careerDevelopmentMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-
-import { displayExecCoachingStatus, displayMentorshipStatus } from "./utils";
+import {
+  displayExecCoachingStatus,
+  displayMentorshipStatus,
+} from "~/components/CareerDevelopmentPreferences/utils";
 
 export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopment on EmployeeProfile {
@@ -246,7 +248,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.lateralMoveOrganizationType}
         </span>
         {employeeProfile.lateralMoveOrganizationType ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(
               careerDevelopmentOptions.organizationTypeInterest,
             ).map((x) => {
@@ -276,7 +278,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -303,7 +305,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.promotionMoveOrganizationType}
         </span>
         {employeeProfile.promotionMoveOrganizationType ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(
               careerDevelopmentOptions?.organizationTypeInterest,
             ).map((x) => {
@@ -333,7 +335,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -344,7 +346,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.learningOpportunitiesInterest}
         </span>
         {employeeProfile.learningOpportunitiesInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -377,7 +379,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -421,7 +423,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.mentorshipInterest}
         </span>
         {employeeProfile.mentorshipInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
               const iconValue = mentorshipInterests.includes(
                 x.value as Mentorship,
@@ -436,7 +438,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -463,7 +465,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.execCoachingInterest}
         </span>
         {employeeProfile.execCoachingInterest ? (
-          <ul data-h2-list-style="base(none)" data-h2-padding="base(0)">
+          <NoList>
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
               const iconValue = execCoachingInterests.includes(
                 x.value as ExecCoaching,
@@ -478,7 +480,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </ul>
+          </NoList>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}

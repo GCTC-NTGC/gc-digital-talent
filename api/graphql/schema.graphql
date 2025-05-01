@@ -757,6 +757,7 @@ type TalentNominationGroup {
     @rename(attribute: "development_programs_notes")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   status: LocalizedTalentNominationGroupStatus
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
 }
 
@@ -1223,6 +1224,7 @@ type TrainingOpportunity {
   description: LocalizedString
   applicationUrl: LocalizedString @rename(attribute: "application_url")
   courseFormat: LocalizedCourseFormat @rename(attribute: "course_format")
+  pinned: Boolean!
 }
 
 input TrainingOpportunitiesFilterInput {
@@ -2549,6 +2551,7 @@ input CreateTrainingOpportunityInput {
   description: LocalizedStringInput!
   applicationUrl: LocalizedStringInput! @rename(attribute: "application_url")
   courseFormat: CourseFormat! @rename(attribute: "course_format")
+  pinned: Boolean!
 }
 
 input UpdateTrainingOpportunityInput {
@@ -2561,6 +2564,7 @@ input UpdateTrainingOpportunityInput {
   description: LocalizedStringInput
   applicationUrl: LocalizedStringInput @rename(attribute: "application_url")
   courseFormat: CourseFormat @rename(attribute: "course_format")
+  pinned: Boolean
 }
 
 input PoolSkillBelongsToMany {

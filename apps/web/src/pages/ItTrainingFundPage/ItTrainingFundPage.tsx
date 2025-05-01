@@ -326,14 +326,6 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <p data-h2-font-weight="base(bold)">
-                        {intl.formatMessage({
-                          defaultMessage: "Available now",
-                          id: "L6MPML",
-                          description:
-                            "Statement that something is available now",
-                        })}
-                      </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
                         data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
@@ -434,14 +426,6 @@ export const Component = () => {
                         data-h2-flex-direction="base(column)"
                         data-h2-gap="base(x1)"
                       >
-                        <p data-h2-font-weight="base(bold)">
-                          {intl.formatMessage({
-                            defaultMessage: "Available now",
-                            id: "L6MPML",
-                            description:
-                              "Statement that something is available now",
-                          })}
-                        </p>
                         <ul
                           data-h2-padding="base(0 0 0 x0.75)"
                           data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
@@ -467,8 +451,8 @@ export const Component = () => {
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
-                                "<strong>How to apply</strong>: Spaces will be limited. You'll need to apply and meet the prerequisites to participate. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
-                              id: "nhfKqB",
+                                "<strong>How to apply</strong>: Spaces are limited. You need to apply and meet the prerequisites to participate.",
+                              id: "BlFUsz",
                               description:
                                 "An item in a list of points about instructor-led classes",
                             })}
@@ -555,14 +539,6 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <p data-h2-font-weight="base(bold)">
-                        {intl.formatMessage({
-                          defaultMessage: "Available now",
-                          id: "L6MPML",
-                          description:
-                            "Statement that something is available now",
-                        })}
-                      </p>
                       <ul
                         data-h2-padding="base(0 0 0 x0.75)"
                         data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
@@ -588,8 +564,8 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
-                              "<strong>How to apply</strong>: Access will be limited. You'll need to apply and meet the prerequisites. Information will be posted on GC Digital Talent as opportunities become available in winter 2024-25.",
-                            id: "zdGy4D",
+                              "<strong>How to apply</strong>: Access is limited. You need to request a voucher and meet the prerequisites.",
+                            id: "vmVdJt",
                             description:
                               "An item in a list of points about cert exams",
                           })}

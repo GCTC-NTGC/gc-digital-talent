@@ -100,11 +100,16 @@ export const getLabels = (intl: IntlShape) => ({
     description:
       "Legend for considered position languages check list in language information form",
   }),
-  firstOfficialLanguage: intl.formatMessage({
+  yourFirstOfficialLang: intl.formatMessage({
     defaultMessage: "Your first official language",
     id: "CwGljY",
     description:
       "Legend first official language status in language information form",
+  }),
+  firstOfficialLang: intl.formatMessage({
+    defaultMessage: "First official language",
+    id: "Fj98cE",
+    description: "Label for first official language on field display",
   }),
   comprehensionLevel: intl.formatMessage({
     defaultMessage: "Comprehension level",
@@ -146,6 +151,16 @@ export const getLabels = (intl: IntlShape) => ({
     defaultMessage: "Exam validity",
     id: "/tRBrf",
     description: "Label for exam validity in language information form",
+  }),
+  prefSpokenInterviewLang: intl.formatMessage({
+    defaultMessage: "Preferred spoken interview language",
+    id: "DB9pFd",
+    description: "Title for preferred spoken interview language",
+  }),
+  prefWrittenExamLang: intl.formatMessage({
+    defaultMessage: "Preferred written exam language",
+    id: "fg2wla",
+    description: "Title for preferred written exam language",
   }),
 });
 

@@ -36,6 +36,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useReturnPath from "~/hooks/useReturnPath";
+import { getLabels } from "~/components/Profile/components/LanguageProfile/utils";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import DeleteUserSection from "./components/DeleteUserSection";
@@ -105,6 +106,7 @@ export const UpdateUserForm = ({
   handleUpdateUser,
 }: UpdateUserFormProps) => {
   const intl = useIntl();
+  const labels = getLabels(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const formOptions = getFragment(UpdateUserOptions_Fragment, formOptionsQuery);
@@ -248,11 +250,7 @@ export const UpdateUserForm = ({
           />
           <Select
             id="preferredLanguageForInterview"
-            label={intl.formatMessage({
-              defaultMessage: "Preferred spoken interview language",
-              id: "DB9pFd",
-              description: "Title for preferred spoken interview language",
-            })}
+            label={labels.prefSpokenInterviewLang}
             name="preferredLanguageForInterview"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a language",
@@ -267,11 +265,7 @@ export const UpdateUserForm = ({
           />
           <Select
             id="preferredLanguageForExam"
-            label={intl.formatMessage({
-              defaultMessage: "Preferred written exam language",
-              id: "fg2wla",
-              description: "Title for preferred written exam language",
-            })}
+            label={labels.prefWrittenExamLang}
             name="preferredLanguageForExam"
             nullSelection={intl.formatMessage({
               defaultMessage: "Select a language",

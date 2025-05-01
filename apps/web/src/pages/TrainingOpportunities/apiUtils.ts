@@ -38,6 +38,7 @@ export const TrainingOpportunityForm_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    pinned
   }
 `);
 
@@ -53,6 +54,7 @@ export interface FormValues {
   descriptionFr: string;
   applicationUrlEn: string;
   applicationUrlFr: string;
+  pinned: boolean;
 }
 
 export function convertApiFragmentToFormValues(
@@ -70,6 +72,7 @@ export function convertApiFragmentToFormValues(
     descriptionFr: apiData.description?.fr ?? "",
     applicationUrlEn: apiData.applicationUrl?.en ?? "",
     applicationUrlFr: apiData.applicationUrl?.fr ?? "",
+    pinned: apiData.pinned ?? false,
   };
 }
 
@@ -94,6 +97,7 @@ export function convertFormValuesToCreateInput(
       en: formValues.applicationUrlEn,
       fr: formValues.applicationUrlFr,
     },
+    pinned: formValues.pinned,
   };
 }
 

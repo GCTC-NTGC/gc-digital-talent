@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $description
  * @property array $application_url
  * @property string $course_format
+ * @property bool $pinned
  */
 class TrainingOpportunity extends Model
 {
@@ -41,6 +42,7 @@ class TrainingOpportunity extends Model
         'training_end' => 'date',
         'description' => LocalizedString::class,
         'application_url' => LocalizedString::class,
+        'pinned' => 'boolean',
     ];
 
     /**

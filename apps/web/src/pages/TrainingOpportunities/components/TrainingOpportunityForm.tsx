@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
 import {
+  Checkbox,
   DATE_SEGMENT,
   DateInput,
   Input,
@@ -51,6 +52,7 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       data-h2-gap="base(x1)"
+      data-h2-align-items="base(flex-end)"
     >
       <Input
         id="titleEn"
@@ -108,9 +110,17 @@ const TrainingOpportunityForm = ({ query }: TrainingOpportunityFormProps) => {
           required: intl.formatMessage(errorMessages.required),
         }}
       />
-      <div data-h2-display="base(none) p-tablet(inherit)">
-        {/* intentionally left blank */}
-      </div>
+      <Checkbox
+        name="pinned"
+        id="pinned"
+        boundingBox
+        boundingBoxLabel={intl.formatMessage(formLabels.pinned)}
+        label={intl.formatMessage({
+          defaultMessage: "Pin to top of training opportunities",
+          id: "yKDTtM",
+          description: "Label to pin an opportunity to the top of the list",
+        })}
+      />
       <DateInput
         id="trainingStartDate"
         legend={intl.formatMessage(formLabels.trainingStartDate)}
