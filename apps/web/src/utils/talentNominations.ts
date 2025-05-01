@@ -7,7 +7,7 @@ import {
   Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "./nameUtils";
@@ -39,7 +39,7 @@ export function getSortedNominatorNames(
       };
     })
     .filter((nominator) => !!nominator.name)
-    .sort((a, b) => (a?.name ?? "").localeCompare(b?.name ?? ""));
+    .sort(sortAlphaBy((nominator) => nominator.name));
 }
 
 /**

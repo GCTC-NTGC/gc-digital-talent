@@ -30,6 +30,7 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 export const SkillView_Fragment = graphql(/* GraphQL */ `
   fragment SkillForm on Skill {
@@ -81,11 +82,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
       };
     });
   const skillFamilyObjectsLocalizedSorted = skillFamilyObjectsLocalized.sort(
-    (a, b) => {
-      const aName = a.name;
-      const bName = b.name;
-      return aName.localeCompare(bName);
-    },
+    sortAlphaBy((skillFamily) => skillFamily.name),
   );
 
   return (

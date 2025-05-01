@@ -9,6 +9,7 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerObjective";
 
 import messages from "../../messages";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 // bespoke rendering of community field
 const handleCareerObjectiveCommunity = (
@@ -49,16 +50,11 @@ const Display = ({
     commonMessages.missingOptionalInformation,
   );
 
-  careerObjectiveWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  careerObjectiveDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   const isCommunityOther =

@@ -9,6 +9,7 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/nextRole";
 
 import messages from "../../messages";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 // bespoke rendering of community field
 const handleNextRoleCommunity = (
@@ -49,16 +50,11 @@ const Display = ({
     commonMessages.missingOptionalInformation,
   );
 
-  nextRoleWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  nextRoleWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  nextRoleDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  nextRoleDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   const isCommunityOther = !nextRoleCommunity?.id && !!nextRoleCommunityOther;
