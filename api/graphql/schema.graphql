@@ -2707,6 +2707,7 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @throttle(maxAttempts: 100)
+    @deprecated(reason: "No role with permission to create a user")
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
