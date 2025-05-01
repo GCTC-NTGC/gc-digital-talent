@@ -55,47 +55,27 @@ const FullCareerExperiences = ({
   const experienceSections = [
     {
       id: "WorkExperience",
-      title: intl.formatMessage({
-        defaultMessage: "Work experience",
-        id: "ayIdMa",
-        description: "Heading for work experiences",
-      }),
+      title: intl.formatMessage(experienceMessages.work),
       experiences: workExperiences,
     },
     {
       id: "AwardExperience",
-      title: intl.formatMessage({
-        defaultMessage: "Awards and recognition",
-        id: "5KEERD",
-        description: "Heading for awards",
-      }),
+      title: intl.formatMessage(experienceMessages.award),
       experiences: awardExperiences,
     },
     {
       id: "CommunityExperience",
-      title: intl.formatMessage({
-        defaultMessage: "Community participation",
-        id: "g4quJR",
-        description: "Heading for community experiences",
-      }),
+      title: intl.formatMessage(experienceMessages.community),
       experiences: communityExperiences,
     },
     {
       id: "EducationExperience",
-      title: intl.formatMessage({
-        defaultMessage: "Education and certificates",
-        id: "tBudth",
-        description: "Heading for education experiences",
-      }),
+      title: intl.formatMessage(experienceMessages.education),
       experiences: educationExperiences,
     },
     {
       id: "PersonalExperience",
-      title: intl.formatMessage({
-        defaultMessage: "Personal learning",
-        id: "xqW2sR",
-        description: "Heading for personal experiences",
-      }),
+      title: intl.formatMessage(experienceMessages.personal),
       experiences: personalExperiences,
     },
   ];
