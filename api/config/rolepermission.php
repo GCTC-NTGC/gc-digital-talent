@@ -1078,7 +1078,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['view', 'delete'],
+                'any' => ['create', 'view', 'update', 'delete'], // create needs to remain for playwright tests.
             ],
             'userSub' => [
                 'any' => ['update'],
