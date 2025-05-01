@@ -100,7 +100,6 @@ class PoolCandidatePolicyTest extends TestCase
         $noTeamUser = User::factory()->create();
         $noUsersTeam = Team::factory()->create();
         $noTeamPool = Pool::factory([
-            'team_id' => $noUsersTeam->id,
             'community_id' => $this->otherCommunity->id,
         ])->create();
 
