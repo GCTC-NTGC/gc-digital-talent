@@ -1095,6 +1095,9 @@ return [
             'assessmentPlan' => [
                 'any' => ['view'],
             ],
+            'application' => [
+                'any' => ['create'],
+            ],
             'submittedApplication' => [
                 'any' => ['view'],
             ],
