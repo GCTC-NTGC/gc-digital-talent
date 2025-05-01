@@ -50,6 +50,15 @@ class PoolFactory extends Factory
             $adminUserId = User::factory()->asAdmin()->create()->id;
         }
 
+        $teamId = Team::inRandomOrder()
+            ->whereNull('teamable_id')
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        if (is_null($teamId)) {
+            $teamId = Team::factory()->create()->id;
+        }
+
         $classification = Classification::inRandomOrder()->first();
         if (! $classification) {
             $classification = Classification::factory()->create();
@@ -77,6 +86,7 @@ class PoolFactory extends Factory
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
+            'team_id' => $teamId,
             'classification_id' => $classification->id,
             'department_id' => $departmentId,
             'community_id' => $communityId,

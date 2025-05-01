@@ -76,6 +76,7 @@ class PoolPolicyTest extends TestCase
 
         $this->teamPool = Pool::factory()->create([
             'user_id' => $this->adminUser->id,
+            'team_id' => $this->team->id,
             'community_id' => $this->community->id,
         ]);
 
@@ -109,6 +110,7 @@ class PoolPolicyTest extends TestCase
         $this->otherTeam = Team::factory()->create();
 
         $this->unOwnedPool = Pool::factory([
+            'team_id' => $this->otherTeam->id,
             'community_id' => $this->otherCommunity->id,
         ])->create();
     }
@@ -242,6 +244,7 @@ class PoolPolicyTest extends TestCase
     public function testCreate()
     {
         $createPoolInput = [
+            'team_id' => $this->team->id,
             'community_id' => $this->community->id,
         ];
 
@@ -256,6 +259,7 @@ class PoolPolicyTest extends TestCase
 
         // community roles cannot create pools for other communities
         $createOtherPoolInput = [
+            'team_id' => $this->otherTeam->id,
             'community_id' => $this->otherCommunity->id,
         ];
         $this->assertFalse($this->communityRecruiterUser->can('create', [Pool::class, $createOtherPoolInput]));
