@@ -1,6 +1,10 @@
 type Order = "asc" | "desc";
 
-function compareStrings(a: string, b: string, order: Order): number {
+function compareStrings(
+  a: string | undefined | null,
+  b: string | undefined | null,
+  order: Order,
+): number {
   let aValue = a;
   let bValue = b;
   if (order === "desc") {
@@ -8,11 +12,13 @@ function compareStrings(a: string, b: string, order: Order): number {
     bValue = a;
   }
 
+  if (!aValue || !bValue) return 0;
+
   return aValue.localeCompare(bValue);
 }
 
 export function sortAlphaBy<T extends object>(
-  accessor: (value: T) => string,
+  accessor: (value: T) => string | undefined | null,
   order: Order = "asc",
 ): (a: T, b: T) => number {
   return (a, b) => compareStrings(accessor(a), accessor(b), order);
