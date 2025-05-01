@@ -76,10 +76,9 @@ class PoolPolicy
     public function create(User $user, $request)
     {
 
-        $teamId = isset($request['team_id']) ? $request['team_id'] : null;
         $communityId = isset($request['community_id']) ? $request['community_id'] : null;
 
-        if (is_null($teamId) || is_null($communityId)) {
+        if (is_null($communityId)) {
             return false;
         }
 
@@ -87,12 +86,7 @@ class PoolPolicy
             return true; // return early, permission does not exist at the moment
         }
 
-        $team = Team::findOrFail($teamId);
         $community = Community::with('team')->findOrFail($communityId);
-
-        if ($user->isAbleTo('create-team-draftPool', $team)) {
-            return true;
-        }
 
         if (! is_null($community->team) && $user->isAbleTo('create-team-draftPool', $community->team)) {
             // user is a community recruiter or community admin
