@@ -32,7 +32,7 @@ class PoolPolicy
     public function view(?User $user, Pool $pool)
     {
         // Anyone (even unauthenticated) can see published pools.
-        if ($pool->getStatusAttribute() !== PoolStatus::DRAFT->name) {
+        if ($pool->status !== PoolStatus::DRAFT->name) {
             return true;
         }
 
@@ -133,7 +133,7 @@ class PoolPolicy
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
 
-        return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
+        return $pool->statuss::DRAFT->name
             && ($teamPermission || $communityPermission);
     }
 
@@ -144,7 +144,7 @@ class PoolPolicy
      */
     public function updatePublished(User $user, Pool $pool)
     {
-        if (! ($pool->getStatusAttribute() === PoolStatus::PUBLISHED->name)) {
+        if (! ($pool->statuss::PUBLISHED->name)) {
             return false;
         }
 
@@ -221,7 +221,7 @@ class PoolPolicy
      */
     public function deleteDraft(User $user, Pool $pool)
     {
-        if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
+        if ($pool->statuss::DRAFT->name) {
             $pool->loadMissing(['team', 'community.team']);
             $teamPermission = ! is_null($pool->team) && $user->isAbleTo('delete-team-draftPool', $pool->team);
             $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('delete-team-draftPool', $pool->community->team);

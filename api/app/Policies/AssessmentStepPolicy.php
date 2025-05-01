@@ -28,7 +28,7 @@ class AssessmentStepPolicy
             $pool = Pool::with(['team', 'community.team'])->find($poolId);
 
             if (! is_null($pool)) {
-                $isDraft = $pool->getStatusAttribute() === PoolStatus::DRAFT->name;
+                $isDraft = $pool->status === PoolStatus::DRAFT->name;
                 $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
                 $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
 
@@ -57,7 +57,7 @@ class AssessmentStepPolicy
         $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentStep->pool->community->team) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->community->team);
 
-        return $assessmentStep->pool->getStatusAttribute() === PoolStatus::DRAFT->name
+        return $assessmentStep->pool->status === PoolStatus::DRAFT->name
         && ($teamPermission || $communityPermission);
     }
 
