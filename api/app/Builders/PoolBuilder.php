@@ -110,8 +110,6 @@ class PoolBuilder extends Builder
         return $this->where(function ($query) use ($term) {
             $query->name($term)
                 ->orWhere(function ($query) use ($term) {
-                    $query->team($term);
-                })->orWhere(function ($query) use ($term) {
                     $query->processNumber($term);
                 });
         });
