@@ -167,6 +167,7 @@ const FullCareerExperiences = ({
                 description: "Button to filter experiences by type",
               })}
             </Button>
+            {/* To be implemented later
             <Button
               type="button"
               mode="inline"
@@ -182,7 +183,7 @@ const FullCareerExperiences = ({
                 id: "27YVit",
                 description: "Button to filter experiences by work stream",
               })}
-            </Button>
+            </Button> */}
           </div>
         )}
         {!shareProfile && (

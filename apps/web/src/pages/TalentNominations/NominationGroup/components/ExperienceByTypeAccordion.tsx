@@ -46,14 +46,8 @@ const ExperienceByTypeAccordion = ({
               onClick={() => toggleExpandedItem(id)}
               aria-expanded={isExpanded(id)}
             >
-              {intl.formatMessage(
-                {
-                  defaultMessage: "{title} ({count})",
-                  id: "Rb4Khk",
-                  description: "Title with the count of experiences",
-                },
-                { title, count: sectionExperiences.length },
-              )}
+              {/* eslint-disable-next-line */}
+              {title} ({sectionExperiences.length})
             </Accordion.Trigger>
             <Accordion.Content>
               <CardBasic
