@@ -25,7 +25,7 @@ return new class extends Migration
     {
         Schema::table('pools', function (Blueprint $table) {
             $table->foreignUuid('team_id')
-            ->constrained();
+                ->constrained();
         });
     }
 };

@@ -20,7 +20,6 @@ use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Builder;
