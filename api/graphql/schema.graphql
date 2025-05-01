@@ -1972,22 +1972,6 @@ input CommunityBelongsTo {
   disconnect: Boolean
 }
 
-input CreateTeamInput {
-  name: String!
-    @rules(
-      apply: ["unique:teams,name"]
-      messages: [{ rule: "unique", message: "TeamNameInUse" }]
-    )
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-}
-
-input UpdateTeamInput {
-  name: String
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-}
-
 input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
@@ -3076,19 +3060,6 @@ type Mutation {
     id: UUID!
     workStream: UpdateWorkStreamInput! @spread
   ): WorkStream @update @guard @canFind(ability: "update", find: "id")
-
-  # Teams mutations
-  createTeam(team: CreateTeamInput! @spread): Team
-    @create
-    @canModel(ability: "create")
-  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
-    @update
-    @canModel(ability: "update")
-    @validator
-  deleteTeam(id: UUID! @whereKey): Team
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community

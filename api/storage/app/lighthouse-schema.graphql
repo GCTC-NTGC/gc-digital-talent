@@ -559,9 +559,6 @@ type Mutation {
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
   updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
-  createTeam(team: CreateTeamInput!): Team
-  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
-  deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
@@ -1974,18 +1971,6 @@ input PoolBelongsToMany {
 input CommunityBelongsTo {
   connect: UUID
   disconnect: Boolean
-}
-
-input CreateTeamInput {
-  name: String!
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-}
-
-input UpdateTeamInput {
-  name: String
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
 }
 
 input CreateCommunityInput {
