@@ -20,6 +20,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -30,7 +31,6 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
-import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 export const SkillView_Fragment = graphql(/* GraphQL */ `
   fragment SkillForm on Skill {

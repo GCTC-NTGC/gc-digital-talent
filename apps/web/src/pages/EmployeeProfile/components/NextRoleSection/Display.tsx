@@ -3,13 +3,13 @@ import { IntlShape, useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileNextRoleFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator, Well } from "@gc-digital-talent/ui";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import { hasAnyEmptyFields } from "~/validators/employeeProfile/nextRole";
 
 import messages from "../../messages";
-import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 // bespoke rendering of community field
 const handleNextRoleCommunity = (
