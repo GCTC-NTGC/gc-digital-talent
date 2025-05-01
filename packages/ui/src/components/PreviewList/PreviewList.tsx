@@ -45,7 +45,7 @@ const actionProps = {
 
 interface ButtonProps extends BaseButtonProps {
   onClick?: BaseButtonProps["onClick"];
-  label: string;
+  label: React.ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

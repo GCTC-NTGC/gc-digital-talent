@@ -156,7 +156,7 @@ const ConsideredLanguages = ({
     <>
       <RadioGroup
         idPrefix="firstOfficialLanguage"
-        legend={labels.firstOfficialLanguage}
+        legend={labels.yourFirstOfficialLang}
         name="firstOfficialLanguage"
         id="firstOfficialLanguage"
         rules={{

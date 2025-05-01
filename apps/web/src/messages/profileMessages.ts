@@ -62,6 +62,11 @@ const messages = defineMessages({
     id: "v9A5Cb",
     description: "Legend for users current location",
   },
+  workLocationPreferences: {
+    defaultMessage: "Work location preferences",
+    id: "ahK7mI",
+    description: "Legend for the work location preferences section",
+  },
 });
 
 export default messages;

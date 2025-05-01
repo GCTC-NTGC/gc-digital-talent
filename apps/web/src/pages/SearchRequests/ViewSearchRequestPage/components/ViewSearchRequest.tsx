@@ -82,11 +82,7 @@ const ManagerInfo = ({
                 data-h2-height="base(100%)"
               >
                 <FilterBlock
-                  title={intl.formatMessage({
-                    defaultMessage: "Full name",
-                    id: "IBc2sp",
-                    description: "Label for full name",
-                  })}
+                  title={intl.formatMessage(commonMessages.fullName)}
                   content={fullName}
                 />
                 <FilterBlock

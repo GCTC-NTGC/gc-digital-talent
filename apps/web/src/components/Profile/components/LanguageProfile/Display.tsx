@@ -197,7 +197,7 @@ const Display = ({
           {lookingForBilingual && (
             <>
               <FieldDisplay
-                label={labels.firstOfficialLanguage}
+                label={labels.yourFirstOfficialLang}
                 context={context}
               >
                 {firstOfficialLanguage?.label
