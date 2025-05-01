@@ -47,7 +47,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $closing_reason
  * @property ?string $change_justification
  * @property ?string $status
- * @property string $team_id
  * @property string $department_id
  * @property string $community_id
  * @property string $work_stream_id
@@ -118,7 +117,6 @@ class Pool extends Model
         'publishing_group',
         'published_at',
         'archived_at',
-        'team_id',
         'closing_date',
         'is_remote',
         'key_tasks',
