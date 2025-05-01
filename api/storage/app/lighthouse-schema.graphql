@@ -381,8 +381,6 @@ type Query {
   skills(families: [String!]): [Skill]!
   community(id: UUID!): Community
   communities: [Community]!
-  team(id: UUID!): Team
-  teams: [Team]!
   roles: [Role]!
   workStream(id: UUID!): WorkStream
   workStreams: [WorkStream]!
