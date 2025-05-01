@@ -139,8 +139,8 @@ importers:
         specifier: ^7.5.2
         version: 7.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-to-print:
-        specifier: ^3.0.6
-        version: 3.0.6(react@18.3.1)
+        specifier: ^3.1.0
+        version: 3.1.0(react@18.3.1)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.10.0))(react@18.3.1)
@@ -6956,8 +6956,8 @@ packages:
       '@types/react':
         optional: true
 
-  react-to-print@3.0.6:
-    resolution: {integrity: sha512-K/jFxkUifbfVnu1XyinM6AB6zAq0VMw0lH/6WJpkdlChoqqvEOE/BGOxYN2xOmu8f72isTTU5DNatK/j0Lfc+Q==}
+  react-to-print@3.1.0:
+    resolution: {integrity: sha512-hiJZVmJtaRm9EHoUTG2bordyeRxVSGy9oFVV7fSvzOWwctPp6jbz2R6NFkaokaTYBxC7wTM/fMV5eCXsNpEwsA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
 
@@ -14650,7 +14650,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.13
 
-  react-to-print@3.0.6(react@18.3.1):
+  react-to-print@3.1.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
