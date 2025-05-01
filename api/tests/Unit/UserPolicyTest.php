@@ -192,7 +192,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->guest->can('update', $this->applicant));
         $this->assertTrue($this->applicant->can('update', $this->applicant));
         $this->assertFalse($this->otherApplicant->can('update', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('update', $this->applicant));
+        $this->assertFalse($this->platformAdmin->can('update', $this->applicant));
 
         $this->assertFalse($this->processOperator->can('update', $this->applicant));
         $this->assertFalse($this->communityRecruiter->can('update', $this->applicant));
