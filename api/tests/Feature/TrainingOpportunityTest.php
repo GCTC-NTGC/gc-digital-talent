@@ -291,6 +291,7 @@ class TrainingOpportunityTest extends TestCase
                     'trainingStart' => config('constants.far_future_date'),
                     'courseLanguage' => CourseLanguage::ENGLISH->name,
                     'courseFormat' => CourseFormat::VIRTUAL->name,
+                    'pinned' => false,
                 ],
             ]
         )->assertJsonFragment(

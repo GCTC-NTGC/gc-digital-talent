@@ -2,7 +2,12 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Well } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  PreviewList,
+  PreviewMetaData,
+  Well,
+} from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import {
@@ -170,13 +175,18 @@ const ReviewRecruitmentProcessPreviewList = ({
         data-h2-padding-top="base(x1)"
         data-h2-border-top="base:all(1px solid gray.light)"
       >
-        <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.125)">
+        <Heading
+          level="h3"
+          data-h2-font-size="base(body)"
+          data-h2-font-weight="base(bold)"
+          data-h2-margin-bottom="base(x.125)"
+        >
           {intl.formatMessage({
             defaultMessage: "Off-platform recruitment processes",
             id: "tpXtAJ",
             description: "Off-platform section header",
           })}
-        </p>
+        </Heading>
         <p
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"
