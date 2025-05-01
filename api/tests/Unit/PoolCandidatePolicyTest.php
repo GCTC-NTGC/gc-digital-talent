@@ -229,7 +229,7 @@ class PoolCandidatePolicyTest extends TestCase
      */
     public function testCreate()
     {
-        $this->assertTrue($this->adminUser->can('create', PoolCandidate::class));
+        $this->assertFalse($this->adminUser->can('create', PoolCandidate::class));
 
         $this->assertFalse($this->guestUser->can('create', PoolCandidate::class));
         $this->assertFalse($this->candidateUser->can('create', PoolCandidate::class));
