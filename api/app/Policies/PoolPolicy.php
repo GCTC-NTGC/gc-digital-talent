@@ -127,7 +127,7 @@ class PoolPolicy
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
 
-        return $pool->statuss::DRAFT->name
+        return $pool->status === PoolStatus::DRAFT->name
             && ($teamPermission || $communityPermission);
     }
 
@@ -138,7 +138,7 @@ class PoolPolicy
      */
     public function updatePublished(User $user, Pool $pool)
     {
-        if (! ($pool->statuss::PUBLISHED->name)) {
+        if (! ( $pool->status === PoolStatus::PUBLISHED->name)) {
             return false;
         }
 
@@ -215,7 +215,7 @@ class PoolPolicy
      */
     public function deleteDraft(User $user, Pool $pool)
     {
-        if ($pool->statuss::DRAFT->name) {
+        if ($pool->status === PoolStatus::DRAFT->name) {
             $pool->loadMissing(['team', 'community.team']);
             $teamPermission = ! is_null($pool->team) && $user->isAbleTo('delete-team-draftPool', $pool->team);
             $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('delete-team-draftPool', $pool->community->team);
