@@ -138,7 +138,7 @@ class PoolPolicy
      */
     public function updatePublished(User $user, Pool $pool)
     {
-        if (! ( $pool->status === PoolStatus::PUBLISHED->name)) {
+        if (! ($pool->status === PoolStatus::PUBLISHED->name)) {
             return false;
         }
 
