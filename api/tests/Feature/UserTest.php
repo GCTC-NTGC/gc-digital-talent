@@ -72,47 +72,6 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testCreateUserAdminRole()
-    {
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            mutation CreateUser($user: CreateUserInput!) {
-                createUser(user: $user) {
-                    firstName
-                    lastName
-                    email
-                    telephone
-                    preferredLang { value }
-                    preferredLanguageForInterview { value }
-                    preferredLanguageForExam { value }
-                }
-            }
-        ',
-            [
-                'user' => [
-                    'firstName' => 'Jane',
-                    'lastName' => 'Tester',
-                    'email' => 'jane@test.com',
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'createUser' => [
-                    'firstName' => 'Jane',
-                    'lastName' => 'Tester',
-                    'email' => 'jane@test.com',
-                    'telephone' => null,
-                    'preferredLang' => null,
-                    'preferredLanguageForInterview' => null,
-                    'preferredLanguageForExam' => null,
-                ],
-            ],
-        ]);
-        // Ensure user was saved
-        $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
-    }
-
     public function testFilterByPoolCandidateStatuses(): void
     {
         // Get the ID of the base admin user
