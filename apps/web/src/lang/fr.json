@@ -11538,6 +11538,10 @@
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
     "description": "Breadcrumb title for the create community page link."
   },
+  "r4sAvp": {
+    "defaultMessage": "Veuillez utiliser uniquement des lettres et des caractères de soulignement.",
+    "description": "Description for rule pattern on key field"
+  },
   "r5n5qA": {
     "defaultMessage": "Volets de travail",
     "description": "Label for work streams"
