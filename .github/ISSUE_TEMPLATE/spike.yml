@@ -16,13 +16,6 @@ body:
     validations:
       required: true
   - type: textarea
-    id: details
-    attributes:
-      label: 🕵️ Details
-      description: More details, background context, or ideas for how to approach this.
-    validations:
-      required: true
-  - type: textarea
     id: questions-to-answer
     attributes:
       label: ❓ Questions to answer
@@ -34,5 +27,3 @@ body:
     attributes:
       label: 🕙 Timebox
       description: How many days are we expected to spend on this?
-    validations:
-      required: true

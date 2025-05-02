@@ -45,7 +45,7 @@ import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
-import skillMatchDialogAccessor from "./SkillMatchDialog";
+import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
 import {
