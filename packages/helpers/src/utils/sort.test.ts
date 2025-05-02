@@ -1,14 +1,17 @@
 import { sortAlphaBy } from "./sort";
+
 const HHH = {
   name: {
     localized: "HHH",
   },
 };
+
 const ZZZ = {
   name: {
     localized: "ZZZ",
   },
 };
+
 const AAA = {
   name: {
     localized: "AAA",
@@ -26,7 +29,7 @@ describe("Sort array of objects alphabetically", () => {
 
   it("sorts descending", () => {
     const newValues = [HHH, ZZZ, AAA].sort(
-      sortAlphaBy((x) => x.name.localized, "asc"),
+      sortAlphaBy((x) => x.name.localized, "desc"),
     );
 
     expect(newValues).toEqual([ZZZ, HHH, AAA]);
