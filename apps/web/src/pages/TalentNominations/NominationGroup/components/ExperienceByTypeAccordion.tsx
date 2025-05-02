@@ -1,5 +1,3 @@
-import { useIntl } from "react-intl";
-
 import { Accordion, CardBasic } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience } from "@gc-digital-talent/graphql";
@@ -25,8 +23,6 @@ const ExperienceByTypeAccordion = ({
   toggleExpandedItem,
   isExpanded,
 }: ExperienceByTypeAccordionProps) => {
-  const intl = useIntl();
-
   return (
     <Accordion.Root
       type="multiple"
