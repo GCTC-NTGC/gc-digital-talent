@@ -82,16 +82,16 @@ class UserFactory extends Factory
             'email' => $this->faker->firstName().'_'.$this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
-            'preferred_lang' => $this->faker->randomElement(Language::cases())->value,
-            'preferred_language_for_interview' => $this->faker->randomElement(Language::cases())->value,
-            'preferred_language_for_exam' => $this->faker->randomElement(Language::cases())->value,
+            'preferred_lang' => $this->faker->randomElement(Language::cases())->name,
+            'preferred_language_for_interview' => $this->faker->randomElement(Language::cases())->name,
+            'preferred_language_for_exam' => $this->faker->randomElement(Language::cases())->name,
             'current_province' => $this->faker->randomElement(ProvinceOrTerritory::cases())->name,
             'current_city' => $this->faker->city(),
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
             'first_official_language' => $lookingBilingual ?
-                $this->faker->randomElement(Language::cases())->value
+                $this->faker->randomElement(Language::cases())->name
                 : null,
             'estimated_language_ability' => $lookingBilingual ?
                 $this->faker->randomElement(EstimatedLanguageAbility::cases())->name

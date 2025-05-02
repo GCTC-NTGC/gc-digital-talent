@@ -44,7 +44,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
     {
         if ($notifiable instanceof User) {
             $locale = $this->locale ?? $notifiable->preferredLocale();
-            if ($locale == Language::EN->value) {
+            if ($locale == strtolower(Language::EN->name)) {
                 $templateId = config('notify.templates.verify_email_en');
             } else {
                 $templateId = config('notify.templates.verify_email_fr');

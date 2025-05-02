@@ -75,7 +75,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
             fn () => $this->closingDate->translatedFormat($locale === 'en' ? 'F j, Y' : 'j F Y')
         );
 
-        if ($locale == Language::EN->value) {
+        if ($locale == strtolower(Language::EN->name)) {
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.application_deadline_approaching_en'),

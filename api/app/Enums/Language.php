@@ -4,12 +4,12 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum Language: string
+enum Language
 {
     use HasLocalization;
 
-    case EN = 'en';
-    case FR = 'fr';
+    case EN;
+    case FR;
 
     public static function getLangFilename(): string
     {

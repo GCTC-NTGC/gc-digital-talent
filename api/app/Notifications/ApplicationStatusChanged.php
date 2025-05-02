@@ -65,7 +65,7 @@ class ApplicationStatusChanged extends Notification implements CanBeSentViaGcNot
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
 
-        if ($locale == Language::EN->value) {
+        if ($locale == strtolower(Language::EN->name)) {
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.application_status_changed_en'),

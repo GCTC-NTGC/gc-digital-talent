@@ -63,7 +63,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
 
-        if ($locale == Language::EN->value) {
+        if ($locale == strtolower(Language::EN->name)) {
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.new_job_posted_en'),

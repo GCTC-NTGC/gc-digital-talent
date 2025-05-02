@@ -199,7 +199,7 @@ class SnapshotTest extends TestCase
             'pool_id' => $pool->id,
             'profile_snapshot' => [
                 // Single enum
-                'preferredLang' => Language::EN->name,
+                'preferredLang' => strtolower(Language::EN->name),
                 // Array based enum
                 'acceptedOperationalRequirements' => [
                     OperationalRequirement::DRIVERS_LICENSE->name,
@@ -227,7 +227,7 @@ class SnapshotTest extends TestCase
         assertSame([
             // Single enum
             'preferredLang' => [
-                'value' => Language::EN->name,
+                'value' => strtolower(Language::EN->name),
                 'label' => Language::localizedString(Language::EN->name),
             ],
             // Array based enum

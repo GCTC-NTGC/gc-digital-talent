@@ -37,8 +37,8 @@ class AdHocEmail extends Notification implements CanBeSentViaGcNotifyEmail
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
         $templateId = match ($locale) {
-            Language::EN->value => $this->templateIdEn,
-            Language::FR->value => $this->templateIdFr,
+            strtolower(Language::EN->name) => $this->templateIdEn,
+            strtolower(Language::FR->name) => $this->templateIdFr,
             default => throw new \InvalidArgumentException("Unsupported locale: $locale"),
         };
 

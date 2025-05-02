@@ -20,8 +20,6 @@ class EnumDiscoverer
     {
         return Discover::in(self::path())
             ->enums()
-                // TODO: Language has a custom implementation remove in #10964
-            ->custom(fn (DiscoveredStructure $structure) => $structure->name !== 'Language')
             ->sortBy(self::$sort)
             ->get();
     }
