@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Enums\PoolStatus;
 use App\Models\Community;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -75,15 +74,10 @@ class PoolPolicy
      */
     public function create(User $user, $request)
     {
-
         $communityId = isset($request['community_id']) ? $request['community_id'] : null;
 
         if (is_null($communityId)) {
             return false;
-        }
-
-        if ($user->isAbleTo('create-any-pool')) {
-            return true; // return early, permission does not exist at the moment
         }
 
         $community = Community::with('team')->findOrFail($communityId);
