@@ -60,7 +60,6 @@ const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    teamIdForRoleAssignment
   }
 `);
 
@@ -119,14 +118,7 @@ export const CreatePoolForm = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const teamFromCommunity = communities.find(
-      (community) => data.community === community.id,
-    );
-    await handleCreatePool(
-      userId,
-      teamFromCommunity?.teamIdForRoleAssignment ?? "",
-      formValuesToSubmitData(data),
-    )
+    await handleCreatePool(userId, data.community, formValuesToSubmitData(data))
       .then(async (result) => {
         if (result) {
           await navigate(paths.poolUpdate(result.id));
