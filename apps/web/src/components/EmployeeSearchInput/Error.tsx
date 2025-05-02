@@ -99,9 +99,9 @@ const useDefaultMessages = (email: string | undefined): ErrorMessages => {
       body: intl.formatMessage({
         defaultMessage:
           "We found a user with the email address provided, but they haven’t confirmed their status as an employee. Only verified employees can be nominated at this time. The user can verify their status as an employee by logging into the platform and verifying their work email.",
-        id: "hYuDZ2",
+        id: "Ney+Il",
         description:
-          "Descrioption of default message when user was found but not a verified employee",
+          "Description of default message when user was found but not a verified employee",
       }),
     },
   };
