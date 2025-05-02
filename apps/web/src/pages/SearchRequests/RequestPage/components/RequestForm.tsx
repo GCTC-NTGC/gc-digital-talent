@@ -19,6 +19,7 @@ import {
   errorMessages,
   enumInputToLocalizedEnum,
   sortPoolCandidateSearchRequestReason,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -454,11 +455,7 @@ export const RequestForm = ({
                 id="fullName"
                 type="text"
                 name="fullName"
-                label={intl.formatMessage({
-                  defaultMessage: "Full name",
-                  id: "IBc2sp",
-                  description: "Label for full name",
-                })}
+                label={intl.formatMessage(commonMessages.fullName)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

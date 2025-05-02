@@ -242,14 +242,7 @@ export const Component = () => {
                       "Second item in list of eligibility requirements section",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
-                  {intl.formatMessage({
-                    defaultMessage: "You have an active Navigar account",
-                    id: "4ddL8K",
-                    description:
-                      "Third item in list of eligibility requirements section",
-                  })}
-                </li>
+
                 <li data-h2-margin-top="base(x.25)">
                   {intl.formatMessage({
                     defaultMessage:
