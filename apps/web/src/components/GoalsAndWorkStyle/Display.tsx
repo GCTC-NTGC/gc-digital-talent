@@ -40,17 +40,17 @@ const Display = ({ goalsAndWorkStyleQuery }: DisplayProps) => {
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >
-        {aboutYou ? aboutYou : nullField}
+        {aboutYou ?? nullField}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.learningGoals)}
       >
-        {learningGoals ? learningGoals : nullField}
+        {learningGoals ?? nullField}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.workStyle)}
       >
-        {workStyle ? workStyle : nullField}
+        {workStyle ?? nullField}
       </FieldDisplay>
     </div>
   );

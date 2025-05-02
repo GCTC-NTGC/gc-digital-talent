@@ -59,9 +59,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
           employeeProfileMessages.targetClassificationGroup,
         )}
       >
-        {nextRoleClassification?.group
-          ? nextRoleClassification.group
-          : notProvided}
+        {nextRoleClassification?.group ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(

@@ -63,9 +63,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
           employeeProfileMessages.targetClassificationGroup,
         )}
       >
-        {careerObjectiveClassification?.group
-          ? careerObjectiveClassification.group
-          : notProvided}
+        {careerObjectiveClassification?.group ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(
