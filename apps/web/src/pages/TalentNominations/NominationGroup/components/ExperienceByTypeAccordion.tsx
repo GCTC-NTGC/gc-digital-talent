@@ -10,25 +10,22 @@ interface ExperienceByTypeAccordionProps {
     title: string;
     experiences: Omit<Experience, "user">[];
   }[];
-  expandedItems: string[];
-  setExpandedItems: (values: string[]) => void;
-  toggleExpandedItem: (id: string) => void;
-  isExpanded: (id: string) => boolean;
+  openSections: string[];
+  defaultOpen?: boolean;
+  setOpenSections: (sections: string[]) => void;
 }
 
 const ExperienceByTypeAccordion = ({
   experienceSections,
-  expandedItems,
-  setExpandedItems,
-  toggleExpandedItem,
-  isExpanded,
+  openSections: expandedItems,
+  setOpenSections,
 }: ExperienceByTypeAccordionProps) => {
   return (
     <Accordion.Root
       type="multiple"
       mode="card"
       value={expandedItems}
-      onValueChange={(values) => setExpandedItems(values)} // Sync state with Accordion
+      onValueChange={setOpenSections} // Sync state with Accordion
       data-h2-margin="base(0, 0)"
     >
       {experienceSections
@@ -37,11 +34,8 @@ const ExperienceByTypeAccordion = ({
             sectionExperiences.length > 0,
         )
         .map(({ id, title, experiences: sectionExperiences }) => (
-          <Accordion.Item key={`accordion-item-${id}`} value={id}>
-            <Accordion.Trigger
-              onClick={() => toggleExpandedItem(id)}
-              aria-expanded={isExpanded(id)}
-            >
+          <Accordion.Item key={id} value={id}>
+            <Accordion.Trigger>
               {/* eslint-disable-next-line */}
               {title} ({sectionExperiences.length})
             </Accordion.Trigger>
@@ -59,8 +53,6 @@ const ExperienceByTypeAccordion = ({
                         key={experience?.id}
                         experience={experience}
                         showEdit={false}
-                        isOpen={isExpanded(experience?.id)}
-                        onOpenChange={() => toggleExpandedItem(experience?.id)}
                       />
                     );
                   }),

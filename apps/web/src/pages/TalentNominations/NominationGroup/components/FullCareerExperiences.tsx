@@ -6,7 +6,6 @@ import { Button, Heading, Well } from "@gc-digital-talent/ui";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
-import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import {
   compareByDate,
   isAwardExperience,
@@ -21,11 +20,13 @@ import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
 interface FullCareerExperiencesProps {
   experiences?: Omit<Experience, "user">[];
   shareProfile?: boolean;
+  defaultOpen?: boolean;
 }
 
 const FullCareerExperiences = ({
   experiences,
   shareProfile,
+  defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
@@ -80,14 +81,17 @@ const FullCareerExperiences = ({
     },
   ];
   const sectionIds = experienceSections.map((section) => section.id);
-  const {
-    hasExpanded,
-    toggleAllExpanded,
-    toggleExpandedItem,
-    isExpanded,
-    expandedItems,
-    setExpandedItems,
-  } = useControlledCollapsibleGroup(sectionIds);
+
+  const [openSections, setOpenSections] = useState<string[]>(
+    defaultOpen ? sectionIds : [],
+  );
+  const hasOpenSections = openSections.length > 0;
+
+  const toggleSections = () => {
+    setOpenSections((currentOpen) => {
+      return currentOpen.length > 0 ? [] : sectionIds;
+    });
+  };
 
   return (
     <>
@@ -118,10 +122,10 @@ const FullCareerExperiences = ({
               type="button"
               mode="inline"
               color="secondary"
-              onClick={toggleAllExpanded}
+              onClick={toggleSections}
             >
               {intl.formatMessage(
-                hasExpanded
+                hasOpenSections
                   ? experienceMessages.collapseDetails
                   : experienceMessages.expandDetails,
               )}
@@ -211,10 +215,8 @@ const FullCareerExperiences = ({
         {shareProfile && selectedView === "type" && (
           <ExperienceByTypeAccordion
             experienceSections={experienceSections}
-            expandedItems={expandedItems}
-            setExpandedItems={setExpandedItems}
-            toggleExpandedItem={toggleExpandedItem}
-            isExpanded={isExpanded}
+            openSections={openSections}
+            setOpenSections={setOpenSections}
           />
         )}
         {shareProfile && selectedView === "workStream" && (
