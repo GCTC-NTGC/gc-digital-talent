@@ -120,8 +120,8 @@ return new class extends Migration
             $table->index(['work_experience_id', 'work_stream_id']);
         });
 
-        // experience_skill polymorphism
-        // pool_candidate_education_requirement_experience polymorphism
+        // TODO experience_skill polymorphism
+        // TODO pool_candidate_education_requirement_experience polymorphism
 
         // roll back table insertions and if any fail before starting to the old table
         DB::transaction(function () {
@@ -301,13 +301,13 @@ return new class extends Migration
                     DB::table('award_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\AwardExperience',
-                            (concat('{',
-                            '"awarded_date": ', coalesce('"' || (awarded_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"issued_by": "', issued_by, '",',
-                            '"awarded_to": "', awarded_to, '",',
-                            '"awarded_scope": "', awarded_scope, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'awarded_date', to_char(awarded_date, 'YYYY-MM-DD'),
+                                'title', title,
+                                'issued_by', issued_by,
+                                'awarded_to', awarded_to,
+                                'awarded_scope', awarded_scope
+                            )
                         SQL))
                 );
 
@@ -317,13 +317,13 @@ return new class extends Migration
                     DB::table('community_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\CommunityExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"organization": "', organization, '",',
-                            '"project": "', project, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', to_char(start_date, 'YYYY-MM-DD'),
+                                'end_date', to_char(end_date, 'YYYY-MM-DD'),
+                                'title', title,
+                                'organization', organization,
+                                'project', project
+                            )
                         SQL))
                 );
 
@@ -333,15 +333,15 @@ return new class extends Migration
                     DB::table('education_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\EducationExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"institution": "', institution, '",',
-                            '"area_of_study": "', area_of_study, '",',
-                            '"thesis_title": "', thesis_title, '",',
-                            '"type": "', type, '",',
-                            '"status": "', status, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', to_char(start_date, 'YYYY-MM-DD'),
+                                'end_date', to_char(end_date, 'YYYY-MM-DD'),
+                                'institution', institution,
+                                'area_of_study', area_of_study,
+                                'thesis_title', thesis_title,
+                                'type', type,
+                                'status', status
+                            )
                         SQL))
                 );
 
@@ -351,12 +351,12 @@ return new class extends Migration
                     DB::table('personal_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\PersonalExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"description": "', description, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', to_char(start_date, 'YYYY-MM-DD'),
+                                'end_date', to_char(end_date, 'YYYY-MM-DD'),
+                                'title', title,
+                                'description', description
+                            )
                         SQL))
                 );
 
@@ -366,35 +366,35 @@ return new class extends Migration
                     DB::table('work_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\WorkExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"role": "', role, '",',
-                            '"organization": "', organization, '",',
-                            '"division": "', division, '",',
-                            '"employment_category": "', employment_category, '",',
-                            '"ext_size_of_organization": "', ext_size_of_organization, '",',
-                            '"ext_role_seniority": "', ext_role_seniority, '",',
-                            '"gov_employment_type": "', gov_employment_type, '",',
-                            '"gov_position_type": "', gov_position_type, '",',
-                            '"gov_contractor_role_seniority": "', gov_contractor_role_seniority, '",',
-                            '"gov_contractor_type": "', gov_contractor_type, '",',
-                            '"caf_employment_type": "', caf_employment_type, '",',
-                            '"caf_force": "', caf_force, '",',
-                            '"caf_rank": "', caf_rank, '",',
-                            '"classification_id": "', classification_id, '",',
-                            '"department_id": "', department_id, '",',
-                            '"contractor_firm_agency_name": "', contractor_firm_agency_name, '",',
-                            '"supervisory_position": "', supervisory_position, '",',
-                            '"supervised_employees": "', supervised_employees, '",',
-                            '"supervised_employees_number": "', supervised_employees_number, '",',
-                            '"budget_management": "', budget_management, '",',
-                            '"annual_budget_allocation": "', annual_budget_allocation, '",',
-                            '"senior_management_status": "', senior_management_status, '",',
-                            '"c_suite_role_title": "', c_suite_role_title, '",',
-                            '"other_c_suite_role_title": "', other_c_suite_role_title, '",',
-                            '"work_stream_ids": ', coalesce((select (jsonb_agg(work_stream_id))::TEXT from work_experience_work_stream where work_experience_id = "work_experiences".id), 'null'), '',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', to_char(start_date, 'YYYY-MM-DD'),
+                                'end_date', to_char(end_date, 'YYYY-MM-DD'),
+                                'role', role,
+                                'organization', organization,
+                                'division', division,
+                                'employment_category', employment_category,
+                                'ext_size_of_organization', ext_size_of_organization,
+                                'ext_role_seniority', ext_role_seniority,
+                                'gov_employment_type', gov_employment_type,
+                                'gov_position_type', gov_position_type,
+                                'gov_contractor_role_seniority', gov_contractor_role_seniority,
+                                'gov_contractor_type', gov_contractor_type,
+                                'caf_employment_type', caf_employment_type,
+                                'caf_force', caf_force,
+                                'caf_rank', caf_rank,
+                                'classification_id', classification_id,
+                                'department_id', department_id,
+                                'contractor_firm_agency_name', contractor_firm_agency_name,
+                                'supervisory_position', supervisory_position,
+                                'supervised_employees', supervised_employees,
+                                'supervised_employees_number', supervised_employees_number,
+                                'budget_management', budget_management,
+                                'annual_budget_allocation', annual_budget_allocation,
+                                'senior_management_status', senior_management_status,
+                                'c_suite_role_title', c_suite_role_title,
+                                'other_c_suite_role_title', other_c_suite_role_title,
+                                'work_stream_ids', (select array_agg(work_stream_id) from work_experience_work_stream where work_experience_id = "work_experiences".id)
+                            )
                         SQL))
                 );
 
