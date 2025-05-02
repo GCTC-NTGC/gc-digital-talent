@@ -101,6 +101,7 @@ class WorkStreamTest extends TestCase
                             fr
                         }
                         community { id }
+                        talentSearchable
                     }
                 }
                 GRAPHQL,
