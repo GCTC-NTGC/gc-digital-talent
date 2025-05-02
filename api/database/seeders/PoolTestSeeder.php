@@ -8,7 +8,6 @@ use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkStream;
 use Illuminate\Database\Seeder;
@@ -26,7 +25,6 @@ class PoolTestSeeder extends Seeder
         // Caching commonly used queries
         $adminUserId = User::select('id')->where('email', 'admin@test.com')->sole()->id;
         $processOperatorUser = User::select('id')->where('email', 'process@test.com')->first();
-        $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
         $businessAdvisoryStreamId = WorkStream::select('id')->where('key', 'BUSINESS_ADVISORY_SERVICES')->sole()->id;
