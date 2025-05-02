@@ -235,7 +235,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
      */
     public function preferredLocale(): string
     {
-        return strtolower($this->preferred_lang) ?? 'en';
+        return strtolower($this->preferred_lang ?? 'en');
     }
 
     /** @return HasMany<Pool, $this> */
