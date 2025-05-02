@@ -24,8 +24,7 @@ const useControlledCollapsibleGroup = (ids: string[]) => {
     }
   };
 
-   return { hasExpanded, toggleExpandedItem, toggleAllExpanded, isExpanded };
-
+  return { hasExpanded, toggleExpandedItem, toggleAllExpanded, isExpanded };
 };
 
 export default useControlledCollapsibleGroup;
