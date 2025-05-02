@@ -1,6 +1,5 @@
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
-import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
@@ -65,11 +64,13 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     description: "Heading for the application page",
   });
 
-  const pages = flatMap(steps, (step) => [
-    step.mainPage,
-    step.introductionPage,
-    ...(step.auxiliaryPages ?? []),
-  ]).filter(notEmpty);
+  const pages = steps
+    .flatMap((step) => [
+      step.mainPage,
+      step.introductionPage,
+      ...(step.auxiliaryPages ?? []),
+    ])
+    .filter(notEmpty);
 
   const currentPage = useCurrentPage(pages);
   const currentCrumbs = currentPage?.crumbs ?? [];

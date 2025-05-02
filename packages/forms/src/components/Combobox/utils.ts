@@ -1,6 +1,5 @@
 import { ValidationRule } from "react-hook-form";
 import orderBy from "lodash/orderBy";
-import isArray from "lodash/isArray";
 import isNumber from "lodash/isNumber";
 import isObject from "lodash/isObject";
 import isString from "lodash/isString";
@@ -114,7 +113,7 @@ export function getMultiDefaultValue<T extends Option>(
 ): Option[] {
   let value: Option[] = [];
   const searchValue: ComboboxValue = currentValue ?? defaultValue;
-  if (isArray(searchValue)) {
+  if (Array.isArray(searchValue)) {
     value = options.filter((option) =>
       searchValue?.some((defaultItem) => defaultItem === option.value),
     );

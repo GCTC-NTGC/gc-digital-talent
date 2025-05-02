@@ -6,7 +6,6 @@ import {
 } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { ChangeEvent } from "react";
-import get from "lodash/get";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
@@ -39,7 +38,7 @@ const ControlledInput = ({
   const intl = useIntl();
   const inputStyles = useInputStyles();
   const selectStyles = useInputStyles("select");
-  const rawDefaultValue: unknown = get(defaultValues, name);
+  const rawDefaultValue: unknown = defaultValues?.[name];
   const defaultValue =
     rawDefaultValue !== null && rawDefaultValue !== undefined
       ? // It's a input field so it should be stringable

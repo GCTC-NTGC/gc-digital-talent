@@ -1,9 +1,8 @@
-import groupBy from "lodash/groupBy"; // provides sorted output
 import stringify from "json-stable-stringify";
 
 import rawI18nEnMessages from "@gc-digital-talent/i18n/en.json";
 import rawI18nFrMessages from "@gc-digital-talent/i18n/fr.json";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { groupBy, notEmpty } from "@gc-digital-talent/helpers";
 
 import rawWebEnMessages from "./en.json";
 import rawWebFrMessages from "./fr.json";
@@ -28,7 +27,7 @@ describe("message files", () => {
       en: enMessages[messageId].defaultMessage,
       fr: frMessages[messageId]?.defaultMessage,
     }));
-    const groupedByEn = groupBy(matchedMessages, "en");
+    const groupedByEn = groupBy(matchedMessages, (message) => message.en);
     const messagesWithMultipleFrStrings = Object.keys(groupedByEn)
       .map((en) => ({
         en,

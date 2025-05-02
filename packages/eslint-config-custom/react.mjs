@@ -148,6 +148,18 @@ export default [
                 "Please import the individual function, not the entire library.",
             },
             {
+              group: [
+                "lodash/isArray",
+                "lodash/flatMap",
+                "lodash/get",
+                "lodash/groupBy",
+                "lodash/upperCase",
+                "lodash/head",
+                "lodash/reverse",
+              ],
+              message: "Please use the native javascript function instead.",
+            },
+            {
               group: ["date-fns", "!date-fns/"],
               message:
                 "Please import the individual function, not the entire library.",

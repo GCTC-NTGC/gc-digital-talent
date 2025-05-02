@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Controller, useFormContext } from "react-hook-form";
-import isArray from "lodash/isArray";
 import omit from "lodash/omit";
 
 import { formMessages } from "@gc-digital-talent/i18n";
@@ -107,7 +106,7 @@ const Combobox = ({
   };
 
   const isMoreThanMin = (value: ComboboxValue) => {
-    if (!rules.min || !value || !isArray(value)) {
+    if (!rules.min || !value || !Array.isArray(value)) {
       return true;
     }
 
@@ -117,7 +116,7 @@ const Combobox = ({
   };
 
   const isLessThanMax = (value: ComboboxValue) => {
-    if (!rules.max || !value || !isArray(value)) {
+    if (!rules.max || !value || !Array.isArray(value)) {
       return true;
     }
 

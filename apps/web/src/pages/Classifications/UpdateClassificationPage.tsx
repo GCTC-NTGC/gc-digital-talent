@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -130,7 +129,7 @@ export const UpdateClassificationForm = ({
         en: data.name?.en,
         fr: data.name?.fr,
       },
-      group: upperCase(data.group ?? ""),
+      group: data.group?.toUpperCase(),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
     };
