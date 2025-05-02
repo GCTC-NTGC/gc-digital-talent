@@ -43,8 +43,8 @@ const WorkStreamContent = ({
   const workStreamsByCommunity = unpackMaybes(
     Object.keys(groupedWorkStreams).map((id) => {
       const community = communities.find((c) => c?.id === id);
-      const streams = groupedWorkStreams[id].sort((a, b) =>
-        (a?.name?.localized ?? "").localeCompare(b?.name?.localized ?? ""),
+      const streams = groupedWorkStreams[id].sort(
+        sortAlphaBy((workStream) => workStream?.name?.localized),
       );
       if (!community || !streams?.length) {
         return undefined;
