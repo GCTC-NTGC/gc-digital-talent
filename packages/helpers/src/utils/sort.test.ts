@@ -1,65 +1,34 @@
 import { sortAlphaBy } from "./sort";
-
-const values = [
-  {
-    name: {
-      localized: "HHH",
-    },
+const HHH = {
+  name: {
+    localized: "HHH",
   },
-  {
-    name: {
-      localized: "ZZZ",
-    },
+};
+const ZZZ = {
+  name: {
+    localized: "ZZZ",
   },
-  {
-    name: {
-      localized: "AAA",
-    },
+};
+const AAA = {
+  name: {
+    localized: "AAA",
   },
-];
+};
 
 describe("Sort array of objects alphabetically", () => {
   it("sorts ascending", () => {
-    const newValues = values.sort(sortAlphaBy((x) => x.name.localized, "asc"));
+    const newValues = [HHH, ZZZ, AAA].sort(
+      sortAlphaBy((x) => x.name.localized, "asc"),
+    );
 
-    expect(newValues).toEqual([
-      {
-        name: {
-          localized: "AAA",
-        },
-      },
-      {
-        name: {
-          localized: "HHH",
-        },
-      },
-      {
-        name: {
-          localized: "ZZZ",
-        },
-      },
-    ]);
+    expect(newValues).toEqual([AAA, HHH, ZZZ]);
   });
 
   it("sorts descending", () => {
-    const newValues = values.sort(sortAlphaBy((x) => x.name.localized, "desc"));
+    const newValues = [HHH, ZZZ, AAA].sort(
+      sortAlphaBy((x) => x.name.localized, "asc"),
+    );
 
-    expect(newValues).toEqual([
-      {
-        name: {
-          localized: "ZZZ",
-        },
-      },
-      {
-        name: {
-          localized: "HHH",
-        },
-      },
-      {
-        name: {
-          localized: "AAA",
-        },
-      },
-    ]);
+    expect(newValues).toEqual([ZZZ, HHH, AAA]);
   });
 });
