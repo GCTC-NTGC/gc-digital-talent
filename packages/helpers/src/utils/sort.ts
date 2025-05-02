@@ -5,14 +5,10 @@ function compareStrings(
   b: string | undefined | null,
   order: Order,
 ): number {
-  let aValue = a;
-  let bValue = b;
-  if (order === "desc") {
-    aValue = b;
-    bValue = a;
-  }
+  if (!a || !b) return 0;
 
-  if (!aValue || !bValue) return 0;
+  const aValue = order === "desc" ? b : a;
+  const bValue = order === "desc" ? a : b;
 
   return aValue.localeCompare(bValue);
 }
