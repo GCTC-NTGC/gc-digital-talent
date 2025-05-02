@@ -10,7 +10,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
@@ -80,8 +80,8 @@ const TrainingAndDevelopmentOpportunities = ({
     )?.developmentPrograms ?? [];
 
   // sort programs
-  developmentPrograms.sort((a, b) =>
-    (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+  developmentPrograms.sort(
+    sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
   );
   // sort classifications in programs
   developmentPrograms.forEach((developmentProgram) => {

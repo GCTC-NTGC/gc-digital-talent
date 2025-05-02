@@ -6,7 +6,7 @@ import {
   UpdateCommunityInterestInput,
   UpdateDevelopmentProgramInterestHasMany,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
@@ -203,9 +203,9 @@ export function apiDataToFormValues(
     additionalInformation: communityInterest?.additionalInformation ?? null,
     interestInDevelopmentPrograms:
       communityInterest?.interestInDevelopmentPrograms
-        ?.sort((a, b) =>
-          (a.developmentProgram.name?.localized ?? "").localeCompare(
-            b.developmentProgram.name?.localized ?? "",
+        ?.sort(
+          sortAlphaBy(
+            (interest) => interest.developmentProgram.name?.localized,
           ),
         )
         .map((interest) => ({

@@ -5,7 +5,7 @@ import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useFormContext } from "react-hook-form";
 
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -54,9 +54,7 @@ const ExperienceWorkStreams = ({
   const communitiesWithWorkStreams =
     communities
       ?.filter((item) => unpackMaybes(item?.workStreams).length > 0)
-      .sort((a, b) =>
-        (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
-      ) ?? [];
+      .sort(sortAlphaBy((community) => community.name?.localized)) ?? [];
 
   const workStreamsByCommunity = new Map<string, WorkStreamsWithCommunity>();
   communitiesWithWorkStreams.forEach((community) => {
@@ -65,9 +63,7 @@ const ExperienceWorkStreams = ({
         const newWorkStreams = [
           ...(workStreamsByCommunity.get(community.id)?.workStreams ?? []),
           workStream,
-        ].sort((a, b) =>
-          (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
-        );
+        ].sort(sortAlphaBy((ws) => ws.name?.localized));
         workStreamsByCommunity.set(community.id, {
           community,
           workStreams: newWorkStreams,

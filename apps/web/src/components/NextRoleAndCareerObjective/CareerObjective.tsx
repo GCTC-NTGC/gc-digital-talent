@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -37,16 +38,12 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
     careerObjectiveCSuiteRoleTitle,
   } = careerObjective;
 
-  careerObjectiveWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
 
-  careerObjectiveDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveDepartments?.sort(
+    sortAlphaBy((department) => department.name.localized),
   );
 
   const isCommunityOther =

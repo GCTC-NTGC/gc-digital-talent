@@ -14,7 +14,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -58,10 +58,9 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   const talentEvent = getFragment(TalentEventDetails_Fragment, query);
   const developmentPrograms = unpackMaybes(
     talentEvent.developmentPrograms,
-  ).sort((a, b) =>
-    (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
+  ).sort(
+    sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
   );
-
   return (
     <>
       <Heading
