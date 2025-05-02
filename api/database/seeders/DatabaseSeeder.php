@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             CommunitySeeder::class,
             WorkStreamSeeder::class,
-            TeamSeeder::class,
             JobPosterTemplateSeeder::class,
 
             // convenient test data
