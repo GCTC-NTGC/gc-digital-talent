@@ -260,11 +260,11 @@ export const CreateWorkStreamForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                   pattern: {
-                    value: /^[a-z]+(_[a-z]+)*$/,
+                    value: /^[a-z]+(_[a-z]+)*$/i,
                     message: intl.formatMessage({
                       defaultMessage:
-                        "Please use only lowercase letters and underscores.",
-                      id: "3owqTQ",
+                        "Please use only letters and underscores.",
+                      id: "r4sAvp",
                       description: "Description for rule pattern on key field",
                     }),
                   },

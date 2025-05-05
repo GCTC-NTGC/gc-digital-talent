@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardBasic } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -62,16 +63,11 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
 
   const employeeProfile = getFragment(NextRole_Fragment, employeeProfileQuery);
 
-  employeeProfile?.nextRoleWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.nextRoleWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  employeeProfile?.nextRoleDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.nextRoleDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   return (

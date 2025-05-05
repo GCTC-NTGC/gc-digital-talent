@@ -481,7 +481,7 @@ type Query {
 
     "The offset from which items are returned."
     page: Int
-  ): CommunityInterestPaginator!
+  ): CommunityInterestWithSkillCountPaginator!
 }
 
 type Mutation {
@@ -1035,6 +1035,12 @@ type PoolCandidate {
 type PoolCandidateWithSkillCount {
   id: ID!
   poolCandidate: PoolCandidate!
+  skillCount: Int
+}
+
+type CommunityInterestWithSkillCount {
+  id: ID!
+  communityInterest: CommunityInterest!
   skillCount: Int
 }
 
@@ -2712,13 +2718,13 @@ type TrainingOpportunityPaginator {
   data: [TrainingOpportunity!]!
 }
 
-"A paginated list of CommunityInterest items."
-type CommunityInterestPaginator {
+"A paginated list of CommunityInterestWithSkillCount items."
+type CommunityInterestWithSkillCountPaginator {
   "Pagination information about the list of items."
   paginatorInfo: PaginatorInfo!
 
-  "A list of CommunityInterest items."
-  data: [CommunityInterest!]!
+  "A list of CommunityInterestWithSkillCount items."
+  data: [CommunityInterestWithSkillCount!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."

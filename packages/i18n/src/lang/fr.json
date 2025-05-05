@@ -471,6 +471,10 @@
     "defaultMessage": "Non accepté",
     "description": "Indicates a user has not accepted some criteria"
   },
+  "IBc2sp": {
+    "defaultMessage": "Nom complet",
+    "description": "Label for full name"
+  },
   "IKGhHj": {
     "defaultMessage": "Important",
     "description": "Important note or caption"
@@ -1267,6 +1271,10 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
+  "m/VZ/H": {
+    "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
+    "description": "Error message for when a user is not verified"
+  },
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."
@@ -1310,6 +1318,10 @@
   "nPKPFa": {
     "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
     "description": "Error message that the pool advertisement must have publishing group filled."
+  },
+  "nSENOg": {
+    "defaultMessage": "*",
+    "description": "Asterisk symbol"
   },
   "nVodgK": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires régulièrement</strong>.",
@@ -1638,6 +1650,10 @@
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
+  },
+  "zE9jPr": {
+    "defaultMessage": "Numéro de téléphone",
+    "description": "Title displayed phone number"
   },
   "zM99Vm": {
     "defaultMessage": "J'ai actuellement un mentor ou une mentore.",

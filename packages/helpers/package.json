@@ -11,17 +11,21 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint \"src/**/*.ts*\"",
-    "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
+    "test": "jest --detectOpenHandles --forceExit"
+  },
+  "jest": {
+    "preset": "@gc-digital-talent/jest-presets/jest/node"
   },
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
-    "graphql": "^16.10.0",
+    "graphql": "^16.11.0",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "urql": "^4.2.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.13",
     "eslint": "^9.20.1",

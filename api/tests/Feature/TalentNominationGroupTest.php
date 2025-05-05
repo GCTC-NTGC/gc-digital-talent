@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\TalentNominationGroup;
@@ -331,5 +332,50 @@ class TalentNominationGroupTest extends TestCase
                 assertEquals($nominationGroup->talent_nomination_event_id, $nomination->talent_nomination_event_id);
             }
         }
+    }
+
+    public function testConsentToShareAttribute()
+    {
+        TalentNomination::truncate();
+        TalentNominationGroup::truncate();
+        $communityId = Community::factory()->create()->id;
+        $event = TalentNominationEvent::factory()->create([
+            'community_id' => $communityId,
+        ]);
+
+        $nominee = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'nominee@test.com',
+                'computed_is_gov_employee' => true,
+                'work_email' => 'nominee@gc.ca',
+                'work_email_verified_at' => now(),
+            ]);
+
+        TalentNomination::factory()->count(1)->submittedReviewAndSubmit()->create([
+            'nominee_id' => $nominee->id,
+            'talent_nomination_event_id' => $event,
+        ]);
+
+        // Set consent to share profile to false
+        $communityInterest = CommunityInterest::factory()->create([
+            'user_id' => $nominee->id,
+            'community_id' => $communityId,
+            'consent_to_share_profile' => false,
+        ]);
+
+        // Get talent nomination group
+        $group = TalentNominationGroup::first();
+
+        // Assert nominee did not consent to share profile info on nomination profile
+        assertEquals($group->consentToShareProfile, false);
+
+        // Update community interest to share nominee into on nomination profile
+        $communityInterest->update([
+            'consent_to_share_profile' => true,
+        ]);
+
+        // Assert nominee did consent to share profile info to admins on nomination profile
+        assertEquals($group->consentToShareProfile, true);
     }
 }

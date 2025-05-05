@@ -583,6 +583,12 @@ type PoolCandidateWithSkillCount {
   skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
 }
 
+type CommunityInterestWithSkillCount {
+  id: ID!
+  communityInterest: CommunityInterest! @self
+  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -758,6 +764,7 @@ type TalentNominationGroup {
     @rename(attribute: "development_programs_notes")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   status: LocalizedTalentNominationGroupStatus
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
 }
 
@@ -1457,12 +1464,13 @@ type Query {
           }
         ]
       )
-  ): [CommunityInterest]!
+  ): [CommunityInterestWithSkillCount]!
     @guard
     @paginate(
       defaultCount: 10
       maxCount: 500
-      scopes: ["authorizedToView", "isVerifiedGovEmployee"]
+      scopes: ["authorizedToView", "isVerifiedGovEmployee", "withSkillCount"]
+      model: "App\\Models\\CommunityInterest"
     )
 }
 

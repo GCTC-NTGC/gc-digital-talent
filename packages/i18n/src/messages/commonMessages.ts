@@ -149,6 +149,11 @@ const commonMessages = defineMessages({
     id: "imR1U4",
     description: "Title displayed telephone",
   },
+  personalPhone: {
+    defaultMessage: "Phone number",
+    id: "zE9jPr",
+    description: "Title displayed phone number",
+  },
   preferredCommunicationLanguage: {
     defaultMessage: "Preferred communication language",
     id: "XiECLl",
@@ -452,6 +457,16 @@ const commonMessages = defineMessages({
     id: "hC74Bo",
     description:
       "Message for when a specific item shows up as an option when searching talent",
+  },
+  asterisk: {
+    defaultMessage: "*",
+    id: "nSENOg",
+    description: "Asterisk symbol",
+  },
+  fullName: {
+    defaultMessage: "Full name",
+    id: "IBc2sp",
+    description: "Label for full name",
   },
 });
 

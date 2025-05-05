@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
@@ -18,6 +18,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterest on CommunityInterest {
     id
     community {
+      id
       key
       workStreams {
         id
@@ -79,11 +80,13 @@ interface CommunityInterestProps {
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
+  context?: "admin" | "applicant";
 }
 
 const CommunityInterest = ({
   communityInterestQuery,
   communityInterestOptionsQuery,
+  context = "applicant",
 }: CommunityInterestProps) => {
   const intl = useIntl();
   const communityInterest = getFragment(
@@ -105,6 +108,10 @@ const CommunityInterest = ({
     communityInterest?.workStreams,
   ).flatMap((workStream) => workStream.id);
 
+  const asterisk =
+    context === "applicant"
+      ? intl.formatMessage(commonMessages.asterisk)
+      : null;
   return (
     <>
       <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
@@ -119,19 +126,24 @@ const CommunityInterest = ({
         value={communityInterest.jobInterest}
         data-h2-margin-bottom="base(x1)"
       >
-        {communityInterest.jobInterest
-          ? intl.formatMessage({
-              defaultMessage: "Interested in work*",
-              id: "nVlmhK",
+        {communityInterest.jobInterest ? (
+          <span>
+            {intl.formatMessage({
+              defaultMessage: "Interested in work",
+              id: "2L5LBG",
               description:
                 "Message displayed when user expresses interest in job opportunities",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Not interested in work",
-              id: "szxveb",
-              description:
-                "Message displayed when a user has expressed they are not interested in job opportunities",
             })}
+            {asterisk}
+          </span>
+        ) : (
+          intl.formatMessage({
+            defaultMessage: "Not interested in work",
+            id: "szxveb",
+            description:
+              "Message displayed when a user has expressed they are not interested in job opportunities",
+          })
+        )}
       </BoolCheckIcon>
       <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
         {intl.formatMessage({
@@ -145,33 +157,40 @@ const CommunityInterest = ({
         value={communityInterest.trainingInterest}
         data-h2-margin-bottom="base(x1)"
       >
-        {communityInterest.trainingInterest
-          ? intl.formatMessage({
-              defaultMessage: "Interested in training or development*",
-              id: "QcrA75",
+        {communityInterest.trainingInterest ? (
+          <span>
+            {intl.formatMessage({
+              defaultMessage: "Interested in training or development",
+              id: "f/XJsH",
               description:
                 "Message when user expresses interest in training or development opportunities",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Not interested in training or development",
-              id: "TE28aU",
-              description:
-                "Message when user has expressed they are not interested in training or development opportunities",
             })}
+            {asterisk}
+          </span>
+        ) : (
+          intl.formatMessage({
+            defaultMessage: "Not interested in training or development",
+            id: "TE28aU",
+            description:
+              "Message when user has expressed they are not interested in training or development opportunities",
+          })
+        )}
       </BoolCheckIcon>
-      <p
-        data-h2-color="base(black.light)"
-        data-h2-font-size="base(caption)"
-        data-h2-margin-bottom="base(x1)"
-      >
-        {intl.formatMessage({
-          defaultMessage:
-            "* Note that by indicating you’re interested in jobs or training opportunities, you agree to share your profile information with Government of Canada HR and recruitment staff within this community.",
-          id: "EJPdqH",
-          description:
-            "Footnote for more information on interest in job and training opportunities",
-        })}
-      </p>
+      {context === "applicant" && (
+        <p
+          data-h2-color="base(black.light)"
+          data-h2-font-size="base(caption)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          {intl.formatMessage({
+            defaultMessage:
+              "* Note that by indicating you’re interested in jobs or training opportunities, you agree to share your profile information with Government of Canada HR and recruitment staff within this community.",
+            id: "EJPdqH",
+            description:
+              "Footnote for more information on interest in job and training opportunities",
+          })}
+        </p>
+      )}
       {communityWorkStreams.length > 0 && (
         <>
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
@@ -227,9 +246,9 @@ const CommunityInterest = ({
           </p>
           <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
             {communityDevelopmentPrograms
-              .sort((a, b) =>
-                (a.name?.localized ?? "").localeCompare(
-                  b.name?.localized ?? "",
+              .sort(
+                sortAlphaBy(
+                  (developmentProgram) => developmentProgram.name?.localized,
                 ),
               )
               .map((developmentProgram) => {

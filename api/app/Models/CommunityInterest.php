@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * Class CommunityInterest
@@ -39,6 +42,13 @@ class CommunityInterest extends Model
     protected $casts = [
         'finance_additional_duties' => 'array',
         'finance_other_roles' => 'array',
+    ];
+
+    /**
+     * The attributes that can be filled using mass-assignment.
+     */
+    protected $fillable = [
+        'consent_to_share_profile',
     ];
 
     /** @return BelongsTo<User, $this> */
@@ -281,11 +291,13 @@ class CommunityInterest extends Model
         return $query;
     }
 
-    public static function scopeSkills(Builder $query, ?array $skillIds): Builder
+    public function scopeSkills(Builder $query, ?array $skillIds): Builder
     {
         if (empty($skillIds)) {
             return $query;
         }
+
+        $query = $this->addSkillCountSelect($query, $skillIds);
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($skillIds) {
@@ -302,5 +314,40 @@ class CommunityInterest extends Model
         });
 
         return $query;
+    }
+
+    private function addSkillCountSelect(Builder $query, ?array $skillIds): Builder
+    {
+        return $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', $skillIds)
+                ->join('users', 'users.id', '=', 'community_interests.user_id')
+                ->whereHas('userSkills', function (Builder $query) {
+                    $query->whereColumn('user_id', 'users.id');
+                })
+                ->select(DB::raw('count(*) as skills')),
+        ]);
+    }
+
+    public function scopeWithSkillCount(Builder $query)
+    {
+        // Checks if the query already has a skill_count select and if it does, it skips adding it again
+        $columns = $query->getQuery()->columns;
+        $normalizedColumns = array_map(function ($column) {
+            // Massage the column name to be a string and only return the column name
+            return $column instanceof Expression
+                ? Str::afterLast($column->getValue(DB::getQueryGrammar()), 'as ')
+                : Str::afterLast($column, 'as ');
+        }, $columns ?? []);
+
+        // Check if our array of columns contains the skill_count column
+        // If it does, we do not need to add it again
+        if (in_array('"skill_count"', $normalizedColumns)) {
+            return $query;
+        }
+
+        return $query->addSelect([
+            'skill_count' => Skill::whereIn('skills.id', [])
+                ->select(DB::raw('null as skill_count')),
+        ]);
     }
 }

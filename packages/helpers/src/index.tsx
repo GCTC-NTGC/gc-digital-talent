@@ -6,6 +6,7 @@ import {
 import buildMailToUri from "./utils/buildMailToUri";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
+import { sortAlphaBy } from "./utils/sort";
 import isUuidError from "./utils/uuid";
 import {
   assertUnreachable,
@@ -43,6 +44,7 @@ export {
   buildMailToUri,
   normalizeString,
   sanitizeUrl,
+  sortAlphaBy,
   isUuidError,
   useIsSmallScreen,
   groupBy,

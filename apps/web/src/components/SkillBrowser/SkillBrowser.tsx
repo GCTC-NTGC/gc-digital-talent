@@ -33,11 +33,11 @@ const SkillBrowser = ({
     category: `${id}-${INPUT_NAME.CATEGORY}`,
     family: `${id}-${INPUT_NAME.FAMILY}`,
   };
-  const { watch, resetField, setValue } = useFormContext();
-  const [family, skillValue] = watch([inputNames.family, name]) as [
-    FormValues["family"],
-    FormValues["skill"],
-  ];
+  const { watch, resetField, setValue } = useFormContext<{
+    [inputNames.family]: FormValues["family"];
+    [name]: FormValues["skill"];
+  }>();
+  const [family, skillValue] = watch([inputNames.family, name]);
 
   const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
