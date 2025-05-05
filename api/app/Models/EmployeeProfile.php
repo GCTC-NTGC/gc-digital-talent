@@ -51,7 +51,7 @@ class EmployeeProfile extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        'career_planning_lateral_move' => 'boolean',
+        'career_planning_lateral_move_interest' => 'boolean',
         'career_planning_lateral_move_time_frame' => 'string',
         'career_planning_lateral_move_organization_type' => 'array',
         'career_planning_promotion_move' => 'boolean',
