@@ -1,4 +1,4 @@
-import { Accordion, CardBasic } from "@gc-digital-talent/ui";
+import { Accordion } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience } from "@gc-digital-talent/graphql";
 
