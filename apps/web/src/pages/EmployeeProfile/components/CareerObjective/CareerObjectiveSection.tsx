@@ -150,7 +150,9 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
     $employeeProfile: UpdateEmployeeProfileInput!
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-      ...EmployeeProfileCareerObjective
+      userPublicProfile {
+        id
+      }
     }
   }
 `);
