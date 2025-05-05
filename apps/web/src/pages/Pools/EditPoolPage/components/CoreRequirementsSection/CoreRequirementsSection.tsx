@@ -122,7 +122,7 @@ const CoreRequirementsSection = ({
     defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit, control, watch } = methods;
-  const locationOption: FormValues["locationOption"] = useWatch({
+  const locationOption = useWatch<FormValues>({
     control,
     name: "locationOption",
   });

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit\Notifications;
 
 use App\Notifications\Utils\NominationUtils;
 use Tests\TestCase;

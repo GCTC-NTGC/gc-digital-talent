@@ -29,6 +29,7 @@ import { FormValues } from "./components/CommunityTalentFilterDialog";
 
 export function transformSortStateToOrderByClause(
   sortingRules: SortingState,
+  filterState?: CommunityInterestFilterInput,
 ): QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
   const columnMap = new Map<string, string>([
     ["jobInterest", "job_interest"],
@@ -36,6 +37,7 @@ export function transformSortStateToOrderByClause(
     ["userName", "FIRST_NAME"],
     ["workEmail", "WORK_EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
+    ["skillCount", "skill_count"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -67,6 +69,19 @@ export function transformSortStateToOrderByClause(
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
         column: columnName as QueryCommunityInterestsPaginatedOrderByUserColumn,
       },
+    };
+  }
+
+  if (
+    sortingRule &&
+    sortingRule.id === "skillCount" &&
+    filterState?.skills &&
+    filterState.skills.length > 0
+  ) {
+    return {
+      column: "skill_count",
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: undefined,
     };
   }
 

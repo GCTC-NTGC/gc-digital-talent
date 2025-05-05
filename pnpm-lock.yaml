@@ -725,6 +725,9 @@ importers:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
+      '@gc-digital-talent/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
       '@types/lodash':
         specifier: ^4.17.16
         version: 4.17.16

@@ -10,6 +10,7 @@ import {
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
 import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
 import { WorkFormValues } from "~/types/experience";
@@ -65,9 +66,7 @@ const ExperienceWorkStreamsEditDialog = ({
 
   const workStreamItemsOfCommunity = communities
     ?.find((item) => communityValue === item.id)
-    ?.workStreams?.sort((a, b) =>
-      (a.name?.localized ?? "").localeCompare(b.name?.localized ?? ""),
-    )
+    ?.workStreams?.sort(sortAlphaBy((workStream) => workStream.name?.localized))
     .map<CheckboxOption>(({ id, name }) => ({
       value: id,
       label: name?.localized,
