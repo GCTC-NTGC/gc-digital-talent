@@ -9446,6 +9446,10 @@
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
   },
+  "gwpmTn": {
+    "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
+    "description": "Error message for when a skill is not selected for assessment"
+  },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
     "description": "Error message if there are no experiences"
