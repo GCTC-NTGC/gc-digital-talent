@@ -46,9 +46,7 @@ export const formValuesToSubmitData = (
   formValues: FormValues,
 ): CoreRequirementsSubmitData => {
   return {
-    language: formValues.languageRequirement
-      ? formValues.languageRequirement
-      : undefined, // can't be set to null, assume not updating if empty
+    language: formValues.languageRequirement ?? undefined, // can't be set to null, assume not updating if empty
     location:
       formValues.locationOption !== LocationOption.RemoteOptional
         ? {
@@ -61,8 +59,6 @@ export const formValuesToSubmitData = (
           },
     isRemote: formValues.locationOption === LocationOption.RemoteOptional,
 
-    securityClearance: formValues.securityRequirement
-      ? formValues.securityRequirement
-      : undefined, // can't be set to null, assume not updating if empty
+    securityClearance: formValues.securityRequirement ?? undefined, // can't be set to null, assume not updating if empty
   };
 };

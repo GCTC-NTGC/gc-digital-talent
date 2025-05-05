@@ -1,6 +1,6 @@
 import { IntlShape } from "react-intl";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { Experience } from "@gc-digital-talent/graphql";
 
@@ -14,7 +14,6 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 import { ExperienceForDate } from "~/types/experience";
-import nodeToString from "~/utils/nodeToString";
 
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 

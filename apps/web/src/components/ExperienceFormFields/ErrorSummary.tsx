@@ -21,8 +21,7 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   const type = useWatch<AllExperienceFormValues>({
     name: "experienceType",
   }) as ExperienceType;
-  const derivedType: ExperienceType =
-    type ?? (!experienceType ? "personal" : experienceType);
+  const derivedType: ExperienceType = type ?? experienceType ?? "personal";
   const labels = getExperienceFormLabels(intl, derivedType);
   const {
     formState: { errors, isSubmitting },

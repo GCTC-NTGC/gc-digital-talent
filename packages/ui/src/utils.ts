@@ -1,3 +1,5 @@
+import { To } from "react-router";
+
 import { HeadingRank } from "./types";
 
 /**
@@ -50,4 +52,16 @@ export function decrementHeadingRank(inRank: HeadingRank): HeadingRank {
     default:
       return "h1";
   }
+}
+
+/**
+ * Convert a `To` type to a string
+ */
+
+export function hrefToString(to?: To): string | undefined {
+  if (typeof to !== "string") {
+    return to?.pathname;
+  }
+
+  return to;
 }

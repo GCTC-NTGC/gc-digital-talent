@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 import { Experience, Skill } from "@gc-digital-talent/graphql";
 import { Heading, ScrollToLink, Separator, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { getExperienceName } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { getExperienceSkills } from "~/utils/skillUtils";
-import nodeToString from "~/utils/nodeToString";
 
 interface SkillExperiencesProps {
   skill: Skill;

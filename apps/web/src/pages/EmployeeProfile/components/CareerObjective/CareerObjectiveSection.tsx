@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
+  nodeToString,
   sortAlphaBy,
   UnauthorizedError,
   unpackMaybes,
@@ -452,7 +453,7 @@ const CareerObjectiveSection = ({
           workStream.name?.localized ??
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
-  workStreamOptions.sort(sortAlphaBy((ws) => ws.label?.toString()));
+  workStreamOptions.sort(sortAlphaBy((ws) => nodeToString(ws.label)));
   const departmentOptions: ComponentProps<typeof Combobox>["options"] =
     unpackMaybes(options.departments)?.map((department) => ({
       value: department.id,
@@ -461,7 +462,7 @@ const CareerObjectiveSection = ({
         intl.formatMessage(commonMessages.notProvided),
     })) ?? [];
   departmentOptions.sort(
-    sortAlphaBy((department) => department.label?.toString()),
+    sortAlphaBy((department) => nodeToString(department.label)),
   );
   const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({

@@ -10,10 +10,12 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  assertUnreachable,
+  nodeToString,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-
-import nodeToString from "~/utils/nodeToString";
 
 import { FormValues } from "../form";
 
