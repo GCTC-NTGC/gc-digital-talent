@@ -1,3 +1,5 @@
+import { ErrorMessage } from "@hookform/error-message";
+
 import CardOptionGroup, {
   type CardOption,
   type CardOptionGroupProps,
@@ -73,6 +75,7 @@ export {
   CheckButton,
   Checklist,
   Combobox,
+  ErrorMessage,
   Field,
   HiddenInput,
   Input,
