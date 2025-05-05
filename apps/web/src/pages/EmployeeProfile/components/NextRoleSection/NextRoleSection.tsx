@@ -23,6 +23,7 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
   nodeToString,
+  sortAlphaBy,
   UnauthorizedError,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
@@ -456,8 +457,8 @@ const NextRoleSection = ({
         department.name?.localized ??
         intl.formatMessage(commonMessages.notProvided),
     })) ?? [];
-  departmentOptions.sort((a, b) =>
-    nodeToString(a.label).localeCompare(nodeToString(b.label)),
+  departmentOptions.sort(
+    sortAlphaBy((department) => nodeToString(department.label)),
   );
   const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({

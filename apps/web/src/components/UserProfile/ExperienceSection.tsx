@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import {
   compareByDate,
@@ -105,11 +106,7 @@ const ExperienceSection = ({
   const skillIds = allSkills.map(({ id }) => id);
   const sortedBySkills = allSkills
     .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
-    .sort((skill1, skill2) => {
-      const skill1Name: string = skill1.name[locale] ?? "";
-      const skill2Name: string = skill2.name[locale] ?? "";
-      return skill1Name.localeCompare(skill2Name);
-    }); //  Sort skills alphabetically
+    .sort(sortAlphaBy((skill) => skill.name[locale]));
 
   let isExperience = false;
   if (allExperiences.length >= 1) {

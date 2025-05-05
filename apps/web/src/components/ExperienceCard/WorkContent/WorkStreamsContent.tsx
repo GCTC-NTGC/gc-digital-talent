@@ -2,7 +2,12 @@ import { useIntl } from "react-intl";
 
 import { Maybe, WorkStream } from "@gc-digital-talent/graphql";
 import { HeadingRank, Separator } from "@gc-digital-talent/ui";
-import { groupBy, uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  groupBy,
+  sortAlphaBy,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
@@ -38,8 +43,8 @@ const WorkStreamContent = ({
   const workStreamsByCommunity = unpackMaybes(
     Object.keys(groupedWorkStreams).map((id) => {
       const community = communities.find((c) => c?.id === id);
-      const streams = groupedWorkStreams[id].sort((a, b) =>
-        (a?.name?.localized ?? "").localeCompare(b?.name?.localized ?? ""),
+      const streams = groupedWorkStreams[id].sort(
+        sortAlphaBy((workStream) => workStream?.name?.localized),
       );
       if (!community || !streams?.length) {
         return undefined;
@@ -50,11 +55,7 @@ const WorkStreamContent = ({
         workStreams: streams,
       };
     }),
-  ).sort((a, b) =>
-    (a?.community?.name?.localized ?? "").localeCompare(
-      b?.community.name?.localized ?? "",
-    ),
-  );
+  ).sort(sortAlphaBy((workStream) => workStream.community.name?.localized));
 
   return workStreamsByCommunity.length > 0 ? (
     <>

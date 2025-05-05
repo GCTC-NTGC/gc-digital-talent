@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "urql";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
@@ -45,6 +45,7 @@ import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import profileMessages from "~/messages/profileMessages";
+import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 
 import CommunityTalentFilterDialog, {
   FormValues,
@@ -61,55 +62,59 @@ import {
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
-  fragment CommunityTalentTableCommunityInterest on CommunityInterest {
+  fragment CommunityTalentTableCommunityInterest on CommunityInterestWithSkillCount {
     id
-    jobInterest
-    trainingInterest
-    user {
+    communityInterest {
       id
-      firstName
-      lastName
-      workEmail
-      preferredLang {
-        label {
+      jobInterest
+      trainingInterest
+      user {
+        id
+        firstName
+        lastName
+        workEmail
+        preferredLang {
+          label {
+            localized
+          }
+        }
+        lookingForEnglish
+        lookingForFrench
+        lookingForBilingual
+        currentClassification {
+          group
+          level
+        }
+        positionDuration
+        locationPreferences {
+          value
+          label {
+            localized
+          }
+        }
+        acceptedOperationalRequirements {
+          value
+          label {
+            localized
+          }
+        }
+        employeeProfile {
+          lateralMoveInterest
+          promotionMoveInterest
+        }
+      }
+      community {
+        name {
           localized
         }
       }
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      currentClassification {
-        group
-        level
-      }
-      positionDuration
-      locationPreferences {
-        value
-        label {
+      workStreams {
+        name {
           localized
         }
       }
-      acceptedOperationalRequirements {
-        value
-        label {
-          localized
-        }
-      }
-      employeeProfile {
-        lateralMoveInterest
-        promotionMoveInterest
-      }
     }
-    community {
-      name {
-        localized
-      }
-    }
-    workStreams {
-      name {
-        localized
-      }
-    }
+    skillCount
   }
 `);
 
@@ -127,6 +132,7 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
+        id
         ...CommunityTalentTableCommunityInterest
       }
       paginatorInfo {
@@ -138,6 +144,41 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
         lastPage
         perPage
         total
+      }
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
       }
     }
   }
@@ -315,7 +356,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: sortState ? [transformSortStateToOrderByClause(sortState)] : [],
+      orderBy: sortState
+        ? [transformSortStateToOrderByClause(sortState, filterState)]
+        : [],
     },
   });
 
@@ -328,15 +371,23 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     [dataFragment],
   );
 
+  const allSkills = unpackMaybes(data?.skills);
+  const filteredSkillIds = filterState?.skills
+    ?.filter(notEmpty)
+    .map((skill) => skill);
+
   const columns = [
     columnHelper.accessor(
-      ({ user }) => getFullNameLabel(user.firstName, user.lastName, intl),
+      ({ communityInterest: { user } }) =>
+        getFullNameLabel(user.firstName, user.lastName, intl),
       {
         id: "userName",
         header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
-            original: { user },
+            original: {
+              communityInterest: { user },
+            },
           },
         }) => usernameCell(user.id, paths, intl, user.firstName, user.lastName),
         meta: {
@@ -344,9 +395,30 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         },
       },
     ),
+    columnHelper.accessor("skillCount", {
+      id: "skillCount",
+      header: intl.formatMessage(adminMessages.skills),
+      cell: ({
+        row: {
+          original: {
+            communityInterest: { user },
+            skillCount,
+          },
+        },
+      }) =>
+        skillMatchDialogAccessor(
+          allSkills?.filter((skill) => filteredSkillIds?.includes(skill.id)) ??
+            [],
+          skillCount,
+          user.id,
+          `${user.firstName} ${user.lastName}`,
+        ),
+    }),
     columnHelper.accessor(
       ({
-        user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+        communityInterest: {
+          user: { lookingForEnglish, lookingForFrench, lookingForBilingual },
+        },
       }) => {
         const arr = [];
         if (lookingForEnglish) {
@@ -368,7 +440,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user: { currentClassification } }) =>
+      ({
+        communityInterest: {
+          user: { currentClassification },
+        },
+      }) =>
         classificationAccessor(
           currentClassification?.group,
           currentClassification?.level,
@@ -380,13 +456,17 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         enableSorting: false,
       },
     ),
-    columnHelper.accessor(({ user }) => user?.workEmail, {
-      id: "workEmail",
-      header: intl.formatMessage(commonMessages.workEmail),
-      cell: ({ getValue }) => cells.email(getValue()),
-    }),
     columnHelper.accessor(
-      ({ jobInterest }) => interestAccessor(intl, jobInterest),
+      ({ communityInterest: { user } }) => user?.workEmail,
+      {
+        id: "workEmail",
+        header: intl.formatMessage(commonMessages.workEmail),
+        cell: ({ getValue }) => cells.email(getValue()),
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { jobInterest } }) =>
+        interestAccessor(intl, jobInterest),
       {
         id: "jobInterest",
         header: intl.formatMessage(commonMessages.jobInterest),
@@ -394,7 +474,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ trainingInterest }) => interestAccessor(intl, trainingInterest),
+      ({ communityInterest: { trainingInterest } }) =>
+        interestAccessor(intl, trainingInterest),
       {
         id: "trainingInterest",
         header: intl.formatMessage(commonMessages.trainingInterest),
@@ -402,7 +483,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user: { preferredLang } }) => preferredLang?.label?.localized,
+      ({
+        communityInterest: {
+          user: { preferredLang },
+        },
+      }) => preferredLang?.label?.localized,
       {
         id: "preferredLang",
         enableColumnFilter: false,
@@ -411,14 +496,17 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         ),
       },
     ),
-    columnHelper.accessor(({ community }) => community.name?.localized, {
-      id: "community",
-      header: intl.formatMessage(adminMessages.community),
-      enableColumnFilter: false,
-      enableSorting: false,
-    }),
     columnHelper.accessor(
-      ({ workStreams }) =>
+      ({ communityInterest: { community } }) => community.name?.localized,
+      {
+        id: "community",
+        header: intl.formatMessage(adminMessages.community),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { workStreams } }) =>
         workStreams?.map((workStream) => workStream.name?.localized).join(", "),
       {
         id: "workStreams",
@@ -428,7 +516,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user }) =>
+      ({ communityInterest: { user } }) =>
         interestAccessor(intl, user?.employeeProfile?.lateralMoveInterest),
       {
         id: "lateralMoveInterest",
@@ -439,7 +527,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user }) =>
+      ({ communityInterest: { user } }) =>
         interestAccessor(intl, user?.employeeProfile?.promotionMoveInterest),
       {
         id: "promotionMoveInterest",
@@ -453,7 +541,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user }) =>
+      ({ communityInterest: { user } }) =>
         user?.positionDuration
           ? intl.formatMessage(
               getEmploymentDuration(
@@ -478,7 +566,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user }) =>
+      ({ communityInterest: { user } }) =>
         user?.locationPreferences
           ? user?.locationPreferences
               .map((locationPreference) => locationPreference?.label?.localized)
@@ -492,7 +580,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ user }) =>
+      ({ communityInterest: { user } }) =>
         user?.acceptedOperationalRequirements
           ? user?.acceptedOperationalRequirements
               .map(
@@ -542,13 +630,14 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       }}
       rowSelect={{
         onRowSelection: setSelectedRows,
-        getRowId: ({ id, user }) => `${id}-userId#${user.id}`,
+        getRowId: ({ id, communityInterest: { user } }) =>
+          `${id}-userId#${user.id}`,
         cell: ({ row }) =>
           rowSelectCell({
             row,
             label: getFullNameLabel(
-              row.original.user.firstName,
-              row.original.user.lastName,
+              row.original.communityInterest.user.firstName,
+              row.original.communityInterest.user.lastName,
               intl,
             ),
           }),

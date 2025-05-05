@@ -3,6 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator, Well } from "@gc-digital-talent/ui";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -49,16 +50,11 @@ const Display = ({
     commonMessages.missingOptionalInformation,
   );
 
-  careerObjectiveWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  careerObjectiveDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  careerObjectiveDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   const isCommunityOther =
