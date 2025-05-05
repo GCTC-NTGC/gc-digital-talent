@@ -261,10 +261,6 @@ const TalentNominationGroupCareerExperience_Query = graphql(/* GraphQL */ `
       nominee {
         id
       }
-      consentToShareProfile
-      nominee {
-        id
-      }
     }
   }
 `);
