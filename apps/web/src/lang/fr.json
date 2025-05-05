@@ -5375,6 +5375,10 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
+  "Ney+Il": {
+    "defaultMessage": "Nous avons trouvé un utilisateur dont l'adresse courriel est fournie, mais qui n'a pas confirmé son statut d'employée ou d'employé. À l'heure actuelle, seuls les membres du personnel vérifiés peuvent être nommés. L'utilisateur peut vérifier son statut d'employée ou d'employé en ouvrant une session dans la plateforme et en vérifiant son adresse courriel professionnelle.",
+    "description": "Description of default message when user was found but not a verified employee"
+  },
   "NfRLs/": {
     "defaultMessage": "Anglais - Votre impact",
     "description": "Label for the English - Your Impact textarea in the edit pool page."
@@ -13189,6 +13193,10 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
+  "zVGK45": {
+    "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
+    "description": "Label for when an employee was found but not verified"
   },
   "zVGzWa": {
     "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",

@@ -69,6 +69,8 @@ class ApiErrorEnums
     // Government Employee Details
     const NOT_GOVERNMENT_EMAIL = 'NotGovernmentEmail';
 
+    const NOT_VERIFIED_GOVERNMENT_EMPLOYEE = 'NotVerifiedGovEmployee';
+
     // Localized Enums
     const ENUM_NOT_FOUND = 'EnumNotFound';
 
