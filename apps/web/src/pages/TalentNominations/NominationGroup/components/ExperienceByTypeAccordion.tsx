@@ -36,7 +36,7 @@ const ExperienceByTypeAccordion = ({
         .map(({ id, title, experiences: sectionExperiences }) => (
           <Accordion.Item key={id} value={id}>
             <Accordion.Trigger>
-              {/* eslint-disable-next-line */}
+              {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
               {title} ({sectionExperiences.length})
             </Accordion.Trigger>
             <Accordion.Content>
