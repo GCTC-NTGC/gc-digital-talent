@@ -11,7 +11,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Combobox, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -150,7 +154,9 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
             label={intl.formatMessage(labels.leadershipCompetencies)}
             options={unpackMaybes(skills).map((skill) => ({
               value: skill.id,
-              label: skill.name.localized ?? "",
+              label:
+                skill.name.localized ??
+                intl.formatMessage(commonMessages.notFound),
             }))}
           />
         )}

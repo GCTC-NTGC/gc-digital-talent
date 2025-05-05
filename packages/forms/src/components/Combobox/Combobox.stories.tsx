@@ -16,7 +16,7 @@ faker.seed(0);
 
 const skills = getStaticSkills().map((skill) => ({
   value: skill.id,
-  label: skill.name.en ?? "",
+  label: skill.name.en ?? "Not found",
 }));
 
 const defaultArgs = {
