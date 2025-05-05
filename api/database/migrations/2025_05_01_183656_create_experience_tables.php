@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // step 1: create the five new experience tables
+
         Schema::create('award_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('user_id')->nullable(false);
@@ -107,6 +109,8 @@ return new class extends Migration
             $table->string('other_c_suite_role_title')->nullable();
         });
 
+        // step 2: create the table to pivot from work experience to work stream
+
         Schema::create('work_experience_work_stream', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(new Expression('public.gen_random_uuid()'));
             $table
@@ -120,11 +124,19 @@ return new class extends Migration
             $table->index(['work_experience_id', 'work_stream_id']);
         });
 
-        // TODO experience_skill polymorphism
-        // TODO pool_candidate_education_requirement_experience polymorphism
+        // step 3: create the columns in experience_skill and pool_candidate_education_requirement_experience to support the morph
 
-        // roll back table insertions and if any fail before starting to the old table
+        Schema::table('experience_skill', function (Blueprint $table) {
+            $table->string('experience_type')->nullable();
+        });
+        Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
+            $table->string('experience_type')->nullable();
+        });
+
+        // transaction to roll back table insertions if any fail before starting to delete the old table
         DB::transaction(function () {
+
+            // step 4: fill the five new experience tables from step 1
 
             DB::table('award_experiences')
                 ->insertUsing(
@@ -243,10 +255,10 @@ return new class extends Migration
                             new Expression("properties->>'contractor_firm_agency_name'"),
                             new Expression("(properties->>'supervisory_position')::BOOL"),
                             new Expression("(properties->>'supervised_employees')::BOOL"),
-                            // seems like there was a null-handling bug in our JSON int storage
+                            // seems like there was a null-handling bug in our JSON int storage that stored false instead of null
                             new Expression("case when properties->>'supervised_employees_number' = 'false' then null else (properties->>'supervised_employees_number')::INT end"),
                             new Expression("(properties->>'budget_management')::BOOL"),
-                            // seems like there was a null-handling bug in our JSON int storage
+                            // seems like there was a null-handling bug in our JSON int storage that stored false instead of null
                             new Expression("case when properties->>'annual_budget_allocation' = 'false' then null else (properties->>'annual_budget_allocation')::INT end"),
                             new Expression("(properties->>'senior_management_status')::BOOL"),
                             new Expression("properties->>'c_suite_role_title'"),
@@ -254,6 +266,8 @@ return new class extends Migration
                         ])
                         ->where('experience_type', 'App\Models\WorkExperience')
                 );
+
+            // step 5: fill the pivot tables from step 2
 
             DB::table('work_experience_work_stream')
                 ->insertUsing(
@@ -263,15 +277,41 @@ return new class extends Migration
                         ->where('experience_type', 'App\Models\WorkExperience')
                 );
 
+            // step 6: fill the morph columns and make non-nullable from step 3
+
+            DB::statement('
+                UPDATE experience_skill as t
+                SET experience_type = e.experience_type
+                FROM experiences AS e
+                WHERE t.experience_id  = e.id
+            ');
+            Schema::table('experience_skill', function (Blueprint $table) {
+                $table->string('experience_type')
+                    ->nullable(false)
+                    ->change();
+            });
+
+            DB::statement('
+                UPDATE pool_candidate_education_requirement_experience as t
+                SET experience_type = e.experience_type
+                FROM experiences AS e
+                WHERE t.experience_id  = e.id
+            ');
+            Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
+                $table->string('experience_type')
+                    ->nullable(false)
+                    ->change();
+            });
+
+            // step 7: finally, drop the old objects
+
             Schema::table('experience_skill', function (Blueprint $table) {
                 $table->dropForeign('experience_skill_experience_id_foreign');
             });
             Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
                 $table->dropForeign('pool_candidate_education_requirement_experience_experience_id_f');
             });
-
             Schema::drop('experiences');
-
         });
     }
 
@@ -280,7 +320,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // add new
+        // step 1: create the shared experience table
+
         Schema::create('experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->timestamps();
@@ -292,8 +333,10 @@ return new class extends Migration
             $table->jsonb('properties')->nullable();
         });
 
-        // roll back table insertions if any fail before starting to drop old tables
+        // transaction to roll back table insertions if any fail before starting to drop old tables
         DB::transaction(function () {
+
+            // step 2: fill the shared experience table from the five separate tables
 
             DB::table('experiences')
                 ->insertUsing(
@@ -398,12 +441,18 @@ return new class extends Migration
                         SQL))
                 );
 
+            // step 3: remove the columns in experience_skill and pool_candidate_education_requirement_experience to support the morph and readd the foreign key to the shared table
+
             Schema::table('experience_skill', function (Blueprint $table) {
                 $table->foreign('experience_id')->references('id')->on('experiences')->cascadeOnDelete(true);
+                $table->dropColumn('experience_type');
             });
             Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
                 $table->foreign('experience_id')->references('id')->on('experiences')->cascadeOnDelete(true);
+                $table->dropColumn('experience_type');
             });
+
+            // step 4: finally, drop the old objects
 
             Schema::drop('work_experience_work_stream');
             Schema::drop('award_experiences');
