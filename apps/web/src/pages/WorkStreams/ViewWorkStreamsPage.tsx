@@ -152,12 +152,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
               </FieldDisplay>
             </div>
             <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Searchable on request",
-                id: "Yzx90B",
-                description:
-                  "Label for if a work stream appears on the search page",
-              })}
+              label={intl.formatMessage(commonMessages.onFindTalent)}
             >
               {workStream.talentSearchable
                 ? intl.formatMessage(commonMessages.yes)

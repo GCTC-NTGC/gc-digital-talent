@@ -48,8 +48,6 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import messages from "./messages";
-
 const UpdateWorkStream_Mutation = graphql(/* GraphQL */ `
   mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
     updateWorkStream(id: $id, workStream: $workStream) {
@@ -285,7 +283,7 @@ export const UpdateWorkStreamForm = ({
                 <SwitchInput
                   name="talentSearchable"
                   id="talentSearchable"
-                  label={intl.formatMessage(messages.talentSearchable)}
+                  label={intl.formatMessage(commonMessages.onFindTalent)}
                 />
                 <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
                   {workStream.key ??

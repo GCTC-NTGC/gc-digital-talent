@@ -1127,6 +1127,10 @@
     "defaultMessage": "Processus",
     "description": "Name of Processes page"
   },
+  "hC74Bo": {
+    "defaultMessage": "S'affiche sur la page « Trouver des talents »",
+    "description": "Message for when a specific item shows up as an option when searching talent"
+  },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."

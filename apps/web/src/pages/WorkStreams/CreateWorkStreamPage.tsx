@@ -39,8 +39,6 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
 
-import messages from "./messages";
-
 const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
   mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
     createWorkStream(workStream: $workStream) {
@@ -245,7 +243,7 @@ export const CreateWorkStreamForm = ({
               <SwitchInput
                 id="talentSearchable"
                 name="talentSearchable"
-                label={intl.formatMessage(messages.talentSearchable)}
+                label={intl.formatMessage(commonMessages.onFindTalent)}
               />
               <Input
                 id="key"
