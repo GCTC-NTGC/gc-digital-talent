@@ -79,36 +79,36 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'career_planning_exec_coaching_interest',
 
         // TODO: check
-        'next_role_classification_id', // next role - target classification group
-        'next_role_classification_id', // Next role - Target classification level: empty/ answer as on platform
+        'next_role_target_classification_group', // next role - target classification group
+        'next_role_target_classification_level', // Next role - Target classification level
         'next_role_target_role',
         'next_role_is_c_suite_role',
         'next_role_c_suite_role_title',
         'next_role_job_title',
 
         // TODO: check
-        'next_role_community_id', // Next role - Functional community: empty/ answer as on platform
+        'next_role_functional_community', // Next role - Functional community:
 
         // TODO: Implement
-        // '', // Next role - Work streams: empty/ answer as on platform
-        // '', // Next role - Departments: empty/ answer as on platform
+        'next_role_work_streams', // Next role - Work streams
+        'next_role_departments', // Next role - Departments
 
         'next_role_additional_information',
 
         // TODO: check
-        'career_objective_classification_id', // career objective - target classification group
-        'career_objective_classification_id', // career objective -target classification level
+        'career_objective_target_classification_group', // career objective - target classification group
+        'career_objective_target_classification_level', // career objective -target classification level
         'career_objective_target_role',
         'career_objective_is_c_suite_role',
         'career_objective_c_suite_role_title',
         'career_objective_job_title',
 
         // TODO: check
-        'career_objective_community_id', // Career objective - Functional community: empty/ answer as on platform
+        'career_objective_functional_community', // Career objective - Functional community
 
         // TODO: Implement
-        // '', // Career objective - Work streams: empty/ answer as on platform
-        // '', // Career objective - Departments: empty/ answer as on platform
+        'career_objective_work_streams', // Career objective - Work streams
+        'career_objective_work_departments', // Career objective - Departments
 
         'career_objective_additional_information',
         'career_planning_about_you',
@@ -191,24 +191,24 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $user->career_planning_exec_coaching_interest,
 
                     // TODO: check
-                    $user->next_role_classification_id->group[$this->lang] ?? '', // next role - target classification group
-                    $user->next_role_classification_id->level[$this->lang] ?? '', // next role - target classification level
+                    $user->employeeProfile->next_role_target_classification_group->group[$this->lang] ?? '', // next role - target classification group
+                    $user->employeeProfile->next_role_target_classification_level->level[$this->lang] ?? '', // next role - target classification level
 
-                    $user->next_role_target_role,
+                    $user->employeeProfile->next_role_target_role,
                     $this->yesOrNo($user->next_role_is_c_suite_role),
                     $user->next_role_c_suite_role_title,
                     $user->next_role_job_title,
 
                     // TODO: check
-                    $user->next_role_community_id->name[$this->lang] ?? '', // Next role - Functional community
+                    $user->employeeProfile->next_role_functional_community->name[$this->lang] ?? '', // Next role - Functional community
                     // next role - Work streams
                     // next role - Departments
 
                     $user->next_role_additional_information,
 
                     // TODO: check
-                    $user->career_objective_classification_id->group[$this->lang] ?? '', // Career objective - Target classification group
-                    $user->career_objective_classification_id->level[$this->lang] ?? '', // Career objective - Target classification level
+                    $user->career_objective_target_classification_group->group[$this->lang] ?? '', // Career objective - Target classification group
+                    $user->career_objective_target_classification_level->level[$this->lang] ?? '', // Career objective - Target classification level
 
                     $user->career_objective_target_role,
                     $this->yesOrNo($user->career_objective_is_c_suite_role),
@@ -216,7 +216,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $user->career_objective_job_title,
 
                     // TODO: check
-                    $user->career_objective_community_id->name[$this->lang] ?? '',
+                    $user->career_objective_functional_community->name[$this->lang] ?? '',
                     // career objective - Work streams
                     // career objective - Departments
 

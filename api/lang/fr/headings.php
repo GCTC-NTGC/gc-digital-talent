@@ -65,17 +65,17 @@ return [
     'career_planning_exec_coaching_status' => 'État du coaching des cadres',
     'career_planning_exec_coaching_interest' => 'Intérêt pour le coaching des cadres',
 
-    'next_role_classification_id' => 'Prochain poste - Groupe de classification visé',
-    'next_role_classification_id' => 'Prochain poste - Niveau de classification visé',
+    'next_role_target_classification_group' => 'Prochain poste - Groupe de classification visé',
+    'next_role_target_classification_level' => 'Prochain poste - Niveau de classification visé',
 
     'next_role_target_role' => 'Prochain poste - Type de poste visé',
     'next_role_is_c_suite_role' => 'Prochain poste – Cadre supérieur',
     'next_role_c_suite_role_title' => 'Prochain poste - Titre du rôle de cadre supérieur',
     'next_role_job_title' => 'Prochain poste - Titre du poste',
-    'next_role_community_id' => 'Prochain poste - Collectivité fonctionnelle',
+    'next_role_functional_community' => 'Prochain poste - Collectivité fonctionnelle',
     // TODO: Implement
-    // '' => 'Prochain poste – Volets de travail',
-    // '' => 'Prochain poste - Ministères',
+    'next_role_work_streams' => 'Prochain poste – Volets de travail',
+    'next_role_departments' => 'Prochain poste - Ministères',
 
     'next_role_additional_information' => 'Prochain poste - Renseignements supplémentaires',
     'career_objective_classification_id' => 'Objectif de carrière - Groupe de classification visé',
@@ -84,10 +84,10 @@ return [
     'career_objective_is_c_suite_role' => 'Objectif de carrière - Cadre supérieur',
     'career_objective_c_suite_role_title' => 'Objectif de carrière - Titre du rôle de cadre supérieur',
     'career_objective_job_title' => 'Objectif de carrière - Titre du poste',
-    'career_objective_community_id' => 'Objectif de carrière - Collectivité fonctionnelle',
+    'career_objective_functional_community' => 'Objectif de carrière - Collectivité fonctionnelle',
     // TODO: Implement
-    // '' => 'Objectif de carrière - Volets de travail',
-    // '' => 'Objectif de carrière - Ministères',
+    'career_objective_work_streams' => 'Objectif de carrière - Volets de travail',
+    'career_objective_work_departments' => 'Objectif de carrière - Ministères',
     'career_objective_additional_information' => 'Objectif de carrière - Renseignements supplémentaires',
     'career_planning_about_you' => 'À propos',
     'career_planning_learning_goals' => 'Objectifs d’apprentissage',
