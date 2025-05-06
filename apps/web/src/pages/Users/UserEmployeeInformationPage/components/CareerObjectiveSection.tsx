@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardBasic } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -67,16 +68,11 @@ const CareerObjectiveSection = ({
     employeeProfileQuery,
   );
 
-  employeeProfile?.careerObjectiveWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.careerObjectiveWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  employeeProfile?.careerObjectiveDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.careerObjectiveDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   return (
@@ -92,9 +88,8 @@ const CareerObjectiveSection = ({
           )}
         </span>
 
-        {employeeProfile.careerObjectiveClassification?.group
-          ? employeeProfile.careerObjectiveClassification.group
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.careerObjectiveClassification?.group ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
@@ -136,17 +131,15 @@ const CareerObjectiveSection = ({
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.jobTitle)}
         </span>
-        {employeeProfile.careerObjectiveJobTitle
-          ? employeeProfile.careerObjectiveJobTitle
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.careerObjectiveJobTitle ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div data-h2-grid-column="l-tablet(span 2)">
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.community)}
         </span>
-        {employeeProfile.careerObjectiveCommunity?.name?.localized
-          ? employeeProfile.careerObjectiveCommunity.name.localized
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.careerObjectiveCommunity?.name?.localized ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       {/* Only show work streams if the community has possible work streams to choose, or if there are some chosen already somehow */}
       {employeeProfile.careerObjectiveCommunity?.workStreams?.length ||
@@ -192,9 +185,8 @@ const CareerObjectiveSection = ({
             employeeProfileMessages.additionalInformationCareerObjective,
           )}
         </span>
-        {employeeProfile.careerObjectiveAdditionalInformation
-          ? employeeProfile.careerObjectiveAdditionalInformation
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.careerObjectiveAdditionalInformation ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
     </CardBasic>
   );

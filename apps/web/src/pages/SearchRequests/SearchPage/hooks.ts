@@ -76,7 +76,7 @@ export const useCandidateCount = (
     variables: queryArgs,
   });
 
-  const candidateCount = data?.countApplicants ? data.countApplicants : 0;
+  const candidateCount = data?.countApplicants ?? 0;
 
   /**
    * Announce the candidate count to users in a less verbose way

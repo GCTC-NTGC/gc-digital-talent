@@ -21,7 +21,12 @@ import {
   CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { UnauthorizedError, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  nodeToString,
+  sortAlphaBy,
+  UnauthorizedError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   alphaSortOptions,
@@ -448,9 +453,7 @@ const CareerObjectiveSection = ({
           workStream.name?.localized ??
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
-  workStreamOptions.sort((a, b) =>
-    (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
-  );
+  workStreamOptions.sort(sortAlphaBy((ws) => nodeToString(ws.label)));
   const departmentOptions: ComponentProps<typeof Combobox>["options"] =
     unpackMaybes(options.departments)?.map((department) => ({
       value: department.id,
@@ -458,8 +461,8 @@ const CareerObjectiveSection = ({
         department.name?.localized ??
         intl.formatMessage(commonMessages.notProvided),
     })) ?? [];
-  departmentOptions.sort((a, b) =>
-    (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
+  departmentOptions.sort(
+    sortAlphaBy((department) => nodeToString(department.label)),
   );
   const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({

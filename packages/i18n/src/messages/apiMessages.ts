@@ -474,6 +474,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message for when an error occurs during role assignment",
   },
+  NotVerifiedGovEmployee: {
+    defaultMessage: "This user hasn't verified their employee status",
+    id: "m/VZ/H",
+    description: "Error message for when a user is not verified",
+  },
 });
 
 export const tryFindMessageDescriptor = (

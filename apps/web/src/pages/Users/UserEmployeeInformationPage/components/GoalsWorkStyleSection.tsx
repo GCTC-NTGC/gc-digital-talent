@@ -39,27 +39,24 @@ const GoalsWorkStyleSection = ({
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.aboutYou)}
         </span>
-        {employeeProfile.aboutYou
-          ? employeeProfile.aboutYou
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.aboutYou ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <CardSeparator data-h2-margin="base(0)" />
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.learningGoals)}
         </span>
-        {employeeProfile.learningGoals
-          ? employeeProfile.learningGoals
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.learningGoals ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <CardSeparator data-h2-margin="base(0)" />
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.workStyle)}
         </span>
-        {employeeProfile.workStyle
-          ? employeeProfile.workStyle
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.workStyle ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
     </CardBasic>
   );

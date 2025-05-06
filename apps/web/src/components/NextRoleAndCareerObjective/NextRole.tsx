@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -34,16 +35,12 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
     nextRoleCSuiteRoleTitle,
   } = nextRole;
 
-  nextRoleWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  nextRoleWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
 
-  nextRoleDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  nextRoleDepartments?.sort(
+    sortAlphaBy((department) => department.name.localized),
   );
 
   const isCommunityOther = !nextRoleCommunity?.id && !!nextRoleCommunityOther;
@@ -59,9 +56,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
           employeeProfileMessages.targetClassificationGroup,
         )}
       >
-        {nextRoleClassification?.group
-          ? nextRoleClassification.group
-          : notProvided}
+        {nextRoleClassification?.group ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(

@@ -498,6 +498,14 @@ const AssessmentDetailsDialog = ({
       return false;
     });
 
+  const requiredSkillsMessage = intl.formatMessage({
+    defaultMessage:
+      "Please select at least one essential or asset skill for this assessment method.",
+    id: "gwpmTn",
+    description:
+      "Error message for when a skill is not selected for assessment",
+  });
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
@@ -789,7 +797,10 @@ const AssessmentDetailsDialog = ({
                     )}
                     rules={{
                       validate: (selectedAssessedSkills: string[]) => {
-                        return selectedAssessedSkills.length > 0;
+                        return (
+                          selectedAssessedSkills.length > 0 ||
+                          requiredSkillsMessage
+                        );
                       },
                     }}
                   />
@@ -803,15 +814,16 @@ const AssessmentDetailsDialog = ({
                     items={alphaSortOptions(assessedSkillsItems.assetSkills)}
                     rules={{
                       validate: (selectedAssessedSkills: string[]) => {
-                        return selectedAssessedSkills.length > 0;
+                        return (
+                          selectedAssessedSkills.length > 0 ||
+                          requiredSkillsMessage
+                        );
                       },
                     }}
                   />
                 )}
                 {errors.assessedSkills ? (
-                  <Field.Error>
-                    {intl.formatMessage(errorMessages.required)}
-                  </Field.Error>
+                  <Field.Error>{requiredSkillsMessage}</Field.Error>
                 ) : null}
                 {!assessedSkillsItems.essentialSkillItems.length &&
                 !assessedSkillsItems.assetSkills.length ? (

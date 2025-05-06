@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { graphql, PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Option } from "@gc-digital-talent/forms";
+import { ComboboxOption } from "@gc-digital-talent/forms";
 
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
@@ -57,7 +57,7 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
 `);
 
 interface UsePoolFilterOptionsReturn {
-  poolOptions: Option[];
+  poolOptions: ComboboxOption[];
   total: number;
   fetching: boolean;
 }

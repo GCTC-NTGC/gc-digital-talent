@@ -20,6 +20,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -81,11 +82,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
       };
     });
   const skillFamilyObjectsLocalizedSorted = skillFamilyObjectsLocalized.sort(
-    (a, b) => {
-      const aName = a.name;
-      const bName = b.name;
-      return aName.localeCompare(bName);
-    },
+    sortAlphaBy((skillFamily) => skillFamily.name),
   );
 
   return (

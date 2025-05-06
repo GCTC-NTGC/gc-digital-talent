@@ -8,6 +8,7 @@ import CardFlatRegularLink, {
 import CardFlatScrollToLink, {
   CardFlatScrollToLinkProps,
 } from "./CardFlatScrollToLink";
+import { hrefToString } from "../../../utils";
 
 function isRegularLinkItem(
   item: LinkItemRegular | LinkItemScrollTo,
@@ -119,7 +120,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
             if (isRegularLinkItem(link)) {
               return (
                 <CardFlatRegularLink
-                  key={String(link.naturalKey ?? link.href)}
+                  key={String(link.naturalKey ?? hrefToString(link.href))}
                   color={color}
                   {...link}
                 />

@@ -36,7 +36,7 @@ const getAssessmentResult = (
 ): AssessmentResult => ({
   id: faker.string.uuid(),
   assessmentDecision: toLocalizedEnum(
-    !decision ? AssessmentDecision.Successful : decision,
+    decision ?? AssessmentDecision.Successful,
   ),
   assessmentResultType: AssessmentResultType.Education,
   assessmentStep: requiredAssessment,
