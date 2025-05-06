@@ -22,25 +22,96 @@ import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
+import FullCareerExperiences from "./components/FullCareerExperiences";
 
 const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
     user(id: $nomineeId) {
       updatedDate
       experiences {
+        # profileExperience fragment
         id
         __typename
-        # ... on AwardExperience {
-        #   title
-        # }
-        # ... on CommunityExperience {
-        #   title
-        # }
-        # ... on EducationExperience {
-        #   institution
-        # }
-        # ... on PersonalExperience {
-        #   title
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          awardedScope {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
         ... on WorkExperience {
           ...CurrentPositionWorkExperience
         }
@@ -166,9 +237,19 @@ const TalentNominationGroupCareerExperience = ({
           )}
         </div>
       </CardBasic>
-      {/* <CardBasic>
-        Full career card
-      </CardBasic> */}
+      <CardBasic>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-flex-direction="base(column)"
+          data-h2-gap="base(x.5 0)"
+          data-h2-margin-bottom="base(x1)"
+        >
+          <FullCareerExperiences
+            experiences={experiences}
+            shareProfile={shareProfile}
+          />
+        </div>
+      </CardBasic>
     </Pending>
   );
 };
@@ -188,7 +269,12 @@ const TalentNominationGroupCareerExperiencePage = () => {
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
   );
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery<{
+    talentNominationGroup?: {
+      consentToShareProfile: boolean;
+      nominee: { id: string };
+    };
+  }>({
     query: TalentNominationGroupCareerExperience_Query,
     variables: { talentNominationGroupId },
   });

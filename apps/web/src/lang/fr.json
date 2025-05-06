@@ -179,6 +179,10 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
+  "+mG20j": {
+    "defaultMessage": "Carrière complète",
+    "description": "Heading for career experience"
+  },
   "+nQpv5": {
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Title for the page showing list of job advertisement templates"
@@ -4682,6 +4686,10 @@
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
+  },
+  "KR4kRt": {
+    "defaultMessage": "Démontrer l'expérience par :",
+    "description": "Label for experience sorting options"
   },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
@@ -9446,6 +9454,9 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
+  "gu2wRn": {
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées."
+  },
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
@@ -12073,6 +12084,10 @@
   "tpXtAJ": {
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
+  },
+  "trerKD": {
+    "defaultMessage": "Type",
+    "description": "Button to filter experiences by type"
   },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",

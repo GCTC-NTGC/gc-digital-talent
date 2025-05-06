@@ -29,6 +29,11 @@ class TriggerApplicationStatusChangedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user = User::factory()->create([
+            // Make computed gov employee fields null to not accidentally trigger a
+            // 'gov employee but not verified' notification
+            'work_email' => null,
+            'work_email_verified_at' => null,
+            'computed_is_gov_employee' => null,
             'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
             'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
         ]);

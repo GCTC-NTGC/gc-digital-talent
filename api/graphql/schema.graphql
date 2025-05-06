@@ -621,6 +621,7 @@ type WorkStream {
   name: LocalizedString
   plainLanguageName: LocalizedString @rename(attribute: "plain_language_name")
   community: Community @belongsTo
+  talentSearchable: Boolean @rename(attribute: "talent_searchable")
 }
 
 type Community implements HasRoleAssignments {
@@ -1397,7 +1398,9 @@ type Query {
   communities: [Community]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
   workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
-  workStreams: [WorkStream]! @all @canModel(ability: "viewAny")
+  workStreams(talentSearchable: Boolean @scope): [WorkStream]!
+    @all
+    @canModel(ability: "viewAny")
 
   notifications(
     where: NotificationFilterInput
@@ -1952,6 +1955,7 @@ input CreateWorkStreamInput {
   plainLanguageName: LocalizedStringInput
     @rename(attribute: "plain_language_name")
   community: CommunityBelongsTo!
+  talentSearchable: Boolean! @rename(attribute: "talent_searchable")
 }
 
 input UpdateWorkStreamInput {
@@ -1960,6 +1964,7 @@ input UpdateWorkStreamInput {
   plainLanguageName: LocalizedStringInput
     @rename(attribute: "plain_language_name")
   community: CommunityBelongsTo
+  talentSearchable: Boolean @rename(attribute: "talent_searchable")
 }
 
 input WorkStreamBelongsTo {

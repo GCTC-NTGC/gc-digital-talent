@@ -31,6 +31,7 @@ class WorkStream extends Model
     protected $casts = [
         'name' => LocalizedString::class,
         'plain_language_name' => LocalizedString::class,
+        'talent_searchable' => 'boolean',
     ];
 
     protected $fillable = [
@@ -38,6 +39,7 @@ class WorkStream extends Model
         'name',
         'plain_language_name',
         'community_id',
+        'talent_searchable',
     ];
 
     /** @return BelongsTo<Community, $this> */
@@ -60,5 +62,18 @@ class WorkStream extends Model
         $query->whereIn('id', $workStreamIds);
 
         return $query;
+    }
+
+    /**
+     * Filter work streams by those that can be used
+     * on the talent search page
+     */
+    public static function scopeTalentSearchable(Builder $query, bool $talentSearchable): Builder
+    {
+        if (! $talentSearchable) {
+            return $query;
+        }
+
+        return $query->where('talent_searchable', true);
     }
 }

@@ -387,7 +387,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       group
       level
     }
-    workStreams {
+    workStreams(talentSearchable: true) {
       id
       name {
         en
