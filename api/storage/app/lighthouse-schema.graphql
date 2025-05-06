@@ -385,7 +385,7 @@ type Query {
   teams: [Team]!
   roles: [Role]!
   workStream(id: UUID!): WorkStream
-  workStreams: [WorkStream]!
+  workStreams(talentSearchable: Boolean): [WorkStream]!
   sitewideAnnouncement: SitewideAnnouncement
   talentNominationEvents(where: TalentNominationEventsFilterInput): [TalentNominationEvent]!
   talentNominationEvent(id: UUID!): TalentNominationEvent
@@ -1075,6 +1075,7 @@ type WorkStream {
   name: LocalizedString
   plainLanguageName: LocalizedString
   community: Community
+  talentSearchable: Boolean
 }
 
 type Community implements HasRoleAssignments {
@@ -1966,6 +1967,7 @@ input CreateWorkStreamInput {
   name: LocalizedStringInput!
   plainLanguageName: LocalizedStringInput
   community: CommunityBelongsTo!
+  talentSearchable: Boolean!
 }
 
 input UpdateWorkStreamInput {
@@ -1973,6 +1975,7 @@ input UpdateWorkStreamInput {
   name: LocalizedStringInput
   plainLanguageName: LocalizedStringInput
   community: CommunityBelongsTo
+  talentSearchable: Boolean
 }
 
 input WorkStreamBelongsTo {

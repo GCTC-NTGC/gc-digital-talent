@@ -10,6 +10,7 @@ import {
   OptGroupOrOption,
   Select,
   Submit,
+  SwitchInput,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
@@ -76,6 +77,7 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    talentSearchable
   }
 `);
 
@@ -83,6 +85,7 @@ interface FormValues {
   name?: InputMaybe<LocalizedStringInput>;
   plainLanguageName?: InputMaybe<LocalizedStringInput>;
   community: string;
+  talentSearchable: boolean;
 }
 
 const formValuesToSubmitData = (data: FormValues): UpdateWorkStreamInput => {
@@ -97,6 +100,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateWorkStreamInput => {
       fr: data.plainLanguageName?.fr,
     },
     community: { connect: communityId },
+    talentSearchable: data.talentSearchable,
   };
 };
 
@@ -120,6 +124,7 @@ export const UpdateWorkStreamForm = ({
       name: workStream.name,
       plainLanguageName: workStream.plainLanguageName,
       community: workStream.community?.id,
+      talentSearchable: workStream.talentSearchable ?? true,
     },
   });
   const { handleSubmit } = methods;
@@ -275,12 +280,15 @@ export const UpdateWorkStreamForm = ({
                     options={communityOptions}
                   />
                 </div>
-                <div data-h2-grid-column="p-tablet(span 2)">
-                  <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-                    {workStream.key ??
-                      intl.formatMessage(commonMessages.notProvided)}
-                  </FieldDisplay>
-                </div>
+                <SwitchInput
+                  name="talentSearchable"
+                  id="talentSearchable"
+                  label={intl.formatMessage(commonMessages.onFindTalent)}
+                />
+                <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                  {workStream.key ??
+                    intl.formatMessage(commonMessages.notProvided)}
+                </FieldDisplay>
               </div>
               <CardSeparator />
               <div
