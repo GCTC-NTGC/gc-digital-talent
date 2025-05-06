@@ -2,6 +2,6 @@
 
 return [
     'active' => 'Actif',
-    'upcoming' => 'Passé',
-    'past' => 'À venir',
+    'upcoming' => 'À venir',
+    'past' => 'Passé',
 ];
