@@ -3,13 +3,14 @@ import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import uniq from "lodash/uniq";
 
-import { Button, Heading, Well } from "@gc-digital-talent/ui";
+import { Accordion, Button, Heading, Well } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { empty, notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import experienceMessages from "~/messages/experienceMessages";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
-import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
+import { buildExperienceByTypeSections } from "./fullCareerExperiencesUtils";
 // import ExperienceByWorkStreamAccordion from "./ExperienceByWorkStreamAccordion";
 
 export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
@@ -46,6 +47,7 @@ const FullCareerExperiences = ({
       uniq(experiences.map((e) => e.__typename?.toString()).filter(notEmpty)) ??
       [];
   }
+  const experienceSections = buildExperienceByTypeSections(experiences, intl);
   // if (selectedView == "workStream") {
   //   sectionIds =
   //     uniq(experiences.map((e) => e.__typename)).filter(notEmpty) ?? [];
@@ -112,7 +114,8 @@ const FullCareerExperiences = ({
         })}
       </p>
       <div>
-        {shareProfile && (
+        {/* If can share profile, show controls. Otherwise, show error well */}
+        {shareProfile ? (
           <div
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
@@ -157,8 +160,7 @@ const FullCareerExperiences = ({
               })}
             </Button>
           </div>
-        )}
-        {!shareProfile && (
+        ) : (
           <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
             <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
               {intl.formatMessage({
@@ -180,20 +182,50 @@ const FullCareerExperiences = ({
         )}
       </div>
       <div>
-        {shareProfile && selectedView === "type" && !empty(data) && (
-          <ExperienceByTypeAccordion
-            query={data}
-            openSections={openSections}
-            setOpenSections={setOpenSections}
-          />
-        )}
-        {/* {shareProfile && selectedView === "workStream" && (
-          <ExperienceByWorkStreamAccordion
-            experienceSections={experienceSections}
-            openSections={openSections}
-            setOpenSections={setOpenSections}
-          />
-        )} */}
+        {/* If can share profile, show accordion. Otherwise, show nothing */}
+        {shareProfile ? (
+          <Accordion.Root
+            type="multiple"
+            mode="card"
+            value={openSections}
+            onValueChange={setOpenSections} // Sync state with Accordion
+            data-h2-margin="base(0, 0)"
+          >
+            {experienceSections.map(
+              ({ id, title, experiences: sectionExperiences }) => (
+                <Accordion.Item key={id} value={id}>
+                  <Accordion.Trigger>
+                    {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+                    {title} ({sectionExperiences.length})
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <div>
+                      <div
+                        data-h2-display="base(flex)"
+                        data-h2-flex-direction="base(column)"
+                        data-h2-gap="base(x.5 0)"
+                      >
+                        {unpackMaybes(
+                          sectionExperiences.map((experience) => {
+                            return (
+                              <>
+                                <ExperienceCard
+                                  key={experience?.id}
+                                  experience={experience}
+                                  showEdit={false}
+                                />
+                              </>
+                            );
+                          }),
+                        )}
+                      </div>
+                    </div>
+                  </Accordion.Content>
+                </Accordion.Item>
+              ),
+            )}
+          </Accordion.Root>
+        ) : null}
       </div>
     </>
   );
