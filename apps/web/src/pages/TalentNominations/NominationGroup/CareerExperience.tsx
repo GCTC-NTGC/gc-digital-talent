@@ -27,6 +27,7 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
     user(id: $nomineeId) {
       updatedDate
+      ...CurrentPositionExperiences
       ...FullCareerExperiences
     }
   }

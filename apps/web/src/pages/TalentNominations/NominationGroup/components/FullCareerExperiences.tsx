@@ -14,6 +14,7 @@ import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
 
 export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiences on User {
+    ...ExperienceByTypeAccordion
     experiences {
       id
       ...ExperienceCard
@@ -179,9 +180,9 @@ const FullCareerExperiences = ({
         )}
       </div>
       <div>
-        {shareProfile && selectedView === "type" && !empty(query) && (
+        {shareProfile && selectedView === "type" && !empty(data) && (
           <ExperienceByTypeAccordion
-            query={query}
+            query={data}
             openSections={openSections}
             setOpenSections={setOpenSections}
           />

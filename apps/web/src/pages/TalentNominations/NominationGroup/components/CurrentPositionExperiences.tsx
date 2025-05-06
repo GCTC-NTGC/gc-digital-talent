@@ -1,4 +1,4 @@
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
@@ -6,7 +6,14 @@ import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import { isWorkExperience } from "~/utils/experienceUtils";
 
-import { FullCareerExperiences_Fragment } from "./FullCareerExperiences";
+export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
+  fragment CurrentPositionExperiences on User {
+    experiences {
+      id
+      ...ExperienceCard
+    }
+  }
+`);
 
 const isCurrentExperience = (endDate?: string | null): boolean => {
   if (!endDate) {
@@ -22,13 +29,13 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 };
 
 interface CurrentPositionExperiencesProps {
-  query?: FragmentType<typeof FullCareerExperiences_Fragment>;
+  query?: FragmentType<typeof CurrentPositionExperiences_Fragment>;
 }
 
 const CurrentPositionExperiences = ({
   query,
 }: CurrentPositionExperiencesProps) => {
-  const data = getFragment(FullCareerExperiences_Fragment, query);
+  const data = getFragment(CurrentPositionExperiences_Fragment, query);
 
   const experiences = unpackMaybes(data?.experiences);
 
