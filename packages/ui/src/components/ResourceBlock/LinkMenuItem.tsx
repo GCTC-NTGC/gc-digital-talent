@@ -5,6 +5,7 @@ import Link, { LinkProps } from "../Link";
 import DropdownMenu from "../DropdownMenu";
 import Button from "../Button";
 import BaseItem, { BaseItemProps } from "./BaseItem";
+import { hrefToString } from "../../utils";
 
 interface LinkMenuItemProps {
   links: {
@@ -45,7 +46,7 @@ const LinkMenuItem = ({
       <DropdownMenu.Content align="end" collisionPadding={2}>
         {links.map((link) => (
           <DropdownMenu.Item
-            key={link.title + String(link.href)}
+            key={link.title + hrefToString(link.href)}
             asChild
             color={link.isSelected ? "secondary" : "black"}
           >

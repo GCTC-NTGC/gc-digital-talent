@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 import omit from "lodash/omit";
 
-import { formMessages } from "@gc-digital-talent/i18n";
+import { formMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import useFieldState from "../../hooks/useFieldState";
 import Field from "../Field";
@@ -21,7 +21,6 @@ import {
 import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
-import { alphaSortOptions } from "../../utils";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {
@@ -64,6 +63,7 @@ const Combobox = ({
   doNotSort = false,
 }: ComboboxProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const {
     watch,
     control,
@@ -127,8 +127,11 @@ const Combobox = ({
   };
 
   const optionsModified = useMemo(() => {
-    return doNotSort ? options : alphaSortOptions(options);
-  }, [doNotSort, options]);
+    return doNotSort
+      ? options
+      : options.sort((a, b) => Intl.Collator(locale).compare(a.label, b.label));
+  }, [doNotSort, locale, options]);
+
   return (
     <Field.Wrapper>
       <Controller

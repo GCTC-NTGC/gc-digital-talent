@@ -8,7 +8,7 @@ export interface Option {
   /** The data used on form submission  */
   value: string | number;
   /** Text to display in the list of options */
-  label: ReactNode;
+  label: string;
 }
 
 export type HTMLSpanProps = Omit<

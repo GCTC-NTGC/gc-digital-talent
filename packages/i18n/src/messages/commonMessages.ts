@@ -452,6 +452,12 @@ const commonMessages = defineMessages({
     id: "1uBif7",
     description: "Community interest label",
   },
+  onFindTalent: {
+    defaultMessage: 'Appears on "Find talent" page',
+    id: "hC74Bo",
+    description:
+      "Message for when a specific item shows up as an option when searching talent",
+  },
   asterisk: {
     defaultMessage: "*",
     id: "nSENOg",

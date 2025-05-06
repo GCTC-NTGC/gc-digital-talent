@@ -151,7 +151,14 @@ const UserCandidatesTable = ({
   type PoolCandidateSlice = (typeof poolCandidatesUnpacked)[number];
   const columnHelper = createColumnHelper<PoolCandidateSlice>();
 
-  const candidateIds = poolCandidatesUnpacked.map((candidate) => candidate.id);
+  // an admin possessing draft applications will fetch them, fine policy wise but not useful to render
+  const candidatesFilteredForSubmitted = poolCandidatesUnpacked.filter(
+    (candidate) => !!candidate.submittedAt,
+  );
+
+  const candidateIds = candidatesFilteredForSubmitted.map(
+    (candidate) => candidate.id,
+  );
 
   const columns = [
     columnHelper.display({
@@ -293,7 +300,7 @@ const UserCandidatesTable = ({
 
   return (
     <Table<PoolCandidateSlice>
-      data={poolCandidatesUnpacked}
+      data={candidatesFilteredForSubmitted}
       columns={columns}
       caption={title}
       sort={{ internal: true }}

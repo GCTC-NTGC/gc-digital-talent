@@ -1,3 +1,5 @@
+import { ErrorMessage } from "@hookform/error-message";
+
 import CardOptionGroup, {
   type CardOption,
   type CardOptionGroupProps,
@@ -8,7 +10,7 @@ import Checklist, {
   type ChecklistProps,
   type CheckboxOption,
 } from "./components/Checklist";
-import Combobox, { ComboboxProps } from "./components/Combobox";
+import Combobox, { ComboboxProps, ComboboxOption } from "./components/Combobox";
 import DateInput, { DateInputProps } from "./components/DateInput/DateInput";
 import { DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
@@ -73,6 +75,7 @@ export {
   CheckButton,
   Checklist,
   Combobox,
+  ErrorMessage,
   Field,
   HiddenInput,
   Input,
@@ -101,6 +104,7 @@ export type {
   ChecklistProps,
   CommonInputProps,
   ComboboxProps,
+  ComboboxOption,
   HiddenInputProps,
   InputProps,
   Radio,

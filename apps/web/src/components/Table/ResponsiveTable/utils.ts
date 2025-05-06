@@ -5,7 +5,7 @@ import {
   ColumnMeta,
 } from "@tanstack/react-table";
 
-import nodeToString from "~/utils/nodeToString";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { SearchState } from "./types";
 

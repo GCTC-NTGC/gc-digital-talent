@@ -296,9 +296,8 @@ const NominationGroupSidebar = ({
                 <FieldDisplay
                   label={intl.formatMessage(commonMessages.workEmail)}
                 >
-                  {talentNominationGroup.nominee?.workEmail
-                    ? talentNominationGroup.nominee.workEmail
-                    : intl.formatMessage(commonMessages.notProvided)}
+                  {talentNominationGroup.nominee?.workEmail ??
+                    intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
                 <FieldDisplay
                   label={intl.formatMessage(
@@ -306,10 +305,8 @@ const NominationGroupSidebar = ({
                   )}
                 >
                   {talentNominationGroup.nominee?.preferredLang?.label
-                    ?.localized
-                    ? talentNominationGroup.nominee.preferredLang.label
-                        .localized
-                    : intl.formatMessage(commonMessages.notProvided)}
+                    ?.localized ??
+                    intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
               </div>
             </Accordion.Content>

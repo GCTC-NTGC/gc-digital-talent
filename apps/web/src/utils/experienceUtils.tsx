@@ -22,7 +22,11 @@ import {
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  nodeToString,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import {
   AllExperienceFormValues,
@@ -37,7 +41,6 @@ import {
 import { formattedDate, getDateRange } from "./dateUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
-import nodeToString from "./nodeToString";
 
 /**
  * Gets all of the experience form labels

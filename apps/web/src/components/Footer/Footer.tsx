@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
 
-import { Link, LinkProps } from "@gc-digital-talent/ui";
+import { hrefToString, Link, LinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -102,7 +102,7 @@ const Footer = ({ width }: FooterProps) => {
               })}
             >
               {links.map((props) => (
-                <Link key={String(props.href)} color="black" {...props} />
+                <Link key={hrefToString(props.href)} color="black" {...props} />
               ))}
             </nav>
             <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">

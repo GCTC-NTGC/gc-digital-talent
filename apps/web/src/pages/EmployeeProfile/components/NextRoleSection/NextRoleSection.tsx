@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
+  nodeToString,
   sortAlphaBy,
   UnauthorizedError,
   unpackMaybes,
@@ -150,7 +151,9 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
     $employeeProfile: UpdateEmployeeProfileInput!
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-      ...EmployeeProfileNextRole
+      userPublicProfile {
+        id
+      }
     }
   }
 `);
@@ -390,9 +393,12 @@ const NextRoleSection = ({
               targetRoleOther,
               jobTitle,
               communityId,
+              communityOther,
               workStreamIds,
               departmentIds,
               additionalInformation,
+              isCSuiteRole,
+              cSuiteRoleTitle,
             },
             { keepDirty: true },
           );
@@ -447,7 +453,7 @@ const NextRoleSection = ({
           intl.formatMessage(commonMessages.notProvided),
       })) ?? [];
   workStreamOptions.sort((a, b) =>
-    (a.label?.toString() ?? "").localeCompare(b.label?.toString() ?? ""),
+    nodeToString(a.label).localeCompare(nodeToString(b.label)),
   );
   const departmentOptions: ComponentProps<typeof Combobox>["options"] =
     unpackMaybes(options.departments)?.map((department) => ({
@@ -457,7 +463,7 @@ const NextRoleSection = ({
         intl.formatMessage(commonMessages.notProvided),
     })) ?? [];
   departmentOptions.sort(
-    sortAlphaBy((department) => department.label?.toString()),
+    sortAlphaBy((department) => nodeToString(department.label)),
   );
   const cSuiteRoleTitleOptions: ComponentProps<typeof Select>["options"] =
     unpackMaybes(options.cSuiteRoleTitles).map((cSuiteRoleTitle) => ({

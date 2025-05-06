@@ -1131,6 +1131,10 @@
     "defaultMessage": "Processus",
     "description": "Name of Processes page"
   },
+  "hC74Bo": {
+    "defaultMessage": "S'affiche sur la page « Trouver des talents »",
+    "description": "Message for when a specific item shows up as an option when searching talent"
+  },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
@@ -1266,6 +1270,10 @@
   "ldthVj": {
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
+  },
+  "m/VZ/H": {
+    "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
+    "description": "Error message for when a user is not verified"
   },
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",

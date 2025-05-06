@@ -76,9 +76,8 @@ const SupervisoryContent = ({
                 title={experienceFormLabels.supervisedEmployeesNumber}
                 headingLevel={headingLevel}
               >
-                {supervisedEmployeesNumber
-                  ? supervisedEmployeesNumber
-                  : intl.formatMessage(commonMessages.notApplicable)}
+                {supervisedEmployeesNumber ??
+                  intl.formatMessage(commonMessages.notApplicable)}
               </ContentSection>
               <Separator space="sm" decorative />
             </>
@@ -152,9 +151,8 @@ const SupervisoryContent = ({
                       title={experienceFormLabels.otherCSuiteRoleTitle}
                       headingLevel={headingLevel}
                     >
-                      {otherCSuiteRoleTitle
-                        ? otherCSuiteRoleTitle
-                        : intl.formatMessage(commonMessages.notApplicable)}
+                      {otherCSuiteRoleTitle ??
+                        intl.formatMessage(commonMessages.notApplicable)}
                     </ContentSection>
                   </>
                 )}

@@ -179,6 +179,10 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
+  "+mG20j": {
+    "defaultMessage": "Carrière complète",
+    "description": "Heading for career experience"
+  },
   "+nQpv5": {
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Title for the page showing list of job advertisement templates"
@@ -4683,6 +4687,10 @@
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
   },
+  "KR4kRt": {
+    "defaultMessage": "Démontrer l'expérience par :",
+    "description": "Label for experience sorting options"
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
@@ -5374,6 +5382,10 @@
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list"
+  },
+  "Ney+Il": {
+    "defaultMessage": "Nous avons trouvé un utilisateur dont l'adresse courriel est fournie, mais qui n'a pas confirmé son statut d'employée ou d'employé. À l'heure actuelle, seuls les membres du personnel vérifiés peuvent être nommés. L'utilisateur peut vérifier son statut d'employée ou d'employé en ouvrant une session dans la plateforme et en vérifiant son adresse courriel professionnelle.",
+    "description": "Description of default message when user was found but not a verified employee"
   },
   "NfRLs/": {
     "defaultMessage": "Anglais - Votre impact",
@@ -9442,9 +9454,16 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
+  "gu2wRn": {
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées."
+  },
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
+  },
+  "gwpmTn": {
+    "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
+    "description": "Error message for when a skill is not selected for assessment"
   },
   "gyZV/3": {
     "defaultMessage": "Veuillez ajouter au moins une expérience.",
@@ -12066,6 +12085,10 @@
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
   },
+  "trerKD": {
+    "defaultMessage": "Type",
+    "description": "Button to filter experiences by type"
+  },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
     "description": "Heading for how employment equity information will be used."
@@ -13185,6 +13208,10 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
+  "zVGK45": {
+    "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
+    "description": "Label for when an employee was found but not verified"
   },
   "zVGzWa": {
     "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",

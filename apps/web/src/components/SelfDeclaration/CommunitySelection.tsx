@@ -8,6 +8,7 @@ import {
   Field,
   Checkbox,
   RadioGroup,
+  ErrorMessage,
 } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 
@@ -76,7 +77,7 @@ const FirstNationSection = ({
         />
         {formState.errors.firstNationsCustom && (
           <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
-            {formState.errors.firstNationsCustom.message?.toString()}
+            <ErrorMessage errors={formState.errors} name="firstNationsCustom" />
           </Field.Error>
         )}
       </div>
