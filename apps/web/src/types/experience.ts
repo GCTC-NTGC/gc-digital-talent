@@ -38,12 +38,15 @@ import {
   CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 
-export type ExperienceType =
-  | "award"
-  | "community"
-  | "education"
-  | "personal"
-  | "work";
+export const ExperienceTypeValues = [
+  "award",
+  "community",
+  "education",
+  "personal",
+  "work",
+] as const;
+
+export type ExperienceType = (typeof ExperienceTypeValues)[number];
 
 export type AnyExperience =
   | Omit<AwardExperience, "user">

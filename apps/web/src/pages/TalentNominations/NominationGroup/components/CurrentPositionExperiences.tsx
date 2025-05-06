@@ -1,155 +1,12 @@
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import { isWorkExperience } from "~/utils/experienceUtils";
 
-const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
-  fragment CurrentPositionWorkExperience on WorkExperience {
-    id
-    role
-    organization
-    division
-    startDate
-    endDate
-    details
-    employmentCategory {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    extSizeOfOrganization {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    extRoleSeniority {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govEmploymentType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govPositionType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govContractorRoleSeniority {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govContractorType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    contractorFirmAgencyName
-    cafEmploymentType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    cafForce {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    cafRank {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    supervisoryPosition
-    supervisedEmployees
-    supervisedEmployeesNumber
-    budgetManagement
-    annualBudgetAllocation
-    seniorManagementStatus
-    cSuiteRoleTitle {
-      value
-      label {
-        localized
-      }
-    }
-    otherCSuiteRoleTitle
-    classification {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      maxSalary
-      minSalary
-    }
-    department {
-      id
-      name {
-        en
-        fr
-      }
-      departmentNumber
-    }
-    workStreams {
-      id
-      key
-      name {
-        localized
-      }
-      community {
-        id
-        key
-        name {
-          localized
-        }
-      }
-    }
-    skills {
-      id
-      key
-      category {
-        value
-        label {
-          localized
-        }
-      }
-      name {
-        en
-        fr
-      }
-      experienceSkillRecord {
-        details
-      }
-    }
-  }
-`);
+import { FullCareerExperiences_Fragment } from "./FullCareerExperiences";
 
 const isCurrentExperience = (endDate?: string | null): boolean => {
   if (!endDate) {
@@ -165,15 +22,20 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 };
 
 interface CurrentPositionExperiencesProps {
-  query?: FragmentType<typeof CurrentPositionWorkExperience_Fragment>[];
+  query?: FragmentType<typeof FullCareerExperiences_Fragment>;
 }
 
 const CurrentPositionExperiences = ({
   query,
 }: CurrentPositionExperiencesProps) => {
-  const workExperiences = unpackMaybes(
-    getFragment(CurrentPositionWorkExperience_Fragment, query),
+  const data = getFragment(FullCareerExperiences_Fragment, query);
+
+  const experiences = unpackMaybes(data?.experiences);
+
+  const workExperiences = experiences.filter((experience) =>
+    isWorkExperience(experience),
   );
+
   const currentWorkExperiences = workExperiences.filter((exp) =>
     isCurrentExperience(exp.endDate),
   );

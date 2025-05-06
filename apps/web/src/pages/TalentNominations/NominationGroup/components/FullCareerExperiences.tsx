@@ -1,86 +1,54 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import uniq from "lodash/uniq";
 
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { empty, notEmpty } from "@gc-digital-talent/helpers";
 
 import experienceMessages from "~/messages/experienceMessages";
-import {
-  compareByDate,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
 
 import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
+// import ExperienceByWorkStreamAccordion from "./ExperienceByWorkStreamAccordion";
+
+export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
+  fragment FullCareerExperiences on User {
+    experiences {
+      id
+      ...ExperienceCard
+    }
+  }
+`);
 
 interface FullCareerExperiencesProps {
-  experiences?: Omit<Experience, "user">[];
+  query?: FragmentType<typeof FullCareerExperiences_Fragment>;
   shareProfile?: boolean;
   defaultOpen?: boolean;
 }
 
 const FullCareerExperiences = ({
-  experiences,
+  query,
   shareProfile,
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
+  const data = getFragment(FullCareerExperiences_Fragment, query);
+  const experiences = data?.experiences?.filter(notEmpty) ?? [];
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );
-  const awardExperiences =
-    experiences
-      ?.filter(isAwardExperience)
-      .map(
-        (award: Omit<AwardExperience, "user">) =>
-          ({
-            ...award,
-            startDate: award.awardedDate,
-            endDate: award.awardedDate,
-          }) as AwardExperience & { startDate: string; endDate: string },
-      )
-      .sort(compareByDate) ?? [];
-  const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
-  const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
-  const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
-  const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
-  const experienceSections = [
-    {
-      id: "WorkExperience",
-      title: intl.formatMessage(experienceMessages.work),
-      experiences: workExperiences,
-    },
-    {
-      id: "AwardExperience",
-      title: intl.formatMessage(experienceMessages.award),
-      experiences: awardExperiences,
-    },
-    {
-      id: "CommunityExperience",
-      title: intl.formatMessage(experienceMessages.community),
-      experiences: communityExperiences,
-    },
-    {
-      id: "EducationExperience",
-      title: intl.formatMessage(experienceMessages.education),
-      experiences: educationExperiences,
-    },
-    {
-      id: "PersonalExperience",
-      title: intl.formatMessage(experienceMessages.personal),
-      experiences: personalExperiences,
-    },
-  ];
-  const sectionIds = experienceSections.map((section) => section.id);
+  let sectionIds: string[] = [];
+  if (selectedView == "type") {
+    sectionIds =
+      uniq(experiences.map((e) => e.__typename?.toString()).filter(notEmpty)) ??
+      [];
+  }
+  // if (selectedView == "workStream") {
+  //   sectionIds =
+  //     uniq(experiences.map((e) => e.__typename)).filter(notEmpty) ?? [];
+  // }
 
   const [openSections, setOpenSections] = useState<string[]>(
     defaultOpen ? sectionIds : [],
@@ -171,7 +139,6 @@ const FullCareerExperiences = ({
                 description: "Button to filter experiences by type",
               })}
             </Button>
-            {/* To be implemented later
             <Button
               type="button"
               mode="inline"
@@ -187,7 +154,7 @@ const FullCareerExperiences = ({
                 id: "27YVit",
                 description: "Button to filter experiences by work stream",
               })}
-            </Button> */}
+            </Button>
           </div>
         )}
         {!shareProfile && (
@@ -212,20 +179,20 @@ const FullCareerExperiences = ({
         )}
       </div>
       <div>
-        {shareProfile && selectedView === "type" && (
+        {shareProfile && selectedView === "type" && !empty(query) && (
           <ExperienceByTypeAccordion
-            experienceSections={experienceSections}
+            query={query}
             openSections={openSections}
             setOpenSections={setOpenSections}
           />
         )}
-        {shareProfile && selectedView === "workStream" && (
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1 0)"
-          ></div>
-        )}
+        {/* {shareProfile && selectedView === "workStream" && (
+          <ExperienceByWorkStreamAccordion
+            experienceSections={experienceSections}
+            openSections={openSections}
+            setOpenSections={setOpenSections}
+          />
+        )} */}
       </div>
     </>
   );

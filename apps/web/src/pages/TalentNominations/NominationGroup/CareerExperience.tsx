@@ -12,13 +12,12 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { empty } from "@gc-digital-talent/helpers";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { isWorkExperience } from "~/utils/experienceUtils";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
@@ -28,94 +27,7 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
   query NomineeExperiences($nomineeId: UUID!) {
     user(id: $nomineeId) {
       updatedDate
-      experiences {
-        # profileExperience fragment
-        id
-        __typename
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          awardedScope {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          ...CurrentPositionWorkExperience
-        }
-      }
+      ...FullCareerExperiences
     }
   }
 `);
@@ -144,12 +56,6 @@ const TalentNominationGroupCareerExperience = ({
         intl,
       })
     : intl.formatMessage(commonMessages.notProvided);
-
-  const experiences = unpackMaybes(data?.user?.experiences);
-
-  const workExperiences = experiences.filter((experience) =>
-    isWorkExperience(experience),
-  );
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -188,9 +94,9 @@ const TalentNominationGroupCareerExperience = ({
           {shareProfile && (
             <Separator data-h2-margin="base(0 0 x1 0)" space="none" />
           )}
-          {shareProfile && (
+          {shareProfile && !empty(data?.user) && (
             <div data-h2-margin="base(0 x1.5)">
-              <CurrentPositionExperiences query={workExperiences} />
+              <CurrentPositionExperiences query={data.user} />
             </div>
           )}
           {!shareProfile && (
@@ -237,19 +143,21 @@ const TalentNominationGroupCareerExperience = ({
           )}
         </div>
       </CardBasic>
-      <CardBasic>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-          data-h2-margin-bottom="base(x1)"
-        >
-          <FullCareerExperiences
-            experiences={experiences}
-            shareProfile={shareProfile}
-          />
-        </div>
-      </CardBasic>
+      {data?.user ? (
+        <CardBasic>
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.5 0)"
+            data-h2-margin-bottom="base(x1)"
+          >
+            <FullCareerExperiences
+              query={data.user}
+              shareProfile={shareProfile}
+            />
+          </div>
+        </CardBasic>
+      ) : null}
     </Pending>
   );
 };

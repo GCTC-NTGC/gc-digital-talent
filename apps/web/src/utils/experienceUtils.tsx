@@ -18,6 +18,7 @@ import {
   EducationExperience,
   EmploymentCategory,
   GovPositionType,
+  graphql,
   Maybe,
   PersonalExperience,
   Skill,
@@ -1111,3 +1112,234 @@ export const experiencesDurationMonths = (
   experiences
     .map((experience) => experienceDurationMonths(experience))
     .reduce((acc, months) => acc + months, 0);
+
+// this should be replaced in #12877 by a fragment that lives right in the card
+export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceCard on Experience {
+    id
+    __typename
+    details
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      awardedScope {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      id
+      role
+      organization
+      division
+      startDate
+      endDate
+      details
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
+      classification {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+        maxSalary
+        minSalary
+      }
+      department {
+        id
+        name {
+          en
+          fr
+        }
+        departmentNumber
+      }
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          key
+          name {
+            localized
+          }
+        }
+      }
+      skills {
+        id
+        key
+        category {
+          value
+          label {
+            localized
+          }
+        }
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+    }
+  }
+`);
