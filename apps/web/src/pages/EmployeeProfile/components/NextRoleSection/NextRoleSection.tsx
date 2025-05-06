@@ -392,9 +392,12 @@ const NextRoleSection = ({
               targetRoleOther,
               jobTitle,
               communityId,
+              communityOther,
               workStreamIds,
               departmentIds,
               additionalInformation,
+              isCSuiteRole,
+              cSuiteRoleTitle,
             },
             { keepDirty: true },
           );
