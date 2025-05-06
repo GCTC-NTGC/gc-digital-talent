@@ -8,6 +8,7 @@ use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
+use App\Enums\EmploymentCategory;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
@@ -174,6 +175,7 @@ class PoolCandidateFactory extends Factory
                 // Ensure user has at least one work experience
                 $experience = WorkExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
+                    'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
                 ]);
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
             }
