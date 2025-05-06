@@ -1715,10 +1715,6 @@
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
   },
-  "5pQfyv": {
-    "defaultMessage": "Postes en français",
-    "description": "Message for the french positions option"
-  },
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
@@ -4454,10 +4450,6 @@
   "J9l5Vd": {
     "defaultMessage": "P. ex., conception de sites Web",
     "description": "Placeholder for keyword search input"
-  },
-  "JBRqD9": {
-    "defaultMessage": "Postes en anglais",
-    "description": "Message for the english positions option"
   },
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
@@ -10113,10 +10105,6 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "jx7Sf1": {
-    "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
-    "description": "Bilingual Positions message"
-  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -11817,10 +11805,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sWBbdX": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
-    "description": "French Positions message"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12440,10 +12424,6 @@
   "vmVdJt": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about cert exams"
-  },
-  "vmj/E4": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
-    "description": "English Positions message"
   },
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
