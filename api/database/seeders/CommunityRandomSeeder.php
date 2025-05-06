@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
+use Faker\Factory as Faker;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class CommunityRandomSeeder extends Seeder
@@ -15,6 +17,8 @@ class CommunityRandomSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
+
         Community::factory()
             ->count(2)
             ->has(DevelopmentProgram::factory()
@@ -26,6 +30,16 @@ class CommunityRandomSeeder extends Seeder
         DevelopmentProgram::factory()->count(2)
             ->withEligibleClassifications()
             ->for(Community::where('key', 'digital')->sole())
+            ->state(new Sequence(
+                function (Sequence $sequence) {
+                    return [
+                        'name' => [
+                            'en' => 'Development program EN '.$sequence->index,
+                            'fr' => 'Development program FR '.$sequence->index,
+                        ],
+                    ];
+                }
+            ))
             ->create();
 
     }
