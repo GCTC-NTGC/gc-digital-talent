@@ -1715,10 +1715,6 @@
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
   },
-  "5pQfyv": {
-    "defaultMessage": "Postes en français",
-    "description": "Message for the french positions option"
-  },
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
@@ -2315,6 +2311,10 @@
     "defaultMessage": "Reflète la spécialisation nécessaire",
     "description": "Text for education accepted information context in screening decision dialog"
   },
+  "94Pgq+": {
+    "defaultMessage": "Postes bilingues",
+    "description": "Bilingual Positions message"
+  },
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
@@ -2895,6 +2895,10 @@
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"
   },
+  "Be4zZT": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "Message for the french positions option"
+  },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
@@ -3018,6 +3022,10 @@
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
+  },
+  "CFIG+8": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "French Positions message"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -4454,10 +4462,6 @@
   "J9l5Vd": {
     "defaultMessage": "P. ex., conception de sites Web",
     "description": "Placeholder for keyword search input"
-  },
-  "JBRqD9": {
-    "defaultMessage": "Postes en anglais",
-    "description": "Message for the english positions option"
   },
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
@@ -8086,6 +8090,10 @@
     "defaultMessage": "Classification {classificationId} introuvable.",
     "description": "Message displayed for classification not found."
   },
+  "b3c+iw": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "English Positions message"
+  },
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
@@ -9685,6 +9693,10 @@
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
     "description": "Heading for closing the accordion with available employment equity options."
   },
+  "i0K4Sb": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "Message for the english positions option"
+  },
   "i0N7DM": {
     "defaultMessage": "Télécharger les renseignements complets",
     "description": "Button label for download user profile."
@@ -10112,10 +10124,6 @@
   "jw6Umr": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
-  },
-  "jx7Sf1": {
-    "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
-    "description": "Bilingual Positions message"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
@@ -11817,10 +11825,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sWBbdX": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
-    "description": "French Positions message"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12440,10 +12444,6 @@
   "vmVdJt": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about cert exams"
-  },
-  "vmj/E4": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
-    "description": "English Positions message"
   },
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",

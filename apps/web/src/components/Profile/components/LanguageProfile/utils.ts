@@ -168,16 +168,16 @@ export const getConsideredLangItems = (intl: IntlShape) => [
   {
     value: "lookingForEnglish",
     label: intl.formatMessage({
-      defaultMessage: "English positions",
-      id: "JBRqD9",
+      defaultMessage: "English-only positions",
+      id: "i0K4Sb",
       description: "Message for the english positions option",
     }),
   },
   {
     value: "lookingForFrench",
     label: intl.formatMessage({
-      defaultMessage: "French positions",
-      id: "5pQfyv",
+      defaultMessage: "French-only positions",
+      id: "Be4zZT",
       description: "Message for the french positions option",
     }),
   },

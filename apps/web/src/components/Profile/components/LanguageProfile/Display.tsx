@@ -98,9 +98,8 @@ const Display = ({
             {lookingForEnglish && (
               <li>
                 {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be considered for English positions",
-                  id: "vmj/E4",
+                  defaultMessage: "English-only positions",
+                  id: "b3c+iw",
                   description: "English Positions message",
                 })}
               </li>
@@ -108,9 +107,8 @@ const Display = ({
             {lookingForFrench && (
               <li>
                 {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be considered for French positions",
-                  id: "sWBbdX",
+                  defaultMessage: "French-only positions",
+                  id: "CFIG+8",
                   description: "French Positions message",
                 })}
               </li>
@@ -118,9 +116,8 @@ const Display = ({
             {lookingForBilingual && (
               <li>
                 {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be considered for bilingual positions (English and French)",
-                  id: "jx7Sf1",
+                  defaultMessage: "Bilingual positions",
+                  id: "94Pgq+",
                   description: "Bilingual Positions message",
                 })}
               </li>
