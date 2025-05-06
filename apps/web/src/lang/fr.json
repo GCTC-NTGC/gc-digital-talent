@@ -2311,6 +2311,10 @@
     "defaultMessage": "Reflète la spécialisation nécessaire",
     "description": "Text for education accepted information context in screening decision dialog"
   },
+  "94Pgq+": {
+    "defaultMessage": "Postes bilingues",
+    "description": "Bilingual Positions message"
+  },
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
@@ -2891,6 +2895,10 @@
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"
   },
+  "Be4zZT": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "Message for the french positions option"
+  },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
@@ -3014,6 +3022,10 @@
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
+  },
+  "CFIG+8": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "French Positions message"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -8078,6 +8090,10 @@
     "defaultMessage": "Classification {classificationId} introuvable.",
     "description": "Message displayed for classification not found."
   },
+  "b3c+iw": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "English Positions message"
+  },
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
@@ -9676,6 +9692,10 @@
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
     "description": "Heading for closing the accordion with available employment equity options."
+  },
+  "i0K4Sb": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "Message for the english positions option"
   },
   "i0N7DM": {
     "defaultMessage": "Télécharger les renseignements complets",
