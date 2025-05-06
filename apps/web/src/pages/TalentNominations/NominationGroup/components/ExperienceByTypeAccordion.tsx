@@ -40,17 +40,25 @@ const ExperienceByTypeAccordion = ({
               {title} ({sectionExperiences.length})
             </Accordion.Trigger>
             <Accordion.Content>
-              {unpackMaybes(
-                sectionExperiences?.map((experience) => {
-                  return (
-                    <ExperienceCard
-                      key={experience?.id}
-                      experience={experience}
-                      showEdit={false}
-                    />
-                  );
-                }),
-              )}
+              <div>
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x.5 0)"
+                >
+                  {unpackMaybes(
+                    sectionExperiences?.map((experience) => {
+                      return (
+                        <ExperienceCard
+                          key={experience?.id}
+                          experience={experience}
+                          showEdit={false}
+                        />
+                      );
+                    }),
+                  )}
+                </div>
+              </div>
             </Accordion.Content>
           </Accordion.Item>
         ))}
