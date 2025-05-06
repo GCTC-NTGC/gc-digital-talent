@@ -73,15 +73,8 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   const communities = await getCommunities(ctx, {});
   const firstCommunity = communities[0];
 
-  let teamId = opts.teamId;
-  if (!teamId) {
-    teamId = firstCommunity?.teamIdForRoleAssignment ?? "";
-  }
-
-  let communityId = opts.communityId;
-  if (!communityId) {
-    communityId = firstCommunity.id ?? "";
-  }
+  const teamId = opts.teamId ?? firstCommunity?.teamIdForRoleAssignment ?? "";
+  const communityId = opts.communityId ?? firstCommunity.id ?? "";
 
   let classificationId = opts.classificationId;
   if (!classificationId) {

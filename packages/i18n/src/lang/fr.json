@@ -1267,6 +1267,10 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
+  "m/VZ/H": {
+    "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
+    "description": "Error message for when a user is not verified"
+  },
   "m0iNdp": {
     "defaultMessage": "Choisir une collectivité",
     "description": "Null selection for community select input."

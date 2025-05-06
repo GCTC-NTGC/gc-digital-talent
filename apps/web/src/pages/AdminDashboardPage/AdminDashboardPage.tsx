@@ -32,7 +32,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
@@ -124,11 +124,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
-    (a, b) => {
-      const aName = a.label;
-      const bName = b.label;
-      return aName.localeCompare(bName);
-    },
+    sortAlphaBy((item) => item.label),
   );
 
   // resources section
@@ -147,11 +143,9 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
-  const resourcesCollectionSorted = resourcesCollectionFiltered.sort((a, b) => {
-    const aName = a.label;
-    const bName = b.label;
-    return aName.localeCompare(bName);
-  });
+  const resourcesCollectionSorted = resourcesCollectionFiltered.sort(
+    sortAlphaBy((item) => item.label),
+  );
 
   // administration section
   const administrationCollection: CardLinkInfo[] = [
@@ -209,11 +203,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
-    (a, b) => {
-      const aName = a.label;
-      const bName = b.label;
-      return aName.localeCompare(bName);
-    },
+    sortAlphaBy((item) => item.label),
   );
 
   // own roles, filtered

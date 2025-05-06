@@ -224,9 +224,8 @@ export const groupPoolCandidatesByStep = (
 
           return {
             poolCandidate: candidate,
-            decision: (stepDecision?.decision
-              ? stepDecision.decision
-              : NO_DECISION) as NullableDecision,
+            decision: (stepDecision?.decision ??
+              NO_DECISION) as NullableDecision,
           };
         });
 
@@ -313,8 +312,7 @@ export const filterAlreadyDisqualified = (
       !(
         (isDisqualifiedStatus(candidate.status?.value) ||
           isRemovedStatus(candidate.status?.value)) &&
-        (candidate.assessmentResults ? candidate.assessmentResults : [])
-          .length === 0
+        (candidate.assessmentResults ?? []).length === 0
       ),
   );
   return filteredResult;

@@ -9,7 +9,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
@@ -246,9 +246,9 @@ const CommunityInterest = ({
           </p>
           <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
             {communityDevelopmentPrograms
-              .sort((a, b) =>
-                (a.name?.localized ?? "").localeCompare(
-                  b.name?.localized ?? "",
+              .sort(
+                sortAlphaBy(
+                  (developmentProgram) => developmentProgram.name?.localized,
                 ),
               )
               .map((developmentProgram) => {

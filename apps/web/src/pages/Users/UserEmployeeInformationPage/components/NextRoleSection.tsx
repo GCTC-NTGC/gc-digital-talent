@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardBasic } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -62,16 +63,11 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
 
   const employeeProfile = getFragment(NextRole_Fragment, employeeProfileQuery);
 
-  employeeProfile?.nextRoleWorkStreams?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.nextRoleWorkStreams?.sort(
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
-
-  employeeProfile?.nextRoleDepartments?.sort((a, b) =>
-    a.name?.localized && b.name?.localized
-      ? a.name.localized.localeCompare(b.name.localized)
-      : 0,
+  employeeProfile?.nextRoleDepartments?.sort(
+    sortAlphaBy((department) => department.name?.localized),
   );
 
   return (
@@ -86,9 +82,8 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             employeeProfileMessages.targetClassificationGroup,
           )}
         </span>
-        {employeeProfile.nextRoleClassification?.group
-          ? employeeProfile.nextRoleClassification.group
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleClassification?.group ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div>
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
@@ -130,17 +125,15 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.jobTitle)}
         </span>
-        {employeeProfile.nextRoleJobTitle
-          ? employeeProfile.nextRoleJobTitle
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleJobTitle ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       <div data-h2-grid-column="l-tablet(span 2)">
         <span data-h2-display="base(block)" data-h2-font-weight="base(700)">
           {intl.formatMessage(employeeProfileMessages.community)}
         </span>
-        {employeeProfile.nextRoleCommunity?.name?.localized
-          ? employeeProfile.nextRoleCommunity.name.localized
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleCommunity?.name?.localized ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
       {employeeProfile.nextRoleCommunity?.workStreams?.length ||
       employeeProfile.nextRoleWorkStreams?.length ? (
@@ -185,9 +178,8 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             employeeProfileMessages.additionalInformationNextRole,
           )}
         </span>
-        {employeeProfile.nextRoleAdditionalInformation
-          ? employeeProfile.nextRoleAdditionalInformation
-          : intl.formatMessage(commonMessages.notProvided)}
+        {employeeProfile.nextRoleAdditionalInformation ??
+          intl.formatMessage(commonMessages.notProvided)}
       </div>
     </CardBasic>
   );

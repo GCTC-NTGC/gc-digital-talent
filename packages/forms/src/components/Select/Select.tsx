@@ -1,6 +1,8 @@
 import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
+import { nodeToString } from "@gc-digital-talent/helpers";
+
 import Field from "../Field";
 import type { CommonInputProps, OptGroupOrOption } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
@@ -97,8 +99,8 @@ const Select = ({
         {optionsModified.map((option) =>
           Object.prototype.hasOwnProperty.call(option, "options") ? (
             <optgroup
-              key={`optgroup${option.label?.toString()}`}
-              label={option.label?.toString() ?? ""}
+              key={`optgroup${nodeToString(option.label)}`}
+              label={nodeToString(option.label)}
             >
               {option.options?.map(
                 ({ value, label: optionLabel, ariaLabel }) => (
