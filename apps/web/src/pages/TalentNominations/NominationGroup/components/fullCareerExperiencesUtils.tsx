@@ -1,18 +1,16 @@
 import { IntlShape } from "react-intl";
-import { flatMap, groupBy, uniq } from "lodash";
-import { ReactNode } from "react";
 
 import {
   AwardExperience,
   FullCareerExperiencesFragment,
   FullCareerExperiencesOptionsFragment,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
 import {
   compareByDate,
+  experiencesDurationMonths,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -33,6 +31,40 @@ export interface AccordionSection {
   title: string;
   subtitle: string | null;
   experiences: ExperienceItem[];
+}
+
+function durationMonthsToSubtitle(
+  durationMonths: number,
+  intl: IntlShape,
+): string {
+  const yearCount = Math.floor(durationMonths / 12);
+  const monthCount = durationMonths % 12;
+
+  if (yearCount > 0) {
+    return intl.formatMessage(
+      {
+        defaultMessage:
+          "{yearCount, plural, =1 {# year} other {# years}}, {monthCount, plural, =1 {# month} other {# months}}",
+        id: "NWbotz",
+        description: "A duration of a certain number of years and months",
+      },
+      {
+        yearCount,
+        monthCount,
+      },
+    );
+  }
+
+  return intl.formatMessage(
+    {
+      defaultMessage: "{monthCount, plural, =1 {# month} other {# months}}",
+      id: "+fYyID",
+      description: "A duration of a certain number of months",
+    },
+    {
+      monthCount,
+    },
+  );
 }
 
 export function buildTypeSections(
@@ -113,7 +145,10 @@ export function buildWorkStreamSections(
       title:
         bundle.workStream.name?.localized ??
         intl.formatMessage(commonMessages.notProvided),
-      subtitle: "subtitle here",
+      subtitle: durationMonthsToSubtitle(
+        experiencesDurationMonths(bundle.experiences),
+        intl,
+      ),
       experiences: bundle.experiences,
     }));
 
@@ -127,7 +162,7 @@ export function buildWorkStreamSections(
 
   const footer = (
     <>
-      <p>
+      <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.15)">
         {intl.formatMessage({
           defaultMessage: "Work streams with no experience",
           id: "PNTlS7",
@@ -137,7 +172,7 @@ export function buildWorkStreamSections(
       </p>
       <ul>
         {workStreamsWithNoExperiences.map((workStream) => (
-          <li key={workStream.id}>
+          <li key={workStream.id} data-h2-margin-bottom="base(x.15)">
             {workStream.name?.localized ??
               intl.formatMessage(commonMessages.notProvided)}
           </li>

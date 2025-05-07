@@ -5,8 +5,8 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import {
   Accordion,
   Button,
+  CardSeparator,
   Heading,
-  Separator,
   Well,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -280,7 +280,11 @@ const FullCareerExperiences = ({
             </Accordion.Root>
             {footer ? (
               <>
-                <Separator data-h2-margin="base(x1 0)" space="none" />
+                <CardSeparator
+                  data-h2-margin-top="base(x1)"
+                  data-h2-margin-bottom="base(x1)"
+                  space="none"
+                />
                 {footer}
               </>
             ) : null}
