@@ -4931,6 +4931,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
   },
+  "LNXpTl": {
+    "defaultMessage": "Voir vos intérêts pour la {communityName}",
+    "description": "Button label for community interest dialog trigger"
+  },
   "LOVZi6": {
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
