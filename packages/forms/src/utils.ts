@@ -189,7 +189,7 @@ export const countNumberOfWordsAfterReplacingHTML = (text: string): number => {
   }
 
   const replacedString = text
-    .replace(/<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g, " ")
+    .replace(/<(?:"[^"]*"|'[^']*'|[^'">])*>/g, " ")
     .trim();
   return replacedString.replace(/\s+/g, " ").trim().split(" ").length;
 };
