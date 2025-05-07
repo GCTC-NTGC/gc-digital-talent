@@ -610,6 +610,13 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
+  orgIdentifier: Int @rename(attribute: "org_identifier")
+  size: LocalizedDepartmentSize
+  isCorePublicAdministration: Boolean
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean @rename(attribute: "is_central_agency")
+  isScience: Boolean @rename(attribute: "is_science")
+  isRegulatory: Boolean @rename(attribute: "is_regulatory")
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
@@ -1944,11 +1951,25 @@ input CreateDepartmentInput {
       messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
     )
   name: LocalizedStringInput
+  orgIdentifier: Int! @rename(attribute: "org_identifier")
+  size: DepartmentSize!
+  isCorePublicAdministration: Boolean!
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean! @rename(attribute: "is_central_agency")
+  isScience: Boolean! @rename(attribute: "is_science")
+  isRegulatory: Boolean! @rename(attribute: "is_regulatory")
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
+  departmentNumber: Int @rename(attribute: "department_number")
+  orgIdentifier: Int @rename(attribute: "org_identifier")
+  size: DepartmentSize
+  isCorePublicAdministration: Boolean
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean @rename(attribute: "is_central_agency")
+  isScience: Boolean @rename(attribute: "is_science")
+  isRegulatory: Boolean @rename(attribute: "is_regulatory")
 }
 
 input DepartmentBelongsTo {
