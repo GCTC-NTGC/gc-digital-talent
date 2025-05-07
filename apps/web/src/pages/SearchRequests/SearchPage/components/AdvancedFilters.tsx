@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import isArray from "lodash/isArray";
 import { useQuery } from "urql";
 
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
@@ -34,7 +33,7 @@ const getFieldLabel = (
   intl: IntlShape,
 ) => {
   let label;
-  if (isArray(value)) {
+  if (Array.isArray(value)) {
     const labels = options
       .filter((option) => value.includes(option.value))
       .map((option) => option.label);

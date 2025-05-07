@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import { OperationContext, useQuery } from "urql";
-import isString from "lodash/isString";
 
 import {
   Pending,
@@ -166,7 +165,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
             currentPage?.link.url.includes("plan")) &&
           badge.label && (
             <Chip color={badge.color} data-h2-flex-shrink="base(0)">
-              {isString(badge.label)
+              {typeof badge.label === "string"
                 ? badge.label
                 : intl.formatMessage(badge.label)}
             </Chip>

@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
-import isString from "lodash/isString";
 
 import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -223,7 +222,7 @@ export const ViewPool = ({
                   color={advertisementBadge.color}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(advertisementBadge.label)
+                  {typeof advertisementBadge.label === "string"
                     ? advertisementBadge.label
                     : intl.formatMessage(advertisementBadge.label)}
                 </Chip>
@@ -302,7 +301,7 @@ export const ViewPool = ({
                   color={assessmentBadge.color}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(assessmentBadge.label)
+                  {typeof assessmentBadge.label === "string"
                     ? assessmentBadge.label
                     : intl.formatMessage(assessmentBadge.label)}
                 </Chip>
@@ -355,7 +354,7 @@ export const ViewPool = ({
                   icon={processBadge.icon}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(processBadge.label)
+                  {typeof processBadge.label === "string"
                     ? processBadge.label
                     : intl.formatMessage(processBadge.label)}
                 </Chip>
