@@ -1,57 +1,111 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
-import uniq from "lodash/uniq";
 
-import { Accordion, Button, Heading, Well } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Button,
+  Heading,
+  Separator,
+  Well,
+} from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  assertUnreachable,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
-import { buildExperienceByTypeSections } from "./fullCareerExperiencesUtils";
-// import ExperienceByWorkStreamAccordion from "./ExperienceByWorkStreamAccordion";
+import {
+  AccordionSection,
+  buildTypeSections,
+  buildWorkStreamSections,
+} from "./fullCareerExperiencesUtils";
 
 export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiences on User {
-    ...ExperienceByTypeAccordion
     experiences {
       id
+      ... on AwardExperience {
+        awardedDate
+      }
+      ... on CommunityExperience {
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        startDate
+        endDate
+      }
+      ... on PersonalExperience {
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        startDate
+        endDate
+        workStreams {
+          id
+        }
+      }
       ...ExperienceCard
     }
   }
 `);
 
+const FullCareerExperiencesOptions_Fragment = graphql(/* GraphQL */ `
+  fragment FullCareerExperiencesOptions on Query {
+    workStreams {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 interface FullCareerExperiencesProps {
-  query?: FragmentType<typeof FullCareerExperiences_Fragment>;
+  query: FragmentType<typeof FullCareerExperiences_Fragment>;
+  optionsQuery: FragmentType<typeof FullCareerExperiencesOptions_Fragment>;
   shareProfile?: boolean;
   defaultOpen?: boolean;
 }
 
 const FullCareerExperiences = ({
   query,
+  optionsQuery,
   shareProfile,
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
   const data = getFragment(FullCareerExperiences_Fragment, query);
+  const optionsData = getFragment(
+    FullCareerExperiencesOptions_Fragment,
+    optionsQuery,
+  );
   const experiences = data?.experiences?.filter(notEmpty) ?? [];
+  const workStreams = optionsData.workStreams.filter(notEmpty) ?? [];
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );
 
-  let sectionIds: string[] = [];
+  let accordionSections: AccordionSection[] = [];
+  let footer: ReactNode = null;
+
   if (selectedView == "type") {
-    sectionIds =
-      uniq(experiences.map((e) => e.__typename?.toString()).filter(notEmpty)) ??
-      [];
+    accordionSections = buildTypeSections(experiences, intl);
+    footer = null;
+  } else if (selectedView == "workStream") {
+    const sections = buildWorkStreamSections(experiences, workStreams, intl);
+    accordionSections = sections.experienceSections;
+    footer = sections.footer;
+  } else {
+    assertUnreachable(selectedView);
   }
-  const experienceSections = buildExperienceByTypeSections(experiences, intl);
-  // if (selectedView == "workStream") {
-  //   sectionIds =
-  //     uniq(experiences.map((e) => e.__typename)).filter(notEmpty) ?? [];
-  // }
+
+  const sectionIds = accordionSections.map((section) => section.id);
 
   const [openSections, setOpenSections] = useState<string[]>(
     defaultOpen ? sectionIds : [],
@@ -184,47 +238,53 @@ const FullCareerExperiences = ({
       <div>
         {/* If can share profile, show accordion. Otherwise, show nothing */}
         {shareProfile ? (
-          <Accordion.Root
-            type="multiple"
-            mode="card"
-            value={openSections}
-            onValueChange={setOpenSections} // Sync state with Accordion
-            data-h2-margin="base(0, 0)"
-          >
-            {experienceSections.map(
-              ({ id, title, experiences: sectionExperiences }) => (
-                <Accordion.Item key={id} value={id}>
-                  <Accordion.Trigger>
-                    {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                    {title} ({sectionExperiences.length})
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <div>
-                      <div
-                        data-h2-display="base(flex)"
-                        data-h2-flex-direction="base(column)"
-                        data-h2-gap="base(x.5 0)"
-                      >
-                        {unpackMaybes(
-                          sectionExperiences.map((experience) => {
-                            return (
-                              <>
+          <>
+            <Accordion.Root
+              type="multiple"
+              mode="card"
+              value={openSections}
+              onValueChange={setOpenSections} // Sync state with Accordion
+              data-h2-margin="base(0, 0)"
+            >
+              {accordionSections.map(
+                ({ id, title, subtitle, experiences: sectionExperiences }) => (
+                  <Accordion.Item key={id} value={id}>
+                    <Accordion.Trigger subtitle={subtitle ?? undefined}>
+                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+                      {title} ({sectionExperiences.length})
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <div>
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(column)"
+                          data-h2-gap="base(x.5 0)"
+                        >
+                          {unpackMaybes(
+                            sectionExperiences.map((experience) => {
+                              return (
                                 <ExperienceCard
                                   key={experience?.id}
                                   experience={experience}
                                   showEdit={false}
                                 />
-                              </>
-                            );
-                          }),
-                        )}
+                              );
+                            }),
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Accordion.Content>
-                </Accordion.Item>
-              ),
-            )}
-          </Accordion.Root>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                ),
+              )}
+            </Accordion.Root>
+            {footer ? (
+              <>
+                <Separator data-h2-margin="base(x1 0)" space="none" />
+                {footer}
+              </>
+            ) : null}
+          </>
         ) : null}
       </div>
     </>

@@ -30,6 +30,7 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
       ...CurrentPositionExperiences
       ...FullCareerExperiences
     }
+    ...FullCareerExperiencesOptions
   }
 `);
 
@@ -154,6 +155,7 @@ const TalentNominationGroupCareerExperience = ({
           >
             <FullCareerExperiences
               query={data.user}
+              optionsQuery={data}
               shareProfile={shareProfile}
             />
           </div>
