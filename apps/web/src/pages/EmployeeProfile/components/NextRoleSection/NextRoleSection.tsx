@@ -151,7 +151,9 @@ const UpdateEmployeeProfile_Mutation = graphql(/* GraphQL */ `
     $employeeProfile: UpdateEmployeeProfileInput!
   ) {
     updateEmployeeProfile(id: $id, employeeProfile: $employeeProfile) {
-      ...EmployeeProfileNextRole
+      userPublicProfile {
+        id
+      }
     }
   }
 `);
@@ -391,9 +393,12 @@ const NextRoleSection = ({
               targetRoleOther,
               jobTitle,
               communityId,
+              communityOther,
               workStreamIds,
               departmentIds,
               additionalInformation,
+              isCSuiteRole,
+              cSuiteRoleTitle,
             },
             { keepDirty: true },
           );

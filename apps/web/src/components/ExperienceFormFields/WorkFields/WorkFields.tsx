@@ -74,22 +74,22 @@ const employmentCategoryDescriptions: Record<
 > = {
   EXTERNAL_ORGANIZATION: defineMessage({
     defaultMessage:
-      "Select this option if the employment had no affiliation with the Government of Canada.",
-    id: "0MakGC",
+      "This role had no affiliation with the Government of Canada.",
+    id: "Tf8eTw",
     description:
       "Description for the external employment category option in work experience",
   }),
   GOVERNMENT_OF_CANADA: defineMessage({
     defaultMessage:
-      "Select this option if the employment was with a Government of Canada department, agency, crown corporation, or if you were a contractor working with one of these organizations.",
-    id: "nmx1ym",
+      "This was a role as an employee or a contractor at a Government of Canada department, agency, or crown corporation.",
+    id: "9XTtxd",
     description:
       "Description for the goc employment category option in work experience",
   }),
   CANADIAN_ARMED_FORCES: defineMessage({
     defaultMessage:
-      "Select this option if the employment was with Canadian Army, the Royal Canadian Air Force, or the Royal Canadian Navy, either as regular force, or reserve force.",
-    id: "uZuEHk",
+      "This was a role in the regular or reserve force of the Canadian Army, the Royal Canadian Air Force, or the Royal Canadian Navy.",
+    id: "dPAsNx",
     description:
       "Description for the caf employment category option in work experience",
   }),
