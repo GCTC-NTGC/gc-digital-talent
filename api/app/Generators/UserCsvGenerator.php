@@ -4,7 +4,6 @@ namespace App\Generators;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
-use App\Enums\Classification;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\GovEmployeeType;
@@ -138,6 +137,18 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                 });
 
                 $employeeProfile = $user->employeeProfile;
+                $nextRoleWorkStreams = $employeeProfile->nextRoleWorkStreams->map(function ($workStream) {
+                    return $workStream->name[$this->lang] ?? '';
+                });
+                $nextRoleDepartments = $employeeProfile->nextRoleDepartments->map(function ($department) {
+                    return $department->name[$this->lang] ?? '';
+                });
+                $careerObjectiveWorkStreams = $employeeProfile->careerObjectiveWorkStreams->map(function ($workStream) {
+                    return $workStream->name[$this->lang] ?? '';
+                });
+                $careerObjectiveDepartments = $employeeProfile->careerObjectiveDepartments->map(function ($department) {
+                    return $department->name[$this->lang] ?? '';
+                });
 
                 $values = [
                     $user->first_name, // First name
@@ -192,8 +203,8 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $employeeProfile->next_role_job_title, // Next role - Job title
 
                     $employeeProfile->nextRoleCommunity ? $employeeProfile->nextRoleCommunity->name[$this->lang] : ($employeeProfile->next_role_community_other ?: ''), // Next role - Functional community
-                    $employeeProfile->nextRoleWorkStreams->pluck('name')->implode(', '), // next role - Work streams
-                    $employeeProfile->nextRoleDepartments->pluck('name')->implode(', '), // next role - Departments
+                    $nextRoleWorkStreams->join(','), // Next role - Work streams
+                    $nextRoleDepartments->join(', '), // next role - Departments
 
                     $employeeProfile->next_role_additional_information, // Next role - Additional information
 
@@ -206,8 +217,8 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $employeeProfile->career_objective_job_title, // Career objective - Job title
 
                     $employeeProfile->careerObjectiveCommunity ? $employeeProfile->careerObjectiveCommunity->name[$this->lang] : ($employeeProfile->career_objective_community_other ?: ''), // Career objective - Functional community
-                    $employeeProfile->careerObjectiveWorkStreams->pluck('name')->implode(', '), // career objective - Work streams
-                    $employeeProfile->careerObjectiveDepartments->pluck('name')->implode(', '), // career objective - Departments
+                    $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
+                    $careerObjectiveDepartments->join(', '), // career objective - Departments
 
                     $employeeProfile->career_objective_additional_information, // Career objective - Additional information
                     $employeeProfile->career_planning_about_you, // Career planning - About you
