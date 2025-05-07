@@ -531,10 +531,6 @@
     "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
   },
-  "0RlNw7": {
-    "defaultMessage": "Projet/produit",
-    "description": "Label displayed on Community Experience form for project input"
-  },
   "0SEvhI": {
     "defaultMessage": "Sélectionnez une langue",
     "description": "Placeholder displayed on the user form preferred spoken interview language field."
@@ -1534,6 +1530,10 @@
   "4yXZLY": {
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
+  },
+  "5+J43O": {
+    "defaultMessage": "Projet ou produit",
+    "description": "Label displayed on Community Experience form for project input"
   },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
