@@ -151,7 +151,6 @@ export default [
               group: [
                 "lodash/isArray",
                 "lodash/flatMap",
-                "lodash/get",
                 "lodash/groupBy",
                 "lodash/upperCase",
                 "lodash/head",
