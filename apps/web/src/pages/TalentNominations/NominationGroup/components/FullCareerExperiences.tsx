@@ -15,14 +15,15 @@ import {
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 
 import {
   AccordionSection,
-  buildTypeSections,
-  buildWorkStreamSections,
+  buildExperienceByTypeData,
+  buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
 
 export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
@@ -95,12 +96,37 @@ const FullCareerExperiences = ({
   let footer: ReactNode = null;
 
   if (selectedView == "type") {
-    accordionSections = buildTypeSections(experiences, intl);
+    const { sections } = buildExperienceByTypeData(experiences, intl);
+    accordionSections = sections;
     footer = null;
   } else if (selectedView == "workStream") {
-    const sections = buildWorkStreamSections(experiences, workStreams, intl);
-    accordionSections = sections.experienceSections;
-    footer = sections.footer;
+    const { sections, workStreamsWithNoExperiences } =
+      buildExperienceByWorkStreamData(experiences, workStreams, intl);
+    accordionSections = sections;
+    footer =
+      workStreamsWithNoExperiences.length > 0 ? (
+        <>
+          <p
+            data-h2-font-weight="base(bold)"
+            data-h2-margin-bottom="base(x.15)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Work streams with no experience",
+              id: "PNTlS7",
+              description:
+                "a description for a list of work streams with no experiences",
+            })}
+          </p>
+          <ul>
+            {workStreamsWithNoExperiences.map((workStream) => (
+              <li key={workStream.id} data-h2-margin-bottom="base(x.15)">
+                {workStream.name?.localized ??
+                  intl.formatMessage(commonMessages.notProvided)}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null;
   } else {
     assertUnreachable(selectedView);
   }

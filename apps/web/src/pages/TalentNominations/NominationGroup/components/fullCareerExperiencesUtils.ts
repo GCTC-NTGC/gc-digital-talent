@@ -18,21 +18,7 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 
-type ExperienceItem = NonNullable<
-  NonNullable<FullCareerExperiencesFragment["experiences"]>[number]
->;
-
-type WorkStreamItem = NonNullable<
-  NonNullable<FullCareerExperiencesOptionsFragment["workStreams"]>[number]
->;
-
-export interface AccordionSection {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  experiences: ExperienceItem[];
-}
-
+// turn a duration in months to a localized subtitle string
 function durationMonthsToSubtitle(
   durationMonths: number,
   intl: IntlShape,
@@ -67,11 +53,27 @@ function durationMonthsToSubtitle(
   );
 }
 
-export function buildTypeSections(
+type ExperienceItem = NonNullable<
+  NonNullable<FullCareerExperiencesFragment["experiences"]>[number]
+>;
+
+type WorkStreamItem = NonNullable<
+  NonNullable<FullCareerExperiencesOptionsFragment["workStreams"]>[number]
+>;
+
+export interface AccordionSection {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  experiences: ExperienceItem[];
+}
+
+// take a list of experiences and organize them into "by experience type" sections
+export function buildExperienceByTypeData(
   experiences: ExperienceItem[],
   intl: IntlShape,
 ) {
-  const experienceSections: AccordionSection[] = [
+  const sections: AccordionSection[] = [
     {
       id: "WorkExperience",
       title: intl.formatMessage(experienceMessages.work),
@@ -119,10 +121,13 @@ export function buildTypeSections(
     } as const,
   ].filter((e) => e.experiences.length > 0);
 
-  return experienceSections;
+  return {
+    sections,
+  };
 }
 
-export function buildWorkStreamSections(
+// take a list of experiences and work streams and organize them into "by work stream" sections, and a footer of unused work streams
+export function buildExperienceByWorkStreamData(
   experiences: ExperienceItem[],
   workStreams: WorkStreamItem[],
   intl: IntlShape,
@@ -138,7 +143,7 @@ export function buildWorkStreamSections(
     ),
   }));
 
-  const experienceSections: AccordionSection[] = workStreamsAndTheirExperiences
+  const sections: AccordionSection[] = workStreamsAndTheirExperiences
     .filter((bundle) => bundle.experiences.length)
     .map((bundle) => ({
       id: bundle.workStream.id,
@@ -160,29 +165,8 @@ export function buildWorkStreamSections(
     (a, b) => a.name?.localized?.localeCompare(b.name?.localized ?? "") ?? 0,
   );
 
-  const footer = (
-    <>
-      <p data-h2-font-weight="base(bold)" data-h2-margin-bottom="base(x.15)">
-        {intl.formatMessage({
-          defaultMessage: "Work streams with no experience",
-          id: "PNTlS7",
-          description:
-            "a description for a list of work streams with no experiences",
-        })}
-      </p>
-      <ul>
-        {workStreamsWithNoExperiences.map((workStream) => (
-          <li key={workStream.id} data-h2-margin-bottom="base(x.15)">
-            {workStream.name?.localized ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-
   return {
-    experienceSections,
-    footer,
+    sections,
+    workStreamsWithNoExperiences,
   };
 }
