@@ -6950,10 +6950,6 @@
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
   },
-  "VDNYQU": {
-    "defaultMessage": "Votre mise en candidature a été soumise et est en attente d'examen. Nous vous informerons lorsque la collectivité fonctionnelle entamera le processus de révision.",
-    "description": "The description of the 'received' nomination status"
-  },
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Phrase marking lack of interest in community work opportunities"
@@ -10512,10 +10508,6 @@
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
-  },
-  "lwRIsY": {
-    "defaultMessage": "Reçue",
-    "description": "The title of the 'received' nomination status"
   },
   "lwYOqk": {
     "defaultMessage": "Année d'admissibilité à la retraite",
