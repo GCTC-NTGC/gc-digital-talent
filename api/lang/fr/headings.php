@@ -53,11 +53,11 @@ return [
     // new columns
     'career_planning_lateral_move_interest' => 'Intérêt pour la mutation latérale',
     'career_planning_lateral_move_time_frame' => 'Délai cible pour une mutation latérale',
-    // 'career_planning_lateral_move_organization_type' => 'Types d'organisations pour une mutation latérale',
-    // 'career_planning_promotion_move_interest' => 'Intérêt pour l'avancement',
-    // 'career_planning_promotion_move_time_frame' => 'Délai cible pour l'avancement',
-    // 'career_planning_promotion_move_organization_type' => 'Types d'organisations pour un avancement',
-    // 'career_planning_learning_opportunities_interest' => 'Intérêt pour les possibilités d'apprentissage',
+    'career_planning_lateral_move_organization_type' => 'Types d\'organisations pour une mutation latérale',
+    'career_planning_promotion_move_interest' => 'Intérêt pour l\'avancement',
+    'career_planning_promotion_move_time_frame' => 'Délai cible pour l\'avancement',
+    'career_planning_promotion_move_organization_type' => 'Types d\'organisations pour un avancement',
+    'career_planning_learning_opportunities_interest' => 'Intérêt pour les possibilités d\'apprentissage',
     'eligible_retirement_year' => 'Admissibilité à la retraite',
     'career_planning_mentorship_status' => 'État du mentorat',
     'career_planning_mentorship_interest' => 'Intérêt pour les possibilités de mentorat',
@@ -78,8 +78,8 @@ return [
     'next_role_departments' => 'Prochain poste - Ministères',
 
     'next_role_additional_information' => 'Prochain poste - Renseignements supplémentaires',
-    'career_objective_classification_id' => 'Objectif de carrière - Groupe de classification visé',
-    'career_objective_classification_id' => 'Objectif de carrière - Niveau de classification visé',
+    'career_objective_target_classification_group' => 'Objectif de carrière - Groupe de classification visé',
+    'career_objective_target_classification_level' => 'Objectif de carrière - Niveau de classification visé',
     'career_objective_target_role' => 'Objectif de carrière - Type de poste visé',
     'career_objective_is_c_suite_role' => 'Objectif de carrière - Cadre supérieur',
     'career_objective_c_suite_role_title' => 'Objectif de carrière - Titre du rôle de cadre supérieur',
@@ -87,7 +87,8 @@ return [
     'career_objective_functional_community' => 'Objectif de carrière - Collectivité fonctionnelle',
     // TODO: Implement
     'career_objective_work_streams' => 'Objectif de carrière - Volets de travail',
-    'career_objective_work_departments' => 'Objectif de carrière - Ministères',
+    'career_objective_departments' => 'Objectif de carrière - Ministères',
+
     'career_objective_additional_information' => 'Objectif de carrière - Renseignements supplémentaires',
     'career_planning_about_you' => 'À propos',
     'career_planning_learning_goals' => 'Objectifs d’apprentissage',

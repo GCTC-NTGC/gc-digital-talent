@@ -65,31 +65,25 @@ return [
     'career_planning_exec_interest' => 'Interest in executive opportunities',
     'career_planning_exec_coaching_status' => 'Executive coaching status',
     'career_planning_exec_coaching_interest' => 'Interest in executive coaching',
-
     'next_role_target_classification_group' => 'Next role - Target classification group',
     'next_role_target_classification_level' => 'Next role - Target classification level',
-
     'next_role_target_role' => 'Next role - Target role',
     'next_role_is_c_suite_role' => 'Next role - C-suite',
     'next_role_c_suite_role_title' => 'Next role - C-suite title',
     'next_role_job_title' => 'Next role - Job title',
     'next_role_functional_community' => 'Next role - Functional community',
-    // TODO: Implement
-    'next_role_work_streams', // Next role - Work streams
-    'next_role_departments', // Next role - Departments
-
+    'next_role_work_streams' => 'Next role - Work streams',
+    'next_role_departments' => 'Next role - Departments',
     'next_role_additional_information' => 'Next role - Additional info',
-    'career_objective_classification_id' => 'Career objective - Target classification group',
-    'career_objective_classification_id' => 'Career objective - Target classification level',
+    'career_objective_target_classification_group' => 'Career objective - Target classification group',
+    'career_objective_target_classification_level' => 'Career objective - Target classification level',
     'career_objective_target_role' => 'Career objective - Target role',
     'career_objective_is_c_suite_role' => 'Career objective - C-suite',
     'career_objective_c_suite_role_title' => 'Career objective - C-suite title',
     'career_objective_job_title' => 'Career objective - Job title',
     'career_objective_functional_community' => 'Career objective - Functional community',
-    // TODO: Implement
-    'career_objective_work_streams', // Career objective - Work streams
-    'career_objective_work_departments', // Career objective - Departments
-
+    'career_objective_work_streams' => 'Career objective - Work streams',
+    'career_objective_departments' => 'Career objective - Departments',
     'career_objective_additional_information' => 'Career objective - Additional info',
     'career_planning_about_you' => 'About',
     'career_planning_learning_goals' => 'Learning goals',

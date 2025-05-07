@@ -78,37 +78,28 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'career_planning_exec_coaching_status',
         'career_planning_exec_coaching_interest',
 
-        // TODO: check
-        'next_role_target_classification_group', // next role - target classification group
-        'next_role_target_classification_level', // Next role - Target classification level
+        'next_role_target_classification_group',
+        'next_role_target_classification_level',
         'next_role_target_role',
         'next_role_is_c_suite_role',
         'next_role_c_suite_role_title',
         'next_role_job_title',
+        'next_role_functional_community',
 
-        // TODO: check
-        'next_role_functional_community', // Next role - Functional community:
-
-        // TODO: Implement
-        'next_role_work_streams', // Next role - Work streams
-        'next_role_departments', // Next role - Departments
-
+        'next_role_work_streams',
+        'next_role_departments',
         'next_role_additional_information',
 
-        // TODO: check
-        'career_objective_target_classification_group', // career objective - target classification group
-        'career_objective_target_classification_level', // career objective -target classification level
+        'career_objective_target_classification_group',
+        'career_objective_target_classification_level',
         'career_objective_target_role',
         'career_objective_is_c_suite_role',
         'career_objective_c_suite_role_title',
         'career_objective_job_title',
+        'career_objective_functional_community',
 
-        // TODO: check
-        'career_objective_functional_community', // Career objective - Functional community
-
-        // TODO: Implement
-        'career_objective_work_streams', // Career objective - Work streams
-        'career_objective_work_departments', // Career objective - Departments
+        'career_objective_work_streams',
+        'career_objective_departments',
 
         'career_objective_additional_information',
         'career_planning_about_you',
@@ -146,6 +137,8 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     return $userSkill->skill->name[$this->lang] ?? '';
                 });
 
+                $employeeProfile = $user->employeeProfile;
+
                 $values = [
                     $user->first_name, // First name
                     $user->last_name, // Last name
@@ -176,54 +169,50 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->yesOrNo($user->has_disability), // Disability
                     $userSkills->join(', '),
                     // new columns
-                    $this->yesOrNo($user->career_planning_lateral_move_interest),
-                    $this->localizeEnum($user->career_planning_lateral_move_time_frame, TimeFrame::class),
-                    $this->localizeEnumArray($user->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class),
-                    $this->yesOrNo($user->career_planning_promotion_move_interest),
-                    $this->localizeEnum($user->career_planning_promotion_move_time_frame, TimeFrame::class),
-                    $this->localizeEnumArray($user->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class),
-                    $this->localizeEnumArray($user->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class),
-                    $user->eligible_retirement_year ? $user->eligible_retirement_year->format('Y') : '',
-                    $this->localizeEnumArray($user->career_planning_mentorship_status, Mentorship::class),
-                    $user->career_planning_mentorship_interest,
-                    $this->yesOrNo($user->career_planning_exec_interest),
-                    $this->localizeEnumArray($user->career_planning_exec_coaching_status, Mentorship::class),
-                    $user->career_planning_exec_coaching_interest,
+                    $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest), // Career planning - Lateral move interest
+                    $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame, TimeFrame::class), // Career planning - Lateral move time frame
+                    $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class), // Career planning - Lateral move organization type
+                    $this->yesOrNo($employeeProfile->career_planning_promotion_move_interest), // Career planning - Promotion move interest
+                    $this->localizeEnum($employeeProfile->career_planning_promotion_move_time_frame, TimeFrame::class), // Career planning - Promotion move time frame
+                    $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
+                    $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
+                    $employeeProfile->eligible_retirement_year ? $employeeProfile->eligible_retirement_year->format('Y') : '', // Eligible retirement year
+                    $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
+                    $employeeProfile->career_planning_mentorship_interest, // Career planning - Mentorship interest
+                    $this->yesOrNo($employeeProfile->career_planning_exec_interest), // Career planning - Executive interest
+                    $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status, Mentorship::class), // Career planning - Executive coaching status
+                    $employeeProfile->career_planning_exec_coaching_interest, // Career planning - Executive coaching interest
 
-                    // TODO: check
-                    $user->employeeProfile->next_role_target_classification_group->group[$this->lang] ?? '', // next role - target classification group
-                    $user->employeeProfile->next_role_target_classification_level->level[$this->lang] ?? '', // next role - target classification level
+                    $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->group : '', // Next role - target classification group
+                    $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->level : '', // Next role - Target classification level
 
-                    $user->employeeProfile->next_role_target_role,
-                    $this->yesOrNo($user->next_role_is_c_suite_role),
-                    $user->next_role_c_suite_role_title,
-                    $user->next_role_job_title,
+                    $employeeProfile->next_role_target_role, // Next role - Target role
+                    $this->yesOrNo($employeeProfile->next_role_is_c_suite_role), // Next role - C-suite role
+                    $employeeProfile->next_role_c_suite_role_title, // Next role - C-suite role title
+                    $employeeProfile->next_role_job_title, // Next role - Job title
 
-                    // TODO: check
-                    $user->employeeProfile->next_role_functional_community->name[$this->lang] ?? '', // Next role - Functional community
-                    // next role - Work streams
-                    // next role - Departments
+                    $employeeProfile->nextRoleCommunity ? $employeeProfile->nextRoleCommunity->name[$this->lang] : ($employeeProfile->next_role_community_other ?: ''), // Next role - Functional community
+                    $employeeProfile->nextRoleWorkStreams->pluck('name')->implode(', '), // next role - Work streams
+                    $employeeProfile->nextRoleDepartments->pluck('name')->implode(', '), // next role - Departments
 
-                    $user->next_role_additional_information,
+                    $employeeProfile->next_role_additional_information, // Next role - Additional information
 
-                    // TODO: check
-                    $user->career_objective_target_classification_group->group[$this->lang] ?? '', // Career objective - Target classification group
-                    $user->career_objective_target_classification_level->level[$this->lang] ?? '', // Career objective - Target classification level
+                    $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->group : '', // Career objective - Target classification group
+                    $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->level : '', // Career objective - Target classification level
 
-                    $user->career_objective_target_role,
-                    $this->yesOrNo($user->career_objective_is_c_suite_role),
-                    $user->career_objective_c_suite_role_title,
-                    $user->career_objective_job_title,
+                    $employeeProfile->career_objective_target_role, // Career objective - Target role
+                    $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role), // Career objective - C-suite role
+                    $employeeProfile->career_objective_c_suite_role_title, // Career objective - C-suite role title
+                    $employeeProfile->career_objective_job_title, // Career objective - Job title
 
-                    // TODO: check
-                    $user->career_objective_functional_community->name[$this->lang] ?? '',
-                    // career objective - Work streams
-                    // career objective - Departments
+                    $employeeProfile->careerObjectiveCommunity ? $employeeProfile->careerObjectiveCommunity->name[$this->lang] : ($employeeProfile->career_objective_community_other ?: ''), // Career objective - Functional community
+                    $employeeProfile->careerObjectiveWorkStreams->pluck('name')->implode(', '), // career objective - Work streams
+                    $employeeProfile->careerObjectiveDepartments->pluck('name')->implode(', '), // career objective - Departments
 
-                    $user->career_objective_additional_information,
-                    $user->career_planning_about_you,
-                    $user->career_planning_learning_goals,
-                    $user->career_planning_work_style,
+                    $employeeProfile->career_objective_additional_information, // Career objective - Additional information
+                    $employeeProfile->career_planning_about_you, // Career planning - About you
+                    $employeeProfile->career_planning_learning_goals, // Career planning - Learning goals
+                    $employeeProfile->career_planning_work_style, // Career planning - Work style
                 ];
 
                 // 1 is added to the key to account for the header row
@@ -263,6 +252,14 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
             'department',
             'currentClassification',
             'userSkills' => ['skill'],
+            'employeeProfile.nextRoleClassification',
+            'employeeProfile.careerObjectiveClassification',
+            'employeeProfile.nextRoleCommunity',
+            'employeeProfile.careerObjectiveCommunity',
+            'employeeProfile.nextRoleWorkStreams',
+            'employeeProfile.careerObjectiveWorkStreams',
+            'employeeProfile.nextRoleDepartments',
+            'employeeProfile.careerObjectiveDepartments',
         ]);
 
         $this->applyFilters($query, [
