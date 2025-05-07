@@ -91,6 +91,17 @@ const FunctionalCommunityListItem = ({
   const title =
     functionalCommunityListItemFragment?.community?.name?.localized ??
     intl.formatMessage(commonMessages.notAvailable);
+  const buttonLabel = intl.formatMessage(
+    {
+      defaultMessage: "View your {communityName} interests",
+      id: "LNXpTl",
+      description: "Button label for community interest dialog trigger",
+    },
+    {
+      communityName: title,
+    },
+  );
+
   return (
     <>
       <PreviewList.Item
@@ -102,7 +113,7 @@ const FunctionalCommunityListItem = ({
             communityInterestOptionsQuery={
               functionalCommunityListItemOptionsFragment
             }
-            trigger={<PreviewList.Button label={title} />}
+            trigger={<PreviewList.Button label={buttonLabel} />}
           />
         }
         headingAs={headingAs}

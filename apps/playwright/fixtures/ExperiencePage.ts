@@ -57,7 +57,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /This was a role with an external organization/i,
+        name: /external organization/i,
       })
       .click();
 
@@ -112,7 +112,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the government of canada/i,
+        name: /government of canada/i,
       })
       .click();
 
@@ -163,7 +163,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the government of canada/i,
+        name: /government of canada/i,
       })
       .click();
 
@@ -228,7 +228,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the government of canada/i,
+        name: /government of canada/i,
       })
       .click();
 
@@ -306,7 +306,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the government of canada/i,
+        name: /government of canada/i,
       })
       .click();
 
@@ -385,7 +385,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the canadian armed forces/i,
+        name: /canadian armed forces/i,
       })
       .click();
 
@@ -438,7 +438,7 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("group", { name: /employment category/i })
       .getByRole("radio", {
-        name: /this was a role with the government of canada/i,
+        name: /government of canada/i,
       })
       .click();
 

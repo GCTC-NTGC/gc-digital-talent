@@ -154,8 +154,8 @@ export const getExperienceFormLabels = (
     currentRole,
     organization,
     project: intl.formatMessage({
-      defaultMessage: "Project / Product",
-      id: "0RlNw7",
+      defaultMessage: "Project or product",
+      id: "5+J43O",
       description:
         "Label displayed on Community Experience form for project input",
     }),
