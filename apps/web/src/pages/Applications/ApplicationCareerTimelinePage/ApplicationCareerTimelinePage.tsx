@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { IntlShape, useIntl } from "react-intl";
-import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
@@ -14,7 +13,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -201,7 +200,7 @@ export const ApplicationCareerTimeline = ({
     intl,
   );
   const experiencesByType = groupBy(nonEmptyExperiences, (e) => {
-    return deriveExperienceType(e);
+    return deriveExperienceType(e) ?? "";
   });
   const hasSomeExperience = !!experiences.length;
   const hasExperiencesByType = !!experienceList.length;

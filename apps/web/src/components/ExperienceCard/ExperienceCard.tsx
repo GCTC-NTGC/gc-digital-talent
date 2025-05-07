@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import isArray from "lodash/isArray";
 import isBoolean from "lodash/isBoolean";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import { ReactNode } from "react";
@@ -93,13 +92,13 @@ const ExperienceCard = ({
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const Icon = icon;
 
-  const skills = isArray(showSkills)
+  const skills = Array.isArray(showSkills)
     ? experience.skills?.filter((skill) =>
         showSkills.some((showSkill) => showSkill.id === skill.id),
       )
     : experience.skills;
   const singleSkill =
-    !isBoolean(showSkills) && !isArray(showSkills) && "id" in showSkills
+    !isBoolean(showSkills) && !Array.isArray(showSkills) && "id" in showSkills
       ? experience.skills?.find((skill) => skill.id === showSkills.id)
       : false;
 
