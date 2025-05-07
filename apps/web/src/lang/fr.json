@@ -3071,6 +3071,10 @@
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
   },
+  "CTxxiq": {
+    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise.",
+    "description": "Subtitle for the review talent nomination dialog"
+  },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
@@ -4946,10 +4950,6 @@
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
-  },
-  "LOwBJx": {
-    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise et suivez son évolution.",
-    "description": "Subtitle for the review talent nomination dialog"
   },
   "LQ0a0a": {
     "defaultMessage": "Participation au programme",

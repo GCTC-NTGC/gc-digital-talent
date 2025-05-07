@@ -153,8 +153,8 @@ const ReviewTalentNominationDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Check out the details of a nomination you’ve submitted and track its progress.",
-            id: "LOwBJx",
+              "Check out the details of a nomination you’ve submitted.",
+            id: "CTxxiq",
             description: "Subtitle for the review talent nomination dialog",
           })}
         >
