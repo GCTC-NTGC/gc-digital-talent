@@ -39,16 +39,15 @@ class CommunityTestSeeder extends Seeder
                 ],
             ]);
 
-
-            $testCommunityId = Community::where('key', 'test-community')->first('id');
-            WorkStream::factory()->create([
-                'key' => 'test_work_stream',
-                'name' => [
-                    'en' => 'Test work stream EN',
-                    'fr' => 'Test work stream FR',
-                ],
-                'community_id' => $testCommunityId,
-            ]);
+        $testCommunityId = Community::where('key', 'test-community')->first('id');
+        WorkStream::factory()->create([
+            'key' => 'test_work_stream',
+            'name' => [
+                'en' => 'Test work stream EN',
+                'fr' => 'Test work stream FR',
+            ],
+            'community_id' => $testCommunityId,
+        ]);
 
     }
 }
