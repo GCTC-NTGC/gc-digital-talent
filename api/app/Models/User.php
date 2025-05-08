@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Builders\UserBuilder;
 use App\Casts\LanguageCode;
-use App\Enums\CandidateExpiryFilter;
-use App\Enums\CandidateSuspendedFilter;
 use App\Enums\EmailType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
