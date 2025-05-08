@@ -23,11 +23,9 @@ class TeamFactory extends Factory
     public function definition()
     {
         $name = $this->faker->company();
-        $description = $this->faker->sentence();
 
         return [
             'name' => $this->faker->unique()->word(),
-            'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
         ];
     }
 

@@ -770,7 +770,6 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  description: LocalizedString
   departments: [Department] @belongsToMany
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")

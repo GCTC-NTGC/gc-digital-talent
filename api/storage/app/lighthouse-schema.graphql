@@ -1169,7 +1169,6 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
-  description: LocalizedString
   departments: [Department]
   pools: [Pool]
   teamable: HasRoleAssignments
