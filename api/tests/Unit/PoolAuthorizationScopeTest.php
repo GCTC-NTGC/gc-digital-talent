@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEqualsCanonicalizing;
+use function PHPUnit\Framework\assertNotContains;
 
 class PoolAuthorizationScopeTest extends TestCase
 {
@@ -167,6 +168,9 @@ class PoolAuthorizationScopeTest extends TestCase
         $community = Community::factory()->create();
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
+        $additionalCommunityPool = Pool::factory()->draft()->create([
+            'community_id' => $community->id,
+        ]);
 
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
@@ -174,6 +178,8 @@ class PoolAuthorizationScopeTest extends TestCase
                 ->create());
 
         $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertNotContains($additionalCommunityPool->id, $poolIds);
 
         assertEqualsCanonicalizing([
             $this->poolDraft1->id,
