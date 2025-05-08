@@ -426,7 +426,7 @@ class PoolCandidate extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($operationalRequirements) {
-            User::scopeOperationalRequirements($query, $operationalRequirements);
+            $query->whereOperationalRequirementsIn($operationalRequirements);
         });
 
         return $query;
@@ -440,7 +440,7 @@ class PoolCandidate extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($workRegions) {
-            User::scopeLocationPreferences($query, $workRegions);
+            $query->whereLocationPreferencesIn($workRegions);
         });
 
         return $query;
@@ -454,7 +454,7 @@ class PoolCandidate extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($languageAbility) {
-            User::scopeLanguageAbility($query, $languageAbility);
+            $query->whereLanguageAbility($languageAbility);
         });
 
         return $query;
@@ -478,7 +478,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('user', function ($query) use ($equity) {
-            User::scopeEquity($query, $equity);
+            $query->whereEquityIn($equity);
         });
 
         return $query;
@@ -490,10 +490,8 @@ class PoolCandidate extends Model
             return $query;
         }
 
-        $query->where(function ($query) use ($searchTerm) {
-            $query->whereHas('user', function ($query) use ($searchTerm) {
-                User::scopeGeneralSearch($query, $searchTerm);
-            });
+        $query->whereHas('user', function ($userQuery) use ($searchTerm) {
+            $userQuery->whereGeneralSearch($searchTerm);
         });
 
         return $query;
@@ -506,7 +504,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('user', function ($query) use ($name) {
-            User::scopeName($query, $name);
+            $query->whereName($name);
         });
 
         return $query;
@@ -519,7 +517,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('user', function ($query) use ($email) {
-            User::scopeEmail($query, $email);
+            $query->whereEmail($email);
         });
 
         return $query;
@@ -529,7 +527,7 @@ class PoolCandidate extends Model
     {
         if ($isGovEmployee) {
             $query->whereHas('user', function ($query) {
-                User::scopeIsGovEmployee($query, true);
+                $query->whereIsGovEmployee(true);
             });
         }
 
@@ -578,7 +576,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('user', function ($query) use ($hasDiploma) {
-            User::scopeHasDiploma($query, $hasDiploma);
+            $query->whereHasDiploma($hasDiploma);
         });
 
         return $query;
@@ -701,8 +699,8 @@ class PoolCandidate extends Model
         }
 
         // call the positionDurationFilter off connected user
-        $query->whereHas('user', function (Builder $userQuery) use ($positionDuration) {
-            User::scopePositionDuration($userQuery, $positionDuration);
+        $query->whereHas('user', function ($userQuery) use ($positionDuration) {
+            $userQuery->wherePositionDurationIn($positionDuration);
         });
 
         return $query;
@@ -718,8 +716,8 @@ class PoolCandidate extends Model
         $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
-        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
-            User::scopeSkillsAdditive($userQuery, $skills);
+        $query->whereHas('user', function ($userQuery) use ($skills) {
+            $userQuery->whereSkillsAdditive($skills);
         });
 
         return $query;
@@ -734,8 +732,8 @@ class PoolCandidate extends Model
         $query = $this->addSkillCountSelect($query, $skills);
 
         // call the skillFilter off connected user
-        $query->whereHas('user', function (Builder $userQuery) use ($skills) {
-            User::scopeSkillsIntersectional($userQuery, $skills);
+        $query->whereHas('user', function ($query) use ($skills) {
+            $query->whereSkillsIntersectional($skills);
         });
 
         return $query;

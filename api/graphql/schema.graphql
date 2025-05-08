@@ -1099,15 +1099,15 @@ input UserPoolFilterInput {
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput] @scope(name: "wherePool")
+  poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
   isProfileComplete: Boolean @scope(name: "whereProfileComplete")
-  isGovEmployee: Boolean @scope
-  telephone: String @scope
-  email: String @scope
-  workEmail: String @scope
-  name: String @scope
-  generalSearch: String @scope
-  roles: [ID] @scope(name: "roleAssignments")
+  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  telephone: String @scope(name: "whereTelephone")
+  email: String @scope(name: "whereEmail")
+  workEmail: String @scope(name: "whereWorkEmail")
+  name: String @scope(name: "whereName")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }
 
@@ -1257,7 +1257,7 @@ input CommunityInterestFilterInput {
   generalSearch: String @scope
   communities: [UUID] @scope
   workStreams: [UUID] @scope
-  poolFilters: [UserPoolFilterInput] @scope(name: "wherePool")
+  poolFilters: [UserPoolFilterInput] @scope
   jobInterest: Boolean @scope
   trainingInterest: Boolean @scope
   lateralMoveInterest: Boolean @scope
@@ -1274,11 +1274,11 @@ type Query {
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
   govEmployeeProfile(
-    workEmail: String! @scope(name: "exactWorkEmail")
+    workEmail: String! @scope(name: "whereExactWorkEmail")
   ): BasicGovEmployeeProfile
     @guard
     @validator
-    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
+    @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -1302,7 +1302,7 @@ type Query {
     @canModel(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["talentSearchablePublishingGroup"])
+    @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
