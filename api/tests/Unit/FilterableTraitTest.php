@@ -132,24 +132,24 @@ class FilterableTraitTest extends TestCase
                 ['not_real' => false],
             ],
             'ignores null values' => [
-                ['email' => null],
+                ['whereEmail' => null],
                 [],
-                ['email' => false],
+                ['whereEmail' => false],
             ],
             'calls top level scopes' => [
-                ['email' => 'email@test.com'],
+                ['whereEmail' => 'email@test.com'],
                 [],
-                ['email' => true],
+                ['whereEmail' => true],
             ],
             'calls nested scopes' => [
-                ['applicantFilter' => ['isGovEmployee' => true]],
+                ['applicantFilter' => ['whereIsGovEmployee' => true]],
                 [],
-                ['isGovEmployee' => true],
+                ['whereIsGovEmployee' => true],
             ],
             'calls mapped scopes' => [
                 ['skills' => ['id']],
-                ['skills' => 'skillsAdditive'],
-                ['skillsAdditive' => true],
+                ['skills' => 'whereSkillsAdditive'],
+                ['whereSkillsAdditive' => true],
             ],
         ];
     }
