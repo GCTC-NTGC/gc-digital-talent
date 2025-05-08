@@ -12,8 +12,8 @@
     "watch": "pnpm run codegen --watch"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.5",
-    "@graphql-codegen/client-preset": "^4.8.0",
+    "@graphql-codegen/cli": "^5.0.6",
+    "@graphql-codegen/client-preset": "^4.8.1",
     "@parcel/watcher": "^2.5.1",
     "graphql": "^16.11.0",
     "tsconfig": "workspace:*",
