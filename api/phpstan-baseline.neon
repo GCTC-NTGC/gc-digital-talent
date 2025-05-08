@@ -3,7 +3,7 @@ parameters:
 		-
 			message: '#^PHPDoc tag @var with type callable\(\)\: GraphQL\\Type\\Definition\\Type&GraphQL\\Type\\Definition\\NamedType is not subtype of native type Closure\(\)\: GraphQL\\Type\\Definition\\EnumType\.$#'
 			identifier: varTag.nativeType
-			count: 2
+			count: 1
 			path: app/Providers/GraphQLServiceProvider.php
 
 		-

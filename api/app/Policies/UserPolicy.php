@@ -30,12 +30,17 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
+        $roleTeams = $user->rolesTeams()->get();
+        $teamIds = $roleTeams->filter(function ($team) use ($user) {
+            return $user->isAbleTo('view-team-applicantProfile', $team);
+        })->pluck('id');
+
         return $user->isAbleTo('view-any-user') ||
             ($user->isAbleTo('view-own-user') && $user->id === $model->id) ||
             ($user->isAbleTo('view-team-applicantProfile')
                 && $this->applicantHasAppliedToPoolInTeams(
                     $model,
-                    $user->rolesTeams()->get()->pluck('id')
+                    $teamIds,
                 )
             ) ||
             count(

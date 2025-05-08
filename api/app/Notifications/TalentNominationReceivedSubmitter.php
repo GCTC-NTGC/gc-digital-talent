@@ -81,7 +81,7 @@ class TalentNominationReceivedSubmitter extends Notification implements CanBeSen
             $this->nominateForLateralMovement,
             $this->nominateForDevelopmentPrograms);
 
-        if ($locale == Language::EN->value) {
+        if (Language::EN->localeMatches($locale)) {
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_submitter_en'),
