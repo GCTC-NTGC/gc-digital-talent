@@ -26,8 +26,8 @@ import {
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
 
-export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
-  fragment FullCareerExperiences on User {
+export const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
+  fragment FullCareerExperiencesUser on User {
     experiences {
       id
       ... on AwardExperience {
@@ -57,20 +57,29 @@ export const FullCareerExperiences_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const FullCareerExperiencesOptions_Fragment = graphql(/* GraphQL */ `
-  fragment FullCareerExperiencesOptions on Query {
-    workStreams {
-      id
-      name {
-        localized
+const FullCareerExperiencesTalentNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment FullCareerExperiencesTalentNominationGroup on TalentNominationGroup {
+      talentNominationEvent {
+        community {
+          workStreams {
+            id
+            name {
+              localized
+            }
+          }
+        }
       }
     }
-  }
-`);
+  `,
+);
 interface FullCareerExperiencesProps {
-  query: FragmentType<typeof FullCareerExperiences_Fragment> | null | undefined;
-  optionsQuery:
-    | FragmentType<typeof FullCareerExperiencesOptions_Fragment>
+  userQuery:
+    | FragmentType<typeof FullCareerExperiencesUser_Fragment>
+    | null
+    | undefined;
+  talentNominationGroupQuery:
+    | FragmentType<typeof FullCareerExperiencesTalentNominationGroup_Fragment>
     | null
     | undefined;
   shareProfile?: boolean;
@@ -78,19 +87,22 @@ interface FullCareerExperiencesProps {
 }
 
 const FullCareerExperiences = ({
-  query,
-  optionsQuery,
+  userQuery,
+  talentNominationGroupQuery,
   shareProfile,
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
-  const data = getFragment(FullCareerExperiences_Fragment, query);
-  const optionsData = getFragment(
-    FullCareerExperiencesOptions_Fragment,
-    optionsQuery,
+  const user = getFragment(FullCareerExperiencesUser_Fragment, userQuery);
+  const talentNominationGroup = getFragment(
+    FullCareerExperiencesTalentNominationGroup_Fragment,
+    talentNominationGroupQuery,
   );
-  const experiences = data?.experiences?.filter(notEmpty) ?? [];
-  const workStreams = optionsData?.workStreams.filter(notEmpty) ?? [];
+  const experiences = user?.experiences?.filter(notEmpty) ?? [];
+  const workStreams =
+    talentNominationGroup?.talentNominationEvent.community?.workStreams?.filter(
+      notEmpty,
+    ) ?? [];
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );

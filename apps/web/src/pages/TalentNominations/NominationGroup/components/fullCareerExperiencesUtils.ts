@@ -2,8 +2,8 @@ import { IntlShape } from "react-intl";
 
 import {
   AwardExperience,
-  FullCareerExperiencesFragment,
-  FullCareerExperiencesOptionsFragment,
+  FullCareerExperiencesTalentNominationGroupFragment,
+  FullCareerExperiencesUserFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -54,11 +54,13 @@ function durationMonthsToSubtitle(
 }
 
 type ExperienceItem = NonNullable<
-  NonNullable<FullCareerExperiencesFragment["experiences"]>[number]
+  NonNullable<FullCareerExperiencesUserFragment["experiences"]>[number]
 >;
 
 type WorkStreamItem = NonNullable<
-  NonNullable<FullCareerExperiencesOptionsFragment["workStreams"]>[number]
+  NonNullable<
+    FullCareerExperiencesTalentNominationGroupFragment["talentNominationEvent"]["community"]["workStreams"]
+  >[number]
 >;
 
 export interface AccordionSection {
