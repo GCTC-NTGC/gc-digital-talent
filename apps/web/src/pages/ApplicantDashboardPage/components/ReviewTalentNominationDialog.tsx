@@ -3,13 +3,7 @@ import { useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  Button,
-  Dialog,
-  PreviewList,
-  Separator,
-  Well,
-} from "@gc-digital-talent/ui";
+import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -52,34 +46,6 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
-
-function StatusWell({ dialogVariant }: { dialogVariant: DialogVariant }) {
-  const intl = useIntl();
-  if (dialogVariant === "received") {
-    return (
-      <Well color="secondary">
-        <p data-h2-font-weight="base(bold)">
-          {intl.formatMessage({
-            defaultMessage: "Received",
-            id: "lwRIsY",
-            description: "The title of the 'received' nomination status",
-          })}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Your nomination has been successfully submitted and is awaiting review. We’ll notify you when the functional community begins the review process.",
-            id: "VDNYQU",
-            description: "The description of the 'received' nomination status",
-          })}
-        </p>
-      </Well>
-    );
-  }
-  // there will be other wells in the future for other variants
-  assertUnreachable(dialogVariant);
-  return null;
-}
 
 function FooterButtons({ dialogVariant }: { dialogVariant: DialogVariant }) {
   const intl = useIntl();
@@ -153,8 +119,8 @@ const ReviewTalentNominationDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Check out the details of a nomination you’ve submitted and track its progress.",
-            id: "LOwBJx",
+              "Check out the details of a nomination you’ve submitted.",
+            id: "CTxxiq",
             description: "Subtitle for the review talent nomination dialog",
           })}
         >
@@ -170,10 +136,6 @@ const ReviewTalentNominationDialog = ({
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x1)"
           >
-            <StatusWell dialogVariant={dialogVariant} />
-
-            <Separator decorative data-h2-margin="base(0)" />
-
             <div
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
