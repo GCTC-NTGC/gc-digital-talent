@@ -15,7 +15,7 @@ class CommunityInterest extends ApplicantDashboard {
   async addCommunityInterest() {
     await this.page
       .getByRole("combobox", { name: /functional community/i })
-      .selectOption({ label: "Digital Community" });
+      .selectOption({ label: "Test Community EN" });
 
     await this.page
       .getByRole("group", { name: /interest in job opportunities/i })
@@ -32,21 +32,12 @@ class CommunityInterest extends ApplicantDashboard {
       .click();
 
     await this.page
-      .getByRole("checkbox", { name: /database management/i })
+      .getByRole("checkbox", { name: /test work stream/i })
       .click();
 
     await this.page
       .getByRole("group", {
-        name: /program participation for development program en 0/i,
-      })
-      .getByRole("radio", {
-        name: /i’m interested in participating in this program./i,
-      })
-      .click();
-
-    await this.page
-      .getByRole("group", {
-        name: /program participation for development program en 1/i,
+        name: /program participation for test development program en 0/i,
       })
       .getByRole("radio", {
         name: /i’ve successfully completed this program./i,
@@ -69,7 +60,7 @@ class CommunityInterest extends ApplicantDashboard {
 
     await this.page
       .getByRole("checkbox", {
-        name: /I agree that by adding the Digital Community to my profile that my information will be shared with talent managers, HR staff, and hiring managers in this functional community/i,
+        name: /i agree that by adding the Test Community EN to my profile that my information will be shared with talent managers, HR staff, and hiring managers in this functional community./i,
       })
       .click();
 
