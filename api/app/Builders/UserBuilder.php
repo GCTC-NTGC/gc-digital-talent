@@ -258,7 +258,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            PoolCandidate::scopeQualifiedClassifications($query, $classifications);
+            PoolCandidate::scopeWhereQualifiedClassificationsIn($query, $classifications);
         });
     }
 
@@ -266,14 +266,14 @@ class UserBuilder extends Builder
      * Scopes the query to only return users who are available in a pool with one of the specified streams.
      * If $streams is empty, this scope will be ignored.
      */
-    public function whereQualifiedStreamsIn($query, ?array $streams): self
+    public function whereQualifiedStreamsIn(?array $streams): self
     {
         if (empty($streams)) {
             return $this;
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            PoolCandidate::scopeQualifiedStreams($query, $streams);
+            PoolCandidate::scopeWhereQualifiedStreamsIn($query, $streams);
         });
     }
 
@@ -297,7 +297,7 @@ class UserBuilder extends Builder
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public function whereHasTalentSearchablePublishingGroup($args): self
+    public function whereHasTalentSearchablePublishingGroups($args): self
     {
 
         return $this->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
