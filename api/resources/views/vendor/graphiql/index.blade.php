@@ -27,6 +27,34 @@ use MLL\GraphiQL\GraphiQLAsset;
             justify-content: center;
             font-size: 4rem;
         }
+
+        .graphiql-doc-explorer {
+            overflow: auto !important;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        .graphiql-doc-explorer-title {
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-h2);
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .graphiql-doc-explorer-content {
+            margin: var(--px-16) 0 0;
+        }
+
+        .graphiql-doc-explorer-content {
+            margin: var(--px-16) 0 0;
+        }
+
+        .graphiql-tab {
+            margin-right: 6px;
+            padding-right: 6px;
+        }
+
     </style>
     <script nonce="**CSP_NONCE**" src="{{ GraphiQLAsset::reactJS() }}"></script>
     <script nonce="**CSP_NONCE**" src="{{ GraphiQLAsset::reactDOMJS() }}"></script>
