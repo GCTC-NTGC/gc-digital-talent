@@ -482,7 +482,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(user: CreateUserInput!): User @deprecated(reason: "No role with permission to create a user")
+  createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
