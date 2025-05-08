@@ -68,8 +68,10 @@ const FullCareerExperiencesOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 interface FullCareerExperiencesProps {
-  query: FragmentType<typeof FullCareerExperiences_Fragment>;
-  optionsQuery: FragmentType<typeof FullCareerExperiencesOptions_Fragment>;
+  query: FragmentType<typeof FullCareerExperiences_Fragment> | null;
+  optionsQuery: FragmentType<
+    typeof FullCareerExperiencesOptions_Fragment
+  > | null;
   shareProfile?: boolean;
   defaultOpen?: boolean;
 }
@@ -87,7 +89,7 @@ const FullCareerExperiences = ({
     optionsQuery,
   );
   const experiences = data?.experiences?.filter(notEmpty) ?? [];
-  const workStreams = optionsData.workStreams.filter(notEmpty) ?? [];
+  const workStreams = optionsData?.workStreams.filter(notEmpty) ?? [];
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );
