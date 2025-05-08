@@ -11,6 +11,7 @@ import {
   OptGroupOrOption,
   Select,
   Submit,
+  SwitchInput,
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
@@ -51,6 +52,7 @@ interface FormValues {
   name: LocalizedStringInput;
   plainLanguageName?: InputMaybe<LocalizedStringInput>;
   community: string;
+  talentSearchable: boolean;
 }
 
 const formValuesToSubmitData = (data: FormValues): CreateWorkStreamInput => {
@@ -66,6 +68,7 @@ const formValuesToSubmitData = (data: FormValues): CreateWorkStreamInput => {
       fr: data.plainLanguageName?.fr,
     },
     community: { connect: communityId },
+    talentSearchable: data.talentSearchable,
   };
 };
 
@@ -158,7 +161,10 @@ export const CreateWorkStreamForm = ({
               })}
             </Heading>
           </div>
-          <BasicForm onSubmit={handleSubmit}>
+          <BasicForm<FormValues>
+            onSubmit={handleSubmit}
+            options={{ defaultValues: { talentSearchable: true } }}
+          >
             <div
               data-h2-display="base(grid)"
               data-h2-gap="base(x1)"
@@ -234,34 +240,36 @@ export const CreateWorkStreamForm = ({
                   options={communityOptions}
                 />
               </div>
-              <div data-h2-grid-column="p-tablet(span 2)">
-                <Input
-                  id="key"
-                  name="key"
-                  label={intl.formatMessage(adminMessages.key)}
-                  context={intl.formatMessage({
-                    defaultMessage:
-                      "The 'key' is a string that uniquely identifies a work stream. It should be based on the work streams English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular work stream, so it cannot be changed later.",
-                    id: "uWZgYM",
-                    description:
-                      "Additional context describing the purpose of the work streams 'key' field.",
-                  })}
-                  type="text"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                    pattern: {
-                      value: /^[a-z]+(_[a-z]+)*$/i,
-                      message: intl.formatMessage({
-                        defaultMessage:
-                          "Please use only letters and underscores.",
-                        id: "r4sAvp",
-                        description:
-                          "Description for rule pattern on key field",
-                      }),
-                    },
-                  }}
-                />
-              </div>
+              <SwitchInput
+                id="talentSearchable"
+                name="talentSearchable"
+                label={intl.formatMessage(commonMessages.onFindTalent)}
+              />
+              <Input
+                id="key"
+                name="key"
+                label={intl.formatMessage(adminMessages.key)}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The 'key' is a string that uniquely identifies a work stream. It should be based on the work streams English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular work stream, so it cannot be changed later.",
+                  id: "uWZgYM",
+                  description:
+                    "Additional context describing the purpose of the work streams 'key' field.",
+                })}
+                type="text"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                  pattern: {
+                    value: /^[a-z]+(_[a-z]+)*$/i,
+                    message: intl.formatMessage({
+                      defaultMessage:
+                        "Please use only letters and underscores.",
+                      id: "r4sAvp",
+                      description: "Description for rule pattern on key field",
+                    }),
+                  },
+                }}
+              />
             </div>
             <CardSeparator />
             <div

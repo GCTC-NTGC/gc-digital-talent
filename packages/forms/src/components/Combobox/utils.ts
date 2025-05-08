@@ -1,9 +1,5 @@
 import { ValidationRule } from "react-hook-form";
 import orderBy from "lodash/orderBy";
-import isArray from "lodash/isArray";
-import isNumber from "lodash/isNumber";
-import isObject from "lodash/isObject";
-import isString from "lodash/isString";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -112,7 +108,7 @@ export function getMultiDefaultValue<T extends Option>(
 ): Option[] {
   let value: Option[] = [];
   const searchValue: ComboboxValue = currentValue ?? defaultValue;
-  if (isArray(searchValue)) {
+  if (Array.isArray(searchValue)) {
     value = options.filter((option) =>
       searchValue?.some((defaultItem) => defaultItem === option.value),
     );
@@ -127,13 +123,13 @@ export function getMultiDefaultValue<T extends Option>(
 }
 
 export function getMinMaxValue(rule: ValidationRule<string | number>): number {
-  if (isNumber(rule)) {
+  if (typeof rule === "number") {
     return rule;
   }
 
-  let value = isObject(rule) ? rule.value : rule;
+  let value = rule instanceof Object ? rule.value : rule;
 
-  if (isString(value)) {
+  if (typeof value === "string") {
     value = parseInt(value, 10);
   }
 
@@ -143,7 +139,7 @@ export function getMinMaxValue(rule: ValidationRule<string | number>): number {
 export function getErrorMessage(
   rule: ValidationRule<string | number>,
 ): string | boolean {
-  if (isObject(rule)) {
+  if (rule instanceof Object) {
     return rule.message;
   }
 

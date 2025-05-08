@@ -179,6 +179,10 @@
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
   },
+  "+mG20j": {
+    "defaultMessage": "Carrière complète",
+    "description": "Heading for career experience"
+  },
   "+nQpv5": {
     "defaultMessage": "Modèles d'offres d'emploi",
     "description": "Title for the page showing list of job advertisement templates"
@@ -511,10 +515,6 @@
     "defaultMessage": "De la même manière que vous avez sélectionné des éléments de votre parcours professionnel pour confirmer les exigences en matière d’expérience et d’études, nous vous demanderons de décrire une ou plusieurs expériences de votre parcours professionnel au cours desquelles vous avez activement utilisé la compétence requise.",
     "description": "Application step for skill requirements, introduction, description, paragraph two"
   },
-  "0MakGC": {
-    "defaultMessage": "Sélectionnez cette option si l'emploi n'avait aucun lien avec le gouvernement du Canada.",
-    "description": "Description for the external employment category option in work experience"
-  },
   "0NbdGD": {
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
@@ -530,10 +530,6 @@
   "0QM++s": {
     "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
-  },
-  "0RlNw7": {
-    "defaultMessage": "Projet/produit",
-    "description": "Label displayed on Community Experience form for project input"
   },
   "0SEvhI": {
     "defaultMessage": "Sélectionnez une langue",
@@ -1535,6 +1531,10 @@
     "defaultMessage": "Options de nomination",
     "description": "Label for the nomination type(s)"
   },
+  "5+J43O": {
+    "defaultMessage": "Projet ou produit",
+    "description": "Label displayed on Community Experience form for project input"
+  },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
@@ -1710,10 +1710,6 @@
   "5mrOBM": {
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
-  },
-  "5pQfyv": {
-    "defaultMessage": "Postes en français",
-    "description": "Message for the french positions option"
   },
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
@@ -2311,6 +2307,10 @@
     "defaultMessage": "Reflète la spécialisation nécessaire",
     "description": "Text for education accepted information context in screening decision dialog"
   },
+  "94Pgq+": {
+    "defaultMessage": "Postes bilingues",
+    "description": "Bilingual Positions message"
+  },
   "953EAy": {
     "defaultMessage": "Compétence {skillId} non trouvée.",
     "description": "Message displayed for skill not found."
@@ -2434,6 +2434,10 @@
   "9Vzxgu": {
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
+  },
+  "9XTtxd": {
+    "defaultMessage": "Il s’agissait d’un rôle comme membre du personnel ou comme entrepreneur(euse) dans un ministère ou un organisme fédéral ou une société d’État.",
+    "description": "Description for the goc employment category option in work experience"
   },
   "9XgUGm": {
     "defaultMessage": "Télécharger",
@@ -2891,6 +2895,10 @@
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"
   },
+  "Be4zZT": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "Message for the french positions option"
+  },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
@@ -3015,6 +3023,10 @@
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
   },
+  "CFIG+8": {
+    "defaultMessage": "Postes en français uniquement",
+    "description": "French Positions message"
+  },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
     "description": "Title of the accessibility and accommodations information dialog"
@@ -3058,6 +3070,10 @@
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
+  },
+  "CTxxiq": {
+    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise.",
+    "description": "Subtitle for the review talent nomination dialog"
   },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
@@ -4451,10 +4467,6 @@
     "defaultMessage": "P. ex., conception de sites Web",
     "description": "Placeholder for keyword search input"
   },
-  "JBRqD9": {
-    "defaultMessage": "Postes en anglais",
-    "description": "Message for the english positions option"
-  },
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
     "description": "Label for input confirmation of need for special note on edit pool."
@@ -4682,6 +4694,10 @@
   "KP50uT": {
     "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
     "description": "Text prompting for input when duplicating a process"
+  },
+  "KR4kRt": {
+    "defaultMessage": "Démontrer l'expérience par :",
+    "description": "Label for experience sorting options"
   },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
@@ -4919,6 +4935,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
   },
+  "LNXpTl": {
+    "defaultMessage": "Voir vos intérêts pour la {communityName}",
+    "description": "Button label for community interest dialog trigger"
+  },
   "LOVZi6": {
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
@@ -4930,10 +4950,6 @@
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
-  },
-  "LOwBJx": {
-    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise et suivez son évolution.",
-    "description": "Subtitle for the review talent nomination dialog"
   },
   "LQ0a0a": {
     "defaultMessage": "Participation au programme",
@@ -6603,6 +6619,10 @@
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
+  "Tf8eTw": {
+    "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
+    "description": "Description for the external employment category option in work experience"
+  },
   "TfEUPu": {
     "defaultMessage": "Préférence pour la durée de l'emploi",
     "description": "Legend Text for required work preferences options in work preferences form"
@@ -6929,10 +6949,6 @@
   "VD/o5X": {
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
-  },
-  "VDNYQU": {
-    "defaultMessage": "Votre mise en candidature a été soumise et est en attente d'examen. Nous vous informerons lorsque la collectivité fonctionnelle entamera le processus de révision.",
-    "description": "The description of the 'received' nomination status"
   },
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
@@ -8078,6 +8094,10 @@
     "defaultMessage": "Classification {classificationId} introuvable.",
     "description": "Message displayed for classification not found."
   },
+  "b3c+iw": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "English Positions message"
+  },
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
@@ -8525,6 +8545,10 @@
   "dOw5u/": {
     "defaultMessage": "Nous n'avons pas trouvé de profil correspondant pour « {email} »",
     "description": "Default error messsage when an employee could not be found"
+  },
+  "dPAsNx": {
+    "defaultMessage": "Il s’agissait d'un rôle dans la force régulière ou de réserve de l’Armée canadienne, de l'Aviation royale canadienne ou de la Marine royale canadienne.",
+    "description": "Description for the caf employment category option in work experience"
   },
   "dRJLsv": {
     "defaultMessage": "Sauvegardez votre prochain type de poste",
@@ -9446,6 +9470,9 @@
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is a government employee option"
   },
+  "gu2wRn": {
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées."
+  },
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
@@ -9673,6 +9700,10 @@
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
     "description": "Heading for closing the accordion with available employment equity options."
+  },
+  "i0K4Sb": {
+    "defaultMessage": "Postes en anglais uniquement",
+    "description": "Message for the english positions option"
   },
   "i0N7DM": {
     "defaultMessage": "Télécharger les renseignements complets",
@@ -10102,10 +10133,6 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
   },
-  "jx7Sf1": {
-    "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
-    "description": "Bilingual Positions message"
-  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -10481,10 +10508,6 @@
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
-  },
-  "lwRIsY": {
-    "defaultMessage": "Reçue",
-    "description": "The title of the 'received' nomination status"
   },
   "lwYOqk": {
     "defaultMessage": "Année d'admissibilité à la retraite",
@@ -10905,10 +10928,6 @@
   "nmokFS": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for the comptrollership executives talent management page"
-  },
-  "nmx1ym": {
-    "defaultMessage": "Sélectionnez cette option si l'emploi était dans un ministère ou un organisme fédéral ou une société d'État, ou si vous étiez un entrepreneur ou une entrepreneuse travaillant pour l'une de ces organisations.",
-    "description": "Description for the goc employment category option in work experience"
   },
   "nn9B4R": {
     "defaultMessage": "Postulez dès aujourd’hui pour entamer votre parcours de carrière en TI.",
@@ -11806,10 +11825,6 @@
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
   },
-  "sWBbdX": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
-    "description": "French Positions message"
-  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -12074,6 +12089,10 @@
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
   },
+  "trerKD": {
+    "defaultMessage": "Type",
+    "description": "Button to filter experiences by type"
+  },
   "ttRVSp": {
     "defaultMessage": "Comment ces données seront-elles utilisées?",
     "description": "Heading for how employment equity information will be used."
@@ -12213,10 +12232,6 @@
   "uWfG0e": {
     "defaultMessage": "Exigences essentielles",
     "description": "Sub title for the pool core requirements"
-  },
-  "uZuEHk": {
-    "defaultMessage": "Sélectionnez cette option si l'emploi était dans l'Armée canadienne, dans l'Aviation royale canadienne ou dans la Marine royale canadienne, dans la Force régulière ou dans la Force de réserve.",
-    "description": "Description for the caf employment category option in work experience"
   },
   "uaEMMO": {
     "defaultMessage": "Type d'emploi",
@@ -12425,10 +12440,6 @@
   "vmVdJt": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about cert exams"
-  },
-  "vmj/E4": {
-    "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
-    "description": "English Positions message"
   },
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",

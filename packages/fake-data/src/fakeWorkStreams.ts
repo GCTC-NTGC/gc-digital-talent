@@ -10,6 +10,7 @@ const generateWorkStream = (): WorkStream => {
     key: faker.helpers.slugify(faker.string.sample()),
     name: toLocalizedString(faker.company.catchPhrase()),
     plainLanguageName: toLocalizedString(faker.company.catchPhrase()),
+    talentSearchable: faker.datatype.boolean(),
   };
 };
 
