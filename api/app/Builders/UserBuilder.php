@@ -332,7 +332,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($communityId) {
-            return PoolCandidate::scopeCandidatesInCommunity($query, $communityId);
+            return PoolCandidate::scopeWhereHasPoolCandidateCommunity($query, $communityId);
         });
     }
 

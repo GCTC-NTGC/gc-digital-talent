@@ -322,7 +322,7 @@ class PoolCandidate extends Model
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
      */
-    public static function scopeCandidatesInCommunity(Builder $query, ?string $communityId): Builder
+    public static function scopeWhereHasPoolCandidateCommunity(Builder $query, ?string $communityId): Builder
     {
         if (empty($communityId)) {
             return $query;
