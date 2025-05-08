@@ -25,7 +25,7 @@ const Profile = () => {
         data-h2-font-weight="base(300)"
         data-h2-color="base:all(white)"
         data-h2-margin="base(0, 0, x2, 0)"
-        data-h2-max-width="p-tablet(50%)"
+        data-h2-max-width="base(100%) laptop(50%)"
         data-h2-text-align="base(center) p-tablet(left)"
       >
         {intl.formatMessage({
