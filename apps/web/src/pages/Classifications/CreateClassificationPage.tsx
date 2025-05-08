@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -75,7 +74,7 @@ export const CreateClassification = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const classification: FormValues = {
       ...data,
-      group: upperCase(data.group),
+      group: data.group.toUpperCase(),
       level: Number(data.level),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),

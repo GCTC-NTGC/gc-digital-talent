@@ -1,4 +1,3 @@
-import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -19,9 +18,9 @@ import {
  * @returns { SkillFamily[] } - The new collection of skill families with child skills
  */
 export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
-  const allChildSkillFamilies = flatMap(skills, (s) => s.families).filter(
-    notEmpty,
-  );
+  const allChildSkillFamilies = skills
+    .flatMap((s) => s.families)
+    .filter(notEmpty);
   const uniqueSkillFamilies = uniqBy(allChildSkillFamilies, "id");
   const skillFamiliesWithSkills = uniqueSkillFamilies.map(
     (family: SkillFamily) => {
@@ -61,7 +60,7 @@ export type InvertedSkillExperience = Skill & {
 export function invertSkillExperienceTree(
   experiences: Omit<Experience, "user">[],
 ): InvertedSkillExperience[] {
-  const allChildSkills = flatMap(experiences, (s) => s.skills).filter(notEmpty);
+  const allChildSkills = experiences.flatMap((s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
   const skillsWithExperiences = uniqueSkills
     .filter(notEmpty)

@@ -108,6 +108,33 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
       skillDecisionNotes
       poolSkill {
         id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        requiredLevel
+        skill {
+          id
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+        }
       }
     }
     pool {

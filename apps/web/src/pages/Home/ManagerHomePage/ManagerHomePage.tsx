@@ -10,7 +10,6 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -24,6 +23,8 @@ import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussin
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
+
+import HomeHero from "../components/HomeHero";
 
 const pageTitle = defineMessage({
   defaultMessage: "Managers community",

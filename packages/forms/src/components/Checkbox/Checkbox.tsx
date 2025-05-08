@@ -1,4 +1,3 @@
-import get from "lodash/get";
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
 import { ReactNode, Fragment } from "react";
@@ -41,7 +40,7 @@ const Checkbox = ({
   const shouldReduceMotion = useReducedMotion();
   const baseStyles = getCheckboxRadioStyles(shouldReduceMotion);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
-  const error = get(errors, name);
+  const error = errors[name];
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
