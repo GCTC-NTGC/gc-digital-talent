@@ -378,7 +378,7 @@ export const PoolPoster = ({
     ),
   );
 
-  // TODO: community does not have a contactEmail field
+  // TODO: community does not have a contactEmail field #13443
   const contactEmail = "";
 
   const canApply = !!(pool?.status?.value === PoolStatus.Published);
