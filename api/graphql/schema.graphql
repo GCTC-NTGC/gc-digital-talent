@@ -1284,7 +1284,11 @@ type Query {
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToView"]
+    )
     @guard
     @canResolved(ability: "view")
   userPublicProfilesPaginated(
@@ -1296,7 +1300,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["authorizedToViewBasicInfo"]
+      scopes: ["whereAuthorizedToViewBasicInfo"]
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")

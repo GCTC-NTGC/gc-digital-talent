@@ -97,9 +97,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
- *
- * @method Builder|static authorizedToView()
- * @method static Builder|static query()
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {

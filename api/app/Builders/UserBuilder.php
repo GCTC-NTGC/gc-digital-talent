@@ -616,7 +616,7 @@ class UserBuilder extends Builder
         return $this->where('id', null);
     }
 
-    public function authorizedToViewBasicInfo(): self
+    public function whereAuthorizedToViewBasicInfo(): self
     {
         /** @var \App\Models\User | null */
         $user = Auth::user();

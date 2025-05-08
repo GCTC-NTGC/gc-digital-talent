@@ -98,7 +98,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(null);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([], $userIds->toArray());
     }
 
@@ -108,7 +108,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->user1);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->user1->id,
         ], $userIds->toArray());
@@ -120,7 +120,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->platformAdmin);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->platformAdmin->id,
             $this->user1->id,
@@ -134,7 +134,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(null);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([], $userIds->toArray());
     }
 
@@ -144,7 +144,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->user1);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->user1->id,
         ], $userIds->toArray());
@@ -156,7 +156,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->platformAdmin);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->platformAdmin->id,
             $this->user1->id,
@@ -175,7 +175,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($processOperator);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $processOperator->id,
@@ -198,7 +198,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($communityRecruiter);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $communityRecruiter->id,
@@ -221,7 +221,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($communityAdmin);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $communityAdmin->id,
