@@ -2994,11 +2994,6 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
-enum Language {
-  EN
-  FR
-}
-
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -3323,6 +3318,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum Language {
+  EN
+  FR
 }
 
 enum LanguageAbility {
