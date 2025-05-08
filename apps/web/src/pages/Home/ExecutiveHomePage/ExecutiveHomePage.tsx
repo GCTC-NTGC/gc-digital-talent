@@ -19,7 +19,6 @@ import { ExecutiveHomePageQuery, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import HomeHero from "~/components/HeroDeprecated/HomeHero";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -31,6 +30,8 @@ import executiveHeroPortrait from "~/assets/img/exec-hero-portrait.webp";
 import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
 import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
+
+import HomeHero from "../components/HomeHero";
 
 const pageTitle = defineMessage({
   defaultMessage: "Welcome executives",
