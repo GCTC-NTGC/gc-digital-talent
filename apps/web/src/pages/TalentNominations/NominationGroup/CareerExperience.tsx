@@ -1,19 +1,11 @@
 import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 
 import { graphql } from "@gc-digital-talent/graphql";
-import {
-  CardBasic,
-  NotFound,
-  Pending,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { CardBasic, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import messages from "~/messages/profileMessages";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
@@ -38,7 +30,6 @@ const TalentNominationGroupCareerExperience = ({
   nomineeId,
   shareProfile,
 }: TalentNominationGroupCareerExperienceProps) => {
-  const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: NomineeExperiences_Query,
     variables: { nomineeId },

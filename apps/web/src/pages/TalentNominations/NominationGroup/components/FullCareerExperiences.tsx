@@ -68,10 +68,11 @@ const FullCareerExperiencesOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 interface FullCareerExperiencesProps {
-  query: FragmentType<typeof FullCareerExperiences_Fragment> | null;
-  optionsQuery: FragmentType<
-    typeof FullCareerExperiencesOptions_Fragment
-  > | null;
+  query: FragmentType<typeof FullCareerExperiences_Fragment> | null | undefined;
+  optionsQuery:
+    | FragmentType<typeof FullCareerExperiencesOptions_Fragment>
+    | null
+    | undefined;
   shareProfile?: boolean;
   defaultOpen?: boolean;
 }
