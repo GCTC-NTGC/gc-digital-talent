@@ -237,9 +237,10 @@ const FullCareerExperiences = ({
               aria-pressed={selectedView === "workStream"}
             >
               {intl.formatMessage({
-                defaultMessage: "Work Stream",
-                id: "27YVit",
-                description: "Button to filter experiences by work stream",
+                defaultMessage: "Work stream",
+                id: "UKw7sB",
+                description:
+                  "Label displayed on the pool form stream/job title field.",
               })}
             </Button>
           </div>
