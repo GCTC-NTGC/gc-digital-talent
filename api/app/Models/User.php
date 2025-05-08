@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\LanguageCode;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\EmailType;
@@ -129,6 +130,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'indigenous_communities' => 'array',
         'enabled_email_notifications' => 'array',
         'enabled_in_app_notifications' => 'array',
+        'preferred_lang' => LanguageCode::class,
+        'preferred_language_for_interview' => LanguageCode::class,
+        'preferred_language_for_exam' => LanguageCode::class,
+        'first_official_language' => LanguageCode::class,
     ];
 
     protected $fillable = [
