@@ -163,7 +163,7 @@ const Department_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      ...DepartmentForm
+      ...DepartmentView
     }
   }
 `);
