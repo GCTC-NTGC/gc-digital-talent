@@ -1099,8 +1099,8 @@ input UserPoolFilterInput {
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  isProfileComplete: Boolean @scope
+  poolFilters: [UserPoolFilterInput] @scope(name: "wherePool")
+  isProfileComplete: Boolean @scope(name: "whereProfileComplete")
   isGovEmployee: Boolean @scope
   telephone: String @scope
   email: String @scope
@@ -1257,7 +1257,7 @@ input CommunityInterestFilterInput {
   generalSearch: String @scope
   communities: [UUID] @scope
   workStreams: [UUID] @scope
-  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  poolFilters: [UserPoolFilterInput] @scope(name: "wherePool")
   jobInterest: Boolean @scope
   trainingInterest: Boolean @scope
   lateralMoveInterest: Boolean @scope

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\UserBuilder;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\EmailType;
@@ -161,6 +162,17 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function searchableAs(): string
     {
         return 'user_search_indices';
+    }
+
+    /**
+     * Binds the eloquent builder to the model to allow for
+     * applying scopes directly to Pool query builders
+     *
+     * i.e Pool::query()->wherePublished();
+     */
+    public function newEloquentBuilder($query): Builder
+    {
+        return new UserBuilder($query);
     }
 
     /**
@@ -468,41 +480,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         } else {
             return true;
         }
-    }
-
-    public static function scopeIsProfileComplete(Builder $query, ?bool $isProfileComplete): Builder
-    {
-        if ($isProfileComplete) {
-            $query->whereNotNull('first_name');
-            $query->whereNotNull('last_name');
-            $query->whereNotNull('email');
-            $query->whereNotNull('telephone');
-            $query->whereNotNull('preferred_lang');
-            $query->whereNotNull('preferred_language_for_interview');
-            $query->whereNotNull('preferred_language_for_exam');
-            $query->whereNotNull('current_province');
-            $query->whereNotNull('current_city');
-            $query->where(function ($query) {
-                $query->whereNotNull('looking_for_english');
-                $query->orWhereNotNull('looking_for_french');
-                $query->orWhereNotNull('looking_for_bilingual');
-            });
-            $query->whereNotNull('computed_is_gov_employee');
-            $query->where(function (Builder $query) {
-                $query->where('has_priority_entitlement', false)
-                    ->orWhere(function (Builder $query) {
-                        $query->where('has_priority_entitlement', true)
-                            ->whereNotNull('priority_number');
-                    });
-            });
-            $query->whereNotNull('location_preferences');
-            $query->whereJsonLength('location_preferences', '>', 0);
-            $query->whereJsonLength('position_duration', '>', 0);
-            $query->whereNotNull('citizenship');
-            $query->whereNotNull('armed_forces_status');
-        }
-
-        return $query;
     }
 
     /**

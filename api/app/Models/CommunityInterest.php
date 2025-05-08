@@ -189,7 +189,7 @@ class CommunityInterest extends Model
 
         // call the poolFilter off connected user
         $query->whereHas('user', function (Builder $userQuery) use ($poolFilters) {
-            User::scopePoolFilters($userQuery, $poolFilters);
+            User::wherePool($userQuery, $poolFilters);
         });
 
         return $query;
