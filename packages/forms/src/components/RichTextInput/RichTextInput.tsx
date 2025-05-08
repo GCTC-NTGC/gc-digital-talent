@@ -7,7 +7,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { CommonInputProps } from "../../types";
 import Field from "../Field";
 import ControlledInput from "./ControlledInput";
-import { countNumberOfWords } from "../../utils";
+import { countNumberOfWordsAfterReplacingHTML } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
@@ -60,7 +60,7 @@ const RichTextInput = ({
   if (wordLimit) {
     wordLimitRule = {
       wordCount: (value: string) =>
-        countNumberOfWords(value) <= wordLimit ||
+        countNumberOfWordsAfterReplacingHTML(value) <= wordLimit ||
         intl.formatMessage(errorMessages.overWordLimit, {
           value: wordLimit,
         }),

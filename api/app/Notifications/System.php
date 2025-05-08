@@ -79,7 +79,7 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
 
-        if ($locale == Language::EN->value) {
+        if (Language::EN->localeMatches($locale)) {
             // English notification
             $message = new GcNotifyEmailMessage(
                 config('notify.templates.system_notification_en'),
