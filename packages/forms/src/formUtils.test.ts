@@ -7,6 +7,7 @@ import {
   enumToOptions,
   countNumberOfWords,
   alphaSortOptions,
+  countNumberOfWordsAfterReplacingHTML,
 } from "./utils";
 
 describe("string matching tests", () => {
@@ -207,5 +208,33 @@ describe("Alphabetically sorting select and combobox options tests", () => {
 
     modifiedList = alphaSortOptions(convertToOptions(unsortedList));
     expect(modifiedList).toStrictEqual(convertToOptions(sortedList));
+  });
+});
+
+describe("Test countNumberOfWordsAfterReplacingHTML()", () => {
+  const f = countNumberOfWordsAfterReplacingHTML;
+
+  test("Empty string", () => {
+    expect(f("")).toEqual(0);
+  });
+
+  test("Regular string", () => {
+    expect(f("apples to oranges")).toEqual(3);
+  });
+
+  test("Regular string with punctuation and multi spacing", () => {
+    expect(f("apples to oranges,  then at last, to   bananas")).toEqual(8);
+  });
+
+  test("Simple HTML", () => {
+    expect(f("<p>abc</p><p>def</p><p>ghi</p>")).toEqual(3);
+  });
+
+  test("Complicated HTML", () => {
+    expect(
+      f(
+        '<p>aaa</p><ul><li><p>item one</p></li><li><p>item two</p></li><li><p>item three</p></li></ul><p>abc</p><p><a target="__self" rel="noopener noreferrer nofollow" href="http://localhost.gov">link</a></p><p><br>the end</p>',
+      ),
+    ).toEqual(11);
   });
 });
