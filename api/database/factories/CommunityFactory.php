@@ -91,7 +91,10 @@ class CommunityFactory extends Factory
         $count = $this->faker->numberBetween($min, $max);
 
         return $this->afterCreating(function (Community $community) use ($count) {
-            TalentNominationEvent::factory()->count($count)->create(['community_id' => $community->id]);
+            TalentNominationEvent::factory()
+                ->count($count)
+                ->withDevelopmentPrograms(2)
+                ->create(['community_id' => $community->id]);
         });
     }
 }

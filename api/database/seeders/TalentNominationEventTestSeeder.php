@@ -19,6 +19,7 @@ class TalentNominationEventTestSeeder extends Seeder
         $faker = Faker::create();
 
         TalentNominationEvent::factory(10)
+            ->withDevelopmentPrograms()
             ->state(new Sequence(
                 function (Sequence $sequence) use ($faker) {
                     return [
