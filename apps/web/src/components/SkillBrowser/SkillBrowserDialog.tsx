@@ -153,7 +153,13 @@ const SkillBrowserDialog = ({
         <Dialog.Header subtitle={subtitle}>{title}</Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleAddSkill)}>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await methods.handleSubmit(handleAddSkill)(e);
+                e.stopPropagation();
+              }}
+            >
               <SkillSelection
                 {...{ skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
