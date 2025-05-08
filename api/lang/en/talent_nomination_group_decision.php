@@ -2,5 +2,5 @@
 
 return [
     'approved' => 'Approved',
-    'rejected' => 'Rejected',
+    'rejected' => 'Not supported',
 ];
