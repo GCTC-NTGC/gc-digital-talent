@@ -33,7 +33,6 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
@@ -91,7 +90,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
-  const { adminNomination } = useFeatureFlags();
 
   interface CardLinkInfo {
     label: string;
@@ -106,15 +104,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.poolCandidates(),
       roles: permissionConstants.viewCandidates,
     },
-    ...(adminNomination
-      ? [
-          {
-            label: intl.formatMessage(pageTitles.talentManagement),
-            href: adminRoutes.adminTalentManagementEvents(),
-            roles: permissionConstants.viewCommunityTalentNominations,
-          },
-        ]
-      : []),
+    {
+      label: intl.formatMessage(pageTitles.talentManagement),
+      href: adminRoutes.adminTalentManagementEvents(),
+      roles: permissionConstants.viewCommunityTalentNominations,
+    },
     {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),

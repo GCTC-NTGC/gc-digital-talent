@@ -76,17 +76,11 @@ export const IndexTalentEventPage = () => {
   );
 };
 
-export const Component = () => {
-  const { adminNomination } = useFeatureFlags();
-
-  return adminNomination ? (
-    <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
-      <IndexTalentEventPage />
-    </RequireAuth>
-  ) : (
-    <ThrowNotFound />
-  );
-};
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+    <IndexTalentEventPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminIndexTalentEventPage";
 
