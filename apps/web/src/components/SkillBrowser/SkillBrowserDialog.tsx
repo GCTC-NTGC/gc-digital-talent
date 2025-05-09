@@ -156,8 +156,9 @@ const SkillBrowserDialog = ({
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
-                await methods.handleSubmit(handleAddSkill)(e);
                 e.stopPropagation();
+                await methods.handleSubmit(handleAddSkill)(e);
+                return false;
               }}
             >
               <SkillSelection
