@@ -430,7 +430,7 @@ type Pool implements HasRoleAssignments {
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
-  department: Department @belongsTo @canQuery(ability: "view")
+  department: Department @belongsTo
   areaOfSelection: LocalizedPoolAreaOfSelection
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
