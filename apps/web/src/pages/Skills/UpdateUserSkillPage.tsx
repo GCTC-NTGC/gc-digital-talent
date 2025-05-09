@@ -338,8 +338,7 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         type {
           value
           label {
-            en
-            fr
+            localized
           }
         }
         status {

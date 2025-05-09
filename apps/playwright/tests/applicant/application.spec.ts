@@ -166,7 +166,9 @@ test.describe("Application", () => {
       .getByRole("radio", { name: /i meet the 2-year post-secondary option/i })
       .click();
     await application.page
-      .getByRole("checkbox", { name: /qa testing at playwright university/i })
+      .getByRole("checkbox", {
+        name: /certification in qa testing from playwright university/i,
+      })
       .click();
     await application.saveAndContinue();
 
@@ -196,7 +198,9 @@ test.describe("Application", () => {
         ),
       })
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
 
     await application.page
       .getByRole("button", {
@@ -206,7 +210,9 @@ test.describe("Application", () => {
         ),
       })
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
 
     await expect(
       application.page.getByText(
@@ -318,7 +324,9 @@ test.describe("Application", () => {
       .getByRole("radio", { name: /i meet the 2-year post-secondary option/i })
       .click();
     await application.page
-      .getByRole("checkbox", { name: /qa testing at playwright university/i })
+      .getByRole("checkbox", {
+        name: /certification in qa testing from playwright university/i,
+      })
       .click();
     await application.saveAndContinue();
 
@@ -342,7 +350,9 @@ test.describe("Application", () => {
       .getByRole("button", { name: /connect a career timeline experience/i })
       .first()
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
     await expect(
       application.page.getByText(
         /please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it/i,
@@ -370,7 +380,9 @@ test.describe("Application", () => {
     ).toBeVisible();
     // Experience is present 3 times
     await expect(
-      application.page.getByText(/qa testing at playwright university/i).nth(2),
+      application.page
+        .getByText(/certification in qa testing from playwright university/i)
+        .nth(2),
     ).toBeVisible();
     // No error/warning messages
     await expect(

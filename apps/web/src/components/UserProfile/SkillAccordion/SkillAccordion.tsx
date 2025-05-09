@@ -17,6 +17,7 @@ import {
 
 import {
   getExperienceFormLabels,
+  getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -105,17 +106,10 @@ const SkillAccordion = ({
 
     return (
       <>
-        {areaOfStudy || institution ? (
-          <p>
-            {intl.formatMessage(experienceMessages.educationAt, {
-              areaOfStudy: (
-                <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>
-              ),
-              institution,
-            })}
-          </p>
+        {type || areaOfStudy || institution ? (
+          <p>{getExperienceName(experience, intl, true)}</p>
         ) : (
-          ""
+          intl.formatMessage(commonMessages.notProvided)
         )}
         {endDate || startDate ? (
           <p data-h2-margin="base(0, 0, x.5, 0)">

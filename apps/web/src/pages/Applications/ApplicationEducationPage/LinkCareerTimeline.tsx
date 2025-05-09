@@ -228,18 +228,7 @@ const LinkCareerTimeline = ({
       if (isEducationExperience(experience)) {
         const educationExperience = {
           value: experience.id,
-          label:
-            intl.formatMessage(
-              {
-                defaultMessage: "{areaOfStudy} at {institution}",
-                id: "UrsGGK",
-                description: "Study at institution",
-              },
-              {
-                areaOfStudy: experience.areaOfStudy,
-                institution: experience.institution,
-              },
-            ) || "",
+          label: getExperienceName(experience, intl),
         };
 
         return {
