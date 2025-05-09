@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class CommunityRandomSeeder extends Seeder
@@ -15,6 +16,8 @@ class CommunityRandomSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
+
         Community::factory()
             ->count(2)
             ->withTalentNominationEvents()
