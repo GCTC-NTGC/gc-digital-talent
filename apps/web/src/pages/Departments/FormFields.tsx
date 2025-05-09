@@ -115,6 +115,7 @@ const FormFields = ({ optionsQuery }: FormFieldsProps) => {
         name="size"
         label={intl.formatMessage(labels.departmentSize)}
         nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+        rules={{ required: intl.formatMessage(errorMessages.required) }}
         doNotSort
         options={localizedEnumToOptions(
           unpackMaybes(options?.departmentSize),
