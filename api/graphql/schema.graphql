@@ -378,7 +378,6 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
   classification: Classification @belongsTo
@@ -771,10 +770,7 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  displayName: LocalizedString @rename(attribute: "display_name")
-  description: LocalizedString
   departments: [Department] @belongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
@@ -1128,11 +1124,6 @@ input PoolFilterInput {
   canAdmin: Boolean @scope
 }
 
-input PoolTeamDisplayNameOrderByInput {
-  locale: String!
-  order: SortOrder!
-}
-
 input PoolWorkStreamNameOrderByInput {
   locale: String!
   order: SortOrder!
@@ -1316,7 +1307,6 @@ type Query {
     excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
-    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderByWorkStreamName: PoolWorkStreamNameOrderByInput @scope
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
@@ -1405,8 +1395,6 @@ type Query {
     @canModel(ability: "viewAny")
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
-  team(id: UUID! @eq): Team @find @canQuery(ability: "view")
-  teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
   workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
   workStreams(talentSearchable: Boolean @scope): [WorkStream]!
@@ -1994,26 +1982,6 @@ input PoolBelongsToMany {
 input CommunityBelongsTo {
   connect: UUID
   disconnect: Boolean
-}
-
-input CreateTeamInput {
-  name: String!
-    @rules(
-      apply: ["unique:teams,name"]
-      messages: [{ rule: "unique", message: "TeamNameInUse" }]
-    )
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
-}
-
-input UpdateTeamInput {
-  name: String
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input CreateCommunityInput {
@@ -2751,6 +2719,7 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @throttle(maxAttempts: 100)
+  # Only used in e2e testing. There is no role with permission to create a user.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
@@ -3004,15 +2973,12 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    teamId: ID! @rename(attribute: "team_id")
     communityId: ID! @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
-  duplicatePool(
-    id: ID!
-    teamId: ID! @rename(attribute: "team_id")
-    pool: DuplicatePoolInput! @spread
-  ): Pool @guard @canModel(ability: "duplicate", injectArgs: true)
+  duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
+    @guard
+    @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
@@ -3107,19 +3073,6 @@ type Mutation {
     id: UUID!
     workStream: UpdateWorkStreamInput! @spread
   ): WorkStream @update @guard @canFind(ability: "update", find: "id")
-
-  # Teams mutations
-  createTeam(team: CreateTeamInput! @spread): Team
-    @create
-    @canModel(ability: "create")
-  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
-    @update
-    @canModel(ability: "update")
-    @validator
-  deleteTeam(id: UUID! @whereKey): Team
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community

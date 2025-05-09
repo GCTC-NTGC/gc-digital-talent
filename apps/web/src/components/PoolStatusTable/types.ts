@@ -17,13 +17,6 @@ const PoolStatusTable_PoolCandidateFragment = graphql(/* GraphQL */ `
     pool {
       id
       processNumber
-      team {
-        id
-        displayName {
-          en
-          fr
-        }
-      }
       workStream {
         id
         name {

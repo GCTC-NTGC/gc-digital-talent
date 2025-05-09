@@ -28,7 +28,7 @@ test("Create pool", async ({ appPage }) => {
 
   await appPage.page.getByRole("button", { name: /create process/i }).click();
   await appPage.waitForGraphqlResponse("CreatePool");
-  await expect(appPage.page.getByRole("alert")).toContainText(
+  await expect(appPage.page.getByRole("alert").last()).toContainText(
     /recruitment process created successfully/i,
   );
   await appPage.waitForGraphqlResponse("EditPoolPage");

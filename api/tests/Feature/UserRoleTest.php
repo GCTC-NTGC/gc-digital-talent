@@ -83,44 +83,6 @@ class UserRoleTest extends TestCase
         ]);
     }
 
-    // Create a team with 3 users.  Assert that an admin can query for the team's users.
-    public function testAdminCanSeeTeamUsers()
-    {
-        // Delete pre-existing teams to simplify test
-        $role = Role::factory()->create(['is_team_based' => true]);
-        $team = Team::factory()->create();
-        $users = User::factory()->count(3)
-            ->afterCreating(function ($user) use ($role, $team) {
-                $user->syncRoles([$role], $team);
-            })
-            ->create();
-
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query teams {
-                teams {
-                  id
-                  roleAssignments {
-                    user { id }
-                  }
-                }
-              }
-        '
-        )->assertJsonFragment(
-            [
-                'id' => $team->id,
-                'roleAssignments' => $users->map(function ($u) {
-                    return [
-                        'user' => [
-                            'id' => $u->id,
-                        ],
-                    ];
-                })->toArray(),
-            ],
-        );
-    }
-
     // Create several users with different roles.  Assert that an admin can see the users in each role.
     public function testAdminCanSeeRoleUsers()
     {
@@ -411,33 +373,6 @@ class UserRoleTest extends TestCase
         )->assertJsonFragment([
             ['id' => $role->id],
         ]);
-    }
-
-    // Create an applicant user.  Assert that they cannot query any team members.
-    public function testApplicantCannotQueryTeamMembers()
-    {
-        $team = Team::factory()->create([
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-            'name' => 'team1',
-        ]);
-        $this->actingAs($this->baseUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
-                query team($id: UUID!) {
-                    team(id: $id) {
-                        id
-                            roleAssignments {
-                            id
-                            user {
-                                id
-                            }
-                        }
-                    }
-                }
-            ',
-                ['id' => $team->id]
-            )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     // Create an applicant user. Assert that they cannot perform and roles-and-teams mutation.
