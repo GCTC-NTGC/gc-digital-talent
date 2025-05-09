@@ -166,9 +166,7 @@ class UserPolicy
             ->notDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
                 return $query->where(function ($query) use ($teamIds) {
-                    $query->orWhereHas('legacyTeam', function ($query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    })->orWhereHas('team', function ($query) use ($teamIds) {
+                    $query->orWhereHas('team', function ($query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     })->orWhereHas('community.team', function ($query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
@@ -199,7 +197,7 @@ class UserPolicy
      */
     protected function teamAbleToCheck(User $actor, string $roleId, string $teamId)
     {
-        if ($actor->isAbleTo('assign-any-role') || $actor->isAbleTo('assign-any-teamRole')) {
+        if ($actor->isAbleTo('assign-any-role')) {
             return true;
         }
 
@@ -207,8 +205,6 @@ class UserPolicy
         $team = Team::with(['teamable.team'])->findOrFail($teamId);
 
         switch ($role->name) {
-            case 'pool_operator':
-                return $actor->isAbleTo('assign-any-teamRole');
             case 'process_operator':
                 // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
                 // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
@@ -243,10 +239,6 @@ class UserPolicy
             case 'base_user':
                 return $actor->isAbleTo('assign-any-role');
             case 'applicant':
-                return $actor->isAbleTo('assign-any-role');
-            case 'request_responder':
-                return $actor->isAbleTo('assign-any-role');
-            case 'community_manager':
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
                 return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');

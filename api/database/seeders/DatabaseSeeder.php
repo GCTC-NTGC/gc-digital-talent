@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class,
             CommunitySeeder::class,
             WorkStreamSeeder::class,
-            TeamSeeder::class,
             JobPosterTemplateSeeder::class,
 
             // convenient test data
@@ -37,7 +36,6 @@ class DatabaseSeeder extends Seeder
             TrainingOpportunityTestSeeder::class,
 
             // random data to fill it out
-            TeamRandomSeeder::class,
             PoolRandomSeeder::class,
             UserRandomSeeder::class,
             // AssessmentResultRandomSeeder::class,

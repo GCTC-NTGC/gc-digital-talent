@@ -1,1 +1,0 @@
-/en/applicant/dashboard
