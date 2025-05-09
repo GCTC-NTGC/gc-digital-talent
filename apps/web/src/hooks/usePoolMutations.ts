@@ -68,8 +68,8 @@ const DeletePool_Mutation = graphql(/* GraphQL */ `
 `);
 
 const DuplicatePool_Mutation = graphql(/* GraphQL */ `
-  mutation DuplicatePool($id: ID!, $teamId: ID!, $pool: DuplicatePoolInput!) {
-    duplicatePool(id: $id, teamId: $teamId, pool: $pool) {
+  mutation DuplicatePool($id: ID!, $pool: DuplicatePoolInput!) {
+    duplicatePool(id: $id, pool: $pool) {
       id
     }
   }
@@ -357,10 +357,9 @@ const usePoolMutations = (returnPath?: string) => {
 
   const duplicatePool = async (
     id: string,
-    teamId: string,
     departmentId: string | undefined,
   ) => {
-    await executeDuplicateMutation({ id, teamId, pool: { departmentId } })
+    await executeDuplicateMutation({ id, pool: { departmentId } })
       .then(async (result) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(

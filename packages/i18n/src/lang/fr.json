@@ -195,6 +195,10 @@
     "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that reverting the final decision for a candidate failed"
   },
+  "5RMS25": {
+    "defaultMessage": "Non retenue",
+    "description": "Not supported status"
+  },
   "5RTQe6": {
     "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
     "description": "Message to user when they request a file for download"
@@ -554,10 +558,6 @@
   "M3c9Yo": {
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
-  },
-  "M9k8b8": {
-    "defaultMessage": "Rejetée",
-    "description": "Rejected status"
   },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",

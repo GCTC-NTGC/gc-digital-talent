@@ -437,10 +437,10 @@ const commonMessages = defineMessages({
     id: "oCFl63",
     description: "Approved status",
   },
-  rejected: {
-    defaultMessage: "Rejected",
-    id: "M9k8b8",
-    description: "Rejected status",
+  notSupported: {
+    defaultMessage: "Not supported",
+    id: "5RMS25",
+    description: "Not supported status",
   },
   inProgress: {
     defaultMessage: "In progress",
