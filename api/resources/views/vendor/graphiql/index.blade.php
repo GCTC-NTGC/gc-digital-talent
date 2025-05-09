@@ -1,4 +1,4 @@
->{{-- See https://github.com/graphql/graphiql/blob/main/examples/graphiql-cdn/index.html. --}}
+{{-- See https://github.com/graphql/graphiql/blob/main/examples/graphiql-cdn/index.html. --}}
 @php
 use MLL\GraphiQL\GraphiQLAsset;
 @endphp
