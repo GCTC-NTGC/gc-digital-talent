@@ -6,7 +6,6 @@ use App\Enums\PoolCandidateStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,7 +25,7 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public Pool $pool;
 
-    public Team $team;
+    public Community $community;
 
     public User $applicant;
 
@@ -57,12 +56,10 @@ class PoolCandidatesPaginatedTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->team = Team::factory()->create([
-            'name' => 'candidates-paginated',
-        ]);
+        $this->community = Community::factory()->create();
 
         $this->pool = Pool::factory()->create([
-            'team_id' => $this->team->id,
+            'community_id' => $this->community->id,
         ]);
 
         // A Draft candidate that no one should be able to see
@@ -74,7 +71,7 @@ class PoolCandidatesPaginatedTest extends TestCase
         $this->noTeamCandidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             'pool_id' => Pool::factory()->create([
-                'team_id' => Team::factory()->create(),
+                'community_id' => Community::factory()->create(),
             ]),
         ]);
 
@@ -142,17 +139,13 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public function testCommunityRecruiterCanViewCommunitySubmittedApplications(): void
     {
-        $team = Team::factory()->create();
-        $team2 = Team::factory()->create();
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
         $communityPool = Pool::factory()->create([
             'community_id' => $community->id,
-            'team_id' => $team->id,
         ]);
         $otherPool = Pool::factory()->create([
             'community_id' => $otherCommunity->id,
-            'team_id' => $team2->id,
         ]);
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
@@ -182,17 +175,13 @@ class PoolCandidatesPaginatedTest extends TestCase
 
     public function testCommunityAdminCanViewCommunitySubmittedApplications(): void
     {
-        $team = Team::factory()->create();
-        $team2 = Team::factory()->create();
         $community = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
         $communityPool = Pool::factory()->create([
             'community_id' => $community->id,
-            'team_id' => $team->id,
         ]);
         $otherPool = Pool::factory()->create([
             'community_id' => $otherCommunity->id,
-            'team_id' => $team2->id,
         ]);
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)

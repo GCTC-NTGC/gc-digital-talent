@@ -529,9 +529,6 @@ class UserBuilder extends Builder
                                     ->whereHas('team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     })
-                                    ->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                                        return $query->whereIn('id', $teamIds);
-                                    })
                                     ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('id', $teamIds);
                                     });

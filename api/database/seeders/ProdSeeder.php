@@ -20,7 +20,6 @@ class ProdSeeder extends Seeder
             SkillFamilySeeder::class,
             SkillSeeder::class,
             CommunitySeeder::class,
-            TeamSeeder::class,
             JobPosterTemplateSeeder::class,
         ]);
     }
