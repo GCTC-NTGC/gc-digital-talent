@@ -506,7 +506,7 @@ class UserBuilder extends Builder
         return $this->where('telephone', 'ilike', "%{$telephone}%");
     }
 
-    public function scopeEmail(?string $email): self
+    public function whereEmail(?string $email): self
     {
         if (! $email) {
             return $this;
