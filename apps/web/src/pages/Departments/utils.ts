@@ -1,3 +1,8 @@
+import { IntlShape } from "react-intl";
+
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { DepartmentSize } from "@gc-digital-talent/graphql";
+
 export type DepartmentType =
   | "isCorePublicAdministration"
   | "isCentralAgency"
@@ -13,3 +18,17 @@ export function departmentTypeToInput(types?: DepartmentType[]) {
     isRegulatory: types?.includes("isRegulatory") ?? false,
   };
 }
+
+export function yesNoAccessor(value: boolean, intl: IntlShape) {
+  return value
+    ? intl.formatMessage(commonMessages.yes)
+    : intl.formatMessage(commonMessages.no);
+}
+
+export const SIZE_SORT_ORDER = [
+  DepartmentSize.Micro,
+  DepartmentSize.Small,
+  DepartmentSize.Medium,
+  DepartmentSize.Large,
+  null,
+];
