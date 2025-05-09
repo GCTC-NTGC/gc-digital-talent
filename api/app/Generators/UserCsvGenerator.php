@@ -14,7 +14,6 @@ use App\Enums\WorkRegion;
 use App\Models\User;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -165,8 +164,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
             'skills' => 'skillsAdditive',
         ]);
 
-        /** @var Builder<User> $query */
-        $query->authorizedToView(['userId' => $this->userId]);
+        $query->whereAuthorizedToView(['userId' => $this->userId]);
 
         return $query;
 
