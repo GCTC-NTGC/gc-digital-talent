@@ -60,7 +60,6 @@ const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    teamIdForRoleAssignment
   }
 `);
 
@@ -79,7 +78,6 @@ interface CreatePoolFormProps {
   communitiesQuery: FragmentType<typeof CreatePoolCommunity_Fragment>[];
   handleCreatePool: (
     userId: string,
-    teamId: string,
     communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
@@ -120,15 +118,7 @@ export const CreatePoolForm = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const teamFromCommunity = communities.find(
-      (community) => data.community === community.id,
-    );
-    await handleCreatePool(
-      userId,
-      teamFromCommunity?.teamIdForRoleAssignment ?? "",
-      data.community,
-      formValuesToSubmitData(data),
-    )
+    await handleCreatePool(userId, data.community, formValuesToSubmitData(data))
       .then(async (result) => {
         if (result) {
           await navigate(paths.poolUpdate(result.id));
@@ -270,16 +260,10 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
   mutation CreatePool(
     $userId: ID!
-    $teamId: ID!
     $communityId: ID!
     $pool: CreatePoolInput!
   ) {
-    createPool(
-      userId: $userId
-      teamId: $teamId
-      communityId: $communityId
-      pool: $pool
-    ) {
+    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
       id
       name {
         en
@@ -309,11 +293,10 @@ const CreatePoolPage = () => {
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
-    teamId: string,
     communityId: string,
     pool: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, communityId, pool }).then((result) => {
+    executeMutation({ userId, communityId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }

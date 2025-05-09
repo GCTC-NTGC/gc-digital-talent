@@ -51,11 +51,9 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    team {
-      id
-      displayName {
-        en
-        fr
+    community {
+      name {
+        localized
       }
     }
     poolSkills(type: ESSENTIAL) {
@@ -140,8 +138,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
               description: "Team and department of pool",
             },
             {
-              team: pool?.team
-                ? getLocalizedName(pool.team.displayName, intl)
+              team: pool?.community
+                ? pool.community?.name?.localized
                 : intl.formatMessage({
                     defaultMessage: "Digital Community Management Team",
                     id: "S82O61",

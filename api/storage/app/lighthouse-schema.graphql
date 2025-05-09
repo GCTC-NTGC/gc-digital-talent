@@ -381,8 +381,6 @@ type Query {
   skills(families: [String!]): [Skill]!
   community(id: UUID!): Community
   communities: [Community]!
-  team(id: UUID!): Team
-  teams: [Team]!
   roles: [Role]!
   workStream(id: UUID!): WorkStream
   workStreams(talentSearchable: Boolean): [WorkStream]!
@@ -419,7 +417,6 @@ type Query {
     excludeIds: [UUID!]
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput
-    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
@@ -538,8 +535,8 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, teamId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
-  duplicatePool(id: ID!, teamId: ID!, pool: DuplicatePoolInput!): Pool
+  createPool(userId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
+  duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   togglePoolUserBookmark(poolId: UUID!): Pool
@@ -562,9 +559,6 @@ type Mutation {
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
   createWorkStream(workStream: CreateWorkStreamInput!): WorkStream
   updateWorkStream(id: UUID!, workStream: UpdateWorkStreamInput!): WorkStream
-  createTeam(team: CreateTeamInput!): Team
-  updateTeam(id: UUID!, team: UpdateTeamInput!): Team
-  deleteTeam(id: UUID!): Team
   createCommunity(community: CreateCommunityInput!): Community
   updateCommunity(id: UUID!, community: UpdateCommunityInput!): Community
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
@@ -894,7 +888,6 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
-  team: Team
   community: Community
   name: LocalizedString
   classification: Classification
@@ -1176,10 +1169,7 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
-  displayName: LocalizedString
-  description: LocalizedString
   departments: [Department]
-  contactEmail: Email
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
@@ -1486,11 +1476,6 @@ input PoolFilterInput {
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
-}
-
-input PoolTeamDisplayNameOrderByInput {
-  locale: String!
-  order: SortOrder!
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1994,22 +1979,6 @@ input PoolBelongsToMany {
 input CommunityBelongsTo {
   connect: UUID
   disconnect: Boolean
-}
-
-input CreateTeamInput {
-  name: String!
-  displayName: LocalizedStringInput
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email
-}
-
-input UpdateTeamInput {
-  name: String
-  displayName: LocalizedStringInput
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email
 }
 
 input CreateCommunityInput {

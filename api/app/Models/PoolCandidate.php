@@ -782,9 +782,7 @@ class PoolCandidate extends Model
                     $query->where('submitted_at', '<=', $now)
                         ->whereHas('pool', function (Builder $query) use ($teamIds) {
                             return $query->where(function (Builder $query) use ($teamIds) {
-                                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                })->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                                     return $query->whereIn('id', $teamIds);
                                 })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                     return $query->whereIn('id', $teamIds);
