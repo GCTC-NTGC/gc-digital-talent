@@ -88,6 +88,11 @@ type LocalizedDeadlineStatus {
   label: LocalizedString!
 }
 
+type LocalizedDepartmentSize {
+  value: DepartmentSize!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -1058,6 +1063,12 @@ type Department {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!
+  orgIdentifier: Int
+  size: LocalizedDepartmentSize
+  isCorePublicAdministration: Boolean
+  isCentralAgency: Boolean
+  isScience: Boolean
+  isRegulatory: Boolean
   teams: [Team]
   pools: [Pool]
 }
@@ -1931,11 +1942,23 @@ input PlaceCandidateInput {
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
+  orgIdentifier: Int!
+  size: DepartmentSize!
+  isCorePublicAdministration: Boolean!
+  isCentralAgency: Boolean!
+  isScience: Boolean!
+  isRegulatory: Boolean!
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int
   name: LocalizedStringInput
+  departmentNumber: Int
+  orgIdentifier: Int
+  size: DepartmentSize
+  isCorePublicAdministration: Boolean
+  isCentralAgency: Boolean
+  isScience: Boolean
+  isRegulatory: Boolean
 }
 
 input DepartmentBelongsTo {
@@ -3120,6 +3143,13 @@ enum CourseLanguage {
 enum DeadlineStatus {
   PUBLISHED
   EXPIRED
+}
+
+enum DepartmentSize {
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum DevelopmentProgramParticipationStatus {

@@ -1,14 +1,12 @@
 import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import pick from "lodash/pick";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Input, Submit } from "@gc-digital-talent/forms";
+import { Submit } from "@gc-digital-talent/forms";
 import {
-  errorMessages,
   commonMessages,
   formMessages,
   getLocalizedName,
@@ -22,7 +20,10 @@ import {
   CardBasic,
 } from "@gc-digital-talent/ui";
 import {
+  DepartmentSize,
   FragmentType,
+  LocalizedStringInput,
+  Maybe,
   Scalars,
   UpdateDepartmentInput,
   getFragment,
@@ -33,11 +34,40 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+
+import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
+import { DepartmentType, departmentTypeToInput } from "./utils";
+
+interface FormValues {
+  name?: LocalizedStringInput;
+  departmentNumber: Maybe<number>;
+  orgIdentifier: Maybe<number>;
+  size: Maybe<DepartmentSize>;
+  departmentType: DepartmentType[];
+}
+
+export function formValuesToUpdateInput({
+  departmentType,
+  size,
+  name,
+  departmentNumber,
+  orgIdentifier,
+}: FormValues): UpdateDepartmentInput {
+  return {
+    name: {
+      en: name?.en,
+      fr: name?.fr,
+    },
+    size: size ?? undefined,
+    departmentNumber: departmentNumber ?? undefined,
+    orgIdentifier: orgIdentifier ? Number(orgIdentifier) : undefined,
+    ...departmentTypeToInput(departmentType),
+  };
+}
 
 export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentForm on Department {
@@ -47,42 +77,66 @@ export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    orgIdentifier
+    size {
+      value
+      label {
+        localized
+      }
+    }
+    isCorePublicAdministration
+    isCentralAgency
+    isScience
+    isRegulatory
   }
 `);
 
-type FormValues = UpdateDepartmentInput;
-
 interface UpdateDepartmentProps {
   query: FragmentType<typeof DepartmentForm_Fragment>;
+  optionsQuery: FragmentType<typeof DepartmentFormOptions_Fragment>;
   handleUpdateDepartment: (
     id: string,
-    data: FormValues,
+    data: UpdateDepartmentInput,
   ) => Promise<FragmentType<typeof DepartmentForm_Fragment>>;
 }
 
 export const UpdateDepartmentForm = ({
   query,
+  optionsQuery,
   handleUpdateDepartment,
 }: UpdateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const initialDepartment = getFragment(DepartmentForm_Fragment, query);
+  const department = getFragment(DepartmentForm_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: {
-      departmentNumber: initialDepartment.departmentNumber,
-      name: initialDepartment.name,
+      departmentNumber: department.departmentNumber,
+      name: department.name,
+      orgIdentifier: department.orgIdentifier,
+      size: department.size?.value,
+      departmentType: [
+        ...(department.isCorePublicAdministration
+          ? (["isCorePublicAdministration"] satisfies DepartmentType[])
+          : []),
+        ...(department.isCentralAgency
+          ? (["isCentralAgency"] satisfies DepartmentType[])
+          : []),
+        ...(department.isScience
+          ? (["isScience"] satisfies DepartmentType[])
+          : []),
+        ...(department.isRegulatory
+          ? (["isRegulatory"] satisfies DepartmentType[])
+          : []),
+      ],
     },
   });
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateDepartment(initialDepartment.id, {
-      departmentNumber: Number(data.departmentNumber),
-      name: data.name,
-    })
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    return handleUpdateDepartment(department.id, formValuesToUpdateInput(data))
       .then(async () => {
-        await navigate(paths.departmentView(initialDepartment.id));
+        await navigate(paths.departmentView(department.id));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",
@@ -126,48 +180,7 @@ export const UpdateDepartmentForm = ({
               })}
             </Heading>
           </div>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
-            <Input
-              id="name_en"
-              name="name.en"
-              autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameEn)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameFr)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <Input
-                id="departmentNumber"
-                name="departmentNumber"
-                label={intl.formatMessage({
-                  defaultMessage: "Department number",
-                  id: "66kU6k",
-                  description: "Label for department number",
-                })}
-                type="number"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                min="0"
-              />
-            </div>
-          </div>
+          <FormFields optionsQuery={optionsQuery} />
           <CardSeparator />
           <div
             data-h2-display="base(flex)"
@@ -179,7 +192,7 @@ export const UpdateDepartmentForm = ({
             <Link
               color="warning"
               mode="inline"
-              href={paths.departmentView(initialDepartment.id)}
+              href={paths.departmentView(department.id)}
             >
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
@@ -203,6 +216,7 @@ const Department_Query = graphql(/* GraphQL */ `
       }
       ...DepartmentForm
     }
+    ...DepartmentFormOptions
   }
 `);
 
@@ -218,20 +232,18 @@ const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data: departmentData, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: Department_Query,
     variables: { id: departmentId },
   });
   const [, executeMutation] = useMutation(UpdateDepartment_Mutation);
-  const handleUpdateDepartment = (id: string, data: UpdateDepartmentInput) =>
+  const handleUpdateDepartment = (
+    id: string,
+    department: UpdateDepartmentInput,
+  ) =>
     executeMutation({
       id,
-      department: pick(data, [
-        "departmentName",
-        "name.en",
-        "name.fr",
-        "departmentNumber",
-      ]),
+      department,
     }).then((result) => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
@@ -239,10 +251,7 @@ const UpdateDepartmentPage = () => {
       return Promise.reject(new Error(result.error?.toString()));
     });
 
-  const departmentName = getLocalizedName(
-    departmentData?.department?.name,
-    intl,
-  );
+  const departmentName = getLocalizedName(data?.department?.name, intl);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -282,9 +291,10 @@ const UpdateDepartmentPage = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
           <Pending fetching={fetching} error={error}>
-            {departmentData?.department ? (
+            {data?.department ? (
               <UpdateDepartmentForm
-                query={departmentData.department}
+                query={data.department}
+                optionsQuery={data}
                 handleUpdateDepartment={handleUpdateDepartment}
               />
             ) : (

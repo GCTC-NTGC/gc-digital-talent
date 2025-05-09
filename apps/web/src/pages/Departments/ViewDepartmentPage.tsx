@@ -10,6 +10,7 @@ import {
   Link,
   CardBasic,
   CardSeparator,
+  NoList,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -28,15 +29,29 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+
+import labels from "./labels";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentForm on Department {
+  fragment DepartmentView on Department {
     id
     departmentNumber
     name {
       en
       fr
     }
+    orgIdentifier
+    size {
+      value
+      label {
+        localized
+      }
+    }
+    isCorePublicAdministration
+    isCentralAgency
+    isScience
+    isRegulatory
   }
 `);
 
@@ -48,6 +63,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const department = getFragment(DepartmentView_Fragment, query);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <>
@@ -81,17 +97,39 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           <FieldDisplay label={intl.formatMessage(adminMessages.nameFr)}>
             {department.name.fr}
           </FieldDisplay>
-          <div data-h2-grid-column="p-tablet(span 2)">
-            <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Department number",
-                id: "66kU6k",
-                description: "Label for department number",
-              })}
-            >
-              {department.departmentNumber}
-            </FieldDisplay>
-          </div>
+          <FieldDisplay label={intl.formatMessage(labels.departmentNumber)}>
+            {department.departmentNumber}
+          </FieldDisplay>
+          <FieldDisplay label={intl.formatMessage(labels.orgIdentifier)}>
+            {department.orgIdentifier ?? notProvided}
+          </FieldDisplay>
+          <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
+            <NoList>
+              <li>
+                <BoolCheckIcon value={department.isCorePublicAdministration}>
+                  {intl.formatMessage(labels.corePublicAdmin)}
+                </BoolCheckIcon>
+              </li>
+              <li>
+                <BoolCheckIcon value={department.isCentralAgency}>
+                  {intl.formatMessage(labels.centralAgency)}
+                </BoolCheckIcon>
+              </li>
+              <li>
+                <BoolCheckIcon value={department.isScience}>
+                  {intl.formatMessage(labels.science)}
+                </BoolCheckIcon>
+              </li>
+              <li>
+                <BoolCheckIcon value={department.isRegulatory}>
+                  {intl.formatMessage(labels.regulatory)}
+                </BoolCheckIcon>
+              </li>
+            </NoList>
+          </FieldDisplay>
+          <FieldDisplay label={intl.formatMessage(labels.departmentSize)}>
+            {department.size?.label.localized ?? notProvided}
+          </FieldDisplay>
         </div>
         <CardSeparator />
         <div
@@ -125,7 +163,7 @@ const Department_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      ...DepartmentForm
+      ...DepartmentView
     }
   }
 `);

@@ -3223,6 +3223,10 @@
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
   },
+  "DA7fMg": {
+    "defaultMessage": "Identifiant",
+    "description": "Title for unique ID of a resource"
+  },
   "DB9pFd": {
     "defaultMessage": "Langue préférée pour l'entrevue orale",
     "description": "Title for preferred spoken interview language"
@@ -3994,10 +3998,6 @@
   "GndGRz": {
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
-  },
-  "GplLic": {
-    "defaultMessage": "Identifiant",
-    "description": "Title for unique ID of a resource"
   },
   "GrHEFV": {
     "defaultMessage": "Aucune",

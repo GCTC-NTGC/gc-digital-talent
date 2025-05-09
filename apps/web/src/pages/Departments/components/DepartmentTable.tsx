@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import {
@@ -18,15 +18,29 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 
+import { SIZE_SORT_ORDER, yesNoAccessor } from "../utils";
+import labels from "../labels";
+
 const columnHelper = createColumnHelper<DepartmentTableRowFragment>();
 
 export const DepartmentTableRow_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentTableRow on Department {
     id
     departmentNumber
+    orgIdentifier
+    isCorePublicAdministration
+    isCentralAgency
+    isScience
+    isRegulatory
     name {
       en
       fr
+    }
+    size {
+      value
+      label {
+        localized
+      }
     }
   }
 `);
@@ -70,9 +84,59 @@ export const DepartmentTable = ({
           "Title displayed for the Department table Department # column.",
       }),
     }),
+    columnHelper.accessor("orgIdentifier", {
+      id: "orgIdentifier",
+      filterFn: "weakEquals",
+      header: intl.formatMessage(adminMessages.id),
+    }),
+    columnHelper.accessor(
+      ({ isCorePublicAdministration }) =>
+        yesNoAccessor(!!isCorePublicAdministration, intl),
+      {
+        id: "isCorePublicAdministration",
+        header: intl.formatMessage({
+          defaultMessage: "CPA",
+          id: "nzn+y+",
+          description:
+            "Abbreviated column header for core public administration",
+        }),
+      },
+    ),
+    columnHelper.accessor(
+      ({ isCentralAgency }) => yesNoAccessor(!!isCentralAgency, intl),
+      {
+        id: "isCentralAgency",
+        header: intl.formatMessage(labels.centralAgency),
+      },
+    ),
+    columnHelper.accessor(({ isScience }) => yesNoAccessor(!!isScience, intl), {
+      id: "isScience",
+      header: intl.formatMessage(labels.science),
+    }),
+    columnHelper.accessor(
+      ({ isRegulatory }) => yesNoAccessor(!!isRegulatory, intl),
+      {
+        id: "isRegulatory",
+        header: intl.formatMessage(labels.regulatory),
+      },
+    ),
+    columnHelper.accessor(({ size }) => size?.value, {
+      id: "size",
+      header: intl.formatMessage(labels.departmentSize),
+      cell: ({ row: { original: department } }) =>
+        department?.size?.label.localized ?? "",
+      sortingFn: ({ original: a }, { original: b }) => {
+        const aPosition = SIZE_SORT_ORDER.indexOf(a.size?.value ?? null);
+        const bPosition = SIZE_SORT_ORDER.indexOf(b.size?.value ?? null);
+        if (aPosition >= 0 && bPosition >= 0) return aPosition - bPosition;
+        if (aPosition >= 0 && bPosition < 0) return -1;
+        if (aPosition < 0 && bPosition >= 0) return 1;
+        return 0;
+      },
+    }),
   ] as ColumnDef<DepartmentTableRowFragment>[];
 
-  const data = departments.filter(notEmpty);
+  const data = unpackMaybes(departments);
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;

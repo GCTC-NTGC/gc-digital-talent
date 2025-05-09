@@ -17,6 +17,12 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property int $id
  * @property int $department_number
  * @property array $name
+ * @property int $org_identifier
+ * @property bool $is_core_public_administration
+ * @property bool $is_central_agency
+ * @property bool $is_science
+ * @property bool $is_regulatory
+ * @property string $size
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property ?\Illuminate\Support\Carbon $deleted_at
@@ -34,6 +40,11 @@ class Department extends Model
      */
     protected $casts = [
         'name' => LocalizedString::class,
+        'org_identifier' => 'integer',
+        'is_core_public_administration' => 'boolean',
+        'is_central_agency' => 'boolean',
+        'is_science' => 'boolean',
+        'is_regulatory' => 'boolean',
     ];
 
     /** @return HasMany<PoolCandidateSearchRequest, $this> */

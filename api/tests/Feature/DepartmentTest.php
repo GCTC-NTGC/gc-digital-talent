@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\DepartmentSize;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
@@ -188,26 +189,37 @@ class DepartmentTest extends TestCase
         $variables = [
             'department' => [
                 'departmentNumber' => 1,
+                'orgIdentifier' => 2,
                 'name' => [
                     'en' => 'New Name (EN)',
                     'fr' => 'New Name (FR)',
                 ],
+                'size' => DepartmentSize::MEDIUM->name,
+                'isCorePublicAdministration' => true,
+                'isCentralAgency' => true,
+                'isRegulatory' => true,
+                'isScience' => true,
             ],
         ];
 
         $mutation =
-            /** @lang GraphQL */
-            '
+        <<<'GRAPHQL'
             mutation Create($department: CreateDepartmentInput!) {
                 createDepartment(department: $department) {
                     id
+                    departmentNumber
+                    orgIdentifier
                     name {
                         en
                         fr
                     }
+                    isScience
+                    size {
+                        value
+                    }
                 }
             }
-        ';
+        GRAPHQL;
 
         $this->actingAs($this->baseUser, 'api')
             ->graphQL($mutation, $variables)
@@ -225,7 +237,13 @@ class DepartmentTest extends TestCase
         // succeeds
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
-            ->assertJsonFragment(['name' => $variables['department']['name']]);
+            ->assertJsonFragment([
+                'name' => $variables['department']['name'],
+                'departmentNumber' => $variables['department']['departmentNumber'],
+                'orgIdentifier' => $variables['department']['orgIdentifier'],
+                'isScience' => $variables['department']['isScience'],
+                'size' => ['value' => $variables['department']['size']],
+            ]);
     }
 
     /**
