@@ -405,68 +405,6 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    public function whereGeneralSearch(?string $searchTerm): self
-    {
-        if (! $searchTerm) {
-            return $this;
-        }
-
-        $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
-
-        $query = $this
-            ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
-            // attach the tsquery to every row to use for filtering
-            ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
-                $query->selectRaw(
-                    'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                    ['english', $combinedSearchTerm]
-                );
-            }, 'calculations')
-            // filter rows against the tsquery
-            ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
-            // add the calculated rank column to allow for ordering by text search rank
-            ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
-            // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-            ->addSelect(['users.*'])
-            ->from('users');
-
-        // negation setup
-        preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
-        $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
-        $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
-
-        // remove text in quotation marks for partial matching
-        $negationQuotedRemovedSearchTerm = preg_replace('/\"([^\"]*)\"/', '', $negationRemovedSearchTerm);
-
-        // clear characters or search operators out, then array split for easy OR matching
-        $filterToEmptySpace = ['"', '"', ':', '!'];
-        $filterToSingleSpace = [' AND ', ' OR ', ' & '];
-        $filtered = str_ireplace($filterToEmptySpace, '', $negationQuotedRemovedSearchTerm);
-        $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
-        $whiteSpacingRemoved = trim($filtered);
-
-        // if the remaining string is empty, don't turn into an array to avoid matching to ""
-        $arrayed = $whiteSpacingRemoved === '' ? null : explode(' ', $whiteSpacingRemoved);
-
-        if ($arrayed) {
-            foreach ($arrayed as $index => $value) {
-                $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
-                    $query->whereAny([
-                        'first_name',
-                        'last_name',
-                        'email',
-                    ], 'ilike', "%{$value}%"
-                    );
-                    $query->where(function (self $query) use ($matchesWithoutOperatorOrStartingSpace) {
-                        $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
-                    });
-                });
-            }
-        }
-
-        return $query;
-    }
-
     public function publicProfileSearch(?string $search): self
     {
         if ($search) {
