@@ -123,7 +123,7 @@ const Featured = () => {
       </Heading>
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(3, minmax(0, 1fr)))"
+        data-h2-grid-template-columns="base(1fr) l-tablet(repeat(3, 1fr))"
         data-h2-gap="base(x1)"
         data-h2-padding="base(x2, 0, 0, 0)"
       >
