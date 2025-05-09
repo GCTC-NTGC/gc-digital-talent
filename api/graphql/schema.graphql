@@ -1108,7 +1108,7 @@ input UserFilterInput {
 }
 
 input UserPublicProfileFilterInput {
-  publicProfileSearch: String @scope
+  publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
 input PoolFilterInput {

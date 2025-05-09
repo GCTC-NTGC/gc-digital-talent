@@ -405,7 +405,7 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    public function publicProfileSearch(?string $search): self
+    public function wherePublicProfileSearch(?string $search): self
     {
         if ($search) {
             $this->where(function ($query) use ($search) {
