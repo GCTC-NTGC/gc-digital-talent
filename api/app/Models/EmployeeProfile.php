@@ -51,10 +51,10 @@ class EmployeeProfile extends Model
     protected $keyType = 'string';
 
     protected $casts = [
-        'career_planning_lateral_move' => 'boolean',
+        'career_planning_lateral_move_interest' => 'boolean',
         'career_planning_lateral_move_time_frame' => 'string',
         'career_planning_lateral_move_organization_type' => 'array',
-        'career_planning_promotion_move' => 'boolean',
+        'career_planning_promotion_move_interest' => 'boolean',
         'career_planning_promotion_move_time_frame' => 'string',
         'career_planning_promotion_move_organization_type' => 'array',
         'career_planning_mentorship_status' => 'array',
@@ -63,6 +63,10 @@ class EmployeeProfile extends Model
         'career_planning_exec_coaching_status' => 'array',
         'career_planning_exec_coaching_interest' => 'array',
         'career_planning_learning_opportunities_interest' => 'array',
+        'next_role_is_c_suite_role' => 'boolean',
+        'career_objective_is_c_suite_role' => 'boolean',
+        'eligible_retirement_year_known' => 'boolean',
+        'eligible_retirement_year' => 'date',
     ];
 
     /** @return BelongsTo<Community, $this> */
