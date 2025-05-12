@@ -4535,6 +4535,10 @@
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
   },
+  "JaUbaI": {
+    "defaultMessage": "Administration publique centrale (APC)",
+    "description": "Label for a department that is part of the core public administration"
+  },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
@@ -6174,6 +6178,10 @@
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
+  },
+  "REF6ea": {
+    "defaultMessage": "Taille du ministère",
+    "description": "Label for the size of a department"
   },
   "RGHXLW": {
     "defaultMessage": "Ordre croissant",
@@ -9398,6 +9406,10 @@
     "defaultMessage": "Soumis",
     "description": "Simplified status label for a submitted process advertisement or assessment"
   },
+  "gbvOCW": {
+    "defaultMessage": "Organisme central",
+    "description": "Label for a department that is a central agency"
+  },
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
@@ -10513,6 +10525,10 @@
     "defaultMessage": "Année d'admissibilité à la retraite",
     "description": "Label for an employee profile career development preference field"
   },
+  "lxoLwy": {
+    "defaultMessage": "Identifiant de l'organisation",
+    "description": "Label for department identifier"
+  },
   "lyJ0Ft": {
     "defaultMessage": "Ajouter une collectivité",
     "description": "Title for the create community interest page"
@@ -10964,6 +10980,10 @@
   "nzcwrW": {
     "defaultMessage": "Les apprentis seront jumelés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
     "description": "First paragraph what will you learn at the program"
+  },
+  "nzn+y+": {
+    "defaultMessage": "APC",
+    "description": "Abbreviated column header for core public administration"
   },
   "nzw1ry": {
     "defaultMessage": "Domaine d’études",
@@ -12009,6 +12029,10 @@
     "defaultMessage": "Agrandir toutes les sections<hidden> relatives au profil et au plan de carrière</hidden>",
     "description": "Button text to open all profile and career plan accordions"
   },
+  "tSbble": {
+    "defaultMessage": "Type de ministère",
+    "description": "Label for the type of department"
+  },
   "tSvuK1": {
     "defaultMessage": "À propos de vous",
     "description": "Label for a employee profile about you field"
@@ -12240,6 +12264,10 @@
   "uaVogJ": {
     "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
     "description": "Label for talent nomination review dialog button"
+  },
+  "uhoPHh": {
+    "defaultMessage": "Réglementaire",
+    "description": "Label for a regulatory department"
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
@@ -13112,6 +13140,10 @@
   "z59tbA": {
     "defaultMessage": "Tout le tableau",
     "description": "Default text in table search form column dropdown when no column is selected"
+  },
+  "z6EMbE": {
+    "defaultMessage": "Scientifique",
+    "description": "Label for a science department"
   },
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
