@@ -58,6 +58,7 @@ const Trigger = forwardRef<
       <ChevronDownIcon
         className="Accordion__Icon Accordion__Icon--chevron"
         data-h2-transition="base(transform 150ms ease)"
+        data-h2-display="base(inline)"
         data-h2-width="base(x.75)"
         data-h2-height="base(x.75)"
         data-h2-vertical-align="base(middle)"

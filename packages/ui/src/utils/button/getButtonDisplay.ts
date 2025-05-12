@@ -25,7 +25,7 @@ const getDisplay: ButtonDisplay = ({ mode, block }) => {
   }
   if (mode === "text") {
     return {
-      "data-h2-display": "base(inline-flex)",
+      "data-h2-display": "base(inline)",
     };
   }
   return {
