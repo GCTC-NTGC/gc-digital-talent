@@ -310,8 +310,8 @@ class UserBuilder extends Builder
                     $query->whereClassifications($filters['qualifiedClassifications']);
                 }
 
-                if (array_key_exists('qualifiedStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['qualifiedStreams']);
+                if (array_key_exists('workStreams', $filters)) {
+                    $query->whereWorkStreamsIn($filters['workStreams']);
                 }
             });
 
