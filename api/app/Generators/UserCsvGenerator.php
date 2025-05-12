@@ -184,13 +184,13 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     // new columns
                     $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest), // Career planning - Lateral move interest
                     $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame, TimeFrame::class), // Career planning - Lateral move time frame
-                    $this->localizeEnum($employeeProfile->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class), // Career planning - Lateral move organization type
+                    $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class), // Career planning - Lateral move organization type
                     $this->yesOrNo($employeeProfile->career_planning_promotion_move_interest), // Career planning - Promotion move interest
                     $this->localizeEnum($employeeProfile->career_planning_promotion_move_time_frame, TimeFrame::class), // Career planning - Promotion move time frame
-                    $this->localizeEnum($employeeProfile->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
-                    $this->localizeEnum($employeeProfile->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
+                    $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
+                    $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
                     $employeeProfile->eligible_retirement_year ? $employeeProfile->eligible_retirement_year->format('Y') : '', // Eligible retirement year
-                    $this->localizeEnum($employeeProfile->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
+                    $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
                     $this->localizeEnumArray($employeeProfile->career_planning_mentorship_interest, Mentorship::class), // Career planning - Mentorship interest
                     $this->yesOrNo($employeeProfile->career_planning_exec_interest), // Career planning - Executive interest
                     $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status, ExecCoaching::class), // Career planning - Executive coaching status
