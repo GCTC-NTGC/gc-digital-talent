@@ -76,7 +76,11 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           <ul data-h2-padding="base(0, 0, 0, x1)">
             {OperationalRequirements.map((requirement) => (
               <li key={requirement}>
-                <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
+                <span
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(x.25)"
+                  data-h2-align-items="base(center)"
+                >
                   <span
                     data-h2-width="base(x.5)"
                     data-h2-flex-shrink="base(0)"
