@@ -148,7 +148,7 @@ class UserFactory extends Factory
     /**
      * Add an experience with skills to the user
      *
-     * @param  User  $user  The user to atttach the experience to
+     * @param  User  $user  The user to attach the experience to
      * @param  Collection<UserSkill>  $skills  The skills assigned to this experience
      * @param  Factory<AwardExperience | CommunityExperience | EducationExperience | PersonalExperience | WorkExperience>  $factory  Define a specific factory to use
      */
@@ -156,10 +156,10 @@ class UserFactory extends Factory
     {
         $experienceFactories = [
             AwardExperience::factory(['user_id' => $user->id]),
-            CommunityExperience::factory(['user_id' => $user->id]),
-            EducationExperience::factory(['user_id' => $user->id]),
-            PersonalExperience::factory(['user_id' => $user->id]),
-            WorkExperience::factory(['user_id' => $user->id]),
+            // CommunityExperience::factory(['user_id' => $user->id]),
+            // EducationExperience::factory(['user_id' => $user->id]),
+            // PersonalExperience::factory(['user_id' => $user->id]),
+            // WorkExperience::factory(['user_id' => $user->id]),
         ];
 
         $factory ??= $this->faker->randomElement($experienceFactories);
