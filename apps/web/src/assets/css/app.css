@@ -1,5 +1,6 @@
 @import "./hydrogen.css";
 @import "tailwindcss";
+@source "../../../../../packages";
 
 button,
 input,
