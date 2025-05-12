@@ -51,6 +51,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@microsoft/applicationinsights-web": "^3.3.6",
+    "@tailwindcss/vite": "^4.1.6",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
@@ -62,6 +63,7 @@
     "react-intl": "^7.1.11",
     "react-router": "^7.5.3",
     "react-to-print": "^3.1.0",
+    "tailwindcss": "^4.1.6",
     "urql": "^4.2.1"
   },
   "devDependencies": {
