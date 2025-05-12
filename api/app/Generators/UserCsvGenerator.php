@@ -139,7 +139,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     return $userSkill->skill->name[$this->lang] ?? '';
                 });
 
-                $employeeProfile = $user->EmployeeProfile;
+                $employeeProfile = $user->employeeProfile;
                 $nextRoleWorkStreams = $employeeProfile->nextRoleWorkStreams->map(function ($workStream) {
                     return $workStream->name[$this->lang] ?? '';
                 });
@@ -191,7 +191,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->localizeEnum($employeeProfile->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
                     $this->localizeEnum($employeeProfile->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
                     $employeeProfile->eligible_retirement_year ? $employeeProfile->eligible_retirement_year->format('Y') : '', // Eligible retirement year
-                    $this->localizeEnum($employeeProfile->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship statu
+                    $this->localizeEnum($employeeProfile->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
                     $this->localizeEnumArray($employeeProfile->career_planning_mentorship_interest, Mentorship::class), // Career planning - Mentorship interest
                     $this->yesOrNo($employeeProfile->career_planning_exec_interest), // Career planning - Executive interest
                     $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status, ExecCoaching::class), // Career planning - Executive coaching status
@@ -202,7 +202,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->yesOrNo($employeeProfile->next_role_is_c_suite_role), // Next role - C-suite role
                     $this->localizeEnum($employeeProfile->next_role_c_suite_role_title, CSuiteRoleTitle::class),
                     $employeeProfile->next_role_job_title, // Next role - Job title
-                    $employeeProfile->nextRoleCommunity->name[$this->lang], // Next role - Functional community
+                    $employeeProfile->nextRoleCommunity->name[$this->lang] ?? '', // Next role - Functional community
                     $nextRoleWorkStreams->join(','), // Next role - Work streams
                     $nextRoleDepartments->join(', '), // next role - Departments
                     $employeeProfile->next_role_additional_information, // Next role - Additional information
@@ -212,7 +212,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role), // Career objective - C-suite role
                     $this->localizeEnum($employeeProfile->career_objective_c_suite_role_title, CSuiteRoleTitle::class), // Career objective - C-suite role title
                     $employeeProfile->career_objective_job_title, // Career objective - Job title
-                    $employeeProfile->careerObjectiveCommunity->name[$this->lang], // Career objective - Functional community
+                    $employeeProfile->careerObjectiveCommunity->name[$this->lang] ?? ' ', // Career objective - Functional community
                     $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
                     $careerObjectiveDepartments->join(', '), // career objective - Departments
                     $employeeProfile->career_objective_additional_information, // Career objective - Additional information
