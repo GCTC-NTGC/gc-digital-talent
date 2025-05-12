@@ -94,8 +94,7 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
           type {
             value
             label {
-              en
-              fr
+              localized
             }
           }
           status {

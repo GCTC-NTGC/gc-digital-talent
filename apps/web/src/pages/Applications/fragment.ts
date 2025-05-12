@@ -226,8 +226,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           type {
             value
             label {
-              en
-              fr
+              localized
             }
           }
           status {
@@ -495,8 +494,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         type {
           value
           label {
-            en
-            fr
+            localized
           }
         }
         status {
