@@ -47,6 +47,7 @@ const Trigger = forwardRef<
       onPointerLeave={(event) => event.preventDefault()}
       data-h2-text-decoration="base(underline)"
       data-h2-padding="base(0)"
+      data-h2-align-items="base(center)"
       data-h2-transform="
       base:children[.Accordion__Icon--chevron](rotate(0deg))
       base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(180deg))"
