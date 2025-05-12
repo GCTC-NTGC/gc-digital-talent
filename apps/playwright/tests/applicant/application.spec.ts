@@ -402,4 +402,48 @@ test.describe("Application", () => {
       }),
     ).toBeVisible();
   });
+
+  test("Can view application on dashboard", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext();
+    const poolName = `application test pool for viewing on dashboard ${uniqueTestId}`;
+    const pool = await createAndPublishPool(adminCtx, {
+      name: {
+        en: `${poolName} (EN)`,
+        fr: `${poolName} (FR)`,
+      },
+      userId: user?.id ?? "",
+      input: {
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
+      },
+      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
+    });
+
+    const application = new ApplicationPage(appPage.page, pool.id);
+    await loginBySub(application.page, sub, false);
+
+    await application.create();
+
+    // Wait for application to be created before continuing on
+    await expectOnStep(application.page, 1);
+
+    // Navigate to dashboard
+    await application.page.goto("/en/applicant");
+
+    await application.page
+      .getByRole("button", { name: /job applications/i })
+      .click();
+
+    await expect(
+      application.page.getByRole("link", {
+        name: new RegExp(`continue application for ${poolName}`, "i"),
+      }),
+    ).toBeVisible();
+  });
 });
