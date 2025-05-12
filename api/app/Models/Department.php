@@ -14,7 +14,7 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 /**
  * Class Department
  *
- * @property int $id
+ * @property string $id
  * @property int $department_number
  * @property array $name
  * @property int $org_identifier
