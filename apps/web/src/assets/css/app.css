@@ -2,6 +2,7 @@
 @import "tailwindcss";
 @source "../../../../../packages";
 
+/* TO DO: Should remove these when configuring tailwind */
 button,
 input,
 optgroup,
@@ -13,6 +14,15 @@ textarea {
 
 button {
   border: none;
+}
+
+ul {
+  list-style-type: disc;
+  padding-inline-start: 2rem;
+}
+
+ul ul {
+  list-style-type: circle;
 }
 
 p {
