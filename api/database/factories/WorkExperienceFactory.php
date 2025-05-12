@@ -167,9 +167,9 @@ class WorkExperienceFactory extends Factory
         return $this->afterCreating(function (WorkExperience $experience) {
             if ($this->faker->boolean()) {
                 $count = $this->faker->numberBetween(1, 3);
-                $workStreams = WorkStream::inRandomOrder()->limit($count);
+                $workStreamIds = WorkStream::inRandomOrder()->limit($count)->pluck('id');
 
-                $experience->workStreams->attach($workStreams);
+                $experience->workStreams()->attach($workStreamIds);
             }
         });
     }

@@ -156,10 +156,10 @@ class UserFactory extends Factory
     {
         $experienceFactories = [
             AwardExperience::factory(['user_id' => $user->id]),
-            // CommunityExperience::factory(['user_id' => $user->id]),
-            // EducationExperience::factory(['user_id' => $user->id]),
-            // PersonalExperience::factory(['user_id' => $user->id]),
-            // WorkExperience::factory(['user_id' => $user->id]),
+            CommunityExperience::factory(['user_id' => $user->id]),
+            EducationExperience::factory(['user_id' => $user->id]),
+            PersonalExperience::factory(['user_id' => $user->id]),
+            WorkExperience::factory(['user_id' => $user->id]),
         ];
 
         $factory ??= $this->faker->randomElement($experienceFactories);
