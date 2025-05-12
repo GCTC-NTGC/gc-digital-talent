@@ -104,10 +104,18 @@ class DepartmentDeduplication extends Command
         // run through each array in the map
         foreach ($departmentMap as $departmentMapObject) {
 
-            /** @var \App\Models\Department $departmentToKeep */
-            $departmentToKeep = Department::where('department_number', $departmentMapObject['keep_number'])->sole();
-            /** @var \App\Models\Department $departmentToRemove */
-            $departmentToRemove = Department::where('department_number', $departmentMapObject['remove_number'])->sole();
+            /** @var \App\Models\Department | null $departmentToKeep */
+            $departmentToKeep = Department::where('department_number', $departmentMapObject['keep_number'])->first();
+            /** @var \App\Models\Department | null $departmentToRemove */
+            $departmentToRemove = Department::where('department_number', $departmentMapObject['remove_number'])->first();
+
+            // short circuit if department(s) not found
+            if ($departmentToKeep === null || $departmentToRemove === null) {
+                $this->info("Department name: {$departmentMapObject['name_en']} was SKIPPED");
+                $this->info('Department to keep or department to remove not found');
+
+                continue;
+            }
 
             $updateCounter = 0;
 
