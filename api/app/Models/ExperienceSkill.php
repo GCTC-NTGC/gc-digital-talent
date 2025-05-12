@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentHasManyDeep\HasOneDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -28,10 +29,9 @@ class ExperienceSkill extends Model
 
     protected $table = 'experience_skill';
 
-    /** @return BelongsTo<Experience, $this> */
-    public function experience(): BelongsTo
+    public function experience(): MorphTo
     {
-        return $this->belongsTo(Experience::class);
+        return $this->morphTo('experience');
     }
 
     /** @return BelongsTo<UserSkill, $this> */

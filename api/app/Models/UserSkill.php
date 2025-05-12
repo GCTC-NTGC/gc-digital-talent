@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -140,18 +141,18 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<Experience, $this> */
-    public function experiences(): BelongsToMany
-    {
-        return $this->belongsToMany(
-            Experience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
-        )
-            ->withTimestamps()
-            ->withPivot(['details', 'deleted_at'])
-            ->wherePivotNull('deleted_at')
-            ->as('experience_skill');
-    }
+    // /** @return MorphToMany<Experience, $this> */
+    // public function experiences(): MorphToMany
+    // {
+    //     return $this->belongsToMany(
+    //         Experience::class,
+    //         'experience_skill',
+    //         'user_skill_id',
+    //         'experience_id'
+    //     )
+    //         ->withTimestamps()
+    //         ->withPivot(['details', 'deleted_at'])
+    //         ->wherePivotNull('deleted_at')
+    //         ->as('experience_skill');
+    // }
 }

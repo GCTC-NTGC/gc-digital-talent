@@ -126,15 +126,6 @@ class WorkExperienceFactory extends Factory
 
                 return null;
             },
-            'work_stream_ids' => function () {
-                if ($this->faker->boolean()) {
-                    $count = $this->faker->numberBetween(1, 3);
-
-                    return WorkStream::inRandomOrder()->limit($count)->get()->modelKeys();
-                }
-
-                return null;
-            },
             'supervisory_position' => $this->faker->boolean(),
             'supervised_employees' => function (array $attributes) {
                 return $attributes['supervisory_position'] === true ?
@@ -165,5 +156,21 @@ class WorkExperienceFactory extends Factory
                 $this->faker->jobTitle() : null;
             },
         ];
+    }
+
+    /**
+     * Configure the model factory.
+     */
+    public function configure(): static
+    {
+        // might want to eventually make this configurable in a state
+        return $this->afterCreating(function (WorkExperience $experience) {
+            if ($this->faker->boolean()) {
+                $count = $this->faker->numberBetween(1, 3);
+                $workStreams = WorkStream::inRandomOrder()->limit($count);
+
+                $experience->workStreams->attach($workStreams);
+            }
+        });
     }
 }
