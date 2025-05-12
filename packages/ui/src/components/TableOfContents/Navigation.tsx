@@ -1,8 +1,6 @@
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
-import head from "lodash/head";
-import reverse from "lodash/reverse";
 import { HTMLProps, useEffect } from "react";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
@@ -35,8 +33,8 @@ const pickCurrentSection = (
   // Otherwise, try to find the section that is in the center of the screen
   // Failing that, select the section whose edge is closest to the center
   return (
-    reverse(sections).find(isEntirelyOnScreen) ?? // reverse the list to look from the bottom of the screen, and find the first fully visible section
-    head(sortBy(sections, distanceFromCenter)) // sort by distance from the center (ascending) and take the lowest
+    sections.reverse().find(isEntirelyOnScreen) ?? // reverse the list to look from the bottom of the screen, and find the first fully visible section
+    sortBy(sections, distanceFromCenter).at(0) // sort by distance from the center (ascending) and take the lowest
   );
 };
 

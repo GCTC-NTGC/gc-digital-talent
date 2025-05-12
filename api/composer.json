@@ -19,7 +19,7 @@
     "lcobucci/clock": "^3.0.0",
     "lcobucci/jwt": "^5.0.0",
     "mll-lab/graphql-php-scalars": "^6.2",
-    "mll-lab/laravel-graphiql": "^3.0",
+    "mll-lab/laravel-graphiql": "^4.0",
     "nunomaduro/collision": "^8.1",
     "nuwave/lighthouse": "^6.15",
     "phpoffice/phpspreadsheet": "^4.0",

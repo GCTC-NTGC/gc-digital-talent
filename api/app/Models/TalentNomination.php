@@ -105,13 +105,13 @@ class TalentNomination extends Model
     /** @return BelongsTo<User, $this> */
     public function submitter(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'submitter_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'submitter_id')->whereIsVerifiedGovEmployee();
     }
 
     /** @return BelongsTo<User, $this> */
     public function nominator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominator_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'nominator_id')->whereIsVerifiedGovEmployee();
     }
 
     /** @return BelongsTo<Classification, $this> */
@@ -129,13 +129,13 @@ class TalentNomination extends Model
     /** @return BelongsTo<User, $this> */
     public function nominee(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'nominee_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'nominee_id')->whereIsVerifiedGovEmployee();
     }
 
     /** @return BelongsTo<User, $this> */
     public function advancementReference(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'advancement_reference_id')->isVerifiedGovEmployee();
+        return $this->belongsTo(User::class, 'advancement_reference_id')->whereIsVerifiedGovEmployee();
     }
 
     /** @return BelongsTo<Classification, $this> */

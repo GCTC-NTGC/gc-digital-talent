@@ -20,7 +20,7 @@ class UserZipGenerator extends ZipGenerator implements FileGeneratorInterface
             'userSkills' => ['skill'],
         ])
             ->whereIn('id', $this->ids)
-            ->authorizedToView(['userId' => $this->userId])
+            ->whereAuthorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($users) {
                 foreach ($users as $user) {
                     $generator = new UserDocGenerator(

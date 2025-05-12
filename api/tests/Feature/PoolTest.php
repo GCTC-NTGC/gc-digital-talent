@@ -1696,13 +1696,10 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $teamId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, teamId: $teamId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
                     owner {
-                        id
-                    }
-                    team {
                         id
                     }
                     community {
@@ -1718,7 +1715,6 @@ class PoolTest extends TestCase
             }',
                 [
                     'userId' => $this->communityRecruiter->id,
-                    'teamId' => $this->community->getTeamIdForRoleAssignmentAttribute(),
                     'communityId' => $this->community->id,
                     'pool' => [
                         'classification' => [
@@ -1733,8 +1729,6 @@ class PoolTest extends TestCase
 
         $response->assertJsonFragment([
             'owner' => ['id' => $this->communityRecruiter->id],
-        ])->assertJsonFragment([
-            'team' => ['id' => $this->community->getTeamIdForRoleAssignmentAttribute()],
         ])->assertJsonFragment([
             'community' => ['id' => $this->community->id],
         ])->assertJsonFragment([
@@ -1763,14 +1757,13 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-                mutation Duplicate($id: ID!, $teamId: ID!, $pool: DuplicatePoolInput!) {
-                    duplicatePool(id: $id, teamId: $teamId, pool: $pool) {
+                mutation Duplicate($id: ID!, $pool: DuplicatePoolInput!) {
+                    duplicatePool(id: $id, pool: $pool) {
                         id
                     }
                 }',
                 [
                     'id' => $original->id,
-                    'teamId' => $this->community->getTeamIdForRoleAssignmentAttribute(),
                     'pool' => ['departmentId' => $department->id],
                 ]
             );

@@ -64,17 +64,6 @@ class PoolBuilder extends Builder
         return $this->where('process_number', 'ilike', sprintf('%%%s%%', $number));
     }
 
-    public function team(?string $team): self
-    {
-        if (! $team) {
-            return $this;
-        }
-
-        return $this->whereHas('legacyTeam', function ($query) use ($team) {
-            Team::scopeDisplayName($query, $team);
-        });
-    }
-
     public function statuses(?array $statuses): self
     {
         if (! empty($statuses)) {
@@ -121,8 +110,6 @@ class PoolBuilder extends Builder
         return $this->where(function ($query) use ($term) {
             $query->name($term)
                 ->orWhere(function ($query) use ($term) {
-                    $query->team($term);
-                })->orWhere(function ($query) use ($term) {
                     $query->processNumber($term);
                 });
         });
@@ -165,25 +152,6 @@ class PoolBuilder extends Builder
             });
         });
 
-    }
-
-    /**
-     * Custom sort to handle issues with how laravel aliases
-     * aggregate selects and orderBys for json fields in `lighthouse-php`
-
-     * The column used in the orderBy is `table_aggregate_column->property`
-     * But is actually aliased to snake case `table_aggregate_columnproperty`
-     */
-    public function orderByTeamDisplayName(?array $args): self
-    {
-        $order = $args['order'] ?? null;
-        $locale = $args['locale'] ?? null;
-
-        if ($order && $locale) {
-            return $this->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
-        }
-
-        return $this;
     }
 
     /**
@@ -300,9 +268,6 @@ class PoolBuilder extends Builder
                     }
                 }
 
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
                 $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
@@ -341,9 +306,6 @@ class PoolBuilder extends Builder
                     }
                 }
 
-                $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
-                    $query->whereIn('id', $teamIds);
-                });
                 $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });

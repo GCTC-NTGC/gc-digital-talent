@@ -20,7 +20,7 @@
     "chromatic": "^11.28.2",
     "graphql": "^16.11.0",
     "lodash": "^4.17.21",
-    "motion": "^12.9.2",
+    "motion": "^12.10.4",
     "react-helmet-async": "^2.0.5",
     "react-router": "^7.5.3",
     "urql": "^4.2.1",

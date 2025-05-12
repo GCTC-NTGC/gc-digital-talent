@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
-import isArray from "lodash/isArray";
 import { ReactNode } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -33,7 +32,7 @@ const FilterBlockContent = ({
 
   return (
     <div>
-      {isArray(content) && content.length > 0 ? (
+      {Array.isArray(content) && content.length > 0 ? (
         <ul data-h2-color="base(black)">
           {content.map((text) => (
             <li key={uniqueId()}>{text}</li>

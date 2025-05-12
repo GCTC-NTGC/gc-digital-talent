@@ -1,5 +1,3 @@
-import flatMap from "lodash/flatMap";
-
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   Pool,
@@ -23,9 +21,12 @@ export function isIncomplete(
     SkillCategory.Technical,
   );
 
-  const applicantSkills = flatMap(applicantExperiences, (e) => {
-    return e?.skills;
-  }).filter(notEmpty);
+  const applicantSkills =
+    applicantExperiences
+      ?.flatMap((e) => {
+        return e?.skills;
+      })
+      .filter(notEmpty) ?? [];
 
   const missingSkills = getMissingSkills(
     poolEssentialTechnicalSkills ?? [],
