@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Enums\EmploymentCategory;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -45,13 +49,30 @@ class SnapshotTest extends TestCase
      *
      * @return void
      */
-    public function testCreateSnapshot()
+    public function test_create_snapshot()
     {
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
             ->asApplicant()
             ->create();
-        WorkExperience::factory()->create(['user_id' => $user->id]);
+
+        AwardExperience::factory()->create(['user_id' => $user->id]);
+        CommunityExperience::factory()->create(['user_id' => $user->id]);
+        EducationExperience::factory()->create(['user_id' => $user->id]);
+        PersonalExperience::factory()->create(['user_id' => $user->id]);
+
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+        ]);
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+        ]);
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::CANADIAN_ARMED_FORCES->name,
+        ]);
 
         $pool1 = Pool::factory()->published()->create();
         $pool2 = Pool::factory()->published()->create();
@@ -106,7 +127,7 @@ class SnapshotTest extends TestCase
         assertEquals($expectedSnapshot, $decodedActual);
     }
 
-    public function testSnapshotSkillFiltering()
+    public function test_snapshot_skill_filtering()
     {
         Skill::factory(20)->create();
 
@@ -165,7 +186,7 @@ class SnapshotTest extends TestCase
         assertEquals($intersectedArrayLength, 0);
     }
 
-    public function testSetApplicationSnapshotDoesNotOverwrite()
+    public function test_set_application_snapshot_does_not_overwrite()
     {
         // non-null snapshot value set
         $user = User::factory()
@@ -187,7 +208,7 @@ class SnapshotTest extends TestCase
         assertSame(['snapshot' => 'set'], $snapshot);
     }
 
-    public function testLocalizingLegacyEnums()
+    public function test_localizing_legacy_enums()
     {
         // non-null snapshot value set
         $user = User::factory()
