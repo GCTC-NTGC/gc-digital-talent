@@ -2,10 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Enums\EmploymentCategory;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -51,7 +55,24 @@ class SnapshotTest extends TestCase
         $user = User::factory()
             ->asApplicant()
             ->create();
-        WorkExperience::factory()->create(['user_id' => $user->id]);
+
+        AwardExperience::factory()->create(['user_id' => $user->id]);
+        CommunityExperience::factory()->create(['user_id' => $user->id]);
+        EducationExperience::factory()->create(['user_id' => $user->id]);
+        PersonalExperience::factory()->create(['user_id' => $user->id]);
+
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+        ]);
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+        ]);
+        WorkExperience::factory()->create([
+            'user_id' => $user->id,
+            'employment_category' => EmploymentCategory::CANADIAN_ARMED_FORCES->name,
+        ]);
 
         $pool1 = Pool::factory()->published()->create();
         $pool2 = Pool::factory()->published()->create();
