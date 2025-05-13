@@ -55,9 +55,15 @@ class BigSeederOther extends Seeder
 
         // TalentNomination
         for ($i = 0; $i < 1000; $i++) {
+
+            $nominator = User::query()->whereIsGovEmployee(true)->inRandomOrder()->first()->id;
+            $nominee = User::query()->whereIsGovEmployee(true)->inRandomOrder()->first()->id;
+
             TalentNomination::factory()
                 ->submittedReviewAndSubmit()
                 ->create([
+                    'nominator_id' => $nominator,
+                    'nominee_id' => $nominee,
                     'talent_nomination_event_id' => array_rand(array_flip($nominationEventIds)),
                 ]);
         }
