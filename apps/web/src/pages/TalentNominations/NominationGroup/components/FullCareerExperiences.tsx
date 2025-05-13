@@ -99,10 +99,9 @@ const FullCareerExperiences = ({
     talentNominationGroupQuery,
   );
   const experiences = user?.experiences?.filter(notEmpty) ?? [];
-  const workStreams =
-    talentNominationGroup?.talentNominationEvent.community?.workStreams?.filter(
-      notEmpty,
-    ) ?? [];
+  const workStreams = unpackMaybes(
+    talentNominationGroup?.talentNominationEvent.community?.workStreams,
+  );
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );
