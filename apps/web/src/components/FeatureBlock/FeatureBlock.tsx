@@ -55,6 +55,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           data-h2-max-width="base(100%)"
           data-h2-height="base(auto)"
           data-h2-object-fit="base(cover)"
+          data-h2-object-position="base(center center)"
         />
       </div>
       <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
