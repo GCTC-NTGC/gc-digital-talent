@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useId, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
@@ -93,6 +93,7 @@ const FullCareerExperiences = ({
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
+  const showExperienceByLabelId = useId();
   const user = getFragment(FullCareerExperiencesUser_Fragment, userQuery);
   const talentNominationGroup = getFragment(
     FullCareerExperiencesTalentNominationGroup_Fragment,
@@ -215,7 +216,7 @@ const FullCareerExperiences = ({
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <p data-h2-margin="base(0)">
+            <p data-h2-margin="base(0)" id={showExperienceByLabelId}>
               {intl.formatMessage({
                 defaultMessage: "Show experience by:",
                 id: "KR4kRt",
@@ -229,7 +230,9 @@ const FullCareerExperiences = ({
               onClick={() => setSelectedView("type")}
               data-h2-font-weight={
                 selectedView === "type" ? "base(700)" : "base(400)"
-              }
+              } // Bold when selected
+              aria-pressed={selectedView === "type"}
+              aria-describedby={showExperienceByLabelId}
             >
               {intl.formatMessage({
                 defaultMessage: "Type",
@@ -246,6 +249,7 @@ const FullCareerExperiences = ({
                 selectedView === "workStream" ? "base(700)" : "base(400)"
               } // Bold when selected
               aria-pressed={selectedView === "workStream"}
+              aria-describedby={showExperienceByLabelId}
             >
               {intl.formatMessage({
                 defaultMessage: "Work stream",
