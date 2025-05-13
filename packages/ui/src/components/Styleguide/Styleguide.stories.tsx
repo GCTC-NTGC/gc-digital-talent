@@ -139,6 +139,30 @@ export const Tailwind: StoryObj = {
         <Swatch className="bg-secondary-600" />
         <Swatch className="bg-secondary-700" />
 
+        <Swatch className="bg-success-100" />
+        <Swatch className="bg-success-200" />
+        <Swatch className="bg-success-300" />
+        <Swatch className="bg-success-400" />
+        <Swatch className="bg-success-500" />
+        <Swatch className="bg-success-600" />
+        <Swatch className="bg-success-700" />
+
+        <Swatch className="bg-warning-100" />
+        <Swatch className="bg-warning-200" />
+        <Swatch className="bg-warning-300" />
+        <Swatch className="bg-warning-400" />
+        <Swatch className="bg-warning-500" />
+        <Swatch className="bg-warning-600" />
+        <Swatch className="bg-warning-700" />
+
+        <Swatch className="bg-error-100" />
+        <Swatch className="bg-error-200" />
+        <Swatch className="bg-error-300" />
+        <Swatch className="bg-error-400" />
+        <Swatch className="bg-error-500" />
+        <Swatch className="bg-error-600" />
+        <Swatch className="bg-error-700" />
+
         <Swatch className="bg-gray-100" />
         <Swatch className="bg-gray-200" />
         <Swatch className="bg-gray-300" />
