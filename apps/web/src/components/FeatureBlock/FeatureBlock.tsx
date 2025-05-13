@@ -51,13 +51,10 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         <img
           src={content.img.path}
           alt={content.title}
-          style={{
-            display: "block",
-            maxWidth: "100%",
-            height: "auto",
-            objectFit: "cover",
-            objectPosition: content.img.position ?? "center center",
-          }}
+          data-h2-display="base(block)"
+          data-h2-max-width="base(100%)"
+          data-h2-height="base(auto)"
+          data-h2-object-fit="base(cover)"
         />
       </div>
       <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
