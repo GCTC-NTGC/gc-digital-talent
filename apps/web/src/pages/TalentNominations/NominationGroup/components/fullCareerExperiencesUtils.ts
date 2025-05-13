@@ -6,6 +6,7 @@ import {
   FullCareerExperiencesUserFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import experienceMessages from "~/messages/experienceMessages";
 import {
@@ -164,7 +165,7 @@ export function buildExperienceByWorkStreamData(
     .map((bundle) => bundle.workStream);
 
   workStreamsWithNoExperiences.sort(
-    (a, b) => a.name?.localized?.localeCompare(b.name?.localized ?? "") ?? 0,
+    sortAlphaBy((workStream) => workStream.name?.localized),
   );
 
   return {
