@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Well } from "@gc-digital-talent/ui";
+import { NoList, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
@@ -72,9 +72,9 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
 
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <ul data-h2-padding="base(0, 0, 0, x1)">
+          <NoList>
             {OperationalRequirements.map((requirement) => (
-              <li key={requirement}>
+              <li key={requirement} data-h2-margin-bottom="base(x.25)">
                 <BoolCheckIcon
                   value={acceptedRequirements.includes(requirement)}
                 >
@@ -84,7 +84,7 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
                 </BoolCheckIcon>
               </li>
             ))}
-          </ul>
+          </NoList>
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p>
