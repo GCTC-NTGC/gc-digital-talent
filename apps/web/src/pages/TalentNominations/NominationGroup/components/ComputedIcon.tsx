@@ -51,7 +51,7 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <XCircleIcon
         data-h2-color="base(error) base:dark(error.lighter)"
         aria-hidden="false"
-        aria-label={intl.formatMessage(commonMessages.rejected)}
+        aria-label={intl.formatMessage(commonMessages.notSupported)}
         {...sharedIconStyling}
       />
     );

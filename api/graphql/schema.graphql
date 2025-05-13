@@ -378,7 +378,6 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
   classification: Classification @belongsTo
@@ -431,7 +430,7 @@ type Pool implements HasRoleAssignments {
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
-  department: Department @belongsTo @canQuery(ability: "view")
+  department: Department @belongsTo
   areaOfSelection: LocalizedPoolAreaOfSelection
     @rename(attribute: "area_of_selection")
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
@@ -610,6 +609,13 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
+  orgIdentifier: Int @rename(attribute: "org_identifier")
+  size: LocalizedDepartmentSize
+  isCorePublicAdministration: Boolean
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean @rename(attribute: "is_central_agency")
+  isScience: Boolean @rename(attribute: "is_science")
+  isRegulatory: Boolean @rename(attribute: "is_regulatory")
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
@@ -771,10 +777,7 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  displayName: LocalizedString @rename(attribute: "display_name")
-  description: LocalizedString
   departments: [Department] @belongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
@@ -1099,20 +1102,20 @@ input UserPoolFilterInput {
 
 input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
-  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
-  isProfileComplete: Boolean @scope
-  isGovEmployee: Boolean @scope
-  telephone: String @scope
-  email: String @scope
-  workEmail: String @scope
-  name: String @scope
-  generalSearch: String @scope
-  roles: [ID] @scope(name: "roleAssignments")
+  poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
+  isProfileComplete: Boolean @scope(name: "whereProfileComplete")
+  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  telephone: String @scope(name: "whereTelephone")
+  email: String @scope(name: "whereEmail")
+  workEmail: String @scope(name: "whereWorkEmail")
+  name: String @scope(name: "whereName")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }
 
 input UserPublicProfileFilterInput {
-  publicProfileSearch: String @scope
+  publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
 input PoolFilterInput {
@@ -1126,11 +1129,6 @@ input PoolFilterInput {
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
-}
-
-input PoolTeamDisplayNameOrderByInput {
-  locale: String!
-  order: SortOrder!
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1151,29 +1149,34 @@ input OrderByColumnInput {
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
-  equity: EquitySelectionsInput @scope
-  hasDiploma: Boolean @scope
-  languageAbility: LanguageAbility @scope
-  locationPreferences: [WorkRegion] @scope
-  operationalRequirements: [OperationalRequirement] @scope
-  positionDuration: [PositionDuration] @scope
+  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
+  hasDiploma: Boolean @scope(name: "whereHasDiploma")
+  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
+  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
+  operationalRequirements: [OperationalRequirement]
+    @scope(name: "whereOperationalRequirementsIn")
+  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
   # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
   pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
-  skills: [IdInput] @scope(name: "skillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
-  skillsIntersectional: [IdInput] @scope @pluck(key: "id") # AND filtering skills as opposed to OR
+  skills: [IdInput] @scope(name: "whereSkillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
+  skillsIntersectional: [IdInput]
+    @scope(name: "whereSkillsIntersectional")
+    @pluck(key: "id") # AND filtering skills as opposed to OR
   qualifiedClassifications: [ClassificationFilterInput]
-    @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
-  workStreams: [IdInput] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput @scope(name: "candidatesInCommunity") @pluck(key: "id")
+    @scope(name: "whereQualifiedClassificationsIn") # Filters applicants based on the classification of pools they are currently qualified and available in.
+  workStreams: [IdInput] @scope(name: "whereQualifiedStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  community: IdInput
+    @scope(name: "whereHasPoolCandidateCommunity")
+    @pluck(key: "id")
 }
 
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
-  email: String @scope
-  generalSearch: String @scope
-  name: String @scope
+  email: String @scope(name: "whereEmail")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  name: String @scope(name: "whereName")
   notes: String @scope
-  isGovEmployee: Boolean @scope
+  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
   priorityWeight: [PriorityWeight] @scope(name: "candidateCategory")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
@@ -1257,7 +1260,7 @@ input CommunityInterestFilterInput {
   generalSearch: String @scope
   communities: [UUID] @scope
   workStreams: [UUID] @scope
-  poolFilters: [UserPoolFilterInput] @scope(name: "poolFilters")
+  poolFilters: [UserPoolFilterInput] @scope
   jobInterest: Boolean @scope
   trainingInterest: Boolean @scope
   lateralMoveInterest: Boolean @scope
@@ -1274,17 +1277,21 @@ type Query {
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
   govEmployeeProfile(
-    workEmail: String! @scope(name: "exactWorkEmail")
+    workEmail: String! @scope(name: "whereExactWorkEmail")
   ): BasicGovEmployeeProfile
     @guard
     @validator
-    @find(model: "App\\Models\\User", scopes: ["isVerifiedGovEmployee"])
+    @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToView"]
+    )
     @guard
     @canResolved(ability: "view")
   userPublicProfilesPaginated(
@@ -1296,13 +1303,13 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["authorizedToViewBasicInfo"]
+      scopes: ["whereAuthorizedToViewBasicInfo"]
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["talentSearchablePublishingGroup"])
+    @count(model: "User", scopes: ["whereHasTalentSearchablePublishingGroups"])
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
@@ -1316,7 +1323,6 @@ type Query {
     excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
     orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
-    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderByWorkStreamName: PoolWorkStreamNameOrderByInput @scope
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
@@ -1405,8 +1411,6 @@ type Query {
     @canModel(ability: "viewAny")
   community(id: UUID! @eq): Community @find @canQuery(ability: "view")
   communities: [Community]! @all @canModel(ability: "viewAny")
-  team(id: UUID! @eq): Team @find @canQuery(ability: "view")
-  teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
   workStream(id: UUID! @eq): WorkStream @find @canQuery(ability: "view")
   workStreams(talentSearchable: Boolean @scope): [WorkStream]!
@@ -1944,11 +1948,25 @@ input CreateDepartmentInput {
       messages: [{ rule: "unique", message: "DepartmentNumberInUse" }]
     )
   name: LocalizedStringInput
+  orgIdentifier: Int! @rename(attribute: "org_identifier")
+  size: DepartmentSize!
+  isCorePublicAdministration: Boolean!
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean! @rename(attribute: "is_central_agency")
+  isScience: Boolean! @rename(attribute: "is_science")
+  isRegulatory: Boolean! @rename(attribute: "is_regulatory")
 }
 
 input UpdateDepartmentInput {
-  departmentNumber: Int @rename(attribute: "department_number")
   name: LocalizedStringInput
+  departmentNumber: Int @rename(attribute: "department_number")
+  orgIdentifier: Int @rename(attribute: "org_identifier")
+  size: DepartmentSize
+  isCorePublicAdministration: Boolean
+    @rename(attribute: "is_core_public_administration")
+  isCentralAgency: Boolean @rename(attribute: "is_central_agency")
+  isScience: Boolean @rename(attribute: "is_science")
+  isRegulatory: Boolean @rename(attribute: "is_regulatory")
 }
 
 input DepartmentBelongsTo {
@@ -1994,26 +2012,6 @@ input PoolBelongsToMany {
 input CommunityBelongsTo {
   connect: UUID
   disconnect: Boolean
-}
-
-input CreateTeamInput {
-  name: String!
-    @rules(
-      apply: ["unique:teams,name"]
-      messages: [{ rule: "unique", message: "TeamNameInUse" }]
-    )
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
-}
-
-input UpdateTeamInput {
-  name: String
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
-  description: LocalizedStringInput
-  departments: DepartmentBelongsToMany
-  contactEmail: Email @rename(attribute: "contact_email")
 }
 
 input CreateCommunityInput {
@@ -2751,6 +2749,7 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @throttle(maxAttempts: 100)
+  # Only used in e2e testing. There is no role with permission to create a user.
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
@@ -3004,15 +3003,12 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    teamId: ID! @rename(attribute: "team_id")
     communityId: ID! @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
-  duplicatePool(
-    id: ID!
-    teamId: ID! @rename(attribute: "team_id")
-    pool: DuplicatePoolInput! @spread
-  ): Pool @guard @canModel(ability: "duplicate", injectArgs: true)
+  duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
+    @guard
+    @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
@@ -3107,19 +3103,6 @@ type Mutation {
     id: UUID!
     workStream: UpdateWorkStreamInput! @spread
   ): WorkStream @update @guard @canFind(ability: "update", find: "id")
-
-  # Teams mutations
-  createTeam(team: CreateTeamInput! @spread): Team
-    @create
-    @canModel(ability: "create")
-  updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
-    @update
-    @canModel(ability: "update")
-    @validator
-  deleteTeam(id: UUID! @whereKey): Team
-    @delete
-    @guard
-    @canFind(ability: "delete", find: "id")
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community

@@ -57,13 +57,14 @@ const messages = defineMessages({
     description: "Title at organization, HTML",
   },
   educationAt: {
-    defaultMessage: "{areaOfStudy} at {institution}",
-    id: "UrsGGK",
+    defaultMessage: "{educationType} in {areaOfStudy} from {institution}",
+    id: "z9erMM",
     description: "Study at institution",
   },
   educationAtHtml: {
-    defaultMessage: "<strong>{areaOfStudy}</strong> at {institution}",
-    id: "bf2scl",
+    defaultMessage:
+      "<strong>{educationType}</strong> in <strong>{areaOfStudy}</strong> from {institution}",
+    id: "ymTeAQ",
     description: "Study at institution, HTML",
   },
   workAt: {

@@ -86,7 +86,7 @@ class CommunityInterest extends Model
 
         $query->where(function ($query) use ($searchTerm) {
             $query->whereHas('user', function ($query) use ($searchTerm) {
-                User::scopeGeneralSearch($query, $searchTerm);
+                $query->whereGeneralSearch($searchTerm);
             });
         });
 
@@ -101,7 +101,7 @@ class CommunityInterest extends Model
         }
 
         $query->whereHas('user', function ($query) use ($name) {
-            User::scopeName($query, $name);
+            $query->whereName($name);
         });
 
         return $query;
@@ -188,8 +188,8 @@ class CommunityInterest extends Model
         }
 
         // call the poolFilter off connected user
-        $query->whereHas('user', function (Builder $userQuery) use ($poolFilters) {
-            User::scopePoolFilters($userQuery, $poolFilters);
+        $query->whereHas('user', function ($userQuery) use ($poolFilters) {
+            $userQuery->wherePoolExists($poolFilters);
         });
 
         return $query;
@@ -243,7 +243,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($languageAbility) {
-            User::scopeLanguageAbility($query, $languageAbility);
+            $query->whereLanguageAbility($languageAbility);
         });
 
         return $query;
@@ -257,7 +257,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($positionDuration) {
-            User::scopePositionDuration($query, $positionDuration);
+            $query->wherePositionDurationIn($positionDuration);
         });
 
         return $query;
@@ -271,7 +271,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($workRegions) {
-            User::scopeLocationPreferences($query, $workRegions);
+            $query->whereLocationPreferencesIn($workRegions);
         });
 
         return $query;
@@ -285,7 +285,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($operationalRequirements) {
-            User::scopeOperationalRequirements($query, $operationalRequirements);
+            $query->whereOperationalRequirementsIn($operationalRequirements);
         });
 
         return $query;
@@ -301,7 +301,7 @@ class CommunityInterest extends Model
 
         // point at filter on User
         $query->whereHas('user', function ($query) use ($skillIds) {
-            User::scopeSkillsAdditive($query, $skillIds);
+            $query->whereSkillsAdditive($skillIds);
         });
 
         return $query;
@@ -310,7 +310,7 @@ class CommunityInterest extends Model
     public static function scopeIsVerifiedGovEmployee(Builder $query): Builder
     {
         $query->whereHas('user', function ($query) {
-            User::scopeIsVerifiedGovEmployee($query);
+            $query->whereIsVerifiedGovEmployee();
         });
 
         return $query;

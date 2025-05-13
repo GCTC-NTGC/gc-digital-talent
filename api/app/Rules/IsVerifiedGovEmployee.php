@@ -17,7 +17,7 @@ class IsVerifiedGovEmployee implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
 
-        $user = User::exactWorkEmail($value)->first();
+        $user = User::whereExactWorkEmail($value)->first();
 
         if ($user && ! $user->is_verified_gov_employee) {
             $fail(ApiErrorEnums::NOT_VERIFIED_GOVERNMENT_EMPLOYEE);

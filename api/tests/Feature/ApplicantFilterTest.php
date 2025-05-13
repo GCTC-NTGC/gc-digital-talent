@@ -19,7 +19,6 @@ use Database\Seeders\PoolTestSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
-use Database\Seeders\TeamSeeder;
 use Database\Seeders\WorkStreamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -45,7 +44,6 @@ class ApplicantFilterTest extends TestCase
         $this->seed([
             RolePermissionSeeder::class,
             DepartmentSeeder::class,
-            TeamSeeder::class,
         ]);
 
         // Create super user we run tests as

@@ -6,7 +6,6 @@ use App\Enums\PoolCandidateStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -19,9 +18,9 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $teamA;
+    protected $communityA;
 
-    protected $teamB;
+    protected $communityB;
 
     protected $poolA;
 
@@ -45,15 +44,15 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->teamA = Team::factory()->create();
-        $this->teamB = Team::factory()->create();
+        $this->communityA = Community::factory()->create();
+        $this->communityB = Community::factory()->create();
 
         $this->poolA = Pool::factory()
             ->published()
-            ->create(['team_id' => $this->teamA->id]);
+            ->create(['community_id' => $this->communityA->id]);
         $this->poolB = Pool::factory()
             ->published()
-            ->create(['team_id' => $this->teamB->id]);
+            ->create(['community_id' => $this->communityB->id]);
 
         $this->user1 = User::factory()
             ->asApplicant()
