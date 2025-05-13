@@ -1,152 +1,26 @@
+import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import { useIntl } from "react-intl";
+
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { currentDate } from "@gc-digital-talent/date-helpers";
+import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  currentDate,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
+import { Heading, Separator, Well } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import { isWorkExperience } from "~/utils/experienceUtils";
 
-const CurrentPositionWorkExperience_Fragment = graphql(/** GraphQL */ `
-  fragment CurrentPositionWorkExperience on WorkExperience {
-    id
-    role
-    organization
-    division
-    startDate
-    endDate
-    details
-    employmentCategory {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    extSizeOfOrganization {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    extRoleSeniority {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govEmploymentType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govPositionType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govContractorRoleSeniority {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    govContractorType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    contractorFirmAgencyName
-    cafEmploymentType {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    cafForce {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    cafRank {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    supervisoryPosition
-    supervisedEmployees
-    supervisedEmployeesNumber
-    budgetManagement
-    annualBudgetAllocation
-    seniorManagementStatus
-    cSuiteRoleTitle {
-      value
-      label {
-        localized
-      }
-    }
-    otherCSuiteRoleTitle
-    classification {
+export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
+  fragment CurrentPositionExperiences on User {
+    updatedDate
+    experiences {
       id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      maxSalary
-      minSalary
-    }
-    department {
-      id
-      name {
-        en
-        fr
-      }
-      departmentNumber
-    }
-    workStreams {
-      id
-      key
-      name {
-        localized
-      }
-      community {
-        id
-        key
-        name {
-          localized
-        }
-      }
-    }
-    skills {
-      id
-      key
-      category {
-        value
-        label {
-          localized
-        }
-      }
-      name {
-        en
-        fr
-      }
-      experienceSkillRecord {
-        details
-      }
+      ...ExperienceCard
     }
   }
 `);
@@ -165,15 +39,34 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 };
 
 interface CurrentPositionExperiencesProps {
-  query?: FragmentType<typeof CurrentPositionWorkExperience_Fragment>[];
+  query:
+    | FragmentType<typeof CurrentPositionExperiences_Fragment>
+    | null
+    | undefined;
+  shareProfile?: boolean;
 }
 
 const CurrentPositionExperiences = ({
   query,
+  shareProfile,
 }: CurrentPositionExperiencesProps) => {
-  const workExperiences = unpackMaybes(
-    getFragment(CurrentPositionWorkExperience_Fragment, query),
+  const intl = useIntl();
+  const data = getFragment(CurrentPositionExperiences_Fragment, query);
+
+  const lastUpdated = data?.updatedDate
+    ? formatDate({
+        date: parseDateTimeUtc(data.updatedDate),
+        formatString: "MMMM d, yyyy",
+        intl,
+      })
+    : intl.formatMessage(commonMessages.notProvided);
+
+  const experiences = unpackMaybes(data?.experiences);
+
+  const workExperiences = experiences.filter((experience) =>
+    isWorkExperience(experience),
   );
+
   const currentWorkExperiences = workExperiences.filter((exp) =>
     isCurrentExperience(exp.endDate),
   );
@@ -184,17 +77,82 @@ const CurrentPositionExperiences = ({
   });
 
   return (
-    <div>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5 0)"
+    <>
+      <Heading
+        Icon={FlagIcon}
+        level="h2"
+        color="primary"
+        data-h2-margin="base(x1.5 x1.5 0 x1.5)"
+        data-h2-font-weight="base(400)"
       >
-        {sorted.map((exp) => (
-          <ExperienceCard key={exp.id} experience={exp} showEdit={false} />
-        ))}
-      </div>
-    </div>
+        {intl.formatMessage({
+          defaultMessage: "Current position",
+          id: "elMgS2",
+          description: "Heading for current position",
+        })}
+      </Heading>
+      <p data-h2-margin="base(x.5 x1.5 x1 x1.5)">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section shows the candidate's current role. If it's an acting role, the candidate's substantive role will also appear here if they've provided it. Select individual experiences to see more details.",
+          id: "R1QSIY",
+          description: "Description for the career page current role section",
+        })}
+      </p>
+      {shareProfile && (
+        <Separator data-h2-margin="base(0 0 x1 0)" space="none" />
+      )}
+      {shareProfile && !empty(data) && (
+        <div data-h2-margin="base(0 x1.5)">
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.5 0)"
+          >
+            {sorted.map((exp) => (
+              <ExperienceCard key={exp.id} experience={exp} showEdit={false} />
+            ))}
+          </div>
+        </div>
+      )}
+      {!shareProfile && (
+        <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
+          <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
+            {intl.formatMessage({
+              defaultMessage:
+                "This nominee has not agreed to share their information with your community",
+              id: "4ujr5X",
+              description: "Null message for nominee profile",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+              id: "8plD42",
+              description: "Null secondary message for nominee profile",
+            })}
+          </p>
+        </Well>
+      )}
+      {shareProfile && <Separator data-h2-margin="base(x1 0)" space="none" />}
+      {shareProfile && (
+        <p
+          data-h2-color="base(black.light)"
+          data-h2-margin="base(0 x1.5 x1.75 x1.5)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Nominee's profile was last updated on: {lastUpdated}",
+              id: "guYbEb",
+              description: "Last time user's profile was updated",
+            },
+            { lastUpdated },
+          )}
+        </p>
+      )}
+    </>
   );
 };
 

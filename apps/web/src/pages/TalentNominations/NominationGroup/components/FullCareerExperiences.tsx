@@ -1,86 +1,152 @@
-import { useState } from "react";
+import { ReactNode, useId, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
-import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
+import {
+  Accordion,
+  Button,
+  CardSeparator,
+  Heading,
+  Well,
+} from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  assertUnreachable,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import experienceMessages from "~/messages/experienceMessages";
+import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+
 import {
-  compareByDate,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
+  AccordionSection,
+  buildExperienceByTypeData,
+  buildExperienceByWorkStreamData,
+} from "./fullCareerExperiencesUtils";
 
-import ExperienceByTypeAccordion from "./ExperienceByTypeAccordion";
+export const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
+  fragment FullCareerExperiencesUser on User {
+    experiences {
+      id
+      ... on AwardExperience {
+        awardedDate
+      }
+      ... on CommunityExperience {
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        startDate
+        endDate
+      }
+      ... on PersonalExperience {
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        startDate
+        endDate
+        workStreams {
+          id
+        }
+      }
+      ...ExperienceCard
+    }
+  }
+`);
 
+const FullCareerExperiencesTalentNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment FullCareerExperiencesTalentNominationGroup on TalentNominationGroup {
+      talentNominationEvent {
+        community {
+          workStreams {
+            id
+            name {
+              localized
+            }
+          }
+        }
+      }
+    }
+  `,
+);
 interface FullCareerExperiencesProps {
-  experiences?: Omit<Experience, "user">[];
+  userQuery:
+    | FragmentType<typeof FullCareerExperiencesUser_Fragment>
+    | null
+    | undefined;
+  talentNominationGroupQuery:
+    | FragmentType<typeof FullCareerExperiencesTalentNominationGroup_Fragment>
+    | null
+    | undefined;
   shareProfile?: boolean;
   defaultOpen?: boolean;
 }
 
 const FullCareerExperiences = ({
-  experiences,
+  userQuery,
+  talentNominationGroupQuery,
   shareProfile,
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
   const intl = useIntl();
+  const showExperienceByLabelId = useId();
+  const user = getFragment(FullCareerExperiencesUser_Fragment, userQuery);
+  const talentNominationGroup = getFragment(
+    FullCareerExperiencesTalentNominationGroup_Fragment,
+    talentNominationGroupQuery,
+  );
+  const experiences = user?.experiences?.filter(notEmpty) ?? [];
+  const workStreams = unpackMaybes(
+    talentNominationGroup?.talentNominationEvent.community?.workStreams,
+  );
   const [selectedView, setSelectedView] = useState<"type" | "workStream">(
     "type",
   );
-  const awardExperiences =
-    experiences
-      ?.filter(isAwardExperience)
-      .map(
-        (award: Omit<AwardExperience, "user">) =>
-          ({
-            ...award,
-            startDate: award.awardedDate,
-            endDate: award.awardedDate,
-          }) as AwardExperience & { startDate: string; endDate: string },
-      )
-      .sort(compareByDate) ?? [];
-  const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
-  const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
-  const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
-  const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
 
-  const experienceSections = [
-    {
-      id: "WorkExperience",
-      title: intl.formatMessage(experienceMessages.work),
-      experiences: workExperiences,
-    },
-    {
-      id: "AwardExperience",
-      title: intl.formatMessage(experienceMessages.award),
-      experiences: awardExperiences,
-    },
-    {
-      id: "CommunityExperience",
-      title: intl.formatMessage(experienceMessages.community),
-      experiences: communityExperiences,
-    },
-    {
-      id: "EducationExperience",
-      title: intl.formatMessage(experienceMessages.education),
-      experiences: educationExperiences,
-    },
-    {
-      id: "PersonalExperience",
-      title: intl.formatMessage(experienceMessages.personal),
-      experiences: personalExperiences,
-    },
-  ];
-  const sectionIds = experienceSections.map((section) => section.id);
+  let accordionSections: AccordionSection[] = [];
+  let footer: ReactNode = null;
+
+  if (selectedView == "type") {
+    const { sections } = buildExperienceByTypeData(experiences, intl);
+    accordionSections = sections;
+    footer = null;
+  } else if (selectedView == "workStream") {
+    const { sections, workStreamsWithNoExperiences } =
+      buildExperienceByWorkStreamData(experiences, workStreams, intl);
+    accordionSections = sections;
+    footer =
+      workStreamsWithNoExperiences.length > 0 ? (
+        <>
+          <p
+            data-h2-font-weight="base(bold)"
+            data-h2-margin-bottom="base(x.15)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Work streams with no experience",
+              id: "PNTlS7",
+              description:
+                "a description for a list of work streams with no experiences",
+            })}
+          </p>
+          <ul>
+            {workStreamsWithNoExperiences.map((workStream) => (
+              <li key={workStream.id} data-h2-margin-bottom="base(x.15)">
+                {workStream.name?.localized ??
+                  intl.formatMessage(commonMessages.notProvided)}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null;
+  } else {
+    assertUnreachable(selectedView);
+  }
+
+  const sectionIds = accordionSections.map((section) => section.id);
 
   const [openSections, setOpenSections] = useState<string[]>(
     defaultOpen ? sectionIds : [],
@@ -143,13 +209,14 @@ const FullCareerExperiences = ({
         })}
       </p>
       <div>
-        {shareProfile && (
+        {/* If can share profile, show controls. Otherwise, show error well */}
+        {shareProfile ? (
           <div
             data-h2-display="base(flex)"
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <p data-h2-margin="base(0)">
+            <p data-h2-margin="base(0)" id={showExperienceByLabelId}>
               {intl.formatMessage({
                 defaultMessage: "Show experience by:",
                 id: "KR4kRt",
@@ -163,7 +230,9 @@ const FullCareerExperiences = ({
               onClick={() => setSelectedView("type")}
               data-h2-font-weight={
                 selectedView === "type" ? "base(700)" : "base(400)"
-              }
+              } // Bold when selected
+              aria-pressed={selectedView === "type"}
+              aria-describedby={showExperienceByLabelId}
             >
               {intl.formatMessage({
                 defaultMessage: "Type",
@@ -171,7 +240,6 @@ const FullCareerExperiences = ({
                 description: "Button to filter experiences by type",
               })}
             </Button>
-            {/* To be implemented later
             <Button
               type="button"
               mode="inline"
@@ -181,16 +249,17 @@ const FullCareerExperiences = ({
                 selectedView === "workStream" ? "base(700)" : "base(400)"
               } // Bold when selected
               aria-pressed={selectedView === "workStream"}
+              aria-describedby={showExperienceByLabelId}
             >
               {intl.formatMessage({
-                defaultMessage: "Work Stream",
-                id: "27YVit",
-                description: "Button to filter experiences by work stream",
+                defaultMessage: "Work stream",
+                id: "UKw7sB",
+                description:
+                  "Label displayed on the pool form stream/job title field.",
               })}
-            </Button> */}
+            </Button>
           </div>
-        )}
-        {!shareProfile && (
+        ) : (
           <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
             <p data-h2-margin-bottom="base(x1)" data-h2-font-weight="base(700)">
               {intl.formatMessage({
@@ -212,20 +281,60 @@ const FullCareerExperiences = ({
         )}
       </div>
       <div>
-        {shareProfile && selectedView === "type" && (
-          <ExperienceByTypeAccordion
-            experienceSections={experienceSections}
-            openSections={openSections}
-            setOpenSections={setOpenSections}
-          />
-        )}
-        {shareProfile && selectedView === "workStream" && (
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x1 0)"
-          ></div>
-        )}
+        {/* If can share profile, show accordion. Otherwise, show nothing */}
+        {shareProfile ? (
+          <>
+            <Accordion.Root
+              type="multiple"
+              mode="card"
+              value={openSections}
+              onValueChange={setOpenSections} // Sync state with Accordion
+              data-h2-margin="base(0, 0)"
+            >
+              {accordionSections.map(
+                ({ id, title, subtitle, experiences: sectionExperiences }) => (
+                  <Accordion.Item key={id} value={id}>
+                    <Accordion.Trigger subtitle={subtitle ?? undefined}>
+                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+                      {title} ({sectionExperiences.length})
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <div>
+                        <div
+                          data-h2-display="base(flex)"
+                          data-h2-flex-direction="base(column)"
+                          data-h2-gap="base(x.5 0)"
+                        >
+                          {unpackMaybes(
+                            sectionExperiences.map((experience) => {
+                              return (
+                                <ExperienceCard
+                                  key={experience?.id}
+                                  experience={experience}
+                                  showEdit={false}
+                                />
+                              );
+                            }),
+                          )}
+                        </div>
+                      </div>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                ),
+              )}
+            </Accordion.Root>
+            {footer ? (
+              <>
+                <CardSeparator
+                  data-h2-margin-top="base(x1)"
+                  data-h2-margin-bottom="base(x1)"
+                  space="none"
+                />
+                {footer}
+              </>
+            ) : null}
+          </>
+        ) : null}
       </div>
     </>
   );
