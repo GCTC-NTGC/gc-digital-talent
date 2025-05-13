@@ -3,6 +3,7 @@ import childProcess from "child_process";
 
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
@@ -136,6 +137,7 @@ export default defineConfig(({ command }) => ({
     }),
     gitVersionPlugin(),
     hydrogenPlugin(),
+    tailwindcss(),
     createHtmlPlugin({
       entry: "src/main.tsx",
       inject: {

@@ -52,6 +52,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 color="error"
                 mode="inline"
                 data-h2-text-decoration="base(underline)"
+                icon={XCircleIcon}
                 onClick={() => {
                   onDelete(skillId);
                 }}
@@ -65,18 +66,12 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                   { name: name[locale] },
                 )}
               >
-                <XCircleIcon
-                  style={{ width: "1rem" }}
-                  data-h2-vertical-align="base(middle)"
-                />
-                <span data-h2-padding="base(0, 0, 0, x.25)">
-                  {intl.formatMessage({
-                    defaultMessage: "Remove skill",
-                    id: "M051tF",
-                    description:
-                      "Message in skills in details section to remove skill from the experience.",
-                  })}
-                </span>
+                {intl.formatMessage({
+                  defaultMessage: "Remove skill",
+                  id: "M051tF",
+                  description:
+                    "Message in skills in details section to remove skill from the experience.",
+                })}
               </Button>
             </div>
             <div data-h2-margin="base(x.5 0)">

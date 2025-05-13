@@ -181,7 +181,12 @@ const ButtonLinkContent = ({
   return (
     <span {...contentDisplay} {...rest}>
       {Icon && (
-        <Icon data-h2-margin-right="base(x.25)" {...iconSize} {...iconMargin} />
+        <Icon
+          data-h2-margin-right="base(x.25)"
+          data-h2-display="base(inline)"
+          {...iconSize}
+          {...iconMargin}
+        />
       )}
       <span {...textSize} data-h2-text-decoration="base(underline)">
         {children}
@@ -190,6 +195,7 @@ const ButtonLinkContent = ({
         <UtilityIcon
           {...iconSize}
           {...iconMargin}
+          data-h2-display="base(inline)"
           data-h2-margin-left="base(x.25)"
         />
       )}

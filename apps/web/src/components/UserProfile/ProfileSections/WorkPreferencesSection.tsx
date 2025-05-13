@@ -1,8 +1,6 @@
 import { useIntl } from "react-intl";
-import CheckCircleIcon from "@heroicons/react/16/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/16/solid/XCircleIcon";
 
-import { Well } from "@gc-digital-talent/ui";
+import { NoList, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
@@ -15,6 +13,7 @@ import { insertBetween, unpackMaybes } from "@gc-digital-talent/helpers";
 import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 interface WorkPreferencesSectionProps {
   user: Pick<
@@ -73,41 +72,19 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
 
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <ul data-h2-padding="base(0, 0, 0, x1)">
+          <NoList>
             {OperationalRequirements.map((requirement) => (
-              <li key={requirement}>
-                <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
-                  <span
-                    data-h2-width="base(x.5)"
-                    data-h2-flex-shrink="base(0)"
-                    data-h2-vertical-align="base(bottom)"
-                  >
-                    {acceptedRequirements.includes(requirement) ? (
-                      <CheckCircleIcon
-                        aria-label={intl.formatMessage(commonMessages.accepted)}
-                        data-h2-color="base(success)"
-                      />
-                    ) : (
-                      <XCircleIcon
-                        aria-label={intl.formatMessage(
-                          commonMessages.notAccepted,
-                        )}
-                        data-h2-color="base(gray)"
-                      />
-                    )}
-                  </span>
-                  <span>
-                    {intl.formatMessage(
-                      getOperationalRequirement(
-                        requirement,
-                        "firstPersonNoBold",
-                      ),
-                    )}
-                  </span>
-                </span>
+              <li key={requirement} data-h2-margin-bottom="base(x.25)">
+                <BoolCheckIcon
+                  value={acceptedRequirements.includes(requirement)}
+                >
+                  {intl.formatMessage(
+                    getOperationalRequirement(requirement, "firstPersonNoBold"),
+                  )}
+                </BoolCheckIcon>
               </li>
             ))}
-          </ul>
+          </NoList>
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p>

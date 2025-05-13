@@ -62,6 +62,7 @@ const Item = ({
       >
         {Icon && (
           <Icon
+            data-h2-display="base(inline-block)"
             data-h2-width="base(x.75)"
             data-h2-height="base(x.75)"
             data-h2-margin-right="base(x.5)"
