@@ -6,6 +6,11 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { BasicUserInformationProps } from "../types";
 
+const iconStyles = {
+  "data-h2-display": "base(inline-block)",
+  "data-h2-width": "base(1rem)",
+};
+
 const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
   const intl = useIntl();
 
@@ -26,7 +31,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
         })}
       {isIndigenous && (
         <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon style={{ width: "1rem" }} />
+          <CheckIcon {...iconStyles} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -38,7 +43,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       )}
       {user.hasDisability && (
         <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon style={{ width: "1rem" }} />
+          <CheckIcon {...iconStyles} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -51,7 +56,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       )}
       {user.isVisibleMinority && (
         <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon style={{ width: "1rem" }} />
+          <CheckIcon {...iconStyles} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
@@ -64,7 +69,7 @@ const EmploymentEquitySection = ({ user }: BasicUserInformationProps) => {
       )}
       {user.isWoman && (
         <div data-h2-padding="base(x.125, 0)">
-          <CheckIcon style={{ width: "1rem" }} />
+          <CheckIcon {...iconStyles} />
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {"  "}
           {intl.formatMessage({
