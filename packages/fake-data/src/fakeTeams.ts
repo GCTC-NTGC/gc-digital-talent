@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { Department, Team } from "@gc-digital-talent/graphql";
 
-import toLocalizedString from "./fakeLocalizedString";
 import fakeDepartments from "./fakeDepartments";
 
 const generateTeam = (departments: Department[]): Team => {
@@ -13,9 +12,6 @@ const generateTeam = (departments: Department[]): Team => {
   return {
     id: faker.string.uuid(),
     name: faker.string.sample(),
-    contactEmail: faker.internet.email(),
-    displayName: toLocalizedString(faker.company.name()),
-    description: toLocalizedString(faker.lorem.paragraph()),
     departments: [departments[index]],
   };
 };

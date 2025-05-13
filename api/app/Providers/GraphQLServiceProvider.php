@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use App\Discoverers\EnumDiscoverer;
-use App\Enums\Language;
 use App\GraphQL\Operators\PostgreSQLOperator;
 use GraphQL\Type\Definition\EnumType;
-use GraphQL\Type\Definition\NamedType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
@@ -18,28 +16,6 @@ class GraphQLServiceProvider extends ServiceProvider
 {
     public function boot(TypeRegistry $typeRegistry): void
     {
-
-        /**
-         * Note: This is strange but PHPStan is having trouble knowing that EnumType
-         * implements the interface and the function is callable.
-         *
-         * Same for the other registerLazy
-         *
-         * @var callable(): \GraphQL\Type\Definition\Type&\GraphQL\Type\Definition\NamedType $callback */
-        $callback = static function (): NamedType {
-            return new EnumType([
-                'name' => 'Language',
-                'values' => [
-                    Language::EN->name => ['value' => Language::EN->value],
-                    Language::FR->name => ['value' => Language::FR->value],
-                ],
-            ]);
-        };
-
-        $typeRegistry->registerLazy(
-            'Language',
-            $callback
-        );
 
         // Discover all enums in the App\Enum namespace to register them with GraphQL
         $enums = EnumDiscoverer::discoverEnums();

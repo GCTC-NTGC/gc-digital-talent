@@ -13,6 +13,7 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
+  EducationType,
   EmploymentCategory,
   GovPositionType,
   Maybe,
@@ -853,12 +854,22 @@ export const getExperienceName = (
   }
 
   if (isEducationExperience(experience)) {
-    const { areaOfStudy, institution } = experience;
+    const { type, areaOfStudy, institution } = experience;
+    const educationType =
+      type?.value === EducationType.Other
+        ? intl.formatMessage({
+            defaultMessage: "Other type of education",
+            id: "wrKBLf",
+            description:
+              "First part of education experience title for other type",
+          })
+        : type?.label.localized;
     return intl.formatMessage(
       html
         ? experienceMessages.educationAtHtml
         : experienceMessages.educationAt,
       {
+        educationType,
         areaOfStudy,
         institution,
       },

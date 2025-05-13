@@ -166,7 +166,9 @@ test.describe("Application", () => {
       .getByRole("radio", { name: /i meet the 2-year post-secondary option/i })
       .click();
     await application.page
-      .getByRole("checkbox", { name: /qa testing at playwright university/i })
+      .getByRole("checkbox", {
+        name: /certification in qa testing from playwright university/i,
+      })
       .click();
     await application.saveAndContinue();
 
@@ -196,7 +198,9 @@ test.describe("Application", () => {
         ),
       })
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
 
     await application.page
       .getByRole("button", {
@@ -206,7 +210,9 @@ test.describe("Application", () => {
         ),
       })
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
 
     await expect(
       application.page.getByText(
@@ -318,7 +324,9 @@ test.describe("Application", () => {
       .getByRole("radio", { name: /i meet the 2-year post-secondary option/i })
       .click();
     await application.page
-      .getByRole("checkbox", { name: /qa testing at playwright university/i })
+      .getByRole("checkbox", {
+        name: /certification in qa testing from playwright university/i,
+      })
       .click();
     await application.saveAndContinue();
 
@@ -342,7 +350,9 @@ test.describe("Application", () => {
       .getByRole("button", { name: /connect a career timeline experience/i })
       .first()
       .click();
-    await application.connectExperience("QA Testing at Playwright University");
+    await application.connectExperience(
+      "Certification in QA Testing from Playwright University",
+    );
     await expect(
       application.page.getByText(
         /please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it/i,
@@ -370,7 +380,9 @@ test.describe("Application", () => {
     ).toBeVisible();
     // Experience is present 3 times
     await expect(
-      application.page.getByText(/qa testing at playwright university/i).nth(2),
+      application.page
+        .getByText(/certification in qa testing from playwright university/i)
+        .nth(2),
     ).toBeVisible();
     // No error/warning messages
     await expect(
@@ -399,6 +411,50 @@ test.describe("Application", () => {
     await expect(
       application.page.getByRole("link", {
         name: /return to your dashboard/i,
+      }),
+    ).toBeVisible();
+  });
+
+  test("Can view application on dashboard", async ({ appPage }) => {
+    const adminCtx = await graphql.newContext();
+    const poolName = `application test pool for viewing on dashboard ${uniqueTestId}`;
+    const pool = await createAndPublishPool(adminCtx, {
+      name: {
+        en: `${poolName} (EN)`,
+        fr: `${poolName} (FR)`,
+      },
+      userId: user?.id ?? "",
+      input: {
+        generalQuestions: {
+          create: [
+            {
+              question: { en: "Question EN", fr: "Question FR" },
+              sortOrder: 1,
+            },
+          ],
+        },
+      },
+      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
+    });
+
+    const application = new ApplicationPage(appPage.page, pool.id);
+    await loginBySub(application.page, sub, false);
+
+    await application.create();
+
+    // Wait for application to be created before continuing on
+    await expectOnStep(application.page, 1);
+
+    // Navigate to dashboard
+    await application.page.goto("/en/applicant");
+
+    await application.page
+      .getByRole("button", { name: /job applications/i })
+      .click();
+
+    await expect(
+      application.page.getByRole("link", {
+        name: new RegExp(`continue application for ${poolName}`, "i"),
       }),
     ).toBeVisible();
   });

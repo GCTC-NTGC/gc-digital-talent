@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
-import isString from "lodash/isString";
 
 import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -135,35 +134,19 @@ export const ViewPool = ({
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
-  const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
-    roleAssignments,
-  );
+  const canPublish = checkRole([ROLE_NAME.CommunityAdmin], roleAssignments);
   // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
   const canDuplicate = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
+    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
   const canArchive = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityManager,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
+    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
   const canDelete = checkRole(
-    [
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityAdmin,
-    ],
+    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
 
@@ -239,7 +222,7 @@ export const ViewPool = ({
                   color={advertisementBadge.color}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(advertisementBadge.label)
+                  {typeof advertisementBadge.label === "string"
                     ? advertisementBadge.label
                     : intl.formatMessage(advertisementBadge.label)}
                 </Chip>
@@ -318,7 +301,7 @@ export const ViewPool = ({
                   color={assessmentBadge.color}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(assessmentBadge.label)
+                  {typeof assessmentBadge.label === "string"
                     ? assessmentBadge.label
                     : intl.formatMessage(assessmentBadge.label)}
                 </Chip>
@@ -371,7 +354,7 @@ export const ViewPool = ({
                   icon={processBadge.icon}
                   data-h2-flex-shrink="base(0)"
                 >
-                  {isString(processBadge.label)
+                  {typeof processBadge.label === "string"
                     ? processBadge.label
                     : intl.formatMessage(processBadge.label)}
                 </Chip>
@@ -517,10 +500,6 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
     pool(id: $id) {
       ...ViewPool
-      team {
-        id
-        name
-      }
     }
     departments {
       ...DuplicatePoolDepartment
@@ -552,11 +531,7 @@ const ViewPoolPage = () => {
               return mutations.close(poolId, reason);
             }}
             onDuplicate={async ({ department }) => {
-              return mutations.duplicate(
-                poolId,
-                data?.pool?.team?.id ?? "",
-                department,
-              );
+              return mutations.duplicate(poolId, department);
             }}
             onArchive={async () => {
               return mutations.archive(poolId);
@@ -595,9 +570,6 @@ const ViewPoolPage = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.PoolOperator,
-      ROLE_NAME.RequestResponder,
-      ROLE_NAME.CommunityManager,
       ROLE_NAME.PlatformAdmin,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,

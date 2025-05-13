@@ -47,7 +47,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $closing_reason
  * @property ?string $change_justification
  * @property ?string $status
- * @property string $team_id
  * @property string $department_id
  * @property string $community_id
  * @property string $work_stream_id
@@ -118,7 +117,6 @@ class Pool extends Model
         'publishing_group',
         'published_at',
         'archived_at',
-        'team_id',
         'closing_date',
         'is_remote',
         'key_tasks',
@@ -183,12 +181,6 @@ class Pool extends Model
     public function poolBookmarks(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
-    }
-
-    /** @return BelongsTo<Team, $this> */
-    public function legacyTeam(): BelongsTo
-    {
-        return $this->belongsTo(Team::class, 'team_id');
     }
 
     /** @return MorphOne<Team, $this> */
@@ -382,7 +374,7 @@ class Pool extends Model
         return PoolStatus::DRAFT->name;
     }
 
-    // is the pool considered "complete", filled out entirely by the pool operator
+    // is the pool considered "complete"
     public function getIsCompleteAttribute()
     {
         $pool = $this->load(['classification', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);

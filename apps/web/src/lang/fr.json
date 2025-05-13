@@ -3071,6 +3071,10 @@
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
   },
+  "CTxxiq": {
+    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise.",
+    "description": "Subtitle for the review talent nomination dialog"
+  },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
@@ -3218,6 +3222,10 @@
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
+  },
+  "DA7fMg": {
+    "defaultMessage": "Identifiant",
+    "description": "Title for unique ID of a resource"
   },
   "DB9pFd": {
     "defaultMessage": "Langue préférée pour l'entrevue orale",
@@ -3991,10 +3999,6 @@
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
   },
-  "GplLic": {
-    "defaultMessage": "Identifiant",
-    "description": "Title for unique ID of a resource"
-  },
   "GrHEFV": {
     "defaultMessage": "Aucune",
     "description": "None"
@@ -4531,6 +4535,10 @@
     "defaultMessage": "Le gouvernement du Canada offre parfois des possibilités de formation. Cette section vous permet de mettre en évidence <strong>jusqu’à 5 compétences techniques</strong> que vous souhaitez apprendre ou perfectionner.",
     "description": "Description of a users technical skills to be improved"
   },
+  "JaUbaI": {
+    "defaultMessage": "Administration publique centrale (APC)",
+    "description": "Label for a department that is part of the core public administration"
+  },
   "JamdKo": {
     "defaultMessage": "Premières Nations non inscrites",
     "description": "The indigenous community for non-status First Nations"
@@ -4946,10 +4954,6 @@
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
-  },
-  "LOwBJx": {
-    "defaultMessage": "Vérifiez les détails d'une mise en candidature que vous avez soumise et suivez son évolution.",
-    "description": "Subtitle for the review talent nomination dialog"
   },
   "LQ0a0a": {
     "defaultMessage": "Participation au programme",
@@ -6175,6 +6179,10 @@
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
   },
+  "REF6ea": {
+    "defaultMessage": "Taille du ministère",
+    "description": "Label for the size of a department"
+  },
   "RGHXLW": {
     "defaultMessage": "Ordre croissant",
     "description": "Message added to indicate a table column is sorted in ascending order"
@@ -6862,10 +6870,6 @@
     "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "UrsGGK": {
-    "defaultMessage": "{areaOfStudy} à {institution}",
-    "description": "Study at institution"
-  },
   "Usof4a": {
     "defaultMessage": "Nom de personne candidate",
     "description": "Label for nominees name in a nomination"
@@ -6949,10 +6953,6 @@
   "VD/o5X": {
     "defaultMessage": "Aucune compétence trouvée.",
     "description": "Messaged displayed when no skill exists."
-  },
-  "VDNYQU": {
-    "defaultMessage": "Votre mise en candidature a été soumise et est en attente d'examen. Nous vous informerons lorsque la collectivité fonctionnelle entamera le processus de révision.",
-    "description": "The description of the 'received' nomination status"
   },
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
@@ -8202,10 +8202,6 @@
     "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
     "description": "An item in a list of points about instructor-led classes"
   },
-  "bf2scl": {
-    "defaultMessage": "<strong>{areaOfStudy}</strong> à {institution}",
-    "description": "Study at institution, HTML"
-  },
   "bg8KBg": {
     "defaultMessage": "Date de fin de la formation",
     "description": "The training end date of the training opportunity"
@@ -9402,6 +9398,10 @@
     "defaultMessage": "Soumis",
     "description": "Simplified status label for a submitted process advertisement or assessment"
   },
+  "gbvOCW": {
+    "defaultMessage": "Organisme central",
+    "description": "Label for a department that is a central agency"
+  },
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
@@ -10513,13 +10513,13 @@
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
   },
-  "lwRIsY": {
-    "defaultMessage": "Reçue",
-    "description": "The title of the 'received' nomination status"
-  },
   "lwYOqk": {
     "defaultMessage": "Année d'admissibilité à la retraite",
     "description": "Label for an employee profile career development preference field"
+  },
+  "lxoLwy": {
+    "defaultMessage": "Identifiant de l'organisation",
+    "description": "Label for department identifier"
   },
   "lyJ0Ft": {
     "defaultMessage": "Ajouter une collectivité",
@@ -10972,6 +10972,10 @@
   "nzcwrW": {
     "defaultMessage": "Les apprentis seront jumelés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
     "description": "First paragraph what will you learn at the program"
+  },
+  "nzn+y+": {
+    "defaultMessage": "APC",
+    "description": "Abbreviated column header for core public administration"
   },
   "nzw1ry": {
     "defaultMessage": "Domaine d’études",
@@ -12017,6 +12021,10 @@
     "defaultMessage": "Agrandir toutes les sections<hidden> relatives au profil et au plan de carrière</hidden>",
     "description": "Button text to open all profile and career plan accordions"
   },
+  "tSbble": {
+    "defaultMessage": "Type de ministère",
+    "description": "Label for the type of department"
+  },
   "tSvuK1": {
     "defaultMessage": "À propos de vous",
     "description": "Label for a employee profile about you field"
@@ -12248,6 +12256,10 @@
   "uaVogJ": {
     "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
     "description": "Label for talent nomination review dialog button"
+  },
+  "uhoPHh": {
+    "defaultMessage": "Réglementaire",
+    "description": "Label for a regulatory department"
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
@@ -12640,6 +12652,10 @@
   "wimmA1": {
     "defaultMessage": "Sauvegarder ce à quoi s’attendre",
     "description": "Text on a button to save the pool what to expect"
+  },
+  "wrKBLf": {
+    "defaultMessage": "Autre type d'études",
+    "description": "First part of education experience title for other type"
   },
   "wrQN7E": {
     "defaultMessage": "Modifiez les commentaires",
@@ -13057,6 +13073,10 @@
     "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
     "description": "Instructional text under the Skill Requirements section"
   },
+  "ymTeAQ": {
+    "defaultMessage": "<strong>{educationType}</strong> en <strong>{areaOfStudy}</strong> de {institution}",
+    "description": "Study at institution, HTML"
+  },
   "ynGRwF": {
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
     "description": "Description for the professional designation requirement."
@@ -13121,6 +13141,10 @@
     "defaultMessage": "Tout le tableau",
     "description": "Default text in table search form column dropdown when no column is selected"
   },
+  "z6EMbE": {
+    "defaultMessage": "Scientifique",
+    "description": "Label for a science department"
+  },
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",
     "description": "Comments or contributions list item"
@@ -13132,6 +13156,10 @@
   "z8b14H": {
     "defaultMessage": "contiennent des renseignements personnels",
     "description": "Comments or contributions list item"
+  },
+  "z9erMM": {
+    "defaultMessage": "{educationType} en {areaOfStudy} de {institution}",
+    "description": "Study at institution"
   },
   "zA8GrW": {
     "defaultMessage": "il y a une <strong>pénurie de travailleurs qualifiés</strong> dans ce domaine, selon des enquêtes locales ou régionales du marché du travail menées par des organisations reconnues;",

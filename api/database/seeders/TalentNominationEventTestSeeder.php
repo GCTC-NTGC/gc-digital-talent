@@ -19,6 +19,7 @@ class TalentNominationEventTestSeeder extends Seeder
         $faker = Faker::create();
 
         TalentNominationEvent::factory(10)
+            ->withDevelopmentPrograms()
             ->state(new Sequence(
                 function (Sequence $sequence) use ($faker) {
                     return [
@@ -34,6 +35,7 @@ class TalentNominationEventTestSeeder extends Seeder
             ->create();
 
         TalentNominationEvent::factory(10)
+            ->withDevelopmentPrograms()
             ->state(new Sequence(
                 function (Sequence $sequence) use ($faker) {
                     $openDate = $faker->dateTimeBetween('-2 years', '-1 year');
@@ -51,6 +53,7 @@ class TalentNominationEventTestSeeder extends Seeder
             ->create();
 
         TalentNominationEvent::factory(10)
+            ->withDevelopmentPrograms()
             ->state(new Sequence(
                 function (Sequence $sequence) use ($faker) {
                     $openDate = $faker->dateTimeBetween('now', '+1 year');

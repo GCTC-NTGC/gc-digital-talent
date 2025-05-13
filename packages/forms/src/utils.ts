@@ -177,6 +177,23 @@ export const countNumberOfWords = (text: string): number => {
   return 0;
 };
 
+// Reference https://uibakery.io/regex-library/html
+/**
+ * Returns total number of words in a string after stripping out HTML tags
+ * @param text String you want the word count for after removing HTML tags
+ * @returns number
+ */
+export const countNumberOfWordsAfterReplacingHTML = (text: string): number => {
+  if (text === "") {
+    return 0; // otherwise this sometimes returns "<empty string>"
+  }
+
+  const replacedString = text
+    .replace(/<(?:"[^"]*"|'[^']*'|[^'">])*>/g, " ")
+    .trim();
+  return replacedString.replace(/\s+/g, " ").trim().split(" ").length;
+};
+
 /**
  * Maps a list of objects to sorted options
  * @param objects An array of objects with an id and name property

@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
@@ -21,9 +20,9 @@ class UserAuthorizationScopeTest extends TestCase
 
     protected $platformAdmin;
 
-    protected $teamA;
+    protected $communityA;
 
-    protected $teamB;
+    protected $communityB;
 
     protected $pool1;
 
@@ -47,24 +46,21 @@ class UserAuthorizationScopeTest extends TestCase
             ->asAdmin()
             ->create();
 
-        $this->teamA = Team::factory()->create();
-
-        $this->teamB = Team::factory()->create();
+        $this->communityA = Community::factory()->create();
+        $this->communityB = Community::factory()->create();
 
         $this->pool1 = Pool::factory()
             ->for($this->platformAdmin)
             ->published()
             ->create([
-                // legacy_team
-                'team_id' => $this->teamA->id,
+                'community_id' => $this->communityA->id,
             ]);
 
         $this->pool2 = Pool::factory()
             ->for($this->platformAdmin)
             ->published()
             ->create([
-                // legacy_team
-                'team_id' => $this->teamB->id,
+                'community_id' => $this->communityB->id,
             ]);
 
         $this->user1 = User::factory()
@@ -90,15 +86,13 @@ class UserAuthorizationScopeTest extends TestCase
             ]);
     }
 
-    // no tests for scopeAuthorizedToViewSpecific since it is never directly used by the graphql schema
-
     // a guest should be able to view no users
     public function testViewAsGuest(): void
     {
         Auth::shouldReceive('user')
             ->andReturn(null);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([], $userIds->toArray());
     }
 
@@ -108,7 +102,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->user1);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->user1->id,
         ], $userIds->toArray());
@@ -120,7 +114,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->platformAdmin);
 
-        $userIds = User::authorizedToView()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->platformAdmin->id,
             $this->user1->id,
@@ -134,7 +128,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(null);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([], $userIds->toArray());
     }
 
@@ -144,7 +138,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->user1);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->user1->id,
         ], $userIds->toArray());
@@ -156,7 +150,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($this->platformAdmin);
 
-        $userIds = User::authorizedToViewBasicInfo()->get()->pluck('id');
+        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->platformAdmin->id,
             $this->user1->id,
@@ -175,7 +169,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($processOperator);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $processOperator->id,
@@ -198,7 +192,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($communityRecruiter);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $communityRecruiter->id,
@@ -221,7 +215,7 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($communityAdmin);
 
-        $userIds = User::authorizedToView()->get()->pluck('id')->toArray();
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $communityAdmin->id,

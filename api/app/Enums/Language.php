@@ -4,12 +4,22 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum Language: string
+enum Language
 {
     use HasLocalization;
 
-    case EN = 'en';
-    case FR = 'fr';
+    case EN;
+    case FR;
+
+    public function localeMatches(?string $locale)
+    {
+        return strcasecmp($this->name, $locale) == 0;
+    }
+
+    public function toLower()
+    {
+        return strtolower($this->name);
+    }
 
     public static function getLangFilename(): string
     {
