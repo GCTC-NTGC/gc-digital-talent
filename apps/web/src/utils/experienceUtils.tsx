@@ -1085,7 +1085,7 @@ export const experienceDurationMonths = (experience: AnyExperience): number => {
     // if missing start date, we can't do anything with it
     if (empty(experience.startDate)) {
       defaultLogger.warning(
-        "Tried to get the duration of an experience with not start date",
+        "Tried to get the duration of an experience with no start date",
       );
       return 0;
     }
