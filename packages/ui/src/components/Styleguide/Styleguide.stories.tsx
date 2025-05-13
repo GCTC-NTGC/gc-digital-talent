@@ -110,3 +110,51 @@ export const Default: StoryObj = {
     </div>
   ),
 };
+
+interface SwatchProps {
+  className: string;
+}
+
+const Swatch = ({ className }: SwatchProps) => (
+  <div className={`h-0 pb-[100%] gap-4 ${className}`} />
+);
+
+export const Tailwind: StoryObj = {
+  render: () => (
+    <div className="flex flex-col gap-5">
+      <div className="grid grid-cols-7 gap-4 min-w-full">
+        <Swatch className="bg-primary-100" />
+        <Swatch className="bg-primary-200" />
+        <Swatch className="bg-primary-300" />
+        <Swatch className="bg-primary-400" />
+        <Swatch className="bg-primary-500" />
+        <Swatch className="bg-primary-600" />
+        <Swatch className="bg-primary-700" />
+
+        <Swatch className="bg-secondary-100" />
+        <Swatch className="bg-secondary-200" />
+        <Swatch className="bg-secondary-300" />
+        <Swatch className="bg-secondary-400" />
+        <Swatch className="bg-secondary-500" />
+        <Swatch className="bg-secondary-600" />
+        <Swatch className="bg-secondary-700" />
+
+        <Swatch className="bg-gray-100" />
+        <Swatch className="bg-gray-200" />
+        <Swatch className="bg-gray-300" />
+        <Swatch className="bg-gray-400" />
+        <Swatch className="bg-gray-500" />
+        <Swatch className="bg-gray-600" />
+        <Swatch className="bg-gray-700" />
+      </div>
+      <div className="grid grid-cols-6 gap-4 min-w-full">
+        <Swatch className="inset-shadow" />
+        <Swatch className="shadow-sm" />
+        <Swatch className="shadow-md" />
+        <Swatch className="shadow-lg" />
+        <Swatch className="shadow-xl" />
+        <Swatch className="shadow-2xl" />
+      </div>
+    </div>
+  ),
+};
