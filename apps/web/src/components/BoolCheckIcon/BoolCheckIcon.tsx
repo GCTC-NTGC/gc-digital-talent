@@ -33,6 +33,7 @@ const BoolCheckIcon = ({
         data-h2-width="base(x.75)"
         data-h2-height="base(x.75)"
         data-h2-margin-top="base(x.15)"
+        data-h2-flex-shrink="base(0)"
         {...(value
           ? {
               "aria-label": trueLabel,
