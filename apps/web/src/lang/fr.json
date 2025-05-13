@@ -151,6 +151,10 @@
     "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "+fYyID": {
+    "defaultMessage": "{monthCount, plural, =1 {# mois} other {# mois}}",
+    "description": "A duration of a certain number of months"
+  },
   "+gnEgg": {
     "defaultMessage": "Trouvez une compétence et ajoutez-la à votre portfolio",
     "description": "Title for the find a skill dialog within the skill portfolio"
@@ -5375,6 +5379,10 @@
     "defaultMessage": "Supprimez le (la) candidat(e)",
     "description": "Title for action to remove a candidate imperative"
   },
+  "NWbotz": {
+    "defaultMessage": "{yearCount, plural, =1 {# an} other {# ans}}, {monthCount, plural, =1 {# mois} other {# mois}}",
+    "description": "A duration of a certain number of years and months"
+  },
   "NZ3laJ": {
     "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
     "description": "Message displayed to a user after signing out"
@@ -5710,6 +5718,10 @@
   "PN3PMn": {
     "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
     "description": "The directives digital talent and development component"
+  },
+  "PNTlS7": {
+    "defaultMessage": "Volets de travail sans expérience",
+    "description": "a description for a list of work streams with no experiences"
   },
   "PNWDpo": {
     "defaultMessage": "Modifier<hidden> {claim}</hidden>",
