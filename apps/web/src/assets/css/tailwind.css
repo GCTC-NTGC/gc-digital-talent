@@ -3,10 +3,16 @@
 
 /* Use .dark class for dark mode instead of auto based on media query */
 @custom-variant dark (&:where(.dark, .dark *));
-
+@custom-variant iap (&:where(.iap, .iap *));
 
 /**
-* Base theme configuration
+* Themeable variables
+*
+* These are variables that could swap out depending
+* on things like media queries, class names, etc.
+*
+* We need to prefix them with gcdt to avoid
+* collision with the variables in the actual config
 */
 :root {
   /* Colours */
@@ -68,8 +74,15 @@
   --gcdt-shadow-focus: 0 0 0 0.25rem #6492ff;
 }
 
+/**
+* Dark mode configuration
+*
+* Variables that need to swapped out automatically
+* when dark mode is enabled.
+*
+* NOTE: You can manually use a different variable with `dark:`
+*/
 .dark {
-  /** Dark mode colours */
   --gcdt-color-gray-100: oklch(0.29 0.025 268.38);
   --gcdt-color-gray-200: oklch(0.42 0.0362 270.42);
   --gcdt-color-gray-300: oklch(0.55 0.0435 270.51);
@@ -87,6 +100,9 @@
   --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .5);
 }
 
+/**
+* IAP specific configuration
+*/
 .iap {
   --gcdt-color-primary-100: oklch(0.86 0.0592 353.96);
   --gcdt-color-primary-200: oklch(0.74 0.1263 357.2);
@@ -105,8 +121,13 @@
   --gcdt-color-secondary-700: oklch(0.15 0.0382 275.88);
 }
 
-
+/**
+* Tailwind configuration
+*/
 @theme inline {
+  --font-sans: "Open Sans", "sans-serif";
+
+
   /** Colours */
   --color-*: initial;
 
