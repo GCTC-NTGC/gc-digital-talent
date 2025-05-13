@@ -25,4 +25,6 @@ return [
     'step' => 'Étape',
     'open_to_job_offers' => 'Ouvert(e) aux offres d\'emploi',
     'not_interested' => 'Non intéressé(e)',
+    'essential_skills' => 'Compétences essentielles',
+    'nonessential_skills' => 'Compétences constituant un atout',
 ];
