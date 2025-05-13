@@ -1,6 +1,4 @@
 import { useIntl } from "react-intl";
-import CheckCircleIcon from "@heroicons/react/16/solid/CheckCircleIcon";
-import XCircleIcon from "@heroicons/react/16/solid/XCircleIcon";
 
 import { Well } from "@gc-digital-talent/ui";
 import {
