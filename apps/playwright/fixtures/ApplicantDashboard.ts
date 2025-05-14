@@ -12,6 +12,15 @@ class ApplicantDashboard extends AppPage {
     super(page);
   }
 
+  async onApplicantDashboard() {
+    await this.page
+      .getByRole("heading", {
+        name: /welcome back to your applicant dashboard , jaime bilodeau/i, // TODO: Replace name with dynamic variable.
+        level: 1,
+      })
+      .isVisible();
+  }
+
   /** Links to other pages */
   async goToCreateCommunityInterest() {
     await this.page.getByRole("link", { name: /add a community/i }).click();
