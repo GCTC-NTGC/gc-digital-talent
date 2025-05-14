@@ -125,8 +125,14 @@
 * Tailwind configuration
 */
 @theme inline {
-  --font-sans: "Open Sans", "sans-serif";
+  /** Breakpoints */
+  --breakpoint-xs: 48rem;
+  --breakpoint-sm: 67.5rem;
+  --breakpoint-md: 80rem;
+  --breakpoint-lg: 100rem;
 
+  /** Fonts */
+  --font-sans: "Open Sans", "sans-serif";
 
   /** Colours */
   --color-*: initial;
@@ -193,4 +199,10 @@
   --shadow-lg: var(--gcdt-shadow-lg);
   --shadow-xl: var(--gcdt-shadow-xl);
   --shadow-2xl: var(--gcdt-shadow-2xl);
+}
+
+/** Increase base font scale */
+html {
+  font-size: 18px;
+  line-height: 1.5;
 }
