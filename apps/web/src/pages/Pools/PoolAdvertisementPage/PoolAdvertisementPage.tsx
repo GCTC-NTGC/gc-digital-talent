@@ -116,12 +116,12 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const gcDigitalTalentLink = (Locale: Locales, chunks: ReactNode) => (
+const gcDigitalTalentLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
     href={
-      Locale === "en"
+      locale === "en"
         ? "https://talent.canada.ca/en/register-info"
         : "https://talent.canada.ca/fr/register-info"
     }
@@ -138,20 +138,6 @@ const supportLink = (locale: Locales, chunks: ReactNode) => (
       locale === "en"
         ? "https://talent.canada.ca/en/support"
         : "https://talent.canada.ca/fr/support"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const guideToGCKeyAnd2FALink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    newTab
-    external
-    href={
-      locale === "en"
-        ? "https://talent.canada.ca/en/register-info"
-        : "https://talent.canada.ca/fr/register-info"
     }
   >
     {chunks}
@@ -1343,7 +1329,7 @@ export const PoolPoster = ({
                         },
                         {
                           link: (chunks: ReactNode) =>
-                            guideToGCKeyAnd2FALink(locale, chunks),
+                            gcDigitalTalentLink(locale, chunks),
                           use2FALink: (chunks: ReactNode) =>
                             howToUse2FALink(locale, chunks),
                         },
@@ -1377,7 +1363,7 @@ export const PoolPoster = ({
                             },
                             {
                               link: (chunks: ReactNode) =>
-                                guideToGCKeyAnd2FALink(locale, chunks),
+                                supportLink(locale, chunks),
                             },
                           )}
                         </li>
