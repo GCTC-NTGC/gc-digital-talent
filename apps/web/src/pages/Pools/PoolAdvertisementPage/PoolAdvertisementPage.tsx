@@ -116,6 +116,20 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const gcDigitalTalentLink = (Locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      Locale === "en"
+        ? "https://talent.canada.ca/en/register-info"
+        : "https://talent.canada.ca/fr/register-info"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const DeadlineDialogReturn = ({
   closingDate,
   closingReason,
@@ -284,6 +298,9 @@ const moreInfoAccordions = {
   accommodations: "accommodations",
   whatToExpectApply: "what-to-expect-apply",
   whatToExpectAdmission: "what-to-expect-admission",
+  earlyApplication: "early-application",
+  technicalIssues: "technical-issues",
+  signInOrUpIssues: "sign-in-or-up-issues",
 };
 
 const subTitle = defineMessage({
@@ -1114,6 +1131,53 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
+                <Accordion.Item value={moreInfoAccordions.earlyApplication}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "How early should I start my application?",
+                      id: "YqutpD",
+                      description:
+                        "Button text to toggle the accordion for early application",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don’t have an account yet, you'll need to <link>sign up for a GCkey</link> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
+                          id: "sblaNb",
+                          description:
+                            "Text explaining the importance of starting an application early",
+                        },
+                        {
+                          link: (chunks: ReactNode) =>
+                            gcDigitalTalentLink(locale, chunks),
+                        },
+                      )}
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we’ll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
+                          id: "HlZ1Z4",
+                          description:
+                            "Text explaining the average time spent on applications",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "Applying early also allows hiring managers to review your application sooner. They can begin assessing your application as soon as you submit it, even if the deadline hasn't passed yet.",
+                          id: "ay8mcT",
+                          description:
+                            "Text explaining the benefits of applying early",
+                        })}
+                      </Text>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({

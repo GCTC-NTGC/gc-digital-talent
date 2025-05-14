@@ -13368,5 +13368,21 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
+  },
+  "YqutpD": {
+    "defaultMessage": "À quel point dois-je commencer ma demande tôt?",
+    "description": "Button text to toggle the accordion for early application"
+  },
+  "sblaNb": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n’avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
+  },
+  "HlZ1Z4": {
+    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
+    "description": "Text explaining the average time spent on applications"
+  },
+  "ay8mcT": {
+    "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
+    "description": "Text explaining the benefits of applying early"
   }
 }
