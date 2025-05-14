@@ -2,14 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\TalentNomination;
-use App\Models\TalentNominationEvent;
 use App\Models\User;
 use App\Notifications\System as SystemNotification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 
-class BigSeederOther extends Seeder
+class BigSeederNotifications extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,13 +21,11 @@ class BigSeederOther extends Seeder
      */
     public function run()
     {
-        // constant values for reuse and setup
-        $nominationEventIds = TalentNominationEvent::query()
-            ->where('open_date', '<', now())
-            ->get()
-            ->pluck('id')
-            ->toArray();
+        $input = $this->command->ask('Please enter how many notifications to send every user');
+        $limit = intval($input);
+        $limit = (is_int($limit) && $limit > 0) ? $limit : 1;
 
+        // constant values for reuse and setup
         $viewGroup = 'notification_test';
         $notification = new SystemNotification(
             channelEmail: false,
@@ -45,27 +41,12 @@ class BigSeederOther extends Seeder
         );
 
         // Notification, send five to every user
-        User::chunk(200, function (Collection $users) use ($notification) {
+        User::chunk(200, function (Collection $users) use ($notification, $limit) {
             foreach ($users as $user) {
-                for ($i = 0; $i < 5; $i++) {
+                for ($i = 0; $i < $limit; $i++) {
                     $user->notify($notification);
                 }
             }
         });
-
-        // TalentNomination
-        for ($i = 0; $i < 1000; $i++) {
-
-            $nominator = User::query()->whereIsGovEmployee(true)->inRandomOrder()->first()->id;
-            $nominee = User::query()->whereIsGovEmployee(true)->inRandomOrder()->first()->id;
-
-            TalentNomination::factory()
-                ->submittedReviewAndSubmit()
-                ->create([
-                    'nominator_id' => $nominator,
-                    'nominee_id' => $nominee,
-                    'talent_nomination_event_id' => array_rand(array_flip($nominationEventIds)),
-                ]);
-        }
     }
 }
