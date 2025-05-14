@@ -27,4 +27,5 @@ return [
     'not_interested' => 'Non intéressé(e)',
     'essential_skills' => 'Compétences essentielles',
     'nonessential_skills' => 'Compétences constituant un atout',
+    'work_streams' => 'Volets de travail',
 ];
