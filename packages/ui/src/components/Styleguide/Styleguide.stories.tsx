@@ -136,7 +136,7 @@ export const Tailwind: StoryObj = {
     layout: "fullscreen",
   },
   render: () => (
-    <div className="max-width-xl mx-auto p-4">
+    <div className="mx-auto max-w-7xl p-4">
       <Heading level="h2" size="h4">
         Colours
       </Heading>
