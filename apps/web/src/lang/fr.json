@@ -13400,5 +13400,21 @@
   "4DfNUW": {
     "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
     "description": "Text explaining the average time spent on applications"
+  },
+  "w061Za": {
+    "defaultMessage": "Que dois-je faire si j’ai de la difficulté à m’inscrire ou à ouvrir une session?",
+    "description": "Button text to toggle the accordion for sign in or up issues"
+  },
+  "8hKK7v": {
+    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l’authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l’authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
+    "description": "Text explaining the importance of reporting technical issues"
+  },
+  "YzGpQQ": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à créer une CléGC, <link>communiquez avec l’équipe de CléGC</link>.",
+    "description": "Bullet point about contacting GCKey support"
+  },
+  "k1HxPf": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
+    "description": "Bullet point about contacting support for 2FA issues"
   }
 }

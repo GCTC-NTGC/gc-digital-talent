@@ -144,6 +144,48 @@ const supportLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const guideToGCKeyAnd2FALink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://talent.canada.ca/en/register-info"
+        : "https://talent.canada.ca/fr/register-info"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const howToUse2FALink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://talent.canada.ca/en/login-info"
+        : "https://talent.canada.ca/fr/login-info"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://clegc-gckey.gc.ca/j/eng/CU-01?ReqID=_6aded1242c125951e054"
+        : "https://clegc-gckey.gc.ca/j/fra/CU-01?ReqID=_6aded1242c125951e054"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const DeadlineDialogReturn = ({
   closingDate,
   closingReason,
@@ -1276,6 +1318,70 @@ export const PoolPoster = ({
                             "Text explaining the benefits of applying early",
                         })}
                       </Text>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                <Accordion.Item value={moreInfoAccordions.signInOrUpIssues}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What should I do if I have trouble signing up or signing in?",
+                      id: "w061Za",
+                      description:
+                        "Button text to toggle the accordion for sign in or up issues",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "We’ve set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
+                          id: "8hKK7v",
+                          description:
+                            "Text explaining the importance of reporting technical issues",
+                        },
+                        {
+                          link: (chunks: ReactNode) =>
+                            guideToGCKeyAnd2FALink(locale, chunks),
+                          use2FALink: (chunks: ReactNode) =>
+                            howToUse2FALink(locale, chunks),
+                        },
+                      )}
+                    </Text>
+                    <Text>
+                      <ul data-h2-margin="base(x.5, 0)">
+                        <li>
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "For trouble creating a GCKey, <link>contact the GCKey team</link>.",
+                              id: "YzGpQQ",
+                              description:
+                                "Bullet point about contacting GCKey support",
+                            },
+                            {
+                              link: (chunks: ReactNode) =>
+                                gocGCKeyLink(locale, chunks),
+                            },
+                          )}
+                        </li>
+                        <li>
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "For trouble setting up or logging in with two-factor authentication, <link>contact our support team</link>.",
+                              id: "k1HxPf",
+                              description:
+                                "Bullet point about contacting support for 2FA issues",
+                            },
+                            {
+                              link: (chunks: ReactNode) =>
+                                guideToGCKeyAnd2FALink(locale, chunks),
+                            },
+                          )}
+                        </li>
+                      </ul>
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
