@@ -1,6 +1,7 @@
 import { Classification } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { apiCache } from "./cache";
 
 const Test_ClassificationsQueryDocument = /* GraphQL */ `
   query Test_Classifications {
@@ -20,10 +21,18 @@ const Test_ClassificationsQueryDocument = /* GraphQL */ `
 export const getClassifications: GraphQLRequestFunc<Classification[]> = async (
   ctx,
 ) => {
-  return await ctx
-    .post(Test_ClassificationsQueryDocument)
-    .then(
-      (res: GraphQLResponse<"classifications", Classification[]>) =>
-        res.classifications,
-    );
+  let classifications = apiCache.get("classifications");
+  if (!classifications) {
+    classifications =
+      (await ctx
+        .post(Test_ClassificationsQueryDocument)
+        .then(
+          (res: GraphQLResponse<"classifications", Classification[]>) =>
+            res.classifications,
+        )) ?? [];
+
+    apiCache.set("classifications", classifications);
+  }
+
+  return classifications;
 };

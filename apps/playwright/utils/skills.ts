@@ -1,6 +1,7 @@
 import { Skill } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { apiCache } from "./cache";
 
 const Test_SkillsQueryDocument = /* GraphQL */ `
   query Skills {
@@ -28,7 +29,15 @@ const Test_SkillsQueryDocument = /* GraphQL */ `
  * Get all the skills directly from the API.
  */
 export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
-  return ctx
-    .post(Test_SkillsQueryDocument)
-    .then((res: GraphQLResponse<"skills", Skill[]>) => res.skills);
+  let skills = apiCache.get("skills");
+  if (!skills) {
+    skills =
+      (await ctx
+        .post(Test_SkillsQueryDocument)
+        .then((res: GraphQLResponse<"skills", Skill[]>) => res.skills)) ?? [];
+
+    apiCache.set("skills", skills);
+  }
+
+  return skills;
 };
