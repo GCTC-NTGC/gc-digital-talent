@@ -2,9 +2,15 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
+use App\Enums\PoolSkillType;
+use App\Models\AssessmentResult;
+use App\Models\AssessmentStep;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\PoolSkill;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,7 +22,7 @@ class BigSeederPoolCandidateUser extends Seeder
      * This seeds a lot of data
      * Run this AFTER core data has been seeded, this will not seed platform data
      *
-     * User/PoolCandidate/Pool/AssessmentResult(future)
+     * User/PoolCandidate/Pool/AssessmentResult
      *
      * @return void
      */
@@ -67,6 +73,37 @@ class BigSeederPoolCandidateUser extends Seeder
                 })
                 ->count(100)
                 ->create();
+        }
+
+        // AssessmentResult - Pool one
+        $poolOne = $poolIds[0];
+        $assessmentSteps = AssessmentStep::where('pool_id', $poolOne)->get();
+        $essentialPoolSkills = PoolSkill::where('pool_id', $poolOne)->where('type', PoolSkillType::ESSENTIAL->name)->get();
+        $poolOneCandidatesToFillResults = PoolCandidate::where('pool_id', $poolOne)
+            ->inRandomOrder()
+            ->take(100)
+            ->get();
+        foreach ($poolOneCandidatesToFillResults as $poolOneCandidatesToFillResult) {
+            foreach ($assessmentSteps as $assessmentStep) {
+                if ($assessmentStep->type === AssessmentStepType::APPLICATION_SCREENING->name) {
+                    AssessmentResult::factory()
+                        ->withResultType(AssessmentResultType::EDUCATION)
+                        ->create([
+                            'assessment_step_id' => $assessmentStep->id,
+                            'pool_candidate_id' => $poolOneCandidatesToFillResult->id,
+                        ]);
+                }
+
+                foreach ($essentialPoolSkills as $essentialPoolSkill) {
+                    AssessmentResult::factory()
+                        ->withResultType(AssessmentResultType::SKILL)
+                        ->create([
+                            'assessment_step_id' => $assessmentStep->id,
+                            'pool_candidate_id' => $poolOneCandidatesToFillResult->id,
+                            'pool_skill_id' => $essentialPoolSkill->id,
+                        ]);
+                }
+            }
         }
     }
 
