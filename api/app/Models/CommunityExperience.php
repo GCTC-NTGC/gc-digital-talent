@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ExperienceWithHydration;
 use App\Traits\ExperienceWithSkills;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Lang;
  */
 class CommunityExperience extends Model
 {
+    use ExperienceWithHydration;
     use ExperienceWithSkills;
     use HasFactory;
     use HasUuids;
@@ -41,7 +43,7 @@ class CommunityExperience extends Model
         'end_date' => 'date',
     ];
 
-    protected static $hydrationFields = [
+    public static $hydrationFields = [
         'title' => 'title',
         'organization' => 'organization',
         'project' => 'project',
