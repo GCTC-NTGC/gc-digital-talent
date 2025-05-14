@@ -22,6 +22,10 @@ class BigSeederPoolCandidateUser extends Seeder
      */
     public function run()
     {
+        $input = $this->command->ask('Please enter how many times to loop');
+        $limit = intval($input);
+        $limit = (is_int($limit) && $limit > 0) ? $limit : 1;
+
         // constant values for reuse and setup
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
@@ -37,7 +41,7 @@ class BigSeederPoolCandidateUser extends Seeder
         $poolIds = $pools->pluck('id')->toArray();
 
         // User - non-government
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < $limit; $i++) {
             User::factory()
                 ->asApplicant()
                 ->withSkillsAndExperiences()
@@ -49,7 +53,7 @@ class BigSeederPoolCandidateUser extends Seeder
         }
 
         // User - government
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < $limit; $i++) {
             User::factory()
                 ->asApplicant()
                 ->withSkillsAndExperiences()
