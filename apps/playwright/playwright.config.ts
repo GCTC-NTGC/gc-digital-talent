@@ -40,8 +40,13 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: "cache api",
+      testMatch: /global\.setup\.ts/,
+    },
+    {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      dependencies: ["cache api"],
     },
 
     // {
@@ -52,6 +57,7 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
+      dependencies: ["cache api"],
     },
 
     /* Test against mobile viewports. */
