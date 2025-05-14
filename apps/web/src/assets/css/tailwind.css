@@ -56,6 +56,14 @@
   --gcdt-color-error-600: oklch(0.39 0.1095 17.95);
   --gcdt-color-error-700: oklch(0.25 0.0621 18.26);
 
+  --gcdt-color-focus-100: oklch(0.91 0.0425 264.99);
+  --gcdt-color-focus-200: oklch(0.82 0.087268 265.1505);
+  --gcdt-color-focus-300: oklch(0.74 0.1333 263.66);
+  --gcdt-color-focus-400: oklch(0.68 0.1687 265.02);
+  --gcdt-color-focus-500: oklch(0.54 0.1427 262.9);
+  --gcdt-color-focus-600: oklch(0.4 0.1034 263.15);
+  --gcdt-color-focus-700: oklch(0.26 0.058 263.44);
+
   --gcdt-color-gray-100: oklch(0.91 0.0224 272.04);
   --gcdt-color-gray-200: oklch(0.83 0.0377 270.4);
   --gcdt-color-gray-300: oklch(0.75 0.046 271.17);
@@ -181,6 +189,15 @@
   --color-error-500: var(--gcdt-color-error-500);
   --color-error-600: var(--gcdt-color-error-600);
   --color-error-700: var(--gcdt-color-error-700);
+
+  --color-focus: var(--gcdt-color-focus-400);
+  --color-focus-100: var(--gcdt-color-focus-100);
+  --color-focus-200: var(--gcdt-color-focus-200);
+  --color-focus-300: var(--gcdt-color-focus-300);
+  --color-focus-400: var(--gcdt-color-focus-400);
+  --color-focus-500: var(--gcdt-color-focus-500);
+  --color-focus-600: var(--gcdt-color-focus-600);
+  --color-focus-700: var(--gcdt-color-focus-700);
 
   --color-gray: var(--gcdt-color-gray-400);
   --color-gray-100: var(--gcdt-color-gray-100);
