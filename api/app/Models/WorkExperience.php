@@ -111,6 +111,7 @@ class WorkExperience extends Experience
         'senior_management_status' => 'seniorManagementStatus',
         'c_suite_role_title' => 'cSuiteRoleTitle',
         'other_c_suite_role_title' => 'otherCSuiteRoleTitle',
+        'work_stream_ids' => 'workStreamIds',
     ];
 
     /**

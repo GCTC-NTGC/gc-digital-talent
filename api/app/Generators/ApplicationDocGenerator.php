@@ -58,6 +58,9 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 if (isset($experience['classification'])) {
                     $experience['classificationId'] = $experience['classification']['id'];
                 }
+                if (isset($experience['workStreams'])) {
+                    $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
+                }
             }
         }
         $experiences = Experience::hydrateSnapshot($snapshotExperiences);
