@@ -76,12 +76,12 @@
   --gcdt-color-white: oklch(1 0 0);
 
   /* Shadows */
-  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, .2);
-  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2);
-  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2);
-  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2);
-  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2);
-  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2);
+  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, 0.2);
   --gcdt-shadow-focus: 0 0 0 0.25rem #6492ff;
 }
 
@@ -103,12 +103,12 @@
   --gcdt-color-gray-700: oklch(0.91 0.0224 272.04);
 
   /** Dark mode shadows */
-  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, .5);
-  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, .5);
-  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .5);
-  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .5);
-  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5);
-  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .5);
+  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, 0.5);
 }
 
 /**
@@ -213,7 +213,6 @@
 
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
-
 
   /** Shadows */
   --inset-shadow: var(--gcdt-inset-shadow);
