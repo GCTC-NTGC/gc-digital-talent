@@ -13384,5 +13384,21 @@
   "ay8mcT": {
     "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
     "description": "Text explaining the benefits of applying early"
+  },
+  "8T/Szk": {
+    "defaultMessage": "Que dois-je faire si j’éprouve des problèmes techniques en remplissant ma demande?",
+    "description": "Button text to toggle the accordion for technical issues"
+  },
+  "oGNR16": {
+    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s’il se produit en dehors des heures normales de travail.",
+    "description": "Text explaining the importance of reporting technical issues"
+  },
+  "b9gGFH": {
+    "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
+    "description": "Text explaining the average time spent on applications"
+  },
+  "4DfNUW": {
+    "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
+    "description": "Text explaining the average time spent on applications"
   }
 }

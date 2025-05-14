@@ -130,6 +130,20 @@ const gcDigitalTalentLink = (Locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
+const supportLink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    newTab
+    external
+    href={
+      locale === "en"
+        ? "https://talent.canada.ca/en/support"
+        : "https://talent.canada.ca/fr/support"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
 const DeadlineDialogReturn = ({
   closingDate,
   closingReason,
@@ -1177,7 +1191,94 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
+                {showWhatToExpect && (
+                  <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage: "What should I expect after I apply?",
+                        id: "PDGUT2",
+                        description:
+                          "Button text to toggle the accordion for what to expect after you apply",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpect, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
 
+                {showWhatToExpectAdmission && (
+                  <Accordion.Item
+                    value={moreInfoAccordions.whatToExpectAdmission}
+                  >
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "What should I expect if I'm successful in the process?",
+                        id: "utlf9l",
+                        description:
+                          "Button text to toggle the accordion for what to expect after admission",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpectAdmission, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
+                <Accordion.Item value={moreInfoAccordions.technicalIssues}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What should I do if I experience technical issues while applying?",
+                      id: "8T/Szk",
+                      description:
+                        "Button text to toggle the accordion for technical issues",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "<link>Contact our support team</link> as soon as possible when you encounter a technical issue that could prevent you from applying. You can submit a ticket at any time to let us know about the difficulties you're experiencing. It's important to do this as soon as the issue arises so we can keep a record of when it happened, even if it's outside of business hours.",
+                          id: "oGNR16",
+                          description:
+                            "Text explaining the importance of reporting technical issues",
+                        },
+                        {
+                          link: (chunks: ReactNode) =>
+                            supportLink(locale, chunks),
+                        },
+                      )}
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "We review tickets during business hours. If you report an issue late at night, right before a job advertisement deadline, expect a response within 2 business days. To avoid last-minute issues, we encourage you to submit your application as early as possible.",
+                          id: "b9gGFH",
+                          description:
+                            "Text explaining the average time spent on applications",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If you submit your ticket after the application deadline has passed, we won't be able to assist you, and your application won't be accepted.",
+                          id: "4DfNUW",
+                          description:
+                            "Text explaining the benefits of applying early",
+                        })}
+                      </Text>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
@@ -1206,47 +1307,6 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
-                {showWhatToExpect && (
-                  <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
-                    <Accordion.Trigger as="h3">
-                      {intl.formatMessage({
-                        defaultMessage: "What should I expect after I apply?",
-                        id: "PDGUT2",
-                        description:
-                          "Button text to toggle the accordion for what to expect after you apply",
-                      })}
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                      <RichTextRenderer
-                        node={htmlToRichTextJSON(
-                          getLocalizedName(pool.whatToExpect, intl),
-                        )}
-                      />
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
-                {showWhatToExpectAdmission && (
-                  <Accordion.Item
-                    value={moreInfoAccordions.whatToExpectAdmission}
-                  >
-                    <Accordion.Trigger as="h3">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "What should I expect if I'm successful in the process?",
-                        id: "utlf9l",
-                        description:
-                          "Button text to toggle the accordion for what to expect after admission",
-                      })}
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                      <RichTextRenderer
-                        node={htmlToRichTextJSON(
-                          getLocalizedName(pool.whatToExpectAdmission, intl),
-                        )}
-                      />
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
               </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.startAnApplication.id}>
