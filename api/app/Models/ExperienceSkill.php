@@ -14,6 +14,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $experience_id
+ * @property string $experience_type
  * @property string $user_skill_id
  * @property string $details
  * @property \Illuminate\Support\Carbon $created_at
