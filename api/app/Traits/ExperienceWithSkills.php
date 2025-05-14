@@ -7,9 +7,12 @@ use App\Models\UserSkill;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 trait ExperienceWithSkills
 {
+    use HasRelationships;
+
     /** @return MorphToMany<UserSkill, $this> */
     public function userSkills(): MorphToMany
     {
