@@ -30,6 +30,7 @@
     "@formatjs/ts-transformer": "^3.13.34",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-designs": "^8.2.1",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-themes": "^8.6.12",
     "@storybook/builder-vite": "^8.6.12",
@@ -40,7 +41,7 @@
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "storybook": "^8.6.12",
-    "storybook-react-intl": "^4.0.1",
+    "storybook-react-intl": "^3.2.3",
     "tsconfig": "workspace:*"
   }
 }

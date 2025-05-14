@@ -6,6 +6,9 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import { ReactNode } from "react";
+import { parseISO } from "date-fns/parseISO";
+import { differenceInMonths } from "date-fns/differenceInMonths";
+import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
@@ -13,8 +16,10 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
+  EducationType,
   EmploymentCategory,
   GovPositionType,
+  graphql,
   Maybe,
   PersonalExperience,
   Skill,
@@ -26,7 +31,10 @@ import {
   nodeToString,
   uniqueItems,
   unpackMaybes,
+  assertUnreachable,
+  empty,
 } from "@gc-digital-talent/helpers";
+import { defaultLogger } from "@gc-digital-talent/logger";
 
 import {
   AllExperienceFormValues,
@@ -853,12 +861,22 @@ export const getExperienceName = (
   }
 
   if (isEducationExperience(experience)) {
-    const { areaOfStudy, institution } = experience;
+    const { type, areaOfStudy, institution } = experience;
+    const educationType =
+      type?.value === EducationType.Other
+        ? intl.formatMessage({
+            defaultMessage: "Other type of education",
+            id: "wrKBLf",
+            description:
+              "First part of education experience title for other type",
+          })
+        : type?.label.localized;
     return intl.formatMessage(
       html
         ? experienceMessages.educationAtHtml
         : experienceMessages.educationAt,
       {
+        educationType,
         areaOfStudy,
         institution,
       },
@@ -1060,3 +1078,279 @@ export const organizationSuggestionsFromExperiences = (
 
   return uniqueItems(organizationsForAutocompleteFiltered);
 };
+
+export const experienceDurationMonths = (experience: AnyExperience): number => {
+  if (experience.__typename == null || experience.__typename == undefined) {
+    return 0;
+  }
+  if (isAwardExperience(experience)) {
+    // award experiences don't have a date range
+    return 0;
+  }
+  if (
+    isCommunityExperience(experience) ||
+    isEducationExperience(experience) ||
+    isPersonalExperience(experience) ||
+    isWorkExperience(experience)
+  ) {
+    // if missing start date, we can't do anything with it
+    if (empty(experience.startDate)) {
+      defaultLogger.warning(
+        "Tried to get the duration of an experience with no start date",
+      );
+      return 0;
+    }
+
+    const startDate = parseISO(experience.startDate);
+    const endDate =
+      !empty(experience.endDate) && isPast(experience.endDate)
+        ? parseISO(experience.endDate)
+        : new Date().toLocaleDateString(); // if end date is unknown or in the future, calculate duration based on ending today
+
+    const completeMonths = differenceInMonths(endDate, startDate);
+    // add an extra month to account for the final, incomplete month
+    const ceilingMonths = completeMonths + 1;
+
+    return ceilingMonths;
+  }
+  assertUnreachable(experience);
+  return 0;
+};
+
+export const experiencesDurationMonths = (
+  experiences: AnyExperience[],
+): number =>
+  experiences
+    .map((experience) => experienceDurationMonths(experience))
+    .reduce((acc, months) => acc + months, 0);
+
+// this should be replaced in #12877 by a fragment that lives right in the card
+export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceCard on Experience {
+    id
+    __typename
+    details
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      awardedScope {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      id
+      role
+      organization
+      division
+      startDate
+      endDate
+      details
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
+      classification {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+        maxSalary
+        minSalary
+      }
+      department {
+        id
+        name {
+          en
+          fr
+        }
+        departmentNumber
+      }
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          key
+          name {
+            localized
+          }
+        }
+      }
+      skills {
+        id
+        key
+        category {
+          value
+          label {
+            localized
+          }
+        }
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+    }
+  }
+`);

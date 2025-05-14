@@ -47,6 +47,7 @@ const Trigger = forwardRef<
       onPointerLeave={(event) => event.preventDefault()}
       data-h2-text-decoration="base(underline)"
       data-h2-padding="base(0)"
+      data-h2-align-items="base(center)"
       data-h2-transform="
       base:children[.Accordion__Icon--chevron](rotate(0deg))
       base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(180deg))"
@@ -57,6 +58,7 @@ const Trigger = forwardRef<
       <ChevronDownIcon
         className="Accordion__Icon Accordion__Icon--chevron"
         data-h2-transition="base(transform 150ms ease)"
+        data-h2-display="base(inline)"
         data-h2-width="base(x.75)"
         data-h2-height="base(x.75)"
         data-h2-vertical-align="base(middle)"

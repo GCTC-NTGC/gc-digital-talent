@@ -49,12 +49,6 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
               key
               teamIdForRoleAssignment
             }
-            ... on Team {
-              displayName {
-                en
-                fr
-              }
-            }
           }
         }
       }
@@ -199,14 +193,6 @@ export const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
           id
           name
           isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        team {
-          id
-          name
           displayName {
             en
             fr

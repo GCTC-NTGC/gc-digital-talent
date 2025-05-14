@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 
 final class CountPoolCandidatesByPool
 {
@@ -39,42 +38,42 @@ final class CountPoolCandidatesByPool
         // Only display IT & OTHER publishing group candidates
         PoolCandidate::scopeInTalentSearchablePublishingGroup($queryBuilder);
 
-        $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
+        $queryBuilder->whereHas('user', function ($userQuery) use ($filters) {
             // user filters go here
 
             // hasDiploma
             if (array_key_exists('hasDiploma', $filters)) {
-                User::scopeHasDiploma($userQuery, $filters['hasDiploma']);
+                $userQuery->whereHasDiploma($filters['hasDiploma']);
             }
 
             // equity
             if (array_key_exists('equity', $filters)) {
-                User::scopeEquity($userQuery, $filters['equity']);
+                $userQuery->whereEquityIn($filters['equity']);
             }
 
             // languageAbility
             if (array_key_exists('languageAbility', $filters)) {
-                User::scopeLanguageAbility($userQuery, $filters['languageAbility']);
+                $userQuery->whereLanguageAbility($filters['languageAbility']);
             }
 
             // operationalRequirements
             if (array_key_exists('operationalRequirements', $filters)) {
-                User::scopeOperationalRequirements($userQuery, $filters['operationalRequirements']);
+                $userQuery->whereOperationalRequirementsIn($filters['operationalRequirements']);
             }
 
             // locationPreferences
             if (array_key_exists('locationPreferences', $filters)) {
-                User::scopeLocationPreferences($userQuery, $filters['locationPreferences']);
+                $userQuery->whereLocationPreferencesIn($filters['locationPreferences']);
             }
 
             // positionDuration
             if (array_key_exists('positionDuration', $filters)) {
-                User::scopePositionDuration($userQuery, $filters['positionDuration']);
+                $userQuery->wherePositionDurationIn($filters['positionDuration']);
             }
 
             // skills
             if (array_key_exists('skills', $filters)) {
-                User::scopeSkillsAdditive($userQuery, $filters['skills']);
+                $userQuery->whereSkillsAdditive($filters['skills']);
             }
         });
 

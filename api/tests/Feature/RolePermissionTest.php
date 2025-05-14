@@ -62,7 +62,6 @@ class RolePermissionTest extends TestCase
             'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
-            'view-any-team',
             'view-any-role',
             'view-any-community',
         ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
@@ -94,7 +93,6 @@ class RolePermissionTest extends TestCase
             'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
-            'view-any-team',
             'view-any-role',
             'view-any-community',
         ], true));
@@ -177,10 +175,6 @@ class RolePermissionTest extends TestCase
             'view-any-pool',
             'view-any-assessmentPlan',
             'create-any-application',
-            'view-any-teamMembers',
-            'create-any-team',
-            'update-any-team',
-            'delete-any-team',
             'assign-any-role',
             'view-any-submittedApplication',
             'view-any-applicationStatus',

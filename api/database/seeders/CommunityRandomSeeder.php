@@ -20,6 +20,7 @@ class CommunityRandomSeeder extends Seeder
 
         Community::factory()
             ->count(2)
+            ->withTalentNominationEvents()
             ->has(DevelopmentProgram::factory()
                 ->withEligibleClassifications()
                 ->count(3))

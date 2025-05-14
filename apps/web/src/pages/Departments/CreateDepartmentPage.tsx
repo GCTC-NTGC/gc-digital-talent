@@ -1,19 +1,26 @@
 import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Input, Submit } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
 import {
   graphql,
   CreateDepartmentInput,
   Scalars,
+  LocalizedStringInput,
+  DepartmentSize,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { Heading, Link, CardSeparator, CardBasic } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Link,
+  CardSeparator,
+  CardBasic,
+  Pending,
+} from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -21,13 +28,43 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import adminMessages from "~/messages/adminMessages";
 
-type FormValues = CreateDepartmentInput;
+import FormFields from "./FormFields";
+import { DepartmentType, departmentTypeToInput } from "./utils";
+
+interface FormValues {
+  name?: LocalizedStringInput;
+  departmentNumber: number;
+  orgIdentifier: number;
+  size: DepartmentSize;
+  departmentType: DepartmentType[];
+}
+
+export function formValuesToCreateInput({
+  departmentType,
+  size,
+  name,
+  departmentNumber,
+  orgIdentifier,
+}: FormValues): CreateDepartmentInput {
+  return {
+    name,
+    size,
+    departmentNumber: Number(departmentNumber),
+    orgIdentifier: Number(orgIdentifier),
+    ...departmentTypeToInput(departmentType),
+  };
+}
+
+const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
+  query CreateDepartmentOptions {
+    ...DepartmentFormOptions
+  }
+`);
 
 interface CreateDepartmentProps {
   handleCreateDepartment: (
-    data: FormValues,
+    data: CreateDepartmentInput,
   ) => Promise<Scalars["UUID"]["output"]>;
 }
 
@@ -37,14 +74,14 @@ export const CreateDepartmentForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [{ data, fetching, error }] = useQuery({
+    query: CreateDepartmentOptions_Query,
+  });
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateDepartment({
-      departmentNumber: Number(data.departmentNumber),
-      name: data.name,
-    })
+  const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
+    return handleCreateDepartment(formValuesToCreateInput(values))
       .then(async (id) => {
         await navigate(paths.departmentView(id));
         toast.success(
@@ -90,48 +127,9 @@ export const CreateDepartmentForm = ({
               })}
             </Heading>
           </div>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
-            <Input
-              id="name_en"
-              name="name.en"
-              autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameEn)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              autoComplete="off"
-              label={intl.formatMessage(adminMessages.nameFr)}
-              type="text"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-            <div data-h2-grid-column="p-tablet(span 2)">
-              <Input
-                id="departmentNumber"
-                name="departmentNumber"
-                label={intl.formatMessage({
-                  defaultMessage: "Department number",
-                  id: "66kU6k",
-                  description: "Label for department number",
-                })}
-                type="number"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                min="0"
-              />
-            </div>
-          </div>
+          <Pending fetching={fetching} error={error}>
+            <FormFields optionsQuery={data} />
+          </Pending>
           <CardSeparator />
           <div
             data-h2-display="base(flex)"

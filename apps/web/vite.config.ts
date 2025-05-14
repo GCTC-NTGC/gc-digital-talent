@@ -3,6 +3,7 @@ import childProcess from "child_process";
 
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
@@ -123,7 +124,6 @@ export default defineConfig(({ command }) => ({
     OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),
     OAUTH_POST_LOGOUT_REDIRECT_FR: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_FR"),
     OAUTH_LOGOUT_URI: getEnvVar("OAUTH_LOGOUT_URI"),
-    FEATURE_ADMIN_NOMINATION: getEnvVar("FEATURE_ADMIN_NOMINATION"),
     FEATURE_CREATE_NOMINATION: getEnvVar("FEATURE_CREATE_NOMINATION"),
     APPLICATIONINSIGHTS_CONNECTION_STRING: getEnvVar(
       "APPLICATIONINSIGHTS_CONNECTION_STRING",
@@ -137,6 +137,7 @@ export default defineConfig(({ command }) => ({
     }),
     gitVersionPlugin(),
     hydrogenPlugin(),
+    tailwindcss(),
     createHtmlPlugin({
       entry: "src/main.tsx",
       inject: {

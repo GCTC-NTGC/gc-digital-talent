@@ -12,14 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEqualsCanonicalizing;
+use function PHPUnit\Framework\assertNotContains;
 
 class PoolAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $team1;
+    protected $community1;
 
-    protected $team2;
+    protected $community2;
 
     protected $poolDraft1;
 
@@ -43,18 +44,18 @@ class PoolAuthorizationScopeTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->team1 = Team::factory()->create();
-        $this->team2 = Team::factory()->create();
+        $this->community1 = Community::factory()->create();
+        $this->community2 = Community::factory()->create();
 
-        $this->poolDraft1 = Pool::factory()->draft()->create(['team_id' => $this->team1->id]);
-        $this->poolPublished1 = Pool::factory()->published()->create(['team_id' => $this->team1->id]);
-        $this->poolClosed1 = Pool::factory()->closed()->create(['team_id' => $this->team1->id]);
-        $this->poolArchived1 = Pool::factory()->archived()->create(['team_id' => $this->team1->id]);
+        $this->poolDraft1 = Pool::factory()->draft()->create(['community_id' => $this->community1->id]);
+        $this->poolPublished1 = Pool::factory()->published()->create(['community_id' => $this->community1->id]);
+        $this->poolClosed1 = Pool::factory()->closed()->create(['community_id' => $this->community1->id]);
+        $this->poolArchived1 = Pool::factory()->archived()->create(['community_id' => $this->community1->id]);
 
-        $this->poolDraft2 = Pool::factory()->draft()->create(['team_id' => $this->team2->id]);
-        $this->poolPublished2 = Pool::factory()->published()->create(['team_id' => $this->team2->id]);
-        $this->poolClosed2 = Pool::factory()->closed()->create(['team_id' => $this->team2->id]);
-        $this->poolArchived2 = Pool::factory()->archived()->create(['team_id' => $this->team2->id]);
+        $this->poolDraft2 = Pool::factory()->draft()->create(['community_id' => $this->community2->id]);
+        $this->poolPublished2 = Pool::factory()->published()->create(['community_id' => $this->community2->id]);
+        $this->poolClosed2 = Pool::factory()->closed()->create(['community_id' => $this->community2->id]);
+        $this->poolArchived2 = Pool::factory()->archived()->create(['community_id' => $this->community2->id]);
     }
 
     // a guest should be able to admin no pools
@@ -168,7 +169,6 @@ class PoolAuthorizationScopeTest extends TestCase
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
         $additionalCommunityPool = Pool::factory()->draft()->create([
-            'team_id' => $this->team1->id,
             'community_id' => $community->id,
         ]);
 
@@ -178,6 +178,8 @@ class PoolAuthorizationScopeTest extends TestCase
                 ->create());
 
         $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertNotContains($additionalCommunityPool->id, $poolIds);
 
         assertEqualsCanonicalizing([
             $this->poolDraft1->id,
@@ -197,7 +199,6 @@ class PoolAuthorizationScopeTest extends TestCase
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
         $additionalCommunityPool = Pool::factory()->draft()->create([
-            'team_id' => $this->team1->id,
             'community_id' => $community->id,
         ]);
 
@@ -227,7 +228,6 @@ class PoolAuthorizationScopeTest extends TestCase
         $this->poolDraft1->community_id = $community->id;
         $this->poolDraft1->save();
         $additionalCommunityPool = Pool::factory()->draft()->create([
-            'team_id' => $this->team1->id,
             'community_id' => $community->id,
         ]);
 
