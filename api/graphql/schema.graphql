@@ -125,7 +125,7 @@ type User {
     @hasMany(scopes: ["whereAuthorizedToView"])
     @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] @belongsToMany # All experiences that a user owns
+  experiences: [Experience] # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
   communityExperiences: [CommunityExperience] @belongsToMany # Community experiences that a user owns
   educationExperiences: [EducationExperience] @belongsToMany # Education experiences that a user owns
