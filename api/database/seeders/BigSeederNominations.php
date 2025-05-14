@@ -15,7 +15,7 @@ class BigSeederNominations extends Seeder
      * This seeds a lot of data
      * Run this AFTER core data has been seeded, this will not seed platform data
      *
-     * Assorted tables
+     * TalentNomination
      *
      * @return void
      */
