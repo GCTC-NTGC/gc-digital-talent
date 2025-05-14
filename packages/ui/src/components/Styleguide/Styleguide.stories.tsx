@@ -232,6 +232,14 @@ export const Tailwind: StoryObj = {
         <Swatch className="bg-gray-700" />
       </Grid>
 
+      <Heading level="h3" size="h6">
+        Black/White
+      </Heading>
+      <Grid className="md:max-width-md grid-cols-7">
+        <Swatch className="bg-black" />
+        <Swatch className="bg-white" />
+      </Grid>
+
       <Heading level="h2" size="h4">
         Shadows
       </Heading>

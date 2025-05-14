@@ -72,6 +72,9 @@
   --gcdt-color-gray-600: oklch(0.42 0.0362 270.42);
   --gcdt-color-gray-700: oklch(0.29 0.025 268.38);
 
+  --gcdt-color-black: oklch(0.13 0.0078 268.54);
+  --gcdt-color-white: oklch(1 0 0);
+
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, .2);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2);
@@ -207,6 +210,9 @@
   --color-gray-500: var(--gcdt-color-gray-500);
   --color-gray-600: var(--gcdt-color-gray-600);
   --color-gray-700: var(--gcdt-color-gray-700);
+
+  --color-black: var(--gcdt-color-black);
+  --color-white: var(--gcdt-color-white);
 
 
   /** Shadows */
