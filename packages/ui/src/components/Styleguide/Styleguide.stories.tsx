@@ -128,7 +128,7 @@ interface SwatchProps {
 }
 
 const Swatch = ({ className }: SwatchProps) => (
-  <div className={`h-0 pb-[100%] gap-4 ${className}`} />
+  <div className={`h-0 gap-4 pb-[100%] ${className}`} />
 );
 
 export const Tailwind: StoryObj = {
@@ -144,7 +144,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Primary
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-primary-100" />
         <Swatch className="bg-primary-200" />
         <Swatch className="bg-primary-300" />
@@ -157,7 +157,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Secondary
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-secondary-100" />
         <Swatch className="bg-secondary-200" />
         <Swatch className="bg-secondary-300" />
@@ -170,7 +170,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Success
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-success-100" />
         <Swatch className="bg-success-200" />
         <Swatch className="bg-success-300" />
@@ -183,7 +183,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Warning
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-warning-100" />
         <Swatch className="bg-warning-200" />
         <Swatch className="bg-warning-300" />
@@ -196,7 +196,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Error
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-error-100" />
         <Swatch className="bg-error-200" />
         <Swatch className="bg-error-300" />
@@ -209,7 +209,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Focus
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-focus-100" />
         <Swatch className="bg-focus-200" />
         <Swatch className="bg-focus-300" />
@@ -222,7 +222,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h3" size="h6">
         Gray
       </Heading>
-      <Grid className="grid-cols-7 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-7">
         <Swatch className="bg-gray-100" />
         <Swatch className="bg-gray-200" />
         <Swatch className="bg-gray-300" />
@@ -235,7 +235,7 @@ export const Tailwind: StoryObj = {
       <Heading level="h2" size="h4">
         Shadows
       </Heading>
-      <Grid className="grid-cols-6 md:max-width-md">
+      <Grid className="md:max-width-md grid-cols-6">
         <Swatch className="inset-shadow" />
         <Swatch className="shadow-sm" />
         <Swatch className="shadow-md" />
