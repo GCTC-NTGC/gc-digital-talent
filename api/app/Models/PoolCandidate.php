@@ -261,13 +261,14 @@ class PoolCandidate extends Model
 
     public function getEducationRequirementExperiencesAttribute()
     {
-        return collect(
-            $this->educationRequirementAwardExperiences,
-            $this->educationRequirementCommunityExperiences,
-            $this->educationRequirementEducationExperiences,
-            $this->educationRequirementPersonalExperiences,
-            $this->educationRequirementWorkExperiences,
-        )->flatten();
+        $collection = collect();
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
+
+        return $collection;
     }
 
     public function getCategoryAttribute()

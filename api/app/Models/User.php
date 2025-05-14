@@ -312,13 +312,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getExperiencesAttribute()
     {
-        return collect(
-            $this->awardExperiences,
-            $this->communityExperiences,
-            $this->educationExperiences,
-            $this->personalExperiences,
-            $this->workExperiences,
-        )->flatten();
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+
+        return $collection;
     }
 
     /** @return HasMany<RoleAssignment, $this> */
