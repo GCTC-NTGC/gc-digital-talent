@@ -48,7 +48,6 @@ export class SimpleCache<Types extends Record<string, unknown>> {
     this.cache.forEach((value, key) => {
       obj[key] = value;
     });
-    console.log(obj);
     try {
       fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(obj, null, 2));
     } catch (error) {
