@@ -37,24 +37,20 @@ class BigSeederPoolCandidateUser extends Seeder
         $poolIds = $pools->pluck('id')->toArray();
 
         // User - non-government
-        for ($i = 0; $i < 1000; $i++) {
-            $userNonGov = User::factory()
+        for ($i = 0; $i < 10; $i++) {
+            User::factory()
                 ->asApplicant()
                 ->withSkillsAndExperiences()
+                ->afterCreating(function (User $user) use ($poolIds) {
+                    $this->applyToPools($user, $poolIds);
+                })
+                ->count(100)
                 ->create();
-            foreach ($poolIds as $poolId) {
-                PoolCandidate::factory()
-                    ->withSnapshot()
-                    ->create([
-                        'user_id' => $userNonGov->id,
-                        'pool_id' => $poolId,
-                    ]);
-            }
         }
 
         // User - government
-        for ($i = 0; $i < 1000; $i++) {
-            $userGov = User::factory()
+        for ($i = 0; $i < 10; $i++) {
+            User::factory()
                 ->asApplicant()
                 ->withSkillsAndExperiences()
                 ->asGovEmployee()
@@ -62,16 +58,23 @@ class BigSeederPoolCandidateUser extends Seeder
                 ->withCommunityInterests([
                     array_rand(array_flip([$digitalCommunityId, $atipCommunityId, $financeCommunityId])),
                 ])
+                ->afterCreating(function (User $user) use ($poolIds) {
+                    $this->applyToPools($user, $poolIds);
+                })
+                ->count(100)
                 ->create();
+        }
+    }
 
-            foreach ($poolIds as $poolId) {
-                PoolCandidate::factory()
-                    ->withSnapshot()
-                    ->create([
-                        'user_id' => $userGov->id,
-                        'pool_id' => $poolId,
-                    ]);
-            }
+    private function applyToPools(User $user, array $poolIds)
+    {
+        foreach ($poolIds as $poolId) {
+            PoolCandidate::factory()
+                ->withSnapshot()
+                ->create([
+                    'user_id' => $user->id,
+                    'pool_id' => $poolId,
+                ]);
         }
     }
 }
