@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ExperienceWithHydration;
 use App\Traits\ExperienceWithSkills;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class AwardExperience extends Model
 {
+    use ExperienceWithHydration;
     use ExperienceWithSkills;
     use HasFactory;
     use HasUuids;
@@ -39,7 +41,7 @@ class AwardExperience extends Model
         'awarded_date' => 'date',
     ];
 
-    protected static $hydrationFields = [
+    public static $hydrationFields = [
         'title' => 'title',
         'issued_by' => 'issuedBy',
         'awarded_date' => 'awardedDate',
