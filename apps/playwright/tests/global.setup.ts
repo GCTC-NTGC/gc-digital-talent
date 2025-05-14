@@ -10,7 +10,7 @@ import { getSkills } from "~/utils/skills";
 
 setup("Cache API", async ({}) => {
   const adminCtx = await graphql.newContext();
-
+  apiCache.clear();
   apiCache.set("classifications", await getClassifications(adminCtx, {}));
   apiCache.set("communities", await getCommunities(adminCtx, {}));
   apiCache.set("departments", await getDepartments(adminCtx, {}));
