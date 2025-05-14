@@ -7,6 +7,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\GovEmployeeType;
 use App\Events\WorkExperienceSaved;
 use App\Notifications\System as SystemNotification;
+use App\Traits\ExperienceWithHydration;
 use App\Traits\ExperienceWithSkills;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -56,6 +57,7 @@ use Illuminate\Support\Facades\Log;
  */
 class WorkExperience extends Model
 {
+    use ExperienceWithHydration;
     use ExperienceWithSkills;
     use HasFactory;
     use HasUuids;
@@ -85,7 +87,7 @@ class WorkExperience extends Model
         'senior_management_status' => 'boolean',
     ];
 
-    protected static $hydrationFields = [
+    public static $hydrationFields = [
         'organization' => 'organization',
         'role' => 'role',
         'division' => 'division',
