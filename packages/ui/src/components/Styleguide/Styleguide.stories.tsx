@@ -276,24 +276,25 @@ export const Tailwind: StoryObj = {
       </Grid>
 
       <Heading level="h2" size="h4">
-       Hover, focus, etc.
+        Hover, focus, etc.
       </Heading>
 
-      <button className="rounded py-2 px-4 outline-none bg-primary transition duration-100 ease-in-out hover:bg-secondary focus-visible:bg-focus focus-visible:ring-4 focus-visible:ring-focus/60">Focus me</button>
+      <button className="rounded bg-primary px-4 py-2 transition duration-100 ease-in-out outline-none hover:bg-secondary focus-visible:bg-focus focus-visible:ring-4 focus-visible:ring-focus/60">
+        Focus me
+      </button>
 
       <Heading level="h2" size="h4">
         Child selectors
       </Heading>
 
       <Grid className="grid-cols-2">
-        <div className="p-3 bg-gray-700 has-[button]:bg-gray-100 text-gray-100 has-[button]:text-gray-700">
+        <div className="bg-gray-700 p-3 text-gray-100 has-[button]:bg-gray-100 has-[button]:text-gray-700">
           <p>No button</p>
         </div>
-        <div className="p-3 bg-gray-700 has-[button]:bg-gray-100 text-gray-100 has-[button]:text-gray-700">
+        <div className="bg-gray-700 p-3 text-gray-100 has-[button]:bg-gray-100 has-[button]:text-gray-700">
           <button>Button</button>
         </div>
       </Grid>
-
     </div>
   ),
 };
