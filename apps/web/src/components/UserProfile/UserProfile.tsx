@@ -154,7 +154,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             </TableOfContents.Heading>
             <ExperienceSection
               headingLevel={contentHeadingLevel}
-              experiences={experiences?.filter(notEmpty)}
+              experiencesQuery={experiences?.filter(notEmpty)}
             />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.SKILL_SHOWCASE}>

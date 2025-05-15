@@ -16,11 +16,13 @@ import {
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   EmploymentCategory,
+  FragmentType,
+  getFragment,
+  graphql,
   Skill,
   WorkExperienceGovEmployeeType,
 } from "@gc-digital-talent/graphql";
 
-import { AnyExperience } from "~/types/experience";
 import {
   getExperienceFormLabels,
   isAwardExperience,
@@ -42,10 +44,239 @@ import WorkStreamContent from "./WorkContent/WorkStreamsContent";
 
 type EditMode = "link" | "dialog";
 
+export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceCard on Experience {
+    id
+    details
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      awardedScope {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      id
+      role
+      organization
+      division
+      startDate
+      endDate
+      details
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extSizeOfOrganization {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      extRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govPositionType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorRoleSeniority {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      govContractorType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      contractorFirmAgencyName
+      cafEmploymentType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      cafRank {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      supervisoryPosition
+      supervisedEmployees
+      supervisedEmployeesNumber
+      budgetManagement
+      annualBudgetAllocation
+      seniorManagementStatus
+      cSuiteRoleTitle {
+        value
+        label {
+          localized
+        }
+      }
+      otherCSuiteRoleTitle
+      classification {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+        maxSalary
+        minSalary
+      }
+      department {
+        id
+        name {
+          en
+          fr
+        }
+        departmentNumber
+      }
+      workStreams {
+        id
+        key
+        name {
+          localized
+        }
+        community {
+          id
+          key
+          name {
+            localized
+          }
+        }
+      }
+      skills {
+        id
+        key
+        category {
+          value
+          label {
+            localized
+          }
+        }
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+    }
+  }
+`);
+
 interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
-  experience: AnyExperience;
+  experienceQuery: FragmentType<typeof ExperienceCard_Fragment>;
   headingLevel?: HeadingRank;
   showSkills?: boolean | Skill | Skill[];
   showEdit?: boolean;
@@ -65,7 +296,7 @@ interface ExperienceCardProps {
 
 const ExperienceCard = ({
   id,
-  experience,
+  experienceQuery,
   editParam,
   editPath: editPathProp,
   editMode = "link",
@@ -86,6 +317,7 @@ const ExperienceCard = ({
     defaultValue: false,
     onChange: onOpenChange,
   });
+  const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const experienceLabels = getExperienceFormLabels(intl);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
@@ -100,7 +332,7 @@ const ExperienceCard = ({
   const singleSkill =
     !isBoolean(showSkills) && !Array.isArray(showSkills) && "id" in showSkills
       ? experience.skills?.find((skill) => skill.id === showSkills.id)
-      : false;
+      : null;
 
   const skillCount = skills?.length;
 
@@ -239,7 +471,7 @@ const ExperienceCard = ({
           </>
         )}
       </p>
-      {singleSkill && singleSkill.experienceSkillRecord?.details && (
+      {singleSkill?.experienceSkillRecord?.details && (
         <>
           <Heading
             level={contentHeadingLevel}

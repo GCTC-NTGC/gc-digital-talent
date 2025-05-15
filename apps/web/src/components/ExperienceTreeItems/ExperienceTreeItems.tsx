@@ -1,13 +1,27 @@
 import { TreeView } from "@gc-digital-talent/ui";
-import { Experience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
+export const ExperienceTreeItems_Fragment = graphql(/** GraphQL */ `
+  fragment ExperienceTreeItems on Experience {
+    id
+    ...ExperienceCard
+  }
+`);
+
 interface ExperienceTreeItemsProps {
-  experiences: Omit<Experience, "user">[];
+  experiencesQuery: FragmentType<typeof ExperienceTreeItems_Fragment>[];
 }
 
-const ExperienceTreeItems = ({ experiences }: ExperienceTreeItemsProps) => {
+const ExperienceTreeItems = ({
+  experiencesQuery,
+}: ExperienceTreeItemsProps) => {
+  const experiences = getFragment(
+    ExperienceTreeItems_Fragment,
+    experiencesQuery,
+  );
+
   return (
     <>
       {experiences.length
@@ -15,7 +29,7 @@ const ExperienceTreeItems = ({ experiences }: ExperienceTreeItemsProps) => {
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 key={experience.id}
-                experience={experience}
+                experienceQuery={experience}
                 headingLevel="h3"
                 showSkills={false}
                 showEdit={false}

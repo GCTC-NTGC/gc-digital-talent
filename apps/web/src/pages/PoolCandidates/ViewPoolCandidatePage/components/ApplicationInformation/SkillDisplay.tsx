@@ -1,17 +1,26 @@
 import { useIntl } from "react-intl";
 
-import { Experience, Skill } from "@gc-digital-talent/graphql";
+import {
+  Experience,
+  FragmentType,
+  getFragment,
+  Skill,
+  graphql,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 import { Heading, ScrollToLink, Separator, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { getExperienceName } from "~/utils/experienceUtils";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import { getExperienceName, SnapshotExperience } from "~/utils/experienceUtils";
+import ExperienceCard, {
+  ExperienceCard_Fragment,
+} from "~/components/ExperienceCard/ExperienceCard";
 import { getExperienceSkills } from "~/utils/skillUtils";
 
 interface SkillExperiencesProps {
   skill: Skill;
-  experiences: Omit<Experience, "user">[];
+  experiences: SnapshotExperience[];
 }
 
 const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
@@ -40,7 +49,13 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
             <ExperienceCard
               id={`skill-${skill.id}-experience-${experience.id}`}
               key={experience.id}
-              experience={experience}
+              experienceQuery={makeFragmentData(
+                {
+                  ...experience,
+                  __typename: experience.__typename ?? "AwardExperience",
+                },
+                ExperienceCard_Fragment,
+              )}
               headingLevel="h5"
               showEdit={false}
               showSkills={skill}
@@ -95,7 +110,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
 
 interface SkillDisplayProps {
   skills: Skill[];
-  experiences: Omit<Experience, "user">[];
+  experiences: SnapshotExperience[];
 }
 
 const SkillDisplay = ({ skills, experiences }: SkillDisplayProps) => {

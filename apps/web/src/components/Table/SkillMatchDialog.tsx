@@ -3,188 +3,16 @@ import { IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Maybe, Skill, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SkillTree from "~/components/SkillTree/SkillTree";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const SkillMatchDialog_Query = graphql(/* GraphQL */ `
   query SkillMatchDialog_Query($id: UUID!) {
     user(id: $id) {
       experiences {
-        id
-        __typename
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          awardedScope {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-          employmentCategory {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          extSizeOfOrganization {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          extRoleSeniority {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          govEmploymentType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          govPositionType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          govContractorRoleSeniority {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          govContractorType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          contractorFirmAgencyName
-          cafEmploymentType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          cafForce {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          cafRank {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          classification {
-            id
-            group
-            level
-          }
-          department {
-            id
-            departmentNumber
-            name {
-              en
-              fr
-            }
-          }
-        }
+        ...SkillTreeExperience
       }
     }
   }
@@ -207,7 +35,6 @@ const SkillMatchDialogBody = ({
       id: userId,
     },
   });
-  const experiences = data?.user?.experiences?.filter(notEmpty) ?? [];
 
   return (
     <Pending fetching={fetching} error={error} inline>
@@ -216,7 +43,7 @@ const SkillMatchDialogBody = ({
           key={skill.id}
           headingAs="h3"
           skill={skill}
-          experiences={experiences}
+          experiencesQuery={unpackMaybes(data?.user?.experiences)}
           showDisclaimer
           disclaimerMessage={intl.formatMessage({
             defaultMessage: "There are no experiences attached to this skill",

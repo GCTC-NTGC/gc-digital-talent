@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,17 +8,10 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
-import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  compareByDate,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
+import { compareByDate } from "~/utils/experienceUtils";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import experienceMessages from "~/messages/experienceMessages";
 import { invertSkillExperienceTree } from "~/utils/skillUtils";
@@ -28,81 +20,63 @@ import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
+const ProfileExperiencesSectionExpererience_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileExperiencesSectionExperience on Experience {
+    id
+    ...ExperienceCard
+    ...ExperienceByTypeListingExperience
+  }
+`);
+
 interface ExperienceSectionProps {
-  experiences?: Omit<Experience, "user">[];
+  experiencesQuery?: FragmentType<
+    typeof ProfileExperiencesSectionExpererience_Fragment
+  >[];
   editParam?: string;
   headingLevel?: HeadingRank;
 }
 
 const ExperienceSection = ({
-  experiences,
+  experiencesQuery,
   editParam,
   headingLevel = "h3",
 }: ExperienceSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  const awardExperiences = useMemo(
-    () =>
-      experiences
-        ?.filter(isAwardExperience)
-        .map(
-          (award: Omit<AwardExperience, "user">) =>
-            ({
-              ...award,
-              startDate: award.awardedDate,
-              endDate: award.awardedDate,
-            }) as AwardExperience & { startDate: string; endDate: string },
-        )
-        .sort(compareByDate) ?? [],
-    [experiences],
+  const experiences = getFragment(
+    ProfileExperiencesSectionExpererience_Fragment,
+    unpackMaybes(experiencesQuery),
   );
 
-  const communityExperiences = useMemo(
-    () => experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [],
-    [experiences],
-  );
+  const awardExperiences = experiences
+    ?.filter((e) => e.__typename === "AwardExperience")
+    .sort(compareByDate);
+  const communityExperiences = experiences
+    ?.filter((e) => e.__typename === "CommunityExperience")
+    .sort(compareByDate);
+  const educationExperiences = experiences
+    ?.filter((e) => e.__typename === "EducationExperience")
+    .sort(compareByDate);
+  const personalExperiences = experiences
+    ?.filter((e) => e.__typename === "PersonalExperience")
+    .sort(compareByDate);
+  const workExperiences = experiences
+    ?.filter((e) => e.__typename === "WorkExperience")
+    .sort(compareByDate);
 
-  const educationExperiences = useMemo(
-    () => experiences?.filter(isEducationExperience).sort(compareByDate) ?? [],
-    [experiences],
-  );
-
-  const personalExperiences = useMemo(
-    () => experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [],
-    [experiences],
-  );
-
-  const workExperiences = useMemo(
-    () => experiences?.filter(isWorkExperience).sort(compareByDate) ?? [],
-    [experiences],
-  );
-
-  const allExperiences = useMemo(
-    () => [
-      ...awardExperiences,
-      ...communityExperiences,
-      ...educationExperiences,
-      ...personalExperiences,
-      ...workExperiences,
-    ],
-    [
-      awardExperiences,
-      communityExperiences,
-      educationExperiences,
-      personalExperiences,
-      workExperiences,
-    ],
-  );
+  const allExperiences = [
+    ...awardExperiences,
+    ...communityExperiences,
+    ...educationExperiences,
+    ...personalExperiences,
+    ...workExperiences,
+  ];
 
   const sortedByDate = allExperiences.sort(compareByDate);
   const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
     useControlledCollapsibleGroup(sortedByDate.map(({ id }) => id));
 
-  const allSkills = useMemo(
-    () => invertSkillExperienceTree(allExperiences),
-    [allExperiences],
-  );
+  const allSkills = invertSkillExperienceTree(allExperiences);
   const skillIds = allSkills.map(({ id }) => id);
   const sortedBySkills = allSkills
     .filter(({ id }, index) => !skillIds.includes(id, index + 1)) //  Remove duplicate skills
@@ -164,7 +138,7 @@ const ExperienceSection = ({
               key={experience.id}
               onOpenChange={() => toggleExpandedItem(experience.id)}
               isOpen={isExpanded(experience.id)}
-              experience={experience}
+              experienceQuery={experience}
               showEdit={false}
               editParam={editParam}
             />
@@ -174,7 +148,7 @@ const ExperienceSection = ({
       <Tabs.Content value="1">
         <ExperienceByTypeListing
           headingLevel={headingLevel}
-          experiences={experiences}
+          experiencesQuery={experiences}
           editParam={editParam}
         />
       </Tabs.Content>
