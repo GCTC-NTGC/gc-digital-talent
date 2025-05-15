@@ -1339,6 +1339,10 @@
     "defaultMessage": "Le Fonds offre trois types de formations aux membres du personnel des TI.",
     "description": "First paragraph describing learning opportunities"
   },
+  "4DfNUW": {
+    "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
+    "description": "Text explaining the average time spent on applications"
+  },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the update a skill form description (French) field."
@@ -2199,6 +2203,10 @@
     "defaultMessage": "Enregistrez les commentaires",
     "description": "Label for saving comments"
   },
+  "8T/Szk": {
+    "defaultMessage": "Que dois-je faire si j’éprouve des problèmes techniques en remplissant ma demande?",
+    "description": "Button text to toggle the accordion for technical issues"
+  },
   "8TyO/X": {
     "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
     "description": "Reminder what screening questions are used for."
@@ -2246,6 +2254,10 @@
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
+  },
+  "8hKK7v": {
+    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l’authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l’authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
+    "description": "Text explaining the importance of reporting technical issues"
   },
   "8hnMtx": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
@@ -4150,6 +4162,10 @@
   "HkFHt6": {
     "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} =1 {1 personne candidate} other {# personnes candidates}}",
     "description": "Count of nominees"
+  },
+  "HlZ1Z4": {
+    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
+    "description": "Text explaining the average time spent on applications"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -7702,6 +7718,10 @@
     "defaultMessage": "Vous n’avez pas encore d’expérience de parcours professionnel.",
     "description": "Null state messages for career timeline list"
   },
+  "YqutpD": {
+    "defaultMessage": "À quel point dois-je commencer ma demande tôt?",
+    "description": "Button text to toggle the accordion for early application"
+  },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
@@ -7729,6 +7749,10 @@
   "YyHN1i": {
     "defaultMessage": "N'importe quelle langue (français ou anglais)",
     "description": "No preference for language ability - will accept English or French"
+  },
+  "YzGpQQ": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à créer une CléGC, <link>communiquez avec l’équipe de CléGC</link>.",
+    "description": "Bullet point about contacting GCKey support"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -8098,6 +8122,10 @@
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
   },
+  "ay8mcT": {
+    "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
+    "description": "Text explaining the benefits of applying early"
+  },
   "az8apB": {
     "defaultMessage": "Niveau",
     "description": "Label for a classification level input"
@@ -8117,6 +8145,10 @@
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
+  },
+  "b9gGFH": {
+    "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
+    "description": "Text explaining the average time spent on applications"
   },
   "bBIZ3a": {
     "defaultMessage": "Recherchez vos compétences",
@@ -10157,6 +10189,10 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
   },
+  "k1HxPf": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
+    "description": "Bullet point about contacting support for 2FA issues"
+  },
   "k1uZ7o": {
     "defaultMessage": "Une cote de fiabilité valide",
     "description": "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -11049,6 +11085,10 @@
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
+  "oGNR16": {
+    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s’il se produit en dehors des heures normales de travail.",
+    "description": "Text explaining the importance of reporting technical issues"
+  },
   "oHIWzo": {
     "defaultMessage": "Postes en anglais uniquement",
     "description": "Label for language for english field"
@@ -11865,6 +11905,10 @@
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
   },
+  "sblaNb": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n’avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
+  },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
     "description": "Link text for the application welcome page"
@@ -12500,6 +12544,10 @@
   "w/qZsH": {
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
+  },
+  "w061Za": {
+    "defaultMessage": "Que dois-je faire si j’ai de la difficulté à m’inscrire ou à ouvrir une session?",
+    "description": "Button text to toggle the accordion for sign in or up issues"
   },
   "w0IA+c": {
     "defaultMessage": "Ajouter des notes",
@@ -13368,53 +13416,5 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
-  },
-  "YqutpD": {
-    "defaultMessage": "À quel point dois-je commencer ma demande tôt?",
-    "description": "Button text to toggle the accordion for early application"
-  },
-  "sblaNb": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n’avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
-  },
-  "HlZ1Z4": {
-    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
-    "description": "Text explaining the average time spent on applications"
-  },
-  "ay8mcT": {
-    "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
-    "description": "Text explaining the benefits of applying early"
-  },
-  "8T/Szk": {
-    "defaultMessage": "Que dois-je faire si j’éprouve des problèmes techniques en remplissant ma demande?",
-    "description": "Button text to toggle the accordion for technical issues"
-  },
-  "oGNR16": {
-    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s’il se produit en dehors des heures normales de travail.",
-    "description": "Text explaining the importance of reporting technical issues"
-  },
-  "b9gGFH": {
-    "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
-    "description": "Text explaining the average time spent on applications"
-  },
-  "4DfNUW": {
-    "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
-    "description": "Text explaining the average time spent on applications"
-  },
-  "w061Za": {
-    "defaultMessage": "Que dois-je faire si j’ai de la difficulté à m’inscrire ou à ouvrir une session?",
-    "description": "Button text to toggle the accordion for sign in or up issues"
-  },
-  "8hKK7v": {
-    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l’authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l’authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
-    "description": "Text explaining the importance of reporting technical issues"
-  },
-  "YzGpQQ": {
-    "defaultMessage": "Si vous éprouvez de la difficulté à créer une CléGC, <link>communiquez avec l’équipe de CléGC</link>.",
-    "description": "Bullet point about contacting GCKey support"
-  },
-  "k1HxPf": {
-    "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
-    "description": "Bullet point about contacting support for 2FA issues"
   }
 }
