@@ -45,7 +45,7 @@
     "urql": "^4.2.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.7.0",
+    "@faker-js/faker": "^9.8.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",

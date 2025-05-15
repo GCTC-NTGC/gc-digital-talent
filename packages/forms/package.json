@@ -38,7 +38,7 @@
     "motion": "^12.10.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.7.0",
+    "@faker-js/faker": "^9.8.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
