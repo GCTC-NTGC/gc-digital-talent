@@ -81,6 +81,7 @@ import DeadlineValue from "./components/DeadlineValue";
 import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
 import SalaryRangeDialog from "./components/SalaryRangeDialog";
+import SecurityClearanceDialog from "./components/SecurityClearanceDialog";
 
 interface SectionContent {
   id: string;
@@ -781,31 +782,15 @@ export const PoolPoster = ({
                 />
                 <DataRow
                   label={
-                    intl.formatMessage(commonMessages.securityClearance) +
-                    intl.formatMessage(commonMessages.dividingColon)
+                    intl.formatMessage({
+                      defaultMessage: "Security clearance",
+                      id: "e4eYvU",
+                      description:
+                        "Label for pool advertisement security clearance requirement",
+                    }) + intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={securityClearance}
-                  suffix={
-                    <Link
-                      newTab
-                      external
-                      color="secondary"
-                      mode="icon_only"
-                      icon={InformationCircleIcon}
-                      href={
-                        locale === "fr"
-                          ? "https://www.canada.ca/fr/service-renseignement-securite/services/filtrage-de-securite-du-gouvernement.html"
-                          : "https://www.canada.ca/en/security-intelligence-service/services/government-security-screening.html"
-                      }
-                      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      aria-label={`${intl.formatMessage({
-                        defaultMessage: "Learn more about security clearances",
-                        id: "WlMSeh",
-                        description:
-                          "Link text for security clearance information",
-                      })} ${intl.formatMessage(uiMessages.newTab)}`}
-                    />
-                  }
+                  suffix={<SecurityClearanceDialog />}
                 />
               </CardBasic>
             </TableOfContents.Section>
