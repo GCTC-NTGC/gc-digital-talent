@@ -38,14 +38,14 @@
     "@radix-ui/react-toggle-group": "^1.1.9",
     "chromatic": "^11.28.2",
     "lodash": "^4.17.21",
-    "motion": "^12.10.4",
+    "motion": "^12.11.3",
     "react-csv-downloader": "^3.3.0",
     "react-focus-lock": "^2.13.6",
-    "react-router": "^7.5.3",
+    "react-router": "^7.6.0",
     "urql": "^4.2.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^9.7.0",
+    "@faker-js/faker": "^9.8.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
