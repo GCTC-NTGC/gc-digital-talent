@@ -33,11 +33,6 @@ const messages = defineMessages({
     description:
       "Label for a employee profile target classification level field",
   },
-  classificationLevel: {
-    defaultMessage: "Level",
-    id: "yZqUAU",
-    description: "Title displayed for the Classification table Level column.",
-  },
   targetRole: {
     defaultMessage: "Target role",
     id: "cHwSqN",

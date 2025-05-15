@@ -3907,10 +3907,6 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
-  "GJ9QeQ": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on classification level input"
-  },
   "GK8s3M": {
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
     "description": "Description for work streams paragraph 3 on Experience form"
@@ -7526,10 +7522,6 @@
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
   },
-  "Y7Qop6": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on Work Experience form for classification level input"
-  },
   "Y93ht7": {
     "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
     "description": "Title for notice when there are no applications"
@@ -8094,10 +8086,6 @@
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
   },
-  "az8apB": {
-    "defaultMessage": "Niveau",
-    "description": "Label for a classification level input"
-  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -8185,10 +8173,6 @@
   "bVQ/rm": {
     "defaultMessage": "Tous les utilisateurs",
     "description": "Title for the index user page"
-  },
-  "bVRixs": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on the classification form level field."
   },
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
@@ -13024,10 +13008,6 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
-  },
-  "yZqUAU": {
-    "defaultMessage": "Niveau",
-    "description": "Title displayed for the Classification table Level column."
   },
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",

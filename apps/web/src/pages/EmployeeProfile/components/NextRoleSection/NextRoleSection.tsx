@@ -553,9 +553,7 @@ const NextRoleSection = ({
                       <div style={{ width: "100%" }}>
                         <Select
                           id="classificationLevel"
-                          label={intl.formatMessage(
-                            employeeProfileMessages.classificationLevel,
-                          )}
+                          label={intl.formatMessage(commonMessages.level)}
                           name="classificationLevel"
                           nullSelection={intl.formatMessage(
                             uiMessages.nullSelectionOptionLevel,

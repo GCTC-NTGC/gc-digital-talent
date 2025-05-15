@@ -78,12 +78,7 @@ export const ClassificationTable = ({
     columnHelper.accessor("level", {
       id: "level",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Level",
-        id: "yZqUAU",
-        description:
-          "Title displayed for the Classification table Level column.",
-      }),
+      header: intl.formatMessage(commonMessages.level),
     }),
     columnHelper.accessor("minSalary", {
       id: "minSalary",

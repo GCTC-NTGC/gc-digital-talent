@@ -102,14 +102,7 @@ const ClassificationInput = ({
       <Select
         id={levelName}
         name={levelName}
-        label={
-          label?.level ??
-          intl.formatMessage({
-            defaultMessage: "Level",
-            id: "az8apB",
-            description: "Label for a classification level input",
-          })
-        }
+        label={label?.level ?? intl.formatMessage(commonMessages.level)}
         rules={rules?.level}
         nullSelection={intl.formatMessage(uiMessages.nullSelectionOptionLevel)}
         options={levelOptions}
