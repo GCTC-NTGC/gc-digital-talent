@@ -31,7 +31,6 @@ import {
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
-import { SimpleAnyExperience } from "~/utils/experienceUtils";
 
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
@@ -88,18 +87,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationReviewExperience extends SimpleAnyExperience {
-  id: string;
-}
-
-interface ApplicationReviewProps extends ApplicationPageProps {
-  experiences: ApplicationReviewExperience[];
-}
-
-const ApplicationReview = ({
-  application,
-  experiences,
-}: ApplicationReviewProps) => {
+const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -159,7 +147,7 @@ const ApplicationReview = ({
     applicationQuestions: paths.applicationQuestions(application.id),
   };
 
-  const nonEmptyExperiences = unpackMaybes(experiences);
+  const experiences = unpackMaybes(application.user.experiences);
   const hasSomeExperience = !!experiences.length;
   const educationRequirementExperiences = unpackMaybes(
     application.educationRequirementExperiences,
@@ -267,7 +255,7 @@ const ApplicationReview = ({
           data-h2-gap="base(x.5)"
         >
           {hasSomeExperience ? (
-            nonEmptyExperiences.map((experience) => (
+            experiences.map((experience) => (
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
@@ -619,10 +607,7 @@ export const Component = () => {
   const { application } = useApplication();
 
   return application?.pool ? (
-    <ApplicationReview
-      application={application}
-      experiences={unpackMaybes(application.user.experiences)}
-    />
+    <ApplicationReview application={application} />
   ) : (
     <ThrowNotFound />
   );

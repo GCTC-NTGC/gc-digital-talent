@@ -5,6 +5,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
     id
     submittedAt
     user {
+      ...UserProfile
       id
       firstName
       lastName
