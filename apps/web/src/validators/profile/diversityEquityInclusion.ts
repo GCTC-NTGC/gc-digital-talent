@@ -1,9 +1,15 @@
-import { User, Maybe, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  PublishingGroup,
+  LocalizedIndigenousCommunity,
+  LocalizedPublishingGroup,
+} from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  "isWoman" | "hasDisability" | "isVisibleMinority" | "indigenousCommunities"
->;
+export interface PartialUser {
+  isWoman?: boolean | null;
+  hasDisability?: boolean | null;
+  isVisibleMinority?: boolean | null;
+  indigenousCommunities?: (LocalizedIndigenousCommunity | null)[] | null;
+}
 
 export function anyCriteriaSelected({
   isWoman,
@@ -21,7 +27,9 @@ export function anyCriteriaSelected({
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Maybe<Pick<Pool, "publishingGroup">>,
+  pool?: {
+    publishingGroup?: LocalizedPublishingGroup | null;
+  } | null,
 ): boolean {
   if (!(pool?.publishingGroup?.value === PublishingGroup.Iap)) {
     return false;

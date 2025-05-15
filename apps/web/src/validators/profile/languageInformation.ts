@@ -1,22 +1,26 @@
 import isEmpty from "lodash/isEmpty";
 
-import { User, Pool } from "@gc-digital-talent/graphql";
+import {
+  LocalizedLanguage,
+  LocalizedEstimatedLanguageAbility,
+  LocalizedEvaluatedLanguageAbility,
+  LocalizedPoolLanguage,
+} from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-export type PartialUser = Pick<
-  User,
-  | "lookingForEnglish"
-  | "lookingForFrench"
-  | "lookingForBilingual"
-  | "estimatedLanguageAbility"
-  | "firstOfficialLanguage"
-  | "secondLanguageExamCompleted"
-  | "secondLanguageExamValidity"
-  | "writtenLevel"
-  | "comprehensionLevel"
-  | "verbalLevel"
->;
+export interface PartialUser {
+  lookingForEnglish?: boolean | null;
+  lookingForFrench?: boolean | null;
+  lookingForBilingual?: boolean | null;
+  firstOfficialLanguage?: LocalizedLanguage | null;
+  estimatedLanguageAbility?: LocalizedEstimatedLanguageAbility | null;
+  secondLanguageExamCompleted?: boolean | null;
+  secondLanguageExamValidity?: boolean | null;
+  writtenLevel?: LocalizedEvaluatedLanguageAbility | null;
+  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null;
+  verbalLevel?: LocalizedEvaluatedLanguageAbility | null;
+}
 
 export function hasAllEmptyFields({
   lookingForEnglish,
@@ -53,7 +57,9 @@ export function hasEmptyRequiredFields({
 
 export function hasUnsatisfiedRequirements(
   user: PartialUser,
-  pool: Pick<Pool, "language"> | null,
+  pool: {
+    language?: LocalizedPoolLanguage | null;
+  } | null,
 ): boolean {
   return (
     getMissingLanguageRequirements(user, {

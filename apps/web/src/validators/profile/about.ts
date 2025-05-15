@@ -1,18 +1,21 @@
+import {
+  LocalizedArmedForcesStatus,
+  LocalizedCitizenshipStatus,
+  LocalizedLanguage,
+} from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "telephone"
-  | "preferredLang"
-  | "preferredLanguageForInterview"
-  | "preferredLanguageForExam"
-  | "citizenship"
-  | "armedForcesStatus"
->;
+export interface PartialUser {
+  firstName?: string | null;
+  lastName?: string | null;
+  telephone?: string | null;
+  email?: string | null;
+  preferredLang?: LocalizedLanguage | null;
+  preferredLanguageForExam?: LocalizedLanguage | null;
+  preferredLanguageForInterview?: LocalizedLanguage | null;
+  citizenship?: LocalizedCitizenshipStatus | null;
+  armedForcesStatus?: LocalizedArmedForcesStatus | null;
+}
 
 export function hasAllEmptyFields({
   firstName,

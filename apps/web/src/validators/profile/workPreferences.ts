@@ -1,16 +1,17 @@
 import isEmpty from "lodash/isEmpty";
 
-import { User } from "@gc-digital-talent/graphql";
+import {
+  LocalizedProvinceOrTerritory,
+  LocalizedWorkRegion,
+  PositionDuration,
+} from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  | "acceptedOperationalRequirements"
-  | "positionDuration"
-  | "locationPreferences"
-  | "locationExemptions"
-  | "currentCity"
-  | "currentProvince"
->;
+export interface PartialUser {
+  positionDuration?: (PositionDuration | null)[] | null;
+  locationPreferences?: (LocalizedWorkRegion | null)[] | null;
+  currentCity?: string | null;
+  currentProvince?: LocalizedProvinceOrTerritory | null;
+}
 
 export function hasAllEmptyFields({
   positionDuration,

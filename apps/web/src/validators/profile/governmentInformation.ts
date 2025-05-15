@@ -1,15 +1,10 @@
 import { empty } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  | "isGovEmployee"
-  | "govEmployeeType"
-  | "department"
-  | "currentClassification"
-  | "hasPriorityEntitlement"
-  | "priorityNumber"
->;
+export interface PartialUser {
+  isGovEmployee?: boolean | null;
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
+}
 
 export function hasAllEmptyFields({
   isGovEmployee,
