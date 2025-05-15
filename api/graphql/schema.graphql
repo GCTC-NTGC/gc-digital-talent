@@ -967,15 +967,16 @@ type WorkExperience implements Experience {
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
   workStreams: [WorkStream!] @with(relation: "workStreams")
-  supervisoryPosition: Boolean
-  supervisedEmployees: Boolean
+  supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
+  supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
   supervisedEmployeesNumber: Int
-  budgetManagement: Boolean
-  annualBudgetAllocation: Int
-  seniorManagementStatus: Boolean
+    @rename(attribute: "supervised_employees_number")
+  budgetManagement: Boolean @rename(attribute: "budget_management")
+  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
-  otherCSuiteRoleTitle: String
+  otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 type PersonalExperience implements Experience {
   id: ID!
