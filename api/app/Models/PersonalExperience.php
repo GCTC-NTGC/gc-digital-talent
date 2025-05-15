@@ -2,13 +2,10 @@
 
 namespace App\Models;
 
-use App\Traits\ExperienceWithHydration;
-use App\Traits\ExperienceWithSkills;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Class PersonalExperience
@@ -23,10 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  */
-class PersonalExperience extends Model
+class PersonalExperience extends Experience
 {
-    use ExperienceWithHydration;
-    use ExperienceWithSkills;
     use HasFactory;
     use HasUuids;
     use SoftDeletes;
@@ -58,11 +53,13 @@ class PersonalExperience extends Model
         return PersonalExperience::class;
     }
 
-    /** @return BelongsTo<User, $this> */
-    public function user(): BelongsTo
+    public function getDateRange($lang = 'en'): string
     {
-        return $this->belongsTo(User::class);
-    }
+        $format = 'MMM Y';
 
-    // skill methods in api/app/Traits/ExperienceWithSkills.php
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
+
+        return "$start - $end";
+    }
 }
