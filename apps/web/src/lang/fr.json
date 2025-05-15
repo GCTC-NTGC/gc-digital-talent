@@ -2879,10 +2879,6 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title for the personal and contact information section"
   },
-  "Badvbb": {
-    "defaultMessage": "Groupe/Organisation/Collectivité",
-    "description": "Label displayed on Community Experience form for organization input"
-  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -8313,6 +8309,10 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
+  },
+  "c11b35": {
+    "defaultMessage": "Groupe, organisation ou collectivité",
+    "description": "Label displayed on Community Experience form for organization input"
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",

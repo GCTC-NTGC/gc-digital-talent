@@ -536,7 +536,7 @@ class ExperiencePage extends AppPage {
       .fill(input.title ?? "test role");
 
     await this.page
-      .getByLabel("Group / Organization / Community *", { exact: true })
+      .getByLabel("Group, organization, or community *", { exact: true })
       .fill(input?.organization ?? "test org");
 
     await this.page
