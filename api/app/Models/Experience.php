@@ -1,17 +1,43 @@
 <?php
 
-namespace App\Traits;
+namespace App\Models;
 
-use App\Models\ExperienceSkill;
-use App\Models\UserSkill;
+use App\Traits\HydratesSnapshot;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
-trait ExperienceWithSkills
+/**
+ * Class Experience
+ *
+ * @property string $id
+ * @property string $user_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
+abstract class Experience extends Model
 {
     use HasRelationships;
+    use HydratesSnapshot;
+
+    protected $keyType = 'string';
+
+    abstract public function getTitle(): string;
+
+    abstract public function getExperienceType(): string;
+
+    abstract public function getDateRange($lang = 'en'): string;
+
+    protected static $hydrationFields;
+
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /** @return MorphToMany<UserSkill, $this> */
     public function userSkills(): MorphToMany
@@ -131,5 +157,56 @@ trait ExperienceWithSkills
             ->delete();
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($experience) {
+            $user = $experience->user;
+            if ($user) {
+                $user->searchable();
+            }
+        });
+
+        static::deleted(function ($experience) {
+            $user = $experience->user;
+            if ($user) {
+                $user->searchable();
+            }
+        });
+    }
+
+    /**
+     * @param  mixed  $snapshot  the snapshot
+     * @return array array of experiences
+     */
+    public static function hydrateSnapshot(mixed $snapshot): Model|array
+    {
+        $experiences = [];
+        foreach ($snapshot as $experience) {
+            $hydrationModel = match ($experience['__typename']) {
+                'AwardExperience' => AwardExperience::class,
+                'CommunityExperience' => CommunityExperience::class,
+                'EducationExperience' => EducationExperience::class,
+                'PersonalExperience' => PersonalExperience::class,
+                'WorkExperience' => WorkExperience::class,
+                default => null,
+            };
+
+            if ($hydrationModel) {
+                $fields = [
+                    ...$hydrationModel::$hydrationFields,
+                    'id' => 'id',
+                    'details' => 'details',
+                ];
+
+                $model = new $hydrationModel;
+                $experiences[] = self::hydrateFields($experience, $fields, $model);
+            }
+        }
+
+        return $experiences;
     }
 }
