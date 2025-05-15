@@ -53,12 +53,6 @@ class Department extends Model
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
 
-    /** @return BelongsToMany<Team, $this> */
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class, 'team_department');
-    }
-
     /**
      * Scopes/filters
      */

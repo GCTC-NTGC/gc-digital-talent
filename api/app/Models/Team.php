@@ -29,11 +29,6 @@ class Team extends LaratrustTeam
 
     public $guarded = [];
 
-    public function departments(): BelongsToMany
-    {
-        return $this->belongsToMany(Department::class, 'team_department');
-    }
-
     /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {
