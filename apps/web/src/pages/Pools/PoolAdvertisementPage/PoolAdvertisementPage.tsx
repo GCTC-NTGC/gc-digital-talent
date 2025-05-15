@@ -1336,7 +1336,7 @@ export const PoolPoster = ({
                       )}
                     </Text>
                     <Text>
-                      <ul data-h2-margin="base(x.5, 0)">
+                      <ul data-h2-margin="base(x0.5, 0, 0, 0)">
                         <li>
                           {intl.formatMessage(
                             {
