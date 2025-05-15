@@ -547,7 +547,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: LocalizedEducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  educationRequirementExperiences: [Experience] @belongsToMany
+  educationRequirementExperiences: [Experience]
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -2657,7 +2657,11 @@ input UpdateApplicationInput {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
-  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 
   # Used to validate essential skills
   applicationId: ID

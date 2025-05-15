@@ -7,8 +7,6 @@ use App\Enums\EmploymentCategory;
 use App\Enums\GovEmployeeType;
 use App\Events\WorkExperienceSaved;
 use App\Notifications\System as SystemNotification;
-use App\Traits\ExperienceWithHydration;
-use App\Traits\ExperienceWithSkills;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,8 +55,6 @@ use Illuminate\Support\Facades\Log;
  */
 class WorkExperience extends Model
 {
-    use ExperienceWithHydration;
-    use ExperienceWithSkills;
     use HasFactory;
     use HasUuids;
     use SoftDeletes;
@@ -213,6 +209,16 @@ class WorkExperience extends Model
     public function getExperienceType(): string
     {
         return WorkExperience::class;
+    }
+
+    public function getDateRange($lang = 'en'): string
+    {
+        $format = 'MMM Y';
+
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
+
+        return "$start - $end";
     }
 
     /**
