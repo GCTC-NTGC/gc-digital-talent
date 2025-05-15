@@ -245,12 +245,7 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for how a skill was applied section",
     }),
-    classificationGroup: intl.formatMessage({
-      defaultMessage: "Group",
-      id: "kUqaoo",
-      description:
-        "Label displayed on Work Experience form for classification group input",
-    }),
+    classificationGroup: intl.formatMessage(commonMessages.group),
     classificationLevel: intl.formatMessage({
       defaultMessage: "Level",
       id: "Y7Qop6",

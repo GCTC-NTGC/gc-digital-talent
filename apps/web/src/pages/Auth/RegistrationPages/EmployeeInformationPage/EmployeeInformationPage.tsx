@@ -445,11 +445,7 @@ export const EmployeeInformationForm = ({
       description: "Employment type label",
     }),
     workEmail: intl.formatMessage(commonMessages.workEmail),
-    currentClassificationGroup: intl.formatMessage({
-      defaultMessage: "Group",
-      id: "wJnIJx",
-      description: "Label displayed on classification group input",
-    }),
+    currentClassificationGroup: intl.formatMessage(commonMessages.group),
     currentClassificationLevel: intl.formatMessage({
       defaultMessage: "Level",
       id: "GJ9QeQ",

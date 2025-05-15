@@ -543,9 +543,7 @@ const CareerObjectiveSection = ({
                     >
                       <Select
                         id="classificationGroup"
-                        label={intl.formatMessage(
-                          employeeProfileMessages.classificationGroup,
-                        )}
+                        label={intl.formatMessage(commonMessages.group)}
                         name="classificationGroup"
                         nullSelection={intl.formatMessage(
                           uiMessages.nullSelectionOptionGroup,

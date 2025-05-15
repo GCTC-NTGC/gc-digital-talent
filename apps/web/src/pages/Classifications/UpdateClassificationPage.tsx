@@ -212,12 +212,7 @@ export const UpdateClassificationForm = ({
                 <Input
                   id="group"
                   name="group"
-                  label={intl.formatMessage({
-                    defaultMessage: "Group",
-                    id: "hgxH8y",
-                    description:
-                      "Label displayed for the classification form group field.",
-                  })}
+                  label={intl.formatMessage(commonMessages.group)}
                   type="text"
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

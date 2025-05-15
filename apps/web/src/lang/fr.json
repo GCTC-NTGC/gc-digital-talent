@@ -7994,10 +7994,6 @@
     "defaultMessage": "Des gants avec du perlage floral de style Métis.",
     "description": "Indigenous Apprenticeship gloves image text alternative"
   },
-  "aS4Lty": {
-    "defaultMessage": "Groupe",
-    "description": "Title displayed for the Classification table Group column."
-  },
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
@@ -9573,10 +9569,6 @@
     "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
     "description": "Label for when an employee was found"
   },
-  "hGEhAB": {
-    "defaultMessage": "Groupe",
-    "description": "Label for classification group display"
-  },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
@@ -9664,10 +9656,6 @@
   "heFiZt": {
     "defaultMessage": "En cours d'évaluation",
     "description": "Status label for an application under assessment"
-  },
-  "hgxH8y": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed for the classification form group field."
   },
   "hhE2b6": {
     "defaultMessage": "Votre signature",
@@ -10228,10 +10216,6 @@
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
-  },
-  "kUqaoo": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on Work Experience form for classification group input"
   },
   "kVavip": {
     "defaultMessage": "Ministère de placement",
@@ -12577,10 +12561,6 @@
     "defaultMessage": "Intérêt pour le coaching des cadres",
     "description": "Label for an employee profile career development preference field"
   },
-  "wJnIJx": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on classification group input"
-  },
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
@@ -13184,10 +13164,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "zBfwbQ": {
-    "defaultMessage": "Groupe",
-    "description": "Label for a classification group input"
   },
   "zCjdD9": {
     "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",

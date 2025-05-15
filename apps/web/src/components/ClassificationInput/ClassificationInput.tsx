@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 import { Combobox, HiddenInput, Select } from "@gc-digital-talent/forms";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { uiMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import { splitAndJoin } from "~/utils/nameUtils";
 
@@ -95,14 +95,7 @@ const ClassificationInput = ({
       <Combobox
         id={groupName}
         name={groupName}
-        label={
-          label?.group ??
-          intl.formatMessage({
-            defaultMessage: "Group",
-            id: "zBfwbQ",
-            description: "Label for a classification group input",
-          })
-        }
+        label={label?.group ?? intl.formatMessage(commonMessages.group)}
         rules={rules?.group}
         options={groupOptions}
       />
