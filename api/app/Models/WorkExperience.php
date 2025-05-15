@@ -51,6 +51,7 @@ use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
  * @property ?bool $senior_management_status
  * @property ?string $c_suite_role_title
  * @property ?string $other_c_suite_role_title
+ * @property array $workStreams
  */
 class WorkExperience extends Experience
 {
