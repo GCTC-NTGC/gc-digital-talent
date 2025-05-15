@@ -105,8 +105,8 @@ export const getExperienceFormLabels = (
 
   if (experienceType === "community") {
     organization = intl.formatMessage({
-      defaultMessage: "Group / Organization / Community",
-      id: "Badvbb",
+      defaultMessage: "Group, organization, or community",
+      id: "c11b35",
       description:
         "Label displayed on Community Experience form for organization input",
     });
