@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use App\Enums\Language;
 use App\Facades\Notify;
+use App\Models\Experience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Traits\ExperienceWithHydration;
 use App\Traits\HydratesSnapshot;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -119,7 +119,7 @@ class HydrationTest extends TestCase
         JSON;
         $json = json_decode($string, true);
 
-        $experiences = collect(ExperienceWithHydration::hydrateSnapshot($json));
+        $experiences = collect(Experience::hydrateSnapshot($json));
         assertEquals($experiences->sole()->type, 'CERTIFICATION');
         assertEquals($experiences->sole()->status, 'SUCCESS_CREDENTIAL');
 
@@ -159,7 +159,7 @@ class HydrationTest extends TestCase
         JSON;
         $json = json_decode($string, true);
 
-        $experiences = collect(ExperienceWithHydration::hydrateSnapshot($json));
+        $experiences = collect(Experience::hydrateSnapshot($json));
         assertEquals($experiences->sole()->type, 'BACHELORS_DEGREE');
         assertEquals($experiences->sole()->status, 'AUDITED');
     }

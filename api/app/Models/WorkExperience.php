@@ -53,7 +53,7 @@ use Illuminate\Support\Facades\Log;
  * @property ?string $other_c_suite_role_title
  * @property array $workStreams
  */
-class WorkExperience extends Model
+class WorkExperience extends Experience
 {
     use HasFactory;
     use HasUuids;
