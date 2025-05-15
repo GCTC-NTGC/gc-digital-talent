@@ -631,6 +631,10 @@
     "defaultMessage": "Ajouter un nouvel élément",
     "description": "Message displayed for add button on repeater component."
   },
+  "OUcSEy": {
+    "defaultMessage": "Niveau",
+    "description": "Label for level"
+  },
   "OaB49n": {
     "defaultMessage": "Je suis un(e) résident(e) permanent(e) du Canada.",
     "description": "declaring one to be a permanent resident"
@@ -1118,6 +1122,10 @@
   "gBoG9M": {
     "defaultMessage": "Profil et candidatures",
     "description": "Name of Profile and applications page"
+  },
+  "gH2uDM": {
+    "defaultMessage": "Groupe",
+    "description": "Label for group"
   },
   "gM4WDL": {
     "defaultMessage": "Non",
