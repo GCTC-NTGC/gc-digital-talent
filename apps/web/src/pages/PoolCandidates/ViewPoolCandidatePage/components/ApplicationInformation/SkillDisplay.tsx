@@ -1,13 +1,6 @@
 import { useIntl } from "react-intl";
 
-import {
-  Experience,
-  FragmentType,
-  getFragment,
-  Skill,
-  graphql,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import { Skill, makeFragmentData } from "@gc-digital-talent/graphql";
 import { Heading, ScrollToLink, Separator, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";

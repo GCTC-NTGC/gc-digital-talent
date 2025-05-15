@@ -4,9 +4,9 @@ import { useQuery } from "urql";
 
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { Maybe, Skill, graphql, Scalars } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SkillTree from "~/components/SkillTree/SkillTree";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const SkillMatchDialog_Query = graphql(/* GraphQL */ `
   query SkillMatchDialog_Query($id: UUID!) {
