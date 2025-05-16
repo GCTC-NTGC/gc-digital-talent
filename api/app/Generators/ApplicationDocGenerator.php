@@ -58,6 +58,9 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 if (isset($experience['classification'])) {
                     $experience['classificationId'] = $experience['classification']['id'];
                 }
+                if (isset($experience['workStreams'])) {
+                    $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
+                }
             }
         }
         $experiences = Experience::hydrateSnapshot($snapshotExperiences);
@@ -73,14 +76,14 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         $skillDetails = $this->getSkillDetails($candidate->pool->poolSkills, $experiences, $snapshot['experiences']);
 
-        $section->addTitle($this->localize('pool_skill_type.essential'), 3);
+        $section->addTitle($this->localize('common.essential_skills'), 3);
         if (isset($skillDetails[PoolSkillType::ESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::ESSENTIAL->name]);
         } else {
             $section->addText($this->localize('common.not_provided'));
         }
 
-        $section->addTitle($this->localize('pool_skill_type.nonessential'), 3);
+        $section->addTitle($this->localize('common.nonessential_skills'), 3);
         if (isset($skillDetails[PoolSkillType::NONESSENTIAL->name])) {
             $this->generateSkillsDetails($section, $skillDetails[PoolSkillType::NONESSENTIAL->name]);
         } else {
