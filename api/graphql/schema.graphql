@@ -1160,7 +1160,7 @@ input ApplicantFilterInput {
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
   # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  pools: [IdInput] @scope(name: "whereAavailableInPools") @pluck(key: "id")
   skills: [IdInput] @scope(name: "whereSkillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
   skillsIntersectional: [IdInput]
     @scope(name: "whereSkillsIntersectional")

@@ -120,7 +120,7 @@ class UserBuilder extends Builder
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
      */
-    public function availableInPools(?array $poolIds): self
+    public function whereAvailableInPools(?array $poolIds): self
     {
         if (empty($poolIds)) {
             return $this;
