@@ -2891,10 +2891,6 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title for the personal and contact information section"
   },
-  "Badvbb": {
-    "defaultMessage": "Groupe/Organisation/Collectivité",
-    "description": "Label displayed on Community Experience form for organization input"
-  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -3918,10 +3914,6 @@
   "GIC6EK": {
     "defaultMessage": "Expiré",
     "description": "Expired status"
-  },
-  "GJ9QeQ": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on classification level input"
   },
   "GK8s3M": {
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
@@ -7542,10 +7534,6 @@
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
   },
-  "Y7Qop6": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on Work Experience form for classification level input"
-  },
   "Y93ht7": {
     "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
     "description": "Title for notice when there are no applications"
@@ -8018,10 +8006,6 @@
     "defaultMessage": "Des gants avec du perlage floral de style Métis.",
     "description": "Indigenous Apprenticeship gloves image text alternative"
   },
-  "aS4Lty": {
-    "defaultMessage": "Groupe",
-    "description": "Title displayed for the Classification table Group column."
-  },
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
@@ -8126,10 +8110,6 @@
     "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
     "description": "Text explaining the benefits of applying early"
   },
-  "az8apB": {
-    "defaultMessage": "Niveau",
-    "description": "Label for a classification level input"
-  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
@@ -8221,10 +8201,6 @@
   "bVQ/rm": {
     "defaultMessage": "Tous les utilisateurs",
     "description": "Title for the index user page"
-  },
-  "bVRixs": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on the classification form level field."
   },
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
@@ -8345,6 +8321,10 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
+  },
+  "c11b35": {
+    "defaultMessage": "Groupe, organisation ou collectivité",
+    "description": "Label displayed on Community Experience form for organization input"
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
@@ -9605,10 +9585,6 @@
     "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
     "description": "Label for when an employee was found"
   },
-  "hGEhAB": {
-    "defaultMessage": "Groupe",
-    "description": "Label for classification group display"
-  },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
@@ -9696,10 +9672,6 @@
   "heFiZt": {
     "defaultMessage": "En cours d'évaluation",
     "description": "Status label for an application under assessment"
-  },
-  "hgxH8y": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed for the classification form group field."
   },
   "hhE2b6": {
     "defaultMessage": "Votre signature",
@@ -10264,10 +10236,6 @@
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
-  },
-  "kUqaoo": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on Work Experience form for classification group input"
   },
   "kVavip": {
     "defaultMessage": "Ministère de placement",
@@ -12625,10 +12593,6 @@
     "defaultMessage": "Intérêt pour le coaching des cadres",
     "description": "Label for an employee profile career development preference field"
   },
-  "wJnIJx": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on classification group input"
-  },
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
@@ -13093,10 +13057,6 @@
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
   },
-  "yZqUAU": {
-    "defaultMessage": "Niveau",
-    "description": "Title displayed for the Classification table Level column."
-  },
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -13232,10 +13192,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "zBfwbQ": {
-    "defaultMessage": "Groupe",
-    "description": "Label for a classification group input"
   },
   "zCjdD9": {
     "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
