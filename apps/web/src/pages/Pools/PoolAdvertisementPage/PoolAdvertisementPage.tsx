@@ -104,12 +104,24 @@ const internalLink = (href: string, chunks: ReactNode) => (
 
 const standardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html"
         : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html"
+    }
+  >
+    {chunks}
+  </Link>
+);
+
+const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
+  <Link
+    external
+    href={
+      locale === "en"
+        ? "https://clegc-gckey.gc.ca/j/eng/CU-01"
+        : "https://clegc-gckey.gc.ca/j/fra/CU-01"
     }
   >
     {chunks}
@@ -284,6 +296,9 @@ const moreInfoAccordions = {
   accommodations: "accommodations",
   whatToExpectApply: "what-to-expect-apply",
   whatToExpectAdmission: "what-to-expect-admission",
+  earlyApplication: "early-application",
+  technicalIssues: "technical-issues",
+  signInOrUpIssues: "sign-in-or-up-issues",
 };
 
 const subTitle = defineMessage({
@@ -1114,6 +1129,204 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
+                <Accordion.Item value={moreInfoAccordions.earlyApplication}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "How early should I start my application?",
+                      id: "YqutpD",
+                      description:
+                        "Button text to toggle the accordion for early application",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <gcDigitalTalentLink>sign up for a GCkey</gcDigitalTalentLink> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
+                          id: "G0AEfY",
+                          description:
+                            "Text explaining the importance of starting an application early",
+                        },
+                        {
+                          gcDigitalTalentLink: (chunks: ReactNode) =>
+                            internalLink(paths.register(), chunks),
+                        },
+                      )}
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we'll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
+                          id: "adaiV0",
+                          description:
+                            "Text explaining the average time spent on applications",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "Applying early also allows hiring managers to review your application sooner. They can begin assessing your application as soon as you submit it, even if the deadline hasn't passed yet.",
+                          id: "ay8mcT",
+                          description:
+                            "Text explaining the benefits of applying early",
+                        })}
+                      </Text>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                {showWhatToExpect && (
+                  <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage: "What should I expect after I apply?",
+                        id: "PDGUT2",
+                        description:
+                          "Button text to toggle the accordion for what to expect after you apply",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpect, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
+
+                {showWhatToExpectAdmission && (
+                  <Accordion.Item
+                    value={moreInfoAccordions.whatToExpectAdmission}
+                  >
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "What should I expect if I'm successful in the process?",
+                        id: "utlf9l",
+                        description:
+                          "Button text to toggle the accordion for what to expect after admission",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpectAdmission, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
+                <Accordion.Item value={moreInfoAccordions.technicalIssues}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What should I do if I experience technical issues while applying?",
+                      id: "8T/Szk",
+                      description:
+                        "Button text to toggle the accordion for technical issues",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "<link>Contact our support team</link> as soon as possible when you encounter a technical issue that could prevent you from applying. You can submit a ticket at any time to let us know about the difficulties you're experiencing. It's important to do this as soon as the issue arises so we can keep a record of when it happened, even if it's outside of business hours.",
+                          id: "oGNR16",
+                          description:
+                            "Text explaining the importance of reporting technical issues",
+                        },
+                        {
+                          link: (chunks: ReactNode) =>
+                            internalLink(paths.support(), chunks),
+                        },
+                      )}
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "We review tickets during business hours. If you report an issue late at night, right before a job advertisement deadline, expect a response within 2 business days. To avoid last-minute issues, we encourage you to submit your application as early as possible.",
+                          id: "b9gGFH",
+                          description:
+                            "Text explaining the average time spent on applications",
+                        })}
+                      </Text>
+                      <Text>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "If you submit your ticket after the application deadline has passed, we won't be able to assist you, and your application won't be accepted.",
+                          id: "4DfNUW",
+                          description:
+                            "Text explaining the benefits of applying early",
+                        })}
+                      </Text>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+                <Accordion.Item value={moreInfoAccordions.signInOrUpIssues}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "What should I do if I have trouble signing up or signing in?",
+                      id: "w061Za",
+                      description:
+                        "Button text to toggle the accordion for sign in or up issues",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "We've set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
+                          id: "MYnfw/",
+                          description:
+                            "Text explaining the importance of reporting technical issues",
+                        },
+                        {
+                          link: (chunks: ReactNode) =>
+                            internalLink(paths.register(), chunks),
+                          use2FALink: (chunks: ReactNode) =>
+                            internalLink(paths.login(), chunks),
+                        },
+                      )}
+                    </Text>
+                    <Text>
+                      <ul data-h2-margin="base(x0.5, 0, 0, 0)">
+                        <li>
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "For trouble creating a GCKey, <link>contact the GCKey team</link>.",
+                              id: "YzGpQQ",
+                              description:
+                                "Bullet point about contacting GCKey support",
+                            },
+                            {
+                              link: (chunks: ReactNode) =>
+                                gocGCKeyLink(locale, chunks),
+                            },
+                          )}
+                        </li>
+                        <li>
+                          {intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "For trouble setting up or logging in with two-factor authentication, <link>contact our support team</link>.",
+                              id: "k1HxPf",
+                              description:
+                                "Bullet point about contacting support for 2FA issues",
+                            },
+                            {
+                              link: (chunks: ReactNode) =>
+                                internalLink(paths.support(), chunks),
+                            },
+                          )}
+                        </li>
+                      </ul>
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
@@ -1142,47 +1355,6 @@ export const PoolPoster = ({
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
-                {showWhatToExpect && (
-                  <Accordion.Item value={moreInfoAccordions.whatToExpectApply}>
-                    <Accordion.Trigger as="h3">
-                      {intl.formatMessage({
-                        defaultMessage: "What should I expect after I apply?",
-                        id: "PDGUT2",
-                        description:
-                          "Button text to toggle the accordion for what to expect after you apply",
-                      })}
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                      <RichTextRenderer
-                        node={htmlToRichTextJSON(
-                          getLocalizedName(pool.whatToExpect, intl),
-                        )}
-                      />
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
-                {showWhatToExpectAdmission && (
-                  <Accordion.Item
-                    value={moreInfoAccordions.whatToExpectAdmission}
-                  >
-                    <Accordion.Trigger as="h3">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "What should I expect if I'm successful in the process?",
-                        id: "utlf9l",
-                        description:
-                          "Button text to toggle the accordion for what to expect after admission",
-                      })}
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                      <RichTextRenderer
-                        node={htmlToRichTextJSON(
-                          getLocalizedName(pool.whatToExpectAdmission, intl),
-                        )}
-                      />
-                    </Accordion.Content>
-                  </Accordion.Item>
-                )}
               </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.startAnApplication.id}>
