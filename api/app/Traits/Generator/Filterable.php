@@ -11,6 +11,18 @@ trait Filterable
 
     protected ?array $ids = null;
 
+    /** If true, stores applied filters to debugging */
+    protected bool $debug = false;
+
+    public array $calledFilters = [];
+
+    public function debug(bool $value)
+    {
+        $this->debug = $value;
+
+        return $this;
+    }
+
     /**
      * Set the filters to be applied
      *
@@ -73,7 +85,13 @@ trait Filterable
         foreach ($filters as $key => $value) {
             $scope = $scopeMap[$key] ?? $key;
 
-            if ($query->hasNamedScope($scope) && $value) {
+            if (($query->hasNamedScope($scope) || method_exists($query, $scope)) && $value) {
+                if ($this->debug) {
+                    $this->calledFilters[] = [
+                        'scope' => $scope,
+                        'value' => $value,
+                    ];
+                }
                 $query->$scope($value);
             }
         }

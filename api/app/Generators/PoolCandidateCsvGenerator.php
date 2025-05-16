@@ -521,15 +521,15 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         $this->applyFilters($query, [
-            'priorityWeight' => 'candidateCategory',
-            'poolCandidateStatus' => 'poolCandidateStatuses',
-            'pools' => 'availableInPools',
+            'priorityWeight' => 'whereCandidateCategoryIn',
+            'poolCandidateStatus' => 'whereStatusIn',
+            'pools' => 'whereAvailableInPools',
             'skills' => 'skillsAdditive',
             'community' => 'candidatesInCommunity',
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->authorizedToView(['userId' => $this->userId])->notDraft();
+        $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
 
         return $query;
     }

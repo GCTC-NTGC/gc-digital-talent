@@ -97,7 +97,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(null);
 
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
+        $candidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([], $candidateIds->toArray());
     }
 
@@ -108,7 +108,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             ->andReturn($this->user1);
 
         // just the draft and submitted candidates for user 1
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
+        $candidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->candidateDraft1A->id,
             $this->candidateSubmitted1B->id,
@@ -126,7 +126,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             );
 
         // there is one submitted candidate in each team's pool
-        $candidateIds = PoolCandidate::authorizedToView()->get()->pluck('id');
+        $candidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
             $this->candidateSubmitted1B->id,
             $this->candidateSubmitted2A->id,
@@ -141,7 +141,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
                 ->asProcessOperator($this->poolA->id)
                 ->create());
 
-        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+        $poolCandidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->candidateSubmitted2A->id,
@@ -160,7 +160,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
                 ->asCommunityRecruiter($community->id)
                 ->create());
 
-        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+        $poolCandidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->candidateSubmitted1B->id,
@@ -179,7 +179,7 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
                 ->asCommunityAdmin($community->id)
                 ->create());
 
-        $poolCandidateIds = PoolCandidate::authorizedToView()->get()->pluck('id')->toArray();
+        $poolCandidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
             $this->candidateSubmitted2A->id,

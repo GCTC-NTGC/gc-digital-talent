@@ -163,7 +163,7 @@ class UserPolicy
     protected function applicantHasAppliedToPoolInTeams(User $applicant, $teamIds)
     {
         return PoolCandidate::where('user_id', $applicant->id)
-            ->notDraft()
+            ->whereNotDraft()
             ->whereHas('pool', function ($query) use ($teamIds) {
                 return $query->where(function ($query) use ($teamIds) {
                     $query->orWhereHas('team', function ($query) use ($teamIds) {

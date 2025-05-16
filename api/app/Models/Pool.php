@@ -234,7 +234,7 @@ class Pool extends Model
     /** @return HasMany<PoolCandidate, $this> */
     public function publishedPoolCandidates(): HasMany
     {
-        return $this->hasMany(PoolCandidate::class)->notDraft();
+        return $this->hasMany(PoolCandidate::class)->whereNotDraft();
     }
 
     /** @return BelongsToMany<Skill, $this> */
