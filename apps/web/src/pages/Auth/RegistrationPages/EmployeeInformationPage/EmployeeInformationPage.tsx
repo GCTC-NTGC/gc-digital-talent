@@ -445,16 +445,8 @@ export const EmployeeInformationForm = ({
       description: "Employment type label",
     }),
     workEmail: intl.formatMessage(commonMessages.workEmail),
-    currentClassificationGroup: intl.formatMessage({
-      defaultMessage: "Group",
-      id: "wJnIJx",
-      description: "Label displayed on classification group input",
-    }),
-    currentClassificationLevel: intl.formatMessage({
-      defaultMessage: "Level",
-      id: "GJ9QeQ",
-      description: "Label displayed on classification level input",
-    }),
+    currentClassificationGroup: intl.formatMessage(commonMessages.group),
+    currentClassificationLevel: intl.formatMessage(commonMessages.level),
   };
 
   const crumbs = useBreadcrumbs({

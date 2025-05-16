@@ -105,8 +105,8 @@ export const getExperienceFormLabels = (
 
   if (experienceType === "community") {
     organization = intl.formatMessage({
-      defaultMessage: "Group / Organization / Community",
-      id: "Badvbb",
+      defaultMessage: "Group, organization, or community",
+      id: "c11b35",
       description:
         "Label displayed on Community Experience form for organization input",
     });
@@ -245,18 +245,8 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for how a skill was applied section",
     }),
-    classificationGroup: intl.formatMessage({
-      defaultMessage: "Group",
-      id: "kUqaoo",
-      description:
-        "Label displayed on Work Experience form for classification group input",
-    }),
-    classificationLevel: intl.formatMessage({
-      defaultMessage: "Level",
-      id: "Y7Qop6",
-      description:
-        "Label displayed on Work Experience form for classification level input",
-    }),
+    classificationGroup: intl.formatMessage(commonMessages.group),
+    classificationLevel: intl.formatMessage(commonMessages.level),
     extSizeOfOrganization: intl.formatMessage({
       defaultMessage: "Size of the organization",
       id: "HP5PEg",
