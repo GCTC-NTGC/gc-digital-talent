@@ -115,52 +115,13 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const gcDigitalTalentLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    external
-    href={
-      locale === "en"
-        ? "https://talent.canada.ca/en/register-info"
-        : "https://talent.canada.ca/fr/register-info"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const supportLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    external
-    href={
-      locale === "en"
-        ? "https://talent.canada.ca/en/support"
-        : "https://talent.canada.ca/fr/support"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const howToUse2FALink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    external
-    href={
-      locale === "en"
-        ? "https://talent.canada.ca/en/login-info"
-        : "https://talent.canada.ca/fr/login-info"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
 const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     external
     href={
       locale === "en"
-        ? "https://clegc-gckey.gc.ca/j/eng/CU-01?ReqID=_6aded1242c125951e054"
-        : "https://clegc-gckey.gc.ca/j/fra/CU-01?ReqID=_6aded1242c125951e054"
+        ? "https://clegc-gckey.gc.ca/j/eng/CU-01"
+        : "https://clegc-gckey.gc.ca/j/fra/CU-01"
     }
   >
     {chunks}
@@ -1183,14 +1144,14 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <link>sign up for a GCkey</link> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
-                          id: "pnGRfN",
+                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <gcDigitalTalentLink>sign up for a GCkey</gcDigitalTalentLink> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
+                          id: "G0AEfY",
                           description:
                             "Text explaining the importance of starting an application early",
                         },
                         {
-                          link: (chunks: ReactNode) =>
-                            gcDigitalTalentLink(locale, chunks),
+                          gcDigitalTalentLink: (chunks: ReactNode) =>
+                            internalLink(paths.register(), chunks),
                         },
                       )}
                       <Text>
@@ -1278,7 +1239,7 @@ export const PoolPoster = ({
                         },
                         {
                           link: (chunks: ReactNode) =>
-                            supportLink(locale, chunks),
+                            internalLink(paths.support(), chunks),
                         },
                       )}
                       <Text>
@@ -1324,9 +1285,9 @@ export const PoolPoster = ({
                         },
                         {
                           link: (chunks: ReactNode) =>
-                            gcDigitalTalentLink(locale, chunks),
+                            internalLink(paths.register(), chunks),
                           use2FALink: (chunks: ReactNode) =>
-                            howToUse2FALink(locale, chunks),
+                            internalLink(paths.login(), chunks),
                         },
                       )}
                     </Text>
@@ -1358,7 +1319,7 @@ export const PoolPoster = ({
                             },
                             {
                               link: (chunks: ReactNode) =>
-                                supportLink(locale, chunks),
+                                internalLink(paths.support(), chunks),
                             },
                           )}
                         </li>
