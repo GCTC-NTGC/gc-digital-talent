@@ -1,8 +1,7 @@
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
+  Application_PoolCandidateFragment,
   Maybe,
-  Pool,
-  PoolCandidate,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
   UserProfileFragment as UserProfileFragmentType,
@@ -19,7 +18,7 @@ export type SectionKey =
 export interface SectionProps<P = void> {
   user: UserProfileFragmentType;
   isUpdating?: boolean;
-  application?: Pick<PoolCandidate, "id"> & { pool: Pick<Pool, "language"> };
+  application?: Application_PoolCandidateFragment;
   pool?: Maybe<P>;
   onUpdate: (
     id: string,

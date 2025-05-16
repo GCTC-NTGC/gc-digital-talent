@@ -10,7 +10,13 @@ import {
   Locales,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Experience, Scalars } from "@gc-digital-talent/graphql";
+import {
+  Experience,
+  FragmentType,
+  getFragment,
+  graphql,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import {
   deriveExperienceType,
@@ -42,6 +48,48 @@ const getSkillArgs = (
   };
 };
 
+const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
+  fragment ExperienceSkillFormExperience on Experience {
+    id
+    ... on AwardExperience {
+      title
+    }
+    ... on CommunityExperience {
+      title
+      organization
+    }
+    ... on EducationExperience {
+      type {
+        value
+      }
+      areaOfStudy
+      institution
+    }
+    ... on PersonalExperience {
+      title
+    }
+    ... on WorkExperience {
+      role
+      organization
+      cafForce {
+        label {
+          en
+          fr
+        }
+      }
+      employmentCategory {
+        value
+      }
+      department {
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
 type FormAction = "connect" | "remove";
 
 interface FormValues {
@@ -53,14 +101,16 @@ interface FormValues {
 
 interface ExperienceSkillFormProps {
   defaultValues: FormValues;
-  experiences: Omit<Experience, "user">[];
+  experiencesQuery: FragmentType<
+    typeof ExperienceSkillFormExperience_Fragment
+  >[];
   onSuccess: () => void;
 }
 
 const ExperienceSkillForm = ({
   defaultValues,
   onSuccess,
-  experiences,
+  experiencesQuery,
 }: ExperienceSkillFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -74,6 +124,10 @@ const ExperienceSkillForm = ({
   } = methods;
   const actionProps = register("action");
   const selectedExperienceId = methods.watch("experience");
+  const experiences = getFragment(
+    ExperienceSkillFormExperience_Fragment,
+    experiencesQuery,
+  );
   const selectedExperience = experiences.find(
     (exp) => exp.id === selectedExperienceId,
   );

@@ -330,9 +330,7 @@ export const ViewPoolCandidate = ({
                   </Accordion.Root>
                 </div>
                 <ErrorBoundary>
-                  <CareerTimelineSection
-                    experiences={nonEmptyExperiences ?? []}
-                  />
+                  <CareerTimelineSection experiences={nonEmptyExperiences} />
                 </ErrorBoundary>
               </div>
             ) : (

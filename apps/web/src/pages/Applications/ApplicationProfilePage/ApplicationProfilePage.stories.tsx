@@ -10,7 +10,6 @@ export default {
   component: ApplicationProfile,
   args: {
     application: fakeApplication,
-    user: fakeApplication.user,
   },
 } as Meta<typeof ApplicationProfile>;
 
@@ -22,7 +21,8 @@ export const Default = Template.bind({});
 
 export const EmptyUser = Template.bind({});
 EmptyUser.args = {
-  user: {
-    id: fakeApplication.user.id,
+  application: {
+    ...fakeApplication,
+    user: { id: "" },
   },
 };

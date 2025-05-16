@@ -1,19 +1,19 @@
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Pool,
-  SkillCategory,
-  PoolSkillType,
-  Experience,
-} from "@gc-digital-talent/graphql";
+import { Pool, SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import {
+  AddedSkill,
   filterPoolSkillsByType,
   filterSkillsByCategory,
   getMissingSkills,
 } from "~/utils/skillUtils";
 
+interface ApplicantExperience {
+  skills?: AddedSkill[] | null;
+}
+
 export function isIncomplete(
-  applicantExperiences: Omit<Experience, "user">[] | undefined | null,
+  applicantExperiences: ApplicantExperience[] | null | undefined,
   pool: Pool,
 ): boolean {
   const poolEssentialTechnicalSkills = filterSkillsByCategory(

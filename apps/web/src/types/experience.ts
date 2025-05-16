@@ -38,6 +38,8 @@ import {
   CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
 
+import { SimpleAnyExperience } from "~/utils/experienceUtils";
+
 export type ExperienceType =
   | "award"
   | "community"
@@ -52,12 +54,11 @@ export type AnyExperience =
   | Omit<PersonalExperience, "user">
   | Omit<WorkExperience, "user">;
 
-export type ExperienceForDate =
-  | (Omit<AwardExperience, "user"> & { startDate: string; endDate: string })
-  | Omit<CommunityExperience, "user">
-  | Omit<EducationExperience, "user">
-  | Omit<PersonalExperience, "user">
-  | Omit<WorkExperience, "user">;
+export interface ExperienceForDate extends SimpleAnyExperience {
+  awardedDate?: Maybe<string>;
+  startDate?: Maybe<string>;
+  endDate?: Maybe<string>;
+}
 
 interface FormValueDateRange {
   startDate: Scalars["Date"]["input"];

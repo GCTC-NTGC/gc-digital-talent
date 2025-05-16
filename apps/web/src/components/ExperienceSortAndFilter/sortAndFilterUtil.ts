@@ -2,41 +2,47 @@ import { IntlShape } from "react-intl";
 
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
-import { Experience } from "@gc-digital-talent/graphql";
 
 import {
   compareByDate,
+  ExperienceName,
   getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 import { ExperienceForDate } from "~/types/experience";
 
 import { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
-export function sortAndFilterExperiences(
-  experiences: Omit<Experience, "user">[] | undefined,
+interface SortAndFilterExperience
+  extends SimpleAnyExperience,
+    ExperienceName,
+    ExperienceForDate {
+  id: string;
+}
+
+export function sortAndFilterExperiences<T extends SortAndFilterExperience>(
+  experiences: T[] | undefined | null,
   sortAndFilterValues: SortAndFilterValues,
   intl: IntlShape,
-): Omit<Experience, "user">[] {
+): T[] {
   const experiencesNotNull = experiences?.filter(notEmpty) ?? [];
 
-  const experiencesDateNormalized: ExperienceForDate[] = experiencesNotNull.map(
-    (experience) => {
-      if (isAwardExperience(experience)) {
-        const e: ExperienceForDate = {
-          ...experience,
-          startDate: experience.awardedDate ?? PAST_DATE,
-          endDate: experience.awardedDate ?? PAST_DATE,
-        };
-        return e;
-      }
-      return experience;
-    },
-  );
+  const experiencesDateNormalized = experiencesNotNull.map((experience) => {
+    if (isAwardExperience(experience)) {
+      const e = {
+        ...experience,
+        startDate: experience.awardedDate ?? PAST_DATE,
+        endDate: experience.awardedDate ?? PAST_DATE,
+      };
+      return e;
+    }
+    return experience;
+  });
 
   let experiencesFiltered;
   switch (sortAndFilterValues?.filterBy) {

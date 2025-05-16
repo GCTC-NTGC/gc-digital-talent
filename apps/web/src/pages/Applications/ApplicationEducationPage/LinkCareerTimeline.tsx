@@ -9,7 +9,6 @@ import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
   Classification,
   EducationRequirementOption,
-  Experience,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -19,6 +18,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
+  SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 
 const essentialExperienceMessages = defineMessages({
@@ -209,7 +209,7 @@ const CheckListSection = ({
 };
 
 interface LinkCareerTimelineProps {
-  experiences: Omit<Experience, "user">[];
+  experiences: SimpleAnyExperience[];
   previousStepPath: string;
   classificationGroup?: string;
 }
@@ -223,7 +223,7 @@ const LinkCareerTimeline = ({
   const experienceItems = experiences.reduce(
     (
       checklistItems: ExperienceItems,
-      experience: Omit<Experience, "user">,
+      experience: SimpleAnyExperience,
     ): ExperienceItems => {
       if (isEducationExperience(experience)) {
         const educationExperience = {

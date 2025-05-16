@@ -4,19 +4,22 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
-import { Experience } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import ExperienceCard, {
+  ExperienceCard_Fragment,
+} from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import experienceMessages from "~/messages/experienceMessages";
+import { SnapshotExperience } from "~/utils/experienceUtils";
 
 interface CareerTimelineSectionProps {
-  experiences: Omit<Experience, "user">[];
+  experiences: SnapshotExperience[];
 }
 
 const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
@@ -78,7 +81,16 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
             experienceList.map((experience) => (
               <ExperienceCard
                 key={experience.id}
-                experience={experience}
+                /**
+                    This comes from the snapshot so we cant fragmentize it so we are tricking typescript :(
+                */
+                experienceQuery={makeFragmentData(
+                  {
+                    ...experience,
+                    __typename: experience.__typename ?? "AwardExperience",
+                  },
+                  ExperienceCard_Fragment,
+                )}
                 headingLevel="h3"
                 showSkills={false}
                 showEdit={false}

@@ -11,14 +11,19 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Experience, Skill } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Skill,
+} from "@gc-digital-talent/graphql";
 
-import { getExperienceSkills } from "~/utils/skillUtils";
+import { ExperienceWithSkills, getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 
-const filterExperienceSkills = (
-  experience: Omit<Experience, "user">,
+const filterExperienceSkills = <T extends ExperienceWithSkills>(
+  experience: T,
   skill: Skill,
 ) => {
   return {
@@ -29,9 +34,20 @@ const filterExperienceSkills = (
   };
 };
 
+const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
+  fragment SkillTreeExperience on Experience {
+    id
+    skills {
+      id
+    }
+    ...ExperienceSkillFormDialogExperience
+    ...ExperienceCard
+  }
+`);
+
 interface SkillTreeProps {
   skill: Skill;
-  experiences: Omit<Experience, "user">[];
+  experiencesQuery: FragmentType<typeof SkillTreeExperience_Fragment>[];
   headingAs?: HeadingLevel;
   hideConnectButton?: boolean;
   hideEdit?: boolean;
@@ -41,7 +57,7 @@ interface SkillTreeProps {
 
 const SkillTree = ({
   skill,
-  experiences,
+  experiencesQuery,
   headingAs = "h4",
   disclaimerMessage,
   hideConnectButton = false,
@@ -50,6 +66,10 @@ const SkillTree = ({
 }: SkillTreeProps) => {
   const intl = useIntl();
   const contentHeadingLevel = incrementHeadingRank(headingAs);
+  const experiences = getFragment(
+    SkillTreeExperience_Fragment,
+    experiencesQuery,
+  );
 
   const title = getLocalizedName(skill.name, intl);
   const skillExperiences = getExperienceSkills(experiences, skill);
@@ -95,7 +115,7 @@ const SkillTree = ({
           {skillExperiences.map((experience) => (
             <TreeView.Item key={experience.id}>
               <ExperienceCard
-                experience={filterExperienceSkills(experience, skill)}
+                experienceQuery={filterExperienceSkills(experience, skill)}
                 headingLevel={contentHeadingLevel}
                 showEdit={!hideEdit}
                 showSkills={skill}
@@ -112,7 +132,7 @@ const SkillTree = ({
         <TreeView.Item>
           <ExperienceSkillFormDialog
             skill={skill}
-            availableExperiences={availableExperiences}
+            availableExperiencesQuery={availableExperiences}
             trigger={
               <Button
                 type="button"

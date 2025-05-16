@@ -79,6 +79,7 @@ const FullCareerExperiencesTalentNominationGroup_Fragment = graphql(
     }
   `,
 );
+
 interface FullCareerExperiencesProps {
   userQuery:
     | FragmentType<typeof FullCareerExperiencesUser_Fragment>
@@ -316,7 +317,7 @@ const FullCareerExperiences = ({
                               return (
                                 <ExperienceCard
                                   key={experience?.id}
-                                  experience={experience}
+                                  experienceQuery={experience}
                                   showEdit={false}
                                 />
                               );
