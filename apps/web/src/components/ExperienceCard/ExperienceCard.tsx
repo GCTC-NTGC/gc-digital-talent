@@ -109,6 +109,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       type {
         value
         label {
+          localized
           en
           fr
         }
@@ -116,6 +117,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       status {
         value
         label {
+          localized
           en
           fr
         }
@@ -138,6 +140,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       employmentCategory {
         value
         label {
+          localized
           en
           fr
         }
@@ -145,6 +148,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       extSizeOfOrganization {
         value
         label {
+          localized
           en
           fr
         }
@@ -152,6 +156,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       extRoleSeniority {
         value
         label {
+          localized
           en
           fr
         }
@@ -159,6 +164,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govEmploymentType {
         value
         label {
+          localized
           en
           fr
         }
@@ -166,6 +172,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govPositionType {
         value
         label {
+          localized
           en
           fr
         }
@@ -173,6 +180,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govContractorRoleSeniority {
         value
         label {
+          localized
           en
           fr
         }
@@ -180,6 +188,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govContractorType {
         value
         label {
+          localized
           en
           fr
         }
@@ -188,6 +197,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafEmploymentType {
         value
         label {
+          localized
           en
           fr
         }
@@ -195,6 +205,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafForce {
         value
         label {
+          localized
           en
           fr
         }
@@ -202,6 +213,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafRank {
         value
         label {
+          locaized
           en
           fr
         }
@@ -222,6 +234,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       classification {
         id
         name {
+          localized
           en
           fr
         }
@@ -233,6 +246,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       department {
         id
         name {
+          localized
           en
           fr
         }
