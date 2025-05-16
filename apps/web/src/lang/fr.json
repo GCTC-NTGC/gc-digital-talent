@@ -3843,6 +3843,10 @@
     "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
     "description": "fifth 2024 key change rationale to the directive"
   },
+  "G0AEfY": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
+  },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
@@ -11396,10 +11400,6 @@
   "pmCge3": {
     "defaultMessage": "Votre incidence (anglais)",
     "description": "Label for a process' English impact"
-  },
-  "G0AEfY": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
   },
   "pnjDCS": {
     "defaultMessage": "Chercher les demandes",
