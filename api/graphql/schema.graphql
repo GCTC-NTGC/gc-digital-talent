@@ -1550,6 +1550,7 @@ input CreateUserInput {
       ]
       messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
     )
+  workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   govEmployeeType: GovEmployeeType
     @rename(attribute: "computed_gov_employee_type")
   currentClassification: ClassificationBelongsTo
