@@ -73,22 +73,12 @@ export const ClassificationTable = ({
     columnHelper.accessor("group", {
       id: "group",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Group",
-        id: "aS4Lty",
-        description:
-          "Title displayed for the Classification table Group column.",
-      }),
+      header: intl.formatMessage(commonMessages.group),
     }),
     columnHelper.accessor("level", {
       id: "level",
       enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Level",
-        id: "yZqUAU",
-        description:
-          "Title displayed for the Classification table Level column.",
-      }),
+      header: intl.formatMessage(commonMessages.level),
     }),
     columnHelper.accessor("minSalary", {
       id: "minSalary",

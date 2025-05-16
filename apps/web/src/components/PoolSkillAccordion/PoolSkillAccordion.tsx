@@ -126,11 +126,8 @@ const PoolSkillAccordion = ({
     : intl.formatMessage(commonMessages.notFound);
 
   const skillLevelItem = `${`${
-    intl.formatMessage({
-      defaultMessage: "Level",
-      id: "bVRixs",
-      description: "Label displayed on the classification form level field.",
-    }) + intl.formatMessage(commonMessages.dividingColon)
+    intl.formatMessage(commonMessages.level) +
+    intl.formatMessage(commonMessages.dividingColon)
   } ${skillLevel}`}`;
 
   const screeningTime =
