@@ -241,7 +241,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            PoolCandidate::scopeAppliedClassifications($query, $classifications);
+            $query->whereAppliedClassificationsIn($classifications);
         });
     }
 
@@ -273,7 +273,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            PoolCandidate::scopeWhereQualifiedStreamsIn($query, $streams);
+            $query->whereQualifiedStreamsIn($streams);
         });
     }
 
@@ -331,7 +331,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($communityId) {
-            return PoolCandidate::scopeWhereHasPoolCandidateCommunity($query, $communityId);
+            return $query->whereHasPoolCandidateCommunity($communityId);
         });
     }
 
