@@ -197,12 +197,20 @@ const TrainingAndDevelopmentOpportunities = ({
             <RadioGroup
               idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
               name={`interestInDevelopmentPrograms.${index}.participationStatus`}
-              legend={intl.formatMessage({
-                defaultMessage: "Program participation",
-                id: "LQ0a0a",
-                description:
-                  "Legend for the radio group of program participation",
-              })}
+              legend={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Program participation<hidden> for {name}</hidden>",
+                  id: "c667HQ",
+                  description:
+                    "Legend for the radio group of program participation",
+                },
+                {
+                  name:
+                    developmentProgram.name?.localized ??
+                    intl.formatMessage(commonMessages.notProvided),
+                },
+              )}
               items={[
                 {
                   value: DevelopmentProgramParticipationStatus.NotInterested,
