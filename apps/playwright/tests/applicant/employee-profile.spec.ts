@@ -1,9 +1,41 @@
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
+import graphql from "~/utils/graphql";
+import { createUserWithRoles } from "~/utils/user";
 
 test.describe("Employee Profile", () => {
+  const uniqueTestId = Date.now().valueOf();
+  const sub = `playwright.sub.${uniqueTestId}`;
+
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+
+    await createUserWithRoles(adminCtx, {
+      user: {
+        email: `${sub}@example.org`,
+        sub,
+        isGovEmployee: true,
+        workEmail: `${sub}@gc.ca`,
+        workEmailVerifiedAt: nowUTCDateTime(),
+      },
+      roles: ["guest", "base_user", "applicant"],
+    });
+  });
+
   test("Career planning", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant");
+    await appPage.waitForGraphqlResponse("ApplicantDashboard");
+
+    // Confirm the employee profile starts considered incomplete
+    await expect(
+      appPage.page.getByRole("listitem", {
+        name: /employee profile \(incomplete\)/i,
+      }),
+    ).toBeVisible();
+
     await appPage.page.goto("/en/applicant/employee-profile");
     await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
