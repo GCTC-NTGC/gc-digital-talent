@@ -1183,8 +1183,8 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don’t have an account yet, you'll need to <link>sign up for a GCkey</link> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
-                          id: "sblaNb",
+                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <link>sign up for a GCkey</link> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
+                          id: "pnGRfN",
                           description:
                             "Text explaining the importance of starting an application early",
                         },
@@ -1196,8 +1196,8 @@ export const PoolPoster = ({
                       <Text>
                         {intl.formatMessage({
                           defaultMessage:
-                            "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we’ll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
-                          id: "HlZ1Z4",
+                            "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we'll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
+                          id: "adaiV0",
                           description:
                             "Text explaining the average time spent on applications",
                         })}
@@ -1317,8 +1317,8 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "We’ve set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
-                          id: "8hKK7v",
+                            "We've set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
+                          id: "MYnfw/",
                           description:
                             "Text explaining the importance of reporting technical issues",
                         },

@@ -2255,8 +2255,8 @@
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
   },
-  "8hKK7v": {
-    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l’authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l’authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
+  "MYnfw/": {
+    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
     "description": "Text explaining the importance of reporting technical issues"
   },
   "8hnMtx": {
@@ -4163,7 +4163,7 @@
     "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} =1 {1 personne candidate} other {# personnes candidates}}",
     "description": "Count of nominees"
   },
-  "HlZ1Z4": {
+  "adaiV0": {
     "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
     "description": "Text explaining the average time spent on applications"
   },
@@ -11086,7 +11086,7 @@
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
   },
   "oGNR16": {
-    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s’il se produit en dehors des heures normales de travail.",
+    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s'il se produit en dehors des heures normales de travail.",
     "description": "Text explaining the importance of reporting technical issues"
   },
   "oHIWzo": {
@@ -11905,8 +11905,8 @@
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
   },
-  "sblaNb": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n’avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+  "pnGRfN": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
     "description": "Text explaining the importance of starting an application early"
   },
   "sde2Dj": {
