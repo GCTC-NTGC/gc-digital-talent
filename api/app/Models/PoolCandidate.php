@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\PoolCandidateBuilder;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
@@ -149,6 +150,17 @@ class PoolCandidate extends Model
                 $model->user()->searchable();
             }
         });
+    }
+
+    /*
+     * Binds the eloquent builder to the model to allow for
+     * applying scopes directly to Pool query builders
+     *
+     * i.e PoolCandidate::query()->whereName();
+     */
+    public function newEloquentBuilder($query): Builder
+    {
+        return new PoolCandidateBuilder($query);
     }
 
     public function getActivitylogOptions(): LogOptions
