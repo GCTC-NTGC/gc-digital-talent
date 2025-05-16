@@ -845,7 +845,7 @@ export interface ExperienceName extends SimpleAnyExperience {
   areaOfStudy?: Maybe<string>;
   institution?: Maybe<string>;
   role?: Maybe<string>;
-  employementCategory?: Maybe<Partial<LocalizedEmploymentCategory>>;
+  employmentCategory?: Maybe<Partial<LocalizedEmploymentCategory>>;
   department?: Maybe<{
     name?: Maybe<Partial<LocalizedString>>;
   }>;

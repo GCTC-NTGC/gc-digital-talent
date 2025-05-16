@@ -20,7 +20,7 @@ import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
-const ProfileExperiencesSectionExpererience_Fragment = graphql(/** GraphQL */ `
+const ProfileExperiencesSectionExperience_Fragment = graphql(/** GraphQL */ `
   fragment ProfileExperiencesSectionExperience on Experience {
     id
     ...ExperienceCard
@@ -30,7 +30,7 @@ const ProfileExperiencesSectionExpererience_Fragment = graphql(/** GraphQL */ `
 
 interface ExperienceSectionProps {
   experiencesQuery?: FragmentType<
-    typeof ProfileExperiencesSectionExpererience_Fragment
+    typeof ProfileExperiencesSectionExperience_Fragment
   >[];
   editParam?: string;
   headingLevel?: HeadingRank;
@@ -44,7 +44,7 @@ const ExperienceSection = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const experiences = getFragment(
-    ProfileExperiencesSectionExpererience_Fragment,
+    ProfileExperiencesSectionExperience_Fragment,
     unpackMaybes(experiencesQuery),
   );
 
