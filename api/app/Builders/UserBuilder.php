@@ -290,7 +290,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            return $query->wherePublishingGroupsIn($publishingGroups);
+            $query->wherePublishingGroupsIn($publishingGroups);
         });
     }
 

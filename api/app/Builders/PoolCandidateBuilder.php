@@ -72,10 +72,6 @@ class PoolCandidateBuilder extends Builder
      * Scope Publishing Groups
      *
      * Restrict a query by specific publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public function wherePublishingGroupsIn(?array $publishingGroups): self
     {
@@ -94,9 +90,6 @@ class PoolCandidateBuilder extends Builder
      *
      * Restrict a query by pool candidates that are for pools
      * containing IT and OTHER publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
     public function whereInTalentSearchablePublishingGroup(): self
     {
