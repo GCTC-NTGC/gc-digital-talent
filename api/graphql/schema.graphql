@@ -125,7 +125,7 @@ type User {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] @belongsToMany # All experiences that a user owns
+  experiences: [Experience] # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
   communityExperiences: [CommunityExperience] @belongsToMany # Community experiences that a user owns
   educationExperiences: [EducationExperience] @belongsToMany # Education experiences that a user owns
@@ -544,7 +544,7 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: LocalizedEducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  educationRequirementExperiences: [Experience] @belongsToMany
+  educationRequirementExperiences: [Experience]
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -966,15 +966,16 @@ type WorkExperience implements Experience {
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
   workStreams: [WorkStream!] @with(relation: "workStreams")
-  supervisoryPosition: Boolean
-  supervisedEmployees: Boolean
+  supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
+  supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
   supervisedEmployeesNumber: Int
-  budgetManagement: Boolean
-  annualBudgetAllocation: Int
-  seniorManagementStatus: Boolean
+    @rename(attribute: "supervised_employees_number")
+  budgetManagement: Boolean @rename(attribute: "budget_management")
+  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
-  otherCSuiteRoleTitle: String
+  otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -2656,7 +2657,11 @@ input UpdateApplicationInput {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
-  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 
   # Used to validate essential skills
   applicationId: ID
