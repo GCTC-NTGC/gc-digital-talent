@@ -8,7 +8,7 @@ import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
-import iapManagerImg from "~/assets/img/check_it_out_IAP_manager_callout.webp";
+import iapManagerImg from "~/assets/img/iap-hero.webp";
 import itTrainingFundImg from "~/assets/img/check_it_out_it_training_fund.webp";
 
 const Featured = () => {
@@ -123,7 +123,7 @@ const Featured = () => {
       </Heading>
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(3, minmax(0, 1fr)))"
+        data-h2-grid-template-columns="base(1fr) p-tablet(1fr) l-tablet(repeat(3, 1fr))"
         data-h2-gap="base(x1)"
         data-h2-padding="base(x2, 0, 0, 0)"
       >

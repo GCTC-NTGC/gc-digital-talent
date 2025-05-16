@@ -31,7 +31,7 @@ const Opportunities = () => {
       </Heading>
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
+        data-h2-grid-template-columns="base(1fr) p-tablet(1fr) l-tablet(repeat(3, minmax(0, 1fr)))"
         data-h2-gap="base(x2) p-tablet(x3)"
         data-h2-padding="base(x2, 0, 0, 0)"
       >
