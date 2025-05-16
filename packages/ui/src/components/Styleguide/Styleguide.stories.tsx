@@ -125,10 +125,15 @@ const Grid = ({ children, className }: GridProps) => (
 
 interface SwatchProps {
   className: string;
+  level?: string;
 }
 
-const Swatch = ({ className }: SwatchProps) => (
-  <div className={`h-0 gap-4 pb-[100%] ${className}`} />
+const Swatch = ({ className, level }: SwatchProps) => (
+  <div className={`relative h-0 gap-4 pb-[100%] ${className}`}>
+    {level ? (
+      <span className="absolute bottom-2 left-2 leading-none">{level}</span>
+    ) : null}
+  </div>
 );
 
 export const Tailwind: StoryObj = {
@@ -136,7 +141,7 @@ export const Tailwind: StoryObj = {
     layout: "fullscreen",
   },
   render: () => (
-    <div className="mx-auto max-w-7xl p-4">
+    <div className="mx-auto max-w-7xl p-4 text-foreground">
       <Heading level="h2" size="h4">
         Colours
       </Heading>
@@ -230,6 +235,32 @@ export const Tailwind: StoryObj = {
         <Swatch className="bg-gray-500" />
         <Swatch className="bg-gray-600" />
         <Swatch className="bg-gray-700" />
+      </Grid>
+
+      <Heading level="h3" size="h6">
+        Background
+      </Heading>
+      <Grid className="md:max-width-md grid-cols-7">
+        <Swatch className="bg-background-100" />
+        <Swatch className="bg-background-200" />
+        <Swatch className="bg-background-300" />
+        <Swatch className="bg-background-400" />
+        <Swatch className="bg-background-500" />
+        <Swatch className="bg-background-600" />
+        <Swatch className="bg-background-700" />
+      </Grid>
+
+      <Heading level="h3" size="h6">
+        Foreground
+      </Heading>
+      <Grid className="md:max-width-md grid-cols-7">
+        <Swatch className="bg-foreground-100" />
+        <Swatch className="bg-foreground-200" />
+        <Swatch className="bg-foreground-300" />
+        <Swatch className="bg-foreground-400" />
+        <Swatch className="bg-foreground-500" />
+        <Swatch className="bg-foreground-600" />
+        <Swatch className="bg-foreground-700" />
       </Grid>
 
       <Heading level="h3" size="h6">

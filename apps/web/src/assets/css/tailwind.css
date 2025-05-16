@@ -72,6 +72,22 @@
   --gcdt-color-gray-600: oklch(0.42 0.0362 270.42);
   --gcdt-color-gray-700: oklch(0.29 0.025 268.38);
 
+  --gcdt-color-background-100: var(--gcdt-color-gray-100);
+  --gcdt-color-background-200: var(--gcdt-color-gray-200);
+  --gcdt-color-background-300: var(--gcdt-color-gray-300);
+  --gcdt-color-background-400: var(--gcdt-color-gray-400);
+  --gcdt-color-background-500: var(--gcdt-color-gray-500);
+  --gcdt-color-background-600: var(--gcdt-color-gray-600);
+  --gcdt-color-background-700: var(--gcdt-color-gray-700);
+
+  --gcdt-color-foreground-100: var(--gcdt-color-gray-700);
+  --gcdt-color-foreground-200: var(--gcdt-color-gray-600);
+  --gcdt-color-foreground-300: var(--gcdt-color-gray-500);
+  --gcdt-color-foreground-400: var(--gcdt-color-gray-400);
+  --gcdt-color-foreground-500: var(--gcdt-color-gray-300);
+  --gcdt-color-foreground-600: var(--gcdt-color-gray-200);
+  --gcdt-color-foreground-700: var(--gcdt-color-gray-100);
+
   --gcdt-color-black: oklch(0.13 0.0078 268.54);
   --gcdt-color-white: oklch(1 0 0);
 
@@ -94,13 +110,21 @@
 * NOTE: You can manually use a different variable with `dark:`
 */
 .dark {
-  --gcdt-color-gray-100: oklch(0.29 0.025 268.38);
-  --gcdt-color-gray-200: oklch(0.42 0.0362 270.42);
-  --gcdt-color-gray-300: oklch(0.55 0.0435 270.51);
-  --gcdt-color-gray-400: oklch(0.68 0.0459 270.65);
-  --gcdt-color-gray-500: oklch(0.75 0.046 271.17);
-  --gcdt-color-gray-600: oklch(0.83 0.0377 270.4);
-  --gcdt-color-gray-700: oklch(0.91 0.0224 272.04);
+  --gcdt-color-background-100: var(--gcdt-color-gray-700);
+  --gcdt-color-background-200: var(--gcdt-color-gray-600);
+  --gcdt-color-background-300: var(--gcdt-color-gray-500);
+  --gcdt-color-background-400: var(--gcdt-color-gray-400);
+  --gcdt-color-background-500: var(--gcdt-color-gray-300);
+  --gcdt-color-background-600: var(--gcdt-color-gray-200);
+  --gcdt-color-background-700: var(--gcdt-color-gray-100);
+
+  --gcdt-color-foreground-100: var(--gcdt-color-gray-100);
+  --gcdt-color-foreground-200: var(--gcdt-color-gray-200);
+  --gcdt-color-foreground-300: var(--gcdt-color-gray-300);
+  --gcdt-color-foreground-400: var(--gcdt-color-gray-400);
+  --gcdt-color-foreground-500: var(--gcdt-color-gray-500);
+  --gcdt-color-foreground-600: var(--gcdt-color-gray-600);
+  --gcdt-color-foreground-700: var(--gcdt-color-gray-700);
 
   /** Dark mode shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
@@ -210,6 +234,24 @@
   --color-gray-500: var(--gcdt-color-gray-500);
   --color-gray-600: var(--gcdt-color-gray-600);
   --color-gray-700: var(--gcdt-color-gray-700);
+
+  --color-background: var(--gcdt-color-background-100);
+  --color-background-100: var(--gcdt-color-background-100);
+  --color-background-200: var(--gcdt-color-background-200);
+  --color-background-300: var(--gcdt-color-background-300);
+  --color-background-400: var(--gcdt-color-background-400);
+  --color-background-500: var(--gcdt-color-background-500);
+  --color-background-600: var(--gcdt-color-background-600);
+  --color-background-700: var(--gcdt-color-background-700);
+
+  --color-foreground: var(--gcdt-color-foreground-100);
+  --color-foreground-100: var(--gcdt-color-foreground-100);
+  --color-foreground-200: var(--gcdt-color-foreground-200);
+  --color-foreground-300: var(--gcdt-color-foreground-300);
+  --color-foreground-400: var(--gcdt-color-foreground-400);
+  --color-foreground-500: var(--gcdt-color-foreground-500);
+  --color-foreground-600: var(--gcdt-color-foreground-600);
+  --color-foreground-700: var(--gcdt-color-foreground-700);
 
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
