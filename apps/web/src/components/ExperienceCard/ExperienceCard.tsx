@@ -213,7 +213,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafRank {
         value
         label {
-          locaized
+          localized
           en
           fr
         }
