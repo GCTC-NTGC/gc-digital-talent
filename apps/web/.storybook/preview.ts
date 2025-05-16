@@ -16,6 +16,7 @@ import frCompiled from "../src/lang/frCompiled.json";
 
 import "../src/assets/css/hydrogen.css";
 import "../src/assets/css/app.css";
+import "../src/assets/css/tailwind.css";
 
 const messages = {
   en: null,

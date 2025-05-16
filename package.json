@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@hydrogen-css/hydrogen": "2.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "turbo": "^2.5.3"
   }
 }

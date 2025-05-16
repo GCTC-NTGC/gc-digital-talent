@@ -1,6 +1,4 @@
 @import "./hydrogen.css";
-@import "tailwindcss";
-@source "../../../../../packages";
 
 /* TO DO: Should remove these when configuring tailwind */
 button,
