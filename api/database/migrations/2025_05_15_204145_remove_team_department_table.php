@@ -25,11 +25,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('team_department', function (Blueprint $table) {
-            $table->uuid('team_id');
-            $table->uuid('department_id');
-            $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('department_id')->references('id')->on('departments');
+        Schema::create('team_department', function (Blueprint $table) {
+            $table->foreignUuid('team_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->foreignUuid('department_id')
+                ->constrained()
+                ->onDelete('cascade');
         });
     }
 };
