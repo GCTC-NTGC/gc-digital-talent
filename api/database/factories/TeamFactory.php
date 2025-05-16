@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Department;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,13 +24,5 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->unique()->word(),
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (Team $team) {
-            $departments = Department::inRandomOrder()->limit(2)->get();
-            $team->departments()->saveMany($departments);
-        });
     }
 }

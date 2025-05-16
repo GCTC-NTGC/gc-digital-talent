@@ -6,7 +6,6 @@ use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
@@ -51,12 +50,6 @@ class Department extends Model
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
-    }
-
-    /** @return BelongsToMany<Team, $this> */
-    public function teams(): BelongsToMany
-    {
-        return $this->belongsToMany(Team::class, 'team_department');
     }
 
     /**

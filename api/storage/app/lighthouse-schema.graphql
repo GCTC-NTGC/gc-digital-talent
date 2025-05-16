@@ -1069,7 +1069,6 @@ type Department {
   isCentralAgency: Boolean
   isScience: Boolean
   isRegulatory: Boolean
-  teams: [Team]
   pools: [Pool]
 }
 
@@ -1180,7 +1179,6 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
-  departments: [Department]
   pools: [Pool]
   teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
