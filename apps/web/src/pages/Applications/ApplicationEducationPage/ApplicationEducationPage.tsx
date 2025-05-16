@@ -20,7 +20,13 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { isEducationExperience } from "~/utils/experienceUtils";
+import {
+  isEducationExperience,
+  isAwardExperience,
+  isCommunityExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
@@ -35,6 +41,14 @@ import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
+
+interface EducationRequirementExperiences {
+  educationRequirementAwardExperiences: { sync: string[] };
+  educationRequirementCommunityExperiences: { sync: string[] };
+  educationRequirementEducationExperiences: { sync: string[] };
+  educationRequirementPersonalExperiences: { sync: string[] };
+  educationRequirementWorkExperiences: { sync: string[] };
+}
 
 type PageAction = "continue" | "cancel";
 
@@ -158,24 +172,104 @@ const ApplicationEducation = ({
           ).length > 0));
 
     if (isValid) {
-      const selectedExperiences = experiences.filter((experience) =>
-        includesExperience(experience.id),
+      const emptyEducationRequirementExperiences: EducationRequirementExperiences =
+        {
+          educationRequirementAwardExperiences: { sync: [] },
+          educationRequirementCommunityExperiences: { sync: [] },
+          educationRequirementEducationExperiences: { sync: [] },
+          educationRequirementPersonalExperiences: { sync: [] },
+          educationRequirementWorkExperiences: { sync: [] },
+        };
+
+      // Gets all experiences by type that have been selected by the applicant.
+
+      const allExperiences = experiences.reduce(
+        (
+          accumulator: EducationRequirementExperiences,
+
+          experience: Experience,
+        ) => {
+          return {
+            ...accumulator,
+
+            ...(isAwardExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementAwardExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementAwardExperiences.sync,
+
+                    experience.id,
+                  ],
+                },
+              }),
+
+            ...(isCommunityExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementCommunityExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementCommunityExperiences
+                      .sync,
+
+                    experience.id,
+                  ],
+                },
+              }),
+
+            ...(isEducationExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementEducationExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementEducationExperiences
+                      .sync,
+
+                    experience.id,
+                  ],
+                },
+              }),
+
+            ...(isPersonalExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementPersonalExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementPersonalExperiences.sync,
+
+                    experience.id,
+                  ],
+                },
+              }),
+
+            ...(isWorkExperience(experience) &&
+              includesExperience(experience.id) && {
+                educationRequirementWorkExperiences: {
+                  sync: [
+                    ...accumulator.educationRequirementWorkExperiences.sync,
+
+                    experience.id,
+                  ],
+                },
+              }),
+          };
+        },
+
+        emptyEducationRequirementExperiences,
       );
 
       // Only save education experiences IF the applicant selects "I meet the post-secondary option".
       // Otherwise, save all experiences.
       const educationRequirementExperiences =
         formValues.educationRequirement === EducationRequirementOption.Education
-          ? selectedExperiences.filter(isEducationExperience)
-          : selectedExperiences;
+          ? {
+              ...emptyEducationRequirementExperiences,
+              educationRequirementEducationExperiences:
+                allExperiences.educationRequirementEducationExperiences,
+            }
+          : allExperiences;
 
       executeMutation({
         id: application.id,
         application: {
           educationRequirementOption: formValues.educationRequirement,
-          educationRequirementExperiences: {
-            sync: educationRequirementExperiences.map((e) => e.id),
-          },
+          ...educationRequirementExperiences,
           ...(formValues.action === "continue" && {
             insertSubmittedStep: ApplicationStep.EducationRequirements,
           }),
