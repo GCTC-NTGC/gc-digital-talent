@@ -2255,10 +2255,6 @@
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
   },
-  "MYnfw/": {
-    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
-    "description": "Text explaining the importance of reporting technical issues"
-  },
   "8hnMtx": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to update a profile when signed in"
@@ -4155,10 +4151,6 @@
     "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} =1 {1 personne candidate} other {# personnes candidates}}",
     "description": "Count of nominees"
   },
-  "adaiV0": {
-    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
-    "description": "Text explaining the average time spent on applications"
-  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -5174,6 +5166,10 @@
   "MXZ8Ms": {
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
     "description": "Paragraph 1, importance of self-declaration"
+  },
+  "MYnfw/": {
+    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
+    "description": "Text explaining the importance of reporting technical issues"
   },
   "MZ0uNW": {
     "defaultMessage": "Veuillez vérifier votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
@@ -8034,6 +8030,10 @@
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
   },
+  "adaiV0": {
+    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
+    "description": "Text explaining the average time spent on applications"
+  },
   "ae3u1t": {
     "defaultMessage": "Clé",
     "description": "Title for key field"
@@ -8321,10 +8321,6 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
-  },
-  "c11b35": {
-    "defaultMessage": "Groupe, organisation ou collectivité",
-    "description": "Label displayed on Community Experience form for organization input"
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
@@ -11401,6 +11397,10 @@
     "defaultMessage": "Votre incidence (anglais)",
     "description": "Label for a process' English impact"
   },
+  "pnGRfN": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
+  },
   "pnjDCS": {
     "defaultMessage": "Chercher les demandes",
     "description": "Label for the search request table search input"
@@ -11872,10 +11872,6 @@
   "sapxcU": {
     "defaultMessage": "Avertissement",
     "description": "Label displayed on Personal Experience form for disclaimer bounded box"
-  },
-  "pnGRfN": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <link>créer une CléGC</link> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
   },
   "sde2Dj": {
     "defaultMessage": "Bienvenue",
