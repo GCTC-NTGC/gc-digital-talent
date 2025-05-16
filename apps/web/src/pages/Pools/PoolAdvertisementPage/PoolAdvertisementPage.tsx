@@ -104,7 +104,6 @@ const internalLink = (href: string, chunks: ReactNode) => (
 
 const standardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -118,7 +117,6 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
 
 const gcDigitalTalentLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -132,7 +130,6 @@ const gcDigitalTalentLink = (locale: Locales, chunks: ReactNode) => (
 
 const supportLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -146,7 +143,6 @@ const supportLink = (locale: Locales, chunks: ReactNode) => (
 
 const howToUse2FALink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -160,7 +156,6 @@ const howToUse2FALink = (locale: Locales, chunks: ReactNode) => (
 
 const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
