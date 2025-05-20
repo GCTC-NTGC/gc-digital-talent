@@ -82,8 +82,12 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
+interface ApplicationEducationExperience extends ExperienceForDate {
+  id: string;
+}
+
 interface ApplicationEducationProps extends ApplicationPageProps {
-  experiences: ExperienceForDate[];
+  experiences: ApplicationEducationExperience[];
 }
 
 const ApplicationEducation = ({

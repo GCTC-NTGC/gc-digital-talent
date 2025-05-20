@@ -2,10 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import {
-  graphql,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-} from "@gc-digital-talent/graphql";
+import { graphql, UserProfileFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -65,14 +62,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationProfileProps extends ApplicationPageProps {
-  user: ApplicationPoolCandidateFragmentType["user"];
-}
-
-export const ApplicationProfile = ({
-  application,
-  user,
-}: ApplicationProfileProps) => {
+export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { currentStepOrdinal } = useApplicationContext();
@@ -94,7 +84,7 @@ export const ApplicationProfile = ({
   };
 
   const sectionProps = {
-    user,
+    user: application.user as UserProfileFragment,
     isUpdating,
     onUpdate: handleUpdate,
     pool: application.pool,
@@ -132,14 +122,18 @@ export const ApplicationProfile = ({
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <LanguageProfile
           {...sectionProps}
-          application={{ id: application.id, pool: application.pool }}
+          application={{
+            id: application.id,
+            pool: application.pool,
+            user: application.user,
+          }}
         />
       </div>
       <Separator />
       <StepNavigation
         application={application}
-        user={user}
-        isValid={!stepHasError(user, application.pool)}
+        user={application.user}
+        isValid={!stepHasError(application.user, application.pool)}
       />
     </ProfileFormProvider>
   );
@@ -149,7 +143,7 @@ export const Component = () => {
   const { application } = useApplication();
 
   return application?.pool && application.user ? (
-    <ApplicationProfile application={application} user={application.user} />
+    <ApplicationProfile application={application} />
   ) : (
     <ThrowNotFound />
   );

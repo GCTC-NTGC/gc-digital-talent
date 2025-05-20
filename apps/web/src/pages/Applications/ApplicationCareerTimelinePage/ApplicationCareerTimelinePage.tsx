@@ -14,14 +14,23 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
+import {
+  Experience,
+  ApplicationStep,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate, ExperienceType } from "~/types/experience";
-import { deriveExperienceType } from "~/utils/experienceUtils";
-import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import {
+  deriveExperienceType,
+  SimpleAnyExperience,
+} from "~/utils/experienceUtils";
+import ExperienceCard, {
+  ExperienceCard_Fragment,
+} from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
@@ -154,8 +163,12 @@ function formatExperienceCount(
   }
 }
 
+interface ApplicationExperience extends ExperienceForDate, SimpleAnyExperience {
+  id: string;
+}
+
 interface ApplicationCareerTimelineProps extends ApplicationPageProps {
-  experiences: ExperienceForDate[];
+  experiences: ApplicationExperience[];
 }
 
 export const ApplicationCareerTimeline = ({
@@ -357,7 +370,6 @@ export const ApplicationCareerTimeline = ({
               return (
                 <ExperienceCard
                   key={experience.id}
-                  experience={experience}
                   headingLevel="h3"
                   showSkills={false}
                   editPath={paths.applicationCareerTimelineEdit(
@@ -365,6 +377,10 @@ export const ApplicationCareerTimeline = ({
                     experience.id,
                   )}
                   showEdit={!applicationWasSubmitted}
+                  experienceQuery={makeFragmentData(
+                    experience,
+                    ExperienceCard_Fragment,
+                  )}
                 />
               );
             })
