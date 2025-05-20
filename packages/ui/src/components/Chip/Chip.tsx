@@ -26,21 +26,21 @@ const isDeleteEvent = (event: KeyboardEvent<HTMLSpanElement>): boolean => {
 
 const chip = tv({
   slots: {
-    base: "items-center inline-flex text-xs font-bold rounded-full border px-2 py-1 gap-0.75 leading-none",
+    base: "inline-flex items-center gap-0.75 rounded-full border px-2 py-1 text-xs leading-none font-bold",
     icon: "size-3",
   },
   variants: {
     color: {
       primary:
-        "bg-primary-100 text-primary-700 dark:bg-primary-700 dark:text-primary-100 border-primary-700 dark:border-primary-100",
+        "border-primary-700 bg-primary-100 text-primary-700 dark:border-primary-100 dark:bg-primary-700 dark:text-primary-100",
       secondary:
-        "bg-secondary-100 text-secondary-700 dark:bg-secondary-700 dark:text-secondary-100 border-secondary-700 dark:border-secondary-100",
+        "border-secondary-700 bg-secondary-100 text-secondary-700 dark:border-secondary-100 dark:bg-secondary-700 dark:text-secondary-100",
       success:
-        "bg-success-100 text-success-700 dark:bg-success-700 dark:text-success-100 border-success-700 dark:border-success-100",
+        "border-success-700 bg-success-100 text-success-700 dark:border-success-100 dark:bg-success-700 dark:text-success-100",
       warning:
-        "bg-warning-100 text-warning-700 dark:bg-warning-700 dark:text-warning-100 border-warning-700 dark:border-warning-100",
+        "border-warning-700 bg-warning-100 text-warning-700 dark:border-warning-100 dark:bg-warning-700 dark:text-warning-100",
       error:
-        "bg-error-100 text-error-700 dark:bg-error-700 dark:text-error-100 border-error-700 dark:border-error-100",
+        "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
     },
     dismissable: {
       true: "cursor-pointer outline-none focus-visible:bg-focus focus-visible:text-black",
