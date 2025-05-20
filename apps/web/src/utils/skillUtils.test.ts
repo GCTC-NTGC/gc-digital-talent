@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
-  InvertedSkillExperience,
   invertSkillExperienceTree,
   invertSkillSkillFamilyTree,
   parseKeywords,
@@ -238,7 +237,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: InvertedSkillExperience[] = [
+    const expected = [
       {
         id: "1",
         key: "skill_one",
@@ -298,7 +297,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: InvertedSkillExperience[] = [
+    const expected = [
       {
         id: "1",
         key: "skill_one",
@@ -370,7 +369,7 @@ describe("skill util tests", () => {
         ],
       },
     ];
-    const expected: InvertedSkillExperience[] = [
+    const expected = [
       {
         id: "1",
         key: "skill_one",

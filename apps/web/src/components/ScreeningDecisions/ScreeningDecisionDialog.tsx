@@ -23,6 +23,7 @@ import {
   UpdateAssessmentResultInput,
   User,
   graphql,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import {
   Accordion,
@@ -55,7 +56,9 @@ import {
 } from "~/types/classificationGroup";
 
 import useLabels from "./useLabels";
-import ExperienceCard from "../ExperienceCard/ExperienceCard";
+import ExperienceCard, {
+  ExperienceCard_Fragment,
+} from "../ExperienceCard/ExperienceCard";
 import useDialogType, { DialogType } from "./useDialogType";
 import ScreeningDecisionDialogForm from "./ScreeningDecisionDialogForm";
 import useHeaders from "./useHeaders";
@@ -288,7 +291,10 @@ const SupportingEvidence = ({
         experiences.map((experience) => (
           <div data-h2-margin-bottom="base(x.5)" key={experience.id}>
             <ExperienceCard
-              experience={experience}
+              experienceQuery={makeFragmentData(
+                experience,
+                ExperienceCard_Fragment,
+              )}
               headingLevel={contentHeadingLevel}
               showEdit={false}
               showSkills={skill}
