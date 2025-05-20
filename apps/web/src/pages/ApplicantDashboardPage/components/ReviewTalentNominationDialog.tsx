@@ -44,6 +44,13 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       lastName
       workEmail
     }
+    advancementReferenceFallbackName
+    advancementReferenceFallbackWorkEmail
+    advancementReference {
+      firstName
+      lastName
+      workEmail
+    }
   }
 `);
 
@@ -90,6 +97,17 @@ const ReviewTalentNominationDialog = ({
     nominatorName = getFullNameLabel(
       talentNomination.nominator.firstName,
       talentNomination.nominator.lastName,
+      intl,
+    );
+  }
+
+  let referenceName =
+    talentNomination?.advancementReferenceFallbackName ??
+    intl.formatMessage(commonMessages.notProvided);
+  if (talentNomination?.advancementReference) {
+    referenceName = getFullNameLabel(
+      talentNomination.advancementReference.firstName,
+      talentNomination.advancementReference.lastName,
       intl,
     );
   }
@@ -258,6 +276,39 @@ const ReviewTalentNominationDialog = ({
                   intl.formatMessage(commonMessages.notProvided)}
               </FieldDisplay>
             </div>
+            {talentNomination.nominateForAdvancement && (
+              <>
+                <Separator decorative data-h2-margin="base(0)" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  <FieldDisplay
+                    label={intl.formatMessage({
+                      defaultMessage: "Reference’s name",
+                      id: "x4/XMp",
+                      description:
+                        "Label for the text input for the reference's name",
+                    })}
+                  >
+                    {referenceName}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage({
+                      defaultMessage: "Reference's work email",
+                      id: "1QKTXO",
+                      description:
+                        "Label for the reference's input field in nominations details step",
+                    })}
+                  >
+                    {talentNomination.advancementReference?.workEmail ??
+                      talentNomination.advancementReferenceFallbackWorkEmail ??
+                      intl.formatMessage(commonMessages.notProvided)}
+                  </FieldDisplay>
+                </div>
+              </>
+            )}
           </div>
           <Dialog.Footer
             data-h2-gap="base(x1 0) p-tablet(0 x1)"
