@@ -259,6 +259,10 @@
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
+  "/9+N+W": {
+    "defaultMessage": "Autorisation de sécurité de niveau très secret",
+    "description": "Top secret security clearance level of security clearance"
+  },
   "/AH0m5": {
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
@@ -482,6 +486,10 @@
   "0EuaJv": {
     "defaultMessage": "Niveau d’écriture",
     "description": "Label displayed on the language information form written field."
+  },
+  "0GcfAj": {
+    "defaultMessage": "Cote de fiabilité",
+    "description": "Reliability status level of security clearance"
   },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
@@ -1759,6 +1767,10 @@
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
   },
+  "683LAr": {
+    "defaultMessage": "Le niveau de filtrage de sécurité exigé varie selon le poste, la sensibilité des renseignements que vous traiterez ainsi que l'endroit où vous travaillerez. Trois niveaux de filtrage de sécurité ont été établis. Chacun d’eux comporte une option améliorée:",
+    "description": "Third paragraph for the security clearance dialog"
+  },
   "68Yf3f": {
     "defaultMessage": "Informations incorrectes ou obsolètes?",
     "description": "Heading for review of nominee's information"
@@ -2963,6 +2975,10 @@
     "defaultMessage": "Confirmation de la référence",
     "description": "Confirmation that the reference was checked"
   },
+  "C+FsJw": {
+    "defaultMessage": "Apprenez-en davantage sur le <link>filtrage de sécurité</link> ou consultez la <securityScreenLink>Directive sur le filtrage de sécurité.</securityScreenLink>",
+    "description": "First paragraph for the obtaining security clearance section"
+  },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
@@ -3122,6 +3138,10 @@
   "CeKPRS": {
     "defaultMessage": "La date limite pour présenter une candidature est passée.",
     "description": "Status description for a draft application to an expired poster"
+  },
+  "CeWqSY": {
+    "defaultMessage": "Vous n’avez pas à posséder une cote ou une autorisation de sécurité pour postuler aux offres d’emploi publiées sur Talents numériques du GC. Toutefois, vous devrez vous soumettre à une enquête de sécurité au cours du processus d’embauche, généralement, une fois toutes les autres évaluations effectuées.",
+    "description": "First paragraph for the security clearance dialog"
   },
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
@@ -3818,6 +3838,10 @@
   "FuuXpa": {
     "defaultMessage": "Suivant",
     "description": "Link text to navigate to the next item"
+  },
+  "FxB6Km": {
+    "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
+    "description": "Heading for the obtaining security clearance section"
   },
   "Fygh/q": {
     "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’autreur de la mise en candidature",
@@ -4779,6 +4803,10 @@
     "defaultMessage": "Ma bibliothèque",
     "description": "Label for filtering skills by ones already added to the users library"
   },
+  "KlvT7A": {
+    "defaultMessage": "En savoir plus sur l’habilitation de sécurité",
+    "description": "Info button label for pool application security clearance details."
+  },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
     "description": "Heading for making major changes to a user"
@@ -5058,6 +5086,10 @@
   "Lwz/VQ": {
     "defaultMessage": "Référence secondaire pour la promotion",
     "description": "Trigger title for advancement reference"
+  },
+  "LxGqKt": {
+    "defaultMessage": "Le processus d’enquête de sécurité peut prendre de quelques jours à plusieurs mois. Plus le niveau de filtrage est élevé et plus le dossier est complexe, plus le processus est long.",
+    "description": "Second paragraph for the security clearance dialog"
   },
   "LxRoWB": {
     "defaultMessage": "Création de la collectivité réussie!",
@@ -7246,10 +7278,6 @@
     "defaultMessage": "La présentation de ces renseignements sur cette plateforme est entièrement facultative <strong>et ne constitue pas une obligation</strong>.",
     "description": "Third paragraph for employment equity information."
   },
-  "WlMSeh": {
-    "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
-    "description": "Link text for security clearance information"
-  },
   "Wnid+N": {
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
@@ -7401,6 +7429,10 @@
   "XS21o1": {
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
+  },
+  "XUmyGM": {
+    "defaultMessage": "Aux fins de la vérification de vos antécédents, vous devrez fournir des renseignements personnels dans certaines sections du <link>Formulaire de consentement et de demande de filtrage de sécurité.</link>",
+    "description": "First paragraph for the obtaining security clearance section"
   },
   "XXZ2i3": {
     "defaultMessage": "Avec qui puis-je communiquer si j'ai des questions au sujet de CléGC?",
@@ -7825,6 +7857,10 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
+  },
+  "ZZLwb5": {
+    "defaultMessage": "Niveaux de filtrage de sécurité",
+    "description": "Heading for the security clearance levels section"
   },
   "ZZpC8s": {
     "defaultMessage": "Voir les définitions pour « {skillName} »",
@@ -8530,6 +8566,10 @@
     "defaultMessage": "Forces armées canadiennes",
     "description": "Label for caf employment category on work experience card metadata"
   },
+  "dCmN+g": {
+    "defaultMessage": "Renseignements supplémentaires",
+    "description": "Heading for the obtaining security clearance section"
+  },
   "dDHy5d": {
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
@@ -8765,6 +8805,10 @@
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
+  },
+  "e4eYvU": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Label for pool advertisement security clearance requirement"
   },
   "e4nq4j": {
     "defaultMessage": "Chef de file du numérique E X 3",
@@ -10013,6 +10057,10 @@
     "defaultMessage": "Modifier {sectionTitle}",
     "description": "Button text to start editing a specific section"
   },
+  "jFInhC": {
+    "defaultMessage": "Autorisation de sécurité de niveau secret",
+    "description": "Secret security clearance level of security clearance"
+  },
   "jH5egG": {
     "defaultMessage": "Comment j’ai utilisé",
     "description": "Label displayed on experience form/card for how a skill was applied section"
@@ -10628,6 +10676,10 @@
   "mNNgEF": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
+  },
+  "mOb/qH": {
+    "defaultMessage": "La cote de fiabilité et l'autorisation de sécurité de niveau secret sont valides pour une période maximale de 10 ans, et l'autorisation de sécurité de niveau très secret est valide pour une période maximale de cinq ans.",
+    "description": "Third paragraph for the obtaining security clearance section"
   },
   "mOx5K1": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
@@ -12333,6 +12385,10 @@
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
   },
+  "v3kVqD": {
+    "defaultMessage": "Tout processus de filtrage de sécurité requiert une enquête financière (vérification du dossier de crédit) et une vérification du casier judiciaire (prise d'empreintes).",
+    "description": "Second paragraph for the obtaining security clearance section"
+  },
   "v6/BRI": {
     "defaultMessage": "Investir dans l’avenir des talents des TI",
     "description": "Heading for section describing investing in future talent"
@@ -13008,6 +13064,10 @@
   "yOii5k": {
     "defaultMessage": "l'architecture intégrée;",
     "description": "Fifth item in list of certification topics section"
+  },
+  "ySQ1Kf": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Heading for security clearance dialog"
   },
   "yUSG9Z": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",

@@ -13,7 +13,6 @@ import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 const securityScreenConsentFormLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -27,7 +26,6 @@ const securityScreenConsentFormLink = (locale: Locales, chunks: ReactNode) => (
 
 const learnMoreLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -41,7 +39,6 @@ const learnMoreLink = (locale: Locales, chunks: ReactNode) => (
 
 const directiveOnSecurityScreenLink = (locale: Locales, chunks: ReactNode) => (
   <Link
-    newTab
     external
     href={
       locale === "en"
@@ -67,7 +64,7 @@ const SecurityClearanceDialog = () => {
           icon={InformationCircleIcon}
           aria-label={intl.formatMessage({
             defaultMessage: "Learn more about security clearance",
-            id: "KlvT7A",
+            id: "KlvT7A", //TODO : get fr translation
             description:
               "Info button label for pool application security clearance details.",
           })}
@@ -97,7 +94,7 @@ const SecurityClearanceDialog = () => {
                   "First paragraph for the security clearance dialog",
               })}
             </p>
-            <p>
+            <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
                 defaultMessage:
                   "The time it takes to complete security screening can vary from a few days to several months. Higher levels of security screening and more complex cases tend to take longer.",
@@ -164,7 +161,7 @@ const SecurityClearanceDialog = () => {
                   "Heading for the obtaining security clearance section",
               })}
             </Heading>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -179,7 +176,7 @@ const SecurityClearanceDialog = () => {
                 },
               )}
             </p>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "Among the security screening activities, all levels require individuals to undergo a financial inquiry (credit check) and a criminal records check (fingerprinting).",
@@ -209,7 +206,7 @@ const SecurityClearanceDialog = () => {
                   "Heading for the obtaining security clearance section",
               })}
             </Heading>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
