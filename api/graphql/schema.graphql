@@ -616,7 +616,6 @@ type Department {
   isCentralAgency: Boolean @rename(attribute: "is_central_agency")
   isScience: Boolean @rename(attribute: "is_science")
   isRegulatory: Boolean @rename(attribute: "is_regulatory")
-  teams: [Team] @belongsToMany @canModel(ability: "viewAny")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -777,7 +776,6 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  departments: [Department] @belongsToMany
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]

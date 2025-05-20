@@ -4,9 +4,24 @@ import { ReactNode, useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill, Experience, Scalars } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  Experience,
+  Scalars,
+  graphql,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
+
+const ExperienceSkillFormDialogExperience_Fragment = graphql(/** GraphQL */ `
+  fragment ExperienceSkillFormDialogExperience on Experience {
+    id
+    ...ExperienceSkillFormExperience
+    ...ExperienceCard
+  }
+`);
 
 interface FormValues {
   experience?: Scalars["ID"]["output"];
@@ -32,7 +47,9 @@ interface ExperienceSkillFormDialogProps {
   onSave?: () => void;
   skill?: Skill;
   experience?: Omit<Experience, "user">;
-  availableExperiences?: Omit<Experience, "user">[];
+  availableExperiencesQuery?: FragmentType<
+    typeof ExperienceSkillFormDialogExperience_Fragment
+  >[];
   trigger?: ReactNode;
 }
 
@@ -40,11 +57,15 @@ const ExperienceSkillFormDialog = ({
   skill,
   experience,
   trigger,
-  availableExperiences,
+  availableExperiencesQuery,
   onSave,
 }: ExperienceSkillFormDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
+  const availableExperiences = getFragment(
+    ExperienceSkillFormDialogExperience_Fragment,
+    availableExperiencesQuery,
+  );
   let experiences = availableExperiences ?? [];
   if (experience) {
     experiences = !availableExperiences
@@ -86,7 +107,7 @@ const ExperienceSkillFormDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <ExperienceSkillForm
-            experiences={experiences}
+            experiencesQuery={experiences}
             defaultValues={deriveDefaultValues(skill, experience)}
             onSuccess={handleSuccess}
           />

@@ -15,7 +15,6 @@ import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Experience,
   PoolSkillType,
   SkillCategory,
   graphql,
@@ -24,7 +23,6 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
-import { ExperienceForDate } from "~/types/experience";
 import {
   categorizeSkill,
   filterPoolSkillsByType,
@@ -89,14 +87,7 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-interface ApplicationReviewProps extends ApplicationPageProps {
-  experiences: ExperienceForDate[];
-}
-
-const ApplicationReview = ({
-  application,
-  experiences,
-}: ApplicationReviewProps) => {
+const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -156,12 +147,11 @@ const ApplicationReview = ({
     applicationQuestions: paths.applicationQuestions(application.id),
   };
 
-  const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
+  const experiences = unpackMaybes(application.user.experiences);
   const hasSomeExperience = !!experiences.length;
-  const educationRequirementExperiences =
-    application.educationRequirementExperiences
-      ? application.educationRequirementExperiences.filter(notEmpty)
-      : [];
+  const educationRequirementExperiences = unpackMaybes(
+    application.educationRequirementExperiences,
+  );
 
   const categorizedEssentialSkills = categorizeSkill(
     filterPoolSkillsByType(
@@ -265,10 +255,10 @@ const ApplicationReview = ({
           data-h2-gap="base(x.5)"
         >
           {hasSomeExperience ? (
-            nonEmptyExperiences.map((experience) => (
+            experiences.map((experience) => (
               <ExperienceCard
                 key={experience.id}
-                experience={experience}
+                experienceQuery={experience}
                 headingLevel="h4"
                 showSkills={allSkills}
                 showEdit={false}
@@ -329,7 +319,7 @@ const ApplicationReview = ({
             educationRequirementExperiences.map((experience) => (
               <ExperienceCard
                 key={experience.id}
-                experience={experience}
+                experienceQuery={experience}
                 headingLevel="h4"
                 showSkills={allSkills}
                 showEdit={false}
@@ -396,7 +386,7 @@ const ApplicationReview = ({
               <SkillTree
                 key={requiredTechnicalSkill.id}
                 skill={requiredTechnicalSkill}
-                experiences={experiences}
+                experiencesQuery={experiences}
                 showDisclaimer
                 hideConnectButton
                 hideEdit
@@ -616,12 +606,8 @@ const ApplicationReview = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
-
   return application?.pool ? (
-    <ApplicationReview application={application} experiences={experiences} />
+    <ApplicationReview application={application} />
   ) : (
     <ThrowNotFound />
   );

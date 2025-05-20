@@ -6,8 +6,6 @@ import {
 } from "@gc-digital-talent/fake-data";
 import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
-import { ExperienceForDate } from "~/types/experience";
-
 import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
 
 const fakePoolCandidate = fakePoolCandidates(
@@ -37,7 +35,7 @@ const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
       experiences: fakeExperiences(5),
     },
   },
-  experiences: fakeExperiences(5) as ExperienceForDate[],
+  experiences: fakeExperiences(5),
 };
 
 export default {

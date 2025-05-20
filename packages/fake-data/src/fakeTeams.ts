@@ -1,26 +1,15 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { Department, Team } from "@gc-digital-talent/graphql";
+import { Team } from "@gc-digital-talent/graphql";
 
-import fakeDepartments from "./fakeDepartments";
-
-const generateTeam = (departments: Department[]): Team => {
-  const index = faker.number.int({
-    min: 0,
-    max: departments.length - 1,
-  });
+const generateTeam = (): Team => {
   return {
     id: faker.string.uuid(),
     name: faker.string.sample(),
-    departments: [departments[index]],
   };
 };
 
-export default (
-  numToGenerate = 10,
-  departments = fakeDepartments(),
-): Team[] => {
+export default (numToGenerate = 10): Team[] => {
   faker.seed(0); // repeatable results
-
-  return Array.from({ length: numToGenerate }, () => generateTeam(departments));
+  return Array.from({ length: numToGenerate }, () => generateTeam());
 };

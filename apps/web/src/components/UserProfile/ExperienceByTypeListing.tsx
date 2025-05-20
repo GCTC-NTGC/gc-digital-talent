@@ -7,39 +7,43 @@ import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
 import { Button, HeadingRank } from "@gc-digital-talent/ui";
-import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  compareByDate,
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
+import { compareByDate } from "~/utils/experienceUtils";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import experienceMessages from "~/messages/experienceMessages";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
+const ExperienceByType_Fragment = graphql(/** GraphQL */ `
+  fragment ExperienceByType on Experience {
+    id
+    ...ExperienceCard
+  }
+`);
+
+interface ExperienceByTypeProps {
+  title: string;
+  headingLevel?: HeadingRank;
+  icon: ReactNode;
+  experiencesQuery?: FragmentType<typeof ExperienceByType_Fragment>[];
+  editParam?: string;
+  isExperienceOpen: (id: string) => boolean;
+  onExperienceOpenChange: (id: string) => void;
+}
+
 const ExperienceByType = ({
   title,
   headingLevel = "h2",
   icon,
-  experiences,
+  experiencesQuery,
   editParam,
   isExperienceOpen,
   onExperienceOpenChange,
-}: {
-  title: string;
-  headingLevel?: HeadingRank;
-  icon: ReactNode;
-  experiences?: Omit<Experience, "user">[];
-  editParam?: string;
-  isExperienceOpen: (id: string) => boolean;
-  onExperienceOpenChange: (id: string) => void;
-}) => {
+}: ExperienceByTypeProps) => {
+  const experiences = getFragment(ExperienceByType_Fragment, experiencesQuery);
+
   return (
     <div>
       <div
@@ -61,7 +65,7 @@ const ExperienceByType = ({
               key={experience.id}
               isOpen={isExperienceOpen(experience.id)}
               onOpenChange={() => onExperienceOpenChange(experience.id)}
-              experience={experience}
+              experienceQuery={experience}
               headingLevel={headingLevel}
               editParam={editParam}
               showEdit={false}
@@ -72,42 +76,76 @@ const ExperienceByType = ({
     </div>
   );
 };
-interface ExperienceSectionProps {
-  experiences?: Omit<Experience, "user">[];
+
+const ExperienceByTypeListingExperience_Fragment = graphql(/** GraphQL */ `
+  fragment ExperienceByTypeListingExperience on Experience {
+    id
+    ...ExperienceByType
+    ... on AwardExperience {
+      awardedDate
+    }
+    ... on CommunityExperience {
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      startDate
+      endDate
+    }
+    ... on PersonalExperience {
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      startDate
+      endDate
+    }
+  }
+`);
+
+interface ExperienceByTypeListingProps {
+  experiencesQuery?: FragmentType<
+    typeof ExperienceByTypeListingExperience_Fragment
+  >[];
   headingLevel?: HeadingRank;
   editParam?: string;
 }
 
 const ExperienceByTypeListing = ({
-  experiences,
+  experiencesQuery,
   editParam,
   headingLevel = "h2",
-}: ExperienceSectionProps) => {
+}: ExperienceByTypeListingProps) => {
   const intl = useIntl();
-  const nonEmptyExperiences = unpackMaybes(experiences);
+  const experiences = getFragment(
+    ExperienceByTypeListingExperience_Fragment,
+    experiencesQuery,
+  );
   const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
-    useControlledCollapsibleGroup(nonEmptyExperiences?.map(({ id }) => id));
+    useControlledCollapsibleGroup(
+      unpackMaybes(experiences).map(({ id }) => id),
+    );
 
   const awardExperiences =
     experiences
-      ?.filter(isAwardExperience)
-      .map(
-        (award: Omit<AwardExperience, "user">) =>
-          ({
-            ...award,
-            startDate: award.awardedDate,
-            endDate: award.awardedDate,
-          }) as AwardExperience & { startDate: string; endDate: string },
-      )
+      ?.filter((e) => e.__typename === "AwardExperience")
       .sort(compareByDate) ?? [];
   const communityExperiences =
-    experiences?.filter(isCommunityExperience).sort(compareByDate) ?? [];
+    experiences
+      ?.filter((e) => e.__typename === "CommunityExperience")
+      .sort(compareByDate) ?? [];
   const educationExperiences =
-    experiences?.filter(isEducationExperience).sort(compareByDate) ?? [];
+    experiences
+      ?.filter((e) => e.__typename === "EducationExperience")
+      .sort(compareByDate) ?? [];
   const personalExperiences =
-    experiences?.filter(isPersonalExperience).sort(compareByDate) ?? [];
+    experiences
+      ?.filter((e) => e.__typename === "PersonalExperience")
+      .sort(compareByDate) ?? [];
   const workExperiences =
-    experiences?.filter(isWorkExperience).sort(compareByDate) ?? [];
+    experiences
+      ?.filter((e) => e.__typename === "WorkExperience")
+      .sort(compareByDate) ?? [];
 
   return (
     <>
@@ -131,7 +169,7 @@ const ExperienceByTypeListing = ({
           icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
           headingLevel={headingLevel}
           editParam={editParam}
-          experiences={personalExperiences}
+          experiencesQuery={personalExperiences}
           isExperienceOpen={isExpanded}
           onExperienceOpenChange={toggleExpandedItem}
         />
@@ -148,7 +186,7 @@ const ExperienceByTypeListing = ({
             headingLevel={headingLevel}
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
-            experiences={communityExperiences}
+            experiencesQuery={communityExperiences}
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
@@ -165,7 +203,7 @@ const ExperienceByTypeListing = ({
             headingLevel={headingLevel}
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
-            experiences={workExperiences}
+            experiencesQuery={workExperiences}
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
@@ -183,7 +221,7 @@ const ExperienceByTypeListing = ({
             headingLevel={headingLevel}
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
-            experiences={educationExperiences}
+            experiencesQuery={educationExperiences}
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
@@ -201,7 +239,7 @@ const ExperienceByTypeListing = ({
             headingLevel={headingLevel}
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
-            experiences={awardExperiences}
+            experiencesQuery={awardExperiences}
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />

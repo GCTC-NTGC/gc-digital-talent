@@ -16,7 +16,9 @@ import { apiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
-  Experience,
+  FragmentType,
+  getFragment,
+  graphql,
   PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
@@ -25,7 +27,6 @@ import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
-import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 
@@ -76,13 +77,26 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
+export const ApplicationSkillsExperience_Fragment = graphql(/** GraphQL */ `
+  fragment ApplicationSkillsExperience on Experience {
+    ...SkillTreeExperience
+    id
+    skills {
+      id
+      experienceSkillRecord {
+        details
+      }
+    }
+  }
+`);
+
 export interface ApplicationSkillsProps extends ApplicationPageProps {
-  experiences: AnyExperience[];
+  experiencesQuery: FragmentType<typeof ApplicationSkillsExperience_Fragment>[];
 }
 
 export const ApplicationSkills = ({
   application,
-  experiences,
+  experiencesQuery,
 }: ApplicationSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -108,6 +122,10 @@ export const ApplicationSkills = ({
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
+  const experiences = getFragment(
+    ApplicationSkillsExperience_Fragment,
+    experiencesQuery,
+  );
 
   const isSkillsExperiencesIncomplete = isIncomplete(
     experiences,
@@ -242,7 +260,7 @@ export const ApplicationSkills = ({
               <SkillTree
                 key={requiredTechnicalSkill.id}
                 skill={requiredTechnicalSkill}
-                experiences={experiences}
+                experiencesQuery={experiences}
                 showDisclaimer
                 hideEdit={applicationWasSubmitted}
                 hideConnectButton={applicationWasSubmitted}
@@ -271,7 +289,7 @@ export const ApplicationSkills = ({
               <SkillTree
                 key={optionalTechnicalSkill.id}
                 skill={optionalTechnicalSkill}
-                experiences={experiences}
+                experiencesQuery={unpackMaybes(experiences)}
                 hideEdit={applicationWasSubmitted}
                 hideConnectButton={applicationWasSubmitted}
               />
@@ -381,12 +399,13 @@ export const ApplicationSkills = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
+  const experiences = unpackMaybes(application.user.experiences);
 
   return application ? (
-    <ApplicationSkills application={application} experiences={experiences} />
+    <ApplicationSkills
+      application={application}
+      experiencesQuery={experiences}
+    />
   ) : (
     <ThrowNotFound />
   );

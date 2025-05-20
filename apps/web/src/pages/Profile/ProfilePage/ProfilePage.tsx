@@ -38,7 +38,7 @@ const subTitle = defineMessage(pageMessages.subTitle);
 // export text for testing
 // should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
 // eslint-disable-next-line camelcase
-export const UserProfile_FragmentText = /* GraphQL */ `
+export const UserProfile_FragmentText = /** GraphQL */ `
   fragment UserProfile on User {
     id
     firstName
@@ -414,7 +414,379 @@ export const UserProfile_FragmentText = /* GraphQL */ `
   }
 `;
 
-export const UserProfile_Fragment = graphql(UserProfile_FragmentText);
+export const UserProfile_Fragment = graphql(/** GraphQL */ `
+  fragment UserProfile on User {
+    id
+    firstName
+    lastName
+    email
+    isEmailVerified
+    telephone
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    currentCity
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    isGovEmployee
+    workEmail
+    isWorkEmailVerified
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    isWoman
+    hasDisability
+    indigenousCommunities {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    indigenousDeclarationSignature
+    isVisibleMinority
+    hasDiploma
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    locationExemptions
+    acceptedOperationalRequirements {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    positionDuration
+    userSkills {
+      id
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+    }
+    experiences {
+      id
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+        employmentCategory {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extSizeOfOrganization {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        extRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govPositionType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorRoleSeniority {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        govContractorType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        contractorFirmAgencyName
+        cafEmploymentType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafForce {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        cafRank {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+          maxSalary
+          minSalary
+        }
+        department {
+          id
+          name {
+            en
+            fr
+          }
+          departmentNumber
+        }
+        workStreams {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          community {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+          }
+          plainLanguageName {
+            en
+            fr
+          }
+        }
+      }
+    }
+    isProfileComplete
+  }
+`);
 
 export interface ProfilePageProps {
   userQuery: FragmentType<typeof UserProfile_Fragment>;
