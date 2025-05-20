@@ -1,4 +1,4 @@
-import { FieldLabels } from "@gc-digital-talent/forms";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
 import {
   Application_PoolCandidateFragment,
   Maybe,

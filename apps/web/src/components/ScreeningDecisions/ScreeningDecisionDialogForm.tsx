@@ -7,7 +7,9 @@ import {
   AssessmentDecision,
   AssessmentResultJustification,
 } from "@gc-digital-talent/graphql";
-import { CardOptionGroup, Checklist, TextArea } from "@gc-digital-talent/forms";
+import CardOptionGroup from "@gc-digital-talent/forms/CardOptionGroup";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Loading, Well } from "@gc-digital-talent/ui";
 

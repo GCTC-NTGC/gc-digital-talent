@@ -4,13 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import {
-  RadioGroup,
-  Select,
-  Submit,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-} from "@gc-digital-talent/forms";
-import {
   FragmentType,
   PlacementType,
   PoolCandidateStatus,
@@ -27,6 +20,13 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  localizedEnumToOptions,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms/utils";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Select from "@gc-digital-talent/forms/Select";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";

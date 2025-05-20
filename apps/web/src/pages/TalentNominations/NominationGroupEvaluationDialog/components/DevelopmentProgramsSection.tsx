@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
-import { RadioGroup, RichTextInput } from "@gc-digital-talent/forms";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 import { Heading, Well } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
@@ -12,6 +12,7 @@ import {
   TalentNominationGroupDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";

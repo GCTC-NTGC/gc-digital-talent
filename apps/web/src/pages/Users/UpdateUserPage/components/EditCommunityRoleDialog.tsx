@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -20,6 +19,7 @@ import {
   Scalars,
   RoleInput,
 } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";

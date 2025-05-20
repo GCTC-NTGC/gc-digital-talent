@@ -12,7 +12,6 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Experience,
@@ -20,6 +19,7 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import Input from "@gc-digital-talent/forms/Input";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";

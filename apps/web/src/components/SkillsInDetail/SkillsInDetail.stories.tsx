@@ -2,7 +2,7 @@ import { action } from "@storybook/addon-actions";
 import { StoryFn } from "@storybook/react";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
-import { BasicForm } from "@gc-digital-talent/forms";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 
 import SkillsInDetail from "./SkillsInDetail";
 

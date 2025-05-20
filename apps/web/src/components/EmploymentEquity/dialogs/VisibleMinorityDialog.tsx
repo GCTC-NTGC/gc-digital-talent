@@ -3,11 +3,11 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { Checklist } from "@gc-digital-talent/forms";
 import {
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import Checklist from "@gc-digital-talent/forms/Checklist";
 
 import type { EquityDialogProps } from "../types";
 import Definition from "./Definition";

@@ -4,13 +4,6 @@ import { useFormContext } from "react-hook-form";
 import { useEffect, useId } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
-import {
-  Checkbox,
-  Checklist,
-  Input,
-  localizedEnumToOptions,
-  TextArea,
-} from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   FinanceChiefRole,
@@ -18,6 +11,11 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

@@ -2,8 +2,9 @@ import { StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 import { action } from "@storybook/addon-actions";
 
-import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
 
 import FilterDialog from "./FilterDialog";
 

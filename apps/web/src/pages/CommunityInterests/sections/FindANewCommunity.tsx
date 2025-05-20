@@ -4,7 +4,6 @@ import { useFormContext } from "react-hook-form";
 import { ComponentProps, useId } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
-import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -16,6 +15,9 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import { FormValues } from "../form";
 

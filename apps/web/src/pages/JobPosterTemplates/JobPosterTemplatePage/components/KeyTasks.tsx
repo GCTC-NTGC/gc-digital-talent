@@ -4,7 +4,8 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
 import sections from "../sections";
 

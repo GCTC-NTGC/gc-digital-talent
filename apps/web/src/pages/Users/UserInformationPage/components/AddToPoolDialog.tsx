@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { DateInput } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -27,6 +26,7 @@ import {
   PoolCandidate,
   UserInfoFragment as UserInfoFragmentType,
 } from "@gc-digital-talent/graphql";
+import DateInput from "@gc-digital-talent/forms/DateInput";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";

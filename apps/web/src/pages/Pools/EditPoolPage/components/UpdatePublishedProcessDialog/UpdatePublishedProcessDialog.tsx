@@ -14,7 +14,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { TextArea } from "@gc-digital-talent/forms";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 

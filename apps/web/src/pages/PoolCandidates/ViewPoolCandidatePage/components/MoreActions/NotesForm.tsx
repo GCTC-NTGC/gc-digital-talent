@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   Maybe,
@@ -15,6 +14,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import adminMessages from "~/messages/adminMessages";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";

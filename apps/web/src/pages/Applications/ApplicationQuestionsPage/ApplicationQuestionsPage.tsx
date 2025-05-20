@@ -3,10 +3,10 @@ import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
-import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";

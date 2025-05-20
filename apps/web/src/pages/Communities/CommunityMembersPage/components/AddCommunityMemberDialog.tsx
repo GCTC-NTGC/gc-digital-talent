@@ -7,7 +7,7 @@ import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox } from "@gc-digital-talent/forms";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,

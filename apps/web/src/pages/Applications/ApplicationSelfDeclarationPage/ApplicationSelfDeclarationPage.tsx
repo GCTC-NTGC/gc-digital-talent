@@ -10,7 +10,6 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -19,6 +18,8 @@ import {
   graphql,
   IndigenousCommunity,
 } from "@gc-digital-talent/graphql";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Input from "@gc-digital-talent/forms/Input";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";

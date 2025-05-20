@@ -1,5 +1,6 @@
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 import { Alert } from "@gc-digital-talent/ui";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 interface BannerContentProps {
   title: string;

@@ -20,7 +20,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { BasicForm } from "@gc-digital-talent/forms";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {

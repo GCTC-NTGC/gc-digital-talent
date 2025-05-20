@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -12,6 +11,7 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { User, DeleteUserMutation } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
 
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 

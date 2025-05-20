@@ -2,15 +2,13 @@ import { FieldValues, FormState, useFormContext } from "react-hook-form";
 import { IntlShape, useIntl } from "react-intl";
 import { ReactNode, useEffect, useId } from "react";
 
-import {
-  FieldLabels,
-  Checklist,
-  Field,
-  Checkbox,
-  RadioGroup,
-  ErrorMessage,
-} from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Field from "@gc-digital-talent/forms/Field";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { ErrorMessage } from "@gc-digital-talent/forms/ErrorSummary";
+import Checklist from "@gc-digital-talent/forms/Checklist";
 
 import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 

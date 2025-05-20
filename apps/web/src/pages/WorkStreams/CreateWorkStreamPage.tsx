@@ -5,14 +5,6 @@ import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  BasicForm,
-  Input,
-  OptGroupOrOption,
-  Select,
-  Submit,
-  SwitchInput,
-} from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
@@ -30,6 +22,12 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { OptGroupOrOption } from "@gc-digital-talent/forms/types";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import SwitchInput from "@gc-digital-talent/forms/SwitchInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

@@ -13,15 +13,6 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  CheckboxOption,
-  Checklist,
-  Input,
-  RadioGroup,
-  Select,
-  Submit,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   PoolStatus,
   FragmentType,
   getFragment,
@@ -30,6 +21,12 @@ import {
   PoolAreaOfSelection,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Checklist, { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Select from "@gc-digital-talent/forms/Select";
+import Input from "@gc-digital-talent/forms/Input";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import {
   isInNullState,

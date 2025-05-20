@@ -3,14 +3,6 @@ import { useWatch } from "react-hook-form";
 import { useQuery } from "urql";
 
 import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  Select,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   errorMessages,
   uiMessages,
   sortEducationStatus,
@@ -18,6 +10,11 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Input from "@gc-digital-talent/forms/Input";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
 
 import {
   SubExperienceFormProps,

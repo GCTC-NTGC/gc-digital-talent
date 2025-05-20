@@ -27,7 +27,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { Submit } from "@gc-digital-talent/forms";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import useRoutes from "~/hooks/useRoutes";
 import {

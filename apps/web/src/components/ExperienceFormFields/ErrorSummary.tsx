@@ -2,10 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import {
-  ErrorSummary as ErrorSummaryAlert,
-  flattenErrors,
-} from "@gc-digital-talent/forms";
+import ErrorSummaryAlert from "@gc-digital-talent/forms/ErrorSummary";
+import { flattenErrors } from "@gc-digital-talent/forms/utils";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { AllExperienceFormValues, ExperienceType } from "~/types/experience";

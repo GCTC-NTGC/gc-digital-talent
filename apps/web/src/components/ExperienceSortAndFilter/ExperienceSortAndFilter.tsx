@@ -3,7 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { ReactNode, useEffect } from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
-import { Select } from "@gc-digital-talent/forms";
 import {
   AwardExperience,
   CommunityExperience,
@@ -11,6 +10,7 @@ import {
   PersonalExperience,
   WorkExperience,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
 
 import experienceMessages from "~/messages/experienceMessages";
 

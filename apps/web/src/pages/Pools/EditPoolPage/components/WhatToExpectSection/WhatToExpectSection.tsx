@@ -3,7 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
@@ -14,6 +13,8 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import { hasAllEmptyFields } from "~/validators/process/whatToExpect";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";

@@ -5,13 +5,6 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Select,
-  Submit,
-  Input,
-  localizedEnumToOptions,
-  Checkbox,
-} from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
@@ -28,6 +21,11 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

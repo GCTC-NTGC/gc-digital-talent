@@ -25,12 +25,6 @@ import {
   SupervisoryStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import {
-  alphaSortOptions,
-  Checklist,
-  Input,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -38,6 +32,12 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import Input from "@gc-digital-talent/forms/Input";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import {
+  localizedEnumToOptions,
+  alphaSortOptions,
+} from "@gc-digital-talent/forms/utils";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { graphql, PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ComboboxOption } from "@gc-digital-talent/forms";
+import { ComboboxOption } from "@gc-digital-talent/forms/Combobox";
 
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 

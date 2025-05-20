@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "urql";
 
 import { Dialog, Button, Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Select, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -25,6 +24,8 @@ import {
   getFragment,
   ChangeStatusDialog_PoolCandidateFragment as CandidateFragment,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import { getFullNameHtml } from "~/utils/nameUtils";

@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   PoolStatus,
@@ -11,6 +10,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
 import FilterDialog, {
   CommonFilterDialogProps,

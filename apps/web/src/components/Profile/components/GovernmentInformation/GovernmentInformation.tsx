@@ -4,11 +4,11 @@ import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon
 import { useQuery } from "urql";
 
 import { ToggleSection, Well } from "@gc-digital-talent/ui";
-import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql, Pool } from "@gc-digital-talent/graphql";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 
 import profileMessages from "~/messages/profileMessages";
 import {

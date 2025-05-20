@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 
-import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -14,6 +13,9 @@ import {
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

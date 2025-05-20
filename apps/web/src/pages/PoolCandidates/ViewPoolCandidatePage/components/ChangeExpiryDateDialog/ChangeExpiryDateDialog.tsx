@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
@@ -13,6 +12,7 @@ import {
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
+import DateInput from "@gc-digital-talent/forms/DateInput";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";

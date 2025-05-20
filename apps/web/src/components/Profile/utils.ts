@@ -1,7 +1,7 @@
 import { IntlShape, MessageDescriptor, defineMessage } from "react-intl";
 
-import { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
 
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getWorkLabels } from "./components/WorkPreferences/utils";

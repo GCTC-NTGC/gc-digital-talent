@@ -6,8 +6,9 @@ import { CombinedError } from "urql";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import EmployeeSearchInput, {
   EmployeeSearchInputProps,

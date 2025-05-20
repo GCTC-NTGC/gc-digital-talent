@@ -34,7 +34,6 @@ import {
   Well,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -45,6 +44,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { useLogger } from "@gc-digital-talent/logger";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";

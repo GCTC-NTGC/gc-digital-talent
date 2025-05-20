@@ -7,7 +7,7 @@ import {
   getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
 import { PositionDuration } from "@gc-digital-talent/graphql";
-import { FieldLabels } from "@gc-digital-talent/forms";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";

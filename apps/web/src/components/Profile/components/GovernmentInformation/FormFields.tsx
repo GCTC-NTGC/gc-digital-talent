@@ -3,14 +3,6 @@ import { useFormContext } from "react-hook-form";
 import { ReactNode, useEffect } from "react";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import {
-  FieldLabels,
-  Input,
-  RadioGroup,
-  Select,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-} from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import {
@@ -19,10 +11,18 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Select from "@gc-digital-talent/forms/Select";
+import {
+  localizedEnumToOptions,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
 
-import useDirtyFields from "../../hooks/useDirtyFields";
-import { getGroupOptions, getLevelOptions } from "./utils";
 import { FormValues } from "./types";
+import { getGroupOptions, getLevelOptions } from "./utils";
+import useDirtyFields from "../../hooks/useDirtyFields";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =

@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import { EditPoolYourImpactFragment } from "@gc-digital-talent/graphql";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";

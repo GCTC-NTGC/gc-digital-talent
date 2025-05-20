@@ -6,7 +6,6 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -18,6 +17,7 @@ import {
   RoleInput,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 

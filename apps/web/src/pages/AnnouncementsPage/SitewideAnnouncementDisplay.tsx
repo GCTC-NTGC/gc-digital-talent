@@ -7,7 +7,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { SitewideAnnouncement } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 

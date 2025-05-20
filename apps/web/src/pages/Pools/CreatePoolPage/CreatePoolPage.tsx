@@ -4,7 +4,6 @@ import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -20,6 +19,8 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
@@ -145,7 +146,7 @@ export const CreatePoolForm = ({
   };
 
   // recycled from EditPool
-  const classificationOptions: Option[] = classifications.map(
+  const classificationOptions = classifications.map(
     ({ id, group, level, name }) => {
       return {
         value: id,
@@ -154,12 +155,12 @@ export const CreatePoolForm = ({
     },
   );
 
-  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+  const departmentOptions = departments.map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl),
   }));
 
-  const communityOptions: Option[] = communities.map(({ id, name }) => ({
+  const communityOptions = communities.map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl),
   }));

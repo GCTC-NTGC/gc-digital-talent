@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { Button, CardBasic } from "@gc-digital-talent/ui";
-import { TextArea } from "@gc-digital-talent/forms";
 import {
   getLocale,
   errorMessages,
   getLocalizedName,
   Locales,
 } from "@gc-digital-talent/i18n";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import type { FormSkills } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";

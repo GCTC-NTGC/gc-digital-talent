@@ -3,13 +3,13 @@ import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 
 import { Dialog } from "@gc-digital-talent/ui";
-import { Input } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Input from "@gc-digital-talent/forms/Input";
 
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";

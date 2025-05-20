@@ -7,7 +7,9 @@ import PauseCircleIcon from "@heroicons/react/20/solid/PauseCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { AssessmentDecision } from "@gc-digital-talent/graphql";
-import { Field, Input, SwitchInput } from "@gc-digital-talent/forms";
+import Input from "@gc-digital-talent/forms/Input";
+import Field from "@gc-digital-talent/forms/Field";
+import SwitchInput from "@gc-digital-talent/forms/SwitchInput";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";

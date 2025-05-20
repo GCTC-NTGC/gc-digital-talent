@@ -3,10 +3,11 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
 import { Skill } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";

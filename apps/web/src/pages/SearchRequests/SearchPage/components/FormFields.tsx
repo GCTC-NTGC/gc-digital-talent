@@ -2,13 +2,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
-  Checklist,
-  Field,
-  RadioGroup,
-  Select,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
@@ -22,6 +15,11 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Select from "@gc-digital-talent/forms/Select";
+import Field from "@gc-digital-talent/forms/Field";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Checklist from "@gc-digital-talent/forms/Checklist";
 
 import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";

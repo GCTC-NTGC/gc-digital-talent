@@ -12,9 +12,10 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import DateInput from "@gc-digital-talent/forms/DateInput";
 
 import profileMessages from "~/messages/profileMessages";
 

@@ -4,8 +4,10 @@ import { useMutation } from "urql";
 
 import { Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { BasicForm, TextArea, Submit } from "@gc-digital-talent/forms";
 import { graphql } from "@gc-digital-talent/graphql";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 

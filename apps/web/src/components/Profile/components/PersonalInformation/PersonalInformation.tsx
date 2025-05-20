@@ -5,9 +5,9 @@ import { useQuery } from "urql";
 
 import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 
 import profileMessages from "~/messages/profileMessages";
 import {

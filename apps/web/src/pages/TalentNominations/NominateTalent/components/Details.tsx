@@ -16,13 +16,6 @@ import {
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
-  Checklist,
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   errorMessages,
   getTalentNominationLateralMovementOption,
@@ -30,6 +23,11 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";

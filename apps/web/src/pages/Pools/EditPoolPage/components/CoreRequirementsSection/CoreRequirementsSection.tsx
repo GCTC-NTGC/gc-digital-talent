@@ -6,13 +6,6 @@ import { useQuery } from "urql";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
-  Input,
-  RadioGroup,
-  Select,
-  Submit,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   formMessages,
   sortPoolLanguage,
@@ -24,6 +17,11 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import {
   hasAllEmptyFields,

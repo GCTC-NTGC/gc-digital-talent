@@ -1,8 +1,8 @@
 import { IntlShape } from "react-intl";
 import { ReactNode } from "react";
 
-import { Option } from "@gc-digital-talent/forms";
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+import { type Option } from "@gc-digital-talent/forms/types";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 

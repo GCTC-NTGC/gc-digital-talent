@@ -11,7 +11,8 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
 
 import { getClassificationName } from "~/utils/poolUtils";
 

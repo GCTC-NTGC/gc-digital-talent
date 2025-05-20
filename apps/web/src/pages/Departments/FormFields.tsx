@@ -1,12 +1,6 @@
 import { useIntl } from "react-intl";
 
 import {
-  Checklist,
-  Input,
-  localizedEnumToOptions,
-  Select,
-} from "@gc-digital-talent/forms";
-import {
   DepartmentSize,
   FragmentType,
   getFragment,
@@ -14,6 +8,10 @@ import {
 } from "@gc-digital-talent/graphql";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Input from "@gc-digital-talent/forms/Input";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
 import adminMessages from "~/messages/adminMessages";
 

@@ -1,13 +1,11 @@
 import { useFormContext, Controller } from "react-hook-form";
 import { ComponentPropsWithoutRef } from "react";
 
-import {
-  CommonInputProps,
-  Field,
-  useFieldState,
-} from "@gc-digital-talent/forms";
 import { HydrogenAttributes } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";
+import { CommonInputProps } from "@gc-digital-talent/forms/types";
+import { useFieldState } from "@gc-digital-talent/forms/hooks";
+import Field from "@gc-digital-talent/forms/Field";
 
 import ControlledInput from "./ControlledInput";
 import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";

@@ -2,13 +2,6 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
-  DateInput,
-  Input,
-  Select,
-  DATE_SEGMENT,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   errorMessages,
   uiMessages,
   sortAwardedScope,
@@ -16,6 +9,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
 
 import { SubExperienceFormProps } from "~/types/experience";
 

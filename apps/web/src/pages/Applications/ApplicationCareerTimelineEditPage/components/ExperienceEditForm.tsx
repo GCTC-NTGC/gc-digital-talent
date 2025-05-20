@@ -6,7 +6,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
-import { Submit } from "@gc-digital-talent/forms";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import useRoutes from "~/hooks/useRoutes";
 import {

@@ -6,12 +6,6 @@ import isEmpty from "lodash/isEmpty";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
-  htmlToRichTextJSON,
-  RichTextInput,
-  RichTextRenderer,
-  Submit,
-} from "@gc-digital-talent/forms";
-import {
   FragmentType,
   TalentNominationGroup,
   getFragment,
@@ -19,10 +13,14 @@ import {
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
+import Submit from "@gc-digital-talent/forms/Submit";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
-import adminMessages from "~/messages/adminMessages";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import adminMessages from "~/messages/adminMessages";
 
 const CommentsForm_Fragment = graphql(/* Graphql */ `
   fragment CommentsForm on TalentNominationGroup {

@@ -5,7 +5,6 @@ import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Submit } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   formMessages,
@@ -30,6 +29,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

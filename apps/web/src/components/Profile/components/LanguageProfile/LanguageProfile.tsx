@@ -4,7 +4,7 @@ import LanguageIcon from "@heroicons/react/24/outline/LanguageIcon";
 import { useQuery } from "urql";
 
 import { Loading, ToggleSection, Well } from "@gc-digital-talent/ui";
-import { BasicForm } from "@gc-digital-talent/forms";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";

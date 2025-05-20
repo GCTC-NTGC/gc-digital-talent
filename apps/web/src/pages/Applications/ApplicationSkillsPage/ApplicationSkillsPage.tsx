@@ -11,7 +11,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Input } from "@gc-digital-talent/forms";
 import { apiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -22,6 +21,7 @@ import {
   PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";

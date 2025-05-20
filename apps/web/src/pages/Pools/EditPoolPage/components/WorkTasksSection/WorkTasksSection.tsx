@@ -3,7 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
@@ -14,6 +13,8 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import {
   hasEmptyRequiredFields,

@@ -16,16 +16,16 @@ import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
-import {
-  FieldState,
-  useCommonInputStyles,
-  useFieldStateStyles,
-  useInputDescribedBy,
-} from "@gc-digital-talent/forms";
 import { graphql, Maybe } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { FieldState } from "@gc-digital-talent/forms/types";
+import {
+  useCommonInputStyles,
+  useFieldStateStyles,
+  useInputDescribedBy,
+} from "@gc-digital-talent/forms/hooks";
 
 import Result, { SearchMessageCases } from "./Result";
 import ErrorMessage from "./Error";

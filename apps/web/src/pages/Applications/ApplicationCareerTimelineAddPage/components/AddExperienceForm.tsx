@@ -5,10 +5,10 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { Select } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { Scalars } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
 
 import useRoutes from "~/hooks/useRoutes";
 import {

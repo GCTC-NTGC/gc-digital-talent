@@ -1,24 +1,22 @@
 import { useIntl } from "react-intl";
 
 import {
-  Checklist,
-  Field,
-  Input,
-  RadioGroup,
-  Select,
-  TextArea,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   OperationalRequirements,
   errorMessages,
   getOperationalRequirement,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import Field from "@gc-digital-talent/forms/Field";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
-import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { FormFieldProps } from "../../types";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {

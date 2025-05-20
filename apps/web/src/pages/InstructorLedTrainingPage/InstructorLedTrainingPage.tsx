@@ -30,7 +30,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";

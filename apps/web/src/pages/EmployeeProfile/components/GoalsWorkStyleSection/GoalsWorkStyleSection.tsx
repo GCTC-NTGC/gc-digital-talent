@@ -4,7 +4,6 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import { useMutation } from "urql";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
-import { Submit, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   formMessages,
@@ -20,6 +19,8 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";

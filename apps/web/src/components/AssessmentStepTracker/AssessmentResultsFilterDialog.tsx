@@ -2,12 +2,6 @@ import { MessageDescriptor, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
-  Checkbox,
-  Combobox,
-  localizedEnumToOptions,
-  Select,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
@@ -16,11 +10,15 @@ import {
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Select from "@gc-digital-talent/forms/Select";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
 
+import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
-import adminMessages from "~/messages/adminMessages";
 
 import { FormValues } from "./types";
 

@@ -10,11 +10,6 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import {
-  RadioGroup,
-  TextArea,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -24,6 +19,9 @@ import {
   sortCandidateRemovalReason,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 

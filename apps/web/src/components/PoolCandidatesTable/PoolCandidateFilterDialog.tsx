@@ -1,14 +1,5 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 
-import {
-  Checkbox,
-  Checklist,
-  Combobox,
-  HiddenInput,
-  RadioGroup,
-  Select,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -19,6 +10,13 @@ import {
   sortPriorityWeight,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
+import HiddenInput from "@gc-digital-talent/forms/HiddenInput";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Select from "@gc-digital-talent/forms/Select";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import adminMessages from "~/messages/adminMessages";
 

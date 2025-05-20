@@ -3,8 +3,9 @@ import { useIntl } from "react-intl";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
+import Select from "@gc-digital-talent/forms/Select";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { BaseSkillBrowserProps, FormValues } from "./types";
 import skillBrowserMessages from "./messages";

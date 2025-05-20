@@ -11,17 +11,15 @@ import {
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
 import {
-  Input,
-  RichTextInput,
-  Submit,
-  SwitchInput,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import SwitchInput from "@gc-digital-talent/forms/SwitchInput";
+import Input from "@gc-digital-talent/forms/Input";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import labels from "./labels";
 

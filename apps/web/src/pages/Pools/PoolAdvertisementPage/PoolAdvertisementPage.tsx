@@ -34,7 +34,6 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 import {
   graphql,
   PoolStatus,
@@ -46,6 +45,8 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
+import RichTextRenderer from "@gc-digital-talent/forms/RichTextRenderer";
+import { htmlToRichTextJSON } from "@gc-digital-talent/forms/utils";
 
 import {
   formatClassificationString,

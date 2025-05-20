@@ -10,8 +10,8 @@ import {
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-import { TextArea } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { FormValues, dataToFormValues, labels } from "./utils";
 

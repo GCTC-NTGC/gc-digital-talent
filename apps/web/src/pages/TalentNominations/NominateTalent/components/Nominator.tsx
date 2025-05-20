@@ -14,16 +14,14 @@ import {
   TalentNominationUserReview,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
-import {
-  HiddenInput,
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Well } from "@gc-digital-talent/ui";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import HiddenInput from "@gc-digital-talent/forms/HiddenInput";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";

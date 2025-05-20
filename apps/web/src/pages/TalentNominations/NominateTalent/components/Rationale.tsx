@@ -10,12 +10,13 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Combobox, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
