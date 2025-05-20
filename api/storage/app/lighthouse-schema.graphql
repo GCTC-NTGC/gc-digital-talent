@@ -3453,6 +3453,7 @@ enum PoolOpportunityLength {
 enum PoolSelectionLimitation {
   AT_LEVEL_ONLY
   DEPARTMENTAL_PREFERENCE
+  CANADIAN_CITIZENS
 }
 
 enum PoolSkillType {
