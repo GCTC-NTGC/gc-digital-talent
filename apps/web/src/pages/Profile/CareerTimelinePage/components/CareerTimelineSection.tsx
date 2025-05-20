@@ -14,7 +14,7 @@ import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/s
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
 
-const CareerTimleineSectionExperience_Fragment = graphql(/** GraphQL */ `
+const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
   fragment CareerTimelineSectionExperience on Experience {
     id
     ...ExperienceCard
@@ -23,7 +23,7 @@ const CareerTimleineSectionExperience_Fragment = graphql(/** GraphQL */ `
 
 interface CareerTimelineSectionProps {
   experiencesQuery?: FragmentType<
-    typeof CareerTimleineSectionExperience_Fragment
+    typeof CareerTimelineSectionExperience_Fragment
   >[];
   editParam?: string;
   headingLevel?: HeadingRank;
@@ -39,7 +39,7 @@ const CareerTimelineSection = ({
   const intl = useIntl();
   const paths = useRoutes();
   const experiences = getFragment(
-    CareerTimleineSectionExperience_Fragment,
+    CareerTimelineSectionExperience_Fragment,
     experiencesQuery,
   );
 
