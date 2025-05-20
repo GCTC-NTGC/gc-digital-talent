@@ -180,12 +180,7 @@ const SkillBrowserDialog = ({
                 />
               )}
               <Dialog.Footer>
-                <Button
-                  type="button"
-                  color="secondary"
-                  disabled={isSubmitting}
-                  onClick={() => methods.handleSubmit(handleAddSkill)()}
-                >
+                <Button type="submit" color="secondary">
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : submit}
