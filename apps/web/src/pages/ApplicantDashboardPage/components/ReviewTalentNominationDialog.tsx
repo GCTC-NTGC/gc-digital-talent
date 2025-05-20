@@ -63,6 +63,13 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    developmentProgramOptionsOther
+    developmentPrograms {
+      id
+      name {
+        localized
+      }
+    }
   }
 `);
 
@@ -129,6 +136,13 @@ const ReviewTalentNominationDialog = ({
   ).map((option) => ({
     key: option.value,
     name: option.label.localized ?? "",
+  }));
+
+  const developmentPrograms: ListItem[] = unpackMaybes(
+    talentNomination.developmentPrograms,
+  ).map((program) => ({
+    key: program.id,
+    name: program.name?.localized ?? "",
   }));
 
   return (
@@ -328,7 +342,7 @@ const ReviewTalentNominationDialog = ({
                 </div>
               </>
             )}
-            {talentNomination?.nominateForLateralMovement && (
+            {talentNomination.nominateForLateralMovement && (
               <>
                 <Separator decorative data-h2-margin="base(0)" />
                 <div
@@ -369,6 +383,52 @@ const ReviewTalentNominationDialog = ({
                       })}
                     >
                       {talentNomination.lateralMovementOptionsOther}
+                    </FieldDisplay>
+                  )}
+                </div>
+              </>
+            )}
+            {talentNomination.nominateForDevelopmentPrograms && (
+              <>
+                <Separator decorative data-h2-margin="base(0)" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  {developmentPrograms.length > 0 && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Development program recommendations",
+                        id: "DHIa69",
+                        description:
+                          "Label for selected development program items",
+                      })}
+                    >
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                      >
+                        {developmentPrograms.map((p) => (
+                          <li key={p.key}>
+                            <BoolCheckIcon value>{p.name}</BoolCheckIcon>
+                          </li>
+                        ))}
+                      </ul>
+                    </FieldDisplay>
+                  )}
+                  {talentNomination.developmentProgramOptionsOther && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Other development program option",
+                        id: "xidShX",
+                        description:
+                          "Label other development program option input on the details step",
+                      })}
+                    >
+                      {talentNomination.developmentProgramOptionsOther}
                     </FieldDisplay>
                   )}
                 </div>
