@@ -67,6 +67,7 @@ const SkillBrowserDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+  const [adding, setAdding] = useState<boolean>(false);
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const methods = useForm<FormValues>({
     defaultValues: initialState ?? defaultFormValues,
@@ -95,13 +96,19 @@ const SkillBrowserDialog = ({
   // Option 2: Change SkillBrowserDialog to not submit but instead run onSave function.
   const handleAddSkill = async (values: FormValues) => {
     const result = await formTrigger(["skill"]);
-    if (result)
-      await onSave(values).then(() => {
-        setIsOpen(false);
-        reset();
-        if (!noToast)
-          toast.success(selected(getLocalizedName(selectedSkill?.name, intl)));
-      });
+    if (result && !adding) {
+      setAdding(true);
+      await onSave(values)
+        .then(() => {
+          setIsOpen(false);
+          reset();
+          if (!noToast)
+            toast.success(
+              selected(getLocalizedName(selectedSkill?.name, intl)),
+            );
+        })
+        .finally(() => setAdding(false));
+    }
   };
 
   const handleOpenChange = (newIsOpen: boolean) => {
