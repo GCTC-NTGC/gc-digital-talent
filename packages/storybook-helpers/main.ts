@@ -33,16 +33,19 @@ const main: StorybookConfig = {
   },
   // Weird fix that I do not fully understand
   // REF: https://stackoverflow.com/questions/77540892/chromatic-github-action-is-failing
-  viteFinal(config) {
-    config.plugins = (config.plugins ?? []).filter(
-      (plugin) =>
-        plugin &&
-        "name" in plugin &&
-        plugin.name !== "vite:dts" &&
-        // Filter out git version plugin to hardcode for
-        // Stable snapshots
-        plugin.name !== "git-version",
-    );
+  async viteFinal(config) {
+    config.plugins = [
+      ...(config.plugins ?? []).filter(
+        (plugin) =>
+          plugin &&
+          "name" in plugin &&
+          // Filter out git version plugin to hardcode for
+          // Stable snapshots
+          plugin.name !== "git-version",
+      ),
+      // Weird thing to get tailwind working with storybook
+      (await import("@tailwindcss/vite")).default(),
+    ];
     config.define = {
       ...config.define,
       // Hardcode vars for stable snapshots
