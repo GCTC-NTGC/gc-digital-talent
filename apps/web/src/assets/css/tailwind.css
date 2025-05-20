@@ -124,6 +124,7 @@
   --gcdt-color-secondary-700: oklch(0.15 0.0382 275.88);
 }
 
+
 /**
 * Tailwind configuration
 */
@@ -218,8 +219,8 @@
 /**
 * Increase base font scale
 * TO DO: Uncomment when we uninstall hydrogen
-html {
-   font-size: 18px;
-   line-height: 1.5;
- }
 */
+html {
+  font-size: 18px;
+  line-height: 1.5;
+}
