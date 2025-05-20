@@ -172,4 +172,6 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
   },
 );
 
+export { ErrorMessage };
+
 export default ErrorSummary;
