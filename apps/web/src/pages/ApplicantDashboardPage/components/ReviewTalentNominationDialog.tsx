@@ -5,7 +5,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
+import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentNominationMessages from "~/messages/talentNominationMessages";
@@ -13,6 +13,11 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
+
+interface ListItem {
+  key: string;
+  name: string;
+}
 
 const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewTalentNominationDialog on TalentNomination {
@@ -50,6 +55,13 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
       workEmail
+    }
+    lateralMovementOptionsOther
+    lateralMovementOptions {
+      value
+      label {
+        localized
+      }
     }
   }
 `);
@@ -111,6 +123,13 @@ const ReviewTalentNominationDialog = ({
       intl,
     );
   }
+
+  const lateralMoveOptions: ListItem[] = unpackMaybes(
+    talentNomination.lateralMovementOptions,
+  ).map((option) => ({
+    key: option.value,
+    name: option.label.localized ?? "",
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -306,6 +325,52 @@ const ReviewTalentNominationDialog = ({
                       talentNomination.advancementReferenceFallbackWorkEmail ??
                       intl.formatMessage(commonMessages.notProvided)}
                   </FieldDisplay>
+                </div>
+              </>
+            )}
+            {talentNomination?.nominateForLateralMovement && (
+              <>
+                <Separator decorative data-h2-margin="base(0)" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  {lateralMoveOptions.length > 0 && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Lateral movement options",
+                        id: "zLnqLc",
+                        description:
+                          "Label for the lateral movement options checklist on the details step",
+                      })}
+                    >
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                      >
+                        {lateralMoveOptions.map((o) => (
+                          <li key={o.key}>
+                            <BoolCheckIcon value>{o.name}</BoolCheckIcon>
+                          </li>
+                        ))}
+                      </ul>
+                    </FieldDisplay>
+                  )}
+                  {talentNomination.lateralMovementOptionsOther && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Other lateral move option",
+                        id: "BNSbyC",
+                        description:
+                          "Label other lateral move option input on the details step",
+                      })}
+                    >
+                      {talentNomination.lateralMovementOptionsOther}
+                    </FieldDisplay>
+                  )}
                 </div>
               </>
             )}
