@@ -83,6 +83,16 @@ const deriveWhoCanApplyMessages = (
           },
         )
       : null;
+  } else if (
+    areaOfSelection == PoolAreaOfSelection.Public &&
+    selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
+  ) {
+    body = intl.formatMessage({
+      defaultMessage: "Canadian citizens.",
+      id: "DF+cgq",
+      description: "Canadian citizen only application criteria",
+    });
+    finePrint = null;
   } else {
     body = intl.formatMessage({
       defaultMessage:
@@ -135,14 +145,16 @@ const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
 
   return (
     <>
-      <Text data-h2-margin-top="base(0)">{body}</Text>
-      <Text
-        data-h2-margin-bottom="base(0)"
-        data-h2-font-size="base(caption)"
-        data-h2-color="base(black.70)"
-      >
-        {finePrint}
-      </Text>
+      {body ? <Text data-h2-margin-top="base(0)">{body}</Text> : null}
+      {finePrint ? (
+        <Text
+          data-h2-margin-bottom="base(0)"
+          data-h2-font-size="base(caption)"
+          data-h2-color="base(black.70)"
+        >
+          {finePrint}
+        </Text>
+      ) : null}
     </>
   );
 };

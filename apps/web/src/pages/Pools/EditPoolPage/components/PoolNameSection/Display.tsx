@@ -137,7 +137,12 @@ const Display = ({
                     fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
                   } as const;
                   return (
-                    <Link href={pseaUrl[locale]} color="black" newTab external>
+                    <Link
+                      href={pseaUrl[locale]}
+                      color="warning"
+                      newTab
+                      external
+                    >
                       {chunks}
                     </Link>
                   );
