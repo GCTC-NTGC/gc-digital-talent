@@ -1,13 +1,11 @@
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   EditPoolNameFragment,
-  LocalizedEnumString,
   PoolAreaOfSelection,
-  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -15,12 +13,13 @@ import { getClassificationName } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
+import { SelectionLimitationDefinition } from "./PoolNameSection";
 
 const Display = ({
   pool,
-  allPoolSelectionLimitations,
+  possibleEmployeeLimitations,
 }: DisplayProps<EditPoolNameFragment> & {
-  allPoolSelectionLimitations: LocalizedEnumString[];
+  possibleEmployeeLimitations: SelectionLimitationDefinition[];
 }) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -35,6 +34,19 @@ const Display = ({
     publishingGroup,
     opportunityLength,
   } = pool;
+
+  let selectionLimitationLabelMessage: MessageDescriptor =
+    commonMessages.notProvided;
+  switch (areaOfSelection?.value) {
+    case PoolAreaOfSelection.Employees:
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsEmployee;
+      break;
+    case PoolAreaOfSelection.Public:
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsPublic;
+      break;
+  }
 
   return (
     <>
@@ -51,51 +63,49 @@ const Display = ({
         >
           {getLocalizedName(areaOfSelection?.label, intl) || notProvided}
         </ToggleForm.FieldDisplay>
-        {areaOfSelection?.value === PoolAreaOfSelection.Employees ? (
-          <ToggleForm.FieldDisplay
-            data-h2-grid-column="p-tablet(1 / span 2)"
-            label={intl.formatMessage(processMessages.selectionLimitations)}
+        <ToggleForm.FieldDisplay
+          data-h2-grid-column="p-tablet(1 / span 2)"
+          label={intl.formatMessage(selectionLimitationLabelMessage)}
+        >
+          <div
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x0.25)"
+            data-h2-margin-top="base(x0.25)"
           >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-gap="base(x0.25)"
-              data-h2-margin-top="base(x0.25)"
-            >
-              {allPoolSelectionLimitations?.map((singleSelectionLimitation) => {
-                return (
-                  <div
-                    key={singleSelectionLimitation.value}
-                    data-h2-display="base(flex)"
-                    data-h2-gap="base(x0.25)"
-                    data-h2-align-items="base(center)"
-                  >
-                    {poolSelectionLimitations
-                      ?.map((l) => l.value)
-                      .includes(
-                        singleSelectionLimitation.value as PoolSelectionLimitation,
-                      ) ? (
-                      <CheckCircleIcon
-                        data-h2-height="base(x0.75)"
-                        data-h2-color="base(success) base:dark(success.lighter)"
-                        aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.yes)}
-                      />
-                    ) : (
-                      <XCircleIcon
-                        data-h2-height="base(x0.75)"
-                        data-h2-color="base(background.darker)"
-                        aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.no)}
-                      />
-                    )}
-                    {getLocalizedName(singleSelectionLimitation.label, intl)}
-                  </div>
-                );
-              })}
-            </div>
-          </ToggleForm.FieldDisplay>
-        ) : null}
+            {possibleEmployeeLimitations?.map((singleSelectionLimitation) => {
+              return (
+                <div
+                  key={singleSelectionLimitation.value}
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(x0.25)"
+                  data-h2-align-items="base(center)"
+                >
+                  {poolSelectionLimitations
+                    ?.map((l) => l.value)
+                    .includes(singleSelectionLimitation.value) ? (
+                    <CheckCircleIcon
+                      data-h2-height="base(x0.75)"
+                      data-h2-color="base(success) base:dark(success.lighter)"
+                      aria-hidden="false"
+                      aria-label={intl.formatMessage(commonMessages.selected)}
+                    />
+                  ) : (
+                    <XCircleIcon
+                      data-h2-height="base(x0.75)"
+                      data-h2-color="base(background.darker)"
+                      aria-hidden="false"
+                      aria-label={intl.formatMessage(
+                        commonMessages.notSelected,
+                      )}
+                    />
+                  )}
+                  {intl.formatMessage(singleSelectionLimitation.label)}
+                </div>
+              );
+            })}
+          </div>
+        </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!classification}
           label={intl.formatMessage(processMessages.classification)}
