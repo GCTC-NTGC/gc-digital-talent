@@ -5,8 +5,9 @@ import {
   experienceGenerators,
   getStaticSkills,
 } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import ExperienceCard from "./ExperienceCard";
+import ExperienceCard, { ExperienceCard_Fragment } from "./ExperienceCard";
 
 faker.seed(0);
 
@@ -20,50 +21,71 @@ const Template: StoryFn<typeof ExperienceCard> = (args) => {
 
 export const AwardExperienceCard = Template.bind({});
 AwardExperienceCard.args = {
-  experience: experienceGenerators.awardExperiences()[0],
+  experienceQuery: makeFragmentData(
+    experienceGenerators.awardExperiences()[0],
+    ExperienceCard_Fragment,
+  ),
 };
 
 export const CommunityExperienceCard = Template.bind({});
 CommunityExperienceCard.args = {
-  experience: experienceGenerators.communityExperiences()[0],
+  experienceQuery: makeFragmentData(
+    experienceGenerators.communityExperiences()[0],
+    ExperienceCard_Fragment,
+  ),
 };
 
 export const EducationExperienceCard = Template.bind({});
 EducationExperienceCard.args = {
-  experience: experienceGenerators.educationExperiences()[0],
+  experienceQuery: makeFragmentData(
+    experienceGenerators.educationExperiences()[0],
+    ExperienceCard_Fragment,
+  ),
 };
 
 export const PersonalExperienceCard = Template.bind({});
 PersonalExperienceCard.args = {
-  experience: experienceGenerators.personalExperiences()[0],
+  experienceQuery: makeFragmentData(
+    experienceGenerators.personalExperiences()[0],
+    ExperienceCard_Fragment,
+  ),
 };
 
 export const WorkExperienceCard = Template.bind({});
 WorkExperienceCard.args = {
-  experience: experienceGenerators.workExperiences()[0],
+  experienceQuery: makeFragmentData(
+    experienceGenerators.workExperiences()[0],
+    ExperienceCard_Fragment,
+  ),
 };
 
 export const NoSkillsExperienceCard = Template.bind({});
 NoSkillsExperienceCard.args = {
-  experience: {
-    ...experienceGenerators.workExperiences()[0],
-    skills: [],
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experienceGenerators.workExperiences()[0],
+      skills: [],
+    },
+    ExperienceCard_Fragment,
+  ),
 };
 
 const experienceSkill = faker.helpers.arrayElement(getStaticSkills());
 export const SingleSkillExperienceCard = Template.bind({});
 SingleSkillExperienceCard.args = {
-  experience: {
-    ...experienceGenerators.workExperiences()[0],
-    skills: [
-      {
-        ...experienceSkill,
-        experienceSkillRecord: {
-          details: faker.lorem.paragraph(),
+  experienceQuery: makeFragmentData(
+    {
+      ...experienceGenerators.workExperiences()[0],
+      skills: [
+        {
+          ...experienceSkill,
+          experienceSkillRecord: {
+            details: faker.lorem.paragraph(),
+          },
         },
-      },
-    ],
-  },
+      ],
+    },
+    ExperienceCard_Fragment,
+  ),
   showSkills: experienceSkill,
 };

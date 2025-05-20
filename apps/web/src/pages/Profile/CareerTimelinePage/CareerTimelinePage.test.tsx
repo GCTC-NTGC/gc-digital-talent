@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { User, Experience } from "@gc-digital-talent/graphql";
+import { User } from "@gc-digital-talent/graphql";
 
 import { compareByDate } from "~/utils/experienceUtils";
 
@@ -25,7 +25,7 @@ describe("CareerTimeline tests", () => {
     const e3 = generateExperience("2010-01-03");
     const e4 = generateExperience("2021-01-04");
 
-    const experiences: Omit<Experience, "user">[] = [e1, e3, e2, e4];
+    const experiences = [e1, e3, e2, e4];
     const sortedByDate = experiences.sort(compareByDate); // Should sort to most recent startDate
     expect(sortedByDate).toStrictEqual([e4, e3, e2, e1]);
   });
@@ -35,7 +35,7 @@ describe("CareerTimeline tests", () => {
     const e3 = generateExperience("", "2010-01-03");
     const e4 = generateExperience("", "2021-01-04");
 
-    const experiences: Omit<Experience, "user">[] = [e1, e3, e2, e4];
+    const experiences = [e1, e3, e2, e4];
     const sortedByDate = experiences.sort(compareByDate); // Should sort to most recent endDate
     expect(sortedByDate).toStrictEqual([e4, e3, e2, e1]);
   });
@@ -46,7 +46,7 @@ describe("CareerTimeline tests", () => {
     const e4 = generateExperience("", "2021-01-04");
     const e5 = generateExperience("", "2010-01-03");
 
-    const experiences: Omit<Experience, "user">[] = [e1, e3, e2, e4, e5];
+    const experiences = [e1, e3, e2, e4, e5];
     const sortedByDate = experiences.sort(compareByDate); // Should sort to most recent endDate
     expect(sortedByDate).toStrictEqual([e3, e2, e4, e5, e1]);
   });
