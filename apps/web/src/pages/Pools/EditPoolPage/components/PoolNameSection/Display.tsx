@@ -1,12 +1,20 @@
 import { MessageDescriptor, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { ReactNode } from "react";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import {
   EditPoolNameFragment,
   PoolAreaOfSelection,
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import { Link, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -22,6 +30,7 @@ const Display = ({
   possibleEmployeeLimitations: SelectionLimitationDefinition[];
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
     areaOfSelection,
@@ -47,6 +56,9 @@ const Display = ({
         processMessages.selectionLimitationsPublic;
       break;
   }
+
+  const poolSelectionLimitationValues =
+    poolSelectionLimitations?.map((l) => l.value) ?? [];
 
   return (
     <>
@@ -81,9 +93,9 @@ const Display = ({
                   data-h2-gap="base(x0.25)"
                   data-h2-align-items="base(center)"
                 >
-                  {poolSelectionLimitations
-                    ?.map((l) => l.value)
-                    .includes(singleSelectionLimitation.value) ? (
+                  {poolSelectionLimitationValues.includes(
+                    singleSelectionLimitation.value,
+                  ) ? (
                     <CheckCircleIcon
                       data-h2-height="base(x0.75)"
                       data-h2-color="base(success) base:dark(success.lighter)"
@@ -106,6 +118,34 @@ const Display = ({
             })}
           </div>
         </ToggleForm.FieldDisplay>
+        {poolSelectionLimitationValues.includes(
+          PoolSelectionLimitation.CanadianCitizens,
+        ) ? (
+          <Well color="warning" data-h2-grid-column="p-tablet(1 / span 2)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "By selecting “Only Canadian citizens can apply”, you’re confirming that this job opportunity is with a department or agency that is not subject to the <a>Public Service Employment Act (PSEA)</a>.",
+                id: "QC0+kO",
+                description:
+                  "Warning message when selecting the only-canadian-citizens limitation option",
+              },
+              {
+                a: (chunks: ReactNode) => {
+                  const pseaUrl: Record<Locales, string> = {
+                    en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
+                    fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
+                  } as const;
+                  return (
+                    <Link href={pseaUrl[locale]} color="black" newTab external>
+                      {chunks}
+                    </Link>
+                  );
+                },
+              },
+            )}
+          </Well>
+        ) : null}
         <ToggleForm.FieldDisplay
           hasError={!classification}
           label={intl.formatMessage(processMessages.classification)}
