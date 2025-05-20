@@ -64,7 +64,7 @@ const SecurityClearanceDialog = () => {
           icon={InformationCircleIcon}
           aria-label={intl.formatMessage({
             defaultMessage: "Learn more about security clearance",
-            id: "KlvT7A", //TODO : get fr translation
+            id: "KlvT7A",
             description:
               "Info button label for pool application security clearance details.",
           })}
