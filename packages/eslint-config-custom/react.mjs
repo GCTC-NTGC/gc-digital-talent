@@ -29,6 +29,8 @@ export default [
       "react/jsx-uses-react": "off",
       "react/react-in-jsx-scope": "off",
       "formatjs/no-id": "off",
+      // We use this a bit and have not had issue with it...yet
+      "formatjs/no-multiple-plurals": "off",
       "formatjs/enforce-id": [
         "error",
         {
@@ -56,10 +58,7 @@ export default [
         },
       ],
 
-      // We use this a bit and have not had issue with it...yet
-      "formatjs/no-multiple-plurals": "off",
       // TODO: Turn on and fix in in #12832
-      "formatjs/prefer-pound-in-plural": "off",
       "formatjs/enforce-plural-rules": "off",
 
       "react/display-name": "off",

@@ -164,10 +164,10 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           {intl.formatMessage(
             {
               defaultMessage: `{candidateCount, plural,
-                one {<testId>{candidateCount}</testId> approximate match}
-                other {<testId>{candidateCount}</testId> approximate matches}
+                one {<testId>#</testId> approximate match}
+                other {<testId>#</testId> approximate matches}
               }`,
-              id: "Gki8Ex",
+              id: "IMGvOV",
               description:
                 "Message for total estimated matching candidates in pool",
             },

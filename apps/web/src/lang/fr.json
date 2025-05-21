@@ -111,10 +111,6 @@
     "defaultMessage": "Endroits exclus",
     "description": "Location specifics label"
   },
-  "+UTd4G": {
-    "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement ({developmentProgramsNominationCount, number})}}",
-    "description": "Development nominations, conditional rendered off count"
-  },
   "+UjXSM": {
     "defaultMessage": "le réseautage.",
     "description": "Seventh item in list of certification topics section"
@@ -1470,10 +1466,6 @@
   "4nP41q": {
     "defaultMessage": "Sauvegardez et ajoutez cette compétence",
     "description": "Button text to save a specific skill to a users profile"
-  },
-  "4ozix3": {
-    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale ({lateralMovementNominationCount, number})}}",
-    "description": "Lateral movement nominations, conditional rendered off count"
   },
   "4p0QdF": {
     "defaultMessage": "Fermer",
@@ -3995,10 +3987,6 @@
     "defaultMessage": "Poursuivre la demande<hidden> pour {poolName}</hidden>",
     "description": "Label for continue application link"
   },
-  "Gki8Ex": {
-    "defaultMessage": "{candidateCount, plural, one {<testId>{candidateCount}</testId> concordance approximative} other {<testId>{candidateCount}</testId> concordances approximatives} }",
-    "description": "Message for total estimated matching candidates in pool"
-  },
   "GndGRz": {
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
@@ -4278,6 +4266,10 @@
   "IKaWRI": {
     "defaultMessage": " Préférences en matière de gestion des talents",
     "description": "Title for talent management preferences section"
+  },
+  "IMGvOV": {
+    "defaultMessage": "{candidateCount, plural, one {<testId>#</testId> concordance approximative} other {<testId>#</testId> concordances approximatives} }",
+    "description": "Message for total estimated matching candidates in pool"
   },
   "IO+qSg": {
     "defaultMessage": "Parlez-nous du prochain type de poste que vous vous imaginez occuper. En communiquant vos préférences concernant votre prochain emploi, vous pouvez aider le personnel des RH à trouver le poste qui vous convient.",
@@ -4870,6 +4862,10 @@
   "L819mr": {
     "defaultMessage": "Mises à jour du questionnaire sur l’octroi de contrats sur les services numériques",
     "description": "fourth 2024 key change to the directive"
+  },
+  "L8iCCj": {
+    "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement (#)}}",
+    "description": "Development nominations, conditional rendered off count"
   },
   "L8iV5q": {
     "defaultMessage": "Sélectionnez un ou plusieurs volets de travail qui, selon vous, correspondent au travail effectué par rapport à cette expérience.",
@@ -5543,6 +5539,10 @@
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
   },
+  "OQBtt9": {
+    "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>#</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} }",
+    "description": "Message for total estimated candidates box next to search form."
+  },
   "OTI+Kb": {
     "defaultMessage": "Options du programme de perfectionnement",
     "description": "Label for the development program options checklist on the details step"
@@ -5887,10 +5887,6 @@
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
   },
-  "Q4Lc8n": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} =1 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} other {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>{numPools}</b> bassins} =1 {<b>{numPools}</b> bassins} other {<b>{numPools}</b> bassins} }",
-    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
-  },
   "Q6jULV": {
     "defaultMessage": "Sélectionnez votre niveau actuel de compétences",
     "description": "Label for required skill level select"
@@ -6174,6 +6170,10 @@
   "R8Naqm": {
     "defaultMessage": "Filtrage et évaluation",
     "description": "Heading for the information of an application"
+  },
+  "R9Yk8Y": {
+    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {# candidats estimés}</primary>",
+    "description": "Total estimated candidates message in summary of filters"
   },
   "RA4afJ": {
     "defaultMessage": "Approbation pour les programmes de perfectionnement",
@@ -7926,6 +7926,10 @@
     "defaultMessage": "Mettez en valeur jusqu’à cinq compétences comportementales qui mettent en valeur vos points forts.",
     "description": "Page description for the top behavioural skills page"
   },
+  "ZzkqoI": {
+    "defaultMessage": "{advancementNominationCount, plural, =0 {Avancement} other {Avancement (#)}}",
+    "description": "Advancement nominations, conditional rendered off count"
+  },
   "a+bWz1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill form description (French) field."
@@ -9086,10 +9090,6 @@
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Descriptive text explaining education requirement for CR group"
   },
-  "fOilMx": {
-    "defaultMessage": "{advancementNominationCount, plural, =0 {Avancement} other {Avancement ({advancementNominationCount, number})}}",
-    "description": "Advancement nominations, conditional rendered off count"
-  },
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
     "description": "Label displayed on the skill form keywords field in French."
@@ -9393,6 +9393,10 @@
   "gSyRKu": {
     "defaultMessage": "Programme de perfectionnement",
     "description": "Label for the development program nomination option on the details step"
+  },
+  "gTZG/i": {
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>#</b></testId> candidats correspondants} =1 {<testId><b>#</b></testId> candidats correspondants} other {<testId><b>#</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>#</b> bassins} =1 {<b>#</b> bassins} other {<b>#</b> bassins} }",
+    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
@@ -11133,10 +11137,6 @@
     "defaultMessage": "organisations",
     "description": "label for organization metadata"
   },
-  "og5vUB": {
-    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
-    "description": "Total estimated candidates message in summary of filters"
-  },
   "ogWY8Q": {
     "defaultMessage": "Le membre du personnel fait preuve des comportements attendus en matière de compétences et de mérite et a maximisé son développement professionnel dans son poste actuel. Les occasions latérales lui permettraient d'acquérir une expérience élargie, d'améliorer ses compétences, de satisfaire ses aspirations actuelles et de maintenir son engagement. Un membre du personnel doit avoir obtenu des résultats valides à l'évaluation de langue seconde (ELS) pour être jugé prêt pour une mutation latérale.",
     "description": "Description for the lateral movement nomination option on the details step"
@@ -11456,6 +11456,10 @@
   "q+bkac": {
     "defaultMessage": "Davantage de renseignements sur l’équité en matière d’emploi",
     "description": "Heading for opening the accordion with information on employment equity"
+  },
+  "q0kxlX": {
+    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale (#)}}",
+    "description": "Lateral movement nominations, conditional rendered off count"
   },
   "q0oPjr": {
     "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
@@ -12892,10 +12896,6 @@
   "xvULuR": {
     "defaultMessage": "En savoir plus sur les lieux de travail et la terminologie.",
     "description": "Info button label for pool application work location details."
-  },
-  "xwBt36": {
-    "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} =1 {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>{candidateCount}</testId></strong> candidats qui répondent à vos critères.} }",
-    "description": "Message for total estimated candidates box next to search form."
   },
   "xzSXz9": {
     "defaultMessage": "Type d'emploi",

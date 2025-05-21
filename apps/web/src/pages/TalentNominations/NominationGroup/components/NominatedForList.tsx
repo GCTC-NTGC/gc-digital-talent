@@ -56,8 +56,8 @@ const NominatedForList = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "{advancementNominationCount, plural, =0 {Advancement} other {Advancement ({advancementNominationCount, number})}}",
-            id: "fOilMx",
+              "{advancementNominationCount, plural, =0 {Advancement} other {Advancement (#)}}",
+            id: "ZzkqoI",
             description:
               "Advancement nominations, conditional rendered off count",
           },
@@ -74,8 +74,8 @@ const NominatedForList = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "{lateralMovementNominationCount, plural, =0 {Lateral movement} other {Lateral movement ({lateralMovementNominationCount, number})}}",
-            id: "4ozix3",
+              "{lateralMovementNominationCount, plural, =0 {Lateral movement} other {Lateral movement (#)}}",
+            id: "q0kxlX",
             description:
               "Lateral movement nominations, conditional rendered off count",
           },
@@ -92,8 +92,8 @@ const NominatedForList = ({
         {intl.formatMessage(
           {
             defaultMessage:
-              "{developmentProgramsNominationCount, plural, =0 {Development} other {Development ({developmentProgramsNominationCount, number})}}",
-            id: "+UTd4G",
+              "{developmentProgramsNominationCount, plural, =0 {Development} other {Development (#)}}",
+            id: "L8iCCj",
             description:
               "Development nominations, conditional rendered off count",
           },
