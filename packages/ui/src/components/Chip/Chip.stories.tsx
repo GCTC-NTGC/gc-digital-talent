@@ -7,8 +7,6 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import Chip from "./Chip";
 import Chips from "./Chips";
 
-const colors = ["primary", "secondary", "error", "warning", "success", "black"];
-
 export default {
   component: Chip,
   parameters: {
