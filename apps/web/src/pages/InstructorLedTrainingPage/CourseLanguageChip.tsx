@@ -13,7 +13,7 @@ const CourseLanguageChip = ({
   switch (courseLanguage) {
     case CourseLanguage.Bilingual:
       return (
-        <Chip color="tertiary">
+        <Chip color="error">
           {intl.formatMessage(commonMessages.bilingual)}
         </Chip>
       );

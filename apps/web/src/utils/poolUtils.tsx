@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
-import { Color, IconType } from "@gc-digital-talent/ui";
+import { ChipProps, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -388,7 +388,7 @@ export const getAdvertisementStatus = (
 };
 
 interface StatusBadge {
-  color: Color;
+  color: ChipProps["color"];
   label?: MessageDescriptor | string;
   icon?: IconType;
 }

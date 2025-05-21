@@ -45,7 +45,7 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardQuery,
   );
 
-  const jobApplicationsMetaData: AccordionMetaData[] = [
+  const jobApplicationsMetaData: AccordionMetaData = [
     {
       key: "browse-jobs-key",
       type: "link",
