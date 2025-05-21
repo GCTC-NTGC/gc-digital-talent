@@ -41,6 +41,8 @@ const chip = tv({
         "border-warning-700 bg-warning-100 text-warning-700 dark:border-warning-100 dark:bg-warning-700 dark:text-warning-100",
       error:
         "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
+      black:
+        "border-black bg-gray-100 text-black dark:border-gray-100 dark:bg-gray-700 dark:text-white",
     },
     dismissable: {
       true: "cursor-pointer outline-offset-2 outline-black focus-visible:border-black focus-visible:bg-focus focus-visible:text-black focus-visible:outline",
@@ -80,6 +82,13 @@ const chip = tv({
       color: "error",
       class: {
         base: "hover:bg-error-200 dark:hover:bg-error-600",
+      },
+    },
+    {
+      dismissable: true,
+      color: "black",
+      class: {
+        base: "hover:bg-gray-200 dark:hover:bg-gray-600",
       },
     },
   ],

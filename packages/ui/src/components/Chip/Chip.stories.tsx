@@ -41,6 +41,9 @@ const Template: StoryFn<typeof Chip> = (args) => {
       <Chip color="error" {...args}>
         Error
       </Chip>
+      <Chip color="black" {...args}>
+        Black
+      </Chip>
     </Chips>
   );
 };
