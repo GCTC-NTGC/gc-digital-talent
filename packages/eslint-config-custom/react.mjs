@@ -55,9 +55,10 @@ export default [
           ],
         },
       ],
-      // TODO: Turn on and fix in in #12832
+
+      // We use this a bit and have not had issue with it...yet
       "formatjs/no-multiple-plurals": "off",
-      "formatjs/no-multiple-whitespaces": "off",
+      // TODO: Turn on and fix in in #12832
       "formatjs/prefer-pound-in-plural": "off",
       "formatjs/enforce-plural-rules": "off",
 

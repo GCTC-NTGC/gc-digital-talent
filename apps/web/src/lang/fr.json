@@ -2911,10 +2911,6 @@
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "Bg1Pga": {
-    "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
-    "description": "Second paragraph for un-archive pool dialog"
-  },
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
@@ -5891,6 +5887,10 @@
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
   },
+  "Q4Lc8n": {
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} =1 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} other {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<b>{numPools}</b> bassins} =1 {<b>{numPools}</b> bassins} other {<b>{numPools}</b> bassins} }",
+    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
+  },
   "Q6jULV": {
     "defaultMessage": "Sélectionnez votre niveau actuel de compétences",
     "description": "Label for required skill level select"
@@ -7625,6 +7625,10 @@
   "YYbOQz": {
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
     "description": "Message that the employee was found for a search"
+  },
+  "YZRjdG": {
+    "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
+    "description": "Second paragraph for un-archive pool dialog"
   },
   "YZtE49": {
     "defaultMessage": "Obtenez une attestation de vos compétences liées à des domaines clés des TI.",
@@ -9849,6 +9853,10 @@
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
     "description": "Paragraph 2 of the 'About the program' section"
   },
+  "iVAPnW": {
+    "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
+    "description": "Description for editing an experience."
+  },
   "iWD2Pz": {
     "defaultMessage": "Expériences communautaires",
     "description": "Heading for community experiences in experience by type listing"
@@ -9948,10 +9956,6 @@
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
-  },
-  "j2qiFb": {
-    "defaultMessage": "Résultats: { totalCandidateCount, plural, =0 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} =1 {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants} other {<testId><b>{totalCandidateCount}</b></testId> candidats correspondants à l'échelle } } de { numPools, plural, =0 {<b>{numPools}</b> bassins} =1 {<b>{numPools}</b> bassins} other {<b>{numPools}</b> bassins} }",
-    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>IT-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
@@ -10513,10 +10517,6 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
-  "lr6PWk": {
-    "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
-    "description": "Copy explaining mfa apps"
-  },
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
@@ -10592,6 +10592,10 @@
   "mEh+iY": {
     "defaultMessage": "Membres de la collectivité",
     "description": "Page title for the view community members page"
+  },
+  "mF1IpF": {
+    "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
+    "description": "Copy explaining mfa apps"
   },
   "mF1SAO": {
     "defaultMessage": "Plusieurs postes devraient être dotés dans le cadre de ce processus. Vous pouvez vous inscrire à ce processus si vous répondez à l’un des profils linguistiques précédents.",
@@ -13240,10 +13244,6 @@
   "zLuuVe": {
     "defaultMessage": "Ces informations aident les candidates et candidats à comprendre ce que signifie être admis dans un processus de recrutement et ce à quoi ils pourraient s'attendre en tant que candidates et candidats qualifiés.",
     "description": "Describes the 'what to expect after admission' section of a process' advertisement."
-  },
-  "zMZQLY": {
-    "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
-    "description": "Description for editing an experience."
   },
   "zMa59V": {
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
