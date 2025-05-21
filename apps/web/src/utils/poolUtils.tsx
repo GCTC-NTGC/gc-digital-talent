@@ -443,7 +443,7 @@ export const getProcessStatusBadge = (
   if (status?.value === PoolStatus.Published) {
     return {
       label: intl.formatMessage(poolMessages.open),
-      color: "primary",
+      color: "secondary",
       icon: RocketLaunchIcon,
     };
   }
