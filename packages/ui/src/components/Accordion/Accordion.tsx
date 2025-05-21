@@ -294,16 +294,16 @@ interface AccordionMetaDataH2Color {
 }
 
 // the older props combined everything into one interface
-export interface AccordionMetaData extends AccordionMetaDataBase {
+export interface AccordionMetaDataChildren extends AccordionMetaDataBase {
   children: ReactNode;
 }
 
-interface AccordionMetaDataText extends AccordionMetaData {
+interface AccordionMetaDataText extends AccordionMetaDataChildren {
   type: "text";
 }
 
 interface AccordionMetaDataButton
-  extends AccordionMetaData,
+  extends AccordionMetaDataChildren,
     AccordionMetaDataH2Color {
   onClick?: () => void;
   children: ReactNode;
@@ -311,13 +311,13 @@ interface AccordionMetaDataButton
 }
 
 interface AccordionMetaDataLink
-  extends AccordionMetaData,
+  extends AccordionMetaDataChildren,
     AccordionMetaDataH2Color {
   href?: string;
   type: "link";
 }
 
-interface AccordionMetaDataChip extends AccordionMetaData {
+interface AccordionMetaDataChip extends AccordionMetaDataChildren {
   color?: ChipVariants["color"];
   type: "chip";
 }
@@ -338,6 +338,8 @@ export interface AccordionMetaDataProps {
     | AccordionMetaDataStatusItem
   )[];
 }
+
+export type AccordionMetaData = AccordionMetaDataProps["metadata"];
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
   const metadataLength = metadata.length;
