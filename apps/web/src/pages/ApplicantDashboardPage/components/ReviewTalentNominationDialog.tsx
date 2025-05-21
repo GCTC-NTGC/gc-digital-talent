@@ -237,7 +237,7 @@ const ReviewTalentNominationDialog = ({
                 </BoolCheckIcon>
               </FieldDisplay>
             </div>
-            <Separator decorative data-h2-margin="base(0)" />
+            <Separator decorative space="none" />
             <div
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -286,7 +286,7 @@ const ReviewTalentNominationDialog = ({
                   : nullMessage}
               </FieldDisplay>
             </div>
-            <Separator decorative data-h2-margin="base(0)" />
+            <Separator decorative space="none" />
             <div
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -311,7 +311,7 @@ const ReviewTalentNominationDialog = ({
             </div>
             {talentNomination.nominateForAdvancement && (
               <>
-                <Separator decorative data-h2-margin="base(0)" />
+                <Separator decorative space="none" />
                 <div
                   data-h2-display="base(grid)"
                   data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -344,7 +344,7 @@ const ReviewTalentNominationDialog = ({
             )}
             {talentNomination.nominateForLateralMovement && (
               <>
-                <Separator decorative data-h2-margin="base(0)" />
+                <Separator decorative space="none" />
                 <div
                   data-h2-display="base(grid)"
                   data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -390,7 +390,7 @@ const ReviewTalentNominationDialog = ({
             )}
             {talentNomination.nominateForDevelopmentPrograms && (
               <>
-                <Separator decorative data-h2-margin="base(0)" />
+                <Separator decorative space="none" />
                 <div
                   data-h2-display="base(grid)"
                   data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
