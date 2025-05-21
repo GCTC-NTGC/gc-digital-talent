@@ -294,7 +294,7 @@ interface AccordionMetaDataH2Color {
 }
 
 // the older props combined everything into one interface
-export interface AccordionMetaDataChildren extends AccordionMetaDataBase {
+interface AccordionMetaDataChildren extends AccordionMetaDataBase {
   children: ReactNode;
 }
 
