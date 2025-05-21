@@ -60,6 +60,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "More information",
+    "fr": [
+      "Informations complémentaires",
+      "Renseignements supplémentaires"
+    ]
+  },
+  {
     "en": "Language requirement",
     "fr": [
       "Exigence linguistique",
