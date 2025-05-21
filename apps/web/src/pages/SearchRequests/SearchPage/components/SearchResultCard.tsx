@@ -167,7 +167,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
                 one {<testId>#</testId> approximate match}
                 other {<testId>#</testId> approximate matches}
               }`,
-              id: "IMGvOV",
+              id: 'IMGvOV',
               description:
                 "Message for total estimated matching candidates in pool",
             },

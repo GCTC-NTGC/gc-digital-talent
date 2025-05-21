@@ -6172,7 +6172,7 @@
     "description": "Heading for the information of an application"
   },
   "R9Yk8Y": {
-    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {# candidats estimés}</primary>",
+    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {# candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
   "RA4afJ": {

@@ -38,6 +38,7 @@ export default [
           idWhitelist: ["\\."],
         },
       ],
+      "formatjs/enforce-plural-rules": "off",
       "formatjs/enforce-description": ["error", "literal"],
       "formatjs/enforce-placeholders": [
         "error",
@@ -57,9 +58,6 @@ export default [
           ],
         },
       ],
-
-      // TODO: Turn on and fix in in #12832
-      "formatjs/enforce-plural-rules": "off",
 
       "react/display-name": "off",
       "react/prop-types": "off",
