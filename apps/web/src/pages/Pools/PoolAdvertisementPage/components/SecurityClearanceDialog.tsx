@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
-
 const securityScreenConsentFormLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     external
@@ -218,7 +217,8 @@ const SecurityClearanceDialog = () => {
                 },
                 {
                   link: (chunks: ReactNode) => learnMoreLink(locale, chunks),
-                  securityScreenLink: (chunks: ReactNode) => securityScreenLink(locale, chunks),
+                  securityScreenLink: (chunks: ReactNode) =>
+                    securityScreenLink(locale, chunks),
                 },
               )}
             </p>
