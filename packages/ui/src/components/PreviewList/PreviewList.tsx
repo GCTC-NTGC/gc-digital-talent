@@ -3,26 +3,35 @@ import { forwardRef, ReactElement, ReactNode } from "react";
 
 import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
 import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
-import Chip from "../Chip/Chip";
-import { ButtonLinkProps, Color, IconType } from "../../types";
+import Chip, { ChipVariants } from "../Chip/Chip";
+import { ButtonLinkProps, IconType } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
-export interface MetaDataProps {
+interface MetaDataBase {
   children: ReactNode;
-  color?: Color;
   key: string;
-  type: "text" | "chip";
 }
 
-const MetaData = ({ children, type, color }: MetaDataProps) => {
-  switch (type) {
+interface MetaDataText extends MetaDataBase {
+  type: "text";
+}
+
+interface MetaDataChip extends MetaDataBase {
+  type: "chip";
+  color?: ChipVariants["color"];
+}
+
+export type MetaDataProps = MetaDataChip | MetaDataText;
+
+const MetaData = (props: MetaDataProps) => {
+  switch (props.type) {
     case "text":
-      return <span data-h2-color="base(black.light)">{children}</span>;
+      return <span data-h2-color="base(black.light)">{props.children}</span>;
     case "chip":
       return (
         <span>
-          <Chip color={color ?? "primary"} data-h2-font-weight="base(400)">
-            {children}
+          <Chip color={props.color} data-h2-font-weight="base(400)">
+            {props.children}
           </Chip>
         </span>
       );

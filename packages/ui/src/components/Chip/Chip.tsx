@@ -85,7 +85,7 @@ const chip = tv({
   ],
 });
 
-type ChipVariants = VariantProps<typeof chip>;
+export type ChipVariants = VariantProps<typeof chip>;
 
 export interface ChipProps
   extends ChipVariants,

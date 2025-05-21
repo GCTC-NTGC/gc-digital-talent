@@ -15,7 +15,7 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
-import Chip from "../Chip/Chip";
+import Chip, { ChipVariants } from "../Chip/Chip";
 import Link from "../Link";
 import Button from "../Button";
 import MetaDataStatusItem, {
@@ -287,15 +287,37 @@ const Trigger = forwardRef<
 interface AccordionMetaDataBase {
   key: string;
   type: string;
+  children: ReactNode;
+}
+
+interface AccordionMetaDataH2Color {
+  color?: Color;
 }
 
 // the older props combined everything into one interface
 export interface AccordionMetaData extends AccordionMetaDataBase {
   children: ReactNode;
-  color?: Color;
   href?: string;
-  type: "button" | "link" | "text" | "chip";
   onClick?: () => void;
+}
+
+interface AccordionMetaDataButton
+  extends AccordionMetaDataBase,
+    AccordionMetaDataH2Color {
+  onClick?: () => void;
+  type: "button";
+}
+
+interface AccordionMetaDataLink
+  extends AccordionMetaDataBase,
+    AccordionMetaDataH2Color {
+  href?: string;
+  type: "link";
+}
+
+interface AccordionMetaDataChip extends AccordionMetaDataBase {
+  color?: ChipVariants["color"];
+  type: "chip";
 }
 
 // status items have their own prop interface
@@ -305,8 +327,18 @@ interface AccordionMetaDataStatusItem
   type: "status_item";
 }
 
+interface AccordionMetaDataText extends AccordionMetaDataBase {
+  type: "text";
+}
+
 export interface AccordionMetaDataProps {
-  metadata: (AccordionMetaData | AccordionMetaDataStatusItem)[];
+  metadata: (
+    | AccordionMetaDataText
+    | AccordionMetaDataButton
+    | AccordionMetaDataLink
+    | AccordionMetaDataChip
+    | AccordionMetaDataStatusItem
+  )[];
 }
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
@@ -359,12 +391,12 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
           case "chip":
             return index + 1 === metadataLength ? (
               <span key={datum.key}>
-                <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
+                <Chip color={datum?.color}>{datum.children}</Chip>
               </span>
             ) : (
               <Fragment key={datum.key}>
                 <span>
-                  <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
+                  <Chip color={datum?.color}>{datum.children}</Chip>
                 </span>
                 {separatorSpan}
               </Fragment>

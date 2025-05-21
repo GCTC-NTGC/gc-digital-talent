@@ -1,24 +1,33 @@
 import { ReactNode } from "react";
 
-import Chip from "../Chip/Chip";
-import { Color } from "../../types";
+import Chip, { ChipVariants } from "../Chip/Chip";
 
-export interface MetadataItemProps {
+interface MetaDataBase {
   children: ReactNode;
-  color?: Color;
   key: string;
-  type: "text" | "chip";
+  type: string;
 }
 
-const MetadataItem = ({ children, type, color }: MetadataItemProps) => {
-  switch (type) {
+interface MetaDataText extends MetaDataBase {
+  type: "text";
+}
+
+interface MetaDataChip extends MetaDataBase {
+  type: "chip";
+  color?: ChipVariants["color"];
+}
+
+export type MetadataItemProps = MetaDataChip | MetaDataText;
+
+const MetadataItem = (props: MetadataItemProps) => {
+  switch (props.type) {
     case "text":
-      return <span data-h2-color="base(black.light)">{children}</span>;
+      return <span data-h2-color="base(black.light)">{props.children}</span>;
     case "chip":
       return (
         <span>
-          <Chip color={color ?? "primary"} data-h2-font-weight="base(400)">
-            {children}
+          <Chip color={props.color} data-h2-font-weight="base(400)">
+            {props.children}
           </Chip>
         </span>
       );
