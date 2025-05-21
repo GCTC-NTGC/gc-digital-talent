@@ -953,7 +953,11 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
                       data-h2-color="base:all(white)"
                     >
-                      <Heading data-h2-color="base:all(white)" light>
+                      <Heading
+                        data-h2-font-size="base(h2)"
+                        data-h2-color="base:all(white)"
+                        light
+                      >
                         {intl.formatMessage({
                           defaultMessage: "About the Indigenous Talent Portal",
                           id: "loDwKe",
