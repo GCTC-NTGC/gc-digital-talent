@@ -287,7 +287,6 @@ const Trigger = forwardRef<
 interface AccordionMetaDataBase {
   key: string;
   type: string;
-  children: ReactNode;
 }
 
 interface AccordionMetaDataH2Color {
@@ -297,25 +296,28 @@ interface AccordionMetaDataH2Color {
 // the older props combined everything into one interface
 export interface AccordionMetaData extends AccordionMetaDataBase {
   children: ReactNode;
-  href?: string;
-  onClick?: () => void;
+}
+
+interface AccordionMetaDataText extends AccordionMetaData {
+  type: "text";
 }
 
 interface AccordionMetaDataButton
-  extends AccordionMetaDataBase,
+  extends AccordionMetaData,
     AccordionMetaDataH2Color {
   onClick?: () => void;
+  children: ReactNode;
   type: "button";
 }
 
 interface AccordionMetaDataLink
-  extends AccordionMetaDataBase,
+  extends AccordionMetaData,
     AccordionMetaDataH2Color {
   href?: string;
   type: "link";
 }
 
-interface AccordionMetaDataChip extends AccordionMetaDataBase {
+interface AccordionMetaDataChip extends AccordionMetaData {
   color?: ChipVariants["color"];
   type: "chip";
 }
@@ -325,10 +327,6 @@ interface AccordionMetaDataStatusItem
   extends AccordionMetaDataBase,
     AccordionMetaDataStatusItemProps {
   type: "status_item";
-}
-
-interface AccordionMetaDataText extends AccordionMetaDataBase {
-  type: "text";
 }
 
 export interface AccordionMetaDataProps {
