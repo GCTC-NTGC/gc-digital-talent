@@ -33,36 +33,28 @@ export default {
 const Template: StoryFn<typeof Alert.Root> = (args) => (
   <div data-h2-gap="base(0 x1)">
     <Alert.Root {...args} type="info">
-      <Alert.Title>
-        <p>{faker.lorem.sentences(1)}</p>
-      </Alert.Title>
+      <Alert.Title>{faker.lorem.sentences(1)}</Alert.Title>
       <p>{faker.lorem.sentences(2)}</p>
       <Alert.Footer>
         <p>{faker.lorem.sentences(1)}</p>
       </Alert.Footer>
     </Alert.Root>
     <Alert.Root {...args} type="success">
-      <Alert.Title>
-        <p>{faker.lorem.sentences(1)}</p>
-      </Alert.Title>
+      <Alert.Title>{faker.lorem.sentences(1)}</Alert.Title>
       <p>{faker.lorem.sentences(2)}</p>
       <Alert.Footer>
         <p>{faker.lorem.sentences(1)}</p>
       </Alert.Footer>
     </Alert.Root>
     <Alert.Root {...args} type="warning">
-      <Alert.Title>
-        <p>{faker.lorem.sentences(1)}</p>
-      </Alert.Title>
+      <Alert.Title>{faker.lorem.sentences(1)}</Alert.Title>
       <p>{faker.lorem.sentences(2)}</p>
       <Alert.Footer>
         <p>{faker.lorem.sentences(1)}</p>
       </Alert.Footer>
     </Alert.Root>
     <Alert.Root {...args} type="error">
-      <Alert.Title>
-        <p>{faker.lorem.sentences(1)}</p>
-      </Alert.Title>
+      <Alert.Title>{faker.lorem.sentences(1)}</Alert.Title>
       <p>{faker.lorem.sentences(2)}</p>
       <Alert.Footer>
         <p>{faker.lorem.sentences(1)}</p>
