@@ -215,7 +215,7 @@
   --shadow-2xl: var(--gcdt-shadow-2xl);
 }
 
-@media (max-width: 100rem) {
+@media (min-width: 100rem) {
   :root {
     font-size: 18px;
     line-height: 1.5;
