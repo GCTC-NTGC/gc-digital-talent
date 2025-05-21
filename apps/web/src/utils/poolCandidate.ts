@@ -12,7 +12,7 @@ import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { ChipProps, Color } from "@gc-digital-talent/ui";
+import { ChipProps } from "@gc-digital-talent/ui";
 import {
   Maybe,
   PoolCandidate,
