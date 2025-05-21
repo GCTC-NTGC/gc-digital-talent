@@ -430,30 +430,29 @@ trait GeneratesUserDoc
                 $this->addLabelText($section, $this->localize('experiences.supervisory_position'), $this->yesOrNo($experience->supervisory_position));
                 if ($experience->supervisory_position === true) {
                     $this->addLabelText($section, $this->localize('experiences.supervised_employees'), $this->yesOrNo($experience->supervised_employees));
-                }
-                if ($experience->supervised_employees === true) {
-                    $this->addLabelText(
-                        $section,
-                        $this->localize('experiences.supervised_employees_number'),
-                        $experience->supervised_employees_number
-                    );
-                }
-                if ($experience->supervisory_position === true) {
+                    if ($experience->supervised_employees === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.supervised_employees_number'),
+                            $experience->supervised_employees_number
+                        );
+                    }
                     $this->addLabelText($section, $this->localize('experiences.budget_management'), $this->yesOrNo($experience->budget_management));
-                }
-                if ($experience->budget_management === true) {
-                    $this->addLabelText(
-                        $section,
-                        $this->localize('experiences.annual_budget_allocation'),
-                        Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()), // TODO: missing dollar sign
-                    );
-                }
-                $this->addLabelText($section, $this->localize('experiences.senior_management_status'), $experience->senior_management_status ? Lang::get('experiences.senior_management_true') : Lang::get('experiences.senior_management_false'));
-                if ($experience->senior_management_status === true) {
-                    $this->addLabelText($section, $this->localize('experiences.c_suite_role_title'), $this->localizeEnum($experience->c_suite_role_title, CSuiteRoleTitle::class));
-                }
-                if ($experience->c_suite_role_title === CSuiteRoleTitle::OTHER->name) {
-                    $this->addLabelText($section, $this->localize('experiences.other_c_suite_role_title'), $this->localize('experiences.other_c_suite_role_title'));
+
+                    if ($experience->budget_management === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.annual_budget_allocation'),
+                            Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()), // TODO: missing dollar sign
+                        );
+                    }
+                    $this->addLabelText($section, $this->localize('experiences.senior_management_status'), $experience->senior_management_status ? Lang::get('experiences.senior_management_true') : Lang::get('experiences.senior_management_false'));
+                    if ($experience->senior_management_status === true) {
+                        $this->addLabelText($section, $this->localize('experiences.c_suite_role_title'), $this->localizeEnum($experience->c_suite_role_title, CSuiteRoleTitle::class));
+                    }
+                    if ($experience->c_suite_role_title === CSuiteRoleTitle::OTHER->name) {
+                        $this->addLabelText($section, $this->localize('experiences.other_c_suite_role_title'), $this->localize('experiences.other_c_suite_role_title'));
+                    }
                 }
             } else {
                 // null case, so experiences prior to adding employment_category
