@@ -334,9 +334,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           {essentialSkills.length ? (
             <Chips>
               {essentialSkills.map((skill) => (
-                <Chip key={skill.id} color="secondary">
-                  {getLocalizedName(skill.name, intl)}
-                </Chip>
+                <Chip key={skill.id}>{getLocalizedName(skill.name, intl)}</Chip>
               ))}
             </Chips>
           ) : (
