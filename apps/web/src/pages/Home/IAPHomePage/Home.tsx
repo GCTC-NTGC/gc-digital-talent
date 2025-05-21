@@ -805,7 +805,11 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading as="h3" data-h2-color="base:all(white)">
+              <Heading
+                as="h3"
+                data-h2-font-size="base(h3)"
+                data-h2-color="base:all(white)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",

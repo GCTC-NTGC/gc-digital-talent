@@ -53,7 +53,7 @@ export function myRolesCell(
   );
 
   const rolesChipsArray = communityFiltered.map((roleCommunity) => (
-    <Chip color="primary" key={`${teamId}-${roleCommunity.roleName.en}`}>
+    <Chip color="secondary" key={`${teamId}-${roleCommunity.roleName.en}`}>
       {getLocalizedName(roleCommunity.roleName, intl)}
     </Chip>
   ));
