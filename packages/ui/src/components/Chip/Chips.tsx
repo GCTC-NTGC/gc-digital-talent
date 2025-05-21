@@ -6,7 +6,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import { ChipProps } from "./Chip";
 
 const chips = tv({
-  base: "flex list-none flex-wrap gap-x-1 gap-x-2 p-0",
+  base: "flex list-none flex-wrap gap-x-2 gap-y-1 p-0",
 });
 
 type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {

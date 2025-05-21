@@ -26,7 +26,7 @@ const isDeleteEvent = (event: KeyboardEvent<HTMLSpanElement>): boolean => {
 
 const chip = tv({
   slots: {
-    base: "inline-flex items-center gap-0.75 rounded-full border px-2 py-1 text-xs leading-none font-bold",
+    base: "inline-flex items-center gap-x-1 rounded-full border px-3 py-0.5 text-xs font-bold",
     icon: "size-3",
   },
   variants: {
@@ -43,7 +43,7 @@ const chip = tv({
         "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
     },
     dismissable: {
-      true: "cursor-pointer outline-none focus-visible:bg-focus focus-visible:text-black",
+      true: "cursor-pointer outline-offset-2 outline-black focus-visible:border-black focus-visible:bg-focus focus-visible:text-black focus-visible:outline",
     },
   },
   compoundVariants: [
@@ -51,35 +51,35 @@ const chip = tv({
       dismissable: true,
       color: "primary",
       class: {
-        base: "hover:bg-primary-200",
+        base: "hover:bg-primary-200 dark:hover:bg-primary-600",
       },
     },
     {
       dismissable: true,
       color: "secondary",
       class: {
-        base: "hover:bg-secondary-200",
+        base: "hover:bg-secondary-200 dark:hover:bg-secondary-600",
       },
     },
     {
       dismissable: true,
       color: "success",
       class: {
-        base: "hover:bg-success-200",
+        base: "hover:bg-success-200 dark:hover:bg-success-600",
       },
     },
     {
       dismissable: true,
       color: "warning",
       class: {
-        base: "hover:bg-warning-200",
+        base: "hover:bg-warning-200 dark:hover:bg-warning-600",
       },
     },
     {
       dismissable: true,
       color: "error",
       class: {
-        base: "hover:bg-error-200",
+        base: "hover:bg-error-200 dark:hover:bg-error-600",
       },
     },
   ],
