@@ -839,6 +839,10 @@
     "defaultMessage": "Trier par",
     "description": "Label for the links to change how the list is sorted"
   },
+  "W9zlhl": {
+    "defaultMessage": "Sélectionnée",
+    "description": "Label when an item is selected"
+  },
   "WGoaKQ": {
     "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
@@ -1390,6 +1394,10 @@
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
+  },
+  "pnoSK6": {
+    "defaultMessage": "Non sélectionnée",
+    "description": "Label when an item is not selected"
   },
   "qIOz/5": {
     "defaultMessage": "Demandes",

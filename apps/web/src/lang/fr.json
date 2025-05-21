@@ -1627,10 +1627,6 @@
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
   },
-  "5S5zo0": {
-    "defaultMessage": "Limites de la sélection des employés",
-    "description": "Label for a process' selection limitations"
-  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
@@ -3238,6 +3234,10 @@
   "DC2A59": {
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
+  },
+  "DF+cgq": {
+    "defaultMessage": "Toute personne ayant la citoyenneté canadienne.",
+    "description": "Canadian citizen only application criteria"
   },
   "DG4c6M": {
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
@@ -4887,6 +4887,10 @@
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
   },
+  "LA+7mQ": {
+    "defaultMessage": "Cette possibilité d'emploi s’adresse uniquement aux personnes ayant la citoyenneté canadienne",
+    "description": "Title of a note describing that a pool is only open to canadian citizens"
+  },
   "LA0AM1": {
     "defaultMessage": "Justification et commentaires supplémentaires",
     "description": "Heading for rationale step of a talent nomination"
@@ -5906,6 +5910,10 @@
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
     "description": "Message displayed for training opportunity not found."
+  },
+  "QC0+kO": {
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a>Loi sur l’emploi dans la fonction publique</a>.",
+    "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "QCesvO": {
     "defaultMessage": "Ajouter un rôle individue",
@@ -7666,6 +7674,10 @@
     "defaultMessage": "Annulez et revenez aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
+  "YjKKrR": {
+    "defaultMessage": "Citoyenneté canadienne requise",
+    "description": "Label for a process' selection limitations when area of selection is for the public"
+  },
   "Yln61n": {
     "defaultMessage": "<strong>Télécopieur :</strong> 613-996-9661",
     "description": "Fax contact info"
@@ -7837,6 +7849,10 @@
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
+  },
+  "ZeDdxG": {
+    "defaultMessage": "La présente offre s’adresse uniquement aux personnes ayant la citoyenneté canadienne. *",
+    "description": "Body p1 of a note describing that a pool is only open to canadian citizens"
   },
   "Zewopw": {
     "defaultMessage": "Trois types de possibilités d’apprentissage",
@@ -9657,6 +9673,10 @@
     "defaultMessage": "Tâches principales",
     "description": "Short title of the 'key tasks' section of the job poster template page"
   },
+  "hmTot0": {
+    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a>Loi sur l’emploi dans la fonction publique</a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
+    "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
+  },
   "hmacO5": {
     "defaultMessage": "La demande ne comprend pas de filtre!",
     "description": "Null state for a request not including a filter."
@@ -10100,10 +10120,6 @@
   "jrt4zY": {
     "defaultMessage": "Modifier les renseignements sur les processus hors plateforme.",
     "description": "Dialog header informing of purpose"
-  },
-  "js5ZcB": {
-    "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
-    "description": "Caption for the departmental-preference selection limitation"
   },
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -11176,10 +11192,6 @@
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
-  },
-  "p+rROQ": {
-    "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",
-    "description": "Caption for the at-level-only selection limitation"
   },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
@@ -12348,6 +12360,10 @@
   "vKzPT0": {
     "defaultMessage": "La mise à jour des informations sur votre objectif de carrière a échoué",
     "description": "Message displayed when a user fails to updates employee profile information"
+  },
+  "vLOt3K": {
+    "defaultMessage": "Limites de la sélection des employés",
+    "description": "Label for a process' selection limitations when area of selection is for employees"
   },
   "vMBiMV": {
     "defaultMessage": "Mise à jour réussie de la compétence",
