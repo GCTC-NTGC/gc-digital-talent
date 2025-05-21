@@ -205,8 +205,8 @@ const deriveAreaOfSelectionMessages = (
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "*This opportunity is with a department or agency that is not subject to the <a>Public Service Employment Act (PSEA)</a>. As a result, the hiring process and terminology might be different from those typically found in the federal public service.",
-                  id: "hmTot0",
+                    "*This opportunity is with a department or agency that is not subject to the <a><italic>Public Service Employment Act</italic></a>. As a result, the hiring process and terminology might be different from those typically found in the federal public service.",
+                  id: "AlhZFb",
                   description:
                     "Body p2 of a note describing that a pool is only open to canadian citizens",
                 },

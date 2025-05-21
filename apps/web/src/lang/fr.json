@@ -5911,8 +5911,8 @@
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
     "description": "Message displayed for training opportunity not found."
   },
-  "QC0+kO": {
-    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a>Loi sur l’emploi dans la fonction publique</a>.",
+  "4f81Y1": {
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
     "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "QCesvO": {
@@ -9673,8 +9673,8 @@
     "defaultMessage": "Tâches principales",
     "description": "Short title of the 'key tasks' section of the job poster template page"
   },
-  "hmTot0": {
-    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a>Loi sur l’emploi dans la fonction publique</a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
+  "AlhZFb": {
+    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
     "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
   },
   "hmacO5": {

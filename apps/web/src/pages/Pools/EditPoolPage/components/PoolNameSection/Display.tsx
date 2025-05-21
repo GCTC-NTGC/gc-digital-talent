@@ -125,8 +125,8 @@ const Display = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "By selecting “Only Canadian citizens can apply”, you’re confirming that this job opportunity is with a department or agency that is not subject to the <a>Public Service Employment Act (PSEA)</a>.",
-                id: "QC0+kO",
+                  "By selecting “Only Canadian citizens can apply”, you’re confirming that this job opportunity is with a department or agency that is not subject to the <a><italic>Public Service Employment Act</italic></a>.",
+                id: "4f81Y1",
                 description:
                   "Warning message when selecting the only-canadian-citizens limitation option",
               },
