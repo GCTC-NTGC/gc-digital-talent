@@ -284,48 +284,38 @@ const Trigger = forwardRef<
 );
 
 // every item must have a key and type
-interface AccordionMetaDataBase {
+interface AccordionMetaDataText {
   key: string;
-  type: string;
-}
-
-interface AccordionMetaDataH2Color {
-  color?: Color;
-}
-
-// the older props combined everything into one interface
-interface AccordionMetaDataChildren extends AccordionMetaDataBase {
   children: ReactNode;
-}
-
-interface AccordionMetaDataText extends AccordionMetaDataChildren {
   type: "text";
 }
 
-interface AccordionMetaDataButton
-  extends AccordionMetaDataChildren,
-    AccordionMetaDataH2Color {
+interface AccordionMetaDataButton {
+  key: string;
+  type: "button";
+  color?: Color;
   onClick?: () => void;
   children: ReactNode;
-  type: "button";
 }
 
-interface AccordionMetaDataLink
-  extends AccordionMetaDataChildren,
-    AccordionMetaDataH2Color {
-  href?: string;
+interface AccordionMetaDataLink {
+  key: string;
   type: "link";
+  color?: Color;
+  children: ReactNode;
+  href?: string;
 }
 
-interface AccordionMetaDataChip extends AccordionMetaDataChildren {
-  color?: ChipVariants["color"];
+interface AccordionMetaDataChip {
+  key: string;
   type: "chip";
+  children: ReactNode;
+  color?: ChipVariants["color"];
 }
 
 // status items have their own prop interface
-interface AccordionMetaDataStatusItem
-  extends AccordionMetaDataBase,
-    AccordionMetaDataStatusItemProps {
+interface AccordionMetaDataStatusItem extends AccordionMetaDataStatusItemProps {
+  key: string;
   type: "status_item";
 }
 
