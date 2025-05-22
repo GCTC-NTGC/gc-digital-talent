@@ -11,22 +11,28 @@ test.describe("Talent nomination management", () => {
 
     const talentManagement = new TalentManagement(appPage.page);
     await talentManagement.goToTalentManagementTable();
-    await expect(talentManagement.page.getByRole("heading", {
+    await expect(
+      talentManagement.page.getByRole("heading", {
         name: /talent management/i,
         level: 1,
-      })).toBeVisible();
+      }),
+    ).toBeVisible();
 
     await talentManagement.viewActiveTalentNominationEvent();
-    await expect(talentManagement.page.getByRole("heading", {
+    await expect(
+      talentManagement.page.getByRole("heading", {
         name: /test talent nomination event active en 0/i,
         level: 1,
-      })).toBeVisible();
+      }),
+    ).toBeVisible();
 
     await talentManagement.viewNominations();
-    await expect(talentManagement.page.getByRole("heading", {
+    await expect(
+      talentManagement.page.getByRole("heading", {
         name: /talent nominations/i,
         level: 2,
-      })).toBeVisible();
+      }),
+    ).toBeVisible();
 
     await talentManagement.viewNominee();
 

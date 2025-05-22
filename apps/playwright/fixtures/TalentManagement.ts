@@ -15,11 +15,13 @@ class TalentManagement extends AppPage {
   async goToTalentManagementTable() {
     await this.page.getByRole("link", { name: /talent management/i }).click();
     await this.waitForGraphqlResponse("TalentEvents");
-    await this.page.getByRole("button", { name: /status/i}).click();
+    await this.page.getByRole("button", { name: /status/i }).click();
   }
 
   async viewActiveTalentNominationEvent() {
-    await this.page.getByRole("link", { name: /test talent nomination event active en 0/i }).click();
+    await this.page
+      .getByRole("link", { name: /test talent nomination event active en 0/i })
+      .click();
     await this.waitForGraphqlResponse("TalentEventDetails");
   }
 
@@ -29,12 +31,16 @@ class TalentManagement extends AppPage {
   }
 
   async viewNominee() {
-    await this.page.getByRole("link", { name: /jaime bilodeau/i}).click();
+    await this.page.getByRole("link", { name: /jaime bilodeau/i }).click();
     await this.waitForGraphqlResponse("TalentNominationGroupDetails");
   }
 
   async evaluateNomineeNotSupported() {
-    await this.page.getByRole("button", { name: /submit the evaluation of this nomination/i}).click();
+    await this.page
+      .getByRole("button", {
+        name: /submit the evaluation of this nomination/i,
+      })
+      .click();
     await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
 
     await this.page
@@ -44,7 +50,9 @@ class TalentManagement extends AppPage {
       })
       .click();
     await this.page
-      .getByRole("textbox", { name: /reason for not supporting this nomination/i })
+      .getByRole("textbox", {
+        name: /reason for not supporting this nomination/i,
+      })
       .first()
       .fill("Additional details");
 
@@ -55,15 +63,21 @@ class TalentManagement extends AppPage {
       })
       .click();
     await this.page
-      .getByRole("textbox", { name: /reason for not supporting this nomination/i })
+      .getByRole("textbox", {
+        name: /reason for not supporting this nomination/i,
+      })
       .last()
       .fill("Additional details");
 
-    await this.page.getByRole("button", { name: /submit evaluation/i}).click();
+    await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
 
   async evaluateNomineePartiallySupported() {
-    await this.page.getByRole("button", { name: /submit the evaluation of this nomination/i}).click();
+    await this.page
+      .getByRole("button", {
+        name: /submit the evaluation of this nomination/i,
+      })
+      .click();
     await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
 
     await this.page
@@ -74,7 +88,9 @@ class TalentManagement extends AppPage {
       .click();
 
     await this.page
-      .getByRole("textbox", { name: /reason for not supporting this nomination/i })
+      .getByRole("textbox", {
+        name: /reason for not supporting this nomination/i,
+      })
       .first()
       .fill("Additional details");
 
@@ -85,11 +101,15 @@ class TalentManagement extends AppPage {
       })
       .click();
 
-    await this.page.getByRole("button", { name: /submit evaluation/i}).click();
+    await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
 
   async evaluateNomineeApproved() {
-    await this.page.getByRole("button", { name: /submit the evaluation of this nomination/i}).click();
+    await this.page
+      .getByRole("button", {
+        name: /submit the evaluation of this nomination/i,
+      })
+      .click();
     await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
 
     await this.page
@@ -100,7 +120,9 @@ class TalentManagement extends AppPage {
       .click();
 
     await this.page
-      .getByRole("checkbox", { name: /I’ve confirmed this nominee’s eligibility by contacting the secondary reference provided by the nominator./i })
+      .getByRole("checkbox", {
+        name: /I’ve confirmed this nominee’s eligibility by contacting the secondary reference provided by the nominator./i,
+      })
       .click();
 
     await this.page
@@ -110,7 +132,7 @@ class TalentManagement extends AppPage {
       })
       .click();
 
-    await this.page.getByRole("button", { name: /submit evaluation/i}).click();
+    await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
 }
 export default TalentManagement;
