@@ -1,9 +1,10 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
+import { useSearchParams } from "react-router";
 
 import {
   commonMessages,
@@ -226,6 +227,38 @@ function getMetadata(
   return metadata;
 }
 
+  type UseLangSearchParamReturn = [
+  lang: CourseLanguage | null,
+  setLang: (newLang: CourseLanguage | null) => void
+];
+
+function useLangSearchParam(): UseLangSearchParamReturn {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const langParam = searchParams.get("lang") ?? null;
+
+  const lang = useMemo(() => {
+    return Object.values(CourseLanguage).find((courseLang) => courseLang === langParam) ?? null;
+  }, [langParam]);
+
+  const setLang = (newLang: CourseLanguage | null) => {
+    setSearchParams((current) => {
+      const params = new URLSearchParams(current);
+      if(newLang) {
+      params.set("lang", newLang);
+      } else {
+        params.delete("lang");
+      }
+
+      return params;
+    });
+  }
+
+  return [
+    lang,
+    setLang
+  ];
+}
+
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
   color: "secondary",
@@ -242,9 +275,7 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-
-  const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
-    useState<CourseLanguage.English | CourseLanguage.French | null>(null);
+  const [opportunityLanguage, setOpportunityLanguage] = useLangSearchParam();
 
   const [{ data, fetching }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
@@ -252,7 +283,7 @@ export const Component = () => {
       first: 100,
       where: {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
-        opportunityLanguage: trainingOpportunitiesFilteredBy,
+        opportunityLanguage,
       },
       orderBy: [
         { column: "pinned", order: SortOrder.Desc },
@@ -387,8 +418,8 @@ export const Component = () => {
                     data-h2-margin-bottom="base(x.5)"
                   >
                     <Button
-                      onClick={() => setTrainingOpportunitiesFilteredBy(null)}
-                      {...(trainingOpportunitiesFilteredBy === null
+                      onClick={() => setOpportunityLanguage(null)}
+                      {...(opportunityLanguage === null
                         ? selectedFilterStyle
                         : unselectedFilterStyle)}
                     >
@@ -401,11 +432,11 @@ export const Component = () => {
                     </Button>
                     <Button
                       onClick={() =>
-                        setTrainingOpportunitiesFilteredBy(
+                        setOpportunityLanguage(
                           CourseLanguage.English,
                         )
                       }
-                      {...(trainingOpportunitiesFilteredBy ===
+                      {...(opportunityLanguage ===
                       CourseLanguage.English
                         ? selectedFilterStyle
                         : unselectedFilterStyle)}
@@ -419,11 +450,11 @@ export const Component = () => {
                     </Button>
                     <Button
                       onClick={() =>
-                        setTrainingOpportunitiesFilteredBy(
+                        setOpportunityLanguage(
                           CourseLanguage.French,
                         )
                       }
-                      {...(trainingOpportunitiesFilteredBy ===
+                      {...(opportunityLanguage ===
                       CourseLanguage.French
                         ? selectedFilterStyle
                         : unselectedFilterStyle)}
