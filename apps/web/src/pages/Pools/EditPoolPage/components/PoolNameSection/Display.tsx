@@ -75,49 +75,51 @@ const Display = ({
         >
           {getLocalizedName(areaOfSelection?.label, intl) || notProvided}
         </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          data-h2-grid-column="p-tablet(1 / span 2)"
-          label={intl.formatMessage(selectionLimitationLabelMessage)}
-        >
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x0.25)"
-            data-h2-margin-top="base(x0.25)"
+        {areaOfSelection ? (
+          <ToggleForm.FieldDisplay
+            data-h2-grid-column="p-tablet(1 / span 2)"
+            label={intl.formatMessage(selectionLimitationLabelMessage)}
           >
-            {possibleEmployeeLimitations?.map((singleSelectionLimitation) => {
-              return (
-                <div
-                  key={singleSelectionLimitation.value}
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x0.25)"
-                  data-h2-align-items="base(center)"
-                >
-                  {poolSelectionLimitationValues.includes(
-                    singleSelectionLimitation.value,
-                  ) ? (
-                    <CheckCircleIcon
-                      data-h2-height="base(x0.75)"
-                      data-h2-color="base(success) base:dark(success.lighter)"
-                      aria-hidden="false"
-                      aria-label={intl.formatMessage(commonMessages.selected)}
-                    />
-                  ) : (
-                    <XCircleIcon
-                      data-h2-height="base(x0.75)"
-                      data-h2-color="base(background.darker)"
-                      aria-hidden="false"
-                      aria-label={intl.formatMessage(
-                        commonMessages.notSelected,
-                      )}
-                    />
-                  )}
-                  {intl.formatMessage(singleSelectionLimitation.label)}
-                </div>
-              );
-            })}
-          </div>
-        </ToggleForm.FieldDisplay>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x0.25)"
+              data-h2-margin-top="base(x0.25)"
+            >
+              {possibleEmployeeLimitations?.map((singleSelectionLimitation) => {
+                return (
+                  <div
+                    key={singleSelectionLimitation.value}
+                    data-h2-display="base(flex)"
+                    data-h2-gap="base(x0.25)"
+                    data-h2-align-items="base(center)"
+                  >
+                    {poolSelectionLimitationValues.includes(
+                      singleSelectionLimitation.value,
+                    ) ? (
+                      <CheckCircleIcon
+                        data-h2-height="base(x0.75)"
+                        data-h2-color="base(success) base:dark(success.lighter)"
+                        aria-hidden="false"
+                        aria-label={intl.formatMessage(commonMessages.selected)}
+                      />
+                    ) : (
+                      <XCircleIcon
+                        data-h2-height="base(x0.75)"
+                        data-h2-color="base(background.darker)"
+                        aria-hidden="false"
+                        aria-label={intl.formatMessage(
+                          commonMessages.notSelected,
+                        )}
+                      />
+                    )}
+                    {intl.formatMessage(singleSelectionLimitation.label)}
+                  </div>
+                );
+              })}
+            </div>
+          </ToggleForm.FieldDisplay>
+        ) : null}
         {poolSelectionLimitationValues.includes(
           PoolSelectionLimitation.CanadianCitizens,
         ) ? (

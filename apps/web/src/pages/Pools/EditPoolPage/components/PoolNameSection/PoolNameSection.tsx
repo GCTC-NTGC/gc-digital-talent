@@ -390,23 +390,27 @@ const PoolNameSection = ({
                   />
                 </div>
 
-                <div data-h2-grid-column="l-tablet(1 / span 2)">
-                  <Checklist
-                    id="selectionLimitations"
-                    idPrefix="selectionLimitations"
-                    name="selectionLimitations"
-                    legend={intl.formatMessage(selectionLimitationLabelMessage)}
-                    items={possibleEmployeeLimitations.map<CheckboxOption>(
-                      (l) => ({
-                        label: intl.formatMessage(l.label),
-                        value: l.value,
-                        contentBelow: l.description
-                          ? intl.formatMessage(l.description)
-                          : undefined,
-                      }),
-                    )}
-                  />
-                </div>
+                {selectedAreaOfSelection ? (
+                  <div data-h2-grid-column="l-tablet(1 / span 2)">
+                    <Checklist
+                      id="selectionLimitations"
+                      idPrefix="selectionLimitations"
+                      name="selectionLimitations"
+                      legend={intl.formatMessage(
+                        selectionLimitationLabelMessage,
+                      )}
+                      items={possibleEmployeeLimitations.map<CheckboxOption>(
+                        (l) => ({
+                          label: intl.formatMessage(l.label),
+                          value: l.value,
+                          contentBelow: l.description
+                            ? intl.formatMessage(l.description)
+                            : undefined,
+                        }),
+                      )}
+                    />
+                  </div>
+                ) : null}
 
                 <Select
                   id="classification"
