@@ -21,6 +21,7 @@ import {
   Loading,
   Metadata,
   MetadataItemProps,
+  useAnnouncer,
   Well,
 } from "@gc-digital-talent/ui";
 import {
@@ -227,36 +228,63 @@ function getMetadata(
   return metadata;
 }
 
-  type UseLangSearchParamReturn = [
+type UseLangSearchParamReturn = [
   lang: CourseLanguage | null,
-  setLang: (newLang: CourseLanguage | null) => void
+  setLang: (newLang: CourseLanguage | null) => void,
 ];
 
 function useLangSearchParam(): UseLangSearchParamReturn {
+  const intl = useIntl();
+  const { announce } = useAnnouncer();
   const [searchParams, setSearchParams] = useSearchParams();
   const langParam = searchParams.get("lang") ?? null;
 
   const lang = useMemo(() => {
-    return Object.values(CourseLanguage).find((courseLang) => courseLang === langParam) ?? null;
+    return (
+      Object.values(CourseLanguage).find(
+        (courseLang) => courseLang === langParam,
+      ) ?? null
+    );
   }, [langParam]);
 
   const setLang = (newLang: CourseLanguage | null) => {
     setSearchParams((current) => {
       const params = new URLSearchParams(current);
-      if(newLang) {
-      params.set("lang", newLang);
+      if (newLang && newLang !== lang) {
+        announce(
+          newLang === CourseLanguage.English
+            ? intl.formatMessage({
+                defaultMessage:
+                  "Only English instructor-led training opportunities are shown.",
+                id: "zjUjVW",
+                description: "Announcement when filtering training by English",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "Only French instructor-led training opportunities are shown.",
+                id: "y4MXmm",
+                description: "Announcement when filtering training by French",
+              }),
+        );
+        params.set("lang", newLang);
       } else {
+        announce(
+          intl.formatMessage({
+            defaultMessage:
+              "All instructor-led training opportunities are shown.",
+            id: "87xeZ0",
+            description:
+              "Announcement when filtering training by all languages",
+          }),
+        );
         params.delete("lang");
       }
 
       return params;
     });
-  }
+  };
 
-  return [
-    lang,
-    setLang
-  ];
+  return [lang, setLang];
 }
 
 const selectedFilterStyle: Record<string, string> = {
@@ -405,68 +433,68 @@ export const Component = () => {
               })}
             </p>
           </div>
+          <div
+            role="group"
+            aria-labelledby="langFilter"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x0.5)"
+            data-h2-margin-bottom="base(x.5)"
+          >
+            <span id="langFilter">
+              {intl.formatMessage({
+                defaultMessage: "Filter by",
+                id: "dekUfM",
+                description: "Label for a set of filters",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            <Button
+              aria-pressed={opportunityLanguage === null}
+              onClick={() => setOpportunityLanguage(null)}
+              {...(opportunityLanguage === null
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "View all",
+                id: "vXcg28",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+            <Button
+              aria-pressed={opportunityLanguage === CourseLanguage.English}
+              onClick={() => setOpportunityLanguage(CourseLanguage.English)}
+              {...(opportunityLanguage === CourseLanguage.English
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "English only",
+                id: "YTN8A8",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+            <Button
+              aria-pressed={opportunityLanguage === CourseLanguage.French}
+              onClick={() => setOpportunityLanguage(CourseLanguage.French)}
+              {...(opportunityLanguage === CourseLanguage.French
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "French only",
+                id: "wBU9X4",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+          </div>
           {fetching ? (
             <Loading inline />
           ) : (
             <>
               {trainingOpportunities.length > 0 ? (
                 <>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(row)"
-                    data-h2-gap="base(x0.5)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    <Button
-                      onClick={() => setOpportunityLanguage(null)}
-                      {...(opportunityLanguage === null
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "View all",
-                        id: "vXcg28",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        setOpportunityLanguage(
-                          CourseLanguage.English,
-                        )
-                      }
-                      {...(opportunityLanguage ===
-                      CourseLanguage.English
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "English only",
-                        id: "YTN8A8",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        setOpportunityLanguage(
-                          CourseLanguage.French,
-                        )
-                      }
-                      {...(opportunityLanguage ===
-                      CourseLanguage.French
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "French only",
-                        id: "wBU9X4",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                  </div>
                   {trainingOpportunities.map((trainingOpportunity) => {
                     const localizedTitle = getLocalizedName(
                       trainingOpportunity.title,
