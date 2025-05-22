@@ -164,7 +164,7 @@ const getFinalDecisionChipColor = (
     case FinalDecision.QualifiedPending:
       return "success";
     default:
-      return undefined;
+      return "black";
   }
 };
 
