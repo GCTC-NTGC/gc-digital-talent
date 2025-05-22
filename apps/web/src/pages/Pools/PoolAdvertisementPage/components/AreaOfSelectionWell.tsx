@@ -14,6 +14,11 @@ import { getLocale, getLocalizedName, Locales } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
+const pseaUrl: Record<Locales, string> = {
+  en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
+  fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
+} as const;
+
 const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   fragment AreaOfSelectionNote on Pool {
     classification {
@@ -211,22 +216,11 @@ const deriveAreaOfSelectionMessages = (
                     "Body p2 of a note describing that a pool is only open to canadian citizens",
                 },
                 {
-                  a: (chunks: ReactNode) => {
-                    const pseaUrl: Record<Locales, string> = {
-                      en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
-                      fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
-                    } as const;
-                    return (
-                      <Link
-                        href={pseaUrl[locale]}
-                        color="black"
-                        newTab
-                        external
-                      >
-                        {chunks}
-                      </Link>
-                    );
-                  },
+                  a: (chunks: ReactNode) => (
+                    <Link href={pseaUrl[locale]} color="black" newTab external>
+                      {chunks}
+                    </Link>
+                  ),
                 },
               )}
             </p>

@@ -23,6 +23,11 @@ import processMessages from "~/messages/processMessages";
 import { DisplayProps } from "../../types";
 import { SelectionLimitationDefinition } from "./PoolNameSection";
 
+const pseaUrl: Record<Locales, string> = {
+  en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
+  fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
+} as const;
+
 const Display = ({
   pool,
   possibleEmployeeLimitations,
@@ -133,22 +138,11 @@ const Display = ({
                   "Warning message when selecting the only-canadian-citizens limitation option",
               },
               {
-                a: (chunks: ReactNode) => {
-                  const pseaUrl: Record<Locales, string> = {
-                    en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
-                    fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
-                  } as const;
-                  return (
-                    <Link
-                      href={pseaUrl[locale]}
-                      color="warning"
-                      newTab
-                      external
-                    >
-                      {chunks}
-                    </Link>
-                  );
-                },
+                a: (chunks: ReactNode) => (
+                  <Link href={pseaUrl[locale]} color="warning" newTab external>
+                    {chunks}
+                  </Link>
+                ),
               },
             )}
           </Well>
