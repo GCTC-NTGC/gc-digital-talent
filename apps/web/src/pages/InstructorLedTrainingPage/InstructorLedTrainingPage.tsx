@@ -21,7 +21,6 @@ import {
   Loading,
   Metadata,
   MetadataItemProps,
-  useAnnouncer,
   Well,
 } from "@gc-digital-talent/ui";
 import {
@@ -234,8 +233,6 @@ type UseLangSearchParamReturn = [
 ];
 
 function useLangSearchParam(): UseLangSearchParamReturn {
-  const intl = useIntl();
-  const { announce } = useAnnouncer();
   const [searchParams, setSearchParams] = useSearchParams();
   const langParam = searchParams.get("lang") ?? null;
 
@@ -251,32 +248,8 @@ function useLangSearchParam(): UseLangSearchParamReturn {
     setSearchParams((current) => {
       const params = new URLSearchParams(current);
       if (newLang && newLang !== lang) {
-        announce(
-          newLang === CourseLanguage.English
-            ? intl.formatMessage({
-                defaultMessage:
-                  "Only English instructor-led training opportunities are shown.",
-                id: "zjUjVW",
-                description: "Announcement when filtering training by English",
-              })
-            : intl.formatMessage({
-                defaultMessage:
-                  "Only French instructor-led training opportunities are shown.",
-                id: "y4MXmm",
-                description: "Announcement when filtering training by French",
-              }),
-        );
         params.set("lang", newLang);
       } else {
-        announce(
-          intl.formatMessage({
-            defaultMessage:
-              "All instructor-led training opportunities are shown.",
-            id: "87xeZ0",
-            description:
-              "Announcement when filtering training by all languages",
-          }),
-        );
         params.delete("lang");
       }
 
