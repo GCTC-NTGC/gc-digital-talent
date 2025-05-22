@@ -1,13 +1,13 @@
 import { type Page } from "@playwright/test";
 
-import ApplicantDashboard from "./ApplicantDashboard";
+import ApplicantDashboardPage from "./ApplicantDashboardPage";
 
 /**
- * CommunityInterest Page
+ * CommunityInterest
  *
  * Page containing utilities to interact with community interests
  */
-class CommunityInterest extends ApplicantDashboard {
+class CommunityInterest extends ApplicantDashboardPage {
   constructor(page: Page) {
     super(page);
   }
@@ -76,23 +76,6 @@ class CommunityInterest extends ApplicantDashboard {
     await this.page
       .getByRole("button", { name: /view your test community en interests/i })
       .click();
-
-    await this.page
-      .getByRole("heading", {
-        name: /test community en/i,
-        level: 2,
-      })
-      .isVisible();
-
-    await this.page.getByText("Interested in work*").isVisible();
-    await this.page
-      .getByText("Not interested in training or development")
-      .isVisible();
-    await this.page.getByText("Test work stream EN").isVisible();
-    await this.page.getByText("Test Development program EN 0").isVisible();
-    await this.page.getByText("Completed in January 2020").isVisible();
-
-    await this.page.getByRole("button", { name: /cancel/i }).click();
   }
 }
 export default CommunityInterest;
