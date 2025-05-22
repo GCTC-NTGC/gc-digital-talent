@@ -40,6 +40,12 @@ test.describe("Employee Profile", () => {
     await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
     // Fill out the career development preferences form
+    await expect(
+      appPage.page.getByTestId("overall-status-error-icon"),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByTestId("career-development-error-icon"),
+    ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit career development preferences/i })
       .click();
@@ -116,8 +122,18 @@ test.describe("Employee Profile", () => {
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /career development preferences updated successfully/i,
     );
+    await expect(
+      appPage.page.getByTestId("career-development-success-icon"),
+    ).toBeVisible();
+    // This is the only form with required fields
+    await expect(
+      appPage.page.getByTestId("overall-status-success-icon"),
+    ).toBeVisible();
 
     // Fill out the your next role form
+    await expect(
+      appPage.page.getByTestId("next-role-optional-icon"),
+    ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your next role/i })
       .click();
@@ -151,8 +167,14 @@ test.describe("Employee Profile", () => {
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /next role information updated successfully/i,
     );
+    await expect(
+      appPage.page.getByTestId("next-role-success-icon"),
+    ).toBeVisible();
 
     // Fill out the your career objective form
+    await expect(
+      appPage.page.getByTestId("career-objective-optional-icon"),
+    ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your career objective/i })
       .click();
@@ -188,8 +210,14 @@ test.describe("Employee Profile", () => {
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /career objective information updated successfully/i,
     );
+    await expect(
+      appPage.page.getByTestId("career-objective-success-icon"),
+    ).toBeVisible();
 
     // Fill out your goals and work style form
+    await expect(
+      appPage.page.getByTestId("goals-work-style-optional-icon"),
+    ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your goals and work style/i })
       .click();
@@ -209,5 +237,8 @@ test.describe("Employee Profile", () => {
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /goals and work style information updated successfully/i,
     );
+    await expect(
+      appPage.page.getByTestId("goals-work-style-success-icon"),
+    ).toBeVisible();
   });
 });

@@ -177,6 +177,7 @@ const EmployeeProfile = ({
                   title={intl.formatMessage(commonMessages.careerPlanning)}
                   status={overallStatus}
                   scrollTo={SECTION_ID.CAREER_PLANNING}
+                  testIdPrefix="overall-status"
                 />
                 <TableOfContents.List
                   data-h2-padding-left="base(x.5)"
@@ -198,6 +199,7 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
+                      testIdPrefix="career-development"
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -212,6 +214,7 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.NEXT_ROLE}
+                      testIdPrefix="next-role"
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -226,6 +229,7 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_OBJECTIVE}
+                      testIdPrefix="career-objective"
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -240,6 +244,7 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
+                      testIdPrefix="goals-work-style"
                     />
                   </TableOfContents.ListItem>
                 </TableOfContents.List>
