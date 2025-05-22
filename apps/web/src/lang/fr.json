@@ -8690,6 +8690,10 @@
     "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
     "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
   },
+  "dekUfM": {
+    "defaultMessage": "Filtrer par",
+    "description": "Label for a set of filters"
+  },
   "dfkNm9": {
     "defaultMessage": "Mise à jour réussie de votre parcours professionnel!",
     "description": "Message displayed to users when saving career timeline is successful."
