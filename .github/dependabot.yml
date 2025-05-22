@@ -33,6 +33,8 @@ updates:
         patterns:
           - "@storybook*"
           - "storybook*"
+        exclude-patterns:
+          - "storybook-react-intl"
         update-types:
           - "major"
           - "minor"
