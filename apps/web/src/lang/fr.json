@@ -2139,6 +2139,10 @@
     "defaultMessage": "En savoir plus",
     "description": "Heading for the about section of the homepage"
   },
+  "87xeZ0": {
+    "defaultMessage": "Toutes les possibilités de formation dirigées par un instructeur ou une instructrice sont affichées.",
+    "description": "Announcement when filtering training by all languages"
+  },
   "88dH+F": {
     "defaultMessage": "Revenir à la dernière étape sur laquelle je travaillais",
     "description": "Button text to return back to the last step"
@@ -8650,6 +8654,10 @@
     "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
     "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
   },
+  "dekUfM": {
+    "defaultMessage": "Filtrer par",
+    "description": "Label for a set of filters"
+  },
   "dfkNm9": {
     "defaultMessage": "Mise à jour réussie de votre parcours professionnel!",
     "description": "Message displayed to users when saving career timeline is successful."
@@ -12921,6 +12929,10 @@
     "defaultMessage": "Objectifs du Fonds",
     "description": "Heading for the fund objectives card"
   },
+  "y4MXmm": {
+    "defaultMessage": "Seules les possibilités de formation dirigées par un instructeur ou une instructrice en français sont affichées.",
+    "description": "Announcement when filtering training by French"
+  },
   "y5Pf0S": {
     "defaultMessage": "Soumission de l'évaluation réussie",
     "description": "Submission success in evaluation dialog"
@@ -13304,6 +13316,10 @@
   "zejtvd": {
     "defaultMessage": "L'utilisateur perdra tous les rôles suivants dans le processus",
     "description": "Lead text for the list of roles the user will lose"
+  },
+  "zjUjVW": {
+    "defaultMessage": "Seules les possibilités de formation dirigées par un instructeur ou une instructrice en anglais sont affichées.",
+    "description": "Announcement when filtering training by English"
   },
   "zlHeEz": {
     "defaultMessage": "Apprenez-en davantage sur les durées d’emploi",
