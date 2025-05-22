@@ -95,7 +95,7 @@
     "jest-diff": "^29.7.0",
     "jest-fail-on-console": "^3.3.0",
     "prettier": "^3.5.3",
-    "ts-jest": "^29.3.3",
+    "ts-jest": "^29.3.4",
     "tsconfig": "workspace:*",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
