@@ -24,7 +24,7 @@ test.describe("Employee Profile", () => {
     });
   });
 
-  test("Career planning", async ({ appPage }) => {
+  test("Career development", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
     await appPage.page.goto("/en/applicant");
     await appPage.waitForGraphqlResponse("ApplicantDashboard");
@@ -130,6 +130,21 @@ test.describe("Employee Profile", () => {
       appPage.page.getByTestId("overall-status-success-icon"),
     ).toBeVisible();
 
+    // The dashboard should also update with the new status
+    await appPage.page.goto("/en/applicant");
+    await appPage.waitForGraphqlResponse("ApplicantDashboard");
+    await expect(
+      appPage.page.getByRole("listitem", {
+        name: /employee profile \(complete\)/i,
+      }),
+    ).toBeVisible();
+  });
+
+  test("Your next role", async ({ appPage }) => {
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+
     // Fill out the your next role form
     await expect(
       appPage.page.getByTestId("next-role-optional-icon"),
@@ -170,6 +185,12 @@ test.describe("Employee Profile", () => {
     await expect(
       appPage.page.getByTestId("next-role-success-icon"),
     ).toBeVisible();
+  });
+
+  test("Career objective", async ({ appPage }) => {
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
     // Fill out the your career objective form
     await expect(
@@ -213,6 +234,12 @@ test.describe("Employee Profile", () => {
     await expect(
       appPage.page.getByTestId("career-objective-success-icon"),
     ).toBeVisible();
+  });
+
+  test("Goals and work style", async ({ appPage }) => {
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
     // Fill out your goals and work style form
     await expect(
