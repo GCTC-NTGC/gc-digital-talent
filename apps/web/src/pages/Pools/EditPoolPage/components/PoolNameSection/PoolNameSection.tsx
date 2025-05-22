@@ -1,5 +1,5 @@
 import { JSX, useEffect } from "react";
-import { MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
@@ -190,43 +190,43 @@ const allSelectionLimitations: Record<
 > = {
   AT_LEVEL_ONLY: {
     value: PoolSelectionLimitation.AtLevelOnly,
-    label: {
+    label: defineMessage({
       defaultMessage: "At-level only",
       id: "Gnlt31",
       description:
         "Admin interface label for the at-level-only selection limitation",
-    },
-    description: {
+    }),
+    description: defineMessage({
       defaultMessage:
         "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
       id: "p+rROQ",
       description: "Caption for the at-level-only selection limitation",
-    },
+    }),
   },
   DEPARTMENTAL_PREFERENCE: {
     value: PoolSelectionLimitation.DepartmentalPreference,
-    label: {
+    label: defineMessage({
       defaultMessage: "Departmental preference",
       id: "5qjarn",
       description:
         "Admin interface label for the departmental-preference selection limitation",
-    },
-    description: {
+    }),
+    description: defineMessage({
       defaultMessage:
         "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
       id: "js5ZcB",
       description:
         "Caption for the departmental-preference selection limitation",
-    },
+    }),
   },
   CANADIAN_CITIZENS: {
     value: PoolSelectionLimitation.CanadianCitizens,
-    label: {
+    label: defineMessage({
       defaultMessage: "Only Canadian citizens can apply",
       id: "ee4C6L",
       description:
         "Admin interface label for the canadian-citizen-only selection limitation",
-    },
+    }),
     description: undefined,
   },
 } as const;

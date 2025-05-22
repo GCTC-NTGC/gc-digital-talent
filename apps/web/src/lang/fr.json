@@ -1435,6 +1435,10 @@
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
   },
+  "4f81Y1": {
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
+    "description": "Warning message when selecting the only-canadian-citizens limitation option"
+  },
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
@@ -1714,6 +1718,10 @@
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
+  },
+  "5qjarn": {
+    "defaultMessage": "Préférence ministérielle",
+    "description": "Admin interface label for the departmental-preference selection limitation"
   },
   "5qopVO": {
     "defaultMessage": "Nomination pour l'avancement",
@@ -2718,6 +2726,10 @@
   "AlOrGy": {
     "defaultMessage": "Consentement au partage d'information",
     "description": "Label for the input for the consent check"
+  },
+  "AlhZFb": {
+    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
+    "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
   },
   "Ao/+Ba": {
     "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
@@ -3994,6 +4006,10 @@
   "GndGRz": {
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
+  },
+  "Gnlt31": {
+    "defaultMessage": "À niveau seulement",
+    "description": "Admin interface label for the at-level-only selection limitation"
   },
   "GrHEFV": {
     "defaultMessage": "Aucune",
@@ -5910,10 +5926,6 @@
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
     "description": "Message displayed for training opportunity not found."
-  },
-  "4f81Y1": {
-    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
-    "description": "Warning message when selecting the only-canadian-citizens limitation option"
   },
   "QCesvO": {
     "defaultMessage": "Ajouter un rôle individue",
@@ -8882,6 +8894,10 @@
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
   },
+  "ee4C6L": {
+    "defaultMessage": "Seules les personnes ayant la citoyenneté canadienne peuvent postuler",
+    "description": "Admin interface label for the canadian-citizen-only selection limitation"
+  },
   "eePQun": {
     "defaultMessage": "Mettez à jour les volets de travail",
     "description": "Link text to add work streams for an experience"
@@ -9673,10 +9689,6 @@
     "defaultMessage": "Tâches principales",
     "description": "Short title of the 'key tasks' section of the job poster template page"
   },
-  "AlhZFb": {
-    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
-    "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
-  },
   "hmacO5": {
     "defaultMessage": "La demande ne comprend pas de filtre!",
     "description": "Null state for a request not including a filter."
@@ -10120,6 +10132,10 @@
   "jrt4zY": {
     "defaultMessage": "Modifier les renseignements sur les processus hors plateforme.",
     "description": "Dialog header informing of purpose"
+  },
+  "js5ZcB": {
+    "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
+    "description": "Caption for the departmental-preference selection limitation"
   },
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -11192,6 +11208,10 @@
   "p+YRN1": {
     "defaultMessage": "Vous êtes sur le point de modifier le statut de cet utilisateur :",
     "description": "Première section du texte de la boîte de dialogue Modifier le statut du candidat"
+  },
+  "p+rROQ": {
+    "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",
+    "description": "Caption for the at-level-only selection limitation"
   },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
