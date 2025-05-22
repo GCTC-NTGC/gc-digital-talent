@@ -3,7 +3,7 @@ import { forwardRef, ReactElement, ReactNode } from "react";
 
 import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
 import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
-import Chip, { ChipVariants } from "../Chip/Chip";
+import Chip, { ChipProps } from "../Chip/Chip";
 import { ButtonLinkProps, IconType } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
 
@@ -18,7 +18,7 @@ interface MetaDataText extends MetaDataBase {
 
 interface MetaDataChip extends MetaDataBase {
   type: "chip";
-  color?: ChipVariants["color"];
+  color?: ChipProps["color"];
 }
 
 export type MetaDataProps = MetaDataChip | MetaDataText;

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import Chip, { ChipVariants } from "../Chip/Chip";
+import Chip, { ChipProps } from "../Chip/Chip";
 
 interface MetaDataBase {
   children: ReactNode;
@@ -14,7 +14,7 @@ interface MetaDataText extends MetaDataBase {
 
 interface MetaDataChip extends MetaDataBase {
   type: "chip";
-  color?: ChipVariants["color"];
+  color?: ChipProps["color"];
 }
 
 export type MetadataItemProps = MetaDataChip | MetaDataText;
