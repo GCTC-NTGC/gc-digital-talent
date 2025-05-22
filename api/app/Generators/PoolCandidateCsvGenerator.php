@@ -521,11 +521,33 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         $this->applyFilters($query, [
-            'priorityWeight' => 'whereCandidateCategoryIn',
+            // Pool candidate search input renames
+            'email' => 'whereEmail',
+            'generalSearch' => 'whereGeneralSearch',
+            'name' => 'whereName',
+            'notes' => 'whereNotesLike',
+            'isGovEmployee' => 'whereIsGovEmployee',
             'poolCandidateStatus' => 'whereStatusIn',
+            'priorityWeight' => 'whereCandidateCategoryIn',
+            'expiryStatus' => 'whereExpiryStatus',
+            'suspendedStatus' => 'whereSuspendedStatus',
+            'publishingGroups' => 'wherePublishingGroupsIn',
+            'appliedClassifications' => 'whereAppliedClassificationsIn',
+            'processNumber' => 'whereProcessNumber',
+            'poolCandidateStatus' => 'whereStatusIn',
+
+            // Applicant filter input renames
+            'equity' => 'whereEquityIn',
+            'hasDiploma' => 'whereHasDiploma',
+            'languageAbility' => 'whereLanguageAbility',
+            'locationPreferences' => 'whereLocationPreferencesIn',
+            'operationalRequirements' => 'whereOperationalRequirementsIn',
+            'positionDuration' => 'wherePositionDuration',
             'pools' => 'whereAvailableInPools',
-            'skills' => 'skillsAdditive',
-            'community' => 'candidatesInCommunity',
+            'skills' => 'whereSkillsAdditive',
+            'skillsIntersectional' => 'whereSkillsIntersectional',
+            'qualifiedClassifications' => 'whereQualifiedClassificationsIn',
+            'community' => 'whereCandidatesInCommunity',
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
