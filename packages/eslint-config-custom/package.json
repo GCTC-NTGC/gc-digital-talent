@@ -13,7 +13,7 @@
     "@typescript-eslint/parser": "^8.32.1",
     "eslint-config-prettier": "^10.1.5",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^4.3.4",
+    "eslint-import-resolver-typescript": "^4.3.5",
     "eslint-plugin-formatjs": "^5.3.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -22,7 +22,7 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-testing-library": "^7.2.0",
+    "eslint-plugin-testing-library": "^7.2.1",
     "eslint-plugin-turbo": "^2.5.3",
     "globals": "^16.1.0",
     "jest": "^29.7.0"
