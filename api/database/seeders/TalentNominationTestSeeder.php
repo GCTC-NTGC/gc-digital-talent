@@ -18,7 +18,7 @@ class TalentNominationTestSeeder extends Seeder
     {
         $admin = User::where('sub', 'admin@test.com')->sole();
         $employee = User::where('sub', 'applicant-employee@test.com')->sole();
-        $talentNominationEvent = TalentNominationEvent::where('name','ILIKE','%'. 'test talent nomination event active en'. '%')->first();
+        $talentNominationEvent = TalentNominationEvent::where('name', 'ILIKE', '%'.'test talent nomination event active en'.'%')->first();
 
         TalentNomination::factory()
             ->count(3)
@@ -79,6 +79,6 @@ class TalentNominationTestSeeder extends Seeder
                 'nominate_for_advancement' => true,
                 'nominate_for_lateral_movement' => true,
                 'nominate_for_development_programs' => false,
-        ]);
+            ]);
     }
 }
