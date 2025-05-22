@@ -87,11 +87,12 @@ const deriveWhoCanApplyMessages = (
     areaOfSelection == PoolAreaOfSelection.Public &&
     selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
   ) {
-    body = intl.formatMessage({
-      defaultMessage: "Canadian citizens.",
-      id: "DF+cgq",
-      description: "Canadian citizen only application criteria",
-    });
+    body =
+      intl.formatMessage({
+        defaultMessage: "Canadian citizens",
+        id: "VotRI3",
+        description: "Canadian citizen only application criteria",
+      }) + "."; // period to make the message a sentence
     finePrint = null;
   } else {
     body = intl.formatMessage({

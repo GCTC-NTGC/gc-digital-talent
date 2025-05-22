@@ -3247,10 +3247,6 @@
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
   },
-  "DF+cgq": {
-    "defaultMessage": "Toute personne ayant la citoyenneté canadienne.",
-    "description": "Canadian citizen only application criteria"
-  },
   "DG4c6M": {
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
@@ -7081,6 +7077,10 @@
   "Vnh3iD": {
     "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
     "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
+  },
+  "VotRI3": {
+    "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
+    "description": "Canadian citizen only application criteria"
   },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
