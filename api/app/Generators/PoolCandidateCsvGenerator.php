@@ -534,7 +534,6 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
             'publishingGroups' => 'wherePublishingGroupsIn',
             'appliedClassifications' => 'whereAppliedClassificationsIn',
             'processNumber' => 'whereProcessNumber',
-            'poolCandidateStatus' => 'whereStatusIn',
 
             // Applicant filter input renames
             'equity' => 'whereEquityIn',
