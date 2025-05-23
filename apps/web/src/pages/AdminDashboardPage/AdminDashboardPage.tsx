@@ -250,8 +250,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               <Heading
                 size="h4"
                 data-h2-margin="base(0, 0, x1, 0)"
-                Icon={RocketLaunchIcon}
-                color="primary"
+                icon={RocketLaunchIcon}
+                color="secondary"
               >
                 {intl.formatMessage({
                   defaultMessage: "Recruitment",
@@ -276,8 +276,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
             <Heading
               size="h4"
               data-h2-margin="base(0, 0, x1, 0)"
-              Icon={BookOpenIcon}
-              color="secondary"
+              icon={BookOpenIcon}
+              color="primary"
             >
               {intl.formatMessage({
                 defaultMessage: "Resources",
@@ -302,7 +302,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               <Heading
                 size="h4"
                 data-h2-margin="base(0, 0, x1, 0)"
-                Icon={ComputerDesktopIcon}
+                icon={ComputerDesktopIcon}
                 color="error"
               >
                 {intl.formatMessage({
@@ -329,7 +329,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           <Heading
             size="h4"
             data-h2-margin="base(0, 0, x1, 0)"
-            Icon={CogIcon}
+            icon={CogIcon}
             color="warning"
           >
             {intl.formatMessage({

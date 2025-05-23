@@ -89,9 +89,9 @@ const TalentNominationGroupProfile = ({
           data-h2-gap="base(x1 0) l-tablet(0 x.5)"
         >
           <Heading
-            Icon={UserCircleIcon}
+            icon={UserCircleIcon}
             level="h2"
-            color="primary"
+            color="secondary"
             data-h2-margin="base(0)"
             data-h2-font-weight="base(400)"
           >

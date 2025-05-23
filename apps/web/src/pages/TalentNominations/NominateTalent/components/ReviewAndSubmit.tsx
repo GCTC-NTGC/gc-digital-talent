@@ -60,7 +60,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <SubHeading level="h2" Icon={DocumentMagnifyingGlassIcon}>
+        <SubHeading level="h2" icon={DocumentMagnifyingGlassIcon}>
           {intl.formatMessage(pageTitles.reviewAndSubmit)}
         </SubHeading>
         <p data-h2-margin="base(x1 0)">

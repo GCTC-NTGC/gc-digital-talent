@@ -3,7 +3,6 @@ import { ReactElement, ReactNode } from "react";
 import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
 import { HeadingLevel } from "../Heading";
-import { headingStyles } from "../Heading/styles";
 
 export const colorOptions = [
   "primary",
@@ -87,7 +86,8 @@ const TaskCardHeading = ({
   const CustomHeading = headingAs;
   return (
     <CustomHeading
-      {...headingStyles.h4}
+      data-h2-font-size="base(h4)"
+      data-h2-font-weight="base(400)"
       data-h2-margin="base(0)" // remove from imported styles
       {...(Icon && {
         // icon only appears greater than p-tablet width
@@ -98,6 +98,9 @@ const TaskCardHeading = ({
     >
       {Icon ? (
         <Icon
+          data-h2-height="base(x1.15)"
+          data-h2-width="base(x1.15)"
+          data-h2-stroke-width="base:children[path](1.6)"
           data-h2-display="base(none) p-tablet(inline-block)"
           data-h2-flex-shrink="p-tablet(0)"
         />

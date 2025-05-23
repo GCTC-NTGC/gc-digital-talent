@@ -38,7 +38,7 @@ const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
       {...args}
       onOpenChange={(open) => action("onOpenToggle")(open)}
     >
-      <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+      <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
         {headerText}
       </ToggleSection.Header>
 
@@ -70,7 +70,7 @@ const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
       {...args}
       onOpenChange={(open) => action("onOpenToggle")(open)}
     >
-      <ToggleSection.Header Icon={AcademicCapIcon} toggle={<Toggle />}>
+      <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
         {headerText}
       </ToggleSection.Header>
 

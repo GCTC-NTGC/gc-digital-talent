@@ -37,8 +37,8 @@ const ActiveRecruitmentSection = ({
         level="h2"
         size="h3"
         data-h2-font-weight="base(400)"
-        Icon={RocketLaunchIcon}
-        color="secondary"
+        icon={RocketLaunchIcon}
+        color="primary"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage({

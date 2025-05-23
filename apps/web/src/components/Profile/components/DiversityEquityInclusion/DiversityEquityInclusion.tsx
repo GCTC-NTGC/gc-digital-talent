@@ -36,8 +36,8 @@ const DiversityEquityInclusion = ({
       <Heading
         data-h2-margin="base(0, 0, x1, 0)"
         data-h2-font-weight="base(400)"
-        Icon={UsersIcon}
-        color="secondary"
+        icon={UsersIcon}
+        color="primary"
         level={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}
       >

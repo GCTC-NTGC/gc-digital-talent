@@ -80,7 +80,7 @@ export const Component = () => {
             <>
               {/* Standard copy */}
               <Heading
-                Icon={SparklesIcon}
+                icon={SparklesIcon}
                 color="warning"
                 level="h2"
                 size="h3"
@@ -111,8 +111,8 @@ export const Component = () => {
                 })}
               </Link>
               <Heading
-                Icon={ArrowLeftEndOnRectangleIcon}
-                color="primary"
+                icon={ArrowLeftEndOnRectangleIcon}
+                color="secondary"
                 level="h2"
                 size="h3"
                 data-h2-margin="base(x3, 0, x1, 0)"
@@ -187,8 +187,8 @@ export const Component = () => {
                 </Instructions.Step>
               </Instructions.List>
               <Heading
-                Icon={InformationCircleIcon}
-                color="tertiary"
+                icon={InformationCircleIcon}
+                color="error"
                 level="h2"
                 size="h3"
                 data-h2-margin="base(x3, 0, x1, 0)"

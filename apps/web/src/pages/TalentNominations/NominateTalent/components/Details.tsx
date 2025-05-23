@@ -725,7 +725,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
           talentNomination?.developmentProgramOptionsOther ?? "",
       }}
     >
-      <SubHeading Icon={RectangleGroupIcon}>
+      <SubHeading icon={RectangleGroupIcon}>
         {intl.formatMessage(messages.nominationDetails)}
       </SubHeading>
       <p data-h2-margin="base(x1 0)">

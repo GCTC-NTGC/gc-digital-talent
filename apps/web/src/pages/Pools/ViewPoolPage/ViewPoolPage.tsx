@@ -187,8 +187,8 @@ export const ViewPool = ({
       <div data-h2-wrapper="base(left, large, 0)">
         <Heading
           level="h2"
-          Icon={UserGroupIcon}
-          color="primary"
+          icon={UserGroupIcon}
+          color="secondary"
           data-h2-margin-top="base(0)"
         >
           {pageTitle}

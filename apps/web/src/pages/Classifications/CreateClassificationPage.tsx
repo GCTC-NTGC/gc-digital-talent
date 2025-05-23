@@ -116,8 +116,8 @@ export const CreateClassification = () => {
             >
               <Heading
                 level="h2"
-                color="primary"
-                Icon={CloudIcon}
+                color="secondary"
+                icon={CloudIcon}
                 data-h2-margin-top="base(0)"
               >
                 {intl.formatMessage(messages.classificationInfo)}

@@ -175,8 +175,8 @@ export const UpdateClassificationForm = ({
           >
             <Heading
               level="h2"
-              color="primary"
-              Icon={IdentificationIcon}
+              color="secondary"
+              icon={IdentificationIcon}
               data-h2-margin-top="base(0)"
             >
               {intl.formatMessage(messages.classificationInfo)}

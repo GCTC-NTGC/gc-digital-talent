@@ -114,8 +114,8 @@ const TalentNominationGroupDetails = ({
           <div>
             <Heading
               level="h2"
-              Icon={ClipboardDocumentListIcon}
-              color="primary"
+              icon={ClipboardDocumentListIcon}
+              color="secondary"
               data-h2-font-weight="base(400)"
               data-h2-margin="base(0)"
             >

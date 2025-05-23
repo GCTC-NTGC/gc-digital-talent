@@ -2,7 +2,7 @@ import AnchorLink, {
   type AnchorLinkProps as TocAnchorLinkProps,
 } from "./AnchorLink";
 import Content from "../Sidebar/Content";
-import Heading, { type HeadingProps as TocHeadingProps } from "./Heading";
+import Heading, { type TocHeadingProps } from "./Heading";
 import List, {
   ListItem,
   ListProps as TocListProps,

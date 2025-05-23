@@ -230,8 +230,8 @@ const TalentEventNominationsPage = () => {
   return (
     <>
       <Heading
-        Icon={EnvelopeOpenIcon}
-        color="primary"
+        icon={EnvelopeOpenIcon}
+        color="secondary"
         data-h2-margin-top="base(0)"
         data-h2-margin-bottom="base(x1)"
       >

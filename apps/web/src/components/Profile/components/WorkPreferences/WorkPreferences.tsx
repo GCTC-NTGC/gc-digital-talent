@@ -75,7 +75,7 @@ const WorkPreferences = ({
       onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
-        Icon={icon.icon}
+        icon={icon.icon}
         color={icon.color}
         level={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}

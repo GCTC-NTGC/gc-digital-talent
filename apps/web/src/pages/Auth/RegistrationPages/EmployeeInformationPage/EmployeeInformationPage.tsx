@@ -179,8 +179,8 @@ export const EmployeeInformationFormFields = ({
       <Heading
         level="h2"
         size="h3"
-        Icon={HomeModernIcon}
-        color="primary"
+        icon={HomeModernIcon}
+        color="secondary"
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0, 0, x1, 0)"
       >

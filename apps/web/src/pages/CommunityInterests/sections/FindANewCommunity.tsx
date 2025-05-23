@@ -157,8 +157,8 @@ const FindANewCommunity = ({
         <Heading
           level="h2"
           data-h2-font-weight="base(400)"
-          Icon={UserGroupIcon}
-          color="primary"
+          icon={UserGroupIcon}
+          color="secondary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage(heading)}

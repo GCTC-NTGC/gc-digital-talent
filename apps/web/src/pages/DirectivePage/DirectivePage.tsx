@@ -160,9 +160,9 @@ export const Component = () => {
             )}
           </Alert.Root>
           <Heading
-            Icon={MapIcon}
+            icon={MapIcon}
             size="h3"
-            color="primary"
+            color="secondary"
             data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -200,9 +200,9 @@ export const Component = () => {
             </Link>
           </p>
           <Heading
-            Icon={ChartPieIcon}
+            icon={ChartPieIcon}
             size="h3"
-            color="secondary"
+            color="primary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -356,9 +356,9 @@ export const Component = () => {
             </Accordion.Root>
           </div>
           <Heading
-            Icon={BookmarkSquareIcon}
+            icon={BookmarkSquareIcon}
             size="h3"
-            color="tertiary"
+            color="error"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -524,9 +524,9 @@ export const Component = () => {
           <Resources />
           <section id={sectionIds.changes}>
             <Heading
-              Icon={Cog8ToothIcon}
+              icon={Cog8ToothIcon}
               size="h3"
-              color="quinary"
+              color="success"
               data-h2-margin="base(x3, 0, x1, 0)"
             >
               {intl.formatMessage({

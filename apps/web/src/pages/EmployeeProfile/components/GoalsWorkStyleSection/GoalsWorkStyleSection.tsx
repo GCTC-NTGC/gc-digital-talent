@@ -171,7 +171,7 @@ const GoalsWorkStyleSection = ({
       onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
-        Icon={icon.icon}
+        icon={icon.icon}
         color={icon.color}
         level="h3"
         size="h4"

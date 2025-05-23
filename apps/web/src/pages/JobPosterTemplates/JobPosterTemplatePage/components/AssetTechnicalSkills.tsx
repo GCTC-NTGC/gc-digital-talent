@@ -80,9 +80,9 @@ const AssetTechnicalSkills = ({
   return (
     <>
       <Heading
-        Icon={BoltIcon}
+        icon={BoltIcon}
         size="h2"
-        color="quinary"
+        color="success"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.assetTechnicalSkills.longTitle)}

@@ -82,9 +82,9 @@ const EssentialBehaviouralSkills = ({
   return (
     <>
       <Heading
-        Icon={BoltIcon}
+        icon={BoltIcon}
         size="h2"
-        color="quaternary"
+        color="warning"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.essentialBehaviouralSkills.longTitle)}

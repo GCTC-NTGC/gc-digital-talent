@@ -133,8 +133,8 @@ const AdditionalInformation = ({
         <Heading
           level="h2"
           data-h2-font-weight="base(400)"
-          Icon={ClipboardDocumentCheckIcon}
-          color="primary"
+          icon={ClipboardDocumentCheckIcon}
+          color="secondary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage({

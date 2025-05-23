@@ -150,8 +150,8 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               level="h2"
-              Icon={FlagIcon}
-              color="primary"
+              icon={FlagIcon}
+              color="secondary"
               data-h2-margin-top="base(0)"
               data-h2-font-weight="base(400)"
               data-h2-text-align="base(center) l-tablet(initial)"
@@ -196,8 +196,8 @@ export const UserEmployeeInformation = ({
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
               level="h2"
-              Icon={ChartBarSquareIcon}
-              color="primary"
+              icon={ChartBarSquareIcon}
+              color="secondary"
               data-h2-margin-top="base(0)"
               data-h2-font-weight="base(400)"
               data-h2-text-align="base(center) l-tablet(initial)"

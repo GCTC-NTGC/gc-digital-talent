@@ -291,8 +291,8 @@ export const ViewPoolCandidate = ({
               data-h2-margin-bottom="base(x1)"
             >
               <Heading
-                Icon={ExclamationTriangleIcon}
-                color="quaternary"
+                icon={ExclamationTriangleIcon}
+                color="warning"
                 data-h2-margin="base(0, 0, x1, 0)"
               >
                 {intl.formatMessage(screeningAndAssessmentTitle)}

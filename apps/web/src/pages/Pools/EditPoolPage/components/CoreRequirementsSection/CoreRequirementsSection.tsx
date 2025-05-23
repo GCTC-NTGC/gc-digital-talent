@@ -158,7 +158,7 @@ const CoreRequirementsSection = ({
       onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
-        Icon={icon.icon}
+        icon={icon.icon}
         color={icon.color}
         level="h2"
         size="h3"

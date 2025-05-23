@@ -5,7 +5,7 @@ import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Heading, Link, Well, headingStyles } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import { buildMailToUri } from "@gc-digital-talent/helpers";
 
 import logoImg from "~/assets/img/iap-logo.svg";
@@ -822,7 +822,7 @@ export const Component = () => {
                 data-h2-font-weight="base(700)"
                 data-h2-color="base(primary.darker)"
                 data-h2-text-align="base(center) p-tablet(left)"
-                data-h2-margin={headingStyles.h2["data-h2-margin"]}
+                data-h2-margin="base(x2, 0, x.5, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Graduates and advanced talent",

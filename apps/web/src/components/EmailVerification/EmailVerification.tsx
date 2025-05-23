@@ -180,8 +180,8 @@ export const EmailVerification = ({
         size="h3"
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0)"
-        Icon={CheckBadgeIcon}
-        color="primary"
+        icon={CheckBadgeIcon}
+        color="secondary"
         data-h2-text-align="base(center) p-tablet(left)"
       >
         {getTitle(emailType, intl)}
