@@ -9190,6 +9190,10 @@
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
   },
+  "fcSR2I": {
+    "defaultMessage": "Non démontrée",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
+  },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
@@ -13336,10 +13340,6 @@
   "zXWJ/5": {
     "defaultMessage": "Intérêt pour la promotion et l'avancement",
     "description": "Label for an employee profile career development preference field"
-  },
-  "fcSR2I": {
-    "defaultMessage": "Non démontrée",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zYKPdV": {
     "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
