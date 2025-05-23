@@ -1,6 +1,6 @@
 import { useWatch } from "react-hook-form";
 
-import WordCounter from "../WordCounter";
+import WordCounter from "../WordCounter/WordCounter";
 import { countNumberOfWordsAfterReplacingHTML } from "../../utils";
 
 interface FooterProps {

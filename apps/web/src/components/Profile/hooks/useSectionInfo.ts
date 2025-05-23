@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 
 import { IconType } from "@gc-digital-talent/ui";
-import { FieldLabels } from "@gc-digital-talent/forms";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
 
 import useToggleSectionInfo, {
   SectionIcon,

@@ -8,20 +8,20 @@ import {
   navigationMessages,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import {
-  Checklist,
-  Combobox,
-  Select,
-  enumToOptions,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import Select from "@gc-digital-talent/forms/Select";
+import {
+  enumToOptions,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms/utils";
 
+import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
-import adminMessages from "~/messages/adminMessages";
 export interface FormValues {
   communities: string[];
   workStreams: string[];

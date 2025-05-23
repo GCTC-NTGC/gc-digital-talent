@@ -1,21 +1,18 @@
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
-import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  localizedEnumToOptions,
-  RichTextInput,
-  Select,
-} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { currentDate } from "@gc-digital-talent/date-helpers";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import RichTextInput from "@gc-digital-talent/forms/RichTextInput";
 
-import formLabels from "../formLabels";
 import { FormValues } from "../apiUtils";
+import formLabels from "../formLabels";
 
 export const TrainingOpportunityFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment TrainingOpportunityFormOptions on Query {

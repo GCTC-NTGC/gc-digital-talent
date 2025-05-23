@@ -5,7 +5,6 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import debounce from "lodash/debounce";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -21,6 +20,7 @@ import {
   User,
   RoleInput,
 } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import messages from "~/messages/processMessages";

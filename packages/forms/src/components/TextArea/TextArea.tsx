@@ -5,7 +5,7 @@ import { DetailedHTMLProps, TextareaHTMLAttributes, FocusEvent } from "react";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
-import WordCounter from "../WordCounter";
+import WordCounter from "../WordCounter/WordCounter";
 import type { CommonInputProps } from "../../types";
 import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";

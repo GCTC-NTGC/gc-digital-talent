@@ -7,7 +7,6 @@ import { useQuery } from "urql";
 import { ReactNode, useState } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -16,9 +15,13 @@ import {
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import { FormValues, submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
 

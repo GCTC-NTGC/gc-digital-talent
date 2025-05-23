@@ -26,6 +26,8 @@ import {
 } from "./types";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 
+export { type DateSegment, DATE_SEGMENT, type RoundingMethod };
+
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
   HTMLFieldsetProps & {
     /** Holds text for the legend associated with the RadioGroup fieldset. */

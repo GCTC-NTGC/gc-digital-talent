@@ -9,8 +9,9 @@ import {
 
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Well } from "@gc-digital-talent/ui";
-import { CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import Checklist, { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
+import Select from "@gc-digital-talent/forms/Select";
 
 import pageTitles from "~/messages/pageTitles";
 import { WorkFormValues } from "~/types/experience";

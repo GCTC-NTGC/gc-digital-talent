@@ -4,10 +4,9 @@ import { StoryFn } from "@storybook/react";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
-
-import TextArea from ".";
-import type { TextAreaProps } from ".";
+import Submit from "../Submit/Submit";
+import TextArea from "./TextArea";
+import type { TextAreaProps } from "./TextArea";
 
 export default {
   component: TextArea,

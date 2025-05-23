@@ -9,7 +9,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -18,6 +17,7 @@ import {
   Experience,
 } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isEducationExperience } from "~/utils/experienceUtils";

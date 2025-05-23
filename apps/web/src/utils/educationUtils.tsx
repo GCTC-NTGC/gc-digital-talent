@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 import { Locales } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { Radio } from "@gc-digital-talent/forms";
+import { Radio } from "@gc-digital-talent/forms/RadioGroup";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 

@@ -3,19 +3,17 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
-import {
-  Checkbox,
-  CheckboxOption,
-  Field,
-  Submit,
-} from "@gc-digital-talent/forms";
 import { NotificationFamily, graphql } from "@gc-digital-talent/graphql";
 import { CardBasic } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
+import Field from "@gc-digital-talent/forms/Field";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Submit from "@gc-digital-talent/forms/Submit";
 
-import { dataValuesToFormValues, formValuesToData } from "./utils";
 import { FormValues } from "./types";
+import { dataValuesToFormValues, formValuesToData } from "./utils";
 
 interface NotificationChecklistProps {
   id: string;

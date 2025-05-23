@@ -4,10 +4,9 @@ import { action } from "@storybook/addon-actions";
 import { VIEWPORT, allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
-
-import Checkbox from ".";
-import type { CheckboxProps } from ".";
+import Submit from "../Submit/Submit";
+import Checkbox from "./Checkbox";
+import type { CheckboxProps } from "./Checkbox";
 
 export default {
   component: Checkbox,

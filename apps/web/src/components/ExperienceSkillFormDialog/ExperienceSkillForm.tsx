@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 
 import { Dialog, Button, Heading, Well } from "@gc-digital-talent/ui";
-import { Select, TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   formMessages,
@@ -17,6 +16,8 @@ import {
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import {
   deriveExperienceType,

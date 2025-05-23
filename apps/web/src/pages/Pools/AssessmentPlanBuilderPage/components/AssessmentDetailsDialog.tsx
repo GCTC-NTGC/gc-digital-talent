@@ -10,17 +10,6 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  Select,
-  Input,
-  Repeater,
-  TextArea,
-  Checklist,
-  CheckboxOption,
-  Field,
-  alphaSortOptions,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
@@ -34,17 +23,27 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Checklist, { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
+import {
+  alphaSortOptions,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms/utils";
+import Select from "@gc-digital-talent/forms/Select";
+import Input from "@gc-digital-talent/forms/Input";
+import Repeater from "@gc-digital-talent/forms/Repeater";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Field from "@gc-digital-talent/forms/Field";
 
 import processMessages from "~/messages/processMessages";
 
-import labels from "./AssessmentDetailsDialogLabels";
+import { poolSkillToOption } from "../utils";
 import {
   SCREENING_QUESTIONS_MAX_QUESTIONS,
   SCREENING_QUESTIONS_TEXT_AREA_EN_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
-import { poolSkillToOption } from "../utils";
+import labels from "./AssessmentDetailsDialogLabels";
 
 interface AssessedSkillsItems {
   essentialSkillItems: CheckboxOption[];

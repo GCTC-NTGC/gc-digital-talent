@@ -1,6 +1,5 @@
 import { IntlShape } from "react-intl";
 
-import { Option } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -84,7 +83,7 @@ export const formValuesToSubmitData = (
 export const getClassificationOptions = (
   classifications: readonly Classification[],
   intl: IntlShape,
-): Option[] => {
+) => {
   return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
     value: id,
     label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
@@ -94,7 +93,7 @@ export const getClassificationOptions = (
 export const getDepartmentOptions = (
   departments: readonly Pick<Department, "id" | "name">[],
   intl: IntlShape,
-): Option[] => {
+) => {
   return departments.filter(notEmpty).map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl),

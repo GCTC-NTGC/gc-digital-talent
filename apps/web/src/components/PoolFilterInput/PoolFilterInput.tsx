@@ -2,11 +2,11 @@ import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import { useState } from "react";
 
-import { Combobox } from "@gc-digital-talent/forms";
 import type {
   PoolFilterInput as TPoolFilterInput,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import adminMessages from "~/messages/adminMessages";
 

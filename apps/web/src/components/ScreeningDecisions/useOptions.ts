@@ -10,11 +10,6 @@ import SolidPauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import { useQuery } from "urql";
 
 import {
-  CardOption,
-  CheckboxOption,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultJustification,
@@ -24,6 +19,9 @@ import {
   commonMessages,
   getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
+import { CardOption } from "@gc-digital-talent/forms/CardOptionGroup";
+import { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 

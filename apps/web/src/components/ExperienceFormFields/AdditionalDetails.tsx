@@ -2,8 +2,8 @@ import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
-import { TextArea } from "@gc-digital-talent/forms";
 import { Heading } from "@gc-digital-talent/ui";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";

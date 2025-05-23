@@ -3,12 +3,6 @@ import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
-import {
-  FieldLabels,
-  Input,
-  Radio,
-  RadioGroup,
-} from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Loading } from "@gc-digital-talent/ui";
 import {
@@ -17,6 +11,9 @@ import {
   WorkFieldOptionsQuery,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import RadioGroup, { Radio } from "@gc-digital-talent/forms/RadioGroup";
+import Input from "@gc-digital-talent/forms/Input";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import ExperienceWorkStreams from "~/components/ExperienceWorkStreams/ExperienceWorkStreams";

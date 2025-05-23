@@ -4,12 +4,6 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { Heading, Link, Loading } from "@gc-digital-talent/ui";
-import {
-  Select,
-  Submit,
-  TextArea,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -23,9 +17,13 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
+import Select from "@gc-digital-talent/forms/Select";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
-import useRoutes from "~/hooks/useRoutes";
 import useReturnPath from "~/hooks/useReturnPath";
+import useRoutes from "~/hooks/useRoutes";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 

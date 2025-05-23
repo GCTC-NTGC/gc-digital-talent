@@ -9,13 +9,13 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Option, Select } from "@gc-digital-talent/forms";
 import {
   FragmentType,
   Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
 
 import { ProcessDialogProps } from "./types";
 
@@ -53,7 +53,7 @@ const DuplicateProcessDialog = ({
     DuplicatePoolDepartment_Fragment,
     departmentsQuery,
   );
-  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+  const departmentOptions = departments.map(({ id, name }) => ({
     value: id,
     label: getLocalizedName(name, intl),
   }));

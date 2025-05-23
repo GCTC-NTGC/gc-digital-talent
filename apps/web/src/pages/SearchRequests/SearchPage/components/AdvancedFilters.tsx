@@ -5,17 +5,15 @@ import { useQuery } from "urql";
 
 import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import {
-  Checklist,
-  RadioGroup,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   getEmploymentDuration,
   EmploymentDuration,
   getOperationalRequirement,
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Checklist from "@gc-digital-talent/forms/Checklist";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import { NullSelection, FormValues } from "~/types/searchRequest";

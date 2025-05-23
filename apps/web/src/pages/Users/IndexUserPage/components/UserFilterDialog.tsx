@@ -9,22 +9,22 @@ import {
   navigationMessages,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import {
-  Checkbox,
-  Checklist,
-  Combobox,
-  Select,
-  enumToOptions,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import {
+  enumToOptions,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms/utils";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
+import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
-import adminMessages from "~/messages/adminMessages";
-import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 

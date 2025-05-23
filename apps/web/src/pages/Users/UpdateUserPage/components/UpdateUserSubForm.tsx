@@ -1,7 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Input, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { Heading } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -10,6 +9,8 @@ import {
   UpdateUserSubMutation,
   UserAuthInfo,
 } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 interface FormValues {
   sub: string;

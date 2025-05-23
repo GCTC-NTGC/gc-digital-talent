@@ -1,17 +1,15 @@
 import { useIntl } from "react-intl";
 
 import {
-  Input,
-  RadioGroup,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   errorMessages,
   formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";

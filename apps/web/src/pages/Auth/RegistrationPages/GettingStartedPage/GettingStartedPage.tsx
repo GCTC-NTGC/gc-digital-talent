@@ -6,14 +6,6 @@ import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useFormContext } from "react-hook-form";
 
 import { Button, Heading, Pending, Well } from "@gc-digital-talent/ui";
-import {
-  BasicForm,
-  Checkbox,
-  FieldLabels,
-  Input,
-  RadioGroup,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
@@ -27,6 +19,12 @@ import {
   NotificationFamily,
 } from "@gc-digital-talent/graphql";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import Input from "@gc-digital-talent/forms/Input";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

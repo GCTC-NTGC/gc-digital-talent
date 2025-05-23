@@ -20,8 +20,8 @@ import {
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
-import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";

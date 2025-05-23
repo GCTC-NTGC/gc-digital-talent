@@ -14,11 +14,9 @@ import {
   TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import {
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-} from "@gc-digital-talent/forms";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";

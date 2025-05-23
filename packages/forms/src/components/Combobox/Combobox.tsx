@@ -17,9 +17,11 @@ import {
   getMultiDefaultValue,
   getSingleDefaultValue,
 } from "./utils";
-import { BaseProps, ComboboxValue } from "./types";
+import { BaseProps, ComboboxValue, Option } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
+
+export type { Option as ComboboxOption };
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {

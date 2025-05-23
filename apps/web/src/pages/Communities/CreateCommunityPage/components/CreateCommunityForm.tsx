@@ -5,7 +5,6 @@ import kebabCase from "lodash/kebabCase";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
-import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   CreateCommunityInput,
@@ -14,10 +13,14 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
-import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import adminMessages from "~/messages/adminMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(

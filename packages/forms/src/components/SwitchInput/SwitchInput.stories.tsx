@@ -7,7 +7,7 @@ import { Color } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
+import Submit from "../Submit/Submit";
 import SwitchInput, { SwitchInputProps } from "./SwitchInput";
 
 type SwitchInputArgs = SwitchInputProps & {

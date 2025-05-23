@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { Checklist, FieldLabels } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType } from "@gc-digital-talent/graphql";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import Checklist from "@gc-digital-talent/forms/Checklist";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import ConsideredLanguages, {

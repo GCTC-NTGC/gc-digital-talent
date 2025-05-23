@@ -5,7 +5,6 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useNavigate, useOutletContext } from "react-router";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Submit, Input, TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
@@ -27,6 +26,9 @@ import {
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import SEO from "~/components/SEO/SEO";

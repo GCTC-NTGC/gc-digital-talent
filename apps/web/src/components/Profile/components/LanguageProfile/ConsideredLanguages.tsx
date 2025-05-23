@@ -3,12 +3,6 @@ import { useIntl } from "react-intl";
 import { ReactNode, useEffect } from "react";
 
 import {
-  RadioGroup,
-  FieldLabels,
-  Checkbox,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
-import {
   Locales,
   errorMessages,
   getLocale,
@@ -16,9 +10,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
 
-import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
 import { FormValues } from "./types";
+import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (

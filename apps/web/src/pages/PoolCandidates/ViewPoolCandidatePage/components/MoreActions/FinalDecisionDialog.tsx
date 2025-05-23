@@ -4,7 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
-import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   DisqualificationReason,
   FragmentType,
@@ -20,6 +19,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import DateInput from "@gc-digital-talent/forms/DateInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 import { groupPoolSkillByType } from "~/utils/skillUtils";

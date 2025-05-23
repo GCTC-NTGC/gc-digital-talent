@@ -5,15 +5,6 @@ import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
 
 import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  localizedEnumToOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   errorMessages,
   getLocalizedName,
@@ -30,9 +21,15 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import Select from "@gc-digital-talent/forms/Select";
+import Input from "@gc-digital-talent/forms/Input";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
+import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 
 const GovFieldOptions_Query = graphql(/* GraphQL */ `
   query GovFieldOptions {

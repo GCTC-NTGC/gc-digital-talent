@@ -4,16 +4,6 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { ReactNode } from "react";
 
-import {
-  Checkbox,
-  Input,
-  RadioGroup,
-  Select,
-  Submit,
-  TextArea,
-  localizedEnumToOptions,
-  objectsToSortedOptions,
-} from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 import {
   errorMessages,
@@ -45,15 +35,25 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import {
+  localizedEnumToOptions,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms/utils";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
-import SEO from "~/components/SEO/SEO";
-import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import useRoutes from "~/hooks/useRoutes";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
-import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRoutes from "~/hooks/useRoutes";
+import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
+import SEO from "~/components/SEO/SEO";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>

@@ -1,14 +1,11 @@
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
-import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import Input from "@gc-digital-talent/forms/Input";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
 
 import {
   SubExperienceFormProps,

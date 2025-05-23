@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import { TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getLocale,
@@ -8,6 +7,7 @@ import {
   Locales,
 } from "@gc-digital-talent/i18n";
 import { GeneralQuestion, ScreeningQuestion } from "@gc-digital-talent/graphql";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

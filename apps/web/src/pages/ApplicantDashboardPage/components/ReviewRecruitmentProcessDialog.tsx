@@ -18,7 +18,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { toast } from "@gc-digital-talent/toast";
-import { RadioGroup } from "@gc-digital-talent/forms";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";

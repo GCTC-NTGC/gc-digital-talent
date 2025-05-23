@@ -15,10 +15,7 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: [
-                "src/index.{ts,tsx}",
-                "src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-              ],
+              ignoreExports: ["src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
             },
           ]
         : "off",

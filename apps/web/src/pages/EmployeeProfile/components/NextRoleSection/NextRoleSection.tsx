@@ -28,31 +28,31 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
+import Select from "@gc-digital-talent/forms/Select";
 import {
   alphaSortOptions,
-  Checkbox,
-  Checklist,
-  Combobox,
-  Input,
   localizedEnumToOptions,
-  RadioGroup,
-  Select,
-  Submit,
-  TextArea,
-} from "@gc-digital-talent/forms";
+} from "@gc-digital-talent/forms/utils";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Input from "@gc-digital-talent/forms/Input";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Submit from "@gc-digital-talent/forms/Submit";
 
-import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
-import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import {
   getGroupOptions,
   getLevelOptions,
 } from "~/components/Profile/components/GovernmentInformation/utils";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import employeeProfileMessages from "~/messages/employeeProfileMessages";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
 
-import Display from "./Display";
 import messages from "../../messages";
+import Display from "./Display";
 
 const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
   fragment EmployeeProfileNextRoleOptions on Query {

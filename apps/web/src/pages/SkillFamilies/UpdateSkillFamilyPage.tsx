@@ -6,13 +6,6 @@ import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Submit,
-  Input,
-  Combobox,
-  TextArea,
-  unpackIds,
-} from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getLocale,
@@ -38,6 +31,11 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { unpackIds } from "@gc-digital-talent/forms/utils";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";

@@ -1,6 +1,5 @@
 import { OperationResult } from "urql";
 
-import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   AwardExperience,
   AwardExperienceInput,
@@ -37,6 +36,7 @@ import {
   GovContractorType,
   CSuiteRoleTitle,
 } from "@gc-digital-talent/graphql";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
 
 import { SimpleAnyExperience } from "~/utils/experienceUtils";
 

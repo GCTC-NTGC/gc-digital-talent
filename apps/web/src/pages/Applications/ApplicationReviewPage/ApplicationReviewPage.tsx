@@ -12,13 +12,13 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   PoolSkillType,
   SkillCategory,
   graphql,
 } from "@gc-digital-talent/graphql";
+import Input from "@gc-digital-talent/forms/Input";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";

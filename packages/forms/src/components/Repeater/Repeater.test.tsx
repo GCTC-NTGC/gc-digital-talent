@@ -15,7 +15,7 @@ import { ReactNode } from "react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
-import Input, { InputProps } from "../Input";
+import Input, { InputProps } from "../Input/Input";
 import Repeater, { RepeaterProps, RepeaterFieldsetProps } from "./Repeater";
 
 interface RenderRepeaterProps {

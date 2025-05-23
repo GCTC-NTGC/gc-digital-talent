@@ -6,14 +6,6 @@ import { useEffect } from "react";
 
 import { Button, Separator, ToggleSection } from "@gc-digital-talent/ui";
 import {
-  Checklist,
-  DATE_SEGMENT,
-  DateInput,
-  localizedEnumToOptions,
-  RadioGroup,
-  Submit,
-} from "@gc-digital-talent/forms";
-import {
   commonMessages,
   errorMessages,
   ExecCoachingStatus,
@@ -44,6 +36,11 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
+import Checklist from "@gc-digital-talent/forms/Checklist";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import {
   hasAllEmptyFields,

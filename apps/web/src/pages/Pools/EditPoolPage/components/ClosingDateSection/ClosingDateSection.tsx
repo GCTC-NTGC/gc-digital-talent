@@ -4,7 +4,6 @@ import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { ReactNode, JSX } from "react";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
-import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   DATE_FORMAT_STRING,
   convertDateTimeToDate,
@@ -20,6 +19,8 @@ import {
   getFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
+import DateInput from "@gc-digital-talent/forms/DateInput";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import {

@@ -9,7 +9,7 @@ import {
   PaginationState,
 } from "@tanstack/react-table";
 
-import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
+import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms/utils";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { Language, User } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";

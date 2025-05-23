@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { Fragment, ReactNode } from "react";
 
-import Checkbox from "../Checkbox";
+import Checkbox from "../Checkbox/Checkbox";
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";

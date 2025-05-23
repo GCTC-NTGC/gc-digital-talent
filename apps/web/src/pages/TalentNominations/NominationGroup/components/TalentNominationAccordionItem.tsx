@@ -8,7 +8,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Accordion } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { localizedEnumToOptions } from "@gc-digital-talent/forms";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

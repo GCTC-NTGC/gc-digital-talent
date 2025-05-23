@@ -18,7 +18,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
+import Submit from "../Submit/Submit";
 import Input from "../Input/Input";
 import { DATE_SEGMENT } from "./types";
 import DateInput, { DateInputProps } from "./DateInput";

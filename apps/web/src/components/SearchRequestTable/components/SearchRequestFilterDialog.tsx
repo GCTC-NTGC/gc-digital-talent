@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 
-import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms/utils";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {

@@ -6,7 +6,7 @@ import { VIEWPORT, allModes } from "@gc-digital-talent/storybook-helpers";
 import { Link } from "@gc-digital-talent/ui";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
+import Submit from "../Submit/Submit";
 import RadioGroup from "./RadioGroup";
 
 faker.seed(0);

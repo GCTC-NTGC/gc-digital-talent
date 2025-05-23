@@ -5,7 +5,8 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
-import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
+import Field from "@gc-digital-talent/forms/Field";
+import { useCommonInputStyles } from "@gc-digital-talent/forms/hooks";
 
 import ResetButton from "../ResetButton";
 import { SearchFormProps, SearchColumn, SearchState } from "./types";

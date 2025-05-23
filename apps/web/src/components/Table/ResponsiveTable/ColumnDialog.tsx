@@ -4,7 +4,7 @@ import { Table } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { Field } from "@gc-digital-talent/forms";
+import Field from "@gc-digital-talent/forms/Field";
 
 import adminMessages from "~/messages/adminMessages";
 

@@ -2,15 +2,12 @@ import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
 
-import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  TextArea,
-} from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import Input from "@gc-digital-talent/forms/Input";
+import TextArea from "@gc-digital-talent/forms/TextArea";
+import Checkbox from "@gc-digital-talent/forms/Checkbox";
+import DateInput, { DATE_SEGMENT } from "@gc-digital-talent/forms/DateInput";
 
 import { PersonalFormValues, SubExperienceFormProps } from "~/types/experience";
 

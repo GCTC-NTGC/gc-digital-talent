@@ -10,7 +10,6 @@ import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
 
 import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
-import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -22,6 +21,7 @@ import {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { CommunityMember } from "~/utils/communityUtils";

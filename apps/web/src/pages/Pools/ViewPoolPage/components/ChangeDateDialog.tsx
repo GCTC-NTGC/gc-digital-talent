@@ -7,7 +7,6 @@ import {
   convertDateTimeZone,
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
-import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import {
   apiMessages,
   commonMessages,
@@ -15,6 +14,9 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { Pool, Scalars } from "@gc-digital-talent/graphql";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import DateInput from "@gc-digital-talent/forms/DateInput";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 import { ProcessDialogProps } from "./types";
 

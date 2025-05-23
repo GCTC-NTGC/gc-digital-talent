@@ -7,16 +7,6 @@ import { useEffect } from "react";
 import HomeModernIcon from "@heroicons/react/24/outline/HomeModernIcon";
 
 import { Button, Heading, Pending, Well } from "@gc-digital-talent/ui";
-import {
-  BasicForm,
-  Combobox,
-  enumToOptions,
-  FieldLabels,
-  Input,
-  objectsToSortedOptions,
-  RadioGroup,
-  Select,
-} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
@@ -35,6 +25,16 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { getFromSessionStorage } from "@gc-digital-talent/storage";
+import { FieldLabels } from "@gc-digital-talent/forms/types";
+import RadioGroup from "@gc-digital-talent/forms/RadioGroup";
+import {
+  enumToOptions,
+  objectsToSortedOptions,
+} from "@gc-digital-talent/forms/utils";
+import Combobox from "@gc-digital-talent/forms/Combobox";
+import Input from "@gc-digital-talent/forms/Input";
+import Select from "@gc-digital-talent/forms/Select";
+import BasicForm from "@gc-digital-talent/forms/BasicForm";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

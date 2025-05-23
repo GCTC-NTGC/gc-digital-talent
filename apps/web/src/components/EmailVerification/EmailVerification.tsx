@@ -5,11 +5,12 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Heading } from "@gc-digital-talent/ui";
-import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
+import Input from "@gc-digital-talent/forms/Input";
+import Submit from "@gc-digital-talent/forms/Submit";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($emailType: EmailType) {

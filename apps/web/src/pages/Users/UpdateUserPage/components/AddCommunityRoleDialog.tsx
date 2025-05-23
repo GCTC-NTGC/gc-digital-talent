@@ -5,7 +5,6 @@ import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -22,6 +21,8 @@ import {
   graphql,
   RoleInput,
 } from "@gc-digital-talent/graphql";
+import Select from "@gc-digital-talent/forms/Select";
+import Combobox from "@gc-digital-talent/forms/Combobox";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";

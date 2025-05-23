@@ -21,7 +21,6 @@ import {
   useState,
 } from "react";
 
-import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
 import {
   Button,
   ButtonProps,
@@ -30,6 +29,9 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
+import CheckButton, {
+  CheckButtonProps,
+} from "@gc-digital-talent/forms/CheckButton";
 
 import { DownloadDef, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";

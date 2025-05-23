@@ -3,13 +3,13 @@ import { defineMessages, useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 import { ReactNode } from "react";
 
-import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
   Classification,
   EducationRequirementOption,
 } from "@gc-digital-talent/graphql";
+import Checklist, { CheckboxOption } from "@gc-digital-talent/forms/Checklist";
 
 import {
   getExperienceName,

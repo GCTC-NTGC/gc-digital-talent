@@ -5,9 +5,9 @@ import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { TextArea } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { graphql, UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
+import TextArea from "@gc-digital-talent/forms/TextArea";
 
 const UpdateUser_OffPlatformProcessesMutation = graphql(/* GraphQL */ `
   mutation UpdateUserOffPlatformProcessesMutation(
