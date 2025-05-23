@@ -125,12 +125,17 @@ type User {
     @hasMany(scopes: ["whereAuthorizedToView"])
     @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] # All experiences that a user owns
-  awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
-  communityExperiences: [CommunityExperience] @belongsToMany # Community experiences that a user owns
-  educationExperiences: [EducationExperience] @belongsToMany # Education experiences that a user owns
-  personalExperiences: [PersonalExperience] @belongsToMany # Personal experiences that a user owns
-  workExperiences: [WorkExperience] @belongsToMany # Work experiences that a user owns
+  experiences: [Experience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
+  awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
+  communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
+  educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
+  personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
+  workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -548,6 +553,11 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   educationRequirementExperiences: [Experience]
+    @with(relation: "educationRequirementAwardExperiences")
+    @with(relation: "educationRequirementCommunityExperiences")
+    @with(relation: "educationRequirementEducationExperiences")
+    @with(relation: "educationRequirementPersonalExperiences")
+    @with(relation: "educationRequirementWorkExperiences")
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -912,7 +922,12 @@ type UserSkill {
   topSkillsRank: Int @rename(attribute: "top_skills_rank")
   improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
   # Experiences
-  experiences: [Experience!] @belongsToMany
+  experiences: [Experience!]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
 }
 
 type SkillKeywords {
@@ -923,7 +938,7 @@ type SkillKeywords {
 interface Experience {
   id: ID!
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -939,7 +954,7 @@ type WorkExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -986,7 +1001,7 @@ type PersonalExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -1001,7 +1016,7 @@ type CommunityExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -1018,7 +1033,7 @@ type EducationExperience implements Experience {
   type: LocalizedEducationType
   status: LocalizedEducationStatus
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -1033,7 +1048,7 @@ type AwardExperience implements Experience {
   awardedTo: LocalizedAwardedTo @rename(attribute: "awarded_to")
   awardedScope: LocalizedAwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
