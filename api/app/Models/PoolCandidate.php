@@ -21,10 +21,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -198,62 +199,57 @@ class PoolCandidate extends Model
         return $this->hasMany(ScreeningQuestionResponse::class);
     }
 
-    /** @return BelongsToMany<AwardExperience, $this> */
-    public function educationRequirementAwardExperiences(): BelongsToMany
+    /** @return MorphToMany<AwardExperience, $this> */
+    public function educationRequirementAwardExperiences(): MorphToMany
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             AwardExperience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
+            'experience',
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
 
-    /** @return BelongsToMany<CommunityExperience, $this> */
-    public function educationRequirementCommunityExperiences(): BelongsToMany
+    /** @return MorphToMany<CommunityExperience, $this> */
+    public function educationRequirementCommunityExperiences(): MorphToMany
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             CommunityExperience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
+            'experience',
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
 
-    /** @return BelongsToMany<EducationExperience, $this> */
-    public function educationRequirementEducationExperiences(): BelongsToMany
+    /** @return MorphToMany<EducationExperience, $this> */
+    public function educationRequirementEducationExperiences(): MorphToMany
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             EducationExperience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
+            'experience',
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
 
-    /** @return BelongsToMany<PersonalExperience, $this> */
-    public function educationRequirementPersonalExperiences(): BelongsToMany
+    /** @return MorphToMany<PersonalExperience, $this> */
+    public function educationRequirementPersonalExperiences(): MorphToMany
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             PersonalExperience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
+            'experience',
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
 
-    /** @return BelongsToMany<WorkExperience, $this> */
-    public function educationRequirementWorkExperiences(): BelongsToMany
+    /** @return MorphToMany<WorkExperience, $this> */
+    public function educationRequirementWorkExperiences(): MorphToMany
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             WorkExperience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
+            'experience',
+            'pool_candidate_education_requirement_experience'
         )
             ->withTimestamps();
     }
@@ -264,16 +260,17 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
-    /** @return BelongsToMany<Experience, $this> */
-    public function educationRequirementExperiences(): BelongsToMany
+    /** @return Collection<string|int, Experience> */
+    public function getEducationRequirementExperiencesAttribute()
     {
-        return $this->belongsToMany(
-            Experience::class,
-            'pool_candidate_education_requirement_experience',
-            'pool_candidate_id',
-            'experience_id'
-        )
-            ->withTimestamps();
+        $collection = collect();
+        $collection = $collection->merge($this->educationRequirementAwardExperiences);
+        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
+        $collection = $collection->merge($this->educationRequirementEducationExperiences);
+        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
+        $collection = $collection->merge($this->educationRequirementWorkExperiences);
+
+        return $collection;
     }
 
     public function getCategoryAttribute()
