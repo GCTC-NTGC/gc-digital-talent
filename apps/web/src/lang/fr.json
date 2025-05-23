@@ -4515,6 +4515,10 @@
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
   },
+  "JL6B1D": {
+    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} one {# candidat estimé} other {# candidats estimés}}</primary>",
+    "description": "Total estimated candidates message in summary of filters"
+  },
   "JO2yLA": {
     "defaultMessage": "Lieu de travail",
     "description": "Work Location label, followed by colon"
@@ -6178,10 +6182,6 @@
   "R8Naqm": {
     "defaultMessage": "Filtrage et évaluation",
     "description": "Heading for the information of an application"
-  },
-  "R9Yk8Y": {
-    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {# candidats estimés}}</primary>",
-    "description": "Total estimated candidates message in summary of filters"
   },
   "RA4afJ": {
     "defaultMessage": "Approbation pour les programmes de perfectionnement",
@@ -8683,7 +8683,7 @@
     "description": "Page title for the individual user page"
   },
   "dkXjDY": {
-    "defaultMessage": "{monthCount, plural, =1 {# mois} other {# mois}}",
+    "defaultMessage": "{monthCount, plural, one {# mois} other {# mois}}",
     "description": "A duration of a certain number of months"
   },
   "dkYHTv": {
