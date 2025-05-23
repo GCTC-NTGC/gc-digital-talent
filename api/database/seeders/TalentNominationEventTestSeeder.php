@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Community;
 use App\Models\TalentNominationEvent;
 use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -17,6 +18,7 @@ class TalentNominationEventTestSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+        $digital = Community::where('key', 'digital')->first();
 
         TalentNominationEvent::factory(10)
             ->withDevelopmentPrograms()
@@ -32,7 +34,9 @@ class TalentNominationEventTestSeeder extends Seeder
                     ];
                 }
             ))
-            ->create();
+            ->create([
+                'community_id' => $digital,
+            ]);
 
         TalentNominationEvent::factory(10)
             ->withDevelopmentPrograms()
