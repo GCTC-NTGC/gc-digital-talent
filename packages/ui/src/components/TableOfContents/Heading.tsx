@@ -16,14 +16,10 @@ const TOCHeading = ({
   as = "h2",
   size = "h3",
   ...rest
-}: TocHeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => {
-  const Icon = icon;
-
-  return (
-    <Heading level={as} size={size} Icon={Icon} {...rest}>
-      {children}
-    </Heading>
-  );
-};
+}: TocHeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => (
+  <Heading level={as} size={size} icon={icon} {...rest}>
+    {children}
+  </Heading>
+);
 
 export default TOCHeading;

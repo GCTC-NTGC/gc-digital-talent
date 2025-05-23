@@ -10,7 +10,7 @@ const heading = tv({
     icon: "inline-block h-auto shrink-0 align-middle",
   },
   variants: {
-    icon: {
+    hasIcon: {
       true: "flex items-center gap-x-2.5",
     },
     size: {
@@ -63,7 +63,7 @@ type HeadingVariants = VariantProps<typeof heading>;
 
 export interface HeadingProps
   extends HeadingVariants,
-    Omit<HTMLAttributes<HTMLHeadingElement>, "color"> {
+    Omit<HTMLAttributes<HTMLHeadingElement>, "color" | "icon"> {
   level?: HeadingVariants["size"];
   icon?: IconType;
 }
@@ -77,7 +77,7 @@ const Heading = forwardRef<HeadingRef, HeadingProps>(
     const Icon = icon;
     const { base, icon: iconStyles } = heading({
       size: size ?? level,
-      icon: !!icon,
+      hasIcon: !!icon,
       color,
     });
 

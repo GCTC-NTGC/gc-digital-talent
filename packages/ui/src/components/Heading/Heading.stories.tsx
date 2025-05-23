@@ -34,5 +34,5 @@ export const Default = Template.bind({});
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-  Icon: AcademicCapIcon,
+  icon: AcademicCapIcon,
 };
