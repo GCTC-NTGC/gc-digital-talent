@@ -87,6 +87,7 @@ interface StatusItemProps {
   status?: Status;
   icon?: IconType;
   iconColor?: StatusColor;
+  testIdPrefix?: string | undefined;
   href?: string;
   scrollTo?: string;
   hiddenContextPrefix?: string;
@@ -101,6 +102,7 @@ const StatusItem = ({
   status,
   icon,
   iconColor = "black",
+  testIdPrefix,
   href,
   scrollTo,
   hiddenContextPrefix,
@@ -165,6 +167,7 @@ const StatusItem = ({
       >
         {Icon && (
           <Icon
+            data-testid={`${testIdPrefix}-${status}-icon`}
             data-h2-height="base(x.75)"
             data-h2-width="base(x.75)"
             data-h2-min-width="base(x.75)"
