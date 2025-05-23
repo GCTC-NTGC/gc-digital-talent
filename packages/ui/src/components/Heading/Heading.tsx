@@ -6,7 +6,7 @@ import { HeadingRef } from "./types";
 
 const heading = tv({
   slots: {
-    base: "",
+    base: "leading-[1.1]",
     icon: "inline-block h-auto shrink-0 align-middle",
   },
   variants: {
