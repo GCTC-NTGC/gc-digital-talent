@@ -26,6 +26,7 @@ import {
   isCommunityExperience,
   isPersonalExperience,
   isWorkExperience,
+  SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -187,7 +188,7 @@ const ApplicationEducation = ({
         (
           accumulator: EducationRequirementExperiences,
 
-          experience: Experience,
+          experience: SimpleAnyExperience,
         ) => {
           return {
             ...accumulator,
