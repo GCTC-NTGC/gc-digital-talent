@@ -5,7 +5,7 @@ import AppPage from "./AppPage";
 /**
  * Application Page
  *
- * Page containing a utilities to interact with applications
+ * Page containing utilities to interact with applications
  */
 class ApplicationPage extends AppPage {
   public readonly poolId: string;

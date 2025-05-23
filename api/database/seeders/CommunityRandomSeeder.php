@@ -28,6 +28,5 @@ class CommunityRandomSeeder extends Seeder
             ->withEligibleClassifications()
             ->for(Community::where('key', 'digital')->sole())
             ->create();
-
     }
 }
