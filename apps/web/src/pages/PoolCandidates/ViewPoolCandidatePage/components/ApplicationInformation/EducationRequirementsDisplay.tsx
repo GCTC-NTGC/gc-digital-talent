@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 
 import {
-  Experience,
   FragmentType,
   getFragment,
   graphql,
+  makeFragmentData,
   Maybe,
 } from "@gc-digital-talent/graphql";
 import {
@@ -12,9 +12,12 @@ import {
   getEducationRequirementOption,
 } from "@gc-digital-talent/i18n";
 import { TreeView } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
+import ExperienceTreeItems, {
+  ExperienceTreeItems_Fragment,
+} from "~/components/ExperienceTreeItems/ExperienceTreeItems";
+import { SnapshotExperience } from "~/utils/experienceUtils";
 
 const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment EducationRequirement_PoolCandidate on PoolCandidate {
@@ -33,7 +36,7 @@ const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
 `);
 
 interface EducationRequirementsDisplayProps {
-  experiences?: Maybe<Maybe<Experience>[]>;
+  experiences?: Maybe<Maybe<SnapshotExperience>[]>;
   educationRequirementQuery: FragmentType<
     typeof EducationRequirement_PoolCandidateFragment
   >;
@@ -93,7 +96,12 @@ const EducationRequirementsDisplay = ({
           </p>
           <TreeView.Root>
             <ExperienceTreeItems
-              experiences={educationExperiences.filter(notEmpty)}
+              experiencesQuery={unpackMaybes(educationExperiences).map((e) =>
+                makeFragmentData(
+                  { ...e, __typename: e.__typename ?? "EducationExperience" },
+                  ExperienceTreeItems_Fragment,
+                ),
+              )}
             />
           </TreeView.Root>
         </>

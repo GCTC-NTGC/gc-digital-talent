@@ -468,6 +468,16 @@ const commonMessages = defineMessages({
     id: "IBc2sp",
     description: "Label for full name",
   },
+  group: {
+    defaultMessage: "Group",
+    id: "gH2uDM",
+    description: "Label for group",
+  },
+  level: {
+    defaultMessage: "Level",
+    id: "OUcSEy",
+    description: "Label for level",
+  },
 });
 
 export default commonMessages;

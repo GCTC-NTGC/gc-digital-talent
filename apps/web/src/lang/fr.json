@@ -259,6 +259,10 @@
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
+  "/9+N+W": {
+    "defaultMessage": "Autorisation de sécurité de niveau très secret",
+    "description": "Top secret security clearance level of security clearance"
+  },
   "/AH0m5": {
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
@@ -482,6 +486,10 @@
   "0EuaJv": {
     "defaultMessage": "Niveau d’écriture",
     "description": "Label displayed on the language information form written field."
+  },
+  "0GcfAj": {
+    "defaultMessage": "Cote de fiabilité",
+    "description": "Reliability status level of security clearance"
   },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
@@ -1339,6 +1347,10 @@
     "defaultMessage": "Le Fonds offre trois types de formations aux membres du personnel des TI.",
     "description": "First paragraph describing learning opportunities"
   },
+  "4DfNUW": {
+    "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
+    "description": "Text explaining the average time spent on applications"
+  },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the update a skill form description (French) field."
@@ -1758,6 +1770,10 @@
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
+  },
+  "683LAr": {
+    "defaultMessage": "Le niveau de filtrage de sécurité exigé varie selon le poste, la sensibilité des renseignements que vous traiterez ainsi que l'endroit où vous travaillerez. Trois niveaux de filtrage de sécurité ont été établis. Chacun d’eux comporte une option améliorée:",
+    "description": "Third paragraph for the security clearance dialog"
   },
   "68Yf3f": {
     "defaultMessage": "Informations incorrectes ou obsolètes?",
@@ -2198,6 +2214,10 @@
   "8R8ip4": {
     "defaultMessage": "Enregistrez les commentaires",
     "description": "Label for saving comments"
+  },
+  "8T/Szk": {
+    "defaultMessage": "Que dois-je faire si j’éprouve des problèmes techniques en remplissant ma demande?",
+    "description": "Button text to toggle the accordion for technical issues"
   },
   "8TyO/X": {
     "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
@@ -2879,10 +2899,6 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title for the personal and contact information section"
   },
-  "Badvbb": {
-    "defaultMessage": "Groupe/Organisation/Collectivité",
-    "description": "Label displayed on Community Experience form for organization input"
-  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -2967,12 +2983,16 @@
     "defaultMessage": "Confirmation de la référence",
     "description": "Confirmation that the reference was checked"
   },
+  "C+FsJw": {
+    "defaultMessage": "Apprenez-en davantage sur le <link>filtrage de sécurité</link> ou consultez la <securityScreenLink>Directive sur le filtrage de sécurité.</securityScreenLink>",
+    "description": "First paragraph for the obtaining security clearance section"
+  },
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
   },
   "C0M2h9": {
-    "defaultMessage": "En savoir plus<hidden> sur l'equipe du Développement de la collectivité de la gestion financière</hidden>",
+    "defaultMessage": "En savoir plus<hidden> sur l'équipe du Développement de la collectivité de la gestion financière</hidden>",
     "description": "External link button, learn more about the named team"
   },
   "C1jirU": {
@@ -3126,6 +3146,10 @@
   "CeKPRS": {
     "defaultMessage": "La date limite pour présenter une candidature est passée.",
     "description": "Status description for a draft application to an expired poster"
+  },
+  "CeWqSY": {
+    "defaultMessage": "Vous n’avez pas à posséder une cote ou une autorisation de sécurité pour postuler aux offres d’emploi publiées sur Talents numériques du GC. Toutefois, vous devrez vous soumettre à une enquête de sécurité au cours du processus d’embauche, généralement, une fois toutes les autres évaluations effectuées.",
+    "description": "First paragraph for the security clearance dialog"
   },
   "Cf8mWv": {
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
@@ -3823,8 +3847,12 @@
     "defaultMessage": "Suivant",
     "description": "Link text to navigate to the next item"
   },
+  "FxB6Km": {
+    "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
+    "description": "Heading for the obtaining security clearance section"
+  },
   "Fygh/q": {
-    "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’autreur de la mise en candidature",
+    "defaultMessage": "Lien de parenté entre la personne déposante et l’autrice ou l’auteur de la mise en candidature",
     "description": "Label for the submitter's relation to nominator"
   },
   "Fz49kD": {
@@ -3838,6 +3866,10 @@
   "G+dXAH": {
     "defaultMessage": "Cela a toujours été le cas et est maintenant formalisé après l’annonce de la plateforme par le ministre",
     "description": "fifth 2024 key change rationale to the directive"
+  },
+  "G0AEfY": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
   },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
@@ -3906,10 +3938,6 @@
   "GIC6EK": {
     "defaultMessage": "Expiré",
     "description": "Expired status"
-  },
-  "GJ9QeQ": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on classification level input"
   },
   "GK8s3M": {
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
@@ -4783,6 +4811,10 @@
     "defaultMessage": "Ma bibliothèque",
     "description": "Label for filtering skills by ones already added to the users library"
   },
+  "KlvT7A": {
+    "defaultMessage": "En savoir plus sur l’habilitation de sécurité",
+    "description": "Info button label for pool application security clearance details."
+  },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
     "description": "Heading for making major changes to a user"
@@ -5059,6 +5091,10 @@
     "defaultMessage": "Référence secondaire pour la promotion",
     "description": "Trigger title for advancement reference"
   },
+  "LxGqKt": {
+    "defaultMessage": "Le processus d’enquête de sécurité peut prendre de quelques jours à plusieurs mois. Plus le niveau de filtrage est élevé et plus le dossier est complexe, plus le processus est long.",
+    "description": "Second paragraph for the security clearance dialog"
+  },
   "LxRoWB": {
     "defaultMessage": "Création de la collectivité réussie!",
     "description": "Message displayed after a community is created"
@@ -5162,6 +5198,10 @@
   "MXZ8Ms": {
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
     "description": "Paragraph 1, importance of self-declaration"
+  },
+  "MYnfw/": {
+    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
+    "description": "Text explaining the importance of reporting technical issues"
   },
   "MZ0uNW": {
     "defaultMessage": "Veuillez vérifier votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
@@ -7246,10 +7286,6 @@
     "defaultMessage": "La présentation de ces renseignements sur cette plateforme est entièrement facultative <strong>et ne constitue pas une obligation</strong>.",
     "description": "Third paragraph for employment equity information."
   },
-  "WlMSeh": {
-    "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
-    "description": "Link text for security clearance information"
-  },
   "Wnid+N": {
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
@@ -7402,6 +7438,10 @@
     "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
     "description": "Learn more dialog question five paragraph one"
   },
+  "XUmyGM": {
+    "defaultMessage": "Aux fins de la vérification de vos antécédents, vous devrez fournir des renseignements personnels dans certaines sections du <link>Formulaire de consentement et de demande de filtrage de sécurité.</link>",
+    "description": "First paragraph for the obtaining security clearance section"
+  },
   "XXZ2i3": {
     "defaultMessage": "Avec qui puis-je communiquer si j'ai des questions au sujet de CléGC?",
     "description": "GCKey question for who to contact about GCKey"
@@ -7521,10 +7561,6 @@
   "Y6X4Ok": {
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
-  },
-  "Y7Qop6": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on Work Experience form for classification level input"
   },
   "Y93ht7": {
     "defaultMessage": "Vous n'avez aucune demande active pour l'instant.",
@@ -7698,6 +7734,10 @@
     "defaultMessage": "Vous n’avez pas encore d’expérience de parcours professionnel.",
     "description": "Null state messages for career timeline list"
   },
+  "YqutpD": {
+    "defaultMessage": "À quel point dois-je commencer ma demande tôt?",
+    "description": "Button text to toggle the accordion for early application"
+  },
   "Ysf8wI": {
     "defaultMessage": "Modification des renseignements gouvernementaux",
     "description": "Button text to start editing government information"
@@ -7725,6 +7765,10 @@
   "YyHN1i": {
     "defaultMessage": "N'importe quelle langue (français ou anglais)",
     "description": "No preference for language ability - will accept English or French"
+  },
+  "YzGpQQ": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à créer une CléGC, <link>communiquez avec l’équipe de CléGC</link>.",
+    "description": "Bullet point about contacting GCKey support"
   },
   "Z+gi2d": {
     "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
@@ -7825,6 +7869,10 @@
   "ZVfbLF": {
     "defaultMessage": "Erreur lors du chargement des candidats",
     "description": "Error message when pool candidates could not be loaded"
+  },
+  "ZZLwb5": {
+    "defaultMessage": "Niveaux de filtrage de sécurité",
+    "description": "Heading for the security clearance levels section"
   },
   "ZZpC8s": {
     "defaultMessage": "Voir les définitions pour « {skillName} »",
@@ -7990,10 +8038,6 @@
     "defaultMessage": "Des gants avec du perlage floral de style Métis.",
     "description": "Indigenous Apprenticeship gloves image text alternative"
   },
-  "aS4Lty": {
-    "defaultMessage": "Groupe",
-    "description": "Title displayed for the Classification table Group column."
-  },
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
@@ -8021,6 +8065,10 @@
   "adM1fA": {
     "defaultMessage": "Si vous soumettez un formulaire qui n’avait aucun candidat d’évalué, veuillez nous en parler davantage dans les commentaires.",
     "description": "Instructions to provide additional details when submitting a request with no candidates"
+  },
+  "adaiV0": {
+    "defaultMessage": "Les personnes présentant une demande pour une première fois indiquent y consacrer en moyenne entre deux et trois heures. Présenter votre deuxième demande devrait prendre beaucoup moins de temps puisque nous réutiliserons la plupart de vos renseignements. Chaque demande subséquente devrait vous prendre entre 30 minutes et 1 heure.",
+    "description": "Text explaining the average time spent on applications"
   },
   "ae3u1t": {
     "defaultMessage": "Clé",
@@ -8094,9 +8142,9 @@
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
   },
-  "az8apB": {
-    "defaultMessage": "Niveau",
-    "description": "Label for a classification level input"
+  "ay8mcT": {
+    "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
+    "description": "Text explaining the benefits of applying early"
   },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
@@ -8113,6 +8161,10 @@
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
+  },
+  "b9gGFH": {
+    "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
+    "description": "Text explaining the average time spent on applications"
   },
   "bBIZ3a": {
     "defaultMessage": "Recherchez vos compétences",
@@ -8185,10 +8237,6 @@
   "bVQ/rm": {
     "defaultMessage": "Tous les utilisateurs",
     "description": "Title for the index user page"
-  },
-  "bVRixs": {
-    "defaultMessage": "Niveau",
-    "description": "Label displayed on the classification form level field."
   },
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
@@ -8309,6 +8357,10 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
+  },
+  "c11b35": {
+    "defaultMessage": "Groupe, organisation ou collectivité",
+    "description": "Label displayed on Community Experience form for organization input"
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
@@ -8530,6 +8582,10 @@
     "defaultMessage": "Forces armées canadiennes",
     "description": "Label for caf employment category on work experience card metadata"
   },
+  "dCmN+g": {
+    "defaultMessage": "Renseignements supplémentaires",
+    "description": "Heading for the obtaining security clearance section"
+  },
   "dDHy5d": {
     "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
@@ -8633,6 +8689,10 @@
   "deiUXj": {
     "defaultMessage": "Par conséquent, le BDPI apporte actuellement certaines mises à jour aux Procédures obligatoires, qui entreront en vigueur le 30 septembre 2024.",
     "description": "fourth paragraph describing the 2024 changes to the directive on digital talent"
+  },
+  "dekUfM": {
+    "defaultMessage": "Filtrer par",
+    "description": "Label for a set of filters"
   },
   "dfkNm9": {
     "defaultMessage": "Mise à jour réussie de votre parcours professionnel!",
@@ -8765,6 +8825,10 @@
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
+  },
+  "e4eYvU": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Label for pool advertisement security clearance requirement"
   },
   "e4nq4j": {
     "defaultMessage": "Chef de file du numérique E X 3",
@@ -9573,10 +9637,6 @@
     "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
     "description": "Label for when an employee was found"
   },
-  "hGEhAB": {
-    "defaultMessage": "Groupe",
-    "description": "Label for classification group display"
-  },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
@@ -9664,10 +9724,6 @@
   "heFiZt": {
     "defaultMessage": "En cours d'évaluation",
     "description": "Status label for an application under assessment"
-  },
-  "hgxH8y": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed for the classification form group field."
   },
   "hhE2b6": {
     "defaultMessage": "Votre signature",
@@ -10013,6 +10069,10 @@
     "defaultMessage": "Modifier {sectionTitle}",
     "description": "Button text to start editing a specific section"
   },
+  "jFInhC": {
+    "defaultMessage": "Autorisation de sécurité de niveau secret",
+    "description": "Secret security clearance level of security clearance"
+  },
   "jH5egG": {
     "defaultMessage": "Comment j’ai utilisé",
     "description": "Label displayed on experience form/card for how a skill was applied section"
@@ -10157,6 +10217,10 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
   },
+  "k1HxPf": {
+    "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
+    "description": "Bullet point about contacting support for 2FA issues"
+  },
   "k1uZ7o": {
     "defaultMessage": "Une cote de fiabilité valide",
     "description": "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -10228,10 +10292,6 @@
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
-  },
-  "kUqaoo": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on Work Experience form for classification group input"
   },
   "kVavip": {
     "defaultMessage": "Ministère de placement",
@@ -10628,6 +10688,10 @@
   "mNNgEF": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
+  },
+  "mOb/qH": {
+    "defaultMessage": "La cote de fiabilité et l'autorisation de sécurité de niveau secret sont valides pour une période maximale de 10 ans, et l'autorisation de sécurité de niveau très secret est valide pour une période maximale de cinq ans.",
+    "description": "Third paragraph for the obtaining security clearance section"
   },
   "mOx5K1": {
     "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
@@ -11048,6 +11112,10 @@
   "oES0/4": {
     "defaultMessage": "Les apprenti·es autochtones sont embauché·es par une organisation d’accueil au niveau d’entrée du groupe des TI (IT-01 ou équivalent) pour une période de 24 mois.",
     "description": "Paragraph 1 of the 'Hired as a term employee' subsection"
+  },
+  "oGNR16": {
+    "defaultMessage": "<link>Communiquez avec notre équipe de soutien</link> dès que possible si vous rencontrez un problème technique qui pourrait vous empêcher de présenter votre demande. Vous pouvez soumettre un billet à tout moment pour nous aviser des difficultés que vous rencontrez. Il est important que vous agissiez dès qu’un problème survient afin que nous puissions consigner son heure exacte, même s'il se produit en dehors des heures normales de travail.",
+    "description": "Text explaining the importance of reporting technical issues"
   },
   "oHIWzo": {
     "defaultMessage": "Postes en anglais uniquement",
@@ -12333,6 +12401,10 @@
     "defaultMessage": "Mises à jour de l'application",
     "description": "Title for application updates checklist"
   },
+  "v3kVqD": {
+    "defaultMessage": "Tout processus de filtrage de sécurité requiert une enquête financière (vérification du dossier de crédit) et une vérification du casier judiciaire (prise d'empreintes).",
+    "description": "Second paragraph for the obtaining security clearance section"
+  },
   "v6/BRI": {
     "defaultMessage": "Investir dans l’avenir des talents des TI",
     "description": "Heading for section describing investing in future talent"
@@ -12501,6 +12573,10 @@
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
   },
+  "w061Za": {
+    "defaultMessage": "Que dois-je faire si j’ai de la difficulté à m’inscrire ou à ouvrir une session?",
+    "description": "Button text to toggle the accordion for sign in or up issues"
+  },
   "w0IA+c": {
     "defaultMessage": "Ajouter des notes",
     "description": "Button text to start adding pool candidate notes"
@@ -12576,10 +12652,6 @@
   "wJ5KIL": {
     "defaultMessage": "Intérêt pour le coaching des cadres",
     "description": "Label for an employee profile career development preference field"
-  },
-  "wJnIJx": {
-    "defaultMessage": "Groupe",
-    "description": "Label displayed on classification group input"
   },
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
@@ -13009,6 +13081,10 @@
     "defaultMessage": "l'architecture intégrée;",
     "description": "Fifth item in list of certification topics section"
   },
+  "ySQ1Kf": {
+    "defaultMessage": "Cote de sécurité",
+    "description": "Heading for security clearance dialog"
+  },
   "yUSG9Z": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Label displayed for is not a government employee option"
@@ -13044,10 +13120,6 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
-  },
-  "yZqUAU": {
-    "defaultMessage": "Niveau",
-    "description": "Title displayed for the Classification table Level column."
   },
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
@@ -13184,10 +13256,6 @@
   "zAqJMe": {
     "defaultMessage": "Créé",
     "description": "Title displayed on the Pool table Date Created column"
-  },
-  "zBfwbQ": {
-    "defaultMessage": "Groupe",
-    "description": "Label for a classification group input"
   },
   "zCjdD9": {
     "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",

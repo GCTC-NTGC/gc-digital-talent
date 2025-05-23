@@ -127,6 +127,7 @@ const ThemeProvider = ({
       if (item instanceof HTMLElement) {
         //  NOTE: We are setting DOM attrs here so it should be fine
         item.dataset.h2 = themeString;
+        item.classList.value = themeString ?? "";
       }
     });
   }, [computedMode, key, mode, themeSelector]);

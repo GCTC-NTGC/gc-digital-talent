@@ -115,13 +115,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
               {classification.name?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage({
-                defaultMessage: "Group",
-                id: "hGEhAB",
-                description: "Label for classification group display",
-              })}
-            >
+            <FieldDisplay label={intl.formatMessage(commonMessages.group)}>
               {classification.group}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(messages.levelNumber)}>

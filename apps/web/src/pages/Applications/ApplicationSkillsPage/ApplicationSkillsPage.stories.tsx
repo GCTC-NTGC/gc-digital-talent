@@ -6,10 +6,14 @@ import {
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+import {
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import {
   ApplicationSkills,
+  ApplicationSkillsExperience_Fragment,
   ApplicationSkillsProps,
 } from "./ApplicationSkillsPage";
 
@@ -35,7 +39,9 @@ const noSkills: ApplicationSkillsProps = {
       experiences: mockExperiences,
     },
   },
-  experiences: mockExperiences,
+  experiencesQuery: mockExperiences.map((e) =>
+    makeFragmentData(e, ApplicationSkillsExperience_Fragment),
+  ),
 };
 
 const hasExperiencesProps: ApplicationSkillsProps = {
@@ -56,7 +62,9 @@ const hasExperiencesProps: ApplicationSkillsProps = {
       })),
     },
   },
-  experiences: mockExperiences,
+  experiencesQuery: mockExperiences.map((e) =>
+    makeFragmentData(e, ApplicationSkillsExperience_Fragment),
+  ),
 };
 
 export default {
