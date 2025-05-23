@@ -105,6 +105,17 @@ const deriveWhoCanApplyString = (
   intl: IntlShape,
 ): string | null => {
   if (areaOfSelection == PoolAreaOfSelection.Public) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Canadian citizens",
+        id: "VotRI3",
+        description: "Canadian citizen only application criteria",
+      });
+    }
+
+    // fall-through for public
     return intl.formatMessage({
       defaultMessage: "Open to the public",
       id: "L0eho2",

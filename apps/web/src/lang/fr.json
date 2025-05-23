@@ -1447,6 +1447,10 @@
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
   },
+  "4f81Y1": {
+    "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
+    "description": "Warning message when selecting the only-canadian-citizens limitation option"
+  },
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
@@ -1639,10 +1643,6 @@
     "defaultMessage": "Sélectionnez un type",
     "description": "Default selection for the experience type field"
   },
-  "5S5zo0": {
-    "defaultMessage": "Limites de la sélection des employés",
-    "description": "Label for a process' selection limitations"
-  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le regroupement des compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
@@ -1730,6 +1730,10 @@
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
     "description": "Page title for the training opportunity edit page"
+  },
+  "5qjarn": {
+    "defaultMessage": "Préférence ministérielle",
+    "description": "Admin interface label for the departmental-preference selection limitation"
   },
   "5qopVO": {
     "defaultMessage": "Nomination pour l'avancement",
@@ -2742,6 +2746,10 @@
   "AlOrGy": {
     "defaultMessage": "Consentement au partage d'information",
     "description": "Label for the input for the consent check"
+  },
+  "AlhZFb": {
+    "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
+    "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
   },
   "Ao/+Ba": {
     "defaultMessage": "Ce numéro de processus est obtenu auprès de votre atelier RH",
@@ -4031,6 +4039,10 @@
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
     "description": "Message displayed when a user fails to updates employee profile information"
   },
+  "Gnlt31": {
+    "defaultMessage": "À niveau seulement",
+    "description": "Admin interface label for the at-level-only selection limitation"
+  },
   "GrHEFV": {
     "defaultMessage": "Aucune",
     "description": "None"
@@ -4926,6 +4938,10 @@
   "L9yjr3": {
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
+  },
+  "LA+7mQ": {
+    "defaultMessage": "Cette possibilité d'emploi s’adresse uniquement aux personnes ayant la citoyenneté canadienne",
+    "description": "Title of a note describing that a pool is only open to canadian citizens"
   },
   "LA0AM1": {
     "defaultMessage": "Justification et commentaires supplémentaires",
@@ -7110,6 +7126,10 @@
     "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
     "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
   },
+  "VotRI3": {
+    "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
+    "description": "Canadian citizen only application criteria"
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -7714,6 +7734,10 @@
     "defaultMessage": "Annulez et revenez aux groupes de compétences",
     "description": "Link text to return to skill family table"
   },
+  "YjKKrR": {
+    "defaultMessage": "Citoyenneté canadienne requise",
+    "description": "Label for a process' selection limitations when area of selection is for the public"
+  },
   "Yln61n": {
     "defaultMessage": "<strong>Télécopieur :</strong> 613-996-9661",
     "description": "Fax contact info"
@@ -7897,6 +7921,10 @@
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
+  },
+  "ZeDdxG": {
+    "defaultMessage": "La présente offre s’adresse uniquement aux personnes ayant la citoyenneté canadienne. *",
+    "description": "Body p1 of a note describing that a pool is only open to canadian citizens"
   },
   "Zewopw": {
     "defaultMessage": "Trois types de possibilités d’apprentissage",
@@ -8949,6 +8977,10 @@
   "eamuiH": {
     "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
     "description": "Subtitle for a section explaining setting up mfa"
+  },
+  "ee4C6L": {
+    "defaultMessage": "Seules les personnes ayant la citoyenneté canadienne peuvent postuler",
+    "description": "Admin interface label for the canadian-citizen-only selection limitation"
   },
   "eePQun": {
     "defaultMessage": "Mettez à jour les volets de travail",
@@ -12452,6 +12484,10 @@
   "vKzPT0": {
     "defaultMessage": "La mise à jour des informations sur votre objectif de carrière a échoué",
     "description": "Message displayed when a user fails to updates employee profile information"
+  },
+  "vLOt3K": {
+    "defaultMessage": "Limites de la sélection des employés",
+    "description": "Label for a process' selection limitations when area of selection is for employees"
   },
   "vMBiMV": {
     "defaultMessage": "Mise à jour réussie de la compétence",

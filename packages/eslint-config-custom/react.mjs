@@ -52,6 +52,7 @@ export default [
             "heavyRed",
             "heavySecondary",
             "heavyWarning",
+            "italic",
           ],
         },
       ],
