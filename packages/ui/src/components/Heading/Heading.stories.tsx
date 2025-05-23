@@ -9,19 +9,19 @@ export default {
 
 const Template: StoryFn<typeof Heading> = (args) => (
   <>
-    <Heading {...args} level="h1">
+    <Heading {...args} level="h1" color="primary">
       Heading 1
     </Heading>
-    <Heading {...args} level="h2">
+    <Heading {...args} level="h2" color="secondary">
       Heading 2
     </Heading>
-    <Heading {...args} level="h3">
+    <Heading {...args} level="h3" color="success">
       Heading 3
     </Heading>
-    <Heading {...args} level="h4">
+    <Heading {...args} level="h4" color="warning">
       Heading 4
     </Heading>
-    <Heading {...args} level="h5">
+    <Heading {...args} level="h5" color="error">
       Heading 5
     </Heading>
     <Heading {...args} level="h6">

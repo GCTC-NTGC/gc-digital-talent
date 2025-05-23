@@ -1,13 +1,13 @@
 import { HTMLAttributes } from "react";
 
-import Heading, { type HeadingLevel } from "../Heading";
-import { IconType, Color } from "../../types";
+import Heading, { HeadingProps, type HeadingLevel } from "../Heading";
+import { IconType } from "../../types";
 
-export interface HeadingProps {
+export interface TocHeadingProps {
   as?: HeadingLevel;
   size?: HeadingLevel;
   icon?: IconType;
-  color?: Color;
+  color?: HeadingProps["color"];
 }
 
 const TOCHeading = ({
@@ -16,7 +16,7 @@ const TOCHeading = ({
   as = "h2",
   size = "h3",
   ...rest
-}: HeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => {
+}: TocHeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => {
   const Icon = icon;
 
   return (
