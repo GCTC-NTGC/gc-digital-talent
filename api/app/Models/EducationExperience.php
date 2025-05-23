@@ -32,7 +32,7 @@ class EducationExperience extends Experience
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'start_date' => 'date',

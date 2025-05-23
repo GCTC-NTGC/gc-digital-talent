@@ -495,7 +495,11 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
-            'educationRequirementExperiences',
+            'educationRequirementAwardExperiences',
+            'educationRequirementCommunityExperiences',
+            'educationRequirementEducationExperiences',
+            'educationRequirementPersonalExperiences',
+            'educationRequirementWorkExperiences',
             'assessmentResults' => ['poolSkill', 'assessmentStep'],
             'pool' => [
                 'generalQuestions',

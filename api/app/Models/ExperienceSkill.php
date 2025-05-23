@@ -33,6 +33,7 @@ class ExperienceSkill extends Model
     /** @return MorphTo<Experience, $this> */
     public function experience(): MorphTo
     {
+        /** @var MorphTo<Experience, $this> */
         return $this->morphTo('experience');
     }
 
