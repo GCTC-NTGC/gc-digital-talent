@@ -39,8 +39,6 @@ export const checkFeatureFlag = (name: string): boolean => {
 /**
  * A convenience function which makes explicit all expected feature flags.
  */
-export const getFeatureFlags = () => ({
-  createNomination: checkFeatureFlag("FEATURE_CREATE_NOMINATION"),
-});
+export const getFeatureFlags = () => ({});
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

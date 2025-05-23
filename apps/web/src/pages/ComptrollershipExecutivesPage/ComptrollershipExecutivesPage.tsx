@@ -10,7 +10,6 @@ import {
   getLocale,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,7 +49,6 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const { createNomination } = useFeatureFlags();
 
   return (
     <>
@@ -242,26 +240,16 @@ export const Component = () => {
                     description: "card description, for nomination feature",
                   })}
                 </p>
-                {createNomination ? (
-                  <p>
-                    <Link mode="inline" href={paths.talentManagementEvents()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Nominate talent",
-                        id: "yVf0d/",
-                        description:
-                          "Link text to navigate to talent nomination events list",
-                      })}
-                    </Link>
-                  </p>
-                ) : (
-                  <p data-h2-font-weight="base(bold)">
+                <p>
+                  <Link mode="inline" href={paths.talentManagementEvents()}>
                     {intl.formatMessage({
-                      defaultMessage: "Available in April",
-                      id: "Wg+Buu",
-                      description: "Availability blurb",
+                      defaultMessage: "Nominate talent",
+                      id: "yVf0d/",
+                      description:
+                        "Link text to navigate to talent nomination events list",
                     })}
-                  </p>
-                )}
+                  </Link>
+                </p>
               </CardFlat>
             </div>
           </div>
