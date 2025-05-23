@@ -48,8 +48,8 @@ export const nominationsCell = (
       {intl.formatMessage(
         {
           defaultMessage:
-            "{nominationCount, plural, =0 {0 nominees} =1 {1 nominee} other {# nominees}}",
-          id: "HkFHt6",
+            "{nominationCount, plural, =0 {0 nominees} one {# nominee} other {# nominees}}",
+          id: "Lj0csm",
           description: "Count of nominees",
         },
         { nominationCount: count },

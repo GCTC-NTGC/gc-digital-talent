@@ -191,8 +191,8 @@ const SkillPortfolioTable = ({
         intl.formatMessage(
           {
             defaultMessage:
-              "{count, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
-            id: "/ldR5A",
+              "{count, plural, =0 {0 experiences} one {# experience} other {# experiences}}",
+            id: "0NKan4",
             description: "Number of experiences linked to a skill",
           },
           {

@@ -134,8 +134,8 @@ const plannedAssessmentCell = (
         ? intl.formatMessage(
             {
               defaultMessage:
-                "{count, plural, =1 {# assessment} other {# assessments}}",
-              id: "XOFVsC",
+                "{count, plural, one {# assessment} other {# assessments}}",
+              id: "DEdQkH",
               description: "Number of assessments for a skill",
             },
             {

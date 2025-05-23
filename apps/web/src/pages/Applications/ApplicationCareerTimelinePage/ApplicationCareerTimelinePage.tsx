@@ -91,8 +91,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 work experiences} =1 {1 work experience} other {# work experiences}}",
-          id: "ImwOeT",
+            "{experienceCount, plural, =0 {0 work experiences} one {# work experience} other {# work experiences}}",
+          id: "E4AMEH",
           description: "list a number of work experiences",
         },
         {
@@ -103,8 +103,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 personal learning experiences} =1 {1 personal learning experience} other {# personal learning experiences}}",
-          id: "q++unL",
+            "{experienceCount, plural, =0 {0 personal learning experiences} one {# personal learning experience} other {# personal learning experiences}}",
+          id: "GEULvE",
           description: "list a number of personal experiences",
         },
         {
@@ -115,8 +115,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 community participation experiences} =1 {1 community participation experience} other {# community participation experiences}}",
-          id: "V6wB0a",
+            "{experienceCount, plural, =0 {0 community participation experiences} one {# community participation experience} other {# community participation experiences}}",
+          id: "IOwsKt",
           description: "list a number of community experiences",
         },
         {
@@ -127,8 +127,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 education and certificate experiences} =1 {1 education and certificate experience} other {# education and certificate experiences}}",
-          id: "0fexP+",
+            "{experienceCount, plural, =0 {0 education and certificate experiences} one {# education and certificate experience} other {# education and certificate experiences}}",
+          id: "tj90+D",
           description: "list a number of education experiences",
         },
         {
@@ -139,8 +139,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 award and recognition experiences} =1 {1 award and recognition experience} other {# award and recognition experiences}}",
-          id: "inyUex",
+            "{experienceCount, plural, =0 {0 award and recognition experiences} one {# award and recognition experience} other {# award and recognition experiences}}",
+          id: "PYeS11",
           description: "list a number of award experiences",
         },
         {
@@ -152,8 +152,8 @@ function formatExperienceCount(
       return intl.formatMessage(
         {
           defaultMessage:
-            "{experienceCount, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
-          id: "C6kQXh",
+            "{experienceCount, plural, =0 {0 experiences} one {# experience} other {# experiences}}",
+          id: "uuXnmb",
           description: "list a number of unknown experiences",
         },
         {

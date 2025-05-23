@@ -31,8 +31,8 @@ function durationMonthsToSubtitle(
     return intl.formatMessage(
       {
         defaultMessage:
-          "{yearCount, plural, =1 {# year} other {# years}}, {monthCount, plural, =1 {# month} other {# months}}",
-        id: "NWbotz",
+          "{yearCount, plural,one {# year} other {# years}}, {monthCount, plural, one {# month} other {# months}}",
+        id: "MrfPJb",
         description: "A duration of a certain number of years and months",
       },
       {
@@ -44,8 +44,8 @@ function durationMonthsToSubtitle(
 
   return intl.formatMessage(
     {
-      defaultMessage: "{monthCount, plural, =1 {# month} other {# months}}",
-      id: "+fYyID",
+      defaultMessage: "{monthCount, plural, one {# month} other {# months}}",
+      id: "dkXjDY",
       description: "A duration of a certain number of months",
     },
     {
