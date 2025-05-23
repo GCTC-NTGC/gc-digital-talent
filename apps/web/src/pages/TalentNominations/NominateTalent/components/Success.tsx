@@ -48,7 +48,7 @@ const Success = ({ successQuery }: SuccessProps) => {
 
   return (
     <>
-      <SubHeading color="success" Icon={CheckCircleIcon}>
+      <SubHeading color="success" icon={CheckCircleIcon}>
         {intl.formatMessage({
           defaultMessage: "We’ve received your nomination",
           id: "I7vSfX",

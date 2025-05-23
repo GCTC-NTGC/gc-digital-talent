@@ -92,8 +92,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
           level="h2"
           size="h3"
           data-h2-font-weight="base(400)"
-          Icon={RocketLaunchIcon}
-          color="secondary"
+          icon={RocketLaunchIcon}
+          color="primary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage({
@@ -165,7 +165,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             level="h2"
             size="h3"
             data-h2-font-weight="base(400)"
-            Icon={PuzzlePieceIcon}
+            icon={PuzzlePieceIcon}
             color="warning"
             data-h2-margin-top="base(0)"
           >
@@ -328,8 +328,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
           size="h3"
           data-h2-font-weight="base(400)"
           data-h2-margin="base(0, 0, x0.5, 0)"
-          Icon={SparklesIcon}
-          color="primary"
+          icon={SparklesIcon}
+          color="secondary"
         >
           {intl.formatMessage({
             defaultMessage: "EXposition",

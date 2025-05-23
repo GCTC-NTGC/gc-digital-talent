@@ -27,8 +27,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
       {edit ? (
         <>
           <Heading
-            Icon={PencilSquareIcon}
-            color="primary"
+            icon={PencilSquareIcon}
+            color="secondary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
             size="h3"
@@ -54,8 +54,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
       ) : (
         <>
           <Heading
-            Icon={PlusCircleIcon}
-            color="primary"
+            icon={PlusCircleIcon}
+            color="secondary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
             size="h3"

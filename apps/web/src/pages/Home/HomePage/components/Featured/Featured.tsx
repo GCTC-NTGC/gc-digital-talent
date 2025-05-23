@@ -113,7 +113,7 @@ const Featured = () => {
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0)"
         color="success"
-        Icon={MagnifyingGlassCircleIcon}
+        icon={MagnifyingGlassCircleIcon}
       >
         {intl.formatMessage({
           defaultMessage: "Check it out",

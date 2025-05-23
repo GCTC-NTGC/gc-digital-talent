@@ -80,9 +80,9 @@ export const Component = () => {
             {/* Investing in the future of IT talent */}
             <div>
               <Heading
-                Icon={MapIcon}
+                icon={MapIcon}
                 size="h2"
-                color="primary"
+                color="secondary"
                 data-h2-margin="base(0, 0, x1.5, 0)"
                 data-h2-font-weight="base(400)"
               >
@@ -122,7 +122,7 @@ export const Component = () => {
               data-h2-gap="base(x1.5)"
             >
               <Heading
-                Icon={BookmarkSquareIcon}
+                icon={BookmarkSquareIcon}
                 size="h2"
                 color="error"
                 data-h2-margin="base(0)"

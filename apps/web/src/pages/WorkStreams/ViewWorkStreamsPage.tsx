@@ -105,7 +105,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
           <Heading
             level="h2"
             color="primary"
-            Icon={IdentificationIcon}
+            icon={IdentificationIcon}
             data-h2-margin="base(0, 0, x1.5, 0)"
             data-h2-font-weight="base(400)"
           >

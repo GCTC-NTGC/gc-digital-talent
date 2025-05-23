@@ -396,7 +396,7 @@ const ExperienceCard = ({
         data-h2-margin-bottom="base(x.5)"
       >
         <Heading
-          Icon={Icon}
+          icon={Icon}
           level={headingLevel}
           size="h6"
           color="error"

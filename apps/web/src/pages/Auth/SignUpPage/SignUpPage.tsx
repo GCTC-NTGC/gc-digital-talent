@@ -87,8 +87,8 @@ export const Component = () => {
             <>
               {/* Standard copy */}
               <Heading
-                Icon={MapIcon}
-                color="primary"
+                icon={MapIcon}
+                color="secondary"
                 level="h2"
                 size="h3"
                 data-h2-font-weight="base(400)"
@@ -340,7 +340,7 @@ export const Component = () => {
                 </Instructions.Step>
               </Instructions.List>
               <Heading
-                Icon={InformationCircleIcon}
+                icon={InformationCircleIcon}
                 color="error"
                 level="h2"
                 size="h3"

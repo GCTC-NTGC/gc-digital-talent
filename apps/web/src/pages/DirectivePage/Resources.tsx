@@ -16,7 +16,7 @@ const Resources = () => {
     <>
       <section>
         <Heading
-          Icon={FolderOpenIcon}
+          icon={FolderOpenIcon}
           size="h3"
           color="warning"
           data-h2-margin="base(x3, 0, x1, 0)"

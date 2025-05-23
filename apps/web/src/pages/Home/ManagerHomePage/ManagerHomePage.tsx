@@ -105,8 +105,8 @@ const ManagerHomePage = () => {
           level="h2"
           size="h3"
           data-h2-font-weight="base(400)"
-          Icon={SparklesIcon}
-          color="primary"
+          icon={SparklesIcon}
+          color="secondary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage({
@@ -256,7 +256,7 @@ const ManagerHomePage = () => {
           size="h3"
           data-h2-font-weight="base(400)"
           data-h2-margin="base(0)"
-          Icon={CheckBadgeIcon}
+          icon={CheckBadgeIcon}
           color="warning"
         >
           {intl.formatMessage({
