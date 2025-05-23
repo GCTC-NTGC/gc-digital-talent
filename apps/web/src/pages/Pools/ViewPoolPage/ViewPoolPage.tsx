@@ -423,8 +423,8 @@ export const ViewPool = ({
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "{count, plural, =0 {0 total applicants} =1 {1 total applicant} other {# total applicants}}",
-                    id: "ilZlfH",
+                      "{count, plural, =0 {0 total applicants} one {# total applicant} other {# total applicants}}",
+                    id: "HYUyl0",
                     description:
                       "The number of applicants to a specific process",
                   },

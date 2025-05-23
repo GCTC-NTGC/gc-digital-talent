@@ -235,12 +235,12 @@ export const SearchForm = ({
                   {
                     defaultMessage: `Results: {totalCandidateCount, plural,
                       =0 {<testId><b>#</b></testId> matching candidates}
-                      =1 {<testId><b>#</b></testId> matching candidate}
+                      one {<testId><b>#</b></testId> matching candidate}
                       other {<testId><b>#</b></testId> matching candidates} } across {numPools, plural,
                       =0 {<b>#</b> pools}
-                      =1 {<b>#</b> pool}
+                      one {<b>#</b> pool}
                       other {<b>#</b> pools} }`,
-                    id: "gTZG/i",
+                    id: "e5N39X",
                     description:
                       "Heading for total matching candidates across a certain number of pools in results section of search page.",
                   },

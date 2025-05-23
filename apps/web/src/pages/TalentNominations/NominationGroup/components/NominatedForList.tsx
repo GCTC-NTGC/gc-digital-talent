@@ -1,3 +1,5 @@
+/* eslint-disable formatjs/enforce-plural-rules */
+// NOTE: Not really plural, I guess?
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";

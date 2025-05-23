@@ -20,10 +20,10 @@ const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
         {
           defaultMessage: `{candidateCount, plural,
           =0 {There are approximately <strong><testId>#</testId></strong> candidates right now who meet your criteria.}
-          =1 {There is approximately <strong><testId>#</testId></strong> candidate right now who meets your criteria.}
+          one {There is approximately <strong><testId>#</testId></strong> candidate right now who meets your criteria.}
           other {There are approximately <strong><testId>#</testId></strong> candidates right now who meet your criteria.}
         }`,
-          id: "OQBtt9",
+          id: "wZKKk1",
           description:
             "Message for total estimated candidates box next to search form.",
         },

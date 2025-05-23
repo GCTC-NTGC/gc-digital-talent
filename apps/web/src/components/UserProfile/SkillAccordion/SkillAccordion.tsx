@@ -377,8 +377,8 @@ const SkillAccordion = ({
         context={intl.formatMessage(
           {
             defaultMessage:
-              "{experienceCount, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
-            id: "C6kQXh",
+              "{experienceCount, plural, =0 {0 experiences} one {# experience} other {# experiences}}",
+            id: "uuXnmb",
             description: "list a number of unknown experiences",
           },
           {

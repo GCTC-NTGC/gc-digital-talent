@@ -38,7 +38,6 @@ export default [
           idWhitelist: ["\\."],
         },
       ],
-      "formatjs/enforce-plural-rules": "off",
       "formatjs/enforce-description": ["error", "literal"],
       "formatjs/enforce-placeholders": [
         "error",
