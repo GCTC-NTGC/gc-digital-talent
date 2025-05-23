@@ -43,7 +43,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
 
   return (
     <>
-      <Heading Icon={UserCircleIcon} color="tertiary">
+      <Heading Icon={UserCircleIcon} color="error">
         {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
       <div

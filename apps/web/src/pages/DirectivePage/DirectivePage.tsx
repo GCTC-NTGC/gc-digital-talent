@@ -358,7 +358,7 @@ export const Component = () => {
           <Heading
             Icon={BookmarkSquareIcon}
             size="h3"
-            color="tertiary"
+            color="error"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -526,7 +526,7 @@ export const Component = () => {
             <Heading
               Icon={Cog8ToothIcon}
               size="h3"
-              color="quinary"
+              color="success"
               data-h2-margin="base(x3, 0, x1, 0)"
             >
               {intl.formatMessage({

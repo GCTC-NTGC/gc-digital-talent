@@ -257,7 +257,7 @@ const ManagerHomePage = () => {
           data-h2-font-weight="base(400)"
           data-h2-margin="base(0)"
           Icon={CheckBadgeIcon}
-          color="quaternary"
+          color="warning"
         >
           {intl.formatMessage({
             defaultMessage: "Manage your career",

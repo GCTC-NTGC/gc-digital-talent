@@ -112,7 +112,7 @@ const Featured = () => {
         size="h3"
         data-h2-font-weight="base(400)"
         data-h2-margin="base(0)"
-        color="quinary"
+        color="success"
         Icon={MagnifyingGlassCircleIcon}
       >
         {intl.formatMessage({

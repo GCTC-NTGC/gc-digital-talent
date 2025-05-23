@@ -193,7 +193,7 @@ export const Component = () => {
             <Heading
               Icon={UserGroupIcon}
               size="h2"
-              color="quaternary"
+              color="warning"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
               data-h2-justify-content="base(center) p-tablet(start)"
@@ -273,7 +273,7 @@ export const Component = () => {
             <Heading
               Icon={BookOpenIcon}
               size="h2"
-              color="tertiary"
+              color="error"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
             >

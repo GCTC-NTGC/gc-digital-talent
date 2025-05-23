@@ -341,7 +341,7 @@ export const Component = () => {
               </Instructions.List>
               <Heading
                 Icon={InformationCircleIcon}
-                color="tertiary"
+                color="error"
                 level="h2"
                 size="h3"
                 data-h2-font-weight="base(400)"

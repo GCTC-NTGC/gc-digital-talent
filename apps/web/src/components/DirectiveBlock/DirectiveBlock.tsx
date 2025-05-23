@@ -13,7 +13,7 @@ const DirectiveBlock = () => {
     <>
       <Heading
         Icon={MagnifyingGlassCircleIcon}
-        color="tertiary"
+        color="error"
         size="h3"
         data-h2-font-weight="base(400)"
         data-h2-margin-top="base(x5)"

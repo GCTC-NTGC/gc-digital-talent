@@ -166,7 +166,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             size="h3"
             data-h2-font-weight="base(400)"
             Icon={PuzzlePieceIcon}
-            color="quaternary"
+            color="warning"
             data-h2-margin-top="base(0)"
           >
             {intl.formatMessage({

@@ -84,7 +84,7 @@ const EssentialTechnicalSkills = ({
       <Heading
         Icon={BoltIcon}
         size="h2"
-        color="tertiary"
+        color="error"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.essentialTechnicalSkills.longTitle)}

@@ -178,7 +178,7 @@ const FullCareerExperiences = ({
           <Heading
             level="h2"
             Icon={NewspaperIcon}
-            color="quaternary"
+            color="warning"
             data-h2-font-weight="base(400)"
             data-h2-margin="base(0)"
           >

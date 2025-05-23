@@ -214,7 +214,7 @@ export const Component = () => {
             <Heading
               size="h3"
               Icon={ClipboardIcon}
-              color="tertiary"
+              color="error"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -259,7 +259,7 @@ export const Component = () => {
             <Heading
               size="h3"
               Icon={UserCircleIcon}
-              color="quaternary"
+              color="warning"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -283,7 +283,7 @@ export const Component = () => {
             <Heading
               size="h3"
               Icon={QuestionMarkCircleIcon}
-              color="quinary"
+              color="success"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({

@@ -124,7 +124,7 @@ export const Component = () => {
               <Heading
                 Icon={BookmarkSquareIcon}
                 size="h2"
-                color="tertiary"
+                color="error"
                 data-h2-margin="base(0)"
                 data-h2-font-weight="base(400)"
               >
@@ -258,7 +258,7 @@ export const Component = () => {
               <Heading
                 Icon={LightBulbIcon}
                 size="h2"
-                color="quaternary"
+                color="warning"
                 data-h2-margin="base(0)"
                 data-h2-font-weight="base(400)"
               >

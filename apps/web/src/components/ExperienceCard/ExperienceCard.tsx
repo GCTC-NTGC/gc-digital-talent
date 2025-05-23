@@ -399,7 +399,7 @@ const ExperienceCard = ({
           Icon={Icon}
           level={headingLevel}
           size="h6"
-          color="tertiary"
+          color="error"
           data-h2-margin="base(0)"
           data-h2-font-weight="base(400)"
         >
