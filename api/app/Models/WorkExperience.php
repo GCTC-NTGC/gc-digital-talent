@@ -247,6 +247,4 @@ class WorkExperience extends Experience
     {
         return $this->belongsTo(User::class);
     }
-
-    // skill methods in api/app/Traits/ExperienceWithSkills.php
 }
