@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\PoolCandidate;
 use App\Traits\Generator\Filterable;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class FilterableTraitTest extends TestCase
@@ -61,10 +62,13 @@ class FilterableTraitTest extends TestCase
         $query = $model::query();
 
         $this->trait
+            ->debug(true)
             ->setFilters($filters)
             ->applyFilters($query, $scopeMap);
 
         $calledScopes = $query->getModel()->getCalledScopes();
+        $calledScopes = Arr::flatten([...$calledScopes, Arr::map($this->trait->calledFilters, fn ($filter) => $filter['scope'])]);
+
         foreach ($expected as $key => $contains) {
             if (! $contains) {
                 $this->assertNotContains($key, $calledScopes ?? []);
