@@ -256,7 +256,7 @@ export const Component = () => {
               data-h2-gap="base(x1.5)"
             >
               <Heading
-                Icon={LightBulbIcon}
+                icon={LightBulbIcon}
                 size="h2"
                 color="warning"
                 data-h2-margin="base(0)"
