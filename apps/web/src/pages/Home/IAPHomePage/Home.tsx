@@ -537,6 +537,7 @@ export const Home = ({ query }: HomeProps) => {
           <div data-h2-wrapper="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
+              data-h2-font-size="base(h2)"
               data-h2-color="base:all(white)"
               data-h2-text-align="base(center)"
             >
@@ -682,6 +683,7 @@ export const Home = ({ query }: HomeProps) => {
               </Banner>
               <Heading
                 light
+                data-h2-font-size="base(h2)"
                 data-h2-color="base:all(white)"
                 data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
               >
@@ -692,7 +694,11 @@ export const Home = ({ query }: HomeProps) => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading as="h3" data-h2-color="base:all(white)">
+              <Heading
+                as="h3"
+                data-h2-font-size="base(h3)"
+                data-h2-color="base:all(white)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -799,7 +805,11 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading as="h3" data-h2-color="base:all(white)">
+              <Heading
+                as="h3"
+                data-h2-font-size="base(h3)"
+                data-h2-color="base:all(white)"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",
@@ -943,7 +953,11 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
                       data-h2-color="base:all(white)"
                     >
-                      <Heading data-h2-color="base:all(white)" light>
+                      <Heading
+                        data-h2-font-size="base(h2)"
+                        data-h2-color="base:all(white)"
+                        light
+                      >
                         {intl.formatMessage({
                           defaultMessage: "About the Indigenous Talent Portal",
                           id: "loDwKe",

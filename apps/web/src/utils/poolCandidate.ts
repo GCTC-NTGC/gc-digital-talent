@@ -12,7 +12,7 @@ import { differenceInDays } from "date-fns/differenceInDays";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Color } from "@gc-digital-talent/ui";
+import { ChipProps } from "@gc-digital-talent/ui";
 import {
   Maybe,
   PoolCandidate,
@@ -146,7 +146,7 @@ export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
 
 const getFinalDecisionChipColor = (
   finalDecision?: Maybe<FinalDecision>,
-): Color => {
+): ChipProps["color"] => {
   switch (finalDecision) {
     case FinalDecision.ToAssess:
       return "warning";
@@ -164,7 +164,7 @@ const getFinalDecisionChipColor = (
     case FinalDecision.QualifiedPending:
       return "success";
     default:
-      return "white";
+      return "black";
   }
 };
 
@@ -257,7 +257,7 @@ type QualifiedRecruitmentStatus =
   (typeof qualifiedRecruitmentStatus)[keyof typeof qualifiedRecruitmentStatus];
 
 interface StatusChip {
-  color: Color;
+  color?: ChipProps["color"];
   label: ReactNode;
 }
 
