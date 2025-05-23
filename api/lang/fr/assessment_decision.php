@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'successful' => 'Démontré',
+    'successful' => 'Démontrée',
     'hold' => 'Non démontrée (en attente d’une évaluation plus poussée)',
-    'unsuccessful' => 'Non démontrée (supprimée du processus)',
+    'unsuccessful' => 'Non démontrée',
 ];
