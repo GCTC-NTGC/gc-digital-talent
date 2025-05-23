@@ -35,7 +35,7 @@ const heading = tv({
         icon: "size-6 stroke-[1.6]",
       },
       h6: {
-        base: "mt-6 mb-1.5 font-bold lg:text-xl",
+        base: "mt-6 mb-1.5 text-lg font-bold lg:text-xl",
         icon: "size-5 stroke-[1.6]",
       },
     },
