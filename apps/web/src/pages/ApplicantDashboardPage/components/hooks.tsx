@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Color } from "@gc-digital-talent/ui";
+import { ChipProps } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface MetaDataTalentNominationChipProps {
@@ -9,7 +9,7 @@ interface MetaDataTalentNominationChipProps {
 
 interface TalentNominationChip {
   label: string;
-  color: Color;
+  color: ChipProps["color"];
 }
 
 export const useMetaDataTalentNominationChip = ({

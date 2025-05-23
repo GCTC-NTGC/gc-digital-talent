@@ -1,0 +1,223 @@
+@import "tailwindcss";
+@source "../../../../../packages/**/*.{ts,tsx}";
+
+/* Use .dark class for dark mode instead of auto based on media query */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant iap (&:where(.iap, .iap *));
+
+/**
+* Themeable variables
+*
+* These are variables that could swap out depending
+* on things like media queries, class names, etc.
+*
+* We need to prefix them with gcdt to avoid
+* collision with the variables in the actual config
+*/
+:root {
+  /* Colours */
+  --gcdt-color-primary-100: oklch(0.93 0.055 190.62);
+  --gcdt-color-primary-200: oklch(0.87 0.1001 189.96);
+  --gcdt-color-primary-300: oklch(0.83 0.1299 188.15);
+  --gcdt-color-primary-400: oklch(0.74 0.128478 187.0122);
+  --gcdt-color-primary-500: oklch(0.64 0.111759 186.2965);
+  --gcdt-color-primary-600: oklch(0.48 0.082996 186.9555);
+  --gcdt-color-primary-700: oklch(0.3 0.052371 186.8285);
+
+  --gcdt-color-secondary-100: oklch(0.91 0.0421 302.22);
+  --gcdt-color-secondary-200: oklch(0.82 0.086 301.31);
+  --gcdt-color-secondary-300: oklch(0.73 0.1318 301.66);
+  --gcdt-color-secondary-400: oklch(0.65 0.177 301.69);
+  --gcdt-color-secondary-500: oklch(0.53 0.1409 303.52);
+  --gcdt-color-secondary-600: oklch(0.4 0.1016 304.56);
+  --gcdt-color-secondary-700: oklch(0.26 0.0575 305.85);
+
+  --gcdt-color-success-100: oklch(0.93 0.0405 147.5);
+  --gcdt-color-success-200: oklch(0.86 0.079 147.56);
+  --gcdt-color-success-300: oklch(0.79 0.1167 147.68);
+  --gcdt-color-success-400: oklch(0.72 0.1508 147.24);
+  --gcdt-color-success-500: oklch(0.59 0.1172 148.09);
+  --gcdt-color-success-600: oklch(0.44 0.0837 149.13);
+  --gcdt-color-success-700: oklch(0.28 0.0469 150.25);
+
+  --gcdt-color-warning-100: oklch(0.95 0.0336 68.84);
+  --gcdt-color-warning-200: oklch(0.9 0.0699 72.34);
+  --gcdt-color-warning-300: oklch(0.86 0.1032 73.71);
+  --gcdt-color-warning-400: oklch(0.83 0.1328 75.22);
+  --gcdt-color-warning-500: oklch(0.65 0.1054 68.2);
+  --gcdt-color-warning-600: oklch(0.48 0.0766 60.72);
+  --gcdt-color-warning-700: oklch(0.29 0.045 53.78);
+
+  --gcdt-color-error-100: oklch(0.9 0.0451 2.49);
+  --gcdt-color-error-200: oklch(0.8 0.0956 5.36);
+  --gcdt-color-error-300: oklch(0.71 0.1452 9.64);
+  --gcdt-color-error-400: oklch(0.63 0.1925 15.09);
+  --gcdt-color-error-500: oklch(0.51 0.1519 16.49);
+  --gcdt-color-error-600: oklch(0.39 0.1095 17.95);
+  --gcdt-color-error-700: oklch(0.25 0.0621 18.26);
+
+  --gcdt-color-focus-100: oklch(0.91 0.0425 264.99);
+  --gcdt-color-focus-200: oklch(0.82 0.087268 265.1505);
+  --gcdt-color-focus-300: oklch(0.74 0.1333 263.66);
+  --gcdt-color-focus-400: oklch(0.68 0.1687 265.02);
+  --gcdt-color-focus-500: oklch(0.54 0.1427 262.9);
+  --gcdt-color-focus-600: oklch(0.4 0.1034 263.15);
+  --gcdt-color-focus-700: oklch(0.26 0.058 263.44);
+
+  --gcdt-color-gray-100: oklch(0.91 0.0224 272.04);
+  --gcdt-color-gray-200: oklch(0.83 0.0377 270.4);
+  --gcdt-color-gray-300: oklch(0.75 0.046 271.17);
+  --gcdt-color-gray-400: oklch(0.68 0.0459 270.65);
+  --gcdt-color-gray-500: oklch(0.55 0.0435 270.51);
+  --gcdt-color-gray-600: oklch(0.42 0.0362 270.42);
+  --gcdt-color-gray-700: oklch(0.29 0.025 268.38);
+
+  --gcdt-color-black: oklch(0.13 0.0078 268.54);
+  --gcdt-color-white: oklch(1 0 0);
+
+  /* Shadows */
+  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, 0.2);
+  --gcdt-shadow-focus: 0 0 0 0.25rem #6492ff;
+}
+
+/**
+* Dark mode configuration
+*
+* Variables that need to swapped out automatically
+* when dark mode is enabled.
+*
+* NOTE: You can manually use a different variable with `dark:`
+*/
+.dark {
+  /** Dark mode shadows */
+  --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-md: 0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-lg: 0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, 0.5);
+  --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, 0.5);
+}
+
+/**
+* IAP specific configuration
+*/
+.iap {
+  --gcdt-color-primary-100: oklch(0.86 0.0592 353.96);
+  --gcdt-color-primary-200: oklch(0.74 0.1263 357.2);
+  --gcdt-color-primary-300: oklch(0.63 0.1865 1.43);
+  --gcdt-color-primary-400: oklch(0.53 0.196 6.18);
+  --gcdt-color-primary-500: oklch(0.45 0.1735 8.97);
+  --gcdt-color-primary-600: oklch(0.34 0.128 7.38);
+  --gcdt-color-primary-700: oklch(0.22 0.0772 4.67);
+
+  --gcdt-color-secondary-100: oklch(0.84 0.0252 278.3);
+  --gcdt-color-secondary-200: oklch(0.68 0.0533 279.9);
+  --gcdt-color-secondary-300: oklch(0.5 0.0862 277.2);
+  --gcdt-color-secondary-400: oklch(0.33 0.104 273.68);
+  --gcdt-color-secondary-500: oklch(0.27 0.0975 272.48);
+  --gcdt-color-secondary-600: oklch(0.22 0.0695 273.17);
+  --gcdt-color-secondary-700: oklch(0.15 0.0382 275.88);
+}
+
+/**
+* Tailwind configuration
+*/
+@theme inline {
+  /** Breakpoints */
+  --breakpoint-xs: 48rem;
+  --breakpoint-sm: 67.5rem;
+  --breakpoint-md: 80rem;
+  --breakpoint-lg: 100rem;
+
+  /** Fonts */
+  --font-sans: "Open Sans", "sans-serif";
+
+  /** Colours */
+  --color-*: initial;
+
+  --color-primary: var(--gcdt-color-primary-400);
+  --color-primary-100: var(--gcdt-color-primary-100);
+  --color-primary-200: var(--gcdt-color-primary-200);
+  --color-primary-300: var(--gcdt-color-primary-300);
+  --color-primary-400: var(--gcdt-color-primary-400);
+  --color-primary-500: var(--gcdt-color-primary-500);
+  --color-primary-600: var(--gcdt-color-primary-600);
+  --color-primary-700: var(--gcdt-color-primary-700);
+
+  --color-secondary: var(--gcdt-color-secondary-400);
+  --color-secondary-100: var(--gcdt-color-secondary-100);
+  --color-secondary-200: var(--gcdt-color-secondary-200);
+  --color-secondary-300: var(--gcdt-color-secondary-300);
+  --color-secondary-400: var(--gcdt-color-secondary-400);
+  --color-secondary-500: var(--gcdt-color-secondary-500);
+  --color-secondary-600: var(--gcdt-color-secondary-600);
+  --color-secondary-700: var(--gcdt-color-secondary-700);
+
+  --color-success: var(--gcdt-color-success-400);
+  --color-success-100: var(--gcdt-color-success-100);
+  --color-success-200: var(--gcdt-color-success-200);
+  --color-success-300: var(--gcdt-color-success-300);
+  --color-success-400: var(--gcdt-color-success-400);
+  --color-success-500: var(--gcdt-color-success-500);
+  --color-success-600: var(--gcdt-color-success-600);
+  --color-success-700: var(--gcdt-color-success-700);
+
+  --color-warning: var(--gcdt-color-warning-400);
+  --color-warning-100: var(--gcdt-color-warning-100);
+  --color-warning-200: var(--gcdt-color-warning-200);
+  --color-warning-300: var(--gcdt-color-warning-300);
+  --color-warning-400: var(--gcdt-color-warning-400);
+  --color-warning-500: var(--gcdt-color-warning-500);
+  --color-warning-600: var(--gcdt-color-warning-600);
+  --color-warning-700: var(--gcdt-color-warning-700);
+
+  --color-error: var(--gcdt-color-error-400);
+  --color-error-100: var(--gcdt-color-error-100);
+  --color-error-200: var(--gcdt-color-error-200);
+  --color-error-300: var(--gcdt-color-error-300);
+  --color-error-400: var(--gcdt-color-error-400);
+  --color-error-500: var(--gcdt-color-error-500);
+  --color-error-600: var(--gcdt-color-error-600);
+  --color-error-700: var(--gcdt-color-error-700);
+
+  --color-focus: var(--gcdt-color-focus-400);
+  --color-focus-100: var(--gcdt-color-focus-100);
+  --color-focus-200: var(--gcdt-color-focus-200);
+  --color-focus-300: var(--gcdt-color-focus-300);
+  --color-focus-400: var(--gcdt-color-focus-400);
+  --color-focus-500: var(--gcdt-color-focus-500);
+  --color-focus-600: var(--gcdt-color-focus-600);
+  --color-focus-700: var(--gcdt-color-focus-700);
+
+  --color-gray: var(--gcdt-color-gray-400);
+  --color-gray-100: var(--gcdt-color-gray-100);
+  --color-gray-200: var(--gcdt-color-gray-200);
+  --color-gray-300: var(--gcdt-color-gray-300);
+  --color-gray-400: var(--gcdt-color-gray-400);
+  --color-gray-500: var(--gcdt-color-gray-500);
+  --color-gray-600: var(--gcdt-color-gray-600);
+  --color-gray-700: var(--gcdt-color-gray-700);
+
+  --color-black: var(--gcdt-color-black);
+  --color-white: var(--gcdt-color-white);
+
+  /** Shadows */
+  --inset-shadow: var(--gcdt-inset-shadow);
+  --shadow-sm: var(--gcdt-shadow-sm);
+  --shadow-md: var(--gcdt-shadow-md);
+  --shadow-lg: var(--gcdt-shadow-lg);
+  --shadow-xl: var(--gcdt-shadow-xl);
+  --shadow-2xl: var(--gcdt-shadow-2xl);
+}
+
+@media (min-width: 100rem) {
+  :root {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}

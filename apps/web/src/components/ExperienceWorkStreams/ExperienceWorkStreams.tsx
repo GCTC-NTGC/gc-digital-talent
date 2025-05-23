@@ -135,8 +135,8 @@ const ExperienceWorkStreams = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "{workStreamCount, plural, =0 {0 linked work streams} =1 {1 linked work stream} other {# linked work streams}}",
-                id: "HWjcqg",
+                  "{workStreamCount, plural, =0 {0 linked work streams} one {# linked work stream} other {# linked work streams}}",
+                id: "8ii/QN",
                 description: "Count of work streams for work experience",
               },
               {

@@ -12,6 +12,8 @@ import {
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
+import { SimpleAnyExperience } from "./experienceUtils";
+
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
  * @param { Skill[] } skills - The collection of skills with child skill families to invert
@@ -49,8 +51,12 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   return skillFamiliesWithSkills;
 }
 
+interface InvertedExperience extends SimpleAnyExperience {
+  id: string;
+}
+
 export type InvertedSkillExperience = Skill & {
-  experiences: Omit<Experience, "user">[];
+  experiences: InvertedExperience[];
 };
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
@@ -103,7 +109,14 @@ export function categorizeSkill(
   };
 }
 
-export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
+export interface AddedSkill {
+  id: string;
+  experienceSkillRecord?: Maybe<{
+    details?: Maybe<string>;
+  }>;
+}
+
+export const getMissingSkills = (required: Skill[], added?: AddedSkill[]) => {
   return !added?.length
     ? required
     : required.filter((skill) => {
@@ -115,6 +128,14 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
       });
 };
 
+export interface ExperienceWithSkills {
+  skills?:
+    | {
+        id: string;
+      }[]
+    | null;
+}
+
 /**
  * Get Experience Skills
  *
@@ -125,10 +146,10 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
  * @param skill Skill The skill to be used to filter experiences on
  * @returns Experience[]  New array of experiences
  */
-export const getExperienceSkills = (
-  experiences: Omit<Experience, "user">[],
+export const getExperienceSkills = <T extends ExperienceWithSkills>(
+  experiences: T[],
   skill?: Pick<Skill, "id">,
-): Omit<Experience, "user">[] => {
+): T[] => {
   return experiences.filter((experience) =>
     experience.skills?.some(
       (experienceSkill) => experienceSkill.id === skill?.id,

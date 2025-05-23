@@ -521,15 +521,36 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
         ]);
 
         $this->applyFilters($query, [
-            'priorityWeight' => 'candidateCategory',
-            'poolCandidateStatus' => 'poolCandidateStatuses',
-            'pools' => 'availableInPools',
-            'skills' => 'skillsAdditive',
-            'community' => 'candidatesInCommunity',
+            // Pool candidate search input renames
+            'email' => 'whereEmail',
+            'generalSearch' => 'whereGeneralSearch',
+            'name' => 'whereName',
+            'notes' => 'whereNotesLike',
+            'isGovEmployee' => 'whereIsGovEmployee',
+            'poolCandidateStatus' => 'whereStatusIn',
+            'priorityWeight' => 'whereCandidateCategoryIn',
+            'expiryStatus' => 'whereExpiryStatus',
+            'suspendedStatus' => 'whereSuspendedStatus',
+            'publishingGroups' => 'wherePublishingGroupsIn',
+            'appliedClassifications' => 'whereAppliedClassificationsIn',
+            'processNumber' => 'whereProcessNumber',
+
+            // Applicant filter input renames
+            'equity' => 'whereEquityIn',
+            'hasDiploma' => 'whereHasDiploma',
+            'languageAbility' => 'whereLanguageAbility',
+            'locationPreferences' => 'whereLocationPreferencesIn',
+            'operationalRequirements' => 'whereOperationalRequirementsIn',
+            'positionDuration' => 'wherePositionDuration',
+            'pools' => 'whereAvailableInPools',
+            'skills' => 'whereSkillsAdditive',
+            'skillsIntersectional' => 'whereSkillsIntersectional',
+            'qualifiedClassifications' => 'whereQualifiedClassificationsIn',
+            'community' => 'whereCandidatesInCommunity',
         ]);
 
         /** @var Builder<\App\Models\PoolCandidate> $query */
-        $query->authorizedToView(['userId' => $this->userId])->notDraft();
+        $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
 
         return $query;
     }

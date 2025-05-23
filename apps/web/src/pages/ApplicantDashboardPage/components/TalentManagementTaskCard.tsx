@@ -76,7 +76,7 @@ const TalentManagementTaskCard = ({
       (nomination) => nomination.nominee?.id,
     ) ?? [];
 
-  const talentNominationMetaData: AccordionMetaData[] = [
+  const talentNominationMetaData: AccordionMetaData = [
     {
       key: "new-nomination-key",
       type: "link",

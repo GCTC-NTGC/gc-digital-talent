@@ -6,7 +6,11 @@ import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 
 import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
@@ -149,12 +153,7 @@ export const CreateClassification = () => {
                   <Input
                     id="group"
                     name="group"
-                    label={intl.formatMessage({
-                      defaultMessage: "Group",
-                      id: "hgxH8y",
-                      description:
-                        "Label displayed for the classification form group field.",
-                    })}
+                    label={intl.formatMessage(commonMessages.group)}
                     type="text"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),

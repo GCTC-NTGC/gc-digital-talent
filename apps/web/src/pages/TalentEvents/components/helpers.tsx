@@ -1,6 +1,6 @@
 import { IntlShape } from "react-intl";
 
-import { Chip, Color, Link } from "@gc-digital-talent/ui";
+import { Chip, ChipProps, Link } from "@gc-digital-talent/ui";
 import {
   LocalizedTalentNominationEventStatus,
   Maybe,
@@ -11,7 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 const getTalentNominationEventStatusColor = (
   talentNominationEventStatus?: Maybe<TalentNominationEventStatus>,
-): Color => {
+): ChipProps["color"] => {
   switch (talentNominationEventStatus) {
     case TalentNominationEventStatus.Active:
       return "primary";
@@ -20,7 +20,7 @@ const getTalentNominationEventStatusColor = (
     case TalentNominationEventStatus.Past:
       return "black";
     default:
-      return "white";
+      return "black";
   }
 };
 
@@ -48,8 +48,8 @@ export const nominationsCell = (
       {intl.formatMessage(
         {
           defaultMessage:
-            "{nominationCount, plural, =0 {0 nominees} =1 {1 nominee} other {# nominees}}",
-          id: "HkFHt6",
+            "{nominationCount, plural, =0 {0 nominees} one {# nominee} other {# nominees}}",
+          id: "Lj0csm",
           description: "Count of nominees",
         },
         { nominationCount: count },

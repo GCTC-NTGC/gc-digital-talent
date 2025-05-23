@@ -468,6 +468,26 @@ const commonMessages = defineMessages({
     id: "IBc2sp",
     description: "Label for full name",
   },
+  group: {
+    defaultMessage: "Group",
+    id: "gH2uDM",
+    description: "Label for group",
+  },
+  level: {
+    defaultMessage: "Level",
+    id: "OUcSEy",
+    description: "Label for level",
+  },
+  selected: {
+    defaultMessage: "Selected",
+    id: "W9zlhl",
+    description: "Label when an item is selected",
+  },
+  notSelected: {
+    defaultMessage: "Not selected",
+    id: "pnoSK6",
+    description: "Label when an item is not selected",
+  },
 });
 
 export default commonMessages;

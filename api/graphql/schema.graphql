@@ -122,7 +122,7 @@ type User {
 
   # Pool info
   poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["authorizedToView"])
+    @hasMany(scopes: ["whereAuthorizedToView"])
     @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience] @belongsToMany # All experiences that a user owns
@@ -384,11 +384,14 @@ type Pool implements HasRoleAssignments {
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
-    @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
+    @hasMany(
+      relation: "publishedPoolCandidates"
+      scopes: ["whereAuthorizedToView"]
+    )
     @canResolved(ability: "view")
     @guard
   poolCandidatesCount: Int
-    @count(relation: "poolCandidates", scopes: ["notDraft"])
+    @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
@@ -616,7 +619,6 @@ type Department {
   isCentralAgency: Boolean @rename(attribute: "is_central_agency")
   isScience: Boolean @rename(attribute: "is_science")
   isRegulatory: Boolean @rename(attribute: "is_regulatory")
-  teams: [Team] @belongsToMany @canModel(ability: "viewAny")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -777,7 +779,6 @@ type TalentNominationGroup {
 type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
-  departments: [Department] @belongsToMany
   pools: [Pool] @hasMany @canResolved(ability: "view")
   teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
@@ -1157,7 +1158,7 @@ input ApplicantFilterInput {
     @scope(name: "whereOperationalRequirementsIn")
   positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
   # This field is [IdInput] instead of [ID] so that the output of an ApplicantFilter query can be used directly.
-  pools: [IdInput] @scope(name: "availableInPools") @pluck(key: "id")
+  pools: [IdInput] @scope(name: "whereAvailableInPools") @pluck(key: "id")
   skills: [IdInput] @scope(name: "whereSkillsAdditive") @pluck(key: "id") # main one to correspond with ApplicantFilter.php
   skillsIntersectional: [IdInput]
     @scope(name: "whereSkillsIntersectional")
@@ -1175,19 +1176,18 @@ input PoolCandidateSearchInput {
   email: String @scope(name: "whereEmail")
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
-  notes: String @scope
+  notes: String @scope(name: "whereNotesLike")
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
-  priorityWeight: [PriorityWeight] @scope(name: "candidateCategory")
-  poolCandidateStatus: [PoolCandidateStatus]
-    @scope(name: "poolCandidateStatuses")
-  expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
-  suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
-  publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
+  priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
+  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "whereStatusIn")
+  expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
+  suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
+  publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
-    @scope(name: "appliedClassifications")
-  processNumber: String @scope(name: "processNumber")
+    @scope(name: "whereAppliedClassificationsIn")
+  processNumber: String @scope(name: "whereProcessNumber")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1373,7 +1373,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["notDraft", "withSkillCount", "authorizedToView"]
+      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
       model: "App\\Models\\PoolCandidate"
     )
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.

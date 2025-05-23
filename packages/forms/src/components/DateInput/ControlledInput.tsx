@@ -19,6 +19,7 @@ import {
   splitSegments,
 } from "./utils";
 import { StyleRecord } from "../../types";
+import Field from "../Field";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -90,9 +91,9 @@ const ControlledInput = ({
     >
       {show.includes(DATE_SEGMENT.Year) && (
         <div>
-          <label data-h2-display="base(block)" htmlFor={ID.YEAR}>
+          <Field.Label htmlFor={ID.YEAR}>
             {intl.formatMessage(dateMessages.year)}
-          </label>
+          </Field.Label>
           <input
             id={ID.YEAR}
             name={ID.YEAR}
@@ -109,9 +110,9 @@ const ControlledInput = ({
       )}
       {show.includes(DATE_SEGMENT.Month) && (
         <div {...getMonthSpan(show)}>
-          <label data-h2-display="base(block)" htmlFor={ID.MONTH}>
+          <Field.Label htmlFor={ID.MONTH}>
             {intl.formatMessage(dateMessages.month)}
-          </label>
+          </Field.Label>
           <select
             id={ID.MONTH}
             name={ID.MONTH}
@@ -134,9 +135,9 @@ const ControlledInput = ({
       )}
       {show.includes(DATE_SEGMENT.Day) && (
         <div>
-          <label data-h2-display="base(block)" htmlFor={ID.DAY}>
+          <Field.Label htmlFor={ID.DAY}>
             {intl.formatMessage(dateMessages.day)}
-          </label>
+          </Field.Label>
           <input
             id={ID.DAY}
             name={ID.DAY}

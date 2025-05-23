@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
-import { Experience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
@@ -14,21 +14,34 @@ import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/s
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
 
+const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
+  fragment CareerTimelineSectionExperience on Experience {
+    id
+    ...ExperienceCard
+  }
+`);
+
 interface CareerTimelineSectionProps {
-  experiences?: Omit<Experience, "user">[];
+  experiencesQuery?: FragmentType<
+    typeof CareerTimelineSectionExperience_Fragment
+  >[];
   editParam?: string;
   headingLevel?: HeadingRank;
   userId?: string;
 }
 
 const CareerTimelineSection = ({
-  experiences,
+  experiencesQuery,
   editParam,
   headingLevel = "h3",
   userId,
 }: CareerTimelineSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const experiences = getFragment(
+    CareerTimelineSectionExperience_Fragment,
+    experiencesQuery,
+  );
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     useState<ExperienceSortAndFilterFormValues>({
@@ -85,7 +98,7 @@ const CareerTimelineSection = ({
               <ExperienceCard
                 headingLevel={headingLevel}
                 key={experience.id}
-                experience={experience}
+                experienceQuery={experience}
                 editParam={editParam}
               />
             ))

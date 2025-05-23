@@ -24,7 +24,7 @@ class PoolCandidateZipGenerator extends ZipGenerator implements FileGeneratorInt
             'generalQuestionResponses' => ['generalQuestion'],
         ])
             ->whereIn('id', $this->ids)
-            ->authorizedToView(['userId' => $this->userId])
+            ->whereAuthorizedToView(['userId' => $this->userId])
             ->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
                     $generator = new PoolCandidateDocGenerator($candidate, $this->anonymous, $this->dir, $this->lang);

@@ -19,7 +19,10 @@ import {
   EducationType,
   EmploymentCategory,
   GovPositionType,
-  graphql,
+  LocalizedCafForce,
+  LocalizedEducationType,
+  LocalizedEmploymentCategory,
+  LocalizedString,
   Maybe,
   PersonalExperience,
   Skill,
@@ -105,8 +108,8 @@ export const getExperienceFormLabels = (
 
   if (experienceType === "community") {
     organization = intl.formatMessage({
-      defaultMessage: "Group / Organization / Community",
-      id: "Badvbb",
+      defaultMessage: "Group, organization, or community",
+      id: "c11b35",
       description:
         "Label displayed on Community Experience form for organization input",
     });
@@ -245,18 +248,8 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on experience form/card for how a skill was applied section",
     }),
-    classificationGroup: intl.formatMessage({
-      defaultMessage: "Group",
-      id: "kUqaoo",
-      description:
-        "Label displayed on Work Experience form for classification group input",
-    }),
-    classificationLevel: intl.formatMessage({
-      defaultMessage: "Level",
-      id: "Y7Qop6",
-      description:
-        "Label displayed on Work Experience form for classification level input",
-    }),
+    classificationGroup: intl.formatMessage(commonMessages.group),
+    classificationLevel: intl.formatMessage(commonMessages.level),
     extSizeOfOrganization: intl.formatMessage({
       defaultMessage: "Size of the organization",
       id: "HP5PEg",
@@ -508,7 +501,14 @@ export const formValuesToSubmitData = (
   };
 };
 
-type SimpleAnyExperience = Omit<AnyExperience, "user">;
+export interface SimpleAnyExperience {
+  __typename?:
+    | "AwardExperience"
+    | "CommunityExperience"
+    | "EducationExperience"
+    | "PersonalExperience"
+    | "WorkExperience";
+}
 
 export const isAwardExperience = (
   e: SimpleAnyExperience,
@@ -580,9 +580,9 @@ export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
  * @returns
  */
 export const deriveExperienceType = (
-  experience: AnyExperience,
+  experience: SimpleAnyExperience,
 ): ExperienceType | undefined => {
-  const map = new Map<AnyExperience["__typename"], ExperienceType>([
+  const map = new Map<SimpleAnyExperience["__typename"], ExperienceType>([
     ["AwardExperience", "award"],
     ["EducationExperience", "education"],
     ["CommunityExperience", "community"],
@@ -828,14 +828,28 @@ export const queryResultToDefaultValues = (
   };
 };
 
+export interface ExperienceName extends SimpleAnyExperience {
+  title?: Maybe<string>;
+  organization?: Maybe<string>;
+  type?: Maybe<Partial<LocalizedEducationType>>;
+  areaOfStudy?: Maybe<string>;
+  institution?: Maybe<string>;
+  role?: Maybe<string>;
+  employmentCategory?: Maybe<Partial<LocalizedEmploymentCategory>>;
+  department?: Maybe<{
+    name?: Maybe<Partial<LocalizedString>>;
+  }>;
+  cafForce?: Maybe<Partial<LocalizedCafForce>>;
+}
+
 /**
  * Get the name of any experience type
  *
  * @param AnyExperience experience
  * @return string|ReactNode
  */
-export const getExperienceName = (
-  experience: AnyExperience,
+export const getExperienceName = <T extends ExperienceName>(
+  experience: T,
   intl: IntlShape,
   html = false,
 ) => {
@@ -1124,233 +1138,6 @@ export const experiencesDurationMonths = (
     .map((experience) => experienceDurationMonths(experience))
     .reduce((acc, months) => acc + months, 0);
 
-// this should be replaced in #12877 by a fragment that lives right in the card
-export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
-  fragment ExperienceCard on Experience {
-    id
-    __typename
-    details
-    skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      experienceSkillRecord {
-        details
-      }
-    }
-    ... on AwardExperience {
-      title
-      issuedBy
-      awardedDate
-      awardedTo {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      awardedScope {
-        value
-        label {
-          en
-          fr
-        }
-      }
-    }
-    ... on CommunityExperience {
-      title
-      organization
-      project
-      startDate
-      endDate
-    }
-    ... on EducationExperience {
-      institution
-      areaOfStudy
-      thesisTitle
-      startDate
-      endDate
-      type {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-    }
-    ... on PersonalExperience {
-      title
-      description
-      startDate
-      endDate
-    }
-    ... on WorkExperience {
-      id
-      role
-      organization
-      division
-      startDate
-      endDate
-      details
-      employmentCategory {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extSizeOfOrganization {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govPositionType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      contractorFirmAgencyName
-      cafEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafForce {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafRank {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      supervisoryPosition
-      supervisedEmployees
-      supervisedEmployeesNumber
-      budgetManagement
-      annualBudgetAllocation
-      seniorManagementStatus
-      cSuiteRoleTitle {
-        value
-        label {
-          localized
-        }
-      }
-      otherCSuiteRoleTitle
-      classification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-        maxSalary
-        minSalary
-      }
-      department {
-        id
-        name {
-          en
-          fr
-        }
-        departmentNumber
-      }
-      workStreams {
-        id
-        key
-        name {
-          localized
-        }
-        community {
-          id
-          key
-          name {
-            localized
-          }
-        }
-      }
-      skills {
-        id
-        key
-        category {
-          value
-          label {
-            localized
-          }
-        }
-        name {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-    }
-  }
-`);
+export interface SnapshotExperience extends Omit<AnyExperience, "user"> {
+  __typename?: AnyExperience["__typename"];
+}

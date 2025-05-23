@@ -141,136 +141,7 @@ export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
 export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
   fragment UpdateUserSkillExperience on Experience {
     id
-    __typename
-    details
-    ... on AwardExperience {
-      title
-      issuedBy
-      awardedDate
-      awardedTo {
-        value
-      }
-      awardedScope {
-        value
-      }
-    }
-    ... on CommunityExperience {
-      title
-      organization
-      project
-      startDate
-      endDate
-    }
-    ... on EducationExperience {
-      institution
-      areaOfStudy
-      thesisTitle
-      startDate
-      endDate
-      type {
-        value
-      }
-      status {
-        value
-      }
-    }
-    ... on PersonalExperience {
-      title
-      description
-      startDate
-      endDate
-    }
-    ... on WorkExperience {
-      role
-      organization
-      division
-      startDate
-      endDate
-      employmentCategory {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extSizeOfOrganization {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govPositionType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      contractorFirmAgencyName
-      cafEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafForce {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafRank {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      classification {
-        id
-        group
-        level
-      }
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-    }
+    ...ExperienceSkillFormDialogExperience
   }
 `);
 
@@ -301,169 +172,7 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
     }
     experiences {
       id
-      __typename
-      details
-      ... on AwardExperience {
-        title
-        issuedBy
-        awardedDate
-        awardedTo {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        awardedScope {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
-      ... on CommunityExperience {
-        title
-        organization
-        project
-        startDate
-        endDate
-      }
-      ... on EducationExperience {
-        institution
-        areaOfStudy
-        thesisTitle
-        startDate
-        endDate
-        type {
-          value
-          label {
-            localized
-          }
-        }
-        status {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
-      ... on PersonalExperience {
-        title
-        description
-        startDate
-        endDate
-      }
-      ... on WorkExperience {
-        role
-        organization
-        division
-        startDate
-        endDate
-        employmentCategory {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        extSizeOfOrganization {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        extRoleSeniority {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        govEmploymentType {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        govPositionType {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        govContractorRoleSeniority {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        govContractorType {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        contractorFirmAgencyName
-        cafEmploymentType {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        cafForce {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        cafRank {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        classification {
-          id
-          group
-          level
-        }
-        department {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
-        }
-      }
-      skills {
-        id
-        key
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        name {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
+      ...ExperienceCard
     }
   }
 `);
@@ -494,7 +203,7 @@ export const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
+  const linkedExperiences = unpackMaybes(userSkill?.experiences);
   const from = searchParams.get("from");
   const fromShowcase = from && from === "showcase";
   const returnPath = fromShowcase
@@ -889,7 +598,7 @@ export const UpdateUserSkillForm = ({
                 >
                   <ExperienceSkillFormDialog
                     skill={skill}
-                    availableExperiences={availableExperiences}
+                    availableExperiencesQuery={availableExperiences}
                     trigger={
                       <Button color="secondary" icon={PlusCircleIcon}>
                         {intl.formatMessage({
@@ -912,7 +621,7 @@ export const UpdateUserSkillForm = ({
                   {linkedExperiences.map((experience) => (
                     <ExperienceCard
                       key={experience.id}
-                      experience={experience}
+                      experienceQuery={experience}
                       headingLevel="h3"
                       editMode="dialog"
                       showSkills={skill}

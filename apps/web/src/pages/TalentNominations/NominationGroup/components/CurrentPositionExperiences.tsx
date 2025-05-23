@@ -20,6 +20,10 @@ export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
     updatedDate
     experiences {
       id
+      ... on WorkExperience {
+        startDate
+        endDate
+      }
       ...ExperienceCard
     }
   }
@@ -61,18 +65,15 @@ const CurrentPositionExperiences = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
-  const experiences = unpackMaybes(data?.experiences);
-
-  const workExperiences = experiences.filter((experience) =>
-    isWorkExperience(experience),
+  const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
+    (exp) => isWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
 
-  const currentWorkExperiences = workExperiences.filter((exp) =>
-    isCurrentExperience(exp.endDate),
-  );
   const sorted = currentWorkExperiences.sort((a, b) => {
-    const aStart = a?.startDate ? new Date(a.startDate) : MAX_DATE;
-    const bStart = b?.startDate ? new Date(b.startDate) : MAX_DATE;
+    const aStart =
+      "startDate" in a && a.startDate ? new Date(a.startDate) : MAX_DATE;
+    const bStart =
+      "startDate" in b && b.startDate ? new Date(b.startDate) : MAX_DATE;
     return bStart.getTime() - aStart.getTime(); // more recent start sorted higher
   });
 
@@ -110,7 +111,11 @@ const CurrentPositionExperiences = ({
             data-h2-gap="base(x.5 0)"
           >
             {sorted.map((exp) => (
-              <ExperienceCard key={exp.id} experience={exp} showEdit={false} />
+              <ExperienceCard
+                key={exp.id}
+                experienceQuery={exp}
+                showEdit={false}
+              />
             ))}
           </div>
         </div>

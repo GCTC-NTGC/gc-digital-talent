@@ -23,7 +23,9 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
             "aria-current": "page",
             reloadDocument: true,
           }
-        : {})}
+        : {
+            "data-h2-text-decoration": "base(underline)",
+          })}
     >
       {children}
     </Link>

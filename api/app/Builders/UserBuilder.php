@@ -120,7 +120,7 @@ class UserBuilder extends Builder
      * Only consider pool candidates who are available,
      * ie not expired, with the AVAILABLE status, and the application is not suspended
      */
-    public function availableInPools(?array $poolIds): self
+    public function whereAvailableInPools(?array $poolIds): self
     {
         if (empty($poolIds)) {
             return $this;
@@ -241,7 +241,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            PoolCandidate::scopeAppliedClassifications($query, $classifications);
+            $query->whereAppliedClassificationsIn($classifications);
         });
     }
 
@@ -258,7 +258,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            PoolCandidate::scopeWhereQualifiedClassificationsIn($query, $classifications);
+            $query->whereQualifiedClassificationsIn($classifications);
         });
     }
 
@@ -273,7 +273,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($streams) {
-            PoolCandidate::scopeWhereQualifiedStreamsIn($query, $streams);
+            $query->whereQualifiedStreamsIn($streams);
         });
     }
 
@@ -290,7 +290,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            return PoolCandidate::scopePublishingGroups($query, $publishingGroups);
+            $query->wherePublishingGroupsIn($publishingGroups);
         });
     }
 
@@ -313,10 +313,9 @@ class UserBuilder extends Builder
                 if (array_key_exists('workStreams', $filters)) {
                     $query->whereWorkStreamsIn($filters['workStreams']);
                 }
-            });
-
-            PoolCandidate::scopeAvailable($innerQueryBuilder);
-            PoolCandidate::scopeInTalentSearchablePublishingGroup($innerQueryBuilder);
+            })
+                ->whereAvailable()
+                ->whereInTalentSearchablePublishingGroup();
 
             return $innerQueryBuilder;
         });
@@ -332,7 +331,7 @@ class UserBuilder extends Builder
         }
 
         return $this->whereHas('poolCandidates', function ($query) use ($communityId) {
-            return PoolCandidate::scopeWhereHasPoolCandidateCommunity($query, $communityId);
+            return $query->whereHasPoolCandidateCommunity($communityId);
         });
     }
 

@@ -32,6 +32,11 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         data-h2-color="base:all(white)"
         data-h2-background-color="base:all(black.darker)"
         data-h2-padding="base(x1)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(column)"
+        data-h2-justify-content="base(center)"
+        data-h2-min-height="base(auto)"
+        data-h2-width="base(100%)"
       >
         <Heading
           level="h3"
@@ -42,14 +47,17 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
           {content.title}
         </Heading>
       </div>
-      <div
-        data-h2-height="base(x10) desktop(x12)"
-        style={{
-          backgroundImage: `url('${content.img.path}')`,
-          backgroundPosition: content.img.position ?? "center",
-          backgroundSize: "cover",
-        }}
-      />
+      <div>
+        <img
+          src={content.img.path}
+          alt={content.title}
+          data-h2-display="base(block)"
+          data-h2-max-width="base(100%)"
+          data-h2-height="base(auto)"
+          data-h2-object-fit="base(cover)"
+          data-h2-object-position="base(center center)"
+        />
+      </div>
       <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
         {content.summary}
       </div>

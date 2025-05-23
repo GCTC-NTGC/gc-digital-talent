@@ -1,6 +1,4 @@
 @import "./hydrogen.css";
-@import "tailwindcss";
-@source "../../../../../packages";
 
 /* TO DO: Should remove these when configuring tailwind */
 button,
@@ -16,12 +14,12 @@ button {
   border: none;
 }
 
-ul {
+ul:not(.list-none) {
   list-style-type: disc;
   padding-inline-start: 2.2rem;
 }
 
-ul ul {
+ul ul:not(.list-none) {
   list-style-type: circle;
 }
 

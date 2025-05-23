@@ -2685,16 +2685,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.44.7",
+            "version": "v11.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "00bc6ac91a6d577bf051c18ddaa638c0d221e1c7"
+                "reference": "d0730deb427632004d24801be7ca1ed2c10fbc4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/00bc6ac91a6d577bf051c18ddaa638c0d221e1c7",
-                "reference": "00bc6ac91a6d577bf051c18ddaa638c0d221e1c7",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d0730deb427632004d24801be7ca1ed2c10fbc4e",
+                "reference": "d0730deb427632004d24801be7ca1ed2c10fbc4e",
                 "shasum": ""
             },
             "require": {
@@ -2715,7 +2715,7 @@
                 "guzzlehttp/uri-template": "^1.0",
                 "laravel/prompts": "^0.1.18|^0.2.0|^0.3.0",
                 "laravel/serializable-closure": "^1.3|^2.0",
-                "league/commonmark": "^2.6",
+                "league/commonmark": "^2.7",
                 "league/flysystem": "^3.25.1",
                 "league/flysystem-local": "^3.25.1",
                 "league/uri": "^7.5.1",
@@ -2802,7 +2802,7 @@
                 "league/flysystem-read-only": "^3.25.1",
                 "league/flysystem-sftp-v3": "^3.25.1",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^9.11.2",
+                "orchestra/testbench-core": "^9.13.2",
                 "pda/pheanstalk": "^5.0.6",
                 "php-http/discovery": "^1.15",
                 "phpstan/phpstan": "^2.0",
@@ -2896,7 +2896,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-04-25T12:40:47+00:00"
+            "time": "2025-05-20T15:15:58+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2959,16 +2959,16 @@
         },
         {
             "name": "laravel/scout",
-            "version": "v10.14.1",
+            "version": "v10.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/scout.git",
-                "reference": "6ae3ec83ceacb554f395df9fe15318a14b79bb39"
+                "reference": "102fe09ae1c045c6f9cf1b3a2234e1fadb2198f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/scout/zipball/6ae3ec83ceacb554f395df9fe15318a14b79bb39",
-                "reference": "6ae3ec83ceacb554f395df9fe15318a14b79bb39",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/102fe09ae1c045c6f9cf1b3a2234e1fadb2198f2",
+                "reference": "102fe09ae1c045c6f9cf1b3a2234e1fadb2198f2",
                 "shasum": ""
             },
             "require": {
@@ -3036,7 +3036,7 @@
                 "issues": "https://github.com/laravel/scout/issues",
                 "source": "https://github.com/laravel/scout"
             },
-            "time": "2025-04-01T14:58:03+00:00"
+            "time": "2025-05-13T13:34:05+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -4101,16 +4101,16 @@
         },
         {
             "name": "mll-lab/laravel-graphiql",
-            "version": "v4.0.1",
+            "version": "v4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mll-lab/laravel-graphiql.git",
-                "reference": "2ebe7c4405b58028c93d3a08623f3b162a90012d"
+                "reference": "50135ffb1874e41cd6bb59d6334e8639fe579c72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/2ebe7c4405b58028c93d3a08623f3b162a90012d",
-                "reference": "2ebe7c4405b58028c93d3a08623f3b162a90012d",
+                "url": "https://api.github.com/repos/mll-lab/laravel-graphiql/zipball/50135ffb1874e41cd6bb59d6334e8639fe579c72",
+                "reference": "50135ffb1874e41cd6bb59d6334e8639fe579c72",
                 "shasum": ""
             },
             "require": {
@@ -4161,9 +4161,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mll-lab/laravel-graphiql/issues",
-                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v4.0.1"
+                "source": "https://github.com/mll-lab/laravel-graphiql/tree/v4.0.2"
             },
-            "time": "2025-05-07T16:45:31+00:00"
+            "time": "2025-05-12T07:21:46+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4679,31 +4679,31 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v2.3.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "52915afe6a1044e8b9cee1bcff836fb63acf9cda"
+                "reference": "dfa08f390e509967a15c22493dc0bac5733d9123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/52915afe6a1044e8b9cee1bcff836fb63acf9cda",
-                "reference": "52915afe6a1044e8b9cee1bcff836fb63acf9cda",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/dfa08f390e509967a15c22493dc0bac5733d9123",
+                "reference": "dfa08f390e509967a15c22493dc0bac5733d9123",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": "^8.2",
-                "symfony/console": "^7.1.8"
+                "symfony/console": "^7.2.6"
             },
             "require-dev": {
-                "illuminate/console": "^11.33.2",
-                "laravel/pint": "^1.18.2",
+                "illuminate/console": "^11.44.7",
+                "laravel/pint": "^1.22.0",
                 "mockery/mockery": "^1.6.12",
-                "pestphp/pest": "^2.36.0",
-                "phpstan/phpstan": "^1.12.11",
-                "phpstan/phpstan-strict-rules": "^1.6.1",
-                "symfony/var-dumper": "^7.1.8",
+                "pestphp/pest": "^2.36.0 || ^3.8.2",
+                "phpstan/phpstan": "^1.12.25",
+                "phpstan/phpstan-strict-rules": "^1.6.2",
+                "symfony/var-dumper": "^7.2.6",
                 "thecodingmachine/phpstan-strict-rules": "^1.0.0"
             },
             "type": "library",
@@ -4746,7 +4746,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v2.3.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v2.3.1"
             },
             "funding": [
                 {
@@ -4762,20 +4762,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-21T10:39:51+00:00"
+            "time": "2025-05-08T08:14:37+00:00"
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.56.0",
+            "version": "v6.57.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "b6d5ed680cd27fcf3a84540b6d6ceccabcb4bdf7"
+                "reference": "84e43f6ded2c1cad309d939185520e83da13101a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/b6d5ed680cd27fcf3a84540b6d6ceccabcb4bdf7",
-                "reference": "b6d5ed680cd27fcf3a84540b6d6ceccabcb4bdf7",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/84e43f6ded2c1cad309d939185520e83da13101a",
+                "reference": "84e43f6ded2c1cad309d939185520e83da13101a",
                 "shasum": ""
             },
             "require": {
@@ -4893,7 +4893,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-05-07T15:03:59+00:00"
+            "time": "2025-05-21T11:50:13+00:00"
         },
         {
             "name": "phpoffice/math",
@@ -8941,16 +8941,16 @@
         },
         {
             "name": "thecodingmachine/safe",
-            "version": "v3.1.1",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/safe.git",
-                "reference": "234f6fe34a0bead8c5ae1cfc0800539442e6f619"
+                "reference": "2cdd579eeaa2e78e51c7509b50cc9fb89a956236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/234f6fe34a0bead8c5ae1cfc0800539442e6f619",
-                "reference": "234f6fe34a0bead8c5ae1cfc0800539442e6f619",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/2cdd579eeaa2e78e51c7509b50cc9fb89a956236",
+                "reference": "2cdd579eeaa2e78e51c7509b50cc9fb89a956236",
                 "shasum": ""
             },
             "require": {
@@ -9060,7 +9060,7 @@
             "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
             "support": {
                 "issues": "https://github.com/thecodingmachine/safe/issues",
-                "source": "https://github.com/thecodingmachine/safe/tree/v3.1.1"
+                "source": "https://github.com/thecodingmachine/safe/tree/v3.3.0"
             },
             "funding": [
                 {
@@ -9076,7 +9076,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-04-28T07:56:17+00:00"
+            "time": "2025-05-14T06:15:44+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -9937,16 +9937,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36"
+                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36",
-                "reference": "7ddfaa6523a675fae5c4123ee38fc6bfb8ee4f36",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/941d1927c5ca420c22710e98420287169c7bcaf7",
+                "reference": "941d1927c5ca420c22710e98420287169c7bcaf7",
                 "shasum": ""
             },
             "require": {
@@ -9958,11 +9958,11 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.75.0",
-                "illuminate/view": "^11.44.2",
-                "larastan/larastan": "^3.3.1",
+                "illuminate/view": "^11.44.7",
+                "larastan/larastan": "^3.4.0",
                 "laravel-zero/framework": "^11.36.1",
                 "mockery/mockery": "^1.6.12",
-                "nunomaduro/termwind": "^2.3",
+                "nunomaduro/termwind": "^2.3.1",
                 "pestphp/pest": "^2.36.0"
             },
             "bin": [
@@ -9999,7 +9999,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-04-08T22:11:45+00:00"
+            "time": "2025-05-08T08:38:12+00:00"
         },
         {
             "name": "mockery/mockery",
