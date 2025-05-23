@@ -310,7 +310,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(WorkExperience::class);
     }
 
-    /** @return Collection<string|int, Experience> */
+    /** @return \Illuminate\Support\Collection<string|int, Experience> */
     public function getExperiencesAttribute()
     {
         $collection = collect();
