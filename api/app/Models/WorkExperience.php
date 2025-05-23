@@ -83,7 +83,7 @@ class WorkExperience extends Experience
         'senior_management_status' => 'boolean',
     ];
 
-    public static $hydrationFields = [
+    protected static $hydrationFields = [
         'organization' => 'organization',
         'role' => 'role',
         'division' => 'division',

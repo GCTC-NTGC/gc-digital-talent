@@ -25,13 +25,13 @@ abstract class Experience extends Model
 
     protected $keyType = 'string';
 
+    protected static $hydrationFields;
+
     abstract public function getTitle(): string;
 
     abstract public function getExperienceType(): string;
 
     abstract public function getDateRange($lang = 'en'): string;
-
-    protected static $hydrationFields;
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo

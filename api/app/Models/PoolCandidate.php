@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -259,6 +260,7 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
+    /** @return Collection<string|int, Experience> */
     public function getEducationRequirementExperiencesAttribute()
     {
         $collection = collect();

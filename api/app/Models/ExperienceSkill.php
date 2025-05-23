@@ -30,6 +30,7 @@ class ExperienceSkill extends Model
 
     protected $table = 'experience_skill';
 
+    /** @return MorphTo<Experience, $this> */
     public function experience(): MorphTo
     {
         return $this->morphTo('experience');
