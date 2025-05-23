@@ -39,7 +39,7 @@ class EducationExperience extends Experience
         'end_date' => 'date',
     ];
 
-    public static $hydrationFields = [
+    protected static $hydrationFields = [
         'institution' => 'institution',
         'area_of_study' => 'areaOfStudy',
         'thesis_title' => 'thesisTitle',

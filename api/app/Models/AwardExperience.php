@@ -35,7 +35,7 @@ class AwardExperience extends Experience
         'awarded_date' => 'date',
     ];
 
-    public static $hydrationFields = [
+    protected static $hydrationFields = [
         'title' => 'title',
         'issued_by' => 'issuedBy',
         'awarded_date' => 'awardedDate',

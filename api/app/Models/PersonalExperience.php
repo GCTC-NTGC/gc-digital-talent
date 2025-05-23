@@ -36,7 +36,7 @@ class PersonalExperience extends Experience
         'end_date' => 'date',
     ];
 
-    public static $hydrationFields = [
+    protected static $hydrationFields = [
         'title' => 'title',
         'description' => 'description',
         'start_date' => 'startDate',
