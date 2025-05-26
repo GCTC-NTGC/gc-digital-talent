@@ -5,9 +5,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-
-import TextArea from ".";
-import type { TextAreaProps } from ".";
+import TextArea, { type TextAreaProps } from "./TextArea";
 
 export default {
   component: TextArea,
