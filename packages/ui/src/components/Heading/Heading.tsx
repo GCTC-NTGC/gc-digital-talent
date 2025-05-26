@@ -62,7 +62,7 @@ const heading = tv({
 type HeadingVariants = VariantProps<typeof heading>;
 
 export interface HeadingProps
-  extends HeadingVariants,
+  extends Omit<HeadingVariants, "hasIcon">,
     Omit<HTMLAttributes<HTMLHeadingElement>, "color" | "icon"> {
   level?: HeadingVariants["size"];
   icon?: IconType;
