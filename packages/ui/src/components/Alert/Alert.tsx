@@ -1,4 +1,3 @@
-
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 import {
@@ -176,7 +175,10 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
   const Heading = as;
 
   return (
-    <Heading className="mb-3 text-lg/[1] font-bold lg:text-xl/[1]" {...rest}>
+    <Heading
+      className="mb-3 text-lg/[1.1] font-bold lg:text-xl/[1.1]"
+      {...rest}
+    >
       {alertLevelTitle && <span className="sr-only">{alertLevelTitle} </span>}
       {children}
     </Heading>
