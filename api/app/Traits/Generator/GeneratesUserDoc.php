@@ -451,7 +451,7 @@ trait GeneratesUserDoc
                         $this->addLabelText($section, $this->localize('experiences.c_suite_role_title'), $this->localizeEnum($experience->c_suite_role_title, CSuiteRoleTitle::class));
                     }
                     if ($experience->c_suite_role_title === CSuiteRoleTitle::OTHER->name) {
-                        $this->addLabelText($section, $this->localize('experiences.other_c_suite_role_title'), $this->localize('experiences.other_c_suite_role_title'));
+                        $this->addLabelText($section, $this->localize('experiences.other_c_suite_role_title'), $experience->other_c_suite_role_title);
                     }
                 }
             } else {

@@ -35,6 +35,7 @@ return [
     'annual_budget_allocation' => 'Allocation budgétaire annuelle ($CAN)',
     'senior_management_status' => 'Statut de cadre supérieur',
     'c_suite_role_title' => 'Titre du rôle de cadre supérieur',
+    'other_c_suite_role_title' => 'Autre titre de cadre supérieur',
     // Values
     'senior_management_true' => 'Il s\'agissait d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
     'senior_management_false' => 'Il ne s\'agissait pas d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
