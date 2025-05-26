@@ -467,7 +467,7 @@ trait GeneratesUserDoc
         if ($type === WorkExperience::class) {
             /** @var WorkExperience $experience */
             if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
-                if ($experience->workStreams) {
+                if ($experience->workStreams && count($experience->workStreams) > 0) {
                     $workStreamsByCommunity = [];
                     foreach ($experience->workStreams as $workStream) {
                         if (isset($workStreamsByCommunity[$workStream->community_id])) {
