@@ -255,8 +255,8 @@ const EmployeeProfile = ({
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
                   level="h2"
-                  Icon={ChartBarSquareIcon}
-                  color="secondary"
+                  icon={ChartBarSquareIcon}
+                  color="primary"
                   data-h2-margin-top="base(0)"
                   data-h2-font-weight="base(400)"
                   data-h2-text-align="base(center) l-tablet(initial)"
