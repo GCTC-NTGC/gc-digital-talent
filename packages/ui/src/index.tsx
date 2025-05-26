@@ -43,7 +43,6 @@ import Heading, {
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
-import { headingStyles } from "./components/Heading/styles";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -197,7 +196,6 @@ export {
 export {
   incrementHeadingRank,
   decrementHeadingRank,
-  headingStyles,
   useCardRepeaterContext,
   useControllableState,
   getNavLinkStyling,
