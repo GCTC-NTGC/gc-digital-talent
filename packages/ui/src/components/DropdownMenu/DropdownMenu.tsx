@@ -17,7 +17,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "rounded bg-white p-3 font-sans text-black shadow dark:bg-gray-600 dark:text-white",
+  base: "rounded bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
 });
 
 const StyledContent = forwardRef<
@@ -36,7 +36,7 @@ const StyledArrow = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    className="text-white dark:text-gray-700"
+    className="fill-white dark:fill-gray-600"
     ref={forwardedRef}
     {...props}
   />
@@ -91,6 +91,8 @@ const item = tv({
         "text-warning-600 hover:text-warning-700 focus-visible:bg-focus focus-visible:text-black dark:text-warning-200 dark:hover:text-warning-300",
       error:
         "text-error-600 hover:text-error-700 focus-visible:bg-focus focus-visible:text-black dark:text-error-100 dark:hover:text-error-300",
+      black:
+        "hover:text-gray-900 text-black focus-visible:text-black dark:text-gray-100 dark:hover:text-gray-200",
     },
     disabled: {
       true: "text-gray-600 focus-visible:text-black dark:text-gray-200",
