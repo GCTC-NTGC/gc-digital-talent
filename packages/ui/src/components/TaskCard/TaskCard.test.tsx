@@ -8,7 +8,7 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import TaskCard from "./TaskCard";
-import Well from "../Well";
+import Well from "../Well/Well";
 
 function renderComponent() {
   return renderWithProviders(

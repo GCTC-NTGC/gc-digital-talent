@@ -5,7 +5,7 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import TaskCard, { colorOptions } from "./TaskCard";
-import Well from "../Well";
+import Well from "../Well/Well";
 
 faker.seed(0);
 
