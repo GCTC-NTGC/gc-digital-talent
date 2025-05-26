@@ -1736,7 +1736,7 @@
     "description": "Title for Goals and work style section of user employee information page"
   },
   "5wKh/o": {
-    "defaultMessage": "Démontré",
+    "defaultMessage": "Démontrée",
     "description": "Option for assessment decision when candidate has successful assessment."
   },
   "5zJ+/1": {
@@ -3288,7 +3288,7 @@
     "description": "Display text for the current location field on users"
   },
   "DOmsNQ": {
-    "defaultMessage": "Non démontré suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
+    "defaultMessage": "Non démontrée suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
     "description": "Note for when an assessment was unsuccessful but put on hold"
   },
   "DOn3Hm": {
@@ -9230,6 +9230,10 @@
     "defaultMessage": "Catégorie (anglais)",
     "description": "Title for category in English"
   },
+  "fcSR2I": {
+    "defaultMessage": "Non démontrée",
+    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
+  },
   "fdKtYm": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the update a skill form description (English) field."
@@ -13372,10 +13376,6 @@
   "zXWJ/5": {
     "defaultMessage": "Intérêt pour la promotion et l'avancement",
     "description": "Label for an employee profile career development preference field"
-  },
-  "zXkLL2": {
-    "defaultMessage": "Non démontrée (supprimée du processus)",
-    "description": "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "zYKPdV": {
     "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
