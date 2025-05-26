@@ -23,7 +23,7 @@ const Instructions = () => {
 
   return (
     <UpdateForm<BaseFormValues>>
-      <SubHeading Icon={ClipboardDocumentListIcon}>
+      <SubHeading icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",
           id: "fhbTHo",

@@ -88,8 +88,8 @@ const CareerTimeline = ({ experiencesQuery, userId }: CareerTimelineProps) => {
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <div data-h2-padding="base(x3, 0)">
           <Heading
-            Icon={BookmarkSquareIcon}
-            color="tertiary"
+            icon={BookmarkSquareIcon}
+            color="error"
             size="h3"
             data-h2-margin="base(0, 0, x1, 0)"
             data-h2-font-weight="base(400)"

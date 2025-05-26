@@ -185,7 +185,7 @@ export const SkillShowcase = ({
               >
                 <TableOfContents.Heading
                   icon={BoltIcon}
-                  color="quaternary"
+                  color="warning"
                   data-h2-margin="base(0)"
                 >
                   {sections.topSkills.title}

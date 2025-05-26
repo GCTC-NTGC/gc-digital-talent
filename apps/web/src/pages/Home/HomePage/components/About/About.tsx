@@ -29,7 +29,7 @@ const About = () => {
               level="h2"
               size="h3"
               data-h2-font-weight="base(400)"
-              Icon={NewspaperIcon}
+              icon={NewspaperIcon}
               data-h2-margin="base(0)"
             >
               {intl.formatMessage({

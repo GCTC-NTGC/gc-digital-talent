@@ -80,9 +80,9 @@ const CurrentPositionExperiences = ({
   return (
     <>
       <Heading
-        Icon={FlagIcon}
+        icon={FlagIcon}
         level="h2"
-        color="primary"
+        color="secondary"
         data-h2-margin="base(x1.5 x1.5 0 x1.5)"
         data-h2-font-weight="base(400)"
       >

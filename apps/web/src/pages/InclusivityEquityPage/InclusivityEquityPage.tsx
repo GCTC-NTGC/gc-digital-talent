@@ -230,7 +230,7 @@ export const Component = () => {
               <TableOfContents.Heading
                 size="h3"
                 icon={HandRaisedIcon}
-                color="tertiary"
+                color="error"
               >
                 {sections.commitment.title}
               </TableOfContents.Heading>
