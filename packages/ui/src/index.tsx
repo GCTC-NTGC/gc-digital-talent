@@ -35,7 +35,7 @@ import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DescriptionList from "./components/DescriptionList/DescriptionList";
-import Dialog from "./components/Dialog";
+import Dialog from "./components/Dialog/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
 import Heading, {
