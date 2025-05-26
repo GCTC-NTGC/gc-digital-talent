@@ -251,10 +251,10 @@ export const UpdateSkillFamily = ({
             data-h2-justify-content="base(center) p-tablet(flex-start)"
           >
             <Heading
-              color="primary"
+              color="secondary"
               size="h2"
               data-h2-margin-top="base(0)"
-              Icon={IdentificationIcon}
+              icon={IdentificationIcon}
             >
               {intl.formatMessage(messages.skillFamilyInfo)}
             </Heading>

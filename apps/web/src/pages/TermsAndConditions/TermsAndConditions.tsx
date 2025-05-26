@@ -604,7 +604,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -637,7 +636,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -660,7 +658,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -683,7 +680,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -749,7 +745,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -774,7 +769,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -805,7 +799,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
@@ -830,7 +823,6 @@ export const Component = () => {
                   <Heading
                     level="h3"
                     size="h4"
-                    color="black"
                     data-h2-font-weight="base(bold)"
                     data-h2-margin-bottom="base(x1)"
                   >
