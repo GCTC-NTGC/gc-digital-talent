@@ -15,9 +15,9 @@ import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
 import Breadcrumbs, {
-  Crumb,
   type BreadcrumbsProps,
-} from "./components/Breadcrumbs";
+} from "./components/Breadcrumbs/Breadcrumbs";
+import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
