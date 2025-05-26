@@ -39,6 +39,25 @@ enum AssessmentResultJustification
         ];
     }
 
+    public static function educationJustificationsSuccess(): array
+    {
+        return [
+            AssessmentResultJustification::EDUCATION_ACCEPTED_INFORMATION,
+            AssessmentResultJustification::EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE,
+            AssessmentResultJustification::EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY,
+        ];
+    }
+
+    public static function educationJustificationsFailure(): array
+    {
+        return [
+            AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT,
+            AssessmentResultJustification::EDUCATION_FAILED_REQUIREMENT_NOT_MET,
+            AssessmentResultJustification::FAILED_NOT_ENOUGH_INFORMATION,
+            AssessmentResultJustification::FAILED_OTHER,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'assessment_result_justification';
