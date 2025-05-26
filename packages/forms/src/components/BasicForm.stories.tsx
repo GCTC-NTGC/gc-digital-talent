@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import BasicForm from "./BasicForm";
 import Repeater from "./Repeater/Repeater";
 import Submit from "./Submit";
-import Input from "./Input";
+import Input from "./Input/Input";
 
 const labels = {
   requiredField: "Required field",
