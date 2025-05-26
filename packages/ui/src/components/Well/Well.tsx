@@ -16,7 +16,7 @@ const well = tv({
       error:
         "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
       black:
-        "border-gray-600 bg-gray-100 text-gray-700 dark:border-gray-100 dark:bg-gray-700 dark:text-gray-100",
+        "border-gray-600 bg-gray-100/20 text-gray-700 dark:border-gray-100 dark:bg-gray-700 dark:text-gray-100",
     },
     fontSize: {
       body: "p-6",
