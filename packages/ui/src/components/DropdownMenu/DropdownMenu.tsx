@@ -2,12 +2,8 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/dropdown-menu
  */
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { tv, VariantProps } from "tailwind-variants";
 import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
-
-import { ButtonProps } from "../Button";
-import getFontColor from "../../utils/button/getButtonFontColor";
-import getBackgroundColor from "../../utils/button/getButtonBackgroundColor";
-import getBaseStyle from "../../utils/button/getButtonBaseStyle";
 
 const Trigger = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Trigger>,
@@ -20,23 +16,18 @@ const Trigger = forwardRef<
   />
 ));
 
-const contentStyles = {
-  "data-h2-font-family": "base(sans)",
-  "data-h2-background-color": "base(foreground)",
-  "data-h2-padding": "base(x.5)",
-  "data-h2-radius": "base(s)",
-  "data-h2-shadow": "base(s)",
-};
+const content = tv({
+  base: "rounded bg-white p-3 font-sans text-black shadow dark:bg-gray-600 dark:text-white",
+});
 
 const StyledContent = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Content
-    {...contentStyles}
-    style={{ zIndex: 99 }}
+    className={content({ class: ["z-10", className] })}
     ref={forwardedRef}
-    {...props}
+    {...rest}
   />
 ));
 
@@ -45,7 +36,7 @@ const StyledArrow = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    data-h2-fill="base(foreground)"
+    className="text-white dark:text-gray-700"
     ref={forwardedRef}
     {...props}
   />
@@ -66,11 +57,11 @@ const Content = ({ children, ...props }: DropdownMenuPrimitiveContentProps) => (
 const StyledSubContent = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.SubContent>,
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.SubContent
-    {...contentStyles}
+    className={content({ class: className })}
     ref={forwardedRef}
-    {...props}
+    {...rest}
   />
 ));
 
@@ -86,79 +77,80 @@ const SubContent = ({
   </DropdownMenuPrimitive.Portal>
 );
 
-const itemStyleProps = {
-  className: "DropdownMenu__Item",
-  "data-h2-align-items": "base(center)",
-  "data-h2-cursor": "base(pointer)",
-  "data-h2-display": "base(flex)",
-  "data-h2-font-weight": "base(700)",
-  "data-h2-padding": "base(x.25 x1)",
-  "data-h2-position": "base(relative)",
-  "data-h2-radius": "base(s)",
-  "data-h2-text-decoration": "base(underline)", // To match the buttons
-};
+const item = tv({
+  base: "transition-200 ease flex cursor-pointer items-center rounded bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
+  variants: {
+    color: {
+      primary:
+        "text-primary-600 hover:text-primary-700 focus-visible:bg-focus focus-visible:text-black dark:text-primary-200 dark:hover:text-primary-300",
+      secondary:
+        "text-secondary-600 hover:text-secondary-700 focus-visible:bg-focus focus-visible:text-black dark:text-secondary-200 dark:hover:text-secondary-300",
+      success:
+        "text-success-600 hover:text-success-700 focus-visible:bg-focus focus-visible:text-black dark:text-success-200 dark:hover:text-success-300",
+      warning:
+        "text-warning-600 hover:text-warning-700 focus-visible:bg-focus focus-visible:text-black dark:text-warning-200 dark:hover:text-warning-300",
+      error:
+        "text-error-600 hover:text-error-700 focus-visible:bg-focus focus-visible:text-black dark:text-error-100 dark:hover:text-error-300",
+    },
+    disabled: {
+      true: "text-gray-600 focus-visible:text-black dark:text-gray-200",
+    },
+  },
+});
 
-type ItemProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
-  color?: ButtonProps["color"];
-};
+type ItemVariants = VariantProps<typeof item>;
+
+interface ItemProps
+  extends ItemVariants,
+    Omit<
+      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>,
+      "color"
+    > {}
 
 const Item = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.Item>,
   ItemProps
->(({ color = "secondary", disabled, ...rest }, forwardedRef) => (
+>(({ color = "primary", disabled, className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
     ref={forwardedRef}
     disabled={disabled}
-    {...{
-      ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color, disabled }),
-      ...getBackgroundColor({ mode: "inline", color, disabled }),
-    }}
-    {...itemStyleProps}
+    className={item({ color, disabled, class: className })}
     {...rest}
   />
 ));
 
-type CheckboxItemProps = ComponentPropsWithoutRef<
-  typeof DropdownMenuPrimitive.CheckboxItem
-> & {
-  color?: ButtonProps["color"];
-};
+interface CheckboxItemProps
+  extends ItemVariants,
+    Omit<
+      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+      "color"
+    > {}
 
 const CheckboxItem = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   CheckboxItemProps
->(({ color = "secondary", ...rest }, forwardedRef) => (
+>(({ color = "primary", className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={forwardedRef}
-    {...{
-      ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color }),
-      ...getBackgroundColor({ mode: "inline", color }),
-    }}
-    {...itemStyleProps}
+    className={item({ color, class: className })}
     {...rest}
   />
 ));
 
-type RadioItemProps = ComponentPropsWithoutRef<
-  typeof DropdownMenuPrimitive.RadioItem
-> & {
-  color?: ButtonProps["color"];
-};
+interface RadioItemProps
+  extends ItemVariants,
+    Omit<
+      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>,
+      "color"
+    > {}
 
 const RadioItem = forwardRef<
   ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
   RadioItemProps
->(({ color = "secondary", ...rest }, forwardedRef) => (
+>(({ color = "primary", className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
     ref={forwardedRef}
-    {...{
-      ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color }),
-      ...getBackgroundColor({ mode: "inline", color }),
-    }}
-    {...itemStyleProps}
+    className={item({ color, class: className })}
     {...rest}
   />
 ));
@@ -168,7 +160,7 @@ const Label = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
-    data-h2-color="base(black)"
+    className="text-black dark:text-white"
     ref={forwardedRef}
     {...props}
   />
@@ -179,9 +171,7 @@ const Separator = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
-    data-h2-color="base(gray.light)"
-    data-h2-margin="base(x.25, 0, x.25, 0)"
-    style={{ height: 1 }}
+    className="my-1.5 h-px text-gray-100/10"
     ref={forwardedRef}
     {...props}
   />
@@ -192,14 +182,7 @@ const ItemIndicator = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.ItemIndicator
-    data-h2-align-items="base(center)"
-    data-h2-display="base(inline-flex)"
-    data-h2-justify-content="base(center)"
-    data-h2-location="base(auto, auto, auto, 0)"
-    data-h2-position="base(absolute)"
-    data-h2-width="base(x1)"
-    data-h2-padding="base(x.25)"
-    style={{ height: 1 }}
+    className="absolute left-0 inline-flex h-px w-1.5 items-center justify-center"
     ref={forwardedRef}
     {...props}
   />
