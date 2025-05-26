@@ -32,8 +32,8 @@ const content = tv({
   base: "relative z-[9999] mx-auto w-[90vw] font-sans",
   variants: {
     wide: {
-      true: "max-w-6xl",
-      false: "max-w-3xl",
+      true: "max-w-5xl",
+      false: "max-w-2xl",
     },
   },
 });
@@ -162,7 +162,7 @@ const StyledTitle = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
   <DialogPrimitive.Title
-    className="mb-3 text-2xl font-bold"
+    className="mb-3 text-2xl font-bold lg:text-3xl"
     ref={forwardedRef}
     {...props}
   />
@@ -199,7 +199,7 @@ interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
 const Footer = ({ children, ...rest }: DialogFooterProps) => (
   <>
     <Separator space="sm" />
-    <div className="flex items-center gap-y-3" {...rest}>
+    <div className="flex items-center gap-x-3" {...rest}>
       {children}
     </div>
   </>
