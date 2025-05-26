@@ -443,7 +443,7 @@ trait GeneratesUserDoc
                         $this->addLabelText(
                             $section,
                             $this->localize('experiences.annual_budget_allocation'),
-                            Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()), // TODO: missing dollar sign
+                            Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()),
                         );
                     }
                     $this->addLabelText($section, $this->localize('experiences.senior_management_status'), $experience->senior_management_status ? Lang::get('experiences.senior_management_true') : Lang::get('experiences.senior_management_false'));
