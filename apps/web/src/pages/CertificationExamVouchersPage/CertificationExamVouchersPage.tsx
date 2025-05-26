@@ -85,8 +85,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={InformationCircleIcon}
-              color="primary"
+              icon={InformationCircleIcon}
+              color="secondary"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -123,8 +123,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={LightBulbIcon}
-              color="secondary"
+              icon={LightBulbIcon}
+              color="primary"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -213,8 +213,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={ClipboardIcon}
-              color="tertiary"
+              icon={ClipboardIcon}
+              color="error"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -258,8 +258,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={UserCircleIcon}
-              color="quaternary"
+              icon={UserCircleIcon}
+              color="warning"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -282,8 +282,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={QuestionMarkCircleIcon}
-              color="quinary"
+              icon={QuestionMarkCircleIcon}
+              color="success"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({

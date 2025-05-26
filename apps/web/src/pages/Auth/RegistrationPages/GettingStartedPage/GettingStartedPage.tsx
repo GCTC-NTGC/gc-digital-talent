@@ -312,8 +312,8 @@ export const GettingStartedForm = ({
               <Heading
                 level="h2"
                 size="h3"
-                Icon={FlagIcon}
-                color="primary"
+                icon={FlagIcon}
+                color="secondary"
                 data-h2-font-weight="base(400)"
                 data-h2-margin="base(0, 0, x1, 0)"
               >

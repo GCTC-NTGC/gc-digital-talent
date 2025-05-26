@@ -66,8 +66,8 @@ const ReviewAndSubmit = ({
         <Heading
           level="h2"
           data-h2-font-weight="base(400)"
-          Icon={DocumentMagnifyingGlassIcon}
-          color="primary"
+          icon={DocumentMagnifyingGlassIcon}
+          color="secondary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage(pageTitles.reviewAndSubmit)}

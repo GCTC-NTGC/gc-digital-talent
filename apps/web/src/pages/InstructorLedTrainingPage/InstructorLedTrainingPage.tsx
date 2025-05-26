@@ -327,8 +327,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={CalendarDaysIcon}
-              color="quaternary"
+              icon={CalendarDaysIcon}
+              color="warning"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -379,8 +379,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={UserCircleIcon}
-              color="tertiary"
+              icon={UserCircleIcon}
+              color="error"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -487,7 +487,7 @@ export const Component = () => {
                           data-h2-margin-bottom="base(x.5)"
                         >
                           <Heading
-                            Icon={
+                            icon={
                               trainingOpportunity.pinned
                                 ? PinnedIcon
                                 : CalendarIcon

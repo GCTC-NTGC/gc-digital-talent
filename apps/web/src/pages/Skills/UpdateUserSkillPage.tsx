@@ -576,7 +576,7 @@ export const UpdateUserSkillForm = ({
             <TableOfContents.Section id={sections.featuredExperiences.id}>
               <TableOfContents.Heading
                 icon={BookmarkSquareIcon}
-                color="tertiary"
+                color="error"
                 data-h2-margin="base(x3 0 x1 0)"
               >
                 {sections.featuredExperiences.title}
