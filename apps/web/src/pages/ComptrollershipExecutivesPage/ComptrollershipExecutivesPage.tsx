@@ -63,9 +63,9 @@ export const Component = () => {
       <div data-h2-margin="base(x3 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <Heading
-            Icon={UserCircleIcon}
+            icon={UserCircleIcon}
             size="h2"
-            color="primary"
+            color="secondary"
             data-h2-margin="base(x3 0 x1.5 0)"
             data-h2-font-weight="base(400)"
             data-h2-justify-content="base(center) p-tablet(start)"
@@ -149,9 +149,9 @@ export const Component = () => {
             })}
           </p>
           <Heading
-            Icon={ArrowTrendingUpIcon}
+            icon={ArrowTrendingUpIcon}
             size="h2"
-            color="secondary"
+            color="primary"
             data-h2-margin="base(x3 0 x1.5 0)"
             data-h2-font-weight="base(400)"
             data-h2-justify-content="base(center) p-tablet(start)"
@@ -189,9 +189,9 @@ export const Component = () => {
             data-h2-gap="base(x1.5)"
           >
             <Heading
-              Icon={UserGroupIcon}
+              icon={UserGroupIcon}
               size="h2"
-              color="quaternary"
+              color="warning"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
               data-h2-justify-content="base(center) p-tablet(start)"
@@ -259,9 +259,9 @@ export const Component = () => {
             data-h2-gap="base(x1.5)"
           >
             <Heading
-              Icon={BookOpenIcon}
+              icon={BookOpenIcon}
               size="h2"
-              color="tertiary"
+              color="error"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
             >

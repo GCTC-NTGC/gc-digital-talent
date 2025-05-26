@@ -77,8 +77,8 @@ const NotificationsPage = () => {
             <Sidebar.Content>
               <Heading
                 level="h2"
-                Icon={BellAlertIcon}
-                color="primary"
+                icon={BellAlertIcon}
+                color="secondary"
                 data-h2-font-weight="base(400)"
                 data-h2-margin-top="base(0)"
               >

@@ -560,7 +560,7 @@ export const EditPoolForm = ({
                       <Heading
                         level="h2"
                         size="h3"
-                        Icon={sectionMetadata.basicInfo.icon}
+                        icon={sectionMetadata.basicInfo.icon}
                         color={sectionMetadata.basicInfo.color}
                         data-h2-margin="base(0)"
                       >
@@ -622,7 +622,7 @@ export const EditPoolForm = ({
                       <Heading
                         level="h2"
                         size="h3"
-                        Icon={sectionMetadata.skillRequirements.icon}
+                        icon={sectionMetadata.skillRequirements.icon}
                         color={sectionMetadata.skillRequirements.color}
                         data-h2-margin="base(0)"
                       >
@@ -661,7 +661,7 @@ export const EditPoolForm = ({
                         <Heading
                           level="h2"
                           size="h3"
-                          Icon={sectionMetadata.aboutRole.icon}
+                          icon={sectionMetadata.aboutRole.icon}
                           color={sectionMetadata.aboutRole.color}
                           data-h2-margin="base(0)"
                         >
@@ -709,7 +709,7 @@ export const EditPoolForm = ({
                         <Heading
                           level="h2"
                           size="h3"
-                          Icon={sectionMetadata.commonQuestions.icon}
+                          icon={sectionMetadata.commonQuestions.icon}
                           color={sectionMetadata.commonQuestions.color}
                           data-h2-margin="base(0)"
                         >
