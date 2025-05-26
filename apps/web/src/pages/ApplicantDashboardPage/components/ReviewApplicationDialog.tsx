@@ -223,7 +223,7 @@ const ReviewApplicationDialog = ({
             <StatusSummary
               label={status.label}
               description={status.description}
-              color={status.color}
+              color={status.color ?? "primary"}
               data-h2-grid-column="p-tablet(span 2)"
             />
 

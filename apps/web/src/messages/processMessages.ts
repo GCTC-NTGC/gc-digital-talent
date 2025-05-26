@@ -167,10 +167,17 @@ const messages = defineMessages({
     id: "zNgDex",
     description: "Label for a process' area of selection",
   },
-  selectionLimitations: {
+  selectionLimitationsEmployee: {
     defaultMessage: "Employee selection limitations",
-    id: "5S5zo0",
-    description: "Label for a process' selection limitations",
+    id: "vLOt3K",
+    description:
+      "Label for a process' selection limitations when area of selection is for employees",
+  },
+  selectionLimitationsPublic: {
+    defaultMessage: "Canadian citizenship limitation",
+    id: "YjKKrR",
+    description:
+      "Label for a process' selection limitations when area of selection is for the public",
   },
 });
 

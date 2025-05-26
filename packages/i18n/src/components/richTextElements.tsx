@@ -144,6 +144,13 @@ const softHyphen = () => <>&shy;</>;
  */
 const cite = (text: ReactNode) => <cite>{text}</cite>;
 
+/**
+ * Used to add a stylized cursive font
+ */
+const italic = (text: ReactNode) => (
+  <span data-h2-font-style="base(italic)">{text}</span>
+);
+
 export default {
   strong,
   hidden,
@@ -160,4 +167,5 @@ export default {
   emphasize,
   softHyphen,
   cite,
+  italic,
 };

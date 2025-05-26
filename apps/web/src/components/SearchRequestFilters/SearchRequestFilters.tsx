@@ -186,7 +186,7 @@ const ApplicantFilters = ({
               skills && skills?.length > 0 ? (
                 <Chips>
                   {skills.map((skillName) => (
-                    <Chip key={skillName} color="primary">
+                    <Chip key={skillName} color="secondary">
                       {skillName}
                     </Chip>
                   ))}

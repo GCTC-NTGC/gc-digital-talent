@@ -4,21 +4,8 @@ import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { Color } from "../../types";
 import Chip from "./Chip";
 import Chips from "./Chips";
-
-const colors: Color[] = [
-  "primary",
-  "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
-  "error",
-  "warning",
-  "success",
-  "black",
-];
 
 export default {
   component: Chip,
@@ -39,11 +26,24 @@ export default {
 const Template: StoryFn<typeof Chip> = (args) => {
   return (
     <Chips>
-      {colors.map((color) => (
-        <Chip key={color} color={color} {...args}>
-          {color}
-        </Chip>
-      ))}
+      <Chip color="primary" {...args}>
+        Primary
+      </Chip>
+      <Chip color="secondary" {...args}>
+        Secondary
+      </Chip>
+      <Chip color="success" {...args}>
+        Success
+      </Chip>
+      <Chip color="warning" {...args}>
+        Warning
+      </Chip>
+      <Chip color="error" {...args}>
+        Error
+      </Chip>
+      <Chip color="black" {...args}>
+        Black
+      </Chip>
     </Chips>
   );
 };

@@ -108,6 +108,7 @@ const Header = ({ width }: HeaderProps) => {
                   data-h2-background-color="base:focus-visible(focus)"
                   data-h2-outline="base(none)"
                   data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
+                  data-h2-text-decoration="base(underline)"
                   href={languageTogglePath}
                   lang={changeToLang === "en" ? "en" : "fr"}
                 >

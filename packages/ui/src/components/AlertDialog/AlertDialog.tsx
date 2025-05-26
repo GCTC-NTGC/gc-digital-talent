@@ -16,11 +16,8 @@ const StyledOverlay = forwardRef<
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Overlay
-    data-h2-position="base(fixed)"
-    data-h2-background-color="base(black.light.9) base:dark(black.light.9)"
-    data-h2-location="base(0)"
-    style={{ zIndex: 9998 }}
     ref={forwardedRef}
+    className="fixed inset-0 z-[9998] bg-gray-700/90"
     {...props}
   />
 ));
@@ -30,27 +27,8 @@ const StyledContent = forwardRef<
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Content
-    data-h2-font-family="base(sans)"
-    data-h2-background-color="base(foreground)"
-    data-h2-border="base(1px solid black.2)"
-    data-h2-color="base(black)"
-    data-h2-margin="base(x3, auto)"
-    data-h2-padding="base(x1)"
-    data-h2-position="base(fixed)"
-    data-h2-location="base(50%, auto, auto, 50%)"
-    data-h2-radius="base(rounded)"
-    data-h2-transform="base(translate(-50%, -50%))"
-    data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-    data-h2-width="base(90vw)"
-    style={{
-      top: 0,
-      left: "50%",
-      maxWidth: 768,
-      transform: "translateX(-50%)",
-      width: "90vw",
-      zIndex: 9999,
-    }}
     ref={forwardedRef}
+    className="fixed inset-x-0 top-0 z-[9999] mx-auto my-18 w-[90vw] max-w-3xl rounded-md border border-black/20 bg-white p-6 font-sans text-black shadow-xl dark:border-white/20 dark:bg-gray-600 dark:text-white"
     {...props}
   />
 ));
@@ -89,10 +67,8 @@ const Title = forwardRef<
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Title
-    data-h2-font-weight="base(700)"
-    data-h2-font-size="base(h4)"
-    data-h2-margin="base(0, 0, x1, 0)"
     ref={forwardedRef}
+    className="mb-4 text-2xl font-bold"
     {...props}
   />
 ));
@@ -127,16 +103,10 @@ interface AlertDialogFooterProps {
 }
 
 const Footer = ({ children }: AlertDialogFooterProps) => (
-  <div data-h2-padding="base(x1 0 0 0)">
-    <Separator space="none" data-h2-margin-bottom="base(x1)" />
-    <div
-      data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
-      data-h2-gap="base(0 x1)"
-    >
-      {children}
-    </div>
-  </div>
+  <>
+    <Separator space="sm" decorative />
+    <div className="flex items-center gap-6">{children}</div>
+  </>
 );
 
 const { Root } = AlertDialogPrimitive;

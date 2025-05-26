@@ -233,17 +233,14 @@ export const SearchForm = ({
               <Heading level="h3" size="h4" id="results">
                 {intl.formatMessage(
                   {
-                    defaultMessage: `Results:
-                    { totalCandidateCount, plural,
-                      =0 {<testId><b>{totalCandidateCount}</b></testId> matching candidates}
-                      =1 {<testId><b>{totalCandidateCount}</b></testId> matching candidate}
-                      other {<testId><b>{totalCandidateCount}</b></testId> matching candidates} }
-                    across
-                    { numPools, plural,
-                      =0 {<b>{numPools}</b> pools}
-                      =1 {<b>{numPools}</b> pool}
-                      other {<b>{numPools}</b> pools} }`,
-                    id: "j2qiFb",
+                    defaultMessage: `Results: {totalCandidateCount, plural,
+                      =0 {<testId><b>#</b></testId> matching candidates}
+                      one {<testId><b>#</b></testId> matching candidate}
+                      other {<testId><b>#</b></testId> matching candidates} } across {numPools, plural,
+                      =0 {<b>#</b> pools}
+                      one {<b>#</b> pool}
+                      other {<b>#</b> pools} }`,
+                    id: "e5N39X",
                     description:
                       "Heading for total matching candidates across a certain number of pools in results section of search page.",
                   },

@@ -1,5 +1,5 @@
 import { JSX, useEffect } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
@@ -174,17 +174,62 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    allPoolSelectionLimitations: localizedEnumStrings(
-      enumName: "PoolSelectionLimitation"
-    ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
   }
 `);
+
+export interface SelectionLimitationDefinition {
+  value: PoolSelectionLimitation;
+  label: MessageDescriptor;
+  description: MessageDescriptor | undefined;
+}
+
+// defining these here instead of using the LocalizedEnum since we need to select subsets of the entire list and attach descriptions anyway.
+const allSelectionLimitations: Record<
+  PoolSelectionLimitation,
+  SelectionLimitationDefinition
+> = {
+  AT_LEVEL_ONLY: {
+    value: PoolSelectionLimitation.AtLevelOnly,
+    label: defineMessage({
+      defaultMessage: "At-level only",
+      id: "Gnlt31",
+      description:
+        "Admin interface label for the at-level-only selection limitation",
+    }),
+    description: defineMessage({
+      defaultMessage:
+        "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
+      id: "p+rROQ",
+      description: "Caption for the at-level-only selection limitation",
+    }),
+  },
+  DEPARTMENTAL_PREFERENCE: {
+    value: PoolSelectionLimitation.DepartmentalPreference,
+    label: defineMessage({
+      defaultMessage: "Departmental preference",
+      id: "5qjarn",
+      description:
+        "Admin interface label for the departmental-preference selection limitation",
+    }),
+    description: defineMessage({
+      defaultMessage:
+        "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
+      id: "js5ZcB",
+      description:
+        "Caption for the departmental-preference selection limitation",
+    }),
+  },
+  CANADIAN_CITIZENS: {
+    value: PoolSelectionLimitation.CanadianCitizens,
+    label: defineMessage({
+      defaultMessage: "Only Canadian citizens can apply",
+      id: "ee4C6L",
+      description:
+        "Admin interface label for the canadian-citizen-only selection limitation",
+    }),
+    description: undefined,
+  },
+} as const;
 
 type PoolNameSectionProps = SectionProps<
   PoolNameSubmitData,
@@ -225,8 +270,6 @@ const PoolNameSection = ({
 
   // hooks to watch, needed for conditional rendering
   const [selectedAreaOfSelection] = watch(["areaOfSelection"]);
-  const isAreaOfSelectionEmployeesOnly =
-    selectedAreaOfSelection === PoolAreaOfSelection.Employees;
 
   /**
    * Reset un-rendered fields
@@ -237,10 +280,10 @@ const PoolNameSection = ({
     };
 
     // Reset all optional fields
-    if (!isAreaOfSelectionEmployeesOnly) {
+    if (selectedAreaOfSelection != pool.areaOfSelection?.value) {
       resetDirtyField("selectionLimitations");
     }
-  }, [resetField, isAreaOfSelectionEmployeesOnly]);
+  }, [resetField, selectedAreaOfSelection, pool.areaOfSelection]);
 
   const handleSave = async (formValues: FormValues) => {
     return onSave(formValuesToSubmitData(formValues))
@@ -253,36 +296,29 @@ const PoolNameSection = ({
       .catch(() => methods.reset(formValues));
   };
 
-  const allPoolSelectionLimitations = unpackMaybes(
-    data?.allPoolSelectionLimitations,
-  );
+  // only some limitation selections are possible depending on area of selection
+  let possibleEmployeeLimitations: SelectionLimitationDefinition[] = [];
+  // label of limitation selection changes based on area of selection
+  let selectionLimitationLabelMessage: MessageDescriptor =
+    commonMessages.notProvided;
 
-  const poolSelectionLimitationsCaptions: Record<
-    PoolSelectionLimitation,
-    string
-  > = {
-    AT_LEVEL_ONLY: intl.formatMessage({
-      defaultMessage:
-        "This will indicate to applicants that only at-level or equivalent level employees will be considered for this opportunity.",
-      id: "p+rROQ",
-      description: "Caption for the at-level-only selection limitation",
-    }),
-    DEPARTMENTAL_PREFERENCE: intl.formatMessage({
-      defaultMessage:
-        "This will indicate to applicants that people employed by the departments linked to this opportunity will be given preference during selection.",
-      id: "js5ZcB",
-      description:
-        "Caption for the departmental-preference selection limitation",
-    }),
-  };
-
-  const allPoolSelectionLimitationItems =
-    allPoolSelectionLimitations.map<CheckboxOption>(({ value, label }) => ({
-      value: value,
-      label: getLocalizedName(label, intl),
-      contentBelow:
-        poolSelectionLimitationsCaptions[value as PoolSelectionLimitation],
-    }));
+  switch (selectedAreaOfSelection) {
+    case PoolAreaOfSelection.Employees:
+      possibleEmployeeLimitations = [
+        allSelectionLimitations.AT_LEVEL_ONLY,
+        allSelectionLimitations.DEPARTMENTAL_PREFERENCE,
+      ] as const;
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsEmployee;
+      break;
+    case PoolAreaOfSelection.Public:
+      possibleEmployeeLimitations = [
+        allSelectionLimitations.CANADIAN_CITIZENS,
+      ] as const;
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsPublic;
+      break;
+  }
 
   // disabled unless status is draft
   const formDisabled = pool.status?.value !== PoolStatus.Draft;
@@ -301,7 +337,7 @@ const PoolNameSection = ({
       onOpenChange={setIsEditing}
     >
       <ToggleSection.Header
-        Icon={icon.icon}
+        icon={icon.icon}
         color={icon.color}
         level="h3"
         size="h4"
@@ -323,7 +359,7 @@ const PoolNameSection = ({
           ) : (
             <Display
               pool={pool}
-              allPoolSelectionLimitations={allPoolSelectionLimitations}
+              possibleEmployeeLimitations={possibleEmployeeLimitations}
             />
           )}
         </ToggleSection.InitialContent>
@@ -353,19 +389,29 @@ const PoolNameSection = ({
                     )}
                   />
                 </div>
-                {isAreaOfSelectionEmployeesOnly && (
+
+                {selectedAreaOfSelection ? (
                   <div data-h2-grid-column="l-tablet(1 / span 2)">
                     <Checklist
                       id="selectionLimitations"
                       idPrefix="selectionLimitations"
                       name="selectionLimitations"
                       legend={intl.formatMessage(
-                        processMessages.selectionLimitations,
+                        selectionLimitationLabelMessage,
                       )}
-                      items={allPoolSelectionLimitationItems}
+                      items={possibleEmployeeLimitations.map<CheckboxOption>(
+                        (l) => ({
+                          label: intl.formatMessage(l.label),
+                          value: l.value,
+                          contentBelow: l.description
+                            ? intl.formatMessage(l.description)
+                            : undefined,
+                        }),
+                      )}
                     />
                   </div>
-                )}
+                ) : null}
+
                 <Select
                   id="classification"
                   label={intl.formatMessage({

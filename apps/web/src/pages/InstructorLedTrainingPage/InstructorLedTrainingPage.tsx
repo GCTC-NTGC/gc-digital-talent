@@ -1,9 +1,10 @@
 import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
+import { useSearchParams } from "react-router";
 
 import {
   commonMessages,
@@ -226,6 +227,39 @@ function getMetadata(
   return metadata;
 }
 
+type UseLangSearchParamReturn = [
+  lang: CourseLanguage | null,
+  setLang: (newLang: CourseLanguage | null) => void,
+];
+
+function useLangSearchParam(): UseLangSearchParamReturn {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const langParam = searchParams.get("lang") ?? null;
+
+  const lang = useMemo(() => {
+    return (
+      Object.values(CourseLanguage).find(
+        (courseLang) => courseLang === langParam,
+      ) ?? null
+    );
+  }, [langParam]);
+
+  const setLang = (newLang: CourseLanguage | null) => {
+    setSearchParams((current) => {
+      const params = new URLSearchParams(current);
+      if (newLang && newLang !== lang) {
+        params.set("lang", newLang);
+      } else {
+        params.delete("lang");
+      }
+
+      return params;
+    });
+  };
+
+  return [lang, setLang];
+}
+
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
   color: "secondary",
@@ -242,9 +276,7 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-
-  const [trainingOpportunitiesFilteredBy, setTrainingOpportunitiesFilteredBy] =
-    useState<CourseLanguage.English | CourseLanguage.French | null>(null);
+  const [opportunityLanguage, setOpportunityLanguage] = useLangSearchParam();
 
   const [{ data, fetching }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
@@ -252,7 +284,7 @@ export const Component = () => {
       first: 100,
       where: {
         hidePassedRegistrationDeadline: true, // Training opportunities past the application deadline do NOT show
-        opportunityLanguage: trainingOpportunitiesFilteredBy,
+        opportunityLanguage,
       },
       orderBy: [
         { column: "pinned", order: SortOrder.Desc },
@@ -295,8 +327,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={CalendarDaysIcon}
-              color="quaternary"
+              icon={CalendarDaysIcon}
+              color="warning"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -347,8 +379,8 @@ export const Component = () => {
           <div data-h2-margin-bottom="base(x3)">
             <Heading
               size="h3"
-              Icon={UserCircleIcon}
-              color="tertiary"
+              icon={UserCircleIcon}
+              color="error"
               data-h2-margin-bottom="base(x1)"
             >
               {intl.formatMessage({
@@ -374,68 +406,68 @@ export const Component = () => {
               })}
             </p>
           </div>
+          <div
+            role="group"
+            aria-labelledby="langFilter"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(row)"
+            data-h2-gap="base(x0.5)"
+            data-h2-margin-bottom="base(x.5)"
+          >
+            <span id="langFilter">
+              {intl.formatMessage({
+                defaultMessage: "Filter by",
+                id: "dekUfM",
+                description: "Label for a set of filters",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            <Button
+              aria-pressed={opportunityLanguage === null}
+              onClick={() => setOpportunityLanguage(null)}
+              {...(opportunityLanguage === null
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "View all",
+                id: "vXcg28",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+            <Button
+              aria-pressed={opportunityLanguage === CourseLanguage.English}
+              onClick={() => setOpportunityLanguage(CourseLanguage.English)}
+              {...(opportunityLanguage === CourseLanguage.English
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "English only",
+                id: "YTN8A8",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+            <Button
+              aria-pressed={opportunityLanguage === CourseLanguage.French}
+              onClick={() => setOpportunityLanguage(CourseLanguage.French)}
+              {...(opportunityLanguage === CourseLanguage.French
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "French only",
+                id: "wBU9X4",
+                description: "Filter by option on instructor training page.",
+              })}
+            </Button>
+          </div>
           {fetching ? (
             <Loading inline />
           ) : (
             <>
               {trainingOpportunities.length > 0 ? (
                 <>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(row)"
-                    data-h2-gap="base(x0.5)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    <Button
-                      onClick={() => setTrainingOpportunitiesFilteredBy(null)}
-                      {...(trainingOpportunitiesFilteredBy === null
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "View all",
-                        id: "vXcg28",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        setTrainingOpportunitiesFilteredBy(
-                          CourseLanguage.English,
-                        )
-                      }
-                      {...(trainingOpportunitiesFilteredBy ===
-                      CourseLanguage.English
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "English only",
-                        id: "YTN8A8",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                    <Button
-                      onClick={() =>
-                        setTrainingOpportunitiesFilteredBy(
-                          CourseLanguage.French,
-                        )
-                      }
-                      {...(trainingOpportunitiesFilteredBy ===
-                      CourseLanguage.French
-                        ? selectedFilterStyle
-                        : unselectedFilterStyle)}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "French only",
-                        id: "wBU9X4",
-                        description:
-                          "Filter by option on instructor training page.",
-                      })}
-                    </Button>
-                  </div>
                   {trainingOpportunities.map((trainingOpportunity) => {
                     const localizedTitle = getLocalizedName(
                       trainingOpportunity.title,
@@ -455,7 +487,7 @@ export const Component = () => {
                           data-h2-margin-bottom="base(x.5)"
                         >
                           <Heading
-                            Icon={
+                            icon={
                               trainingOpportunity.pinned
                                 ? PinnedIcon
                                 : CalendarIcon

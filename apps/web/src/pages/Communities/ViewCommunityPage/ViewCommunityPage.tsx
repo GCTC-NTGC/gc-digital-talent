@@ -73,8 +73,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
       >
         <Heading
           level="h2"
-          color="primary"
-          Icon={IdentificationIcon}
+          color="secondary"
+          icon={IdentificationIcon}
           data-h2-margin="base(0, 0, x1.5, 0)"
           data-h2-font-weight="base(400)"
         >

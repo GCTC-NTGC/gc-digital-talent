@@ -3,7 +3,7 @@ import { useWatch } from "react-hook-form";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import { countNumberOfWords } from "../../utils";
+import { countNumberOfWords } from "../utils";
 
 export interface WordCounterProps {
   /** The input name that implements a word limit */
