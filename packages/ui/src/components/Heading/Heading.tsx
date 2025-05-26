@@ -55,6 +55,9 @@ const heading = tv({
       error: {
         icon: "text-error",
       },
+      black: {
+        icon: "text-black",
+      },
     },
   },
 });
