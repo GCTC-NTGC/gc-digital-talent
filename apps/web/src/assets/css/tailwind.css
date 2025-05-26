@@ -64,13 +64,13 @@
   --gcdt-color-focus-600: oklch(0.4 0.1034 263.15);
   --gcdt-color-focus-700: oklch(0.26 0.058 263.44);
 
-  --gcdt-color-gray-100: oklch(0.91 0.0224 272.04);
-  --gcdt-color-gray-200: oklch(0.83 0.0377 270.4);
-  --gcdt-color-gray-300: oklch(0.75 0.046 271.17);
-  --gcdt-color-gray-400: oklch(0.68 0.0459 270.65);
-  --gcdt-color-gray-500: oklch(0.55 0.0435 270.51);
-  --gcdt-color-gray-600: oklch(0.42 0.0362 270.42);
-  --gcdt-color-gray-700: oklch(0.29 0.025 268.38);
+  --gcdt-color-gray-100: oklch(0.9137 0.0224 272.04);
+  --gcdt-color-gray-200: oklch(0.831 0.0377 270.4);
+  --gcdt-color-gray-300: oklch(0.7501 0.046 271.17);
+  --gcdt-color-gray-400: oklch(0.6755 0.0459 270.65);
+  --gcdt-color-gray-500: oklch(0.5511 0.0435 270.51);
+  --gcdt-color-gray-600: oklch(0.4224 0.0362 270.42);
+  --gcdt-color-gray-700: oklch(0.2859 0.025 268.38);
 
   --gcdt-color-black: oklch(0.13 0.0078 268.54);
   --gcdt-color-white: oklch(1 0 0);
