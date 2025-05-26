@@ -204,7 +204,9 @@
   --color-white: var(--gcdt-color-white);
 
   /** Gradient */
-  --gradient-main-linear: to right, var(--color-warning), var(--color-success), var(--color-primary), var(--color-error);
+  --gradient-main-linear:
+    to right, var(--color-warning), var(--color-success), var(--color-primary),
+    var(--color-error);
 
   /** Shadows */
   --inset-shadow: var(--gcdt-inset-shadow);
