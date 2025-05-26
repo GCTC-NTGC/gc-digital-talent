@@ -273,8 +273,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you don’t already have an authenticator app you will need to download one. Digital vendors, like Google Authenticator and Microsoft Authenticator,  provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-                  id: "lr6PWk",
+                    "If you don’t already have an authenticator app you will need to download one. Digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+                  id: "mF1IpF",
                   description: "Copy explaining mfa apps",
                 })}
               </p>

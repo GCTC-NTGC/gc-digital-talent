@@ -1,28 +1,41 @@
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { ReactNode } from "react";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import {
   EditPoolNameFragment,
-  LocalizedEnumString,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import { Link, Well } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
+import { SelectionLimitationDefinition } from "./PoolNameSection";
+
+const pseaUrl: Record<Locales, string> = {
+  en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
+  fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
+} as const;
 
 const Display = ({
   pool,
-  allPoolSelectionLimitations,
+  possibleEmployeeLimitations,
 }: DisplayProps<EditPoolNameFragment> & {
-  allPoolSelectionLimitations: LocalizedEnumString[];
+  possibleEmployeeLimitations: SelectionLimitationDefinition[];
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
     areaOfSelection,
@@ -35,6 +48,22 @@ const Display = ({
     publishingGroup,
     opportunityLength,
   } = pool;
+
+  let selectionLimitationLabelMessage: MessageDescriptor =
+    commonMessages.notProvided;
+  switch (areaOfSelection?.value) {
+    case PoolAreaOfSelection.Employees:
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsEmployee;
+      break;
+    case PoolAreaOfSelection.Public:
+      selectionLimitationLabelMessage =
+        processMessages.selectionLimitationsPublic;
+      break;
+  }
+
+  const poolSelectionLimitationValues =
+    poolSelectionLimitations?.map((l) => l.value) ?? [];
 
   return (
     <>
@@ -51,10 +80,10 @@ const Display = ({
         >
           {getLocalizedName(areaOfSelection?.label, intl) || notProvided}
         </ToggleForm.FieldDisplay>
-        {areaOfSelection?.value === PoolAreaOfSelection.Employees ? (
+        {areaOfSelection ? (
           <ToggleForm.FieldDisplay
             data-h2-grid-column="p-tablet(1 / span 2)"
-            label={intl.formatMessage(processMessages.selectionLimitations)}
+            label={intl.formatMessage(selectionLimitationLabelMessage)}
           >
             <div
               data-h2-display="base(flex)"
@@ -62,7 +91,7 @@ const Display = ({
               data-h2-gap="base(x0.25)"
               data-h2-margin-top="base(x0.25)"
             >
-              {allPoolSelectionLimitations?.map((singleSelectionLimitation) => {
+              {possibleEmployeeLimitations?.map((singleSelectionLimitation) => {
                 return (
                   <div
                     key={singleSelectionLimitation.value}
@@ -70,31 +99,53 @@ const Display = ({
                     data-h2-gap="base(x0.25)"
                     data-h2-align-items="base(center)"
                   >
-                    {poolSelectionLimitations
-                      ?.map((l) => l.value)
-                      .includes(
-                        singleSelectionLimitation.value as PoolSelectionLimitation,
-                      ) ? (
+                    {poolSelectionLimitationValues.includes(
+                      singleSelectionLimitation.value,
+                    ) ? (
                       <CheckCircleIcon
                         data-h2-height="base(x0.75)"
                         data-h2-color="base(success) base:dark(success.lighter)"
                         aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.yes)}
+                        aria-label={intl.formatMessage(commonMessages.selected)}
                       />
                     ) : (
                       <XCircleIcon
                         data-h2-height="base(x0.75)"
                         data-h2-color="base(background.darker)"
                         aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.no)}
+                        aria-label={intl.formatMessage(
+                          commonMessages.notSelected,
+                        )}
                       />
                     )}
-                    {getLocalizedName(singleSelectionLimitation.label, intl)}
+                    {intl.formatMessage(singleSelectionLimitation.label)}
                   </div>
                 );
               })}
             </div>
           </ToggleForm.FieldDisplay>
+        ) : null}
+        {poolSelectionLimitationValues.includes(
+          PoolSelectionLimitation.CanadianCitizens,
+        ) ? (
+          <Well color="warning" data-h2-grid-column="p-tablet(1 / span 2)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "By selecting “Only Canadian citizens can apply”, you’re confirming that this job opportunity is with a department or agency that is not subject to the <a><italic>Public Service Employment Act</italic></a>.",
+                id: "4f81Y1",
+                description:
+                  "Warning message when selecting the only-canadian-citizens limitation option",
+              },
+              {
+                a: (chunks: ReactNode) => (
+                  <Link href={pseaUrl[locale]} color="warning" newTab external>
+                    {chunks}
+                  </Link>
+                ),
+              },
+            )}
+          </Well>
         ) : null}
         <ToggleForm.FieldDisplay
           hasError={!classification}

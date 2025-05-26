@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 import {
   Chip,
+  ChipProps,
   Chips,
-  Color,
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
@@ -17,7 +17,7 @@ import {
 } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
-  chipType: { color: Color };
+  chipType: { color: ChipProps["color"] };
   /** Title for the block */
   title: ReactNode;
   /** Message displayed before language requirements that are missing from application */

@@ -6,6 +6,7 @@ import Accordion from "../Accordion";
 import Alert from "../Alert";
 import TreeView from "./TreeView";
 import { CardBasic } from "../Card";
+import Heading from "../Heading";
 
 faker.seed(0);
 
@@ -18,7 +19,9 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
     <TreeView.Root>
       <TreeView.Head>
         <CardBasic>
-          <h2>Heading</h2>
+          <Heading level="h2" data-h2-margin-top="base(0)">
+            Heading
+          </Heading>
           <p>Subtitle</p>
         </CardBasic>
       </TreeView.Head>
@@ -44,7 +47,9 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
       </TreeView.Item>
       <TreeView.Item>
         <CardBasic>
-          <h3>Card title</h3>
+          <Heading level="h3" data-h2-margin-top="base(0)">
+            Card title
+          </Heading>
           <p>{faker.lorem.sentences(4)}</p>
         </CardBasic>
       </TreeView.Item>

@@ -15,7 +15,7 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
-import Chip from "../Chip/Chip";
+import Chip, { ChipVariants } from "../Chip/Chip";
 import Link from "../Link";
 import Button from "../Button";
 import MetaDataStatusItem, {
@@ -284,30 +284,52 @@ const Trigger = forwardRef<
 );
 
 // every item must have a key and type
-interface AccordionMetaDataBase {
+interface AccordionMetaDataText {
   key: string;
-  type: string;
+  children: ReactNode;
+  type: "text";
 }
 
-// the older props combined everything into one interface
-export interface AccordionMetaData extends AccordionMetaDataBase {
-  children: ReactNode;
+interface AccordionMetaDataButton {
+  key: string;
+  type: "button";
   color?: Color;
-  href?: string;
-  type: "button" | "link" | "text" | "chip";
   onClick?: () => void;
+  children: ReactNode;
+}
+
+interface AccordionMetaDataLink {
+  key: string;
+  type: "link";
+  color?: Color;
+  children: ReactNode;
+  href?: string;
+}
+
+interface AccordionMetaDataChip {
+  key: string;
+  type: "chip";
+  children: ReactNode;
+  color?: ChipVariants["color"];
 }
 
 // status items have their own prop interface
-interface AccordionMetaDataStatusItem
-  extends AccordionMetaDataBase,
-    AccordionMetaDataStatusItemProps {
+interface AccordionMetaDataStatusItem extends AccordionMetaDataStatusItemProps {
+  key: string;
   type: "status_item";
 }
 
 export interface AccordionMetaDataProps {
-  metadata: (AccordionMetaData | AccordionMetaDataStatusItem)[];
+  metadata: (
+    | AccordionMetaDataText
+    | AccordionMetaDataButton
+    | AccordionMetaDataLink
+    | AccordionMetaDataChip
+    | AccordionMetaDataStatusItem
+  )[];
 }
+
+export type AccordionMetaData = AccordionMetaDataProps["metadata"];
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
   const metadataLength = metadata.length;
@@ -359,12 +381,12 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
           case "chip":
             return index + 1 === metadataLength ? (
               <span key={datum.key}>
-                <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
+                <Chip color={datum?.color}>{datum.children}</Chip>
               </span>
             ) : (
               <Fragment key={datum.key}>
                 <span>
-                  <Chip color={datum.color ?? "primary"}>{datum.children}</Chip>
+                  <Chip color={datum?.color}>{datum.children}</Chip>
                 </span>
                 {separatorSpan}
               </Fragment>

@@ -5,7 +5,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { assertUnreachable } from "@gc-digital-talent/helpers";
+import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentNominationMessages from "~/messages/talentNominationMessages";
@@ -13,6 +13,11 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
+
+interface ListItem {
+  key: string;
+  name: string;
+}
 
 const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewTalentNominationDialog on TalentNomination {
@@ -43,6 +48,27 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
       workEmail
+    }
+    advancementReferenceFallbackName
+    advancementReferenceFallbackWorkEmail
+    advancementReference {
+      firstName
+      lastName
+      workEmail
+    }
+    lateralMovementOptionsOther
+    lateralMovementOptions {
+      value
+      label {
+        localized
+      }
+    }
+    developmentProgramOptionsOther
+    developmentPrograms {
+      id
+      name {
+        localized
+      }
     }
   }
 `);
@@ -93,6 +119,31 @@ const ReviewTalentNominationDialog = ({
       intl,
     );
   }
+
+  let referenceName =
+    talentNomination?.advancementReferenceFallbackName ??
+    intl.formatMessage(commonMessages.notProvided);
+  if (talentNomination?.advancementReference) {
+    referenceName = getFullNameLabel(
+      talentNomination.advancementReference.firstName,
+      talentNomination.advancementReference.lastName,
+      intl,
+    );
+  }
+
+  const lateralMoveOptions: ListItem[] = unpackMaybes(
+    talentNomination.lateralMovementOptions,
+  ).map((option) => ({
+    key: option.value,
+    name: option.label.localized ?? "",
+  }));
+
+  const developmentPrograms: ListItem[] = unpackMaybes(
+    talentNomination.developmentPrograms,
+  ).map((program) => ({
+    key: program.id,
+    name: program.name?.localized ?? "",
+  }));
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -186,7 +237,7 @@ const ReviewTalentNominationDialog = ({
                 </BoolCheckIcon>
               </FieldDisplay>
             </div>
-            <Separator decorative data-h2-margin="base(0)" />
+            <Separator decorative space="none" />
             <div
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -235,7 +286,7 @@ const ReviewTalentNominationDialog = ({
                   : nullMessage}
               </FieldDisplay>
             </div>
-            <Separator decorative data-h2-margin="base(0)" />
+            <Separator decorative space="none" />
             <div
               data-h2-display="base(grid)"
               data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -258,6 +309,131 @@ const ReviewTalentNominationDialog = ({
                   intl.formatMessage(commonMessages.notProvided)}
               </FieldDisplay>
             </div>
+            {talentNomination.nominateForAdvancement && (
+              <>
+                <Separator decorative space="none" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  <FieldDisplay
+                    label={intl.formatMessage({
+                      defaultMessage: "Reference’s name",
+                      id: "x4/XMp",
+                      description:
+                        "Label for the text input for the reference's name",
+                    })}
+                  >
+                    {referenceName}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage({
+                      defaultMessage: "Reference's work email",
+                      id: "1QKTXO",
+                      description:
+                        "Label for the reference's input field in nominations details step",
+                    })}
+                  >
+                    {talentNomination.advancementReference?.workEmail ??
+                      talentNomination.advancementReferenceFallbackWorkEmail ??
+                      intl.formatMessage(commonMessages.notProvided)}
+                  </FieldDisplay>
+                </div>
+              </>
+            )}
+            {talentNomination.nominateForLateralMovement && (
+              <>
+                <Separator decorative space="none" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  {lateralMoveOptions.length > 0 && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Lateral movement options",
+                        id: "zLnqLc",
+                        description:
+                          "Label for the lateral movement options checklist on the details step",
+                      })}
+                    >
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                      >
+                        {lateralMoveOptions.map((o) => (
+                          <li key={o.key}>
+                            <BoolCheckIcon value>{o.name}</BoolCheckIcon>
+                          </li>
+                        ))}
+                      </ul>
+                    </FieldDisplay>
+                  )}
+                  {talentNomination.lateralMovementOptionsOther && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Other lateral move option",
+                        id: "BNSbyC",
+                        description:
+                          "Label other lateral move option input on the details step",
+                      })}
+                    >
+                      {talentNomination.lateralMovementOptionsOther}
+                    </FieldDisplay>
+                  )}
+                </div>
+              </>
+            )}
+            {talentNomination.nominateForDevelopmentPrograms && (
+              <>
+                <Separator decorative space="none" />
+                <div
+                  data-h2-display="base(grid)"
+                  data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
+                  data-h2-gap="base(x1)"
+                >
+                  {developmentPrograms.length > 0 && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Development program recommendations",
+                        id: "DHIa69",
+                        description:
+                          "Label for selected development program items",
+                      })}
+                    >
+                      <ul
+                        data-h2-list-style="base(none)"
+                        data-h2-padding-left="base(0)"
+                      >
+                        {developmentPrograms.map((p) => (
+                          <li key={p.key}>
+                            <BoolCheckIcon value>{p.name}</BoolCheckIcon>
+                          </li>
+                        ))}
+                      </ul>
+                    </FieldDisplay>
+                  )}
+                  {talentNomination.developmentProgramOptionsOther && (
+                    <FieldDisplay
+                      data-h2-grid-column="base(span 2)"
+                      label={intl.formatMessage({
+                        defaultMessage: "Other development program option",
+                        id: "xidShX",
+                        description:
+                          "Label other development program option input on the details step",
+                      })}
+                    >
+                      {talentNomination.developmentProgramOptionsOther}
+                    </FieldDisplay>
+                  )}
+                </div>
+              </>
+            )}
           </div>
           <Dialog.Footer
             data-h2-gap="base(x1 0) p-tablet(0 x1)"

@@ -105,8 +105,8 @@ const ApplicationCareerTimelineEdit = ({
       <p data-h2-margin="base(x1, 0, 0, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "From here you can edit this experience. Don't forget, work experiences should focus on describing  your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
-          id: "zMZQLY",
+            "From here you can edit this experience. Don't forget, work experiences should focus on describing your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
+          id: "iVAPnW",
           description: "Description for editing an experience.",
         })}
       </p>

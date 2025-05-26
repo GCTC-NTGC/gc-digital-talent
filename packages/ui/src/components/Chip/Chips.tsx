@@ -1,22 +1,20 @@
 import { HTMLProps, ReactElement } from "react";
+import { tv } from "tailwind-variants";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { ChipProps } from "./Chip";
 
+const chips = tv({
+  base: "flex list-none flex-wrap gap-1 p-0",
+});
+
 type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {
   children: ReactElement<ChipProps> | (ReactElement<ChipProps> | null)[] | null;
 };
 
-const Chips = ({ children, ...rest }: ChipsProps) => (
-  <ul
-    data-h2-display="base(flex)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-gap="base(x.25, x.125)"
-    data-h2-list-style="base(none)"
-    data-h2-padding="base(0)"
-    {...rest}
-  >
+const Chips = ({ children, className, ...rest }: ChipsProps) => (
+  <ul {...rest} className={chips({ class: className })}>
     {Array.isArray(children) ? (
       children.filter(notEmpty).map((child) => <li key={child.key}>{child}</li>)
     ) : (

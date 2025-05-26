@@ -6,7 +6,9 @@
     "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
     "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": ["../*/src/views/*.html"],
+  "temp": [
+    "../*/src/views/*.html"
+  ],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
@@ -25,7 +27,7 @@
     }
   },
   "processing": {
-    "include_reset_css": true,
+    "include_reset_css": false,
     "export_variable_file": false,
     "browser_prefix_css": true,
     "minify_css": true,
@@ -82,7 +84,7 @@
           }
         },
         {
-          "size": "112.5%",
+          "size": "100%",
           "query_key": "desktop",
           "type_scale": "1.2",
           "line_heights": {

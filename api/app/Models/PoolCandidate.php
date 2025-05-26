@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
+use App\Builders\PoolCandidateBuilder;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
-use App\Enums\CandidateExpiryFilter;
-use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\FinalDecision;
@@ -15,11 +14,9 @@ use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
-use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
 use App\ValueObjects\ProfileSnapshot;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,12 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -149,6 +142,17 @@ class PoolCandidate extends Model
                 $model->user()->searchable();
             }
         });
+    }
+
+    /*
+     * Binds the eloquent builder to the model to allow for
+     * applying scopes directly to Pool query builders
+     *
+     * i.e PoolCandidate::query()->whereName();
+     */
+    public function newEloquentBuilder($query): Builder
+    {
+        return new PoolCandidateBuilder($query);
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -297,448 +301,6 @@ class PoolCandidate extends Model
         ];
     }
 
-    public static function scopeWhereQualifiedStreamsIn(Builder $query, ?array $streams): Builder
-    {
-        if (empty($streams)) {
-            return $query;
-        }
-
-        // Ensure the PoolCandidates are qualified and available.
-        $query->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-        })
-            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-            })
-            // Now scope for valid pools, according to streams
-            ->whereHas('pool', function ($query) use ($streams) {
-                $query->whereWorkStreamsIn($streams);
-            });
-
-        return $query;
-    }
-
-    /**
-     * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
-     */
-    public static function scopeWhereHasPoolCandidateCommunity(Builder $query, ?string $communityId): Builder
-    {
-        if (empty($communityId)) {
-            return $query;
-        }
-
-        $query->whereHas('pool', function ($query) use ($communityId) {
-            $query->where('community_id', $communityId);
-        });
-
-        return $query;
-    }
-
-    /**
-     * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
-     * If $classifications is empty, this scope will be ignored.
-     *
-     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
-     */
-    public static function scopeAppliedClassifications(Builder $query, ?array $classifications): Builder
-    {
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        $query->whereHas('pool', function ($query) use ($classifications) {
-            $query->whereClassifications($classifications);
-        });
-
-        return $query;
-    }
-
-    /**
-     * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
-     * If $classifications is empty, this scope will be ignored.
-     *
-     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
-     */
-    public static function scopeWhereQualifiedClassificationsIn(Builder $query, ?array $classifications): Builder
-    {
-        if (empty($classifications)) {
-            return $query;
-        }
-
-        // Ensure the PoolCandidates are qualified and available.
-        $query = self::scopeAvailable($query);
-
-        // Now ensure the PoolCandidate is in a pool with the right classification
-        $query = self::scopeAppliedClassifications($query, $classifications);
-
-        return $query;
-    }
-
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @param  ?array  $publishingGroups  The publishing groups to scope the query by
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
-     */
-    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups)
-    {
-        // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) {
-            return $query;
-        }
-
-        $query = $query->whereHas('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var \App\Builders\PoolBuilder $query */
-            $query->publishingGroups($publishingGroups);
-        });
-
-        return $query;
-    }
-
-    /**
-     * Scope is IT & OTHER Publishing Groups
-     *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT and OTHER publishing groups
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
-     * @return \Illuminate\Database\Eloquent\Builder The resulting query
-     */
-    public static function scopeInTalentSearchablePublishingGroup(Builder $query)
-    {
-        $query = self::scopePublishingGroups($query, [
-            PublishingGroup::IT_JOBS->name,
-            PublishingGroup::OTHER->name,
-        ]);
-
-        return $query;
-    }
-
-    public function scopeWhereOperationalRequirementsIn(Builder $query, ?array $operationalRequirements): Builder
-    {
-        if (empty($operationalRequirements)) {
-            return $query;
-        }
-
-        // point at filter on User
-        $query->whereHas('user', function ($query) use ($operationalRequirements) {
-            $query->whereOperationalRequirementsIn($operationalRequirements);
-        });
-
-        return $query;
-    }
-
-    public function scopeWhereLocationPreferencesIn(Builder $query, ?array $workRegions): Builder
-    {
-        if (empty($workRegions)) {
-            return $query;
-        }
-
-        // point at filter on User
-        $query->whereHas('user', function ($query) use ($workRegions) {
-            $query->whereLocationPreferencesIn($workRegions);
-        });
-
-        return $query;
-    }
-
-    public function scopeWhereLanguageAbility(Builder $query, ?string $languageAbility): Builder
-    {
-        if (empty($languageAbility)) {
-            return $query;
-        }
-
-        // point at filter on User
-        $query->whereHas('user', function ($query) use ($languageAbility) {
-            $query->whereLanguageAbility($languageAbility);
-        });
-
-        return $query;
-    }
-
-    public static function scopeAvailableInPools(Builder $query, ?array $poolIds): Builder
-    {
-        if (empty($poolIds)) {
-            return $query;
-        }
-
-        $query->whereIn('pool_id', $poolIds);
-
-        return $query;
-    }
-
-    public function scopeWhereEquityIn(Builder $query, ?array $equity): Builder
-    {
-        if (empty($equity)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($query) use ($equity) {
-            $query->whereEquityIn($equity);
-        });
-
-        return $query;
-    }
-
-    public function scopeWhereGeneralSearch(Builder $query, ?string $searchTerm): Builder
-    {
-        if (empty($searchTerm)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($userQuery) use ($searchTerm) {
-            $userQuery->whereGeneralSearch($searchTerm);
-        });
-
-        return $query;
-    }
-
-    public static function scopeWhereName(Builder $query, ?string $name): Builder
-    {
-        if (empty($name)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($query) use ($name) {
-            $query->whereName($name);
-        });
-
-        return $query;
-    }
-
-    public static function scopeWhereEmail(Builder $query, ?string $email): Builder
-    {
-        if (empty($email)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($query) use ($email) {
-            $query->whereEmail($email);
-        });
-
-        return $query;
-    }
-
-    public static function scopeWhereIsGovEmployee(Builder $query, ?bool $isGovEmployee): Builder
-    {
-        if ($isGovEmployee) {
-            $query->whereHas('user', function ($query) {
-                $query->whereIsGovEmployee(true);
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopeNotes(Builder $query, ?string $notes): Builder
-    {
-
-        if (! empty($notes)) {
-            $query->where('notes', 'ilike', "%{$notes}%");
-        }
-
-        return $query;
-    }
-
-    public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
-    {
-        if (empty($poolCandidateStatuses)) {
-            return $query;
-        }
-
-        $query->whereIn('pool_candidate_status', $poolCandidateStatuses);
-
-        return $query;
-    }
-
-    public static function scopeAvailable(Builder $query): Builder
-    {
-        $query->whereIn('pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup())
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())
-                    ->orWhereNull('suspended_at');
-            })
-            ->where(function ($query) {
-                self::scopeExpiryStatus($query, CandidateExpiryFilter::ACTIVE->name);
-            });
-
-        return $query;
-    }
-
-    public function scopeWhereHasDiploma(Builder $query, ?bool $hasDiploma): Builder
-    {
-        if (empty($hasDiploma)) {
-            return $query;
-        }
-
-        $query->whereHas('user', function ($query) use ($hasDiploma) {
-            $query->whereHasDiploma($hasDiploma);
-        });
-
-        return $query;
-    }
-
-    public static function scopeExpiryStatus(Builder $query, ?string $expiryStatus)
-    {
-        $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;
-        if ($expiryStatus == CandidateExpiryFilter::ACTIVE->name) {
-            $query->where(function ($query) {
-                $query->whereDate('expiry_date', '>=', date('Y-m-d'))
-                    ->orWhereNull('expiry_date');
-            });
-        } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
-            $query->whereDate('expiry_date', '<', date('Y-m-d'));
-        }
-
-        return $query;
-    }
-
-    public static function scopeSuspendedStatus(Builder $query, ?string $suspendedStatus)
-    {
-        $suspendedStatus = isset($suspendedStatus) ? $suspendedStatus : CandidateSuspendedFilter::ACTIVE->name;
-        if ($suspendedStatus == CandidateSuspendedFilter::ACTIVE->name) {
-            $query->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())
-                    ->orWhereNull('suspended_at');
-            });
-        } elseif ($suspendedStatus == CandidateSuspendedFilter::SUSPENDED->name) {
-            $query->where('suspended_at', '<', Carbon::now());
-        }
-
-        return $query;
-    }
-
-    public function scopeNotDraft(Builder $query): Builder
-    {
-
-        $query->whereNotNull('submitted_at')
-            ->where('submitted_at', '<=', now());
-
-        return $query;
-    }
-
-    public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
-    {
-        if (empty($priorityWeights)) {
-            return $query;
-        }
-
-        $query->whereExists(function ($query) use ($priorityWeights) {
-            $query->select('id')
-                ->from('users')
-                ->whereColumn('users.id', 'pool_candidates.user_id')
-                ->where(function ($query) use ($priorityWeights) {
-                    foreach ($priorityWeights as $index => $priorityWeight) {
-                        if ($index === 0) {
-                            // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
-                        } else {
-                            $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
-                        }
-                    }
-                });
-        });
-
-        return $query;
-    }
-
-    public function scopeCandidateCategory(Builder $query, ?array $priorityWeights): Builder
-    {
-        if (empty($priorityWeights)) {
-            return $query;
-        }
-
-        $query->whereExists(function ($query) use ($priorityWeights) {
-            $query->selectRaw('null')
-                ->from('users')
-                ->whereColumn('users.id', 'pool_candidates.user_id')
-                ->where(function ($query) use ($priorityWeights) {
-                    foreach ($priorityWeights as $priorityWeight) {
-                        switch ($priorityWeight) {
-                            case PriorityWeight::PRIORITY_ENTITLEMENT->name:
-                                $query->orWhereIn(
-                                    'priority_verification',
-                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
-                                );
-                                break;
-
-                            case PriorityWeight::VETERAN->name:
-                                $query->orWhereIn(
-                                    'veteran_verification',
-                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
-                                );
-                                break;
-
-                            case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
-                                $query->orWhereIn(
-                                    'citizenship',
-                                    [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
-                                );
-                                break;
-
-                            case PriorityWeight::OTHER->name:
-                                $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
-                                break;
-                        }
-                    }
-                });
-        });
-
-        return $query;
-    }
-
-    public static function scopeWherePositionDurationIn(Builder $query, ?array $positionDuration): Builder
-    {
-
-        if (empty($positionDuration)) {
-            return $query;
-        }
-
-        // call the positionDurationFilter off connected user
-        $query->whereHas('user', function ($userQuery) use ($positionDuration) {
-            $userQuery->wherePositionDurationIn($positionDuration);
-        });
-
-        return $query;
-    }
-
-    public function scopeWhereSkillsAdditive(Builder $query, ?array $skills): Builder
-    {
-
-        if (empty($skills)) {
-            return $query;
-        }
-
-        $query = $this->addSkillCountSelect($query, $skills);
-
-        // call the skillFilter off connected user
-        $query->whereHas('user', function ($userQuery) use ($skills) {
-            $userQuery->whereSkillsAdditive($skills);
-        });
-
-        return $query;
-    }
-
-    public function scopeWhereSkillsIntersectional(Builder $query, ?array $skills): Builder
-    {
-        if (empty($skills)) {
-            return $query;
-        }
-
-        $query = $this->addSkillCountSelect($query, $skills);
-
-        // call the skillFilter off connected user
-        $query->whereHas('user', function ($query) use ($skills) {
-            $query->whereSkillsIntersectional($skills);
-        });
-
-        return $query;
-    }
-
     /**
      * Determine if a PoolCandidate is in draft mode
      *
@@ -750,60 +312,6 @@ class PoolCandidate extends Model
     }
 
     /**
-     * Scope the query to PoolCandidate's the current user can view
-     */
-    public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
-    {
-        /** @var \App\Models\User | null */
-        $user = Auth::user();
-
-        if (isset($args['userId'])) {
-            $user = User::findOrFail($args['userId']);
-        }
-
-        $now = Carbon::now()->toDateTimeString();
-
-        // we might want to add some filters for some candidates
-        $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user, $now) {
-            if ($user?->isAbleTo('view-any-submittedApplication')) {
-                $query->orWhere('submitted_at', '<=', $now);
-            }
-
-            if ($user?->isAbleTo('view-team-submittedApplication')) {
-                $allTeam = $user->rolesTeams()->get();
-                $teamIds = $allTeam->filter(function ($team) use ($user) {
-                    return $user->isAbleTo('view-team-submittedApplication', $team);
-                })->pluck('id');
-
-                $query->orWhere(function (Builder $query) use ($teamIds, $now) {
-                    $query->where('submitted_at', '<=', $now)
-                        ->whereHas('pool', function (Builder $query) use ($teamIds) {
-                            return $query->where(function (Builder $query) use ($teamIds) {
-                                $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                });
-                            });
-                        });
-                });
-            }
-
-            if ($user?->isAbleTo('view-own-application')) {
-                $query->orWhere('user_id', $user->id);
-            }
-        });
-        $filterCountAfter = count($query->getQuery()->wheres);
-        if ($filterCountAfter > $filterCountBefore) {
-            return;
-        }
-
-        // fall through - query will return nothing
-        $query->where('id', null);
-    }
-
-    /**
      * Take the new application step to insert and add it to the array, preserving uniqueness
      */
     public function setInsertSubmittedStepAttribute($applicationStep)
@@ -811,107 +319,6 @@ class PoolCandidate extends Model
         $submittedSteps = collect([$this->submitted_steps, $applicationStep])->flatten()->unique();
 
         $this->submitted_steps = $submittedSteps->values()->all();
-    }
-
-    public function scopeWithSkillCount(Builder $query)
-    {
-        // Checks if the query already has a skill_count select and if it does, it skips adding it again
-        $columns = $query->getQuery()->columns;
-        $normalizedColumns = array_map(function ($column) {
-            // Massage the column name to be a string and only return the column name
-            return $column instanceof Expression
-                ? Str::afterLast($column->getValue(DB::getQueryGrammar()), 'as ')
-                : Str::afterLast($column, 'as ');
-        }, $columns ?? []);
-
-        // Check if our array of columns contains the skill_count column
-        // If it does, we do not need to add it again
-        if (in_array('"skill_count"', $normalizedColumns)) {
-            return $query;
-        }
-
-        return $query->addSelect([
-            'skill_count' => Skill::whereIn('skills.id', [])
-                ->select(DB::raw('null as skill_count')),
-        ]);
-    }
-
-    private function addSkillCountSelect(Builder $query, ?array $skills): Builder
-    {
-        return $query->addSelect([
-            'skill_count' => Skill::whereIn('skills.id', $skills)
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->whereHas('userSkills', function (Builder $query) {
-                    $query->whereColumn('user_id', 'users.id');
-                })
-                ->select(DB::raw('count(*) as skills')),
-        ]);
-    }
-
-    /**
-     * Custom sort to handle issues with how laravel aliases
-     * aggregate selects and orderBys for json fields in `lighthouse-php`
-     *
-     * The column used in the orderBy is `table_aggregate_column->property`
-     * But is actually aliased to snake case `table_aggregate_columnproperty`
-     */
-    public function scopeOrderByPoolName(Builder $query, ?array $args): Builder
-    {
-        extract($args);
-
-        if (isset($order) && isset($locale)) {
-            $query = $query->withMax('pool', 'name->'.$locale)->orderBy('pool_max_name'.$locale, $order);
-        }
-
-        return $query;
-    }
-
-    public function scopeOrderByClaimVerification(Builder $query, ?array $args)
-    {
-
-        if (isset($args['order'])) {
-
-            $orderWithoutDirection = <<<'SQL'
-                CASE
-                    WHEN
-                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
-                    THEN
-                        40
-                    WHEN
-                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
-                        AND
-                        (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                    THEN
-                        30
-                    WHEN
-                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
-                        AND
-                        (
-                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                            OR
-                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
-                        )
-                    THEN
-                        20
-                    ELSE
-                        10
-                    END
-            SQL;
-
-            $query
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*');
-
-            if (isset($args['useBookmark']) && $args['useBookmark']) {
-                $query->orderBy('is_bookmarked', 'DESC');
-            }
-
-            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
-
-            $query->orderByRaw($order)->orderBy('submitted_at', 'ASC');
-        }
-
-        return $query;
     }
 
     public function setApplicationSnapshot(bool $save = true)
@@ -1134,21 +541,6 @@ class PoolCandidate extends Model
             'overallAssessmentStatus' => $overallAssessmentStatus,
             'assessmentStepStatuses' => $decisions,
         ];
-    }
-
-    public function scopeProcessNumber(Builder $query, ?string $processNumber): Builder
-    {
-        // Early return if no process number was supplied
-        if (empty($processNumber)) {
-            return $query;
-        }
-
-        $query = $query->whereHas('pool', function (Builder $query) use ($processNumber) {
-            /** @var \App\Builders\PoolBuilder $query */
-            $query->processNumber($processNumber);
-        });
-
-        return $query;
     }
 
     public function computeFinalDecision()

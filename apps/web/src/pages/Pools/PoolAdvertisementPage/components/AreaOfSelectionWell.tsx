@@ -8,11 +8,16 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName, Locales } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
+
+const pseaUrl: Record<Locales, string> = {
+  en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
+  fr: "https://laws-lois.justice.gc.ca/fra/lois/p-33.01/",
+} as const;
 
 const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   fragment AreaOfSelectionNote on Pool {
@@ -46,6 +51,7 @@ const deriveAreaOfSelectionMessages = (
   body: ReactNode;
   finePrint?: ReactNode;
 } | null => {
+  const locale = getLocale(intl);
   if (areaOfSelection == PoolAreaOfSelection.Employees) {
     if (
       selectionLimitations?.includes(PoolSelectionLimitation.AtLevelOnly) &&
@@ -173,6 +179,57 @@ const deriveAreaOfSelectionMessages = (
           "Body of a note describing that a pool is only open to employees",
       }),
     };
+  }
+
+  if (areaOfSelection == PoolAreaOfSelection.Public) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
+    ) {
+      return {
+        title: intl.formatMessage({
+          defaultMessage: "This opportunity is for Canadian citizens only",
+          id: "LA+7mQ",
+          description:
+            "Title of a note describing that a pool is only open to canadian citizens",
+        }),
+        body: (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This opportunity is reserved for persons with Canadian citizenship*.",
+                id: "ZeDdxG",
+                description:
+                  "Body p1 of a note describing that a pool is only open to canadian citizens",
+              })}
+            </p>
+            <p
+              data-h2-margin-top="base(x0.5)"
+              data-h2-font-size="base(caption)"
+            >
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "*This opportunity is with a department or agency that is not subject to the <a><italic>Public Service Employment Act</italic></a>. As a result, the hiring process and terminology might be different from those typically found in the federal public service.",
+                  id: "AlhZFb",
+                  description:
+                    "Body p2 of a note describing that a pool is only open to canadian citizens",
+                },
+                {
+                  a: (chunks: ReactNode) => (
+                    <Link href={pseaUrl[locale]} color="black" newTab external>
+                      {chunks}
+                    </Link>
+                  ),
+                },
+              )}
+            </p>
+          </>
+        ),
+      };
+    }
+
+    // no fall-through for public
   }
 
   return null;

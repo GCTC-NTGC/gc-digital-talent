@@ -215,11 +215,9 @@
   --shadow-2xl: var(--gcdt-shadow-2xl);
 }
 
-/**
-* Increase base font scale
-* TO DO: Uncomment when we uninstall hydrogen
-html {
-   font-size: 18px;
-   line-height: 1.5;
- }
-*/
+@media (min-width: 100rem) {
+  :root {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+}

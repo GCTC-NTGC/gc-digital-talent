@@ -105,6 +105,17 @@ const deriveWhoCanApplyString = (
   intl: IntlShape,
 ): string | null => {
   if (areaOfSelection == PoolAreaOfSelection.Public) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Canadian citizens",
+        id: "VotRI3",
+        description: "Canadian citizen only application criteria",
+      });
+    }
+
+    // fall-through for public
     return intl.formatMessage({
       defaultMessage: "Open to the public",
       id: "L0eho2",
@@ -334,9 +345,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           {essentialSkills.length ? (
             <Chips>
               {essentialSkills.map((skill) => (
-                <Chip key={skill.id} color="secondary">
-                  {getLocalizedName(skill.name, intl)}
-                </Chip>
+                <Chip key={skill.id}>{getLocalizedName(skill.name, intl)}</Chip>
               ))}
             </Chips>
           ) : (

@@ -56,22 +56,22 @@ const formMessages = defineMessages({
   },
   allAvailableCombobox: {
     defaultMessage:
-      "{total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
-    id: "FYrmhH",
+      "{total, plural, =0 {<strong>0</strong> available options} one {<strong>#</strong> available option} other {<strong>#</strong> available options}}",
+    id: "X3wRqo",
     description:
       "Message showing number of all available options in combobox menu",
   },
   subsetAvailableCombobox: {
     defaultMessage:
-      "{count, plural, =0 {<strong>0</strong> matching results} =1 {<strong>1</strong> matching result} other {<strong>#</strong> matching results}} out of {total, plural, =0 {<strong>0</strong> available options} =1 {<strong>1</strong> available option} other {<strong>#</strong> available options}}",
-    id: "KGX4bI",
+      "{count, plural, =0 {<strong>0</strong> matching results} one {<strong>#</strong> matching result} other {<strong>#</strong> matching results}} out of {total, plural, =0 {<strong>0</strong> available options} one {<strong>#</strong> available option} other {<strong>#</strong> available options}}",
+    id: "KeleaV",
     description:
       "Message showing number of matching items from all available options in combobox menu",
   },
   itemsSelectedCombobox: {
     defaultMessage:
-      "{count, plural, =0 {0 options selected} =1 {1 option selected} other {# options selected}}",
-    id: "eBNZxB",
+      "{count, plural, =0 {0 options selected} one {# option selected} other {# options selected}}",
+    id: "HxxE2u",
     description:
       "Message displayed telling user how many items they have selected in a multi-select combobox",
   },
