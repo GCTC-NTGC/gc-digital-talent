@@ -6,7 +6,7 @@ import { HeadingRef } from "./types";
 
 const heading = tv({
   slots: {
-    base: "leading-[1.1]",
+    base: "",
     icon: "inline-block h-auto shrink-0 align-middle",
   },
   variants: {
@@ -15,27 +15,27 @@ const heading = tv({
     },
     size: {
       h1: {
-        base: "text-5xl font-bold lg:text-6xl",
+        base: "text-5xl/[1.1] font-bold lg:text-6xl/[1.1]",
         icon: "size-12 stroke-[1.5]",
       },
       h2: {
-        base: "mt-12 mb-3 text-4xl font-bold lg:text-5xl",
+        base: "mt-12 mb-3 text-4xl/[1.1] font-bold lg:text-5xl/[1.1]",
         icon: "size-10 stroke-[1.6]",
       },
       h3: {
-        base: "mt-9 mb-1.5 text-3xl lg:text-4xl",
+        base: "mt-9 mb-1.5 text-3xl/[1.1] lg:text-4xl/[1.1]",
         icon: "size-8 stroke-[1.6]",
       },
       h4: {
-        base: "mt-9 mb-1.5 text-2xl lg:text-3xl",
+        base: "mt-9 mb-1.5 text-2xl/[1.1] lg:text-3xl/[1.1]",
         icon: "size-7 stroke-[1.6]",
       },
       h5: {
-        base: "mt-6 mb-1.5 text-xl lg:text-2xl",
+        base: "mt-6 mb-1.5 text-xl/[1.1] lg:text-2xl/[1.1]",
         icon: "size-6 stroke-[1.6]",
       },
       h6: {
-        base: "mt-6 mb-1.5 text-lg font-bold lg:text-xl",
+        base: "mt-6 mb-1.5 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
         icon: "size-5 stroke-[1.6]",
       },
     },
