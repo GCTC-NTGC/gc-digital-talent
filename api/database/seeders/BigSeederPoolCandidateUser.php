@@ -65,9 +65,9 @@ class BigSeederPoolCandidateUser extends Seeder
                 ->withSkillsAndExperiences()
                 ->asGovEmployee()
                 ->withEmployeeProfile()
-                ->withCommunityInterests([
-                    array_rand(array_flip([$digitalCommunityId, $atipCommunityId, $financeCommunityId])),
-                ])
+                ->withCommunityInterests(
+                    [$digitalCommunityId, $atipCommunityId, $financeCommunityId],
+                )
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })
