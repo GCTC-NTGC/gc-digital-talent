@@ -10,7 +10,7 @@ textarea {
   font-size: 100%;
 }
 
-button {
+button:not(.border) {
   border: none;
 }
 
