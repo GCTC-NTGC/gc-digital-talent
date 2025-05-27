@@ -28,4 +28,15 @@ return [
     'contractor_type' => 'Type d\'entrepreneur ou d\'entrepreneuse',
     'classification' => 'Classification',
     'contract_firm_agency' => 'Entreprise ou organisme',
+    'supervisory_position' => 'Statut de direction ou de supervision',
+    'supervised_employees' => 'Supervision des employées et employés',
+    'supervised_employees_number' => 'Nombre d\'employées et employés',
+    'budget_management' => 'Gestion d\'un budget ou pouvoir de signature délégué',
+    'annual_budget_allocation' => 'Allocation budgétaire annuelle ($CAN)',
+    'senior_management_status' => 'Statut de cadre supérieur',
+    'c_suite_role_title' => 'Titre du rôle de cadre supérieur',
+    'other_c_suite_role_title' => 'Autre titre de cadre supérieur',
+    // Values
+    'senior_management_true' => 'Il s\'agissait d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
+    'senior_management_false' => 'Il ne s\'agissait pas d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
 ];
