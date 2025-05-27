@@ -163,7 +163,7 @@ export const Component = () => {
               >
                 <div>
                   <CardFlat
-                    color="quaternary"
+                    color="warning"
                     title={intl.formatMessage({
                       defaultMessage: "Objectives of the fund",
                       id: "y3+Iw5",
@@ -210,7 +210,7 @@ export const Component = () => {
                 </div>
                 <div>
                   <CardFlat
-                    color="secondary"
+                    color="primary"
                     title={intl.formatMessage({
                       defaultMessage: "Employee eligibility",
                       id: "3deIgM",
@@ -230,7 +230,7 @@ export const Component = () => {
                 </div>
                 <div>
                   <CardFlat
-                    color="tertiary"
+                    color="error"
                     title={intl.formatMessage({
                       defaultMessage: "Fund management",
                       id: "/ANsjm",
