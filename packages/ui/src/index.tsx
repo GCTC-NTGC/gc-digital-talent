@@ -9,7 +9,7 @@ import {
   HydrogenAttributes,
 } from "./types";
 import Accordion, { type AccordionMetaData } from "./components/Accordion";
-import Alert, { type AlertProps } from "./components/Alert";
+import Alert, { type AlertProps } from "./components/Alert/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
