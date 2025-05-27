@@ -44,7 +44,7 @@ class DepartmentSeeder extends Seeder
                 case d."Regulatory departments or agency (Yes/No)" when 'Yes' then 'true' else 'false' end,
             'DepartmentSize::' || upper(d."Department size (micro, Small, Medium, Large)") || '->name'
             )
-        from dept_list_for_platform_update_devs_on_google d
+        from department_list_spreadsheet d
         order by department_number
         */
 
