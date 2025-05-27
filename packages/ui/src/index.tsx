@@ -82,7 +82,7 @@ import TableOfContents, {
   TocListProps,
   TocSidebarProps,
 } from "./components/TableOfContents";
-import Tabs from "./components/Tabs";
+import Tabs from "./components/Tabs/Tabs";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView/TreeView";

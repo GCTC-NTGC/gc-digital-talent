@@ -75,6 +75,8 @@
   --gcdt-color-black: oklch(0.13 0.0078 268.54);
   --gcdt-color-white: oklch(1 0 0);
 
+  --gcdt-color-compat-background: rgba(245, 248, 253, 1);
+
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.2);
@@ -94,6 +96,7 @@
 * NOTE: You can manually use a different variable with `dark:`
 */
 .dark {
+  --gcdt-color-compat-background: rgba(47, 49, 61, 1);
   /** Dark mode shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
@@ -203,6 +206,9 @@
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
 
+  /** Temp: Colours to match current palette */
+  --color-compat-background: var(--gcdt-color-compat-background);
+
   /** Shadows */
   --inset-shadow: var(--gcdt-inset-shadow);
   --shadow-sm: var(--gcdt-shadow-sm);
@@ -240,5 +246,11 @@
   :root {
     font-size: 18px;
     line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  [data-state="active"]:focus-visible > .on-active-focus-border-t {
+    @apply border-t-focus;
   }
 }
