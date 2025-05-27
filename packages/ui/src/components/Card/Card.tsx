@@ -20,7 +20,7 @@ export interface CardProps
   extends CardVariants,
     ComponentPropsWithoutRef<"div"> {}
 
-const Card = ({ space, className, ...rest }: CardProps) => (
+const Card = ({ space = "md", className, ...rest }: CardProps) => (
   <div className={card({ space })} {...rest} />
 );
 
