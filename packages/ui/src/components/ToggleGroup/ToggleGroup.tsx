@@ -14,7 +14,7 @@ const Item = forwardRef<
   ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
 >((props, forwardedRef) => (
   <ToggleGroupPrimitive.Item
-    className="hover:bg-gray-900 flex cursor-pointer items-center rounded-full bg-gray-100 p-1.5 leading-none text-black outline-none hover:bg-gray-600 hover:text-white focus-visible:bg-focus data-[state=on]:bg-warning-300 data-[state=on]:hover:bg-gray-600 data-[state=on]:focus-visible:bg-focus data-[state=on]:focus-visible:hover:bg-gray-600 [svg]:w-4"
+    className="hover:bg-gray-900 flex cursor-pointer items-center rounded-full bg-gray-100 p-1.5 leading-none text-black outline-none hover:bg-gray-600 hover:text-white focus-visible:bg-focus data-[state=on]:bg-warning-300 data-[state=on]:hover:bg-gray-600 data-[state=on]:focus-visible:bg-focus data-[state=on]:focus-visible:hover:bg-gray-600 [&_svg]:w-4"
     ref={forwardedRef}
     {...props}
   />
