@@ -85,7 +85,7 @@ import TableOfContents, {
 import Tabs from "./components/Tabs";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
-import TreeView from "./components/TreeView";
+import TreeView from "./components/TreeView/TreeView";
 import Well, { WellProps } from "./components/Well";
 import {
   incrementHeadingRank,
