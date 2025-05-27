@@ -208,7 +208,7 @@ class DepartmentSeeder extends Seeder
             [
                 'department_number' => 15,
                 'name' => [
-                    'en' => 'Elections Canada (Office of the Chief Electoral Officer)',
+                    'en' => 'Elections Canada',
                     'fr' => 'Bureau du directeur général des élections',
                 ],
                 'org_identifier' => 239,
@@ -351,7 +351,7 @@ class DepartmentSeeder extends Seeder
             [
                 'department_number' => 30,
                 'name' => [
-                    'en' => 'Royal Canadian Mounted Police (Civilian Staff)',
+                    'en' => 'Royal Canadian Mounted Police',
                     'fr' => 'Gendarmerie royale du Canada',
                 ],
                 'org_identifier' => 295,
@@ -741,7 +741,7 @@ class DepartmentSeeder extends Seeder
             [
                 'department_number' => 88,
                 'name' => [
-                    'en' => 'Public Safety Canada (Public Safey and Emergency Prepardness)',
+                    'en' => 'Public Safety Canada',
                     'fr' => 'Sécurité publique Canada',
                 ],
                 'org_identifier' => 135,
