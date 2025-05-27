@@ -5,32 +5,8 @@ import {
   ReactElement,
 } from "react";
 import { tv, VariantProps } from "tailwind-variants";
-import { extend } from "lodash";
 
 import { IconType } from "../../types";
-
-type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
-
-const colorMap: Record<Color, Record<string, string>> = {
-  primary: {
-    "data-h2-color": "base(primary.darker) base:children[svg](primary.darker)",
-  },
-  secondary: {
-    "data-h2-color":
-      "base(secondary.darker) base:children[svg](secondary.darker)",
-  },
-  tertiary: {
-    "data-h2-color":
-      "base(tertiary.darker) base:children[svg](tertiary.darker)",
-  },
-  quaternary: {
-    "data-h2-color":
-      "base(quaternary.darker) base:children[svg](quaternary.darker)",
-  },
-  quinary: {
-    "data-h2-color": "base(quinary.darker) base:children[svg](quinary.darker)",
-  },
-};
 
 const item = tv({
   slots: {
