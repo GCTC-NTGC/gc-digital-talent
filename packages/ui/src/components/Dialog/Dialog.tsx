@@ -29,11 +29,11 @@ const StyledOverlay = forwardRef<
 ));
 
 const content = tv({
-  base: "relative z-[9999] mx-auto w-[90vw] font-sans",
+  base: "relative z-[9999] mx-auto my-18 w-[90vw] font-sans",
   variants: {
     wide: {
       true: "max-w-5xl",
-      false: "max-w-2xl",
+      false: "max-w-3xl",
     },
   },
 });
