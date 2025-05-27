@@ -280,6 +280,11 @@ const commonMessages = defineMessages({
     id: "vOCLQA",
     description: "Simple status label for an incomplete item",
   },
+  optional: {
+    defaultMessage: "Optional",
+    id: "iNUK3f",
+    description: "Label for an optional skill",
+  },
   selectACommunity: {
     defaultMessage: "Select a community",
     id: "m0iNdp",

@@ -177,7 +177,11 @@ const EmployeeProfile = ({
                   title={intl.formatMessage(commonMessages.careerPlanning)}
                   status={overallStatus}
                   scrollTo={SECTION_ID.CAREER_PLANNING}
-                  testIdPrefix="overall-status"
+                  hiddenContextPrefix={intl.formatMessage(
+                    overallStatus === "error"
+                      ? commonMessages.incomplete
+                      : commonMessages.complete,
+                  )}
                 />
                 <TableOfContents.List
                   data-h2-padding-left="base(x.5)"
@@ -199,7 +203,17 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
-                      testIdPrefix="career-development"
+                      hiddenContextPrefix={intl.formatMessage(
+                        careerDevelopmentHasEmptyRequiredFields(
+                          careerDevelopment,
+                        )
+                          ? commonMessages.incomplete
+                          : careerDevelopmentHasAllEmptyFields(
+                                careerDevelopment,
+                              )
+                            ? commonMessages.optional
+                            : commonMessages.complete,
+                      )}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -214,7 +228,13 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.NEXT_ROLE}
-                      testIdPrefix="next-role"
+                      hiddenContextPrefix={intl.formatMessage(
+                        nextRoleHasEmptyRequiredFields(nextRole)
+                          ? commonMessages.incomplete
+                          : nextRoleHasAllEmptyFields(nextRole)
+                            ? commonMessages.optional
+                            : commonMessages.complete,
+                      )}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -229,7 +249,13 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.CAREER_OBJECTIVE}
-                      testIdPrefix="career-objective"
+                      hiddenContextPrefix={intl.formatMessage(
+                        careerObjectiveHasEmptyRequiredFields(careerObjective)
+                          ? commonMessages.incomplete
+                          : careerObjectiveHasAllEmptyFields(careerObjective)
+                            ? commonMessages.optional
+                            : commonMessages.complete,
+                      )}
                     />
                   </TableOfContents.ListItem>
                   <TableOfContents.ListItem>
@@ -244,7 +270,13 @@ const EmployeeProfile = ({
                             : "success"
                       }
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
-                      testIdPrefix="goals-work-style"
+                      hiddenContextPrefix={intl.formatMessage(
+                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
+                          ? commonMessages.incomplete
+                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
+                            ? commonMessages.optional
+                            : commonMessages.complete,
+                      )}
                     />
                   </TableOfContents.ListItem>
                 </TableOfContents.List>

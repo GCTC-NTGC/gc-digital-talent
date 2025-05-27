@@ -41,10 +41,14 @@ test.describe("Employee Profile", () => {
 
     // Fill out the career development preferences form
     await expect(
-      appPage.page.getByTestId("overall-status-error-icon"),
+      appPage.page.getByRole("link", {
+        name: /incomplete - career planning/i,
+      }),
     ).toBeVisible();
     await expect(
-      appPage.page.getByTestId("career-development-error-icon"),
+      appPage.page.getByRole("link", {
+        name: /incomplete - career development preferences/i,
+      }),
     ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit career development preferences/i })
@@ -123,11 +127,14 @@ test.describe("Employee Profile", () => {
       /career development preferences updated successfully/i,
     );
     await expect(
-      appPage.page.getByTestId("career-development-success-icon"),
+      appPage.page.getByRole("link", {
+        name: /complete - career planning/i,
+      }),
     ).toBeVisible();
-    // This is the only form with required fields
     await expect(
-      appPage.page.getByTestId("overall-status-success-icon"),
+      appPage.page.getByRole("link", {
+        name: /complete - career development preferences/i,
+      }),
     ).toBeVisible();
 
     // The dashboard should also update with the new status
@@ -147,7 +154,9 @@ test.describe("Employee Profile", () => {
 
     // Fill out the your next role form
     await expect(
-      appPage.page.getByTestId("next-role-optional-icon"),
+      appPage.page.getByRole("link", {
+        name: /optional - your next role/i,
+      }),
     ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your next role/i })
@@ -183,7 +192,9 @@ test.describe("Employee Profile", () => {
       /next role information updated successfully/i,
     );
     await expect(
-      appPage.page.getByTestId("next-role-success-icon"),
+      appPage.page.getByRole("link", {
+        name: /complete - your next role/i,
+      }),
     ).toBeVisible();
   });
 
@@ -194,7 +205,9 @@ test.describe("Employee Profile", () => {
 
     // Fill out the your career objective form
     await expect(
-      appPage.page.getByTestId("career-objective-optional-icon"),
+      appPage.page.getByRole("link", {
+        name: /optional - your career objective/i,
+      }),
     ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your career objective/i })
@@ -232,7 +245,9 @@ test.describe("Employee Profile", () => {
       /career objective information updated successfully/i,
     );
     await expect(
-      appPage.page.getByTestId("career-objective-success-icon"),
+      appPage.page.getByRole("link", {
+        name: /complete - your career objective/i,
+      }),
     ).toBeVisible();
   });
 
@@ -243,7 +258,9 @@ test.describe("Employee Profile", () => {
 
     // Fill out your goals and work style form
     await expect(
-      appPage.page.getByTestId("goals-work-style-optional-icon"),
+      appPage.page.getByRole("link", {
+        name: /optional - goals and work style/i,
+      }),
     ).toBeVisible();
     await appPage.page
       .getByRole("button", { name: /edit your goals and work style/i })
@@ -265,7 +282,9 @@ test.describe("Employee Profile", () => {
       /goals and work style information updated successfully/i,
     );
     await expect(
-      appPage.page.getByTestId("goals-work-style-success-icon"),
+      appPage.page.getByRole("link", {
+        name: /complete - goals and work style/i,
+      }),
     ).toBeVisible();
   });
 });
