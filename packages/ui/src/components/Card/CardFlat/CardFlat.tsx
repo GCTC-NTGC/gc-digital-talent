@@ -64,7 +64,7 @@ const cardFlat = tv({
         base: "border-l-error",
       },
       black: {
-        base: "border-l-black dark:border-l-white",
+        base: "border-l-black",
       },
     },
   },
@@ -79,21 +79,18 @@ const compatColourMap = new Map<CardFlatVariants["color"], CardColor>([
   ["success", "quinary"],
   ["warning", "quaternary"],
   ["error", "tertiary"],
-  ["black", "black"],
+  ["black", "blackFixed"],
 ]);
 
-export interface CardFlatProps extends CardFlatVariants {
+export interface CardFlatProps
+  extends Omit<CardFlatVariants, "color">,
+    Required<Pick<CardFlatVariants, "color">> {
   title: ReactNode;
   children?: ReactNode;
   links?: (LinkItemRegular | LinkItemScrollTo)[];
 }
 
-const CardFlat = ({
-  color = "primary",
-  links,
-  title,
-  children,
-}: CardFlatProps) => {
+const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
   const { base, heading, content, linkWrapper } = cardFlat({ color });
 
   return (
