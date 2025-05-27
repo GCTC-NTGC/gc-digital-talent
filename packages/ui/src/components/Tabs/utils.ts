@@ -31,17 +31,17 @@ export const divide = tv({
  */
 export const handleTabFocus: FocusEventHandler<HTMLElement> = (event) => {
   let target: HTMLElement = event.currentTarget;
-  const list = target.closest(".Tabs__List");
+  const el = target.closest(".Tabs__List");
   // Target could be in list.
   // If so, we need to use the parent list item to calculate offset
-  if (list?.nodeName === "UL" && target?.parentElement?.nodeName === "LI") {
+  if (el?.nodeName === "UL" && target?.parentElement?.nodeName === "LI") {
     target = target.parentElement;
   }
-  const currentScroll = list?.scrollLeft ?? 0;
-  const totalWidth = list?.scrollWidth ?? 0;
+  const currentScroll = el?.scrollLeft ?? 0;
+  const totalWidth = el?.scrollWidth ?? 0;
 
   const offset = target.offsetLeft;
   const scrollTo = offset + currentScroll - totalWidth / 2;
 
-  list?.scrollTo({ left: scrollTo });
+  el?.scrollTo({ left: scrollTo });
 };
