@@ -83,7 +83,7 @@ import TableOfContents, {
   TocSidebarProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs";
-import ToggleGroup from "./components/ToggleGroup";
+import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";

@@ -14,14 +14,7 @@ const Item = forwardRef<
   ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
 >((props, forwardedRef) => (
   <ToggleGroupPrimitive.Item
-    data-h2-align-items="base(center)"
-    data-h2-cursor="base:hover(pointer)"
-    data-h2-display="base(flex)"
-    data-h2-line-height="base(1)"
-    data-h2-outline="base(none)"
-    data-h2-padding="base(x.25)"
-    data-h2-radius="base(m)"
-    data-h2-width="base:children[svg](x.75)"
+    className="hover:bg-gray-900 flex cursor-pointer items-center rounded-full bg-gray-100 p-1.5 leading-none text-black outline-none hover:bg-gray-600 hover:text-white focus-visible:bg-focus data-[state=on]:bg-warning-300 data-[state=on]:hover:bg-gray-600 data-[state=on]:focus-visible:bg-focus data-[state=on]:focus-visible:hover:bg-gray-600 [&_svg]:w-4"
     ref={forwardedRef}
     {...props}
   />
@@ -37,29 +30,7 @@ const Root = forwardRef<
 >(({ label, children, ...rest }, forwardedRef) => {
   return (
     <ToggleGroupPrimitive.Root
-      data-h2-align-items="base(center)"
-      data-h2-background-color="
-        base(foreground) base:dark(white)
-        base:children[button](background.dark)
-        base:children[button:hover](background.darkest)
-        base:children[button:focus-visible](focus)
-        base:all:children[button[data-state='on']](quaternary.light)
-      "
-      data-h2-color="
-        base(black)
-        base:children[button](black)
-        base:iap:children[button](black)
-        base:children[button:hover](white)
-        base:all:children[button:focus-visible](black)
-        base:all:children[button[data-state='on']](black)
-        base:iap:all:children[button[data-state='on']](white)
-        base:iap:children[button:hover[data-state='on']](white)
-      "
-      data-h2-border="base(1px solid background.darker)"
-      data-h2-display="base(inline-flex)"
-      data-h2-padding="base(x.25)"
-      data-h2-radius="base(m)"
-      data-h2-gap="base(0, x.25)"
+      className="inline-flex items-center gap-x-1.5 rounded-full border border-gray-600 bg-white p-1.5 dark:border-gray-200 dark:bg-black"
       ref={forwardedRef}
       {...rest}
     >
