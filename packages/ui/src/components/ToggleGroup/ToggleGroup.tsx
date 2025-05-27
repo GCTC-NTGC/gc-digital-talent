@@ -30,7 +30,7 @@ const Root = forwardRef<
 >(({ label, children, ...rest }, forwardedRef) => {
   return (
     <ToggleGroupPrimitive.Root
-      className="inline-flex items-center gap-x-1.5 rounded-full border border-gray-600 bg-white p-1.5"
+      className="inline-flex items-center gap-x-1.5 rounded-full border border-gray-600 bg-white p-1.5 dark:border-gray-200 dark:bg-black"
       ref={forwardedRef}
       {...rest}
     >
