@@ -14,7 +14,7 @@ export const trigger = tv({
 });
 
 export const inner = tv({
-  base: "block rounded-t border-t-6 border-t-gray px-4 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary dark:group-data-[state=active]/tabTrigger:border-t-secondary-300",
+  base: "block rounded-t border-t-6 border-t-gray px-4.5 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary dark:group-data-[state=active]/tabTrigger:border-t-secondary-300",
 });
 
 export const divide = tv({
