@@ -15,15 +15,15 @@ import {
   useEffect,
 } from "react";
 
-import { commonTabStyles, handleTabFocus } from "./utils";
+import { handleTabFocus, inner, list, root, trigger, divide } from "./utils";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >((props, forwardedRef) => (
-  <div {...commonTabStyles.root}>
+  <div className={root()}>
     <NavigationMenuPrimitive.Root ref={forwardedRef} {...props} />
-    <div {...commonTabStyles.contentDivide} />
+    <div className={divide()} />
   </div>
 ));
 
@@ -31,12 +31,7 @@ const List = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.List>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
 >(({ children, ...rest }, forwardedRef) => (
-  <NavigationMenuPrimitive.List
-    ref={forwardedRef}
-    className="Tabs__List Tabs__List--nav"
-    {...commonTabStyles.list}
-    {...rest}
-  >
+  <NavigationMenuPrimitive.List ref={forwardedRef} className={list()} {...rest}>
     {children}
   </NavigationMenuPrimitive.List>
 ));
@@ -47,7 +42,7 @@ const Item = forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    {...commonTabStyles.trigger}
+    className={trigger()}
     {...props}
   />
 ));
@@ -87,10 +82,10 @@ const Link = forwardRef<
         to={href}
         ref={linkRef}
         onFocus={handleTabFocus}
+        className={inner({ class: "focus-visible:border-t-focus" })}
         {...(isActive && {
           "data-state": "active", // Needed for active styles (mirrors tabs)
         })}
-        {...commonTabStyles.triggerInner}
       >
         {children}
       </RouterLink>
