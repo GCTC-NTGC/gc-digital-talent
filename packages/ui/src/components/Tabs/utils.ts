@@ -14,7 +14,7 @@ export const trigger = tv({
 });
 
 export const inner = tv({
-  base: "block rounded-t border-t-6 border-t-gray px-4.5 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary-500 group-data-[state=active]/tabTrigger:text-secondary-500 dark:group-data-[state=active]/tabTrigger:text-secondary-300",
+  base: "block rounded-t border-t-6 border-t-gray px-4.5 py-3 outline-none group-data-[state=active]/tabTrigger:border-t-secondary-500 group-data-[state=active]/tabTrigger:text-secondary-500 dark:group-data-[state=active]/tabTrigger:text-secondary-300 iap:group-data-[state=active]/tabTrigger:border-t-primary-500 iap:group-data-[state=active]/tabTrigger:text-primary-500 iap:dark:group-data-[state=active]/tabTrigger:border-t-primary-200 dark:iap:group-data-[state=active]/tabTrigger:text-primary-200",
 });
 
 export const divide = tv({
