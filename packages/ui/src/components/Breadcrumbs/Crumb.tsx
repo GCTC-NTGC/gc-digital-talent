@@ -39,7 +39,7 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
         aria-hidden="true"
         className="ml-3 inline-flex h-6 w-3 items-center align-middle"
       >
-        <ChevronRightIcon className="iap:sroke-primary size-3 fill-error stroke-error text-error iap:fill-primary iap:text-primary" />
+        <ChevronRightIcon className="size-3 fill-error stroke-error text-error iap:fill-primary iap:stroke-primary iap:text-primary" />
       </span>
     )}
   </li>
