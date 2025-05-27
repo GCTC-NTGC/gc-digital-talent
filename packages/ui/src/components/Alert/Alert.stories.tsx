@@ -36,7 +36,7 @@ export const Default: StoryObj<typeof Alert.Root> = {
   },
 
   render: (args) => (
-    <div data-h2-gap="base(0 x1)">
+    <div className="flex flex-col gap-y-6">
       <Alert.Root {...args} type="info">
         <Alert.Title>{faker.lorem.sentences(1)}</Alert.Title>
         <p>{faker.lorem.sentences(2)}</p>
