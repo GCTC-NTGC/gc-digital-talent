@@ -11,7 +11,7 @@ interface ItemProps {
 
 const Item = ({ children }: ItemProps) => {
   return (
-    <div className="p-6 not-last:border-b not-last:border-b-gray-100 xs:px-8 dark:not-last:border-b-gray-500">
+    <div className="p-6 not-last:border-b not-last:border-b-gray-100 xs:px-9 dark:not-last:border-b-gray-500">
       {children}
     </div>
   );
@@ -19,9 +19,8 @@ const Item = ({ children }: ItemProps) => {
 
 const heading = tv({
   slots: {
-    base: "my-0 grow-2 text-2xl lg:text-3xl",
+    base: "my-0 grow-2 text-center text-2xl text-balance xs:text-left lg:text-3xl",
     icon: "hidden size-7 shrink-0 stroke-[1.6] xs:inline-block",
-    text: "text-center text-balance xs:text-left",
   },
   variants: {
     hasIcon: {
@@ -44,11 +43,11 @@ const TaskCardHeading = ({
 }: TaskCardHeadingProps) => {
   const Icon = icon;
   const CustomHeading = headingAs;
-  const { base, icon: iconStyles, text } = heading({ hasIcon: !!icon });
+  const { base, icon: iconStyles } = heading({ hasIcon: !!icon });
   return (
     <CustomHeading className={base()}>
       {Icon ? <Icon className={iconStyles()} /> : null}
-      <span className={text()}>{children}</span>
+      <span>{children}</span>
     </CustomHeading>
   );
 };
@@ -57,7 +56,7 @@ const root = tv({
   slots: {
     base: "rounded bg-white shadow-xl dark:bg-gray-600",
     header:
-      "flex flex-col items-center gap-6 rounded-t border-b p-6 xs:flex-row xs:gap-12 xs:px-8",
+      "flex flex-col items-center gap-6 rounded-t border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
   },
   variants: {
     headingColor: {
