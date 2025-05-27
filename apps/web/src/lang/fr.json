@@ -9829,10 +9829,6 @@
     "defaultMessage": "Sommaire de la compétence",
     "description": "Title for the skill summary section in the assessment plan builder"
   },
-  "iNUK3f": {
-    "defaultMessage": "Facultatives",
-    "description": "Label for an optional skill"
-  },
   "iR7GWG": {
     "defaultMessage": "Délai cible pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"

@@ -1151,6 +1151,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "iNUK3f": {
+    "defaultMessage": "Facultatives",
+    "description": "Label for an optional skill"
+  },
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
