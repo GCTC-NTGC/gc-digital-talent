@@ -250,7 +250,7 @@
 }
 
 @layer utilities {
-  [data-state="active"]:focus-visible>.on-active-focus-border-t {
+  [data-state="active"]:focus-visible > .on-active-focus-border-t {
     @apply border-t-focus;
   }
 }
