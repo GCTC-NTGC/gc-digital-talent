@@ -75,6 +75,8 @@
   --gcdt-color-black: oklch(0.13 0.0078 268.54);
   --gcdt-color-white: oklch(1 0 0);
 
+  --gcdt-color-compat-background: rgba(245, 248, 253, 1);
+
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.2);
@@ -94,6 +96,7 @@
 * NOTE: You can manually use a different variable with `dark:`
 */
 .dark {
+  --gcdt-color-compat-background: rgba(47, 49, 61, 1);
   /** Dark mode shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
@@ -133,9 +136,6 @@
   --breakpoint-sm: 67.5rem;
   --breakpoint-md: 80rem;
   --breakpoint-lg: 100rem;
-
-  /** Fonts */
-  --font-sans: "Open Sans", "sans-serif";
 
   /** Colours */
   --color-*: initial;
@@ -206,6 +206,9 @@
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
 
+  /** Temp: Colours to match current palette */
+  --color-compat-background: var(--gcdt-color-compat-background);
+
   /** Shadows */
   --inset-shadow: var(--gcdt-inset-shadow);
   --shadow-sm: var(--gcdt-shadow-sm);
@@ -213,11 +216,41 @@
   --shadow-lg: var(--gcdt-shadow-lg);
   --shadow-xl: var(--gcdt-shadow-xl);
   --shadow-2xl: var(--gcdt-shadow-2xl);
+
+  /** Fonts */
+  --font-sans: "Open Sans", "sans-serif";
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: calc(1 / 0.75);
+  --text-sm: 0.875rem;
+  --text-sm--line-height: calc(1.25 / 0.875);
+  --text-base: 1rem;
+  --text-base--line-height: calc(1.5 / 1);
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: 1.75rem;
+  --text-3xl--line-height: calc(2.25 / 1.75);
+  --text-4xl: 2.1rem;
+  --text-4xl--line-height: calc(2.5 / 2);
+  --text-5xl: 2.5rem;
+  --text-5xl--line-height: 1;
+  --text-6xl: 3rem;
+  --text-6xl--line-height: 1;
 }
 
 @media (min-width: 100rem) {
   :root {
     font-size: 18px;
     line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  [data-state="active"]:focus-visible > .on-active-focus-border-t {
+    @apply border-t-focus;
   }
 }

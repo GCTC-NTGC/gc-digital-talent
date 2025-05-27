@@ -9,15 +9,15 @@ import {
   HydrogenAttributes,
 } from "./types";
 import Accordion, { type AccordionMetaData } from "./components/Accordion";
-import Alert, { type AlertProps } from "./components/Alert";
+import Alert, { type AlertProps } from "./components/Alert/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
 import Breadcrumbs, {
-  Crumb,
   type BreadcrumbsProps,
-} from "./components/Breadcrumbs";
+} from "./components/Breadcrumbs/Breadcrumbs";
+import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
 import {
   CardBasic,
@@ -36,14 +36,13 @@ import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DescriptionList from "./components/DescriptionList/DescriptionList";
 import Dialog from "./components/Dialog";
-import DropdownMenu from "./components/DropdownMenu";
+import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish";
 import Heading, {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
-import { headingStyles } from "./components/Heading/styles";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -83,10 +82,10 @@ import TableOfContents, {
   TocListProps,
   TocSidebarProps,
 } from "./components/TableOfContents";
-import Tabs from "./components/Tabs";
-import ToggleGroup from "./components/ToggleGroup";
+import Tabs from "./components/Tabs/Tabs";
+import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
-import TreeView from "./components/TreeView";
+import TreeView from "./components/TreeView/TreeView";
 import Well, { WellProps } from "./components/Well";
 import {
   incrementHeadingRank,
@@ -197,7 +196,6 @@ export {
 export {
   incrementHeadingRank,
   decrementHeadingRank,
-  headingStyles,
   useCardRepeaterContext,
   useControllableState,
   getNavLinkStyling,

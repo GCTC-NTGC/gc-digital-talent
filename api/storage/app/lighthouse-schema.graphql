@@ -1651,6 +1651,7 @@ input CreateUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   workEmail: Email
+  workEmailVerifiedAt: DateTime
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo

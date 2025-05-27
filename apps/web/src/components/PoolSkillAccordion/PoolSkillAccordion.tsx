@@ -35,11 +35,7 @@ const Context = ({ required }: ContextProps) => {
             id: "c70xDW",
             description: "Label for a required skill",
           })
-        : intl.formatMessage({
-            defaultMessage: "Optional",
-            id: "iNUK3f",
-            description: "Label for an optional skill",
-          })}
+        : intl.formatMessage(commonMessages.optional)}
     </span>
   );
 };

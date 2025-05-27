@@ -118,7 +118,7 @@ class ExperiencePage extends AppPage {
 
     await this.page
       .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board Secretariat" });
+      .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -169,7 +169,7 @@ class ExperiencePage extends AppPage {
 
     await this.page
       .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board Secretariat" });
+      .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -234,7 +234,7 @@ class ExperiencePage extends AppPage {
 
     await this.page
       .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board Secretariat" });
+      .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -312,7 +312,7 @@ class ExperiencePage extends AppPage {
 
     await this.page
       .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board Secretariat" });
+      .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })
@@ -444,7 +444,7 @@ class ExperiencePage extends AppPage {
 
     await this.page
       .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board Secretariat" });
+      .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
     await this.page
       .getByRole("textbox", { name: /team, group, or division/i })

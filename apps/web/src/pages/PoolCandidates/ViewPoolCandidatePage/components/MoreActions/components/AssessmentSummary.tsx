@@ -69,8 +69,8 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
           data-h2-color="base(error)"
           aria-hidden="false"
           aria-label={intl.formatMessage({
-            defaultMessage: "Not demonstrated (Remove from process)",
-            id: "zXkLL2",
+            defaultMessage: "Not demonstrated",
+            id: "fcSR2I",
             description:
               "Option for assessment decision when candidate has unsuccessful assessment and been removed from the process.",
           })}
