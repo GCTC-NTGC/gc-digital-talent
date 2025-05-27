@@ -13,7 +13,7 @@ import {
   Accordion,
   CardFlat,
   Alert,
-  CardBasic,
+  Card,
   ScrollToLink,
 } from "@gc-digital-talent/ui";
 import {
@@ -580,7 +580,7 @@ export const Component = () => {
                 })}
               </p>
             </div>
-            <CardBasic>
+            <Card>
               <ul
                 data-h2-margin="base(0)"
                 data-h2-padding="base(0, 0, 0, x1)"
@@ -684,7 +684,7 @@ export const Component = () => {
                   </div>
                 </li>
               </ul>
-            </CardBasic>
+            </Card>
           </section>
         </div>
       </div>

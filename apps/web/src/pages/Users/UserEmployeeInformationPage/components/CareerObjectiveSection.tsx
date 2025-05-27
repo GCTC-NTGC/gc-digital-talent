@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardBasic } from "@gc-digital-talent/ui";
+import { Card } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -76,7 +76,7 @@ const CareerObjectiveSection = ({
   );
 
   return (
-    <CardBasic
+    <Card
       data-h2-display="base(grid)"
       data-h2-gap="base(x1)"
       data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -188,7 +188,7 @@ const CareerObjectiveSection = ({
         {employeeProfile.careerObjectiveAdditionalInformation ??
           intl.formatMessage(commonMessages.notProvided)}
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

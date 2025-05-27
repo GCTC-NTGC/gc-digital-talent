@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { HTMLProps, ReactNode } from "react";
 
-import { Link, Heading, HeadingLevel, CardBasic } from "@gc-digital-talent/ui";
+import { Link, Heading, HeadingLevel, Card } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -95,7 +95,7 @@ const EducationRequirements = ({
     case "EX":
       return (
         <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr 1fr)">
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -113,9 +113,9 @@ const EducationRequirements = ({
                 link: (msg: ReactNode) => eligibilityLink(msg, locale),
               })}
             </Text>
-          </CardBasic>
+          </Card>
           <Or data-h2-left="l-tablet(33%)" />
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -133,9 +133,9 @@ const EducationRequirements = ({
                 link: (msg: ReactNode) => acceptableLink(msg, locale),
               })}
             </Text>
-          </CardBasic>
+          </Card>
           <Or data-h2-left="l-tablet(67%)" />
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -161,14 +161,14 @@ const EducationRequirements = ({
                   foreignDegreeLink(msg, locale),
               })}
             </Text>
-          </CardBasic>
+          </Card>
         </Wrapper>
       );
     case "AS":
     case "PM":
       return (
         <Wrapper>
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -184,9 +184,9 @@ const EducationRequirements = ({
             <Text>
               {intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}
             </Text>
-          </CardBasic>
+          </Card>
           <Or />
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -199,13 +199,13 @@ const EducationRequirements = ({
                 applicationMessages.secondarySchoolDescription,
               )}
             </Text>
-          </CardBasic>
+          </Card>
         </Wrapper>
       );
     case "EC":
       return (
         <Wrapper>
-          <CardBasic>
+          <Card>
             <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECJustEducationHeading,
@@ -216,9 +216,9 @@ const EducationRequirements = ({
                 applicationMessages.educationRequirementECJustEducationDescription,
               )}
             </Text>
-          </CardBasic>
+          </Card>
           <Or />
-          <CardBasic>
+          <Card>
             <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECEducationPlusHeading,
@@ -229,13 +229,13 @@ const EducationRequirements = ({
                 applicationMessages.educationRequirementECEducationPlusDescription,
               )}
             </Text>
-          </CardBasic>
+          </Card>
         </Wrapper>
       );
     case "CR":
       return (
         <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)">
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -257,9 +257,9 @@ const EducationRequirements = ({
                   "Applied work experience for CR classification group",
               })}
             </Text>
-          </CardBasic>
+          </Card>
           <Or />
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -279,13 +279,13 @@ const EducationRequirements = ({
                 description: "Secondary school education requirements",
               })}
             </Text>
-          </CardBasic>
+          </Card>
         </Wrapper>
       );
     case "IT":
       return (
         <Wrapper>
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -313,9 +313,9 @@ const EducationRequirements = ({
               <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
               <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
             </ul>
-          </CardBasic>
+          </Card>
           <Or />
-          <CardBasic>
+          <Card>
             <Heading
               level={headingAs}
               size="h6"
@@ -351,7 +351,7 @@ const EducationRequirements = ({
                     },
                   )}
             </Text>
-          </CardBasic>
+          </Card>
         </Wrapper>
       );
     default:

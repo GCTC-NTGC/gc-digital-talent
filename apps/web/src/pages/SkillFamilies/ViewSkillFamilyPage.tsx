@@ -7,7 +7,7 @@ import {
   Pending,
   NotFound,
   Heading,
-  CardBasic,
+  Card,
   Chips,
   Chip,
   Link,
@@ -120,7 +120,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
             {subTitle}
           </Heading>
         </div>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="p-tablet(1fr 1fr)"
@@ -183,7 +183,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
               })}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </div>
     </>
   );

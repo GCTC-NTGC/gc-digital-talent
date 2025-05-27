@@ -4,7 +4,7 @@ import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import { ReactNode } from "react";
 
-import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -283,7 +283,7 @@ export const Component = () => {
                 data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
                 data-h2-gap="base(x1)"
               >
-                <CardBasic
+                <Card
                   data-h2-overflow="base(hidden)"
                   data-h2-padding="base(0)"
                   data-h2-display="base(flex)"
@@ -378,9 +378,9 @@ export const Component = () => {
                       </Link>
                     </div>
                   </div>
-                </CardBasic>
+                </Card>
 
-                <CardBasic
+                <Card
                   data-h2-overflow="base(hidden)"
                   data-h2-padding="base(0)"
                   data-h2-display="base(flex)"
@@ -493,9 +493,9 @@ export const Component = () => {
                       </div>
                     </div>
                   </div>
-                </CardBasic>
+                </Card>
 
-                <CardBasic
+                <Card
                   data-h2-overflow="base(hidden)"
                   data-h2-padding="base(0)"
                   data-h2-display="base(flex)"
@@ -589,7 +589,7 @@ export const Component = () => {
                       </Link>
                     </div>
                   </div>
-                </CardBasic>
+                </Card>
               </div>
             </div>
           </div>

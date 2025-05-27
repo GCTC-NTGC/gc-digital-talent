@@ -7,7 +7,7 @@ import CogIcon from "@heroicons/react/24/outline/CogIcon";
 import uniqBy from "lodash/uniqBy";
 
 import {
-  CardBasic,
+  Card,
   Chip,
   Chips,
   Heading,
@@ -259,7 +259,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called recruitment",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x14.5)">
+              <Card data-h2-min-width="base(x14.5)">
                 <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
@@ -269,7 +269,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                     </li>
                   ))}
                 </ul>
-              </CardBasic>
+              </Card>
             </div>
           )}
           <div>
@@ -285,7 +285,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "Card title for a 'resources' card",
               })}
             </Heading>
-            <CardBasic data-h2-min-width="base(x14.5)">
+            <Card data-h2-min-width="base(x14.5)">
               <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
@@ -295,7 +295,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   </li>
                 ))}
               </ul>
-            </CardBasic>
+            </Card>
           </div>
           {administrationCollectionSorted.length > 0 && (
             <div>
@@ -311,7 +311,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called administration",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x14.5)">
+              <Card data-h2-min-width="base(x14.5)">
                 <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label}>
@@ -321,7 +321,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                     </li>
                   ))}
                 </ul>
-              </CardBasic>
+              </Card>
             </div>
           )}
         </div>

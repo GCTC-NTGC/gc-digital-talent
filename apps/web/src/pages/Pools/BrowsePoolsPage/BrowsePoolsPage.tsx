@@ -3,7 +3,7 @@ import { useQuery } from "urql";
 import { ReactNode } from "react";
 
 import {
-  CardBasic,
+  Card,
   CardFlat,
   Flourish,
   Heading,
@@ -157,7 +157,7 @@ export const Component = () => {
           <div>
             <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           </div>
-          <CardBasic data-h2-margin="base(x1, 0, 0, 0)">
+          <Card data-h2-margin="base(x1, 0, 0, 0)">
             <div
               data-h2-display="p-tablet(flex)"
               data-h2-gap="base(x3)"
@@ -217,7 +217,7 @@ export const Component = () => {
                 </Link>
               </div>
             </div>
-          </CardBasic>
+          </Card>
         </div>
         <img
           alt=""

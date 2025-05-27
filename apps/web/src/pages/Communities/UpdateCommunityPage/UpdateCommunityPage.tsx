@@ -14,7 +14,7 @@ import {
 import {
   Pending,
   NotFound,
-  CardBasic,
+  Card,
   CardSeparator,
   Heading,
   Link,
@@ -143,7 +143,7 @@ const CommunityForm = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1 0)"
       >
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -252,7 +252,7 @@ const CommunityForm = ({
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );

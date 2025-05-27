@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Heading, CardBasic, Link } from "@gc-digital-talent/ui";
+import { Heading, Card, Link } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -47,7 +47,7 @@ const TalentNominationEventCard = ({
 
   return (
     <>
-      <CardBasic
+      <Card
         data-h2-padding="base(x1 x1.5 x1.5 x1.5)"
         data-h2-position="base(relative)"
         data-h2-display="base(flex)"
@@ -153,7 +153,7 @@ const TalentNominationEventCard = ({
             )}
           </div>
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };

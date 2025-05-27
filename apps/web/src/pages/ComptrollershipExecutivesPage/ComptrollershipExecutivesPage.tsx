@@ -4,7 +4,7 @@ import ArrowTrendingUpIcon from "@heroicons/react/24/outline/ArrowTrendingUpIcon
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 
-import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
@@ -276,7 +276,7 @@ export const Component = () => {
               data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
               data-h2-gap="base(x1)"
             >
-              <CardBasic
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -351,8 +351,8 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
-              <CardBasic
+              </Card>
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -427,8 +427,8 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
-              <CardBasic
+              </Card>
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -501,7 +501,7 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
+              </Card>
             </div>
           </div>
         </div>

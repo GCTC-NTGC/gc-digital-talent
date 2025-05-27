@@ -13,7 +13,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   Button,
-  CardBasic,
+  Card,
   CardSeparator,
   Dialog,
   Heading,
@@ -474,7 +474,7 @@ export const Component = () => {
                       intl,
                     );
                     return (
-                      <CardBasic
+                      <Card
                         key={trainingOpportunity.id}
                         data-h2-margin-bottom="base(x1)"
                       >
@@ -569,7 +569,7 @@ export const Component = () => {
                             </Dialog.Body>
                           </Dialog.Content>
                         </Dialog.Root>
-                      </CardBasic>
+                      </Card>
                     );
                   })}
                 </>

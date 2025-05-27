@@ -13,7 +13,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { CardBasic, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -109,7 +109,7 @@ export const CreateClassification = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div data-h2-margin-bottom="base(x3)">
-          <CardBasic data-h2-margin-bottom="base(x3)">
+          <Card data-h2-margin-bottom="base(x3)">
             <div
               data-h2-display="base(flex)"
               data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -251,7 +251,7 @@ export const CreateClassification = () => {
                 </div>
               </form>
             </FormProvider>
-          </CardBasic>
+          </Card>
         </div>
       </Hero>
     </>

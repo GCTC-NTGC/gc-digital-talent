@@ -8,7 +8,7 @@ import debounce from "lodash/debounce";
 
 import {
   Button,
-  CardBasic,
+  Card,
   Heading,
   Link,
   Loading,
@@ -477,7 +477,7 @@ const JobPosterTemplatesPage = () => {
                         )}
                       </span>
                     </div>
-                    <CardBasic>
+                    <Card>
                       <PreviewList.Root>
                         {filteredJobPosterTemplates.map((jobPosterTemplate) => (
                           <PreviewList.Item
@@ -516,7 +516,7 @@ const JobPosterTemplatesPage = () => {
                           </PreviewList.Item>
                         ))}
                       </PreviewList.Root>
-                    </CardBasic>
+                    </Card>
                     {hasMore && (
                       <>
                         <Separator
