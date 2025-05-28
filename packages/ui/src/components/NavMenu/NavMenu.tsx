@@ -15,12 +15,11 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
-import getButtonStyle, {
-  ButtonStyleInterface,
-} from "../../utils/button/getButtonStyles";
+import { ButtonStyleInterface } from "../../utils/button/getButtonStyles";
 import { ButtonLinkMode, Color, IconType } from "../../types";
 import { useNavMenuContext } from "./NavMenuProvider";
 import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
+import Button from "../Button";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -40,29 +39,23 @@ const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
 >(({ children, mode, color, block = false, ...rest }, forwardedRef) => (
-  <div data-h2-text-align="base(center) l-tablet(initial)">
+  <div className="text-center sm:text-left">
     <NavigationMenuPrimitive.Trigger
       ref={forwardedRef}
+      asChild
       onPointerMove={(event) => event.preventDefault()}
       onPointerLeave={(event) => event.preventDefault()}
-      data-h2-text-decoration="base(underline)"
-      data-h2-padding="base(0)"
-      data-h2-align-items="base(center)"
-      data-h2-transform="
-      base:children[.Accordion__Icon--chevron](rotate(0deg))
-      base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(180deg))"
-      {...getButtonStyle({ mode, color, block })}
+      className="[&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
       {...rest}
     >
-      <span data-h2-margin-right="base(x.25)">{children}</span>
-      <ChevronDownIcon
-        className="Accordion__Icon Accordion__Icon--chevron"
-        data-h2-transition="base(transform 150ms ease)"
-        data-h2-display="base(inline)"
-        data-h2-width="base(x.75)"
-        data-h2-height="base(x.75)"
-        data-h2-vertical-align="base(middle)"
-      />
+      <Button
+        utilityIcon={ChevronDownIcon}
+        mode={mode}
+        color={color}
+        block={block}
+      >
+        {children}
+      </Button>
     </NavigationMenuPrimitive.Trigger>
   </div>
 ));
@@ -75,15 +68,7 @@ const Content = forwardRef<
     ref={forwardedRef}
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    data-h2-margin-top="base(x1) l-tablet(0)"
-    data-h2-position="l-tablet(absolute)"
-    data-h2-top="l-tablet(x1.25)"
-    data-h2-left="base(auto) l-tablet(-25%)"
-    data-h2-width="base(auto) l-tablet(150%)"
-    data-h2-background-color="l-tablet(foreground)"
-    data-h2-padding="l-tablet(x.25 x.5)"
-    data-h2-radius="l-tablet(s)"
-    data-h2-shadow="l-tablet(s)"
+    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
     {...props}
   />
 ));
@@ -103,13 +88,7 @@ const List = forwardRef<
 >(({ children, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
     ref={forwardedRef}
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-align-items="base(center) l-tablet(flex-start)"
-    data-h2-margin="base(0)"
-    data-h2-list-style="base(none)"
-    data-h2-gap="base(x.75)"
-    data-h2-padding="base(0)"
+    className="m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start"
     {...rest}
   >
     {children}
@@ -122,7 +101,7 @@ const Item = forwardRef<
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    data-h2-position="l-tablet(relative)"
+    className="sm:relative data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!"
     {...props}
   />
 ));
@@ -199,8 +178,7 @@ const Link = forwardRef<
           // Comes from react-router
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           state={state}
-          data-h2-text-decoration="base:selectors[[data-active]](none) base:selectors[[data-active] > span](none)"
-          data-h2-font-weight="base:selectors[[data-active]](700)"
+          className="data-active:font-bold data-active:[&_span]:no-underline"
           {...linkColor}
           aria-label={ariaLabel}
         >
