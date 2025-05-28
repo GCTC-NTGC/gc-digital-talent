@@ -275,6 +275,7 @@ return new class extends Migration
                     DB::table('experiences')
                         ->select(['id', new Expression("jsonb_array_elements_text(properties->'work_stream_ids')::UUID")])
                         ->where('experience_type', 'App\Models\WorkExperience')
+                        ->where(new Expression("jsonb_typeof(properties->'work_stream_ids')"), 'array')
                 );
 
             // step 6: fill the morph columns and make non-nullable from step 3
