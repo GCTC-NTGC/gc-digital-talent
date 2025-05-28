@@ -54,7 +54,7 @@ class BigSeederPoolCandidateUser extends Seeder
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })
-                ->count(100)
+                ->count(500)
                 ->create();
         }
 
@@ -71,7 +71,7 @@ class BigSeederPoolCandidateUser extends Seeder
                 ->afterCreating(function (User $user) use ($poolIds) {
                     $this->applyToPools($user, $poolIds);
                 })
-                ->count(100)
+                ->count(500)
                 ->create();
         }
 
