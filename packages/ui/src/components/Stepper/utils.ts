@@ -9,10 +9,10 @@ import { IconType } from "../../types";
 
 export const step = tv({
   slots: {
-    link: "group/step relative block w-full pl-9! outline-none focus-visible:bg-transparent!",
-    icon: "-top-0.5 left-1/2 size-7 rounded-full bg-gray-100 dark:bg-gray-600",
-    tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75 bg-gray-100 dark:bg-gray-600",
-    text: "ml-1.5 inline-block text-black dark:text-white",
+    link: "group/step relative block w-full outline-none focus-visible:bg-transparent!",
+    icon: "-top-0.5 left-1/2 size-7 rounded-full",
+    tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75",
+    text: "ml-1.5 block pl-9 text-black no-underline group-focus-visible/step:underline dark:text-white",
   },
   variants: {
     state: {
@@ -20,19 +20,23 @@ export const step = tv({
         text: "group-hover/step:text-secondary dark:group-hover/step:text-secondary-200",
       },
       active: {
-        icon: "bg-secondary text-black iap:bg-primary iap:text-white",
+        icon: "bg-secondary iap:bg-primary iap:text-white",
+        tail: "bg-gray-100 dark:bg-gray-600",
         text: "font-bold group-hover/step:text-secondary dark:group-hover/step:text-secondary-200",
       },
       "active-error": {
         icon: "bg-error iap:bg-error",
+        tail: "bg-gray-100 dark:bg-gray-600",
         text: "font-bold group-hover/step:text-error dark:group-hover/step:text-error-300",
       },
       error: {
         icon: "bg-error iap:bg-error",
+        tail: "bg-gray-100 dark:bg-gray-600",
         text: "group-hover/step:text-error dark:group-hover/step:text-error-300",
       },
       completed: {
         icon: "bg-success",
+        tail: "bg-success",
         text: "group-hover/step:text-success-500 dark:group-hover/step:text-success-300",
       },
       disabled: {},
@@ -46,8 +50,13 @@ export const step = tv({
     },
     {
       slots: ["icon", "tail"],
-      state: "completed",
-      class: "bg-success text-black dark:bg-success-300",
+      state: "default",
+      class: "bg-gray-100 dark:bg-gray-600",
+    },
+    {
+      slots: ["icon", "tail"],
+      state: "disabled",
+      class: "bg-gray-100 dark:bg-gray-600",
     },
   ],
 });
