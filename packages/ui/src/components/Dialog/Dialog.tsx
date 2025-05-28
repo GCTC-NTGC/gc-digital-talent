@@ -134,7 +134,7 @@ const Content = forwardRef<
             <StyledClose>
               <button
                 type="button"
-                className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-transparent p-3 text-white outline-offset-4 outline-focus hover:bg-white/15 focus-visible:bg-focus focus-visible:text-black"
+                className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-transparent p-3 text-white ring-focus ring-offset-4 ring-offset-black outline-none hover:bg-white/15 focus-visible:bg-focus focus-visible:text-black focus-visible:ring"
                 aria-label={
                   closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
                 }
