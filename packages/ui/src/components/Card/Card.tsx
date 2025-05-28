@@ -4,7 +4,7 @@ import { tv, VariantProps } from "tailwind-variants";
 import Separator from "../Separator";
 
 const card = tv({
-  base: "rounded bg-white text-black shadow-xl dark:bg-gray-600 dark:text-white",
+  base: "rounded-md bg-white text-black shadow-xl dark:bg-gray-600 dark:text-white",
   variants: {
     space: {
       sm: "p-4 [&>.CardSeparator]:-mx-4",
