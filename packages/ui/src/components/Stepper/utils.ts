@@ -1,11 +1,60 @@
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { MessageDescriptor } from "react-intl";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { IconType } from "../../types";
-import { StepState } from "./types";
+
+export const step = tv({
+  slots: {
+    link: "group/step relative block w-full pl-9! outline-none focus-visible:bg-transparent!",
+    icon: "-top-0.5 left-1/2 size-7 rounded-full bg-gray-100 dark:bg-gray-600",
+    tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75 bg-gray-100 dark:bg-gray-600",
+    text: "ml-1.5 inline-block text-black dark:text-white",
+  },
+  variants: {
+    state: {
+      default: {
+        text: "group-hover/step:text-secondary dark:group-hover/step:text-secondary-200",
+      },
+      active: {
+        icon: "bg-secondary text-black iap:bg-primary iap:text-white",
+        text: "font-bold group-hover/step:text-secondary dark:group-hover/step:text-secondary-200",
+      },
+      "active-error": {
+        icon: "bg-error iap:bg-error",
+        text: "font-bold group-hover/step:text-error dark:group-hover/step:text-error-300",
+      },
+      error: {
+        icon: "bg-error iap:bg-error",
+        text: "group-hover/step:text-error dark:group-hover/step:text-error-300",
+      },
+      completed: {
+        icon: "bg-success",
+        text: "group-hover/step:text-success-500 dark:group-hover/step:text-success-300",
+      },
+      disabled: {},
+    },
+  },
+  compoundSlots: [
+    {
+      slots: ["icon", "tail"],
+      class:
+        "absolute -translate-x-1/2 transform group-focus-visible/step:bg-focus",
+    },
+    {
+      slots: ["icon", "tail"],
+      state: "completed",
+      class: "bg-success text-black dark:bg-success-300",
+    },
+  ],
+});
+
+export type StepVariants = VariantProps<typeof step>;
+
+export type StepState = StepVariants["state"];
 
 export const getIconFromState = (state: StepState) => {
   const iconMap = new Map<StepState, IconType | undefined>([
@@ -24,135 +73,4 @@ export const messageMap = new Map<
   ["active-error", uiMessages.stepActive],
   ["completed", uiMessages.stepCompleted],
   ["error", uiMessages.stepError],
-]);
-
-/**
- * Map for the different state styles
- *
- * Note:
- *
- * This consists of hardcoded colour values.
- * The figma design used overlapping transparency to create the colour
- * however, this resulted in exposing elements underneath. So, we used the
- * computed value of the semi-transparent foreground and background mixing.
- *
- * Light: #C5C6C7
- * Dark: #7C89A3
- */
-export const linkStyleMap = new Map<StepState, Record<string, string>>([
-  [
-    "active",
-    {
-      "data-h2-background-color": `
-        base:all:children[.Step__Icon](primary.light)
-        base:iap:children[.Step__Icon](primary)
-        base:children[.Step__Tail](#C5C6C7)
-        base:dark:children[.Step__Tail](#7C89A3)
-        base:all:focus-visible:children[.Step__Icon](focus)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:hover:children[.Step__Text](primary)
-        base:dark:hover:children[.Step__Text](primary.lighter)
-        base:all:children[.Step__Icon](black)
-        base:iap:all:children[.Step__Icon](white)
-        base:all:focus-visible:children[.Step__Icon](black)
-      `,
-      "data-h2-font-weight": "base(700)",
-      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
-    },
-  ],
-  [
-    "active-error",
-    {
-      "data-h2-background-color": `
-        base:all:children[.Step__Icon](error.light)
-        base:iap:children[.Step__Icon](error)
-        base:all:children[.Step__Tail](#C5C6C7)
-        base:dark:children[.Step__Tail](#7C89A3)
-        base:all:focus-visible:children[.Step__Icon](focus)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:hover:children[.Step__Text](error)
-        base:dark:hover:children[.Step__Text](error.lighter)
-        base:all:children[.Step__Icon](black)
-        base:iap:all:children[.Step__Icon](white)
-        base:all:focus-visible:children[.Step__Icon](black)
-      `,
-      "data-h2-font-weight": "base(700)",
-      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
-    },
-  ],
-
-  [
-    "completed",
-    {
-      "data-h2-background-color": `
-        base:all:children[.Step__Flair](success.light)
-        base:all:focus-visible:children[.Step__Flair](focus)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:all:children[.Step__Flair](black)
-        base:hover:children[.Step__Text](success)
-        base:dark:hover:children[.Step__Text](success.lighter)
-      `,
-      "data-h2-text-decoration": "base(underline) base:focus-visible(none)",
-    },
-  ],
-  [
-    "disabled",
-    {
-      "data-h2-background-color": `
-        base:children[.Step__Flair](#C5C6C7)
-        base:dark:children[.Step__Flair](#7C89A3)
-        base:all:focus-visible:children[.Step__Flair](focus)
-        base:children[.Step__Tail](#C5C6C7)
-        base:dark:children[.Step__Tail](#7C89A3)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:all:children[.Step__Flair](black)
-      `,
-      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
-    },
-  ],
-  [
-    "default",
-    {
-      "data-h2-background-color": `
-        base:children[.Step__Flair](#C5C6C7)
-        base:dark:children[.Step__Flair](#7C89A3)
-        base:all:focus-visible:children[.Step__Flair](focus)
-        base:children[.Step__Tail](#C5C6C7)
-        base:dark:children[.Step__Tail](#7C89A3)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:all:children[.Step__Flair](black)
-        base:hover:children[.Step__Text](primary)
-        base:dark:hover:children[.Step__Text](primary.lighter)
-      `,
-      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
-    },
-  ],
-  [
-    "error",
-    {
-      "data-h2-background-color": `
-        base:all:children[.Step__Flair](error.light)
-        base:all:focus-visible:children[.Step__Flair](focus)
-        base:children[.Step__Tail](#C5C6C7)
-        base:dark:children[.Step__Tail](#7C89A3)
-      `,
-      "data-h2-color": `
-        base(black)
-        base:all:children[.Step__Flair](black)
-        base:hover:children[.Step__Text](error)
-        base:dark:hover:children[.Step__Text](error.lighter)
-      `,
-      "data-h2-text-decoration": "base(underline) base:focus-visible(none)",
-    },
-  ],
 ]);

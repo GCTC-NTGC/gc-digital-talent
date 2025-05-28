@@ -6,7 +6,8 @@ import { Maybe } from "@gc-digital-talent/graphql";
 
 import Heading, { HeadingLevel } from "../Heading";
 import Step from "./Step";
-import { StepState, StepType } from "./types";
+import { StepType } from "./types";
+import { StepState } from "./utils";
 
 const deriveStepState = (
   stepIndex: number,
@@ -63,12 +64,7 @@ const Stepper = ({
   return (
     <nav aria-label={label}>
       {steps && index !== undefined ? (
-        <Heading
-          level={headingLevel}
-          size="h6"
-          data-h2-margin="base(0, 0, x1, 0)"
-          data-h2-font-weight="base(700)"
-        >
+        <Heading level={headingLevel} size="h6" className="mt-0 mb-6 font-bold">
           {intl.formatMessage(uiMessages.stepTitle, {
             current: index + 1,
             total: steps.length,
@@ -76,15 +72,7 @@ const Stepper = ({
         </Heading>
       ) : null}
       {subTitle}
-      <ol
-        data-h2-align-items="base(flex-start)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1, 0)"
-        data-h2-list-style="base(none)"
-        data-h2-margin="base(x.75, 0, x1, 0)"
-        data-h2-padding="base(0)"
-      >
+      <ol className="mt-4 mb-6 flex list-none flex-col items-start gap-y-6 p-0">
         {steps?.map(
           (
             { href, label: stepLabel, completed, disabled, error },
@@ -94,13 +82,10 @@ const Stepper = ({
               key={href}
               href={href}
               label={stepLabel}
-              state={deriveStepState(
-                stepIndex,
-                index,
-                completed,
-                disabled,
-                error,
-              )}
+              state={
+                deriveStepState(stepIndex, index, completed, disabled, error) ??
+                "default"
+              }
               last={stepIndex === maxIndex}
             />
           ),
