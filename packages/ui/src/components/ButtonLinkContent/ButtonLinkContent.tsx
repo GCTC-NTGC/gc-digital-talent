@@ -24,6 +24,7 @@ interface IconTextProps
   counter?: number;
   utilityIcon?: IconType;
   newTab?: boolean;
+  noUnderline?: boolean;
 }
 
 const ButtonLinkContent = ({
@@ -34,6 +35,7 @@ const ButtonLinkContent = ({
   mode,
   fontSize,
   newTab = false,
+  noUnderline = false,
   ...rest
 }: IconTextProps) => {
   const intl = useIntl();
@@ -121,7 +123,12 @@ const ButtonLinkContent = ({
   }
   if (!newTab && !icon && !utilityIcon)
     return (
-      <span {...textSize} data-h2-text-decoration="base(underline)">
+      <span
+        {...textSize}
+        {...(noUnderline
+          ? {}
+          : { "data-h2-text-decoration": "base(underline)" })}
+      >
         {children}
       </span>
     );
@@ -147,7 +154,9 @@ const ButtonLinkContent = ({
           <span
             {...textSize}
             data-h2-font-weight="base(700)"
-            data-h2-text-decoration="base(underline)"
+            {...(noUnderline
+              ? {}
+              : { "data-h2-text-decoration": "base(underline)" })}
           >
             {children}
           </span>
@@ -188,7 +197,12 @@ const ButtonLinkContent = ({
           {...iconMargin}
         />
       )}
-      <span {...textSize} data-h2-text-decoration="base(underline)">
+      <span
+        {...textSize}
+        {...(noUnderline
+          ? {}
+          : { "data-h2-text-decoration": "base(underline)" })}
+      >
         {children}
       </span>
       {UtilityIcon && (
