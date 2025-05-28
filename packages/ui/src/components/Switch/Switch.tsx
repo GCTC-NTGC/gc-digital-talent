@@ -1,14 +1,60 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
+import { tv, VariantProps } from "tailwind-variants";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
-import getStyles, { SwitchColor } from "./styles";
 import { IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";
 
-export type SwitchProps = ComponentPropsWithoutRef<
-  typeof SwitchPrimitive.Root
-> & {
-  disabled?: boolean;
+const switchStyles = tv({
+  slots: {
+    base: "group/switch relative z-50 w-14 rounded-full bg-gray-100 p-0.5 transition-colors duration-100 ease-in-out outline-none focus-visible:bg-focus dark:bg-gray-600",
+    thumb:
+      "flex h-6 w-6 translate-x-0 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-100 ease-in-out data-[state=checked]:translate-x-7 dark:bg-gray-700",
+    icon: "size-4.5",
+  },
+  variants: {
+    disabled: {
+      true: {
+        icon: "dark:group-data[state=checked]/switch:text-gray-500 text-gray",
+      },
+      false: {
+        icon: "text-black",
+      },
+    },
+    color: {
+      primary: {
+        base: "data-[state=checked]:bg-primary-300 dark:bg-gray-400 dark:data-[state=checked]:bg-primary-500",
+      },
+      secondary: {
+        base: "data-[state=checked]:bg-secondary-300 dark:bg-gray-400 dark:data-[state=checked]:bg-secondary-500",
+      },
+      success: {
+        base: "data-[state=checked]:bg-success-300 dark:bg-gray-400 dark:data-[state=checked]:bg-success-500",
+      },
+      warning: {
+        base: "data-[state=checked]:bg-warning-300 dark:bg-gray-400 dark:data-[state=checked]:bg-warning-500",
+      },
+      error: {
+        base: "data-[state=checked]:bg-error-300 dark:bg-gray-400 dark:data-[state=checked]:bg-error-500",
+      },
+    },
+  },
+  compoundVariants: [
+    {
+      disabled: true,
+      color: ["primary", "secondary", "success", "warning", "error"],
+      class: {
+        base: "bg-gray-200 data-[state=checked]:bg-gray-300 dark:bg-gray-500 dark:data-[state=checked]:bg-gray",
+      },
+    },
+  ],
+});
+
+type SwitchVariants = VariantProps<typeof switchStyles>;
+
+export interface SwitchProps
+  extends SwitchVariants,
+    Omit<ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>, "color"> {
   // Display an icon in the handle for the switch
   icon?: {
     // Default icon displayed in the handle
@@ -16,9 +62,7 @@ export type SwitchProps = ComponentPropsWithoutRef<
     // Overrides the default icon when the switch is checked
     checked?: IconType;
   };
-  // Changes the background color when the switch is checked
-  color?: SwitchColor;
-};
+}
 
 const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
   (
@@ -38,7 +82,7 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
       defaultValue: defaultChecked,
       onChange: onCheckedChange,
     });
-    const styles = getStyles(color, disabled);
+    const { base, icon: iconStyles, thumb } = switchStyles({ color, disabled });
     let Icon: IconType | null = null;
     if (icon) {
       Icon = checked && icon.checked ? icon.checked : icon.default;
@@ -52,49 +96,17 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
 
     return (
       <SwitchPrimitive.Root
-        {...styles}
         ref={forwardedRef}
         checked={checked}
         onCheckedChange={toggle}
         {...(disabled && {
           "aria-disabled": "true",
         })}
-        data-h2-transition="base(background-color, 100ms, ease-in-out)"
-        data-h2-outline="base(none)"
-        data-h2-padding="base(x.1)"
-        data-h2-position="base(relative)"
-        data-h2-radius="base(9999px)"
-        data-h2-width="base(x2.2)"
+        className={base()}
         {...rest}
       >
-        <SwitchPrimitive.Thumb
-          data-h2-background-color="base(white)"
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-height="base(x1)"
-          data-h2-justify-content="base(center)"
-          data-h2-radius="base(9999px)"
-          data-h2-shadow="base(s)"
-          data-h2-transition="base(transform 100ms ease-in-out)"
-          data-h2-transform="
-        base(translateX(0))
-        base:selectors[[data-state='checked']](translateX(x1))"
-          data-h2-width="base(x1)"
-        >
-          {Icon && (
-            <Icon
-              data-h2-height="base(x.75)"
-              data-h2-width="base(x.75)"
-              {...(disabled
-                ? {
-                    "data-h2-color":
-                      "base(gray) base:selectors[[data-state='checked']](gray.darker)",
-                  }
-                : {
-                    "data-h2-color": "base(black)",
-                  })}
-            />
-          )}
+        <SwitchPrimitive.Thumb className={thumb()}>
+          {Icon && <Icon className={iconStyles()} />}
         </SwitchPrimitive.Thumb>
       </SwitchPrimitive.Root>
     );
