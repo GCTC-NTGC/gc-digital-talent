@@ -31,9 +31,12 @@ const Template: StoryFn<typeof Well> = (args) => {
       data-h2-gap="base(x1 0)"
     >
       <Well>Default: {content}</Well>
+      <Well color="primary">Primary: {content}</Well>
+      <Well color="secondary">Secondary: {content}</Well>
       <Well color="success">Success: {content}</Well>
       <Well color="warning">Warning: {content}</Well>
       <Well color="error">Error: {content}</Well>
+      <Well fontSize="caption">Caption: {content}</Well>
     </div>
   );
 };
