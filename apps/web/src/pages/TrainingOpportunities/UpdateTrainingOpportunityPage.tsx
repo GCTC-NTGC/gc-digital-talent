@@ -15,7 +15,7 @@ import {
   Heading,
   Link,
   CardSeparator,
-  CardBasic,
+  Card,
   NotFound,
   Pending,
 } from "@gc-digital-talent/ui";
@@ -110,7 +110,7 @@ const UpdateTrainingOpportunityForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -147,7 +147,7 @@ const UpdateTrainingOpportunityForm = ({
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );

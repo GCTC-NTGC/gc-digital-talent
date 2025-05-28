@@ -206,6 +206,10 @@
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
 
+  /** Gradient */
+  --gradient-main-linear:
+    to right, var(--color-warning), var(--color-success), var(--color-primary),
+    var(--color-error);
   /** Temp: Colours to match current palette */
   --color-compat-background: var(--gcdt-color-compat-background);
 

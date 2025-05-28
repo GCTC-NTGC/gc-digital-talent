@@ -122,7 +122,7 @@ const ManagerHomePage = () => {
           data-h2-padding="base(x2, 0, 0, 0)"
         >
           <CardFlat
-            color="quaternary"
+            color="warning"
             title={intl.formatMessage(navigationMessages.findTalent)}
             links={[
               {
@@ -143,7 +143,7 @@ const ManagerHomePage = () => {
             </p>
           </CardFlat>
           <CardFlat
-            color="secondary"
+            color="primary"
             title={intl.formatMessage({
               defaultMessage: "Run a recruitment process",
               id: "2wzOfY",
@@ -181,7 +181,7 @@ const ManagerHomePage = () => {
             </p>
           </CardFlat>
           <CardFlat
-            color="tertiary"
+            color="error"
             title={intl.formatMessage({
               defaultMessage: "Hire Indigenous talent",
               id: "IDhld2",

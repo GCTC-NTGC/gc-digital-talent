@@ -11,7 +11,7 @@ import {
   Chip,
   Chips,
   CardSeparator,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -105,7 +105,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
           })}
         </Heading>
       </div>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
@@ -191,7 +191,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
             })}
           </Link>
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };

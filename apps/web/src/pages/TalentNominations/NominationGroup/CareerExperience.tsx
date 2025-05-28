@@ -1,7 +1,7 @@
 import { useQuery } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { CardBasic, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -53,10 +53,7 @@ const TalentNominationGroupCareerExperience = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <CardBasic
-        data-h2-border-radius="base(6px 6px 0 0)"
-        data-h2-padding="base(0)"
-      >
+      <Card data-h2-border-radius="base(6px 6px 0 0)" data-h2-padding="base(0)">
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
@@ -68,8 +65,8 @@ const TalentNominationGroupCareerExperience = ({
             shareProfile={shareProfile}
           />
         </div>
-      </CardBasic>
-      <CardBasic>
+      </Card>
+      <Card>
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
@@ -82,7 +79,7 @@ const TalentNominationGroupCareerExperience = ({
             shareProfile={shareProfile}
           />
         </div>
-      </CardBasic>
+      </Card>
     </Pending>
   );
 };

@@ -2,7 +2,7 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useId } from "react";
 
 import Link, { LinkProps } from "../Link";
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import Button from "../Button";
 import BaseItem, { BaseItemProps } from "./BaseItem";
 import { hrefToString } from "../../utils";

@@ -19,14 +19,8 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
-import {
-  CardBasic,
-  CardFlat,
-  CardForm,
-  CardFormSeparator,
-  type CardBasicProps,
-  type CardFlatProps,
-} from "./components/Card";
+import Card, { type CardProps } from "./components/Card/Card";
+import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
@@ -35,8 +29,8 @@ import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DescriptionList from "./components/DescriptionList/DescriptionList";
-import Dialog from "./components/Dialog";
-import DropdownMenu from "./components/DropdownMenu";
+import Dialog from "./components/Dialog/Dialog";
+import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish";
 import Heading, {
   HeadingProps,
@@ -93,7 +87,7 @@ import {
   hrefToString,
 } from "./utils";
 import useControllableState from "./hooks/useControllableState";
-import TaskCard from "./components/TaskCard";
+import TaskCard from "./components/TaskCard/TaskCard";
 import NoList from "./components/NoList/NoList";
 
 export type {
@@ -105,7 +99,7 @@ export type {
   ButtonProps,
   ButtonLinkMode,
   CardFlatProps,
-  CardBasicProps,
+  CardProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -146,10 +140,8 @@ export {
   Breadcrumbs,
   Crumb,
   Button,
-  CardBasic,
+  Card,
   CardFlat,
-  CardForm,
-  CardFormSeparator,
   CardRepeater,
   CardSeparator,
   Chips,

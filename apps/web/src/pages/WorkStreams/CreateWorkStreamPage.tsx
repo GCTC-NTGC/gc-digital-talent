@@ -26,7 +26,7 @@ import {
   Heading,
   Link,
   CardSeparator,
-  CardBasic,
+  Card,
   Pending,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -142,7 +142,7 @@ export const CreateWorkStreamForm = ({
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <CardBasic data-h2-margin-bottom="base(x3)">
+        <Card data-h2-margin-bottom="base(x3)">
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -298,7 +298,7 @@ export const CreateWorkStreamForm = ({
               </Link>
             </div>
           </BasicForm>
-        </CardBasic>
+        </Card>
       </Hero>
     </>
   );

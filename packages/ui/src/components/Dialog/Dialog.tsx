@@ -11,6 +11,7 @@ import {
   ReactNode,
   HTMLProps,
 } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -21,31 +22,36 @@ const StyledOverlay = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
-    data-h2-display="base(grid)"
-    data-h2-position="base(fixed)"
-    data-h2-background-color="base(black.light.9) base:dark(black.light.9)"
-    data-h2-location="base(0)"
-    data-h2-overflow="base(auto)"
-    style={{ placeItems: "center", zIndex: 9998 }}
+    className="fixed inset-0 z-[9998] grid place-items-center overflow-auto bg-gray-700/90"
     ref={forwardedRef}
     {...props}
   />
 ));
 
+const content = tv({
+  base: "relative z-[9999] mx-auto my-18 w-[90vw] font-sans",
+  variants: {
+    wide: {
+      true: "max-w-5xl",
+      false: "max-w-3xl",
+    },
+  },
+});
+
+type ContentVariants = VariantProps<typeof content>;
+
+interface StyledContentProps
+  extends ContentVariants,
+    ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {}
+
 const StyledContent = forwardRef<
   ElementRef<typeof DialogPrimitive.Content>,
-  ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->((props, forwardedRef) => (
+  StyledContentProps
+>(({ wide, ...rest }, forwardedRef) => (
   <DialogPrimitive.Content
     ref={forwardedRef}
-    data-h2-font-family="base(sans)"
-    data-h2-margin="base(x3, auto)"
-    data-h2-position="base(relative)"
-    data-h2-width="base(90vw)"
-    style={{
-      zIndex: 9999,
-    }}
-    {...props}
+    className={content({ wide })}
+    {...rest}
     onPointerDownOutside={(event) => {
       const target = event.target as HTMLElement;
 
@@ -74,7 +80,7 @@ const StyledContent = forwardRef<
         return;
       }
 
-      props.onPointerDownOutside?.(event);
+      rest.onPointerDownOutside?.(event);
     }}
   />
 ));
@@ -88,7 +94,7 @@ const StyledClose = forwardRef<
 
 interface DialogProps extends DialogPrimitiveContentProps {
   container?: HTMLElement;
-  wide?: boolean;
+  wide?: StyledContentProps["wide"];
   closeLabel?: string;
   hasSubtitle?: boolean;
 }
@@ -119,13 +125,7 @@ const Content = forwardRef<
         <StyledOverlay>
           <StyledContent
             ref={forwardedRef}
-            {...(wide
-              ? {
-                  "data-h2-max-width": "base(x42)",
-                }
-              : {
-                  "data-h2-max-width": "base(x32)",
-                })}
+            wide={wide}
             {...(!hasSubtitle && {
               "aria-describedby": undefined,
             })}
@@ -134,31 +134,15 @@ const Content = forwardRef<
             <StyledClose>
               <button
                 type="button"
-                data-h2-background-color="base(transparent) base:all:hover(white.15) base:all:focus-visible(focus)"
-                data-h2-outline="base:focus-visible(1px solid focus)"
-                data-h2-outline-offset="base(4px)"
-                data-h2-border="base(none)"
-                data-h2-color="base:all(white) base:all:focus-visible(black)"
-                data-h2-cursor="base(pointer)"
-                data-h2-line-height="base(0)"
-                data-h2-location="base(x.5, x.5, auto, auto)"
-                data-h2-padding="base(x.5)"
-                data-h2-position="base(absolute)"
-                data-h2-radius="base(circle)"
-                data-h2-z-index="base(9)"
+                className="line-height-0 absolute top-3 right-3 z-10 cursor-pointer rounded-full border-none bg-transparent p-3 text-white ring-focus ring-offset-4 ring-offset-black outline-none hover:bg-white/15 focus-visible:bg-focus focus-visible:text-black focus-visible:ring"
                 aria-label={
                   closeLabel ?? intl.formatMessage(uiMessages.closeDialog)
                 }
               >
-                <XMarkIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
+                <XMarkIcon className="size-6" />
               </button>
             </StyledClose>
-            <div
-              data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-              data-h2-radius="base(rounded)"
-            >
-              {children}
-            </div>
+            <div className="rounded-md shadow-xl">{children}</div>
           </StyledContent>
         </StyledOverlay>
       </DialogPrimitive.Portal>
@@ -178,10 +162,7 @@ const StyledTitle = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
   <DialogPrimitive.Title
-    data-h2-font-weight="base(700)"
-    data-h2-font-size="base(h4, 1.1)"
-    data-h2-margin="base(0)"
-    data-h2-padding="base(0 x3 0 0)"
+    className="mb-3 text-2xl font-bold lg:text-3xl"
     ref={forwardedRef}
     {...props}
   />
@@ -191,11 +172,7 @@ const StyledDescription = forwardRef<
   ElementRef<typeof DialogPrimitive.Description>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >((props, forwardedRef) => (
-  <DialogPrimitive.Description
-    data-h2-margin="base(x.5, 0, 0, 0)"
-    ref={forwardedRef}
-    {...props}
-  />
+  <DialogPrimitive.Description ref={forwardedRef} {...props} />
 ));
 
 interface DialogHeaderProps {
@@ -204,22 +181,15 @@ interface DialogHeaderProps {
 }
 
 const Header = ({ subtitle, children }: DialogHeaderProps) => (
-  <div>
-    <div
-      data-h2-padding="base(x1)"
-      data-h2-position="base(relative)"
-      data-h2-overflow="base(hidden)"
-      data-h2-background="base:all(black)"
-      data-h2-color="base:all(white)"
-      data-h2-radius="base(rounded rounded 0 0)"
-    >
-      <div data-h2-position="base(relative)">
+  <>
+    <div className="relative overflow-hidden rounded-t-md bg-black p-6 text-white">
+      <div className="relative">
         <StyledTitle>{children}</StyledTitle>
         {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}
       </div>
     </div>
-    <div data-h2-background="base(main-linear)" data-h2-height="base(x1)" />
-  </div>
+    <div className="h-6 bg-linear-(--gradient-main-linear)" />
+  </>
 );
 
 interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
@@ -227,17 +197,12 @@ interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
 }
 
 const Footer = ({ children, ...rest }: DialogFooterProps) => (
-  <div data-h2-margin="base(x1 0 0 0)">
-    <Separator space="none" data-h2-margin-bottom="base(x1)" />
-    <div
-      data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
-      data-h2-gap="base(0 x.5)"
-      {...rest}
-    >
+  <>
+    <Separator space="sm" />
+    <div className="flex items-center gap-x-3" {...rest}>
       {children}
     </div>
-  </div>
+  </>
 );
 
 interface DialogBodyProps {
@@ -245,13 +210,7 @@ interface DialogBodyProps {
 }
 
 const Body = ({ children }: DialogBodyProps) => (
-  <div
-    data-h2-background="base(foreground)"
-    data-h2-padding="base(x1)"
-    data-h2-radius="base(0 0 rounded rounded)"
-    data-h2-border="base(1px solid black.2)"
-    data-h2-color="base(black)"
-  >
+  <div className="rounded-b-md border border-black/20 bg-white p-6 text-black dark:border-white/20 dark:bg-gray-600 dark:text-white">
     {children}
   </div>
 );

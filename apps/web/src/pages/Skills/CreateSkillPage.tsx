@@ -21,7 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  CardBasic,
+  Card,
   CardSeparator,
   Heading,
   Link,
@@ -142,7 +142,7 @@ export const CreateSkillForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -331,7 +331,7 @@ export const CreateSkillForm = ({
               })}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );
