@@ -41,7 +41,7 @@ const SingleLinkItem = ({
           href={href}
           color="black"
           // yuck, style exception 😞
-          data-h2-font-weight="base(bold)"
+          className="font-bold"
           // eslint-disable-next-line @typescript-eslint/no-deprecated
           utilityIcon={ArrowSmallRightIcon}
         >
