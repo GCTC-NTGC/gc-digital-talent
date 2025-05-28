@@ -87,8 +87,8 @@ export const Component = () => {
             <>
               {/* Standard copy */}
               <Heading
-                Icon={MapIcon}
-                color="primary"
+                icon={MapIcon}
+                color="secondary"
                 level="h2"
                 size="h3"
                 data-h2-font-weight="base(400)"
@@ -273,8 +273,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you don’t already have an authenticator app you will need to download one. Digital vendors, like Google Authenticator and Microsoft Authenticator,  provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-                  id: "lr6PWk",
+                    "If you don’t already have an authenticator app you will need to download one. Digital vendors, like Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
+                  id: "mF1IpF",
                   description: "Copy explaining mfa apps",
                 })}
               </p>
@@ -340,8 +340,8 @@ export const Component = () => {
                 </Instructions.Step>
               </Instructions.List>
               <Heading
-                Icon={InformationCircleIcon}
-                color="tertiary"
+                icon={InformationCircleIcon}
+                color="error"
                 level="h2"
                 size="h3"
                 data-h2-font-weight="base(400)"

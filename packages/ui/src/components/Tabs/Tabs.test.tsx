@@ -8,7 +8,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Tabs from ".";
+import Tabs from "./Tabs";
 
 type TabsRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Tabs.Root

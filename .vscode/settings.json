@@ -18,7 +18,9 @@
   "eslint.workingDirectories": [
     "./apps/web",
     "./apps/playwright",
-    { "pattern": "./packages/*" }
+    {
+      "pattern": "./packages/*"
+    }
   ],
   "[typescriptreact]": {
     "editor.tabSize": 2
@@ -110,5 +112,11 @@
       "overrideName": true,
       "icon": "terminal-ubuntu"
     }
-  }
+  },
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "([\"'`][^\"'`]*.*?[\"'`])",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ]
 }

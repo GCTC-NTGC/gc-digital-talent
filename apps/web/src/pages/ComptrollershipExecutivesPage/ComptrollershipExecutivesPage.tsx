@@ -4,13 +4,12 @@ import ArrowTrendingUpIcon from "@heroicons/react/24/outline/ArrowTrendingUpIcon
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 
-import { CardBasic, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,7 +49,6 @@ export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const { createNomination } = useFeatureFlags();
 
   return (
     <>
@@ -65,9 +63,9 @@ export const Component = () => {
       <div data-h2-margin="base(x3 0)">
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <Heading
-            Icon={UserCircleIcon}
+            icon={UserCircleIcon}
             size="h2"
-            color="primary"
+            color="secondary"
             data-h2-margin="base(x3 0 x1.5 0)"
             data-h2-font-weight="base(400)"
             data-h2-justify-content="base(center) p-tablet(start)"
@@ -151,9 +149,9 @@ export const Component = () => {
             })}
           </p>
           <Heading
-            Icon={ArrowTrendingUpIcon}
+            icon={ArrowTrendingUpIcon}
             size="h2"
-            color="secondary"
+            color="primary"
             data-h2-margin="base(x3 0 x1.5 0)"
             data-h2-font-weight="base(400)"
             data-h2-justify-content="base(center) p-tablet(start)"
@@ -191,9 +189,9 @@ export const Component = () => {
             data-h2-gap="base(x1.5)"
           >
             <Heading
-              Icon={UserGroupIcon}
+              icon={UserGroupIcon}
               size="h2"
-              color="quaternary"
+              color="warning"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
               data-h2-justify-content="base(center) p-tablet(start)"
@@ -210,7 +208,7 @@ export const Component = () => {
               data-h2-gap="base(x2) p-tablet(x3)"
             >
               <CardFlat
-                color="quaternary"
+                color="warning"
                 title={intl.formatMessage({
                   defaultMessage: "Executive talent management process",
                   id: "fJmRpp",
@@ -227,7 +225,7 @@ export const Component = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="quinary"
+                color="success"
                 title={intl.formatMessage({
                   defaultMessage: "Talent mobility",
                   id: "6xQf6q",
@@ -242,26 +240,16 @@ export const Component = () => {
                     description: "card description, for nomination feature",
                   })}
                 </p>
-                {createNomination ? (
-                  <p>
-                    <Link mode="inline" href={paths.talentManagementEvents()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Nominate talent",
-                        id: "yVf0d/",
-                        description:
-                          "Link text to navigate to talent nomination events list",
-                      })}
-                    </Link>
-                  </p>
-                ) : (
-                  <p data-h2-font-weight="base(bold)">
+                <p>
+                  <Link mode="inline" href={paths.talentManagementEvents()}>
                     {intl.formatMessage({
-                      defaultMessage: "Available in April",
-                      id: "Wg+Buu",
-                      description: "Availability blurb",
+                      defaultMessage: "Nominate talent",
+                      id: "yVf0d/",
+                      description:
+                        "Link text to navigate to talent nomination events list",
                     })}
-                  </p>
-                )}
+                  </Link>
+                </p>
               </CardFlat>
             </div>
           </div>
@@ -271,9 +259,9 @@ export const Component = () => {
             data-h2-gap="base(x1.5)"
           >
             <Heading
-              Icon={BookOpenIcon}
+              icon={BookOpenIcon}
               size="h2"
-              color="tertiary"
+              color="error"
               data-h2-margin="base(x3 0 0 0)"
               data-h2-font-weight="base(400)"
             >
@@ -288,7 +276,7 @@ export const Component = () => {
               data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
               data-h2-gap="base(x1)"
             >
-              <CardBasic
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -363,8 +351,8 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
-              <CardBasic
+              </Card>
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -439,8 +427,8 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
-              <CardBasic
+              </Card>
+              <Card
                 data-h2-overflow="base(hidden)"
                 data-h2-padding="base(0)"
                 data-h2-display="base(flex)"
@@ -513,7 +501,7 @@ export const Component = () => {
                     </Link>
                   </div>
                 </div>
-              </CardBasic>
+              </Card>
             </div>
           </div>
         </div>

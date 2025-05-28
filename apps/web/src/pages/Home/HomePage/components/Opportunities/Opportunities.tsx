@@ -19,8 +19,8 @@ const Opportunities = () => {
         level="h2"
         size="h3"
         data-h2-font-weight="base(400)"
-        Icon={SparklesIcon}
-        color="primary"
+        icon={SparklesIcon}
+        color="secondary"
         data-h2-margin="base(0)"
       >
         {intl.formatMessage({
@@ -36,7 +36,7 @@ const Opportunities = () => {
         data-h2-padding="base(x2, 0, 0, 0)"
       >
         <CardFlat
-          color="quaternary"
+          color="warning"
           title={intl.formatMessage({
             defaultMessage: "Jobs in digital government",
             id: "+cBKDC",
@@ -66,7 +66,7 @@ const Opportunities = () => {
           </p>
         </CardFlat>
         <CardFlat
-          color="secondary"
+          color="primary"
           title={intl.formatMessage({
             defaultMessage: "Managers community",
             id: "l75mNg",
@@ -105,7 +105,7 @@ const Opportunities = () => {
           </p>
         </CardFlat>
         <CardFlat
-          color="tertiary"
+          color="error"
           title={intl.formatMessage({
             defaultMessage: "Executive community",
             id: "/zVZCP",

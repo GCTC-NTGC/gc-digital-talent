@@ -10,7 +10,7 @@ import {
   Link,
   Chip,
   Chips,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -105,6 +105,17 @@ const deriveWhoCanApplyString = (
   intl: IntlShape,
 ): string | null => {
   if (areaOfSelection == PoolAreaOfSelection.Public) {
+    if (
+      selectionLimitations?.includes(PoolSelectionLimitation.CanadianCitizens)
+    ) {
+      return intl.formatMessage({
+        defaultMessage: "Canadian citizens",
+        id: "VotRI3",
+        description: "Canadian citizen only application criteria",
+      });
+    }
+
+    // fall-through for public
     return intl.formatMessage({
       defaultMessage: "Open to the public",
       id: "L0eho2",
@@ -186,7 +197,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   });
 
   return (
-    <CardBasic
+    <Card
       data-h2-margin-top="base(x1)"
       data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
       data-h2-position="base(relative)"
@@ -334,9 +345,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           {essentialSkills.length ? (
             <Chips>
               {essentialSkills.map((skill) => (
-                <Chip key={skill.id} color="secondary">
-                  {getLocalizedName(skill.name, intl)}
-                </Chip>
+                <Chip key={skill.id}>{getLocalizedName(skill.name, intl)}</Chip>
               ))}
             </Chips>
           ) : (
@@ -369,7 +378,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           )}
         </div>
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

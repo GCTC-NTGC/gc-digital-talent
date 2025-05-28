@@ -20,7 +20,7 @@ test("Create pool", async ({ appPage }) => {
 
   await appPage.page
     .getByRole("combobox", { name: /department/i })
-    .selectOption({ label: "Treasury Board Secretariat" });
+    .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
   await appPage.page
     .getByRole("combobox", { name: /community/i })

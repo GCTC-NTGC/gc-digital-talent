@@ -10,7 +10,7 @@ import {
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName, uiMessages } from "@gc-digital-talent/i18n";
-import { Accordion, Button, CardBasic, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Button, Card, Heading } from "@gc-digital-talent/ui";
 
 import PoolSkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
@@ -82,9 +82,9 @@ const EssentialBehaviouralSkills = ({
   return (
     <>
       <Heading
-        Icon={BoltIcon}
+        icon={BoltIcon}
         size="h2"
-        color="quaternary"
+        color="warning"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.essentialBehaviouralSkills.longTitle)}
@@ -154,12 +154,12 @@ const EssentialBehaviouralSkills = ({
             ))}
           </Accordion.Root>
           {note ? (
-            <CardBasic
+            <Card
               data-h2-font-size="base(caption)"
               data-h2-color="base(black.light)"
             >
               {note}
-            </CardBasic>
+            </Card>
           ) : null}
         </div>
       </div>

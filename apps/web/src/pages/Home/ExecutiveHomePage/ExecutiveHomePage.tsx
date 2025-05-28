@@ -92,8 +92,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
           level="h2"
           size="h3"
           data-h2-font-weight="base(400)"
-          Icon={RocketLaunchIcon}
-          color="secondary"
+          icon={RocketLaunchIcon}
+          color="primary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage({
@@ -165,8 +165,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
             level="h2"
             size="h3"
             data-h2-font-weight="base(400)"
-            Icon={PuzzlePieceIcon}
-            color="quaternary"
+            icon={PuzzlePieceIcon}
+            color="warning"
             data-h2-margin-top="base(0)"
           >
             {intl.formatMessage({
@@ -182,7 +182,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             data-h2-padding="base(x2, 0)"
           >
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Find pre-qualified executive talent",
                 id: "1R3SYH",
@@ -221,7 +221,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Manage your career",
                 id: "kK1Z9U",
@@ -246,7 +246,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="secondary"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Get hiring experience",
                 id: "SfhT1q",
@@ -328,8 +328,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
           size="h3"
           data-h2-font-weight="base(400)"
           data-h2-margin="base(0, 0, x0.5, 0)"
-          Icon={SparklesIcon}
-          color="primary"
+          icon={SparklesIcon}
+          color="secondary"
         >
           {intl.formatMessage({
             defaultMessage: "EXposition",

@@ -100,9 +100,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
         <div
           ref={forwardedRef}
           data-state={open ? "open" : "closed"}
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1, 0)"
+          className="flex flex-col gap-y-6"
           {...rest}
         >
           {children}
@@ -124,11 +122,7 @@ const Content = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
       <div
         id={context?.contentId}
         ref={forwardedRef}
-        data-h2-background="base(foreground)"
-        data-h2-color="base(black)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(rounded)"
-        data-h2-shadow="base(m)"
+        className="rounded-md bg-white p-6 text-black shadow-lg"
         {...props}
       >
         {children}
@@ -265,13 +259,9 @@ interface HeaderProps extends HeadingProps {
 const Header = forwardRef<HTMLHeadingElement, HeaderProps>(
   ({ toggle, ...headingProps }, forwardedRef) => {
     return (
-      <div data-h2-flex-grid="base(flex-start, x2, x1) p-tablet(center, x2)">
-        <Heading
-          ref={forwardedRef}
-          data-h2-flex-item="base(1of1) p-tablet(fill)"
-          {...headingProps}
-        />
-        <div data-h2-flex-item="base(1of1) p-tablet(content)">{toggle}</div>
+      <div className="flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+        <Heading ref={forwardedRef} className="my-0 grow" {...headingProps} />
+        <div className="shrink">{toggle}</div>
       </div>
     );
   },

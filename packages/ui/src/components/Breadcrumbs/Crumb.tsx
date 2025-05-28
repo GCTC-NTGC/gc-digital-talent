@@ -1,10 +1,22 @@
 import { Link } from "react-router";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import { ReactNode } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
-interface CrumbProps {
+const crumb = tv({
+  base: "text-sm text-white outline-none hover:text-primary-200 focus-visible:bg-focus focus-visible:text-black iap:hover:text-secondary-100",
+  variants: {
+    isCurrent: {
+      true: "font-bold",
+      false: "underline",
+    },
+  },
+});
+
+type CrumbVariants = VariantProps<typeof crumb>;
+
+interface CrumbProps extends CrumbVariants {
   children: ReactNode;
-  isCurrent?: boolean;
   url: string;
 }
 
@@ -12,14 +24,9 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
   <li>
     <Link
       to={url}
-      data-h2-color="base:all(white) base:all:hover(secondary.lighter) base:all:focus-visible(black) base:iap:all:hover(secondary.lightest) base:iap:all:focus-visible(black)"
-      data-h2-background-color="base:all:focus-visible(focus)"
-      data-h2-outline="base(none)"
-      data-h2-font-size="base(caption)"
+      className={crumb({ isCurrent })}
       {...(isCurrent
         ? {
-            "data-h2-font-weight": "base(700)",
-            "data-h2-text-decoration": "base(none)",
             "aria-current": "page",
             reloadDocument: true,
           }
@@ -30,20 +37,9 @@ const Crumb = ({ children, isCurrent, url }: CrumbProps) => (
     {!isCurrent && (
       <span
         aria-hidden="true"
-        data-h2-height="base(x1.1)"
-        data-h2-width="base(x.5)"
-        data-h2-display="base(inline-flex)"
-        data-h2-align-items="base(center)"
-        data-h2-margin="base(0, 0, 0, x.5)"
-        data-h2-vertical-align="base(middle)"
-        data-h2-stroke="base:children[svg, svg path](tertiary.light) base:iap:all:children[svg, svg path](primary.light)"
-        data-h2-fill="base:children[svg, svg path](tertiary.light) base:iap:all:children[svg, svg path](primary.light)"
+        className="ml-3 inline-flex h-6 w-3 items-center align-middle"
       >
-        <ChevronRightIcon
-          data-h2-vertical-align="base(middle)"
-          data-h2-height="base(x.5)"
-          data-h2-width="base(x.5)"
-        />
+        <ChevronRightIcon className="size-3 fill-error stroke-error text-error iap:fill-primary iap:stroke-primary iap:text-primary" />
       </span>
     )}
   </li>

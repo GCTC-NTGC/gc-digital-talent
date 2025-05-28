@@ -16,7 +16,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Pending,
   Heading,
-  CardBasic,
+  Card,
   Link,
   CardSeparator,
 } from "@gc-digital-talent/ui";
@@ -159,16 +159,16 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} centered overlap>
         <div data-h2-margin-bottom="base(x3)">
-          <CardBasic>
+          <Card>
             <div
               data-h2-display="base(flex)"
               data-h2-justify-content="base(center) p-tablet(flex-start)"
             >
               <Heading
-                color="primary"
+                color="secondary"
                 size="h2"
                 data-h2-margin-top="base(0)"
-                Icon={IdentificationIcon}
+                icon={IdentificationIcon}
               >
                 {intl.formatMessage(messages.skillFamilyInfo)}
               </Heading>
@@ -303,7 +303,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
                 </div>
               </form>
             </FormProvider>
-          </CardBasic>
+          </Card>
         </div>
       </Hero>
     </>

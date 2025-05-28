@@ -109,8 +109,8 @@ const TrainingAndDevelopmentOpportunities = ({
         <Heading
           level="h2"
           data-h2-font-weight="base(400)"
-          Icon={RectangleGroupIcon}
-          color="primary"
+          icon={RectangleGroupIcon}
+          color="secondary"
           data-h2-margin="base(0)"
         >
           {intl.formatMessage({

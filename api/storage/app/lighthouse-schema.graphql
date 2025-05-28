@@ -1651,6 +1651,7 @@ input CreateUserInput {
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   workEmail: Email
+  workEmailVerifiedAt: DateTime
   govEmployeeType: GovEmployeeType
   currentClassification: ClassificationBelongsTo
   department: DepartmentBelongsTo
@@ -3453,6 +3454,7 @@ enum PoolOpportunityLength {
 enum PoolSelectionLimitation {
   AT_LEVEL_ONLY
   DEPARTMENTAL_PREFERENCE
+  CANADIAN_CITIZENS
 }
 
 enum PoolSkillType {

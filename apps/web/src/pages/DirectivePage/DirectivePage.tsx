@@ -13,7 +13,7 @@ import {
   Accordion,
   CardFlat,
   Alert,
-  CardBasic,
+  Card,
   ScrollToLink,
 } from "@gc-digital-talent/ui";
 import {
@@ -160,9 +160,9 @@ export const Component = () => {
             )}
           </Alert.Root>
           <Heading
-            Icon={MapIcon}
+            icon={MapIcon}
             size="h3"
-            color="primary"
+            color="secondary"
             data-h2-margin="base(0, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -200,9 +200,9 @@ export const Component = () => {
             </Link>
           </p>
           <Heading
-            Icon={ChartPieIcon}
+            icon={ChartPieIcon}
             size="h3"
-            color="secondary"
+            color="primary"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -356,9 +356,9 @@ export const Component = () => {
             </Accordion.Root>
           </div>
           <Heading
-            Icon={BookmarkSquareIcon}
+            icon={BookmarkSquareIcon}
             size="h3"
-            color="tertiary"
+            color="error"
             data-h2-margin="base(x3, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -375,7 +375,7 @@ export const Component = () => {
             data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
           >
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Digital services contracting questionnaire",
                 id: "oiTphL",
@@ -477,7 +477,7 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Related policies",
                 id: "vbiWgW",
@@ -524,9 +524,9 @@ export const Component = () => {
           <Resources />
           <section id={sectionIds.changes}>
             <Heading
-              Icon={Cog8ToothIcon}
+              icon={Cog8ToothIcon}
               size="h3"
-              color="quinary"
+              color="success"
               data-h2-margin="base(x3, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -580,7 +580,7 @@ export const Component = () => {
                 })}
               </p>
             </div>
-            <CardBasic>
+            <Card>
               <ul
                 data-h2-margin="base(0)"
                 data-h2-padding="base(0, 0, 0, x1)"
@@ -684,7 +684,7 @@ export const Component = () => {
                   </div>
                 </li>
               </ul>
-            </CardBasic>
+            </Card>
           </section>
         </div>
       </div>

@@ -2,7 +2,7 @@ import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { CardBasic, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
+import { Card, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -41,7 +41,7 @@ const NotificationsPage = () => {
         <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <Sidebar.Wrapper>
             <Sidebar.Sidebar>
-              <CardBasic>
+              <Card>
                 <Heading level="h2" size="h6" data-h2-margin-top="base(0)">
                   {intl.formatMessage({
                     defaultMessage: "Notification settings",
@@ -72,13 +72,13 @@ const NotificationsPage = () => {
                     })}
                   </Link>
                 </p>
-              </CardBasic>
+              </Card>
             </Sidebar.Sidebar>
             <Sidebar.Content>
               <Heading
                 level="h2"
-                Icon={BellAlertIcon}
-                color="primary"
+                icon={BellAlertIcon}
+                color="secondary"
                 data-h2-font-weight="base(400)"
                 data-h2-margin-top="base(0)"
               >

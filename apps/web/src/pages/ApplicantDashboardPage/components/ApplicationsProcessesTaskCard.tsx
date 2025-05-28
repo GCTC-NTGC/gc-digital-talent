@@ -45,7 +45,7 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardQuery,
   );
 
-  const jobApplicationsMetaData: AccordionMetaData[] = [
+  const jobApplicationsMetaData: AccordionMetaData = [
     {
       key: "browse-jobs-key",
       type: "link",
@@ -77,7 +77,7 @@ const ApplicationsProcessesTaskCard = ({
             id: "hhNBq8",
             description: "Card title for Applications and processes",
           })}
-          headingColor="primary"
+          headingColor="secondary"
           headingAs="h2"
         >
           <TaskCard.Item>

@@ -411,10 +411,6 @@
     "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
     "description": "The work region of Canada described as National Capital."
   },
-  "FYrmhH": {
-    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
-    "description": "Message showing number of all available options in combobox menu"
-  },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
@@ -470,6 +466,10 @@
   "Hu321P": {
     "defaultMessage": "La compétence du bassin n'existe pas pour le bassin en question.",
     "description": "Error message that a given pool skill is not valid."
+  },
+  "HxxE2u": {
+    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} one {1 option sélectionnée} other {# options sélectionnées}}",
+    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
   "I1jrAG": {
     "defaultMessage": "Non accepté",
@@ -527,8 +527,8 @@
     "defaultMessage": "À un stade initial de développement",
     "description": "The behavioural skill level for beginner"
   },
-  "KGX4bI": {
-    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
+  "KeleaV": {
+    "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} one {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} one {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
     "description": "Message showing number of matching items from all available options in combobox menu"
   },
   "Ko0JX/": {
@@ -839,6 +839,10 @@
     "defaultMessage": "Trier par",
     "description": "Label for the links to change how the list is sorted"
   },
+  "W9zlhl": {
+    "defaultMessage": "Sélectionnée",
+    "description": "Label when an item is selected"
+  },
   "WGoaKQ": {
     "defaultMessage": "Sauvegardez les modifications",
     "description": "Text for submit button on edit forms"
@@ -862,6 +866,10 @@
   "WhXfSx": {
     "defaultMessage": "Veuillez entrer une date valide",
     "description": "Error message that appears when a user enters an invalid date into a date input"
+  },
+  "X3wRqo": {
+    "defaultMessage": "{total, plural, =0 {<strong>0</strong> options disponibles} one {<strong>1</strong> option disponible} other { <strong>#</strong> options disponibles}}",
+    "description": "Message showing number of all available options in combobox menu"
   },
   "XCKYVJ": {
     "defaultMessage": "Lien",
@@ -1047,10 +1055,6 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
   },
-  "eBNZxB": {
-    "defaultMessage": "{count, plural, =0 {0 options sélectionnées} =1 {1 option sélectionnée} other {# options sélectionnées}}",
-    "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
-  },
   "eQ8bTh": {
     "defaultMessage": "Expire",
     "description": "Title for expires"
@@ -1158,6 +1162,10 @@
   "iC7Wsq": {
     "defaultMessage": "J'accepte d'avoir un emploi dans le cadre duquel je dois <strong>détenir un permis de conduire valide</strong> ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "iNUK3f": {
+    "defaultMessage": "Facultatives",
+    "description": "Label for an optional skill"
   },
   "iSfiWx": {
     "defaultMessage": "Année",
@@ -1390,6 +1398,10 @@
   "plwOsC": {
     "defaultMessage": "Sélectionnez",
     "description": "Default placeholder shown when Select field has nothing actively selected."
+  },
+  "pnoSK6": {
+    "defaultMessage": "Non sélectionnée",
+    "description": "Label when an item is not selected"
   },
   "qIOz/5": {
     "defaultMessage": "Demandes",

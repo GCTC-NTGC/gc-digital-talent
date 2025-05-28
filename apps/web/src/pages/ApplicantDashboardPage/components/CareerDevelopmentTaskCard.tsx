@@ -121,7 +121,7 @@ const CareerDevelopmentTaskCard = ({
     promotionMoveOrganizationType,
   ).map((interest) => String(interest.value));
 
-  const careerPlanningMetaData: AccordionMetaData[] = [
+  const careerPlanningMetaData: AccordionMetaData = [
     {
       key: "edit-career-planning-key",
       type: "link",
@@ -140,7 +140,7 @@ const CareerDevelopmentTaskCard = ({
     },
   ];
 
-  const functionalCommunitiesMetaData: AccordionMetaData[] = [
+  const functionalCommunitiesMetaData: AccordionMetaData = [
     {
       key: "add-community-key",
       type: "link",
@@ -182,7 +182,7 @@ const CareerDevelopmentTaskCard = ({
             id: "+2/ksA",
             description: "Card title for career development",
           })}
-          headingColor="secondary"
+          headingColor="primary"
           headingAs="h2"
         >
           <TaskCard.Item>

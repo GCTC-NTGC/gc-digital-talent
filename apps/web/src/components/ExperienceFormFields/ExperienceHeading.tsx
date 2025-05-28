@@ -27,8 +27,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
       {edit ? (
         <>
           <Heading
-            Icon={PencilSquareIcon}
-            color="primary"
+            icon={PencilSquareIcon}
+            color="secondary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
             size="h3"
@@ -54,8 +54,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
       ) : (
         <>
           <Heading
-            Icon={PlusCircleIcon}
-            color="primary"
+            icon={PlusCircleIcon}
+            color="secondary"
             data-h2-margin-top="base(0)"
             data-h2-display="base(flex)"
             size="h3"
@@ -109,7 +109,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 </p>
                 <DescriptionList.Root>
                   <DescriptionList.Item
-                    Icon={BriefcaseIcon}
+                    icon={BriefcaseIcon}
+                    color="secondary"
                     title={intl.formatMessage(experienceMessages.work)}
                   >
                     {intl.formatMessage({
@@ -120,7 +121,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                     })}
                   </DescriptionList.Item>
                   <DescriptionList.Item
-                    Icon={BookOpenIcon}
+                    icon={BookOpenIcon}
+                    color="secondary"
                     title={intl.formatMessage(experienceMessages.education)}
                   >
                     {intl.formatMessage({
@@ -132,7 +134,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                     })}
                   </DescriptionList.Item>
                   <DescriptionList.Item
-                    Icon={UserGroupIcon}
+                    icon={UserGroupIcon}
+                    color="secondary"
                     title={intl.formatMessage(experienceMessages.community)}
                   >
                     {intl.formatMessage({
@@ -144,7 +147,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                     })}
                   </DescriptionList.Item>
                   <DescriptionList.Item
-                    Icon={LightBulbIcon}
+                    icon={LightBulbIcon}
+                    color="secondary"
                     title={intl.formatMessage(experienceMessages.personal)}
                   >
                     {intl.formatMessage({
@@ -156,7 +160,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                     })}
                   </DescriptionList.Item>
                   <DescriptionList.Item
-                    Icon={StarIcon}
+                    color="secondary"
+                    icon={StarIcon}
                     title={intl.formatMessage(experienceMessages.award)}
                   >
                     {intl.formatMessage({

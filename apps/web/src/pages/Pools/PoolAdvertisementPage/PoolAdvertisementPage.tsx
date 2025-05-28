@@ -18,7 +18,7 @@ import {
   Heading,
   Link,
   Well,
-  CardBasic,
+  Card,
   Button,
   Separator,
 } from "@gc-digital-talent/ui";
@@ -668,7 +668,7 @@ export const PoolPoster = ({
               )}
               <AreaOfSelectionWell poolQuery={pool} />
 
-              <CardBasic>
+              <Card>
                 <DataRow
                   hideSeparator
                   label={
@@ -807,7 +807,7 @@ export const PoolPoster = ({
                   value={securityClearance}
                   suffix={<SecurityClearanceDialog />}
                 />
-              </CardBasic>
+              </Card>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.minEducation.id}>
               <TableOfContents.Heading
@@ -849,7 +849,7 @@ export const PoolPoster = ({
                   <TableOfContents.Heading
                     size="h3"
                     icon={BoltIcon}
-                    color="quaternary"
+                    color="warning"
                     data-h2-margin="base(x3, 0, 0, 0)"
                   >
                     {sections.skillRequirements.title}
@@ -931,7 +931,7 @@ export const PoolPoster = ({
               <TableOfContents.Heading
                 size="h3"
                 icon={ClipboardDocumentIcon}
-                color="tertiary"
+                color="error"
                 data-h2-margin="base(x3, 0, x1, 0)"
               >
                 {sections.aboutRole.title}
@@ -1015,7 +1015,7 @@ export const PoolPoster = ({
                   <TableOfContents.Heading
                     size="h3"
                     icon={QuestionMarkCircleIcon}
-                    color="quinary"
+                    color="success"
                     data-h2-margin="base(x3, 0, 0, 0)"
                   >
                     {sections.moreInfo.title}

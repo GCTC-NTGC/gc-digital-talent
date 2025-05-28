@@ -7,7 +7,7 @@ import {
   Pending,
   NotFound,
   Heading,
-  CardBasic,
+  Card,
   Chips,
   Chip,
   Link,
@@ -112,15 +112,15 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
           data-h2-justify-content="base(center) p-tablet(flex-start)"
         >
           <Heading
-            Icon={IdentificationIcon}
+            icon={IdentificationIcon}
             level="h2"
-            color="primary"
+            color="secondary"
             data-h2-margin-top="base(0)"
           >
             {subTitle}
           </Heading>
         </div>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="p-tablet(1fr 1fr)"
@@ -183,7 +183,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
               })}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </div>
     </>
   );

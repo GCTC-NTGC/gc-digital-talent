@@ -28,4 +28,15 @@ return [
     'contractor_type' => 'Contractor type',
     'classification' => 'Classification',
     'contract_firm_agency' => 'Contracting firm or agency',
+    'supervisory_position' => 'Management or supervisory position',
+    'supervised_employees' => 'Employee supervision',
+    'supervised_employees_number' => 'Number of employees',
+    'budget_management' => 'Budget management or delegated signing authority',
+    'annual_budget_allocation' => 'Annual budget allocation (CAD$)',
+    'senior_management_status' => 'Senior management status',
+    'c_suite_role_title' => 'C-suite role title',
+    'other_c_suite_role_title' => 'Other C-suite title',
+    // Values
+    'senior_management_true' => 'This was a chief or deputy chief (C-suite) role.',
+    'senior_management_false' => 'This was not a chief or deputy chief (C-suite) role.',
 ];

@@ -29,7 +29,7 @@ const About = () => {
               level="h2"
               size="h3"
               data-h2-font-weight="base(400)"
-              Icon={NewspaperIcon}
+              icon={NewspaperIcon}
               data-h2-margin="base(0)"
             >
               {intl.formatMessage({
@@ -45,7 +45,7 @@ const About = () => {
               data-h2-padding="base(x2, 0, 0, 0)"
             >
               <CardFlat
-                color="blackFixed"
+                color="black"
                 title={intl.formatMessage({
                   defaultMessage: "Directive on Digital Talent",
                   id: "xXwUGs",
@@ -76,7 +76,7 @@ const About = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="blackFixed"
+                color="black"
                 title={intl.formatMessage({
                   defaultMessage: "Digital Community Management",
                   id: "JRlnNk",
@@ -115,7 +115,7 @@ const About = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="blackFixed"
+                color="black"
                 title={intl.formatMessage({
                   defaultMessage: "From concept to code",
                   id: "kHypfJ",

@@ -3,9 +3,10 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import Button from "../Button";
 import Accordion from "../Accordion";
-import Alert from "../Alert";
+import Alert from "../Alert/Alert";
 import TreeView from "./TreeView";
-import { CardBasic } from "../Card";
+import Card from "../Card/Card";
+import Heading from "../Heading";
 
 faker.seed(0);
 
@@ -17,10 +18,12 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
   return (
     <TreeView.Root>
       <TreeView.Head>
-        <CardBasic>
-          <h2>Heading</h2>
+        <Card>
+          <Heading level="h2" data-h2-margin-top="base(0)">
+            Heading
+          </Heading>
           <p>Subtitle</p>
-        </CardBasic>
+        </Card>
       </TreeView.Head>
       <TreeView.Item noBranch>
         <Alert.Root type="warning" data-h2-margin="base(0, 0)">
@@ -43,10 +46,12 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
         </Accordion.Root>
       </TreeView.Item>
       <TreeView.Item>
-        <CardBasic>
-          <h3>Card title</h3>
+        <Card>
+          <Heading level="h3" data-h2-margin-top="base(0)">
+            Card title
+          </Heading>
           <p>{faker.lorem.sentences(4)}</p>
-        </CardBasic>
+        </Card>
       </TreeView.Item>
       <TreeView.Item>
         <Button color="secondary" mode="solid">

@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  CardBasic,
+  Card,
   CardSeparator,
   Heading,
   Link,
@@ -65,8 +65,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
     <>
       <Heading
         level="h2"
-        Icon={CalendarIcon}
-        color="primary"
+        icon={CalendarIcon}
+        color="secondary"
         data-h2-margin-top="base(0)"
       >
         {intl.formatMessage({
@@ -83,7 +83,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           description: "Description for the details of a nomination event",
         })}
       </p>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="l-tablet(1fr 1fr)"
@@ -235,7 +235,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-      </CardBasic>
+      </Card>
     </>
   );
 };

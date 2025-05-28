@@ -7,7 +7,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import {
   Pending,
   NotFound,
-  CardBasic,
+  Card,
   Heading,
   Link,
   CardSeparator,
@@ -168,15 +168,15 @@ export const UpdateClassificationForm = ({
         centered
         crumbs={navigationCrumbs}
       >
-        <CardBasic data-h2-margin-bottom="base(x3)">
+        <Card data-h2-margin-bottom="base(x3)">
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
           >
             <Heading
               level="h2"
-              color="primary"
-              Icon={IdentificationIcon}
+              color="secondary"
+              icon={IdentificationIcon}
               data-h2-margin-top="base(0)"
             >
               {intl.formatMessage(messages.classificationInfo)}
@@ -294,7 +294,7 @@ export const UpdateClassificationForm = ({
               </div>
             </form>
           </FormProvider>
-        </CardBasic>
+        </Card>
       </Hero>
     </>
   );

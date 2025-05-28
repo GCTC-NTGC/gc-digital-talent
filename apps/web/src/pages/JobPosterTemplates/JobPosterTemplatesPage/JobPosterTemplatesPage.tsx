@@ -8,7 +8,7 @@ import debounce from "lodash/debounce";
 
 import {
   Button,
-  CardBasic,
+  Card,
   Heading,
   Link,
   Loading,
@@ -298,7 +298,12 @@ const JobPosterTemplatesPage = () => {
         crumbs={crumbs}
       />
       <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-        <Heading level="h2" size="h3" color="primary" Icon={RectangleStackIcon}>
+        <Heading
+          level="h2"
+          size="h3"
+          color="secondary"
+          icon={RectangleStackIcon}
+        >
           {intl.formatMessage({
             defaultMessage: "Find a template",
             id: "XIDaGg",
@@ -472,7 +477,7 @@ const JobPosterTemplatesPage = () => {
                         )}
                       </span>
                     </div>
-                    <CardBasic>
+                    <Card>
                       <PreviewList.Root>
                         {filteredJobPosterTemplates.map((jobPosterTemplate) => (
                           <PreviewList.Item
@@ -511,7 +516,7 @@ const JobPosterTemplatesPage = () => {
                           </PreviewList.Item>
                         ))}
                       </PreviewList.Root>
-                    </CardBasic>
+                    </Card>
                     {hasMore && (
                       <>
                         <Separator

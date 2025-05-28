@@ -8,7 +8,7 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -68,14 +68,14 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
   return (
     <>
       <Heading
-        Icon={QueueListIcon}
+        icon={QueueListIcon}
         size="h2"
-        color="primary"
+        color="secondary"
         data-h2-margin="base(0, 0, x1, 0)"
       >
         {intl.formatMessage(sections.basicDetails.title)}
       </Heading>
-      <CardBasic data-h2-padding="base(x1.5)">
+      <Card data-h2-padding="base(x1.5)">
         {/* Fieldset */}
         <div
           data-h2-display="base(grid)"
@@ -180,7 +180,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
               "Fine print displayed on the job poster template about a resource only being available on official networks",
           })}
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };

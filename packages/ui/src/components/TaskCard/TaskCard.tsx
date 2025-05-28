@@ -1,60 +1,9 @@
 import { ReactElement, ReactNode } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
-import { IconType } from "../../types";
+import { Color, IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
 import { HeadingLevel } from "../Heading";
-import { headingStyles } from "../Heading/styles";
-
-export const colorOptions = [
-  "primary",
-  "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
-] as const;
-
-type CardColor = (typeof colorOptions)[number];
-
-const headingBarStyleMap: Record<CardColor, Record<string, string>> = {
-  primary: {
-    "data-h2-background-color": "base(primary.lightest)",
-    "data-h2-border-bottom-color": "base(primary.darkest)",
-  },
-  secondary: {
-    "data-h2-background-color": "base(secondary.lightest)",
-    "data-h2-border-bottom-color": "base(secondary.darkest)",
-  },
-  tertiary: {
-    "data-h2-background-color": "base(tertiary.lightest)",
-    "data-h2-border-bottom-color": "base(tertiary.darkest)",
-  },
-  quaternary: {
-    "data-h2-background-color": "base(quaternary.lightest)",
-    "data-h2-border-bottom-color": "base(quaternary.darkest)",
-  },
-  quinary: {
-    "data-h2-background-color": "base(quinary.lightest)",
-    "data-h2-border-bottom-color": "base(quinary.darkest)",
-  },
-};
-
-const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
-  primary: {
-    "data-h2-color": "base(primary.darkest)",
-  },
-  secondary: {
-    "data-h2-color": "base(secondary.darkest)",
-  },
-  tertiary: {
-    "data-h2-color": "base(tertiary.darkest)",
-  },
-  quaternary: {
-    "data-h2-color": "base(quaternary.darkest)",
-  },
-  quinary: {
-    "data-h2-color": "base(quinary.darkest)",
-  },
-};
 
 interface ItemProps {
   children?: ReactNode;
@@ -62,14 +11,23 @@ interface ItemProps {
 
 const Item = ({ children }: ItemProps) => {
   return (
-    <div
-      data-h2-padding="base(x1) p-tablet(x1 x1.5)"
-      data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.lighter)"
-    >
+    <div className="p-6 not-last:border-b not-last:border-b-gray-100 xs:px-9 dark:not-last:border-b-gray-500">
       {children}
     </div>
   );
 };
+
+const heading = tv({
+  slots: {
+    base: "my-0 grow-2 text-center text-2xl text-balance xs:text-left lg:text-3xl",
+    icon: "hidden size-7 shrink-0 stroke-[1.6] xs:inline-block",
+  },
+  variants: {
+    hasIcon: {
+      true: { base: "xs:flex xs:items-start xs:gap-x-3" },
+    },
+  },
+});
 
 interface TaskCardHeadingProps {
   icon?: IconType;
@@ -85,37 +43,61 @@ const TaskCardHeading = ({
 }: TaskCardHeadingProps) => {
   const Icon = icon;
   const CustomHeading = headingAs;
+  const { base, icon: iconStyles } = heading({ hasIcon: !!icon });
   return (
-    <CustomHeading
-      {...headingStyles.h4}
-      data-h2-margin="base(0)" // remove from imported styles
-      {...(Icon && {
-        // icon only appears greater than p-tablet width
-        "data-h2-display": "p-tablet(flex)",
-        "data-h2-align-items": "p-tablet(start)",
-        "data-h2-gap": "p-tablet(0 x.5)",
-      })}
-    >
-      {Icon ? (
-        <Icon
-          data-h2-display="base(none) p-tablet(inline-block)"
-          data-h2-flex-shrink="p-tablet(0)"
-        />
-      ) : null}
-      <div
-        data-h2-text-align="base(center) p-tablet(left)"
-        data-h2-text-wrap="base(balance)"
-      >
-        {children}
-      </div>
+    <CustomHeading className={base()}>
+      {Icon ? <Icon className={iconStyles()} /> : null}
+      <span>{children}</span>
     </CustomHeading>
   );
 };
 
-interface RootProps {
+const root = tv({
+  slots: {
+    base: "rounded bg-white shadow-xl dark:bg-gray-600",
+    header:
+      "flex flex-col items-center gap-6 rounded-t border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
+  },
+  variants: {
+    headingColor: {
+      primary: {
+        header:
+          "border-b-primary-700 bg-primary-100 text-primary-700 dark:border-b-primary-100 dark:bg-primary-700 dark:text-primary-100",
+      },
+      secondary: {
+        header:
+          "border-b-secondary-700 bg-secondary-100 text-secondary-700 dark:border-b-secondary-100 dark:bg-secondary-700 dark:text-secondary-100",
+      },
+      success: {
+        header:
+          "border-b-success-700 bg-success-100 text-success-700 dark:border-b-success-100 dark:bg-success-700 dark:text-success-100",
+      },
+      warning: {
+        header:
+          "border-b-warning-700 bg-warning-100 text-warning-700 dark:border-b-warning-100 dark:bg-warning-700 dark:text-warning-100",
+      },
+      error: {
+        header:
+          "border-b-error-700 bg-error-100 text-error-700 dark:border-b-error-100 dark:bg-error-700 dark:text-error-100",
+      },
+    },
+  },
+});
+
+type RootVariants = VariantProps<typeof root>;
+
+// TO DO: Remove in #13562
+const compatColourMap = new Map<RootVariants["headingColor"], Color>([
+  ["primary", "secondary"],
+  ["secondary", "primary"],
+  ["success", "quinary"],
+  ["warning", "quaternary"],
+  ["error", "tertiary"],
+]);
+
+export interface RootProps extends RootVariants {
   icon?: IconType;
   title: ReactNode;
-  headingColor?: CardColor;
   link?: {
     label: string;
     href: LinkProps["href"];
@@ -132,34 +114,18 @@ const Root = ({
   headingAs,
   children,
 }: RootProps) => {
+  const { base, header } = root({ headingColor });
   return (
-    <div
-      data-h2-shadow="base(larger)"
-      data-h2-border-radius="base(rounded)"
-      data-h2-background-color="base(foreground)"
-    >
-      {/* heading bar */}
-      <div
-        {...headingBarStyleMap[headingColor]}
-        data-h2-border-radius="base(rounded rounded 0 0)"
-        data-h2-border-bottom="base(1px solid)"
-        data-h2-padding="base(x1) p-tablet(x1 x1.5)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-gap="base(x1) p-tablet(x2)"
-        data-h2-align-items="base(center)"
-      >
-        {/* wrapper */}
-        <div {...wrapperStyleMap[headingColor]} data-h2-flex-grow="base(2)">
-          <TaskCardHeading icon={icon} headingAs={headingAs}>
-            {title}
-          </TaskCardHeading>
-        </div>
+    <div className={base()}>
+      <div className={header()}>
+        <TaskCardHeading icon={icon} headingAs={headingAs}>
+          {title}
+        </TaskCardHeading>
         {link ? (
           <Link
-            color={headingColor}
+            color={compatColourMap.get(headingColor)}
             href={link.href}
-            data-h2-white-space="base(nowrap)"
+            className="text-nowrap"
           >
             {link.label}
           </Link>
