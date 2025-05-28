@@ -23,17 +23,13 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
 
   return (
     <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.25)"
-      >
+      <div className="flex items-center gap-x-1.5">
         <div>
           {!isOpen && <>{truncated}&hellip;</>}
           <Collapsible.Content>{text}</Collapsible.Content>
         </div>
         <Collapsible.Trigger asChild>
-          <Button mode="inline" color="black" data-h2-flex-shrink="base(0)">
+          <Button mode="inline" color="black" className="shrink-0">
             {!isOpen
               ? intl.formatMessage(uiMessages.readMore, {
                   context: linkSuffix,
