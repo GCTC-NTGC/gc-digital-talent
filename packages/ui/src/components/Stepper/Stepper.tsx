@@ -72,7 +72,7 @@ const Stepper = ({
         </Heading>
       ) : null}
       {subTitle}
-      <ol className="mt-4 mb-6 flex list-none flex-col items-start gap-y-6 p-0">
+      <ol className="mt-4 mb-6 flex list-none flex-col items-start p-0">
         {steps?.map(
           (
             { href, label: stepLabel, completed, disabled, error },

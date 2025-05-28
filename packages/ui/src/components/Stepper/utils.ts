@@ -9,10 +9,10 @@ import { IconType } from "../../types";
 
 export const step = tv({
   slots: {
-    link: "group/step relative block w-full outline-none focus-visible:bg-transparent!",
+    link: "group/step block w-full outline-none focus-visible:bg-transparent!",
     icon: "-top-0.5 left-1/2 size-7 rounded-full",
     tail: "top-0.5 bottom-auto left-1/2 h-[calc(100%+var(--spacing)*6)] w-0.75",
-    text: "ml-1.5 block pl-9 text-black no-underline group-focus-visible/step:underline dark:text-white",
+    text: "ml-1.5 block pb-6 pl-9 text-black no-underline group-focus-visible/step:underline dark:text-white",
   },
   variants: {
     state: {

@@ -63,7 +63,7 @@ const Step = ({
   const { link, icon, tail, text } = step({ state });
 
   return (
-    <li>
+    <li className="relative">
       <StepLink
         href={href}
         state={state}
