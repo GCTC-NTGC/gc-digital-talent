@@ -36,8 +36,8 @@ class BigSeederNotifications extends Seeder
             emailContentFr: '',
             inAppMessageEn: $viewGroup.'.in_app_message_en',
             inAppMessageFr: $viewGroup.'.in_app_message_fr',
-            inAppHrefEn: $viewGroup.'.in_app_href_en',
-            inAppHrefFr: $viewGroup.'.in_app_href_fr',
+            inAppHrefEn: $viewGroup.'.in_app_href_en_dashboard',
+            inAppHrefFr: $viewGroup.'.in_app_href_fr_dashboard',
         );
 
         // Notification, send five to every user
