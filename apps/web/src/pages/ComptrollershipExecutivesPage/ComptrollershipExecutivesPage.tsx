@@ -208,7 +208,7 @@ export const Component = () => {
               data-h2-gap="base(x2) p-tablet(x3)"
             >
               <CardFlat
-                color="quaternary"
+                color="warning"
                 title={intl.formatMessage({
                   defaultMessage: "Executive talent management process",
                   id: "fJmRpp",
@@ -225,7 +225,7 @@ export const Component = () => {
                 </p>
               </CardFlat>
               <CardFlat
-                color="quinary"
+                color="success"
                 title={intl.formatMessage({
                   defaultMessage: "Talent mobility",
                   id: "6xQf6q",

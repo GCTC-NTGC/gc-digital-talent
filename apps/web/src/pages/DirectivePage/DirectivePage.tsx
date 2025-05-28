@@ -375,7 +375,7 @@ export const Component = () => {
             data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
           >
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Digital services contracting questionnaire",
                 id: "oiTphL",
@@ -477,7 +477,7 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Related policies",
                 id: "vbiWgW",
