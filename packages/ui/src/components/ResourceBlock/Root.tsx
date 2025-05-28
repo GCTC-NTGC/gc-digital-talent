@@ -9,15 +9,15 @@ const heading = tv({
   variants: {
     headingColor: {
       primary:
-        "border-b-primary-700 bg-primary-100 text-primary-700 dark:border-b-primary-700 dark:bg-primary-700 dark:text-primary-100",
+        "border-b-primary-700 bg-primary-100 text-primary-700 dark:border-b-primary-100 dark:bg-primary-700 dark:text-primary-100",
       secondary:
-        "border-b-secondary-700 bg-secondary-100 text-secondary-700 dark:border-b-secondary-700 dark:bg-secondary-700 dark:text-secondary-100",
+        "border-b-secondary-700 bg-secondary-100 text-secondary-700 dark:border-b-secondary-100 dark:bg-secondary-700 dark:text-secondary-100",
       success:
-        "border-b-success-700 bg-success-100 text-success-700 dark:border-b-success-700 dark:bg-success-700 dark:text-success-100",
+        "border-b-success-700 bg-success-100 text-success-700 dark:border-b-success-100 dark:bg-success-700 dark:text-success-100",
       warning:
-        "border-b-warning-700 bg-warning-100 text-warning-700 dark:border-b-warning-700 dark:bg-warning-700 dark:text-warning-100",
+        "border-b-warning-700 bg-warning-100 text-warning-700 dark:border-b-warning-100 dark:bg-warning-700 dark:text-warning-100",
       error:
-        "border-b-error-700 bg-error-100 text-error-700 dark:border-b-error-700 dark:bg-error-700 dark:text-error-100",
+        "border-b-error-700 bg-error-100 text-error-700 dark:border-b-error-100 dark:bg-error-700 dark:text-error-100",
     },
   },
 });
@@ -40,7 +40,10 @@ const Root = ({
 }: RootProps) => {
   const headingId = useId();
   return (
-    <nav className="rounded-md bg-white shadow-lg" aria-labelledby={headingId}>
+    <nav
+      className="rounded-md bg-white shadow-lg dark:bg-gray-600"
+      aria-labelledby={headingId}
+    >
       <div className={heading({ headingColor })}>
         <Heading
           level={headingAs}
