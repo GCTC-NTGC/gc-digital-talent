@@ -3,11 +3,19 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { colorOptions } from "./Root";
+import { RootProps } from "./Root";
 
 import ResourceBlock from "./";
 
 faker.seed(0);
+
+const colorOptions: RootProps["headingColor"][] = [
+  "primary",
+  "secondary",
+  "success",
+  "warning",
+  "error",
+];
 
 const meta = {
   component: ResourceBlock.Root,
