@@ -3,11 +3,19 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { colorOptions } from "./Root";
+import { RootProps } from "./Root";
 
 import ResourceBlock from "./";
 
 faker.seed(0);
+
+const colorOptions: RootProps["headingColor"][] = [
+  "primary",
+  "secondary",
+  "success",
+  "warning",
+  "error",
+];
 
 const meta = {
   component: ResourceBlock.Root,
@@ -25,11 +33,7 @@ const meta = {
 export default meta;
 
 const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x1)"
-  >
+  <div className="flex flex-col gap-6">
     {colorOptions.map((colour) => (
       <ResourceBlock.Root
         headingColor={colour}
