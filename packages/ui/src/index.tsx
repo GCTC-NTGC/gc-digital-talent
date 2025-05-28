@@ -87,7 +87,7 @@ import {
   hrefToString,
 } from "./utils";
 import useControllableState from "./hooks/useControllableState";
-import TaskCard from "./components/TaskCard";
+import TaskCard from "./components/TaskCard/TaskCard";
 import NoList from "./components/NoList/NoList";
 
 export type {

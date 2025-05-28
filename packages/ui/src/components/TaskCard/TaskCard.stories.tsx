@@ -4,8 +4,16 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import TaskCard, { colorOptions } from "./TaskCard";
+import TaskCard, { RootProps } from "./TaskCard";
 import Well from "../Well";
+
+const colorOptions: RootProps["headingColor"][] = [
+  "primary",
+  "secondary",
+  "success",
+  "warning",
+  "error",
+];
 
 faker.seed(0);
 
@@ -25,11 +33,7 @@ const meta = {
 export default meta;
 
 const Template: StoryFn<typeof TaskCard.Root> = (args) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x1)"
-  >
+  <div className="flex flex-col gap-6">
     {colorOptions.map((color) => (
       <TaskCard.Root headingColor={color} {...args} key={color}>
         <TaskCard.Item>
