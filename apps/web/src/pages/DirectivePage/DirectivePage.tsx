@@ -13,7 +13,7 @@ import {
   Accordion,
   CardFlat,
   Alert,
-  CardBasic,
+  Card,
   ScrollToLink,
 } from "@gc-digital-talent/ui";
 import {
@@ -375,7 +375,7 @@ export const Component = () => {
             data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
           >
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Digital services contracting questionnaire",
                 id: "oiTphL",
@@ -477,7 +477,7 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Related policies",
                 id: "vbiWgW",
@@ -580,7 +580,7 @@ export const Component = () => {
                 })}
               </p>
             </div>
-            <CardBasic>
+            <Card>
               <ul
                 data-h2-margin="base(0)"
                 data-h2-padding="base(0, 0, 0, x1)"
@@ -684,7 +684,7 @@ export const Component = () => {
                   </div>
                 </li>
               </ul>
-            </CardBasic>
+            </Card>
           </section>
         </div>
       </div>

@@ -9,6 +9,7 @@ use App\Enums\CafEmploymentType;
 use App\Enums\CafForce;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CSuiteRoleTitle;
 use App\Enums\EducationStatus;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
@@ -28,6 +29,7 @@ use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
@@ -35,8 +37,11 @@ use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Number;
 use PhpOffice\PhpWord\Element\Section;
 
 trait GeneratesUserDoc
@@ -422,6 +427,33 @@ trait GeneratesUserDoc
                         $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
+                $this->addLabelText($section, $this->localize('experiences.supervisory_position'), $this->yesOrNo($experience->supervisory_position));
+                if ($experience->supervisory_position === true) {
+                    $this->addLabelText($section, $this->localize('experiences.supervised_employees'), $this->yesOrNo($experience->supervised_employees));
+                    if ($experience->supervised_employees === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.supervised_employees_number'),
+                            $experience->supervised_employees_number
+                        );
+                    }
+                    $this->addLabelText($section, $this->localize('experiences.budget_management'), $this->yesOrNo($experience->budget_management));
+
+                    if ($experience->budget_management === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('experiences.annual_budget_allocation'),
+                            Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()),
+                        );
+                    }
+                    $this->addLabelText($section, $this->localize('experiences.senior_management_status'), $experience->senior_management_status ? Lang::get('experiences.senior_management_true') : Lang::get('experiences.senior_management_false'));
+                    if ($experience->senior_management_status === true) {
+                        $this->addLabelText($section, $this->localize('experiences.c_suite_role_title'), $this->localizeEnum($experience->c_suite_role_title, CSuiteRoleTitle::class));
+                    }
+                    if ($experience->c_suite_role_title === CSuiteRoleTitle::OTHER->name) {
+                        $this->addLabelText($section, $this->localize('experiences.other_c_suite_role_title'), $experience->other_c_suite_role_title);
+                    }
+                }
             } else {
                 // null case, so experiences prior to adding employment_category
                 $section->addTitle($experience->getTitle($this->lang), $headingRank);
@@ -431,6 +463,34 @@ trait GeneratesUserDoc
         }
 
         $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
+
+        if ($type === WorkExperience::class) {
+            /** @var WorkExperience $experience */
+            if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+                $experience->loadMissing(['workStreams']);
+                if ($experience->workStreams && count($experience->workStreams) > 0) {
+                    $workStreamsByCommunity = [];
+                    foreach ($experience->workStreams as $workStream) {
+                        if (isset($workStreamsByCommunity[$workStream->community_id])) {
+                            $workStreamsByCommunity[$workStream->community_id]['workStreams'][] = $workStream->name[$this->lang];
+                        } else {
+                            $community = Community::find($workStream->community_id);
+                            $workStreamsByCommunity[$workStream->community_id] = [
+                                'community' => $community->name[$this->lang],
+                                'workStreams' => [$workStream->name[$this->lang]],
+                            ];
+                        }
+                    }
+                    $section->addText($this->localize('common.work_streams'));
+                    collect(Arr::sortRecursive($workStreamsByCommunity))->each(function ($community) use ($section) {
+                        $section->addListItem($community['community'], 0);
+                        foreach ($community['workStreams'] as $workStream) {
+                            $section->addListItem($workStream, 1);
+                        }
+                    });
+                }
+            }
+        }
 
         if ($withSkills) {
             $experience->load(['userSkills' => ['skill']]);

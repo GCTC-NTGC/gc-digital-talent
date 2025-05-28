@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/20/solid/ChevronDoubleLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/20/solid/ChevronDoubleRightIcon";
 
-import { CardBasic, Link, LinkProps, Separator } from "@gc-digital-talent/ui";
+import { Card, Link, LinkProps, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -53,7 +53,7 @@ const NominationNavigation = () => {
   };
 
   return (
-    <CardBasic
+    <Card
       data-h2-display="base(grid)"
       data-h2-align-items="base(center)"
       data-h2-grid-template-columns="base(1fr auto 1fr)"
@@ -97,7 +97,7 @@ const NominationNavigation = () => {
           </Link>
         )}
       </span>
-    </CardBasic>
+    </Card>
   );
 };
 

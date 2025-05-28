@@ -25,7 +25,7 @@ import {
   Pending,
   NotFound,
   Heading,
-  CardBasic,
+  Card,
   Link,
   CardSeparator,
 } from "@gc-digital-talent/ui";
@@ -245,7 +245,7 @@ export const UpdateSkillFamily = ({
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} centered overlap>
-        <CardBasic data-h2-margin-bottom="base(x3)">
+        <Card data-h2-margin-bottom="base(x3)">
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -357,7 +357,7 @@ export const UpdateSkillFamily = ({
               </div>
             </form>
           </FormProvider>
-        </CardBasic>
+        </Card>
       </Hero>
     </>
   );

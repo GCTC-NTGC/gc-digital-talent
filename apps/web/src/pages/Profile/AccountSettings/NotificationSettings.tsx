@@ -10,7 +10,7 @@ import {
   Submit,
 } from "@gc-digital-talent/forms";
 import { NotificationFamily, graphql } from "@gc-digital-talent/graphql";
-import { CardBasic } from "@gc-digital-talent/ui";
+import { Card } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -282,7 +282,7 @@ const NotificationSettings = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <CardBasic color="white">
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
@@ -313,7 +313,7 @@ const NotificationSettings = ({
           <div data-h2-align-self="base(flex-start)">
             <Submit text={intl.formatMessage(formMessages.saveChanges)} />
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );

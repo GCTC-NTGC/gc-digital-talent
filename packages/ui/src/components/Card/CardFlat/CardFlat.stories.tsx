@@ -40,22 +40,22 @@ const Template: StoryFn = () => (
       <p>{faker.lorem.sentences(1)}</p>
     </CardFlat>
     <CardFlat
-      title="Tertiary"
-      color="tertiary"
+      title="Success"
+      color="success"
       links={[{ href: "#", label: "With link", mode: "inline" }]}
     >
       <p>{faker.lorem.sentences(1)}</p>
     </CardFlat>
     <CardFlat
-      title="Quaternary"
-      color="quaternary"
+      title="Warning"
+      color="warning"
       links={[{ href: "#", label: "With link", mode: "inline" }]}
     >
       <p>{faker.lorem.sentences(1)}</p>
     </CardFlat>
     <CardFlat
-      title="Quinary"
-      color="quinary"
+      title="Error"
+      color="error"
       links={[{ href: "#", label: "With link", mode: "inline" }]}
     >
       <p>{faker.lorem.sentences(1)}</p>

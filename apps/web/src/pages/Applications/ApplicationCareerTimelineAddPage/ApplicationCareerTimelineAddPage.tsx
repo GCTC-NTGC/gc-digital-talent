@@ -117,7 +117,8 @@ const ApplicationCareerTimelineAdd = ({
             </p>
             <DescriptionList.Root>
               <DescriptionList.Item
-                Icon={BriefcaseIcon}
+                color="secondary"
+                icon={BriefcaseIcon}
                 title={intl.formatMessage(experienceMessages.work)}
               >
                 {intl.formatMessage({
@@ -128,7 +129,8 @@ const ApplicationCareerTimelineAdd = ({
                 })}
               </DescriptionList.Item>
               <DescriptionList.Item
-                Icon={BookOpenIcon}
+                color="secondary"
+                icon={BookOpenIcon}
                 title={intl.formatMessage(experienceMessages.education)}
               >
                 {intl.formatMessage({
@@ -139,7 +141,8 @@ const ApplicationCareerTimelineAdd = ({
                 })}
               </DescriptionList.Item>
               <DescriptionList.Item
-                Icon={UserGroupIcon}
+                color="secondary"
+                icon={UserGroupIcon}
                 title={intl.formatMessage(experienceMessages.community)}
               >
                 {intl.formatMessage({
@@ -150,7 +153,8 @@ const ApplicationCareerTimelineAdd = ({
                 })}
               </DescriptionList.Item>
               <DescriptionList.Item
-                Icon={LightBulbIcon}
+                color="secondary"
+                icon={LightBulbIcon}
                 title={intl.formatMessage(experienceMessages.personal)}
               >
                 {intl.formatMessage({
@@ -161,7 +165,8 @@ const ApplicationCareerTimelineAdd = ({
                 })}
               </DescriptionList.Item>
               <DescriptionList.Item
-                Icon={StarIcon}
+                color="secondary"
+                icon={StarIcon}
                 title={intl.formatMessage(experienceMessages.award)}
               >
                 {intl.formatMessage({
