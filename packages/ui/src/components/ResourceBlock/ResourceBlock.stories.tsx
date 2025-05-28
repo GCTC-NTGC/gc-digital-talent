@@ -33,11 +33,7 @@ const meta = {
 export default meta;
 
 const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x1)"
-  >
+  <div className="flex flex-col gap-6">
     {colorOptions.map((colour) => (
       <ResourceBlock.Root
         headingColor={colour}
