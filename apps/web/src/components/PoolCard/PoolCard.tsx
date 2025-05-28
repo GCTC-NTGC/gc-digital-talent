@@ -10,7 +10,7 @@ import {
   Link,
   Chip,
   Chips,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -197,7 +197,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   });
 
   return (
-    <CardBasic
+    <Card
       data-h2-margin-top="base(x1)"
       data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
       data-h2-position="base(relative)"
@@ -378,7 +378,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           )}
         </div>
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

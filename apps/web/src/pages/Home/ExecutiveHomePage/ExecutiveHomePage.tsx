@@ -182,7 +182,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             data-h2-padding="base(x2, 0)"
           >
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Find pre-qualified executive talent",
                 id: "1R3SYH",
@@ -221,7 +221,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Manage your career",
                 id: "kK1Z9U",
@@ -246,7 +246,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="secondary"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Get hiring experience",
                 id: "SfhT1q",

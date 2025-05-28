@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import {
   Accordion,
-  CardBasic,
+  Card,
   Heading,
   HydrogenAttributes,
   Separator,
@@ -159,7 +159,7 @@ const NominationGroupSidebar = ({
       data-h2-padding="base(0)"
       data-h2-gap="base(x.5)"
     >
-      <CardBasic
+      <Card
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-justify-content="base(center)"
@@ -324,7 +324,7 @@ const NominationGroupSidebar = ({
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
-      </CardBasic>
+      </Card>
       <NominationNavigation />
     </div>
   );

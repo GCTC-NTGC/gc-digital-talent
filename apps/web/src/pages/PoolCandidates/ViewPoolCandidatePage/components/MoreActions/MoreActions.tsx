@@ -9,7 +9,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { CardBasic, Link, Loading, Separator } from "@gc-digital-talent/ui";
+import { Card, Link, Loading, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -95,7 +95,7 @@ const MoreActions = ({
       data-h2-gap="base(x.5)"
       data-h2-margin-bottom="base(x.5)"
     >
-      <CardBasic
+      <Card
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-justify-content="base(center)"
@@ -171,14 +171,14 @@ const MoreActions = ({
             )}
           </>
         )}
-      </CardBasic>
+      </Card>
       <div
         data-h2-display="base(flex)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-text-align="base(center)"
         data-h2-gap="base(x.5)"
       >
-        <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
+        <Card data-h2-flex="base(1)" data-h2-padding="base(x.5)">
           <Link
             href={paths.userProfile(poolCandidate.user.id)}
             icon={UserCircleIcon}
@@ -192,14 +192,14 @@ const MoreActions = ({
                 "Link label for view profile on view pool candidate page",
             })}
           </Link>
-        </CardBasic>
+        </Card>
         {parsedSnapshot && (
-          <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
+          <Card data-h2-flex="base(1)" data-h2-padding="base(x.5)">
             <DownloadButton
               id={poolCandidate.id}
               userId={poolCandidate.user.id}
             />
-          </CardBasic>
+          </Card>
         )}
       </div>
       <NotesForm poolCandidate={poolCandidate} />

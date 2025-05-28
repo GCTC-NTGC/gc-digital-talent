@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
-import { Button, CardBasic } from "@gc-digital-talent/ui";
+import { Button, Card } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
 import {
   getLocale,
@@ -39,7 +39,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
     >
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (
-          <CardBasic key={id}>
+          <Card key={id}>
             <div
               data-h2-display="base(flex)"
               data-h2-justify-content="base(space-between)"
@@ -107,7 +107,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 }}
               />
             </div>
-          </CardBasic>
+          </Card>
         ))}
     </div>
   );

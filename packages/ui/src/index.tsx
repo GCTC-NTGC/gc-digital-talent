@@ -19,14 +19,8 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
-import {
-  CardBasic,
-  CardFlat,
-  CardForm,
-  CardFormSeparator,
-  type CardBasicProps,
-  type CardFlatProps,
-} from "./components/Card";
+import Card, { type CardProps } from "./components/Card/Card";
+import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
@@ -105,7 +99,7 @@ export type {
   ButtonProps,
   ButtonLinkMode,
   CardFlatProps,
-  CardBasicProps,
+  CardProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -146,10 +140,8 @@ export {
   Breadcrumbs,
   Crumb,
   Button,
-  CardBasic,
+  Card,
   CardFlat,
-  CardForm,
-  CardFormSeparator,
   CardRepeater,
   CardSeparator,
   Chips,

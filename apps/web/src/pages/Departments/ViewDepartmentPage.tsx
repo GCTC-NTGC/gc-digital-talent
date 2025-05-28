@@ -8,7 +8,7 @@ import {
   NotFound,
   Heading,
   Link,
-  CardBasic,
+  Card,
   CardSeparator,
   NoList,
 } from "@gc-digital-talent/ui";
@@ -85,7 +85,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           })}
         </Heading>
       </div>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
@@ -147,7 +147,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             })}
           </Link>
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };
