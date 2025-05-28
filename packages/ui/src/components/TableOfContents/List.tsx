@@ -9,8 +9,10 @@ export const ListItem = ({ children, ...rest }: ListItemProps) => (
   </li>
 );
 
+// TO DO: Create a base `List` component to avoid needing important
+// This is because we use `ul` and apply styles in plain css
 const list = tv({
-  base: "list-inside list-disc pl-4",
+  base: "list-inside list-disc pl-6!",
   variants: {
     space: {
       sm: "my-1.5",
