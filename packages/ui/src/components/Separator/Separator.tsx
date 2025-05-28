@@ -3,6 +3,7 @@ import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 const separator = tv({
+  base: "bg-gray",
   variants: {
     space: {
       none: "",
