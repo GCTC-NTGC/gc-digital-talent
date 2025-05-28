@@ -1,4 +1,3 @@
-/* eslint-disable formatjs/no-literal-string-in-jsx */
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 import {
@@ -12,17 +11,12 @@ import {
   ReactNode,
   useContext,
 } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
-import {
-  styleMap,
-  iconStyleMap,
-  iconMap,
-  dismissStyleMap,
-  getAlertLevelTitle,
-} from "./utils";
+import { iconMap, getAlertLevelTitle } from "./utils";
 import { AlertHeadingLevel, AlertType } from "./types";
 
 interface AlertContextValue {
@@ -30,6 +24,55 @@ interface AlertContextValue {
 }
 
 const AlertContext = createContext<AlertContextValue | undefined>(undefined);
+
+const alert = tv({
+  slots: {
+    base: "relative mb-6 flex flex-col overflow-hidden rounded border-3 bg-white text-black shadow-lg xs:flex-row dark:bg-gray-600 dark:text-white",
+    iconWrapper: "relative flex shrink-0 items-start p-6 xs:py-3",
+    triangle:
+      "xs:absolute xs:top-6 xs:bottom-0 xs:left-full xs:h-0 xs:w-0 xs:border-[10px] xs:border-r-0",
+    content: "grow-1 self-center p-6 xs:pl-9",
+    dismiss:
+      "transition-100 absolute top-6 right-3 z-10 flex cursor-pointer items-center rounded-full bg-transparent p-1 transition ease-in outline-none focus-visible:bg-focus focus-visible:text-black xs:top-3",
+  },
+  variants: {
+    type: {
+      info: {
+        base: "border-primary-700 dark:border-primary-100",
+        iconWrapper: "bg-primary-100 text-primary-700",
+        triangle: "border-transparent border-l-primary-100",
+        dismiss:
+          "text-primary-700 hover:bg-primary-100 hover:text-primary-600 xs:text-inherit",
+      },
+      success: {
+        base: "border-success-700 dark:border-success-100",
+        iconWrapper: "bg-success-100 text-success-700",
+        triangle: "border-transparent border-l-success-100",
+        dismiss:
+          "text-success-700 hover:bg-success-100 hover:text-success-600 xs:text-inherit",
+      },
+      warning: {
+        base: "border-warning-700 dark:border-warning-100",
+        iconWrapper: "bg-warning-100 text-warning-700",
+        triangle: "border-transparent border-l-warning-100",
+        dismiss:
+          "text-warning-700 hover:bg-warning-100 hover:text-warning-600 xs:text-inherit",
+      },
+      error: {
+        base: "border-error-700 dark:border-error-100",
+        iconWrapper: "bg-error-100 text-error-700",
+        triangle: "border-transparent border-l-error-100",
+        dismiss:
+          "text-error-700 hover:bg-error-100 hover:text-error-600 xs:text-inherit",
+      },
+    },
+    dismissible: {
+      true: { content: "xs:py-6 xs:pr-12" },
+    },
+  },
+});
+
+type AlertVariants = VariantProps<typeof alert>;
 
 /**
  * Props that can be passed to an `<Alert.Root />`
@@ -40,21 +83,31 @@ const AlertContext = createContext<AlertContextValue | undefined>(undefined);
  * @member {boolean} live adds [role="alert"] forcing the alert to be read out to assistive technology
  * @member {function} onDismiss execute code when the alert is dismissed
  */
-export interface AlertProps extends ComponentPropsWithoutRef<"div"> {
-  type: AlertType;
-  dismissible?: boolean;
+export interface AlertProps
+  extends Omit<AlertVariants, "type">,
+    Required<Pick<AlertVariants, "type">>,
+    ComponentPropsWithoutRef<"div"> {
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
 }
 
 const Alert = forwardRef<ElementRef<"div">, AlertProps>(
   (
-    { type, onDismiss, live = true, dismissible = false, children, ...rest },
+    {
+      type,
+      onDismiss,
+      live = true,
+      dismissible = false,
+      children,
+      className,
+      ...rest
+    },
     forwardedRef,
   ) => {
     const intl = useIntl();
     const [isOpen, setIsOpen] = useState(true);
-    const Icon = iconMap[type];
+    const Icon = iconMap[type ?? "info"];
+    const { base, iconWrapper, content, dismiss, triangle } = alert();
 
     const close = () => {
       setIsOpen((currentIsOpen) => !currentIsOpen);
@@ -75,79 +128,23 @@ const Alert = forwardRef<ElementRef<"div">, AlertProps>(
         {isOpen ? (
           <div
             ref={forwardedRef}
-            className={`Alert Alert--${type}`}
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-background-color="base(foreground)"
-            data-h2-color="base(black)"
-            data-h2-position="base(relative)"
-            data-h2-radius="base(rounded)"
-            data-h2-shadow="base(larger)"
-            data-h2-overflow="base(hidden)"
-            data-h2-margin="base(0, 0, x1, 0)"
+            className={base({ type, class: className })}
             {...(live ? { role: "alert" } : {})}
-            {...styleMap[type]}
             {...rest}
           >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-justify-content="base(flex-start)"
-              data-h2-flex-shrink="base(0)"
-              data-h2-position="base(relative) p-tablet:selectors[::after](absolute)"
-              data-h2-padding="base(x1) p-tablet(x.5, x1)"
-              data-h2-border-style="p-tablet:selectors[::after](solid)"
-              data-h2-border-width="p-tablet:selectors[::after](10px 0 10px 10px)"
-              data-h2-bottom="p-tablet:selectors[::after](auto)"
-              data-h2-height="p-tablet:selectors[::after](0)"
-              data-h2-left="p-tablet:selectors[::after](100%)"
-              data-h2-top="p-tablet:selectors[::after](calc((1 * var(--h2-base-whitespace)) * 1rem))"
-              data-h2-transform="p-tablet:selectors[::after](translate(0))"
-              data-h2-width="p-tablet:selectors[::after](0)"
-              data-h2-content="p-tablet:selectors[::after]('')"
-              {...iconStyleMap[type]}
-            >
-              <Icon
-                data-h2-margin="p-tablet(x.2, 0, 0, 0)"
-                data-h2-width="base(x1.5)"
-                strokeWidth="2px"
-              />
+            <div className={iconWrapper({ type })}>
+              <span aria-hidden="true" className={triangle({ type })}></span>
+              <Icon className="size-9 stroke-[2px] xs:mt-1" />
             </div>
-            <div
-              style={{ flexGrow: 1 }}
-              data-h2-align-self="base(center)"
-              {...(dismissible
-                ? {
-                    "data-h2-padding": "base(x1) p-tablet(x1, x2.5, x1, x1.5)",
-                  }
-                : {
-                    "data-h2-padding": "base(x1) p-tablet(x1, x1, x1, x1.5)",
-                  })}
-            >
-              {children}
-            </div>
+            <div className={content({ dismissible })}>{children}</div>
             {dismissible && (
               <button
                 type="button"
-                data-h2-outline="base(none)"
-                data-h2-radius="base(9999px)"
-                data-h2-position="base(absolute)"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-location="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
-                data-h2-cursor="base(pointer)"
-                data-h2-padding="base(x.25)"
-                data-h2-transition="base(100ms ease-in)"
-                data-h2-z-index="base(9)"
-                {...dismissStyleMap[type]}
+                className={dismiss({ type })}
                 onClick={close}
               >
-                <XCircleIcon
-                  data-h2-width="base(x1)"
-                  data-h2-height="base(x1)"
-                  strokeWidth="2px"
-                />
-                <span data-h2-visually-hidden="base(invisible)">
+                <XCircleIcon className="size-6 stroke-[2px]" />
+                <span className="sr-only">
                   {intl.formatMessage(uiMessages.closeAlert)}
                 </span>
               </button>
@@ -179,16 +176,10 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
 
   return (
     <Heading
-      data-h2-font-size="base(h6)"
-      data-h2-font-weight="base(700)"
-      data-h2-margin="base(0, 0, x.5, 0)"
+      className="mb-3 text-lg/[1.1] font-bold lg:text-xl/[1.1]"
       {...rest}
     >
-      {alertLevelTitle && (
-        <span data-h2-visually-hidden="base(invisible)">
-          {alertLevelTitle}{" "}
-        </span>
-      )}
+      {alertLevelTitle && <span className="sr-only">{alertLevelTitle} </span>}
       {children}
     </Heading>
   );

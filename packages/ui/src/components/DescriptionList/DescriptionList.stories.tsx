@@ -30,13 +30,13 @@ Default.args = {
       <DescriptionList.Item title="Item Two" color="secondary">
         {faker.lorem.sentence()}
       </DescriptionList.Item>
-      <DescriptionList.Item title="Item Three" color="tertiary">
+      <DescriptionList.Item title="Item Three" color="success">
         {faker.lorem.sentence()}
       </DescriptionList.Item>
-      <DescriptionList.Item title="Item Three" color="quaternary">
+      <DescriptionList.Item title="Item Three" color="warning">
         {faker.lorem.sentence()}
       </DescriptionList.Item>
-      <DescriptionList.Item title="Item Three" color="quinary">
+      <DescriptionList.Item title="Item Three" color="error">
         {faker.lorem.sentence()}
       </DescriptionList.Item>
     </>
@@ -47,30 +47,30 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   children: (
     <>
-      <DescriptionList.Item title="Item One" Icon={AcademicCapIcon}>
+      <DescriptionList.Item title="Item One" icon={AcademicCapIcon}>
         {faker.lorem.sentence()}
       </DescriptionList.Item>
       <DescriptionList.Item
         title="Item Two"
-        Icon={BackspaceIcon}
+        icon={BackspaceIcon}
         color="secondary"
       >
         {faker.lorem.sentence()}
       </DescriptionList.Item>
-      <DescriptionList.Item title="Item Three" Icon={CakeIcon} color="tertiary">
+      <DescriptionList.Item title="Item Three" icon={CakeIcon} color="success">
         {faker.lorem.sentence()}
       </DescriptionList.Item>
       <DescriptionList.Item
         title="Item Three"
-        Icon={DevicePhoneMobileIcon}
-        color="quaternary"
+        icon={DevicePhoneMobileIcon}
+        color="warning"
       >
         {faker.lorem.sentence()}
       </DescriptionList.Item>
       <DescriptionList.Item
         title="Item Three"
-        Icon={EnvelopeIcon}
-        color="quinary"
+        icon={EnvelopeIcon}
+        color="error"
       >
         {faker.lorem.sentence()}
       </DescriptionList.Item>

@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import Button from "../Button";
 import Accordion from "../Accordion";
-import Alert from "../Alert";
+import Alert from "../Alert/Alert";
 import TreeView from "./TreeView";
 import { CardBasic } from "../Card";
 import Heading from "../Heading";

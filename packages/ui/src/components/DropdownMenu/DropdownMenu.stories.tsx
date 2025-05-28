@@ -40,7 +40,11 @@ const Template: StoryFn<typeof DropdownMenu.Root> = () => {
       <DropdownMenu.Content>
         <DropdownMenu.Label>Basic Items</DropdownMenu.Label>
         <DropdownMenu.Item>Item One</DropdownMenu.Item>
-        <DropdownMenu.Item disabled>Item Two</DropdownMenu.Item>
+        <DropdownMenu.Item disabled>Item Two disabled</DropdownMenu.Item>
+        <DropdownMenu.Item color="secondary">Secondary</DropdownMenu.Item>
+        <DropdownMenu.Item color="success">Success</DropdownMenu.Item>
+        <DropdownMenu.Item color="warning">Warning</DropdownMenu.Item>
+        <DropdownMenu.Item color="error">Error</DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Label>Form Items</DropdownMenu.Label>
         <DropdownMenu.CheckboxItem>
