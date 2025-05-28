@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Lang;
  * @property string $status
  * @property string $details
  * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class EducationExperience extends Experience
 {

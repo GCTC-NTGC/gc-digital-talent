@@ -130,7 +130,7 @@ class WorkExperience extends Experience
             $user = $workExperience->user;
             $viewGroup = 'notification_government_experience_verify_work_email';
 
-            if (! is_null($user) && is_null($user->work_email_verified_at)) {
+            if ($user && is_null($user->work_email_verified_at)) {
 
                 if (
                     $workExperience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name &&

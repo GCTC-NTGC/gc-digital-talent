@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Lang;
  * @property ?\Illuminate\Support\Carbon $end_date
  * @property string $details
  * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property ?\Illuminate\Support\Carbon $updated_at
  */
 class CommunityExperience extends Experience
 {
