@@ -1,20 +1,70 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import {
-  ComponentPropsWithoutRef,
-  DetailedHTMLProps,
-  ElementRef,
-  HTMLAttributes,
-  forwardRef,
-} from "react";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
-type SeparatorProps = ComponentPropsWithoutRef<
-  typeof SeparatorPrimitive.Root
-> & {
-  space?: "none" | "xs" | "sm" | "md" | "lg";
-} & Omit<
-    DetailedHTMLProps<HTMLAttributes<HTMLHRElement>, HTMLHRElement>,
-    "ref"
-  >;
+const separator = tv({
+  variants: {
+    space: {
+      none: "",
+      xs: "",
+      sm: "",
+      md: "",
+      lg: "",
+    },
+    orientation: {
+      vertical: "h-full w-px",
+      horizontal: "h-px w-full",
+    },
+  },
+  compoundVariants: [
+    {
+      space: "xs",
+      orientation: "vertical",
+      class: "mx-3",
+    },
+    {
+      space: "xs",
+      orientation: "horizontal",
+      class: "my-3",
+    },
+    {
+      space: "sm",
+      orientation: "vertical",
+      class: "mx-6",
+    },
+    {
+      space: "sm",
+      orientation: "horizontal",
+      class: "my-6",
+    },
+    {
+      space: "md",
+      orientation: "vertical",
+      class: "mx-12",
+    },
+    {
+      space: "md",
+      orientation: "horizontal",
+      class: "my-12",
+    },
+    {
+      space: "lg",
+      orientation: "vertical",
+      class: "mx-18",
+    },
+    {
+      space: "lg",
+      orientation: "horizontal",
+      class: "my-18",
+    },
+  ],
+});
+
+type SeparatorVariants = VariantProps<typeof separator>;
+
+interface SeparatorProps
+  extends SeparatorVariants,
+    ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root> {}
 
 /**
  * @name Separator
@@ -26,49 +76,20 @@ const Separator = forwardRef<
   SeparatorProps
 >(
   (
-    { space = "md", orientation = "horizontal", decorative = true, ...rest },
+    {
+      space = "md",
+      orientation = "horizontal",
+      decorative = true,
+      className,
+      ...rest
+    },
     forwardedRef,
   ) => {
-    let spaceStyles: Record<string, string> = {};
-    if (space !== "none") {
-      if (space === "xs") {
-        spaceStyles =
-          orientation === "vertical"
-            ? { "data-h2-margin": "base(0 x.5)" }
-            : { "data-h2-margin": "base(x.5 0)" };
-      }
-
-      if (space === "sm") {
-        spaceStyles =
-          orientation === "vertical"
-            ? { "data-h2-margin": "base(0 x1)" }
-            : { "data-h2-margin": "base(x1 0)" };
-      }
-      if (space === "md") {
-        spaceStyles =
-          orientation === "vertical"
-            ? { "data-h2-margin": "base(0 x2)" }
-            : { "data-h2-margin": "base(x2 0)" };
-      }
-      if (space === "lg") {
-        spaceStyles =
-          orientation === "vertical"
-            ? { "data-h2-margin": "base(x3 0)" }
-            : { "data-h2-margin": "base(x3 0)" };
-      }
-    }
     return (
       <SeparatorPrimitive.Root
         ref={forwardedRef}
+        className={separator({ space, orientation, class: className })}
         {...{ orientation, decorative }}
-        data-h2-height="
-      base:selectors[[data-orientation='vertical']](100%)
-      base:selectors[[data-orientation='horizontal']](1px)"
-        data-h2-width="
-      base:selectors[[data-orientation='vertical']](1px)
-      base:selectors[[data-orientation='horizontal']](100%)"
-        data-h2-background-color="base(gray)"
-        {...spaceStyles}
         {...rest}
       />
     );
