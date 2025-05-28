@@ -276,7 +276,7 @@ export const DashboardPage = ({
               data-h2-flex-shrink="base(0)"
             >
               <ResourceBlock.Root
-                headingColor="warning"
+                headingColor="quaternary"
                 headingAs="h2"
                 title={intl.formatMessage({
                   defaultMessage: "Your information",
@@ -364,7 +364,7 @@ export const DashboardPage = ({
                 />
               </ResourceBlock.Root>
               <ResourceBlock.Root
-                headingColor="error"
+                headingColor="tertiary"
                 headingAs="h2"
                 title={intl.formatMessage({
                   defaultMessage: "Resources",
