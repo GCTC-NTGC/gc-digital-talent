@@ -18,23 +18,12 @@ const Breadcrumbs = ({ crumbs }: BreadcrumbsProps) => {
 
   return (
     <>
-      <div
-        data-h2-background-color="base:all(black)"
-        data-h2-border-top="base(1px solid black.20)"
-        data-h2-padding="base(x.5, 0)"
-      >
+      <div className="border-t border-t-black/20 bg-black py-3">
         <nav
           aria-label={intl.formatMessage(uiMessages.breadcrumbs)}
-          data-h2-position="base(relative)"
-          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
+          className="relative mx-auto w-full max-w-6xl px-6 xs:px-9"
         >
-          <ol
-            data-h2-list-style="base(none)"
-            data-h2-display="base(flex) base:children[>li](inline-block)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-gap="base(x.5)"
-            data-h2-padding="base(0)"
-          >
+          <ol className="flex list-none flex-wrap gap-3 p-0">
             {crumbs.map((crumb, index) => (
               <Crumb
                 key={crumb.url}

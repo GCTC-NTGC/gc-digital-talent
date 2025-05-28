@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-import { CardForm, CardFormSeparator, Pending } from "@gc-digital-talent/ui";
+import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   CreateCommunityInterestInput,
@@ -80,7 +80,7 @@ const CreateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <CardForm>
+          <Card space="lg">
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -97,19 +97,19 @@ const CreateCommunityInterestForm = ({
                   {/* the training section is hidden if there are no development programs */}
                   {developmentProgramCount > 0 ? (
                     <>
-                      <CardFormSeparator />
+                      <Card.Separator />
                       <TrainingAndDevelopmentOpportunities
                         optionsQuery={formOptions}
                         formDisabled={formDisabled}
                       />
                     </>
                   ) : null}
-                  <CardFormSeparator />
+                  <Card.Separator />
                   <AdditionalInformation
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
                   />
-                  <CardFormSeparator />
+                  <Card.Separator />
                   <ReviewAndSubmit
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
@@ -117,7 +117,7 @@ const CreateCommunityInterestForm = ({
                 </>
               )}
             </div>
-          </CardForm>
+          </Card>
         </form>
       </FormProvider>
     </>

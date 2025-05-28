@@ -1,34 +1,29 @@
 import { ReactNode } from "react";
+import { tv, VariantProps } from "tailwind-variants";
+
+const item = tv({
+  base: `relative z-0 ml-6 pt-3 pl-6 not-last:border-l not-last:border-l-gray before:absolute before:top-0 before:left-0 before:h-[calc(50%+0.375rem)] before:border-b before:border-b-gray last:before:-z-[1] last:before:block last:before:border-l last:before:border-l-gray`,
+  variants: {
+    noBranch: {
+      false: "before:w-6",
+    },
+  },
+});
+
+type TreeViewItemVariants = VariantProps<typeof item>;
 
 /**
  * Props that can be passed to an `<TreeView.Item />`
  *
  * @interface TreeViewItemProps
- * @member {boolean} noBranch controls wether item is connected to tree line.
+ * @member {boolean} noBranch controls whether item is connected to tree line.
  */
-interface TreeViewItemProps {
-  noBranch?: boolean;
+interface TreeViewItemProps extends TreeViewItemVariants {
   children: ReactNode;
 }
 
 const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
-  <div
-    className="tree-view-item"
-    data-h2-margin-left="base(x1)"
-    data-h2-padding-left="base(x1)"
-    data-h2-padding-top="base(x.5)"
-    data-h2-border-left="base:selectors[:not(:last-child)](1px solid gray) base:selectors[:last-child:before](1px solid gray)"
-    data-h2-content="base:selectors[::before]('')"
-    data-h2-display="base:selectors[::before](block)"
-    data-h2-position="base(relative) base:selectors[::before](absolute)"
-    data-h2-border-bottom="base:selectors[::before](1px solid gray)"
-    data-h2-left="base:selectors[::before](0)"
-    data-h2-top="base:selectors[::before](0)"
-    data-h2-height="base:selectors[::before](calc(50% + x.25))"
-    data-h2-z-index="base(0) base:selectors[:last-child:before](-1)"
-    {...(noBranch ? {} : { "data-h2-width": "base:selectors[::before](x1)" })}
-    {...rest}
-  >
+  <div className={item({ noBranch })} {...rest}>
     {children}
   </div>
 );

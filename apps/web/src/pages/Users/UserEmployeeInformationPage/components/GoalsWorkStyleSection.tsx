@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardBasic, CardSeparator } from "@gc-digital-talent/ui";
+import { Card, CardSeparator } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
@@ -29,7 +29,7 @@ const GoalsWorkStyleSection = ({
   );
 
   return (
-    <CardBasic
+    <Card
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
@@ -58,7 +58,7 @@ const GoalsWorkStyleSection = ({
         {employeeProfile.workStyle ??
           intl.formatMessage(commonMessages.notProvided)}
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

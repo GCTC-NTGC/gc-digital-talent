@@ -9,8 +9,7 @@ import { ComponentPropsWithoutRef, useState } from "react";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Button from "../Button";
-
-import DropdownMenu from ".";
+import DropdownMenu from "./DropdownMenu";
 
 type DropdownMenuRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof DropdownMenu.Root

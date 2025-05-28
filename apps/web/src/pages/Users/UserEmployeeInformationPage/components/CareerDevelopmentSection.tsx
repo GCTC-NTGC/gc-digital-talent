@@ -7,7 +7,7 @@ import {
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import { CardBasic, CardSeparator, NoList } from "@gc-digital-talent/ui";
+import { Card, CardSeparator, NoList } from "@gc-digital-talent/ui";
 import {
   ExecCoaching,
   FragmentType,
@@ -222,7 +222,7 @@ const CareerDevelopmentSection = ({
   ).map((interest) => String(interest.value));
 
   return (
-    <CardBasic
+    <Card
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
@@ -485,7 +485,7 @@ const CareerDevelopmentSection = ({
           intl.formatMessage(commonMessages.notProvided)
         )}
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

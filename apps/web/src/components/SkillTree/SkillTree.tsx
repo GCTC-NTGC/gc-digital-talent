@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import {
   Button,
-  CardBasic,
+  Card,
   Heading,
   TreeView,
   Well,
@@ -101,14 +101,14 @@ const SkillTree = ({
   return (
     <TreeView.Root data-h2-margin="base(x1, 0, 0, 0)">
       <TreeView.Head>
-        <CardBasic>
+        <Card>
           <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
             {title}
           </Heading>
           {skill.description && (
             <p>{getLocalizedName(skill.description, intl)}</p>
           )}
-        </CardBasic>
+        </Card>
       </TreeView.Head>
       {skillExperiences.length ? (
         <>

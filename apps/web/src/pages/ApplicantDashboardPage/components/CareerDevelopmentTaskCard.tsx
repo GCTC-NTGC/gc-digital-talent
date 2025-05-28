@@ -182,7 +182,7 @@ const CareerDevelopmentTaskCard = ({
             id: "+2/ksA",
             description: "Card title for career development",
           })}
-          headingColor="secondary"
+          headingColor="primary"
           headingAs="h2"
         >
           <TaskCard.Item>

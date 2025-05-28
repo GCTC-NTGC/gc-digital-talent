@@ -17,7 +17,7 @@ import {
   Heading,
   Link,
   CardSeparator,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import {
   DepartmentSize,
@@ -161,7 +161,7 @@ export const UpdateDepartmentForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -197,7 +197,7 @@ export const UpdateDepartmentForm = ({
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );

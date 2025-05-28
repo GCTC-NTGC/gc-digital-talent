@@ -6,7 +6,7 @@ import { ReactNode, useEffect, useRef } from "react";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
-  CardBasic,
+  Card,
   DialogPrimitive,
   DropdownMenu,
   Separator,
@@ -159,7 +159,7 @@ const NotificationItem = ({
 
   return (
     <li ref={itemRef}>
-      <CardBasic
+      <Card
         data-h2-display="base(flex)"
         {...(inDialog
           ? {
@@ -282,7 +282,7 @@ const NotificationItem = ({
             {createdAt}
           </p>
         </div>
-      </CardBasic>
+      </Card>
       {inDialog && (
         <Separator orientation="horizontal" data-h2-margin="base(0)" />
       )}

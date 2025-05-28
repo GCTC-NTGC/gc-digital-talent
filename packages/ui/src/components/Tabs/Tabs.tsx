@@ -4,25 +4,20 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { commonTabStyles, handleTabFocus } from "./utils";
+import { divide, handleTabFocus, inner, list, root, trigger } from "./utils";
 
 const Root = forwardRef<
   ElementRef<typeof TabsPrimitive.Root>,
   ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 >((props, forwardedRef) => (
-  <TabsPrimitive.Root ref={forwardedRef} {...commonTabStyles.root} {...props} />
+  <TabsPrimitive.Root ref={forwardedRef} className={root()} {...props} />
 ));
 
 const List = forwardRef<
   ElementRef<typeof TabsPrimitive.List>,
   ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ children, ...rest }, forwardedRef) => (
-  <TabsPrimitive.List
-    ref={forwardedRef}
-    className="Tabs__List"
-    {...commonTabStyles.list}
-    {...rest}
-  >
+  <TabsPrimitive.List ref={forwardedRef} className={list()} {...rest}>
     {children}
   </TabsPrimitive.List>
 ));
@@ -32,13 +27,19 @@ const Trigger = forwardRef<
   ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ children, ...rest }, forwardedRef) => (
   <TabsPrimitive.Trigger
-    className="Tabs__Trigger"
+    className={trigger()}
     onFocus={handleTabFocus}
-    {...commonTabStyles.trigger}
     ref={forwardedRef}
     {...rest}
   >
-    <span {...commonTabStyles.triggerInner}>{children}</span>
+    <span
+      className={inner({
+        class:
+          "on-active-focus-border-t group-focus-visible/tabTrigger:border-t-focus",
+      })}
+    >
+      {children}
+    </span>
   </TabsPrimitive.Trigger>
 ));
 
@@ -48,8 +49,7 @@ const Content = forwardRef<
 >((props, forwardedRef) => (
   <TabsPrimitive.Content
     ref={forwardedRef}
-    {...commonTabStyles.contentDivide}
-    data-h2-padding="base(x1)"
+    className={divide({ class: "p-6" })}
     {...props}
   />
 ));
