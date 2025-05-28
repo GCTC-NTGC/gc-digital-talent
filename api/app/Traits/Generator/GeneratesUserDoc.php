@@ -542,7 +542,11 @@ trait GeneratesUserDoc
         $user->loadMissing([
             'department',
             'currentClassification',
-            'experiences',
+            'awardExperiences',
+            'communityExperiences',
+            'educationExperiences',
+            'personalExperiences',
+            'workExperiences',
             'userSkills',
         ]);
 
