@@ -4,6 +4,7 @@ import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -15,14 +16,7 @@ interface ActionsProps {
 }
 
 const Actions = ({ children }: ActionsProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-align-items="base(center)"
-    data-h2-justify-content="base(center)"
-    data-h2-gap="base(x.5)"
-  >
-    {children}
-  </div>
+  <div className="flex items-center justify-center gap-3">{children}</div>
 );
 
 const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
@@ -30,13 +24,7 @@ const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
 const DisabledAction = () => (
   <span
     aria-hidden
-    data-h2-display="base(block)"
-    data-h2-color="base(gray)"
-    data-h2-height="base(x.975)"
-    data-h2-radius="base(100%)"
-    data-h2-width="base(x.975)"
-    data-h2-text-align="base(center)"
-    data-h2-vertical-align="base(middle)"
+    className="block size-6 rounded-full text-center align-middle text-gray"
     // eslint-disable-next-line formatjs/no-literal-string-in-jsx
   >
     &bull;
@@ -44,6 +32,16 @@ const DisabledAction = () => (
 );
 
 export const CARD_CLASS_NAME = "Card__Repeater";
+
+const card = tv({
+  base: "rounded-md border-t-12 bg-white p-6 text-black shadow-lg outline-none dark:bg-gray-600 dark:text-white",
+  variants: {
+    hasError: {
+      true: "border-t-error",
+      false: "border-t-primary",
+    },
+  },
+});
 
 export interface CardProps {
   index: number;
@@ -127,31 +125,11 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
               duration: 0.4,
             }
       }
-      className={CARD_CLASS_NAME}
+      className={card({ hasError: !!error, class: CARD_CLASS_NAME })}
       id={`${id}-${item.id}`}
       tabIndex={-1}
-      data-h2-background-color="base(foreground)"
-      data-h2-color="base(black)"
-      data-h2-padding="base(x1)"
-      data-h2-shadow="base(medium)"
-      data-h2-radius="base(s)"
-      data-h2-outline="base(none)"
-      data-h2-border-top="base(x.5 solid secondary)"
-      {...(!error
-        ? {
-            "data-h2-border-color": "base(secondary) base:focus-visible(focus)",
-          }
-        : {
-            "data-h2-border-color": "base(error) base:focus-visible(focus)",
-          })}
     >
-      <div
-        data-h2-align-items="base(center)"
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-margin-bottom="base(x.5)"
-        data-h2-width="base(100%)"
-      >
+      <div className="mb-3 flex w-full items-center justify-between">
         <Actions>
           {/* UP ARROW */}
           {!(disableDecrement || disabled) ? (
@@ -169,11 +147,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
           )}
           {/* INDEX */}
           {!hideIndex && (
-            <span
-              aria-hidden="true"
-              data-h2-text-align="base(center)"
-              data-h2-font-weight="base(700)"
-            >
+            <span aria-hidden="true" className="text-center font-bold">
               {position}
             </span>
           )}
@@ -181,7 +155,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
           {!disableIncrement ? (
             <Action
               onClick={increment}
-              animation={!shouldReduceMotion ? "translate-up" : "none"}
+              animation={!shouldReduceMotion ? "translate-down" : "none"}
               icon={ArrowDownIcon}
               aria-label={intl.formatMessage(formMessages.repeaterMove, {
                 from: position,
