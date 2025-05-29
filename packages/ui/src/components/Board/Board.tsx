@@ -322,7 +322,7 @@ const Info = ({
         {counter && counter >= 0 ? (
           <Counter
             count={counter}
-            className="rounded-full bg-gray-100 py-1 px-2 text-black dark:bg-gray-700 dark:text-white"
+            className="rounded-full bg-gray-100 px-2 py-1 text-black dark:bg-gray-700 dark:text-white"
           />
         ) : null}
       </Collapsible.Trigger>
