@@ -35,7 +35,8 @@
     "date-fns": "^3.6.0",
     "downshift": "^9.0.9",
     "lodash": "^4.17.21",
-    "motion": "^12.12.1"
+    "motion": "^12.12.1",
+    "tailwind-variants": "^1.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
