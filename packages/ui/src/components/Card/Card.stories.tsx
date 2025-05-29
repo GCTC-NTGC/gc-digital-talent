@@ -9,7 +9,6 @@ faker.seed(0);
 
 const meta = {
   component: Card,
-  subcomponents: { Separator: Card.Separator },
   parameters: {
     chromatic: {
       modes: {
