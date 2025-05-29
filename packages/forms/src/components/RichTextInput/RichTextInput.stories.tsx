@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";

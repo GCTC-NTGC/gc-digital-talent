@@ -1,7 +1,7 @@
 import type { StoryFn } from "@storybook/react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { Color } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";

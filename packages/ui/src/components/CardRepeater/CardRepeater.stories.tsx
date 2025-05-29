@@ -1,5 +1,5 @@
 import type { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 import { useState, FormEvent, ChangeEventHandler } from "react";
 

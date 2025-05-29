@@ -21,7 +21,6 @@ const main: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-designs",
     "@storybook/addon-themes",
-    "@storybook/addon-essentials",
     "storybook-react-intl",
   ],
   core: {

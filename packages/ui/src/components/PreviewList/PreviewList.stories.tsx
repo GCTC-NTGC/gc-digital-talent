@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
