@@ -51,7 +51,6 @@ use Illuminate\Support\Facades\Log;
  * @property ?bool $senior_management_status
  * @property ?string $c_suite_role_title
  * @property ?string $other_c_suite_role_title
- * @property array $workStreams
  */
 class WorkExperience extends Experience
 {
@@ -110,7 +109,6 @@ class WorkExperience extends Experience
         'senior_management_status' => 'seniorManagementStatus',
         'c_suite_role_title' => 'cSuiteRoleTitle',
         'other_c_suite_role_title' => 'otherCSuiteRoleTitle',
-        'work_stream_ids' => 'workStreamIds',
     ];
 
     /**

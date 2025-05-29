@@ -2323,7 +2323,7 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
-  workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
+  workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
   supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
   supervisedEmployeesNumber: Int

@@ -2231,7 +2231,7 @@ input WorkExperienceInput {
   cafRank: CafRank
   classificationId: String
   departmentId: String
-  workStreamIds: [UUID!]
+  workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
