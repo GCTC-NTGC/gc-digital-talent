@@ -9,7 +9,10 @@ import {
   ElementRef,
   ReactNode,
   Fragment,
+  createContext,
+  useContext,
 } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -22,157 +25,79 @@ import MetaDataStatusItem, {
   AccordionMetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
 
+const root = tv({
+  base: "group flex flex-col",
+  variants: {
+    mode: {
+      simple: "",
+      card: "overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-600",
+    },
+  },
+});
+
+type AccordionVariants = VariantProps<typeof root>;
+
+const AccordionVariantContext = createContext<AccordionVariants>({
+  mode: "simple",
+});
+
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
   mode?: AccordionMode;
   size?: "sm" | "md" | "lg";
 };
 
 const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
-  ({ mode = "simple", size = "md", ...rest }, forwardedRef) => {
-    let baseStyles: Record<string, string> = {
-      "data-h2-height":
-        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.8)",
-      "data-h2-width":
-        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.8)",
-      "data-h2-stroke-width":
-        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1.5)",
-      "data-h2-font-size":
-        "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h6, 1)",
-    };
-
-    let paddingStyles: Record<string, string> =
-      mode === "card"
-        ? {
-            "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.3)
-          `,
-            "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.3)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.3)
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.3)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
-          `,
-          }
-        : {
-            "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
-              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.3)
-          `,
-          };
-
-    if (size === "sm") {
-      baseStyles = {
-        "data-h2-height":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.75)",
-        "data-h2-width":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.75)",
-        "data-h2-stroke-width":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
-        "data-h2-font-size":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](body, 1)",
-      };
-
-      paddingStyles =
-        mode === "card"
-          ? {
-              "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.25)
-          `,
-              "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.25)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.25)
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.25)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
-          `,
-            }
-          : {
-              "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
-              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.25)
-          `,
-            };
-    }
-
-    if (size === "lg") {
-      baseStyles = {
-        "data-h2-height":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.95)",
-        "data-h2-width":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon](x.95)",
-        "data-h2-stroke-width":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Icon path](1)",
-        "data-h2-font-size":
-          "base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Heading](h5, 1)",
-      };
-
-      paddingStyles =
-        mode === "card"
-          ? {
-              "data-h2-padding": `
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x1)
-              base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x2.45)
-            `,
-              "data-h2-margin": `
-              base:selectors[>.Accordion__Item > .Accordion__MetaData](-x.5 0 x1 x2.45)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__MetaData](-x1 0 x1 x2.45)
-              base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](x.5 0 0 x1.45)
-              p-tablet:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Context](0 0 0 0)
-            `,
-            }
-          : {
-              "data-h2-padding": `
-          base:selectors[>.Accordion__Item > .Accordion__Header .Accordion__Trigger](x.5 0)
-          base:selectors[>.Accordion__Item > .Accordion__Content](0 x1 x1 x1.45)
-      `,
-            };
-    }
-
-    if (mode === "card") {
-      baseStyles = {
-        ...baseStyles,
-        // custom out-of-system colour used for even dark items: Colors/Background/Manual/Dark-30:Foreground-Light-50
-        "data-h2-background-color": `
-          base:selectors[>.Accordion__Item:nth-child(odd)](foreground)
-
-          base:selectors[>.Accordion__Item:nth-child(even)](background.dark.3)
-          base:dark:selectors[>.Accordion__Item:nth-child(even)](rgba(53, 57, 75, .5))
-        `,
-        "data-h2-border-top": `
-          base:selectors[>.Accordion__Item + .Accordion__Item](thin solid black.darkest.2)
-          base:dark:selectors[>.Accordion__Item + .Accordion__Item](thin solid black.darkest.5)
-        `,
-        "data-h2-overflow": "base(hidden)",
-        "data-h2-radius": "base(s)",
-        "data-h2-shadow": "base(l)",
-      };
-    }
-
-    return (
+  ({ mode = "simple", ...rest }, forwardedRef) => (
+    <AccordionVariantContext.Provider value={{ mode }}>
       <AccordionPrimitive.Root
         ref={forwardedRef}
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        {...baseStyles}
-        {...paddingStyles}
+        className={root({ mode })}
         {...rest}
       />
-    );
-  },
+    </AccordionVariantContext.Provider>
+  ),
 );
+
+const item = tv({
+  base: "overflow-hidden",
+  variants: {
+    mode: {
+      simple: "",
+      card: "not-last:border-b not-last:border-b-gray-100 even:bg-gray-100/30 dark:not-last:border-b-gray-700 dark:odd:bg-gray-700/30 dark:even:bg-gray-700/50",
+    },
+  },
+});
 
 const Item = forwardRef<
   ElementRef<typeof AccordionPrimitive.Item>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->((props, forwardedRef) => (
-  <AccordionPrimitive.Item
-    className="Accordion__Item"
-    data-h2-overflow="base(hidden)"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+>((props, forwardedRef) => {
+  const { mode } = useContext(AccordionVariantContext);
+  return (
+    <AccordionPrimitive.Item
+      className={item({ mode })}
+      ref={forwardedRef}
+      {...props}
+    />
+  );
+});
+
+const trigger = tv({
+  slots: {
+    header: "flex items-start justify-between gap-x-3",
+    btn: "group/btn flex grow items-start gap-x-3 text-left",
+  },
+  variants: {
+    mode: {
+      simple: {
+        header: "py-3",
+      },
+      card: {
+        header: "p-6",
+      },
+    },
+  },
+});
 
 interface AccordionHeaderProps
   extends ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
@@ -193,91 +118,34 @@ const Trigger = forwardRef<
   ) => {
     const Heading = as;
     const Icon = icon;
+    const { mode } = useContext(AccordionVariantContext);
+    const { header, btn } = trigger({ mode });
 
     return (
-      <AccordionPrimitive.Header asChild {...titleProps}>
-        <div className="Accordion__Header">
-          <AccordionPrimitive.Trigger
-            ref={forwardedRef}
-            className="Accordion__Trigger"
-            data-h2-align-items="base(flex-start)"
-            data-h2-background-color="base(transparent) base:focus-visible(focus)"
-            data-h2-color="base(black) base:focus-visible(black) base:children[.Accordion__Subtitle](black.light) base:all:focus-visible:children[*](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
-            data-h2-cursor="base(pointer)"
-            data-h2-display="base(flex)"
-            data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
-            data-h2-gap="base(0, x.5)"
-            data-h2-outline="base(none)"
-            data-h2-justify-content="base(flex-start)"
-            data-h2-text-align="base(left)"
-            data-h2-width="base(100%)"
-            data-h2-shadow="base:focus-visible:children[.Accordion__Chevron](focus)"
-            data-h2-transform="
-            base:children[.Accordion__Icon--chevron](rotate(0deg))
-            base:selectors[[data-state='open']]:children[.Accordion__Icon--chevron](rotate(90deg))"
-            {...rest}
-          >
-            <span
-              data-h2-align-items="base(flex-start)"
-              data-h2-display="base(flex)"
-              data-h2-gap="base(0, x.5)"
-              data-h2-flex-grow="base(1)"
-              {...(context
-                ? { "data-h2-margin-bottom": "base(x.5) p-tablet(0)" }
-                : {})}
-            >
-              <span
-                className="Accordion__Chevron"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-flex-shrink="base(0)"
-              >
-                <ChevronRightIcon
-                  className="Accordion__Icon Accordion__Icon--chevron"
-                  data-h2-transition="base(transform 150ms ease)"
-                />
-              </span>
-
-              <span
-                data-h2-flex-grow="base(1)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x.15 0)"
-              >
-                <Heading
-                  className="Accordion__Heading"
-                  data-h2-margin="base(0)"
-                  data-h2-font-weight="base(700)"
-                >
-                  {children}
-                </Heading>
-                {subtitle && (
-                  <span
-                    className="Accordion__Subtitle"
-                    data-h2-font-size="base(caption)"
-                  >
-                    {subtitle}
-                  </span>
-                )}
-              </span>
-            </span>
-
-            {(!!Icon || !!context) && (
-              <span
-                className="Accordion__Context"
-                data-h2-align-items="base(center)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(0 x.25)"
-                data-h2-margin-left="base(x1.30) p-tablet(0)"
-              >
-                {context && (
-                  <span data-h2-font-size="base(body)">{context}</span>
-                )}
-                {Icon && <Icon className="Accordion__Icon" />}
+      <AccordionPrimitive.Header className={header()} {...titleProps}>
+        <AccordionPrimitive.Trigger
+          ref={forwardedRef}
+          className={btn()}
+          {...rest}
+        >
+          <ChevronRightIcon className="size-5 shrink-0 rotate-0 transform transition-transform duration-150 group-data-[state=open]/btn:rotate-90" />
+          <span className="flex grow flex-col">
+            <Heading className="m-0 text-lg/[1.1] font-bold lg:text-xl/[1.1]">
+              {children}
+            </Heading>
+            {subtitle && (
+              <span className="dark:text-gray-200m mt-1 text-sm">
+                {subtitle}
               </span>
             )}
-          </AccordionPrimitive.Trigger>
-        </div>
+          </span>
+        </AccordionPrimitive.Trigger>
+        {(!!Icon || !!context) && (
+          <span className="flex items-center gap-x-3">
+            {context && <span>{context}</span>}
+            {Icon && <Icon className="size-5" />}
+          </span>
+        )}
       </AccordionPrimitive.Header>
     );
   },
@@ -319,6 +187,59 @@ interface AccordionMetaDataStatusItem extends AccordionMetaDataStatusItemProps {
   type: "status_item";
 }
 
+type AccordionMetaDataItem =
+  | AccordionMetaDataText
+  | AccordionMetaDataButton
+  | AccordionMetaDataLink
+  | AccordionMetaDataChip
+  | AccordionMetaDataStatusItem;
+
+interface MetaDataItemProps {
+  datum: AccordionMetaDataItem;
+}
+
+const MetaDataItem = ({ datum }: MetaDataItemProps) => {
+  switch (datum.type) {
+    case "text":
+      return (
+        <span className="font-normal text-gray-500 dark:text-gray-100">
+          {datum.children}
+        </span>
+      );
+    case "chip":
+      return <Chip color={datum?.color}>{datum.children}</Chip>;
+    case "button":
+      return (
+        <Button
+          mode="inline"
+          color={datum.color ?? "primary"}
+          fontSize="caption"
+          onClick={datum.onClick}
+          key={datum.key}
+        >
+          {datum.children}
+        </Button>
+      );
+    case "link":
+      return (
+        <Link
+          color={datum.color ?? "primary"}
+          href={datum.href}
+          mode="inline"
+          fontSize="caption"
+          key={datum.key}
+        >
+          {datum.children}
+        </Link>
+      );
+    // just wrap with a key and display "as-is"
+    case "status_item":
+      return <MetaDataStatusItem label={datum.label} status={datum.status} />;
+    default:
+      return assertUnreachable(datum);
+  }
+};
+
 export interface AccordionMetaDataProps {
   metadata: (
     | AccordionMetaDataText
@@ -331,145 +252,63 @@ export interface AccordionMetaDataProps {
 
 export type AccordionMetaData = AccordionMetaDataProps["metadata"];
 
-const MetaData = ({ metadata }: AccordionMetaDataProps) => {
-  const metadataLength = metadata.length;
-  const separatorSpan = (
-    <span
-      data-h2-display="base(none) p-tablet(inline-block)"
-      data-h2-color="base(black.lighter)"
-      data-h2-margin="p-tablet(0 x.5)"
-      // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-    >
-      &bull;
-    </span>
-  );
+const metaWrapper = tv({
+  base: "flex flex-col flex-nowrap items-start gap-2 text-sm xs:flex-row xs:flex-wrap xs:items-center",
+  variants: {
+    mode: {
+      simple: "mb-3 pl-8",
+      card: "-mt-3 pb-6 pl-14",
+    },
+  },
+});
 
+const MetaData = ({ metadata }: AccordionMetaDataProps) => {
+  const { mode } = useContext(AccordionVariantContext);
   return (
-    <div
-      className="Accordion__MetaData"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
-      data-h2-align-items="base(flex-start) p-tablet(center)"
-      data-h2-gap="base(x.5 0)"
-      data-h2-margin="base(0 0 x.5 x1.30) p-tablet(0 0 x.5 x1.30)"
-      data-h2-font-size="base(caption)"
-      data-h2-font-weight="base(bold)"
-    >
-      {metadata.map((datum, index) => {
-        switch (datum.type) {
-          case "text":
-            return index + 1 === metadataLength ? (
-              <span
-                data-h2-color="base(black.light)"
-                data-h2-font-weight="base(400)"
-                key={datum.key}
-              >
-                {datum.children}
-              </span>
-            ) : (
-              <Fragment key={datum.key}>
-                <span
-                  data-h2-color="base(black.light)"
-                  data-h2-font-weight="base(400)"
-                >
-                  {datum.children}
-                </span>
-                {separatorSpan}
-              </Fragment>
-            );
-          case "chip":
-            return index + 1 === metadataLength ? (
-              <span key={datum.key}>
-                <Chip color={datum?.color}>{datum.children}</Chip>
-              </span>
-            ) : (
-              <Fragment key={datum.key}>
-                <span>
-                  <Chip color={datum?.color}>{datum.children}</Chip>
-                </span>
-                {separatorSpan}
-              </Fragment>
-            );
-          case "button":
-            return index + 1 === metadataLength ? (
-              <Button
-                mode="text"
-                color={datum.color ?? "primary"}
-                fontSize="caption"
-                data-h2-font-weight="base(bold)"
-                onClick={datum.onClick}
-                key={datum.key}
-              >
-                {datum.children}
-              </Button>
-            ) : (
-              <Fragment key={datum.key}>
-                <Button
-                  mode="text"
-                  color={datum.color ?? "primary"}
-                  fontSize="caption"
-                  data-h2-font-weight="base(bold)"
-                  onClick={datum.onClick}
-                >
-                  {datum.children}
-                </Button>
-                {separatorSpan}
-              </Fragment>
-            );
-          case "link":
-            return index + 1 === metadataLength ? (
-              <Link
-                color={datum.color ?? "primary"}
-                href={datum.href}
-                fontSize="caption"
-                data-h2-font-weight="base(bold)"
-                key={datum.key}
-              >
-                {datum.children}
-              </Link>
-            ) : (
-              <Fragment key={datum.key}>
-                <Link
-                  color={datum.color ?? "primary"}
-                  href={datum.href}
-                  fontSize="caption"
-                  data-h2-font-weight="base(bold)"
-                >
-                  {datum.children}
-                </Link>
-                {separatorSpan}
-              </Fragment>
-            );
-          // just wrap with a key and display "as-is"
-          case "status_item":
-            return (
-              <Fragment key={datum.key}>
-                <MetaDataStatusItem label={datum.label} status={datum.status} />
-                {index + 1 < metadataLength ? separatorSpan : null}
-              </Fragment>
-            );
-          default:
-            return assertUnreachable(datum);
-        }
-      })}
+    <div className={metaWrapper({ mode })}>
+      {metadata.map((datum, index) => (
+        <Fragment key={datum.key}>
+          {index > 0 && (
+            <span
+              aria-hidden="true"
+              className="none mx-3 text-gray-300 xs:inline-block dark:text-gray-200"
+              // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+            >
+              &bull;
+            </span>
+          )}
+          <MetaDataItem datum={datum} />
+        </Fragment>
+      ))}
     </div>
   );
 };
 
+const content = tv({
+  base: "pb-6 text-black dark:text-white",
+  variants: {
+    mode: {
+      simple: "pl-8",
+      card: "pl-14",
+    },
+  },
+});
+
 const Content = forwardRef<
   ElementRef<typeof AccordionPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ children, ...rest }, forwardedRef) => (
-  <AccordionPrimitive.Content
-    className="Accordion__Content"
-    data-h2-color="base(black)"
-    ref={forwardedRef}
-    {...rest}
-  >
-    {children}
-  </AccordionPrimitive.Content>
-));
+>(({ children, ...rest }, forwardedRef) => {
+  const { mode } = useContext(AccordionVariantContext);
+  return (
+    <AccordionPrimitive.Content
+      className={content({ mode })}
+      ref={forwardedRef}
+      {...rest}
+    >
+      {children}
+    </AccordionPrimitive.Content>
+  );
+});
 
 /**
  * @name Accordion
