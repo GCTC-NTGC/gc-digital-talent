@@ -249,7 +249,7 @@ const Column = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
     return (
       <div
         ref={forwardedRef}
-        className="Board__Column flex max-h-[calc(90vh-var(--spacing)*12)] min-h-72 w-full shrink-0 flex-col rounded bg-white shadow-lg xs:w-80 dark:bg-gray-600"
+        className="Board__Column flex max-h-[calc(90vh-var(--spacing)*12)] min-h-72 w-full shrink-0 flex-col rounded bg-white shadow-lg xs:w-84 dark:bg-gray-600"
         {...rest}
       >
         {children}
