@@ -235,6 +235,7 @@ class WorkExperience extends Experience
         return $this->belongsTo(Department::class);
     }
 
+    /** @return BelongsToMany<WorkStream, $this> */
     public function workStreams(): BelongsToMany
     {
         return $this->belongsToMany(WorkStream::class);
