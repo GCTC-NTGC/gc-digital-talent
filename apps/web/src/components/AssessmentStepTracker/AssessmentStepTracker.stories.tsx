@@ -1,5 +1,3 @@
-import type { StoryFn } from "@storybook/react";
-
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
