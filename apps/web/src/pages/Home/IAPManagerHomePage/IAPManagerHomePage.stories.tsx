@@ -19,7 +19,10 @@ export default {
 
 const Template: StoryFn = () => <IAPManagerHomePage />;
 
-export const Default = Template.bind({});
-Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
+export const Default = {
+  render: Template,
+
+  parameters: {
+    chromatic: { viewports: CHROMATIC_VIEWPORTS },
+  },
 };

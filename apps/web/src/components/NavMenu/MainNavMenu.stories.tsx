@@ -30,4 +30,6 @@ const Template: StoryFn<typeof MainNavMenu> = () => (
   </div>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

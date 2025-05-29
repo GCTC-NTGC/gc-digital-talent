@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { EmailType } from "@gc-digital-talent/graphql";
 
@@ -13,18 +13,24 @@ const Template: StoryFn<typeof EmailVerification> = (args) => {
   return <EmailVerification {...args} />;
 };
 
-export const ContactEmail = Template.bind({});
-ContactEmail.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "example@example.org",
-  onSkip: action("onSkip"),
-  onVerificationSuccess: action("onVerificationSuccess"),
+export const ContactEmail = {
+  render: Template,
+
+  args: {
+    emailType: EmailType.Contact,
+    emailAddress: "example@example.org",
+    onSkip: action("onSkip"),
+    onVerificationSuccess: action("onVerificationSuccess"),
+  },
 };
 
-export const WorkEmail = Template.bind({});
-WorkEmail.args = {
-  emailType: EmailType.Work,
-  emailAddress: "example@gc.ca",
-  onSkip: action("onSkip"),
-  onVerificationSuccess: action("onVerificationSuccess"),
+export const WorkEmail = {
+  render: Template,
+
+  args: {
+    emailType: EmailType.Work,
+    emailAddress: "example@gc.ca",
+    onSkip: action("onSkip"),
+    onVerificationSuccess: action("onVerificationSuccess"),
+  },
 };

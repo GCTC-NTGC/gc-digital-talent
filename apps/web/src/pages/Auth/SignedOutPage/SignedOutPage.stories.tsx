@@ -8,4 +8,6 @@ export default {
 
 const Template: StoryFn = () => <SignedOutPage />;
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

@@ -111,11 +111,8 @@ const poolCandidate = makeFragmentData(
   FinalDecisionDialog_Fragment,
 );
 
-const Template: StoryFn<typeof FinalDecisionDialog> = (args) => (
-  <FinalDecisionDialog {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  poolCandidate,
+export const Default = {
+  args: {
+    poolCandidate,
+  },
 };

@@ -71,4 +71,6 @@ const Template: StoryFn<typeof Board.Root> = () => (
   </Board.Root>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
@@ -27,7 +27,10 @@ const Template: StoryFn<typeof ApplicationSelfDeclaration> = () => (
   />
 );
 
-export const Default = Template.bind({});
-Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
+export const Default = {
+  render: Template,
+
+  parameters: {
+    chromatic: { viewports: CHROMATIC_VIEWPORTS },
+  },
 };

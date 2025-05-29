@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -31,25 +31,39 @@ const Template: StoryFn<typeof SkillBrowserDialog> = (args) => {
   return <SkillBrowserDialog {...args} onSave={handleSave} />;
 };
 
-export const Default = Template.bind({});
-
-export const ExperienceContext = Template.bind({});
-ExperienceContext.args = {
-  context: "experience",
+export const Default = {
+  render: Template,
 };
 
-export const LibraryContext = Template.bind({});
-LibraryContext.args = {
-  context: "library",
+export const ExperienceContext = {
+  render: Template,
+
+  args: {
+    context: "experience",
+  },
 };
 
-export const ShowcaseContext = Template.bind({});
-ShowcaseContext.args = {
-  context: "showcase",
+export const LibraryContext = {
+  render: Template,
+
+  args: {
+    context: "library",
+  },
 };
 
-export const ShowcaseShowMyLibraryContext = Template.bind({});
-ShowcaseShowMyLibraryContext.args = {
-  context: "showcase",
-  inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
+export const ShowcaseContext = {
+  render: Template,
+
+  args: {
+    context: "showcase",
+  },
+};
+
+export const ShowcaseShowMyLibraryContext = {
+  render: Template,
+
+  args: {
+    context: "showcase",
+    inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
+  },
 };

@@ -71,12 +71,10 @@ export default {
   component: ApplicationSkills,
 } as Meta<typeof ApplicationSkills>;
 
-const Template: StoryFn<typeof ApplicationSkills> = (props) => (
-  <ApplicationSkills {...props} />
-);
+export const NoSkills = {
+  args: noSkills,
+};
 
-export const NoSkills = Template.bind({});
-NoSkills.args = noSkills;
-
-export const HasExperiences = Template.bind({});
-HasExperiences.args = hasExperiencesProps;
+export const HasExperiences = {
+  args: hasExperiencesProps,
+};

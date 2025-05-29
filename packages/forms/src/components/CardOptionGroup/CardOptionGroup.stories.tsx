@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
 import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 
@@ -47,16 +47,19 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
   );
 };
 
-export const Default = TemplateCardOptionGroup.bind({});
-Default.args = {
-  idPrefix: "CardOptionGroup",
-  legend: "Which item do you want to check?",
-  name: "CardOptionGroup",
-  items: colors.map<CardOption>((color) => ({
-    value: color,
-    label: color,
-    unselectedIcon: OutlineHandThumbUpIcon,
-    selectedIcon: SolidHandThumbUpIcon,
-    selectedIconColor: color,
-  })),
+export const Default = {
+  render: TemplateCardOptionGroup,
+
+  args: {
+    idPrefix: "CardOptionGroup",
+    legend: "Which item do you want to check?",
+    name: "CardOptionGroup",
+    items: colors.map<CardOption>((color) => ({
+      value: color,
+      label: color,
+      unselectedIcon: OutlineHandThumbUpIcon,
+      selectedIcon: SolidHandThumbUpIcon,
+      selectedIconColor: color,
+    })),
+  },
 };

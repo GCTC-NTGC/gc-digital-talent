@@ -46,18 +46,25 @@ const Template: StoryFn<typeof TaskCard.Root> = (args) => (
     ))}
   </div>
 );
-export const Default = Template.bind({});
-Default.args = {
-  icon: UsersIcon,
-  title:
-    "Your active applications for this pool since it is a really long title",
-  link: {
-    label: "Browse new jobs!",
-    href: "#",
+
+export const Default = {
+  render: Template,
+
+  args: {
+    icon: UsersIcon,
+    title:
+      "Your active applications for this pool since it is a really long title",
+    link: {
+      label: "Browse new jobs!",
+      href: "#",
+    },
   },
 };
 
-export const NoExtras = Template.bind({});
-NoExtras.args = {
-  title: "Your active applications",
+export const NoExtras = {
+  render: Template,
+
+  args: {
+    title: "Your active applications",
+  },
 };

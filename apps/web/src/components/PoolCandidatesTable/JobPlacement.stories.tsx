@@ -102,12 +102,18 @@ const Template: StoryFn<typeof JobPlacementDialog> = (args) => {
   );
 };
 
-export const Placed = Template.bind({});
-Placed.args = {
-  jobPlacementDialogQuery: placedData,
+export const Placed = {
+  render: Template,
+
+  args: {
+    jobPlacementDialogQuery: placedData,
+  },
 };
 
-export const NotPlaced = Template.bind({});
-NotPlaced.args = {
-  jobPlacementDialogQuery: notPlacedData,
+export const NotPlaced = {
+  render: Template,
+
+  args: {
+    jobPlacementDialogQuery: notPlacedData,
+  },
 };

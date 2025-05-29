@@ -15,8 +15,11 @@ const Template: StoryFn<typeof SkillFamilyTable> = (args) => {
   return <SkillFamilyTable skillFamilies={skillFamilies} title={title} />;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  skillFamilies: mockSkillFamilies,
-  title: "Skill families",
+export const Default = {
+  render: Template,
+
+  args: {
+    skillFamilies: mockSkillFamilies,
+    title: "Skill families",
+  },
 };

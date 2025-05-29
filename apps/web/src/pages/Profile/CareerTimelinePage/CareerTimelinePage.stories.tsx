@@ -20,19 +20,30 @@ const CareerTimelineTemplate: StoryFn<typeof CareerTimeline> = (args) => {
   return <CareerTimeline {...args} />;
 };
 
-export const NoExperiences = CareerTimelineTemplate.bind({});
-export const WithExperiences = CareerTimelineTemplate.bind({});
-export const NoExperiencesMissingSkills = CareerTimelineTemplate.bind({});
-export const WithExperiencesMissingSkills = CareerTimelineTemplate.bind({});
+export const NoExperiences = {
+  render: CareerTimelineTemplate,
+
+  args: {
+    experiencesQuery: [],
+  },
+};
+
+export const WithExperiences = {
+  render: CareerTimelineTemplate,
+
+  args: {
+    experiencesQuery: mockExperiences.map((experience) =>
+      makeFragmentData(experience, CareerTimelineExperience_Fragment),
+    ),
+  },
+};
+
+export const NoExperiencesMissingSkills = {
+  render: CareerTimelineTemplate,
+};
+
+export const WithExperiencesMissingSkills = {
+  render: CareerTimelineTemplate,
+};
 
 const mockExperiences = fakeExperiences(10);
-
-NoExperiences.args = {
-  experiencesQuery: [],
-};
-
-WithExperiences.args = {
-  experiencesQuery: mockExperiences.map((experience) =>
-    makeFragmentData(experience, CareerTimelineExperience_Fragment),
-  ),
-};

@@ -17,19 +17,22 @@ const Template: StoryFn<StoryArgs> = (args) => {
   return <NotFound headingMessage={headingMessage}>{children}</NotFound>;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  headingMessage: "Sorry, we can't find the page you were looking for.",
-  children: (
-    <>
-      <p>
-        Oops, it looks like you&apos;ve landed on a page that either
-        doesn&apos;t exist or has moved.
-      </p>
-      <p>
-        If you haven&apos;t found what you&apos;re looking for please get in
-        touch with us directly.
-      </p>
-    </>
-  ),
+export const Default = {
+  render: Template,
+
+  args: {
+    headingMessage: "Sorry, we can't find the page you were looking for.",
+    children: (
+      <>
+        <p>
+          Oops, it looks like you&apos;ve landed on a page that either
+          doesn&apos;t exist or has moved.
+        </p>
+        <p>
+          If you haven&apos;t found what you&apos;re looking for please get in
+          touch with us directly.
+        </p>
+      </>
+    ),
+  },
 };

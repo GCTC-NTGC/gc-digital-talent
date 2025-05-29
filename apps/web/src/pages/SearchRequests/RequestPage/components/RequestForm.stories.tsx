@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import {
   fakeApplicantFilters,
@@ -101,4 +101,6 @@ const Template: StoryFn<RequestFormProps> = (args) => {
   return <RequestForm {...args} />;
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

@@ -1,5 +1,3 @@
-import type { StoryFn } from "@storybook/react";
-
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -37,19 +35,17 @@ export default {
   },
 };
 
-const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (
-  <AssessmentStepTracker {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
-    (candidate) =>
-      makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
-  ),
+export const Default = {
+  args: {
+    candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
+      (candidate) =>
+        makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
+    ),
+  },
 };
 
-export const Null = Template.bind({});
-Null.args = {
-  candidateQuery: [],
+export const Null = {
+  args: {
+    candidateQuery: [],
+  },
 };

@@ -35,4 +35,6 @@ const TemplateExperienceFormForm: StoryFn<typeof ExperienceForm> = ({
   />
 );
 
-export const IndividualExperienceForm = TemplateExperienceFormForm.bind({});
+export const IndividualExperienceForm = {
+  render: TemplateExperienceFormForm,
+};

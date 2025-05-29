@@ -62,4 +62,6 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

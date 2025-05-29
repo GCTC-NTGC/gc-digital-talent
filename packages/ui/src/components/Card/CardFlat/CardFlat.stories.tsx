@@ -70,4 +70,6 @@ const Template: StoryFn = () => (
   </div>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

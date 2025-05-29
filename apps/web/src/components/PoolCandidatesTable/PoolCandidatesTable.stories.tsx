@@ -59,8 +59,11 @@ const Template: StoryFn<typeof PoolCandidatesTable> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  title: "Pool Candidates",
-  initialFilterInput: { applicantFilter: { pools: [{ id: "123" }] } },
+export const Default = {
+  render: Template,
+
+  args: {
+    title: "Pool Candidates",
+    initialFilterInput: { applicantFilter: { pools: [{ id: "123" }] } },
+  },
 };

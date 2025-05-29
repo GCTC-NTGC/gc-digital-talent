@@ -39,33 +39,33 @@ const SearchRequestOptions = {
   },
 };
 
-const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
-
-export const Default = Template.bind({});
-Default.parameters = {
-  apiResponses: {
-    SearchRequestOptions,
+export const Default = {
+  parameters: {
+    apiResponses: {
+      SearchRequestOptions,
+    },
   },
 };
 
-export const WithResults = Template.bind({});
-WithResults.parameters = {
-  apiResponsesConfig: {
-    latency: {
-      min: 0,
-      max: 0,
-    },
-  },
-  apiResponses: {
-    CountApplicants: {
-      data: {
-        countApplicants: faker.number.int({ max: 50 }),
-        countPoolCandidatesByPool: poolResponse.map((pool) => ({
-          pool,
-          candidateCount: faker.number.int({ max: 10 }),
-        })),
+export const WithResults = {
+  parameters: {
+    apiResponsesConfig: {
+      latency: {
+        min: 0,
+        max: 0,
       },
     },
-    SearchRequestOptions,
+    apiResponses: {
+      CountApplicants: {
+        data: {
+          countApplicants: faker.number.int({ max: 50 }),
+          countPoolCandidatesByPool: poolResponse.map((pool) => ({
+            pool,
+            candidateCount: faker.number.int({ max: 10 }),
+          })),
+        },
+      },
+      SearchRequestOptions,
+    },
   },
 };

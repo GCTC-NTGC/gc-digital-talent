@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import {
   fakeClassifications,
@@ -40,4 +40,6 @@ const Template: StoryFn<typeof EmployeeInformationForm> = () => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

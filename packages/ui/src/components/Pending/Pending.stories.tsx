@@ -72,25 +72,36 @@ const TemplatePending: StoryFn<PendingArgs> = (args) => {
   );
 };
 
-export const PendingFetching = TemplatePending.bind({});
-export const PendingError = TemplatePending.bind({});
-export const PendingNotFound = TemplatePending.bind({});
-export const PendingSuccess = TemplatePending.bind({});
+export const PendingFetching = {
+  render: TemplatePending,
 
-PendingFetching.args = {
-  pause: isChromatic(),
+  args: {
+    pause: isChromatic(),
+  },
 };
 
-PendingError.args = {
-  wait: 1000,
-  error: true,
+export const PendingError = {
+  render: TemplatePending,
+
+  args: {
+    wait: 1000,
+    error: true,
+  },
 };
 
-PendingNotFound.args = {
-  wait: 1000,
-  notFound: "Nothing found.",
+export const PendingNotFound = {
+  render: TemplatePending,
+
+  args: {
+    wait: 1000,
+    notFound: "Nothing found.",
+  },
 };
 
-PendingSuccess.args = {
-  wait: 1000,
+export const PendingSuccess = {
+  render: TemplatePending,
+
+  args: {
+    wait: 1000,
+  },
 };

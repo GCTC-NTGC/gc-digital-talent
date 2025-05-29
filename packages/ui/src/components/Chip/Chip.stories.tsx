@@ -1,5 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -48,18 +48,27 @@ const Template: StoryFn<typeof Chip> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  onDismiss: undefined,
+export const Default = {
+  render: Template,
+
+  args: {
+    onDismiss: undefined,
+  },
 };
 
-export const Dismissible = Template.bind({});
-Dismissible.args = {
-  onDismiss: () => action("dismiss")({}),
+export const Dismissible = {
+  render: Template,
+
+  args: {
+    onDismiss: () => action("dismiss")({}),
+  },
 };
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  icon: AcademicCapIcon,
-  onDismiss: () => action("dismiss")({}),
+export const WithIcon = {
+  render: Template,
+
+  args: {
+    icon: AcademicCapIcon,
+    onDismiss: () => action("dismiss")({}),
+  },
 };

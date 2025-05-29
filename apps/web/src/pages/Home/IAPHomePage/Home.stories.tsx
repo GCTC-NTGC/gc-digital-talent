@@ -64,9 +64,12 @@ const Template: StoryFn = () => (
   </NestedLanguageProvider>
 );
 
-export const Default = Template.bind({});
-Default.parameters = {
-  themes: {
-    themeOverride: THEMES.iap.light,
+export const Default = {
+  render: Template,
+
+  parameters: {
+    themes: {
+      themeOverride: THEMES.iap.light,
+    },
   },
 };

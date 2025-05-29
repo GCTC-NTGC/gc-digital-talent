@@ -43,4 +43,6 @@ const Template: StoryFn<typeof ViewSearchRequest> = (args) => {
   return <ViewSearchRequest searchRequestQuery={searchRequestQuery} />;
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import Button from "../Button";
 import ToggleSection from "./ToggleSection";
@@ -61,7 +61,9 @@ const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};
 
 const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
   const { headerText } = args;
@@ -109,4 +111,6 @@ const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
   );
 };
 
-export const Nested = NestedTemplate.bind({});
+export const Nested = {
+  render: NestedTemplate,
+};
