@@ -17,7 +17,6 @@ import { tv, VariantProps } from "tailwind-variants";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { Color, HeadingRank, IconType } from "../../types";
-import { AccordionMode } from "./types";
 import Chip, { ChipVariants } from "../Chip/Chip";
 import Link from "../Link";
 import Button from "../Button";
@@ -32,23 +31,31 @@ const root = tv({
       simple: "",
       card: "overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-600",
     },
+    // NOTE: Stub sizes for nested components
+    size: {
+      sm: "",
+      md: "",
+      lg: "",
+    },
   },
 });
 
 type AccordionVariants = VariantProps<typeof root>;
+export type AccordionMode = NonNullable<AccordionVariants["mode"]>;
+type RootPrimitiveProps = ComponentPropsWithoutRef<
+  typeof AccordionPrimitive.Root
+>;
 
 const AccordionVariantContext = createContext<AccordionVariants>({
   mode: "simple",
+  size: "md",
 });
 
-type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
-  mode?: AccordionMode;
-  size?: "sm" | "md" | "lg";
-};
+type RootProps = AccordionVariants & RootPrimitiveProps;
 
 const Root = forwardRef<ElementRef<typeof AccordionPrimitive.Root>, RootProps>(
-  ({ mode = "simple", ...rest }, forwardedRef) => (
-    <AccordionVariantContext.Provider value={{ mode }}>
+  ({ mode = "simple", size = "md", ...rest }, forwardedRef) => (
+    <AccordionVariantContext.Provider value={{ mode, size }}>
       <AccordionPrimitive.Root
         ref={forwardedRef}
         className={root({ mode })}
@@ -86,6 +93,8 @@ const trigger = tv({
   slots: {
     header: "flex items-start justify-between gap-x-3",
     btn: "group/btn flex grow items-start gap-x-3 text-left",
+    heading: "m-0 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
+    iconSize: "shrink-0",
   },
   variants: {
     mode: {
@@ -94,6 +103,20 @@ const trigger = tv({
       },
       card: {
         header: "p-6",
+      },
+    },
+    size: {
+      sm: {
+        heading: "text-base/[1.1] lg:text-lg/[1.1]",
+        iconSize: "size-4",
+      },
+      md: {
+        heading: "text-lg/[1.1] lg:text-xl/[1.1]",
+        iconSize: "size-5",
+      },
+      lg: {
+        heading: "text-xl/[1.1] lg:text-2xl/[1.1]",
+        iconSize: "size-6",
       },
     },
   },
@@ -118,8 +141,8 @@ const Trigger = forwardRef<
   ) => {
     const Heading = as;
     const Icon = icon;
-    const { mode } = useContext(AccordionVariantContext);
-    const { header, btn } = trigger({ mode });
+    const { mode, size } = useContext(AccordionVariantContext);
+    const { header, btn, iconSize, heading } = trigger({ mode, size });
 
     return (
       <AccordionPrimitive.Header className={header()} {...titleProps}>
@@ -128,11 +151,14 @@ const Trigger = forwardRef<
           className={btn()}
           {...rest}
         >
-          <ChevronRightIcon className="size-5 shrink-0 rotate-0 transform transition-transform duration-150 group-data-[state=open]/btn:rotate-90" />
+          <ChevronRightIcon
+            className={iconSize({
+              class:
+                "rotate-0 transform transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
+            })}
+          />
           <span className="flex grow flex-col">
-            <Heading className="m-0 text-lg/[1.1] font-bold lg:text-xl/[1.1]">
-              {children}
-            </Heading>
+            <Heading className={heading()}>{children}</Heading>
             {subtitle && (
               <span className="dark:text-gray-200m mt-1 text-sm">
                 {subtitle}
@@ -143,7 +169,7 @@ const Trigger = forwardRef<
         {(!!Icon || !!context) && (
           <span className="flex items-center gap-x-3">
             {context && <span>{context}</span>}
-            {Icon && <Icon className="size-5" />}
+            {Icon && <Icon className={iconSize()} />}
           </span>
         )}
       </AccordionPrimitive.Header>
@@ -202,7 +228,7 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
   switch (datum.type) {
     case "text":
       return (
-        <span className="font-normal text-gray-500 dark:text-gray-100">
+        <span className="font-normal text-gray-600 dark:text-gray-100">
           {datum.children}
         </span>
       );
