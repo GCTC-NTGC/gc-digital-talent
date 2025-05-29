@@ -227,7 +227,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
           ref={forwardedRef}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          className="relative w-full rounded bg-white dark:bg-gray-600"
+          className="relative w-full rounded bg-gray-100 dark:bg-gray-700"
           {...rest}
         >
           <div
@@ -322,7 +322,7 @@ const Info = ({
         {counter && counter >= 0 ? (
           <Counter
             count={counter}
-            className="rounded-full bg-gray-100 p-2 text-black dark:bg-gray-700 dark:text-white"
+            className="rounded-full bg-gray-100 py-1 px-2 text-black dark:bg-gray-700 dark:text-white"
           />
         ) : null}
       </Collapsible.Trigger>
@@ -357,7 +357,7 @@ const ListItem = forwardRef<HTMLLIElement, HTMLProps<HTMLLIElement>>(
     return (
       <li
         ref={forwardedRef}
-        className="Board__Item group/item py-3 outline-none"
+        className="Board__Item group/item py-3 outline-none not-last:border-b not-last:border-b-gray-100 dark:not-last:border-b-gray-500"
         tabIndex={-1}
         onClick={ctx?.handleClickItem}
         {...rest}
