@@ -1,34 +1,29 @@
 import { HTMLProps, ReactNode } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
-export interface SidebarProps extends HTMLProps<HTMLElement> {
+const scrollbarWrapper = tv({
+  base: "sticky overflow-auto",
+  variants: {
+    // Temp fix for view pool candidate page
+    scrollbar: {
+      true: "top-0 h-[calc(100vh-var(--spacing)*18)] pt-18 sm:top-18",
+      false: "top-30",
+    },
+  },
+});
+
+type ScrollbarVariants = VariantProps<typeof scrollbarWrapper>;
+
+export interface SidebarProps
+  extends ScrollbarVariants,
+    HTMLProps<HTMLElement> {
   children: ReactNode;
-  scrollbar?: boolean; // Temp fix for view pool candidate page
 }
 
 const Sidebar = ({ children, scrollbar, ...rest }: SidebarProps) => (
-  <aside data-h2-flex-item="base(1of1) l-tablet(1of4)" {...rest}>
-    <div
-      data-h2-height="base(100%)"
-      data-h2-position="base(relative)"
-      data-h2-margin-bottom="base(x1)"
-    >
-      <div
-        data-h2-position="base(sticky)"
-        data-h2-overflow="base(auto)"
-        {...(scrollbar
-          ? {
-              "data-h2-location":
-                "base(0, auto, auto, auto) l-tablet(x3, auto, auto, auto)",
-              "data-h2-height": "l-tablet(calc(100vh - x3))",
-              "data-h2-padding-top": "base(x3)",
-            }
-          : {
-              "data-h2-location": "base(x5, auto, auto, auto)",
-              "data-h2-height": "base(auto)",
-            })}
-      >
-        {children}
-      </div>
+  <aside {...rest}>
+    <div className="relative mb-6 h-full">
+      <div className={scrollbarWrapper({ scrollbar })}>{children}</div>
     </div>
   </aside>
 );
