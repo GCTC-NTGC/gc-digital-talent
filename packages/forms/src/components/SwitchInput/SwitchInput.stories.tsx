@@ -3,7 +3,7 @@ import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { action } from "@storybook/addon-actions";
 
-import { Color } from "@gc-digital-talent/ui";
+import { SwitchProps } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
@@ -18,12 +18,9 @@ export default {
   component: SwitchInput,
 };
 
-const colors: Color[] = [
+const colors: SwitchProps["color"][] = [
   "primary",
   "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
   "success",
   "warning",
   "error",
