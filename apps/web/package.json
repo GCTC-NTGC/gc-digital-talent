@@ -51,7 +51,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@microsoft/applicationinsights-web": "^3.3.7",
-    "@tailwindcss/vite": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.8",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.21",
