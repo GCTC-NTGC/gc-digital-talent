@@ -206,11 +206,11 @@ export function apiDataToFormValues(
   // the initial values for FormValues.interestInDevelopmentPrograms must have the maximum length possible, otherwise values are skewed
   // 22 possible programs but 21 interests marked means a skew of one
   // thus build the initial value off community.developmentPrograms instead of communityInterest.interestInDevelopmentPrograms
-  const sortedDevelopmentPrograms = developmentProgramsForCommunity.sort(
+  developmentProgramsForCommunity.sort(
     sortAlphaBy((devPro) => devPro.name?.localized),
   );
   const initialInterestInDevelopmentPrograms: FormValues["interestInDevelopmentPrograms"] =
-    sortedDevelopmentPrograms.map((developmentProgram) => {
+    developmentProgramsForCommunity.map((developmentProgram) => {
       const correspondingProgram = usersInterestDevelopmentPrograms.find(
         (userDevPro) =>
           userDevPro.developmentProgram.id === developmentProgram.id,
