@@ -18,7 +18,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { NotFoundError } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -50,6 +50,9 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       id
       developmentPrograms {
         id
+        name {
+          localized
+        }
       }
     }
   }
@@ -124,14 +127,22 @@ const UpdateCommunityInterestForm = ({
     formDataQuery,
   );
 
-  const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(userId, formData),
-  });
-
-  const developmentProgramCount: number =
+  const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.developmentPrograms?.length ?? 0;
+    )?.developmentPrograms,
+  );
+
+  const developmentProgramCount: number =
+    developmentProgramsForCommunity.length;
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: apiDataToFormValues(
+      userId,
+      formData,
+      developmentProgramsForCommunity,
+    ),
+  });
 
   return (
     <>
