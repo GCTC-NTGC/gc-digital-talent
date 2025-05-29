@@ -148,8 +148,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(react@18.3.1)
       tailwindcss:
-        specifier: ^4.1.7
-        version: 4.1.7
+        specifier: ^4.1.8
+        version: 4.1.8
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.11.0))(react@18.3.1)
@@ -1156,7 +1156,7 @@ importers:
         version: 7.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-variants:
         specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.7)
+        version: 1.0.0(tailwindcss@4.1.8)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.11.0))(react@18.3.1)
@@ -7814,6 +7814,9 @@ packages:
 
   tailwindcss@4.1.7:
     resolution: {integrity: sha512-kr1o/ErIdNhTz8uzAYL7TpaUuzKIE6QPQ4qmSdxnoX/lo+5wmUHQA6h3L5yIqEImSRnAAURDirLu/BgiXGPAhg==}
+
+  tailwindcss@4.1.8:
+    resolution: {integrity: sha512-kjeW8gjdxasbmFKpVGrGd5T4i40mV5J2Rasw48QARfYeQ8YS9x02ON9SFWax3Qf616rt4Cp3nVNIj6Hd1mP3og==}
 
   tapable@2.2.2:
     resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
@@ -16049,12 +16052,14 @@ snapshots:
 
   tailwind-merge@3.0.2: {}
 
-  tailwind-variants@1.0.0(tailwindcss@4.1.7):
+  tailwind-variants@1.0.0(tailwindcss@4.1.8):
     dependencies:
       tailwind-merge: 3.0.2
-      tailwindcss: 4.1.7
+      tailwindcss: 4.1.8
 
   tailwindcss@4.1.7: {}
+
+  tailwindcss@4.1.8: {}
 
   tapable@2.2.2: {}
 
