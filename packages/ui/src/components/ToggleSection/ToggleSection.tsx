@@ -122,7 +122,7 @@ const Content = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
       <div
         id={context?.contentId}
         ref={forwardedRef}
-        className="rounded-md bg-white p-6 text-black shadow-lg"
+        className="rounded-md bg-white p-6 text-black shadow-lg dark:bg-gray-600 dark:text-white"
         {...props}
       >
         {children}
