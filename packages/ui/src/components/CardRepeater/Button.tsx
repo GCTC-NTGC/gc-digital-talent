@@ -4,42 +4,41 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
-type Animation = "none" | "translate-up" | "translate-down";
+const action = tv({
+  base: "[&_svg]:ease [&_svg]:transform [&_svg]:transition [&_svg]:duration-200",
+  variants: {
+    animation: {
+      none: "",
+      "translate-up":
+        "[&_svg]:translate-y-0 hover:[&_svg]:-translate-y-0.5 focus-visible:[&_svg]:-translate-y-0.5",
+      "translate-down":
+        "[&_svg]:translate-y-0 hover:[&_svg]:translate-y-0.5 focus-visible:[&_svg]:translate-y-0.5",
+    },
+  },
+});
 
-type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
-  animation?: Animation;
-};
+type ActionVariants = VariantProps<typeof action>;
+
+interface ActionButtonProps
+  extends ActionVariants,
+    ComponentPropsWithoutRef<typeof Button> {}
 
 export const Action = forwardRef<HTMLButtonElement, ActionButtonProps>(
   ({ animation = "none", disabled, ...rest }, ref) => {
-    const animationStyles: Record<Animation, Record<string, string>> = {
-      none: {},
-      "translate-up": {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(-10%)) base:focus-visible:children[svg](translateY(-10%))",
-      },
-      "translate-down": {
-        "data-h2-transform":
-          "base:children[svg](translateY(0%)) base:hover:children[svg](translateY(10%)) base:focus-visible:children[svg](translateY(10%))",
-      },
-    };
-
     return (
       <Button
         ref={ref}
         mode="icon_only"
         color="black"
-        data-h2-transition="base:children[svg](transform 200ms ease)"
+        className={action({ animation: disabled ? undefined : animation })}
         disabled={disabled}
-        {...(!disabled && {
-          ...animationStyles[animation],
-        })}
         {...rest}
       />
     );
