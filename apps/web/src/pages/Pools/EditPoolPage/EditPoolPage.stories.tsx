@@ -48,41 +48,50 @@ const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
   return <EditPoolForm {...args} />;
 };
 
-export const DraftPool = TemplateEditPoolForm.bind({});
-DraftPool.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      closingDate: FAR_FUTURE_DATE,
-      publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
-    },
-    EditPool_Fragment,
-  ),
+export const DraftPool = {
+  render: TemplateEditPoolForm,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        closingDate: FAR_FUTURE_DATE,
+        publishedAt: null,
+        status: toLocalizedEnum(PoolStatus.Draft),
+      },
+      EditPool_Fragment,
+    ),
+  },
 };
 
-export const PublishedPool = TemplateEditPoolForm.bind({});
-PublishedPool.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Published),
-      closingDate: FAR_FUTURE_DATE,
-    },
-    EditPool_Fragment,
-  ),
+export const PublishedPool = {
+  render: TemplateEditPoolForm,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: FAR_PAST_DATE,
+        status: toLocalizedEnum(PoolStatus.Published),
+        closingDate: FAR_FUTURE_DATE,
+      },
+      EditPool_Fragment,
+    ),
+  },
 };
 
-export const ExpiredPool = TemplateEditPoolForm.bind({});
-ExpiredPool.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Closed),
-      closingDate: FAR_PAST_DATE,
-    },
-    EditPool_Fragment,
-  ),
+export const ExpiredPool = {
+  render: TemplateEditPoolForm,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: FAR_PAST_DATE,
+        status: toLocalizedEnum(PoolStatus.Closed),
+        closingDate: FAR_PAST_DATE,
+      },
+      EditPool_Fragment,
+    ),
+  },
 };

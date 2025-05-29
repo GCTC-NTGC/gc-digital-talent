@@ -66,4 +66,6 @@ const Template: StoryFn<{ label: string }> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

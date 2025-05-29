@@ -70,9 +70,12 @@ const Template: StoryFn<typeof Stepper> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  label: "Default Stepper",
-  steps: longLabelSteps,
-  currentIndex: 2,
+export const Default = {
+  render: Template,
+
+  args: {
+    label: "Default Stepper",
+    steps: longLabelSteps,
+    currentIndex: 2,
+  },
 };

@@ -82,10 +82,52 @@ const Template: StoryFn<typeof PreviewList.Root> = (args) => {
   return <PreviewList.Root>{children}</PreviewList.Root>;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  children: (
-    <>
+export const Default = {
+  render: Template,
+
+  args: {
+    children: (
+      <>
+        <PreviewList.Item
+          title="IT-01: Junior application developer"
+          metaData={previewDetails}
+          action={
+            <PreviewList.Button
+              label="View preview button one"
+              onClick={() => action("preview button one clicked")()}
+            />
+          }
+        />
+        <PreviewList.Item
+          title="IT-02: Application developer"
+          metaData={previewDetailsTwo}
+          action={
+            <PreviewList.Button
+              label="View preview button two"
+              onClick={() => action("preview button two clicked")()}
+            />
+          }
+        />
+        <PreviewList.Item
+          title="IT-03: Database architect"
+          metaData={previewDetailsThree}
+          action={
+            <PreviewList.Button
+              label="View preview button three"
+              onClick={() => action("preview button three clicked")()}
+            />
+          }
+        />
+      </>
+    ),
+  },
+};
+
+export const WithChildren = {
+  render: Template,
+
+  args: {
+    children: (
       <PreviewList.Item
         title="IT-01: Junior application developer"
         metaData={previewDetails}
@@ -95,45 +137,9 @@ Default.args = {
             onClick={() => action("preview button one clicked")()}
           />
         }
-      />
-      <PreviewList.Item
-        title="IT-02: Application developer"
-        metaData={previewDetailsTwo}
-        action={
-          <PreviewList.Button
-            label="View preview button two"
-            onClick={() => action("preview button two clicked")()}
-          />
-        }
-      />
-      <PreviewList.Item
-        title="IT-03: Database architect"
-        metaData={previewDetailsThree}
-        action={
-          <PreviewList.Button
-            label="View preview button three"
-            onClick={() => action("preview button three clicked")()}
-          />
-        }
-      />
-    </>
-  ),
-};
-
-export const WithChildren = Template.bind({});
-WithChildren.args = {
-  children: (
-    <PreviewList.Item
-      title="IT-01: Junior application developer"
-      metaData={previewDetails}
-      action={
-        <PreviewList.Button
-          label="View preview button one"
-          onClick={() => action("preview button one clicked")()}
-        />
-      }
-    >
-      <p>{faker.lorem.paragraph()}</p>
-    </PreviewList.Item>
-  ),
+      >
+        <p>{faker.lorem.paragraph()}</p>
+      </PreviewList.Item>
+    ),
+  },
 };

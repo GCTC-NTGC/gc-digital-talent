@@ -47,9 +47,12 @@ const Template: StoryFn<typeof CommunityTable> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  communitiesQuery: mockCommunityFragments,
-  myRolesAndTeams: mockRolesAndTeams,
-  title: "Communities",
+export const Default = {
+  render: Template,
+
+  args: {
+    communitiesQuery: mockCommunityFragments,
+    myRolesAndTeams: mockRolesAndTeams,
+    title: "Communities",
+  },
 };

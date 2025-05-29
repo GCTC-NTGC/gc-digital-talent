@@ -16,14 +16,11 @@ export default {
   component: AssessmentResultsTable,
 };
 
-const Template: StoryFn<typeof AssessmentResultsTable> = (args) => (
-  <AssessmentResultsTable {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  poolCandidateQuery: makeFragmentData(
-    poolCandidate,
-    AssessmentResultsTable_Fragment,
-  ),
+export const Default = {
+  args: {
+    poolCandidateQuery: makeFragmentData(
+      poolCandidate,
+      AssessmentResultsTable_Fragment,
+    ),
+  },
 };

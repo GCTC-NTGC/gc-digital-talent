@@ -160,11 +160,14 @@ const Template: StoryFn<typeof BasicForm> = (args) => (
   </BasicForm>
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  options: {
-    defaultValues: {
-      requiredField: "",
+export const Default = {
+  render: Template,
+
+  args: {
+    options: {
+      defaultValues: {
+        requiredField: "",
+      },
     },
   },
 };

@@ -47,19 +47,22 @@ export default {
 
 const Template: StoryFn<typeof UpdateUserPage> = () => <UpdateUserPage />;
 
-export const Default = Template.bind({});
-Default.parameters = {
-  apiResponses: {
-    UpdateUserData: {
-      data: {
-        user: userData,
-        roles: availableRoles,
-        ...makeFragmentData(
-          {
-            languages: fakeLocalizedEnum(Language),
-          },
-          UpdateUserOptions_Fragment,
-        ),
+export const Default = {
+  render: Template,
+
+  parameters: {
+    apiResponses: {
+      UpdateUserData: {
+        data: {
+          user: userData,
+          roles: availableRoles,
+          ...makeFragmentData(
+            {
+              languages: fakeLocalizedEnum(Language),
+            },
+            UpdateUserOptions_Fragment,
+          ),
+        },
       },
     },
   },

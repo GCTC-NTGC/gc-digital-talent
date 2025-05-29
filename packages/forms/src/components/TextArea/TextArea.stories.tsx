@@ -27,23 +27,30 @@ const TemplateTextArea: StoryFn<TextAreaProps> = (args) => {
   );
 };
 
-export const Default = TemplateTextArea.bind({});
-Default.args = {
-  context: "Additional context about this field.",
-  rules: {
-    required: "This field is required",
+export const Default = {
+  render: TemplateTextArea,
+
+  args: {
+    context: "Additional context about this field.",
+    rules: {
+      required: "This field is required",
+    },
   },
-};
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      dark: allModes.dark,
+
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
     },
   },
 };
 
-export const WordLimit = TemplateTextArea.bind({});
-WordLimit.args = {
-  wordLimit: 10,
+export const WordLimit = {
+  render: TemplateTextArea,
+
+  args: {
+    wordLimit: 10,
+  },
 };

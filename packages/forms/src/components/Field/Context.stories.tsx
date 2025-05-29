@@ -6,9 +6,8 @@ export default {
   component: Context,
 };
 
-const Template: StoryFn<typeof Context> = (args) => <Context {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  children: "This is a description",
+export const Default = {
+  args: {
+    children: "This is a description",
+  },
 };

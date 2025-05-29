@@ -81,82 +81,102 @@ const Template: StoryFn<ComboboxType> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = defaultArgs;
+export const Default = {
+  render: Template,
+  args: defaultArgs,
 
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      dark: allModes.dark,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
     },
   },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  ...defaultArgs,
-  fetching: true,
-  options: [],
-};
+export const Loading = {
+  render: Template,
 
-export const APIDriven = Template.bind({});
-APIDriven.args = {
-  ...defaultArgs,
-  isExternalSearch: true,
-  total: defaultArgs.options.length,
-  mockSearch: async (term: string): Promise<Option[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const filteredOptions =
-          term.length > 0
-            ? defaultArgs.options.filter((option) => {
-                return option.label
-                  ?.toLocaleString()
-                  .toLowerCase()
-                  .includes(term.toLowerCase());
-              })
-            : defaultArgs.options;
-        resolve(filteredOptions);
-      }, 1000);
-    });
+  args: {
+    ...defaultArgs,
+    fetching: true,
+    options: [],
   },
 };
 
-export const Required = Template.bind({});
-Required.args = {
-  ...defaultArgs,
-  rules: { required: "This field is required" },
-  context: "This field should error if nothing is selected.",
-};
+export const APIDriven = {
+  render: Template,
 
-export const DefaultValue = Template.bind({});
-DefaultValue.args = {
-  ...defaultArgs,
-  defaultValue: skills[0].value,
-};
-
-export const MultiDefault = Template.bind({});
-MultiDefault.args = {
-  ...defaultMultiArgs,
-  defaultValue: faker.helpers
-    .arrayElements(skills, 10)
-    .map((skill) => skill.value),
-};
-
-export const MultiMinMax = Template.bind({});
-MultiMinMax.args = {
-  ...defaultMultiArgs,
-  context: "Select between 1 and 3 items.",
-  defaultValue: [],
-  rules: {
-    min: {
-      value: 1,
-      message: "Select at least 1 skill",
+  args: {
+    ...defaultArgs,
+    isExternalSearch: true,
+    total: defaultArgs.options.length,
+    mockSearch: async (term: string): Promise<Option[]> => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const filteredOptions =
+            term.length > 0
+              ? defaultArgs.options.filter((option) => {
+                  return option.label
+                    ?.toLocaleString()
+                    .toLowerCase()
+                    .includes(term.toLowerCase());
+                })
+              : defaultArgs.options;
+          resolve(filteredOptions);
+        }, 1000);
+      });
     },
-    max: {
-      value: 3,
-      message: "Select 3 or fewer skills",
+  },
+};
+
+export const Required = {
+  render: Template,
+
+  args: {
+    ...defaultArgs,
+    rules: { required: "This field is required" },
+    context: "This field should error if nothing is selected.",
+  },
+};
+
+export const DefaultValue = {
+  render: Template,
+
+  args: {
+    ...defaultArgs,
+    defaultValue: skills[0].value,
+  },
+};
+
+export const MultiDefault = {
+  render: Template,
+
+  args: {
+    ...defaultMultiArgs,
+    defaultValue: faker.helpers
+      .arrayElements(skills, 10)
+      .map((skill) => skill.value),
+  },
+};
+
+export const MultiMinMax = {
+  render: Template,
+
+  args: {
+    ...defaultMultiArgs,
+    context: "Select between 1 and 3 items.",
+    defaultValue: [],
+    rules: {
+      min: {
+        value: 1,
+        message: "Select at least 1 skill",
+      },
+      max: {
+        value: 3,
+        message: "Select 3 or fewer skills",
+      },
     },
   },
 };

@@ -37,19 +37,17 @@ export default {
   },
 };
 
-const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (
-  <AssessmentStepTracker {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {
-  candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
-    (candidate) =>
-      makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
-  ),
+export const Default = {
+  args: {
+    candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
+      (candidate) =>
+        makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
+    ),
+  },
 };
 
-export const Null = Template.bind({});
-Null.args = {
-  candidateQuery: [],
+export const Null = {
+  args: {
+    candidateQuery: [],
+  },
 };

@@ -66,56 +66,77 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      dark: allModes.dark,
+export const Default = {
+  render: Template,
+
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
     },
   },
 };
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
-  icon: {
-    default: CheckIcon,
-    checked: XMarkIcon,
+export const WithIcon = {
+  render: Template,
+
+  args: {
+    icon: {
+      default: CheckIcon,
+      checked: XMarkIcon,
+    },
   },
 };
 
-export const HiddenLabel = Template.bind({});
-HiddenLabel.args = {
-  hideLabel: true,
-};
+export const HiddenLabel = {
+  render: Template,
 
-export const DefaultValue = Template.bind({});
-DefaultValue.args = {
-  defaultValues: allSelected,
-};
-
-export const Required = Template.bind({});
-Required.args = {
-  rules: {
-    required: "This field is required",
+  args: {
+    hideLabel: true,
   },
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-  icon: {
-    default: CheckIcon,
-    checked: XMarkIcon,
+export const DefaultValue = {
+  render: Template,
+
+  args: {
+    defaultValues: allSelected,
   },
 };
 
-export const DisabledChecked = Template.bind({});
-DisabledChecked.args = {
-  disabled: true,
-  defaultValues: allSelected,
-  icon: {
-    default: CheckIcon,
-    checked: XMarkIcon,
+export const Required = {
+  render: Template,
+
+  args: {
+    rules: {
+      required: "This field is required",
+    },
+  },
+};
+
+export const Disabled = {
+  render: Template,
+
+  args: {
+    disabled: true,
+    icon: {
+      default: CheckIcon,
+      checked: XMarkIcon,
+    },
+  },
+};
+
+export const DisabledChecked = {
+  render: Template,
+
+  args: {
+    disabled: true,
+    defaultValues: allSelected,
+    icon: {
+      default: CheckIcon,
+      checked: XMarkIcon,
+    },
   },
 };

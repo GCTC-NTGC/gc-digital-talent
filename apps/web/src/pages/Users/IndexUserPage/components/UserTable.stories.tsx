@@ -50,5 +50,7 @@ const Template: StoryFn<typeof UserTable> = ({ title }) => {
   return <UserTable title={title} />;
 };
 
-export const Default = Template.bind({});
-Default.args = { title: "Users" };
+export const Default = {
+  render: Template,
+  args: { title: "Users" },
+};

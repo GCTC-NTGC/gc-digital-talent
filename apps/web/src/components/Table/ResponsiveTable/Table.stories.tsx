@@ -94,67 +94,70 @@ export default {
   },
 } as Meta<typeof Table<User>>;
 
-const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  caption: "Default table",
-  add: {
-    linkProps: {
-      label: "Add an item",
-      href: "#add",
+export const Default = {
+  args: {
+    caption: "Default table",
+    add: {
+      linkProps: {
+        label: "Add an item",
+        href: "#add",
+      },
+    },
+    search: {
+      ...defaultSearchProps,
     },
   },
-  search: {
-    ...defaultSearchProps,
-  },
-};
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
+
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
     },
-  },
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  caption: "Empty table",
-  data: [],
-};
-
-export const RowSelection = Template.bind({});
-RowSelection.args = {
-  rowSelect: {
-    getRowId: (row) => row.id,
-    onRowSelection: (rows) => action("onRowSelection")(rows),
-    cell: rowSelectCell,
   },
 };
 
-export const InitialState = Template.bind({});
-InitialState.args = {
-  caption: "Default table",
-  add: {
-    linkProps: {
-      label: "Add an item",
-      href: "#add",
+export const Empty = {
+  args: {
+    caption: "Empty table",
+    data: [],
+  },
+};
+
+export const RowSelection = {
+  args: {
+    rowSelect: {
+      getRowId: (row) => row.id,
+      onRowSelection: (rows) => action("onRowSelection")(rows),
+      cell: rowSelectCell,
     },
   },
-  pagination: {
-    ...defaultPaginationProps,
-    initialState: {
-      pageIndex: 1,
-      pageSize: 10,
+};
+
+export const InitialState = {
+  args: {
+    caption: "Default table",
+    add: {
+      linkProps: {
+        label: "Add an item",
+        href: "#add",
+      },
     },
-  },
-  search: {
-    ...defaultSearchProps,
-    initialState: {
-      term: "Sa",
-      type: "name",
+    pagination: {
+      ...defaultPaginationProps,
+      initialState: {
+        pageIndex: 1,
+        pageSize: 10,
+      },
+    },
+    search: {
+      ...defaultSearchProps,
+      initialState: {
+        term: "Sa",
+        type: "name",
+      },
     },
   },
 };
@@ -228,4 +231,6 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   );
 };
 
-export const ServerSide = ServerSideTemplate.bind({});
+export const ServerSide = {
+  render: ServerSideTemplate,
+};
