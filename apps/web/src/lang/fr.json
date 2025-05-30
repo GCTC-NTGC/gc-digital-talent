@@ -5007,10 +5007,6 @@
     "defaultMessage": "Collectivité",
     "description": "Title for community"
   },
-  "LQ0a0a": {
-    "defaultMessage": "Participation au programme",
-    "description": "Legend for the radio group of program participation"
-  },
   "LQbKTy": {
     "defaultMessage": "Consultez nos possibilités d'emploi pour trouver un poste de gestionnaire qui vous inspire. Posez votre candidature pour jouer un rôle clé au sein de l'une des équipes de TI du gouvernement du Canada et avoir un impact significatif.",
     "description": "Summary for the feature about finding manager jobs"
@@ -8397,6 +8393,10 @@
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
     "description": "Paragraph 1 of the 'A commitment to diverse digital talent' section"
+  },
+  "c667HQ": {
+    "defaultMessage": "Participation au programme<hidden> pour {name}</hidden>",
+    "description": "Legend for the radio group of program participation"
   },
   "c70xDW": {
     "defaultMessage": "Requises",
