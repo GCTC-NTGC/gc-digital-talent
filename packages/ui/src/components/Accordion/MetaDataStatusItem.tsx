@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
@@ -34,6 +33,7 @@ const statusItem = tv({
       interested: {
         icon: "text-secondary dark:text-secondary-300",
       },
+      // eslint-disable-next-line camelcase
       in_program: {
         icon: "text-secondary dark:text-secondary-300",
       },
