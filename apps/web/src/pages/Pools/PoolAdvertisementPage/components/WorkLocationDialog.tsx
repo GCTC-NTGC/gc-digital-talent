@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, IconButton } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface WorkLocationDialogProps {
@@ -14,11 +14,10 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button
-          mode="icon_only"
-          color="secondary"
+        <IconButton
+          color="primary"
           icon={InformationCircleIcon}
-          aria-label={intl.formatMessage({
+          label={intl.formatMessage({
             defaultMessage: "Learn about work locations and terminology.",
             id: "xvULuR",
             description:

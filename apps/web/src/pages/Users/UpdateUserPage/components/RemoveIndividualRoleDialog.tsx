@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
-import { Dialog, Button, Chip } from "@gc-digital-talent/ui";
+import { Dialog, Button, Chip, IconButton } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -68,9 +68,7 @@ const RemoveIndividualRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="error" icon={TrashIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
-        </Button>
+        <IconButton color="error" icon={TrashIcon} label={label} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>

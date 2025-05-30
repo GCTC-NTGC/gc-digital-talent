@@ -21,6 +21,7 @@ import {
   Card,
   Button,
   Separator,
+  IconLink,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -681,8 +682,7 @@ export const PoolPoster = ({
                   value={getLocalizedName(pool?.workStream?.name, intl)}
                   suffix={
                     classification?.group === "IT" ? (
-                      <Link
-                        mode="icon_only"
+                      <IconLink
                         external
                         newTab
                         href={
@@ -692,7 +692,7 @@ export const PoolPoster = ({
                         }
                         icon={InformationCircleIcon}
                         // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label={`${intl.formatMessage({
+                        label={`${intl.formatMessage({
                           defaultMessage:
                             "Information technology (IT) work streams",
                           id: "FZ5qdE",
@@ -749,11 +749,10 @@ export const PoolPoster = ({
                   }
                   value={opportunityLength}
                   suffix={
-                    <Link
+                    <IconLink
                       newTab
                       external
-                      color="secondary"
-                      mode="icon_only"
+                      color="primary"
                       icon={InformationCircleIcon}
                       href={
                         locale === "fr"
@@ -761,7 +760,7 @@ export const PoolPoster = ({
                           : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
                       }
                       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      aria-label={`${intl.formatMessage({
+                      label={`${intl.formatMessage({
                         defaultMessage: "Learn more about employment durations",
                         id: "zlHeEz",
                         description:

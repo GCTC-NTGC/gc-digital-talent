@@ -2,7 +2,13 @@ import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import { ReactNode } from "react";
 
-import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  IconButton,
+  Link,
+  LinkProps,
+} from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -35,11 +41,10 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button
-          mode="icon_only"
-          color="secondary"
+        <IconButton
+          color="primary"
           icon={InformationCircleIcon}
-          aria-label={intl.formatMessage({
+          label={intl.formatMessage({
             defaultMessage: "Learn about how application deadlines work.",
             id: "8YKsal",
             description:

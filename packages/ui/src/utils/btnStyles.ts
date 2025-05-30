@@ -47,7 +47,7 @@ export const iconBtn = tv({
   variants: {
     color: {
       primary: {
-        base: "text-primary-500 hover:bg-primary-200/90 hover:text-primary-700 dark:text-primary-300",
+        base: "text-primary-500 hover:bg-primary-100 hover:text-primary-700 dark:text-primary-300",
       },
       secondary: {
         base: "text-secondary-500 hover:bg-secondary-100 hover:text-secondary-700 dark:text-secondary-300",
@@ -61,6 +61,9 @@ export const iconBtn = tv({
       error: {
         base: "text-error-500 hover:bg-error-100 hover:text-error-700 dark:text-error-300",
       },
+      black: {
+        base: "text-black hover:bg-gray-100 dark:text-white dark:hover:text-black",
+      },
     },
     size: {
       sm: {
@@ -71,6 +74,11 @@ export const iconBtn = tv({
       },
       lg: {
         icon: "size-6",
+      },
+    },
+    disabled: {
+      true: {
+        base: "text-gray",
       },
     },
   },

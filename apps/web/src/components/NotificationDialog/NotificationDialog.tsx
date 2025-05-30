@@ -15,6 +15,7 @@ import {
   Dialog,
   Link,
   Color,
+  IconButton,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -80,7 +81,7 @@ const DialogPortalWithPresence = ({
         data-h2-background-color="base:all(black.light)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
-        data-h2-z-index="base(97)"
+        data-h2-z-index="base(97!important)"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
@@ -102,7 +103,7 @@ const DialogPortalWithPresence = ({
           data-h2-margin="base(x.5 x.5 x.5 auto)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(98)"
+          data-h2-z-index="base(98!important)"
         >
           <div data-h2-padding="base(x1)">
             <div
@@ -126,12 +127,11 @@ const DialogPortalWithPresence = ({
               </DialogPrimitive.Title>
               <div data-h2-display="base(flex)" data-h2-gap="base(x.25 0)">
                 <Dialog.Close asChild>
-                  <Button
-                    mode="icon_only"
+                  <IconButton
                     color="black"
                     icon={XMarkIcon}
                     onFocus={handleCloseFocus}
-                    aria-label={intl.formatMessage({
+                    label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",
                       description:

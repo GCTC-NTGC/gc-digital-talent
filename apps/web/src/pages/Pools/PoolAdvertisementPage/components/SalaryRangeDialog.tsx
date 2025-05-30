@@ -2,7 +2,13 @@ import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import { ReactNode } from "react";
 
-import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  IconButton,
+  Link,
+  LinkProps,
+} from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 const generateLink = (href: LinkProps["href"], chunks: ReactNode) => (
@@ -28,11 +34,10 @@ const DeadlineDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button
-          mode="icon_only"
-          color="secondary"
+        <IconButton
+          color="primary"
           icon={InformationCircleIcon}
-          aria-label={intl.formatMessage({
+          label={intl.formatMessage({
             defaultMessage: "Learn more about salary ranges",
             id: "AAisdi",
             description:

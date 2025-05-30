@@ -184,12 +184,11 @@ const MainNavMenu = () => {
                     data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
                   >
                     <div data-h2-flex="base(1) l-tablet(auto)">
-                      <NavMenu.Link
+                      <NavMenu.IconLink
                         ref={homeLinkRef}
                         href={paths.home()}
                         icon={HomeIcon}
-                        mode="icon_only"
-                        ariaLabel={intl.formatMessage(navigationMessages.home)}
+                        label={intl.formatMessage(navigationMessages.home)}
                       />
                     </div>
 

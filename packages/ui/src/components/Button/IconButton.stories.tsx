@@ -66,6 +66,16 @@ export const Default: StoryObj<typeof IconButton> = {
           icon={InformationCircleIcon}
         />
         <IconButton label="error" color="error" icon={InformationCircleIcon} />
+        <IconButton label="black" color="black" icon={InformationCircleIcon} />
+      </div>
+      <p className="tex-lg">Disabled</p>
+      <div className="flex flex-wrap items-center gap-3">
+        <IconButton
+          label="primary"
+          color="primary"
+          disabled
+          icon={InformationCircleIcon}
+        />
       </div>
     </div>
   ),

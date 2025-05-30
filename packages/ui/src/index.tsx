@@ -39,6 +39,10 @@ import Heading, {
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
+import IconButton, {
+  type IconButtonProps,
+} from "./components/Button/IconButton";
+import IconLink, { type IconLinkProps } from "./components/Link/IconLink";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -111,6 +115,8 @@ export type {
   DownloadCsvProps,
   LinkProps,
   IconProps,
+  IconButtonProps,
+  IconLinkProps,
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
@@ -161,6 +167,8 @@ export {
   DropdownMenu,
   Flourish,
   Heading,
+  IconButton,
+  IconLink,
   Link,
   DownloadCsv,
   ScrollToLink,

@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from "react-intl";
 import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
 import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";
 
-import { Link, LinkProps } from "@gc-digital-talent/ui";
+import { IconLink, IconLinkProps, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -44,9 +44,9 @@ const CandidateNavigation = ({
   const { nextCandidate, previousCandidate, candidateIds, stepName } =
     candidateNavigation;
 
-  const commonLinkProps: LinkProps = {
-    color: "primary",
-    mode: "inline",
+  const commonLinkProps: Partial<IconLinkProps> = {
+    color: "secondary",
+    className: "flex",
     state: { candidateIds, stepName },
   };
 
@@ -58,13 +58,11 @@ const CandidateNavigation = ({
       data-h2-gap="base(x.5)"
     >
       {previousCandidate && (
-        <Link
-          mode="icon_only"
+        <IconLink
           href={paths.poolCandidateApplication(previousCandidate)}
           icon={ArrowLeftCircleIcon}
-          aria-label={intl.formatMessage(messages.previousCandidate)}
+          label={intl.formatMessage(messages.previousCandidate)}
           {...commonLinkProps}
-          data-h2-display="base(flex)"
         />
       )}
       <div data-h2-text-align="base(center)" data-h2-grid-column="base(2)">
@@ -82,13 +80,11 @@ const CandidateNavigation = ({
         )}
       </div>
       {nextCandidate && (
-        <Link
-          mode="icon_only"
+        <IconLink
           href={paths.poolCandidateApplication(nextCandidate)}
           icon={ArrowRightCircleIcon}
-          aria-label={intl.formatMessage(messages.nextCandidate)}
+          label={intl.formatMessage(messages.nextCandidate)}
           {...commonLinkProps}
-          data-h2-display="base(flex)"
         />
       )}
     </div>

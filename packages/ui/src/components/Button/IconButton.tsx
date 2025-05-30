@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef } from "react";
 
 import { BaseIconButtonLinkProps, iconBtn } from "../../utils/btnStyles";
 
@@ -12,21 +12,33 @@ export interface IconButtonProps
       "color" | "children" | "aria-label"
     > {}
 
-const IconButton = ({
-  color = "primary",
-  size = "md",
-  icon,
-  label,
-  className,
-  ...rest
-}: IconButtonProps) => {
-  const Icon = icon;
-  const { base, icon: iconStyles } = iconBtn({ color, size });
-  return (
-    <button aria-label={label} className={base({ class: className })} {...rest}>
-      <Icon className={iconStyles()} />
-    </button>
-  );
-};
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    {
+      color = "primary",
+      size = "md",
+      disabled,
+      icon,
+      label,
+      className,
+      ...rest
+    },
+    forwardedRef,
+  ) => {
+    const Icon = icon;
+    const { base, icon: iconStyles } = iconBtn({ color, size, disabled });
+    return (
+      <button
+        ref={forwardedRef}
+        aria-label={label}
+        className={base({ class: className })}
+        disabled={disabled}
+        {...rest}
+      >
+        <Icon className={iconStyles()} />
+      </button>
+    );
+  },
+);
 
 export default IconButton;
