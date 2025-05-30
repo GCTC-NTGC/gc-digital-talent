@@ -80,6 +80,7 @@ const Template: StoryFn<
                 <Button
                   mode={mode}
                   color={color}
+                  fontSize="caption"
                   icon={InformationCircleIcon}
                   counter={99}
                   aria-label={mode === "icon_only" ? label : undefined}
