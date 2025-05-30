@@ -12,7 +12,7 @@ import {
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import { HTMLSpanProps } from "./types";
 
 type WrapperProps = DetailedHTMLProps<
@@ -21,7 +21,7 @@ type WrapperProps = DetailedHTMLProps<
 >;
 
 const Wrapper = (props: WrapperProps) => {
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   return (
     <div
       {...baseStyles}

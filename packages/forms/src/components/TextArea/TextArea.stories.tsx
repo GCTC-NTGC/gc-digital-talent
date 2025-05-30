@@ -20,7 +20,7 @@ const TemplateTextArea: StoryFn<TextAreaProps> = (args) => {
   return (
     <Form onSubmit={action("Submit Form")}>
       <TextArea {...args} />
-      <p data-h2-margin-top="base(x1)">
+      <p className="mt-6">
         <Submit />
       </p>
     </Form>
