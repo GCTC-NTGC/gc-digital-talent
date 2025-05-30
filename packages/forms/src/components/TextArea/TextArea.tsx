@@ -12,7 +12,7 @@ import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
+import { inputStyles } from "../../styles";
 export type TextAreaProps = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
@@ -34,6 +34,7 @@ const textArea = tv({
       true: "pb-12",
     },
   },
+  extend: inputStyles,
 });
 
 const TextArea = ({
@@ -57,7 +58,6 @@ const TextArea = ({
     setValue,
   } = useFormContext();
   const intl = useIntl();
-  const baseStyles = useInputStylesDeprecated();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -104,7 +104,6 @@ const TextArea = ({
           aria-invalid={isInvalid}
           className={textArea({ readonly: readOnly, wordLimit: !!wordLimit })}
           rows={rows}
-          {...baseStyles}
           {...stateStyles}
           {...register(name, {
             ...rules,
