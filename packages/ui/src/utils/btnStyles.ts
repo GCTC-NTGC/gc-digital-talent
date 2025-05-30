@@ -4,31 +4,160 @@ import { IconType } from "../types";
 
 export const btn = tv({
   slots: {
-    base: "",
+    base: "group/btn items-center justify-center gap-x-1.5 font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
     leadingIcon: "",
     trailingIcon: "",
+    label: "leading-none underline",
+    content: "flex items-center justify-center gap-x-1.5",
   },
   variants: {
     mode: {
-      text: "",
+      text: {
+        base: "font-normal",
+      },
       inline: "",
-      solid: "",
-      placeholder: "",
+      solid: {
+        base: "rounded-md border-3 focus-visible:border-focus",
+      },
+      placeholder: { base: "rounded-md border-dashed" },
     },
     color: {
       primary: {},
+      secondary: {},
+      success: {},
+      warning: {},
+      error: {},
+      black: {},
+      white: {},
     },
     size: {
-      sm: {},
+      sm: {
+        label: "text-sm/none",
+      },
       md: {},
-      lg: {},
+      lg: {
+        label: "text-lg/none",
+      },
     },
     block: {
+      true: {
+        base: "block w-full text-center",
+      },
+      false: {
+        base: "inline-block",
+      },
+    },
+    disabled: {
       true: {},
       false: {},
     },
   },
-  compoundVariants: [],
+  compoundVariants: [
+    // Colour Variants
+    {
+      color: "primary",
+      mode: "solid",
+      class: {
+        base: "border-primary bg-primary hover:bg-primary-100",
+      },
+    },
+    {
+      color: "secondary",
+      mode: "solid",
+      class: {
+        base: "border-secondary bg-secondary hover:bg-secondary-100",
+      },
+    },
+    {
+      color: "success",
+      mode: "solid",
+      class: {
+        base: "border-success bg-success hover:bg-success-100",
+      },
+    },
+    {
+      color: "warning",
+      mode: "solid",
+      class: {
+        base: "border-warning bg-warning hover:bg-warning-100",
+      },
+    },
+    {
+      color: "error",
+      mode: "solid",
+      class: {
+        base: "border-error-300 bg-error-300 hover:bg-error-100",
+      },
+    },
+    {
+      color: "black",
+      mode: "solid",
+      class: {
+        base: "border-gray-700 bg-gray-700 text-white hover:bg-gray-100 hover:text-black",
+      },
+    },
+    {
+      color: "white",
+      mode: "solid",
+      class: {
+        base: "border-gray-100 bg-gray-100 hover:border-gray-300 hover:bg-gray-700 hover:text-white",
+      },
+    },
+
+    // Size variants
+    {
+      mode: "solid",
+      size: "sm",
+      class: {
+        base: "px-3 py-2",
+      },
+    },
+    {
+      mode: "solid",
+      size: "md",
+      class: {
+        base: "px-5 py-2",
+      },
+    },
+    {
+      mode: "solid",
+      size: "lg",
+      class: {
+        base: "px-6 py-2",
+      },
+    },
+
+    // Disabled: Must be at bottom for cascade
+    {
+      disabled: true,
+      mode: "solid",
+      class: "border-gray-200 bg-gray-100 text-black hover:bg-gray-100",
+    },
+  ],
+  compoundSlots: [
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      size: "sm",
+      class: "size-4.5",
+    },
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      size: "md",
+      class: "size-5",
+    },
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      size: "lg",
+      class: "size-6",
+    },
+  ],
+
+  defaultVariants: {
+    color: "primary",
+    size: "sm",
+    mode: "solid",
+    disabled: false,
+  },
 });
 
 export type ButtonLinkVariants = VariantProps<typeof btn>;
