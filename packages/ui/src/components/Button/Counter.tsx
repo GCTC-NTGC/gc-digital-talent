@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
 const counter = tv({
-  base: "ease :ont-bold ml-2 rounded-md p-2 px-1 text-sm/[1] transition-all duration-200",
+  base: "ml-2 rounded-md p-2 px-1 text-sm/[1] font-bold transition-all duration-200 ease-linear",
 });
 
 type CounterProps = DetailedHTMLProps<
