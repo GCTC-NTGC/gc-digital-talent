@@ -65,7 +65,7 @@ const CareerTimeline = ({ experiencesQuery, userId }: CareerTimelineProps) => {
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.profileAndApplications(),
+        url: paths.applicantDashboard(),
       },
       {
         label: intl.formatMessage(pageTitle),

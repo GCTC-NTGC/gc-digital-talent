@@ -107,7 +107,7 @@ export const SkillShowcase = ({
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.profileAndApplications(),
+        url: paths.applicantDashboard(),
       },
       {
         label: intl.formatMessage(navigationMessages.skillPortfolio),
