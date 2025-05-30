@@ -92,7 +92,7 @@ const Item = forwardRef<
 const trigger = tv({
   slots: {
     header: "flex items-start justify-between gap-x-3",
-    btn: "group/btn flex grow items-start gap-x-3 text-left",
+    btn: "group/btn flex grow items-start gap-x-3 text-left outline-none",
     heading: "m-0 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
     iconSize: "shrink-0",
   },
@@ -151,12 +151,14 @@ const Trigger = forwardRef<
           className={btn()}
           {...rest}
         >
-          <ChevronRightIcon
-            className={iconSize({
-              class:
-                "rotate-0 transform transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
-            })}
-          />
+          <span className="-mt-1 rounded-full p-1 transition-colors duration-150 group-focus-visible/btn:bg-focus group-focus-visible/btn:text-black">
+            <ChevronRightIcon
+              className={iconSize({
+                class:
+                  "transforn rotate-0 leading-none transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
+              })}
+            />
+          </span>
           <span className="flex grow flex-col">
             <Heading className={heading()}>{children}</Heading>
             {subtitle && (
