@@ -142,6 +142,11 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_index index.php;
     }
+    location = /opcache.php {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/opcache.php;
+    }
 
     # Simulate being off the VPN and the firewall redirecting to the restricted page.
     # Don't forget to also comment out the location rule for /admin/graphql
