@@ -4,25 +4,47 @@ import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
-import { HydrogenAttributes, IconType } from "../../types";
+import { IconType } from "../../types";
 
-type Status =
-  | "selected"
-  | "empty"
-  | "declined"
-  | "error"
-  | "interested"
-  | "in_program";
+const statusItem = tv({
+  slots: {
+    base: "flex items-center gap-x-1.5",
+    icon: "size-4",
+    label: "font-normal text-gray-600 dark:text-gray-100",
+  },
+  variants: {
+    status: {
+      selected: {
+        icon: "text-success dark:text-success-300",
+      },
+      empty: {
+        icon: "text-gray dark:text-gray-200",
+      },
+      declined: {
+        icon: "text-gray dark:text-gray-200",
+      },
+      error: {
+        icon: "text-error dark:text-error-300",
+      },
+      interested: {
+        icon: "text-secondary dark:text-secondary-300",
+      },
+      // eslint-disable-next-line camelcase
+      in_program: {
+        icon: "text-secondary dark:text-secondary-300",
+      },
+    },
+  },
+});
 
-export interface AccordionMetaDataStatusItemProps {
-  label: string;
-  status: Status;
-}
+type StatusItemVariants = VariantProps<typeof statusItem>;
+type RequiredStatus = Required<Pick<StatusItemVariants, "status">>;
 
-function getIcon(status: Status): IconType {
+function getIcon(status: NonNullable<StatusItemVariants["status"]>): IconType {
   if (status === "selected") {
     return CheckCircleIcon;
   }
@@ -41,41 +63,12 @@ function getIcon(status: Status): IconType {
   if (status === "in_program") {
     return BuildingLibraryIcon;
   }
+
   return assertUnreachable(status);
 }
 
-function getColorStyles(status: Status): HydrogenAttributes {
-  if (status === "selected") {
-    return {
-      "data-h2-color": "base(success) base:dark(success.lighter)",
-    };
-  }
-  if (status === "empty") {
-    return {
-      "data-h2-color": "base(black.lighter) base:dark(black.5)",
-    };
-  }
-  if (status === "declined") {
-    return {
-      "data-h2-color": "base(black.lighter) base:dark(black.5)",
-    };
-  }
-  if (status === "error") {
-    return {
-      "data-h2-color": "base(error) base:dark(error.lighter)",
-    };
-  }
-  if (status === "interested") {
-    return {
-      "data-h2-color": "base(primary) base:dark(primary.lighter)",
-    };
-  }
-  if (status === "in_program") {
-    return {
-      "data-h2-color": "base(primary) base:dark(primary.lighter)",
-    };
-  }
-  return assertUnreachable(status);
+export interface AccordionMetaDataStatusItemProps extends RequiredStatus {
+  label: string;
 }
 
 // based on the BoolCheckIcon component
@@ -84,22 +77,12 @@ function MetaDataStatusItem({
   status,
 }: AccordionMetaDataStatusItemProps) {
   const Icon = getIcon(status);
-  const colorStyles = getColorStyles(status);
+  const { base, icon: iconStyles, label: labelStyles } = statusItem({ status });
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(x.25)"
-    >
-      <Icon
-        data-h2-width="base(x.75)"
-        data-h2-height="base(x.75)"
-        {...colorStyles}
-      />
-      <span data-h2-color="base(black.light)" data-h2-font-weight="base(400)">
-        {label}
-      </span>
+    <div className={base()}>
+      <Icon className={iconStyles()} />
+      <span className={labelStyles()}>{label}</span>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
 import Button from "../Button";
-import Accordion from "../Accordion";
+import Accordion from "../Accordion/Accordion";
 import Alert from "../Alert/Alert";
 import TreeView from "./TreeView";
 import Card from "../Card/Card";

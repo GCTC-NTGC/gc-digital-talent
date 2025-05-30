@@ -144,7 +144,6 @@ Default.args = {
   type: "single",
   collapsible: true,
   children: <Text />,
-  size: "md",
 };
 
 export const Card = Template.bind({});
