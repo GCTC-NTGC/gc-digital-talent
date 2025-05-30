@@ -151,7 +151,7 @@ const Trigger = forwardRef<
           className={btn()}
           {...rest}
         >
-          <span className="-mt-1 rounded-full p-1 transition-colors duration-150 group-focus-visible/btn:bg-focus group-focus-visible/btn:text-black">
+          <span className="-mt-0.5 rounded-full p-1 transition-colors duration-150 group-focus-visible/btn:bg-focus group-focus-visible/btn:text-black">
             <ChevronRightIcon
               className={iconSize({
                 class:
@@ -284,8 +284,8 @@ const metaWrapper = tv({
   base: "flex flex-col flex-nowrap items-start gap-2 text-sm xs:flex-row xs:flex-wrap xs:items-center",
   variants: {
     mode: {
-      simple: "mb-3 pl-8",
-      card: "-mt-3 pb-6 pl-14",
+      simple: "mb-3 pl-10",
+      card: "-mt-3 pb-6 pl-16",
     },
   },
 });
@@ -316,8 +316,8 @@ const content = tv({
   base: "pb-6 text-black dark:text-white",
   variants: {
     mode: {
-      simple: "pl-8",
-      card: "pl-14",
+      simple: "pl-10",
+      card: "pl-16",
     },
   },
 });
