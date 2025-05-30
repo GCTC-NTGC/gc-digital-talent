@@ -34,29 +34,6 @@ class CommunityInterest extends ApplicantDashboardPage {
     await this.page.getByRole("checkbox", { name: workStreamName }).click();
 
     await this.page
-      .getByRole("group", {
-        name: /program participation for test development program en 0/i,
-      })
-      .getByRole("radio", {
-        name: /i’ve successfully completed this program./i,
-      })
-      .click();
-
-    await this.page
-      .getByRole("group", {
-        name: /program completion date/i,
-      })
-      .getByRole("spinbutton", { name: /year/i })
-      .fill("2020");
-
-    await this.page
-      .getByRole("group", {
-        name: /program completion date/i,
-      })
-      .getByRole("combobox", { name: /month/i })
-      .selectOption("01");
-
-    await this.page
       .getByRole("checkbox", {
         name: `I agree that by adding the ${communityName} to my profile that my information will be shared with talent managers, HR staff, and hiring managers in this functional community.`,
       })

@@ -1,10 +1,28 @@
-import { test, expect } from "~/fixtures";
-import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";
+import { Community, WorkStream } from "@gc-digital-talent/graphql";
+
 import CommunityInterest from "~/fixtures/CommunityInterest";
+import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";
+import { test, expect } from "~/fixtures";
+import graphql from "~/utils/graphql";
+import { createCommunity } from "~/utils/communities";
+import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
+import { createWorkStream } from "~/utils/workStreams";
 
 import { loginBySub } from "../../utils/auth";
 
 test.describe("Community Interest", () => {
+  let community: Community | undefined;
+  let workStream: WorkStream | undefined;
+  test.beforeAll(async () => {
+    const adminCtx = await graphql.newContext();
+    community = await createCommunity(adminCtx, {});
+    await createTalentNominationEvent(adminCtx, {
+      community: { connect: community?.id },
+    });
+    workStream = await createWorkStream(adminCtx, {
+      community: { connect: community?.id },
+    });
+  });
   test("Create, review, and delete community interest", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant-employee@test.com");
     await appPage.page.goto("/en/applicant");
@@ -16,18 +34,18 @@ test.describe("Community Interest", () => {
 
     // Create a community interest
     await communityInterest.createCommunityInterest(
-      "Test Community EN",
-      "Test work stream EN",
+      community?.name?.en ?? "",
+      workStream?.name?.en ?? "",
     );
     await expect(appPage.page.getByRole("alert")).toContainText(
       /community interest created successfully/i,
     );
 
     // Review a community interest dialog
-    await communityInterest.reviewCommunityInterest("Test Community EN");
+    await communityInterest.reviewCommunityInterest(community?.name?.en ?? "");
     await expect(
       appPage.page.getByRole("heading", {
-        name: /test community EN/i,
+        name: community?.name?.en ?? "",
         level: 2,
       }),
     ).toBeVisible();
@@ -36,22 +54,18 @@ test.describe("Community Interest", () => {
     await expect(
       appPage.page.getByText("Not interested in training or development"),
     ).toBeVisible();
-    await expect(appPage.page.getByText("Test work stream EN")).toBeVisible();
     await expect(
-      appPage.page.getByText("Test Development program EN 0"),
-    ).toBeVisible();
-    await expect(
-      appPage.page.getByText("Completed in January 2020"),
+      appPage.page.getByText(workStream?.name?.en ?? ""),
     ).toBeVisible();
 
     await appPage.page.getByRole("button", { name: /cancel/i }).click();
 
     //Edit a community interest
-    await communityInterest.editCommunityInterest("Test Community EN");
+    await communityInterest.editCommunityInterest(community?.name?.en ?? "");
 
     await expect(
       appPage.page.getByRole("heading", {
-        name: /edit your interest in the test community en/i,
+        name: `Edit your interest in the ${community?.name?.en ?? ""}`,
         level: 1,
       }),
     ).toBeVisible();
