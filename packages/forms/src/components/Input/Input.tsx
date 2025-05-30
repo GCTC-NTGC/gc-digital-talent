@@ -9,7 +9,7 @@ import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
@@ -40,7 +40,7 @@ const Input = ({
     setValue,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

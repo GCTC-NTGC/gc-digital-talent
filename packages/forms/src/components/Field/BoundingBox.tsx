@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 
 type BoundingBoxProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLDivElement>,
@@ -10,7 +10,7 @@ type BoundingBoxProps = DetailedHTMLProps<
 };
 
 const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
-  const styles = useInputStyles();
+  const styles = useInputStylesDeprecated();
 
   return (
     <div

@@ -10,7 +10,7 @@ import get from "lodash/get";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import { DateSegment, DATE_SEGMENT, RoundingMethod } from "./types";
 import {
   getMonthOptions,
@@ -38,8 +38,8 @@ const ControlledInput = ({
   stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
-  const inputStyles = useInputStyles();
-  const selectStyles = useInputStyles("select");
+  const inputStyles = useInputStylesDeprecated();
+  const selectStyles = useInputStylesDeprecated("select");
   const rawDefaultValue: unknown = get(defaultValues, name);
   const defaultValue =
     rawDefaultValue !== null && rawDefaultValue !== undefined

@@ -5,7 +5,7 @@ import Checkbox from "../Checkbox/Checkbox";
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
@@ -46,7 +46,7 @@ const Checklist = ({
   const {
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;

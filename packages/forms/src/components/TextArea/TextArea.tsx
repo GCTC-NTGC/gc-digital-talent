@@ -12,7 +12,7 @@ import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 export type TextAreaProps = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
@@ -57,7 +57,7 @@ const TextArea = ({
     setValue,
   } = useFormContext();
   const intl = useIntl();
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
