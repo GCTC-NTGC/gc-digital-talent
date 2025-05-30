@@ -19,6 +19,8 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
+import CTAButton, { CTAButtonProps } from "./components/CallToAction/CTAButton";
+import CTALink, { CTALinkProps } from "./components/CallToAction/CTALink";
 import Card, { type CardProps } from "./components/Card/Card";
 import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
@@ -100,6 +102,8 @@ export type {
   ButtonLinkMode,
   CardFlatProps,
   CardProps,
+  CTAButtonProps,
+  CTALinkProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -148,6 +152,8 @@ export {
   Chip,
   Collapsible,
   Counter,
+  CTALink,
+  CTAButton,
   DescriptionList,
   Dialog,
   /* Re-exporting primitive for custom solutions */
