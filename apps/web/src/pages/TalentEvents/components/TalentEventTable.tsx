@@ -1,7 +1,7 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
   graphql,
@@ -25,12 +25,7 @@ export const TalentEventTableRow_Fragment = graphql(/* GraphQL */ `
     name {
       localized
     }
-    talentNominationGroups {
-      id
-      nominations {
-        id
-      }
-    }
+    countTalentNominationGroups
     status {
       value
       label {
@@ -73,26 +68,23 @@ export const TalentEventTable = ({
         isRowTitle: true,
       },
     }),
-    columnHelper.accessor(
-      (row) => unpackMaybes(row?.talentNominationGroups).length,
-      {
-        id: "nominations",
-        header: intl.formatMessage({
-          defaultMessage: "Nominations",
-          id: "KxsYhl",
-          description: "Header for Nominations",
-        }),
-        cell: ({
-          row: {
-            original: { id },
-          },
-          getValue,
-        }) => nominationsCell(id, getValue(), routes, intl),
-        meta: {
-          isRowTitle: true,
+    columnHelper.accessor((row) => row.countTalentNominationGroups, {
+      id: "nominations",
+      header: intl.formatMessage({
+        defaultMessage: "Nominations",
+        id: "KxsYhl",
+        description: "Header for Nominations",
+      }),
+      cell: ({
+        row: {
+          original: { id },
         },
+        getValue,
+      }) => nominationsCell(id, getValue(), routes, intl),
+      meta: {
+        isRowTitle: true,
       },
-    ),
+    }),
     columnHelper.accessor((row) => row?.status?.label?.localized, {
       id: "status",
       header: intl.formatMessage(commonMessages.status),

@@ -1114,6 +1114,7 @@ type TalentNominationEvent {
   community: Community!
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
+  countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
 }
 
