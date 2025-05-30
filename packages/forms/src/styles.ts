@@ -18,7 +18,7 @@ const fieldStateStyles: Record<FieldState, Record<string, string>> = {
 };
 
 export const inputStyles = tv({
-  base: "rounded-md border-1 p-3 text-black outline-offset-2 outline-none placeholder:text-gray-600 placeholder:opacity-70 focus-visible:outline-2 focus-visible:outline-focus",
+  base: "rounded-md border-1 p-3 text-black outline-offset-2 outline-none placeholder:text-gray-600 placeholder:opacity-70 focus-visible:outline-2 focus-visible:outline-focus dark:text-white",
 });
 
 export const selectStyles = tv({
