@@ -618,6 +618,9 @@ importers:
       motion:
         specifier: ^12.15.0
         version: 12.15.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
+      tailwind-variants:
+        specifier: ^1.0.0
+        version: 1.0.0(tailwindcss@4.1.8)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.8.0
