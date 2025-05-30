@@ -155,7 +155,7 @@ const Trigger = forwardRef<
             <ChevronRightIcon
               className={iconSize({
                 class:
-                  "transforn rotate-0 leading-none transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
+                  "rotate-0 transform leading-none transition-transform duration-150 group-data-[state=open]/btn:rotate-90",
               })}
             />
           </span>
