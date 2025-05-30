@@ -804,7 +804,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.profileAndApplications(),
+        url: paths.applicantDashboard(),
       },
       {
         label: formattedPageTitle,

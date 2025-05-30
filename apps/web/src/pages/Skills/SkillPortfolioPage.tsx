@@ -68,7 +68,7 @@ const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.profileAndApplications(),
+        url: paths.applicantDashboard(),
       },
       {
         label: intl.formatMessage(navigationMessages.skillPortfolio),

@@ -615,7 +615,7 @@ const EmployeeInformation = () => {
           intl.formatMessage(commonMessages.accountUpdateSuccessful),
         );
         if (skipVerification) {
-          const navigationTarget = from ?? paths.profileAndApplications();
+          const navigationTarget = from ?? paths.applicantDashboard();
           await navigate(navigationTarget);
         } else {
           await navigate({

@@ -31,8 +31,8 @@ const ProfileContactEmailVerificationPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
-        url: paths.profileAndApplications(),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
+        url: paths.applicantDashboard(),
       },
       {
         label: intl.formatMessage(profilePageMessages.pageTitle),
