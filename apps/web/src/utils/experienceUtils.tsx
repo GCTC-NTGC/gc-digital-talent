@@ -458,7 +458,9 @@ export const formValuesToSubmitData = (
       cafEmploymentType,
       cafForce,
       cafRank,
-      workStreamIds: workStreams,
+      workStreams: {
+        sync: workStreams,
+      },
       supervisoryPosition,
       supervisedEmployees,
       supervisedEmployeesNumber: Number(supervisedEmployeesNumber),

@@ -194,7 +194,9 @@ export interface ExperienceDetailsSubmissionData {
       | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
       | undefined;
   };
-  workStreamIds?: string[];
+  workStreams?: {
+    sync?: string[];
+  };
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;
   supervisedEmployeesNumber?: number | null;

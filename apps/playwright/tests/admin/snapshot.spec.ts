@@ -89,7 +89,7 @@ test.describe("Snapshot", () => {
     const application = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
       poolId: createdPool.id,
-      experienceId: applicant?.experiences?.[0]?.id ?? "",
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
     });
 

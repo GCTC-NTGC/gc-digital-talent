@@ -28,7 +28,7 @@ const Test_CreateApplicationMutationDocument = /* GraphQL */ `
 interface CreateApplicationInput {
   userId: string;
   poolId: string;
-  experienceId: string;
+  personalExperienceId: string;
 }
 
 /**
@@ -37,7 +37,7 @@ interface CreateApplicationInput {
 export const createApplication: GraphQLRequestFunc<
   PoolCandidate,
   CreateApplicationInput
-> = async (ctx, { userId, poolId, experienceId }) => {
+> = async (ctx, { userId, poolId, personalExperienceId }) => {
   return ctx
     .post(Test_CreateApplicationMutationDocument, {
       variables: {
@@ -57,8 +57,8 @@ export const createApplication: GraphQLRequestFunc<
             application: {
               educationRequirementOption:
                 EducationRequirementOption.AppliedWork,
-              educationRequirementExperiences: {
-                sync: [experienceId],
+              educationRequirementPersonalExperiences: {
+                sync: [personalExperienceId],
               },
             },
           },
