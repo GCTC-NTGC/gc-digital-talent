@@ -7,7 +7,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import TicketIcon from "@heroicons/react/24/outline/TicketIcon";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { CTALink, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -76,7 +76,7 @@ export const Component = () => {
               description: "Link text to request a voucher",
             }),
             url: requestAVoucherUrl[locale],
-            color: "quaternary",
+            color: "warning",
           },
         ]}
       />
@@ -313,10 +313,9 @@ export const Component = () => {
             </p>
           </div>
           <div data-h2-text-align="base(center)">
-            <Link
+            <CTALink
               icon={TicketIcon}
-              color="quaternary"
-              mode="cta"
+              color="warning"
               href={requestAVoucherUrl[locale]}
               state={{ referrer: window.location.href }}
             >
@@ -325,7 +324,7 @@ export const Component = () => {
                 id: "yGtIgV",
                 description: "Link text to request a voucher",
               })}
-            </Link>
+            </CTALink>
           </div>
         </div>
       </div>

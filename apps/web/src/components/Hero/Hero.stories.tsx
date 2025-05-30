@@ -51,18 +51,18 @@ const Template: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 export const ButtonsAndTabs = Template.bind({});
 ButtonsAndTabs.args = {
   buttonLinks: [
-    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "quinary" },
+    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "success" },
     {
       icon: AcademicCapIcon,
       text: "Hello hello",
       url: "#two",
-      color: "primary",
+      color: "secondary",
     },
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
       url: "#two",
-      color: "tertiary",
+      color: "error",
     },
   ],
   navTabs: [
@@ -81,7 +81,7 @@ Buttons.args = {
       icon: UserPlusIcon,
       text: "Hello",
       url: "#one",
-      color: "secondary",
+      color: "primary",
     },
     {
       icon: AcademicCapIcon,
@@ -120,13 +120,13 @@ ButtonsAndTabsWithCentering.args = {
       icon: AcademicCapIcon,
       text: "Hello hello",
       url: "#two",
-      color: "secondary",
+      color: "primary",
     },
     {
       icon: ChatBubbleBottomCenterIcon,
       text: "And goodbye",
       url: "#two",
-      color: "tertiary",
+      color: "error",
     },
   ],
   navTabs: [

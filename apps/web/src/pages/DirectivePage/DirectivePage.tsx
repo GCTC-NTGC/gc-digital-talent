@@ -124,13 +124,13 @@ export const Component = () => {
             icon: NewspaperIcon,
             text: readDirectiveMessage,
             url: directiveUrl,
-            color: "quaternary",
+            color: "warning",
           },
           {
             icon: MagnifyingGlassCircleIcon,
             text: intl.formatMessage(navigationMessages.findTalent),
             url: paths.search(),
-            color: "secondary",
+            color: "primary",
           },
         ]}
       />
