@@ -7,32 +7,23 @@ export default {
 } as Meta<typeof Separator>;
 
 const Template: StoryFn<typeof Separator> = () => (
-  <div data-h2-width="base(100%)" data-h2-max-width="base(320px)">
+  <div className="w-full max-w-xs">
     <p>Separator for content</p>
-    <Separator
-      orientation="horizontal"
-      data-h2-margin="base(x.5, 0)"
-      data-h2-background-color="base(primary.50)"
-    />
-    <div
-      data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-height="base(2rem)"
-    >
+    <Separator orientation="horizontal" className="bg-primary/50" space="xs" />
+    <div className="flex h-8 items-center justify-between">
       <p>Secondary</p>
       <Separator
         decorative
         orientation="vertical"
-        data-h2-background-color="base(secondary.50)"
-        data-h2-margin="base(0, x.5)"
+        className="bg-secondary"
+        space="xs"
       />
       <p>Red</p>
       <Separator
         decorative
         orientation="vertical"
-        data-h2-background-color="base(tertiary.50)"
-        data-h2-margin="base(0, x.5)"
+        className="bg-error"
+        space="xs"
       />
       <p>Vertical</p>
     </div>

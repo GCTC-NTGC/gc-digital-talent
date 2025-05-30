@@ -141,7 +141,7 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
           {intl.formatMessage(errorMessages.summaryTitle)}
         </Alert.Title>
         <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
-        <ul data-h2-margin="base(x.5, 0, 0, 0)">
+        <ul className="mt-3">
           {invalidFieldNames.map((field) => {
             return (
               <li key={field.name}>

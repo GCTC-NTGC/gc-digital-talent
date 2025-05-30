@@ -1,86 +1,50 @@
 import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
-import { Color } from "../../types";
+const well = tv({
+  base: "rounded border",
+  variants: {
+    color: {
+      primary:
+        "border-primary-700 bg-primary-100 text-primary-700 dark:border-primary-100 dark:bg-primary-700 dark:text-primary-100",
+      secondary:
+        "border-secondary-700 bg-secondary-100 text-secondary-700 dark:border-secondary-100 dark:bg-secondary-700 dark:text-secondary-100",
+      success:
+        "border-success-700 bg-success-100 text-success-700 dark:border-success-100 dark:bg-success-700 dark:text-success-100",
+      warning:
+        "border-warning-700 bg-warning-100 text-warning-700 dark:border-warning-100 dark:bg-warning-700 dark:text-warning-100",
+      error:
+        "border-error-700 bg-error-100 text-error-700 dark:border-error-100 dark:bg-error-700 dark:text-error-100",
+      black:
+        "border-gray-600 bg-gray-100/20 text-gray-700 dark:border-gray-100 dark:bg-gray-700 dark:text-gray-100",
+    },
+    fontSize: {
+      body: "p-6",
+      caption: "p-3 text-sm",
+    },
+  },
+});
 
-const colorMap = new Map<Color, Record<string, string>>([
-  [
-    "primary",
-    {
-      "data-h2-background-color": "base(primary.lightest)",
-      "data-h2-border": "base(1px solid primary.darker)",
-      "data-h2-color": "base(primary.darkest)",
-    },
-  ],
-  [
-    "success",
-    {
-      "data-h2-background-color": "base(success.lightest)",
-      "data-h2-border": "base(1px solid success.darker)",
-      "data-h2-color": "base(success.darkest)",
-    },
-  ],
-  [
-    "warning",
-    {
-      "data-h2-background-color": "base(warning.lightest)",
-      "data-h2-border": "base(1px solid warning.darker)",
-      "data-h2-color": "base(warning.darkest)",
-    },
-  ],
-  [
-    "error",
-    {
-      "data-h2-background-color": "base(error.lightest)",
-      "data-h2-border": "base(1px solid error.darker)",
-      "data-h2-color": "base(error.darkest)",
-    },
-  ],
-  [
-    "black",
-    {
-      "data-h2-background-color": "base(black.lightest)",
-      "data-h2-border": "base(1px solid black.darker)",
-      "data-h2-color": "base(black.darkest)",
-    },
-  ],
-  [
-    "secondary",
-    {
-      "data-h2-background-color": "base(secondary.lightest)",
-      "data-h2-border": "base(1px solid secondary.darker)",
-      "data-h2-color": "base(secondary.darkest)",
-    },
-  ],
-]);
+type WellVariants = VariantProps<typeof well>;
 
 export interface WellProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  extends WellVariants,
+    Omit<
+      DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+      "color"
+    > {
   children: ReactNode;
-  color?: Color;
-  fontSize?: "caption" | "body";
 }
 
-const Well = ({ children, color, fontSize = "body", ...rest }: WellProps) => {
-  const colorStyles = color
-    ? colorMap.get(color)
-    : {
-        "data-h2-background-color": "base(background.light)",
-        "data-h2-border": "base(1px solid background.darker)",
-        "data-h2-color": "base(background.darkest)",
-      };
-
-  let size = {
-    "data-h2-font-size": "base(body)",
-    "data-h2-padding": "base(x1)",
-  };
-  if (fontSize === "caption") {
-    size = {
-      "data-h2-font-size": "base(caption)",
-      "data-h2-padding": "base(x.5)",
-    };
-  }
+const Well = ({
+  children,
+  color = "black",
+  fontSize = "body",
+  className,
+  ...rest
+}: WellProps) => {
   return (
-    <div data-h2-radius="base(s)" {...colorStyles} {...size} {...rest}>
+    <div className={well({ color, fontSize, class: className })} {...rest}>
       {children}
     </div>
   );

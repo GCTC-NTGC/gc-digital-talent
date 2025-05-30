@@ -2,38 +2,38 @@ import { ReactNode } from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { HydrogenAttributes } from "../../types";
+const stateIcon = tv({
+  base: "absolute top-5 right-5 size-5",
+});
 
 // an icon pinned to the top-right to show the completion state
 const StateIcon = ({ state }: { state: BaseItemProps["state"] }) => {
-  const commonStyles: HydrogenAttributes = {
-    "data-h2-width": "base(x0.75)",
-    "data-h2-height": "base(x0.75)",
-    "data-h2-position": "base(absolute)",
-    "data-h2-location": "base(x0.75, x0.75, auto, auto)",
-  };
-
   if (state === "incomplete") {
     return (
       <ExclamationCircleIcon
-        data-h2-color="base(error) base:dark(error.lighter)"
-        {...commonStyles}
+        className={stateIcon({ class: "text-error dark:text-error-300" })}
       />
     );
   }
   if (state === "complete") {
     return (
       <CheckCircleIcon
-        data-h2-color="base(success) base:dark(success.lighter)"
-        {...commonStyles}
+        className={stateIcon({
+          class: "text-success-600 dark:text-success",
+        })}
       />
     );
   }
   return null;
 };
+
+const baseItem = tv({
+  base: "relative flex flex-col gap-1 p-6 not-last:border-b not-last:border-b-gray-300 sm:px-8 dark:not-last:border-b-gray-100",
+});
 
 export interface BaseItemProps {
   title: ReactNode;
@@ -49,15 +49,6 @@ const BaseItem = ({
   state,
 }: BaseItemProps) => {
   const intl = useIntl();
-  const extraStateStyles =
-    state === "incomplete"
-      ? {
-          // should match the absolute positioning of the center of the state icon (x0.75 + (x0.75/2))
-          "data-h2-background":
-            "base(radial-gradient(circle x5 at top x1.125 right x1.125, error.10, foreground))",
-        }
-      : {};
-
   let combinedLabel;
   switch (state) {
     case "incomplete":
@@ -72,30 +63,25 @@ const BaseItem = ({
 
   return (
     <div
-      data-h2-background="base(foreground)"
-      data-h2-padding="base(x1) l-tablet(x1 x1.5)"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x0.15)"
-      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid gray.light)"
-      data-h2-border-radius="base:all:selectors[:last-child](0 0 rounded rounded)"
-      // make the containing block for state icon
-      data-h2-position="base(relative)"
+      className={baseItem({
+        class:
+          state === "incomplete"
+            ? // should match the absolute positioning of the center of the state icon (x0.75 + (x0.75/2))
+              "bg-radial-[circle_7.5rem_at_top_1.6875rem_right_1.6875rem] from-error/10 to-transparent"
+            : undefined,
+      })}
       aria-label={combinedLabel}
       role="listitem"
-      {...extraStateStyles}
     >
       <StateIcon state={state} />
       <div
         // icon extends margin + icons size: x0.75 + x0.75 = x1.5
         // item margin is base(x1) l-tablet(x1.5)
-        data-h2-padding-right="base(x0.5) l-tablet(0)"
+        className="pr-3"
       >
         {title}
       </div>
-      <p data-h2-color="base(black.light)" data-h2-font-size="base(caption)">
-        {description}
-      </p>
+      <p className="text-sm text-gray-600 dark:text-gray-200">{description}</p>
     </div>
   );
 };

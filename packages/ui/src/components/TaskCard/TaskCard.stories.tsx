@@ -4,8 +4,8 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
+import Well from "../Well/Well";
 import TaskCard, { RootProps } from "./TaskCard";
-import Well from "../Well";
 
 const colorOptions: RootProps["headingColor"][] = [
   "primary",

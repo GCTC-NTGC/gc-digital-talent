@@ -22,6 +22,7 @@ export type LinkProps = ButtonLinkProps &
   > & {
     external?: boolean;
     newTab?: boolean;
+    noUnderline?: boolean;
     disabled?: boolean;
     href?: To;
   };
@@ -37,6 +38,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       external = false,
       newTab = false,
       disabled = false,
+      noUnderline = false,
       icon,
       utilityIcon,
       children,
@@ -70,6 +72,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
         icon={icon}
         utilityIcon={utilityIcon}
         newTab={newTab}
+        noUnderline={noUnderline}
         fontSize={fontSize}
       >
         {children}

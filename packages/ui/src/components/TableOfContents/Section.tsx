@@ -13,7 +13,7 @@ const Section = ({
     data-is-toc-section // Used to find section elements in the Navigation component
     id={id}
     tabIndex={-1}
-    data-h2-outline="base(none)"
+    className="outline-none"
     {...rest}
   >
     {children}
