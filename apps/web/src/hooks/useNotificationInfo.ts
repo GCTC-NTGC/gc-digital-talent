@@ -113,9 +113,7 @@ const applicationStatusChangedNotificationToInfo = (
         poolName: poolNameLocalized,
       },
     ),
-    href: paths.profileAndApplications({
-      fragmentIdentifier: "track-applications-section",
-    }),
+    href: paths.profileAndApplications(),
     label: intl.formatMessage(
       {
         defaultMessage:
