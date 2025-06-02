@@ -441,7 +441,7 @@ const JobPosterTemplatesPage = () => {
                             searchParams,
                           )}
                           {...(sortBy === "classification"
-                            ? { color: "secondary", mode: "inline" }
+                            ? { color: "primary", mode: "inline" }
                             : { color: "black", mode: "text" })}
                         >
                           {intl.formatMessage(processMessages.classification)}
@@ -454,7 +454,7 @@ const JobPosterTemplatesPage = () => {
                             searchParams,
                           )}
                           {...(sortBy === "title"
-                            ? { color: "secondary", mode: "inline" }
+                            ? { color: "primary", mode: "inline" }
                             : { color: "black", mode: "text" })}
                         >
                           {intl.formatMessage({
@@ -526,7 +526,7 @@ const JobPosterTemplatesPage = () => {
                         />
                         <Link
                           mode="solid"
-                          color="secondary"
+                          color="primary"
                           href={searchParamHref(
                             "page",
                             Math.min(page + 1, total),

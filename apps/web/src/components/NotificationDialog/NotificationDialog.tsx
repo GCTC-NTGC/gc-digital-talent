@@ -153,7 +153,7 @@ const DialogPortalWithPresence = ({
           <NotificationList live inDialog limit={30} onRead={executeQuery} />
           <p data-h2-margin="base(x1)">
             <DialogPrimitive.Close asChild>
-              <Link href={paths.notifications()} mode="solid" color="secondary">
+              <Link href={paths.notifications()} mode="solid" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View all notifications",
                   id: "/lVSP/",

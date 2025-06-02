@@ -69,7 +69,7 @@ const CommunityInterestDialog = ({
           <Dialog.Footer>
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.communityInterest(communityInterest.id)}
             >
               {intl.formatMessage({

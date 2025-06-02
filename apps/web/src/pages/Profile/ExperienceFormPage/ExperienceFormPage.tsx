@@ -602,7 +602,7 @@ export const ExperienceForm = ({
                       })}
                       isSubmitting={mutationExecuting}
                     />
-                    <Link color="quaternary" mode="inline" href={returnPath}>
+                    <Link color="warning" mode="inline" href={returnPath}>
                       {intl.formatMessage(formMessages.cancelGoBack)}
                     </Link>
                     <AlertDialog.Root>

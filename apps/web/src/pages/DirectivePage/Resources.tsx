@@ -81,7 +81,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download
@@ -150,7 +149,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download
@@ -219,7 +217,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download

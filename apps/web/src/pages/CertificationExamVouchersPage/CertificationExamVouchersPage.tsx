@@ -18,7 +18,7 @@ import pageTitles from "~/messages/pageTitles";
 
 const itLink = (href: string, chunks: ReactNode) => {
   return (
-    <Link href={href} color="secondary" data-h2-font-weight="base(bold)">
+    <Link href={href} color="primary" data-h2-font-weight="base(bold)">
       {chunks}
     </Link>
   );

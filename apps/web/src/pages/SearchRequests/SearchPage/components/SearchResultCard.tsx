@@ -237,7 +237,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         </Button>
         <Link
           mode="inline"
-          color="secondary"
+          color="primary"
           href={paths.pool(pool.id || "")}
           newTab
         >

@@ -44,12 +44,12 @@ const NominationNavigation = () => {
   const { nextNomination, previousNomination, nominationIds } =
     nominationNavigation;
 
-  const commonLinkProps: LinkProps = {
+  const commonLinkProps: Omit<LinkProps, "href"> = {
     color: "secondary",
     mode: "inline",
     block: true,
     state: { nominationIds },
-    "data-h2-padding": "base(x.75 0)",
+    className: "py-4.5",
   };
 
   return (

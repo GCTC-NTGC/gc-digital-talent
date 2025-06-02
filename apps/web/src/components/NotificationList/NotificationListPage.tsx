@@ -149,7 +149,7 @@ const NotificationListPage = ({
           <p data-h2-margin-top="base(x1)">
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={`?${searchParams.toString()}`}
             >
               {intl.formatMessage({

@@ -35,7 +35,7 @@ const ReviewHeading = ({ children, link }: ReviewHeadingProps) => {
       <Link
         href={`${paths.talentNomination(id)}?step=${link.to}`}
         mode="inline"
-        color="secondary"
+        color="primary"
       >
         {link.name}
       </Link>

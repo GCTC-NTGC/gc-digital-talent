@@ -369,7 +369,7 @@ const UpdateSkillShowcase = ({
                   </CardRepeater.Root>
                 </div>
                 <Separator />
-                <Link mode="solid" color="secondary" href={pageInfo.returnPath}>
+                <Link mode="solid" color="primary" href={pageInfo.returnPath}>
                   {intl.formatMessage(commonMessages.return)}
                 </Link>
               </div>

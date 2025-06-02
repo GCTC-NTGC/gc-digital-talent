@@ -6,11 +6,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Maybe } from "@gc-digital-talent/graphql";
 
 const contactLink = (chunks: ReactNode) => (
-  <Link
-    color="secondary"
-    external
-    href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca"
-  >
+  <Link external href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca">
     {chunks}
   </Link>
 );

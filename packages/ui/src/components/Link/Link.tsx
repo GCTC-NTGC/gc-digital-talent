@@ -17,7 +17,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
   (
     {
       href,
-      color = "secondary",
+      color = "primary",
       mode = "text",
       block = false,
       size = "md",

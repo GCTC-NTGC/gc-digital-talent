@@ -143,7 +143,7 @@ export const Component = () => {
                   })}
                 </li>
               </ul>
-              <Link href={loginPath} mode="solid" color="secondary" external>
+              <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and sign up",
                   id: "Nd1bIG",
@@ -571,7 +571,7 @@ export const Component = () => {
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <Link href={loginPath} mode="solid" color="secondary" external>
+            <Link href={loginPath} mode="solid" color="primary" external>
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign up",
                 id: "Nd1bIG",

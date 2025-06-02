@@ -269,7 +269,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
-                      <Link color="primary" mode="inline" href={item.href}>
+                      <Link color="secondary" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
                     </li>
@@ -295,7 +295,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
-                    <Link color="secondary" mode="inline" href={item.href}>
+                    <Link color="primary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>

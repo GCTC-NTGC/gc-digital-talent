@@ -405,7 +405,7 @@ const ReviewRecruitmentProcessDialog = ({
                   <Link
                     href={paths.application(recruitmentProcess.id)}
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                   >
                     {intl.formatMessage({
                       defaultMessage: "View application",
@@ -416,7 +416,7 @@ const ReviewRecruitmentProcessDialog = ({
                   <Link
                     href={paths.pool(pool.id)}
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                   >
                     {intl.formatMessage({
                       defaultMessage: "View job advertisement",

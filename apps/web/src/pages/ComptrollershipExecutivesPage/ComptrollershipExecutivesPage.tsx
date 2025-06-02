@@ -176,7 +176,7 @@ export const Component = () => {
           >
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.applicantDashboard()}
               data-h2-margin-top="base(x1.5)"
             >
@@ -334,7 +334,7 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={theTeamUrl[locale]}
@@ -410,7 +410,7 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={newsletterUrl[locale]}
@@ -486,7 +486,7 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={linkedInUrl}

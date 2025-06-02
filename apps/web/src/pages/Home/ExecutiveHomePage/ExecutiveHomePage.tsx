@@ -468,7 +468,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             external
             mode="solid"
-            color="primary"
+            color="secondary"
             href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
               intl.formatMessage({
                 defaultMessage: "EXposition",
