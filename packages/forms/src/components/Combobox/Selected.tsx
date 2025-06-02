@@ -1,7 +1,7 @@
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 
 type HTMLDivProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
@@ -9,7 +9,7 @@ type HTMLDivProps = DetailedHTMLProps<
 >;
 
 const Wrapper = (props: HTMLDivProps) => {
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   return (
     <div
       {...baseStyles}
