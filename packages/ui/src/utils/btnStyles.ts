@@ -110,42 +110,42 @@ export const btn = tv({
       color: "primary",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-primary-600 hover:text-primary-700",
+        base: "text-primary-600 hover:text-primary-700 dark:text-primary-200 dark:hover:text-primary-100",
       },
     },
     {
       color: "secondary",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-secondary-600 hover:text-secondary-700",
+        base: "text-secondary-600 hover:text-secondary-700 dark:text-secondary-200 dark:hover:text-secondary-100",
       },
     },
     {
       color: "success",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-success-600 hover:text-success-700",
+        base: "text-success-600 hover:text-success-700 dark:text-success-200 dark:hover:text-success-100",
       },
     },
     {
       color: "warning",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-warning-600 hover:text-warning-700",
+        base: "text-warning-600 hover:text-warning-700 dark:text-warning-200 dark:hover:text-warning-100",
       },
     },
     {
       color: "error",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-error-600 hover:text-error-700",
+        base: "text-error-600 hover:text-error-700 dark:text-error-100 dark:hover:text-error-200",
       },
     },
     {
       color: "black",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-black hover:text-gray-700",
+        base: "text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-100",
       },
     },
     {

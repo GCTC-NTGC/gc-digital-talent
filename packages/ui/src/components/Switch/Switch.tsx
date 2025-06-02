@@ -7,7 +7,7 @@ import useControllableState from "../../hooks/useControllableState";
 
 const switchStyles = tv({
   slots: {
-    base: "group/switch relative z-50 w-13 rounded-full bg-gray-100 p-0.5 transition-colors duration-100 ease-in-out outline-none focus-visible:bg-focus data-[state=checked]:focus-visible:bg-focus dark:bg-gray-600",
+    base: "group/switch relative w-13 rounded-full bg-gray-100 p-0.5 transition-colors duration-100 ease-in-out outline-none focus-visible:bg-focus data-[state=checked]:focus-visible:bg-focus dark:bg-gray-600",
     thumb:
       "flex h-6 w-6 translate-x-0 items-center justify-center rounded-full bg-white shadow-sm transition-transform duration-100 ease-in-out data-[state=checked]:translate-x-6 dark:bg-gray-700",
     icon: "size-4.5",
