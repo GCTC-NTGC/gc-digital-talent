@@ -61,10 +61,6 @@ const main: StorybookConfig = {
         // Weird thing to get tailwind working with storybook
         (await import("@tailwindcss/vite")).default(),
       ],
-      // Add dependencies to pre-optimization
-      optimizeDeps: {
-        include: ["storybook-dark-mode"],
-      },
     });
   },
 };
