@@ -13,10 +13,10 @@ import {
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
-import type { Color, HeadingRank, IconType } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
 import Chip, { ChipVariants } from "../Chip/Chip";
-import Link from "../Link";
+import Link, { LinkProps } from "../Link";
 import Button, { ButtonProps } from "../Button";
 import MetaDataStatusItem, {
   AccordionMetaDataStatusItemProps,
@@ -301,9 +301,9 @@ interface AccordionMetaDataButton {
 interface AccordionMetaDataLink {
   key: string;
   type: "link";
-  color?: Color;
+  color?: LinkProps["color"];
   children: ReactNode;
-  href?: string;
+  href: string;
 }
 
 interface AccordionMetaDataChip {
@@ -422,7 +422,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
               <Link
                 color={datum.color ?? "primary"}
                 href={datum.href}
-                fontSize="caption"
+                size="sm"
                 data-h2-font-weight="base(bold)"
                 key={datum.key}
               >
@@ -433,7 +433,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 <Link
                   color={datum.color ?? "primary"}
                   href={datum.href}
-                  fontSize="caption"
+                  size="sm"
                   data-h2-font-weight="base(bold)"
                 >
                   {datum.children}

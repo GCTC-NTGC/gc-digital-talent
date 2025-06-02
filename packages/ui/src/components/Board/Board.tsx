@@ -23,7 +23,6 @@ import { BoardProvider, useBoardContext } from "./BoardProvider";
 import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
-import getFontColor from "../../utils/button/getButtonFontColor";
 
 type RootProps = HTMLProps<HTMLDivElement> & {
   defaultItem?: number;
