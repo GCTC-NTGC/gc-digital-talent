@@ -89,7 +89,7 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
         })}
       </p> */}
       <Button
-        color="secondary"
+        color="primary"
         onClick={() => {
           onFormToggle(true);
         }}

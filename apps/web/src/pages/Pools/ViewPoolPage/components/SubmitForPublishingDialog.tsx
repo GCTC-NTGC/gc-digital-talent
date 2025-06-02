@@ -34,7 +34,7 @@ const SubmitForPublishingDialog = ({
     return (
       <Button
         mode="inline"
-        color="primary"
+        color="secondary"
         onClick={() => {
           toast.error(
             intl.formatMessage({
@@ -55,7 +55,7 @@ const SubmitForPublishingDialog = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button mode="inline" color="primary">
+        <Button mode="inline" color="secondary">
           {dialogTitle}
         </Button>
       </Dialog.Trigger>
@@ -94,7 +94,7 @@ const SubmitForPublishingDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button mode="inline" color="secondary">
+              <Button mode="inline" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close this dialog",
                   id: "n2bW9s",

@@ -398,7 +398,7 @@ const JobPosterTemplatesPage = () => {
                 <Button
                   type="reset"
                   mode="inline"
-                  color="secondary"
+                  color="primary"
                   block
                   onClick={() => reset(defaultValues)}
                 >

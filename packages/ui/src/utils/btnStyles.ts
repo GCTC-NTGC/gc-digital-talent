@@ -8,7 +8,6 @@ export const btn = tv({
     leadingIcon: "",
     trailingIcon: "",
     label: "leading-none underline",
-    content: "flex items-center justify-center gap-x-1.5",
   },
   variants: {
     mode: {
@@ -43,10 +42,10 @@ export const btn = tv({
     },
     block: {
       true: {
-        base: "block w-full text-center",
+        base: "flex w-full text-center",
       },
       false: {
-        base: "inline-block",
+        base: "inline-flex",
       },
     },
     disabled: {
@@ -60,28 +59,28 @@ export const btn = tv({
       color: "primary",
       mode: "solid",
       class: {
-        base: "border-primary bg-primary hover:bg-primary-100",
+        base: "border-primary bg-primary text-black hover:bg-primary-100",
       },
     },
     {
       color: "secondary",
       mode: "solid",
       class: {
-        base: "border-secondary bg-secondary hover:bg-secondary-100",
+        base: "border-secondary bg-secondary text-black hover:bg-secondary-100",
       },
     },
     {
       color: "success",
       mode: "solid",
       class: {
-        base: "border-success bg-success hover:bg-success-100",
+        base: "border-success bg-success text-black hover:bg-success-100",
       },
     },
     {
       color: "warning",
       mode: "solid",
       class: {
-        base: "border-warning bg-warning hover:bg-warning-100",
+        base: "border-warning bg-warning text-black hover:bg-warning-100",
       },
     },
     {
@@ -102,7 +101,7 @@ export const btn = tv({
       color: "white",
       mode: "solid",
       class: {
-        base: "border-gray-100 bg-gray-100 hover:border-gray-300 hover:bg-gray-600 hover:text-white",
+        base: "border-gray-100 bg-gray-100 text-black hover:border-gray-300 hover:bg-gray-600 hover:text-white",
       },
     },
 
@@ -246,6 +245,9 @@ export const iconBtn = tv({
       },
       black: {
         base: "text-black hover:bg-gray-100 dark:text-white dark:hover:text-black",
+      },
+      white: {
+        base: "text-whitw hover:bg-gray-100 dark:text-black dark:hover:text-white",
       },
     },
     size: {

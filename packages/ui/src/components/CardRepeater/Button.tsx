@@ -61,7 +61,7 @@ export const Add = forwardRef<
       type="button"
       mode="placeholder"
       block
-      color="secondary"
+      color="primary"
       {...rest}
     >
       {reachedMax ? (

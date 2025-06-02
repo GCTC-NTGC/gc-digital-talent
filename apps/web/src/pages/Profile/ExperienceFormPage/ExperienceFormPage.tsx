@@ -635,7 +635,7 @@ export const ExperienceForm = ({
                         </AlertDialog.Description>
                         <AlertDialog.Footer>
                           <AlertDialog.Cancel>
-                            <Button type="button" color="secondary">
+                            <Button type="button" color="primary">
                               {intl.formatMessage(commonMessages.cancel)}
                             </Button>
                           </AlertDialog.Cancel>
@@ -643,7 +643,7 @@ export const ExperienceForm = ({
                             <Button
                               type="submit"
                               mode="solid"
-                              color="primary"
+                              color="secondary"
                               onClick={handleDeleteExperience}
                             >
                               {intl.formatMessage(commonMessages.delete)}

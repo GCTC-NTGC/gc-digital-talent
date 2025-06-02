@@ -164,11 +164,11 @@ const ChangeExpiryDateDialog = ({
               />
               <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
               <Dialog.Footer>
-                <Button type="submit" color="secondary" disabled={fetching}>
+                <Button type="submit" color="primary" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="secondary">
+                  <Button mode="inline" color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>

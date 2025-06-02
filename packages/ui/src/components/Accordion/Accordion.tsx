@@ -17,7 +17,7 @@ import type { Color, HeadingRank, IconType } from "../../types";
 import { AccordionMode } from "./types";
 import Chip, { ChipVariants } from "../Chip/Chip";
 import Link from "../Link";
-import Button from "../Button";
+import Button, { ButtonProps } from "../Button";
 import MetaDataStatusItem, {
   AccordionMetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
@@ -293,7 +293,7 @@ interface AccordionMetaDataText {
 interface AccordionMetaDataButton {
   key: string;
   type: "button";
-  color?: Color;
+  color?: ButtonProps["color"];
   onClick?: () => void;
   children: ReactNode;
 }
@@ -408,7 +408,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
                 <Button
                   mode="text"
                   color={datum.color ?? "primary"}
-                  fontSize="caption"
+                  size="sm"
                   data-h2-font-weight="base(bold)"
                   onClick={datum.onClick}
                 >

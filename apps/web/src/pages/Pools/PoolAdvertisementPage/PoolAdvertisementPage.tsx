@@ -570,7 +570,7 @@ export const PoolPoster = ({
               </span>
               <Button
                 mode="inline"
-                color="secondary"
+                color="primary"
                 icon={linkCopied ? CheckIcon : undefined}
                 onClick={async () => {
                   await navigator.clipboard.writeText(window.location.href);
@@ -857,7 +857,7 @@ export const PoolPoster = ({
                 <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                     onClick={toggleSkillsValue}
                     aria-label={
                       skillsValue.length > 0
@@ -1023,7 +1023,7 @@ export const PoolPoster = ({
                 <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                     onClick={toggleMoreInfoValue}
                     aria-label={
                       moreInfoValue.length > 0

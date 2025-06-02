@@ -174,7 +174,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
         </div>
         <Dialog.Footer>
-          <Button type="submit" color="secondary">
+          <Button type="submit" color="primary">
             {intl.formatMessage({
               defaultMessage: "Submit evaluation",
               id: "g82nk3",

@@ -168,13 +168,13 @@ const EditProcessRoleDialog = ({
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="primary"
                   type="submit"
                   disabled={isSubmitting}
                 >

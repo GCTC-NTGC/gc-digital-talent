@@ -215,7 +215,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         data-h2-margin="base(x1, 0, 0, 0)"
       >
         <Button
-          color="secondary"
+          color="primary"
           type="submit"
           mode="inline"
           {...poolSubmitProps}

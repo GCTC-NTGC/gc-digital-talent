@@ -182,7 +182,7 @@ const ApplicationInformation = ({
           {application && snapshot && (
             <DownloadButton id={application.id} userId={snapshot.id} />
           )}
-          <Button mode="inline" color="secondary" onClick={toggleSections}>
+          <Button mode="inline" color="primary" onClick={toggleSections}>
             {hasOpenSections
               ? intl.formatMessage({
                   defaultMessage:

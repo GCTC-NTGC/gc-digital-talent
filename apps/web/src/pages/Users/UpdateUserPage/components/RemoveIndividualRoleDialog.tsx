@@ -101,7 +101,7 @@ const RemoveIndividualRoleDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>

@@ -79,7 +79,7 @@ const EquityOption = ({
       </p>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
       <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
-        <Button type="button" mode="inline" color="secondary">
+        <Button type="button" mode="inline" color="primary">
           {isAdded ? (
             removeText
           ) : (

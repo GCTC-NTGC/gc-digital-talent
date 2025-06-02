@@ -11,7 +11,7 @@ const DefinitionDialog = ({ children, btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="primary" mode="inline" {...btnProps}>
+        <Button color="secondary" mode="inline" {...btnProps}>
           {children}
         </Button>
       </Dialog.Trigger>

@@ -399,11 +399,7 @@ const ReviewRecruitmentProcessDialog = ({
                   data-h2-gap="base(x1 0) p-tablet(0 x1)"
                   data-h2-flex-direction="base(column) p-tablet(row)"
                 >
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    color="secondary"
-                  >
+                  <Button type="submit" disabled={isSubmitting} color="primary">
                     {intl.formatMessage(formMessages.saveChanges)}
                   </Button>
                   <Link

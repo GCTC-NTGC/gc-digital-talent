@@ -21,7 +21,7 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="primary" mode="solid" {...btnProps}>
+        <Button color="secondary" mode="solid" {...btnProps}>
           {intl.formatMessage({
             defaultMessage: "Apply Now",
             id: "DvmNR7",

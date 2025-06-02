@@ -432,7 +432,7 @@ export const ApplicationCareerTimeline = ({
           >
             <Button
               type="submit"
-              color="secondary"
+              color="primary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {

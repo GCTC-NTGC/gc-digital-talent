@@ -21,7 +21,7 @@ const AccommodationsDialog = ({ btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="secondary" mode="solid" {...btnProps}>
+        <Button color="primary" mode="solid" {...btnProps}>
           {intl.formatMessage({
             defaultMessage: "Accessibility and accommodations",
             id: "CKsQyK",

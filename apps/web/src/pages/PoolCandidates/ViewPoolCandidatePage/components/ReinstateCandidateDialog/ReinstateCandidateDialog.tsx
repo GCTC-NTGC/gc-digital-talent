@@ -143,7 +143,7 @@ const ReinstateCandidateDialog = ({
 
           <Dialog.Footer>
             <Button
-              color="secondary"
+              color="primary"
               disabled={fetching}
               onClick={handleReinstate}
             >

@@ -142,7 +142,7 @@ const DeadlineDialog = () => {
           </div>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close",
                   id: "4p0QdF",

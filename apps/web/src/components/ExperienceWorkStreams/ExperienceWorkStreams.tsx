@@ -282,7 +282,7 @@ const ExperienceWorkStreams = ({
             <Button
               icon={PlusCircleIcon}
               mode="placeholder"
-              color="secondary"
+              color="primary"
               data-h2-display="base(block)"
               data-h2-width="base(100%)"
             >

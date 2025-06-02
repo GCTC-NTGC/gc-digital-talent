@@ -362,7 +362,7 @@ export const EmployeeInformationFormFields = ({
         >
           <Button
             mode="solid"
-            color="secondary"
+            color="primary"
             onClick={() => setValue("skipVerification", false)}
             {...skipVerificationProps}
           >
@@ -374,7 +374,7 @@ export const EmployeeInformationFormFields = ({
           </Button>
           <Button
             mode="inline"
-            color="secondary"
+            color="primary"
             {...skipVerificationProps}
             onClick={() => {
               setValue("skipVerification", true);
@@ -391,7 +391,7 @@ export const EmployeeInformationFormFields = ({
       ) : (
         <Button
           mode="solid"
-          color="secondary"
+          color="primary"
           {...skipVerificationProps}
           onClick={() => {
             setValue("skipVerification", true);

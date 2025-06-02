@@ -28,6 +28,7 @@ import {
 import {
   Accordion,
   Button,
+  ButtonProps,
   Color,
   Dialog,
   HeadingLevel,
@@ -431,7 +432,7 @@ export const ScreeningDecisionDialog = ({
     skillDecisionNotes: null,
   };
 
-  const triggerColor = (): Color => {
+  const triggerColor = (): ButtonProps["color"] => {
     if (
       initialValues?.assessmentDecision === AssessmentDecision.Unsuccessful &&
       poolSkill?.type?.value === PoolSkillType.Nonessential

@@ -436,7 +436,7 @@ export const UpdateUserSkillForm = ({
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x1)"
                   >
-                    <Button type="submit" color="secondary" disabled={mutating}>
+                    <Button type="submit" color="primary" disabled={mutating}>
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
                     {hasUserSkill && (
@@ -552,7 +552,7 @@ export const UpdateUserSkillForm = ({
                               <Dialog.Close>
                                 <Button
                                   mode="inline"
-                                  color="secondary"
+                                  color="primary"
                                   disabled={updating || creating}
                                 >
                                   {intl.formatMessage({
@@ -600,7 +600,7 @@ export const UpdateUserSkillForm = ({
                     skill={skill}
                     availableExperiencesQuery={availableExperiences}
                     trigger={
-                      <Button color="secondary" icon={PlusCircleIcon}>
+                      <Button color="primary" icon={PlusCircleIcon}>
                         {intl.formatMessage({
                           defaultMessage: "Link an experience",
                           id: "Y2ULHN",

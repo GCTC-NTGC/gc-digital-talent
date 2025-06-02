@@ -73,7 +73,7 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
           <Dialog.Footer>
             <div>
               <Dialog.Close>
-                <Button color="secondary">
+                <Button color="primary">
                   {intl.formatMessage(formMessages.cancelGoBack)}
                 </Button>
               </Dialog.Close>

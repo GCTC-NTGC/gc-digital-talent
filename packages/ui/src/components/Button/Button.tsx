@@ -30,7 +30,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Icon = icon;
     const UtilityIcon = utilityIcon;
-    const { base, leadingIcon, trailingIcon, label, content } = btn({
+    const { base, leadingIcon, trailingIcon, label } = btn({
       color,
       block,
       mode,
@@ -44,11 +44,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         {...rest}
       >
-        <span className={content()}>
-          {Icon && <Icon className={leadingIcon()} />}
-          <span className={label()}>{children}</span>
-          {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
-        </span>
+        {Icon && <Icon className={leadingIcon()} />}
+        <span className={label()}>{children}</span>
+        {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
       </button>
     );
   },

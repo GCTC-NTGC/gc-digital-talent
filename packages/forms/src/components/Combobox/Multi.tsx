@@ -300,7 +300,7 @@ const Multi = ({
               type="button"
               mode="inline"
               color="black"
-              fontSize="caption"
+              size="sm"
               onClick={handleReset}
               data-h2-font-weight="base(400)"
             >

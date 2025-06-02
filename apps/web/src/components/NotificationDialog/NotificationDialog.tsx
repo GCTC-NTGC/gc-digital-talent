@@ -16,6 +16,7 @@ import {
   Link,
   Color,
   IconButton,
+  ButtonProps,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -190,7 +191,7 @@ interface NotificationDialog {
   /** Callback when the section has been 'opened */
   onOpenChange?: (open: boolean) => void;
   /** Trigger color */
-  color?: Color;
+  color?: ButtonProps["color"];
 }
 const NotificationDialog = ({
   open,
@@ -219,50 +220,70 @@ const NotificationDialog = ({
     60,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
+  const buttonLabel = open
+    ? intl.formatMessage({
+        defaultMessage: "Close notifications",
+        id: "J1n6QO",
+        description: "Button text to close the notifications dialog",
+      })
+    : intl.formatMessage(
+        {
+          defaultMessage: "View notifications{count}",
+          id: "l82MWI",
+          description: "Button text to open the notifications dialog",
+        },
+        {
+          count:
+            notificationCount > 0
+              ? ` ${intl.formatMessage({
+                  defaultMessage: "(there are unread notifications)",
+                  id: "o+YSXN",
+                  description: "Notice of unread notifications",
+                })}`
+              : "",
+        },
+      );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {open ? (
         <Dialog.Close asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
-            icon={XMarkIcon}
-            aria-label={intl.formatMessage({
-              defaultMessage: "Close notifications",
-              id: "J1n6QO",
-              description: "Button text to close the notifications dialog",
-            })}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color={color ?? "black"}
+              icon={XMarkIcon}
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={color ?? "white"}
+              icon={XMarkIcon}
+              label={buttonLabel}
+            />
+          )}
         </Dialog.Close>
       ) : (
         <DialogPrimitive.Trigger asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={isSmallScreen ? "black" : "secondary"}
-            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            aria-label={intl.formatMessage(
-              {
-                defaultMessage: "View notifications{count}",
-                id: "l82MWI",
-                description: "Button text to open the notifications dialog",
-              },
-              {
-                count:
-                  notificationCount > 0
-                    ? ` ${intl.formatMessage({
-                        defaultMessage: "(there are unread notifications)",
-                        id: "o+YSXN",
-                        description: "Notice of unread notifications",
-                      })}`
-                    : "",
-              },
-            )}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-            data-icon="true"
-            {...(!isSmallScreen && linkColorStyling)}
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color="black"
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={isSmallScreen ? "black" : "secondary"}
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              label={buttonLabel}
+              {...linkColorStyling}
+            />
+          )}
         </DialogPrimitive.Trigger>
       )}
 

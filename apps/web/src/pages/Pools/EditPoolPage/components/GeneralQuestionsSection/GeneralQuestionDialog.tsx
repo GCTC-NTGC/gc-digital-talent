@@ -145,7 +145,7 @@ const GeneralQuestionDialog = ({
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button
                   type="submit"
-                  color="secondary"
+                  color="primary"
                   {...actionProps}
                   onClick={() => setValue("action", "save")}
                 >

@@ -18,11 +18,10 @@ import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
 import OurIconLink, {
   IconLinkProps as BaseIconLinkProps,
 } from "../Link/IconLink";
-import { ButtonStyleInterface } from "../../utils/button/getButtonStyles";
 import { ButtonLinkMode, Color, IconType } from "../../types";
 import { useNavMenuContext } from "./NavMenuProvider";
 import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
-import Button from "../Button";
+import Button, { ButtonProps } from "../Button";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -36,7 +35,7 @@ const Root = forwardRef<
 type TriggerProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Trigger
 > &
-  ButtonStyleInterface;
+  ButtonProps;
 
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,

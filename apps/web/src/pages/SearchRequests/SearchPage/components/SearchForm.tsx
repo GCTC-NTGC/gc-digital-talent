@@ -257,7 +257,7 @@ export const SearchForm = ({
                 <>
                   <p data-h2-margin="base(x1, 0)">
                     <Button
-                      color="primary"
+                      color="secondary"
                       type="submit"
                       {...poolSubmitProps}
                       value=""

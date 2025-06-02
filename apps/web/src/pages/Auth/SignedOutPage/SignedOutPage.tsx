@@ -210,7 +210,7 @@ export const Component = () => {
           <AlertDialog.Footer>
             <AlertDialog.Action>
               <Button
-                color="secondary"
+                color="primary"
                 type="button"
                 onClick={() => {
                   logout();

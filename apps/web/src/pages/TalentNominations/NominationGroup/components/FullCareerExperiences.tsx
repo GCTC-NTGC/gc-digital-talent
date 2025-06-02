@@ -194,7 +194,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={toggleSections}
             >
               {intl.formatMessage(
@@ -233,7 +233,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={() => setSelectedView("type")}
               data-h2-font-weight={
                 selectedView === "type" ? "base(700)" : "base(400)"
@@ -250,7 +250,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={() => setSelectedView("workStream")} // Set view to "workStream"
               data-h2-font-weight={
                 selectedView === "workStream" ? "base(700)" : "base(400)"

@@ -85,7 +85,7 @@ const LanguageSelector = () => {
         </p>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
-            <Button color="primary" utilityIcon={ChevronDownIcon}>
+            <Button color="secondary" utilityIcon={ChevronDownIcon}>
               {currentLocale ??
                 intl.formatMessage({
                   defaultMessage:

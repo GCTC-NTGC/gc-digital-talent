@@ -79,7 +79,7 @@ const CommunityInterestDialog = ({
               })}
             </Link>
             <Dialog.Close>
-              <Button mode="inline" color="quaternary">
+              <Button mode="inline" color="warning">
                 {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>

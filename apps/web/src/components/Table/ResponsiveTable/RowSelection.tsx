@@ -138,14 +138,12 @@ const Bullet = (props: Omit<BulletProps, "children">) => (
 );
 
 // Simple common props for action buttons
-export const actionButtonStyles: Pick<
-  ButtonProps,
-  "mode" | "color" | "fontSize"
-> = {
-  mode: "inline",
-  color: "whiteFixed",
-  fontSize: "caption",
-};
+export const actionButtonStyles: Pick<ButtonProps, "mode" | "color" | "size"> =
+  {
+    mode: "inline",
+    color: "white",
+    size: "sm",
+  };
 
 interface DownloadAllButtonProps {
   download: DownloadDef["all"];
@@ -291,8 +289,8 @@ const Actions = ({
                   data-h2-display="base(flex)"
                   data-h2-align-items="base(center)"
                   onClick={onClear}
-                  color="whiteFixed"
-                  fontSize="caption"
+                  color="white"
+                  size="sm"
                   mode="inline"
                 >
                   {intl.formatMessage({
