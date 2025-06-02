@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
@@ -84,7 +84,7 @@ const RadioGroup = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStyles();
+  const baseStyles = useInputStylesDeprecated();
   const shouldReduceMotion = useReducedMotion();
   const baseRadioStyles = getCheckboxRadioStyles(shouldReduceMotion);
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);

@@ -3,7 +3,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import CardOptionGroup, {
   type CardOption,
   type CardOptionGroupProps,
-} from "./components/CardOptionGroup";
+} from "./components/CardOptionGroup/CardOptionGroup";
 import Checkbox, { type CheckboxProps } from "./components/Checkbox/Checkbox";
 import CheckButton, {
   CheckButtonProps,
@@ -57,7 +57,7 @@ import {
   flattenErrors,
   alphaSortOptions,
 } from "./utils";
-import useInputStyles from "./hooks/useInputStyles";
+import { useInputStylesDeprecated } from "./hooks/useInputStyles";
 import useFieldState from "./hooks/useFieldState";
 import useFieldStateStyles from "./hooks/useFieldStateStyles";
 import useInputDescribedBy from "./hooks/useInputDescribedBy";
@@ -139,7 +139,7 @@ export {
   matchStringCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
-  useInputStyles as useCommonInputStyles,
+  useInputStylesDeprecated as useCommonInputStyles,
   useInputDescribedBy,
   useFieldState,
   useFieldStateStyles,

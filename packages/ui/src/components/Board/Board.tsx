@@ -227,34 +227,17 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
           ref={forwardedRef}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          data-h2-position="base(relative)"
-          data-h2-radius="base(s)"
-          data-h2-background="base(background)"
-          data-h2-width="base(100%)"
+          className="relative w-full rounded bg-gray-100 dark:bg-gray-700"
           {...rest}
         >
           <div
             id={rootId}
             ref={rootRef}
-            data-h2-align-items="base(flex-start)"
-            data-h2-display="base(flex)"
-            data-h2-gap="base(0 x.5)"
-            data-h2-justify-content="base(flex-start)"
-            data-h2-overflow-x="base(scroll)"
-            data-h2-padding="base(x1)"
-            data-h2-position="base(relative)"
-            data-h2-z-index="base(1)"
+            className="relative z-10 flex items-start justify-start gap-x-3 overflow-x-scroll p-6"
           >
             {children}
           </div>
-          <div
-            data-h2-position="base(absolute)"
-            data-h2-pointer-events="base(none)"
-            data-h2-z-index="base(2)"
-            data-h2-inset="base(0)"
-            data-h2-shadow="base(inside)"
-            data-h2-radius="base(s)"
-          />
+          <div className="pointer-events-none absolute inset-0 z-20 rounded inset-shadow" />
         </div>
       </BoardProvider>
     );
@@ -266,17 +249,7 @@ const Column = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
     return (
       <div
         ref={forwardedRef}
-        className="Board__Column"
-        data-h2-background="base(foreground)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-radius="base(s)"
-        data-h2-shadow="base(l)"
-        data-h2-flex-shrink="base(0)"
-        data-h2-min-height="base(x12)"
-        // Quick maths to get the board to appear on any viewport height
-        data-h2-max-height="base(calc(90vh - x2))"
-        data-h2-width="base(100%) p-tablet(x14)"
+        className="Board__Column flex max-h-[calc(90vh-var(--spacing)*12)] min-h-72 w-full shrink-0 flex-col rounded bg-white shadow-lg xs:w-84 dark:bg-gray-600"
         {...rest}
       >
         {children}
@@ -294,23 +267,15 @@ const ColumnHeader = forwardRef<HTMLDivElement, ColumnHeaderProps>(
     return (
       <div
         ref={forwardedRef}
-        className="Board__ColumnHeader"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(0 x.5)"
-        data-h2-padding="base(x.5)"
-        data-h2-border-bottom="base(thin solid black.lightest)"
+        className="Board__ColumnHeader flex flex-col gap-x-3 border-b border-b-gray-100 p-3 dark:border-b-gray-600"
         {...rest}
       >
         {prefix && (
-          <span
-            data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light)"
-          >
+          <span className="text-sm text-gray-500 dark:text-gray-200">
             {prefix}
           </span>
         )}
-        <span data-h2-font-size="base(h6)" data-h2-font-weight="base(700)">
+        <span className="text-lg/[1.1] font-bold lg:text-xl/[1.1]">
           {children}
         </span>
       </div>
@@ -345,52 +310,23 @@ const Info = ({
     <Collapsible.Root
       open={isOpen}
       onOpenChange={setIsOpen}
-      data-h2-width="base(100%)"
-      data-h2-border-bottom="base(thin solid black.lightest)"
+      className="w-full border-b border-b-gray-100 dark:border-b-gray-600"
     >
-      <Collapsible.Trigger
-        data-h2-color="base:children[.Info__Trigger__Title](secondary.darker) base:hover:children[.Info__Trigger__Title](secondary.darker)"
-        data-h2-text-decoration="base:children[.Info__Trigger__Title](underline) base:hover:children[.Info__Trigger__Title](none)"
-        data-h2-background="base(transparent)"
-        data-h2-align-items="base(center)"
-        data-h2-display="base(flex)"
-        data-h2-gap="base(0 x.25)"
-        data-h2-width="base(100%)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-padding="base(x.5 x.35)"
-        data-h2-transform="
-          base:children[.Info__Chevron](rotate(0deg))
-          base:selectors[[data-state='open']]:children[.Info__Chevron](rotate(90deg))"
-      >
-        <span
-          data-h2-display="base(flex)"
-          data-h2-gap="base(0 x.25)"
-          data-h2-align-items="base(center)"
-        >
-          <ChevronRightIcon
-            className="Info__Chevron"
-            data-h2-height="base(x.75)"
-            data-h2-width="base(x.75)"
-            data-h2-transition="base(transform 150ms ease)"
-            {...getFontColor({ mode: "inline", color: "black" })}
-          />
-          <span className="Info__Trigger__Title">{title}</span>
+      <Collapsible.Trigger className="group/trigger flex w-full items-center justify-between gap-x-1.5 bg-transparent px-2 py-3">
+        <span className="flex items-center gap-x-3">
+          <ChevronRightIcon className="ease size-4 rotate-0 transform text-gray-700 underline transition-transform duration-150 group-hover/trigger:text-primary-600 group-focus-visible/trigger:text-black group-data-[state=open]/trigger:rotate-90 dark:text-gray-100 dark:group-hover/trigger:text-primary-200" />
+          <span className="text-primary-600 underline group-hover/trigger:no-underline dark:text-primary-200">
+            {title}
+          </span>
         </span>
         {counter && counter >= 0 ? (
           <Counter
             count={counter}
-            data-h2-color="base(black)"
-            data-h2-radius="base(x.5)"
-            data-h2-background="base(gray.lightest)"
-            data-h2-padding="base(x.125 x.5)"
+            className="rounded-full bg-gray-100 px-2 py-1 text-black dark:bg-gray-700 dark:text-white"
           />
         ) : null}
       </Collapsible.Trigger>
-      <Collapsible.Content
-        data-h2-background="base(background)"
-        data-h2-padding="base(x.5)"
-        data-h2-shadow="base(inside)"
-      >
+      <Collapsible.Content className="bg-gray-100/20 p-3 inset-shadow dark:bg-gray-700/20">
         {children}
       </Collapsible.Content>
     </Collapsible.Root>
@@ -402,20 +338,10 @@ const List = forwardRef<HTMLUListElement, HTMLProps<HTMLUListElement>>(
     return (
       <ul
         ref={forwardedRef}
-        className="Board__List"
         // Note: Scrollable regions should be tabbable
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        data-h2-outline="base:focus-visible(primary.30 solid x.125)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-list-style="base(none)"
-        data-h2-flex-grow="base(1)"
-        data-h2-flex-shrink="base(1)"
-        data-h2-overflow-y="base(scroll)"
-        data-h2-margin="base(0)"
-        data-h2-padding="base(0 x.5)"
-        data-h2-border-bottom="base:selectors[>li:not(:last-child)](thin solid black.lightest)"
+        className="Board__List m-0 flex shrink grow list-none flex-col overflow-y-scroll px-3 focus-visible:outline-offset-2 focus-visible:outline-secondary/30 [li]:not-last:border-b [li]:not-last:border-b-gray-100"
         {...rest}
       >
         {children}
@@ -431,19 +357,12 @@ const ListItem = forwardRef<HTMLLIElement, HTMLProps<HTMLLIElement>>(
     return (
       <li
         ref={forwardedRef}
-        className="Board__Item"
+        className="Board__Item group/item py-3 outline-none not-last:border-b not-last:border-b-gray-100 dark:not-last:border-b-gray-500"
         tabIndex={-1}
         onClick={ctx?.handleClickItem}
-        data-h2-outline="base(none)"
-        data-h2-padding="base(x.5 0)"
-        data-h2-background-color="base:focus-visible:children[.Board__Item__Wrapper](primary.30)"
         {...rest}
       >
-        <div
-          className="Board__Item__Wrapper"
-          data-h2-radius="base(s)"
-          data-h2-padding="base(x.125)"
-        >
+        <div className="Board__Item__Wrapper rounded p-1 group-focus-visible/item:bg-secondary/30">
           {children}
         </div>
       </li>

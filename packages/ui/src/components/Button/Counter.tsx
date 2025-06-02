@@ -1,4 +1,9 @@
 import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
+import { tv } from "tailwind-variants";
+
+const counter = tv({
+  base: "ml-2 rounded-md p-1 text-sm/[1] font-bold transition-all duration-200 ease-linear",
+});
 
 type CounterProps = DetailedHTMLProps<
   HTMLAttributes<HTMLSpanElement>,
@@ -8,16 +13,10 @@ type CounterProps = DetailedHTMLProps<
 };
 
 const Counter = forwardRef<HTMLSpanElement, CounterProps>(
-  ({ count, ...rest }, forwardedRef) => (
+  ({ count, className, ...rest }, forwardedRef) => (
     <span
       ref={forwardedRef}
-      className="counter"
-      data-h2-padding="base(x.15)"
-      data-h2-radius="base(rounded)"
-      data-h2-margin-left="base(x.35)"
-      data-h2-font-size="base(caption, 1)"
-      data-h2-font-weight="base(700)"
-      data-h2-transition="base(all .2s ease)"
+      className={counter({ class: [className, "counter"] })}
       {...rest}
     >
       {count}

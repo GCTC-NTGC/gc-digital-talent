@@ -123,7 +123,7 @@ const EmployeeProfile = ({
     crumbs: [
       {
         label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.profileAndApplications(),
+        url: paths.applicantDashboard(),
       },
       {
         url: paths.employeeProfile(),

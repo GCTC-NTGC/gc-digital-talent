@@ -1,5 +1,24 @@
 import { m, useReducedMotion } from "motion/react";
 import { HTMLProps, ReactNode } from "react";
+import { tv } from "tailwind-variants";
+
+const loading = tv({
+  slots: {
+    base: "grid place-items-center",
+    wrapper: "relative",
+  },
+  variants: {
+    inline: {
+      false: {
+        base: "fixed inset-0 z-[99999] bg-white/95 dark:bg-gray-700/95",
+      },
+      true: {
+        base: "relative m-6",
+        wrapper: "size-8 rounded-full bg-white shadow-sm dark:bg-gray-700",
+      },
+    },
+  },
+});
 
 export interface LoadingProps extends HTMLProps<HTMLDivElement> {
   inline?: boolean;
@@ -29,67 +48,34 @@ const Loading = ({
   ...rest
 }: LoadingProps) => {
   const shouldReduceMotion = useReducedMotion();
-  const inlineWrapper = {
-    inline: {
-      "data-h2-background-color": "base(white)",
-      "data-h2-padding": "base(x.25)",
-      "data-h2-position": "base(relative)",
-      "data-h2-height": "base(x1.5)",
-      "data-h2-width": "base(x1.5)",
-      "data-h2-radius": "base(100%)",
-    },
-    none: {},
-  };
-  const typeMap = {
-    inline: {
-      "data-h2-position": "base(relative)",
-      "data-h2-margin": "base(x1)",
-    },
-    full: {
-      "data-h2-position": "base(fixed)",
-      "data-h2-background-color": "base(white.95)",
-      "data-h2-location": "base(0)",
-      "data-h2-z-index": "base(9999)",
-    },
-  };
+  const { base, wrapper } = loading({ inline });
 
   return (
     <div
       aria-busy="true"
-      {...typeMap[inline ? "inline" : "full"]}
       {...(live && {
         "aria-live": live,
       })}
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(center)"
+      className={base()}
       {...rest}
     >
-      <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
-        <span data-h2-display="base(inline-block)">
-          <span data-h2-visually-hidden="base(invisible)">{children}</span>
-          <m.span
-            data-h2-display="base(block)"
-            data-h2-height="base(x1)"
-            data-h2-width="base(x1)"
-            data-h2-radius="base(50%)"
-            data-h2-border-width="base(6px)"
-            data-h2-border-style="base(solid)"
-            data-h2-border-color="base(primary transparent primary transparent)"
-            {...(!pause &&
-              !shouldReduceMotion && {
-                animate: {
-                  rotate: [0, 360],
-                },
-                transition: {
-                  ease: "linear",
-                  duration: 1,
-                  repeat: Infinity,
-                  repeatDelay: 0,
-                },
-              })}
-          />
-        </span>
+      <div className={wrapper()}>
+        <span className="sr-only">{children}</span>
+        <m.span
+          className="absolute top-1/2 left-1/2 block size-6 -translate-1/2 transform rounded-full border-6 border-transparent border-t-secondary border-b-secondary"
+          {...(!pause &&
+            !shouldReduceMotion && {
+              animate: {
+                rotate: [0, 360],
+              },
+              transition: {
+                ease: "linear",
+                duration: 1,
+                repeat: Infinity,
+                repeatDelay: 0,
+              },
+            })}
+        />
       </div>
     </div>
   );

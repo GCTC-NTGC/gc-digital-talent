@@ -8,7 +8,7 @@ import type { CommonInputProps, OptGroupOrOption } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
+import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import { alphaSortOptions } from "../../utils";
 
 export type SelectProps = CommonInputProps &
@@ -57,7 +57,7 @@ const Select = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStyles("select");
+  const baseStyles = useInputStylesDeprecated("select");
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
