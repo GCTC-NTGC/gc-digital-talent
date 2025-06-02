@@ -19,7 +19,9 @@ export const btn = tv({
       solid: {
         base: "rounded-md border-3 focus-visible:border-focus",
       },
-      placeholder: { base: "rounded-md border-dashed" },
+      placeholder: {
+        base: "rounded-md border-3 border-dashed focus-visible:border-focus",
+      },
     },
     color: {
       primary: {},
@@ -53,7 +55,7 @@ export const btn = tv({
     },
   },
   compoundVariants: [
-    // Colour Variants
+    // Solid Colour Variants
     {
       color: "primary",
       mode: "solid",
@@ -100,27 +102,78 @@ export const btn = tv({
       color: "white",
       mode: "solid",
       class: {
-        base: "border-gray-100 bg-gray-100 hover:border-gray-300 hover:bg-gray-700 hover:text-white",
+        base: "border-gray-100 bg-gray-100 hover:border-gray-300 hover:bg-gray-600 hover:text-white",
+      },
+    },
+
+    // Outline, text, placeholder colour variants
+    {
+      color: "primary",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-primary-600 hover:text-primary-700",
+      },
+    },
+    {
+      color: "secondary",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-secondary-600 hover:text-secondary-700",
+      },
+    },
+    {
+      color: "success",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-success-600 hover:text-success-700",
+      },
+    },
+    {
+      color: "warning",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-warning-600 hover:text-warning-700",
+      },
+    },
+    {
+      color: "error",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-error-600 hover:text-error-700",
+      },
+    },
+    {
+      color: "black",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-black hover:text-gray-700",
+      },
+    },
+    {
+      color: "white",
+      mode: ["inline", "text", "placeholder"],
+      class: {
+        base: "text-white hover:text-gray-100",
       },
     },
 
     // Size variants
     {
-      mode: "solid",
+      mode: ["solid", "placeholder"],
       size: "sm",
       class: {
         base: "px-3 py-2",
       },
     },
     {
-      mode: "solid",
+      mode: ["solid", "placeholder"],
       size: "md",
       class: {
         base: "px-5 py-2",
       },
     },
     {
-      mode: "solid",
+      mode: ["solid", "placeholder"],
       size: "lg",
       class: {
         base: "px-6 py-2",
@@ -131,7 +184,8 @@ export const btn = tv({
     {
       disabled: true,
       mode: "solid",
-      class: "border-gray-200 bg-gray-100 text-black hover:bg-gray-100",
+      class:
+        "border-gray-200 bg-gray-100 text-black hover:bg-gray-100 hover:text-black",
     },
   ],
   compoundSlots: [
