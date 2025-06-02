@@ -136,7 +136,7 @@ return [
     */
 
     'security' => [
-        'max_query_complexity' => GraphQL\Validator\Rules\QueryComplexity::DISABLED,
+        'max_query_complexity' => 50000, // examples: applicant dashboard - 508, candidate search - 2491, AvailablePoolsToAddTo - 27001, ScreeningAndEvaluation_Candidates - 4201, PoolsInFilter - 20001
         'max_query_depth' => GraphQL\Validator\Rules\QueryDepth::DISABLED,
         'disable_introspection' => (bool) env('LIGHTHOUSE_SECURITY_DISABLE_INTROSPECTION', false)
             ? GraphQL\Validator\Rules\DisableIntrospection::ENABLED
