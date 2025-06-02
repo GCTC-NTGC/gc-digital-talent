@@ -91,12 +91,19 @@ const Item = forwardRef<
 
 const trigger = tv({
   slots: {
-    header: "flex items-start justify-between gap-x-3",
+    header: "flex items-start justify-between gap-3",
     btn: "group/btn flex grow items-start gap-x-3 text-left outline-none",
     heading: "m-0 text-lg/none font-bold lg:text-xl/none",
     iconSize: "shrink-0",
+    ctx: "flex items-center gap-x-3",
   },
   variants: {
+    hasContext: {
+      true: {
+        header: "flex-col xs:flex-row",
+        ctx: "xs:pl-0",
+      },
+    },
     mode: {
       simple: {
         header: "py-3",
@@ -120,6 +127,56 @@ const trigger = tv({
       },
     },
   },
+  compoundVariants: [
+    {
+      hasContext: true,
+      size: "sm",
+      mode: "simple",
+      class: {
+        ctx: "pl-8",
+      },
+    },
+    {
+      hasContext: true,
+      size: "md",
+      mode: "simple",
+      class: {
+        ctx: "pl-9",
+      },
+    },
+    {
+      hasContext: true,
+      size: "lg",
+      mode: "simple",
+      class: {
+        ctx: "pl-10",
+      },
+    },
+    {
+      hasContext: true,
+      size: "sm",
+      mode: "card",
+      class: {
+        ctx: "pl-8",
+      },
+    },
+    {
+      hasContext: true,
+      size: "md",
+      mode: "card",
+      class: {
+        ctx: "pl-9",
+      },
+    },
+    {
+      hasContext: true,
+      size: "lg",
+      mode: "card",
+      class: {
+        ctx: "pl-10",
+      },
+    },
+  ],
 });
 
 interface AccordionHeaderProps
@@ -142,7 +199,11 @@ const Trigger = forwardRef<
     const Heading = as;
     const Icon = icon;
     const { mode, size } = useContext(AccordionVariantContext);
-    const { header, btn, iconSize, heading } = trigger({ mode, size });
+    const { header, btn, iconSize, heading, ctx } = trigger({
+      mode,
+      size,
+      hasContext: !!context,
+    });
 
     return (
       <AccordionPrimitive.Header className={header()} {...titleProps}>
@@ -169,7 +230,7 @@ const Trigger = forwardRef<
           </span>
         </AccordionPrimitive.Trigger>
         {(!!Icon || !!context) && (
-          <span className="flex items-center gap-x-3">
+          <span className={ctx()}>
             {context && <span>{context}</span>}
             {Icon && <Icon className={iconSize()} />}
           </span>
@@ -336,7 +397,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
           {index > 0 && (
             <span
               aria-hidden="true"
-              className="none mx-3 text-gray-300 xs:inline-block dark:text-gray-200"
+              className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
               // eslint-disable-next-line formatjs/no-literal-string-in-jsx
             >
               &bull;
