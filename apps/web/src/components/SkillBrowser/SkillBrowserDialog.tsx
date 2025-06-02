@@ -37,7 +37,7 @@ interface SkillBrowserDialogProps {
   // Customize the trigger text and icon
   trigger?: {
     id?: string;
-    label?: ReactNode;
+    label?: string;
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;

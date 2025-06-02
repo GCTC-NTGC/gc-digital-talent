@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from "react-intl";
 import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
 import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";
 
-import { IconLink, IconLinkProps, Link } from "@gc-digital-talent/ui";
+import { IconLink, IconLinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

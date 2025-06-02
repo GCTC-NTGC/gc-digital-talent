@@ -78,7 +78,7 @@ const GeneralQuestionDialog = ({
         {isUpdate ? (
           <CardRepeater.Edit
             disabled={disabled}
-            aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+            label={intl.formatMessage(formMessages.repeaterEdit, {
               index,
             })}
           />

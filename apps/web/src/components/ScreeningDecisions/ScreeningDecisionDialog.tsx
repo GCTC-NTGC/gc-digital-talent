@@ -29,7 +29,6 @@ import {
   Accordion,
   Button,
   ButtonProps,
-  Color,
   Dialog,
   HeadingLevel,
   Well,

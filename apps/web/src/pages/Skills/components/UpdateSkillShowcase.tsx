@@ -10,6 +10,7 @@ import {
   CardRepeater,
   Link,
   BreadcrumbsProps,
+  ButtonProps,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -234,7 +235,7 @@ const UpdateSkillShowcase = ({
     ? {
         id: addId,
         block: true,
-        mode: "placeholder" as ButtonLinkMode,
+        mode: "placeholder" as ButtonProps["mode"],
         label: intl.formatMessage(
           {
             defaultMessage: "Add a skill ({numOfSkills}/{maxSkills})",
@@ -249,7 +250,7 @@ const UpdateSkillShowcase = ({
         ),
       }
     : {
-        mode: "placeholder" as ButtonLinkMode,
+        mode: "placeholder" as ButtonProps["mode"],
         block: true,
         label: intl.formatMessage(
           {

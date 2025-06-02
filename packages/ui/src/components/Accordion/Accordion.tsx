@@ -396,7 +396,7 @@ const MetaData = ({ metadata }: AccordionMetaDataProps) => {
               <Button
                 mode="text"
                 color={datum.color ?? "primary"}
-                fontSize="caption"
+                size="sm"
                 data-h2-font-weight="base(bold)"
                 onClick={datum.onClick}
                 key={datum.key}

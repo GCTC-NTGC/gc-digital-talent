@@ -14,7 +14,6 @@ import {
   Heading,
   Dialog,
   Link,
-  Color,
   IconButton,
   ButtonProps,
 } from "@gc-digital-talent/ui";

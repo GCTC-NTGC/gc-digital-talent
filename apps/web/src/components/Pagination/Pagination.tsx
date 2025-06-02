@@ -7,13 +7,12 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { Button, Color, DropdownMenu } from "@gc-digital-talent/ui";
+import { Button, ButtonProps, DropdownMenu } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
 
-type ButtonColor = Extract<Color, "white" | "black">;
-type ActiveColor = Color;
+type ActiveColor = ButtonProps["color"];
 
 export interface PaginationProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -32,7 +31,7 @@ export interface PaginationProps
   /** A unique, descriptive ARIA label for the <nav> element */
   ariaLabel: string;
   /** Default button colour */
-  color: ButtonColor;
+  color: "white" | "black";
   /** Active button colour */
   activeColor?: ActiveColor;
   /** Callback that changes to the page number value. */

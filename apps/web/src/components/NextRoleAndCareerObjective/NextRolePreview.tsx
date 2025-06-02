@@ -8,6 +8,7 @@ import {
   PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -141,7 +142,7 @@ const NextRolePreview = ({
         action={
           <NextRoleDialog
             nextRoleDialogQuery={nextRolePreviewFragment}
-            trigger={<PreviewList.Button label={title} />}
+            trigger={<PreviewList.Button label={nodeToString(title)} />}
           />
         }
         headingAs={headingAs}

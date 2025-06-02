@@ -1,8 +1,10 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { forwardRef, ReactElement, ReactNode } from "react";
 
-import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
-import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
+import BaseButton, {
+  IconButtonProps as BaseButtonProps,
+} from "../Button/IconButton";
+import BaseLink, { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
 import Chip, { ChipProps } from "../Chip/Chip";
 import { ButtonLinkProps, IconType } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
@@ -41,9 +43,7 @@ const MetaData = (props: MetaDataProps) => {
 };
 
 const actionProps = {
-  mode: "icon_only",
   color: "black",
-  fontSize: "h5",
   icon: MagnifyingGlassPlusIcon,
   "data-h2-position": "base:selectors[::after](absolute)",
   "data-h2-content": "base:selectors[::after](' ')",
@@ -52,16 +52,13 @@ const actionProps = {
   "data-h2-margin-right": "base(x1) p-tablet(x1.5)",
 } satisfies ButtonLinkProps;
 
-interface ButtonProps extends BaseButtonProps {
+interface ButtonProps extends Omit<BaseButtonProps, "icon"> {
   onClick?: BaseButtonProps["onClick"];
-  label: React.ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
-      {label}
-    </BaseButton>
+  ({ onClick, ...rest }: ButtonProps, ref) => (
+    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest} />
   ),
 );
 
@@ -71,10 +68,13 @@ interface LinkProps {
   icon?: IconType;
 }
 
-const Link = ({ href, label, icon }: LinkProps) => (
-  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
-    {label}
-  </BaseLink>
+const Link = ({ href, icon, label }: LinkProps) => (
+  <BaseLink
+    {...actionProps}
+    href={href}
+    icon={icon ?? actionProps.icon}
+    label={label}
+  />
 );
 
 interface ItemProps {
