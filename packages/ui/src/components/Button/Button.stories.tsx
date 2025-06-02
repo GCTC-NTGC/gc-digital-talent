@@ -38,7 +38,6 @@ const colors: BaseButtonLinkProps["color"][] = [
   "warning",
   "error",
   "black",
-  "white",
 ];
 
 const modes: BaseButtonLinkProps["mode"][] = [
@@ -55,7 +54,7 @@ const Template: StoryFn<
     {modes.map((mode) => (
       <div key={mode}>
         <p className="mb-3 text-xl">{mode}</p>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-3 sm:items-center md:grid-cols-6">
           {colors.map((color) => (
             <Button
               mode={mode}
@@ -66,6 +65,8 @@ const Template: StoryFn<
               {label}
             </Button>
           ))}
+        </div>
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-4 sm:items-center">
           <Button
             mode={mode}
             color="primary"
@@ -97,6 +98,11 @@ const Template: StoryFn<
             icon={InformationCircleIcon}
           >
             {label} (lg)
+          </Button>
+        </div>
+        <div className="max-w-max bg-gray-700 p-3 dark:bg-gray-100">
+          <Button mode={mode} color="white" icon={InformationCircleIcon}>
+            {label} (white)
           </Button>
         </div>
       </div>
