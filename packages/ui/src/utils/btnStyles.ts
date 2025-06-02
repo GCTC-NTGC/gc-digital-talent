@@ -7,7 +7,7 @@ export const btn = tv({
     base: "group/btn items-center justify-center gap-x-1.5 font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
     leadingIcon: "",
     trailingIcon: "",
-    label: "leading-none underline",
+    label: "underline",
   },
   variants: {
     mode: {
@@ -33,11 +33,13 @@ export const btn = tv({
     },
     size: {
       sm: {
-        label: "text-sm/none",
+        label: "text-sm/normal",
       },
-      md: {},
+      md: {
+        label: "text-base/normal",
+      },
       lg: {
-        label: "text-lg/none",
+        label: "text-lg/normal",
       },
     },
     block: {
