@@ -284,16 +284,53 @@ const metaWrapper = tv({
   base: "flex flex-col flex-nowrap items-start gap-2 text-sm xs:flex-row xs:flex-wrap xs:items-center",
   variants: {
     mode: {
-      simple: "mb-3 pl-10",
-      card: "-mt-3 pb-6 pl-16",
+      simple: "mb-3",
+      card: "-mt-3 pb-6",
+    },
+    size: {
+      sm: "",
+      md: "",
+      lg: "",
     },
   },
+  compoundVariants: [
+    {
+      size: "sm",
+      mode: "simple",
+      class: "pl-8 lg:pl-9",
+    },
+    {
+      size: "md",
+      mode: "simple",
+      class: "pl-9 lg:pl-10",
+    },
+    {
+      size: "lg",
+      mode: "simple",
+      class: "pl-10 lg:pl-11",
+    },
+    {
+      size: "sm",
+      mode: "card",
+      class: "pl-14 lg:pl-15",
+    },
+    {
+      size: "md",
+      mode: "card",
+      class: "pl-15 lg:pl-16",
+    },
+    {
+      size: "lg",
+      mode: "card",
+      class: "pl-16 lg:pl-17",
+    },
+  ],
 });
 
 const MetaData = ({ metadata }: AccordionMetaDataProps) => {
-  const { mode } = useContext(AccordionVariantContext);
+  const { mode, size } = useContext(AccordionVariantContext);
   return (
-    <div className={metaWrapper({ mode })}>
+    <div className={metaWrapper({ mode, size })}>
       {metadata.map((datum, index) => (
         <Fragment key={datum.key}>
           {index > 0 && (
@@ -316,8 +353,8 @@ const content = tv({
   base: "pb-6 text-black dark:text-white",
   variants: {
     mode: {
-      simple: "pl-10",
-      card: "pl-16",
+      simple: "pl-9 lg:pl-10",
+      card: "pl-15 lg:pl-16",
     },
   },
 });
