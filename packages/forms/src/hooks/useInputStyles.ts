@@ -2,7 +2,7 @@ import { StyleRecord } from "../types";
 
 type UseInputStyles = (inputType?: "default" | "select") => StyleRecord;
 
-const useInputStyles: UseInputStyles = (inputType) => {
+export const useInputStylesDeprecated: UseInputStyles = (inputType) => {
   const defaults = {
     "data-h2-border-style": "base(solid)",
     "data-h2-border-width": "base(1px)",
@@ -29,5 +29,3 @@ const useInputStyles: UseInputStyles = (inputType) => {
   }
   return { ...defaults, ...padding, ...selectIcon };
 };
-
-export default useInputStyles;

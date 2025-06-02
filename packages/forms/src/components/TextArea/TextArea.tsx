@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { DetailedHTMLProps, TextareaHTMLAttributes, FocusEvent } from "react";
+import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -11,8 +12,7 @@ import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
-
+import { inputStyles } from "../../styles";
 export type TextAreaProps = DetailedHTMLProps<
   TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
@@ -23,6 +23,19 @@ export type TextAreaProps = DetailedHTMLProps<
     /** Sets a limit on how many words can be submitted with this input */
     wordLimit?: number;
   };
+
+const textArea = tv({
+  base: "w-full resize-y",
+  variants: {
+    readonly: {
+      true: "bg-gray-100",
+    },
+    wordLimit: {
+      true: "pb-12",
+    },
+  },
+  extend: inputStyles,
+});
 
 const TextArea = ({
   id,
@@ -45,7 +58,6 @@ const TextArea = ({
     setValue,
   } = useFormContext();
   const intl = useIntl();
-  const baseStyles = useInputStyles();
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
@@ -69,7 +81,6 @@ const TextArea = ({
   };
 
   let wordLimitRule = {};
-  let wordLimitStyles = {};
   if (wordLimit) {
     wordLimitRule = {
       wordCount: (value: string) =>
@@ -78,10 +89,6 @@ const TextArea = ({
           value: wordLimit,
         }),
     };
-
-    wordLimitStyles = {
-      "data-h2-padding-bottom": "base(x2)",
-    };
   }
 
   return (
@@ -89,18 +96,15 @@ const TextArea = ({
       <Field.Label id={`${id}-label`} htmlFor={id} required={!!rules.required}>
         {label}
       </Field.Label>
-      <div data-h2-position="base(relative)" data-h2-z-index="base(1)">
+      <div className="relative z-1">
         <textarea
           id={id}
           aria-describedby={ariaDescribedBy}
           aria-required={!!rules.required}
           aria-invalid={isInvalid}
-          data-h2-width="base(100%)"
-          data-h2-resize="base(vertical)"
+          className={textArea({ readonly: readOnly, wordLimit: !!wordLimit })}
           rows={rows}
-          {...baseStyles}
           {...stateStyles}
-          {...wordLimitStyles}
           {...register(name, {
             ...rules,
             validate: {
@@ -112,7 +116,6 @@ const TextArea = ({
           {...(readOnly
             ? {
                 readOnly: true,
-                "data-h2-background-color": "base(background.dark)",
               }
             : {})}
           {...(labelledBy && {
@@ -121,7 +124,7 @@ const TextArea = ({
           {...rest}
         />
         {wordLimit && (
-          <div data-h2-text-align="base(right)">
+          <div className="text-right">
             <WordCounter name={name} wordLimit={wordLimit} />
           </div>
         )}
