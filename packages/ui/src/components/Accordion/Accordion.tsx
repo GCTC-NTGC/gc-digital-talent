@@ -353,20 +353,57 @@ const content = tv({
   base: "pb-6 text-black dark:text-white",
   variants: {
     mode: {
-      simple: "pl-9 lg:pl-10",
-      card: "pl-15 lg:pl-16",
+      simple: "",
+      card: "",
+    },
+    size: {
+      sm: "",
+      md: "",
+      lg: "",
     },
   },
+  compoundVariants: [
+    {
+      size: "sm",
+      mode: "simple",
+      class: "pl-8 lg:pl-9",
+    },
+    {
+      size: "md",
+      mode: "simple",
+      class: "pl-9 lg:pl-10",
+    },
+    {
+      size: "lg",
+      mode: "simple",
+      class: "pl-10 lg:pl-11",
+    },
+    {
+      size: "sm",
+      mode: "card",
+      class: "pl-14 lg:pl-15",
+    },
+    {
+      size: "md",
+      mode: "card",
+      class: "pl-15 lg:pl-16",
+    },
+    {
+      size: "lg",
+      mode: "card",
+      class: "pl-16 lg:pl-17",
+    },
+  ],
 });
 
 const Content = forwardRef<
   ElementRef<typeof AccordionPrimitive.Content>,
   ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ children, ...rest }, forwardedRef) => {
-  const { mode } = useContext(AccordionVariantContext);
+  const { mode, size } = useContext(AccordionVariantContext);
   return (
     <AccordionPrimitive.Content
-      className={content({ mode })}
+      className={content({ mode, size })}
       ref={forwardedRef}
       {...rest}
     >
