@@ -6,7 +6,6 @@ import {
   TableOfContents,
   IconType,
   Separator,
-  ButtonLinkMode,
   CardRepeater,
   Link,
   BreadcrumbsProps,
