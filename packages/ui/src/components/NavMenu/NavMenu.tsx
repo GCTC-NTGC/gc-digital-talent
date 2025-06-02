@@ -18,7 +18,6 @@ import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
 import OurIconLink, {
   IconLinkProps as BaseIconLinkProps,
 } from "../Link/IconLink";
-import { ButtonLinkMode, Color, IconType } from "../../types";
 import { useNavMenuContext } from "./NavMenuProvider";
 import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
 import Button, { ButtonProps } from "../Button";
@@ -175,17 +174,17 @@ const IconLink = forwardRef<
   );
 });
 
-type LinkProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Link
-> & {
+interface LinkProps
+  extends Pick<BaseLinkProps, "color" | "icon" | "mode">,
+    Omit<
+      ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
+      "color"
+    > {
   href: string;
   type?: NavMenuType;
-  color?: Color;
-  icon?: IconType;
-  mode?: ButtonLinkMode;
   ariaLabel?: string;
   state?: BaseLinkProps["state"];
-};
+}
 
 const Link = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
