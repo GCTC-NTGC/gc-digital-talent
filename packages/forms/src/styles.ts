@@ -20,7 +20,7 @@ const fieldStateStyles: Record<FieldState, Record<string, string>> = {
 export const checkboxRadioStyles = tv({
   slots: {
     input:
-      "m-0 grid h-6 w-6 shrink-0 transform appearance-none place-content-center border border-gray-700 bg-white leading-6 text-current before:h-3 before:w-3 before:scale-0 before:bg-secondary checked:before:scale-100 focus-visible:bg-focus focus-visible:before:bg-black dark:border-gray-100 dark:before:bg-secondary-200",
+      "m-0 grid h-6 w-6 shrink-0 transform appearance-none place-content-center border border-gray-700 bg-white leading-6 text-current before:h-3 before:w-3 before:scale-0 before:bg-secondary checked:before:scale-100 focus-visible:bg-focus focus-visible:before:bg-black dark:border-gray-100 dark:bg-gray-700 dark:before:bg-secondary-200",
   },
   variants: {
     shouldReduceMotion: {
