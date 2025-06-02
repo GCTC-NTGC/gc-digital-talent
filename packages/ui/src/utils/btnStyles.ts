@@ -168,14 +168,14 @@ export const btn = tv({
       mode: ["solid", "placeholder"],
       size: "md",
       class: {
-        base: "px-5 py-2",
+        base: "px-5 py-2.25",
       },
     },
     {
       mode: ["solid", "placeholder"],
       size: "lg",
       class: {
-        base: "px-6 py-2",
+        base: "px-6 py-2.5",
       },
     },
 

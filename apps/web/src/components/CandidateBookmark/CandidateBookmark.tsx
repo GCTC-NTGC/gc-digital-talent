@@ -98,7 +98,7 @@ const CandidateBookmark = ({
 
   return (
     <IconButton
-      color={isBookmarked ? "primary" : "black"}
+      color={isBookmarked ? "secondary" : "black"}
       onClick={toggleBookmark}
       disabled={isUpdatingBookmark}
       icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}

@@ -256,7 +256,7 @@ const JobPlacementDialog = ({
                 color: "black",
               }
             : {
-                color: "secondary",
+                color: "primary",
               })}
           data-h2-text-align="base(left)"
           aria-label={intl.formatMessage(

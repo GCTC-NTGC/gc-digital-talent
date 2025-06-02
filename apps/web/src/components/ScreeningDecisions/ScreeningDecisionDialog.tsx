@@ -534,7 +534,7 @@ export const ScreeningDecisionDialog = ({
             <ScreeningDecisionDialogForm dialogType={dialogType} />
             <Dialog.Footer>
               <Submit
-                color="secondary"
+                color="primary"
                 text={intl.formatMessage({
                   defaultMessage: "Save decision",
                   id: "hQ2+aE",
