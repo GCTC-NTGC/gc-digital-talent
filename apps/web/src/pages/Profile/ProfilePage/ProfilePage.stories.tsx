@@ -17,24 +17,18 @@ const Template: StoryFn<typeof ProfileForm> = (args) => {
   return <ProfileForm userQuery={userQuery} />;
 };
 
-export const WithData = {
-  render: Template,
-
-  args: {
-    userQuery: makeFragmentData(fakeUserData, UserProfile_Fragment),
-  },
+export const WithData = Template.bind({});
+WithData.args = {
+  userQuery: makeFragmentData(fakeUserData, UserProfile_Fragment),
 };
 
-export const Null = {
-  render: Template,
-
-  args: {
-    userQuery: makeFragmentData(
-      {
-        id: "test ID", // this page can only be loaded by a logged in user
-        email: undefined,
-      },
-      UserProfile_Fragment,
-    ),
-  },
+export const Null = Template.bind({});
+Null.args = {
+  userQuery: makeFragmentData(
+    {
+      id: "test ID", // this page can only be loaded by a logged in user
+      email: undefined,
+    },
+    UserProfile_Fragment,
+  ),
 };

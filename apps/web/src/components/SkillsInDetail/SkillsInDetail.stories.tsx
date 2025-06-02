@@ -25,17 +25,14 @@ const Template: StoryFn<typeof SkillsInDetail> = (args) => {
 
 const fakeSkill = fakeSkills(1)[0];
 
-export const Default = {
-  render: Template,
-
-  args: {
-    skills: [
-      {
-        id: fakeSkill.id,
-        skillId: fakeSkill.id,
-        name: fakeSkill.name,
-        details: "",
-      },
-    ],
-  },
+export const Default = Template.bind({});
+Default.args = {
+  skills: [
+    {
+      id: fakeSkill.id,
+      skillId: fakeSkill.id,
+      name: fakeSkill.name,
+      details: "",
+    },
+  ],
 };

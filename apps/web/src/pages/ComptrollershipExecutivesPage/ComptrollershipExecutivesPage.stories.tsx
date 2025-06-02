@@ -12,10 +12,7 @@ const Template: StoryFn<typeof ComptrollershipExecutivesPage> = () => (
   <ComptrollershipExecutivesPage />
 );
 
-export const Default = {
-  render: Template,
-
-  parameters: {
-    chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  },
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
 };

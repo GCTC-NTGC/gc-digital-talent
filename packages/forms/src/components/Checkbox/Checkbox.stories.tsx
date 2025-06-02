@@ -18,64 +18,53 @@ const Template: StoryFn<CheckboxProps> = (args) => (
   </Form>
 );
 
-export const Default = {
-  render: Template,
+export const Default = Template.bind({});
+export const WithBoundingBox = Template.bind({});
+export const WithElementLabel = Template.bind({});
+export const WithLongText = Template.bind({});
 
-  args: {
-    id: "hasDiploma",
-    name: "hasDiploma",
-    label: "Have a Diploma",
-    context: "This will help prove you satisfy education requirements.",
-    rules: { required: "This must be accepted to continue." },
-  },
+Default.args = {
+  id: "hasDiploma",
+  name: "hasDiploma",
+  label: "Have a Diploma",
+  context: "This will help prove you satisfy education requirements.",
+  rules: { required: "This must be accepted to continue." },
+};
 
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        dark: allModes.dark,
-      },
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
     },
   },
 };
 
-export const WithBoundingBox = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    boundingBox: true,
-    boundingBoxLabel: "Bounding box label",
-  },
+WithBoundingBox.args = {
+  ...Default.args,
+  boundingBox: true,
+  boundingBoxLabel: "Bounding box label",
 };
 
-export const WithElementLabel = {
-  render: Template,
-
-  args: {
-    id: "Red Selection",
-    name: "Red Selection",
-    label: (
-      <span data-h2-background-color="base(error.lighter)">Red Selection</span>
-    ),
-  },
+WithElementLabel.args = {
+  id: "Red Selection",
+  name: "Red Selection",
+  label: (
+    <span data-h2-background-color="base(error.lighter)">Red Selection</span>
+  ),
 };
 
-export const WithLongText = {
-  render: Template,
+WithLongText.args = {
+  id: "iAgree",
+  name: "iAgree",
+  label:
+    "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+  context: "This is a really long string.",
+  rules: { required: "This must be accepted to continue." },
+};
 
-  args: {
-    id: "iAgree",
-    name: "iAgree",
-    label:
-      "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-    context: "This is a really long string.",
-    rules: { required: "This must be accepted to continue." },
-  },
-
-  parameters: {
-    viewport: {
-      defaultViewport: VIEWPORT.PHONE,
-    },
+WithLongText.parameters = {
+  viewport: {
+    defaultViewport: VIEWPORT.PHONE,
   },
 };

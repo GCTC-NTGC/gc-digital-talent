@@ -49,34 +49,22 @@ const Template: StoryFn<typeof PoolPoster> = (args) => {
   return <PoolPoster poolQuery={poolQuery} />;
 };
 
-export const Open = {
-  render: Template,
-
-  args: {
-    poolQuery: makeFragmentData(openPool, PoolAdvertisement_Fragment),
-  },
+export const Open = Template.bind({});
+Open.args = {
+  poolQuery: makeFragmentData(openPool, PoolAdvertisement_Fragment),
 };
 
-export const Closed = {
-  render: Template,
-
-  args: {
-    poolQuery: makeFragmentData(closedPool, PoolAdvertisement_Fragment),
-  },
+export const Closed = Template.bind({});
+Closed.args = {
+  poolQuery: makeFragmentData(closedPool, PoolAdvertisement_Fragment),
 };
 
-export const Null = {
-  render: Template,
-
-  args: {
-    poolQuery: makeFragmentData(nullPool, PoolAdvertisement_Fragment),
-  },
+export const Null = Template.bind({});
+Null.args = {
+  poolQuery: makeFragmentData(nullPool, PoolAdvertisement_Fragment),
 };
 
-export const ClosedEarly = {
-  render: Template,
-
-  args: {
-    poolQuery: makeFragmentData(closedEarlyPool, PoolAdvertisement_Fragment),
-  },
+export const ClosedEarly = Template.bind({});
+ClosedEarly.args = {
+  poolQuery: makeFragmentData(closedEarlyPool, PoolAdvertisement_Fragment),
 };

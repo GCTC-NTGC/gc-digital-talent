@@ -144,6 +144,4 @@ const Template: StoryFn<typeof UserInformationPage> = () => {
   );
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

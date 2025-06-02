@@ -34,6 +34,4 @@ const Template: StoryFn<typeof SkillBrowser> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

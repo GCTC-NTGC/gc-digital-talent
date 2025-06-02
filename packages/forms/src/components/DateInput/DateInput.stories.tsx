@@ -72,61 +72,46 @@ const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
-      },
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
     },
   },
 };
 
-export const WithDefaultValue = {
-  render: Template,
+export const WithDefaultValue = Template.bind({});
+WithDefaultValue.args = {
+  defaultValue: "2023-02-03",
+};
 
-  args: {
-    defaultValue: "2023-02-03",
+export const Required = Template.bind({});
+Required.args = {
+  rules: {
+    required: "This field is required",
   },
 };
 
-export const Required = {
-  render: Template,
-
-  args: {
-    rules: {
-      required: "This field is required",
+export const WithinRange = Template.bind({});
+WithinRange.args = {
+  rules: {
+    min: {
+      value: "2023-01-01",
+      message: "Must be after 2023-01-01",
+    },
+    max: {
+      value: "2024-01-01",
+      message: "Must be before 2024-01-01",
     },
   },
 };
 
-export const WithinRange = {
-  render: Template,
-
-  args: {
-    rules: {
-      min: {
-        value: "2023-01-01",
-        message: "Must be after 2023-01-01",
-      },
-      max: {
-        value: "2024-01-01",
-        message: "Must be before 2024-01-01",
-      },
-    },
-  },
-};
-
-export const OnlyYearAndMonth = {
-  render: Template,
-
-  args: {
-    show: [DATE_SEGMENT.Year, DATE_SEGMENT.Month],
-  },
+export const OnlyYearAndMonth = Template.bind({});
+OnlyYearAndMonth.args = {
+  show: [DATE_SEGMENT.Year, DATE_SEGMENT.Month],
 };
 
 const ValidationDependantInputs = ({
@@ -166,9 +151,7 @@ const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => (
   </Form>
 );
 
-export const SecondComesAfterFirst = {
-  render: ValidationDependantTemplate,
-};
+export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
 const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   const { watch } = useFormContext<Record<string, string>>();
@@ -202,9 +185,7 @@ const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   );
 };
 
-export const HideInputWhenInvalid = {
-  render: RenderDependantTemplate,
-};
+export const HideInputWhenInvalid = RenderDependantTemplate.bind({});
 
 type AsyncArgs = DateInputProps & {
   mockQuery: () => Promise<Pool>;
@@ -256,22 +237,18 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
 
 const mockPool = fakePools(1)[0];
 
-export const AsyncDefaultValue = {
-  render: AsyncTemplate,
-
-  args: {
-    mockQuery: async (): Promise<Pool> => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(mockPool);
-        }, 1000);
-      });
-    },
+export const AsyncDefaultValue = AsyncTemplate.bind({});
+AsyncDefaultValue.args = {
+  mockQuery: async (): Promise<Pool> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(mockPool);
+      }, 1000);
+    });
   },
-
-  parameters: {
-    chromatic: { delay: 1500 },
-  },
+};
+AsyncDefaultValue.parameters = {
+  chromatic: { delay: 1500 },
 };
 
 const FieldArrayTemplate: StoryFn = () => {
@@ -313,6 +290,4 @@ const FieldArrayTemplate: StoryFn = () => {
   );
 };
 
-export const InAFieldArray = {
-  render: FieldArrayTemplate,
-};
+export const InAFieldArray = FieldArrayTemplate.bind({});

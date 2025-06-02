@@ -40,6 +40,4 @@ const Template: StoryFn<typeof EmployeeInformationForm> = () => {
   );
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

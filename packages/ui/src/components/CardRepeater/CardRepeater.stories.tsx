@@ -215,57 +215,41 @@ const defaultItems = [
   },
 ];
 
-export const Default = {
-  render: Template,
-
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        dark: allModes.dark,
-      },
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
     },
   },
-
-  args: {
-    items: defaultItems,
-  },
+};
+Default.args = {
+  items: defaultItems,
 };
 
-export const MaxItems = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    max: 6,
-  },
+export const MaxItems = Template.bind({});
+MaxItems.args = {
+  ...Default.args,
+  max: 6,
 };
 
-export const HiddenIndex = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    hideIndex: true,
-  },
+export const HiddenIndex = Template.bind({});
+HiddenIndex.args = {
+  ...Default.args,
+  hideIndex: true,
 };
 
-export const Disabled = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    disabled: true,
-  },
+export const Disabled = Template.bind({});
+Disabled.args = {
+  ...Default.args,
+  disabled: true,
 };
 
-export const Locked = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    moveDisabledIndexes: [1],
-    editDisabledIndexes: [2],
-    removeDisabledIndexes: [3],
-  },
+export const Locked = Template.bind({});
+Locked.args = {
+  ...Default.args,
+  moveDisabledIndexes: [1],
+  editDisabledIndexes: [2],
+  removeDisabledIndexes: [3],
 };

@@ -40,29 +40,20 @@ const Template: StoryFn<typeof ToggleGroup.Root> = (args) => {
   );
 };
 
-export const Single = {
-  render: AllTemplate,
-
-  args: {
-    type: "single",
-  },
+export const Single = AllTemplate.bind({});
+Single.args = {
+  type: "single",
 };
 
-export const Multiple = {
-  render: AllTemplate,
-
-  args: {
-    type: "multiple",
-  },
+export const Multiple = AllTemplate.bind({});
+Multiple.args = {
+  type: "multiple",
 };
 
-export const WithDefaultValue = {
-  render: AllTemplate,
-
-  args: {
-    type: "single",
-    defaultValue: "two",
-  },
+export const WithDefaultValue = AllTemplate.bind({});
+WithDefaultValue.args = {
+  type: "single",
+  defaultValue: "two",
 };
 
 const TwoOptionsChildren = () => {
@@ -74,41 +65,32 @@ const TwoOptionsChildren = () => {
   );
 };
 
-export const WithTwoOptions = {
-  render: Template,
-
-  args: {
-    type: "single",
-    children: <TwoOptionsChildren />,
-  },
+export const WithTwoOptions = Template.bind({});
+WithTwoOptions.args = {
+  type: "single",
+  children: <TwoOptionsChildren />,
 };
 
-export const WithPrefix = {
-  render: AllTemplate,
-
-  args: {
-    type: "single",
-    label: <span>Prefix</span>,
-  },
+export const WithPrefix = AllTemplate.bind({});
+WithPrefix.args = {
+  type: "single",
+  label: <span>Prefix</span>,
 };
 
-export const WithIcons = {
-  render: Template,
-
-  args: {
-    type: "single",
-    children: (
-      <>
-        <ToggleGroup.Item value="one" aria-label="One">
-          <UserIcon />
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="two" aria-label="Two">
-          <AcademicCapIcon />
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="three" aria-label="Three">
-          <BanknotesIcon />
-        </ToggleGroup.Item>
-      </>
-    ),
-  },
+export const WithIcons = Template.bind({});
+WithIcons.args = {
+  type: "single",
+  children: (
+    <>
+      <ToggleGroup.Item value="one" aria-label="One">
+        <UserIcon />
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="two" aria-label="Two">
+        <AcademicCapIcon />
+      </ToggleGroup.Item>
+      <ToggleGroup.Item value="three" aria-label="Three">
+        <BanknotesIcon />
+      </ToggleGroup.Item>
+    </>
+  ),
 };

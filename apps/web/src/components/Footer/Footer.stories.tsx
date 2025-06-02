@@ -10,6 +10,4 @@ const TemplateFooter: StoryFn = () => {
   return <FooterComponent />;
 };
 
-export const Footer = {
-  render: TemplateFooter,
-};
+export const Footer = TemplateFooter.bind({});

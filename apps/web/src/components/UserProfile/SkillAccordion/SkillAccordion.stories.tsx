@@ -24,68 +24,50 @@ const TemplateSkillAccordion: StoryFn<SkillAccordionProps> = (args) => {
   );
 };
 
-export const AccordionAward = {
-  render: TemplateSkillAccordion,
+export const AccordionAward = TemplateSkillAccordion.bind({});
+export const AccordionCommunity = TemplateSkillAccordion.bind({});
+export const AccordionEducation = TemplateSkillAccordion.bind({});
+export const AccordionPersonal = TemplateSkillAccordion.bind({});
+export const AccordionWork = TemplateSkillAccordion.bind({});
+export const AccordionNoExperience = TemplateSkillAccordion.bind({});
 
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: experienceGenerators.awardExperiences(),
-    },
+AccordionAward.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: experienceGenerators.awardExperiences(),
   },
 };
 
-export const AccordionCommunity = {
-  render: TemplateSkillAccordion,
-
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: experienceGenerators.communityExperiences(2),
-    },
+AccordionCommunity.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: experienceGenerators.communityExperiences(2),
   },
 };
 
-export const AccordionEducation = {
-  render: TemplateSkillAccordion,
-
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: experienceGenerators.educationExperiences(),
-    },
+AccordionEducation.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: experienceGenerators.educationExperiences(),
   },
 };
 
-export const AccordionPersonal = {
-  render: TemplateSkillAccordion,
-
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: experienceGenerators.personalExperiences(),
-    },
+AccordionPersonal.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: experienceGenerators.personalExperiences(),
   },
 };
 
-export const AccordionWork = {
-  render: TemplateSkillAccordion,
-
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: experienceGenerators.workExperiences(),
-    },
+AccordionWork.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: experienceGenerators.workExperiences(),
   },
 };
-
-export const AccordionNoExperience = {
-  render: TemplateSkillAccordion,
-
-  args: {
-    skill: {
-      ...fakeSkills()[0],
-      experiences: [],
-    },
+AccordionNoExperience.args = {
+  skill: {
+    ...fakeSkills()[0],
+    experiences: [],
   },
 };

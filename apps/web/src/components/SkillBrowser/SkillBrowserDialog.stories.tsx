@@ -31,39 +31,25 @@ const Template: StoryFn<typeof SkillBrowserDialog> = (args) => {
   return <SkillBrowserDialog {...args} onSave={handleSave} />;
 };
 
-export const Default = {
-  render: Template,
+export const Default = Template.bind({});
+
+export const ExperienceContext = Template.bind({});
+ExperienceContext.args = {
+  context: "experience",
 };
 
-export const ExperienceContext = {
-  render: Template,
-
-  args: {
-    context: "experience",
-  },
+export const LibraryContext = Template.bind({});
+LibraryContext.args = {
+  context: "library",
 };
 
-export const LibraryContext = {
-  render: Template,
-
-  args: {
-    context: "library",
-  },
+export const ShowcaseContext = Template.bind({});
+ShowcaseContext.args = {
+  context: "showcase",
 };
 
-export const ShowcaseContext = {
-  render: Template,
-
-  args: {
-    context: "showcase",
-  },
-};
-
-export const ShowcaseShowMyLibraryContext = {
-  render: Template,
-
-  args: {
-    context: "showcase",
-    inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
-  },
+export const ShowcaseShowMyLibraryContext = Template.bind({});
+ShowcaseShowMyLibraryContext.args = {
+  context: "showcase",
+  inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
 };

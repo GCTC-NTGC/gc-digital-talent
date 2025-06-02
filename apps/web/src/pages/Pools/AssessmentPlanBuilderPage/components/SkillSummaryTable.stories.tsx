@@ -127,19 +127,13 @@ const assessmentStepsArray: AssessmentStep[] = [
   },
 ];
 
-export const Default = {
-  render: Template,
-
-  args: {
-    title: faker.lorem.words(1),
-    poolSkillsQuery: poolSkillsArray.map((poolSkill) =>
-      makeFragmentData(poolSkill, SkillSummaryTablePoolSkill_Fragment),
-    ),
-    assessmentStepsQuery: assessmentStepsArray.map((assessmentStep) =>
-      makeFragmentData(
-        assessmentStep,
-        SkillSummaryTableAssessmentStep_Fragment,
-      ),
-    ),
-  },
+export const Default = Template.bind({});
+Default.args = {
+  title: faker.lorem.words(1),
+  poolSkillsQuery: poolSkillsArray.map((poolSkill) =>
+    makeFragmentData(poolSkill, SkillSummaryTablePoolSkill_Fragment),
+  ),
+  assessmentStepsQuery: assessmentStepsArray.map((assessmentStep) =>
+    makeFragmentData(assessmentStep, SkillSummaryTableAssessmentStep_Fragment),
+  ),
 };

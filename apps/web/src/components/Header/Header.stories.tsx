@@ -10,6 +10,4 @@ const TemplateHeader: StoryFn = () => {
   return <HeaderComponent />;
 };
 
-export const Header = {
-  render: TemplateHeader,
-};
+export const Header = TemplateHeader.bind({});

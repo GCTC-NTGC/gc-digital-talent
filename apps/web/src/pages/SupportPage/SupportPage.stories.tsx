@@ -10,6 +10,4 @@ const Template: StoryFn<typeof SupportPage> = () => {
   return <SupportPage />;
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

@@ -9,9 +9,10 @@ export default {
   component: Spoiler,
 };
 
-export const Default = {
-  args: {
-    linkSuffix: "of the spoiler",
-    text: faker.lorem.sentences(3),
-  },
+const Template: StoryFn<typeof Spoiler> = (args) => <Spoiler {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  linkSuffix: "of the spoiler",
+  text: faker.lorem.sentences(3),
 };
