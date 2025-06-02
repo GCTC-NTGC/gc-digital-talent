@@ -74,7 +74,7 @@ const Announcer = ({
         aria-atomic={atomic}
         aria-live={live}
         aria-relevant="all"
-        data-h2-visually-hidden="base(invisible)"
+        className="sr-only"
       >
         {announcement}
       </div>

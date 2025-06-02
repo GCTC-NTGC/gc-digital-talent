@@ -55,8 +55,15 @@ class AssessmentResultFactory extends Factory
     {
         return $this->state(function () use ($type) {
             if ($type === AssessmentResultType::EDUCATION) {
-                $justifications = [$this->faker->randomElement(array_column(AssessmentResultJustification::educationJustifications(), 'name'))];
-                $assessmentDecision = $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+                $assessmentDecision = $this->faker->boolean(60) ?
+                    AssessmentDecision::SUCCESSFUL->name : $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+                $justifications = [];
+                if ($assessmentDecision === AssessmentDecision::SUCCESSFUL->name) {
+                    $justifications = $this->faker->randomElements(array_column(AssessmentResultJustification::educationJustificationsSuccess(), 'name'), null);
+                }
+                if ($assessmentDecision === AssessmentDecision::UNSUCCESSFUL->name) {
+                    $justifications = $this->faker->randomElement(array_column(AssessmentResultJustification::educationJustificationsFailure(), 'name'), null);
+                }
 
                 return [
                     'assessment_result_type' => $type->name,
@@ -68,12 +75,13 @@ class AssessmentResultFactory extends Factory
             }
 
             if ($type === AssessmentResultType::SKILL) {
-                $justifications = [$this->faker->randomElement(array_column(AssessmentResultJustification::skillJustifications(), 'name'))];
-                $assessmentDecision = $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+                $assessmentDecision = $this->faker->boolean(60) ?
+                    AssessmentDecision::SUCCESSFUL->name : $this->faker->randomElement(array_column(AssessmentDecision::cases(), 'name'));
+                $justifications = $this->faker->randomElements(array_column(AssessmentResultJustification::skillJustifications(), 'name'), null);
 
                 return [
                     'assessment_result_type' => $type->name,
-                    'justifications' => $this->nullJustifications($assessmentDecision) ? null : $justifications,
+                    'justifications' => $assessmentDecision === AssessmentDecision::UNSUCCESSFUL->name ? $justifications : null,
                     'assessment_decision' => $assessmentDecision,
                     'assessment_decision_level' => $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
                         $this->faker->randomElement(array_column(AssessmentDecisionLevel::cases(), 'name')) : null,

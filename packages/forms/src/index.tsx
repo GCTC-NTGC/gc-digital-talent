@@ -3,7 +3,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import CardOptionGroup, {
   type CardOption,
   type CardOptionGroupProps,
-} from "./components/CardOptionGroup";
+} from "./components/CardOptionGroup/CardOptionGroup";
 import Checkbox, { type CheckboxProps } from "./components/Checkbox/Checkbox";
 import CheckButton, {
   CheckButtonProps,

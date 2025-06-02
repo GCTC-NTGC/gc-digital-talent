@@ -24,13 +24,9 @@ export default {
 const colors: CardOption["selectedIconColor"][] = [
   "primary",
   "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
   "success",
   "warning",
   "error",
-  "black",
 ];
 
 const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {

@@ -47,7 +47,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
   return unsavedFields.length > 0 ? (
     <Alert.Root type="info" dismissible onDismiss={onDismiss}>
       <Alert.Title>{intl.formatMessage(formMessages.unsavedTitle)}</Alert.Title>
-      <ul data-h2-margin="base(x.5, 0, 0, 0)">
+      <ul className="mt-3">
         {unsavedFields.map((field) => (
           <li key={field.name}>
             <ScrollToLink to={field.name} mode="text" color="black">
