@@ -93,7 +93,7 @@ const trigger = tv({
   slots: {
     header: "flex items-start justify-between gap-x-3",
     btn: "group/btn flex grow items-start gap-x-3 text-left outline-none",
-    heading: "m-0 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
+    heading: "m-0 text-lg/none font-bold lg:text-xl/none",
     iconSize: "shrink-0",
   },
   variants: {
@@ -108,15 +108,15 @@ const trigger = tv({
     size: {
       sm: {
         heading: "text-base/[1.1] lg:text-lg/[1.1]",
-        iconSize: "size-4",
+        iconSize: "size-3 lg:size-4",
       },
       md: {
         heading: "text-lg/[1.1] lg:text-xl/[1.1]",
-        iconSize: "size-5",
+        iconSize: "size-4 lg:size-5",
       },
       lg: {
         heading: "text-xl/[1.1] lg:text-2xl/[1.1]",
-        iconSize: "size-6",
+        iconSize: "size-5 lg:size-6",
       },
     },
   },
