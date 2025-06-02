@@ -1,3 +1,4 @@
+import type { StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { makeFragmentData } from "@gc-digital-talent/graphql";
