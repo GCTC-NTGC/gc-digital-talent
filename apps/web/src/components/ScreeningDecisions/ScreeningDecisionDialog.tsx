@@ -446,7 +446,7 @@ export const ScreeningDecisionDialog = ({
       case AssessmentDecision.Successful:
         return "success";
       case AssessmentDecision.Hold:
-        return "secondary";
+        return "primary";
       case AssessmentDecision.Unsuccessful:
         return "error";
       default:
