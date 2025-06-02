@@ -56,7 +56,7 @@ const CheckButton = ({
   }
 
   return (
-    <button type="button" onClick={onToggle} className={btn()}>
+    <button type="button" onClick={() => onToggle()} className={btn()}>
       <span className="sr-only">
         {checked
           ? intl.formatMessage(formMessages.deselectCheck, { label })
