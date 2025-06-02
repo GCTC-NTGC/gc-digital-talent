@@ -41,7 +41,6 @@ const root = tv({
 });
 
 type AccordionVariants = VariantProps<typeof root>;
-export type AccordionMode = NonNullable<AccordionVariants["mode"]>;
 type RootPrimitiveProps = ComponentPropsWithoutRef<
   typeof AccordionPrimitive.Root
 >;
