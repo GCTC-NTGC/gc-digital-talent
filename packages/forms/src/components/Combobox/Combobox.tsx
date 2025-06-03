@@ -18,7 +18,6 @@ import {
 import { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
-import { inputStyles } from "../../styles";
 
 export type ComboboxProps = Omit<HTMLInputProps, "ref"> &
   CommonInputProps & {

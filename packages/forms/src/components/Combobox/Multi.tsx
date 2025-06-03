@@ -2,7 +2,6 @@ import { useState, useRef, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
-import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
@@ -18,7 +17,6 @@ import {
   isItemSelected,
   comboboxInput,
 } from "./utils";
-import { inputStyles } from "../../styles";
 
 type MultiProps = BaseProps & {
   onSelectedChange: (item: Option[] | null) => void;
