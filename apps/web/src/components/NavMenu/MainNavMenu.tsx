@@ -296,7 +296,8 @@ const MainNavMenu = () => {
                       {systemSettings && (
                         <NavMenu.Item>
                           <NavMenu.Trigger
-                            color="black"
+                            color={isSmallScreen ? "black" : "white"}
+                            fixedColor={!isSmallScreen}
                             mode="text"
                             block={false}
                           >

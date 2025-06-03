@@ -283,8 +283,7 @@ const ExperienceWorkStreams = ({
               icon={PlusCircleIcon}
               mode="placeholder"
               color="primary"
-              data-h2-display="base(block)"
-              data-h2-width="base(100%)"
+              block
             >
               {intl.formatMessage({
                 defaultMessage: "Add work streams",
