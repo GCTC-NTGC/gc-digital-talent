@@ -7,10 +7,11 @@ import {
 import { tv, VariantProps } from "tailwind-variants";
 
 const list = tv({
-  base: "list-outside pl-8",
+  base: "pl-8",
   variants: {
-    unStyled: {
-      true: "list-none p-0",
+    type: {
+      ordered: "list-decimal",
+      unordered: "list-disc",
     },
     space: {
       sm: "[&_li]:mb-0.75",
@@ -18,10 +19,14 @@ const list = tv({
       lg: "[&_li]:mb-3",
       xl: "[&_li]:mb-6",
     },
+    unStyled: {
+      true: "list-none p-0",
+      false: "",
+    },
   },
 });
 
-type ListVariants = VariantProps<typeof list>;
+type ListVariants = Omit<VariantProps<typeof list>, "type">;
 
 interface ULProps
   extends ListVariants,
@@ -31,7 +36,7 @@ const UL = forwardRef<HTMLUListElement, ULProps>(
   ({ className, unStyled, space, ...rest }, forwardedRef) => (
     <ul
       ref={forwardedRef}
-      className={list({ unStyled, space, class: ["list-disc", className] })}
+      className={list({ type: "unordered", unStyled, space, class: className })}
       {...rest}
     />
   ),
@@ -45,7 +50,7 @@ const OL = forwardRef<HTMLOListElement, OLProps>(
   ({ className, unStyled, space, ...rest }, forwardedRef) => (
     <ol
       ref={forwardedRef}
-      className={list({ unStyled, space, class: ["list-decimal", className] })}
+      className={list({ type: "ordered", unStyled, space, class: className })}
       {...rest}
     />
   ),

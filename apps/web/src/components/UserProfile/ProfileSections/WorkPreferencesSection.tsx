@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { NoList, Well } from "@gc-digital-talent/ui";
+import { List, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
@@ -54,9 +54,9 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           positionDuration.includes(PositionDuration.Temporary) && (
             <div data-h2-flex-item="base(1of1)">
               <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <List.UL className="mb-6">
                 <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </ul>
+              </List.UL>
             </div>
           )}
 
@@ -64,17 +64,17 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           !positionDuration.includes(PositionDuration.Temporary) && (
             <div data-h2-flex-item="base(1of1)">
               <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <List.UL className="mb-6">
                 <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </ul>
+              </List.UL>
             </div>
           )}
 
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <NoList>
+          <List.UL unStyled space="sm">
             {OperationalRequirements.map((requirement) => (
-              <li key={requirement} data-h2-margin-bottom="base(x.25)">
+              <li key={requirement}>
                 <BoolCheckIcon
                   value={acceptedRequirements.includes(requirement)}
                 >
@@ -84,7 +84,7 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
                 </BoolCheckIcon>
               </li>
             ))}
-          </NoList>
+          </List.UL>
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p>

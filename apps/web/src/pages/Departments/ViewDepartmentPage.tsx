@@ -10,7 +10,7 @@ import {
   Link,
   Card,
   CardSeparator,
-  NoList,
+  List,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -35,7 +35,7 @@ import labels from "./labels";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
-    id
+    idDetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
     departmentNumber
     name {
       en
@@ -104,7 +104,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.orgIdentifier ?? notProvided}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
-            <NoList>
+            <List.UL unStyle space="sm">
               <li>
                 <BoolCheckIcon value={department.isCorePublicAdministration}>
                   {intl.formatMessage(labels.corePublicAdmin)}
@@ -125,7 +125,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
                   {intl.formatMessage(labels.regulatory)}
                 </BoolCheckIcon>
               </li>
-            </NoList>
+            </List.UL>
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentSize)}>
             {department.size?.label.localized ?? notProvided}
