@@ -206,6 +206,15 @@ const SupportForm = ({
               })}
               options={[
                 {
+                  value: "question",
+                  label: intl.formatMessage({
+                    defaultMessage: "Question",
+                    id: "M/phlO",
+                    description:
+                      "Support form subject field question option label",
+                  }),
+                },
+                {
                   value: "bug",
                   label: intl.formatMessage({
                     defaultMessage: "Bug report",
@@ -222,16 +231,8 @@ const SupportForm = ({
                       "Support form subject field feedback option label",
                   }),
                 },
-                {
-                  value: "question",
-                  label: intl.formatMessage({
-                    defaultMessage: "Question",
-                    id: "M/phlO",
-                    description:
-                      "Support form subject field question option label",
-                  }),
-                },
               ]}
+              doNotSort
               trackUnsaved={false}
             />
             <TextArea
