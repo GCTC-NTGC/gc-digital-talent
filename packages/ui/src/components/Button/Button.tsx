@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef } from "react";
 
 import { btn, BaseButtonLinkProps } from "../../utils/btnStyles";
+import Counter from "./Counter";
 
 export interface ButtonProps
   extends BaseButtonLinkProps,
@@ -22,6 +23,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled = false,
       icon,
       utilityIcon,
+      counter,
       className,
       children,
       ...rest
@@ -30,7 +32,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Icon = icon;
     const UtilityIcon = utilityIcon;
-    const { base, leadingIcon, trailingIcon, label } = btn({
+    const {
+      base,
+      leadingIcon,
+      trailingIcon,
+      label,
+      counter: counterStyles,
+    } = btn({
       color,
       block,
       mode,
@@ -47,6 +55,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {Icon && <Icon className={leadingIcon()} />}
         <span className={label()}>{children}</span>
         {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
+        {counter && <Counter count={counter} className={counterStyles()} />}
       </button>
     );
   },

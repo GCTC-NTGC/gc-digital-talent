@@ -8,18 +8,25 @@ export const btn = tv({
     leadingIcon: "",
     trailingIcon: "",
     label: "underline",
+    counter:
+      "group-focus-visible/btn:bg-black group-focus-visible/btn:text-focus",
   },
   variants: {
     mode: {
       text: {
         base: "font-normal",
+        counter: "text-white dark:text-gray-600",
       },
-      inline: "",
+      inline: {
+        counter: "text-white dark:text-gray-600",
+      },
       solid: {
         base: "rounded-md border-3 focus-visible:border-focus",
+        counter: "bg-black",
       },
       placeholder: {
         base: "rounded-md border-3 border-dashed focus-visible:border-focus",
+        counter: "text-white dark:text-gray-600",
       },
     },
     color: {
@@ -62,6 +69,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-primary bg-primary text-black hover:bg-primary-100",
+        counter: "text-primary group-hover/btn:text-primary-100",
       },
     },
     {
@@ -69,6 +77,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-secondary bg-secondary text-black hover:bg-secondary-100",
+        counter: "text-secondary group-hover/btn:text-secondary-100",
       },
     },
     {
@@ -76,6 +85,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-success bg-success text-black hover:bg-success-100",
+        counter: "text-success group-hover/btn:text-success-100",
       },
     },
     {
@@ -83,6 +93,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-warning bg-warning text-black hover:bg-warning-100",
+        counter: "text-warning group-hover/btn:text-warning-100",
       },
     },
     {
@@ -90,6 +101,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-error-300 bg-error-300 hover:bg-error-100",
+        counter: "text-warning group-hover/btn:text-error-100",
       },
     },
     {
@@ -97,6 +109,8 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-gray-700 bg-gray-700 text-white hover:bg-gray-100 hover:text-black",
+        counter:
+          "bg-gray-100 text-gray-700 group-hover/btn:bg-gray-700 group-hover/btn:text-gray-100",
       },
     },
     {
@@ -104,6 +118,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-gray-100 bg-gray-100 text-black hover:border-gray-300 hover:bg-gray-600 hover:text-white",
+        counter: "text-gray-100 group-hover/btn:text-gray-600",
       },
     },
 
@@ -113,6 +128,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-primary-600 hover:text-primary-700 dark:text-primary-200 dark:hover:text-primary-100",
+        counter:
+          "bg-primary-600 group-hover/btn:bg-primary-700 dark:bg-primary-200 dark:group-hover/btn:bg-primary-100",
       },
     },
     {
@@ -120,6 +137,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-secondary-600 hover:text-secondary-700 dark:text-secondary-200 dark:hover:text-secondary-100",
+        counter:
+          "bg-secondary-600 group-hover/btn:bg-secondary-700 dark:bg-secondary-200 dark:group-hover/btn:bg-secondary-100",
       },
     },
     {
@@ -127,6 +146,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-success-600 hover:text-success-700 dark:text-success-200 dark:hover:text-success-100",
+        counter:
+          "bg-success-600 group-hover/btn:bg-success-700 dark:bg-success-200 dark:group-hover/btn:bg-success-100",
       },
     },
     {
@@ -134,6 +155,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-warning-600 hover:text-warning-700 dark:text-warning-200 dark:hover:text-warning-100",
+        counter:
+          "bg-warning-600 group-hover/btn:bg-warning-700 dark:bg-warning-200 dark:group-hover/btn:bg-warning-100",
       },
     },
     {
@@ -141,6 +164,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-error-600 hover:text-error-700 dark:text-error-100 dark:hover:text-error-200",
+        counter:
+          "bg-error-600 group-hover/btn:bg-error-700 dark:bg-error-200 dark:group-hover/btn:bg-error-100",
       },
     },
     {
@@ -148,6 +173,8 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-black hover:text-gray-700 dark:text-white dark:hover:text-gray-100",
+        counter:
+          "bg-black group-hover/btn:bg-gray-700 dark:bg-white dark:group-hover/btn:bg-gray-100",
       },
     },
     {
@@ -155,6 +182,7 @@ export const btn = tv({
       mode: ["inline", "text", "placeholder"],
       class: {
         base: "text-white hover:text-gray-100",
+        counter: "bg-white group-hover/btn:bg-gray-100",
       },
     },
 
