@@ -18,6 +18,7 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
       mode="text"
       type="button"
       color={active ? "secondary" : "white"}
+      fixedColor
       size="sm"
       {...rest}
     />

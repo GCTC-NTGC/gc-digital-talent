@@ -35,7 +35,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
     const intl = useIntl();
     const Icon = icon;
     const UtilityIcon = utilityIcon;
-    const { base, leadingIcon, trailingIcon, label } = btn({
+    const { base, leadingIcon, trailingIcon, label, alignment } = btn({
       color,
       block,
       mode,
@@ -51,15 +51,17 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
         className={base({ class: className })}
         {...rest}
       >
-        {Icon && <Icon className={leadingIcon()} />}
-        <span className={label()}>{children}</span>
-        {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
-        {newTab && (
-          <ArrowTopRightOnSquareIcon
-            className={trailingIcon()}
-            aria-label={intl.formatMessage(uiMessages.newTab)}
-          />
-        )}
+        <span className={alignment()}>
+          {Icon && <Icon className={leadingIcon()} />}
+          <span className={label()}>{children}</span>
+          {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
+          {newTab && (
+            <ArrowTopRightOnSquareIcon
+              className={trailingIcon()}
+              aria-label={intl.formatMessage(uiMessages.newTab)}
+            />
+          )}
+        </span>
       </BaseLink>
     );
   },

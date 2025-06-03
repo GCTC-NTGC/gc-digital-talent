@@ -45,7 +45,7 @@ const NominationNavigation = () => {
     nominationNavigation;
 
   const commonLinkProps: Omit<LinkProps, "href"> = {
-    color: "secondary",
+    color: "primary",
     mode: "inline",
     block: true,
     state: { nominationIds },

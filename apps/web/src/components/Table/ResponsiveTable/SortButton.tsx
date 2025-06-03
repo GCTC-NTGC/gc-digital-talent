@@ -42,6 +42,7 @@ const SortButton = <T,>({
       mode="inline"
       color="white"
       size="sm"
+      fixedColor
       onClick={column.getToggleSortingHandler()}
       data-h2-font-weight={sortDirection ? "base(700)" : "base(400)"}
       data-h2-text-decoration={

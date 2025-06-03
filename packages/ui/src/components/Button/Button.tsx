@@ -35,6 +35,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const UtilityIcon = utilityIcon;
     const {
       base,
+      alignment,
       leadingIcon,
       trailingIcon,
       label,
@@ -54,10 +55,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         {...rest}
       >
-        {Icon && <Icon className={leadingIcon()} />}
-        <span className={label()}>{children}</span>
-        {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
-        {counter && <Counter count={counter} className={counterStyles()} />}
+        <span className={alignment()}>
+          {Icon && <Icon className={leadingIcon()} />}
+          <span className={label()}>{children}</span>
+          {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
+          {counter && <Counter count={counter} className={counterStyles()} />}
+        </span>
       </button>
     );
   },

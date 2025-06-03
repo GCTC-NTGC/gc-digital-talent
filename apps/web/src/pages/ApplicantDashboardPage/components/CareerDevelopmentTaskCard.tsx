@@ -126,7 +126,7 @@ const CareerDevelopmentTaskCard = ({
       key: "edit-career-planning-key",
       type: "link",
       href: `${paths.employeeProfile()}#career-planning-section`,
-      color: "secondary",
+      color: "primary",
       children: (
         <>
           {intl.formatMessage({
@@ -145,7 +145,7 @@ const CareerDevelopmentTaskCard = ({
       key: "add-community-key",
       type: "link",
       href: paths.createCommunityInterest(),
-      color: "secondary",
+      color: "primary",
       children: (
         <>
           {intl.formatMessage({

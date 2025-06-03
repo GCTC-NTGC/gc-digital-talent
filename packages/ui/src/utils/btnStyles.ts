@@ -4,7 +4,8 @@ import { IconType } from "../types";
 
 export const btn = tv({
   slots: {
-    base: "group/btn items-center justify-center gap-x-1.5 font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
+    base: "group/btn font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
+    alignment: "inline-flex items-center justify-center gap-x-1.5",
     leadingIcon: "",
     trailingIcon: "",
     label: "underline",
@@ -14,18 +15,18 @@ export const btn = tv({
   variants: {
     mode: {
       text: {
-        base: "font-normal",
+        base: "inline font-normal",
         counter: "text-white dark:text-gray-600",
       },
       inline: {
-        counter: "text-white dark:text-gray-600",
+        counter: "inline-block text-white dark:text-gray-600",
       },
       solid: {
-        base: "rounded-md border-3 focus-visible:border-focus",
+        base: "inline-block rounded-md border-3 focus-visible:border-focus",
         counter: "bg-black",
       },
       placeholder: {
-        base: "rounded-md border-3 border-dashed focus-visible:border-focus",
+        base: "inline-block rounded-md border-3 border-dashed focus-visible:border-focus",
         counter: "text-white dark:text-gray-600",
       },
     },
@@ -51,11 +52,9 @@ export const btn = tv({
     },
     block: {
       true: {
-        base: "flex w-full text-center",
+        base: "flex w-full justify-center text-center",
       },
-      false: {
-        base: "inline-flex",
-      },
+      false: {},
     },
     disabled: {
       true: {},
@@ -74,7 +73,7 @@ export const btn = tv({
       color: "primary",
       mode: "solid",
       class: {
-        base: "border-primary bg-primary text-black hover:bg-primary-100",
+        base: "border-primary bg-primary text-black hover:bg-primary-100 iap:text-white iap:hover:text-black",
         counter: "text-primary group-hover/btn:text-primary-100",
       },
     },
@@ -82,7 +81,7 @@ export const btn = tv({
       color: "secondary",
       mode: "solid",
       class: {
-        base: "border-secondary bg-secondary text-black hover:bg-secondary-100",
+        base: "border-secondary bg-secondary text-black hover:bg-secondary-100 iap:text-white iap:hover:text-black",
         counter: "text-secondary group-hover/btn:text-secondary-100",
       },
     },
@@ -106,7 +105,7 @@ export const btn = tv({
       color: "error",
       mode: "solid",
       class: {
-        base: "border-error-300 bg-error-300 hover:bg-error-100",
+        base: "border-error-300 bg-error-300 hover:bg-error-100 dark:text-black",
         counter: "text-warning group-hover/btn:text-error-100",
       },
     },
@@ -232,6 +231,13 @@ export const btn = tv({
       class: {
         base: "dark:text-white dark:hover:text-gray-100",
       },
+    },
+
+    // Text buttons should be inline
+    {
+      mode: "text",
+      block: false,
+      class: "inline",
     },
 
     // Disabled: Must be at bottom for cascade

@@ -12,7 +12,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="secondary" {...btnProps}>
+        <Button color="primary" {...btnProps}>
           {intl.formatMessage({
             defaultMessage: "Learn More",
             id: "CY+493",
