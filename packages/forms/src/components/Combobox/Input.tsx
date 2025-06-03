@@ -3,34 +3,24 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
+import { tv } from "tailwind-variants";
 
 import { Separator as SeparatorPrimitive } from "@gc-digital-talent/ui";
 
 import { HTMLSpanProps } from "./types";
 
-const layoutStyles = {
-  "data-h2-display": "base(flex)",
-  "data-h2-align-items": "base(center)",
-  "data-h2-flex-shrink": "base(0)",
-  "data-h2-padding": "base(0, x.25)",
-};
+const layout = tv({
+  base: "flex shrink-0 items-center px-1.5",
+});
 
-const iconStyles = {
-  "data-h2-height": "base(1rem)",
-  "data-h2-width": "base(1rem)",
-  "data-h2-color": "base(black.light)",
-};
+const btn = tv({
+  extend: layout,
+  base: "cursor-pointer rounded border-2 border-transparent bg-transparent outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700",
+});
 
-const buttonStyles = {
-  "data-h2-background-color": "base(transparent) base:hover(gray.lightest)",
-  "data-h2-border":
-    "base(2px solid transparent) base:focus-visible(2px solid secondary)",
-  "data-h2-display": "base(flex)",
-  "data-h2-align-items": "base(center)",
-  "data-h2-radius": "base(input)",
-  "data-h2-cursor": "base(pointer)",
-  "data-h2-outline": "base(none)",
-};
+const icon = tv({
+  base: "size-4 text-gray",
+});
 
 type DivHTMLProps = Omit<
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
@@ -41,11 +31,7 @@ const Wrapper = forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
-      data-h2-display="base(flex)"
-      data-h2-flex-grow="base(1)"
-      data-h2-width="base(100%)"
-      data-h2-position="base(relative)"
-      data-h2-margin="base(0, 0, x.125, 0)"
+      className="relative mb-0.5 flex w-full grow"
       {...props}
     />
   ),
@@ -55,10 +41,7 @@ const Actions = forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
-      data-h2-display="base(flex)"
-      data-h2-gap="base(0, x.1)"
-      data-h2-position="base(absolute)"
-      data-h2-location="base(x.25, x.25, x.25, auto)"
+      className="absolute inset-1 left-auto flex gap-x-0.5"
       {...props}
     />
   ),
@@ -68,13 +51,11 @@ const Search = forwardRef<HTMLDivElement, HTMLSpanProps>(
   (props, forwardedRef) => (
     <span
       ref={forwardedRef}
-      data-h2-display="base(flex)"
-      data-h2-position="base(absolute)"
-      data-h2-location="base(x.25, auto, x.25, x.25)"
+      className="absolute inset-1 right-auto flex"
       {...props}
     >
-      <span aria-hidden="true" {...layoutStyles}>
-        <MagnifyingGlassIcon {...iconStyles} />
+      <span aria-hidden="true" className={layout()}>
+        <MagnifyingGlassIcon className={icon()} />
       </span>
     </span>
   ),
@@ -87,14 +68,8 @@ type HTMLButtonProps = Omit<
 
 const Clear = forwardRef<HTMLButtonElement, HTMLButtonProps>(
   (props, forwardedRef) => (
-    <button
-      type="button"
-      ref={forwardedRef}
-      {...buttonStyles}
-      {...layoutStyles}
-      {...props}
-    >
-      <XMarkIcon {...iconStyles} />
+    <button type="button" ref={forwardedRef} className={btn()} {...props}>
+      <XMarkIcon className={icon()} />
     </button>
   ),
 );
@@ -123,24 +98,18 @@ const AnimatedToggleIcon = motion.create(ChevronDownIcon);
 
 const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ isOpen, ...rest }, forwardedRef) => (
-    <button
-      type="button"
-      ref={forwardedRef}
-      {...buttonStyles}
-      {...layoutStyles}
-      {...rest}
-    >
+    <button type="button" ref={forwardedRef} className={btn()} {...rest}>
       <AnimatedToggleIcon
         animate={isOpen ? "open" : "closed"}
         variants={iconVariants}
-        {...iconStyles}
+        className={icon()}
       />
     </button>
   ),
 );
 
 const Separator = () => (
-  <span data-h2-padding="base(x.25 0)">
+  <span className="py-1.5">
     <SeparatorPrimitive orientation="vertical" space="none" decorative />
   </span>
 );
