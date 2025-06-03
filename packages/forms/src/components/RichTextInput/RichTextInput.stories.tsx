@@ -57,24 +57,12 @@ const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
         }}
       >
         <RichTextInput {...rest} />
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           <Submit />
         </p>
       </Form>
-      <Heading
-        size="h6"
-        data-h2-color="base(black)"
-        data-h2-font-weight="base(700)"
-      >
-        Preview
-      </Heading>
-      <div
-        data-h2-radius="base(s)"
-        data-h2-padding="base(x1)"
-        data-h2-shadow="base(larger)"
-        data-h2-background-color="base(foreground)"
-        data-h2-margin-top="base:children[>*:first-child](0)"
-      >
+      <Heading size="h6">Preview</Heading>
+      <div className="*:first-child:mt-0 rounded-sm bg-white p-6 shadow-lg dark:bg-gray-600">
         <RichTextRenderer node={htmlToRichTextJSON(output)} />
       </div>
     </>

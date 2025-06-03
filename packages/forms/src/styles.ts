@@ -31,6 +31,15 @@ export const checkboxRadioStyles = tv({
 
 export const inputStyles = tv({
   base: "rounded-md border-1 p-3 text-black outline-offset-2 outline-none placeholder:text-gray-600 placeholder:opacity-70 focus-visible:outline-2 focus-visible:outline-focus dark:text-white",
+  variants: {
+    state: {
+      // NOTE: compat, remove when all inputs completed
+      unset: "",
+      invalid:
+        "border-error-500 bg-error-100 dark:border-error-300 dark:bg-error-700",
+      dirty: "border-secondary-500 dark:border-secondary-300",
+    },
+  },
 });
 
 export const selectStyles = tv({
