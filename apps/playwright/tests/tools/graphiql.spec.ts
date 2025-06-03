@@ -5,7 +5,7 @@ test.describe("Graphiql", () => {
     await page.goto("/graphiql");
 
     const editorBox = page
-      .getByRole("region", { name: "Query Editor" })
+      .getByRole("region", { name: /query editor/i })
       .getByRole("textbox");
     await editorBox.focus();
     await page.keyboard.press("ControlOrMeta+A");
@@ -13,11 +13,11 @@ test.describe("Graphiql", () => {
     await page.keyboard.type("query {__typename}");
 
     const executeButton = page.getByRole("button", {
-      name: "Execute query (Ctrl-Enter)",
+      name: /execute query/i,
     });
     await executeButton.click();
 
-    const resultsBox = page.getByRole("region", { name: "Result Window" });
+    const resultsBox = page.getByRole("region", { name: /result window/i });
     await expect(resultsBox).toContainText('"__typename": "Query"');
   });
 });
