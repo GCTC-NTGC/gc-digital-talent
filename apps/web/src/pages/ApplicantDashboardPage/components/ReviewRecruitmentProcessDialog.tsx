@@ -199,24 +199,22 @@ const ReviewRecruitmentProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            pool.name?.localized
-              ? intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{poolName}<hidden> recruitment process</hidden>",
-                    id: "wrg4fw",
-                    description:
-                      "Text before recruitment process pool name in recruitment process preview list.",
-                  },
-                  {
-                    poolName: pool.name.localized,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {pool.name?.localized
+            ? intl.formatMessage(
+                {
+                  defaultMessage:
+                    "{poolName}<hidden> recruitment process</hidden>",
+                  id: "wrg4fw",
+                  description:
+                    "Text before recruitment process pool name in recruitment process preview list.",
+                },
+                {
+                  poolName: pool.name.localized,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header

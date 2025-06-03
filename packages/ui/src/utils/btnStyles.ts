@@ -339,5 +339,5 @@ export type IconButtonVariants = VariantProps<typeof iconBtn>;
 
 export interface BaseIconButtonLinkProps extends IconButtonVariants {
   icon: IconType;
-  label: string;
+  label?: string;
 }

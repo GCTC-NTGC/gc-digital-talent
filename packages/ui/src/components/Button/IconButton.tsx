@@ -9,7 +9,7 @@ export interface IconButtonProps
         ButtonHTMLAttributes<HTMLButtonElement>,
         HTMLButtonElement
       >,
-      "color" | "children" | "aria-label"
+      "color" | "aria-label"
     > {}
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -21,6 +21,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       icon,
       label,
       className,
+      children,
       ...rest
     },
     forwardedRef,
@@ -35,6 +36,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         disabled={disabled}
         {...rest}
       >
+        {children && <span className="sr-only">{children}</span>}
         <Icon className={iconStyles()} />
       </button>
     );

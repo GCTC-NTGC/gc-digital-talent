@@ -66,15 +66,13 @@ interface LinkProps {
   href: BaseLinkProps["href"];
   label: string;
   icon?: IconType;
+  children?: ReactNode;
 }
 
 const Link = ({ href, icon, label }: LinkProps) => (
-  <BaseLink
-    {...actionProps}
-    href={href}
-    icon={icon ?? actionProps.icon}
-    label={label}
-  />
+  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+    {label}
+  </BaseLink>
 );
 
 interface ItemProps {
