@@ -208,16 +208,16 @@ const SupportForm = ({
                 {
                   value: "bug",
                   label: intl.formatMessage({
-                    defaultMessage: "Submit a bug",
-                    id: "wIccbA",
+                    defaultMessage: "Bug report",
+                    id: "RKUtAJ",
                     description: "Support form subject field bug option label",
                   }),
                 },
                 {
                   value: "feedback",
                   label: intl.formatMessage({
-                    defaultMessage: "Submit feedback",
-                    id: "fVAMSw",
+                    defaultMessage: "Feedback",
+                    id: "iuKEt+",
                     description:
                       "Support form subject field feedback option label",
                   }),
@@ -225,8 +225,8 @@ const SupportForm = ({
                 {
                   value: "question",
                   label: intl.formatMessage({
-                    defaultMessage: "Ask a question",
-                    id: "msn4mz",
+                    defaultMessage: "Question",
+                    id: "M/phlO",
                     description:
                       "Support form subject field question option label",
                   }),
