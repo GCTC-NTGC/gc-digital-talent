@@ -254,7 +254,8 @@ const MainNavMenu = () => {
                             data-h2-margin-right="base(0) l-tablet(x.75)"
                           >
                             <NavMenu.Trigger
-                              color="black"
+                              color={isSmallScreen ? "black" : "white"}
+                              fixedColor={!isSmallScreen}
                               mode="text"
                               block={false}
                             >
@@ -317,6 +318,7 @@ const MainNavMenu = () => {
                       <NavMenu.Item>
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
+                          fixedColor={!isSmallScreen}
                           mode="text"
                           block={false}
                         >
@@ -351,7 +353,8 @@ const MainNavMenu = () => {
                         data-h2-padding-right="l-tablet(x.75)"
                       >
                         <NavMenu.Trigger
-                          color="black"
+                          color={isSmallScreen ? "black" : "white"}
+                          fixedColor={!isSmallScreen}
                           mode="text"
                           block={false}
                         >

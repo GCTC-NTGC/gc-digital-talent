@@ -21,6 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = "md",
       block = false,
       disabled = false,
+      fixedColor = false,
       icon,
       utilityIcon,
       counter,
@@ -44,6 +45,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       mode,
       size,
       disabled,
+      fixedColor,
     });
     return (
       <button

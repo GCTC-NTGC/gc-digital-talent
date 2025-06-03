@@ -61,6 +61,12 @@ export const btn = tv({
       true: {},
       false: {},
     },
+    // Do not change colour on dark mode (mainly for black/white)
+    // For colours that show up on an fixed background colour
+    fixedColor: {
+      true: {},
+      false: {},
+    },
   },
   compoundVariants: [
     // Solid Colour Variants
@@ -181,8 +187,9 @@ export const btn = tv({
       color: "white",
       mode: ["inline", "text", "placeholder"],
       class: {
-        base: "text-white hover:text-gray-100",
-        counter: "bg-white group-hover/btn:bg-gray-100",
+        base: "text-white hover:text-gray-100 dark:text-black dark:hover:text-gray-700",
+        counter:
+          "dark:group-hover/bg-gray-700 bg-white group-hover/btn:bg-gray-100 dark:bg-black",
       },
     },
 
@@ -206,6 +213,24 @@ export const btn = tv({
       size: "lg",
       class: {
         base: "px-6 py-2.5",
+      },
+    },
+
+    // Fixed colour options
+    {
+      fixedColor: true,
+      mode: ["text", "inline", "placeholder"],
+      color: "black",
+      class: {
+        base: "dark:text-black dark:hover:text-gray-700",
+      },
+    },
+    {
+      fixedColor: true,
+      mode: ["text", "inline", "placeholder"],
+      color: "white",
+      class: {
+        base: "dark:text-white dark:hover:text-gray-100",
       },
     },
 
@@ -240,6 +265,7 @@ export const btn = tv({
     size: "sm",
     mode: "solid",
     disabled: false,
+    fixedColor: false,
   },
 });
 
