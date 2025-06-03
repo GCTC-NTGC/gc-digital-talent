@@ -56,7 +56,6 @@ const RichTextInput = ({
 
   const labelId = `${id}-label`;
   let wordLimitRule = {};
-  let wordLimitStyles = {};
   if (wordLimit) {
     wordLimitRule = {
       wordCount: (value: string) =>
@@ -64,10 +63,6 @@ const RichTextInput = ({
         intl.formatMessage(errorMessages.overWordLimit, {
           value: wordLimit,
         }),
-    };
-
-    wordLimitStyles = {
-      "data-h2-padding-bottom": "base(x2)",
     };
   }
 
@@ -96,7 +91,6 @@ const RichTextInput = ({
             allowHeadings={allowHeadings}
             inputProps={{
               id,
-              ...wordLimitStyles,
               "aria-labelledBy": `${labelId}${
                 labelledBy ? ` ${labelledBy}` : ``
               }`,
