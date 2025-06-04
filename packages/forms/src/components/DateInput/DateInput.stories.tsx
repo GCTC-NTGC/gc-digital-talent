@@ -65,7 +65,7 @@ const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
       onSubmit={(data) => action("Submit Form")(data)}
     >
       <DateInput {...rest} />
-      <p data-h2-margin-top="base(x1)">
+      <p className="mt-6">
         <Submit />
       </p>
     </Form>
@@ -147,7 +147,7 @@ const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => (
     onSubmit={(data) => action("Submit Form")(data)}
   >
     <ValidationDependantInputs {...args} />
-    <Submit data-h2-margin="base(x1, 0, 0, 0)" />
+    <Submit className="mt-6" />
   </Form>
 );
 
@@ -163,7 +163,7 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   return inputDate && isAfter(new Date(), inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
-    <p data-h2-color="base(black)" data-h2-margin="base(x1, 0)">
+    <p className="my-6 text-black dark:text-white">
       Please select a date in the past to continue.
     </p>
   );
@@ -178,9 +178,7 @@ const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
     >
       <DateInput name={name} {...rest} />
       <RenderDependantInput name={name} />
-      <p data-h2-margin="base(x1, 0, 0, 0)">
-        <Submit />
-      </p>
+      <Submit className="mt-6" />
     </Form>
   );
 };
@@ -227,9 +225,7 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
         onSubmit={(data) => action("Submit Form")(data)}
       >
         <DateInput {...rest} />
-        <p data-h2-margin="base(x1, 0, 0, 0)">
-          <Submit />
-        </p>
+        <Submit className="mt-6" />
       </Form>
     </Pending>
   );
@@ -273,19 +269,18 @@ const FieldArrayTemplate: StoryFn = () => {
       }}
       onSubmit={(data) => action("Submit Form")(data)}
     >
-      {formValues.dates.map((val, i) => (
-        <div key={val.legend}>
-          <DateInput
-            id={`dateInput-${i}`}
-            name={`dates.${i}.value`}
-            legend={val.legend}
-          />
-        </div>
-      ))}
-
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
+      <div className="flex flex-col gap-y-6">
+        {formValues.dates.map((val, i) => (
+          <div key={val.legend}>
+            <DateInput
+              id={`dateInput-${i}`}
+              name={`dates.${i}.value`}
+              legend={val.legend}
+            />
+          </div>
+        ))}
+      </div>
+      <Submit className="mt-6" />
     </Form>
   );
 };
