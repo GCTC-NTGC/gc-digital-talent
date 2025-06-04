@@ -21,7 +21,7 @@ const DocNode: NodeRenderer = ({ children }) => (
 const TextNode: NodeRenderer = ({ node }) => {
   const content = String(node.text);
 
-  let linkProps: Partial<LinkProps> = {};
+  let linkProps: LinkProps = {};
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
       const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -36,7 +36,7 @@ const TextNode: NodeRenderer = ({ node }) => {
   });
 
   return isLink ? (
-    <Link href={linkProps.href ?? "#"} newTab={linkProps.newTab}>
+    <Link href={linkProps.href} newTab={linkProps.newTab}>
       {content}
     </Link>
   ) : (
