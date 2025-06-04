@@ -26,7 +26,11 @@ export type MetaDataProps = MetaDataChip | MetaDataText;
 const MetaData = (props: MetaDataProps) => {
   switch (props.type) {
     case "text":
-      return <span className="text-gray-600">{props.children}</span>;
+      return (
+        <span className="text-gray-600 dark:text-gray-200">
+          {props.children}
+        </span>
+      );
     case "chip":
       return (
         <span>
@@ -105,7 +109,7 @@ const Item = ({
       <div className="flex flex-col">
         <Heading
           level={headingAs}
-          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]:bg-focus group-has-[a:focus-visible,button:focus-visible]:text-black group-has-[a:hover,button:hover]:text-primary-600"
+          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]:bg-focus group-has-[a:focus-visible,button:focus-visible]:text-black group-has-[a:hover,button:hover]:text-primary-600 dark:group-has-[a:hover,button:hover]:text-primary-200"
         >
           {title}
         </Heading>
