@@ -202,7 +202,7 @@ const CommunityInterest = ({
                 "Label for the input for selecting work stream referral preferences",
             })}
           </p>
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {communityWorkStreams.map((workStream) => (
               <li key={workStream.id}>
                 <BoolCheckIcon
@@ -238,7 +238,7 @@ const CommunityInterest = ({
                 "Label for users interest in development programs for a community",
             })}
           </p>
-          <Ul unStyled>
+          <Ul unStyled space="lg">
             {communityDevelopmentPrograms
               .sort(
                 sortAlphaBy(
@@ -312,7 +312,7 @@ const CommunityInterest = ({
                         "Label for additional duties of a finance chief",
                     })}
                   </p>
-                  <Ul unStyled space="sm" className="mb-6">
+                  <Ul unStyled space="lg" className="mb-6">
                     {communityInterestOptions.financeChiefDuties?.map(
                       (dutyOption) => (
                         <li key={dutyOption.value}>
@@ -337,7 +337,7 @@ const CommunityInterest = ({
                       description: "Label for other roles of a finance chief",
                     })}
                   </p>
-                  <Ul unStyled space="sm" className="mb-6">
+                  <Ul unStyled space="lg" className="mb-6">
                     {communityInterestOptions.financeChiefRoles?.map(
                       (roleOption) => (
                         <li key={roleOption.value}>

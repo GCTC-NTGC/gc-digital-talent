@@ -100,7 +100,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
         })}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             <li>
               <BoolCheckIcon
                 value={lookingForEnglish}

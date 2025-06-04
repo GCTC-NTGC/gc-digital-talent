@@ -50,7 +50,7 @@ const NominatedForList = ({
   } = nominationGroupSidebarForList;
 
   return (
-    <Ul unStyled space="md">
+    <Ul unStyled space="lg">
       <li>
         <ComputedIcon
           count={advancementNominationCount ?? 0}

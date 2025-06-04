@@ -248,7 +248,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.lateralMoveOrganizationType}
         </span>
         {employeeProfile.lateralMoveOrganizationType ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(
               careerDevelopmentOptions.organizationTypeInterest,
             ).map((x) => {
@@ -305,7 +305,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.promotionMoveOrganizationType}
         </span>
         {employeeProfile.promotionMoveOrganizationType ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(
               careerDevelopmentOptions?.organizationTypeInterest,
             ).map((x) => {
@@ -346,7 +346,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.learningOpportunitiesInterest}
         </span>
         {employeeProfile.learningOpportunitiesInterest ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -423,7 +423,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.mentorshipInterest}
         </span>
         {employeeProfile.mentorshipInterest ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
               const iconValue = mentorshipInterests.includes(
                 x.value as Mentorship,
@@ -465,7 +465,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.execCoachingInterest}
         </span>
         {employeeProfile.execCoachingInterest ? (
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
               const iconValue = execCoachingInterests.includes(
                 x.value as ExecCoaching,

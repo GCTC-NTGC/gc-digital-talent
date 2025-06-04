@@ -121,7 +121,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.lateralMoveOrganizationType}
             >
               {lateralMoveOrganizationType ? (
-                <Ul unStyled space="sm">
+                <Ul unStyled space="lg">
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -195,7 +195,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.promotionMoveOrganizationType}
             >
               {promotionMoveOrganizationType ? (
-                <Ul unStyled space="sm">
+                <Ul unStyled space="lg">
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -238,7 +238,7 @@ const CareerDevelopmentPreferences = ({
         <FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
-          <Ul unStyled space="sm">
+          <Ul unStyled space="lg">
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -320,7 +320,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.mentorshipInterest}>
           {mentorshipInterest ? (
-            <Ul unStyled space="sm">
+            <Ul unStyled space="lg">
               {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
                 const iconValue = mentorshipInterests.includes(x.value);
                 return (
@@ -367,7 +367,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.execCoachingInterest}>
           {execCoachingInterest ? (
-            <Ul unStyled space="sm">
+            <Ul unStyled space="lg">
               {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
                 const iconValue = execCoachingInterests.includes(x.value);
                 return (
