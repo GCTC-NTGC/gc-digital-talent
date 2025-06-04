@@ -204,12 +204,7 @@ const CommunityInterest = ({
           </p>
           <Ul unStyled space="sm">
             {communityWorkStreams.map((workStream) => (
-              <li
-                key={workStream.id}
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(flex-start)"
-                data-h2-gap="base(x.25)"
-              >
+              <li key={workStream.id}>
                 <BoolCheckIcon
                   value={interestedWorkStreams.includes(workStream.id)}
                   trueLabel={intl.formatMessage({
