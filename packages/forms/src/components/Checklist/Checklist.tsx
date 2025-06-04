@@ -18,7 +18,7 @@ export interface CheckboxOption {
 const checkList = tv({
   extend: inputStyles,
   // NOTE: Remove important in #13664
-  base: "gap-0 px-0! py-1.5",
+  base: "gap-0! px-0! py-1.5",
 });
 
 export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
