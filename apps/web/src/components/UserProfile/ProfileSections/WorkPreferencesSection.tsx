@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { List, Well } from "@gc-digital-talent/ui";
+import { Ul, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocalizedName,
@@ -54,9 +54,9 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           positionDuration.includes(PositionDuration.Temporary) && (
             <div data-h2-flex-item="base(1of1)">
               <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <List.UL className="mb-6">
+              <Ul className="mb-6">
                 <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </List.UL>
+              </Ul>
             </div>
           )}
 
@@ -64,15 +64,15 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
           !positionDuration.includes(PositionDuration.Temporary) && (
             <div data-h2-flex-item="base(1of1)">
               <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <List.UL className="mb-6">
+              <Ul className="mb-6">
                 <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </List.UL>
+              </Ul>
             </div>
           )}
 
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <List.UL unStyled space="sm">
+          <Ul unStyled space="sm">
             {OperationalRequirements.map((requirement) => (
               <li key={requirement}>
                 <BoolCheckIcon
@@ -84,7 +84,7 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
                 </BoolCheckIcon>
               </li>
             ))}
-          </List.UL>
+          </Ul>
         </div>
         <div data-h2-flex-item="base(1of1)">
           <p>

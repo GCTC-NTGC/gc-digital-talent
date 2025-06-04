@@ -49,7 +49,8 @@ import Link, {
   type ScrollLinkClickFunc,
   type MenuLinkProps,
 } from "./components/Link";
-import List from "./components/List/List";
+import Ol from "./components/List/Ol";
+import Ul from "./components/List/Ul";
 import Loading, { type LoadingProps } from "./components/Loading";
 import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
 import { getNavLinkStyling } from "./components/NavMenu";
@@ -165,7 +166,8 @@ export {
   NavMenu,
   NavMenuProvider,
   NavTabs,
-  List,
+  Ol,
+  Ul,
   Loading,
   LoadingErrorMessage,
   Pending,

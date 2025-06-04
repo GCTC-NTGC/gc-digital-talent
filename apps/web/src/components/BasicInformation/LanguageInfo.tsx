@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { List } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
@@ -100,7 +100,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
         })}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <List.UL unStyled space="sm">
+          <Ul unStyled space="sm">
             <li>
               <BoolCheckIcon
                 value={lookingForEnglish}
@@ -140,7 +140,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
                 })}
               </BoolCheckIcon>
             </li>
-          </List.UL>
+          </Ul>
         ) : (
           notProvided
         )}
