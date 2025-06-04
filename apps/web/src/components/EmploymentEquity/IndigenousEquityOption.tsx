@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { ReactNode, JSX } from "react";
 
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Ul } from "@gc-digital-talent/ui";
 import {
   IndigenousCommunity,
   LocalizedIndigenousCommunity,
@@ -84,7 +84,7 @@ const EquityOption = ({
       data-h2-shadow="base(m)"
     >
       <p data-h2-font-weight="base(700)">{title}</p>
-      <ul data-h2-padding-left="base(x.25)" data-h2-padding-bottom="base(x1)">
+      <Ul className="mb-6">
         {isAdded
           ? nonLegacyIndigenousCommunities.map((community) => {
               return (
@@ -100,7 +100,7 @@ const EquityOption = ({
               );
             })
           : null}
-      </ul>
+      </Ul>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
       <Dialog
         indigenousCommunities={indigenousCommunities}

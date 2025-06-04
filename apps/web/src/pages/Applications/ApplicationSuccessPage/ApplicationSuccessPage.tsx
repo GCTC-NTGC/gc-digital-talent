@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Alert, Link } from "@gc-digital-talent/ui";
+import { Alert, Link, Ul } from "@gc-digital-talent/ui";
 import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -87,8 +87,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 "Description of review process and next steps for the applicant.",
             })}
           </p>
-          <ul data-h2-margin-bottom="base(x1.5)">
-            <li data-h2-margin-bottom="base(x.25)">
+          <Ul className="mb-9" space="md">
+            <li>
               <Link
                 newTab
                 external
@@ -109,7 +109,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 })}
               </Link>
             </li>
-            <li data-h2-margin-bottom="base(x.25)">
+            <li>
               <Link
                 newTab
                 external
@@ -131,7 +131,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 })}
               </Link>
             </li>
-          </ul>
+          </Ul>
         </>
       )}
       <p

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { HTMLProps, ReactNode } from "react";
 
-import { Link, Heading, HeadingLevel, Card } from "@gc-digital-talent/ui";
+import { Link, Heading, HeadingLevel, Card, Ul } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -301,7 +301,7 @@ const EducationRequirements = ({
             <Text>
               {intl.formatMessage(applicationMessages.appliedWorkExperience)}
             </Text>
-            <ul>
+            <Ul>
               <li>
                 {intl.formatMessage(applicationMessages.onTheJobLearning)}
               </li>
@@ -312,7 +312,7 @@ const EducationRequirements = ({
               </li>
               <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
               <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
-            </ul>
+            </Ul>
           </Card>
           <Or />
           <Card>

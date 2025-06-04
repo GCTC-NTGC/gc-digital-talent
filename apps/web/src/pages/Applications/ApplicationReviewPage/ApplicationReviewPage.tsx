@@ -8,6 +8,7 @@ import {
   Heading,
   Link,
   ThrowNotFound,
+  Ul,
   Well,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -189,9 +190,9 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             description: "Starting message for the application review page.",
           })}
         </p>
-        <ul data-h2-padding="base(0, 0, 0, x1)">
+        <Ul space="md">
           <li>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "When you submit your application, a copy of your profile will be created as a part of your application.",
@@ -202,7 +203,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             </p>
           </li>
           <li>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "Changes made to your profile after submitting will not be updated on your application.",
@@ -213,7 +214,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             </p>
           </li>
           <li>
-            <p data-h2-margin-bottom="base(x.5)">
+            <p>
               {intl.formatMessage({
                 defaultMessage:
                   "You are still encouraged to keep your profile up to date, as updated versions will be used at later steps of the hiring process.",
@@ -223,7 +224,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               })}
             </p>
           </li>
-        </ul>
+        </Ul>
       </div>
       <ReviewSection
         title={intl.formatMessage({
@@ -417,9 +418,9 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     "Message in screening questions section of the application review page.",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <Ul space="lg">
                 {screeningQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                  <li key={response.id}>
                     <p
                       data-h2-font-weight="base(700)"
                       data-h2-margin-bottom="base(x.25)"
@@ -431,7 +432,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     <p>{response.answer}</p>
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </div>
           ) : (
             <Well>
@@ -470,9 +471,9 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     "Message in general questions section of the application review page.",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <Ul space="lg">
                 {generalQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                  <li key={response.id}>
                     <p
                       data-h2-font-weight="base(700)"
                       data-h2-margin-bottom="base(x.25)"
@@ -484,7 +485,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     <p>{response.answer}</p>
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </div>
           ) : (
             <Well>
@@ -527,9 +528,9 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     "Instructions for sign and submit section of application review page.",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <Ul space="lg">
                 <li>
-                  <p data-h2-margin-bottom="base(x.5)">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: `"I’ve reviewed everything written in my application"`,
                       id: "PDbqFR",
@@ -539,14 +540,14 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                   </p>
                 </li>
                 <li>
-                  <p data-h2-margin-bottom="base(x.5)">
+                  <p>
                     {intl.formatMessage(
                       applicationMessages.confirmationCommunity,
                     )}
                   </p>
                 </li>
                 <li>
-                  <p data-h2-margin-bottom="base(x.5)">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: `"I promise that the information I’ve provided is true"`,
                       id: "1ZQP80",
@@ -555,7 +556,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                     })}
                   </p>
                 </li>
-              </ul>
+              </Ul>
               <div data-h2-margin="base(x1 0)">
                 <Input
                   id="signature"

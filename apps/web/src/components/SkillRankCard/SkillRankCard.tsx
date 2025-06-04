@@ -1,7 +1,13 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  HeadingLevel,
+  Link,
+  Separator,
+  Ul,
+} from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { SkillShowcase_UserSkillFragment } from "@gc-digital-talent/graphql";
 
@@ -62,7 +68,7 @@ const SkillRankCard = ({
       <p>{description}</p>
       <Separator space="sm" />
       {userSkills.length ? (
-        <ul data-h2-margin="base(0)" data-h2-padding-left="base(x.75)">
+        <Ul>
           {userSkills.map((userSkill) => (
             <SkillRankListItem
               key={userSkill.id}
@@ -70,7 +76,7 @@ const SkillRankCard = ({
               editable={editable}
             />
           ))}
-        </ul>
+        </Ul>
       ) : (
         <NullMessage type={type} editLink={editLink} editable={editable} />
       )}

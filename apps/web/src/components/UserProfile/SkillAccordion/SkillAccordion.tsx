@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
+import { Accordion, HeadingRank, Ul } from "@gc-digital-talent/ui";
 import {
   getLocale,
   commonMessages,
@@ -322,8 +322,8 @@ const SkillAccordion = ({
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
-        <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
-          <li data-h2-margin="base(x1, 0, 0, 0)">
+        <Ul space="xl" key={experience?.id}>
+          <li>
             {isPersonalExperience(experience) &&
               getPersonalExperience(experience)}
             {isEducationExperience(experience) &&
@@ -333,7 +333,7 @@ const SkillAccordion = ({
               getCommunityExperience(experience)}
             {isWorkExperience(experience) && getWorkExperience(experience)}
           </li>
-        </ul>
+        </Ul>
       );
     });
   };

@@ -7,10 +7,17 @@ interface OLProps
     DetailedHTMLProps<OlHTMLAttributes<HTMLOListElement>, HTMLOListElement> {}
 
 const Ol = forwardRef<HTMLOListElement, OLProps>(
-  ({ className, unStyled, space, ...rest }, forwardedRef) => (
+  ({ className, unStyled, space, inside, noIndent, ...rest }, forwardedRef) => (
     <ol
       ref={forwardedRef}
-      className={list({ type: "ordered", unStyled, space, class: className })}
+      className={list({
+        type: "ordered",
+        unStyled,
+        space,
+        inside,
+        noIndent,
+        class: className,
+      })}
       {...rest}
     />
   ),

@@ -35,7 +35,7 @@ import labels from "./labels";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
-    idDetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>;
+    id
     departmentNumber
     name {
       en
@@ -104,7 +104,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.orgIdentifier ?? notProvided}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
-            <Ul unStyle space="sm">
+            <Ul unStyled space="sm">
               <li>
                 <BoolCheckIcon value={department.isCorePublicAdministration}>
                   {intl.formatMessage(labels.corePublicAdmin)}

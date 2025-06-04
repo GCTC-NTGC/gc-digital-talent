@@ -167,7 +167,7 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.acceptableRequirements)}
       >
         {acceptedRequirements?.length ? (
-          <Ul unStyled>
+          <Ul>
             {acceptedRequirements.map((requirement) => {
               const label =
                 operationalRequirements.find(
@@ -187,11 +187,11 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.workLocationPreferences)}
       >
         {locations?.length ? (
-          <ul>
+          <Ul>
             {locations.map((location) => (
               <li key={location.value}>{location?.label.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

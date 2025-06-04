@@ -7,7 +7,7 @@ import {
   RadioGroup,
   RichTextInput,
 } from "@gc-digital-talent/forms";
-import { Heading, Well } from "@gc-digital-talent/ui";
+import { Heading, Ul, Well } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
@@ -165,12 +165,7 @@ const LateralMovementSection = ({
           talentNominationGroupMessages.lateralMovementOptions,
         )}
       >
-        <ul
-          data-h2-list-style="base(none)"
-          data-h2-padding="base(0)"
-          data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
-          data-h2-margin-top="base(x0.15)"
-        >
+        <Ul space="sm" unStyled>
           {lateralMovementListItems.map((item) => (
             <li key={item.key}>
               <BoolCheckIcon
@@ -186,19 +181,14 @@ const LateralMovementSection = ({
               </BoolCheckIcon>
             </li>
           ))}
-        </ul>
+        </Ul>
       </FieldDisplay>
       {/* only display the OTHER option if it is selected */}
       {lateralMovementOptionValuesInThisNominationGroup.includes(
         TalentNominationLateralMovementOption.Other,
       ) ? (
         <FieldDisplay label={intl.formatMessage(commonMessages.other)}>
-          <ul
-            data-h2-list-style="base(none)"
-            data-h2-padding="base(0)"
-            data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
-            data-h2-margin-top="base(x0.15)"
-          >
+          <Ul space="sm" unStyled>
             {lateralMovementOptionsOthers.map((item) => (
               <li key={item}>
                 <BoolCheckIcon
@@ -214,7 +204,7 @@ const LateralMovementSection = ({
                 </BoolCheckIcon>
               </li>
             ))}
-          </ul>
+          </Ul>
         </FieldDisplay>
       ) : null}
       <RadioGroup

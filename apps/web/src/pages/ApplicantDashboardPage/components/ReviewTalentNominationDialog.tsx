@@ -3,7 +3,13 @@ import { useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  PreviewList,
+  Separator,
+  Ul,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -360,16 +366,13 @@ const ReviewTalentNominationDialog = ({
                           "Label for the lateral movement options checklist on the details step",
                       })}
                     >
-                      <ul
-                        data-h2-list-style="base(none)"
-                        data-h2-padding-left="base(0)"
-                      >
+                      <Ul unStyled space="sm">
                         {lateralMoveOptions.map((o) => (
                           <li key={o.key}>
                             <BoolCheckIcon value>{o.name}</BoolCheckIcon>
                           </li>
                         ))}
-                      </ul>
+                      </Ul>
                     </FieldDisplay>
                   )}
                   {talentNomination.lateralMovementOptionsOther && (
@@ -406,16 +409,13 @@ const ReviewTalentNominationDialog = ({
                           "Label for selected development program items",
                       })}
                     >
-                      <ul
-                        data-h2-list-style="base(none)"
-                        data-h2-padding-left="base(0)"
-                      >
+                      <Ul unStyled space="sm">
                         {developmentPrograms.map((p) => (
                           <li key={p.key}>
                             <BoolCheckIcon value>{p.name}</BoolCheckIcon>
                           </li>
                         ))}
-                      </ul>
+                      </Ul>
                     </FieldDisplay>
                   )}
                   {talentNomination.developmentProgramOptionsOther && (
