@@ -162,7 +162,7 @@ const Fieldset = ({
                           to: position - 1,
                         },
                       )}
-                      {...(disableDecrement && { className: "p-3 pl-1.5" })}
+                      {...(disableDecrement && { className: "p-3" })}
                     />
                     <span aria-hidden="true" className="text-center font-bold">
                       {index + 1}
