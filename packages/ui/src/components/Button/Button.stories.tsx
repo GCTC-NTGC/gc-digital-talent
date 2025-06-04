@@ -61,6 +61,7 @@ const Template: StoryFn<
               color={color}
               key={`${color}-${mode}`}
               icon={InformationCircleIcon}
+              counter={99}
             >
               {label}
             </Button>
@@ -72,6 +73,7 @@ const Template: StoryFn<
             color="primary"
             disabled
             icon={InformationCircleIcon}
+            counter={99}
           >
             {label} (disabled)
           </Button>
@@ -80,6 +82,7 @@ const Template: StoryFn<
             color="primary"
             size="sm"
             icon={InformationCircleIcon}
+            counter={99}
           >
             {label} (sm)
           </Button>
@@ -88,6 +91,7 @@ const Template: StoryFn<
             color="primary"
             size="md"
             icon={InformationCircleIcon}
+            counter={99}
           >
             {label} (md)
           </Button>
@@ -96,12 +100,18 @@ const Template: StoryFn<
             color="primary"
             size="lg"
             icon={InformationCircleIcon}
+            counter={99}
           >
             {label} (lg)
           </Button>
         </div>
         <div className="max-w-max bg-gray-700 p-3 dark:bg-gray-100">
-          <Button mode={mode} color="white" icon={InformationCircleIcon}>
+          <Button
+            mode={mode}
+            color="white"
+            icon={InformationCircleIcon}
+            counter={99}
+          >
             {label} (white)
           </Button>
         </div>

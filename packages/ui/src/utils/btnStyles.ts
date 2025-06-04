@@ -5,7 +5,7 @@ import { IconType } from "../types";
 export const btn = tv({
   slots: {
     base: "group/btn font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
-    alignment: "inline-flex items-center justify-center gap-x-1.5",
+    alignment: "inline-flex items-center justify-center gap-x-1.5 align-middle",
     leadingIcon: "",
     trailingIcon: "",
     label: "underline",
@@ -106,7 +106,7 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-error-300 bg-error-300 hover:bg-error-100 dark:text-black",
-        counter: "text-warning group-hover/btn:text-error-100",
+        counter: "text-error group-hover/btn:text-error-100",
       },
     },
     {
@@ -123,7 +123,8 @@ export const btn = tv({
       mode: "solid",
       class: {
         base: "border-gray-100 bg-gray-100 text-black hover:border-gray-300 hover:bg-gray-600 hover:text-white",
-        counter: "text-gray-100 group-hover/btn:text-gray-600",
+        counter:
+          "text-gray-100 group-hover/btn:bg-white group-hover/btn:text-gray-600",
       },
     },
 
@@ -170,7 +171,7 @@ export const btn = tv({
       class: {
         base: "text-error-600 hover:text-error-700 dark:text-error-100 dark:hover:text-error-200",
         counter:
-          "bg-error-600 group-hover/btn:bg-error-700 dark:bg-error-200 dark:group-hover/btn:bg-error-100",
+          "bg-error-600 group-hover/btn:bg-error-700 dark:bg-error-200 dark:text-black dark:group-hover/btn:bg-error-100",
       },
     },
     {
@@ -188,7 +189,7 @@ export const btn = tv({
       class: {
         base: "text-white hover:text-gray-100 dark:text-black dark:hover:text-gray-700",
         counter:
-          "dark:group-hover/bg-gray-700 bg-white group-hover/btn:bg-gray-100 dark:bg-black",
+          "bg-white text-gray-700 group-hover/btn:bg-gray-100 dark:bg-black dark:text-white dark:group-hover/btn:bg-gray-700",
       },
     },
 
@@ -244,8 +245,19 @@ export const btn = tv({
     {
       disabled: true,
       mode: "solid",
-      class:
-        "border-gray-200 bg-gray-100 text-black hover:bg-gray-100 hover:text-black",
+      class: {
+        base: "border-gray-200 bg-gray-100 text-black hover:bg-gray-100 hover:text-black",
+        counter: "text-gray-100 group-hover/btn:text-gray-100",
+      },
+    },
+    {
+      disabled: true,
+      mode: ["text", "inline", "placeholder"],
+      class: {
+        base: "text-gray hover:text-gray dark:text-gray dark:hover:text-gray",
+        counter:
+          "bg-gray text-white group-hover/btn:bg-gray dark:bg-gray dark:text-gray-700 dark:group-hover/btn:bg-gray",
+      },
     },
   ],
   compoundSlots: [
@@ -309,7 +321,7 @@ export const iconBtn = tv({
         base: "text-black hover:bg-gray-100 dark:text-white dark:hover:text-black",
       },
       white: {
-        base: "text-whitw hover:bg-gray-100 dark:text-black dark:hover:text-white",
+        base: "text-white hover:bg-gray-100 dark:text-black dark:hover:text-white",
       },
     },
     size: {
@@ -325,7 +337,7 @@ export const iconBtn = tv({
     },
     disabled: {
       true: {
-        base: "text-gray",
+        base: "text-gray dark:text-gray",
       },
     },
   },
