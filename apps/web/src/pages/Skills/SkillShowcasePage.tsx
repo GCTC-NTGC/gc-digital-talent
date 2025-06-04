@@ -162,7 +162,7 @@ export const SkillShowcase = ({
             </TableOfContents.List>
             <Link
               href={paths.skillPortfolio()}
-              color="secondary"
+              color="primary"
               mode="solid"
               block={false}
             >

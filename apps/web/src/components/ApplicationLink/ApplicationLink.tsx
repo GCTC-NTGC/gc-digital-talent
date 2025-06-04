@@ -10,7 +10,7 @@ export interface ApplicationLinkProps {
   applicationId?: Scalars["ID"]["output"];
   hasApplied?: boolean;
   canApply?: boolean;
-  linkProps?: Omit<LinkProps, "ref">;
+  linkProps?: Omit<LinkProps, "ref" | "href">;
   linkText?: string;
 }
 
@@ -59,7 +59,7 @@ const ApplicationLink = ({
   }
 
   return (
-    <Link mode="solid" color="secondary" href={href} {...linkProps}>
+    <Link mode="solid" color="primary" href={href} {...linkProps}>
       {linkTextLabel}
     </Link>
   );

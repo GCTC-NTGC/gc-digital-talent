@@ -208,7 +208,7 @@ export const Component = () => {
                 data-h2-flex-shrink="base(0)"
               >
                 <Link
-                  color="secondary"
+                  color="primary"
                   mode="solid"
                   href={profileLink.href}
                   style={{ whiteSpace: "nowrap" }}

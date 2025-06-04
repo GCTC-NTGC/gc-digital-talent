@@ -15,11 +15,12 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
-import { ButtonStyleInterface } from "../../utils/button/getButtonStyles";
-import { ButtonLinkMode, Color, IconType } from "../../types";
+import OurIconLink, {
+  IconLinkProps as BaseIconLinkProps,
+} from "../Link/IconLink";
 import { useNavMenuContext } from "./NavMenuProvider";
 import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
-import Button from "../Button";
+import Button, { ButtonProps } from "../Button";
 
 const Root = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Root>,
@@ -33,7 +34,7 @@ const Root = forwardRef<
 type TriggerProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Trigger
 > &
-  ButtonStyleInterface;
+  ButtonProps;
 
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
@@ -106,17 +107,84 @@ const Item = forwardRef<
   />
 ));
 
-type LinkProps = ComponentPropsWithoutRef<
+const useActiveLink = (
+  href: BaseLinkProps["href"],
+  hasIcon?: boolean,
+  el?: HTMLAnchorElement | null,
+): { isActive: boolean } => {
+  const { pathname } = useLocation();
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  const isActive = pathname === href;
+
+  useEffect(() => {
+    if (el) {
+      el.parentElement?.setAttribute(
+        "data-state",
+        isActive ? "active" : "inactive",
+      );
+      linkRef.current?.setAttribute("data-icon", hasIcon ? "true" : "false");
+    }
+  }, [isActive, hasIcon, el]);
+
+  return { isActive };
+};
+
+type IconLinkProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Link
-> & {
+> &
+  BaseIconLinkProps & {
+    type?: NavMenuType;
+  };
+
+const IconLink = forwardRef<
+  ElementRef<typeof NavigationMenuPrimitive.Link>,
+  IconLinkProps
+>(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+  const isSmallScreen = useIsSmallScreen(1080);
+  const navContext = useNavMenuContext();
+  const linkColor = isSmallScreen
+    ? linkStyleMapMobile.get(type)
+    : linkStyleMapDesktop.get(type);
+
+  return (
+    <NavigationMenuPrimitive.Link
+      ref={forwardedRef}
+      active={isActive}
+      onSelect={(e: Event) => {
+        e.preventDefault();
+        if (navContext?.onOpenChange) {
+          navContext.onOpenChange(false);
+        }
+      }}
+      asChild
+      {...rest}
+    >
+      <OurIconLink
+        ref={linkRef}
+        href={href}
+        icon={icon}
+        className="data-active:font-bold data-active:[&_span]:no-underline"
+        {...linkColor}
+        {...rest}
+      />
+    </NavigationMenuPrimitive.Link>
+  );
+});
+
+interface LinkProps
+  extends Pick<BaseLinkProps, "color" | "icon" | "mode">,
+    Omit<
+      ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
+      "color"
+    > {
   href: string;
   type?: NavMenuType;
-  color?: Color;
-  icon?: IconType;
-  mode?: ButtonLinkMode;
   ariaLabel?: string;
   state?: BaseLinkProps["state"];
-};
+}
 
 const Link = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
@@ -136,22 +204,10 @@ const Link = forwardRef<
     },
     forwardedRef,
   ) => {
-    const { pathname } = useLocation();
     const linkRef = useRef<HTMLAnchorElement>(null);
+    const { isActive } = useActiveLink(href, !!icon, linkRef.current);
     const isSmallScreen = useIsSmallScreen(1080);
     const navContext = useNavMenuContext();
-
-    const isActive = pathname === href;
-
-    useEffect(() => {
-      if (linkRef.current) {
-        linkRef.current.parentElement?.setAttribute(
-          "data-state",
-          isActive ? "active" : "inactive",
-        );
-        linkRef.current?.setAttribute("data-icon", icon ? "true" : "false");
-      }
-    }, [isActive, icon]);
 
     const linkColor = isSmallScreen
       ? linkStyleMapMobile.get(type)
@@ -244,6 +300,7 @@ const NavMenu = {
    * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/navigation-menu#link)
    */
   Link,
+  IconLink,
   /**
    * @name Sub
    * @desc A navigational Sub menu.

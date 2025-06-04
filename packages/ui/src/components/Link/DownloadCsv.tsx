@@ -1,9 +1,8 @@
 import CsvDownloader, { ICsvProps } from "react-csv-downloader";
 import { ReactNode } from "react";
 
-import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
-import getButtonStyles from "../../utils/button/getButtonStyles";
 import type { LinkProps } from "./Link";
+import { btn } from "../../utils/btnStyles";
 
 interface CsvHeader {
   id: string;
@@ -13,7 +12,7 @@ interface CsvHeader {
 export interface DownloadCsvProps
   extends Pick<
     LinkProps,
-    "color" | "mode" | "block" | "type" | "icon" | "fontSize"
+    "color" | "mode" | "block" | "type" | "icon" | "size"
   > {
   headers: CsvHeader[];
   data: ICsvProps["datas"];
@@ -26,7 +25,7 @@ const DownloadCsv = ({
   color = "primary",
   mode = "solid",
   block = false,
-  fontSize = "body",
+  size = "md",
   disabled,
   icon,
   headers,
@@ -35,10 +34,17 @@ const DownloadCsv = ({
   children,
   ...rest
 }: DownloadCsvProps) => {
+  const Icon = icon;
+  const { base, label, leadingIcon } = btn({
+    color,
+    mode,
+    block,
+    size,
+    disabled,
+  });
   return (
     <CsvDownloader
-      data-h2-cursor="base(pointer)"
-      {...getButtonStyles({ mode, color, block, disabled })}
+      className={base()}
       {...rest}
       wrapColumnChar='"'
       disabled={disabled}
@@ -46,9 +52,8 @@ const DownloadCsv = ({
       datas={data}
       filename={fileName}
     >
-      <ButtonLinkContent mode={mode} icon={icon} fontSize={fontSize}>
-        {children}
-      </ButtonLinkContent>
+      {Icon && <Icon className={leadingIcon()} />}
+      <span className={label()}>{children}</span>
     </CsvDownloader>
   );
 };

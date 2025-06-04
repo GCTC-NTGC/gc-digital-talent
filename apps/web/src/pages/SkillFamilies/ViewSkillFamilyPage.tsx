@@ -172,7 +172,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
             data-h2-text-align="base(center) p-tablet(left)"
           >
             <Link
-              color="secondary"
+              color="primary"
               mode="inline"
               href={paths.skillFamilyUpdate(skillFamily.id)}
             >

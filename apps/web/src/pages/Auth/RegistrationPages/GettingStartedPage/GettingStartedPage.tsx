@@ -182,7 +182,7 @@ export const GettingStartedFormFields = ({
       >
         <Button
           mode="solid"
-          color="secondary"
+          color="primary"
           onClick={() => setValue("skipVerification", false)}
           {...skipVerificationProps}
         >
@@ -194,7 +194,7 @@ export const GettingStartedFormFields = ({
         </Button>
         <Button
           mode="inline"
-          color="secondary"
+          color="primary"
           {...skipVerificationProps}
           onClick={() => {
             setValue("skipVerification", true);

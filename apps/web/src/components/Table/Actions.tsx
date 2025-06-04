@@ -21,7 +21,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
       href={editPath}
       mode="solid"
       data-h2-padding="base(x.5)"
-      color="secondary"
+      color="primary"
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Edit {label}",

@@ -147,7 +147,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Heading>
             <Link
-              color="secondary"
+              color="primary"
               mode="inline"
               href={paths.applicationQuestionsIntro(application.id)}
             >
@@ -211,7 +211,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             </Heading>
             {screeningQuestions.length === 0 && (
               <Link
-                color="secondary"
+                color="primary"
                 mode="inline"
                 href={paths.applicationQuestionsIntro(application.id)}
               >

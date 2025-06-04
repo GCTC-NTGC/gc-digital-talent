@@ -246,7 +246,7 @@ const FinalDecisionDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button type="button" color="secondary" mode="solid">
+        <Button type="button" color="primary" mode="solid">
           {intl.formatMessage({
             defaultMessage: "Record final decision",
             id: "ngHHmI",

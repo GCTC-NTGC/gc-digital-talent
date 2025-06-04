@@ -96,7 +96,7 @@ const ChangeDateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" mode="inline">
+        <Button color="primary" mode="inline">
           {title}
         </Button>
       </Dialog.Trigger>
@@ -222,7 +222,7 @@ const ChangeDateDialog = ({
               <Dialog.Footer>
                 <Button
                   type="submit"
-                  color={type === "extend" ? "secondary" : "error"}
+                  color={type === "extend" ? "primary" : "error"}
                   disabled={isSubmitting}
                 >
                   {isSubmitting

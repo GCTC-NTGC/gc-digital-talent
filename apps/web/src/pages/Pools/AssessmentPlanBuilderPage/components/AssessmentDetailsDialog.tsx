@@ -843,7 +843,7 @@ const AssessmentDetailsDialog = ({
 
           <Dialog.Footer>
             <Button
-              color="secondary"
+              color="primary"
               onClick={handleSubmit(submitForm)}
               disabled={dialogBusy}
             >

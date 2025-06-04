@@ -38,9 +38,7 @@ const Template: StoryFn<typeof AlertDialog.Root> = ({ defaultOpen }) => (
       </AlertDialog.Description>
       <AlertDialog.Footer>
         <AlertDialog.Action>
-          <Button color="secondary" mode="solid">
-            Action
-          </Button>
+          <Button>Action</Button>
         </AlertDialog.Action>
         <AlertDialog.Cancel>
           <Button color="warning" mode="inline">

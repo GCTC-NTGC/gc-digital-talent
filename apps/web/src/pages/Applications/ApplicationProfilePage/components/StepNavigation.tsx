@@ -167,7 +167,7 @@ const StepNavigation = ({
         >
           <Button
             type="submit"
-            color="secondary"
+            color="primary"
             {...actionProps}
             value="continue"
             onClick={() => setValue("action", "continue")}
@@ -178,7 +178,7 @@ const StepNavigation = ({
           <Button
             type="submit"
             mode="inline"
-            color="secondary"
+            color="primary"
             {...actionProps}
             value="quit"
             onClick={() => setValue("action", "quit")}

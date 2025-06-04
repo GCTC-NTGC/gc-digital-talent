@@ -69,7 +69,7 @@ const CommunityInterestDialog = ({
           <Dialog.Footer>
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.communityInterest(communityInterest.id)}
             >
               {intl.formatMessage({
@@ -79,7 +79,7 @@ const CommunityInterestDialog = ({
               })}
             </Link>
             <Dialog.Close>
-              <Button mode="inline" color="quaternary">
+              <Button mode="inline" color="warning">
                 {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>

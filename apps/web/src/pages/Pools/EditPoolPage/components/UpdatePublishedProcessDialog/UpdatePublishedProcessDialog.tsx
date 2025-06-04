@@ -95,7 +95,9 @@ const UpdatePublishedProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button>{intl.formatMessage(formMessages.saveChanges)}</Button>
+        <Button color="secondary">
+          {intl.formatMessage(formMessages.saveChanges)}
+        </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>

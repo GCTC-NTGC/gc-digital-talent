@@ -120,7 +120,7 @@ const TalentNominationEventCard = ({
           >
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.createTalentNomination(talentNominationEvent.id)}
             >
               {intl.formatMessage(
@@ -135,7 +135,7 @@ const TalentNominationEventCard = ({
             </Link>
             {talentNominationEvent.learnMoreUrl?.localized && (
               <Link
-                color="secondary"
+                color="primary"
                 mode="inline"
                 href={talentNominationEvent.learnMoreUrl.localized}
                 external

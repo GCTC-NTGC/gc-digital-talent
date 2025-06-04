@@ -166,7 +166,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
                 <Dialog.Footer data-h2-justify-content="base(flex-start)">
                   <Button
                     type="button"
-                    color="secondary"
+                    color="primary"
                     {...actionProps}
                     value="add"
                     onClick={() => handleSave("add")}

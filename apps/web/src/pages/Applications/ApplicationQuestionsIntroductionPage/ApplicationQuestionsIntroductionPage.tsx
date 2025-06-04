@@ -91,7 +91,7 @@ const ApplicationQuestionsIntroduction = ({
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
         <Link
-          color="secondary"
+          color="primary"
           mode="solid"
           href={paths.applicationQuestions(application.id)}
         >
@@ -102,7 +102,7 @@ const ApplicationQuestionsIntroduction = ({
           })}
         </Link>
         <Link
-          color="secondary"
+          color="primary"
           mode="inline"
           href={paths.profileAndApplications({ fromIapDraft: isIAP })}
         >

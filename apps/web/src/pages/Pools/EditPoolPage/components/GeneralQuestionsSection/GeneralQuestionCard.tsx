@@ -45,7 +45,7 @@ const GeneralQuestionCard = ({
         <CardRepeater.Remove
           disabled={disabled}
           onClick={() => remove(index)}
-          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+          label={intl.formatMessage(formMessages.repeaterRemove, {
             index,
           })}
         />

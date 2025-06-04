@@ -30,7 +30,7 @@ const FormActions = ({ disabled = false }: FormActionsProps) => {
       >
         <Button
           type="submit"
-          color="secondary"
+          color="primary"
           value="continue"
           disabled={disabled || isSubmitting}
           {...actionProps}
@@ -41,7 +41,7 @@ const FormActions = ({ disabled = false }: FormActionsProps) => {
         <Button
           type="submit"
           mode="inline"
-          color="secondary"
+          color="primary"
           value="cancel"
           disabled={disabled || isSubmitting}
           {...actionProps}

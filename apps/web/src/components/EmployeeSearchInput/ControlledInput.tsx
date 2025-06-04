@@ -233,7 +233,7 @@ const ControlledInput = ({
         <Button
           type="button"
           mode="solid"
-          color="secondary"
+          color="primary"
           data-h2-radius="base(0 rounded 0 0)"
           aria-label={
             buttonLabel ??

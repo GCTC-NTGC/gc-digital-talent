@@ -57,7 +57,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
                 <ScrollToLink
                   to={`experience-${experience.id}`}
                   mode="inline"
-                  color="tertiary"
+                  color="error"
                   aria-label={String(
                     intl.formatMessage(
                       {

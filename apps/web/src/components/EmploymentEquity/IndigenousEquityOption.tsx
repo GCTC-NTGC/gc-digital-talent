@@ -108,7 +108,7 @@ const EquityOption = ({
         onSave={onSave}
         disabled={disabled}
       >
-        <Button type="button" mode="inline" color="secondary">
+        <Button type="button" mode="inline" color="primary">
           {isAdded ? (
             removeText
           ) : (

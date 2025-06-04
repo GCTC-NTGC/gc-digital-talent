@@ -203,7 +203,7 @@ const SitewideAnnouncementForm = ({
             isSubmitting={isSubmitting}
           />
           <ToggleSection.Close>
-            <Button mode="inline" type="button" color="quaternary">
+            <Button mode="inline" type="button" color="warning">
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </ToggleSection.Close>

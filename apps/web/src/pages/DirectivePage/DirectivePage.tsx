@@ -124,13 +124,13 @@ export const Component = () => {
             icon: NewspaperIcon,
             text: readDirectiveMessage,
             url: directiveUrl,
-            color: "quaternary",
+            color: "warning",
           },
           {
             icon: MagnifyingGlassCircleIcon,
             text: intl.formatMessage(navigationMessages.findTalent),
             url: paths.search(),
-            color: "secondary",
+            color: "primary",
           },
         ]}
       />
@@ -195,7 +195,7 @@ export const Component = () => {
             })}
           </p>
           <p>
-            <Link color="secondary" mode="solid" href={directiveUrl} external>
+            <Link color="primary" mode="solid" href={directiveUrl} external>
               {readDirectiveMessage}
             </Link>
           </p>
@@ -334,7 +334,7 @@ export const Component = () => {
                   >
                     <Link
                       external
-                      color="primary"
+                      color="secondary"
                       mode="solid"
                       data-h2-padding="base(x.5, x1)"
                       href={

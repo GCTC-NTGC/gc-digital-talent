@@ -257,7 +257,7 @@ export const SearchForm = ({
                 <>
                   <p data-h2-margin="base(x1, 0)">
                     <Button
-                      color="primary"
+                      color="secondary"
                       type="submit"
                       {...poolSubmitProps}
                       value=""
@@ -332,7 +332,7 @@ export const SearchForm = ({
                         >
                           <Link
                             mode="solid"
-                            color="tertiary"
+                            color="error"
                             href={hireAnApprenticeEmailUri}
                           >
                             {intl.formatMessage({
@@ -343,7 +343,7 @@ export const SearchForm = ({
                           </Link>
                           <Link
                             mode="inline"
-                            color="tertiary"
+                            color="error"
                             href={paths.iapManager()}
                           >
                             {intl.formatMessage({

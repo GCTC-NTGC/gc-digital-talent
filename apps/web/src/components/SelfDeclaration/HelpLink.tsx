@@ -6,11 +6,7 @@ import { Link } from "@gc-digital-talent/ui";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 const contactLink = (chunks: ReactNode) => (
-  <Link
-    color="secondary"
-    external
-    href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-  >
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
     {chunks}
   </Link>
 );

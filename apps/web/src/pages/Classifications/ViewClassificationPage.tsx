@@ -149,7 +149,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
             data-h2-text-align="base(center) p-tablet(left)"
           >
             <Link
-              color="secondary"
+              color="primary"
               mode="inline"
               href={paths.classificationUpdate(classification.id)}
             >

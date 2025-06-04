@@ -7,11 +7,7 @@ import CloseButton from "./CloseButton";
 import { BasicDialogProps } from "./types";
 
 const mailAccessor = (chunks: ReactNode) => (
-  <Link
-    external
-    color="secondary"
-    href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-  >
+  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
     {chunks}
   </Link>
 );

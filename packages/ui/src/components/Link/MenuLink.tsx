@@ -1,32 +1,25 @@
 import { NavLink, NavLinkProps } from "react-router";
+import { tv } from "tailwind-variants";
 
 import { LinkProps } from "./Link";
 
-export type MenuLinkProps = Omit<LinkProps, "href"> & NavLinkProps;
+const navLink = tv({
+  base: "focus-visible:focus border-none bg-transparent text-base outline-none hover:text-secondary-600 focus-visible:text-black iap:dark:hover:text-secondary-100",
+  variants: {
+    isActive: {
+      true: "font-bold text-secondary-600 dark:text-secondary-100",
+      false: "text-gray-700 underline dark:text-gray-100",
+    },
+  },
+});
+
+export interface MenuLinkProps
+  extends Omit<LinkProps, "href" | "to">,
+    Pick<NavLinkProps, "end" | "caseSensitive" | "to"> {}
 
 const MenuLink = ({ children, ...rest }: MenuLinkProps) => {
   return (
-    <NavLink
-      {...rest}
-      data-h2-background-color="
-        base(transparent)
-        base:focus-visible(focus)"
-      data-h2-color="
-        base(gray.darkest)
-        base:hover(secondary.darker)
-        base:all:focus-visible(black)
-
-        base:selectors[.active](secondary.darker)
-
-        base:dark:hover:iap(secondary.lightest)
-        base:all:iap:focus-visible(black)
-      "
-      data-h2-border="base(none)"
-      data-h2-font-size="base(body)"
-      data-h2-font-weight="base(400) base:selectors[.active](700)"
-      data-h2-text-decoration="base(underline) base:selectors[.active](none)"
-      data-h2-outline="base(none)"
-    >
+    <NavLink {...rest} className={({ isActive }) => navLink({ isActive })}>
       {children}
     </NavLink>
   );

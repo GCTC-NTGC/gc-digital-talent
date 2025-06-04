@@ -24,7 +24,7 @@ const StepDisabledPage = ({ returnUrl }: { returnUrl: string | undefined }) => {
       </p>
       <Separator />
       {returnUrl ? (
-        <Link href={returnUrl} color="primary" mode="solid">
+        <Link href={returnUrl} color="secondary" mode="solid">
           {intl.formatMessage({
             id: "88dH+F",
             defaultMessage: "Return to the last step I was working on",

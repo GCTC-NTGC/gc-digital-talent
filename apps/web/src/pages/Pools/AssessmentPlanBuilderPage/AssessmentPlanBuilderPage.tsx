@@ -113,7 +113,7 @@ export const AssessmentPlanBuilder = ({
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
         </TableOfContents.List>
-        <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+        <Link mode="solid" color="primary" href={routes.poolView(pool.id)}>
           {intl.formatMessage({
             defaultMessage: "Back to process details",
             id: "nPPUMW",

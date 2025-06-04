@@ -120,7 +120,7 @@ const LanguageSelector = () => {
           data-h2-gap="base(0, x.75)"
           data-h2-justify-content="base(center)"
         >
-          <Button mode="inline" color="white" onClick={unsetLocale}>
+          <Button mode="inline" color="white" onClick={unsetLocale} fixedColor>
             {intl.formatMessage({
               defaultMessage: "Go back to English",
               id: "t2Q+IG",

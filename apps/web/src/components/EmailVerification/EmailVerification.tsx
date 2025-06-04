@@ -255,7 +255,7 @@ export const EmailVerification = ({
             {onSkip ? (
               <Button
                 type="button"
-                color="secondary"
+                color="primary"
                 mode="inline"
                 onClick={onSkip}
                 data-h2-order="base(2) p-tablet(1)"

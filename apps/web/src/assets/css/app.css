@@ -10,10 +10,6 @@ textarea {
   font-size: 100%;
 }
 
-button:not(.border) {
-  border: none;
-}
-
 ul:not(.list-none) {
   list-style-type: disc;
   padding-inline-start: 2.2rem;

@@ -199,24 +199,22 @@ const ReviewRecruitmentProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            pool.name?.localized
-              ? intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{poolName}<hidden> recruitment process</hidden>",
-                    id: "wrg4fw",
-                    description:
-                      "Text before recruitment process pool name in recruitment process preview list.",
-                  },
-                  {
-                    poolName: pool.name.localized,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {pool.name?.localized
+            ? intl.formatMessage(
+                {
+                  defaultMessage:
+                    "{poolName}<hidden> recruitment process</hidden>",
+                  id: "wrg4fw",
+                  description:
+                    "Text before recruitment process pool name in recruitment process preview list.",
+                },
+                {
+                  poolName: pool.name.localized,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -399,17 +397,13 @@ const ReviewRecruitmentProcessDialog = ({
                   data-h2-gap="base(x1 0) p-tablet(0 x1)"
                   data-h2-flex-direction="base(column) p-tablet(row)"
                 >
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    color="secondary"
-                  >
+                  <Button type="submit" disabled={isSubmitting} color="primary">
                     {intl.formatMessage(formMessages.saveChanges)}
                   </Button>
                   <Link
                     href={paths.application(recruitmentProcess.id)}
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                   >
                     {intl.formatMessage({
                       defaultMessage: "View application",
@@ -420,7 +414,7 @@ const ReviewRecruitmentProcessDialog = ({
                   <Link
                     href={paths.pool(pool.id)}
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                   >
                     {intl.formatMessage({
                       defaultMessage: "View job advertisement",

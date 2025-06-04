@@ -86,7 +86,7 @@ const ExperienceSkillFormDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         {trigger ?? (
-          <Button icon={PencilSquareIcon} color="tertiary" mode="inline">
+          <Button icon={PencilSquareIcon} color="error" mode="inline">
             {intl.formatMessage(commonMessages.edit)}
           </Button>
         )}

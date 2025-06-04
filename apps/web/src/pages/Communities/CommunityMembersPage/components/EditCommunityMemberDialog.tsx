@@ -194,7 +194,7 @@ const EditCommunityMemberDialog = forwardRef<
                 />
               </div>
               <Dialog.Footer>
-                <Button color="secondary" type="submit" disabled={isSubmitting}>
+                <Button color="primary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}

@@ -327,7 +327,7 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
             <Dialog.Close>
-              <Button color="secondary" mode="solid">
+              <Button color="primary" mode="solid">
                 {intl.formatMessage(commonMessages.close)}
               </Button>
             </Dialog.Close>

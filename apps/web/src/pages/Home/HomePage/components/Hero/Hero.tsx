@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { CTALink, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -79,22 +79,16 @@ const Hero = ({ defaultImage }: HeroProps) => {
       }}
       callToAction={
         <>
-          <Link
-            color="quaternary"
-            mode="cta"
+          <CTALink
+            color="warning"
             icon={MagnifyingGlassIcon}
             href={paths.browsePools()}
           >
             {intl.formatMessage(navigationMessages.browseJobs)}
-          </Link>
-          <Link
-            color="secondary"
-            mode="cta"
-            icon={StarIcon}
-            href={paths.search()}
-          >
+          </CTALink>
+          <CTALink color="primary" icon={StarIcon} href={paths.search()}>
             {intl.formatMessage(navigationMessages.findTalent)}
-          </Link>
+          </CTALink>
         </>
       }
     >

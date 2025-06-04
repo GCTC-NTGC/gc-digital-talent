@@ -125,7 +125,7 @@ const TalentNominationGroupDetails = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={toggleExpandedNominationsValue}
             >
               {intl.formatMessage(

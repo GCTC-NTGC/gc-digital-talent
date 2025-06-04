@@ -28,7 +28,7 @@ import {
 import {
   Accordion,
   Button,
-  Color,
+  ButtonProps,
   Dialog,
   HeadingLevel,
   Well,
@@ -431,7 +431,7 @@ export const ScreeningDecisionDialog = ({
     skillDecisionNotes: null,
   };
 
-  const triggerColor = (): Color => {
+  const triggerColor = (): ButtonProps["color"] => {
     if (
       initialValues?.assessmentDecision === AssessmentDecision.Unsuccessful &&
       poolSkill?.type?.value === PoolSkillType.Nonessential
@@ -446,7 +446,7 @@ export const ScreeningDecisionDialog = ({
       case AssessmentDecision.Successful:
         return "success";
       case AssessmentDecision.Hold:
-        return "secondary";
+        return "primary";
       case AssessmentDecision.Unsuccessful:
         return "error";
       default:
@@ -533,7 +533,7 @@ export const ScreeningDecisionDialog = ({
             <ScreeningDecisionDialogForm dialogType={dialogType} />
             <Dialog.Footer>
               <Submit
-                color="secondary"
+                color="primary"
                 text={intl.formatMessage({
                   defaultMessage: "Save decision",
                   id: "hQ2+aE",

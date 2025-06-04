@@ -39,7 +39,7 @@ const AccountManagement = () => {
                 "Description of how we use GCKey for authentication.",
             })}
           </p>
-          <Link newTab external href={gcKeyURL} mode="solid" color="secondary">
+          <Link newTab external href={gcKeyURL} mode="solid" color="primary">
             {intl.formatMessage({
               defaultMessage: "Visit GCKey",
               id: "aVp6q7",

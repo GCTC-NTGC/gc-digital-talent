@@ -124,7 +124,7 @@ const SearchForm = <T,>({
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <Button
-                color="secondary"
+                color="primary"
                 utilityIcon={ChevronDownIcon}
                 data-h2-radius="base(s 0 0 s)"
                 data-h2-flex-shrink="base(0)"

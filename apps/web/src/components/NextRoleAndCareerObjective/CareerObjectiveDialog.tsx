@@ -72,7 +72,7 @@ const CareerObjectiveDialog = ({
           )}
           <Dialog.Footer>
             <Dialog.Close>
-              <Button mode="inline" color="quaternary">
+              <Button mode="inline" color="warning">
                 {intl.formatMessage(commonMessages.close)}
               </Button>
             </Dialog.Close>

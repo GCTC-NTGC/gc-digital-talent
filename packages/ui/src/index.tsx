@@ -21,6 +21,8 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
+import CTAButton, { CTAButtonProps } from "./components/CallToAction/CTAButton";
+import CTALink, { CTALinkProps } from "./components/CallToAction/CTALink";
 import Card, { type CardProps } from "./components/Card/Card";
 import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
@@ -39,6 +41,10 @@ import Heading, {
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
+import IconButton, {
+  type IconButtonProps,
+} from "./components/Button/IconButton";
+import IconLink, { type IconLinkProps } from "./components/Link/IconLink";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -102,6 +108,8 @@ export type {
   ButtonLinkMode,
   CardFlatProps,
   CardProps,
+  CTAButtonProps,
+  CTALinkProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -109,6 +117,8 @@ export type {
   DownloadCsvProps,
   LinkProps,
   IconProps,
+  IconButtonProps,
+  IconLinkProps,
   IconType,
   ScrollToLinkProps,
   ScrollLinkClickFunc,
@@ -150,6 +160,8 @@ export {
   Chip,
   Collapsible,
   Counter,
+  CTALink,
+  CTAButton,
   DescriptionList,
   Dialog,
   /* Re-exporting primitive for custom solutions */
@@ -157,6 +169,8 @@ export {
   DropdownMenu,
   Flourish,
   Heading,
+  IconButton,
+  IconLink,
   Link,
   DownloadCsv,
   ScrollToLink,

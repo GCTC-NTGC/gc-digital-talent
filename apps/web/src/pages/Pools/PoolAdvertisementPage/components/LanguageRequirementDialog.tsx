@@ -8,6 +8,7 @@ import {
   Dialog,
   Heading,
   HeadingProps,
+  IconButton,
   Link,
 } from "@gc-digital-talent/ui";
 import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
@@ -95,11 +96,10 @@ const LanguageRequirementDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button
-          mode="icon_only"
-          color="secondary"
+        <IconButton
+          color="primary"
           icon={InformationCircleIcon}
-          aria-label={intl.formatMessage({
+          label={intl.formatMessage({
             defaultMessage: "Learn about how language requirements work.",
             id: "WhHVMt",
             description:
@@ -397,7 +397,7 @@ const LanguageRequirementDialog = () => {
 
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close",
                   id: "4p0QdF",

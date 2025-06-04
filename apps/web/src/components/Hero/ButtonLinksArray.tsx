@@ -1,10 +1,10 @@
-import { Color, IconType, Link } from "@gc-digital-talent/ui";
+import { IconType, CTALink, CTALinkProps } from "@gc-digital-talent/ui";
 
 export interface ButtonLinkType {
   icon: IconType;
   text: string;
   url: string;
-  color: Color;
+  color: CTALinkProps["color"];
 }
 
 interface ButtonLinksArrayProps {
@@ -32,14 +32,9 @@ const ButtonLinksArray = ({
   >
     {buttonLinkArray.map((element) => (
       <li key={element.url}>
-        <Link
-          color={element.color}
-          mode="cta"
-          href={element.url}
-          icon={element.icon}
-        >
+        <CTALink color={element.color} href={element.url} icon={element.icon}>
           {element.text}
-        </Link>
+        </CTALink>
       </li>
     ))}
   </ul>

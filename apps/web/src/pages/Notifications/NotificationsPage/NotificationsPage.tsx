@@ -63,7 +63,7 @@ const NotificationsPage = () => {
                     href={`${paths.accountSettings()}#notification-settings`}
                     icon={Cog8ToothIcon}
                     mode="inline"
-                    color="primary"
+                    color="secondary"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Update settings",

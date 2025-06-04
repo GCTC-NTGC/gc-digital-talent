@@ -147,7 +147,7 @@ const AddProcessRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" mode="solid" icon={PlusIcon}>
+        <Button color="primary" mode="solid" icon={PlusIcon}>
           {buttonLabel}
         </Button>
       </Dialog.Trigger>
@@ -217,13 +217,13 @@ const AddProcessRoleDialog = ({
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="primary"
                   type="submit"
                   disabled={isSubmitting}
                 >

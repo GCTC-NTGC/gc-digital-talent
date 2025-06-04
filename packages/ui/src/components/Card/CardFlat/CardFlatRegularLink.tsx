@@ -2,12 +2,9 @@ import omit from "lodash/omit";
 import { ReactNode } from "react";
 
 import Link, { type LinkProps } from "../../Link";
-import { CardColor } from "./types";
 
-export interface CardFlatRegularLinkProps
-  extends Omit<LinkProps, "color" | "label"> {
+export interface CardFlatRegularLinkProps extends Omit<LinkProps, "label"> {
   label: ReactNode;
-  color: CardColor;
 }
 
 const CardFlatRegularLink = (link: CardFlatRegularLinkProps) => {

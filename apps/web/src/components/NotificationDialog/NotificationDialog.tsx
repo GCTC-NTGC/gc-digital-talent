@@ -14,7 +14,8 @@ import {
   Heading,
   Dialog,
   Link,
-  Color,
+  IconButton,
+  ButtonProps,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -80,7 +81,7 @@ const DialogPortalWithPresence = ({
         data-h2-background-color="base:all(black.light)"
         data-h2-position="base(fixed)"
         data-h2-location="base(0)"
-        data-h2-z-index="base(97)"
+        data-h2-z-index="base(97!important)"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
@@ -102,7 +103,7 @@ const DialogPortalWithPresence = ({
           data-h2-margin="base(x.5 x.5 x.5 auto)"
           data-h2-radius="base(s)"
           data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(98)"
+          data-h2-z-index="base(98!important)"
         >
           <div data-h2-padding="base(x1)">
             <div
@@ -126,12 +127,11 @@ const DialogPortalWithPresence = ({
               </DialogPrimitive.Title>
               <div data-h2-display="base(flex)" data-h2-gap="base(x.25 0)">
                 <Dialog.Close asChild>
-                  <Button
-                    mode="icon_only"
+                  <IconButton
                     color="black"
                     icon={XMarkIcon}
                     onFocus={handleCloseFocus}
-                    aria-label={intl.formatMessage({
+                    label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",
                       description:
@@ -153,7 +153,7 @@ const DialogPortalWithPresence = ({
           <NotificationList live inDialog limit={30} onRead={executeQuery} />
           <p data-h2-margin="base(x1)">
             <DialogPrimitive.Close asChild>
-              <Link href={paths.notifications()} mode="solid" color="secondary">
+              <Link href={paths.notifications()} mode="solid" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View all notifications",
                   id: "/lVSP/",
@@ -190,7 +190,7 @@ interface NotificationDialog {
   /** Callback when the section has been 'opened */
   onOpenChange?: (open: boolean) => void;
   /** Trigger color */
-  color?: Color;
+  color?: ButtonProps["color"];
 }
 const NotificationDialog = ({
   open,
@@ -219,50 +219,70 @@ const NotificationDialog = ({
     60,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
+  const buttonLabel = open
+    ? intl.formatMessage({
+        defaultMessage: "Close notifications",
+        id: "J1n6QO",
+        description: "Button text to close the notifications dialog",
+      })
+    : intl.formatMessage(
+        {
+          defaultMessage: "View notifications{count}",
+          id: "l82MWI",
+          description: "Button text to open the notifications dialog",
+        },
+        {
+          count:
+            notificationCount > 0
+              ? ` ${intl.formatMessage({
+                  defaultMessage: "(there are unread notifications)",
+                  id: "o+YSXN",
+                  description: "Notice of unread notifications",
+                })}`
+              : "",
+        },
+      );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {open ? (
         <Dialog.Close asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
-            icon={XMarkIcon}
-            aria-label={intl.formatMessage({
-              defaultMessage: "Close notifications",
-              id: "J1n6QO",
-              description: "Button text to close the notifications dialog",
-            })}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color={color ?? "black"}
+              icon={XMarkIcon}
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={color ?? "white"}
+              icon={XMarkIcon}
+              label={buttonLabel}
+            />
+          )}
         </Dialog.Close>
       ) : (
         <DialogPrimitive.Trigger asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={isSmallScreen ? "black" : "secondary"}
-            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            aria-label={intl.formatMessage(
-              {
-                defaultMessage: "View notifications{count}",
-                id: "l82MWI",
-                description: "Button text to open the notifications dialog",
-              },
-              {
-                count:
-                  notificationCount > 0
-                    ? ` ${intl.formatMessage({
-                        defaultMessage: "(there are unread notifications)",
-                        id: "o+YSXN",
-                        description: "Notice of unread notifications",
-                      })}`
-                    : "",
-              },
-            )}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-            data-icon="true"
-            {...(!isSmallScreen && linkColorStyling)}
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color="black"
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={isSmallScreen ? "black" : "secondary"}
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              label={buttonLabel}
+              {...linkColorStyling}
+            />
+          )}
         </DialogPrimitive.Trigger>
       )}
 

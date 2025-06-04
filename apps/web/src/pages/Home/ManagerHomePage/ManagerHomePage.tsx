@@ -5,7 +5,7 @@ import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
-import { CardFlat, Flourish, Heading, Link } from "@gc-digital-talent/ui";
+import { CardFlat, Flourish, Heading, CTALink } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
@@ -65,17 +65,15 @@ const ManagerHomePage = () => {
         }}
         callToAction={
           <>
-            <Link
-              color="quaternary"
-              mode="cta"
+            <CTALink
+              color="warning"
               icon={MagnifyingGlassIcon}
               href={paths.search()}
             >
               {intl.formatMessage(navigationMessages.findTalent)}
-            </Link>
-            <Link
-              color="secondary"
-              mode="cta"
+            </CTALink>
+            <CTALink
+              color="primary"
               icon={BookmarkSquareIcon}
               href={paths.directive()}
             >
@@ -84,7 +82,7 @@ const ManagerHomePage = () => {
                 id: "304KKb",
                 description: "Link text for the directive page call to action",
               })}
-            </Link>
+            </CTALink>
           </>
         }
       >
@@ -240,14 +238,9 @@ const ManagerHomePage = () => {
           data-h2-gap="base(x1)"
           data-h2-justify-content="base(flex-start)"
         >
-          <Link
-            color="quinary"
-            mode="cta"
-            href={paths.profile()}
-            icon={UserPlusIcon}
-          >
+          <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
             {intl.formatMessage(navigationMessages.createProfile)}
-          </Link>
+          </CTALink>
         </div>
       </SkewedImageContainer>
       <FlourishContainer show={["bottom"]} size="sm" skew={false}>

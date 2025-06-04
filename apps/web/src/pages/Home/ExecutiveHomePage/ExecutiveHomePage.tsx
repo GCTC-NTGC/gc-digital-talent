@@ -8,6 +8,7 @@ import { useQuery } from "urql";
 import {
   Accordion,
   CardFlat,
+  CTALink,
   Flourish,
   Heading,
   Link,
@@ -312,14 +313,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
           data-h2-gap="base(x1)"
           data-h2-justify-content="base(flex-start)"
         >
-          <Link
-            color="quinary"
-            mode="cta"
-            href={paths.profile()}
-            icon={UserPlusIcon}
-          >
+          <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
             {intl.formatMessage(navigationMessages.createProfile)}
-          </Link>
+          </CTALink>
         </div>
       </SkewedImageContainer>
       <FlourishContainer show={["bottom"]} skew={false} size="sm">
@@ -472,7 +468,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             external
             mode="solid"
-            color="primary"
+            color="secondary"
             href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
               intl.formatMessage({
                 defaultMessage: "EXposition",

@@ -160,7 +160,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
         <form onSubmit={handleNavigation}>
-          <Button type="submit" color="secondary" disabled={fetching}>
+          <Button type="submit" color="primary" disabled={fetching}>
             {intl.formatMessage({
               defaultMessage: "Let's go!",
               id: "r6z4HM",

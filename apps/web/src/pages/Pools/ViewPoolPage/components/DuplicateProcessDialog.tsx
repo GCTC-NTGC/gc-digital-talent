@@ -81,7 +81,7 @@ const DuplicateProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" mode="inline">
+        <Button color="primary" mode="inline">
           {title}
         </Button>
       </Dialog.Trigger>
@@ -156,7 +156,7 @@ const DuplicateProcessDialog = ({
               </p>
 
               <Dialog.Footer>
-                <Button color="secondary" disabled={isFetching} type="submit">
+                <Button color="primary" disabled={isFetching} type="submit">
                   {intl.formatMessage({
                     defaultMessage: "Duplicate and view new process",
                     id: "RZIivj",

@@ -1,50 +1,68 @@
-import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
+import { ButtonHTMLAttributes, DetailedHTMLProps, forwardRef } from "react";
 
-import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
-import { ButtonLinkProps } from "../../types";
-import getButtonStyles from "../../utils/button/getButtonStyles";
+import { btn, BaseButtonLinkProps } from "../../utils/btnStyles";
+import Counter from "./Counter";
 
-export type ButtonProps = ButtonLinkProps &
-  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+export interface ButtonProps
+  extends BaseButtonLinkProps,
+    Omit<
+      DetailedHTMLProps<
+        ButtonHTMLAttributes<HTMLButtonElement>,
+        HTMLButtonElement
+      >,
+      "color"
+    > {}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      children,
-      icon,
-      utilityIcon,
-      disabled,
-      counter,
       color = "primary",
       mode = "solid",
-      fontSize = "body",
+      size = "md",
       block = false,
+      disabled = false,
+      fixedColor = false,
+      noUnderline = false,
+      icon,
+      utilityIcon,
+      counter,
+      className,
+      children,
       ...rest
     },
-    ref,
+    forwardedRef,
   ) => {
-    // Note: Can we replace this with conditional props?
-    if (!icon && mode === "cta") {
-      throw new Error("Icon is required when mode is set to 'cta'");
-    }
-
+    const Icon = icon;
+    const UtilityIcon = utilityIcon;
+    const {
+      base,
+      alignment,
+      leadingIcon,
+      trailingIcon,
+      label,
+      counter: counterStyles,
+    } = btn({
+      color,
+      block,
+      mode,
+      size,
+      disabled,
+      fixedColor,
+      noUnderline,
+    });
     return (
       <button
-        ref={ref}
+        ref={forwardedRef}
+        className={base({ class: className })}
         disabled={disabled}
-        {...getButtonStyles({ mode, color, block, disabled })}
         {...rest}
       >
-        <ButtonLinkContent
-          mode={mode}
-          icon={icon}
-          utilityIcon={utilityIcon}
-          color={color}
-          counter={counter}
-          fontSize={fontSize}
-        >
-          {children}
-        </ButtonLinkContent>
+        <span className={alignment()}>
+          {Icon && <Icon className={leadingIcon()} />}
+          <span className={label()}>{children}</span>
+          {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
+          {counter && <Counter count={counter} className={counterStyles()} />}
+        </span>
       </button>
     );
   },

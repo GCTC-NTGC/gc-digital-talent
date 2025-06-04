@@ -38,7 +38,7 @@ const DownloadCandidateCsvButton = ({
                 "data-h2-margin-top": "base(-2px)",
               }
             : {
-                color: "secondary",
+                color: "primary",
               })}
         >
           {intl.formatMessage({

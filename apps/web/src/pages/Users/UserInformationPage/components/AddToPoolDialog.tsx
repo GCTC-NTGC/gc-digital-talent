@@ -213,7 +213,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary">
+        <Button color="secondary">
           <span data-h2-text-decoration="base(underline)">
             {intl.formatMessage({
               defaultMessage: "Add user to pool",
@@ -286,7 +286,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
+                <Button disabled={fetching} type="submit" color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({

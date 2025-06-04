@@ -61,7 +61,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
             data-h2-align-self="base(flex-end)"
             data-h2-margin-left="p-tablet(auto)"
           >
-            <Button mode="inline" color="secondary" onClick={toggleAllExpanded}>
+            <Button mode="inline" color="primary" onClick={toggleAllExpanded}>
               {intl.formatMessage(
                 hasExpanded
                   ? experienceMessages.collapseDetails

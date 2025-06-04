@@ -155,7 +155,7 @@ const CommentsForm = ({
           node={htmlToRichTextJSON(nominationGroup.comments ?? "")}
         />
         <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
-          <Button mode="inline" type="button" color="primary">
+          <Button mode="inline" type="button" color="secondary">
             {intl.formatMessage({
               defaultMessage: "Edit comments",
               id: "wrQN7E",

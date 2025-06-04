@@ -180,24 +180,21 @@ const ReviewApplicationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            pool.name?.localized
-              ? intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<hidden>Application for </hidden>{poolName}",
-                    id: "LC1Rsg",
-                    description:
-                      "Text before application pool name in application preview list.",
-                  },
-                  {
-                    poolName: pool.name.localized,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {pool.name?.localized
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "<hidden>Application for </hidden>{poolName}",
+                  id: "LC1Rsg",
+                  description:
+                    "Text before application pool name in application preview list.",
+                },
+                {
+                  poolName: pool.name.localized,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -427,7 +424,7 @@ const ReviewApplicationDialog = ({
             <Link
               href={paths.application(application.id)}
               mode="solid"
-              color="secondary"
+              color="primary"
             >
               {intl.formatMessage({
                 defaultMessage: "View application",
@@ -435,7 +432,7 @@ const ReviewApplicationDialog = ({
                 description: "Label for view application link",
               })}
             </Link>
-            <Link href={paths.pool(pool.id)} mode="inline" color="secondary">
+            <Link href={paths.pool(pool.id)} mode="inline" color="primary">
               {intl.formatMessage({
                 defaultMessage: "View job advertisement",
                 id: "eZlUrp",

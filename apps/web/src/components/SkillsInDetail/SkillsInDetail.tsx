@@ -51,7 +51,6 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
               <Button
                 color="error"
                 mode="inline"
-                data-h2-text-decoration="base(underline)"
                 icon={XCircleIcon}
                 onClick={() => {
                   onDelete(skillId);

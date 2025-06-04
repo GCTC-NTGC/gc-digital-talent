@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useMutation } from "urql";
 
-import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
+import { Dialog, Button, Chip, Chips, IconButton } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -94,9 +94,9 @@ const RemovePoolMembershipDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button
+        <IconButton
           color="error"
-          aria-label={intl.formatMessage(
+          label={intl.formatMessage(
             {
               defaultMessage: "Remove {userName} from {poolName}.",
               id: "zRw5Fs",
@@ -109,7 +109,6 @@ const RemovePoolMembershipDialog = ({
             },
           )}
           icon={TrashIcon}
-          mode="icon_only"
         />
       </Dialog.Trigger>
       <Dialog.Content>

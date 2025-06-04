@@ -150,7 +150,7 @@ const SkillMatchDialog = ({
           )}
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
             <Dialog.Close>
-              <Button color="secondary" mode="inline">
+              <Button color="primary" mode="inline">
                 {intl.formatMessage({
                   defaultMessage: "Close",
                   id: "GAYZpV",
