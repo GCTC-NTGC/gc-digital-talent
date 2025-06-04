@@ -292,31 +292,11 @@ export const btn = tv({
       class: "size-6",
     },
 
-    // Text Icons need to be slightly smaller to line up properly
-    {
-      slots: ["leadingIcon", "trailingIcon"],
-      mode: "text",
-      size: "sm",
-      class: "size-3.5",
-    },
-    {
-      slots: ["leadingIcon", "trailingIcon"],
-      size: "md",
-      mode: "text",
-      class: "size-4",
-    },
-    {
-      slots: ["leadingIcon", "trailingIcon"],
-      size: "lg",
-      mode: "text",
-      class: "size-5",
-    },
-
     // Aligning text + icons
     {
-      slots: ["leadingIcon", "trailingIcon", "label", "alignment"],
+      slots: ["leadingIcon", "trailingIcon"],
       mode: "text",
-      class: "align-baseline",
+      class: "align-text-bottom",
     },
   ],
 
