@@ -10,7 +10,7 @@ import { Separator as SeparatorPrimitive } from "@gc-digital-talent/ui";
 import { HTMLSpanProps } from "./types";
 
 const layout = tv({
-  base: "flex shrink-0 items-center px-1.5",
+  base: "flex shrink-0 items-center px-2",
 });
 
 const btn = tv({
