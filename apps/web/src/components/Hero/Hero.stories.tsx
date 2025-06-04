@@ -115,7 +115,7 @@ NeitherButtonsOrTabs.args = {};
 export const ButtonsAndTabsWithCentering = Template.bind({});
 ButtonsAndTabsWithCentering.args = {
   buttonLinks: [
-    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "primary" },
+    { icon: UserPlusIcon, text: "Hello", url: "#one", color: "secondary" },
     {
       icon: AcademicCapIcon,
       text: "Hello hello",
