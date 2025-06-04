@@ -1,19 +1,25 @@
 import { useFormContext } from "react-hook-form";
 import { Fragment, ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import Checkbox from "../Checkbox/Checkbox";
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
+import { inputStyles } from "../../styles";
 
 export interface CheckboxOption {
   value: string | number;
   label: string | ReactNode;
   contentBelow?: ReactNode;
 }
+
+const checkList = tv({
+  extend: inputStyles,
+  // NOTE: Remove important in #13664
+  base: "gap-0 px-0! py-1.5",
+});
 
 export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
   HTMLFieldsetProps & {
@@ -46,8 +52,6 @@ const Checklist = ({
   const {
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStylesDeprecated();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
@@ -67,11 +71,7 @@ const Checklist = ({
         {...rest}
       >
         <Field.Legend required={!!rules.required}>{legend}</Field.Legend>
-        <Field.BoundingBox
-          {...{ ...baseStyles, ...stateStyles }}
-          data-h2-gap="base(0)"
-          data-h2-padding="base(x.25 0)"
-        >
+        <Field.BoundingBox className={checkList({ state: fieldState })}>
           {items.map(({ value, label, contentBelow }) => {
             const id = `${idPrefix}-${value}`;
             return (
@@ -91,10 +91,7 @@ const Checklist = ({
                 {contentBelow && (
                   <div
                     id={`${id}-content-below`}
-                    data-h2-padding-left="base(x1.7)"
-                    data-h2-padding-right="base(x0.5)"
-                    data-h2-color="base(black.light)"
-                    data-h2-font-size="base(caption)"
+                    className="pr-3 pl-11.25 text-sm text-gray-600 dark:text-gray-200"
                   >
                     {contentBelow}
                   </div>
