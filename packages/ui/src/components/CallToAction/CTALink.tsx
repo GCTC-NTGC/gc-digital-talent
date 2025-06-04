@@ -43,7 +43,7 @@ const CTALink = ({
   return (
     <BaseLink className={base({ class: className })} {...rest}>
       <span className={iconStyles()}>
-        <Icon className="size-5" />
+        <Icon className="h-auto w-5" />
       </span>
       <span className={text()}>
         <NewTabWrapper newTab={newTab}>{children}</NewTabWrapper>
