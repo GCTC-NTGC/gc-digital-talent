@@ -4,7 +4,7 @@ import { IconType } from "../../types";
 
 export const cta = tv({
   slots: {
-    base: "group/cta overflow-hidden rounded-md bg-transparent p-0 font-bold shadow-sm transition-all duration-200 ease-linear outline-none hover:shadow-md",
+    base: "group/cta overflow-hidden rounded-md bg-transparent p-0 font-bold shadow-md transition-all duration-200 ease-linear outline-none hover:shadow-lg",
     icon: "grid place-items-center rounded-l-md border-3 p-2.25 group-focus-visible/cta:border-focus group-focus-visible/cta:bg-focus group-focus-visible/cta:text-black",
     text: "rounded-r-md border-3 border-transparent bg-white px-5.25 py-2.25 text-black underline dark:bg-gray-600 dark:text-white",
   },
