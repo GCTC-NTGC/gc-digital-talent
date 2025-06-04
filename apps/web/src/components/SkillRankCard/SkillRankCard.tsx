@@ -68,7 +68,7 @@ const SkillRankCard = ({
       <p>{description}</p>
       <Separator space="sm" />
       {userSkills.length ? (
-        <Ul>
+        <Ul noIndent>
           {userSkills.map((userSkill) => (
             <SkillRankListItem
               key={userSkill.id}
