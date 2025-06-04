@@ -310,7 +310,7 @@ export const btn = tv({
   },
 });
 
-export type ButtonLinkVariants = VariantProps<typeof btn>;
+type ButtonLinkVariants = VariantProps<typeof btn>;
 
 export interface BaseButtonLinkProps extends ButtonLinkVariants {
   icon?: IconType;
@@ -370,7 +370,7 @@ export const iconBtn = tv({
   },
 });
 
-export type IconButtonVariants = VariantProps<typeof iconBtn>;
+type IconButtonVariants = VariantProps<typeof iconBtn>;
 
 export interface BaseIconButtonLinkProps extends IconButtonVariants {
   icon: IconType;
