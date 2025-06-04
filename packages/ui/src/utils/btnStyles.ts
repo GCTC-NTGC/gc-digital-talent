@@ -5,7 +5,7 @@ import { IconType } from "../types";
 export const btn = tv({
   slots: {
     base: "group/btn font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
-    alignment: "inline-flex items-center justify-center gap-x-1.5 align-middle",
+    alignment: "align-middle",
     leadingIcon: "shrink-0",
     trailingIcon: "shrink-0",
     label: "underline",
@@ -17,6 +17,9 @@ export const btn = tv({
       text: {
         base: "inline font-normal",
         counter: "text-white dark:text-gray-600",
+        alignment: "inline text-left",
+        leadingIcon: "mr-1.5 inline-block",
+        trailingIcon: "ml-1.5 inline-block",
       },
       inline: {
         counter: "inline-block text-white dark:text-gray-600",
@@ -216,6 +219,14 @@ export const btn = tv({
       },
     },
 
+    // Flex based modes (everything but text)
+    {
+      mode: ["solid", "inline", "placeholder"],
+      class: {
+        alignment: "inline-flex items-center justify-center gap-x-1.5",
+      },
+    },
+
     // Fixed colour options
     {
       fixedColor: true,
@@ -275,6 +286,33 @@ export const btn = tv({
       slots: ["leadingIcon", "trailingIcon"],
       size: "lg",
       class: "size-6",
+    },
+
+    // Text Icons need to be slightly smaller to line up properly
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      mode: "text",
+      size: "sm",
+      class: "size-3.5",
+    },
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      size: "md",
+      mode: "text",
+      class: "size-4",
+    },
+    {
+      slots: ["leadingIcon", "trailingIcon"],
+      size: "lg",
+      mode: "text",
+      class: "size-5",
+    },
+
+    // Aligning text + icons
+    {
+      slots: ["leadingIcon", "trailingIcon", "label", "alignment"],
+      mode: "text",
+      class: "align-baseline",
     },
   ],
 
