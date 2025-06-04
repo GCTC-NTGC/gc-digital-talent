@@ -322,7 +322,7 @@ const SkillAccordion = ({
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
-        <Ul space="xl" key={experience?.id}>
+        <Ul space="xl" key={experience?.id} className="mt-6">
           <li>
             {isPersonalExperience(experience) &&
               getPersonalExperience(experience)}

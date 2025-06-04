@@ -101,7 +101,7 @@ export const Component = () => {
                     "Heading at the top of the sign up page for applicant profiles",
                 })}
               </Heading>
-              <Ul className="my-6" space="md">
+              <Ul className="my-6" space="md" noIndent>
                 <li>
                   {intl.formatMessage({
                     defaultMessage:

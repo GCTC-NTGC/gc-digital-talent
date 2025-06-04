@@ -140,7 +140,7 @@ ContentBelow.args = {
             An external link with a lot of words
           </Link>
           . {faker.lorem.lines(2)}
-          <ul>
+          <ul className="list-disc pl-8">
             <li>List item 1</li>
             <li>List item 2</li>
             <li>List item 3</li>
