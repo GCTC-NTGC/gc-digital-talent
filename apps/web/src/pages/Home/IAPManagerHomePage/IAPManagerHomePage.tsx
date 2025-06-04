@@ -22,7 +22,7 @@ import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
 const makeLink = (chunks: ReactNode, url: string) => (
-  <Link href={url} color="secondary">
+  <Link href={url} color="primary">
     {chunks}
   </Link>
 );
@@ -695,6 +695,7 @@ export const Component = () => {
                   <Link
                     external
                     mode="inline"
+                    color="secondary"
                     href={hireAnApprenticeEmailUri}
                     data-h2-text-align="base(center)"
                   >

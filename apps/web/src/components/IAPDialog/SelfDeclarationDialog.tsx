@@ -11,7 +11,12 @@ const SelfDeclarationDialog = ({ children, btnProps }: BasicDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="secondary" mode="inline" {...btnProps}>
+        <Button
+          color="secondary"
+          mode="text"
+          className="font-bold"
+          {...btnProps}
+        >
           {children}
         </Button>
       </Dialog.Trigger>
