@@ -14,7 +14,7 @@ export const list = tv({
       xl: "[&_li]:mb-6",
     },
     unStyled: {
-      true: "list-none p-0",
+      true: "",
       false: "",
     },
     inside: {
@@ -28,11 +28,15 @@ export const list = tv({
   },
   compoundVariants: [
     {
+      unStyled: true,
+      type: ["ordered", "unordered"],
+      class: "list-none p-0",
+    },
+    {
       inside: true,
       noIndent: true,
       class: "pl-0",
     },
-
     {
       inside: false,
       noIndent: true,
