@@ -15,7 +15,7 @@ export const btn = tv({
   variants: {
     mode: {
       text: {
-        base: "inline font-normal",
+        base: "inline align-text-bottom font-normal",
         counter: "text-white dark:text-gray-600",
         alignment: "inline text-left",
         leadingIcon: "mr-1.5 inline-block",
