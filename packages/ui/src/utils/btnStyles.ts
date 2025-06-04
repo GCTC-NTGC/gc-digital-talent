@@ -105,7 +105,7 @@ export const btn = tv({
       color: "error",
       mode: "solid",
       class: {
-        base: "border-error-300 bg-error-300 hover:bg-error-100 dark:text-black",
+        base: "border-error bg-error hover:bg-error-100 dark:text-black",
         counter: "text-error group-hover/btn:text-error-100",
       },
     },
