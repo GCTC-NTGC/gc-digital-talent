@@ -26,8 +26,7 @@ const previewDetails: MetaDataProps[] = [
     type: "text",
     children: (
       <span>
-        Respond by:{" "}
-        <span data-h2-color="base(error.darkest)">April 30th, 2024</span>
+        Respond by: <span className="text-error-700">April 30th, 2024</span>
       </span>
     ),
   },

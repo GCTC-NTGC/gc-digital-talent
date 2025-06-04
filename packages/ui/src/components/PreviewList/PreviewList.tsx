@@ -1,5 +1,5 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
-import { forwardRef, ReactElement, ReactNode } from "react";
+import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
 
 import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
 import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
@@ -26,11 +26,11 @@ export type MetaDataProps = MetaDataChip | MetaDataText;
 const MetaData = (props: MetaDataProps) => {
   switch (props.type) {
     case "text":
-      return <span data-h2-color="base(black.light)">{props.children}</span>;
+      return <span className="text-gray-600">{props.children}</span>;
     case "chip":
       return (
         <span>
-          <Chip color={props.color} data-h2-font-weight="base(400)">
+          <Chip color={props.color} className="font-normal">
             {props.children}
           </Chip>
         </span>
@@ -45,11 +45,8 @@ const actionProps = {
   color: "black",
   fontSize: "h5",
   icon: MagnifyingGlassPlusIcon,
-  "data-h2-position": "base:selectors[::after](absolute)",
-  "data-h2-content": "base:selectors[::after](' ')",
-  "data-h2-inset": "base:selectors[::after](0)",
-  "data-h2-justify-self": "base(end)",
-  "data-h2-margin-right": "base(x1) p-tablet(x1.5)",
+  // NOTE: Should be safe to uncomment and remove specific className when #13689 merged
+  // className: "after:absolute inset-0 justify-self-end mr-6 xs:mr-9",
 } satisfies ButtonLinkProps;
 
 interface ButtonProps extends BaseButtonProps {
@@ -59,7 +56,13 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
+    <BaseButton
+      ref={ref}
+      {...actionProps}
+      className="mr-6 justify-self-end after:absolute after:inset-0 xs:mr-9"
+      onClick={onClick}
+      {...rest}
+    >
       {label}
     </BaseButton>
   ),
@@ -72,7 +75,12 @@ interface LinkProps {
 }
 
 const Link = ({ href, label, icon }: LinkProps) => (
-  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+  <BaseLink
+    {...actionProps}
+    className="mr-6 justify-self-end after:absolute after:inset-0 xs:mr-9"
+    href={href}
+    icon={icon ?? actionProps.icon}
+  >
     {label}
   </BaseLink>
 );
@@ -93,48 +101,29 @@ const Item = ({
   children,
 }: ItemProps) => {
   return (
-    <li
-      data-h2-position="base(relative)"
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-align-items="base(flex-start) p-tablet(center)"
-      data-h2-gap="base(x.5)"
-      data-h2-padding-top="base:all:selectors[:first-child](x1)"
-      data-h2-border-top="base:all:selectors[:first-child](1px solid gray.light)"
-      data-h2-border-bottom="base:all:selectors[:not(:last-child)](1px solid)"
-      data-h2-border-bottom-color="base:all:selectors[:not(:last-child)](gray.light)"
-      data-h2-transition="base:children[.PreviewList__Heading](transform 200ms ease)"
-      data-h2-color="base:selectors[:has(:is(button, a):hover) .PreviewList__Heading](secondary.darker) base:all:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](black)"
-      data-h2-background-color="base:selectors[:has(:is(button, a):focus-visible) .PreviewList__Heading](focus)"
-    >
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+    <li className="group relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
+      <div className="flex flex-col">
         <Heading
-          className="PreviewList__Heading"
           level={headingAs}
-          data-h2-font-size="base(body)"
-          data-h2-font-weight="base(700)"
-          data-h2-text-decoration="base(underline)"
-          data-h2-margin="base(0)"
-          data-h2-display="base(inline-block)"
-          data-h2-margin-bottom="base(x.15)"
+          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]:bg-focus group-has-[a:focus-visible,button:focus-visible]:text-black group-has-[a:hover,button:hover]:text-primary-600"
         >
           {title}
         </Heading>
         {children && <div>{children}</div>}
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-flex-wrap="base(nowrap) p-tablet(wrap)"
-          data-h2-align-items="base(flex-start) p-tablet(center)"
-          data-h2-gap="base(x.5 0)"
-          data-h2-content='p-tablet:children[:not(:last-child)::after]("•")'
-          data-h2-color="p-tablet:children[::after](black.lighter)"
-          data-h2-margin="p-tablet:children[:not(:last-child)::after](0 x.5)"
-          data-h2-margin-top="base(x.75)"
-          data-h2-font-size="base(caption)"
-        >
-          {metaData.map((data) => (
-            <MetaData {...data} key={data.key} />
+        <div className="mt-4.5 flex flex-col flex-nowrap items-start gap-y-3 text-sm xs:flex-row xs:flex-wrap xs:items-center">
+          {metaData.map((data, index) => (
+            <Fragment key={data.key}>
+              {index > 0 && (
+                <span
+                  aria-hidden="true"
+                  className="mx-3 hidden text-gray-300 xs:inline-block dark:text-gray-200"
+                  // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                >
+                  &bull;
+                </span>
+              )}
+              <MetaData {...data} />
+            </Fragment>
           ))}
         </div>
       </div>
@@ -151,14 +140,7 @@ export interface RootProps {
 
 const Root = ({ children, ...rest }: RootProps) => {
   return (
-    <ul
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-row-gap="base(x1)"
-      data-h2-padding-left="base(0)"
-      data-h2-padding-bottom="base:children[>:last-child](0) base:children[>](x1)"
-      {...rest}
-    >
+    <ul className="flex flex-col gap-y-6 pl-0!" {...rest}>
       {children}
     </ul>
   );
