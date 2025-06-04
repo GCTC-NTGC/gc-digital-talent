@@ -35,6 +35,6 @@ export interface BaseProps {
   toggleLabel?: string;
   /** Optional: Total number available options (use for API driven where options is not the total length) */
   total: number;
-  /** Curent state of the input */
+  /** Current state of the input */
   fieldState?: FieldState;
 }
