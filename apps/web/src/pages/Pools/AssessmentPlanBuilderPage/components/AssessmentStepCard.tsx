@@ -102,7 +102,7 @@ const AssessmentStepCard = ({
           trigger={
             <CardRepeater.Edit
               aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-                index,
+                index: index + 1,
               })}
             />
           }
@@ -112,7 +112,7 @@ const AssessmentStepCard = ({
         <CardRepeater.Remove
           onClick={() => handleRemove(index)}
           aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-            index,
+            index: index + 1,
           })}
         />
       }
