@@ -8,7 +8,7 @@ export const btn = tv({
     alignment: "align-middle",
     leadingIcon: "shrink-0",
     trailingIcon: "shrink-0",
-    label: "underline",
+    label: "",
     counter:
       "group-focus-visible/btn:bg-black group-focus-visible/btn:text-focus",
   },
@@ -62,6 +62,10 @@ export const btn = tv({
     disabled: {
       true: {},
       false: {},
+    },
+    noUnderline: {
+      true: { label: "no-underline", base: "no-underline" },
+      false: { label: "underline" },
     },
     // Do not change colour on dark mode (mainly for black/white)
     // For colours that show up on an fixed background colour
@@ -322,6 +326,7 @@ export const btn = tv({
     mode: "solid",
     disabled: false,
     fixedColor: false,
+    noUnderline: false,
   },
 });
 

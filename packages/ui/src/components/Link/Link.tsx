@@ -24,6 +24,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       external = false,
       newTab = false,
       disabled = false,
+      noUnderline = false,
       icon,
       utilityIcon,
       children,
@@ -41,6 +42,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       mode,
       size,
       disabled,
+      noUnderline,
     });
     return (
       <BaseLink
