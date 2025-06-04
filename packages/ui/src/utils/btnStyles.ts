@@ -5,7 +5,7 @@ import { IconType } from "../types";
 export const btn = tv({
   slots: {
     base: "group/btn font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
-    alignment: "align-middle",
+    alignment: "",
     leadingIcon: "shrink-0",
     trailingIcon: "shrink-0",
     label: "",
@@ -15,7 +15,7 @@ export const btn = tv({
   variants: {
     mode: {
       text: {
-        base: "inline align-text-bottom font-normal",
+        base: "inline font-normal",
         counter: "text-white dark:text-gray-600",
         alignment: "inline text-left",
         leadingIcon: "mr-1.5 inline-block",
@@ -227,7 +227,8 @@ export const btn = tv({
     {
       mode: ["solid", "inline", "placeholder"],
       class: {
-        alignment: "inline-flex items-center justify-center gap-x-1.5",
+        alignment:
+          "inline-flex items-center justify-center gap-x-1.5 align-middle",
       },
     },
 
@@ -296,7 +297,7 @@ export const btn = tv({
     {
       slots: ["leadingIcon", "trailingIcon"],
       mode: "text",
-      class: "align-text-bottom",
+      class: "align-middle",
     },
   ],
 
