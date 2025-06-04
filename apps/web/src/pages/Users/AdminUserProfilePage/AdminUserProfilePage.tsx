@@ -16,7 +16,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useUserDownloads from "~/hooks/useUserDownloads";
-import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {
@@ -311,7 +311,7 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
         data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-text-align="base(right)"
       >
-        <DownloadUsersDocButton
+        <DownloadDocxButton
           disabled={downloadingDoc}
           onClick={handleDocDownload}
           isDownloading={downloadingDoc}

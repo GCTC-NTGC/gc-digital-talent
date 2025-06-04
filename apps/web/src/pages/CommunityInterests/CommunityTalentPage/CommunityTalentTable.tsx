@@ -39,7 +39,7 @@ import processMessages from "~/messages/processMessages";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
@@ -656,7 +656,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         doc: {
           enable: true,
           component: (
-            <DownloadUsersDocButton
+            <DownloadDocxButton
               inTable
               disabled={
                 !hasSelectedRows ||

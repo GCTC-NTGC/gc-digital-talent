@@ -75,7 +75,7 @@ import {
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
-import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
+import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
@@ -1024,7 +1024,7 @@ const PoolCandidatesTable = ({
         doc: {
           enable: true,
           component: (
-            <DownloadUsersDocButton
+            <DownloadDocxButton
               inTable
               disabled={
                 !hasSelectedRows ||
