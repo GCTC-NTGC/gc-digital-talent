@@ -6,7 +6,7 @@ import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
 import { BaseProps, Option } from "./types";
-import { getSingleFilteredItems, itemToString } from "./utils";
+import { comboboxInput, getSingleFilteredItems, itemToString } from "./utils";
 
 type SingleProps = BaseProps & {
   onSelectedChange: (item: Option | null) => void;
@@ -25,6 +25,7 @@ const Single = ({
   onInputChange,
   inputProps,
   total,
+  fieldState,
   isExternalSearch = false,
   fetching = false,
   isRequired = false,
@@ -97,7 +98,7 @@ const Single = ({
       <Field.Label {...getLabelProps()} required={isRequired}>
         {label}
       </Field.Label>
-      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
+      <div className="relative w-full">
         <Input.Wrapper>
           <Input.Search />
           <input
@@ -105,12 +106,10 @@ const Single = ({
             {...getInputProps({
               ref: inputRef,
             })}
-            {...(inputValue.length > 0
-              ? {
-                  "data-h2-padding": "base(x.5 x3.125 x.5 x1.5)",
-                }
-              : { "data-h2-padding": "base(x.5 x1.5)" })}
-            data-h2-width="base(100%)"
+            className={comboboxInput({
+              state: fieldState,
+              hasSelectedItems: inputValue.length > 0,
+            })}
           />
           <Input.Actions>
             {inputValue.length ? (
@@ -130,21 +129,12 @@ const Single = ({
             />
           </Input.Actions>
         </Input.Wrapper>
-        <Menu.Wrapper
-          {...(!isOpen && {
-            "data-h2-visually-hidden": "base(invisible)",
-          })}
-        >
+        <Menu.Wrapper isOpen={isOpen}>
           <Menu.Available total={total} count={items.length} />
           {fetching || !items.length ? (
             <Menu.Empty fetching={fetching} />
           ) : null}
-          <Menu.List
-            {...getMenuProps()}
-            {...(!isOpen && {
-              "data-h2-display": "base(none)",
-            })}
-          >
+          <Menu.List {...getMenuProps()} isOpen={isOpen}>
             {items.map((item, index) => (
               <Menu.Item
                 key={`${item.value}${index}`}

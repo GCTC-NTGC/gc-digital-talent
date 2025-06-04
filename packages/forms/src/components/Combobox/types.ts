@@ -1,6 +1,6 @@
 import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { HTMLInputProps } from "../../types";
+import { FieldState, HTMLInputProps } from "../../types";
 
 export type ComboboxValue = string | (string | undefined)[] | undefined;
 
@@ -35,4 +35,6 @@ export interface BaseProps {
   toggleLabel?: string;
   /** Optional: Total number available options (use for API driven where options is not the total length) */
   total: number;
+  /** Current state of the input */
+  fieldState?: FieldState;
 }
