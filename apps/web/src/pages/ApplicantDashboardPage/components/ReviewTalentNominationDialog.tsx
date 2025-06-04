@@ -366,7 +366,7 @@ const ReviewTalentNominationDialog = ({
                           "Label for the lateral movement options checklist on the details step",
                       })}
                     >
-                      <Ul unStyled space="lg">
+                      <Ul unStyled space="md">
                         {lateralMoveOptions.map((o) => (
                           <li key={o.key}>
                             <BoolCheckIcon value>{o.name}</BoolCheckIcon>
@@ -409,7 +409,7 @@ const ReviewTalentNominationDialog = ({
                           "Label for selected development program items",
                       })}
                     >
-                      <Ul unStyled space="lg">
+                      <Ul unStyled space="md">
                         {developmentPrograms.map((p) => (
                           <li key={p.key}>
                             <BoolCheckIcon value>{p.name}</BoolCheckIcon>

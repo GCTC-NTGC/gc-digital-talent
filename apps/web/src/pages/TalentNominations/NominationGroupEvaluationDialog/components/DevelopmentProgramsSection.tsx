@@ -144,7 +144,7 @@ const DevelopmentProgramsSection = ({
           talentNominationGroupMessages.developmentPrograms,
         )}
       >
-        <Ul unStyled space="lg">
+        <Ul unStyled space="md">
           {developmentProgramListItems.map((item) => (
             <li key={item.key}>
               <BoolCheckIcon
@@ -165,7 +165,7 @@ const DevelopmentProgramsSection = ({
       {/* only display the OTHER option if it is selected */}
       {otherDevelopmentProgramsInThisNominationGroup.length > 0 ? (
         <FieldDisplay label={intl.formatMessage(commonMessages.other)}>
-          <Ul unStyled space="lg">
+          <Ul unStyled space="md">
             {otherDevelopmentProgramsInThisNominationGroup.map((item) => (
               <li key={item}>
                 <BoolCheckIcon

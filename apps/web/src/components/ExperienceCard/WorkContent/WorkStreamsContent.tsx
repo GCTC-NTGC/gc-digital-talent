@@ -68,7 +68,7 @@ const WorkStreamContent = ({
           {workStreamsByCommunity.map((item) => (
             <li key={item.community.id} data-h2-font-weight="base(bold)">
               {item.community.name?.localized ?? na}
-              <Ul unStyled className="mb-3 font-normal" space="lg">
+              <Ul unStyled className="mb-3 font-normal" space="md">
                 {item.workStreams.map((workStream) => (
                   <li key={workStream.id}>
                     <BoolCheckIcon value={true}>

@@ -165,7 +165,7 @@ const LateralMovementSection = ({
           talentNominationGroupMessages.lateralMovementOptions,
         )}
       >
-        <Ul space="lg" unStyled>
+        <Ul space="md" unStyled>
           {lateralMovementListItems.map((item) => (
             <li key={item.key}>
               <BoolCheckIcon
@@ -188,7 +188,7 @@ const LateralMovementSection = ({
         TalentNominationLateralMovementOption.Other,
       ) ? (
         <FieldDisplay label={intl.formatMessage(commonMessages.other)}>
-          <Ul space="lg" unStyled>
+          <Ul space="md" unStyled>
             {lateralMovementOptionsOthers.map((item) => (
               <li key={item}>
                 <BoolCheckIcon

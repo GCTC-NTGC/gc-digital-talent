@@ -104,7 +104,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.orgIdentifier ?? notProvided}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
-            <Ul unStyled space="lg">
+            <Ul unStyled space="md">
               <li>
                 <BoolCheckIcon value={department.isCorePublicAdministration}>
                   {intl.formatMessage(labels.corePublicAdmin)}

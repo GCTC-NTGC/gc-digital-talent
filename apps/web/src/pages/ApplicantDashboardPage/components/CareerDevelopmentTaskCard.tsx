@@ -251,7 +251,7 @@ const CareerDevelopmentTaskCard = ({
                         }
                       >
                         {lateralMoveOrganizationType ? (
-                          <Ul space="lg" unStyled>
+                          <Ul space="md" unStyled>
                             {unpackMaybes(
                               careerDevelopmentTaskCardOptions?.organizationTypeInterest,
                             ).map((x) => {

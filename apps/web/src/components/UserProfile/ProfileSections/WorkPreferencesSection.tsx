@@ -72,7 +72,7 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
 
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <Ul unStyled space="lg">
+          <Ul unStyled space="md">
             {OperationalRequirements.map((requirement) => (
               <li key={requirement}>
                 <BoolCheckIcon

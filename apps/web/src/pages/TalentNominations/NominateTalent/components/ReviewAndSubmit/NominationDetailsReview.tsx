@@ -176,7 +176,7 @@ const NominationDetailsReview = ({
           label={intl.formatMessage(labels.nominationOptions)}
         >
           {types.length > 0 ? (
-            <Ul unStyled space="lg">
+            <Ul unStyled space="md">
               {types.map((t) => (
                 <li key={t.key}>
                   <BoolCheckIcon value>{t.name}</BoolCheckIcon>
@@ -228,7 +228,7 @@ const NominationDetailsReview = ({
                 data-h2-grid-column="base(span 2)"
                 label={intl.formatMessage(labels.lateralMovementOptions)}
               >
-                <Ul unStyled space="lg">
+                <Ul unStyled space="md">
                   {lateralMoveOptions.map((o) => (
                     <li key={o.key}>
                       <BoolCheckIcon value>{o.name}</BoolCheckIcon>
@@ -258,7 +258,7 @@ const NominationDetailsReview = ({
                   description: "Label for selected development program items",
                 })}
               >
-                <Ul unStyled space="lg">
+                <Ul unStyled space="md">
                   {developmentPrograms.map((p) => (
                     <li key={p.key}>
                       <BoolCheckIcon value>{p.name}</BoolCheckIcon>
