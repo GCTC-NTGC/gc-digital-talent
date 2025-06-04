@@ -6,8 +6,8 @@ export const btn = tv({
   slots: {
     base: "group/btn font-bold transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
     alignment: "inline-flex items-center justify-center gap-x-1.5 align-middle",
-    leadingIcon: "",
-    trailingIcon: "",
+    leadingIcon: "shrink-0",
+    trailingIcon: "shrink-0",
     label: "underline",
     counter:
       "group-focus-visible/btn:bg-black group-focus-visible/btn:text-focus",
