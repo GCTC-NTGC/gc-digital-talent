@@ -30,21 +30,21 @@ export const checkboxRadioStyles = tv({
 });
 
 export const inputStyles = tv({
-  base: "rounded-md border-1 border-gray bg-white p-3 text-black outline-offset-2 placeholder:text-gray-600 placeholder:opacity-70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus dark:bg-gray-600 dark:text-white",
+  base: "rounded-md border-1 border-gray-700 bg-white p-3 text-black outline-offset-2 placeholder:text-gray-600 placeholder:opacity-70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus dark:border-gray-100 dark:bg-gray-600 dark:text-white",
   variants: {
     state: {
       // NOTE: compat, remove when all inputs completed
       unset: "",
       invalid:
-        "border-error-500 bg-error-100 dark:border-error-300 dark:bg-error-700",
-      dirty: "border-secondary-500 dark:border-secondary-300",
+        "border-error-700 bg-error-100 dark:border-error-100 dark:bg-error-700",
+      dirty: "border-secondary-700 dark:border-secondary-100",
     },
   },
 });
 
 export const selectStyles = tv({
   extend: inputStyles,
-  base: "bg-[url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(86, 86, 90, 1)'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/></svg>)] dark:bg-[url(data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='rgba(191, 191, 191, 1)'><path stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/></svg>)] appearance-none bg-size-[1rem] bg-position-[var(--spacing*4.5)_calc(100%-.75rem)] bg-no-repeat p-3 pr-9",
+  base: `appearance-none bg-white bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke-width%3D%271.5%27%20stroke%3D%27rgba(86%2C%2086%2C%2090%2C%201)%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M19.5%208.25l-7.5%207.5-7.5-7.5%27/%3E%3C/svg%3E')] bg-[length:1rem_1rem] bg-[position:right_0.75rem_center] bg-no-repeat p-3 pr-9 dark:bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20fill%3D%27none%27%20viewBox%3D%270%200%2024%2024%27%20stroke-width%3D%271.5%27%20stroke%3D%27rgba(191%2C%20191%2C%20191%2C%201)%27%3E%3Cpath%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20d%3D%27M19.5%208.25l-7.5%207.5-7.5-7.5%27/%3E%3C/svg%3E')]`,
 });
 
 export default fieldStateStyles;
