@@ -8,7 +8,7 @@ const boundingBox = tv({
   base: "mt-1.5 flex flex-col gap-y-1.5",
   variants: {
     flat: {
-      true: "border-0 border-transparent p-0",
+      true: "border-0 bg-transparent p-0",
       false: "bg-white dark:bg-gray-600",
     },
   },
