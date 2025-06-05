@@ -1,17 +1,18 @@
 import { forwardRef } from "react";
+import { tv } from "tailwind-variants";
 
 import { HTMLFieldsetProps } from "../../types";
 
+const fieldSet = tv({
+  base: "flex flex-col gap-y-1.5 border-none p-0",
+});
+
 const Fieldset = forwardRef<HTMLFieldSetElement, HTMLFieldsetProps>(
-  (props, forwardedRef) => (
+  ({ className, ...rest }, forwardedRef) => (
     <fieldset
       ref={forwardedRef}
-      data-h2-border="base(none)"
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.25 0)"
-      data-h2-padding="base(0)"
-      {...props}
+      className={fieldSet({ class: className })}
+      {...rest}
     />
   ),
 );
