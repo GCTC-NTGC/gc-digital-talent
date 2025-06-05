@@ -14,12 +14,13 @@ const boundingBox = tv({
   },
 });
 
-type BoundingBoxProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
-> & {
+interface BoundingBoxProps
+  extends DetailedHTMLProps<
+    InputHTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   flat?: boolean;
-};
+}
 
 const BoundingBox = ({ flat, className, ...rest }: BoundingBoxProps) => {
   return <div className={boundingBox({ flat, class: className })} {...rest} />;
