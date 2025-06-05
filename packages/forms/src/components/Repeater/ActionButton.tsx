@@ -5,14 +5,12 @@ import { IconType } from "@gc-digital-talent/ui";
 
 const DisabledIcon = () => (
   // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-  <span data-h2-color="base(gray)" aria-hidden data-h2-width="base(x.75)">
-    &bull;
-  </span>
+  <span className="w-4.5 text-gray/50 dark:text-gray/50">&bull;</span>
 );
 
 const actionBtn = tv({
   slots: {
-    base: "group flex cursor-pointer items-center rounded-full bg-transparent p-3 text-black dark:text-white",
+    base: "group flex cursor-pointer items-center rounded-full bg-transparent p-3 text-black outline-none dark:text-white",
     icon: "size-4.5",
   },
   variants: {
@@ -21,7 +19,7 @@ const actionBtn = tv({
         base: "cursor-default text-gray-500 dark:text-gray-300",
       },
       false: {
-        base: "hover:bg-gray-100 focus-visible:bg-black dark:hover:bg-gray-700",
+        base: "hover:bg-gray-100 focus-visible:bg-focus focus-visible:text-black dark:hover:bg-gray-700",
       },
     },
     animation: {
