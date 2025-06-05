@@ -295,8 +295,8 @@ export const Component = () => {
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "We'll respond to your application within 7 business days. If your request is approved, we'll send you a voucher code that you can use when booking your exam on the provider's platform.",
-                id: "9gU2in",
+                  "We'll respond to your application within 14 days. If your request is approved, we'll send you a voucher code that you can use when booking your exam on the provider's platform.",
+                id: "y6pG9A",
                 description: "First paragraph of what to expect section",
               })}
             </p>
