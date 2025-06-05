@@ -1,4 +1,3 @@
-import { FAR_FUTURE_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   CreateTalentNominationEventInput,
   TalentNominationEvent,
@@ -7,46 +6,53 @@ import {
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 
-export const defaultEvent: Partial<CreateTalentNominationEventInput> = {
-  name: {
-    en: "Playwright event EN",
-    fr: "Playwright event FR",
-  },
-  description: {
-    en: "Description EN",
-    fr: "Description FR",
-  },
-  openDate: `${PAST_DATE} 00:00:00`,
-  closeDate: `${FAR_FUTURE_DATE} 00:00:00`,
-};
+const oldDate = new Date();
+const newDate = new Date();
+newDate.setTime(oldDate.getTime() + 30 * 60 * 1000);
+export const defaultTalentNominationEvent: Partial<CreateTalentNominationEventInput> =
+  {
+    name: {
+      en: "Playwright test talent nomination event EN",
+      fr: "Playwright test talent nomination event FR",
+    },
+    openDate: oldDate.toISOString().slice(0, 19).replace("T", " "),
+    closeDate: newDate.toISOString().slice(0, 19).replace("T", " "),
+  };
 
-export const Test_CreateTalentNominationEventMutationDocument = /* GraphQL */ `
+const Test_CreateTalentNominationEventMutation = /* GraphQL */ `
   mutation Test_CreateTalentNominationEvent(
-    $event: CreateTalentNominationEventInput!
+    $talentNominationEvent: CreateTalentNominationEventInput!
   ) {
-    createTalentNominationEvent(talentNominationEvent: $event) {
+    createTalentNominationEvent(talentNominationEvent: $talentNominationEvent) {
       id
+      community {
+        id
+      }
     }
   }
 `;
 
+/**
+ * Create Talent Nomination Event
+ */
 export const createTalentNominationEvent: GraphQLRequestFunc<
-  TalentNominationEvent,
+  TalentNominationEvent | undefined,
   Partial<CreateTalentNominationEventInput>
-> = async (ctx, event) => {
+> = async (ctx, talentNominationEvent) => {
   const communities = await getCommunities(ctx, {});
   const firstCommunity = communities[0];
-
+  const communityId =
+    talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
   return ctx
-    .post(Test_CreateTalentNominationEventMutationDocument, {
+    .post(Test_CreateTalentNominationEventMutation, {
       isPrivileged: true,
       variables: {
-        event: {
-          ...defaultEvent,
+        talentNominationEvent: {
+          ...defaultTalentNominationEvent,
+          ...talentNominationEvent,
           community: {
-            connect: firstCommunity.id,
+            connect: communityId,
           },
-          ...event,
         },
       },
     })

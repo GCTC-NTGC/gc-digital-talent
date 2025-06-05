@@ -8,8 +8,6 @@ import { formMessages, getLocale } from "@gc-digital-talent/i18n";
 import useFieldState from "../../hooks/useFieldState";
 import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import {
   getErrorMessage,
@@ -69,8 +67,6 @@ const Combobox = ({
     setValue,
     formState: { errors, defaultValues },
   } = useFormContext<Record<string, ComboboxValue>>();
-  const baseStyles = useInputStyles();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(name || "", !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
@@ -87,8 +83,6 @@ const Combobox = ({
   });
 
   const inputProps: HTMLInputProps = {
-    ...baseStyles,
-    ...stateStyles,
     readOnly,
     "aria-describedby": ariaDescribedBy,
   };
@@ -100,6 +94,7 @@ const Combobox = ({
     inputProps,
     fetching,
     isExternalSearch,
+    fieldState,
     total: total ?? options.length,
     clearLabel: clearLabel ?? intl.formatMessage(formMessages.resetCombobox),
     toggleLabel: toggleLabel ?? intl.formatMessage(formMessages.toggleCombobox),

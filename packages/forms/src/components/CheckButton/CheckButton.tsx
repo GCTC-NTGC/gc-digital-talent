@@ -1,36 +1,38 @@
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
 
-const borderMap = {
-  black: {
-    "data-h2-border": "base(1px solid black)",
+const checkBtn = tv({
+  slots: {
+    btn: "inline-flex cursor-pointer rounded border-none bg-transparent p-1.5",
+    icon: "rounded border bg-white p-0.5 dark:bg-gray-600",
   },
-  white: {
-    "data-h2-border": "base(1px solid gray.light) base:dark(black)",
-  },
-};
+  variants: {
+    color: {
+      black: {
+        btn: "text-black hover:bg-black/25 dark:text-white dark:hover:bg-white/25",
+        icon: "border-black dark:border-white",
+      },
 
-const colorMap = {
-  black: {
-    "data-h2-color": "base(black)",
-    "data-h2-background-color": "base(transparent) base:hover(black.3)",
+      white: {
+        btn: "text-gray-600 hover:bg-white/25 dark:text-gray-200 dark:hover:bg-gray-700/25",
+        icon: "border-gray-100 dark:border-gray-700",
+      },
+    },
   },
-  white: {
-    "data-h2-color": "base(gray.light)",
-    "data-h2-background-color": "base(transparent) base:hover(white.25)",
-  },
-};
+});
 
-export interface CheckButtonProps {
+type CheckButtonVariants = VariantProps<typeof checkBtn>;
+
+export interface CheckButtonProps extends CheckButtonVariants {
   checked: boolean;
   label: string;
   indeterminate?: boolean;
   onToggle: () => void;
-  color?: "white" | "black";
 }
 
 const CheckButton = ({
@@ -41,9 +43,7 @@ const CheckButton = ({
   color = "black",
 }: CheckButtonProps) => {
   const intl = useIntl();
-  const handleClick = () => {
-    onToggle();
-  };
+  const { btn, icon: iconStyles } = checkBtn({ color });
 
   // NOTE: Not redundant
   // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
@@ -56,33 +56,14 @@ const CheckButton = ({
   }
 
   return (
-    <button
-      type="button"
-      onClick={handleClick}
-      data-h2-padding="base(x.25)"
-      data-h2-radius="base(s)"
-      data-h2-display="base(inline-flex)"
-      data-h2-border="base(none)"
-      data-h2-cursor="base(pointer)"
-      {...colorMap[color]}
-    >
-      <span data-h2-visually-hidden="base(invisible)">
+    <button type="button" onClick={() => onToggle()} className={btn()}>
+      <span className="sr-only">
         {checked
           ? intl.formatMessage(formMessages.deselectCheck, { label })
           : intl.formatMessage(formMessages.selectCheck, { label })}
       </span>
-      <span
-        data-h2-padding="base(x.125)"
-        data-h2-radius="base(input)"
-        data-h2-background-color="base(foreground)"
-        {...borderMap[color]}
-      >
-        <Icon
-          data-h2-display="base(block)"
-          data-h2-stroke-width="base(3)"
-          data-h2-height="base(x.5)"
-          data-h2-width="base(x.5)"
-        />
+      <span className={iconStyles()}>
+        <Icon className="block size-3 stroke-3" />
       </span>
     </button>
   );

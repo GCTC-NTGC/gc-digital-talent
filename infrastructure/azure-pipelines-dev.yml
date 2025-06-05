@@ -7,7 +7,7 @@ resources:
       type: git
       ref: refs/heads/main
 variables:
-  phpVersion: "8.3"
+  phpVersion: "8.4"
   serviceConnectionName: "Talent Cloud Service Connection"
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
   dirResults: "$(System.DefaultWorkingDirectory)/apps/playwright/test-results"

@@ -1,4 +1,4 @@
-import { Community } from "@gc-digital-talent/graphql";
+import { Community, CreateCommunityInput } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -25,5 +25,50 @@ export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
     .post(Test_CommunitiesQueryDocument)
     .then(
       (res: GraphQLResponse<"communities", Community[]>) => res.communities,
+    );
+};
+
+const uniqueTestId = Date.now().valueOf();
+export const defaultCommunity: Partial<CreateCommunityInput> = {
+  key: `playwright-test-community ${uniqueTestId}`,
+  name: {
+    en: `Playwright test community EN ${uniqueTestId}`,
+    fr: `Playwright test community FR ${uniqueTestId}`,
+  },
+};
+
+const Test_CreateCommunityMutation = /* GraphQL */ `
+  mutation Test_CreateCommunity($community: CreateCommunityInput!) {
+    createCommunity(community: $community) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+/**
+ * Create Community
+ */
+export const createCommunity: GraphQLRequestFunc<
+  Community | undefined,
+  Partial<CreateCommunityInput>
+> = async (ctx, community) => {
+  return ctx
+    .post(Test_CreateCommunityMutation, {
+      isPrivileged: true,
+      variables: {
+        community: {
+          ...defaultCommunity,
+          ...community,
+        },
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"createCommunity", Community>) =>
+        res.createCommunity,
     );
 };
