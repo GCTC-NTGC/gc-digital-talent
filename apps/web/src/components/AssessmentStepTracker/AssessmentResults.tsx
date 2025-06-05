@@ -22,6 +22,7 @@ import CandidateBookmark, {
 import useRoutes from "../../hooks/useRoutes";
 import {
   CandidateAssessmentResult,
+  decisionIcon,
   getDecisionInfo,
   sortResultsAndAddOrdinal,
 } from "./utils";
@@ -51,29 +52,10 @@ const Priority = ({ type }: PriorityProps) => {
 };
 
 const assessmentResult = tv({
-  slots: {
-    base: "flex w-full items-center gap-x-1.5 py-0.75",
-    icon: "size-4 text-warning",
-  },
+  base: "flex w-full items-center gap-x-1.5 py-0.75",
   variants: {
     isBookmarked: {
-      true: {
-        base: "rounded bg-secondary-100 dark:bg-secondary-700",
-      },
-    },
-    decision: {
-      [NO_DECISION]: {
-        icon: "text-warning",
-      },
-      [AssessmentDecision.Hold]: {
-        icon: "text-primary",
-      },
-      [AssessmentDecision.Unsuccessful]: {
-        icon: "text-error",
-      },
-      [AssessmentDecision.Successful]: {
-        icon: "text-success",
-      },
+      true: "rounded bg-secondary-100 dark:bg-secondary-700",
     },
   },
 });
@@ -107,14 +89,10 @@ const AssessmentResult = ({
     intl,
   );
   const Icon = icon;
-  const { base, icon: iconStyles } = assessmentResult({
-    isBookmarked,
-    decision: result.decision,
-  });
 
   return (
     <Board.ListItem>
-      <div className={base()}>
+      <div className={assessmentResult({ isBookmarked })}>
         <CandidateBookmark
           candidateQuery={
             result.poolCandidate as FragmentType<
@@ -152,7 +130,7 @@ const AssessmentResult = ({
             result.poolCandidate.veteranVerification !==
               ClaimVerificationResult.Rejected && <Priority type="veteran" />}
           <Icon
-            className={iconStyles()}
+            className={decisionIcon({ decision: result.decision })}
             aria-hidden="false"
             aria-label={name}
           />

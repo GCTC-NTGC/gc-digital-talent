@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { de } from "@faker-js/faker";
 
 import { Board, Well, Counter } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -8,7 +9,12 @@ import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 import { NullableDecision } from "~/utils/assessmentResults";
 import { ResultDecisionCounts } from "~/utils/poolCandidate";
 
-import { getDecisionInfo, decisionOrder, ResultFilters } from "./utils";
+import {
+  getDecisionInfo,
+  decisionOrder,
+  ResultFilters,
+  decisionIcon,
+} from "./utils";
 
 interface StatusCountProps {
   counter: number;
@@ -22,46 +28,16 @@ const StatusCount = ({
   isApplicationStep,
 }: StatusCountProps) => {
   const intl = useIntl();
-  const { icon, name, colorStyle } = getDecisionInfo(
-    decision,
-    isApplicationStep,
-    intl,
-  );
+  const { icon, name } = getDecisionInfo(decision, isApplicationStep, intl);
   const Icon = icon;
 
   return (
-    <span
-      data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
-      data-h2-gap="base(0 x.25)"
-      data-h2-width="base(100%)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-padding="base(x.25 0)"
-      data-h2-font-size="base(caption)"
-    >
-      <span
-        data-h2-display="base(flex)"
-        data-h2-gap="base(0 x.25)"
-        data-h2-align-items="base(center)"
-      >
-        <Icon
-          {...colorStyle}
-          data-h2-height="base(x.65)"
-          data-h2-width="base(x.65)"
-          data-h2-transition="base(transform 150ms ease)"
-        />
+    <span className="flex w-full items-center justify-between gap-x-1.5 py-1.5 text-sm">
+      <span className="flex items-center gap-x-1.5">
+        <Icon className={decisionIcon({ decision })} />
         <span>{name}</span>
       </span>
-      {counter >= 0 ? (
-        <Counter
-          count={counter}
-          data-h2-radius="base(x.5)"
-          data-h2-background="base(foreground)"
-          data-h2-padding="base(x.125 x.5)"
-          data-h2-min-width="base(x2)"
-          data-h2-text-align="base(center)"
-        />
-      ) : null}
+      {counter >= 0 ? <Counter count={counter} /> : null}
     </span>
   );
 };
@@ -120,7 +96,7 @@ const ResultsDetails = ({
             )
       }
     >
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+      <div className="flex flex-col">
         {decisions.length ? (
           decisions.map((decision) => (
             <StatusCount
