@@ -16,7 +16,7 @@ const input = tv({
   base: "",
   variants: {
     readOnly: {
-      true: "bg-gray-500 dark:bg-gray-300",
+      true: "bg-gray-100 dark:bg-gray-500",
     },
   },
 });
