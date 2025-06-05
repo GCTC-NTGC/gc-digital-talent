@@ -10,11 +10,9 @@ import {
   AssessmentStepType,
   FragmentType,
   ClaimVerificationResult,
-  AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { NO_DECISION } from "~/utils/assessmentResults";
 
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
