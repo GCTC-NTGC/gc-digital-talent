@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const wrapper = tv({
-  base: "flex w-full flex-col gap-y-3",
+  base: "flex w-full flex-col gap-y-1.5",
 });
 
 export type WrapperProps = DetailedHTMLProps<
