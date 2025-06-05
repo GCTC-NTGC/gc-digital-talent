@@ -53,13 +53,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
   return (
     <Well
       fontSize="caption"
-      data-h2-display="base(flex)"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(0, x.5)"
-      data-h2-color="base(black)"
-      data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
-      data-h2-margin-top="base(x1)"
+      className="mt-6 flex flex-wrap items-center gap-3 bg-transparent bg-linear-90 from-secondary/10 to-primary/10 text-white dark:bg-transparent"
     >
       <p>
         <span data-h2-font-size="base(caption)">
