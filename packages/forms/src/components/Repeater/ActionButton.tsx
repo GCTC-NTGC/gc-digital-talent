@@ -18,7 +18,7 @@ const actionBtn = tv({
   variants: {
     disabled: {
       true: {
-        base: "text-gray-500 dark:text-gray-300",
+        base: "cursor-default text-gray-500 dark:text-gray-300",
       },
       false: {
         base: "hover:bg-gray-100 focus-visible:bg-black dark:hover:bg-gray-700",
@@ -65,7 +65,13 @@ const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
     const { base, icon: iconStyles } = actionBtn({ animation, disabled });
 
     return (
-      <button ref={ref} type="button" className={base()} {...rest}>
+      <button
+        ref={ref}
+        type="button"
+        className={base()}
+        disabled={disabled}
+        {...rest}
+      >
         <Icon className={iconStyles()} />
       </button>
     );

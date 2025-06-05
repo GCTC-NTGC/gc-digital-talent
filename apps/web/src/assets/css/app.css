@@ -27,10 +27,6 @@ p {
   white-space: pre-wrap;
 }
 
-button:not(disabled) {
-  cursor: pointer;
-}
-
 abbr {
   text-decoration-line: underline;
   text-decoration-style: dotted;
