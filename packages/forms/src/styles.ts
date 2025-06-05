@@ -30,7 +30,7 @@ export const checkboxRadioStyles = tv({
 });
 
 export const inputStyles = tv({
-  base: "rounded-md border-1 border-gray-700 bg-white p-3 text-black outline-offset-2 placeholder:text-gray-600 placeholder:opacity-70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus dark:border-gray-100 dark:bg-gray-600 dark:text-white",
+  base: "rounded-md border-1 border-gray-700 bg-white p-3 text-black outline-offset-2 placeholder:text-gray-600/70 focus-visible:border-focus focus-visible:outline-2 focus-visible:outline-focus dark:border-gray-100 dark:bg-gray-600 dark:text-white dark:placeholder:text-gray-100/70",
   variants: {
     state: {
       // NOTE: compat, remove when all inputs completed
