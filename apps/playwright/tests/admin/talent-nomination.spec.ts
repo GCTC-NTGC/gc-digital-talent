@@ -4,16 +4,27 @@ import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
 import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
+import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
+import { getSkills } from "~/utils/skills";
 
 import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", () => {
   test("Create a talent nomination", async ({ appPage }) => {
-    // Create a couple of users to test with
+    // Prepare the test environment
     const adminCtx = await graphql.newContext();
     const uniqueTestId = Date.now().valueOf();
     const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
     const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
+
+    const skillOptions = await getSkills(adminCtx, {}).then((skills) => {
+      return skills.filter((s) =>
+        s.families?.some((family) => family.key === "klc"),
+      );
+    });
+    const skill1 = skillOptions[0];
+    const skill2 = skillOptions[1];
+    const skill3 = skillOptions[2];
 
     await createUserWithRoles(adminCtx, {
       user: {
@@ -27,6 +38,7 @@ test.describe("Talent nomination management", () => {
     });
     await createUserWithRoles(adminCtx, {
       user: {
+        lastName: uniqueTestId.toString(),
         email: `${nomineeSub}@example.org`,
         sub: nomineeSub,
         isGovEmployee: true,
@@ -34,6 +46,14 @@ test.describe("Talent nomination management", () => {
         workEmailVerifiedAt: nowUTCDateTime(),
       },
       roles: ["guest", "base_user", "applicant"],
+    });
+
+    await createTalentNominationEvent(adminCtx, {
+      name: {
+        en: `Playwright Event ${uniqueTestId} EN`,
+        fr: `Playwright Event ${uniqueTestId} FR`,
+      },
+      includeLeadershipCompetencies: true,
     });
 
     // Navigate from the homepage to start a nomination
@@ -53,7 +73,7 @@ test.describe("Talent nomination management", () => {
     await appPage.waitForGraphqlResponse("TalentManagementEventsPage");
     await appPage.page
       .getByRole("link", {
-        name: /start a nomination for test talent nomination event active en 0/i,
+        name: `Start a nomination for Playwright Event ${uniqueTestId} EN`,
       })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalent");
@@ -62,7 +82,7 @@ test.describe("Talent nomination management", () => {
     );
     await appPage.page.getByRole("button", { name: /next step/i }).click();
 
-    // Fill out the nominator form
+    // Fill out the nominator step
     await appPage.page
       .getByRole("radio", {
         name: /I’m submitting the nomination on the nominator’s behalf/i,
@@ -92,7 +112,7 @@ test.describe("Talent nomination management", () => {
       .click();
     await appPage.page.getByRole("button", { name: /next step/i }).click();
 
-    // Fill out the nominee form
+    // Fill out the nominee step
     await appPage.page
       .getByRole("textbox", { name: /Search nominee's work email/i })
       .fill(`${nomineeSub}@gc.ca`);
@@ -117,7 +137,7 @@ test.describe("Talent nomination management", () => {
       .fill("Sidekick");
     await appPage.page.getByRole("button", { name: /next step/i }).click();
 
-    // Fill out the nomination details form
+    // Fill out the nomination details step
     await appPage.page.getByRole("checkbox", { name: /advancement/i }).click();
     await appPage.page
       .getByRole("checkbox", { name: /lateral movement/i })
@@ -168,6 +188,45 @@ test.describe("Talent nomination management", () => {
       .getByRole("textbox", { name: /other development program option/i })
       .fill("Sidekick training");
     await appPage.page.getByRole("button", { name: /next step/i }).click();
+
+    // Fill out the rationale step
+    await appPage.page
+      .getByRole("textbox", { name: /nomination rationale/i })
+      .fill("They are the nominators best friend.");
+    const skillCombobox = appPage.page.getByRole("combobox", {
+      name: /top 3 key leadership competencies/i,
+    });
+    await skillCombobox.fill(`${skill1.name.en ?? ""}`);
+    await skillCombobox.press("ArrowDown");
+    await skillCombobox.press("Enter");
+    await skillCombobox.fill(`${skill2.name.en ?? ""}`);
+    await skillCombobox.press("ArrowDown");
+    await skillCombobox.press("Enter");
+    await skillCombobox.fill(`${skill3.name.en ?? ""}`);
+    await skillCombobox.press("ArrowDown");
+    await skillCombobox.press("Enter");
+    await appPage.page.getByRole("button", { name: /next step/i }).click();
+
+    // Submit the nomination and confirm it appears in the dashboard
+    await appPage.page
+      .getByRole("button", { name: /submit nomination/i })
+      .click();
+    await appPage.waitForGraphqlResponse("NominateTalentSubmit");
+    await appPage.waitForGraphqlResponse("NominateTalent");
+    await appPage.page
+      .getByRole("link", { name: /return to your dashboard/i })
+      .click();
+    await appPage.page
+      .getByRole("button", { name: /talent nominations/i })
+      .click();
+    await appPage.page
+      .getByRole("button", {
+        name: `Playwright ${uniqueTestId} talent nomination`,
+      })
+      .click();
+    await expect(
+      appPage.page.getByRole("heading", { name: /review a nomination/i }),
+    ).toBeVisible();
   });
 
   test("Evaluate a nominee", async ({ appPage }) => {
