@@ -1,6 +1,18 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { tv } from "tailwind-variants";
 
-import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
+import { inputStyles } from "../../styles";
+
+const boundingBox = tv({
+  extend: inputStyles,
+  base: "mt-1.5 flex flex-col gap-y-1.5",
+  variants: {
+    flat: {
+      true: "border-0 border-transparent p-0",
+      false: "bg-white dark:bg-gray-600",
+    },
+  },
+});
 
 type BoundingBoxProps = DetailedHTMLProps<
   InputHTMLAttributes<HTMLDivElement>,
@@ -9,28 +21,8 @@ type BoundingBoxProps = DetailedHTMLProps<
   flat?: boolean;
 };
 
-const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
-  const styles = useInputStylesDeprecated();
-
-  return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.25 0)"
-      data-h2-margin-top="base(x.25)"
-      {...styles}
-      {...(flat
-        ? {
-            "data-h2-border-color": "base(transparent)",
-            "data-h2-border-width": "base(0)",
-            "data-h2-padding": "base(0)",
-          }
-        : {
-            "data-h2-background": "base(foreground)",
-          })}
-      {...rest}
-    />
-  );
+const BoundingBox = ({ flat, className, ...rest }: BoundingBoxProps) => {
+  return <div className={boundingBox({ flat, class: className })} {...rest} />;
 };
 
 export default BoundingBox;
