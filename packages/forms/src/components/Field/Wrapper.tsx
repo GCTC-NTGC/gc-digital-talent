@@ -1,18 +1,17 @@
 import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
+import { tv } from "tailwind-variants";
+
+const wrapper = tv({
+  base: "flex w-full flex-col gap-y-3",
+});
 
 export type WrapperProps = DetailedHTMLProps<
   HtmlHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
-const Wrapper = (props: WrapperProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x.25 0)"
-    data-h2-max-width="base(100%)"
-    {...props}
-  />
+const Wrapper = ({ className, ...rest }: WrapperProps) => (
+  <div className={wrapper({ class: className })} {...rest} />
 );
 
 export default Wrapper;
