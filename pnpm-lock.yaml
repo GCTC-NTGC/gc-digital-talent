@@ -21,8 +21,8 @@ importers:
   apps/playwright:
     dependencies:
       '@axe-core/playwright':
-        specifier: ^4.10.1
-        version: 4.10.1(playwright-core@1.52.0)
+        specifier: ^4.10.2
+        version: 4.10.2(playwright-core@1.52.0)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -1254,8 +1254,8 @@ packages:
     peerDependencies:
       graphql: '*'
 
-  '@axe-core/playwright@4.10.1':
-    resolution: {integrity: sha512-EV5t39VV68kuAfMKqb/RL+YjYKhfuGim9rgIaQ6Vntb2HgaCaau0h98Y3WEUqW1+PbdzxDtDNjFAipbtZuBmEA==}
+  '@axe-core/playwright@4.10.2':
+    resolution: {integrity: sha512-6/b5BJjG6hDaRNtgzLIfKr5DfwyiLHO4+ByTLB0cJgWSM8Ll7KqtdblIS6bEkwSF642/Ex91vNqIl3GLXGlceg==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -8460,7 +8460,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@axe-core/playwright@4.10.1(playwright-core@1.52.0)':
+  '@axe-core/playwright@4.10.2(playwright-core@1.52.0)':
     dependencies:
       axe-core: 4.10.3
       playwright-core: 1.52.0
