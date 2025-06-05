@@ -11,7 +11,12 @@ import Menu from "./Menu";
 import Input from "./Input";
 import Selected from "./Selected";
 import { BaseProps, Option } from "./types";
-import { getMultiFilteredItems, itemToString, isItemSelected } from "./utils";
+import {
+  getMultiFilteredItems,
+  itemToString,
+  isItemSelected,
+  comboboxInput,
+} from "./utils";
 
 type MultiProps = BaseProps & {
   onSelectedChange: (item: Option[] | null) => void;
@@ -30,6 +35,7 @@ const Multi = ({
   onInputChange,
   inputProps,
   total,
+  fieldState,
   isExternalSearch = false,
   fetching = false,
   isRequired = false,
@@ -214,7 +220,7 @@ const Multi = ({
       <Field.Label {...getLabelProps()} required={isRequired}>
         {label}
       </Field.Label>
-      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
+      <div className="relative w-full">
         <Input.Wrapper>
           <Input.Search />
           <input
@@ -222,13 +228,11 @@ const Multi = ({
             {...getInputProps(
               getDropdownProps({ preventKeyAction: isOpen, ref: inputRef }),
             )}
-            {...(inputValue.length > 0
-              ? {
-                  "data-h2-padding": "base(x.5 x3.125 x.5 x1.5)",
-                }
-              : { "data-h2-padding": "base(x.5 x1.5)" })}
-            data-h2-width="base(100%)"
-            data-h2-radius="base(rounded rounded 0 0)"
+            className={comboboxInput({
+              state: fieldState,
+              hasSelectedItems: inputValue.length > 0,
+              isMulti: true,
+            })}
           />
           <Input.Actions>
             {inputValue.length ? (
@@ -248,21 +252,12 @@ const Multi = ({
             />
           </Input.Actions>
         </Input.Wrapper>
-        <Menu.Wrapper
-          {...(!isOpen && {
-            "data-h2-visually-hidden": "base(invisible)",
-          })}
-        >
+        <Menu.Wrapper isOpen={isOpen}>
           <Menu.Available total={total} count={items.length} />
           {fetching || !items.length ? (
             <Menu.Empty fetching={fetching} />
           ) : null}
-          <Menu.List
-            {...getMenuProps()}
-            {...(!isOpen && {
-              "data-h2-display": "base(none)",
-            })}
-          >
+          <Menu.List {...getMenuProps()} isOpen={isOpen}>
             {items.map((item, index) => (
               <Menu.Item
                 key={`${item.value}${index}`}
@@ -281,16 +276,8 @@ const Multi = ({
         </Menu.Wrapper>
       </div>
       <Selected.Wrapper>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(x.25)"
-        >
-          <p
-            data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light) base:dark(gray.light)"
-          >
+        <div className="flex items-center justify-between gap-1.5">
+          <p className="text-sm text-gray-600 dark:text-gray-200">
             {intl.formatMessage(formMessages.itemsSelectedCombobox, {
               count: selectedItems.length,
             })}
@@ -298,11 +285,10 @@ const Multi = ({
           {hasSelectedItems ? (
             <Button
               type="button"
-              mode="inline"
+              mode="text"
               color="black"
               fontSize="caption"
               onClick={handleReset}
-              data-h2-font-weight="base(400)"
             >
               {intl.formatMessage(formMessages.clearSelectedCombobox)}
             </Button>

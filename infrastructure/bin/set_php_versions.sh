@@ -10,10 +10,9 @@ set -o nounset
 # Assign PHP version from arg if supplied. Runs default PHP bin without.
 PHP_VERSION=$1
 
-sudo update-alternatives --set php /usr/bin/php${PHP_VERSION}
-sudo update-alternatives --set phar /usr/bin/phar${PHP_VERSION}
-sudo update-alternatives --set phpdbg /usr/bin/phpdbg${PHP_VERSION}
-sudo update-alternatives --set php-cgi /usr/bin/php-cgi${PHP_VERSION}
-sudo update-alternatives --set phar.phar /usr/bin/phar.phar${PHP_VERSION}
+# GitHub runner only includes one version of PHP that is not necessarily the value of the assigned therefore the Personal Package Archive (PPA) is necessary.
+LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install -y php${PHP_VERSION} php${PHP_VERSION}-mbstring php${PHP_VERSION}-xml php${PHP_VERSION}-pgsql php${PHP_VERSION}-zip php${PHP_VERSION}-curl php${PHP_VERSION}-bcmath php${PHP_VERSION}-gd php${PHP_VERSION}-dom
 
-php -version
+php --version

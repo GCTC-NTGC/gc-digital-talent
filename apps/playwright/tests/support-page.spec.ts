@@ -19,7 +19,7 @@ test.describe("Support page", () => {
     test("populates from search param", async ({ page }) => {
       await page.goto("/en/support?subject=bug&description=test");
       await expect(
-        page.getByRole("combobox", { name: /looking to/i }),
+        page.getByRole("combobox", { name: /reason for contact/i }),
       ).toHaveValue("bug");
       await expect(page.getByRole("textbox", { name: /details/i })).toHaveValue(
         "test",
@@ -28,7 +28,7 @@ test.describe("Support page", () => {
     test("does not populate invalid subject param", async ({ page }) => {
       await page.goto("/en/support?subject=invalid");
       await expect(
-        page.getByRole("combobox", { name: /looking to/i }),
+        page.getByRole("combobox", { name: /reason for contact/i }),
       ).toHaveValue("");
     });
   });

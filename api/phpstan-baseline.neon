@@ -1,6 +1,84 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Cannot unset property App\\Generators\\CsvGenerator\:\:\$spreadsheet because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: app/Generators/CsvGenerator.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$last_sign_in_at\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AuthController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$computed_gov_end_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Resources\\UserResource\:\:\$computed_gov_position_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Resources/UserResource.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Team\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 6
+			path: app/Models/Community.php
+
+		-
+			message: '#^Method App\\Models\\Experience\:\:userSkills\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\UserSkill, \$this\(App\\Models\\Experience\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\UserSkill, \$this\(App\\Models\\Experience\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Experience.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Team\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Models/Pool.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:awardExperiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\AwardExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\AwardExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:communityExperiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\CommunityExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\CommunityExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:educationExperiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\EducationExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\EducationExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:experiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Experience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Experience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:personalExperiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\PersonalExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\PersonalExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
+			message: '#^Method App\\Models\\UserSkill\:\:workExperiences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\WorkExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\WorkExperience, \$this\(App\\Models\\UserSkill\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''experience_skill''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/UserSkill.php
+
+		-
 			message: '#^PHPDoc tag @var with type callable\(\)\: GraphQL\\Type\\Definition\\Type&GraphQL\\Type\\Definition\\NamedType is not subtype of native type Closure\(\)\: GraphQL\\Type\\Definition\\EnumType\.$#'
 			identifier: varTag.nativeType
 			count: 1

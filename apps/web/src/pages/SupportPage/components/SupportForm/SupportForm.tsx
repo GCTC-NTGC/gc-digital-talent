@@ -200,38 +200,39 @@ const SupportForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
               label={intl.formatMessage({
-                defaultMessage: "I'm looking to…",
-                id: "aHpCQS",
+                defaultMessage: "Reason for contact",
+                id: "jt5BWQ",
                 description: "Support form subject field label",
               })}
               options={[
                 {
+                  value: "question",
+                  label: intl.formatMessage({
+                    defaultMessage: "Question",
+                    id: "M/phlO",
+                    description:
+                      "Support form subject field question option label",
+                  }),
+                },
+                {
                   value: "bug",
                   label: intl.formatMessage({
-                    defaultMessage: "Submit a bug",
-                    id: "wIccbA",
+                    defaultMessage: "Bug report",
+                    id: "RKUtAJ",
                     description: "Support form subject field bug option label",
                   }),
                 },
                 {
                   value: "feedback",
                   label: intl.formatMessage({
-                    defaultMessage: "Submit feedback",
-                    id: "fVAMSw",
+                    defaultMessage: "Feedback",
+                    id: "iuKEt+",
                     description:
                       "Support form subject field feedback option label",
                   }),
                 },
-                {
-                  value: "question",
-                  label: intl.formatMessage({
-                    defaultMessage: "Ask a question",
-                    id: "msn4mz",
-                    description:
-                      "Support form subject field question option label",
-                  }),
-                },
               ]}
+              doNotSort
               trackUnsaved={false}
             />
             <TextArea
