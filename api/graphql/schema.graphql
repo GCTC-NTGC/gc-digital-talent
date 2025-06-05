@@ -675,6 +675,8 @@ type TalentNominationEvent {
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view", model: "TalentNominationGroup")
+  countTalentNominationGroups: Int!
+    @count(relation: "talentNominationGroups", scopes: ["authorizedToView"])
   status: LocalizedTalentNominationEventStatus
 }
 

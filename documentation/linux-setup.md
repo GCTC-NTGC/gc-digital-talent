@@ -110,10 +110,11 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## PHP
 
-We use [PHP](https://www.php.net/) version 8.3 to run the backend app. Ubuntu 24.04 comes with PHP 8.3 but we require some additional extensions to be installed.
+We use [PHP](https://www.php.net/) version 8.4 to run the backend app. Ubuntu 24.04 comes with PHP 8.3 so we'll use the Ondrej PPA to install the version we need. We also require some additional extensions to be installed.
 
 ```
-sudo apt-get install php8.3 php8.3-cli php8.3-mbstring php8.3-xml php8.3-pgsql php8.3-zip php8.3-curl php8.3-bcmath php8.3-gd php8.3-dom php8.3-intl
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt-get install php8.4 php8.4-cli php8.4-mbstring php8.4-xml php8.4-pgsql php8.4-zip php8.4-curl php8.4-bcmath php8.4-gd php8.4-dom php8.4-intl
 ```
 
 Double check:
