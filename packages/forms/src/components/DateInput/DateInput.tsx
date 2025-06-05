@@ -26,8 +26,9 @@ import {
   RoundingMethod,
 } from "./types";
 
+// NOTE: Remove important in #13664
 const legendStyles = tv({
-  base: "text-base font-bold",
+  base: "text-base! font-bold",
   variants: { hide: { true: "sr-only" } },
 });
 
