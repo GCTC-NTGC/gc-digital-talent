@@ -19,6 +19,7 @@ import Counter from "./components/Button/Counter";
 import Breadcrumbs, {
   type BreadcrumbsProps,
 } from "./components/Breadcrumbs/Breadcrumbs";
+import { Container } from "./components/Container/Container";
 import Crumb from "./components/Breadcrumbs/Crumb";
 import Board from "./components/Board/Board";
 import Card, { type CardProps } from "./components/Card/Card";
@@ -149,6 +150,7 @@ export {
   Chips,
   Chip,
   Collapsible,
+  Container,
   Counter,
   DescriptionList,
   Dialog,
