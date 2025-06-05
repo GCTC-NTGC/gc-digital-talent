@@ -93,7 +93,7 @@ const ControlledInput = ({
   const months = getMonthOptions(intl);
 
   return (
-    <div className="gap-3 xs:grid xs:grid-cols-[calc(calc(var(--spacing)*24)+4ch)_1fr_calc(calc(var(--spacing)*24)+2ch)]">
+    <div className="grid gap-3 xs:grid-cols-[calc(calc(var(--spacing)*24)+4ch)_1fr_calc(calc(var(--spacing)*24)+2ch)]">
       {show.includes(DATE_SEGMENT.Year) && (
         <div>
           <Field.Label htmlFor={ID.YEAR}>
