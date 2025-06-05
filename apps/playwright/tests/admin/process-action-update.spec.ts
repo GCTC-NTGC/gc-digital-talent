@@ -118,7 +118,7 @@ test.describe("Update pool", () => {
     await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
 
     await expect(
-      appPage.page.getByRole("button", { name: /edit item 0/i }),
+      appPage.page.getByRole("button", { name: /edit item 1/i }),
     ).toBeVisible({ timeout: 15000 });
 
     await appPage.page

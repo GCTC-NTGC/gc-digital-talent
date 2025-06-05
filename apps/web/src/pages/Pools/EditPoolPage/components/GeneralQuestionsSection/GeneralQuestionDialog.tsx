@@ -9,7 +9,11 @@ import {
   Dialog,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
-import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { TextArea } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -79,7 +83,10 @@ const GeneralQuestionDialog = ({
           <CardRepeater.Edit
             disabled={disabled}
             aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-              index,
+              index:
+                index !== undefined
+                  ? index + 1
+                  : intl.formatMessage(commonMessages.notFound),
             })}
           />
         ) : (
