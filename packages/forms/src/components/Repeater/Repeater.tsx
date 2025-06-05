@@ -7,6 +7,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useFormContext } from "react-hook-form";
 import { ReactNode, HTMLProps, useId } from "react";
+import { tv } from "tailwind-variants";
 
 import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
@@ -15,6 +16,16 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import Field from "../Field";
 import { flattenErrors } from "../../utils";
 import ActionButton from "./ActionButton";
+
+const innerBounding = tv({
+  base: "rounded-md border-t-[12px] shadow-lg",
+  variants: {
+    hasError: {
+      false: "border-primary",
+      true: "border-error",
+    },
+  },
+});
 
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
@@ -116,14 +127,6 @@ const Fieldset = ({
     handleMove(index, index + 1);
   };
 
-  // replaces a button when it should be disabled.
-  const disabledIcon = (
-    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-    <span data-h2-color="base(gray)" aria-hidden data-h2-width="base(x.75)">
-      &bull;
-    </span>
-  );
-
   return (
     <MotionFieldset
       layout
@@ -137,45 +140,21 @@ const Fieldset = ({
             }
       }
     >
-      <Field.Legend data-h2-visually-hidden="base(invisible)">
-        {legend}
-      </Field.Legend>
+      <Field.Legend className="sr-only">{legend}</Field.Legend>
       <Field.BoundingBox flat>
-        <div
-          {...(!hasError
-            ? { "data-h2-border-top": "base(x.5 solid secondary)" }
-            : { "data-h2-border-top": "base(x.5 solid error)" })}
-          data-h2-shadow="base(medium)"
-          data-h2-radius="base(s)"
-        >
-          <div
-            data-h2-padding="base(x.5, x1, x1, x1)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.5)"
-            data-h2-background-color="base(foreground)"
-          >
-            <div
-              data-h2-background-color="base(foreground)"
-              data-h2-display="base(flex)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-align-items="base(center)"
-              data-h2-width="base(100%)"
-            >
-              <div
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-margin-left="base(-x.5)"
-                data-h2-justify-content="base(center)"
-                data-h2-gap="base(x.5)"
-              >
+        <div className={innerBounding({ hasError })}>
+          <div className="flex flex-col items-start gap-3 bg-white p-6 pt-3 dark:bg-gray-600">
+            <div className="flex w-full items-center justify-between">
+              <div className="-ml-3 flex items-center justify-center gap-3">
                 {!isMoveDisabled ? (
                   <>
                     <ActionButton
                       disabled={disableDecrement}
                       onClick={decrement}
-                      animation={!shouldReduceMotion ? "translate-up" : "none"}
+                      icon={ArrowUpIcon}
+                      {...(!shouldReduceMotion && {
+                        animation: "up",
+                      })}
                       aria-label={intl.formatMessage(
                         formMessages.repeaterMove,
                         {
@@ -183,29 +162,18 @@ const Fieldset = ({
                           to: position - 1,
                         },
                       )}
-                      {...(disableDecrement
-                        ? { "data-h2-padding-left": "base(x.25)" }
-                        : {})}
-                    >
-                      {!disableDecrement ? (
-                        <ArrowUpIcon data-h2-width="base(x.75)" />
-                      ) : (
-                        disabledIcon
-                      )}
-                    </ActionButton>
-                    <span
-                      aria-hidden="true"
-                      data-h2-text-align="base(center)"
-                      data-h2-font-weight="base(700)"
-                    >
+                      {...(disableDecrement && { className: "p-3" })}
+                    />
+                    <span aria-hidden="true" className="text-center font-bold">
                       {index + 1}
                     </span>
                     <ActionButton
                       disabled={disableIncrement}
                       onClick={increment}
-                      animation={
-                        !shouldReduceMotion ? "translate-down" : "none"
-                      }
+                      icon={ArrowDownIcon}
+                      {...(!shouldReduceMotion && {
+                        animation: "down",
+                      })}
                       aria-label={intl.formatMessage(
                         formMessages.repeaterMove,
                         {
@@ -213,37 +181,21 @@ const Fieldset = ({
                           to: position + 1,
                         },
                       )}
-                    >
-                      {!disableIncrement ? (
-                        <ArrowDownIcon data-h2-width="base(x.75)" />
-                      ) : (
-                        disabledIcon
-                      )}
-                    </ActionButton>
+                    />
                   </>
                 ) : (
                   <>
-                    <LockClosedIcon
-                      data-h2-margin-left="base(x.5)"
-                      data-h2-width="base(x.75)"
-                    />
-                    <span
-                      aria-hidden="true"
-                      data-h2-text-align="base(center)"
-                      data-h2-font-weight="base(700)"
-                    >
+                    <LockClosedIcon className="ml-3 size-4.5" />
+                    <span aria-hidden="true" className="text-center font-bold">
                       {index + 1}
                     </span>
                   </>
                 )}
               </div>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-margin-right="base(-x.5)"
-              >
+              <div className="-mr-3 flex items-center">
                 {onRemove && (
                   <ActionButton
+                    icon={TrashIcon}
                     onClick={handleRemove}
                     aria-label={intl.formatMessage(
                       formMessages.repeaterRemove,
@@ -251,22 +203,18 @@ const Fieldset = ({
                         index: position,
                       },
                     )}
-                  >
-                    <TrashIcon data-h2-width="base(x.75)" />
-                  </ActionButton>
+                  />
                 )}
               </div>
             </div>
-            <div data-h2-width="base(100%)">
+            <div className="w-full">
               {
                 /** If hideLegend is true, legend will not be shown (but still exists in the legend tag above). */
                 !hideLegend && (
                   <p
                     aria-hidden="true"
                     role="presentation"
-                    data-h2-margin="base(0, 0, x.5, 0)"
-                    data-h2-color="base(inherit)"
-                    data-h2-font-weight="base(700)"
+                    className="mb-3 font-bold text-inherit"
                   >
                     {legend}
                   </p>
