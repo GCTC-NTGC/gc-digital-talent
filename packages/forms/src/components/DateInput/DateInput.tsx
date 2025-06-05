@@ -8,6 +8,7 @@ import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
 import { useFormContext, Controller } from "react-hook-form";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
@@ -24,7 +25,12 @@ import {
   DATE_SEGMENT,
   RoundingMethod,
 } from "./types";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
+
+// NOTE: Remove important in #13664
+const legendStyles = tv({
+  base: "text-base! font-bold",
+  variants: { hide: { true: "sr-only" } },
+});
 
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
   HTMLFieldsetProps & {
@@ -63,7 +69,6 @@ const DateInput = ({
   } = useFormContext();
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
@@ -140,11 +145,7 @@ const DateInput = ({
       <Field.Fieldset id={id} aria-describedby={ariaDescribedBy} {...rest}>
         <Field.Legend
           required={required}
-          data-h2-font-size="base(copy)"
-          data-h2-font-weight="base(700)"
-          {...(hideLegend && {
-            "data-h2-visually-hidden": "base(invisible)",
-          })}
+          className={legendStyles({ hide: hideLegend })}
         >
           {legend}
         </Field.Legend>
@@ -165,7 +166,7 @@ const DateInput = ({
                 {...props}
                 round={round}
                 show={show}
-                stateStyles={stateStyles}
+                state={fieldState}
               />
             )}
           />
