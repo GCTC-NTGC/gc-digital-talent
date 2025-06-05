@@ -72,6 +72,7 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
               external
               href={`tel:${user.telephone}`}
               aria-label={user.telephone.replace(/.{1}/g, "$& ")}
+              className="text-primary-200! hover:text-primary-300!"
             >
               <span data-h2-font-size="base(caption)">{user.telephone}</span>
             </Link>
@@ -80,7 +81,11 @@ const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
           <span aria-hidden>&bull;</span>
         </>
       ) : null}
-      <Link external href={`mailto:${user.email}`}>
+      <Link
+        external
+        href={`mailto:${user.email}`}
+        className="text-primary-200! hover:text-primary-300!"
+      >
         <span data-h2-font-size="base(caption)">{user.email}</span>
       </Link>
       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
