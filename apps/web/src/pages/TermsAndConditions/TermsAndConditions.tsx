@@ -7,6 +7,7 @@ import {
   Heading,
   Link,
   TableOfContents,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
@@ -413,7 +414,7 @@ export const Component = () => {
                     "Paragraph describing ownership and usage section",
                 })}
               </p>
-              <ul>
+              <Ul space="lg">
                 <li>
                   <p data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
@@ -432,10 +433,7 @@ export const Component = () => {
                         "Non commercial reproduction list description in ownership and usage section",
                     })}
                   </p>
-                  <ul
-                    data-h2-list-style="base(disc)"
-                    data-h2-margin="base:children[> li](x.25, 0, 0, 0)"
-                  >
+                  <Ul space="md">
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
@@ -460,7 +458,7 @@ export const Component = () => {
                         description: "Non commercial reproduction list item",
                       })}
                     </li>
-                  </ul>
+                  </Ul>
                 </li>
                 <li>
                   <p
@@ -483,10 +481,7 @@ export const Component = () => {
                         "Commercial reproduction list description in ownership and usage section",
                     })}
                   </p>
-                  <ul
-                    data-h2-list-style="base(disc)"
-                    data-h2-margin="base:children[> li](x.25, 0, 0, 0)"
-                  >
+                  <Ul space="sm">
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
@@ -509,7 +504,7 @@ export const Component = () => {
                         },
                       )}
                     </li>
-                  </ul>
+                  </Ul>
                   <p data-h2-margin-top="base(x.5)">
                     {intl.formatMessage(
                       {
@@ -526,7 +521,7 @@ export const Component = () => {
                     )}
                   </p>
                 </li>
-              </ul>
+              </Ul>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.trademarkNotice.id}>
               <TableOfContents.Heading
@@ -724,13 +719,13 @@ export const Component = () => {
                       description: "Comments or contributions list title",
                     })}
                   </p>
-                  <ul>
+                  <Ul space="md">
                     {comments.map((comment) => (
                       <li key={uniqueId()} data-h2-margin-bottom="base(x.25)">
                         {comment}
                       </li>
                     ))}
-                  </ul>
+                  </Ul>
                   <p data-h2-margin-top="base(x.5)">
                     {intl.formatMessage({
                       id: "6yxxP6",

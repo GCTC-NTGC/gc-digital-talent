@@ -9,6 +9,7 @@ import {
   ScrollToLink,
   ScrollLinkClickFunc,
   Link,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -141,7 +142,7 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
           {intl.formatMessage(errorMessages.summaryTitle)}
         </Alert.Title>
         <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
-        <ul className="mt-3">
+        <Ul className="mt-3">
           {invalidFieldNames.map((field) => {
             return (
               <li key={field.name}>
@@ -159,7 +160,7 @@ const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
               </li>
             );
           })}
-        </ul>
+        </Ul>
         <Alert.Footer>
           <p>
             {intl.formatMessage(errorMessages.summaryContact, {

@@ -12,7 +12,7 @@ import {
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import { NoList } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
@@ -167,7 +167,7 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.acceptableRequirements)}
       >
         {acceptedRequirements?.length ? (
-          <NoList>
+          <Ul>
             {acceptedRequirements.map((requirement) => {
               const label =
                 operationalRequirements.find(
@@ -175,7 +175,7 @@ const WorkPreferences = ({
                 )?.label.localized ?? requirement;
               return <li key={requirement}>{label}</li>;
             })}
-          </NoList>
+          </Ul>
         ) : (
           notProvided
         )}
@@ -187,11 +187,11 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.workLocationPreferences)}
       >
         {locations?.length ? (
-          <ul>
+          <Ul>
             {locations.map((location) => (
               <li key={location.value}>{location?.label.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

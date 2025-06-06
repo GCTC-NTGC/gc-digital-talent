@@ -5,6 +5,7 @@ import {
   commonMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -49,7 +50,7 @@ const DiversityEquityInfo = ({
         {hasAllEmptyFields ? (
           <>{intl.formatMessage(commonMessages.notProvided)}</>
         ) : (
-          <ul>
+          <Ul>
             {!!indigenousCommunities?.length && (
               <li>
                 {intl.formatMessage(getEmploymentEquityGroup("indigenous"))}
@@ -68,7 +69,7 @@ const DiversityEquityInfo = ({
             {isWoman && (
               <li>{intl.formatMessage(getEmploymentEquityGroup("woman"))}</li>
             )}
-          </ul>
+          </Ul>
         )}
       </FieldDisplay>
     </div>
