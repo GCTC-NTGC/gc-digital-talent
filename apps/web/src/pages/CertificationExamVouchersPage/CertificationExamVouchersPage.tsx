@@ -29,8 +29,8 @@ const mailLink = (chunks: ReactNode) => (
 );
 
 const requestAVoucherUrl = {
-  en: "https://forms-formulaires.alpha.canada.ca/en/id/cm8hx7lwz000uyl693aju6upq",
-  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cm8hx7lwz000uyl693aju6upq",
+  en: "https://forms-formulaires.alpha.canada.ca/en/id/cmb13t7jr00cxx601nzt7gfpk",
+  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cmb13t7jr00cxx601nzt7gfpk",
 } as const;
 
 const pageSubtitle = defineMessage({
@@ -295,8 +295,8 @@ export const Component = () => {
             <p data-h2-margin-bottom="base(x.5)">
               {intl.formatMessage({
                 defaultMessage:
-                  "We'll respond to your application within 7 business days. If your request is approved, we'll send you a voucher code that you can use when booking your exam on the provider's platform.",
-                id: "9gU2in",
+                  "We'll respond to your application within 14 days. If your request is approved, we'll send you a voucher code that you can use when booking your exam on the provider's platform.",
+                id: "y6pG9A",
                 description: "First paragraph of what to expect section",
               })}
             </p>
