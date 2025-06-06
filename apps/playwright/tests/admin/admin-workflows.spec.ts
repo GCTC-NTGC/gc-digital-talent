@@ -62,6 +62,10 @@ test.describe("Admin workflows", () => {
       /user updated successfully/i,
     );
 
+    await expect(
+      appPage.page.getByRole("heading", { name: /all users/i }),
+    ).toBeVisible();
+
     await searchForUser(appPage, "Applicant");
     await appPage.page
       .getByRole("button", { name: /show or hide columns/i })
