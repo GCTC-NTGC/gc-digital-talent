@@ -95,7 +95,8 @@ const Select = ({
         {...rest}
       >
         <option
-          value="text-gray-600/70 dark:text-gray-100/70"
+          value=""
+          className="text-gray-600/70 dark:text-gray-100/70"
           disabled={!enableNull}
         >
           {nullSelection}
