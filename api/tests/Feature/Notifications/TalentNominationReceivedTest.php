@@ -46,9 +46,12 @@ class TalentNominationReceivedTest extends TestCase
     private static function makeTalentEvent(string $name): TalentNominationEvent
     {
         return TalentNominationEvent::factory()
-            ->create(['name' => [
-                'en' => $name.'_en',
-                'fr' => $name.'_fr'],
+            ->create([
+                'open_date' => config('constants.past_datetime'),
+                'close_date' => config('constants.far_future_datetime'),
+                'name' => [
+                    'en' => $name.'_en',
+                    'fr' => $name.'_fr'],
             ]);
     }
 

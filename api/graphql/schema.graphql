@@ -3132,9 +3132,11 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id")
 
-  #Talent nomination mutations
+  # Talent nomination mutations
   createTalentNomination(
-    talentNomination: CreateTalentNominationInput! @spread
+    talentNomination: CreateTalentNominationInput!
+      @spread
+      @rules(apply: ["App\\Rules\\TalentEventOpenForCreatingNominations"])
   ): TalentNomination
     @create
     @inject(context: "user.id", name: "submitter_id")
@@ -3142,11 +3144,13 @@ type Mutation {
     @canModel(ability: "create")
   updateTalentNomination(
     id: UUID!
+      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
     talentNomination: UpdateTalentNominationInput! @spread
   ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
-  submitTalentNomination(id: UUID!): TalentNomination
-    @guard
-    @canFind(ability: "update", find: "id")
+  submitTalentNomination(
+    id: UUID!
+      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
+  ): TalentNomination @guard @canFind(ability: "update", find: "id")
 
   #Talent nomination group mutations
   updateTalentNominationGroup(

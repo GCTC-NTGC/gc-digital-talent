@@ -28,6 +28,8 @@ class TalentNominationTest extends TestCase
 
     protected $nonEmployee1;
 
+    protected $nominationEvent;
+
     protected $createMutation = <<<'GRAPHQL'
     mutation CreateTalentNomination($talentNomination: CreateTalentNominationInput!) {
         createTalentNomination(talentNomination: $talentNomination) {
@@ -89,6 +91,11 @@ class TalentNominationTest extends TestCase
                 'work_email' => null,
                 'work_email_verified_at' => null,
             ]);
+
+        $this->nominationEvent = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.far_future_datetime'),
+        ]);
     }
 
     public function testEmployeeCanCreateNominations()
@@ -97,7 +104,7 @@ class TalentNominationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'talentNomination' => [
                     'talentNominationEvent' => [
-                        'connect' => TalentNominationEvent::factory()->create()->id,
+                        'connect' => $this->nominationEvent->id,
                     ],
                 ],
             ]);
@@ -119,7 +126,7 @@ class TalentNominationTest extends TestCase
             ->graphQL($this->createMutation, [
                 'talentNomination' => [
                     'talentNominationEvent' => [
-                        'connect' => TalentNominationEvent::factory()->create()->id,
+                        'connect' => $this->nominationEvent->id,
                     ],
                 ],
             ]);
@@ -130,6 +137,7 @@ class TalentNominationTest extends TestCase
     public function testSubmitterCanUpdateTheirOwnDraftNominations()
     {
         $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $this->nominationEvent->id,
             'submitter_id' => $this->employee1->id,
             'submitted_at' => null,
         ]);
@@ -156,6 +164,7 @@ class TalentNominationTest extends TestCase
     public function testNonSubmitterCantUpdateOtherNominations()
     {
         $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $this->nominationEvent->id,
             'submitter_id' => $this->employee1->id,
             'submitted_at' => null,
         ]);
@@ -176,6 +185,7 @@ class TalentNominationTest extends TestCase
         $nomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
                 'submitter_id' => $this->employee1->id,
             ]);
 
@@ -194,6 +204,7 @@ class TalentNominationTest extends TestCase
     {
         $event = TalentNominationEvent::factory()
             ->create([
+                'close_date' => config('constants.far_future_datetime'),
                 'include_leadership_competencies' => true,
             ]);
         $nomination = TalentNomination::factory()
@@ -224,6 +235,7 @@ class TalentNominationTest extends TestCase
     {
         $event = TalentNominationEvent::factory()
             ->create([
+                'close_date' => config('constants.far_future_datetime'),
                 'include_leadership_competencies' => false,
             ]);
         $nomination = TalentNomination::factory()
@@ -247,6 +259,7 @@ class TalentNominationTest extends TestCase
         $nonKlcSkillId = SkillFamily::where('key', '<>', 'klc')->first()->skills->first()->id;
 
         $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
             'include_leadership_competencies' => true,
         ]);
         $nomination = TalentNomination::factory()
@@ -274,6 +287,7 @@ class TalentNominationTest extends TestCase
         $nomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
                 'submitter_id' => $this->employee1->id,
                 'nominator_id' => $this->employee1->id,
                 'nominee_id' => $this->employee1->id,
@@ -285,5 +299,48 @@ class TalentNominationTest extends TestCase
             ]);
 
         $response->assertGraphQLValidationError('nominee_id', 'The nominee id field and nominator id must be different.');
+    }
+
+    public function testCannotCreateNominationsForClosedEvent()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+
+        // creating a nomination fails if the event is closed
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $event->id,
+                    ],
+                ],
+            ])->assertGraphQLValidationError('talentNomination', 'TalentEventIsClosed');
+    }
+
+    public function testCannotUpdateNominationsForClosedEvent()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create(['talent_nomination_event_id' => $event->id]);
+
+        // updating operations (update/submit) for a nomination fails if the event is closed
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $nomination->id,
+                'talentNomination' => [
+                    'additionalComments' => 'New comments',
+                ],
+            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
     }
 }

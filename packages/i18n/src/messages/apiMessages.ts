@@ -479,6 +479,13 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "m/VZ/H",
     description: "Error message for when a user is not verified",
   },
+  TalentEventIsClosed: {
+    defaultMessage:
+      "The deadline for this talent management event has passed. You can no longer submit a nomination.",
+    id: "nuFcSO",
+    description:
+      "Error alerting the user it is to late to create/update a nomination",
+  },
 });
 
 export const tryFindMessageDescriptor = (
