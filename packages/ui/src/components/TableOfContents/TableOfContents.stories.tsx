@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

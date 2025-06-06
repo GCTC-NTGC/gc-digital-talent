@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ReactNode } from "react";
 
