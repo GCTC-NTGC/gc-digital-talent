@@ -30,7 +30,7 @@ export const list = tv({
     {
       unStyled: true,
       type: ["ordered", "unordered"],
-      class: "list-none p-0",
+      class: "list-none p-0 [&_ul]:list-none",
     },
     {
       inside: true,
