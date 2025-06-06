@@ -75,6 +75,7 @@ import {
   sortSecurityStatus,
   localizedEnumToInput,
   localizedEnumArrayToInput,
+  narrowEnumType,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
 
@@ -108,6 +109,7 @@ export {
   enumInputToLocalizedEnum,
   localizedEnumToInput,
   localizedEnumArrayToInput,
+  narrowEnumType,
   sortAwardedScope,
   sortAwardedTo,
   sortCandidateRemovalReason,

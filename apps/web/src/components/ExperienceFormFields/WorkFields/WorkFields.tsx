@@ -9,7 +9,11 @@ import {
   Radio,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getLocalizedName,
+  narrowEnumType,
+} from "@gc-digital-talent/i18n";
 import { Loading } from "@gc-digital-talent/ui";
 import {
   EmploymentCategory,
@@ -27,13 +31,15 @@ import GovFields from "./GovFields";
 
 const WorkFieldOptions_Query = graphql(/* GraphQL */ `
   query WorkFieldOptions {
-    employmentCategoryTypes: localizedEnumStrings(
+    employmentCategoryTypes: localizedEnumOptions(
       enumName: "EmploymentCategory"
     ) {
-      value
-      label {
-        en
-        fr
+      ... on LocalizedEmploymentCategory {
+        value
+        label {
+          en
+          fr
+        }
       }
     }
     communities {
@@ -115,11 +121,11 @@ const WorkFields = ({
     employmentCategory: EmploymentCategory;
   }>({ name: "employmentCategory" });
 
-  const employmentCategories: Radio[] = unpackMaybes(
-    data?.employmentCategoryTypes,
+  const employmentCategories: Radio[] = narrowEnumType(
+    unpackMaybes(data?.employmentCategoryTypes),
+    "EmploymentCategory",
   ).map(({ value, label }) => {
-    const contentBelow =
-      employmentCategoryDescriptions[value as EmploymentCategory];
+    const contentBelow = employmentCategoryDescriptions[value];
     return {
       label: getLocalizedName(label, intl),
       value,

@@ -132,6 +132,36 @@ export function localizedEnumArrayToInput<T>(
   );
 }
 
+// Utility: Extracts the valid enum names from the union of possible typenames
+type ExtractLocalizedEnumName<T> = T extends {
+  __typename?: `Localized${infer Name}`;
+}
+  ? Name
+  : never;
+
+/**
+ * Filters and narrows a list of GraphQL enum option objects to only those matching the queried enum type.
+ *
+ * @template T - The union type of all possible enum option objects (from codegen).
+ * @template EnumName - The enum name you queried for, as a string (e.g., 'CafRank').
+ * @param options - The array of enum option objects returned from your GraphQL query.
+ * @param enumName - The enum name as passed to your query (e.g., 'CafRank').
+ * @returns - The filtered and type-narrowed array containing only objects for the requested enum.
+ */
+export function narrowEnumType<
+  T extends { __typename?: unknown },
+  EnumName extends ExtractLocalizedEnumName<T>,
+>(
+  items: readonly T[],
+  enumName: EnumName,
+): Extract<T, { __typename: `Localized${EnumName}` }>[] {
+  const typename = `Localized${enumName}` as const;
+  return items.filter(
+    (item): item is Extract<T, { __typename: typeof typename }> =>
+      typeof item.__typename === "string" && item.__typename === typename,
+  );
+}
+
 export function sortAwardedTo(awardTo?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [

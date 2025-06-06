@@ -5,6 +5,9 @@ namespace App\Traits;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin \App\Contracts\HasLocalization
+ */
 trait HasLocalization
 {
     abstract public static function getLangFilename(): string;
