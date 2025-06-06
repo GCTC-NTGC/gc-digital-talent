@@ -42,7 +42,7 @@ const Wrapper = ({ className, cols, ...rest }: WrapperProps) => (
 );
 
 const orStyles = tv({
-  base: "z-20 mx-auto -my-6 grid size-12 place-items-center self-center rounded-full bg-primary font-bold text-black uppercase shadow shadow-sm sm:absolute sm:top-1/2 sm:left-1/2 sm:m-0 sm:-translate-1/2",
+  base: "z-[2] mx-auto -my-6 grid size-12 place-items-center self-center rounded-full bg-primary font-bold text-black uppercase shadow shadow-sm sm:absolute sm:top-1/2 sm:left-1/2 sm:m-0 sm:-translate-1/2",
 });
 
 const Or = ({ className, ...rest }: HTMLProps<HTMLDivElement>) => {
