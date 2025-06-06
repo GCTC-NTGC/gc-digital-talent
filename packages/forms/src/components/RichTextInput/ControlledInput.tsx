@@ -5,13 +5,13 @@ import {
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
+import { tv } from "tailwind-variants";
 
-import useInputStyles from "../../hooks/useInputStyles";
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import { FieldState } from "../../types";
-import { buildExtensions, contentStyles } from "./utils";
+import { buildExtensions } from "./utils";
+import { inputStyles } from "../../styles";
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
@@ -27,6 +27,16 @@ interface ControlledInputProps {
   allowHeadings?: boolean;
 }
 
+const controlledInput = tv({
+  extend: inputStyles,
+  base: "max-h-96 min-h-32 overflow-auto rounded-t-none border-1 border-gray bg-white text-black *:not-[:first-child]:not-[li]:mt-3 *:not-[:last-child]:not-[li]:mb-3 dark:bg-gray-600 iap:hover:text-primary-300 iap:dark:focus-visible:text-black [&_a]:text-primary-700 [&_a]:underline [&_a]:outline-offset-4 [&_a]:transition-all [&_a]:duration-50 [&_a]:ease-initial [&_a]:hover:text-primary [&_a]:focus-visible:text-black dark:[&_a]:text-primary-200 dark:[&_a]:hover:text-primary-100 dark:[&_a]:focus-visible:text-black *:[&_a:hover]:no-underline [&_h2]:text-3xl [&_h3]:text-2xl [&_h4]:text-xl [&_h5]:text-lg",
+  variants: {
+    editable: {
+      false: "cursor-not-allowed opacity-60",
+    },
+  },
+});
+
 const ControlledInput = ({
   field: { onChange, name },
   formState: { defaultValues },
@@ -35,10 +45,7 @@ const ControlledInput = ({
   inputProps,
   editable,
   wordLimit,
-  trackUnsaved,
 }: ControlledInputProps) => {
-  const inputStyles = useInputStyles();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const content = defaultValues?.[name]
     ? String(defaultValues[name])
     : undefined;
@@ -49,17 +56,11 @@ const ControlledInput = ({
         role: "textbox",
         "aria-multiline": "true",
         contenteditable: editable ? "true" : "false",
-        ...inputStyles,
-        ...contentStyles,
-        ...(!editable && {
-          "data-h2-cursor": "base(not-allowed)",
-          "data-h2-opacity": "base(.6)",
-        }),
+        class: controlledInput({ editable, state: fieldState }),
         ...inputProps,
-        ...stateStyles,
       },
     }),
-    [editable, inputStyles, inputProps, stateStyles],
+    [editable, fieldState, inputProps],
   );
 
   const editor = useEditor({
@@ -85,7 +86,7 @@ const ControlledInput = ({
   return (
     <div>
       <MenuBar allowHeadings={allowHeadings} {...{ editor }} />
-      <div data-h2-color="base(black)">
+      <div className="text-black">
         <EditorContent {...{ content, editor }} />
       </div>
       <Footer {...{ wordLimit, name }} />

@@ -5131,6 +5131,10 @@
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
   },
+  "M/phlO": {
+    "defaultMessage": "Question",
+    "description": "Support form subject field question option label"
+  },
   "M051tF": {
     "defaultMessage": "Retirer une compétence",
     "description": "Message in skills in details section to remove skill from the experience."
@@ -6286,6 +6290,10 @@
   "RJtGM5": {
     "defaultMessage": "PM-02 : Analyste subalterne",
     "description": "PM-02 classification label including titles"
+  },
+  "RKUtAJ": {
+    "defaultMessage": "Signalement de bogue",
+    "description": "Support form subject field bug option label"
   },
   "RNI+IH": {
     "defaultMessage": "Compétences sélectionnées ({skillCount})",
@@ -8042,10 +8050,6 @@
     "defaultMessage": "Passez en revue votre profil",
     "description": "Page title for the application profile page"
   },
-  "aHpCQS": {
-    "defaultMessage": "Je cherche à…",
-    "description": "Support form subject field label"
-  },
   "aIEKtJ": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'edit a skill' form"
@@ -9210,10 +9214,6 @@
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Sub-heading for language requirements dialog"
   },
-  "fVAMSw": {
-    "defaultMessage": "Soumettez des commentaires",
-    "description": "Support form subject field feedback option label"
-  },
   "fXl3Cm": {
     "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
     "description": "Summary of the directive on digital talent"
@@ -10013,6 +10013,10 @@
     "defaultMessage": "Avis concernant l’image de marque",
     "description": "Title for the trademark notice section."
   },
+  "iuKEt+": {
+    "defaultMessage": "Commentaires",
+    "description": "Support form subject field feedback option label"
+  },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
@@ -10220,6 +10224,10 @@
   "js5ZcB": {
     "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
     "description": "Caption for the departmental-preference selection limitation"
+  },
+  "jt5BWQ": {
+    "defaultMessage": "Motif du contact",
+    "description": "Support form subject field label"
   },
   "jtEouE": {
     "defaultMessage": "Ajouter l'utilisateur au bassin",
@@ -10852,10 +10860,6 @@
   "mrMxsI": {
     "defaultMessage": "Oui, il s'agit d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
-  },
-  "msn4mz": {
-    "defaultMessage": "Posez une question",
-    "description": "Support form subject field question option label"
   },
   "mt4AkL": {
     "defaultMessage": "Candidat(e) precedent(e)",
@@ -12680,10 +12684,6 @@
   "wHWE3M": {
     "defaultMessage": "Il s’agit d’une plateforme conçue pour offrir des possibilités d’emploi aux Autochtones d’une manière qui reconnaît et met en valeur leurs talents, leurs idées, leurs compétences et leur passion uniques.",
     "description": "Talent portal information sentence 2"
-  },
-  "wIccbA": {
-    "defaultMessage": "Signaler un bogue",
-    "description": "Support form subject field bug option label"
   },
   "wJ5KIL": {
     "defaultMessage": "Intérêt pour le coaching des cadres",

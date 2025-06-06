@@ -42,12 +42,12 @@ const RegistrationWorkEmailVerificationPage = () => {
   });
 
   const handleVerificationSuccess = async (): Promise<void> => {
-    const navigationTarget = from ?? paths.profileAndApplications();
+    const navigationTarget = from ?? paths.applicantDashboard();
     await navigate(navigationTarget);
   };
 
   const handleSkip = async (): Promise<void> => {
-    const navigationTarget = from ?? paths.profileAndApplications();
+    const navigationTarget = from ?? paths.applicantDashboard();
     await navigate(navigationTarget);
   };
 

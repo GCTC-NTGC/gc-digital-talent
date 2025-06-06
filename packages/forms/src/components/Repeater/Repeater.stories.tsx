@@ -67,11 +67,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
           moveDisabledIndexes={moveDisabledIndexes}
           isLast={index === fields.length - 1}
         >
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr 1fr)"
-            data-h2-gap="base(x.5)"
-          >
+          <div className="grid gap-3 xs:grid-cols-2">
             <TextArea
               id={`${name}.${index}.en`}
               name={`${name}.${index}.en`}

@@ -33,7 +33,7 @@ export const Component = () => {
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
-  const returnPath = useReturnPath(paths.profileAndApplications());
+  const returnPath = useReturnPath(paths.applicantDashboard());
 
   const logoutReason = localStorage.getItem(
     LOGOUT_REASON_KEY,

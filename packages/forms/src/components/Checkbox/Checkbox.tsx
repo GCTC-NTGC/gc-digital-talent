@@ -1,24 +1,43 @@
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
 import { ReactNode, Fragment } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
+import { checkboxRadioStyles } from "../../styles";
 
-export type CheckboxProps = HTMLInputProps &
-  CommonInputProps & {
-    /** Wrap input in bounding box. */
-    boundingBox?: boolean;
-    /** Label for the bounding box. */
-    boundingBoxLabel?: ReactNode;
-    /** Determine if it should track unsaved changes and render it */
-    isUnsaved?: boolean;
-    /** Render differently when in a list */
-    inCheckList?: boolean;
-  };
+const checkbox = tv({
+  extend: checkboxRadioStyles,
+  slots: {
+    label: "flex cursor-pointer items-start gap-1.5",
+    input:
+      "rounded align-middle before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)]",
+  },
+  variants: {
+    inCheckList: {
+      true: {
+        label: "px-3 py-1.5",
+      },
+    },
+  },
+});
+
+type CheckboxVariants = VariantProps<typeof checkbox>;
+
+export interface CheckboxProps
+  extends CheckboxVariants,
+    Omit<HTMLInputProps, "id" | "name">,
+    CommonInputProps {
+  /** Wrap input in bounding box. */
+  boundingBox?: boolean;
+  /** Label for the bounding box. */
+  boundingBoxLabel?: ReactNode;
+  /** Determine if it should track unsaved changes and render it */
+  isUnsaved?: boolean;
+}
 
 const Checkbox = ({
   id,
@@ -38,7 +57,10 @@ const Checkbox = ({
     formState: { errors },
   } = useFormContext();
   const shouldReduceMotion = useReducedMotion();
-  const baseStyles = getCheckboxRadioStyles(shouldReduceMotion);
+  const { label: labelStyles, input: inputStyles } = checkbox({
+    inCheckList,
+    shouldReduceMotion: shouldReduceMotion ?? false,
+  });
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const error = errors[name];
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
@@ -63,35 +85,18 @@ const Checkbox = ({
           </Field.Legend>
         )}
         <BoundingBox {...(asFieldset ? stateStyles : {})}>
-          <Field.Label
-            data-h2-cursor="base(pointer)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.25)"
-            {...(inCheckList && {
-              "data-h2-padding": "base(x.25 x.5)",
-            })}
-          >
+          <Field.Label className={labelStyles()}>
             <input
               id={id}
               type="checkbox"
               aria-describedby={ariaDescribedBy}
               aria-required={!!rules.required && !inCheckList}
               aria-invalid={!!error}
-              data-h2-clip-path="base:selectors[::before](polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%))"
-              data-h2-radius="base(input)"
-              data-h2-vertical-align="base(middle)"
+              className={inputStyles()}
               {...register(name, rules)}
-              {...baseStyles}
               {...rest}
             />
-            <span
-              data-h2-font-size="base(body)"
-              data-h2-vertical-align="base(middle)"
-              data-h2-line-height="base(x1)"
-            >
-              {label}
-            </span>
+            <span className="align-middle text-base leading-6">{label}</span>
             {!asFieldset && !inCheckList && (
               <Field.Required required={!!rules.required} />
             )}

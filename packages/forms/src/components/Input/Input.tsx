@@ -1,15 +1,25 @@
 import { FocusEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
 import { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useInputStyles from "../../hooks/useInputStyles";
+import { inputStyles } from "../../styles";
+
+const input = tv({
+  extend: inputStyles,
+  base: "",
+  variants: {
+    readOnly: {
+      true: "bg-gray-100 dark:bg-gray-500",
+    },
+  },
+});
 
 export type InputProps = HTMLInputProps &
   CommonInputProps & {
@@ -32,6 +42,7 @@ const Input = ({
   whitespaceTrim = true,
   trackUnsaved = true,
   maxLength = 255,
+  className,
   ...rest
 }: InputProps) => {
   const intl = useIntl();
@@ -40,8 +51,6 @@ const Input = ({
     setValue,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStyles();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
@@ -74,8 +83,8 @@ const Input = ({
         aria-describedby={ariaDescribedBy}
         aria-required={!!rules.required}
         aria-invalid={isInvalid}
-        {...baseStyles}
-        {...stateStyles}
+        readOnly={readOnly}
+        className={input({ state: fieldState, readOnly, class: className })}
         {...register(name, {
           maxLength: {
             message: intl.formatMessage(errorMessages.overCharacterLimit, {
@@ -86,12 +95,6 @@ const Input = ({
           ...rules,
           onBlur: normalizeInput,
         })}
-        {...(readOnly
-          ? {
-              readOnly: true,
-              "data-h2-background-color": "base(background.dark)",
-            }
-          : {})}
         {...rest}
       />
       <Field.Descriptions ids={descriptionIds} {...{ errors, name, context }} />

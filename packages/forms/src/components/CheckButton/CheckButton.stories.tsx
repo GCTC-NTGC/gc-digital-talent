@@ -62,6 +62,15 @@ const Template: StoryFn<{ label: string }> = (args) => {
         <span>Controlled</span>
         <CheckButton checked={isChecked} onToggle={handleCheck} label={label} />
       </div>
+      <div className="bg-black p-3 text-white dark:bg-white dark:text-black">
+        <span>Controlled</span>
+        <CheckButton
+          checked={isChecked}
+          onToggle={handleCheck}
+          label={label}
+          color="white"
+        />
+      </div>
     </>
   );
 };

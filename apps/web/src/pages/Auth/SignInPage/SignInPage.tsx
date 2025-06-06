@@ -46,7 +46,7 @@ export const Component = () => {
   const fromPath = searchParams.get("from");
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
-  const fallbackPath = paths.profileAndApplications();
+  const fallbackPath = paths.applicantDashboard();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
   const pageTitle = intl.formatMessage({
