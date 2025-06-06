@@ -12,6 +12,6 @@ final class LocalizedEnumOptions
 
     public function __invoke($root, array $args)
     {
-        return $this->buildEnumList($args['enumName'], fn ($case) => $case);
+        return $this->buildEnumList($args['enumName'], fn ($case) => $case->name);
     }
 }

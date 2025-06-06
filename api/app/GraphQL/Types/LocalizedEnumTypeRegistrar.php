@@ -45,8 +45,20 @@ final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
         foreach ($localizedEnums as $enum) {
             $name = class_basename($enum);
 
-            $resolver = function ($parent, $args, $context, ResolveInfo $info) {
-                return $parent[$info->fieldName];
+            $resolver = function ($parent, $args, $context, ResolveInfo $info) use ($enum) {
+                // If $parent is an array/object, use keys
+                if (is_array($parent) && array_key_exists($info->fieldName, $parent)) {
+                    return $parent[$info->fieldName];
+                }
+                // If $parent is a scalar, use your enum logic
+                if (is_string($parent)) {
+                    switch ($info->fieldName) {
+                        case 'value': return $parent;
+                        case 'label': return $enum::localizedString($parent);
+                    }
+                }
+
+                return null;
             };
 
             $typeRegistry->register(
