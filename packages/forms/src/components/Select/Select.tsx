@@ -1,15 +1,20 @@
 import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import { tv } from "tailwind-variants";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import Field from "../Field";
 import type { CommonInputProps, OptGroupOrOption } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import { alphaSortOptions } from "../../utils";
+import { selectStyles } from "../../styles";
+
+const select = tv({
+  extend: selectStyles,
+  base: "w-full",
+});
 
 export type SelectProps = CommonInputProps &
   DetailedHTMLProps<
@@ -57,8 +62,6 @@ const Select = ({
     register,
     formState: { errors },
   } = useFormContext();
-  const baseStyles = useInputStylesDeprecated("select");
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
@@ -87,13 +90,15 @@ const Select = ({
         aria-required={!!rules.required}
         aria-invalid={isInvalid}
         defaultValue=""
-        data-h2-width="base(100%)"
-        {...baseStyles}
-        {...stateStyles}
         {...register(name, rules)}
+        className={select({ state: fieldState })}
         {...rest}
       >
-        <option data-h2-color="base(gray.dark)" value="" disabled={!enableNull}>
+        <option
+          value=""
+          className="text-gray-600/70 dark:text-gray-100/70"
+          disabled={!enableNull}
+        >
           {nullSelection}
         </option>
         {optionsModified.map((option) =>
