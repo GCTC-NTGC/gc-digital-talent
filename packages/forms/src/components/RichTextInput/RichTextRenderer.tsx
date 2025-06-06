@@ -1,6 +1,6 @@
 import { AnchorHTMLAttributes, JSX } from "react";
 
-import { Heading, Link, LinkProps } from "@gc-digital-talent/ui";
+import { Heading, Link, LinkProps, Ul } from "@gc-digital-talent/ui";
 
 import { RenderMap, Node, NodeRenderer } from "./types";
 
@@ -45,7 +45,7 @@ const ParagraphNode: NodeRenderer = ({ children }) => {
 };
 
 const BulletListNode: NodeRenderer = ({ children }) => {
-  return <ul>{children}</ul>;
+  return <Ul>{children}</Ul>;
 };
 
 const ListItemNode: NodeRenderer = ({ children }) => {

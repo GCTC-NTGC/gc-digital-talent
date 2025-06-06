@@ -4,7 +4,7 @@ import AdjustmentsHorizontalIcon from "@heroicons/react/24/outline/AdjustmentsHo
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
-import { Link, TableOfContents } from "@gc-digital-talent/ui";
+import { Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
 import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -196,7 +196,7 @@ export const Component = () => {
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </Text>
-              <ul>
+              <Ul>
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -224,7 +224,7 @@ export const Component = () => {
                       "List item 3, how self-declaration data is used",
                   })}
                 </li>
-              </ul>
+              </Ul>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.commitment.id}>
               <TableOfContents.Heading

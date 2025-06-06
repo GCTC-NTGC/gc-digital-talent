@@ -8,6 +8,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -67,11 +68,11 @@ const RationaleReview = ({ rationaleQuery }: RationaleReviewProps) => {
         label={intl.formatMessage(labels.leadershipCompetencies)}
       >
         {skills.length > 0 ? (
-          <ul>
+          <Ul>
             {skills.map((skill) => (
               <li key={skill.id}>{skill?.name.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

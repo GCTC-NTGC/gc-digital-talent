@@ -15,6 +15,7 @@ import {
   Link,
   PreviewList,
   Separator,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -368,11 +369,11 @@ const ReviewApplicationDialog = ({
                 </Accordion.Trigger>
                 <Accordion.Content>
                   {essentialSkills.length ? (
-                    <ul>
+                    <Ul>
                       {essentialSkills.map(({ id, name }) => (
                         <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
-                    </ul>
+                    </Ul>
                   ) : (
                     nullMessage
                   )}
@@ -391,11 +392,11 @@ const ReviewApplicationDialog = ({
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-margin-bottom="base(-x.5)">
                   {nonessentialSkills.length ? (
-                    <ul>
+                    <Ul>
                       {nonessentialSkills.map(({ id, name }) => (
                         <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
-                    </ul>
+                    </Ul>
                   ) : (
                     nullMessage
                   )}

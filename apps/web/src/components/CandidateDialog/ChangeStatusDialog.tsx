@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
 import { useMutation, useQuery } from "urql";
 
-import { Dialog, Button, Loading } from "@gc-digital-talent/ui";
+import { Dialog, Button, Loading, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Select, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
@@ -250,7 +250,7 @@ const ChangeStatusDialogForm = ({
                 id: "BnSa6Y",
                 description: "Toast for failed status update on view-user page",
               })}
-              <ul>
+              <Ul>
                 {rejectedRequests.map((r) => (
                   <li key={r.poolCandidate.id}>
                     {getShortPoolTitleHtml(
@@ -267,7 +267,7 @@ const ChangeStatusDialogForm = ({
                     )}
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </>,
           );
         }

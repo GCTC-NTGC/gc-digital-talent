@@ -8,6 +8,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
@@ -175,13 +176,13 @@ const NominationDetailsReview = ({
           label={intl.formatMessage(labels.nominationOptions)}
         >
           {types.length > 0 ? (
-            <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
+            <Ul unStyled space="md">
               {types.map((t) => (
                 <li key={t.key}>
                   <BoolCheckIcon value>{t.name}</BoolCheckIcon>
                 </li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             notProvided
           )}
@@ -227,16 +228,13 @@ const NominationDetailsReview = ({
                 data-h2-grid-column="base(span 2)"
                 label={intl.formatMessage(labels.lateralMovementOptions)}
               >
-                <ul
-                  data-h2-list-style="base(none)"
-                  data-h2-padding-left="base(0)"
-                >
+                <Ul unStyled space="md">
                   {lateralMoveOptions.map((o) => (
                     <li key={o.key}>
                       <BoolCheckIcon value>{o.name}</BoolCheckIcon>
                     </li>
                   ))}
-                </ul>
+                </Ul>
               </FieldDisplay>
             )}
             {talentNomination.lateralMovementOptionsOther && (
@@ -260,16 +258,13 @@ const NominationDetailsReview = ({
                   description: "Label for selected development program items",
                 })}
               >
-                <ul
-                  data-h2-list-style="base(none)"
-                  data-h2-padding-left="base(0)"
-                >
+                <Ul unStyled space="md">
                   {developmentPrograms.map((p) => (
                     <li key={p.key}>
                       <BoolCheckIcon value>{p.name}</BoolCheckIcon>
                     </li>
                   ))}
-                </ul>
+                </Ul>
               </FieldDisplay>
             )}
             {talentNomination.developmentProgramOptionsOther && (

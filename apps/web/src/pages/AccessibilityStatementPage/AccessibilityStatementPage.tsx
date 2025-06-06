@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode } from "react";
 
-import { Heading, Link, TableOfContents } from "@gc-digital-talent/ui";
+import { Heading, Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
 import { getLocale, Locales } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -365,7 +365,7 @@ export const Component = () => {
                     "Lead in text for list of items we consider for accessibility",
                 })}
               </p>
-              <ul>
+              <Ul space="md">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Our designers pay attention to:",
@@ -373,7 +373,7 @@ export const Component = () => {
                     description:
                       "Intro to list of items designers consider for accessibility",
                   })}
-                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+                  <Ul space="sm">
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
@@ -408,16 +408,16 @@ export const Component = () => {
                           "List item four, things designers consider for accessibility",
                       })}
                     </li>
-                  </ul>
+                  </Ul>
                 </li>
-                <li data-h2-margin="base(x.5, 0, 0, 0)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "Our developers pay attention to:",
                     id: "Wi4tia",
                     description:
                       "Intro to list of items developers consider for accessibility",
                   })}
-                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+                  <Ul space="sm">
                     <li>
                       {intl.formatMessage(
                         {
@@ -460,9 +460,9 @@ export const Component = () => {
                           "List item four, things developers consider for accessibility",
                       })}
                     </li>
-                  </ul>
+                  </Ul>
                 </li>
-              </ul>
+              </Ul>
               <Heading
                 level="h3"
                 size="h4"
@@ -550,7 +550,7 @@ export const Component = () => {
                     "Disclaimer about accessibility complaint exceptions.",
                 })}
               </p>
-              <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+              <Ul space="md">
                 <li>
                   {intl.formatMessage(
                     {
@@ -611,7 +611,7 @@ export const Component = () => {
                     },
                   )}
                 </li>
-              </ul>
+              </Ul>
               <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:
@@ -621,7 +621,7 @@ export const Component = () => {
                     "Description of what to do if users are not content with complaint response",
                 })}
               </p>
-              <ul data-h2-margin="base:children[> li](x.25, 0)">
+              <Ul space="md">
                 <li>
                   {intl.formatMessage(
                     {
@@ -691,7 +691,7 @@ export const Component = () => {
                     { chrcMailLink },
                   )}
                 </li>
-              </ul>
+              </Ul>
               <p data-h2-margin="base(x.5, 0)">
                 {intl.formatMessage({
                   defaultMessage:

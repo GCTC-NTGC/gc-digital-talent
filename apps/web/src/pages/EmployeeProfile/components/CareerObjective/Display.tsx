@@ -2,7 +2,7 @@ import { IntlShape, useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
-import { CardSeparator, Well } from "@gc-digital-talent/ui";
+import { CardSeparator, Ul, Well } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -163,14 +163,11 @@ const Display = ({
             data-h2-grid-column="l-tablet(span 2)"
           >
             {careerObjectiveWorkStreams?.length ? (
-              <ul
-                data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-                data-h2-padding-left="base(x1)"
-              >
+              <Ul space="sm">
                 {careerObjectiveWorkStreams.map((workStream) => (
                   <li key={workStream.id}>{workStream?.name?.localized}</li>
                 ))}
-              </ul>
+              </Ul>
             ) : (
               notProvided
             )}
@@ -181,14 +178,11 @@ const Display = ({
           data-h2-grid-column="l-tablet(span 2)"
         >
           {careerObjectiveDepartments?.length ? (
-            <ul
-              data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-              data-h2-padding-left="base(x1)"
-            >
+            <Ul space="sm">
               {careerObjectiveDepartments.map((department) => (
                 <li key={department.id}>{department?.name?.localized}</li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             notProvided
           )}

@@ -27,3 +27,5 @@ global-components:
   TextArea: textarea
   BasicForm: form
   CardOptionGroup: fieldset
+  Ul: ul
+  Ol: Ol
