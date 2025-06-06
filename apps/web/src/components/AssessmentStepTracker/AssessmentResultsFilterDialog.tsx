@@ -91,11 +91,7 @@ const AssessmentResultsFilterDialog = ({
       options={{ defaultValues: initialValues }}
       modifyFilterCount={-3}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
-      >
+      <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
         <Combobox
           id="workRegion"
           name="workRegion"
@@ -125,7 +121,7 @@ const AssessmentResultsFilterDialog = ({
             label: getLocalizedName(name, intl),
           }))}
         />
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div className="sm:col-span-2">
           <Combobox
             id="operationalRequirements"
             name="operationalRequirements"
@@ -145,7 +141,7 @@ const AssessmentResultsFilterDialog = ({
           label={intl.formatMessage(commonMessages.workingLanguageAbility)}
           options={localizedEnumToOptions(data?.languageAbilities, intl)}
         />
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div className="sm:col-span-2">
           <Combobox
             id="equity"
             name="equity"
@@ -168,7 +164,7 @@ const AssessmentResultsFilterDialog = ({
             ]}
           />
         </div>
-        <div data-h2-align-self="base(center)">
+        <div className="self-center">
           <Checkbox
             id="govEmployee"
             name="govEmployee"

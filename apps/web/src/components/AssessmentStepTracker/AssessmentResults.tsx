@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
 import {
@@ -19,6 +20,7 @@ import CandidateBookmark, {
 import useRoutes from "../../hooks/useRoutes";
 import {
   CandidateAssessmentResult,
+  decisionIcon,
   getDecisionInfo,
   sortResultsAndAddOrdinal,
 } from "./utils";
@@ -31,33 +33,30 @@ const Priority = ({ type }: PriorityProps) => {
   const intl = useIntl();
 
   return (
-    <span
-      data-h2-align-items="base(center)"
-      data-h2-display="base(inline-flex)"
-      data-h2-background-color="base(black) base:dark(white)"
-      data-h2-color="base(white) base:dark(black)"
-      data-h2-padding="base(0 x.125)"
-      data-h2-radius="base(rounded)"
-      data-h2-font-weight="base(700)"
-      data-h2-transition="base(all .2s ease)"
-    >
-      <span data-h2-line-height="base(1)" data-h2-font-size="base(0.6rem)">
-        {type === "veteran"
-          ? intl.formatMessage({
-              defaultMessage: "VA",
-              id: "KXy+Ei",
-              description: "Short form code representing 'veteran'",
-            })
-          : intl.formatMessage({
-              defaultMessage: "P",
-              id: "nzF0AE",
-              description:
-                "Short form code representing 'priority entitlement'",
-            })}
-      </span>
+    <span className="inline-flex items-center rounded-md bg-black px-0.75 text-2xs font-bold text-white">
+      {type === "veteran"
+        ? intl.formatMessage({
+            defaultMessage: "VA",
+            id: "KXy+Ei",
+            description: "Short form code representing 'veteran'",
+          })
+        : intl.formatMessage({
+            defaultMessage: "P",
+            id: "nzF0AE",
+            description: "Short form code representing 'priority entitlement'",
+          })}
     </span>
   );
 };
+
+const assessmentResult = tv({
+  base: "flex w-full items-center gap-x-1.5 py-0.75",
+  variants: {
+    isBookmarked: {
+      true: "rounded bg-secondary-100 dark:bg-secondary-700",
+    },
+  },
+});
 
 interface AssessmentResultProps {
   result: CandidateAssessmentResult & { ordinal: number };
@@ -82,31 +81,16 @@ const AssessmentResult = ({
   // We should always have one, but if not, don't show anything
   if (!result.poolCandidate) return null;
 
-  const { icon, colorStyle, name } = getDecisionInfo(
+  const { icon, name } = getDecisionInfo(
     result.decision,
     isApplicationStep,
     intl,
   );
   const Icon = icon;
 
-  const iconStyles = {
-    "data-h2-height": "base(x.65)",
-    "data-h2-width": "base(x.65)",
-  };
-
   return (
     <Board.ListItem>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.25)"
-        data-h2-padding="base(x.125 0)"
-        data-h2-width="base(100%)"
-        {...(isBookmarked && {
-          "data-h2-radius": "base(5px)",
-          "data-h2-background-color": "base(primary.lightest)",
-        })}
-      >
+      <div className={assessmentResult({ isBookmarked })}>
         <CandidateBookmark
           candidateQuery={
             result.poolCandidate as FragmentType<
@@ -116,7 +100,7 @@ const AssessmentResult = ({
           bookmarked={isBookmarked}
           onBookmarkChange={setIsBookmarked}
         />
-        <span data-h2-flex-grow="base(1)">
+        <span className="grow">
           <Link
             mode="text"
             color="black"
@@ -133,12 +117,7 @@ const AssessmentResult = ({
             )}
           </Link>
         </span>
-        <span
-          data-h2-flex-shrink="base(0)"
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x.125)"
-        >
+        <span className="flex shrink-0 items-center gap-x-0.75">
           {result.poolCandidate.user.hasPriorityEntitlement &&
             result.poolCandidate.priorityVerification !==
               ClaimVerificationResult.Rejected && (
@@ -148,7 +127,11 @@ const AssessmentResult = ({
             ArmedForcesStatus.Veteran &&
             result.poolCandidate.veteranVerification !==
               ClaimVerificationResult.Rejected && <Priority type="veteran" />}
-          <Icon {...iconStyles} {...colorStyle} aria-label={name} />
+          <Icon
+            className={decisionIcon({ decision: result.decision })}
+            aria-hidden="false"
+            aria-label={name}
+          />
         </span>
       </div>
     </Board.ListItem>
@@ -185,7 +168,7 @@ const AssessmentResults = ({
       ))}
     </Board.List>
   ) : (
-    <Well fontSize="caption" data-h2-margin="base(x.25)">
+    <Well fontSize="caption" className="m-3">
       <p>
         {intl.formatMessage({
           defaultMessage: "There are no candidate results in this step.",

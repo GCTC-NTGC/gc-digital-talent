@@ -5,6 +5,7 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import sortBy from "lodash/sortBy";
 import isEmpty from "lodash/isEmpty";
+import { tv } from "tailwind-variants";
 
 import { IconType } from "@gc-digital-talent/ui";
 import {
@@ -44,7 +45,6 @@ export interface CandidateAssessmentResult {
 }
 
 interface DecisionInfo {
-  colorStyle: Record<string, string>;
   icon: IconType;
   name: string;
 }
@@ -57,9 +57,6 @@ export const getDecisionInfo = (
   if (!decision || decision === NO_DECISION) {
     return {
       icon: ExclamationCircleIcon,
-      colorStyle: {
-        "data-h2-color": "base(warning)",
-      },
       name: intl.formatMessage(poolCandidateMessages.toAssess),
     };
   }
@@ -67,9 +64,6 @@ export const getDecisionInfo = (
   if (decision === AssessmentDecision.Hold) {
     return {
       icon: PauseCircleIcon,
-      colorStyle: {
-        "data-h2-color": "base(secondary)",
-      },
       name: intl.formatMessage(poolCandidateMessages.onHold),
     };
   }
@@ -77,9 +71,6 @@ export const getDecisionInfo = (
   if (decision === AssessmentDecision.Unsuccessful) {
     return {
       icon: XCircleIcon,
-      colorStyle: {
-        "data-h2-color": "base(error)",
-      },
       name: isApplicationStep
         ? intl.formatMessage(commonMessages.screenedOut)
         : intl.formatMessage(poolCandidateMessages.unsuccessful),
@@ -88,9 +79,6 @@ export const getDecisionInfo = (
 
   return {
     icon: CheckCircleIcon,
-    colorStyle: {
-      "data-h2-color": "base(success)",
-    },
     name: isApplicationStep
       ? intl.formatMessage(poolCandidateMessages.screenedIn)
       : intl.formatMessage(poolCandidateMessages.successful),
@@ -419,3 +407,15 @@ export function transformFormValuesToFilterState(
     suspendedStatus: CandidateSuspendedFilter.Active,
   };
 }
+
+export const decisionIcon = tv({
+  base: "size-4 text-warning",
+  variants: {
+    decision: {
+      [NO_DECISION]: "text-warning",
+      [AssessmentDecision.Hold]: "text-primary",
+      [AssessmentDecision.Unsuccessful]: "text-error",
+      [AssessmentDecision.Successful]: "text-success",
+    },
+  },
+});

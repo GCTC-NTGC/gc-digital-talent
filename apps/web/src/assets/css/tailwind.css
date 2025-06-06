@@ -224,6 +224,8 @@
   /** Fonts */
   --font-sans: "Open Sans", "sans-serif";
 
+  --text-2xs: 0.6rem;
+  --text-xs--line-height: calc(1 / 0.6);
   --text-xs: 0.75rem;
   --text-xs--line-height: calc(1 / 0.75);
   --text-sm: 0.875rem;
