@@ -11,6 +11,10 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
  */
 final class LocalizedStringTypeRegistrar implements TypeRegistrarInterface
 {
+    // Lowest weight since it should always be first since
+    // it is used in the other registrars
+    public static int $weight = 0;
+
     public static function register(TypeRegistry $typeRegistry): void
     {
         $typeRegistry->register(

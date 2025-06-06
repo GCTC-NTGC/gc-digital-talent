@@ -14,6 +14,8 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
  */
 final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
 {
+    public static int $weight = 10;
+
     public static function register(TypeRegistry $typeRegistry): void
     {
         $typeRegistry->register(
