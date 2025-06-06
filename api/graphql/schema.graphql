@@ -39,6 +39,14 @@ type UserAuthInfo {
   deletedDate: DateTime @rename(attribute: "deleted_at")
 }
 
+type SillyName {
+  id: UUID!
+  sub: String
+  roleAssignments: [RoleAssignment] @hasMany
+  createdDate: DateTime @rename(attribute: "created_at")
+  deletedDate: DateTime @rename(attribute: "deleted_at")
+}
+
 type User {
   id: ID!
   createdDate: DateTime @rename(attribute: "created_at")
@@ -1275,7 +1283,7 @@ input CommunityInterestFilterInput {
 }
 
 type Query {
-  myAuth: UserAuthInfo @auth
+  myAuth: SillyName @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
   govEmployeeProfile(
