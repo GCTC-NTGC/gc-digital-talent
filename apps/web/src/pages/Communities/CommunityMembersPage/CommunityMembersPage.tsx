@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 import { useOutletContext } from "react-router";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
@@ -213,12 +213,17 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserAuthInfo"],
+};
+
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
 const CommunityMembersPageApiWrapper = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityMembersTeam_Query,
     variables: { communityId },
+    context,
   });
   return (
     <Pending fetching={fetching} error={error}>
