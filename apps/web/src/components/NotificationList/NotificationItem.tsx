@@ -45,8 +45,8 @@ const notificationItem = tv({
   base: "flex",
   variants: {
     inDialog: {
-      true: "rounded-none p-3 has-focus-visible:inset-shadow-focus",
-      false: "text-focus ring-2 ring-focus",
+      true: "rounded-none p-3 has-focus-visible:shadow-[inset_calc(var(--spacing)*1.5)_0_0_0_var(--color-focus)]",
+      false: "has-focus-visible:ring-2 has-focus-visible:ring-focus",
     },
   },
 });
