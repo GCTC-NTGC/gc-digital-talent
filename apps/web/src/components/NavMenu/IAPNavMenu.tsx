@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { MenuLink } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
+import { Maybe, SillyName } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -13,7 +13,7 @@ import NavMenu from "./NavMenu";
 
 interface IAPNavMenuProps {
   loggedIn?: boolean;
-  userAuthInfo?: Maybe<UserAuthInfo>;
+  userAuthInfo?: Maybe<SillyName>;
 }
 
 const IAPNavMenu = ({ loggedIn, userAuthInfo }: IAPNavMenuProps) => {
