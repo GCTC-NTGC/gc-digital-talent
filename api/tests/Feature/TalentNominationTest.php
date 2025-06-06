@@ -286,4 +286,47 @@ class TalentNominationTest extends TestCase
 
         $response->assertGraphQLValidationError('nominee_id', 'The nominee id field and nominator id must be different.');
     }
+
+    public function testCannotCreateNominationsForClosedEvent()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+
+        // creating a nomination fails if the event is closed
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $event->id,
+                    ],
+                ],
+            ])->assertGraphQLValidationError('talentNomination', 'TalentEventIsClosed');
+    }
+
+    public function testCannotUpdateNominationsForClosedEvent()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create(['talent_nomination_event_id' => $event->id]);
+
+        // updating operations (update/submit) for a nomination fails if the event is closed
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $nomination->id,
+                'talentNomination' => [
+                    'additionalComments' => 'New comments',
+                ],
+            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
+
+        $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ])->assertGraphQLValidationError('id', 'TalentEventIsClosed');
+    }
 }
