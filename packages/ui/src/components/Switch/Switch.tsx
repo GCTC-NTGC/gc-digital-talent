@@ -18,7 +18,7 @@ const switchStyles = tv({
         icon: "dark:group-data[state=checked]/switch:text-gray-500 text-gray",
       },
       false: {
-        icon: "text-black",
+        icon: "text-black dark:text-white",
       },
     },
     color: {
