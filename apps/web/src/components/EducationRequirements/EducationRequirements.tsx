@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { HTMLProps, ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import { Link, Heading, HeadingLevel, Card } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -17,44 +18,37 @@ import { ClassificationGroup } from "~/types/classificationGroup";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
-const Text = (props: TextProps) => (
-  <p data-h2-margin="base(x.5, 0)" {...props} />
+const Text = (props: TextProps) => <p className="my-3" {...props} />;
+
+const wrapper = tv({
+  base: "relative grid grid-cols-1 gap-3",
+  variants: {
+    cols: {
+      2: "sm:grid-cols-2",
+      3: "sm:grid-cols-3",
+    },
+  },
+  defaultVariants: {
+    cols: 2,
+  },
+});
+
+interface WrapperProps extends HTMLProps<HTMLDivElement> {
+  cols?: 2 | 3;
+}
+
+const Wrapper = ({ className, cols, ...rest }: WrapperProps) => (
+  <div className={wrapper({ cols, class: className })} {...rest} />
 );
 
-const Wrapper = (props: HTMLProps<HTMLDivElement>) => (
-  <div
-    data-h2-display="base(grid)"
-    data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-    data-h2-gap="base(x.5)"
-    data-h2-position="base(relative)"
-    {...props}
-  />
-);
+const orStyles = tv({
+  base: "z-20 mx-auto -my-6 grid size-12 place-items-center self-center rounded-full bg-primary font-bold text-black uppercase shadow shadow-sm sm:absolute sm:top-1/2 sm:left-1/2 sm:m-0 sm:-translate-1/2",
+});
 
-const Or = (props: HTMLProps<HTMLDivElement>) => {
+const Or = ({ className, ...rest }: HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
   return (
-    <span
-      data-h2-background-color="base(secondary)"
-      data-h2-color="base:all(black)"
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(center)"
-      data-h2-height="base(x2)"
-      data-h2-width="base(x2)"
-      data-h2-radius="base(x2)"
-      data-h2-shadow="base(s)"
-      data-h2-font-weight="base(700)"
-      data-h2-align-self="base(center)"
-      data-h2-text-transform="base(uppercase)"
-      data-h2-position="l-tablet(absolute)"
-      data-h2-top="l-tablet(50%)"
-      data-h2-left="l-tablet(50%)"
-      data-h2-transform="l-tablet(translate(-50%, -50%))"
-      data-h2-margin="base(-x1.25 auto) l-tablet(0)"
-      data-h2-z-index="base(2)"
-      {...props}
-    >
+    <span className={orStyles({ class: className })} {...rest}>
       {intl.formatMessage({
         defaultMessage: "or",
         id: "l9AK3C",
@@ -94,13 +88,9 @@ const EducationRequirements = ({
   switch (classificationGroup) {
     case "EX":
       return (
-        <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr 1fr)">
+        <Wrapper cols={3}>
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Professional designation",
                 id: "KqEyqD",
@@ -114,13 +104,9 @@ const EducationRequirements = ({
               })}
             </Text>
           </Card>
-          <Or data-h2-left="l-tablet(33%)" />
+          <Or className="sm:left-1/3" />
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -134,13 +120,9 @@ const EducationRequirements = ({
               })}
             </Text>
           </Card>
-          <Or data-h2-left="l-tablet(67%)" />
+          <Or className="sm:left-2/3" />
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Graduation with degree",
                 id: "ijg+sm",
@@ -169,11 +151,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -187,11 +165,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-6">
               {intl.formatMessage(applicationMessages.secondarySchoolHeading)}
             </Heading>
             <Text>
@@ -206,7 +180,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECJustEducationHeading,
               )}
@@ -219,7 +193,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECEducationPlusHeading,
               )}
@@ -234,13 +208,9 @@ const EducationRequirements = ({
       );
     case "CR":
       return (
-        <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)">
+        <Wrapper>
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -260,11 +230,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Two years of secondary school",
                 id: "23YiFr",
@@ -286,11 +252,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -316,11 +278,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading
-              level={headingAs}
-              size="h6"
-              data-h2-margin="base(0 0 x.5 0)"
-            >
+            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
               {isIAP
                 ? intl.formatMessage({
                     defaultMessage: "High school diploma or GED",
