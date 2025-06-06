@@ -18,9 +18,7 @@ export default {
 const Template: StoryFn<typeof RadioGroup> = (args) => (
   <Form onSubmit={action("Submit Form")}>
     <RadioGroup {...args} />
-    <p data-h2-margin-top="base(x1)">
-      <Submit />
-    </p>
+    <Submit className="mt-6" />
   </Form>
 );
 
@@ -61,20 +59,16 @@ Elements.args = {
     {
       value: "one",
       label: (
-        <span data-h2-background-color="base(error.lighter)">
-          Red Selection
-        </span>
+        <span className="bg-error-200 dark:bg-error-500">Red Selection</span>
       ),
     },
     {
       value: "two",
-      label: (
-        <span data-h2-background-color="base(white)">White Selection</span>
-      ),
+      label: <span className="bg-white">White Selection</span>,
     },
     {
       value: "three",
-      label: <span data-h2-font-weight="base(700)">Bold Selection</span>,
+      label: <span className="font-bold">Bold Selection</span>,
     },
   ],
 };

@@ -18,7 +18,7 @@ const Footer = ({ wordLimit, name }: FooterProps) => {
     : 0;
 
   return (
-    <div data-h2-text-align="base(right)">
+    <div className="text-right">
       <WordCounter
         name={name}
         wordLimit={wordLimit}

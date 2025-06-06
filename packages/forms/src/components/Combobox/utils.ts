@@ -1,9 +1,11 @@
 import { ValidationRule } from "react-hook-form";
 import orderBy from "lodash/orderBy";
+import { tv } from "tailwind-variants";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { ComboboxValue, Option } from "./types";
+import { inputStyles } from "../../styles";
 
 const orderItems = (options: Option[]): Option[] => {
   return orderBy(options, (o) => nodeToString(o?.label).toLowerCase(), "asc");
@@ -145,3 +147,18 @@ export function getErrorMessage(
 
   return false;
 }
+
+export const comboboxInput = tv({
+  extend: inputStyles,
+  base: "w-full",
+  variants: {
+    hasSelectedItems: {
+      true: "py-3 pr-19 pl-9",
+      false: "px-9 py-3",
+    },
+    isMulti: {
+      true: "rounded-b-none",
+      false: "",
+    },
+  },
+});

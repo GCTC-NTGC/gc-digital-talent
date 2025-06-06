@@ -11,7 +11,7 @@ import useFieldState from "./useFieldState";
  * @param ignoreUnsaved   boolean   IF you should ignore state and always render default
  * @returns Record<string, string>
  */
-const useFieldStateStyles = (name: string, ignoreUnsaved = false) => {
+const useFieldStateStylesDeprecated = (name: string, ignoreUnsaved = false) => {
   let fieldState = useFieldState(name ?? "");
   if (ignoreUnsaved && fieldState === "dirty") {
     fieldState = "unset";
@@ -20,4 +20,4 @@ const useFieldStateStyles = (name: string, ignoreUnsaved = false) => {
   return fieldStateStyles[fieldState] || {};
 };
 
-export default useFieldStateStyles;
+export default useFieldStateStylesDeprecated;

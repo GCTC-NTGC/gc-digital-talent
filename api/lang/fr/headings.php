@@ -15,7 +15,7 @@ return [
     'archival_date' => 'Date d\'archivage',
     'first_name' => 'Prénom',
     'last_name' => 'Nom de famille',
-    'email' => 'Address courriel de correspondance',
+    'email' => 'Adresse courriel de correspondance',
     'phone' => 'Numéro de téléphone',
     'preferred_communication_language' => 'Langue de communication',
     'preferred_spoken_interview_language' => 'Langue de l\'entrevue de vive voix',
