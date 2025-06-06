@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -157,12 +157,17 @@ interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
 }
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserAuthInfo"],
+};
+
 const ManageAccessPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [{ data, fetching, error }] = useQuery({
     query: ManageAccessPage_PoolQuery,
     variables: { poolId },
+    context,
   });
 
   const pool = data?.pool;
