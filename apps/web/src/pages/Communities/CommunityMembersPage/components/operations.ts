@@ -6,18 +6,6 @@ export const UpdateUserCommunityRoles_Mutation = graphql(/* GraphQL */ `
   ) {
     updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
       id
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-      }
     }
   }
 `);

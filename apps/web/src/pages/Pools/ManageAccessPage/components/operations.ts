@@ -4,18 +4,6 @@ export const UpdateUserProcessRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserProcessRole($updateUserRolesInput: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
       id
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-      }
     }
   }
 `);

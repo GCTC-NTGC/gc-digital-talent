@@ -178,7 +178,6 @@ export const UpdateUserSub_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserSub($updateUserSubInput: UpdateUserSubInput!) {
     updateUserSub(updateUserSubInput: $updateUserSubInput) {
       id
-      sub
     }
   }
 `);
@@ -187,18 +186,6 @@ export const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
       id
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-      }
     }
   }
 `);

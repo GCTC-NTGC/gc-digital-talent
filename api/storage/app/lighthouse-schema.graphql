@@ -359,7 +359,7 @@ type LocalizedWorkRegion {
 }
 
 type Query {
-  myAuth: UserAuthInfo
+  myAuth: SillyName
   me: User
   user(
     id: UUID!
@@ -636,6 +636,14 @@ type LocalizedEnumString {
 }
 
 type UserAuthInfo {
+  id: UUID!
+  sub: String
+  roleAssignments: [RoleAssignment]
+  createdDate: DateTime
+  deletedDate: DateTime
+}
+
+type SillyName {
   id: UUID!
   sub: String
   roleAssignments: [RoleAssignment]
