@@ -1453,6 +1453,7 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+    @field(resolver: "App\\GraphQL\\Queries\\LocalizedEnumOptions")
     @deprecated(reason: "Replaced by localizedEnumOptions")
   localizedEnumOptions(
     enumName: String!
