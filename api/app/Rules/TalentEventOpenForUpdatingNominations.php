@@ -16,7 +16,7 @@ class TalentEventOpenForUpdatingNominations implements ValidationRule
     {
         if ((bool) $value) {
             $nomination = TalentNomination::find($value)->load('talentNominationEvent');
-            $eventClosing = $nomination?->talentNominationEvent->close_date;
+            $eventClosing = $nomination->talentNominationEvent->close_date;
 
             if ((bool) $eventClosing) {
                 $now = Carbon::now();
