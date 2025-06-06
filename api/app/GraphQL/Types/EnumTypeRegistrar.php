@@ -13,7 +13,7 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
 {
     public static function register(TypeRegistry $typeRegistry): void
     {
-        /** @var array<class-string<UnitEnum>> $enums */
+        /** @var array<class-string<\UnitEnum>> $enums */
         $enums = EnumDiscoverer::discoverEnums();
 
         foreach ($enums as $enum) {
@@ -23,7 +23,7 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
              * @return EnumType
              */
             $callback = static function () use ($name, $enum): EnumType {
-                /** @var array<int, UnitEnum> $cases */
+                /** @var array<int, \UnitEnum> $cases */
                 $cases = $enum::cases();
                 $values = array_column($cases, 'name');
 
@@ -35,6 +35,8 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
 
             $typeRegistry->registerLazy(
                 $name,
+                // Note: PHPStan isn't working well with the union type here
+                // @phpstan-ignore-next-line
                 $callback
             );
         }

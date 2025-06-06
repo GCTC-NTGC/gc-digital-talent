@@ -41,7 +41,7 @@ final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
             ])
         );
 
-        /** @var array<class-string<UnitEnum&\App\Contracts\HasLocalization>> $localizedEnums */
+        /** @var array<class-string<\UnitEnum&\App\Contracts\HasLocalization>> $localizedEnums */
         $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
         foreach ($localizedEnums as $enum) {
