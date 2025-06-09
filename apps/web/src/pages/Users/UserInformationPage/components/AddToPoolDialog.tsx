@@ -4,7 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
 import { useMutation, useQuery } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { DateInput } from "@gc-digital-talent/forms";
 import {
@@ -181,7 +181,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                 description:
                   "Error message displayed when an attempt to add users to known pools",
               })}
-              <ul>
+              <Ul>
                 {rejectedRequests.map((rejected) => (
                   <li key={rejected.pool.id}>
                     {getShortPoolTitleHtml(intl, {
@@ -192,7 +192,7 @@ const AddToPoolDialog = ({ user, poolCandidates }: AddToPoolDialogProps) => {
                     })}
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </>,
           );
         }

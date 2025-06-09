@@ -4,6 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
+import { tv } from "tailwind-variants";
 
 import {
   DevelopmentProgramParticipationStatus,
@@ -18,7 +19,6 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 interface StatusInfo {
   Icon: IconType;
-  iconStyles: Record<string, string>;
   message: string;
 }
 
@@ -30,9 +30,6 @@ const useStatusInfo = (
 
   const defaultStatusInfo = {
     Icon: ExclamationCircleIcon,
-    iconStyles: {
-      "data-h2-color": "base(error) base:dark(error.lighter)",
-    },
     message: intl.formatMessage(commonMessages.missingInformation),
   };
 
@@ -57,9 +54,6 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Interested,
       {
         Icon: QuestionMarkCircleIcon,
-        iconStyles: {
-          "data-h2-color": "base(primary) base:dark(primary.light)",
-        },
         message: intl.formatMessage({
           defaultMessage: "Interested in this program",
           id: "ytcZ7A",
@@ -72,9 +66,6 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.NotInterested,
       {
         Icon: XCircleIcon,
-        iconStyles: {
-          "data-h2-color": "base(black.lighter) base:dark(black.5)",
-        },
         message: intl.formatMessage({
           defaultMessage: "Not interested",
           id: "9TIkDp",
@@ -87,9 +78,6 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Enrolled,
       {
         Icon: BuildingLibraryIcon,
-        iconStyles: {
-          "data-h2-color": "base(primary) base:dark(primary.light)",
-        },
         message: date
           ? intl.formatMessage(
               {
@@ -113,9 +101,6 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Completed,
       {
         Icon: CheckCircleIcon,
-        iconStyles: {
-          "data-h2-color": "base(success) base:dark(success.lighter)",
-        },
         message: intl.formatMessage(
           {
             defaultMessage: "Completed in {date}",
@@ -133,6 +118,38 @@ const useStatusInfo = (
 
   return infoMap.get(status) ?? defaultStatusInfo;
 };
+
+const devProgram = tv({
+  slots: {
+    base: "mb-1.5 flex items-start gap-1.5",
+    icon: "mt-1 size-4.5 text-error dark:text-error-200",
+    caption: "text-sm",
+  },
+  variants: {
+    status: {
+      [DevelopmentProgramParticipationStatus.Interested]: {
+        icon: "text-secondary dark:text-secondary-300",
+      },
+      [DevelopmentProgramParticipationStatus.NotInterested]: {
+        icon: "text-gray-300 dark:text-gray",
+      },
+      [DevelopmentProgramParticipationStatus.Enrolled]: {
+        icon: "text-secondary dark:text-secondary-300",
+      },
+      [DevelopmentProgramParticipationStatus.Completed]: {
+        icon: "text-success dark:text-success-200",
+      },
+    },
+    hasError: {
+      true: {
+        caption: "text-error dark:text-error-100",
+      },
+      false: {
+        caption: "text-gray- dark:text-gray-100",
+      },
+    },
+  },
+});
 
 const CommunityInterestDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDevelopmentProgramInterest on DevelopmentProgramInterest {
@@ -156,41 +173,30 @@ const DevelopmentProgramInterestItem = ({
     CommunityInterestDevelopmentProgram_Fragment,
     developmentProgramInterestQuery,
   );
-  const { Icon, iconStyles, message } = useStatusInfo(
+  const { Icon, message } = useStatusInfo(
     developmentProgramInterest?.participationStatus,
     developmentProgramInterest?.completionDate,
   );
 
+  const {
+    base,
+    icon: iconStyles,
+    caption,
+  } = devProgram({
+    status: developmentProgramInterest?.participationStatus ?? undefined,
+    hasError:
+      !developmentProgramInterest?.participationStatus ||
+      (developmentProgramInterest?.participationStatus ===
+        DevelopmentProgramParticipationStatus.Completed &&
+        !developmentProgramInterest?.completionDate),
+  });
+
   return (
-    <li
-      data-h2-display="base(flex)"
-      data-h2-gap="base(x.25)"
-      data-h2-align-items="base(flex-start)"
-      data-h2-margin-bottom="base(x.25)"
-    >
-      <Icon
-        data-h2-width="base(x.75)"
-        data-h2-height="base(x.75)"
-        data-h2-margin-top="base(x.15)"
-        {...iconStyles}
-      />
-      <span data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+    <li className={base()}>
+      <Icon className={iconStyles()} />
+      <span className="flex flex-col">
         <span>{label}</span>
-        <span
-          data-h2-font-size="base(caption)"
-          {...(!developmentProgramInterest?.participationStatus ||
-          (developmentProgramInterest?.participationStatus ===
-            DevelopmentProgramParticipationStatus.Completed &&
-            !developmentProgramInterest?.completionDate)
-            ? {
-                "data-h2-color": "base(error) base:dark(error.lightest)",
-              }
-            : {
-                "data-h2-color": "base(black.light)",
-              })}
-        >
-          {message}
-        </span>
+        <span className={caption()}>{message}</span>
       </span>
     </li>
   );

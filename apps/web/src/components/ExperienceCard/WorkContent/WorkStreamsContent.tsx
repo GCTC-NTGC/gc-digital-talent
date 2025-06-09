@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Maybe, WorkStream } from "@gc-digital-talent/graphql";
-import { HeadingRank, Separator } from "@gc-digital-talent/ui";
+import { HeadingRank, Separator, Ul } from "@gc-digital-talent/ui";
 import {
   groupBy,
   sortAlphaBy,
@@ -64,16 +64,11 @@ const WorkStreamContent = ({
         headingLevel={headingLevel}
         title={intl.formatMessage(pageTitles.workStreams)}
       >
-        <ul>
+        <Ul>
           {workStreamsByCommunity.map((item) => (
             <li key={item.community.id} data-h2-font-weight="base(bold)">
               {item.community.name?.localized ?? na}
-              <ul
-                data-h2-list-style="base(none)"
-                data-h2-font-weight="base(400)"
-                data-h2-margin-bottom="base(x.5)"
-                data-h2-padding-left="base(0)"
-              >
+              <Ul unStyled className="mb-3 font-normal" space="md">
                 {item.workStreams.map((workStream) => (
                   <li key={workStream.id}>
                     <BoolCheckIcon value={true}>
@@ -81,10 +76,10 @@ const WorkStreamContent = ({
                     </BoolCheckIcon>
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </li>
           ))}
-        </ul>
+        </Ul>
       </ContentSection>
     </>
   ) : null;

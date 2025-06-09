@@ -4,6 +4,7 @@ import isEmpty from "lodash/isEmpty";
 import { ReactNode } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
+import { Ul } from "@gc-digital-talent/ui";
 interface FilterBlockProps {
   title: string;
   content?: Maybe<string | ReactNode> | Maybe<string[]>;
@@ -18,7 +19,7 @@ const FilterBlockContent = ({
 
   if (isEmpty(content)) {
     return (
-      <ul data-h2-color="base(black)">
+      <Ul data-h2-color="base(black)">
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -26,18 +27,18 @@ const FilterBlockContent = ({
             description: "Text shown when the filter was not selected",
           })}
         </li>
-      </ul>
+      </Ul>
     );
   }
 
   return (
     <div>
       {Array.isArray(content) && content.length > 0 ? (
-        <ul data-h2-color="base(black)">
+        <Ul data-h2-color="base(black)">
           {content.map((text) => (
             <li key={uniqueId()}>{text}</li>
           ))}
-        </ul>
+        </Ul>
       ) : (
         content
       )}

@@ -20,17 +20,8 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
   const readOnly = !editor?.isEditable;
 
   return (
-    <div
-      data-h2-background="base:all(black)"
-      data-h2-padding="base(x.25, x.5, x.5, x.5)"
-      data-h2-display="base(flex)"
-      data-h2-gap="base(x.5)"
-      data-h2-radius="base(rounded rounded 0 0)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-border="base(1px solid gray)"
-      data-h2-border-bottom="base(none)"
-    >
-      <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
+    <div className="flex justify-between gap-3 rounded-t border border-b-0 border-gray-700 bg-black p-3 pt-1.5 dark:border-gray">
+      <div className="flex gap-3">
         <MenuButton
           active={editor?.isActive("bulletList") ?? false}
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
@@ -53,7 +44,7 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
           </MenuButton>
         )}
       </div>
-      <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
+      <div className="flex gap-3">
         <MenuButton
           onClick={() => editor?.chain().focus().undo().run()}
           disabled={readOnly || !editor?.can().undo()}
