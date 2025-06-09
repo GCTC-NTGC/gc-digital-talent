@@ -60,21 +60,14 @@ const CareerTimelineSection = ({
 
   return (
     <>
-      <div
-        data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-padding-bottom="base(x.5)"
-      >
+      <div className="mb-3 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
 
-        <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
         {userId ? (
-          <div
-            data-h2-flex-item="base(1of1) p-tablet(content)"
-            data-h2-align-self="base(flex-end)"
-          >
+          <div>
             <Link
               href={paths.createExperience()}
               icon={PlusCircleIcon}

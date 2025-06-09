@@ -336,17 +336,12 @@ export const ApplicationCareerTimeline = ({
         </>
       )}
 
-      <div
-        data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-padding-bottom="base(x.5)"
-      >
+      <div className="mb-3 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
-        <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
-
-        <div data-h2-flex-item="base(1of1) p-tablet(content)">
+        <div>
           <Link
             mode="inline"
             href={paths.applicationCareerTimelineAdd(application.id)}
