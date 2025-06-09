@@ -114,7 +114,7 @@ const CommunityInterest = ({
       : null;
   return (
     <>
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+      <p className="mb-1.5 font-bold">
         {intl.formatMessage({
           defaultMessage: "Interest in job opportunities",
           id: "dYsXAU",
@@ -122,10 +122,7 @@ const CommunityInterest = ({
             "Label for users interest in job opportunities for a community",
         })}
       </p>
-      <BoolCheckIcon
-        value={communityInterest.jobInterest}
-        data-h2-margin-bottom="base(x1)"
-      >
+      <BoolCheckIcon value={communityInterest.jobInterest} className="mb-6">
         {communityInterest.jobInterest ? (
           <span>
             {intl.formatMessage({
@@ -145,7 +142,7 @@ const CommunityInterest = ({
           })
         )}
       </BoolCheckIcon>
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+      <p className="mb-1.5 font-bold">
         {intl.formatMessage({
           defaultMessage: "Interest in training and development",
           id: "WfX9z1",
@@ -155,7 +152,7 @@ const CommunityInterest = ({
       </p>
       <BoolCheckIcon
         value={communityInterest.trainingInterest}
-        data-h2-margin-bottom="base(x1)"
+        className="mb-6"
       >
         {communityInterest.trainingInterest ? (
           <span>
@@ -177,11 +174,7 @@ const CommunityInterest = ({
         )}
       </BoolCheckIcon>
       {context === "applicant" && (
-        <p
-          data-h2-color="base(black.light)"
-          data-h2-font-size="base(caption)"
-          data-h2-margin-bottom="base(x1)"
-        >
+        <p className="mb-6 text-sm font-normal text-gray-600 dark:text-gray-100">
           {intl.formatMessage({
             defaultMessage:
               "* Note that by indicating you’re interested in jobs or training opportunities, you agree to share your profile information with Government of Canada HR and recruitment staff within this community.",
@@ -193,7 +186,7 @@ const CommunityInterest = ({
       )}
       {communityWorkStreams.length > 0 && (
         <>
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="mb-1.5 font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "Preferred work streams for job and training opportunities",
@@ -230,7 +223,7 @@ const CommunityInterest = ({
       {communityDevelopmentPrograms.length > 0 && (
         <>
           <Separator orientation="horizontal" decorative space="sm" />
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="mb-1.5 font-bold">
             {intl.formatMessage({
               defaultMessage: "Leadership and professional development options",
               id: "UfwS5s",
@@ -271,10 +264,7 @@ const CommunityInterest = ({
           {/* Some fields only appear for the finance community */}
           {communityInterest.community.key === "finance" ? (
             <>
-              <p
-                data-h2-font-weight="base(700)"
-                data-h2-margin-bottom="base(x.25)"
-              >
+              <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "CFO status",
                   id: "2KQdGz",
@@ -284,7 +274,7 @@ const CommunityInterest = ({
               </p>
               <BoolCheckIcon
                 value={communityInterest.financeIsChief}
-                data-h2-margin-bottom="base(x1)"
+                className="mb-6"
               >
                 {communityInterest.financeIsChief
                   ? intl.formatMessage({
@@ -301,10 +291,7 @@ const CommunityInterest = ({
               </BoolCheckIcon>
               {communityInterest.financeIsChief ? (
                 <>
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.25)"
-                  >
+                  <p className="mb-1.5 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Additional duties",
                       id: "E32ToC",
@@ -327,10 +314,7 @@ const CommunityInterest = ({
                       ),
                     )}
                   </Ul>
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.25)"
-                  >
+                  <p className="mb-1.5 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Other roles",
                       id: "z20NMR",
@@ -354,10 +338,7 @@ const CommunityInterest = ({
                   </Ul>
                   {communityInterest.financeOtherRolesOther ? (
                     <>
-                      <p
-                        data-h2-font-weight="base(700)"
-                        data-h2-margin-bottom="base(x.25)"
-                      >
+                      <p className="mb-1.5 font-bold">
                         {intl.formatMessage({
                           defaultMessage:
                             "Other senior delegated official (SDO) position",
@@ -365,7 +346,7 @@ const CommunityInterest = ({
                           description: "Label for the 'Other role' input",
                         })}
                       </p>
-                      <p data-h2-margin-bottom="base(x1)">
+                      <p className="mb-6">
                         {communityInterest.financeOtherRolesOther}
                       </p>
                     </>
@@ -374,7 +355,7 @@ const CommunityInterest = ({
               ) : null}
             </>
           ) : null}
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="mb-1.5 font-bold">
             {intl.formatMessage({
               defaultMessage: "Additional information",
               id: "NCMG9w",
