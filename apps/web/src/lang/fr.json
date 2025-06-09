@@ -13041,6 +13041,10 @@
     "defaultMessage": "La collectivité de la gestion financière",
     "description": "Section heading, expand on community aspects"
   },
+  "y6pG9A": {
+    "defaultMessage": "Nous répondrons à votre demande dans les 14 jours. Si votre demande est approuvée, nous vous ferons parvenir un code pour le bon que vous pourrez utiliser pour réserver une date d'examen sur la plateforme du fournisseur.",
+    "description": "First paragraph of what to expect section"
+  },
   "y827h2": {
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
