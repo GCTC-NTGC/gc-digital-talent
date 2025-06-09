@@ -23,9 +23,9 @@ import {
   PoolCandidateSearchInput,
   Pool,
   Maybe,
-  PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
+  CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
@@ -78,7 +78,11 @@ import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBo
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
-const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
+type CandidatesTableCandidatesPaginatedQueryDataType =
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
+
+const columnHelper =
+  createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
   query CandidatesTable_Query {
@@ -198,6 +202,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             workStream {
               id
               name {
+                en
+                fr
+              }
+            }
+            publishingGroup {
+              value
+              label {
                 en
                 fr
               }
@@ -391,6 +402,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           suspendedAt
           priorityVerification
           veteranVerification
+          placedDepartment {
+            id
+            name {
+              en
+              fr
+            }
+          }
         }
         skillCount
       }
@@ -588,10 +606,11 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const filteredData: PoolCandidateWithSkillCount[] = useMemo(() => {
-    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
-    return poolCandidates.filter(notEmpty);
-  }, [data?.poolCandidatesPaginated.data]);
+  const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
+    useMemo(() => {
+      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+      return poolCandidates.filter(notEmpty);
+    }, [data?.poolCandidatesPaginated.data]);
 
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
@@ -739,7 +758,7 @@ const PoolCandidatesTable = ({
                     id: pool.id,
                     workStream: pool.workStream,
                     name: pool.name,
-                    publishingGroup: pool.publishingGroup,
+                    publishingGroup: pool?.publishingGroup,
                     classification: pool.classification,
                   },
                   paths,
@@ -805,7 +824,7 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
+        getLocalizedName(row.poolCandidate?.placedDepartment?.name, intl, true),
       {
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
@@ -929,13 +948,13 @@ const PoolCandidatesTable = ({
         }) => cells.date(submittedAt, intl),
       },
     ),
-  ] as ColumnDef<PoolCandidateWithSkillCount>[];
+  ] as ColumnDef<CandidatesTableCandidatesPaginatedQueryDataType>[];
 
   const hiddenColumnIds = ["candidacyStatus", "notes"];
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
-    <Table<PoolCandidateWithSkillCount>
+    <Table<CandidatesTableCandidatesPaginatedQueryDataType>
       caption={title}
       data={filteredData}
       columns={columns}
