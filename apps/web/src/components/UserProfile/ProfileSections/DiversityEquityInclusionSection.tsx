@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Well } from "@gc-digital-talent/ui";
+import { Ul, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getEmploymentEquityStatement,
@@ -69,14 +69,14 @@ const DiversityEquityInclusionSection = ({
                 data-h2-align-items="base(center)"
                 data-h2-justify-content="base(space-between)"
               >
-                <ul data-h2-padding="base(0, 0, 0, x1)">
+                <Ul>
                   <li>
                     <span data-h2-font-weight="base(700)">
                       {intl.formatMessage(
                         getEmploymentEquityStatement("indigenous"),
                       )}
                     </span>
-                    <ul data-h2-padding="base(0, 0, 0, x1)">
+                    <Ul>
                       {nonLegacyIndigenousCommunities.length > 0 ? (
                         nonLegacyIndigenousCommunities.map((community) => {
                           return (
@@ -95,9 +95,9 @@ const DiversityEquityInclusionSection = ({
                           </span>
                         </li>
                       )}
-                    </ul>
+                    </Ul>
                   </li>
-                </ul>
+                </Ul>
                 <div
                   data-h2-display="base(flex)"
                   data-h2-justify-content="base(center)"
@@ -151,10 +151,7 @@ const DiversityEquityInclusionSection = ({
               </div>
             )}
             {(isWoman || isVisibleMinority || hasDisability) && (
-              <ul
-                data-h2-font-weight="base(700)"
-                data-h2-padding="base(x1, 0, 0, x1)"
-              >
+              <Ul className="mt-6 font-bold">
                 {isWoman && (
                   <li>
                     {intl.formatMessage(getEmploymentEquityStatement("woman"))}
@@ -175,7 +172,7 @@ const DiversityEquityInclusionSection = ({
                     )}
                   </li>
                 )}
-              </ul>
+              </Ul>
             )}
           </div>
         )}

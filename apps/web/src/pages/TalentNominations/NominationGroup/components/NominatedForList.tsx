@@ -3,6 +3,7 @@
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Ul } from "@gc-digital-talent/ui";
 
 import ComputedIcon from "./ComputedIcon";
 
@@ -49,7 +50,7 @@ const NominatedForList = ({
   } = nominationGroupSidebarForList;
 
   return (
-    <ul data-h2-padding="base(0)" data-h2-list-style="base(none)">
+    <Ul unStyled space="md">
       <li>
         <ComputedIcon
           count={advancementNominationCount ?? 0}
@@ -105,7 +106,7 @@ const NominatedForList = ({
           },
         )}
       </li>
-    </ul>
+    </Ul>
   );
 };
 

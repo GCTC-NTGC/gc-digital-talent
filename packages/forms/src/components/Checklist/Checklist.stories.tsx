@@ -17,7 +17,7 @@ faker.seed(0);
 const Template: StoryFn<typeof Checklist> = (args) => (
   <Form onSubmit={action("Submit Form")}>
     <Checklist {...args} />
-    <Submit data-h2-margin-top="base(x1)" />
+    <Submit className="mt-6" />
   </Form>
 );
 

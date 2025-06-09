@@ -10,7 +10,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Button, Heading, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   commonMessages,
@@ -402,7 +402,7 @@ const ApplicationInformation = ({
                   "Lead-in for list of application confirmation list",
               })}
             </p>
-            <ul>
+            <Ul>
               <li>
                 {intl.formatMessage(applicationMessages.confirmationReview)}
               </li>
@@ -412,7 +412,7 @@ const ApplicationInformation = ({
               <li>
                 {intl.formatMessage(applicationMessages.confirmationTrue)}
               </li>
-            </ul>
+            </Ul>
             <Heading level="h4" size="h6" data-h2-font-size="base(body)">
               {intl.formatMessage({
                 defaultMessage: "Signed",

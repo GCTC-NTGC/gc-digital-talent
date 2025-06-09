@@ -7,7 +7,7 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { NoList, Well } from "@gc-digital-talent/ui";
+import { Ul, Well } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   formatDate,
@@ -148,7 +148,7 @@ const Display = ({
             label={careerDevelopmentMessages.lateralMoveOrganizationType}
           >
             {lateralMoveOrganizationType ? (
-              <NoList>
+              <Ul unStyled space="md">
                 {unpackMaybes(
                   careerDevelopmentOptions?.organizationTypeInterest,
                 ).map((x) => {
@@ -178,7 +178,7 @@ const Display = ({
                     </li>
                   );
                 })}
-              </NoList>
+              </Ul>
             ) : (
               notProvided
             )}
@@ -221,7 +221,7 @@ const Display = ({
             label={careerDevelopmentMessages.promotionMoveOrganizationType}
           >
             {promotionMoveOrganizationType ? (
-              <NoList>
+              <Ul unStyled space="md">
                 {unpackMaybes(
                   careerDevelopmentOptions?.organizationTypeInterest,
                 ).map((x) => {
@@ -251,7 +251,7 @@ const Display = ({
                     </li>
                   );
                 })}
-              </NoList>
+              </Ul>
             ) : (
               notProvided
             )}
@@ -263,7 +263,7 @@ const Display = ({
         <ToggleForm.FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -294,7 +294,7 @@ const Display = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         </ToggleForm.FieldDisplay>
       </>
 
@@ -346,7 +346,7 @@ const Display = ({
         label={careerDevelopmentMessages.mentorshipInterest}
       >
         {mentorshipInterest ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
               const iconValue = mentorshipInterests.includes(x.value);
               return (
@@ -359,7 +359,7 @@ const Display = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           notProvided
         )}
@@ -398,7 +398,7 @@ const Display = ({
         label={careerDevelopmentMessages.execCoachingInterest}
       >
         {execCoachingInterest ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
               const iconValue = execCoachingInterests.includes(x.value);
               return (
@@ -411,7 +411,7 @@ const Display = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           notProvided
         )}

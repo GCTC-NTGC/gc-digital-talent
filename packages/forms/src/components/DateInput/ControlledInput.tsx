@@ -7,10 +7,10 @@ import {
 import { useIntl } from "react-intl";
 import { ChangeEvent } from "react";
 import get from "lodash/get";
+import { tv } from "tailwind-variants";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import { useInputStylesDeprecated } from "../../hooks/useInputStyles";
 import { DateSegment, DATE_SEGMENT, RoundingMethod } from "./types";
 import {
   getMonthOptions,
@@ -18,16 +18,27 @@ import {
   setComputedValue,
   splitSegments,
 } from "./utils";
-import { StyleRecord } from "../../types";
+import { FieldState } from "../../types";
 import Field from "../Field";
+import { inputStyles, selectStyles } from "../../styles";
+
+const numberInput = tv({
+  extend: inputStyles,
+  base: "w-full",
+});
+
+const selectInput = tv({
+  extend: selectStyles,
+  base: "w-full",
+});
 
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   formState: UseFormStateReturn<FieldValues>;
   show: DateSegment[];
-  stateStyles: StyleRecord;
   round?: RoundingMethod;
+  state: FieldState;
 }
 
 const ControlledInput = ({
@@ -35,11 +46,9 @@ const ControlledInput = ({
   formState: { defaultValues },
   show,
   round,
-  stateStyles,
+  state: stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
-  const inputStyles = useInputStylesDeprecated();
-  const selectStyles = useInputStylesDeprecated("select");
   const rawDefaultValue: unknown = get(defaultValues, name);
   const defaultValue =
     rawDefaultValue !== null && rawDefaultValue !== undefined
@@ -84,11 +93,7 @@ const ControlledInput = ({
   const months = getMonthOptions(intl);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) p-tablet(calc(x4 + 4ch) 1fr calc(x4 + 2ch))"
-      data-h2-gap="base(x.5)"
-    >
+    <div className="grid gap-3 xs:grid-cols-[calc(calc(var(--spacing)*24)+4ch)_1fr_calc(calc(var(--spacing)*24)+2ch)]">
       {show.includes(DATE_SEGMENT.Year) && (
         <div>
           <Field.Label htmlFor={ID.YEAR}>
@@ -101,15 +106,13 @@ const ControlledInput = ({
             onChange={handleYearChange}
             defaultValue={year}
             placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
-            data-h2-width="base(100%)"
             min={1900}
-            {...inputStyles}
-            {...stateStyles}
+            className={numberInput({ state: stateStyles })}
           />
         </div>
       )}
       {show.includes(DATE_SEGMENT.Month) && (
-        <div {...getMonthSpan(show)}>
+        <div className={getMonthSpan(show)}>
           <Field.Label htmlFor={ID.MONTH}>
             {intl.formatMessage(dateMessages.month)}
           </Field.Label>
@@ -118,11 +121,9 @@ const ControlledInput = ({
             name={ID.MONTH}
             onChange={handleMonthChange}
             defaultValue={month ?? ""}
-            data-h2-width="base(100%)"
-            {...selectStyles}
-            {...stateStyles}
+            className={selectInput({ state: stateStyles })}
           >
-            <option data-h2-color="base(gray.dark)" value="">
+            <option className="text-gray-600/70 dark:text-gray-300/70" value="">
               {intl.formatMessage(dateMessages.selectAMonth)}
             </option>
             {months.map((monthName, index) => (
@@ -147,9 +148,7 @@ const ControlledInput = ({
             max={31}
             min={1}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
-            data-h2-width="base(100%)"
-            {...inputStyles}
-            {...stateStyles}
+            className={numberInput({ state: stateStyles })}
           />
         </div>
       )}
