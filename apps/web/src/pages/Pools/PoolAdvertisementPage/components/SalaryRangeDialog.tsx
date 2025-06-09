@@ -8,6 +8,7 @@ import {
   IconButton,
   Link,
   LinkProps,
+  Ol,
 } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
@@ -84,7 +85,7 @@ const DeadlineDialog = () => {
                   "Second paragraph for the pool application salary ranges dialog",
               })}
             </p>
-            <ol data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)">
+            <Ol space="lg">
               <li>
                 {intl.formatMessage({
                   defaultMessage:
@@ -112,7 +113,7 @@ const DeadlineDialog = () => {
                     "List of conditions for starting at a higher rate, item 3",
                 })}
               </li>
-            </ol>
+            </Ol>
             <p>
               {intl.formatMessage({
                 defaultMessage:

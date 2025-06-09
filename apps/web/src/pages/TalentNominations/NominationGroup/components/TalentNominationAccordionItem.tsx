@@ -6,7 +6,7 @@ import {
   graphql,
   TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
-import { Accordion } from "@gc-digital-talent/ui";
+import { Accordion, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -535,15 +535,11 @@ const TalentNominationAccordionItem = ({
               )}
             >
               {skillListItems.length > 0 ? (
-                <ul
-                  data-h2-margin-top="base(x.25)"
-                  data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)"
-                  data-h2-padding-inline-start="base(x1)"
-                >
+                <Ul space="md" className="mt-1.5">
                   {skillListItems.map((skill) => (
                     <li key={skill.key}>{skill.label}</li>
                   ))}
-                </ul>
+                </Ul>
               ) : (
                 intl.formatMessage(commonMessages.notFound)
               )}

@@ -13,6 +13,7 @@ import {
   Heading,
   Link,
   Pending,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -114,17 +115,13 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
         {pools.length > 0 ? (
           <div data-h2-padding="base(x2, 0)">
-            <ul
-              data-h2-margin="base(0)"
-              data-h2-padding="base(0)"
-              data-h2-list-style="base(none)"
-            >
+            <Ul unStyled>
               {pools.map((pool) => (
                 <li key={pool.id}>
                   <PoolCard poolQuery={pool} />
                 </li>
               ))}
-            </ul>
+            </Ul>
           </div>
         ) : (
           <div

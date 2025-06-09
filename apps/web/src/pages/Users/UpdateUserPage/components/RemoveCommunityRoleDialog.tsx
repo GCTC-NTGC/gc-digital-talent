@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
-import { Dialog, Button, Chip, Chips, IconButton } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Button,
+  Chip,
+  Chips,
+  IconButton,
+  Ul,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -97,11 +104,11 @@ const RemoveCommunityRoleDialog = ({
               description: "Lead in text for removing roles on user form.",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{userName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "From the following community:",
@@ -109,11 +116,11 @@ const RemoveCommunityRoleDialog = ({
               description: "Follow in text for the community being updated",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{communityDisplayName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Card } from "@gc-digital-talent/ui";
+import { Card, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -149,14 +149,11 @@ const CareerObjectiveSection = ({
             {intl.formatMessage(employeeProfileMessages.workStreams)}
           </span>
           {employeeProfile.careerObjectiveWorkStreams?.length ? (
-            <ul
-              data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-              data-h2-padding-left="base(x1)"
-            >
+            <Ul space="sm">
               {employeeProfile.careerObjectiveWorkStreams.map((workStream) => (
                 <li key={workStream.id}>{workStream?.name?.localized}</li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
@@ -167,14 +164,11 @@ const CareerObjectiveSection = ({
           {intl.formatMessage(employeeProfileMessages.departments)}
         </span>
         {employeeProfile.careerObjectiveDepartments?.length ? (
-          <ul
-            data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-            data-h2-padding-left="base(x1)"
-          >
+          <Ul space="sm">
             {employeeProfile.careerObjectiveDepartments.map((department) => (
               <li key={department.id}>{department?.name?.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}

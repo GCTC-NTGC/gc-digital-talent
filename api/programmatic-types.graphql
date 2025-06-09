@@ -44,6 +44,11 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
+type LocalizedCSuiteRoleTitle {
+  value: CSuiteRoleTitle!
+  label: LocalizedString!
+}
+
 type LocalizedCafEmploymentType {
   value: CafEmploymentType!
   label: LocalizedString!
@@ -94,6 +99,11 @@ type LocalizedDeadlineStatus {
   label: LocalizedString!
 }
 
+type LocalizedDepartmentSize {
+  value: DepartmentSize!
+  label: LocalizedString!
+}
+
 type LocalizedEducationRequirementOption {
   value: EducationRequirementOption!
   label: LocalizedString!
@@ -124,6 +134,11 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedExecCoaching {
+  value: ExecCoaching!
+  label: LocalizedString!
+}
+
 type LocalizedExternalRoleSeniority {
   value: ExternalRoleSeniority!
   label: LocalizedString!
@@ -136,6 +151,16 @@ type LocalizedExternalSizeOfOrganization {
 
 type LocalizedFinalDecision {
   value: FinalDecision!
+  label: LocalizedString!
+}
+
+type LocalizedFinanceChiefDuty {
+  value: FinanceChiefDuty!
+  label: LocalizedString!
+}
+
+type LocalizedFinanceChiefRole {
+  value: FinanceChiefRole!
   label: LocalizedString!
 }
 
@@ -174,8 +199,23 @@ type LocalizedLanguageAbility {
   label: LocalizedString!
 }
 
+type LocalizedLearningOpportunitiesInterest {
+  value: LearningOpportunitiesInterest!
+  label: LocalizedString!
+}
+
+type LocalizedMentorship {
+  value: Mentorship!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement {
   value: OperationalRequirement!
+  label: LocalizedString!
+}
+
+type LocalizedOrganizationTypeInterest {
+  value: OrganizationTypeInterest!
   label: LocalizedString!
 }
 
@@ -234,11 +274,6 @@ type LocalizedPoolStatus {
   label: LocalizedString!
 }
 
-type LocalizedPoolStream {
-  value: PoolStream!
-  label: LocalizedString!
-}
-
 type LocalizedPositionDuration {
   value: PositionDuration!
   label: LocalizedString!
@@ -279,6 +314,51 @@ type LocalizedSupervisoryStatus {
   label: LocalizedString!
 }
 
+type LocalizedTalentNominationEventStatus {
+  value: TalentNominationEventStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationGroupDecision {
+  value: TalentNominationGroupDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationGroupStatus {
+  value: TalentNominationGroupStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationLateralMovementOption {
+  value: TalentNominationLateralMovementOption!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationNomineeRelationshipToNominator {
+  value: TalentNominationNomineeRelationshipToNominator!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationSubmitterRelationshipToNominator {
+  value: TalentNominationSubmitterRelationshipToNominator!
+  label: LocalizedString!
+}
+
+type LocalizedTalentNominationUserReview {
+  value: TalentNominationUserReview!
+  label: LocalizedString!
+}
+
+type LocalizedTargetRole {
+  value: TargetRole!
+  label: LocalizedString!
+}
+
+type LocalizedTimeFrame {
+  value: TimeFrame!
+  label: LocalizedString!
+}
+
 type LocalizedWorkExperienceGovEmployeeType {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
@@ -303,7 +383,7 @@ scalar Boolean
 
 """
 The `Int` scalar type represents non-fractional signed whole numeric
-values. Int can represent values between -(2^31) and 2^31 - 1.
+values. Int can represent values between -(2^31) and 2^31 - 1. 
 """
 scalar Int
 
@@ -395,6 +475,15 @@ type TrainingOpportunityPaginator {
 
   "A list of TrainingOpportunity items."
   data: [TrainingOpportunity!]!
+}
+
+"A paginated list of CommunityInterestWithSkillCount items."
+type CommunityInterestWithSkillCountPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of CommunityInterestWithSkillCount items."
+  data: [CommunityInterestWithSkillCount!]!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -489,6 +578,34 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   pool: QueryPoolCandidatesPaginatedOrderByPool
+}
+
+"Allowed column names for Query.communityInterestsPaginated.orderBy."
+enum QueryCommunityInterestsPaginatedOrderByUserColumn {
+  FIRST_NAME
+  WORK_EMAIL
+  PREFERRED_LANG
+}
+
+"Aggregate specification for Query.communityInterestsPaginated.orderBy.user."
+input QueryCommunityInterestsPaginatedOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryCommunityInterestsPaginatedOrderByUserColumn
+}
+
+"Order by clause for Query.communityInterestsPaginated.orderBy."
+input QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryCommunityInterestsPaginatedOrderByUser
 }
 
 "Directions for ordering a list of records."
@@ -636,11 +753,6 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
-enum Language {
-  EN
-  FR
-}
-
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -716,6 +828,23 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum CSuiteRoleTitle {
+  CHIEF_AUDIT_EXECUTIVE
+  CHIEF_FINANCIAL_OFFICER
+  CHIEF_DATA_OFFICER
+  CHIEF_DIGITAL_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  CHIEF_PRIVACY_OFFICER
+  CHIEF_TECHNOLOGY_OFFICER
+  DEPUTY_CHIEF_FINANCIAL_OFFICER
+  DEPUTY_CHIEF_DATA_OFFICER
+  DEPUTY_CHIEF_DIGITAL_OFFICER
+  DEPUTY_CHIEF_INFORMATION_OFFICER
+  DEPUTY_CHIEF_PRIVACY_OFFICER
+  DEPUTY_CHIEF_TECHNOLOGY_OFFICER
+  OTHER
+}
+
 enum CafEmploymentType {
   REGULAR_FORCE
   RESERVE_FORCE
@@ -745,6 +874,7 @@ enum CandidateExpiryFilter {
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
+  INELIGIBLE
   OTHER
 }
 
@@ -782,169 +912,18 @@ enum DeadlineStatus {
   EXPIRED
 }
 
-enum AdvertisementType {
-  INTERNAL
-  EXTERNAL
+enum DepartmentSize {
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
 }
 
-enum AdvertisingPlatform {
-  GCJOBS
-  GCCONNEX
-  GCXCHANGE
-  GC_COLLAB
-  FACEBOOK
-  LINKEDIN
-  OTHER
-}
-
-enum ContractAuthority {
-  HR
-  PROCUREMENT
-  FINANCE
-  LABOUR_RELATIONS
-  OTHER
-}
-
-enum ContractCommodity {
-  TELECOM_SERVICES
-  SUPPORT_SERVICES
-  OTHER
-}
-
-enum ContractFteRange {
-  FROM_1_TO_5
-  FROM_6_TO_10
-  FROM_11_TO_30
-  FROM_31_TO_50
-  FROM_51_TO_100
-  GREATER_THAN_100
-}
-
-enum ContractInstrument {
-  SUPPLY_ARRANGEMENT
-  STANDING_OFFER
-  CONTRACT
-  AMENDMENT
-  OTHER
-}
-
-enum ContractSolicitationProcedure {
-  ADVANCE_CONTRACT_AWARD_NOTICE
-  COMPETITIVE
-  NON_COMPETITIVE
-}
-
-enum ContractStartTimeframe {
-  FROM_0_TO_3M
-  FROM_3M_TO_6M
-  FROM_6M_TO_1Y
-  FROM_1Y_TO_2Y
-  UNKNOWN
-  VARIABLE
-}
-
-enum ContractSupplyMethod {
-  NOT_APPLICABLE
-  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TEMPORARY_HELP
-  OTHER
-}
-
-enum ContractValueRange {
-  FROM_0_TO_10K
-  FROM_10K_TO_25K
-  FROM_25K_TO_50K
-  FROM_50K_TO_1M
-  FROM_1M_TO_2500K
-  FROM_2500K_TO_5M
-  FROM_5M_TO_10M
-  FROM_10M_TO_15M
-  FROM_15M_TO_25M
-  GREATER_THAN_25M
-}
-
-enum ContractingRationale {
-  SHORTAGE_OF_TALENT
-  TIMING_REQUIREMENTS
-  HR_SITUATION
-  FINANCIAL_SITUATION
-  REQUIRES_INDEPENDENT
-  INTELLECTUAL_PROPERTY_FACTORS
-  OTHER
-}
-
-enum OperationsConsideration {
-  FINANCE_VEHICLE_NOT_USABLE
-  FUNDING_SECURED_COST_RECOVERY_BASIS
-  UNABLE_CREATE_NEW_INDETERMINATE
-  UNABLE_CREATE_NEW_TERM
-  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
-  STAFFING_FREEZE
-  OTHER
-}
-
-enum PersonnelLanguage {
-  ENGLISH_ONLY
-  FRENCH_ONLY
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-  OTHER
-}
-
-enum PersonnelOtherRequirement {
-  SHIFT_WORK
-  ON_CALL_24_7
-  OVERTIME_SHORT_NOTICE
-  AS_NEEDED
-  OTHER
-}
-
-enum PersonnelScreeningLevel {
-  RELIABILITY
-  ENHANCED_RELIABILITY
-  SECRET
-  TOP_SECRET
-  OTHER
-}
-
-enum PersonnelSkillExpertiseLevel {
-  BEGINNER
-  INTERMEDIATE
-  EXPERT
-  LEAD
-}
-
-enum PersonnelTeleworkOption {
-  FULL_TIME
-  PART_TIME
-  NO
-}
-
-enum PersonnelWorkLocation {
-  GC_PREMISES
-  OFFSITE_SPECIFIC
-  OFFSITE_ANY
-}
-
-enum PositionEmploymentType {
-  INDETERMINATE
-  TERM
-  LATERAL_DEPLOYMENT
-  SECONDMENT
-  ASSIGNMENT
-  OTHER
-}
-
-enum YesNo {
-  YES
-  NO
-}
-
-enum YesNoUnsure {
-  YES
-  NO
-  I_DONT_KNOW
+enum DevelopmentProgramParticipationStatus {
+  NOT_INTERESTED
+  INTERESTED
+  ENROLLED
+  COMPLETED
 }
 
 enum DisqualificationReason {
@@ -1004,6 +983,11 @@ enum EvaluatedLanguageAbility {
   NOT_ASSESSED
 }
 
+enum ExecCoaching {
+  COACHING
+  LEARNING
+}
+
 enum ExternalRoleSeniority {
   INTERN_COOP
   JUNIOR
@@ -1034,6 +1018,24 @@ enum FinalDecision {
   REMOVED
   TO_ASSESS
   TO_ASSESS_REMOVED
+}
+
+enum FinanceChiefDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
+enum FinanceChiefRole {
+  CHIEF_SECURITY_OFFICER
+  CHIEF_INFORMATION_OFFICER
+  HEAD_OF_HUMAN_RESOURCES
+  HEAD_OF_PROCUREMENT
+  OTHER
 }
 
 enum GenericJobTitleKey {
@@ -1084,16 +1086,38 @@ enum IndigenousCommunity {
   LEGACY_IS_INDIGENOUS
 }
 
+enum Language {
+  EN
+  FR
+}
+
 enum LanguageAbility {
   ENGLISH
   FRENCH
   BILINGUAL
 }
 
+enum LearningOpportunitiesInterest {
+  INTERCHANGE
+  ACADEMIC_PROGRAM
+  PEER_NETWORKING
+  PROFESSIONAL_ACCREDITATION
+}
+
+enum Mentorship {
+  MENTOR
+  MENTEE
+}
+
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
+}
+
+enum NullsOption {
+  ORDER_FIRST
+  ORDER_LAST
 }
 
 enum OperationalRequirement {
@@ -1104,6 +1128,18 @@ enum OperationalRequirement {
   DRIVERS_LICENSE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
+}
+
+enum OrganizationTypeInterest {
+  CURRENT
+  CPA
+  NON_CPA
+  CENTRAL_AGENCIES
+  SCIENCE_REGULATORY_AGENCY
+  MICRO
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum OverallAssessmentStatus {
@@ -1186,6 +1222,7 @@ enum PoolOpportunityLength {
 enum PoolSelectionLimitation {
   AT_LEVEL_ONLY
   DEPARTMENTAL_PREFERENCE
+  CANADIAN_CITIZENS
 }
 
 enum PoolSkillType {
@@ -1198,20 +1235,6 @@ enum PoolStatus {
   PUBLISHED
   CLOSED
   ARCHIVED
-}
-
-enum PoolStream {
-  ACCESS_INFORMATION_PRIVACY
-  BUSINESS_ADVISORY_SERVICES
-  DATABASE_MANAGEMENT
-  ENTERPRISE_ARCHITECTURE
-  INFRASTRUCTURE_OPERATIONS
-  PLANNING_AND_REPORTING
-  PROJECT_PORTFOLIO_MANAGEMENT
-  SECURITY
-  SOFTWARE_SOLUTIONS
-  INFORMATION_DATA_FUNCTIONS
-  EXECUTIVE_GROUP
 }
 
 enum PositionDuration {
@@ -1245,7 +1268,6 @@ enum ProvinceOrTerritory {
 enum PublishingGroup {
   IAP
   IT_JOBS
-  IT_JOBS_ONGOING
   EXECUTIVE_JOBS
   OTHER
 }
@@ -1271,6 +1293,81 @@ enum SkillLevel {
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
+}
+
+enum TalentNominationEventStatus {
+  ACTIVE
+  UPCOMING
+  PAST
+}
+
+enum TalentNominationGroupDecision {
+  APPROVED
+  REJECTED
+}
+
+enum TalentNominationGroupStatus {
+  IN_PROGRESS
+  APPROVED
+  PARTIALLY_APPROVED
+  REJECTED
+}
+
+enum TalentNominationLateralMovementOption {
+  SMALL_DEPARTMENT
+  LARGE_DEPARTMENT
+  CENTRAL_DEPARTMENT
+  NEW_DEPARTMENT
+  PROGRAM_EXPERIENCE
+  POLICY_EXPERIENCE
+  OTHER
+}
+
+enum TalentNominationNomineeRelationshipToNominator {
+  CURRENT_EMPLOYEE
+  FORMER_EMPLOYEE
+  ANOTHER_WORK_EMPLOYEE
+  MENTEE
+  OTHER
+}
+
+enum TalentNominationStep {
+  INSTRUCTIONS
+  NOMINATOR_INFORMATION
+  NOMINEE_INFORMATION
+  NOMINATION_DETAILS
+  RATIONALE
+  REVIEW_AND_SUBMIT
+}
+
+enum TalentNominationSubmitterRelationshipToNominator {
+  SUPPORT_STAFF
+  EMPLOYEE
+  OTHER
+}
+
+enum TalentNominationUserReview {
+  CORRECT
+  INCORRECT
+  OUT_OF_DATE
+}
+
+enum TargetRole {
+  INDIVIDUAL_CONTRIBUTOR
+  MANAGER
+  DIRECTOR
+  SENIOR_DIRECTOR
+  EXECUTIVE_DIRECTOR
+  DIRECTOR_GENERAL
+  ASSISTANT_DEPUTY_MINISTER
+  DEPUTY_MINISTER
+  OTHER
+}
+
+enum TimeFrame {
+  THIS_YEAR
+  ONE_TO_TWO_YEARS
+  THREE_OR_MORE_YEARS
 }
 
 enum WhenSkillUsed {

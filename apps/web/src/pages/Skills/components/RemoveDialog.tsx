@@ -46,7 +46,7 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
       <Dialog.Trigger>
         <CardRepeater.Remove
           label={intl.formatMessage(formMessages.repeaterRemove, {
-            index,
+            index: index + 1,
           })}
         />
       </Dialog.Trigger>

@@ -10,6 +10,7 @@ import {
   HeadingProps,
   IconButton,
   Link,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
@@ -220,7 +221,7 @@ const LanguageRequirementDialog = () => {
                 "Language proficiency list for language requirements dialog",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <ul data-h2-margin-bottom="base(x.5)">
+          <Ul className="mb-3">
             <li>
               {intl.formatMessage({
                 defaultMessage: `"A" is the lowest level of bilingual ability and indicates a beginner level.`,
@@ -245,7 +246,7 @@ const LanguageRequirementDialog = () => {
                   "Proficiency level on language requirements dialog",
               })}
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
@@ -255,7 +256,7 @@ const LanguageRequirementDialog = () => {
                 "Second language proficiency related skills list fo language requirements dialog",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <ul data-h2-margin-bottom="base(x.5)">
+          <Ul className="mb-3">
             <li>
               {intl.formatMessage({
                 defaultMessage: "Reading (or Written Comprehension)",
@@ -280,7 +281,7 @@ const LanguageRequirementDialog = () => {
                   "Proficiency level related skill on language requirements dialog",
               })}
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:
@@ -317,7 +318,7 @@ const LanguageRequirementDialog = () => {
                 "PSC second language evaluations list for language requirements dialog",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <ul>
+          <Ul>
             <li>
               <Link
                 newTab
@@ -393,7 +394,7 @@ const LanguageRequirementDialog = () => {
                 })}
               </Link>
             </li>
-          </ul>
+          </Ul>
 
           <Dialog.Footer>
             <Dialog.Close>

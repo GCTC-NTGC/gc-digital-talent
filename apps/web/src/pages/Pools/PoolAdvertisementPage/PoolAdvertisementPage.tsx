@@ -22,6 +22,7 @@ import {
   Button,
   Separator,
   IconLink,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -1276,7 +1277,7 @@ export const PoolPoster = ({
                       )}
                     </Text>
                     <Text>
-                      <ul data-h2-margin="base(x0.5, 0, 0, 0)">
+                      <Ul className="mt-3">
                         <li>
                           {intl.formatMessage(
                             {
@@ -1307,7 +1308,7 @@ export const PoolPoster = ({
                             },
                           )}
                         </li>
-                      </ul>
+                      </Ul>
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>

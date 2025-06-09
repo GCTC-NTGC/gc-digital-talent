@@ -9,3 +9,4 @@ hydrogen-logs
 .turbo
 .env
 hostingstart.html
+__pycache__

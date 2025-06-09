@@ -10,21 +10,8 @@ textarea {
   font-size: 100%;
 }
 
-ul:not(.list-none) {
-  list-style-type: disc;
-  padding-inline-start: 2.2rem;
-}
-
-ul ul:not(.list-none) {
-  list-style-type: circle;
-}
-
 p {
   white-space: pre-wrap;
-}
-
-button:not(disabled) {
-  cursor: pointer;
 }
 
 abbr {

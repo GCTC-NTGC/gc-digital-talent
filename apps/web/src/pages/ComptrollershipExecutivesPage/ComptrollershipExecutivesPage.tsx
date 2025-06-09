@@ -4,7 +4,7 @@ import ArrowTrendingUpIcon from "@heroicons/react/24/outline/ArrowTrendingUpIcon
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 
-import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
@@ -84,7 +84,7 @@ export const Component = () => {
               description: "About to list employee types",
             })}
           </p>
-          <ul data-h2-margin="base(x.5 0)">
+          <Ul className="my-3">
             <li>
               <span data-h2-font-weight="base(bold)">
                 {intl.formatMessage({
@@ -139,7 +139,7 @@ export const Component = () => {
                 })}
               </span>
             </li>
-          </ul>
+          </Ul>
           <p>
             {intl.formatMessage({
               defaultMessage:

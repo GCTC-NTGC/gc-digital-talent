@@ -3,7 +3,7 @@ import { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { DropdownMenu, IconButton, Link } from "@gc-digital-talent/ui";
+import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
@@ -104,7 +104,7 @@ export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
       ))
     : null;
 
-  return roleItems ? <ul>{roleItems}</ul> : null;
+  return roleItems ? <Ul>{roleItems}</Ul> : null;
 }
 
 export function roleAccessor(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {

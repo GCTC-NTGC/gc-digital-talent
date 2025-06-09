@@ -5,7 +5,7 @@ import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { CTALink, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { CTALink, Heading, Link, Ul, Well } from "@gc-digital-talent/ui";
 import { buildMailToUri } from "@gc-digital-talent/helpers";
 
 import logoImg from "~/assets/img/iap-logo.svg";
@@ -588,8 +588,8 @@ export const Component = () => {
                     "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                 })}
               </p>
-              <ul>
-                <li data-h2-margin="base(x0.25, 0)">
+              <Ul space="md">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "Been interviewed",
                     id: "Wvybds",
@@ -597,7 +597,7 @@ export const Component = () => {
                       "Item 1 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </li>
-                <li data-h2-margin="base(x0.25, 0)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "Been fully assessed against the IT Apprenticeship Program for Indigenous People’s Statement of Merit Criteria and found qualified for the role of an IT-01 (or equivalent) apprentice",
@@ -606,7 +606,7 @@ export const Component = () => {
                       "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </li>
-                <li data-h2-margin="base(x0.25, 0)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "A valid Reliability security status",
                     id: "k1uZ7o",
@@ -614,7 +614,7 @@ export const Component = () => {
                       "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </li>
-                <li data-h2-margin="base(x0.25, 0)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "A personal record identifier (PRI)",
                     id: "yaf/jx",
@@ -622,7 +622,7 @@ export const Component = () => {
                       "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section",
                   })}
                 </li>
-              </ul>
+              </Ul>
             </div>
             <div
               data-h2-flex-item="base(1of1) p-tablet(1of2)"

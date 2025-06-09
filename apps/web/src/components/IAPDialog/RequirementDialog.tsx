@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
 import type { BasicDialogProps } from "./types";
@@ -33,7 +33,7 @@ const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <ul data-h2-padding="base(0, 0, 0, x1)">
+          <Ul>
             <li>
               {intl.formatMessage({
                 defaultMessage:
@@ -81,7 +81,7 @@ const RequirementDialog = ({ btnProps }: BasicDialogProps) => {
                 description: "IAP Requirement list item six",
               })}
             </li>
-          </ul>
+          </Ul>
           <Dialog.Footer>
             <CloseButton />
           </Dialog.Footer>

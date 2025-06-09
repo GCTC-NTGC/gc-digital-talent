@@ -2,12 +2,13 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { NoList } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
 import { getEstimatedLanguageAbility } from "./utils";
+import Caption from "./Caption";
 
 export const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   fragment LanguageInfo on User {
@@ -86,11 +87,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
   } = getFragment(LanguageInfo_Fragment, languageInfoQuery);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(1fr)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 xs:grid-cols-1">
       <FieldDisplay
         label={intl.formatMessage({
           defaultMessage:
@@ -100,7 +97,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
         })}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <NoList>
+          <Ul unStyled space="md">
             <li>
               <BoolCheckIcon
                 value={lookingForEnglish}
@@ -140,7 +137,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
                 })}
               </BoolCheckIcon>
             </li>
-          </NoList>
+          </Ul>
         ) : (
           notProvided
         )}
@@ -152,20 +149,13 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
           </FieldDisplay>
           <FieldDisplay label={labels.estimatedLanguageAbility}>
             {estimatedLanguageAbility?.label.localized ? (
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-              >
+              <div className="flex flex-col">
                 <span>{estimatedLanguageAbility?.label.localized}</span>
-                <span
-                  data-h2-font-weight="base(400)"
-                  data-h2-font-size="base(caption)"
-                  data-h2-color="base(black.light)"
-                >
+                <Caption>
                   {intl.formatMessage(
                     getEstimatedLanguageAbility(estimatedLanguageAbility.value),
                   )}
-                </span>
+                </Caption>
               </div>
             ) : (
               notProvided
@@ -201,11 +191,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
                       description: "Message for exam validity field display",
                     })}
               </FieldDisplay>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-                data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-              >
+              <div className="grid gap-y-6 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0">
                 <FieldDisplay label={labels.comprehensionLevel}>
                   {comprehensionLevel?.label.localized ?? notProvided}
                 </FieldDisplay>
@@ -220,11 +206,7 @@ const LanguageInfo = ({ languageInfoQuery }: DisplayProps) => {
           ) : null}
         </>
       )}
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-        data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-      >
+      <div className="grid gap-y-6 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-0">
         <FieldDisplay label={labels.prefSpokenInterviewLang}>
           {preferredLanguageForInterview?.label.localized ?? notProvided}
         </FieldDisplay>

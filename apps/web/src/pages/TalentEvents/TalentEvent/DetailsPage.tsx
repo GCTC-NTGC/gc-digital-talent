@@ -10,6 +10,7 @@ import {
   Link,
   Pending,
   ThrowNotFound,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -223,14 +224,14 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           })}
         >
           {developmentPrograms.length > 0 ? (
-            <ul>
+            <Ul>
               {developmentPrograms.map((program) => (
                 <li key={program.id}>
                   {program.name?.localized ??
                     intl.formatMessage(commonMessages.notAvailable)}
                 </li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
