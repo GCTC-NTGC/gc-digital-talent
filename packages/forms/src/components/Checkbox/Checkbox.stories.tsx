@@ -63,8 +63,8 @@ WithLongText.args = {
   rules: { required: "This must be accepted to continue." },
 };
 
-WithLongText.parameters = {
+WithLongText.globals = {
   viewport: {
-    defaultViewport: VIEWPORT.PHONE,
+    value: VIEWPORT.PHONE,
   },
 };

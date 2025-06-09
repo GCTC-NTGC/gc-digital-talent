@@ -74,9 +74,9 @@ Elements.args = {
 };
 
 export const Large = Template.bind({});
-Large.parameters = {
+Large.globals = {
   viewport: {
-    defaultViewport: VIEWPORT.PHONE,
+    value: VIEWPORT.PHONE,
   },
 };
 Large.args = {
