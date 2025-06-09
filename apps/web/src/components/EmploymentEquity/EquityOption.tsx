@@ -10,7 +10,6 @@ import {
   WomanDialog,
 } from "./dialogs";
 import { EquityDialogProps } from "./types";
-import { is } from "date-fns/locale";
 
 type EquityGroup = "woman" | "minority" | "disability";
 
