@@ -986,8 +986,8 @@ importers:
         specifier: ^9.0.6
         version: 9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)
       storybook-react-intl:
-        specifier: ^4.0.3
-        version: 4.0.3(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3))(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3))
+        specifier: ^4.0.4
+        version: 4.0.4(react-dom@19.1.0(react@18.3.1))(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3))(react@18.3.1)(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3))
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -3114,6 +3114,13 @@ packages:
 
   '@storybook/global@5.0.0':
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
+
+  '@storybook/icons@1.4.0':
+    resolution: {integrity: sha512-Td73IeJxOyalzvjQL+JXx72jlIYHgs+REaHiREOqfpo3A2AYYG71AUbcv+lg7mEDIweKVCxsMQ0UKo634c8XeA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
 
   '@storybook/react-dom-shim@9.0.6':
     resolution: {integrity: sha512-YreUzZatirM+utmc5QO88ADNRLfX11rKvMNWNX2MYuAvQF7TB+gztfk4qzfX4mcgub+XuIpfwr3LfXznwlFw6A==}
@@ -7407,13 +7414,13 @@ packages:
     resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
     engines: {node: '>=10'}
 
-  storybook-i18n@4.0.4:
-    resolution: {integrity: sha512-/EfPLqk7yZpaJ9BlkvLcinviJcJXUhbbP9uKQbnVRry7HPRMYxa4uFuqn05RIYWYuWmgo54lLR3+Ak/omTixIQ==}
+  storybook-i18n@4.0.5:
+    resolution: {integrity: sha512-uy6k7N5VU8PRSoMo6tVYo1WNSDRd8Z3goSku7J1Cz8A8WseBN5xAnGZ/IbO5DLUOVBetLZdaKHBVoLKbYidHjQ==}
     peerDependencies:
       storybook: ^9.0.0
 
-  storybook-react-intl@4.0.3:
-    resolution: {integrity: sha512-wsEIv9gwVcskBNe3FZLhCT5ztgGTqQt1o5W3Vm5sIsaiJstyiBK9aEe0U6lE+i5UsvqNaFSTsgU4otAGtkgS/g==}
+  storybook-react-intl@4.0.4:
+    resolution: {integrity: sha512-841KvYxYpn3X2CZnUw8tLlio/+G8lb5bqfXev04kgLsQ4uXhHoUv3N3bBo3gYMGydURSCt8ShctxLgq7TNCDIQ==}
     peerDependencies:
       react-intl: ^5.24.0 || ^6.0.0 || ^7.0.0
       storybook: ^9.0.0
@@ -10269,6 +10276,11 @@ snapshots:
       unplugin: 1.16.1
 
   '@storybook/global@5.0.0': {}
+
+  '@storybook/icons@1.4.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 19.1.0(react@18.3.1)
 
   '@storybook/react-dom-shim@9.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3))':
     dependencies:
@@ -15168,15 +15180,22 @@ snapshots:
     dependencies:
       escape-string-regexp: 2.0.0
 
-  storybook-i18n@4.0.4(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)):
+  storybook-i18n@4.0.5(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)):
     dependencies:
+      '@storybook/icons': 1.4.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
       storybook: 9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)
+    transitivePeerDependencies:
+      - react
+      - react-dom
 
-  storybook-react-intl@4.0.3(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3))(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)):
+  storybook-react-intl@4.0.4(react-dom@19.1.0(react@18.3.1))(react-intl@7.1.11(react@18.3.1)(typescript@5.8.3))(react@18.3.1)(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)):
     dependencies:
       react-intl: 7.1.11(react@18.3.1)(typescript@5.8.3)
       storybook: 9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3)
-      storybook-i18n: 4.0.4(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3))
+      storybook-i18n: 4.0.5(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3))
+    transitivePeerDependencies:
+      - react
+      - react-dom
 
   storybook@9.0.6(@testing-library/dom@10.4.0)(prettier@3.5.3):
     dependencies:
