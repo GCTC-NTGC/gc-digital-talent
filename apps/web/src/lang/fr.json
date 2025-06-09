@@ -3732,7 +3732,7 @@
     "description": "Form header for filling in job opportunity information section."
   },
   "FNvBxZ": {
-    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique de la carrière du candidat/de la candidate dans la section sur l’échéancier.",
+    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique complet de la carrière du candidat ou de la candidate dans la section du parcours professionnel.",
     "description": "Lead-in text for application information"
   },
   "FO0HTu": {

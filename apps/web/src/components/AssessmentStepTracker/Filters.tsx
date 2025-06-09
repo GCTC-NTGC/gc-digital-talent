@@ -47,13 +47,7 @@ const Filters = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onFiltersChange)}>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-align-items="base(flex-start) p-tablet(flex-end)"
-          data-h2-gap="base(x.5)"
-          data-h2-width="base(100%)"
-        >
+        <div className="flex w-full flex-col items-start gap-3 xs:flex-row xs:items-end">
           <Input
             name="query"
             id="query"
@@ -73,13 +67,7 @@ const Filters = ({
                   "Legend for filtering candidates by assessment decisions",
               })}
             </Field.Legend>
-            <Field.BoundingBox
-              data-h2-border-color="base(gray) base:focus-visible(focus)"
-              data-h2-flex-direction="base(row)"
-              data-h2-gap="base(x.25)"
-              // To match input off by 0.01px
-              data-h2-padding="base(x.4)"
-            >
+            <Field.BoundingBox className="flex-row gap-1.5 p-2 focus-visible:border-focus">
               <SwitchInput
                 name={NO_DECISION}
                 id={NO_DECISION}
