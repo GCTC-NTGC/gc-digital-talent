@@ -8,6 +8,7 @@ import {
   Heading,
   HeadingProps,
   Link,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
@@ -124,7 +125,7 @@ const SecurityClearanceDialog = () => {
                   "Third paragraph for the security clearance dialog",
               })}
             </p>
-            <ul data-h2-margin-bottom="base(x.5)">
+            <Ul className="mb-3">
               <li>
                 {intl.formatMessage({
                   defaultMessage: "reliability status",
@@ -148,7 +149,7 @@ const SecurityClearanceDialog = () => {
                     "Top secret security clearance level of security clearance",
                 })}
               </li>
-            </ul>
+            </Ul>
             <Heading
               level={headingLevel}
               size="h6"

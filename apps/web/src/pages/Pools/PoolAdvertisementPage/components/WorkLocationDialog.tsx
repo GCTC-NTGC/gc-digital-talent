@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface WorkLocationDialogProps {
@@ -81,7 +81,7 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
                   "Lead-in text to definitions of different work location terminology",
               })}
             </p>
-            <ul>
+            <Ul>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
@@ -106,7 +106,7 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
                   description: "Definition for 'on-site positions'",
                 })}
               </li>
-            </ul>
+            </Ul>
           </div>
           <Dialog.Footer>
             <Dialog.Close>

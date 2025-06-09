@@ -18,6 +18,10 @@ const Test_SkillsQueryDocument = /* GraphQL */ `
         en
         fr
       }
+      families {
+        id
+        key
+      }
     }
   }
 `;

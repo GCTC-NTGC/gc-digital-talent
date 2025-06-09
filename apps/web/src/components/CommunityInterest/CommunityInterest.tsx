@@ -8,7 +8,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Separator } from "@gc-digital-talent/ui";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
@@ -202,15 +202,9 @@ const CommunityInterest = ({
                 "Label for the input for selecting work stream referral preferences",
             })}
           </p>
-          <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
+          <Ul unStyled space="md">
             {communityWorkStreams.map((workStream) => (
-              <li
-                key={workStream.id}
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(flex-start)"
-                data-h2-gap="base(x.25)"
-                data-h2-margin-bottom="base(x.25)"
-              >
+              <li key={workStream.id}>
                 <BoolCheckIcon
                   value={interestedWorkStreams.includes(workStream.id)}
                   trueLabel={intl.formatMessage({
@@ -230,7 +224,7 @@ const CommunityInterest = ({
                 </BoolCheckIcon>
               </li>
             ))}
-          </ul>
+          </Ul>
         </>
       )}
       {communityDevelopmentPrograms.length > 0 && (
@@ -244,7 +238,7 @@ const CommunityInterest = ({
                 "Label for users interest in development programs for a community",
             })}
           </p>
-          <ul data-h2-list-style="base(none)" data-h2-padding-left="base(0)">
+          <Ul unStyled space="md">
             {communityDevelopmentPrograms
               .sort(
                 sortAlphaBy(
@@ -267,7 +261,7 @@ const CommunityInterest = ({
                   />
                 );
               })}
-          </ul>
+          </Ul>
         </>
       )}
       {!!communityInterest?.additionalInformation ||
@@ -318,17 +312,10 @@ const CommunityInterest = ({
                         "Label for additional duties of a finance chief",
                     })}
                   </p>
-                  <ul
-                    data-h2-list-style="base(none)"
-                    data-h2-padding-left="base(0)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Ul unStyled space="md" className="mb-6">
                     {communityInterestOptions.financeChiefDuties?.map(
                       (dutyOption) => (
-                        <li
-                          key={dutyOption.value}
-                          data-h2-margin-bottom="base(x.25)"
-                        >
+                        <li key={dutyOption.value}>
                           <BoolCheckIcon
                             value={communityInterest.financeAdditionalDuties
                               ?.map((selectedDuty) => selectedDuty.value)
@@ -339,7 +326,7 @@ const CommunityInterest = ({
                         </li>
                       ),
                     )}
-                  </ul>
+                  </Ul>
                   <p
                     data-h2-font-weight="base(700)"
                     data-h2-margin-bottom="base(x.25)"
@@ -350,17 +337,10 @@ const CommunityInterest = ({
                       description: "Label for other roles of a finance chief",
                     })}
                   </p>
-                  <ul
-                    data-h2-list-style="base(none)"
-                    data-h2-padding-left="base(0)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Ul unStyled space="md" className="mb-6">
                     {communityInterestOptions.financeChiefRoles?.map(
                       (roleOption) => (
-                        <li
-                          key={roleOption.value}
-                          data-h2-margin-bottom="base(x.25)"
-                        >
+                        <li key={roleOption.value}>
                           <BoolCheckIcon
                             value={communityInterest.financeOtherRoles
                               ?.map((selectedRole) => selectedRole.value)
@@ -371,7 +351,7 @@ const CommunityInterest = ({
                         </li>
                       ),
                     )}
-                  </ul>
+                  </Ul>
                   {communityInterest.financeOtherRolesOther ? (
                     <>
                       <p

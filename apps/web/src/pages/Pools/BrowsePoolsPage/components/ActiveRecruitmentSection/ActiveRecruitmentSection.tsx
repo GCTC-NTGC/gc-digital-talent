@@ -1,7 +1,7 @@
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 
-import { Heading } from "@gc-digital-talent/ui";
+import { Heading, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import PoolCard from "~/components/PoolCard/PoolCard";
@@ -67,17 +67,13 @@ const ActiveRecruitmentSection = ({
       </p>
       <div data-h2-padding="base(x1, 0, 0, 0)">
         {sortedPools.length ? (
-          <ul
-            data-h2-margin="base(0)"
-            data-h2-padding="base(0)"
-            data-h2-list-style="base(none)"
-          >
+          <Ul unStyled>
             {sortedPools.map((pool) => (
               <li key={pool.id}>
                 <PoolCard poolQuery={pool} />
               </li>
             ))}
-          </ul>
+          </Ul>
         ) : null}
       </div>
     </>
