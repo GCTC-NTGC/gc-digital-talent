@@ -13,7 +13,7 @@ import { Heading, Separator, Well } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import { isWorkExperience } from "~/utils/experienceUtils";
+import { isGovWorkExperience } from "~/utils/experienceUtils";
 
 export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
   fragment CurrentPositionExperiences on User {
@@ -65,8 +65,51 @@ const CurrentPositionExperiences = ({
       })
     : intl.formatMessage(commonMessages.notProvided);
 
+  const NullMessage = intl.formatMessage({
+    defaultMessage:
+      "No current government experience found",
+    id: 'k/V+39',
+    description:
+      "Message displayed when there is no government experience for the current position",
+  })
+  const NullMessageDescription = intl.formatMessage({
+    defaultMessage:
+      "The nominee’s profile doesn’t show a current Government of Canada position.",
+    id: 'eg8/kP',
+    description:
+      "Description for the message displayed when there is no government experience for the current position",
+  });
+  const NullMessageDetails = (
+  <><p data-h2-margin="base(x.5 0)">
+      {intl.formatMessage({
+        defaultMessage: "Contact the nominator or submitter so they can follow up with the nominee:",
+        id: '4Ect9u',
+        description: "Instruction to contact nominator or submitter for follow up",
+      })}
+    </p><ul style={{ listStyleType: "disc", marginLeft: "1.5em" }}>
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
+            id: 'e0M7vj',
+            description: "Instruction if nominee is still a Government of Canada employee",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
+            id: '0P591/',
+            description: "Instruction if nominee is no longer a Government of Canada employee",
+          })}
+        </li>
+      </ul></>
+
+  );
+
+
+
+
   const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
-    (exp) => isWorkExperience(exp) && isCurrentExperience(exp?.endDate),
+    (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
 
   const sorted = currentWorkExperiences.sort((a, b) => {
@@ -110,7 +153,18 @@ const CurrentPositionExperiences = ({
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x.5 0)"
           >
-            {sorted.map((exp) => (
+            {
+              sorted.length === 0 && (
+                <><p data-h2-color="base(black.light)" data-h2-font-weight="base(bold)">
+                  {NullMessage}
+                </p><p>
+                    {NullMessageDescription}
+                    {NullMessageDetails}
+                  </p></>
+              )
+            }
+            {
+            sorted.map((exp) => (
               <ExperienceCard
                 key={exp.id}
                 experienceQuery={exp}
