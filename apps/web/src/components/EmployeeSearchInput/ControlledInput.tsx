@@ -36,6 +36,11 @@ import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 
 export { fragmentToEmployee };
 
+const wrapper = tv({
+  extend: inputStateStyles,
+  base: "flex flex-col rounded border-1 focus-visible:border-focus",
+});
+
 const emailInput = tv({
   extend: inputStyles,
   base: "grow rounded-tl border-none",
@@ -181,7 +186,7 @@ const ControlledInput = ({
   });
 
   return (
-    <div className="flex flex-col rounded-md border-1 border-gray focus-visible:border-focus">
+    <div className={wrapper({ state: fieldState })}>
       <div className="relative z-[2] flex">
         <div className="relative flex w-full grow">
           <input
@@ -191,8 +196,8 @@ const ControlledInput = ({
             type="text"
             defaultValue={defaultEmployee?.workEmail ?? undefined}
             aria-describedby={ariaDescribedBy}
-            className={emailInput({ state: fieldState })}
             {...inputProps}
+            className={emailInput({ state: fieldState })}
             readOnly={fetching}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
