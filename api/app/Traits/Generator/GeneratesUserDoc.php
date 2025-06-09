@@ -108,7 +108,8 @@ trait GeneratesUserDoc
             $section->addText($this->localizeHeading('interested_in_languages'), $this->strong);
 
             if ($user->looking_for_english) {
-                $section->addListItem($this->localize('language.en'));
+                $section->addListItem($this->localize('language.en').' '.$this->localize('only positions'));
+
             }
 
             if ($user->looking_for_french) {
@@ -116,7 +117,7 @@ trait GeneratesUserDoc
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('common.bilingual'));
+                $section->addListItem($this->localize('common.bilingual').' '.$this->localize('positions'));
             }
         }
 
