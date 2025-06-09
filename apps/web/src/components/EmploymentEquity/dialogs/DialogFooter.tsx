@@ -13,7 +13,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
   const intl = useIntl();
   const { isSubmitting } = useFormState();
   return (
-    <div data-h2-width="base(100%)">
+    <>
       <Button
         type="submit"
         mode="solid"
@@ -22,15 +22,12 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
       >
         <span>{saveText ?? intl.formatMessage(formMessages.saveChanges)}</span>
       </Button>
-      <Dialog.Close
-        data-h2-align-self="base(center)"
-        data-h2-padding-left="base(x1)"
-      >
+      <Dialog.Close>
         <Button type="button" mode="inline" color="warning">
           {intl.formatMessage(commonMessages.cancel)}
         </Button>
       </Dialog.Close>
-    </div>
+    </>
   );
 };
 
