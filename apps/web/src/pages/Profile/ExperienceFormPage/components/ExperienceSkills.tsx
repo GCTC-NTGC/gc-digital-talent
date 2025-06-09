@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Ul, Well } from "@gc-digital-talent/ui";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
@@ -120,7 +120,7 @@ const ExperienceSkills = ({
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p>
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "When linking an experience, try answering one or more of these questions:",
@@ -129,7 +129,7 @@ const ExperienceSkills = ({
                   "Lead-in text for the list of skill experience questions",
               })}
             </p>
-            <ul data-h2-margin="base:children[>li](x.5, 0, 0, 0)">
+            <Ul space="md">
               <li>
                 {intl.formatMessage({
                   defaultMessage:
@@ -162,7 +162,7 @@ const ExperienceSkills = ({
                   description: "Question for clarifying skill details",
                 })}
               </li>
-            </ul>
+            </Ul>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>

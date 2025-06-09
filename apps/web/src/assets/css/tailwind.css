@@ -64,16 +64,18 @@
   --gcdt-color-focus-600: oklch(0.4 0.1034 263.15);
   --gcdt-color-focus-700: oklch(0.26 0.058 263.44);
 
-  --gcdt-color-gray-100: oklch(0.91 0.0224 272.04);
-  --gcdt-color-gray-200: oklch(0.83 0.0377 270.4);
-  --gcdt-color-gray-300: oklch(0.75 0.046 271.17);
-  --gcdt-color-gray-400: oklch(0.68 0.0459 270.65);
-  --gcdt-color-gray-500: oklch(0.55 0.0435 270.51);
-  --gcdt-color-gray-600: oklch(0.42 0.0362 270.42);
-  --gcdt-color-gray-700: oklch(0.29 0.025 268.38);
+  --gcdt-color-gray-100: oklch(0.9137 0.0224 272.04);
+  --gcdt-color-gray-200: oklch(0.831 0.0377 270.4);
+  --gcdt-color-gray-300: oklch(0.7501 0.046 271.17);
+  --gcdt-color-gray-400: oklch(0.6755 0.0459 270.65);
+  --gcdt-color-gray-500: oklch(0.5511 0.0435 270.51);
+  --gcdt-color-gray-600: oklch(0.4224 0.0362 270.42);
+  --gcdt-color-gray-700: oklch(0.2859 0.025 268.38);
 
   --gcdt-color-black: oklch(0.13 0.0078 268.54);
   --gcdt-color-white: oklch(1 0 0);
+
+  --gcdt-color-compat-background: rgba(245, 248, 253, 1);
 
   /* Shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.2);
@@ -94,6 +96,7 @@
 * NOTE: You can manually use a different variable with `dark:`
 */
 .dark {
+  --gcdt-color-compat-background: rgba(47, 49, 61, 1);
   /** Dark mode shadows */
   --gcdt-inset-shadow: inset 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.5);
   --gcdt-shadow-sm: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.5);
@@ -203,6 +206,13 @@
   --color-black: var(--gcdt-color-black);
   --color-white: var(--gcdt-color-white);
 
+  /** Gradient */
+  --gradient-main-linear:
+    to right, var(--color-warning), var(--color-success), var(--color-primary),
+    var(--color-error);
+  /** Temp: Colours to match current palette */
+  --color-compat-background: var(--gcdt-color-compat-background);
+
   /** Shadows */
   --inset-shadow: var(--gcdt-inset-shadow);
   --shadow-sm: var(--gcdt-shadow-sm);
@@ -214,6 +224,8 @@
   /** Fonts */
   --font-sans: "Open Sans", "sans-serif";
 
+  --text-2xs: 0.6rem;
+  --text-xs--line-height: calc(1 / 0.6);
   --text-xs: 0.75rem;
   --text-xs--line-height: calc(1 / 0.75);
   --text-sm: 0.875rem;
@@ -240,5 +252,11 @@
   :root {
     font-size: 18px;
     line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  [data-state="active"]:focus-visible > .on-active-focus-border-t {
+    @apply border-t-focus;
   }
 }

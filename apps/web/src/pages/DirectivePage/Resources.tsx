@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/solid/ArrowDownOnSquareIcon";
 
-import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, Heading, Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import managers from "~/assets/img/Managers_image.webp";
@@ -34,7 +34,7 @@ const Resources = () => {
           data-h2-gap="base(x1)"
           data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
         >
-          <CardBasic
+          <Card
             data-h2-overflow="base(hidden)"
             data-h2-padding="base(0)"
             data-h2-display="base(flex)"
@@ -103,8 +103,8 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </CardBasic>
-          <CardBasic
+          </Card>
+          <Card
             data-h2-overflow="base(hidden)"
             data-h2-padding="base(0)"
             data-h2-display="base(flex)"
@@ -172,8 +172,8 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </CardBasic>
-          <CardBasic
+          </Card>
+          <Card
             data-h2-overflow="base(hidden)"
             data-h2-padding="base(0)"
             data-h2-display="base(flex)"
@@ -241,7 +241,7 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </CardBasic>
+          </Card>
         </div>
       </section>
     </>

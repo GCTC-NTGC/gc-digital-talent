@@ -4,12 +4,13 @@ import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  CardBasic,
+  Card,
   CardSeparator,
   Heading,
   Link,
   Pending,
   ThrowNotFound,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -83,7 +84,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           description: "Description for the details of a nomination event",
         })}
       </p>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="l-tablet(1fr 1fr)"
@@ -223,19 +224,19 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           })}
         >
           {developmentPrograms.length > 0 ? (
-            <ul>
+            <Ul>
               {developmentPrograms.map((program) => (
                 <li key={program.id}>
                   {program.name?.localized ??
                     intl.formatMessage(commonMessages.notAvailable)}
                 </li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-      </CardBasic>
+      </Card>
     </>
   );
 };

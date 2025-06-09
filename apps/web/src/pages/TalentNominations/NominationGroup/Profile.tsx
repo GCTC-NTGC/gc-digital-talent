@@ -7,7 +7,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
-  CardBasic,
+  Card,
   Heading,
   Pending,
   ThrowNotFound,
@@ -77,7 +77,7 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <CardBasic
+      <Card
         data-h2-background-color="base(transparent)"
         style={{ borderRadius: "6px 6px 0 0" }}
       >
@@ -151,7 +151,7 @@ const TalentNominationGroupProfile = ({
             </p>
           </Well>
         )}
-      </CardBasic>
+      </Card>
       {data?.user?.employeeProfile ? (
         <Accordion.Root
           type="multiple"

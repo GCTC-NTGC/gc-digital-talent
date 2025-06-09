@@ -119,7 +119,7 @@ const TalentManagementTaskCard = ({
             id: "voqC0s",
             description: "Card title for Talent management",
           })}
-          headingColor="quinary"
+          headingColor="success"
           headingAs="h2"
         >
           <TaskCard.Item>

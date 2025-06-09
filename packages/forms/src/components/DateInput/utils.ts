@@ -158,24 +158,16 @@ export const setComputedValue: SetComputedValueFunc = ({
  * @param show  Array<DateSegment>
  * @returns Record<string, string>
  */
-export const getMonthSpan = (show: DateSegment[]) => {
-  let monthSpan = {
-    "data-h2-grid-column": "p-tablet(2 / span 1)",
-  };
+export const getMonthSpan = (show: DateSegment[]): string => {
+  let monthSpan = "xs:col-start-2 xs:col-span-1";
   if (!show.includes(DATE_SEGMENT.Year)) {
-    monthSpan = {
-      "data-h2-grid-column": "p-tablet(1 / span 2)",
-    };
+    monthSpan = "xs:col-start-1 xs:col-span-2";
   }
   if (!show.includes(DATE_SEGMENT.Day)) {
-    monthSpan = {
-      "data-h2-grid-column": "p-tablet(2 / span 2)",
-    };
+    monthSpan = "xs:col-start-2 xs:col-span-2";
   }
   if (!show.includes(DATE_SEGMENT.Day) && !show.includes(DATE_SEGMENT.Year)) {
-    monthSpan = {
-      "data-h2-grid-column": "p-tablet(1 / span 3)",
-    };
+    monthSpan = "xs:col-start-1 xs:col-span-3";
   }
 
   return monthSpan;

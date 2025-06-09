@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
 
-import { Alert, ScrollToLink } from "@gc-digital-talent/ui";
+import { Alert, ScrollToLink, Ul } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -47,7 +47,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
   return unsavedFields.length > 0 ? (
     <Alert.Root type="info" dismissible onDismiss={onDismiss}>
       <Alert.Title>{intl.formatMessage(formMessages.unsavedTitle)}</Alert.Title>
-      <ul data-h2-margin="base(x.5, 0, 0, 0)">
+      <Ul className="mt-3">
         {unsavedFields.map((field) => (
           <li key={field.name}>
             <ScrollToLink to={field.name} mode="text" color="black">
@@ -55,7 +55,7 @@ const UnsavedChanges = ({ labels, onDismiss, show }: UnsavedChangesProps) => {
             </ScrollToLink>
           </li>
         ))}
-      </ul>
+      </Ul>
     </Alert.Root>
   ) : null;
 };

@@ -8,9 +8,9 @@ import {
   NotFound,
   Heading,
   Link,
-  CardBasic,
+  Card,
   CardSeparator,
-  NoList,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -85,7 +85,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
           })}
         </Heading>
       </div>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
@@ -104,7 +104,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.orgIdentifier ?? notProvided}
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
-            <NoList>
+            <Ul unStyled space="md">
               <li>
                 <BoolCheckIcon value={department.isCorePublicAdministration}>
                   {intl.formatMessage(labels.corePublicAdmin)}
@@ -125,7 +125,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
                   {intl.formatMessage(labels.regulatory)}
                 </BoolCheckIcon>
               </li>
-            </NoList>
+            </Ul>
           </FieldDisplay>
           <FieldDisplay label={intl.formatMessage(labels.departmentSize)}>
             {department.size?.label.localized ?? notProvided}
@@ -147,7 +147,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             })}
           </Link>
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };

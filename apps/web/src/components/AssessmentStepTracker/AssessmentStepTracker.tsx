@@ -120,17 +120,9 @@ const AssessmentStepTracker = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(flex-end)"
-        data-h2-gap="base(x.5)"
-        data-h2-margin-bottom="base(x1) l-tablet(x.25)"
-        data-h2-justify-content="base(flex-start)"
-        data-h2-font-size="base(caption)"
-        data-h2-flex-wrap="base(wrap)"
-      >
+      <div className="mb-6 flex flex-wrap items-end justify-start gap-3 text-sm sm:mb-1.5">
         <Filters onFiltersChange={setFilters} />
-        <div data-h2-width="base(100%) l-tablet(auto)" data-h2-order="base(0)">
+        <div className="order-[0] w-full sm:w-auto">
           <AssessmentResultsFilterDialog
             onSubmit={onSubmitDialog}
             resetValues={transformPoolCandidateSearchInputToFormValues(
@@ -167,12 +159,9 @@ const AssessmentStepTracker = ({
                   }}
                 />
                 {fetching ? (
-                  <Well fontSize="caption" data-h2-margin="base(x.5)">
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-align-items="base(center)"
-                    >
-                      <SpinnerIcon data-h2-width="base(x.75)" />
+                  <Well fontSize="caption" className="m-3">
+                    <div className="flex items-center">
+                      <SpinnerIcon className="w-3" />
                       <span>{intl.formatMessage(commonMessages.loading)}</span>
                     </div>
                   </Well>

@@ -7,8 +7,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
-  CardForm,
-  CardFormSeparator,
+  Card,
   Heading,
   Pending,
   ThrowNotFound,
@@ -99,7 +98,7 @@ const TalentNominationGroupDetails = ({
   };
 
   return (
-    <CardForm>
+    <Card space="lg">
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
@@ -137,7 +136,7 @@ const TalentNominationGroupDetails = ({
             </Button>
           </div>
         </div>
-        <CardFormSeparator />
+        <Card.Separator />
         <Accordion.Root
           mode="simple"
           type="multiple"
@@ -153,7 +152,7 @@ const TalentNominationGroupDetails = ({
           ))}
         </Accordion.Root>
       </div>
-    </CardForm>
+    </Card>
   );
 };
 

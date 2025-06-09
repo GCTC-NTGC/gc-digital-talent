@@ -1,64 +1,33 @@
 import { ReactElement, ReactNode, useId } from "react";
+import { tv, VariantProps } from "tailwind-variants";
 
 import Heading, { HeadingLevel } from "../Heading";
 import { BaseItemProps } from "./BaseItem";
 
-export const colorOptions = [
-  "primary",
-  "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
-] as const;
+const heading = tv({
+  base: "rounded-t-md border-b p-6 text-center sm:px-8",
+  variants: {
+    headingColor: {
+      primary:
+        "border-b-primary-700 bg-primary-100 text-primary-700 dark:border-b-primary-100 dark:bg-primary-700 dark:text-primary-100",
+      secondary:
+        "border-b-secondary-700 bg-secondary-100 text-secondary-700 dark:border-b-secondary-100 dark:bg-secondary-700 dark:text-secondary-100",
+      success:
+        "border-b-success-700 bg-success-100 text-success-700 dark:border-b-success-100 dark:bg-success-700 dark:text-success-100",
+      warning:
+        "border-b-warning-700 bg-warning-100 text-warning-700 dark:border-b-warning-100 dark:bg-warning-700 dark:text-warning-100",
+      error:
+        "border-b-error-700 bg-error-100 text-error-700 dark:border-b-error-100 dark:bg-error-700 dark:text-error-100",
+    },
+  },
+});
 
-type CardColor = (typeof colorOptions)[number];
-
-const headingBarStyleMap: Record<CardColor, Record<string, string>> = {
-  primary: {
-    "data-h2-background-color": "base(primary.lightest)",
-    "data-h2-border-bottom-color": "base(primary.darkest)",
-  },
-  secondary: {
-    "data-h2-background-color": "base(secondary.lightest)",
-    "data-h2-border-bottom-color": "base(secondary.darkest)",
-  },
-  tertiary: {
-    "data-h2-background-color": "base(tertiary.lightest)",
-    "data-h2-border-bottom-color": "base(tertiary.darkest)",
-  },
-  quaternary: {
-    "data-h2-background-color": "base(quaternary.lightest)",
-    "data-h2-border-bottom-color": "base(quaternary.darkest)",
-  },
-  quinary: {
-    "data-h2-background-color": "base(quinary.lightest)",
-    "data-h2-border-bottom-color": "base(quinary.darkest)",
-  },
-};
-
-const wrapperStyleMap: Record<CardColor, Record<string, string>> = {
-  primary: {
-    "data-h2-color": "base(primary.darkest)",
-  },
-  secondary: {
-    "data-h2-color": "base(secondary.darkest)",
-  },
-  tertiary: {
-    "data-h2-color": "base(tertiary.darkest)",
-  },
-  quaternary: {
-    "data-h2-color": "base(quaternary.darkest)",
-  },
-  quinary: {
-    "data-h2-color": "base(quinary.darkest)",
-  },
-};
+type HeadingVariants = VariantProps<typeof heading>;
 
 type MaybeElement = ReactElement<BaseItemProps> | null;
 
-export interface RootProps {
+export interface RootProps extends HeadingVariants {
   title: ReactNode;
-  headingColor?: CardColor;
   headingAs?: HeadingLevel;
   children: MaybeElement | MaybeElement[]; // Restricts children to only expected items;
 }
@@ -72,38 +41,20 @@ const Root = ({
   const headingId = useId();
   return (
     <nav
-      data-h2-shadow="base(larger)"
-      data-h2-border-radius="base(rounded)"
-      data-h2-background-color="base(foreground)"
+      className="rounded-md bg-white shadow-lg dark:bg-gray-600"
       aria-labelledby={headingId}
     >
-      {/* heading bar */}
-      <div
-        {...headingBarStyleMap[headingColor]}
-        data-h2-border-radius="base(rounded rounded 0 0)"
-        data-h2-border-bottom="base(1px solid)"
-        data-h2-padding="base(x1) l-tablet(x1 x1.5)"
-        data-h2-text-align="base(center)"
-      >
-        {/* wrapper */}
-        <div {...wrapperStyleMap[headingColor]}>
-          <Heading
-            level={headingAs}
-            size="h4"
-            data-h2-margin="base(0)"
-            data-h2-text-align="base(center)"
-            id={headingId}
-          >
-            {title}
-          </Heading>
-        </div>
+      <div className={heading({ headingColor })}>
+        <Heading
+          level={headingAs}
+          size="h4"
+          className="my-0 text-center"
+          id={headingId}
+        >
+          {title}
+        </Heading>
       </div>
-      {/* content */}
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        role="list"
-      >
+      <div className="flex flex-col" role="list">
         {children}
       </div>
     </nav>

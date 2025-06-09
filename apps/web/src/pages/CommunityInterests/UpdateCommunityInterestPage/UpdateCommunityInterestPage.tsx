@@ -3,12 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
-import {
-  CardForm,
-  CardFormSeparator,
-  Pending,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   UpdateCommunityInterestInput,
@@ -18,7 +13,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { NotFoundError } from "@gc-digital-talent/helpers";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -50,6 +45,9 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       id
       developmentPrograms {
         id
+        name {
+          localized
+        }
       }
     }
   }
@@ -124,14 +122,22 @@ const UpdateCommunityInterestForm = ({
     formDataQuery,
   );
 
-  const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(userId, formData),
-  });
-
-  const developmentProgramCount: number =
+  const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.developmentPrograms?.length ?? 0;
+    )?.developmentPrograms,
+  );
+
+  const developmentProgramCount: number =
+    developmentProgramsForCommunity.length;
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: apiDataToFormValues(
+      userId,
+      formData,
+      developmentProgramsForCommunity,
+    ),
+  });
 
   return (
     <>
@@ -142,7 +148,7 @@ const UpdateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <CardForm>
+          <Card space="lg">
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -156,26 +162,26 @@ const UpdateCommunityInterestForm = ({
               {/* the training section is hidden if there are no development programs */}
               {developmentProgramCount > 0 ? (
                 <>
-                  <CardFormSeparator />
+                  <Card.Separator />
                   <TrainingAndDevelopmentOpportunities
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
                   />
                 </>
               ) : null}
-              <CardFormSeparator />
+              <Card.Separator />
               <AdditionalInformation
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
               />
-              <CardFormSeparator />
+              <Card.Separator />
               <ReviewAndSubmit
                 formDisabled={formDisabled}
                 actions={<DeleteCommunityInterestAlert query={formData} />}
                 optionsQuery={formOptions}
               />
             </div>
-          </CardForm>
+          </Card>
         </form>
       </FormProvider>
     </>

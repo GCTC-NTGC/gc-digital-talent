@@ -7,12 +7,13 @@ import CogIcon from "@heroicons/react/24/outline/CogIcon";
 import uniqBy from "lodash/uniqBy";
 
 import {
-  CardBasic,
+  Card,
   Chip,
   Chips,
   Heading,
   Link,
   Pending,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   useAuthorization,
@@ -259,8 +260,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called recruitment",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x14.5)">
-                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+              <Card data-h2-min-width="base(x14.5)">
+                <Ul space="lg">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
                       <Link color="primary" mode="inline" href={item.href}>
@@ -268,8 +269,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                       </Link>
                     </li>
                   ))}
-                </ul>
-              </CardBasic>
+                </Ul>
+              </Card>
             </div>
           )}
           <div>
@@ -285,8 +286,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 description: "Card title for a 'resources' card",
               })}
             </Heading>
-            <CardBasic data-h2-min-width="base(x14.5)">
-              <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+            <Card data-h2-min-width="base(x14.5)">
+              <Ul space="lg">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
                     <Link color="secondary" mode="inline" href={item.href}>
@@ -294,8 +295,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                     </Link>
                   </li>
                 ))}
-              </ul>
-            </CardBasic>
+              </Ul>
+            </Card>
           </div>
           {administrationCollectionSorted.length > 0 && (
             <div>
@@ -311,8 +312,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   description: "Header for section called administration",
                 })}
               </Heading>
-              <CardBasic data-h2-min-width="base(x14.5)">
-                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+              <Card data-h2-min-width="base(x14.5)">
+                <Ul space="lg">
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label}>
                       <Link color="error" mode="inline" href={item.href}>
@@ -320,8 +321,8 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                       </Link>
                     </li>
                   ))}
-                </ul>
-              </CardBasic>
+                </Ul>
+              </Card>
             </div>
           )}
         </div>

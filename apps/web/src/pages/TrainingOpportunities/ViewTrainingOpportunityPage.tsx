@@ -7,7 +7,7 @@ import {
   NotFound,
   Heading,
   Link,
-  CardBasic,
+  Card,
   CardSeparator,
   Pending,
   Chip,
@@ -72,7 +72,7 @@ export const ViewTrainingOpportunityForm = ({
           })}
         </Heading>
       </div>
-      <CardBasic>
+      <Card>
         <div
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
@@ -166,7 +166,7 @@ export const ViewTrainingOpportunityForm = ({
             })}
           </Link>
         </div>
-      </CardBasic>
+      </Card>
     </>
   );
 };

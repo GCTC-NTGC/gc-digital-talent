@@ -13,6 +13,7 @@ import {
   Well,
   Button,
   Dialog,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -300,8 +301,8 @@ export const UpdateUserSkillForm = ({
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(navigationMessages.profileAndApplications),
-        url: paths.profileAndApplications(),
+        label: intl.formatMessage(navigationMessages.applicantDashboard),
+        url: paths.applicantDashboard(),
       },
 
       {
@@ -486,7 +487,7 @@ export const UpdateUserSkillForm = ({
                                   "Lead-in text to points of concern when deleting a skill and what will happen",
                               })}
                             </p>
-                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                            <Ul className="mt-1.5 mb-6">
                               <li>
                                 {intl.formatMessage({
                                   defaultMessage:
@@ -505,7 +506,7 @@ export const UpdateUserSkillForm = ({
                                     "Notice that deleting a skill removes it from any linked experiences",
                                 })}
                               </li>
-                            </ul>
+                            </Ul>
                             <p>
                               {intl.formatMessage({
                                 defaultMessage:
@@ -515,7 +516,7 @@ export const UpdateUserSkillForm = ({
                                   "Lead-in text to points of concern when deleting a skill on how to re-add it",
                               })}
                             </p>
-                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                            <Ul className="mt-1.5 mb-6">
                               <li>
                                 {intl.formatMessage({
                                   defaultMessage:
@@ -534,7 +535,7 @@ export const UpdateUserSkillForm = ({
                                     "Notice that re-adding a skill will re-add it to any linked experiences",
                                 })}
                               </li>
-                            </ul>
+                            </Ul>
                             <Dialog.Footer data-h2-justify-content="base(flex-start)">
                               <Button
                                 color="error"

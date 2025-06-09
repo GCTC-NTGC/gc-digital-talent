@@ -13,8 +13,9 @@ import {
   Accordion,
   CardFlat,
   Alert,
-  CardBasic,
+  Card,
   ScrollToLink,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   Locales,
@@ -137,7 +138,7 @@ export const Component = () => {
       <div data-h2-padding="base(x3, 0)">
         <div
           data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
+          data-h2-margin="base:children[p:not(:first-child)](x1, 0, 0, 0)"
         >
           <Alert.Root type="info" data-h2-margin="base(0, 0, x3, 0)">
             <Alert.Title>
@@ -375,7 +376,7 @@ export const Component = () => {
             data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
           >
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Digital services contracting questionnaire",
                 id: "oiTphL",
@@ -477,7 +478,7 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Related policies",
                 id: "vbiWgW",
@@ -580,14 +581,8 @@ export const Component = () => {
                 })}
               </p>
             </div>
-            <CardBasic>
-              <ul
-                data-h2-margin="base(0)"
-                data-h2-padding="base(0, 0, 0, x1)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x0.25)"
-              >
+            <Card>
+              <Ul space="md" className="my-0">
                 <li>
                   <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
@@ -683,8 +678,8 @@ export const Component = () => {
                     })}
                   </div>
                 </li>
-              </ul>
-            </CardBasic>
+              </Ul>
+            </Card>
           </section>
         </div>
       </div>

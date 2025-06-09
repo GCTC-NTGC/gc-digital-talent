@@ -69,10 +69,6 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
   const intl = useIntl();
   const id = uniqueId();
 
-  const textAlignStyles = {
-    "data-h2-text-align": "base(left)",
-  };
-
   useEffect(() => {
     highlightCurrentNavLink(); // Make sure this runs when page is first initialized
     document.addEventListener("scroll", highlightCurrentNavLink);
@@ -82,20 +78,17 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
   }, []);
 
   return (
-    <Sidebar {...textAlignStyles} {...rest}>
+    <Sidebar className="text-left" {...rest}>
       <h2
         id={`toc-heading-${id}`}
-        data-h2-font-size="base(h6, 1)"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mb-6 text-lg/[1.1] font-bold lg:text-xl/[1.1]"
       >
         {intl.formatMessage(uiMessages.onThisPage)}
         {intl.formatMessage(commonMessages.dividingColon)}
       </h2>
       <nav
         aria-labelledby={`toc-heading-${id}`}
-        data-h2-text-align="base:children[>button, >a](center)"
-        data-h2-margin-bottom="base(x3)"
+        className="mb-18 [&>a,&>button]:text-center"
       >
         {children}
       </nav>

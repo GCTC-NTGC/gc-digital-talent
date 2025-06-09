@@ -1,20 +1,18 @@
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import Required from "./Required";
+import { labelStyles } from "./styles";
 
-export type LegendProps = DetailedHTMLProps<
-  HTMLAttributes<HTMLLegendElement>,
-  HTMLLegendElement
-> & {
+export interface LegendProps
+  extends DetailedHTMLProps<
+    HTMLAttributes<HTMLLegendElement>,
+    HTMLLegendElement
+  > {
   required?: boolean;
-};
+}
 
-const Legend = ({ required, children, ...props }: LegendProps) => (
-  <legend
-    data-h2-color="base(black)"
-    data-h2-font-size="base(caption)"
-    {...props}
-  >
+const Legend = ({ required, children, className, ...rest }: LegendProps) => (
+  <legend className={labelStyles({ class: className })} {...rest}>
     {children}
     <Required required={required} />
   </legend>

@@ -12,6 +12,7 @@ import {
   Heading,
   Link,
   Pending,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -113,17 +114,13 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
         {pools.length > 0 ? (
           <div data-h2-padding="base(x2, 0)">
-            <ul
-              data-h2-margin="base(0)"
-              data-h2-padding="base(0)"
-              data-h2-list-style="base(none)"
-            >
+            <Ul unStyled>
               {pools.map((pool) => (
                 <li key={pool.id}>
                   <PoolCard poolQuery={pool} />
                 </li>
               ))}
-            </ul>
+            </Ul>
           </div>
         ) : (
           <div
@@ -182,7 +179,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             data-h2-padding="base(x2, 0)"
           >
             <CardFlat
-              color="tertiary"
+              color="error"
               title={intl.formatMessage({
                 defaultMessage: "Find pre-qualified executive talent",
                 id: "1R3SYH",
@@ -221,7 +218,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="quaternary"
+              color="warning"
               title={intl.formatMessage({
                 defaultMessage: "Manage your career",
                 id: "kK1Z9U",
@@ -246,7 +243,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               </p>
             </CardFlat>
             <CardFlat
-              color="secondary"
+              color="primary"
               title={intl.formatMessage({
                 defaultMessage: "Get hiring experience",
                 id: "SfhT1q",

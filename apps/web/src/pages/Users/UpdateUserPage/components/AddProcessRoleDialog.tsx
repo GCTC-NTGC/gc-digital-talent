@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import debounce from "lodash/debounce";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -162,11 +162,11 @@ const AddProcessRoleDialog = ({
               description: "Lead in text for the add role to user form.",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{userName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Select the process and roles you want to add",

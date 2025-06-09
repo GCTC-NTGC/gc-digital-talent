@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardBasic } from "@gc-digital-talent/ui";
+import { Card, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -71,7 +71,7 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
   );
 
   return (
-    <CardBasic
+    <Card
       data-h2-display="base(grid)"
       data-h2-gap="base(x1)"
       data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
@@ -142,14 +142,11 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
             {intl.formatMessage(employeeProfileMessages.workStreams)}
           </span>
           {employeeProfile.nextRoleWorkStreams?.length ? (
-            <ul
-              data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-              data-h2-padding-left="base(x1)"
-            >
+            <Ul space="sm">
               {employeeProfile.nextRoleWorkStreams.map((workStream) => (
                 <li key={workStream.id}>{workStream?.name?.localized}</li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
@@ -160,14 +157,11 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
           {intl.formatMessage(employeeProfileMessages.departments)}
         </span>
         {employeeProfile.nextRoleDepartments?.length ? (
-          <ul
-            data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-            data-h2-padding-left="base(x1)"
-          >
+          <Ul space="sm">
             {employeeProfile.nextRoleDepartments.map((department) => (
               <li key={department.id}>{department?.name?.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -181,7 +175,7 @@ const NextRoleSection = ({ employeeProfileQuery }: NextRoleSectionProps) => {
         {employeeProfile.nextRoleAdditionalInformation ??
           intl.formatMessage(commonMessages.notProvided)}
       </div>
-    </CardBasic>
+    </Card>
   );
 };
 

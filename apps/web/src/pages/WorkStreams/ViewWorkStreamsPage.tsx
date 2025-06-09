@@ -8,7 +8,7 @@ import {
   NotFound,
   Heading,
   Link,
-  CardBasic,
+  Card,
   CardSeparator,
 } from "@gc-digital-talent/ui";
 import {
@@ -116,7 +116,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
             })}
           </Heading>
         </div>
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) "
@@ -178,7 +178,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
               })}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </div>
     </>
   );

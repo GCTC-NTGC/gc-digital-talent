@@ -7,6 +7,7 @@ import {
   AccordionMetaData,
   PreviewList,
   TaskCard,
+  Ul,
   Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -182,7 +183,7 @@ const CareerDevelopmentTaskCard = ({
             id: "+2/ksA",
             description: "Card title for career development",
           })}
-          headingColor="secondary"
+          headingColor="primary"
           headingAs="h2"
         >
           <TaskCard.Item>
@@ -250,10 +251,7 @@ const CareerDevelopmentTaskCard = ({
                         }
                       >
                         {lateralMoveOrganizationType ? (
-                          <ul
-                            data-h2-list-style="base(none)"
-                            data-h2-padding="base(0)"
-                          >
+                          <Ul space="md" unStyled>
                             {unpackMaybes(
                               careerDevelopmentTaskCardOptions?.organizationTypeInterest,
                             ).map((x) => {
@@ -284,7 +282,7 @@ const CareerDevelopmentTaskCard = ({
                                 </li>
                               );
                             })}
-                          </ul>
+                          </Ul>
                         ) : (
                           missingInfo
                         )}

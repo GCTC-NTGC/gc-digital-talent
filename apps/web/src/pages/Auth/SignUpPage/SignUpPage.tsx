@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 
-import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Separator, Ul } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -53,7 +53,7 @@ export const Component = () => {
   const fromPath = searchParams.get("from");
   const iapMode =
     fromPath === paths.iap() || searchParams.get("personality") === "iap";
-  const fallbackPath = paths.profileAndApplications();
+  const fallbackPath = paths.applicantDashboard();
   const loginPath = apiPaths.login(fromPath ?? fallbackPath, getLocale(intl));
 
   const pageTitle = intl.formatMessage({
@@ -101,8 +101,8 @@ export const Component = () => {
                     "Heading at the top of the sign up page for applicant profiles",
                 })}
               </Heading>
-              <ul data-h2-margin="base(x1, 0)" data-h2-padding-left="base(x1)">
-                <li data-h2-margin-top="base(x.25)">
+              <Ul className="my-6" space="md" noIndent>
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "To sign up (or authenticate) with GC Digital Talent, we require that you use GCKey.",
@@ -110,7 +110,7 @@ export const Component = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "GCKey is a Government of Canada credential that allows you to securely conduct online business with various governmental programs and services.",
@@ -118,7 +118,7 @@ export const Component = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "In addition to GCKey, you will need to set up a two-factor authenticator app for an added layer of security. (See setting up two-factor authentication for details)",
@@ -126,7 +126,7 @@ export const Component = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "Expect to spend approximately 20 minutes to set up GCKey and the authenticator app.",
@@ -134,7 +134,7 @@ export const Component = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "We have prepared additional guidance In the next section to help.",
@@ -142,7 +142,7 @@ export const Component = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-              </ul>
+              </Ul>
               <Link href={loginPath} mode="solid" color="secondary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and sign up",

@@ -8,6 +8,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { PositionDuration } from "@gc-digital-talent/graphql";
 import { FieldLabels } from "@gc-digital-talent/forms";
+import { Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
@@ -54,7 +55,7 @@ const Display = ({
       <div>
         <FieldDisplay label={labels.acceptedOperationalRequirements} />
         {acceptedRequirements?.length ? (
-          <ul>
+          <Ul>
             {acceptedRequirements.map((requirement) => (
               <li key={requirement.value}>
                 {intl.formatMessage(
@@ -65,7 +66,7 @@ const Display = ({
                 )}
               </li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}
@@ -82,13 +83,13 @@ const Display = ({
           })}
         />
         {locations?.length ? (
-          <ul>
+          <Ul>
             {locations.map((location) => (
               <li key={location.value}>
                 {intl.formatMessage(getWorkRegionsDetailed(location.value))}
               </li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

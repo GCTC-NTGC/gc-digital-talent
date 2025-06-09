@@ -23,7 +23,7 @@ import {
   Heading,
   Link,
   CardSeparator,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -196,7 +196,7 @@ export const UpdateWorkStreamForm = ({
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
-        <CardBasic data-h2-margin-bottom="base(x3)">
+        <Card data-h2-margin-bottom="base(x3)">
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -308,7 +308,7 @@ export const UpdateWorkStreamForm = ({
               </div>
             </form>
           </FormProvider>
-        </CardBasic>
+        </Card>
       </Hero>
     </>
   );

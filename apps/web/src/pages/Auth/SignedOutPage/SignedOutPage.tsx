@@ -7,6 +7,7 @@ import {
   Button,
   Heading,
   Link,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   LOGOUT_REASON_KEY,
@@ -33,7 +34,7 @@ export const Component = () => {
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
-  const returnPath = useReturnPath(paths.profileAndApplications());
+  const returnPath = useReturnPath(paths.applicantDashboard());
 
   const logoutReason = localStorage.getItem(
     LOGOUT_REASON_KEY,
@@ -161,7 +162,7 @@ export const Component = () => {
           })}
         </p>
         <div data-h2-margin="base(x.5, 0, 0, 0)">
-          <ul data-h2-padding="base(0, 0, 0, x1)">
+          <Ul>
             <li>
               <Link href={paths.home()}>
                 {intl.formatMessage({
@@ -189,7 +190,7 @@ export const Component = () => {
                 })}
               </Link>
             </li>
-          </ul>
+          </Ul>
         </div>
       </div>
       <AlertDialog.Root open={loggedIn}>

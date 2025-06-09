@@ -27,14 +27,7 @@ const WordCounter = ({
   return (
     <span
       aria-hidden="true"
-      data-h2-font-size="base(caption)"
-      {...(wordsLeft < 0
-        ? {
-            "data-h2-color": "base(error.darker)",
-          }
-        : {
-            "data-h2-color": "base(black)",
-          })}
+      className={`text-sm ${wordsLeft < 0 ? "text-error-500 dark:text-error-300" : "text-black dark:text-white"}`}
       {...rest}
     >
       {intl.formatMessage(formMessages.wordLimit, {

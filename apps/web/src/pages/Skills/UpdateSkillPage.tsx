@@ -30,7 +30,7 @@ import {
   Heading,
   Link,
   CardSeparator,
-  CardBasic,
+  Card,
 } from "@gc-digital-talent/ui";
 import {
   Skill,
@@ -218,7 +218,7 @@ export const UpdateSkillForm = ({
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x1 0)"
       >
-        <CardBasic>
+        <Card>
           <div
             data-h2-display="base(flex)"
             data-h2-justify-content="base(center) p-tablet(flex-start)"
@@ -378,7 +378,7 @@ export const UpdateSkillForm = ({
               {intl.formatMessage(commonMessages.cancel)}
             </Link>
           </div>
-        </CardBasic>
+        </Card>
       </form>
     </FormProvider>
   );

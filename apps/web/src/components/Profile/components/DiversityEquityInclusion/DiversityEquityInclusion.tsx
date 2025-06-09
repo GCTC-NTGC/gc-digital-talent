@@ -2,7 +2,7 @@ import { useState } from "react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
-import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Ul, Well } from "@gc-digital-talent/ui";
 import { Pool, UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
@@ -54,7 +54,7 @@ const DiversityEquityInclusion = ({
         id: "iKWOl+",
         description: "Introduction text for selecting employment equity groups",
       })}
-      <ul data-h2-padding="base(x0.5, x1.5)">
+      <Ul className="my-3">
         <li>
           {intl.formatMessage({
             defaultMessage:
@@ -73,7 +73,7 @@ const DiversityEquityInclusion = ({
               "Second condition for selecting an employment equity group",
           })}
         </li>
-      </ul>
+      </Ul>
       <Accordion.Root
         type="single"
         size="sm"
@@ -128,7 +128,7 @@ const DiversityEquityInclusion = ({
                   "Heading for how employment equity information will be used.",
               })}
             </p>
-            <ul>
+            <Ul>
               <li>
                 {intl.formatMessage({
                   defaultMessage:
@@ -156,7 +156,7 @@ const DiversityEquityInclusion = ({
                     "Explanation on how employment equity information will be used, item three",
                 })}
               </li>
-            </ul>
+            </Ul>
             <p data-h2-margin="base(x.5 0)">
               {intl.formatMessage({
                 defaultMessage:
