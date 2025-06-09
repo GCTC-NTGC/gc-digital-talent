@@ -90,7 +90,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_gestionnaire_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -158,7 +157,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_RH_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -226,7 +224,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_approvisionnement_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:

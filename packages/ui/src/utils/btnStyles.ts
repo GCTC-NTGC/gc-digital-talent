@@ -297,7 +297,7 @@ export const btn = tv({
     {
       slots: ["leadingIcon", "trailingIcon"],
       mode: "text",
-      class: "align-middle",
+      class: "align-text-top",
     },
   ],
 
