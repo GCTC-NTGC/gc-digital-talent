@@ -231,7 +231,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             email
             firstName
             lastName
-            telephone
             preferredLang {
               value
               label {
@@ -239,20 +238,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
-            preferredLanguageForInterview {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            preferredLanguageForExam {
-              value
-              label {
-                en
-                fr
-              }
-            }
+            lookingForEnglish
+            lookingForFrench
+            lookingForBilingual
             currentCity
             currentProvince {
               value
@@ -261,134 +249,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
-            citizenship {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            armedForcesStatus {
-              value
-              label {
-                en
-                fr
-              }
-            }
-
-            # Language
-            lookingForEnglish
-            lookingForFrench
-            lookingForBilingual
-            firstOfficialLanguage {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            secondLanguageExamCompleted
-            secondLanguageExamValidity
-            comprehensionLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            writtenLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            verbalLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            estimatedLanguageAbility {
-              value
-              label {
-                en
-                fr
-              }
-            }
-
-            # Gov info
-            isGovEmployee
-            govEmployeeType {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            currentClassification {
-              id
-              group
-              level
-              name {
-                en
-                fr
-              }
-            }
-            department {
-              id
-              departmentNumber
-              name {
-                en
-                fr
-              }
-            }
-            hasPriorityEntitlement
-            priorityNumber
-
-            # Employment equity
-            isWoman
-            isVisibleMinority
-            hasDisability
-            indigenousCommunities {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            indigenousDeclarationSignature
-
-            # Applicant info
-            hasDiploma
-            locationPreferences {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            locationExemptions
-            acceptedOperationalRequirements {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            positionDuration
-            priorityWeight
-            priority {
-              value
-              label {
-                en
-                fr
-              }
-            }
           }
-          isBookmarked
-          expiryDate
           status {
             value
             label {
@@ -398,10 +259,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           }
           submittedAt
           notes
-          archivedAt
           suspendedAt
-          priorityVerification
-          veteranVerification
           placedDepartment {
             id
             name {
@@ -758,7 +616,7 @@ const PoolCandidatesTable = ({
                     id: pool.id,
                     workStream: pool.workStream,
                     name: pool.name,
-                    publishingGroup: pool?.publishingGroup,
+                    publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
                   },
                   paths,
@@ -824,7 +682,7 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        getLocalizedName(row.poolCandidate?.placedDepartment?.name, intl, true),
+        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
       {
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
