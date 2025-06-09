@@ -46,13 +46,9 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
   } = getFragment(PersonalContact_Fragment, personalContactQuery);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 sm:grid-cols-2">
       <FieldDisplay
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
         label={intl.formatMessage(commonMessages.fullName)}
       >
         {getFullNameLabel(firstName, lastName, intl)}
@@ -64,7 +60,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
         {telephone ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
         label={intl.formatMessage({
           defaultMessage: "Government of Canada email",
           id: "lAuZsE",
@@ -74,7 +70,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
         {workEmail ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
         label={intl.formatMessage({
           defaultMessage: "Preferred contact language",
           id: "lHmump",
@@ -84,7 +80,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
         {preferredLang?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
         label={intl.formatMessage({
           defaultMessage: "Citizenship status",
           id: "ycXoSE",
