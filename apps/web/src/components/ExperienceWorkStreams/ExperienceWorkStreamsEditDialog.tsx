@@ -103,7 +103,7 @@ const ExperienceWorkStreamsEditDialog = ({
                 return handleSubmit(submitForm)(e);
               }}
             >
-              <p data-h2-margin-bottom="base(x1)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "The first step in identifying work streams is selecting one of our partner functional communities. If you can't find a relevant community, you can skip this step until a more relevant community joins the platform.",
@@ -112,17 +112,10 @@ const ExperienceWorkStreamsEditDialog = ({
                     "Description for work streams for an experience dialog",
                 })}
               </p>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-              >
+              <div className="flex flex-col gap-y-6">
                 {community && (
                   <>
-                    <span
-                      data-h2-display="base(block)"
-                      data-h2-font-weight="base(700)"
-                    >
+                    <span className="block font-bold">
                       {intl.formatMessage({
                         defaultMessage: "Functional community",
                         id: "gV0mRk",
@@ -157,7 +150,7 @@ const ExperienceWorkStreamsEditDialog = ({
                   />
                 )}
                 {!communityValue ? (
-                  <Well data-h2-text-align="base(center)">
+                  <Well className="text-center">
                     <p>
                       {intl.formatMessage({
                         defaultMessage:

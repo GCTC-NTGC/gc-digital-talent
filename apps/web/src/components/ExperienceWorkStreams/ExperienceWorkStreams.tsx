@@ -94,15 +94,10 @@ const ExperienceWorkStreams = ({
 
   return (
     <section>
-      <Heading
-        level="h3"
-        size="h4"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x3, 0, x1, 0)"
-      >
+      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage(pageTitles.workStreams)}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "This section is optional, but linking your experience to one or more work streams can highlight your cumulative experience and help our recruitment teams match you with new opportunities. This is especially valuable if you have Government of Canada experience or are interested in executive roles.",
@@ -111,7 +106,7 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 1 on Experience form",
         })}
       </p>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "You can select work streams by linking your experience to a functional community that uses our platform. Functional communities connect colleagues in government with jobs, training, and talent management opportunities within the functional community's area of expertise. Experience from outside the government can also be linked.",
@@ -120,7 +115,7 @@ const ExperienceWorkStreams = ({
             "Description for work streams paragraph 2 on Experience form",
         })}
       </p>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "Not all functional communities have joined this platform, so you may find yourself looking for a community that isn’t available yet. If you don’t find a good match between your work experience and a functional community on our platform, skip this section.",
@@ -131,7 +126,7 @@ const ExperienceWorkStreams = ({
       </p>
       {workStreamsByCommunity.size > 0 ? (
         <>
-          <p data-h2-margin-bottom="base(x1)" data-h2-color="base(black.light)">
+          <p className="mb-6 text-gray-700 dark:text-gray-100">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -144,7 +139,7 @@ const ExperienceWorkStreams = ({
               },
             )}
           </p>
-          <div data-h2-margin-bottom="base(x1)">
+          <div className="mb-6">
             {Array.from(workStreamsByCommunity.keys()).map((communityId) => {
               const currentWorkStreamsWithCommunity =
                 workStreamsByCommunity.get(communityId);
@@ -154,32 +149,16 @@ const ExperienceWorkStreams = ({
               return (
                 <div
                   key={currentWorkStreamsWithCommunity.community.id}
-                  data-h2-background-color="base:selectors[:nth-child(even)](background.light) base:selectors[:nth-child(odd)](foreground)"
-                  data-h2-padding="base(x1)"
-                  data-h2-border-top="base(1px solid gray.lighter)"
-                  data-h2-border-right="base(none)"
-                  data-h2-border-bottom="base:selectors[:last-child](1px solid gray.lighter)"
-                  data-h2-border-left="base(none)"
+                  className="border-t border-gray-100 p-6 last:border-b odd:bg-gray-100 even:bg-white dark:border-gray-500 odd:dark:bg-gray-700 dark:even:bg-gray-600"
                 >
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-justify-content="base(space-between)"
-                    data-h2-flex-direction="base(column) p-tablet(row)"
-                    data-h2-gap="base(x.5) p-tablet(x1)"
-                    data-h2-margin-bottom="base(x.5) p-tablet(0)"
-                  >
-                    <span data-h2-font-weight="base(700)">
+                  <div className="mb-3 flex flex-col justify-between gap-3 xs:mb-0 xs:flex-row xs:gap-6">
+                    <span className="font-bold">
                       {
                         currentWorkStreamsWithCommunity.community.name
                           ?.localized
                       }
                     </span>
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-justify-content="p-tablet(space-between)"
-                      data-h2-align-items="base(center)"
-                      data-h2-gap="base(x.5)"
-                    >
+                    <div className="flex items-center gap-3 xs:justify-between">
                       <ExperienceWorkStreamsEditDialog
                         communities={communitiesWithWorkStreams}
                         community={currentWorkStreamsWithCommunity.community}
@@ -194,14 +173,17 @@ const ExperienceWorkStreams = ({
                             mode="icon_only"
                             color="black"
                           >
-                            <span data-h2-visually-hidden="base(invisible)">
+                            <span className="sr-only">
                               {intl.formatMessage(commonMessages.edit)}
                             </span>
                           </Button>
                         }
                       />
-                      {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                      <span data-h2-color="base(black.light)" aria-hidden>
+                      <span
+                        className="text-gray-100 dark:text-gray-500"
+                        aria-hidden
+                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                      >
                         &bull;
                       </span>
                       <Button
@@ -215,7 +197,7 @@ const ExperienceWorkStreams = ({
                           )
                         }
                       >
-                        <span data-h2-visually-hidden="base(invisible)">
+                        <span className="sr-only">
                           {intl.formatMessage(
                             {
                               defaultMessage:
@@ -234,11 +216,7 @@ const ExperienceWorkStreams = ({
                       </Button>
                     </div>
                   </div>
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column)"
-                    data-h2-gap="base(x.25)"
-                  >
+                  <div className="flex flex-col gap-1.5">
                     {currentWorkStreamsWithCommunity?.workStreams.map(
                       (workStream) => (
                         <div
@@ -257,10 +235,7 @@ const ExperienceWorkStreams = ({
           </div>
         </>
       ) : (
-        <Well
-          data-h2-text-align="base(center)"
-          data-h2-margin-bottom="base(x1)"
-        >
+        <Well className="mb-6 text-center">
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -291,8 +266,7 @@ const ExperienceWorkStreams = ({
               icon={PlusCircleIcon}
               mode="placeholder"
               color="secondary"
-              data-h2-display="base(block)"
-              data-h2-width="base(100%)"
+              block
             >
               {intl.formatMessage({
                 defaultMessage: "Add work streams",
