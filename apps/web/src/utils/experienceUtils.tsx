@@ -534,8 +534,6 @@ export const isGovWorkExperience = (
   isWorkExperience(e) &&
   e.employmentCategory?.value === EmploymentCategory.GovernmentOfCanada;
 
-
-
 export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
   // fit AwardExperience to startDate - endDate format
   const e1Adjusted = e1;
