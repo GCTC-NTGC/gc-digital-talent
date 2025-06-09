@@ -61,18 +61,20 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
 export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementDialog on PoolCandidate {
     id
-    status {
-      value
-      label {
-        en
-        fr
+    viewStatus {
+      status {
+        value
+        label {
+          en
+          fr
+        }
       }
-    }
-    placedDepartment {
-      id
-      name {
-        en
-        fr
+      placedDepartment {
+        id
+        name {
+          en
+          fr
+        }
       }
     }
   }
@@ -132,11 +134,12 @@ const JobPlacementDialog = ({
     roleAssignments,
   );
 
-  const {
-    id: poolCandidateId,
-    status,
-    placedDepartment,
-  } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
+  const { id: poolCandidateId, viewStatus } = getFragment(
+    JobPlacementDialog_Fragment,
+    jobPlacementDialogQuery,
+  );
+  const status = viewStatus?.status;
+  const placedDepartment = viewStatus?.placedDepartment;
   const options = getFragment(JobPlacementOptions_Query, optionsQuery);
 
   const placementType =
