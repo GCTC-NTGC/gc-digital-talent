@@ -6,6 +6,7 @@ use App\Traits\HydratesSnapshot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -39,7 +40,7 @@ abstract class Experience extends Model
         return $this->belongsTo(User::class);
     }
 
-    /** @return MorphToMany<UserSkill, $this> */
+    /** @return MorphToMany<UserSkill, $this, MorphPivot, 'experience_skill'> */
     public function userSkills(): MorphToMany
     {
         return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
