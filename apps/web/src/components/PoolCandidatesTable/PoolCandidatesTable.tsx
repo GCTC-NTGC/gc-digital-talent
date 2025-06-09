@@ -179,6 +179,25 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          viewNotes {
+            notes
+          }
+          viewStatus {
+            status {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            placedDepartment {
+              id
+              name {
+                en
+                fr
+              }
+            }
+          }
           category {
             weight
             value
@@ -250,23 +269,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
-          status {
-            value
-            label {
-              en
-              fr
-            }
-          }
           submittedAt
-          notes
           suspendedAt
-          placedDepartment {
-            id
-            name {
-              en
-              fr
-            }
-          }
         }
         skillCount
       }
@@ -650,7 +654,8 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { viewStatus } }) =>
+        getLocalizedName(viewStatus?.status?.label, intl),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
@@ -664,7 +669,8 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { viewStatus } }) =>
+        getLocalizedName(viewStatus?.status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -682,7 +688,11 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
+        getLocalizedName(
+          row.poolCandidate.viewStatus?.placedDepartment?.name,
+          intl,
+          true,
+        ),
       {
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
@@ -702,22 +712,25 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidacyStatus),
       },
     ),
-    columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
-      id: "notes",
-      header: intl.formatMessage(adminMessages.notes),
-      sortingFn: normalizedText,
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) =>
-        notesCell(
-          intl,
-          poolCandidate.notes,
-          poolCandidate.user.firstName,
-          poolCandidate.user.lastName,
-        ),
-    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { viewNotes } }) => viewNotes?.notes,
+      {
+        id: "notes",
+        header: intl.formatMessage(adminMessages.notes),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: { poolCandidate },
+          },
+        }) =>
+          notesCell(
+            intl,
+            poolCandidate.viewNotes?.notes,
+            poolCandidate.user.firstName,
+            poolCandidate.user.lastName,
+          ),
+      },
+    ),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getLocalizedName(user.preferredLang?.label, intl),
