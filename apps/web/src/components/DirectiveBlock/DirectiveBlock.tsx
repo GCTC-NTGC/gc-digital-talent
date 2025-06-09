@@ -15,8 +15,7 @@ const DirectiveBlock = () => {
         icon={MagnifyingGlassCircleIcon}
         color="error"
         size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin-top="base(x5)"
+        className="mt-30 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Directive on Digital Talent",
@@ -24,7 +23,7 @@ const DirectiveBlock = () => {
           description: "Title for the digital talent directive page",
         })}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "GC Digital Talent offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes an online form, implementation guidance, and links to the Directive.",
