@@ -994,6 +994,26 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
+type PoolCandidateViewNotes {
+  notes: String
+  isBookmarked: Boolean
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
+}
+
+type PoolCandidateViewStatus {
+  status: LocalizedPoolCandidateStatus
+  statusWeight: Int
+  removedAt: DateTime
+  removalReason: LocalizedCandidateRemovalReason
+  removalReasonOther: String
+  finalDecisionAt: DateTime
+  placedAt: DateTime
+  placedDepartment: Department
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool!
@@ -1028,6 +1048,8 @@ type PoolCandidate {
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
   priorityVerificationExpiry: Date
+  viewNotes: PoolCandidateViewNotes
+  viewStatus: PoolCandidateViewStatus
 }
 
 type PoolCandidateWithSkillCount {

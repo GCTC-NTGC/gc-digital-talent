@@ -508,6 +508,32 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
+type PoolCandidateViewNotes {
+  notes: String
+  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
+type PoolCandidateViewStatus {
+  status: LocalizedPoolCandidateStatus
+    @rename(attribute: "pool_candidate_status")
+  statusWeight: Int @rename(attribute: "status_weight")
+  removedAt: DateTime @rename(attribute: "removed_at")
+  removalReason: LocalizedCandidateRemovalReason
+    @rename(attribute: "removal_reason")
+  removalReasonOther: String @rename(attribute: "removal_reason_other")
+  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
+  placedAt: DateTime @rename(attribute: "placed_at")
+  placedDepartment: Department @belongsTo
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -577,6 +603,10 @@ type PoolCandidate {
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
+
+  # fields grouped by permission
+  viewNotes: PoolCandidateViewNotes @self @canRoot(ability: "viewNotes")
+  viewStatus: PoolCandidateViewStatus @self @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
