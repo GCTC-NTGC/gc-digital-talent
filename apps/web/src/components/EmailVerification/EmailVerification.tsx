@@ -151,9 +151,10 @@ export const EmailVerification = ({
                   })}{" "}
                   <Button
                     type="button"
-                    mode="inline"
+                    mode="text"
                     color="black"
                     onClick={requestACode}
+                    className="font-bold"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Send a new code.",
@@ -239,9 +240,10 @@ export const EmailVerification = ({
                 })}
                 <Button
                   type="button" // doesn't participate in the form
-                  mode="inline"
+                  mode="text"
                   color="black"
                   onClick={requestACode}
+                  className="font-bold"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Send another one.",

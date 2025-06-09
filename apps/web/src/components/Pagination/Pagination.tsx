@@ -147,11 +147,10 @@ const Pagination = ({
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
                 <Button
-                  mode="inline"
+                  mode="text"
                   size="sm"
                   color={color}
                   utilityIcon={ChevronDownIcon}
-                  data-h2-font-weight="base(400)"
                   data-h2-margin-top="base(-1px)"
                 >
                   {intl.formatMessage(
