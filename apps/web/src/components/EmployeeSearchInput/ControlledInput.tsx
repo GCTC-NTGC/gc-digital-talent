@@ -200,7 +200,7 @@ const ControlledInput = ({
           {(currentQuery || query || employee) && (
             <button
               type="button"
-              className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded border-2 border-transparent bg-transparent outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
+              className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded border-2 border-transparent bg-transparent px-2 outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
               onClick={handleReset}
             >
               <XMarkIcon className="size-4 text-gray" />
@@ -211,7 +211,7 @@ const ControlledInput = ({
           type="button"
           mode="solid"
           color="secondary"
-          className="rounded-tr-md!"
+          className="rounded-none! rounded-tr!"
           aria-label={
             buttonLabel ??
             intl.formatMessage({
