@@ -82,7 +82,7 @@ export const columnHeader = (
           <Icon
             aria-label={ariaLabel}
             aria-hidden="false"
-            className={iconStyles({status: status.color})}
+            className={iconStyles({ status: status.color })}
           />
         )}
         {header}
