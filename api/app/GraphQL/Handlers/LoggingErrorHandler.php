@@ -17,7 +17,13 @@ class LoggingErrorHandler implements ErrorHandler
         }
 
         // Log the error
-        Log::info('GraphQL Error: '.$error->getMessage());
+        $errorMessage = $error->getMessage();
+        if (str_contains($errorMessage, 'query depth')) {
+            // some errors need a higher logging level
+            Log::error('GraphQL Error: '.$errorMessage);
+        } else {
+            Log::info('GraphQL Error: '.$errorMessage);
+        }
 
         // Keep the pipeline going, last step formats the error into an array
         return $next($error);
