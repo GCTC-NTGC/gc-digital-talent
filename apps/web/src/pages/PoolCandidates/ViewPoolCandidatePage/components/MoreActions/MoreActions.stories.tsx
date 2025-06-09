@@ -31,7 +31,11 @@ fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 const getData = (status: PoolCandidateStatus) =>
   makeFragmentData(
-    { ...fakeCandidate, viewStatus: { status: toLocalizedEnum(status) } },
+    {
+      ...fakeCandidate,
+      viewStatus: { status: toLocalizedEnum(status) },
+      status: toLocalizedEnum(status),
+    },
     MoreActions_Fragment,
   );
 
