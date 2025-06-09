@@ -38,13 +38,9 @@ const DiversityEquityInfo = ({
     !isWoman;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(1fr)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 xs:grid-cols-1">
       <FieldDisplay
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
         label={intl.formatMessage(commonMessages.employmentEquity)}
       >
         {hasAllEmptyFields ? (
