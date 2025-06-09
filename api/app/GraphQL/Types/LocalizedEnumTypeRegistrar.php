@@ -48,11 +48,11 @@ final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
             $name = class_basename($enum);
 
             $resolver = function ($parent, $args, $context, ResolveInfo $info) use ($enum) {
-                // If $parent is an array/object, use keys
+                // If $parent is an array/object, use keys (should be the right shape already)
                 if (is_array($parent) && array_key_exists($info->fieldName, $parent)) {
                     return $parent[$info->fieldName];
                 }
-                // If $parent is a scalar, use your enum logic
+                // If $parent is a scalar, return it as value and get localized string
                 if (is_string($parent)) {
                     switch ($info->fieldName) {
                         case 'value': return $parent;
