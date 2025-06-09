@@ -38,17 +38,17 @@ export { fragmentToEmployee };
 
 const wrapper = tv({
   extend: inputStateStyles,
-  base: "flex flex-col rounded border-1 focus-visible:border-focus",
+  base: "flex flex-col rounded-md border-1 focus-visible:border-focus",
 });
 
 const emailInput = tv({
   extend: inputStyles,
-  base: "grow rounded-tl border-none",
+  base: "grow rounded-none rounded-tl-md border-none",
 });
 
 const content = tv({
   extend: inputStateStyles,
-  base: "relative z-[1] rounded-b border-t p-6 text-black dark:text-white",
+  base: "relative z-[1] rounded-b-md border-t p-6 text-black dark:text-white",
 });
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
@@ -205,7 +205,7 @@ const ControlledInput = ({
           {(currentQuery || query || employee) && (
             <button
               type="button"
-              className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded border-2 border-transparent bg-transparent px-2 outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
+              className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded-md border-2 border-transparent bg-transparent px-2 outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
               onClick={handleReset}
             >
               <XMarkIcon className="size-4 text-gray" />
@@ -216,7 +216,7 @@ const ControlledInput = ({
           type="button"
           mode="solid"
           color="secondary"
-          className="rounded-none! rounded-tr!"
+          className="rounded-none! rounded-tr-md!"
           aria-label={
             buttonLabel ??
             intl.formatMessage({
