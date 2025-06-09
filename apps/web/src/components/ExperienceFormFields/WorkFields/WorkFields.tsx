@@ -175,41 +175,36 @@ const WorkFields = ({
       {fetching ? (
         <Loading inline />
       ) : (
-        <div
-          data-h2-margin="base(x.5, 0, 0, 0)"
-          data-h2-max-width="base(50rem)"
-        >
-          <div data-h2-flex-grid="base(flex-start, x2, x1)">
-            <div data-h2-flex-item="base(1of1)">
-              <Input
-                id="role"
-                label={labels.role}
-                name="role"
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
-            <div data-h2-flex-item="base(1of1)">
-              <RadioGroup
-                idPrefix="employmentCategory"
-                name="employmentCategory"
-                legend={intl.formatMessage({
-                  defaultMessage: "Employment category",
-                  id: "BdpXAF",
-                  description: "Label for the employment category radio group",
-                })}
-                items={employmentCategories}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
-            <EmploymentCategoryFields
-              employmentCategory={watchEmploymentCategory}
-              labels={labels}
-              organizationSuggestions={organizationSuggestions}
+        <div className="grid gap-6 xs:grid-cols-2">
+          <div className="col-span-2">
+            <Input
+              id="role"
+              label={labels.role}
+              name="role"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
-            <div data-h2-flex-item="base(1of1)">
-              <ExperienceWorkStreams communitiesQuery={communities} />
-            </div>
+          </div>
+          <div className="col-span-2">
+            <RadioGroup
+              idPrefix="employmentCategory"
+              name="employmentCategory"
+              legend={intl.formatMessage({
+                defaultMessage: "Employment category",
+                id: "BdpXAF",
+                description: "Label for the employment category radio group",
+              })}
+              items={employmentCategories}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+          <EmploymentCategoryFields
+            employmentCategory={watchEmploymentCategory}
+            labels={labels}
+            organizationSuggestions={organizationSuggestions}
+          />
+          <div className="col-span-2">
+            <ExperienceWorkStreams communitiesQuery={communities} />
           </div>
         </div>
       )}
