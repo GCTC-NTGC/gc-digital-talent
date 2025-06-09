@@ -13,6 +13,11 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
       min: 0,
       max: 10,
     });
+    poolCandidate.viewNotes = { notes: poolCandidate.notes };
+    poolCandidate.viewStatus = {
+      status: poolCandidate.status,
+      placedDepartment: poolCandidate.placedDepartment,
+    };
     return {
       id: poolCandidate.id,
       poolCandidate,

@@ -18,6 +18,11 @@ import MoreActions, { MoreActions_Fragment } from "./MoreActions";
 
 const poolCandidates = fakePoolCandidates(5);
 const fakeCandidate = poolCandidates[2];
+fakeCandidate.viewNotes = { notes: fakeCandidate.notes };
+fakeCandidate.viewStatus = {
+  status: fakeCandidate.status,
+  placedDepartment: fakeCandidate.placedDepartment,
+};
 
 const profileSnapshot: User = {
   id: fakeCandidate.user.id,
