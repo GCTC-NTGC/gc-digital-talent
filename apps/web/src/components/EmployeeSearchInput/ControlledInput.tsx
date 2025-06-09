@@ -15,12 +15,14 @@ import { CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import { tv } from "tailwind-variants";
 
 import {
   FieldState,
-  useCommonInputStyles,
-  useFieldStateStyles,
+  useFieldState,
+  inputStyles,
   useInputDescribedBy,
+  inputStateStyles,
 } from "@gc-digital-talent/forms";
 import { graphql, Maybe } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
@@ -33,6 +35,21 @@ import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
 import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 
 export { fragmentToEmployee };
+
+const wrapper = tv({
+  extend: inputStateStyles,
+  base: "flex flex-col rounded-md border-1 focus-visible:border-focus",
+});
+
+const emailInput = tv({
+  extend: inputStyles,
+  base: "grow rounded-none rounded-tl-md border-none",
+});
+
+const content = tv({
+  extend: inputStateStyles,
+  base: "relative z-[1] rounded-b-md border-t p-6 text-black dark:text-white",
+});
 
 const EmployeeSearch_Query = graphql(/* GraphQL */ `
   query EmployeeSearch($workEmail: String!) {
@@ -71,10 +88,9 @@ const ControlledInput = ({
   const intl = useIntl();
   const client = useClient();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const inputStyles = useCommonInputStyles();
   const defaultValue = getDefaultValue(defaultValues, name);
   const inputErrors = getErrors(formErrors, name);
-  const stateStyles = useFieldStateStyles(name, true);
+  const fieldState = useFieldState(name, true);
   const [query, setQuery] = useState<string>(defaultEmployee?.workEmail ?? "");
   const [currentQuery, setCurrentQuery] = useState<string>(
     defaultEmployee?.workEmail ?? "",
@@ -170,25 +186,9 @@ const ControlledInput = ({
   });
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-radius="base(rounded)"
-      data-h2-border-style="base(solid)"
-      data-h2-border-width="base(1px)"
-      data-h2-border-color="base(gray) base:focus-visible(focus)"
-    >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-position="base(relative)"
-        data-h2-z-index="base(2)"
-      >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-grow="base(1)"
-          data-h2-width="base(100%)"
-          data-h2-position="base(relative)"
-        >
+    <div className={wrapper({ state: fieldState })}>
+      <div className="relative z-[2] flex">
+        <div className="relative flex w-full grow">
           <input
             ref={inputRef}
             name={`${name}-${id}`}
@@ -196,37 +196,19 @@ const ControlledInput = ({
             type="text"
             defaultValue={defaultEmployee?.workEmail ?? undefined}
             aria-describedby={ariaDescribedBy}
-            {...stateStyles}
             {...inputProps}
-            {...inputStyles}
+            className={emailInput({ state: fieldState })}
             readOnly={fetching}
-            data-h2-background="base(foreground)"
-            data-h2-flex-grow="base(1)"
-            data-h2-border-width="base(0)"
-            data-h2-radius="base(rounded 0 0 0)"
             onChange={handleChange}
             onKeyDown={handleKeyDown}
           />
           {(currentQuery || query || employee) && (
             <button
               type="button"
-              data-h2-background-color="base(transparent) base:hover(gray.lightest)"
-              data-h2-border="base(2px solid transparent) base:focus-visible(2px solid secondary)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-radius="base(input)"
-              data-h2-cursor="base(pointer)"
-              data-h2-location="base(x.25, x.25, x.25, auto)"
-              data-h2-position="base(absolute)"
-              data-h2-outline="base(none)"
-              data-h2-flex-shrink="base(0)"
+              className="absolute inset-1.5 left-auto flex shrink-0 cursor-pointer items-center rounded-md border-2 border-transparent bg-transparent px-2 outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700"
               onClick={handleReset}
             >
-              <XMarkIcon
-                data-h2-height="base(1rem)"
-                data-h2-width="base(1rem)"
-                data-h2-color="base(black.light)"
-              />
+              <XMarkIcon className="size-4 text-gray" />
             </button>
           )}
         </div>
@@ -234,7 +216,7 @@ const ControlledInput = ({
           type="button"
           mode="solid"
           color="primary"
-          data-h2-radius="base(0 rounded 0 0)"
+          className="rounded-none! rounded-tr-md!"
           aria-label={
             buttonLabel ??
             intl.formatMessage({
@@ -246,22 +228,14 @@ const ControlledInput = ({
           }
           onClick={handleSearch}
         >
-          <span data-h2-display="base(flex)" data-h2-align-items="base(center)">
-            <MagnifyingGlassIcon data-h2-width="base(x.75)" />
+          <span className="flex items-center">
+            <MagnifyingGlassIcon className="size-4.5" />
           </span>
         </Button>
       </div>
-      <div
-        data-h2-background="base(foreground)"
-        {...stateStyles}
-        data-h2-border-radius="base(0 0 rounded rounded)"
-        data-h2-border-top="base(solid 1px gray)"
-        data-h2-padding="base(x1)"
-        data-h2-position="base(relative)"
-        data-h2-z-index="base(1)"
-      >
+      <div className={content({ state: fieldState })}>
         {showContext && (
-          <p data-h2-text-align="base(center)" id={descriptionIds.context}>
+          <p className="text-center" id={descriptionIds.context}>
             {intl.formatMessage({
               defaultMessage:
                 "Enter a work email and use the search button to find a user.",
@@ -271,7 +245,7 @@ const ControlledInput = ({
           </p>
         )}
         {fetching && (
-          <p data-h2-text-align="base(center)">
+          <p className="text-center">
             {intl.formatMessage(commonMessages.searching)}
           </p>
         )}
