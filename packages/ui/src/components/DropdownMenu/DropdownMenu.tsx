@@ -184,7 +184,7 @@ const ItemIndicator = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.ItemIndicator
-    className="absolute left-0 inline-flex h-px w-1.5 items-center justify-center"
+    className="absolute left-4.5 inline-flex size-3 items-center justify-center"
     ref={forwardedRef}
     {...props}
   />
