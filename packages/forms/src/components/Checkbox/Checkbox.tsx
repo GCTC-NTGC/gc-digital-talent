@@ -6,8 +6,8 @@ import { tv, VariantProps } from "tailwind-variants";
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
-import { checkboxRadioStyles } from "../../styles";
+import { checkboxRadioStyles, inputStateStyles } from "../../styles";
+import useFieldState from "../../hooks/useFieldState";
 
 const checkbox = tv({
   extend: checkboxRadioStyles,
@@ -61,7 +61,7 @@ const Checkbox = ({
     inCheckList,
     shouldReduceMotion: shouldReduceMotion ?? false,
   });
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
+  const fieldState = useFieldState(name, !trackUnsaved);
   const error = errors[name];
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
@@ -84,7 +84,11 @@ const Checkbox = ({
             {boundingBoxLabel}
           </Field.Legend>
         )}
-        <BoundingBox {...(asFieldset ? stateStyles : {})}>
+        <BoundingBox
+          {...(asFieldset
+            ? { className: inputStateStyles({ state: fieldState }) }
+            : {})}
+        >
           <Field.Label className={labelStyles()}>
             <input
               id={id}

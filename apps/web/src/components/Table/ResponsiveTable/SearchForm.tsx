@@ -5,7 +5,7 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
-import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
+import { inputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
 import { SearchFormProps, SearchColumn, SearchState } from "./types";
@@ -31,7 +31,6 @@ const SearchForm = <T,>({
 }: SearchFormProps<T>) => {
   const intl = useIntl();
   const searchRef = useRef<HTMLInputElement | null>(null);
-  const styles = useCommonInputStyles();
   const initialColumn =
     state?.type && searchBy
       ? searchBy.find((column) => column.value === state?.type)
@@ -181,7 +180,7 @@ const SearchForm = <T,>({
             ref={searchRef}
             onChange={debouncedChangeHandler}
             defaultValue={state?.term}
-            {...styles}
+            className={inputStyles()}
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"
             data-h2-margin-left="base(0)"
