@@ -215,7 +215,7 @@ const ControlledInput = ({
         <Button
           type="button"
           mode="solid"
-          color="secondary"
+          color="primary"
           className="rounded-none! rounded-tr-md!"
           aria-label={
             buttonLabel ??

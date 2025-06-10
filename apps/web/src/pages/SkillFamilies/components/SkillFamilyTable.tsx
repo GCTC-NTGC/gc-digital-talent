@@ -47,11 +47,7 @@ export const SkillFamilyTable = ({
             original: { id },
           },
         }) => (
-          <Link
-            color="secondary"
-            mode="inline"
-            href={paths.skillFamilyView(id)}
-          >
+          <Link color="primary" mode="inline" href={paths.skillFamilyView(id)}>
             {getValue()}
           </Link>
         ),

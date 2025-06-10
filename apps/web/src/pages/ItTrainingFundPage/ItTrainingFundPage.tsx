@@ -19,7 +19,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
-    <Link href={href} color="secondary" external>
+    <Link href={href} external>
       {chunks}
     </Link>
   );
@@ -357,7 +357,6 @@ export const Component = () => {
                       <Link
                         mode="text"
                         data-h2-font-weight="base(bold)"
-                        color="secondary"
                         external
                         href={navigarUrl[locale]}
                         data-h2-flex-grow="base(2)"
@@ -456,7 +455,6 @@ export const Component = () => {
                           data-h2-font-weight="base(bold)"
                           data-h2-padding-bottom="base(x1)"
                           data-h2-display="base(block)"
-                          color="secondary"
                           external
                           href={paths.instructorLedTraining()}
                         >
@@ -470,7 +468,6 @@ export const Component = () => {
                           mode="text"
                           data-h2-font-weight="base(bold)"
                           data-h2-display="base(block)"
-                          color="secondary"
                           external
                           href={signUpUrl[locale]}
                         >
@@ -564,7 +561,6 @@ export const Component = () => {
                       <Link
                         mode="text"
                         data-h2-font-weight="base(bold)"
-                        color="secondary"
                         external
                         href={paths.certificationExamVouchers()}
                       >

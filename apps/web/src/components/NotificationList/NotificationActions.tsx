@@ -106,7 +106,7 @@ const NotificationActions = ({
       )}
       <Button
         mode="inline"
-        color="secondary"
+        color="primary"
         data-h2-margin-left="base(auto)"
         disabled={markingAllAsRead}
         onClick={handleMarkAllNotificationsAsRead}

@@ -123,7 +123,7 @@ const AddPoolMembershipDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" icon={PlusCircleIcon}>
+        <Button color="primary" icon={PlusCircleIcon}>
           {intl.formatMessage({
             defaultMessage: "Add member",
             id: "MkUz+j",
@@ -207,7 +207,7 @@ const AddPoolMembershipDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Button color="secondary" type="submit" disabled={isSubmitting}>
+                <Button color="primary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
