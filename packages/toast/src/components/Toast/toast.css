@@ -1,9 +1,9 @@
 :root {
-  --toast-space: calc(var(--h2-base-whitespace) * 1rem);
+  --toast-space: var(--spacing);
   --toastify-toast-width: calc(100vw - calc(2 * var(--toast-space)));
   --toastify-toast-offset: 16px;
   --toastify-toast-padding: 0;
-  --toastify-text-color-light: rgba(var(--h2-color-black), 1);
+  --toastify-text-color-light: var(--color-black);
   --toastify-font-family: inherit;
 }
 
