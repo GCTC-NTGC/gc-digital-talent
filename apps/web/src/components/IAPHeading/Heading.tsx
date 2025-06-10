@@ -17,7 +17,7 @@ const heading = tv({
   },
   variants: {
     thin: {
-      true: "font-thin",
+      true: "",
     },
     color: {
       pink: "text-primary-500 dark:text-primary-100",
@@ -32,6 +32,13 @@ const heading = tv({
       h6: "mt-6 mb-1.5 text-lg/[1.1] font-bold lg:text-xl/[1.1]",
     },
   },
+  compoundVariants: [
+    {
+      thin: true,
+      size: ["h1", "h2", "h6"],
+      class: "font-thin",
+    },
+  ],
 });
 
 const Heading = ({
