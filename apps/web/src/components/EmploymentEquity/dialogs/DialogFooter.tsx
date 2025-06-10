@@ -17,7 +17,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
       <Button
         type="submit"
         mode="solid"
-        color="secondary"
+        color="primary"
         disabled={disabled || isSubmitting}
       >
         <span>{saveText ?? intl.formatMessage(formMessages.saveChanges)}</span>

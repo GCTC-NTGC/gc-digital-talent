@@ -21,7 +21,7 @@ export interface CardProps
     ComponentPropsWithoutRef<"div"> {}
 
 const Card = ({ space = "md", className, ...rest }: CardProps) => (
-  <div className={card({ space })} {...rest} />
+  <div className={card({ space, class: className })} {...rest} />
 );
 
 const CardSeparator = (props: ComponentPropsWithoutRef<"hr" | "div">) => (

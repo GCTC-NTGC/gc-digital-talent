@@ -154,23 +154,21 @@ const ReviewTalentNominationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            talentNomination.nominee
-              ? intl.formatMessage(
-                  {
-                    defaultMessage: "{name}<hidden> talent nomination</hidden>",
-                    id: "uaVogJ",
-                    description:
-                      "Label for talent nomination review dialog button",
-                  },
-                  {
-                    name: `${talentNomination.nominee.firstName} ${talentNomination.nominee.lastName}`,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {talentNomination.nominee
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "{name}<hidden> talent nomination</hidden>",
+                  id: "uaVogJ",
+                  description:
+                    "Label for talent nomination review dialog button",
+                },
+                {
+                  name: `${talentNomination.nominee.firstName} ${talentNomination.nominee.lastName}`,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header

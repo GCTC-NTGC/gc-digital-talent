@@ -120,8 +120,9 @@ const RevertFinalDecisionDialog = ({
       <Dialog.Trigger>
         <Button
           type="button"
-          color={isQualified ? "primary" : "error"}
-          mode="inline"
+          color={isQualified ? "secondary" : "error"}
+          mode="text"
+          className="font-bold"
         >
           {isQualified ? (
             <>{intl.formatMessage(poolCandidateMessages.qualified)}</>
@@ -188,7 +189,7 @@ const RevertFinalDecisionDialog = ({
             <FormChangeNotifyWell />
           </div>
           <Dialog.Footer>
-            <Button type="submit" color="secondary" onClick={handleSubmit}>
+            <Button type="submit" color="primary" onClick={handleSubmit}>
               {intl.formatMessage({
                 defaultMessage: "Revert decision and update status",
                 id: "QJi1ZQ",

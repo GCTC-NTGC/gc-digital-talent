@@ -95,7 +95,7 @@ const ApplicationSkillsIntroduction = ({
         <Link
           href={paths.applicationSkills(application.id)}
           mode="solid"
-          color="secondary"
+          color="primary"
         >
           {intl.formatMessage({
             defaultMessage: "Let's get to it!",

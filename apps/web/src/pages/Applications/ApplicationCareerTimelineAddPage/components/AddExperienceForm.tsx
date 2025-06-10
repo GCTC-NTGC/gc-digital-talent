@@ -175,7 +175,7 @@ const AddExperienceForm = ({
             type="submit"
             mode="solid"
             value="return"
-            color="secondary"
+            color="primary"
             disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "return")}
@@ -189,7 +189,7 @@ const AddExperienceForm = ({
           <Button
             type="submit"
             mode="inline"
-            color="secondary"
+            color="primary"
             disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "add-another")}

@@ -17,8 +17,9 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
       ref={ref}
       mode="text"
       type="button"
-      color={active ? "secondaryDarkFixed" : "whiteFixed"}
-      fontSize="caption"
+      color={active ? "secondary" : "white"}
+      fixedColor
+      size="sm"
       {...rest}
     />
   ),

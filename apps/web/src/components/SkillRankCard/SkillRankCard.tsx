@@ -57,7 +57,7 @@ const SkillRankCard = ({
         {editable && editLink && (
           <Link
             mode="inline"
-            color="secondary"
+            color="primary"
             href={editLink.href}
             aria-label={editLink.label}
           >

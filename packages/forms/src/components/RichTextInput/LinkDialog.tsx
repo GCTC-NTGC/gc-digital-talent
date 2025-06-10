@@ -162,7 +162,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
                 <Dialog.Footer className="justify-start">
                   <Button
                     type="button"
-                    color="secondary"
+                    color="primary"
                     {...actionProps}
                     value="add"
                     onClick={() => handleSave("add")}

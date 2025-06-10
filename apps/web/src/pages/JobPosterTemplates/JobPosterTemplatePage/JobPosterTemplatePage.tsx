@@ -147,6 +147,7 @@ const JobPosterTemplate = ({
                     data-h2-gap="base(x1)"
                   >
                     <Link
+                      href="#"
                       icon={ArrowDownOnSquareIcon}
                       data-h2-font-weight="base(bold)"
                     >
@@ -157,6 +158,7 @@ const JobPosterTemplate = ({
                       })}
                     </Link>
                     <Link
+                      href="#"
                       icon={ArrowDownOnSquareIcon}
                       data-h2-font-weight="base(bold)"
                     >
