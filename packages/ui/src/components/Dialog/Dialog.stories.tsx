@@ -37,7 +37,7 @@ const Template: StoryFn<typeof Dialog.Root> = () => (
         <p>{faker.lorem.sentences(3)}</p>
         <Dialog.Footer>
           <Dialog.Close>
-            <Button color="secondary">Close</Button>
+            <Button color="primary">Close</Button>
           </Dialog.Close>
         </Dialog.Footer>
       </Dialog.Body>

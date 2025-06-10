@@ -9,6 +9,7 @@ import {
   Link,
   Separator,
   ThrowNotFound,
+  Ul,
   Well,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -298,10 +299,10 @@ export const ApplicationCareerTimeline = ({
               description: "Title for list of experiences",
             })}
           </p>
-          <ul data-h2-margin="base(x0.5, 0, x2, 0)">
+          <Ul className="mt-3 mb-12" space="lg">
             {Object.keys(experiencesByType).map((experienceType) => {
               return (
-                <li data-h2-margin="base(x0.5, 0)" key={experienceType}>
+                <li key={experienceType}>
                   {formatExperienceCount(
                     intl,
                     experienceType as ExperienceType,
@@ -310,7 +311,7 @@ export const ApplicationCareerTimeline = ({
                 </li>
               );
             })}
-          </ul>
+          </Ul>
         </>
       ) : (
         <>
@@ -432,7 +433,7 @@ export const ApplicationCareerTimeline = ({
           >
             <Button
               type="submit"
-              color="secondary"
+              color="primary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {
@@ -441,7 +442,7 @@ export const ApplicationCareerTimeline = ({
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link mode="inline" href={cancelPath} color="secondary">
+            <Link mode="inline" href={cancelPath} color="primary">
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

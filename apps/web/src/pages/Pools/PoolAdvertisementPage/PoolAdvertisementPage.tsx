@@ -21,6 +21,8 @@ import {
   Card,
   Button,
   Separator,
+  IconLink,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -569,7 +571,7 @@ export const PoolPoster = ({
               </span>
               <Button
                 mode="inline"
-                color="secondary"
+                color="primary"
                 icon={linkCopied ? CheckIcon : undefined}
                 onClick={async () => {
                   await navigator.clipboard.writeText(window.location.href);
@@ -681,8 +683,7 @@ export const PoolPoster = ({
                   value={getLocalizedName(pool?.workStream?.name, intl)}
                   suffix={
                     classification?.group === "IT" ? (
-                      <Link
-                        mode="icon_only"
+                      <IconLink
                         external
                         newTab
                         href={
@@ -692,7 +693,7 @@ export const PoolPoster = ({
                         }
                         icon={InformationCircleIcon}
                         // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label={`${intl.formatMessage({
+                        label={`${intl.formatMessage({
                           defaultMessage:
                             "Information technology (IT) work streams",
                           id: "FZ5qdE",
@@ -749,11 +750,10 @@ export const PoolPoster = ({
                   }
                   value={opportunityLength}
                   suffix={
-                    <Link
+                    <IconLink
                       newTab
                       external
-                      color="secondary"
-                      mode="icon_only"
+                      color="primary"
                       icon={InformationCircleIcon}
                       href={
                         locale === "fr"
@@ -761,7 +761,7 @@ export const PoolPoster = ({
                           : "https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/collectivite-community/employeur-employer/emplfpf-emplfps-eng.html#a8"
                       }
                       // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      aria-label={`${intl.formatMessage({
+                      label={`${intl.formatMessage({
                         defaultMessage: "Learn more about employment durations",
                         id: "zlHeEz",
                         description:
@@ -858,7 +858,7 @@ export const PoolPoster = ({
                 <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                     onClick={toggleSkillsValue}
                     aria-label={
                       skillsValue.length > 0
@@ -1024,7 +1024,7 @@ export const PoolPoster = ({
                 <div data-h2-flex-shrink="base(0)">
                   <Button
                     mode="inline"
-                    color="secondary"
+                    color="primary"
                     onClick={toggleMoreInfoValue}
                     aria-label={
                       moreInfoValue.length > 0
@@ -1277,7 +1277,7 @@ export const PoolPoster = ({
                       )}
                     </Text>
                     <Text>
-                      <ul data-h2-margin="base(x0.5, 0, 0, 0)">
+                      <Ul className="mt-3">
                         <li>
                           {intl.formatMessage(
                             {
@@ -1308,7 +1308,7 @@ export const PoolPoster = ({
                             },
                           )}
                         </li>
-                      </ul>
+                      </Ul>
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>

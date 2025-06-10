@@ -29,7 +29,7 @@ const meta: Meta<EmployeeSearchInputArgs> = {
     name: "employee",
     label: "Employee search",
     wrapperProps: {
-      "data-h2-margin": "base(x1 0)",
+      className: "my-6",
     },
   },
   parameters: {

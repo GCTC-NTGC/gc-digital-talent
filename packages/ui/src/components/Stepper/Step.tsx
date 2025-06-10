@@ -32,10 +32,10 @@ const StepLink = ({
 
   return (
     <Link
-      noUnderline
       aria-current={state?.includes("active") ? "step" : undefined}
       href={href}
       mode="text"
+      noUnderline
       {...rest}
     >
       {children}

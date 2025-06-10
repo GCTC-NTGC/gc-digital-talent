@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
@@ -51,7 +51,7 @@ const PublishProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" disabled={!isReadyToPublish}>
+        <Button color="primary" disabled={!isReadyToPublish}>
           {title}
         </Button>
       </Dialog.Trigger>
@@ -86,7 +86,7 @@ const PublishProcessDialog = ({
               description: "Third paragraph for publish process dialog",
             })}
           </p>
-          <ul>
+          <Ul>
             <li>
               <strong>
                 {intl.formatMessage({
@@ -114,9 +114,9 @@ const PublishProcessDialog = ({
                   {closingStringPacific}
                 </li>
               )}
-          </ul>
+          </Ul>
           <Dialog.Footer>
-            <Button color="secondary" onClick={onPublish} disabled={isFetching}>
+            <Button color="primary" onClick={onPublish} disabled={isFetching}>
               {title}
             </Button>
             <Dialog.Close>

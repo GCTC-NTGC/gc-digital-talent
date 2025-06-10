@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Heading, Link, Ul, Well } from "@gc-digital-talent/ui";
 import {
   Classification,
   EducationRequirementOption,
@@ -111,13 +111,11 @@ const CheckListSection = ({
                     "Message before skills list in application education page.",
                 })}
               </p>
-              <ul data-h2-margin="base(0, 0, x1, 0)">
+              <Ul space="md" className="mb-3">
                 {Object.values(essentialExperienceMessages).map((value) => (
-                  <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
-                    {intl.formatMessage(value)}
-                  </li>
+                  <li key={uniqueId()}>{intl.formatMessage(value)}</li>
                 ))}
-              </ul>
+              </Ul>
             </>
           )}
           {experiences.allExperiences.length === 0 ? (

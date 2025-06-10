@@ -39,7 +39,7 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
         <Button
           disabled={isDownloading}
           mode="inline"
-          color="secondary"
+          color="primary"
           utilityIcon={ChevronDownIcon}
           icon={isDownloading ? SpinnerIcon : ArrowDownTrayIcon}
         >

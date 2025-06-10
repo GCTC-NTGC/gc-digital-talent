@@ -3,7 +3,7 @@ import uniqueId from "lodash/uniqueId";
 import { ReactNode } from "react";
 
 import { Locales } from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
+import { Link, Ul } from "@gc-digital-talent/ui";
 import { Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
@@ -304,13 +304,11 @@ export const getEducationRequirementOptions = (
               <p data-h2-margin-bottom="base(x.5)">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
-              <ul>
+              <Ul space="md">
                 {appliedWorkListMessages(isIAP).map((value) => (
-                  <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
-                    {intl.formatMessage(value)}
-                  </li>
+                  <li key={uniqueId()}>{intl.formatMessage(value)}</li>
                 ))}
-              </ul>
+              </Ul>
             </>
           ),
         },

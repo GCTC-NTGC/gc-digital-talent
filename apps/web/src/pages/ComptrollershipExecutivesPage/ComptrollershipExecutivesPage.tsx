@@ -4,7 +4,7 @@ import ArrowTrendingUpIcon from "@heroicons/react/24/outline/ArrowTrendingUpIcon
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
 
-import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getLocale,
@@ -84,7 +84,7 @@ export const Component = () => {
               description: "About to list employee types",
             })}
           </p>
-          <ul data-h2-margin="base(x.5 0)">
+          <Ul className="my-3">
             <li>
               <span data-h2-font-weight="base(bold)">
                 {intl.formatMessage({
@@ -139,7 +139,7 @@ export const Component = () => {
                 })}
               </span>
             </li>
-          </ul>
+          </Ul>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -176,7 +176,7 @@ export const Component = () => {
           >
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.applicantDashboard()}
               data-h2-margin-top="base(x1.5)"
             >
@@ -334,12 +334,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                       href={theTeamUrl[locale]}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
                     >
                       {intl.formatMessage({
                         defaultMessage:
@@ -410,12 +409,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={newsletterUrl[locale]}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                     >
                       {intl.formatMessage({
                         defaultMessage:
@@ -486,12 +484,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={linkedInUrl}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Join us on LinkedIn",

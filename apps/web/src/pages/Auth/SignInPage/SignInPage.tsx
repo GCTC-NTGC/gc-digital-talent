@@ -103,7 +103,7 @@ export const Component = () => {
                     "Instructions on what to do if user doesn't know if they have a GCKey",
                 })}
               </p>
-              <Link href={loginPath} mode="solid" color="secondary" external>
+              <Link href={loginPath} mode="solid" color="primary" external>
                 {intl.formatMessage({
                   defaultMessage: "Continue to GCKey and sign in",
                   id: "4sLCWZ",
@@ -418,7 +418,7 @@ export const Component = () => {
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <Link href={loginPath} mode="solid" color="secondary" external>
+            <Link href={loginPath} mode="solid" color="primary" external>
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign in",
                 id: "4sLCWZ",

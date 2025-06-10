@@ -7,7 +7,7 @@ import {
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import { Card, CardSeparator, NoList } from "@gc-digital-talent/ui";
+import { Card, CardSeparator, Ul } from "@gc-digital-talent/ui";
 import {
   ExecCoaching,
   FragmentType,
@@ -248,7 +248,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.lateralMoveOrganizationType}
         </span>
         {employeeProfile.lateralMoveOrganizationType ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(
               careerDevelopmentOptions.organizationTypeInterest,
             ).map((x) => {
@@ -278,7 +278,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -305,7 +305,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.promotionMoveOrganizationType}
         </span>
         {employeeProfile.promotionMoveOrganizationType ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(
               careerDevelopmentOptions?.organizationTypeInterest,
             ).map((x) => {
@@ -335,7 +335,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -346,7 +346,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.learningOpportunitiesInterest}
         </span>
         {employeeProfile.learningOpportunitiesInterest ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -379,7 +379,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -423,7 +423,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.mentorshipInterest}
         </span>
         {employeeProfile.mentorshipInterest ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
               const iconValue = mentorshipInterests.includes(
                 x.value as Mentorship,
@@ -438,7 +438,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}
@@ -465,7 +465,7 @@ const CareerDevelopmentSection = ({
           {careerDevelopmentMessages.execCoachingInterest}
         </span>
         {employeeProfile.execCoachingInterest ? (
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
               const iconValue = execCoachingInterests.includes(
                 x.value as ExecCoaching,
@@ -480,7 +480,7 @@ const CareerDevelopmentSection = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         ) : (
           intl.formatMessage(commonMessages.notProvided)
         )}

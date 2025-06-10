@@ -62,11 +62,10 @@ const useMainNavLinks = () => {
   const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
 
   const Home = (
-    <NavMenu.Link
+    <NavMenu.IconLink
       href={paths.home()}
       icon={HomeIcon}
-      mode="icon_only"
-      ariaLabel={intl.formatMessage(navigationMessages.home)}
+      label={intl.formatMessage(navigationMessages.home)}
     />
   );
 

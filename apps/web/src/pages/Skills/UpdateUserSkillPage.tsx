@@ -13,6 +13,7 @@ import {
   Well,
   Button,
   Dialog,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -436,7 +437,7 @@ export const UpdateUserSkillForm = ({
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x1)"
                   >
-                    <Button type="submit" color="secondary" disabled={mutating}>
+                    <Button type="submit" color="primary" disabled={mutating}>
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
                     {hasUserSkill && (
@@ -486,7 +487,7 @@ export const UpdateUserSkillForm = ({
                                   "Lead-in text to points of concern when deleting a skill and what will happen",
                               })}
                             </p>
-                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                            <Ul className="mt-1.5 mb-6">
                               <li>
                                 {intl.formatMessage({
                                   defaultMessage:
@@ -505,7 +506,7 @@ export const UpdateUserSkillForm = ({
                                     "Notice that deleting a skill removes it from any linked experiences",
                                 })}
                               </li>
-                            </ul>
+                            </Ul>
                             <p>
                               {intl.formatMessage({
                                 defaultMessage:
@@ -515,7 +516,7 @@ export const UpdateUserSkillForm = ({
                                   "Lead-in text to points of concern when deleting a skill on how to re-add it",
                               })}
                             </p>
-                            <ul data-h2-margin="base(x.25 0 x1 0)">
+                            <Ul className="mt-1.5 mb-6">
                               <li>
                                 {intl.formatMessage({
                                   defaultMessage:
@@ -534,7 +535,7 @@ export const UpdateUserSkillForm = ({
                                     "Notice that re-adding a skill will re-add it to any linked experiences",
                                 })}
                               </li>
-                            </ul>
+                            </Ul>
                             <Dialog.Footer data-h2-justify-content="base(flex-start)">
                               <Button
                                 color="error"
@@ -552,7 +553,7 @@ export const UpdateUserSkillForm = ({
                               <Dialog.Close>
                                 <Button
                                   mode="inline"
-                                  color="secondary"
+                                  color="primary"
                                   disabled={updating || creating}
                                 >
                                   {intl.formatMessage({
@@ -600,7 +601,7 @@ export const UpdateUserSkillForm = ({
                     skill={skill}
                     availableExperiencesQuery={availableExperiences}
                     trigger={
-                      <Button color="secondary" icon={PlusCircleIcon}>
+                      <Button color="primary" icon={PlusCircleIcon}>
                         {intl.formatMessage({
                           defaultMessage: "Link an experience",
                           id: "Y2ULHN",

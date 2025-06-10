@@ -3,7 +3,13 @@ import { useState } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  PreviewList,
+  Separator,
+  Ul,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { assertUnreachable, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -148,23 +154,21 @@ const ReviewTalentNominationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            talentNomination.nominee
-              ? intl.formatMessage(
-                  {
-                    defaultMessage: "{name}<hidden> talent nomination</hidden>",
-                    id: "uaVogJ",
-                    description:
-                      "Label for talent nomination review dialog button",
-                  },
-                  {
-                    name: `${talentNomination.nominee.firstName} ${talentNomination.nominee.lastName}`,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {talentNomination.nominee
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "{name}<hidden> talent nomination</hidden>",
+                  id: "uaVogJ",
+                  description:
+                    "Label for talent nomination review dialog button",
+                },
+                {
+                  name: `${talentNomination.nominee.firstName} ${talentNomination.nominee.lastName}`,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -360,16 +364,13 @@ const ReviewTalentNominationDialog = ({
                           "Label for the lateral movement options checklist on the details step",
                       })}
                     >
-                      <ul
-                        data-h2-list-style="base(none)"
-                        data-h2-padding-left="base(0)"
-                      >
+                      <Ul unStyled space="md">
                         {lateralMoveOptions.map((o) => (
                           <li key={o.key}>
                             <BoolCheckIcon value>{o.name}</BoolCheckIcon>
                           </li>
                         ))}
-                      </ul>
+                      </Ul>
                     </FieldDisplay>
                   )}
                   {talentNomination.lateralMovementOptionsOther && (
@@ -406,16 +407,13 @@ const ReviewTalentNominationDialog = ({
                           "Label for selected development program items",
                       })}
                     >
-                      <ul
-                        data-h2-list-style="base(none)"
-                        data-h2-padding-left="base(0)"
-                      >
+                      <Ul unStyled space="md">
                         {developmentPrograms.map((p) => (
                           <li key={p.key}>
                             <BoolCheckIcon value>{p.name}</BoolCheckIcon>
                           </li>
                         ))}
-                      </ul>
+                      </Ul>
                     </FieldDisplay>
                   )}
                   {talentNomination.developmentProgramOptionsOther && (

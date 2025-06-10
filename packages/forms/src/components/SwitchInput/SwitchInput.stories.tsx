@@ -44,11 +44,7 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
       }}
     >
       {colors.map((color) => (
-        <div
-          key={`${color}`}
-          data-h2-display="base(flex)"
-          data-h2-margin-bottom="base(x.5)"
-        >
+        <div key={`${color}`} className="mb-3 flex">
           <SwitchInput
             {...rest}
             id={`${color}`}

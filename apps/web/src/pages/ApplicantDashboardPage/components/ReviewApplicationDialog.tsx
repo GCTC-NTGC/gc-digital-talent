@@ -15,6 +15,7 @@ import {
   Link,
   PreviewList,
   Separator,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -180,24 +181,21 @@ const ReviewApplicationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button
-          label={
-            pool.name?.localized
-              ? intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<hidden>Application for </hidden>{poolName}",
-                    id: "LC1Rsg",
-                    description:
-                      "Text before application pool name in application preview list.",
-                  },
-                  {
-                    poolName: pool.name.localized,
-                  },
-                )
-              : nullMessage
-          }
-        />
+        <PreviewList.Button>
+          {pool.name?.localized
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "<hidden>Application for </hidden>{poolName}",
+                  id: "LC1Rsg",
+                  description:
+                    "Text before application pool name in application preview list.",
+                },
+                {
+                  poolName: pool.name.localized,
+                },
+              )
+            : nullMessage}
+        </PreviewList.Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
@@ -368,11 +366,11 @@ const ReviewApplicationDialog = ({
                 </Accordion.Trigger>
                 <Accordion.Content>
                   {essentialSkills.length ? (
-                    <ul>
+                    <Ul>
                       {essentialSkills.map(({ id, name }) => (
                         <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
-                    </ul>
+                    </Ul>
                   ) : (
                     nullMessage
                   )}
@@ -391,11 +389,11 @@ const ReviewApplicationDialog = ({
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-margin-bottom="base(-x.5)">
                   {nonessentialSkills.length ? (
-                    <ul>
+                    <Ul>
                       {nonessentialSkills.map(({ id, name }) => (
                         <li key={id}>{name.localized ?? nullMessage}</li>
                       ))}
-                    </ul>
+                    </Ul>
                   ) : (
                     nullMessage
                   )}
@@ -427,7 +425,7 @@ const ReviewApplicationDialog = ({
             <Link
               href={paths.application(application.id)}
               mode="solid"
-              color="secondary"
+              color="primary"
             >
               {intl.formatMessage({
                 defaultMessage: "View application",
@@ -435,7 +433,7 @@ const ReviewApplicationDialog = ({
                 description: "Label for view application link",
               })}
             </Link>
-            <Link href={paths.pool(pool.id)} mode="inline" color="secondary">
+            <Link href={paths.pool(pool.id)} mode="inline" color="primary">
               {intl.formatMessage({
                 defaultMessage: "View job advertisement",
                 id: "eZlUrp",

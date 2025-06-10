@@ -49,7 +49,7 @@ const BasicInformation = ({
             description: "Subtitle for basic profile information section",
           })}
         >
-          <span data-h2-font-weight="base(400)">
+          <span className="font-normal">
             {intl.formatMessage({
               defaultMessage: "Basic profile information",
               id: "kAB20A",

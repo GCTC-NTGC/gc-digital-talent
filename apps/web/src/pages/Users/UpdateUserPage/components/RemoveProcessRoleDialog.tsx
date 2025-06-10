@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
-import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Button,
+  Chip,
+  Chips,
+  IconButton,
+  Ul,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -85,9 +92,7 @@ const RemoveProcessRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="error" icon={TrashIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{buttonLabel}</span>
-        </Button>
+        <IconButton color="error" icon={TrashIcon} label={buttonLabel} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
@@ -99,11 +104,11 @@ const RemoveProcessRoleDialog = ({
               description: "Lead in text for removing roles on user form.",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{userName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "From the following process:",
@@ -111,11 +116,11 @@ const RemoveProcessRoleDialog = ({
               description: "Follow in text for the process being updated",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{poolDisplayName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({
               defaultMessage:
@@ -137,7 +142,7 @@ const RemoveProcessRoleDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>

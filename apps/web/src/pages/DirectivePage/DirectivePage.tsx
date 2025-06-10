@@ -15,6 +15,7 @@ import {
   Alert,
   Card,
   ScrollToLink,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   Locales,
@@ -124,20 +125,20 @@ export const Component = () => {
             icon: NewspaperIcon,
             text: readDirectiveMessage,
             url: directiveUrl,
-            color: "quaternary",
+            color: "warning",
           },
           {
             icon: MagnifyingGlassCircleIcon,
             text: intl.formatMessage(navigationMessages.findTalent),
             url: paths.search(),
-            color: "secondary",
+            color: "primary",
           },
         ]}
       />
       <div data-h2-padding="base(x3, 0)">
         <div
           data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
+          data-h2-margin="base:children[p:not(:first-child)](x1, 0, 0, 0)"
         >
           <Alert.Root type="info" data-h2-margin="base(0, 0, x3, 0)">
             <Alert.Title>
@@ -195,7 +196,7 @@ export const Component = () => {
             })}
           </p>
           <p>
-            <Link color="secondary" mode="solid" href={directiveUrl} external>
+            <Link color="primary" mode="solid" href={directiveUrl} external>
               {readDirectiveMessage}
             </Link>
           </p>
@@ -334,7 +335,7 @@ export const Component = () => {
                   >
                     <Link
                       external
-                      color="primary"
+                      color="secondary"
                       mode="solid"
                       data-h2-padding="base(x.5, x1)"
                       href={
@@ -581,13 +582,7 @@ export const Component = () => {
               </p>
             </div>
             <Card>
-              <ul
-                data-h2-margin="base(0)"
-                data-h2-padding="base(0, 0, 0, x1)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x0.25)"
-              >
+              <Ul space="md" className="my-0">
                 <li>
                   <span data-h2-font-weight="base(bold)">
                     {intl.formatMessage({
@@ -683,7 +678,7 @@ export const Component = () => {
                     })}
                   </div>
                 </li>
-              </ul>
+              </Ul>
             </Card>
           </section>
         </div>

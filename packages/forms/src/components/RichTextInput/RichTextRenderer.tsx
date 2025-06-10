@@ -1,6 +1,6 @@
 import { AnchorHTMLAttributes, JSX } from "react";
 
-import { Heading, Link, LinkProps } from "@gc-digital-talent/ui";
+import { Heading, Link, LinkProps, Ul } from "@gc-digital-talent/ui";
 
 import { RenderMap, Node, NodeRenderer } from "./types";
 
@@ -17,12 +17,12 @@ const DocNode: NodeRenderer = ({ children }) => (
 const TextNode: NodeRenderer = ({ node }) => {
   const content = String(node.text);
 
-  let linkProps: LinkProps = {};
+  let linkProps: LinkProps = { href: "" };
   const isLink = node?.marks?.find((mark) => {
     if (mark.type === "link") {
       const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
       linkProps = {
-        href: attrs?.href ? String(attrs.href) : undefined,
+        href: attrs?.href ? String(attrs.href) : "",
         newTab: attrs?.target === "_blank",
       };
       return true;
@@ -45,7 +45,7 @@ const ParagraphNode: NodeRenderer = ({ children }) => {
 };
 
 const BulletListNode: NodeRenderer = ({ children }) => {
-  return <ul>{children}</ul>;
+  return <Ul>{children}</Ul>;
 };
 
 const ListItemNode: NodeRenderer = ({ children }) => {

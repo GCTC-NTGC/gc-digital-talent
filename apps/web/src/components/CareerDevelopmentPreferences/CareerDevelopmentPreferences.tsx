@@ -7,7 +7,7 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
-import { NoList, Separator } from "@gc-digital-talent/ui";
+import { Ul, Separator } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   formatDate,
@@ -121,7 +121,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.lateralMoveOrganizationType}
             >
               {lateralMoveOrganizationType ? (
-                <NoList>
+                <Ul unStyled space="md">
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -151,7 +151,7 @@ const CareerDevelopmentPreferences = ({
                       </li>
                     );
                   })}
-                </NoList>
+                </Ul>
               ) : (
                 notProvided
               )}
@@ -195,7 +195,7 @@ const CareerDevelopmentPreferences = ({
               label={careerDevelopmentMessages.promotionMoveOrganizationType}
             >
               {promotionMoveOrganizationType ? (
-                <NoList>
+                <Ul unStyled space="md">
                   {unpackMaybes(
                     careerDevelopmentOptions?.organizationTypeInterest,
                   ).map((x) => {
@@ -225,7 +225,7 @@ const CareerDevelopmentPreferences = ({
                       </li>
                     );
                   })}
-                </NoList>
+                </Ul>
               ) : (
                 notProvided
               )}
@@ -238,7 +238,7 @@ const CareerDevelopmentPreferences = ({
         <FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
-          <NoList>
+          <Ul unStyled space="md">
             {unpackMaybes(
               careerDevelopmentOptions?.learningOpportunitiesInterest,
             ).map((x) => {
@@ -269,7 +269,7 @@ const CareerDevelopmentPreferences = ({
                 </li>
               );
             })}
-          </NoList>
+          </Ul>
         </FieldDisplay>
       </div>
       <Separator decorative space="sm" />
@@ -320,7 +320,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.mentorshipInterest}>
           {mentorshipInterest ? (
-            <NoList>
+            <Ul unStyled space="md">
               {unpackMaybes(careerDevelopmentOptions?.mentorship).map((x) => {
                 const iconValue = mentorshipInterests.includes(x.value);
                 return (
@@ -333,7 +333,7 @@ const CareerDevelopmentPreferences = ({
                   </li>
                 );
               })}
-            </NoList>
+            </Ul>
           ) : (
             notProvided
           )}
@@ -367,7 +367,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
         <FieldDisplay label={careerDevelopmentMessages.execCoachingInterest}>
           {execCoachingInterest ? (
-            <NoList>
+            <Ul unStyled space="md">
               {unpackMaybes(careerDevelopmentOptions?.execCoaching).map((x) => {
                 const iconValue = execCoachingInterests.includes(x.value);
                 return (
@@ -380,7 +380,7 @@ const CareerDevelopmentPreferences = ({
                   </li>
                 );
               })}
-            </NoList>
+            </Ul>
           ) : (
             notProvided
           )}

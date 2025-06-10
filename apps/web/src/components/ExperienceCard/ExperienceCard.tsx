@@ -12,6 +12,7 @@ import {
   Separator,
   Well,
   useControllableState,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -637,12 +638,9 @@ const ExperienceCard = ({
                 </ContentSection>
                 <div data-h2-margin-top="base(x1)">
                   {skills && skillCount ? (
-                    <ul
-                      data-h2-list-style-position="base(outside)"
-                      data-h2-padding-left="base(x.75)"
-                    >
+                    <Ul space="sm">
                       {skills.map((skill) => (
-                        <li key={skill.id} data-h2-margin-bottom="base(x.25)">
+                        <li key={skill.id}>
                           <span
                             data-h2-font-weight="base(700)"
                             data-h2-display="base(block)"
@@ -655,7 +653,7 @@ const ExperienceCard = ({
                           </span>
                         </li>
                       ))}
-                    </ul>
+                    </Ul>
                   ) : (
                     <Well data-h2-margin-top>
                       <p data-h2-text-align="base(center)">

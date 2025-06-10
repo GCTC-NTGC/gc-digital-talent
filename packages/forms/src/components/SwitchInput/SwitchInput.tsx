@@ -49,17 +49,8 @@ const SwitchInput = forwardRef<ElementRef<typeof Switch>, SwitchInputProps>(
         name={name}
         rules={rules}
         render={() => (
-          <div
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x.5)"
-            data-h2-flex-wrap="base(wrap)"
-          >
-            <div
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(x.5)"
-            >
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-3">
               {!hideLabel && (
                 <Field.Label htmlFor={id} required={!!rules?.required}>
                   {label}

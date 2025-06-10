@@ -45,7 +45,7 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>
         <CardRepeater.Remove
-          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+          label={intl.formatMessage(formMessages.repeaterRemove, {
             index: index + 1,
           })}
         />
@@ -73,7 +73,7 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
           <Dialog.Footer>
             <div>
               <Dialog.Close>
-                <Button color="secondary">
+                <Button color="primary">
                   {intl.formatMessage(formMessages.cancelGoBack)}
                 </Button>
               </Dialog.Close>

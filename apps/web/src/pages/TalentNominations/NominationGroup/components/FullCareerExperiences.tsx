@@ -7,6 +7,7 @@ import {
   Button,
   CardSeparator,
   Heading,
+  Ul,
   Well,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -139,14 +140,14 @@ const FullCareerExperiences = ({
                 "a description for a list of work streams with no experiences",
             })}
           </p>
-          <ul>
+          <Ul space="sm">
             {workStreamsWithNoExperiences.map((workStream) => (
-              <li key={workStream.id} data-h2-margin-bottom="base(x.15)">
+              <li key={workStream.id}>
                 {workStream.name?.localized ??
                   intl.formatMessage(commonMessages.notProvided)}
               </li>
             ))}
-          </ul>
+          </Ul>
         </>
       ) : null;
   } else {
@@ -194,7 +195,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={toggleSections}
             >
               {intl.formatMessage(
@@ -233,7 +234,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={() => setSelectedView("type")}
               data-h2-font-weight={
                 selectedView === "type" ? "base(700)" : "base(400)"
@@ -250,7 +251,7 @@ const FullCareerExperiences = ({
             <Button
               type="button"
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={() => setSelectedView("workStream")} // Set view to "workStream"
               data-h2-font-weight={
                 selectedView === "workStream" ? "base(700)" : "base(400)"

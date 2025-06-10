@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, IconButton, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -110,9 +110,7 @@ const EditCommunityRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" icon={PencilSquareIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
-        </Button>
+        <IconButton color="primary" icon={PencilSquareIcon} label={label} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
@@ -125,11 +123,11 @@ const EditCommunityRoleDialog = ({
               description: "Lead in text for the edit roles on user form.",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{userName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "From the following community:",
@@ -137,11 +135,11 @@ const EditCommunityRoleDialog = ({
               description: "Follow in text for the community being updated",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{communityDisplayName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Select the roles you want to keep",
@@ -171,13 +169,13 @@ const EditCommunityRoleDialog = ({
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="primary"
                   type="submit"
                   disabled={isSubmitting}
                 >

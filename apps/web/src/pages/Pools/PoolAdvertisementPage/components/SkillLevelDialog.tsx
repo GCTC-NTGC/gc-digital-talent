@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getSkillLevelDefinition,
@@ -17,7 +17,7 @@ const SkillLevelDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="secondary">
+        <Button color="primary">
           {intl.formatMessage({
             defaultMessage: "Learn more about skill levels",
             id: "RdmeZV",
@@ -58,7 +58,7 @@ const SkillLevelDialog = () => {
                 "Lead-in text for the skills level definitions of behavioural skills",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <ul>
+          <Ul>
             {skillLevels.map((skillLevel) => (
               <li key={`behavioural${skillLevel}`}>
                 <strong>
@@ -74,7 +74,7 @@ const SkillLevelDialog = () => {
                 )}
               </li>
             ))}
-          </ul>
+          </Ul>
           <Heading level="h3" size="h6">
             {intl.formatMessage({
               defaultMessage: "Technical skill levels",
@@ -92,7 +92,7 @@ const SkillLevelDialog = () => {
                 "Lead-in text for the skills level definitions of technical skills",
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <ul>
+          <Ul>
             {skillLevels.map((skillLevel) => (
               <li key={`technical${skillLevel}`}>
                 <strong>
@@ -105,10 +105,10 @@ const SkillLevelDialog = () => {
                 )}
               </li>
             ))}
-          </ul>
+          </Ul>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close",
                   id: "4p0QdF",

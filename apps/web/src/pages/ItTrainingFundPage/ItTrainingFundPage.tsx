@@ -4,7 +4,7 @@ import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import { ReactNode } from "react";
 
-import { Card, CardFlat, Heading, Link } from "@gc-digital-talent/ui";
+import { Card, CardFlat, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
@@ -19,7 +19,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 const externalLinkAccessor = (href: string, chunks: ReactNode) => {
   return (
-    <Link href={href} color="secondary" external>
+    <Link href={href} external>
       {chunks}
     </Link>
   );
@@ -178,10 +178,7 @@ export const Component = () => {
                         description: "title for a list of fund objectives",
                       })}
                     </p>
-                    <ul
-                      data-h2-padding="base(0 0 0 x0.75)"
-                      data-h2-margin-bottom="base:children[:not(:last-child)](x0.5)"
-                    >
+                    <Ul space="lg" noIndent>
                       <li>
                         {intl.formatMessage({
                           defaultMessage: "close critical skill gaps",
@@ -205,7 +202,7 @@ export const Component = () => {
                           description: "an item in a list of fund objectives",
                         })}
                       </li>
-                    </ul>
+                    </Ul>
                   </CardFlat>
                 </div>
                 <div>
@@ -326,10 +323,7 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <ul
-                        data-h2-padding="base(0 0 0 x0.75)"
-                        data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
-                      >
+                      <Ul space="xl" noIndent>
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
@@ -357,13 +351,12 @@ export const Component = () => {
                               "An item in a list of points about online learning",
                           })}
                         </li>
-                      </ul>
+                      </Ul>
                     </div>
                     <div data-h2-padding="base(x1)">
                       <Link
                         mode="text"
                         data-h2-font-weight="base(bold)"
-                        color="secondary"
                         external
                         href={navigarUrl[locale]}
                         data-h2-flex-grow="base(2)"
@@ -426,10 +419,7 @@ export const Component = () => {
                         data-h2-flex-direction="base(column)"
                         data-h2-gap="base(x1)"
                       >
-                        <ul
-                          data-h2-padding="base(0 0 0 x0.75)"
-                          data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
-                        >
+                        <Ul space="xl" noIndent>
                           <li>
                             {intl.formatMessage({
                               defaultMessage:
@@ -457,7 +447,7 @@ export const Component = () => {
                                 "An item in a list of points about instructor-led classes",
                             })}
                           </li>
-                        </ul>
+                        </Ul>
                       </div>
                       <div data-h2-padding="base(x1)">
                         <Link
@@ -465,7 +455,6 @@ export const Component = () => {
                           data-h2-font-weight="base(bold)"
                           data-h2-padding-bottom="base(x1)"
                           data-h2-display="base(block)"
-                          color="secondary"
                           external
                           href={paths.instructorLedTraining()}
                         >
@@ -479,7 +468,6 @@ export const Component = () => {
                           mode="text"
                           data-h2-font-weight="base(bold)"
                           data-h2-display="base(block)"
-                          color="secondary"
                           external
                           href={signUpUrl[locale]}
                         >
@@ -539,10 +527,7 @@ export const Component = () => {
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x1)"
                     >
-                      <ul
-                        data-h2-padding="base(0 0 0 x0.75)"
-                        data-h2-margin-bottom="base:children[:not(:last-child)](x1)"
-                      >
+                      <Ul space="xl" noIndent>
                         <li>
                           {intl.formatMessage({
                             defaultMessage:
@@ -570,13 +555,12 @@ export const Component = () => {
                               "An item in a list of points about cert exams",
                           })}
                         </li>
-                      </ul>
+                      </Ul>
                     </div>
                     <div data-h2-padding="base(x1)">
                       <Link
                         mode="text"
                         data-h2-font-weight="base(bold)"
-                        color="secondary"
                         external
                         href={paths.certificationExamVouchers()}
                       >

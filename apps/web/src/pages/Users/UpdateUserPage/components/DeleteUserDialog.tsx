@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -86,9 +86,9 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
               description: "Lead in text for the delete user form.",
             })}
           </p>
-          <ul data-h2-margin="base(x0.5, 0)">
+          <Ul className="my-3">
             <li data-h2-font-weight="base(700)">{userNameHtml}</li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Please write the user's full name to confirm:",
@@ -138,7 +138,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>

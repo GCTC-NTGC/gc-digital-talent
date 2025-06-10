@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
+import { Ul } from "@gc-digital-talent/ui";
 
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 
@@ -120,14 +121,11 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
           data-h2-grid-column="l-tablet(span 2)"
         >
           {nextRoleWorkStreams?.length ? (
-            <ul
-              data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-              data-h2-padding-left="base(x1)"
-            >
+            <Ul>
               {nextRoleWorkStreams.map((workStream) => (
                 <li key={workStream.id}>{workStream?.name?.localized}</li>
               ))}
-            </ul>
+            </Ul>
           ) : (
             notProvided
           )}
@@ -138,14 +136,11 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
         data-h2-grid-column="l-tablet(span 2)"
       >
         {nextRoleDepartments?.length ? (
-          <ul
-            data-h2-margin-bottom="base:selectors[>li:not(:last-child)](x.125)"
-            data-h2-padding-left="base(x1)"
-          >
+          <Ul>
             {nextRoleDepartments.map((department) => (
               <li key={department.id}>{department?.name?.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

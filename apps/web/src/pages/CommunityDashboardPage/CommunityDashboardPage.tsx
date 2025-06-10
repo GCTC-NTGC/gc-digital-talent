@@ -13,6 +13,7 @@ import {
   Heading,
   Link,
   Pending,
+  Ul,
 } from "@gc-digital-talent/ui";
 import {
   useAuthorization,
@@ -266,15 +267,15 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <Card data-h2-min-width="base(x14.5)">
-                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+                <Ul space="md">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
-                      <Link color="primary" mode="inline" href={item.href}>
+                      <Link color="secondary" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
                     </li>
                   ))}
-                </ul>
+                </Ul>
               </Card>
             </div>
           )}
@@ -292,15 +293,15 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
             </Heading>
             <Card data-h2-min-width="base(x14.5)">
-              <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+              <Ul space="md">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
-                    <Link color="secondary" mode="inline" href={item.href}>
+                    <Link color="primary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>
                 ))}
-              </ul>
+              </Ul>
             </Card>
           </div>
           {administrationCollectionSorted.length > 0 && (
@@ -318,7 +319,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 })}
               </Heading>
               <Card data-h2-min-width="base(x14.5)">
-                <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.5)">
+                <Ul space="md">
                   {administrationCollectionSorted.map((item) => (
                     <li key={item.label}>
                       <Link color="error" mode="inline" href={item.href}>
@@ -326,7 +327,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                       </Link>
                     </li>
                   ))}
-                </ul>
+                </Ul>
               </Card>
             </div>
           )}

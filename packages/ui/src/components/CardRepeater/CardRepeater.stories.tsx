@@ -49,7 +49,7 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <CardRepeater.Edit>Edit {item.value}</CardRepeater.Edit>
+        <CardRepeater.Edit label={`Edit ${item.value}`} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>Edit an item</Dialog.Header>
@@ -92,7 +92,7 @@ const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <CardRepeater.Remove>Remove {item.value}</CardRepeater.Remove>
+        <CardRepeater.Remove label={`Remove ${item.value}`} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>Remove an item</Dialog.Header>
