@@ -3,7 +3,7 @@ import { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Button, DropdownMenu, Link, Ul } from "@gc-digital-talent/ui";
+import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
@@ -39,11 +39,10 @@ export const actionCell = (
     <>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Button
+          <IconButton
             icon={EllipsisVerticalIcon}
-            mode="icon_only"
             color="black"
-            aria-label={intl.formatMessage(
+            label={intl.formatMessage(
               {
                 defaultMessage: "Actions for {userName} in {communityName}",
                 id: "J+haAz",

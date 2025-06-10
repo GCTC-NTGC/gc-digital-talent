@@ -5,7 +5,7 @@ import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Heading, Link, Ul, Well } from "@gc-digital-talent/ui";
+import { CTALink, Heading, Link, Ul, Well } from "@gc-digital-talent/ui";
 import { buildMailToUri } from "@gc-digital-talent/helpers";
 
 import logoImg from "~/assets/img/iap-logo.svg";
@@ -134,24 +134,21 @@ export const Component = () => {
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
-            <Link
+            <CTALink
               external
-              mode="cta"
               icon={EnvelopeIcon}
               color="primary"
               href={hireAnApprenticeEmailUri}
-              data-h2-text-align="base(center)"
             >
               {intl.formatMessage({
                 defaultMessage: "Contact the team",
                 id: "gJ7CQw",
                 description: "Link to send an email to the team",
               })}
-            </Link>
+            </CTALink>
 
-            <Link
+            <CTALink
               external
-              mode="cta"
               icon={ArrowDownTrayIcon}
               href={
                 locale === "en"
@@ -159,14 +156,13 @@ export const Component = () => {
                   : "/static/documents/Trousse du gestionnaire - PATIPA.pptx"
               }
               color="primary"
-              data-h2-text-align="base(center)"
             >
               {intl.formatMessage({
                 defaultMessage: "Download the manager’s package",
                 id: "sDqpzq",
                 description: "Call to action to download the manager's package",
               })}
-            </Link>
+            </CTALink>
           </div>
         </div>
       </div>
@@ -699,6 +695,7 @@ export const Component = () => {
                   <Link
                     external
                     mode="inline"
+                    color="secondary"
                     href={hireAnApprenticeEmailUri}
                     data-h2-text-align="base(center)"
                   >

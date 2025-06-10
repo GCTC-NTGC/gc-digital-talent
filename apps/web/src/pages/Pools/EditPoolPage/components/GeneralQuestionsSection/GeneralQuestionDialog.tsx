@@ -82,7 +82,7 @@ const GeneralQuestionDialog = ({
         {isUpdate ? (
           <CardRepeater.Edit
             disabled={disabled}
-            aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+            label={intl.formatMessage(formMessages.repeaterEdit, {
               index:
                 index !== undefined
                   ? index + 1
@@ -152,7 +152,7 @@ const GeneralQuestionDialog = ({
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button
                   type="submit"
-                  color="secondary"
+                  color="primary"
                   {...actionProps}
                   onClick={() => setValue("action", "save")}
                 >

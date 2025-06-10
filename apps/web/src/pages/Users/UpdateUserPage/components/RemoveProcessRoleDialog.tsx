@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
-import { Dialog, Button, Chip, Chips, Ul } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  Button,
+  Chip,
+  Chips,
+  IconButton,
+  Ul,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -85,9 +92,7 @@ const RemoveProcessRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="error" icon={TrashIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{buttonLabel}</span>
-        </Button>
+        <IconButton color="error" icon={TrashIcon} label={buttonLabel} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{dialogLabel}</Dialog.Header>
@@ -137,7 +142,7 @@ const RemoveProcessRoleDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>

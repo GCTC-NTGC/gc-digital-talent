@@ -1,12 +1,11 @@
-import { Fragment } from "react";
 import { StoryFn } from "@storybook/react";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { ButtonLinkMode, Color } from "../../types";
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
+import { BaseButtonLinkProps } from "../../utils/btnStyles";
 
 export default {
   component: Button,
@@ -32,91 +31,93 @@ export default {
   },
 };
 
-const colors: Color[] = [
+const colors: BaseButtonLinkProps["color"][] = [
   "primary",
   "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
   "success",
   "warning",
   "error",
   "black",
-  "white",
 ];
 
-const modes: ButtonLinkMode[] = [
+const modes: BaseButtonLinkProps["mode"][] = [
   "solid",
   "placeholder",
   "text",
   "inline",
-  "cta",
-  "icon_only",
 ];
 
 const Template: StoryFn<
   Omit<ButtonProps, "color" | "ref"> & { label: string }
-> = ({ label }) => {
-  return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(1fr 1fr)"
-    >
-      {colors.map((color) => (
-        <Fragment key={`${color}`}>
-          {modes.map((mode) => (
-            <Fragment key={`${color}-${mode}`}>
-              <div
-                {...(color === "white" && {
-                  "data-h2-background-color": "base(black)",
-                  "data-h2-font-color": "base(white)",
-                })}
-                {...(color !== "white" && {
-                  "data-h2-background-color": "base(background)",
-                  "data-h2-font-color": "base(black)",
-                })}
-                data-h2-padding="base(x1)"
-              >
-                <Button
-                  mode={mode}
-                  color={color}
-                  icon={InformationCircleIcon}
-                  counter={99}
-                  aria-label={mode === "icon_only" ? label : undefined}
-                >
-                  {label}
-                </Button>
-                <p>{`${mode} ${color}`}</p>
-              </div>
-              <div
-                {...(color === "white" && {
-                  "data-h2-background-color": "base(black)",
-                  "data-h2-font-color": "base(white)",
-                })}
-                {...(color !== "white" && {
-                  "data-h2-background-color": "base(background)",
-                  "data-h2-font-color": "base(black)",
-                })}
-                data-h2-padding="base(x1)"
-              >
-                <Button
-                  mode={mode}
-                  color={color}
-                  icon={InformationCircleIcon}
-                  counter={99}
-                  aria-label={mode === "icon_only" ? label : undefined}
-                  disabled
-                >
-                  {label}
-                </Button>
-                <p>{`${mode} ${color} disabled`}</p>
-              </div>
-            </Fragment>
+> = ({ label }) => (
+  <div className="flex flex-col items-start gap-y-6">
+    {modes.map((mode) => (
+      <div key={mode}>
+        <p className="mb-3 text-xl">{mode}</p>
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-3 sm:items-center md:grid-cols-6">
+          {colors.map((color) => (
+            <Button
+              mode={mode}
+              color={color}
+              key={`${color}-${mode}`}
+              icon={InformationCircleIcon}
+              counter={99}
+            >
+              {label}
+            </Button>
           ))}
-        </Fragment>
-      ))}
-    </div>
-  );
-};
+        </div>
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-4 sm:items-center">
+          <Button
+            mode={mode}
+            color="primary"
+            disabled
+            icon={InformationCircleIcon}
+            counter={99}
+          >
+            {label} (disabled)
+          </Button>
+          <Button
+            mode={mode}
+            color="primary"
+            size="sm"
+            icon={InformationCircleIcon}
+            counter={99}
+          >
+            {label} (sm)
+          </Button>
+          <Button
+            mode={mode}
+            color="primary"
+            size="md"
+            icon={InformationCircleIcon}
+            counter={99}
+          >
+            {label} (md)
+          </Button>
+          <Button
+            mode={mode}
+            color="primary"
+            size="lg"
+            icon={InformationCircleIcon}
+            counter={99}
+          >
+            {label} (lg)
+          </Button>
+        </div>
+        <div className="max-w-max bg-gray-700 p-3 dark:bg-gray-100">
+          <Button
+            mode={mode}
+            color="white"
+            icon={InformationCircleIcon}
+            counter={99}
+          >
+            {label} (white)
+          </Button>
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 export const Default = Template.bind({});

@@ -10,6 +10,7 @@ import { formMessages } from "@gc-digital-talent/i18n";
 
 import Button from "../Button";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
+import IconButton from "../Button/IconButton";
 
 const action = tv({
   base: "[&_svg]:ease [&_svg]:transform [&_svg]:transition [&_svg]:duration-200",
@@ -28,14 +29,13 @@ type ActionVariants = VariantProps<typeof action>;
 
 interface ActionButtonProps
   extends ActionVariants,
-    ComponentPropsWithoutRef<typeof Button> {}
+    ComponentPropsWithoutRef<typeof IconButton> {}
 
 export const Action = forwardRef<HTMLButtonElement, ActionButtonProps>(
   ({ animation = "none", disabled, ...rest }, ref) => {
     return (
-      <Button
+      <IconButton
         ref={ref}
-        mode="icon_only"
         color="black"
         className={action({ animation: disabled ? undefined : animation })}
         disabled={disabled}
@@ -61,7 +61,7 @@ export const Add = forwardRef<
       type="button"
       mode="placeholder"
       block
-      color="secondary"
+      color="primary"
       {...rest}
     >
       {reachedMax ? (
@@ -76,18 +76,14 @@ export const Add = forwardRef<
 
 export const Edit = forwardRef<
   HTMLButtonElement,
-  ComponentPropsWithoutRef<typeof Button>
->(({ children, ...rest }, forwardedRef) => (
-  <Action ref={forwardedRef} icon={PencilSquareIcon} {...rest}>
-    {children}
-  </Action>
+  Omit<ComponentPropsWithoutRef<typeof IconButton>, "icon">
+>(({ ...rest }, forwardedRef) => (
+  <Action ref={forwardedRef} icon={PencilSquareIcon} {...rest} />
 ));
 
 export const Remove = forwardRef<
   HTMLButtonElement,
-  ComponentPropsWithoutRef<typeof Button>
->(({ children, ...rest }, forwardedRef) => (
-  <Action ref={forwardedRef} icon={TrashIcon} color="error" {...rest}>
-    {children}
-  </Action>
+  Omit<ComponentPropsWithoutRef<typeof IconButton>, "icon">
+>(({ ...rest }, forwardedRef) => (
+  <Action ref={forwardedRef} icon={TrashIcon} color="error" {...rest} />
 ));

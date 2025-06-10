@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
+import { Dialog, Button, IconButton, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -110,9 +110,7 @@ const EditCommunityRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" icon={PencilSquareIcon} mode="icon_only">
-          <span data-h2-visually-hidden="base(invisible)">{label}</span>
-        </Button>
+        <IconButton color="primary" icon={PencilSquareIcon} label={label} />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
@@ -171,13 +169,13 @@ const EditCommunityRoleDialog = ({
               />
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="primary"
                   type="submit"
                   disabled={isSubmitting}
                 >

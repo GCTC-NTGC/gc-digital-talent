@@ -9,6 +9,7 @@ import {
   Card,
   DialogPrimitive,
   DropdownMenu,
+  IconButton,
   Separator,
 } from "@gc-digital-talent/ui";
 import {
@@ -160,20 +161,11 @@ const NotificationItem = ({
   return (
     <li ref={itemRef}>
       <Card
-        data-h2-display="base(flex)"
-        {...(inDialog
-          ? {
-              "data-h2-padding": "base(x.5)",
-              "data-h2-shadow":
-                "base:selectors[:has(a:focus-visible)](inset x.25 0 0 0 rgb(var(--h2-color-focus)))",
-              "data-h2-radius": "base(0)",
-            }
-          : {
-              "data-h2-outline-width": "base(3px)",
-              "data-h2-outline-style": "base(solid)",
-              "data-h2-outline-color":
-                "base(transparent) base:selectors[:has(a:focus-visible)](focus)",
-            })}
+        className={
+          inDialog
+            ? "flex rounded-none p-3 shadow-none has-focus-visible:inset-shadow"
+            : "has-focus-visible:outline-2 has-focus-visible:outline-focus"
+        }
       >
         <div
           data-h2-display="base(grid)"
@@ -231,12 +223,10 @@ const NotificationItem = ({
             )}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <Button
-                  mode="icon_only"
-                  color="secondary"
-                  data-h2-color="base(black) base:all:hover(secondary.darkest) base:all:focus-visible(black)"
+                <IconButton
+                  color="black"
                   icon={EllipsisVerticalIcon}
-                  aria-label={intl.formatMessage(
+                  label={intl.formatMessage(
                     {
                       defaultMessage: "Manage {notificationName}",
                       id: "lSSz6L",

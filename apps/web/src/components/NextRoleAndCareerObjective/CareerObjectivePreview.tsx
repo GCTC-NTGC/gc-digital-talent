@@ -145,7 +145,7 @@ const CareerObjectivePreview = ({
         action={
           <CareerObjectiveDialog
             careerObjectiveDialogQuery={careerObjectivePreviewFragment}
-            trigger={<PreviewList.Button label={title} />}
+            trigger={<PreviewList.Button>{title}</PreviewList.Button>}
           />
         }
         headingAs={headingAs}
