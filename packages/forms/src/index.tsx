@@ -61,6 +61,7 @@ import { useInputStylesDeprecated } from "./hooks/useInputStyles";
 import useFieldState from "./hooks/useFieldState";
 import useFieldStateStyles from "./hooks/useFieldStateStyles";
 import useInputDescribedBy from "./hooks/useInputDescribedBy";
+import { inputStyles, inputStateStyles } from "./styles";
 import {
   Option,
   OptGroup,
@@ -146,4 +147,6 @@ export {
   htmlToRichTextJSON,
   flattenErrors,
   alphaSortOptions,
+  inputStyles,
+  inputStateStyles,
 };

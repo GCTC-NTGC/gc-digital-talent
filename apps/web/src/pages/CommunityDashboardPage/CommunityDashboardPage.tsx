@@ -270,7 +270,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                 <Ul space="md">
                   {recruitmentCollectionSorted.map((item) => (
                     <li key={item.label}>
-                      <Link color="primary" mode="inline" href={item.href}>
+                      <Link color="secondary" mode="inline" href={item.href}>
                         {item.label}
                       </Link>
                     </li>
@@ -296,7 +296,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               <Ul space="md">
                 {resourcesCollectionSorted.map((item) => (
                   <li key={item.label}>
-                    <Link color="secondary" mode="inline" href={item.href}>
+                    <Link color="primary" mode="inline" href={item.href}>
                       {item.label}
                     </Link>
                   </li>

@@ -433,7 +433,7 @@ export const ApplicationCareerTimeline = ({
           >
             <Button
               type="submit"
-              color="secondary"
+              color="primary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {
@@ -442,7 +442,7 @@ export const ApplicationCareerTimeline = ({
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link mode="inline" href={cancelPath} color="secondary">
+            <Link mode="inline" href={cancelPath} color="primary">
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

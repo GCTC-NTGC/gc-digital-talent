@@ -19,12 +19,7 @@ const FormActions = ({ isUpdating }: FormActionsProps) => {
       data-h2-align-items="base(flex-start) l-tablet(center)"
       data-h2-margin-top="base(x1)"
     >
-      <Button
-        type="submit"
-        color="secondary"
-        mode="solid"
-        disabled={isUpdating}
-      >
+      <Button type="submit" color="primary" mode="solid" disabled={isUpdating}>
         {intl.formatMessage(formMessages.saveChanges)}
       </Button>
       <ToggleSection.Close>
