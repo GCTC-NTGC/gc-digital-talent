@@ -588,7 +588,7 @@ export const Home = ({ query }: HomeProps) => {
                     data-h2-padding="base(x2) p-tablet(x3)"
                     data-h2-text-align="base(center) p-tablet(left)"
                   >
-                    <Heading size="h3" color="white" thin>
+                    <Heading size="h3" color="white" thin className="m-0">
                       <span data-h2-display="base(block)">
                         {intl.formatMessage({
                           defaultMessage:
