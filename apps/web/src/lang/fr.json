@@ -1199,6 +1199,10 @@
     "defaultMessage": "La possibilité de formation a été mise à jour avec succès!",
     "description": "Message displayed to user after training opportunity is updated successfully."
   },
+  "3Z4fra": {
+    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requises »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultatives »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
+    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
+  },
   "3b6cy/": {
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
@@ -1846,10 +1850,6 @@
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
-  },
-  "6c5+AE": {
-    "defaultMessage": "Ce processus est <heavyPrimary>ouvert</heavyPrimary> et accepte les candidatures jusqu'au <heavyPrimary>{closingDate}</heavyPrimary>.",
-    "description": "Message displayed to admins when a process is published"
   },
   "6c89Fd": {
     "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></itTrainingFundLink> et sont réservées aux membres du personnel du groupe <abbreviation>TI</abbreviation> couverts par la <itCollectiveAgreementLink>convention collective du groupe <abbreviation>TI</abbreviation></itCollectiveAgreementLink>.",
@@ -4547,10 +4547,6 @@
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
   },
-  "JL6B1D": {
-    "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} one {# candidat estimé} other {# candidats estimés}}</primary>",
-    "description": "Total estimated candidates message in summary of filters"
-  },
   "JO2yLA": {
     "defaultMessage": "Lieu de travail",
     "description": "Work Location label, followed by colon"
@@ -4634,6 +4630,10 @@
   "JlQIBx": {
     "defaultMessage": "Découvrez les cours dirigés par un instructeur ou une instructrice proposés pour améliorer votre expertise en technologie de l’information.",
     "description": "Page subtitle for the instructor led training page"
+  },
+  "JlTf/G": {
+    "defaultMessage": "Ce processus est <heavySecondary>ouvert</heavySecondary> et accepte les candidatures jusqu'au <heavySecondary>{closingDate}</heavySecondary>.",
+    "description": "Message displayed to admins when a process is published"
   },
   "Jlk0bi": {
     "defaultMessage": "Vos informations",
@@ -9018,10 +9018,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
   },
-  "eihm6A": {
-    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>« Requises »</heavyPrimary>. Si vous possédez l'une des compétences <heavySecondary>« Facultatives »</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
-    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
-  },
   "ekazTc": {
     "defaultMessage": "Télécharger le profil",
     "description": "Button text to download pool candidate profiles"
@@ -10356,6 +10352,10 @@
   "kdXBAS": {
     "defaultMessage": "Force militaire",
     "description": "Label for the military force radio group"
+  },
+  "kexYOS": {
+    "defaultMessage": "Demande de candidats pour le bassin : <secondary>{candidateCountNumber, plural, =0 {aucun candidat} one {# candidat estimé} other {# candidats estimés}}</secondary>",
+    "description": "Total estimated candidates message in summary of filters"
   },
   "kf5Td+": {
     "defaultMessage": "Assurez-vous de sauvegarder ou de fermer tout formulaire ouvert avant de continuer.",
