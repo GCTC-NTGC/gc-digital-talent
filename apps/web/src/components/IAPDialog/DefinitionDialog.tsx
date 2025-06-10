@@ -35,7 +35,7 @@ const DefinitionDialog = ({ children, btnProps }: BasicDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 '<strong>Indigenous</strong>: means a person who is recognized as "one of the aboriginal peoples of Canada" within the meaning of section 35 the Constitution Act, 1982, which further states that for the purposes of the Constitution, the "aboriginal peoples of Canada includes the Indian, Inuit, and Métis peoples of Canada". This policy (consistent with general Canadian practices) understands the term "Indians" in the Constitution to now be replaced by the term "First Nations".',
