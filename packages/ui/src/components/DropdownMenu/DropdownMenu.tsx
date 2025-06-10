@@ -25,7 +25,7 @@ const StyledContent = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Content
-    className={content({ class: ["z-10", className] })}
+    className={content({ class: ["z-[9999]", className] })}
     ref={forwardedRef}
     {...rest}
   />

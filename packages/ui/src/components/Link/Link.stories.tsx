@@ -1,12 +1,11 @@
-import { Fragment } from "react";
 import { StoryFn } from "@storybook/react";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { ButtonLinkMode, Color } from "../../types";
 import Link from "./Link";
 import type { LinkProps } from "./Link";
+import { BaseButtonLinkProps } from "../../utils/btnStyles";
 
 export default {
   component: Link,
@@ -32,93 +31,94 @@ export default {
   },
 };
 
-const colors: Color[] = [
+const colors: BaseButtonLinkProps["color"][] = [
   "primary",
   "secondary",
-  "tertiary",
-  "quaternary",
-  "quinary",
   "success",
   "warning",
   "error",
   "black",
-  "white",
 ];
 
-const modes: ButtonLinkMode[] = [
+const modes: BaseButtonLinkProps["mode"][] = [
   "solid",
   "placeholder",
   "text",
   "inline",
-  "cta",
-  "icon_only",
 ];
 
 const Template: StoryFn<
   Omit<LinkProps, "color" | "ref"> & { label: string }
-> = ({ label }) => {
-  return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(1fr 1fr)"
-    >
-      {colors.map((color) => (
-        <Fragment key={`${color}`}>
-          {modes.map((mode) => (
-            <Fragment key={`${color}-${mode}`}>
-              <div
-                {...(color === "white" && {
-                  "data-h2-background-color": "base(black)",
-                  "data-h2-font-color": "base(white)",
-                })}
-                {...(color !== "white" && {
-                  "data-h2-background-color": "base(background)",
-                  "data-h2-font-color": "base(black)",
-                })}
-                data-h2-padding="base(x1)"
-              >
-                <Link
-                  href="https://talent.canada.ca"
-                  mode={mode}
-                  color={color}
-                  icon={InformationCircleIcon}
-                  aria-label={mode === "icon_only" ? label : undefined}
-                  newTab
-                >
-                  {label}
-                </Link>
-                <p>{`${mode} ${color}`}</p>
-              </div>
-              <div
-                {...(color === "white" && {
-                  "data-h2-background-color": "base(black)",
-                  "data-h2-font-color": "base(white)",
-                })}
-                {...(color !== "white" && {
-                  "data-h2-background-color": "base(background)",
-                  "data-h2-font-color": "base(black)",
-                })}
-                data-h2-padding="base(x1)"
-              >
-                <Link
-                  href="https://talent.canada.ca"
-                  mode={mode}
-                  color={color}
-                  icon={InformationCircleIcon}
-                  aria-label={mode === "icon_only" ? label : undefined}
-                  newTab
-                  disabled
-                >
-                  {label}
-                </Link>
-                <p>{`${mode} ${color} disabled`}</p>
-              </div>
-            </Fragment>
+> = ({ label }) => (
+  <div className="flex flex-col items-start gap-y-6">
+    {modes.map((mode) => (
+      <div key={mode}>
+        <p className="mb-3 text-xl">{mode}</p>
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-3 sm:items-center md:grid-cols-6">
+          {colors.map((color) => (
+            <Link
+              href="#"
+              mode={mode}
+              color={color}
+              key={`${color}-${mode}`}
+              icon={InformationCircleIcon}
+            >
+              {label}
+            </Link>
           ))}
-        </Fragment>
-      ))}
-    </div>
-  );
-};
+        </div>
+        <div className="mb-3 grid justify-start gap-3 xs:grid-cols-2 sm:grid-cols-4 sm:items-center">
+          <Link
+            href="#"
+            mode={mode}
+            color="primary"
+            disabled
+            icon={InformationCircleIcon}
+          >
+            {label} (disabled)
+          </Link>
+          <Link
+            href="#"
+            mode={mode}
+            color="primary"
+            size="sm"
+            icon={InformationCircleIcon}
+          >
+            {label} (sm)
+          </Link>
+          <Link
+            href="#"
+            mode={mode}
+            color="primary"
+            size="md"
+            icon={InformationCircleIcon}
+          >
+            {label} (md)
+          </Link>
+          <Link
+            href="#"
+            mode={mode}
+            color="primary"
+            size="lg"
+            icon={InformationCircleIcon}
+          >
+            {label} (lg)
+          </Link>
+        </div>
+        <div className="max-w-max bg-gray-700 p-3 dark:bg-gray-100">
+          <Link href="#" mode={mode} color="white" icon={InformationCircleIcon}>
+            {label} (white)
+          </Link>
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 export const Default = Template.bind({});
+
+export const NewTab = Template.bind({});
+NewTab.args = {
+  newTab: true,
+  external: true,
+};

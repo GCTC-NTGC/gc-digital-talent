@@ -176,7 +176,7 @@ export const Component = () => {
           >
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={paths.applicantDashboard()}
               data-h2-margin-top="base(x1.5)"
             >
@@ -334,12 +334,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                       href={theTeamUrl[locale]}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
                     >
                       {intl.formatMessage({
                         defaultMessage:
@@ -410,12 +409,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={newsletterUrl[locale]}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                     >
                       {intl.formatMessage({
                         defaultMessage:
@@ -486,12 +484,11 @@ export const Component = () => {
                   <div data-h2-padding="base(x1)">
                     <Link
                       mode="solid"
-                      color="blackFixed"
+                      color="black"
                       external
                       newTab
                       href={linkedInUrl}
-                      data-h2-justify-content="base(center)"
-                      data-h2-display="base(flex) p-tablet(inline-block)"
+                      className="flex w-full justify-center xs:inline-flex xs:w-auto"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Join us on LinkedIn",

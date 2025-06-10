@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
-import { Link } from "@gc-digital-talent/ui";
+import { CTALink } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -40,14 +40,9 @@ const Profile = () => {
         data-h2-gap="base(x1)"
         data-h2-justify-content="base(center) p-tablet(flex-start)"
       >
-        <Link
-          color="quinary"
-          mode="cta"
-          href={paths.profile()}
-          icon={UserPlusIcon}
-        >
+        <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
           {intl.formatMessage(navigationMessages.createProfile)}
-        </Link>
+        </CTALink>
       </div>
     </SkewedImageContainer>
   );

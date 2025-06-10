@@ -4,7 +4,7 @@ import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { CTALink, Heading } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -82,22 +82,16 @@ export const RouteErrorBoundary = () => {
             data-h2-justify-content="base(center)"
             data-h2-flex-wrap="base(wrap) p-tablet(initial)"
           >
-            <Link
-              icon={HomeIcon}
-              color="quinary"
-              mode="cta"
-              href={paths.home()}
-            >
+            <CTALink icon={HomeIcon} color="success" href={paths.home()}>
               {intl.formatMessage({
                 defaultMessage: "Go to the homepage",
                 id: "i9E0ka",
                 description: "Link text to go to the homepage from a 404",
               })}
-            </Link>
-            <Link
+            </CTALink>
+            <CTALink
               icon={WrenchScrewdriverIcon}
-              color="primary"
-              mode="cta"
+              color="secondary"
               href={paths.support()}
               state={{ referrer: window.location.href }}
             >
@@ -106,7 +100,7 @@ export const RouteErrorBoundary = () => {
                 id: "kfzKrV",
                 description: "Link text to go report a missing page on the 404",
               })}
-            </Link>
+            </CTALink>
           </div>
         </div>
       </div>

@@ -240,7 +240,7 @@ const AddAction = ({ add }: AddActionProps) =>
       {add.linkProps && (
         <Link
           icon={PlusCircleIcon}
-          color="secondary"
+          color="primary"
           mode="solid"
           href={add.linkProps.href}
           block

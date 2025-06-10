@@ -16,10 +16,10 @@ import { tv, VariantProps } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
-import type { Color, HeadingRank, IconType } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import Chip, { ChipVariants } from "../Chip/Chip";
-import Link from "../Link";
-import Button from "../Button";
+import Link, { LinkProps } from "../Link";
+import Button, { ButtonProps } from "../Button";
 import MetaDataStatusItem, {
   AccordionMetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
@@ -249,7 +249,7 @@ interface AccordionMetaDataText {
 interface AccordionMetaDataButton {
   key: string;
   type: "button";
-  color?: Color;
+  color?: ButtonProps["color"];
   onClick?: () => void;
   children: ReactNode;
 }
@@ -257,9 +257,9 @@ interface AccordionMetaDataButton {
 interface AccordionMetaDataLink {
   key: string;
   type: "link";
-  color?: Color;
+  color?: LinkProps["color"];
   children: ReactNode;
-  href?: string;
+  href: string;
 }
 
 interface AccordionMetaDataChip {
@@ -301,7 +301,7 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
         <Button
           mode="inline"
           color={datum.color ?? "primary"}
-          fontSize="caption"
+          size="sm"
           onClick={datum.onClick}
           key={datum.key}
         >
@@ -314,7 +314,7 @@ const MetaDataItem = ({ datum }: MetaDataItemProps) => {
           color={datum.color ?? "primary"}
           href={datum.href}
           mode="inline"
-          fontSize="caption"
+          size="sm"
           key={datum.key}
         >
           {datum.children}

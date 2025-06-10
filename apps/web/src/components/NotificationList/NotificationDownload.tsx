@@ -8,7 +8,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 
-import styles from "./styles";
+import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
@@ -63,6 +63,8 @@ const NotificationDownload = forwardRef<
       .catch((err) => logger.error(String(err)));
   };
 
+  const isDisabled = fetching || downloadingFile;
+
   return (
     // NOTE: We need this for downloads
     // eslint-disable-next-line react/forbid-elements
@@ -70,8 +72,9 @@ const NotificationDownload = forwardRef<
       ref={forwardedRef}
       href={href}
       onClick={handleClick}
+      {...(isDisabled && { "aria-disabled": "true" })}
       data-notification-link
-      {...styles.link(isUnread, fetching || downloadingFile)}
+      className={linkStyles({ isUnread, isDisabled })}
     >
       {children}
     </a>

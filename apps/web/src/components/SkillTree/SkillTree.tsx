@@ -134,12 +134,7 @@ const SkillTree = ({
             skill={skill}
             availableExperiencesQuery={availableExperiences}
             trigger={
-              <Button
-                type="button"
-                color="secondary"
-                mode="placeholder"
-                data-h2-width="base(100%)"
-              >
+              <Button type="button" color="primary" mode="placeholder" block>
                 {intl.formatMessage(
                   {
                     defaultMessage:
