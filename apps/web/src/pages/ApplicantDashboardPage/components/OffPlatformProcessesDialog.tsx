@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { TextArea } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -75,7 +75,7 @@ const OffPlatformProcessesDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="inline">
+        <Button color="secondary" mode="inline">
           {intl.formatMessage({
             defaultMessage: "Edit off-platform process information",
             id: "g17mQL",
@@ -107,12 +107,7 @@ const OffPlatformProcessesDialog = ({
               description: "Explanation of dialog",
             })}
           </p>
-          <ul
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-gap="base(x.25)"
-            data-h2-padding-left="base(x1)"
-          >
+          <Ul space="md">
             <li>
               {intl.formatMessage({
                 defaultMessage: "The process or pool number",
@@ -134,7 +129,7 @@ const OffPlatformProcessesDialog = ({
                 description: "Info list item",
               })}
             </li>
-          </ul>
+          </Ul>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
               <div data-h2-margin="base(x.75, 0, x.125, 0)">
@@ -150,7 +145,7 @@ const OffPlatformProcessesDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
+                <Button disabled={fetching} type="submit" color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}

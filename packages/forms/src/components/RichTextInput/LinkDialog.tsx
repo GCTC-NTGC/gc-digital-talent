@@ -139,11 +139,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
           <Dialog.Body>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(handleSubmit)}>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x1 0)"
-                >
+                <div className="flex flex-col gap-y-3">
                   <Input
                     id="href"
                     name="href"
@@ -163,10 +159,10 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
                     label={intl.formatMessage(richTextMessages.newTab)}
                   />
                 </div>
-                <Dialog.Footer data-h2-justify-content="base(flex-start)">
+                <Dialog.Footer className="justify-start">
                   <Button
                     type="button"
-                    color="secondary"
+                    color="primary"
                     {...actionProps}
                     value="add"
                     onClick={() => handleSave("add")}

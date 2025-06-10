@@ -12,12 +12,13 @@ import {
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import { NoList } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
+import Caption from "./Caption";
 
 export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferences on User {
@@ -99,19 +100,12 @@ const WorkPreferences = ({
   ).map((operationalRequirement) => String(operationalRequirement.value));
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(1fr)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 xs:grid-cols-1">
       <FieldDisplay
         label={intl.formatMessage(profileMessages.contractDuration)}
       >
         {positionDuration ? (
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-          >
+          <div className="flex flex-col">
             {positionDuration?.includes(PositionDuration.Temporary) ? (
               <>
                 <span>
@@ -121,18 +115,14 @@ const WorkPreferences = ({
                     description: "Message for position duration field display",
                   })}
                 </span>
-                <span
-                  data-h2-font-weight="base(400)"
-                  data-h2-font-size="base(caption)"
-                  data-h2-color="base(black.light)"
-                >
+                <Caption>
                   {intl.formatMessage({
                     defaultMessage: "Short term, long term, or indeterminate",
                     id: "deKE7f",
                     description:
                       "Description for position duration field display",
                   })}
-                </span>
+                </Caption>
               </>
             ) : (
               <>
@@ -144,18 +134,14 @@ const WorkPreferences = ({
                     ),
                   )}
                 </span>{" "}
-                <span
-                  data-h2-font-weight="base(400)"
-                  data-h2-font-size="base(caption)"
-                  data-h2-color="base(black.light)"
-                >
+                <Caption>
                   {intl.formatMessage({
                     defaultMessage: "Permanent only",
                     id: "3bdGj/",
                     description:
                       "Description for position duration field display",
                   })}
-                </span>
+                </Caption>
               </>
             )}
           </div>
@@ -167,7 +153,7 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.acceptableRequirements)}
       >
         {acceptedRequirements?.length ? (
-          <NoList>
+          <Ul>
             {acceptedRequirements.map((requirement) => {
               const label =
                 operationalRequirements.find(
@@ -175,7 +161,7 @@ const WorkPreferences = ({
                 )?.label.localized ?? requirement;
               return <li key={requirement}>{label}</li>;
             })}
-          </NoList>
+          </Ul>
         ) : (
           notProvided
         )}
@@ -187,11 +173,11 @@ const WorkPreferences = ({
         label={intl.formatMessage(profileMessages.workLocationPreferences)}
       >
         {locations?.length ? (
-          <ul>
+          <Ul>
             {locations.map((location) => (
               <li key={location.value}>{location?.label.localized}</li>
             ))}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}

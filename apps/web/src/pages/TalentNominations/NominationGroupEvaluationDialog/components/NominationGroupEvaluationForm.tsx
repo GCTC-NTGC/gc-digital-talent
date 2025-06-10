@@ -1,7 +1,7 @@
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Separator } from "@gc-digital-talent/ui";
+import { Button, Dialog, Separator, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -123,7 +123,7 @@ const NominationGroupEvaluationForm = ({
                 },
               ) + intl.formatMessage(commonMessages.dividingColon)}
             </p>
-            <ul data-h2-margin-bottom="base:children[li:not(:last-child)](x.25)">
+            <Ul space="sm">
               {isNominatedForAdvancement ? (
                 <li>
                   {intl.formatMessage(
@@ -145,7 +145,7 @@ const NominationGroupEvaluationForm = ({
                   )}
                 </li>
               ) : null}
-            </ul>
+            </Ul>
           </div>
           {isNominatedForAdvancement ? (
             <>
@@ -174,7 +174,7 @@ const NominationGroupEvaluationForm = ({
           ) : null}
         </div>
         <Dialog.Footer>
-          <Button type="submit" color="secondary">
+          <Button type="submit" color="primary">
             {intl.formatMessage({
               defaultMessage: "Submit evaluation",
               id: "g82nk3",

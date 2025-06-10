@@ -54,7 +54,7 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
         </Card>
       </TreeView.Item>
       <TreeView.Item>
-        <Button color="secondary" mode="solid">
+        <Button color="primary" mode="solid">
           Button label
         </Button>
       </TreeView.Item>

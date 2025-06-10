@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
@@ -25,6 +26,8 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
+
+use function PHPUnit\Framework\assertEquals;
 
 class CandidateAssessmentStatusTest extends TestCase
 {
@@ -973,5 +976,42 @@ class CandidateAssessmentStatusTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    /** Event ComputeCandidateAssessmentStatus can change the pool_candidate_status field
+     * Assert it is changed when the initial status is NEW_APPLICATION and unchanged otherwise
+     */
+    public function testComputeCandidateAssessmentStatusUpdatesPoolCandidateStatus(): void
+    {
+        $step = $this->pool->assessmentSteps[0];
+        $statuses = array_merge(
+            PoolCandidateStatus::toAssessGroup(),
+            PoolCandidateStatus::finalDecisionGroup(),
+        );
+
+        foreach ($statuses as $status) {
+            $candidate = PoolCandidate::factory()->create([
+                'pool_id' => $this->pool->id,
+                'pool_candidate_status' => $status,
+                'submitted_at' => config('constants.past_date'),
+                'expiry_date' => config('constants.far_future_date'),
+            ]);
+
+            AssessmentResult::factory()
+                ->withResultType(AssessmentResultType::EDUCATION)
+                ->create([
+                    'assessment_step_id' => $step->id,
+                    'pool_candidate_id' => $candidate->id,
+                    'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                ]);
+
+            $candidate->refresh();
+
+            if ($status === PoolCandidateStatus::NEW_APPLICATION->name) {
+                assertEquals($candidate->pool_candidate_status, PoolCandidateStatus::UNDER_ASSESSMENT->name);
+            } else {
+                assertEquals($candidate->pool_candidate_status, $status);
+            }
+        }
     }
 }

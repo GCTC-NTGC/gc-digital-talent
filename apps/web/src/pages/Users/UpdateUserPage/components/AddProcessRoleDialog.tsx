@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import debounce from "lodash/debounce";
 
-import { Dialog, Button } from "@gc-digital-talent/ui";
+import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -147,7 +147,7 @@ const AddProcessRoleDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="secondary" mode="solid" icon={PlusIcon}>
+        <Button color="primary" mode="solid" icon={PlusIcon}>
           {buttonLabel}
         </Button>
       </Dialog.Trigger>
@@ -162,11 +162,11 @@ const AddProcessRoleDialog = ({
               description: "Lead in text for the add role to user form.",
             })}
           </p>
-          <ul>
+          <Ul>
             <li data-h2-font-weight="base(bold)">
               <span>{userName}</span>
             </li>
-          </ul>
+          </Ul>
           <p data-h2-margin="base(x1, 0 ,x1, 0)">
             {intl.formatMessage({
               defaultMessage: "Select the process and roles you want to add",
@@ -217,13 +217,13 @@ const AddProcessRoleDialog = ({
               </div>
               <Dialog.Footer>
                 <Dialog.Close>
-                  <Button color="secondary">
+                  <Button color="primary">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
                 <Button
                   mode="solid"
-                  color="secondary"
+                  color="primary"
                   type="submit"
                   disabled={isSubmitting}
                 >

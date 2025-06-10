@@ -10,6 +10,7 @@ import {
   Card,
   DialogPrimitive,
   DropdownMenu,
+  IconButton,
   Separator,
 } from "@gc-digital-talent/ui";
 import {
@@ -208,12 +209,10 @@ const NotificationItem = ({
             )}
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                <Button
-                  mode="icon_only"
-                  color="secondary"
-                  className="text-black! hover:text-secondary-600! focus-visible:text-black! dark:text-white!"
+                <IconButton
+                  color="black"
                   icon={EllipsisVerticalIcon}
-                  aria-label={intl.formatMessage(
+                  label={intl.formatMessage(
                     {
                       defaultMessage: "Manage {notificationName}",
                       id: "lSSz6L",

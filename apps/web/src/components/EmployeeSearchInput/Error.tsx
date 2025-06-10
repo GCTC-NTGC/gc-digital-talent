@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { CombinedError } from "urql";
 import { FieldError } from "react-hook-form";
+import { tv } from "tailwind-variants";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
@@ -10,6 +11,27 @@ import {
   ErrorSeverities,
   ErrorMessage as TErrorMessage,
 } from "./types";
+
+const errorMessage = tv({
+  base: "mb-3 font-bold",
+  variants: {
+    hasInputErrors: {
+      true: "",
+      false: "",
+    },
+    severity: {
+      error: "text-error dark:text-error-100",
+      warning: "text-warning-500 dark:text-warning",
+    },
+  },
+  compoundVariants: [
+    {
+      hasInputErrors: true,
+      severity: ["error", "warning"],
+      class: "text-error-700 dark:text-error-100",
+    },
+  ],
+});
 
 interface ErrorMessageProps {
   id?: string;
@@ -26,24 +48,7 @@ const ErrorMessage = ({
 }: ErrorMessageProps) => (
   <div id={id}>
     {message.title && (
-      <p
-        data-h2-font-weight="base(700)"
-        data-h2-margin-bottom="base(x.5)"
-        {...(hasInputErrors
-          ? {
-              "data-h2-color": "base(error.darkest)",
-            }
-          : {
-              "data-h2-color": "base(error) base:dark(error.lightest)",
-            })}
-        {...(severity === "error"
-          ? {
-              "data-h2-color": "base(error)",
-            }
-          : {
-              "data-h2-color": "base(warning.darker) base:dark(warning)",
-            })}
-      >
+      <p className={errorMessage({ hasInputErrors, severity })}>
         {message.title}
       </p>
     )}
@@ -179,10 +184,7 @@ const Error = ({
     return (
       <div
         id={id}
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.5)"
-        data-h2-color="base(error.darkest)"
+        className="flex flex-col gap-3 text-error-700 dark:text-error-100"
       >
         {inputErrors.map((err) => (
           <p key={err.type}>{err.message}</p>

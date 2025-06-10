@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 
-import { Dialog, Button, Heading, Well } from "@gc-digital-talent/ui";
+import { Dialog, Button, Heading, Well, Ul } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import {
   errorMessages,
@@ -250,7 +250,7 @@ const ExperienceSkillForm = ({
             description: "Title for instructions on how to describe a skill",
           })}
         </Heading>
-        <ul data-h2-margin="base(x.5 0 x1 0)">
+        <Ul className="mt-3 mb-6">
           <li>
             {intl.formatMessage({
               defaultMessage:
@@ -283,7 +283,7 @@ const ExperienceSkillForm = ({
               description: "Question for clarifying skill details",
             })}
           </li>
-        </ul>
+        </Ul>
         {!selectedExperienceId ? (
           <Well>
             <p data-h2-text-align="base(center)">
@@ -321,7 +321,7 @@ const ExperienceSkillForm = ({
             <Button
               type="submit"
               mode="solid"
-              color="secondary"
+              color="primary"
               disabled={isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "connect")}

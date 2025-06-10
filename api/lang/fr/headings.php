@@ -19,7 +19,7 @@ return [
     'phone' => 'Numéro de téléphone',
     'preferred_communication_language' => 'Langue de communication',
     'preferred_spoken_interview_language' => 'Langue de l\'entrevue de vive voix',
-    'preferred_written_exam_language' => 'Examen de langue écrit',
+    'preferred_written_exam_language' => 'Langue de l\'examen écrit',
     'armed_forces_status' => 'Membre des FAC',
     'citizenship' => 'Citoyenneté',
     'first_official_language' => 'Première langue officielle',

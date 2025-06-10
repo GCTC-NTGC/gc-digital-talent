@@ -36,7 +36,7 @@ const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
 };
 
 const scrollToLink = (chunks: ReactNode, to: string) => (
-  <ScrollToLink to={to} mode="text" color="secondary">
+  <ScrollToLink to={to} mode="text" color="primary">
     {chunks}
   </ScrollToLink>
 );

@@ -5,7 +5,7 @@ import {
   getEmploymentEquityStatement,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Separator } from "@gc-digital-talent/ui";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
 
@@ -36,7 +36,7 @@ const Display = ({
 
   return hasClaimedEquityGroup ? (
     <>
-      <ul>
+      <Ul>
         {isWoman && (
           <li>{intl.formatMessage(getEmploymentEquityStatement("woman"))}</li>
         )}
@@ -53,7 +53,7 @@ const Display = ({
         {isIndigenous && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("indigenous"))}
-            <ul data-h2-padding-left="base(x.25)">
+            <Ul noIndent>
               {nonLegacyIndigenousCommunities.length > 0
                 ? nonLegacyIndigenousCommunities.map((community) => {
                     return (
@@ -69,10 +69,10 @@ const Display = ({
                     );
                   })
                 : null}
-            </ul>
+            </Ul>
           </li>
         )}
-      </ul>
+      </Ul>
       <Separator space="sm" />
       <p>
         {intl.formatMessage({

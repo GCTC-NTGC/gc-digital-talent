@@ -149,7 +149,7 @@ const NotificationListPage = ({
           <p className="mt-6">
             <Link
               mode="solid"
-              color="secondary"
+              color="primary"
               href={`?${searchParams.toString()}`}
             >
               {intl.formatMessage({

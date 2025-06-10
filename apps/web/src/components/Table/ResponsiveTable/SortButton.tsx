@@ -40,8 +40,9 @@ const SortButton = <T,>({
       id={ariaId}
       aria-labelledby={`${ariaId} sortHint-${tableId}`}
       mode="inline"
-      color="whiteFixed"
-      fontSize="caption"
+      color="white"
+      size="sm"
+      fixedColor
       onClick={column.getToggleSortingHandler()}
       data-h2-font-weight={sortDirection ? "base(700)" : "base(400)"}
       data-h2-text-decoration={

@@ -124,7 +124,7 @@ const NotificationActions = ({
       )}
       <Button
         mode="inline"
-        color="secondary"
+        color="primary"
         className="ml-auto"
         disabled={markingAllAsRead}
         onClick={handleMarkAllNotificationsAsRead}

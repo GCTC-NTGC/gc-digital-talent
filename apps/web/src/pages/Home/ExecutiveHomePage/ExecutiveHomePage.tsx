@@ -8,10 +8,12 @@ import { useQuery } from "urql";
 import {
   Accordion,
   CardFlat,
+  CTALink,
   Flourish,
   Heading,
   Link,
   Pending,
+  Ul,
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -113,17 +115,13 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
         {pools.length > 0 ? (
           <div data-h2-padding="base(x2, 0)">
-            <ul
-              data-h2-margin="base(0)"
-              data-h2-padding="base(0)"
-              data-h2-list-style="base(none)"
-            >
+            <Ul unStyled>
               {pools.map((pool) => (
                 <li key={pool.id}>
                   <PoolCard poolQuery={pool} />
                 </li>
               ))}
-            </ul>
+            </Ul>
           </div>
         ) : (
           <div
@@ -312,14 +310,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
           data-h2-gap="base(x1)"
           data-h2-justify-content="base(flex-start)"
         >
-          <Link
-            color="quinary"
-            mode="cta"
-            href={paths.profile()}
-            icon={UserPlusIcon}
-          >
+          <CTALink color="success" href={paths.profile()} icon={UserPlusIcon}>
             {intl.formatMessage(navigationMessages.createProfile)}
-          </Link>
+          </CTALink>
         </div>
       </SkewedImageContainer>
       <FlourishContainer show={["bottom"]} skew={false} size="sm">
@@ -472,7 +465,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             external
             mode="solid"
-            color="primary"
+            color="secondary"
             href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}?subject=${encodeURIComponent(
               intl.formatMessage({
                 defaultMessage: "EXposition",

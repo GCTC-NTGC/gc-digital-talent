@@ -2,6 +2,7 @@ import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
+import { Ul } from "@gc-digital-talent/ui";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
@@ -94,7 +95,7 @@ const Display = ({
         context={context}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <ul>
+          <Ul>
             {lookingForEnglish && (
               <li>
                 {intl.formatMessage({
@@ -122,7 +123,7 @@ const Display = ({
                 })}
               </li>
             )}
-          </ul>
+          </Ul>
         ) : (
           notProvided
         )}
