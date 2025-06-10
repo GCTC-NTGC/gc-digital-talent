@@ -308,7 +308,7 @@ trait GeneratesUserDoc
             /** @var CommunityExperience $experience */
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, $this->localize('experiences.project'), $experience->project);
+            $this->addLabelText($section, 'Project or /product', $experience->project);
         }
 
         if ($type === EducationExperience::class) {
@@ -428,6 +428,7 @@ trait GeneratesUserDoc
                         $classification ? $classification->group.'-'.$classification->level : Lang::get('common.not_found', [], $this->lang),
                     );
                 }
+                $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
                 $this->addLabelText($section, $this->localize('experiences.supervisory_position'), $this->yesOrNo($experience->supervisory_position));
                 if ($experience->supervisory_position === true) {
                     $this->addLabelText($section, $this->localize('experiences.supervised_employees'), $this->yesOrNo($experience->supervised_employees));
@@ -463,8 +464,6 @@ trait GeneratesUserDoc
             }
         }
 
-        $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
-
         if ($type === WorkExperience::class) {
             /** @var WorkExperience $experience */
             if ($experience->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name || $experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
@@ -493,11 +492,11 @@ trait GeneratesUserDoc
             }
         }
 
-        if ($withSkills) {
+        if ($type === WorkExperience::class && $withSkills) {
             $experience->load(['userSkills' => ['skill']]);
 
             if ($experience->userSkills->count() > 0) {
-                $section->addTextBreak(1);
+                $section->addText('Featured skills:');
             }
 
             $experience->userSkills->each(function ($userSkill) use ($section) {
@@ -521,6 +520,7 @@ trait GeneratesUserDoc
     {
         $section->addTitle($this->localizeHeading('skill_showcase'), $headingRank);
         $subHeadingRank = $headingRank + 2;
+        $section->addText('The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate\'s broader skillset and where they might be interested in learning new skills.');
 
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
             $section->addTitle($this->localizeHeading('top_skills'), $headingRank + 1);
