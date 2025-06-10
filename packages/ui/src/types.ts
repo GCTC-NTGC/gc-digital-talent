@@ -43,22 +43,3 @@ export type ButtonLinkMode =
   | "text"
   | "placeholder"
   | "icon_only";
-
-export type ButtonLinkProps = {
-  color?: Color;
-  block?: boolean;
-  mode?: ButtonLinkMode;
-  icon?: IconType;
-  utilityIcon?: IconType;
-  counter?: number;
-  fontSize?:
-    | "display"
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "body"
-    | "caption";
-} & HydrogenAttributes;

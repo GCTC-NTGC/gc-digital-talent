@@ -31,7 +31,7 @@ const SignOutConfirmation = ({ children }: SignOutConfirmationProps) => {
         </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Action>
-            <Button color="secondary" type="button" onClick={() => logout()}>
+            <Button color="primary" type="button" onClick={() => logout()}>
               {intl.formatMessage(authMessages.signOut)}
             </Button>
           </AlertDialog.Action>

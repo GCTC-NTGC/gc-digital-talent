@@ -287,7 +287,7 @@ const Multi = ({
               type="button"
               mode="text"
               color="black"
-              fontSize="caption"
+              size="sm"
               onClick={handleReset}
             >
               {intl.formatMessage(formMessages.clearSelectedCombobox)}

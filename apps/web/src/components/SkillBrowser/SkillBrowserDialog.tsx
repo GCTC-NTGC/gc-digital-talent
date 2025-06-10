@@ -37,7 +37,7 @@ interface SkillBrowserDialogProps {
   // Customize the trigger text and icon
   trigger?: {
     id?: string;
-    label?: ReactNode;
+    label?: string;
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
@@ -153,7 +153,7 @@ const SkillBrowserDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         {customTrigger ?? (
-          <Button {...triggerProps} {...rest} color="secondary" />
+          <Button {...triggerProps} {...rest} color="primary" />
         )}
       </Dialog.Trigger>
       <Dialog.Content>
@@ -187,7 +187,7 @@ const SkillBrowserDialog = ({
                 />
               )}
               <Dialog.Footer>
-                <Button type="submit" color="secondary">
+                <Button type="submit" color="primary">
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : submit}
