@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "urql";
 
 import {
   Dialog,
-  HydrogenAttributes,
   IconButton,
   Pending,
   ThrowNotFound,
@@ -21,6 +20,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { dialogMessages, formMessages } from "./messages";
 import { convertFormValuesToMutationInput, FormValues } from "./form";
 import NominationGroupEvaluationForm from "./components/NominationGroupEvaluationForm";
+import { HydrogenAttributes } from "~/types/hydrogen";
 
 const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
   query NominationGroupEvaluationDialog_Query($talentNominationGroupId: UUID!) {

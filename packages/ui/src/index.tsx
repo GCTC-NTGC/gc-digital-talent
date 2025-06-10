@@ -1,13 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import {
-  Color,
-  HeadingRank,
-  IconType,
-  IconProps,
-  ButtonLinkMode,
-  HydrogenAttributes,
-} from "./types";
+import { Color, HeadingRank, IconType, IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -107,7 +100,6 @@ export type {
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
-  ButtonLinkMode,
   CardFlatProps,
   CardProps,
   CTAButtonProps,
@@ -115,7 +107,6 @@ export type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
-  HydrogenAttributes,
   DownloadCsvProps,
   LinkProps,
   IconProps,
