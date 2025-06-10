@@ -14,7 +14,7 @@ const checkbox = tv({
   slots: {
     label: "flex cursor-pointer items-start gap-1.5",
     input:
-      "rounded align-middle before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)]",
+      "rounded-md align-middle before:[clip-path:polygon(14%_44%,0_65%,50%_100%,100%_16%,80%_0%,43%_62%)]",
   },
   variants: {
     inCheckList: {

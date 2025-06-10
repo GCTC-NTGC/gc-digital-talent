@@ -69,7 +69,7 @@ const Content = forwardRef<
     ref={forwardedRef}
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
+    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded-md sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
     {...props}
   />
 ));

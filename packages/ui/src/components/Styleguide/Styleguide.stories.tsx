@@ -177,7 +177,7 @@ export const Default: StoryObj = {
         Hover, focus, etc.
       </Heading>
 
-      <button className="rounded bg-primary px-4 py-2 transition duration-100 ease-in-out outline-none hover:bg-secondary focus-visible:bg-focus focus-visible:ring-4 focus-visible:ring-focus/60">
+      <button className="rounded-md bg-primary px-4 py-2 transition duration-100 ease-in-out outline-none hover:bg-secondary focus-visible:bg-focus focus-visible:ring-4 focus-visible:ring-focus/60">
         Focus me
       </button>
 

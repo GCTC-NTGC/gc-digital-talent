@@ -17,7 +17,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "rounded bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
+  base: "rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
 });
 
 const StyledContent = forwardRef<
@@ -78,7 +78,7 @@ const SubContent = ({
 );
 
 const item = tv({
-  base: "transition-200 ease flex cursor-pointer items-center rounded bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
+  base: "transition-200 ease flex cursor-pointer items-center rounded-md bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
   variants: {
     color: {
       primary:
