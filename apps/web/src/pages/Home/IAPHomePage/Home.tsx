@@ -257,7 +257,7 @@ export const Home = ({ query }: HomeProps) => {
                   <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
                     <Heading
                       size="h3"
-                      className="relative z-1 mt-24 mb-12 text-center xs:mt-6 xs:text-left"
+                      className="relative z-1 mt-36 mb-12 text-center xs:mt-6 xs:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
