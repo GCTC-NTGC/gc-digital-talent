@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { ReactNode, JSX } from "react";
 
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Card } from "@gc-digital-talent/ui";
 
 import {
   DisabilityDialog,
@@ -67,35 +67,20 @@ const EquityOption = ({
   );
 
   return (
-    <div
-      data-h2-background="base(foreground)"
-      data-h2-color="base(black)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      data-h2-shadow="base(m)"
-    >
-      <p data-h2-font-weight="base(700)" data-h2-padding-bottom="base(x1)">
-        {title}
-      </p>
+    <Card>
+      <p className="mb-6 font-bold">{title}</p>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
       <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
-        <Button type="button" mode="inline" color="primary">
-          {isAdded ? (
-            removeText
-          ) : (
-            <>
-              <PlusCircleIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-              />
-              {addText}
-            </>
-          )}
+        <Button
+          type="button"
+          mode="inline"
+          color="secondary"
+          icon={isAdded ? undefined : PlusCircleIcon}
+        >
+          {isAdded ? removeText : addText}
         </Button>
       </Dialog>
-    </div>
+    </Card>
   );
 };
 
