@@ -34,11 +34,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     if (state.hasError) {
       return (
         props.fallback ?? (
-          <div
-            data-h2-text-align="base(center)"
-            data-h2-font-size="base:children[p](h5)"
-            data-h2-margin="base(x2 0)"
-          >
+          <div className="my-12 text-center [&_p]:text-xl/[1/1] lg:[&_p]:text-2xl/[1/1]">
             <FormattedMessage
               tagName="p"
               {...errorMessages.unknownErrorRequestErrorTitle}

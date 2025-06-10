@@ -76,7 +76,7 @@ export function communityActionCell(
 
 export function communityCell(displayName: string, href: string) {
   return (
-    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
+    <Link href={href} data-h2-font-weight="base(700)">
       {displayName}
     </Link>
   );
@@ -120,7 +120,7 @@ export function processActionCell(
 
 export function processCell(displayName: string, href: string) {
   return (
-    <Link color="secondary" href={href} data-h2-font-weight="base(700)">
+    <Link href={href} data-h2-font-weight="base(700)">
       {displayName}
     </Link>
   );

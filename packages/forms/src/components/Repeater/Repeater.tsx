@@ -304,7 +304,7 @@ const Root = ({
           type="button"
           mode="placeholder"
           block
-          color="secondary"
+          color="primary"
           onClick={onAdd}
         >
           {addText ?? intl.formatMessage(formMessages.repeaterAddItem)}

@@ -72,7 +72,7 @@ const WomanDialog = ({
           />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitHandler)}>
-              <div data-h2-margin="base(x1, 0, 0, 0)">
+              <div className="mt-6">
                 <Checklist
                   idPrefix="isWoman"
                   id="isWoman"

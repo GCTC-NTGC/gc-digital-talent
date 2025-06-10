@@ -20,30 +20,9 @@ interface FeatureBlockProps {
 
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-background-color="base(foreground)"
-      data-h2-radius="base(rounded)"
-      data-h2-overflow="base(hidden)"
-      data-h2-shadow="base(large)"
-    >
-      <div
-        data-h2-color="base:all(white)"
-        data-h2-background-color="base:all(black.darker)"
-        data-h2-padding="base(x1)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-justify-content="base(center)"
-        data-h2-min-height="base(auto)"
-        data-h2-width="base(100%)"
-      >
-        <Heading
-          level="h3"
-          size="h2"
-          data-h2-font-size="base(h6)"
-          data-h2-margin="base(0, 0, x0.25, 0)"
-        >
+    <div className="flex flex-col overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-600">
+      <div className="flex min-h-auto w-full flex-col justify-center bg-black p-6 text-white">
+        <Heading level="h3" size="h6" className="my-0 mb-1.5">
           {content.title}
         </Heading>
       </div>
@@ -51,17 +30,11 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         <img
           src={content.img.path}
           alt={content.title}
-          data-h2-display="base(block)"
-          data-h2-max-width="base(100%)"
-          data-h2-height="base(auto)"
-          data-h2-object-fit="base(cover)"
-          data-h2-object-position="base(center center)"
+          className="block h-auto w-full object-cover object-center"
         />
       </div>
-      <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
-        {content.summary}
-      </div>
-      <div data-h2-padding="base(0, x1, x1, x1)">
+      <div className="grow p-6">{content.summary}</div>
+      <div className="p-6 pt-0">
         <Link
           color="black"
           mode="inline"

@@ -10,10 +10,6 @@ textarea {
   font-size: 100%;
 }
 
-button:not(.border) {
-  border: none;
-}
-
 p {
   white-space: pre-wrap;
 }
