@@ -121,7 +121,8 @@ const RevertFinalDecisionDialog = ({
         <Button
           type="button"
           color={isQualified ? "secondary" : "error"}
-          mode="inline"
+          mode="text"
+          className="font-bold"
         >
           {isQualified ? (
             <>{intl.formatMessage(poolCandidateMessages.qualified)}</>

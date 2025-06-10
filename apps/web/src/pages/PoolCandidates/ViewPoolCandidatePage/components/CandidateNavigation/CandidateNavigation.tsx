@@ -46,7 +46,8 @@ const CandidateNavigation = ({
 
   const commonLinkProps: Partial<IconLinkProps> = {
     color: "secondary",
-    className: "flex",
+    size: "lg",
+    className: "flex shrink-0",
     state: { candidateIds, stepName },
   };
 

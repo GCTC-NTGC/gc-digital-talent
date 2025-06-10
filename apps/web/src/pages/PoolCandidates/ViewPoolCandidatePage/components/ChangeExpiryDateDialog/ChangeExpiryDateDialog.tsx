@@ -128,7 +128,8 @@ const ChangeExpiryDateDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          mode="inline"
+          mode="text"
+          className="font-bold"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Expiry date: {date}. Edit.",
