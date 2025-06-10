@@ -34,8 +34,6 @@ const DownloadUsersDocButton = ({
           {...(inTable
             ? {
                 ...actionButtonStyles,
-                "data-h2-font-weight": "base(400)",
-                "data-h2-margin-top": "base(-2px)",
               }
             : {
                 color: "primary",
