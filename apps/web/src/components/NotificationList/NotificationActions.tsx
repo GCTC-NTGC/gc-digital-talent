@@ -21,7 +21,7 @@ const notificationActions = tv({
         base: "px-6",
       },
     },
-    onlyRead: {
+    onlyUnread: {
       true: {
         read: "font-bold",
       },
@@ -46,7 +46,7 @@ const NotificationActions = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { announce } = useAnnouncer();
-  const { base, all, read } = notificationActions({ inDialog });
+  const { base, all, read } = notificationActions({ inDialog, onlyUnread });
 
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
