@@ -53,7 +53,6 @@ import Ol from "./components/List/Ol";
 import Ul from "./components/List/Ul";
 import Loading, { type LoadingProps } from "./components/Loading";
 import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
-import { getNavLinkStyling } from "./components/NavMenu";
 import NavMenu from "./components/NavMenu/NavMenu";
 import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
@@ -201,6 +200,5 @@ export {
   decrementHeadingRank,
   useCardRepeaterContext,
   useControllableState,
-  getNavLinkStyling,
   hrefToString,
 };

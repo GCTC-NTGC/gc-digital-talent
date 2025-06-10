@@ -139,7 +139,7 @@ const navMenuLink = tv({
     },
     type: {
       link: "",
-      subLink: "",
+      subMenuLink: "",
     },
   },
   compoundVariants: [
@@ -160,7 +160,7 @@ interface IconLinkProps
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
       "type" | "color" | "href"
     >,
-    Pick<BaseIconLinkProps, "href" | "icon" | "color"> {}
+    Pick<BaseIconLinkProps, "href" | "icon" | "color" | "label"> {}
 
 const IconLink = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
