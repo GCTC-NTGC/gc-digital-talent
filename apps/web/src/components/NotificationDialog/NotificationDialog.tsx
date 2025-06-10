@@ -14,7 +14,8 @@ import {
   Heading,
   Dialog,
   Link,
-  Color,
+  IconButton,
+  ButtonProps,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
@@ -77,10 +78,7 @@ const DialogPortalWithPresence = ({
         animate={{ opacity: 0.85 }}
         exit={{ opacity: 0.85 }}
         transition={{ duration: 0.2 }}
-        data-h2-background-color="base:all(black.light)"
-        data-h2-position="base(fixed)"
-        data-h2-location="base(0)"
-        data-h2-z-index="base(97)"
+        className="fixed inset-0 z-[97] bg-gray-700/90"
       />
       <DialogPrimitive.Content forceMount asChild>
         <m.div
@@ -89,49 +87,28 @@ const DialogPortalWithPresence = ({
           animate={{ x: 0, scale: 1 }}
           exit={{ x: "100%", scale: 0.95 }}
           transition={{ duration: 0.2, ease: "easeInOut" }}
-          data-h2-background-color="base(foreground)"
-          data-h2-color="base(black)"
-          data-h2-font-family="base(sans)"
-          data-h2-max-width="base(95vw)"
-          data-h2-width="base(x18)"
-          data-h2-overflow-y="base(auto)"
-          data-h2-position="base(fixed)"
-          data-h2-top="base(0)"
-          data-h2-right="base(0)"
-          data-h2-bottom="base(0)"
-          data-h2-margin="base(x.5 x.5 x.5 auto)"
-          data-h2-radius="base(s)"
-          data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-          data-h2-z-index="base(98)"
+          className="fixed inset-y-0 right-0 z-[98] m-3 ml-auto w-110 max-w-[95vw] overflow-y-auto rounded bg-white font-sans text-black shadow-lg dark:bg-gray-600 dark:text-white"
         >
-          <div data-h2-padding="base(x1)">
-            <div
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-gap="base(x.25 0)"
-              data-h2-margin-bottom="base(x.5)"
-            >
+          <div className="p-6">
+            <div className="mb-3 flex items-center justify-between gap-y-1.5">
               <DialogPrimitive.Title asChild>
                 <Heading
                   level="h2"
                   size="h5"
                   color="secondary"
                   icon={BellAlertIcon}
-                  data-h2-margin="base(0)"
-                  data-h2-line-height="base(1)"
+                  className="mt-0 leading-normal"
                 >
                   {intl.formatMessage(notificationMessages.title)}
                 </Heading>
               </DialogPrimitive.Title>
-              <div data-h2-display="base(flex)" data-h2-gap="base(x.25 0)">
+              <div className="flex gap-x-1.5">
                 <Dialog.Close asChild>
-                  <Button
-                    mode="icon_only"
+                  <IconButton
                     color="black"
                     icon={XMarkIcon}
                     onFocus={handleCloseFocus}
-                    aria-label={intl.formatMessage({
+                    label={intl.formatMessage({
                       defaultMessage: "Close notifications",
                       id: "J1n6QO",
                       description:
@@ -151,9 +128,9 @@ const DialogPortalWithPresence = ({
             </DialogPrimitive.Description>
           </div>
           <NotificationList live inDialog limit={30} onRead={executeQuery} />
-          <p data-h2-margin="base(x1)">
+          <p className="m-6">
             <DialogPrimitive.Close asChild>
-              <Link href={paths.notifications()} mode="solid" color="secondary">
+              <Link href={paths.notifications()} mode="solid" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "View all notifications",
                   id: "/lVSP/",
@@ -190,7 +167,7 @@ interface NotificationDialog {
   /** Callback when the section has been 'opened */
   onOpenChange?: (open: boolean) => void;
   /** Trigger color */
-  color?: Color;
+  color?: ButtonProps["color"];
 }
 const NotificationDialog = ({
   open,
@@ -219,50 +196,70 @@ const NotificationDialog = ({
     60,
   );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
+  const buttonLabel = open
+    ? intl.formatMessage({
+        defaultMessage: "Close notifications",
+        id: "J1n6QO",
+        description: "Button text to close the notifications dialog",
+      })
+    : intl.formatMessage(
+        {
+          defaultMessage: "View notifications{count}",
+          id: "l82MWI",
+          description: "Button text to open the notifications dialog",
+        },
+        {
+          count:
+            notificationCount > 0
+              ? ` ${intl.formatMessage({
+                  defaultMessage: "(there are unread notifications)",
+                  id: "o+YSXN",
+                  description: "Notice of unread notifications",
+                })}`
+              : "",
+        },
+      );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       {open ? (
         <Dialog.Close asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={color || isSmallScreen ? "blackFixed" : "whiteFixed"}
-            icon={XMarkIcon}
-            aria-label={intl.formatMessage({
-              defaultMessage: "Close notifications",
-              id: "J1n6QO",
-              description: "Button text to close the notifications dialog",
-            })}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color={color ?? "black"}
+              icon={XMarkIcon}
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={color ?? "white"}
+              icon={XMarkIcon}
+              label={buttonLabel}
+            />
+          )}
         </Dialog.Close>
       ) : (
         <DialogPrimitive.Trigger asChild>
-          <Button
-            mode={isSmallScreen ? "solid" : "icon_only"}
-            color={isSmallScreen ? "black" : "secondary"}
-            icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-            aria-label={intl.formatMessage(
-              {
-                defaultMessage: "View notifications{count}",
-                id: "l82MWI",
-                description: "Button text to open the notifications dialog",
-              },
-              {
-                count:
-                  notificationCount > 0
-                    ? ` ${intl.formatMessage({
-                        defaultMessage: "(there are unread notifications)",
-                        id: "o+YSXN",
-                        description: "Notice of unread notifications",
-                      })}`
-                    : "",
-              },
-            )}
-            data-h2-margin-right="base:selectors[>*:first-child](-x.25) l-tablet:selectors[>*:first-child](0)"
-            data-icon="true"
-            {...(!isSmallScreen && linkColorStyling)}
-          />
+          {isSmallScreen ? (
+            <Button
+              mode="solid"
+              color="black"
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              aria-label={buttonLabel}
+            />
+          ) : (
+            <IconButton
+              color={isSmallScreen ? "black" : "secondary"}
+              icon={
+                notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
+              }
+              label={buttonLabel}
+              {...linkColorStyling}
+            />
+          )}
         </DialogPrimitive.Trigger>
       )}
 

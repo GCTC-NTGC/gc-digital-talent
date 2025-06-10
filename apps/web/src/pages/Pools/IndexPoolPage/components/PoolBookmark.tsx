@@ -3,7 +3,7 @@ import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
-import { Button } from "@gc-digital-talent/ui";
+import { IconButton } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   LocalizedString,
@@ -94,32 +94,14 @@ const PoolBookmark = ({
     }
   };
 
-  let iconSize = {
-    "data-h2-height": "base(x.9)",
-    "data-h2-width": "base(x.9)",
-  };
-  if (size === "sm") {
-    iconSize = {
-      "data-h2-height": "base(x.8)",
-      "data-h2-width": "base(x.8)",
-    };
-  }
-  if (size === "lg") {
-    iconSize = {
-      "data-h2-height": "base(x1)",
-      "data-h2-width": "base(x1)",
-    };
-  }
-
   return (
-    <Button
-      mode="icon_only"
-      color={isBookmarked ? "primary" : "black"}
+    <IconButton
+      color={isBookmarked ? "secondary" : "black"}
       onClick={toggleBookmark}
       disabled={isUpdatingBookmark}
       icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-      {...iconSize}
-      aria-label={
+      size={size}
+      label={
         isBookmarked
           ? intl.formatMessage(
               {

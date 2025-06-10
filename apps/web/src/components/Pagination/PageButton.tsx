@@ -5,7 +5,7 @@ type PageButtonProps = Omit<ButtonProps, "mode" | "ref">;
 const PageButton = (props: PageButtonProps) => (
   <Button
     mode="inline"
-    fontSize="caption"
+    size="sm"
     data-h2-vertical-align="base(middle)"
     {...props}
   />

@@ -1,56 +1,45 @@
 import { useIntl } from "react-intl";
+import { tv, VariantProps } from "tailwind-variants";
 
-type Color = "primary" | "secondary";
+const flags: Record<string, string> = {
+  en: "🇬🇧",
+  fr: "🇫🇷",
+} as const;
 
-type StyleRecord = Record<string, string>;
-const backgroundMap = new Map<Color, StyleRecord>([
-  [
-    "primary",
-    {
-      "data-h2-background":
-        "base(primary.light) base:dark(primary.dark) base:iap(primary)",
+const example = tv({
+  base: "",
+  variants: {
+    color: {
+      primary: "bg-primary-300 dark:bg-primary-500 iap:bg-primary",
+      secondary: "bg-secondary-300 dark:bg-secondary-500",
     },
-  ],
-  [
-    "secondary",
-    {
-      "data-h2-background":
-        "base(secondary.light) base:dark(secondary.dark) base:iap:dark(secondary.light)",
+    showBorder: {
+      true: "border",
     },
-  ],
-]);
+  },
+});
 
-interface ExampleProps {
+type ExampleVariants = VariantProps<typeof example>;
+
+interface ExampleProps extends ExampleVariants {
   subtitle?: string;
-  color: Color;
-  showBorder: boolean;
 }
 
 const Example = ({ subtitle, color, showBorder }: ExampleProps) => {
   const intl = useIntl();
 
-  const borderStyles = showBorder
-    ? {
-        "data-h2-border": "base(solid)",
-      }
-    : null;
-  const containerStyles = { ...backgroundMap.get(color), ...borderStyles };
-
-  const flags: Record<string, string> = {
-    en: "🇬🇧",
-    fr: "🇫🇷",
-  } as const;
-
   return (
-    <div {...containerStyles}>
-      <h1 data-h2-font-size="base(h1)">
+    <div className={example({ color, showBorder })}>
+      <h1 className="text-5xl/[1.1] lg:text-6xl/[1.1]">
         {intl.formatMessage({
           defaultMessage: "Example",
           id: "+jIT2i",
           description: "Title for the example component",
         })}
       </h1>
-      {subtitle && <h2 data-h2-font-size="base(h2)">{subtitle}</h2>}
+      {subtitle && (
+        <h2 className="text-4xl/[1.1] lg:text-5xl/[1.1]">{subtitle}</h2>
+      )}
       <p>{flags[intl.locale]}</p>
     </div>
   );

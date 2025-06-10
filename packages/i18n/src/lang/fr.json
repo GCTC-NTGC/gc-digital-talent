@@ -1347,6 +1347,10 @@
     "defaultMessage": "Préférences de travail",
     "description": "Name of Work preferences page"
   },
+  "nuFcSO": {
+    "defaultMessage": "La date limite pour cet événement axé sur la gestion des talents est passée. Il n'est plus possible de présenter une mise en candidature.",
+    "description": "Error alerting the user it is to late to create/update a nomination"
+  },
   "nwBZ4v": {
     "defaultMessage": "Je suis actuellement le mentor ou la mentore d'une personne.",
     "description": "The mentorship status described as mentor."

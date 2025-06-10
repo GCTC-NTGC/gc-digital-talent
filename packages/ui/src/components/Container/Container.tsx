@@ -2,7 +2,7 @@ import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const container = tv({
-  base: "w-full px-6",
+  base: "w-full px-6 xs:px-12",
   variants: {
     center: {
       true: "mx-auto",

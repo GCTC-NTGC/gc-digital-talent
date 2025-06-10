@@ -114,7 +114,7 @@ const EssentialTechnicalSkills = ({
           >
             <Button
               mode="inline"
-              color="secondary"
+              color="primary"
               onClick={toggleExpandedSkillsValue}
               aria-label={
                 expandedSkillsValue.length > 0

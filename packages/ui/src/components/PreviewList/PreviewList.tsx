@@ -1,11 +1,14 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
 
-import BaseButton, { ButtonProps as BaseButtonProps } from "../Button";
-import BaseLink, { LinkProps as BaseLinkProps } from "../Link";
+import BaseButton, {
+  IconButtonProps as BaseButtonProps,
+  IconButtonProps,
+} from "../Button/IconButton";
+import BaseLink, { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
 import Chip, { ChipProps } from "../Chip/Chip";
-import { ButtonLinkProps, IconType } from "../../types";
 import Heading, { HeadingLevel } from "../Heading";
+import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 
 interface MetaDataBase {
   children: ReactNode;
@@ -45,28 +48,19 @@ const MetaData = (props: MetaDataProps) => {
 };
 
 const actionProps = {
-  mode: "icon_only",
   color: "black",
-  fontSize: "h5",
   icon: MagnifyingGlassPlusIcon,
-  // NOTE: Should be safe to uncomment and remove specific className when #13689 merged
-  // className: "after:absolute inset-0 justify-self-end mr-6 xs:mr-9",
-} satisfies ButtonLinkProps;
+  className:
+    "after:content-[''] after:absolute after:inset-0 justify-self-end mr-6 xs:mr-9",
+} satisfies IconButtonProps;
 
-interface ButtonProps extends BaseButtonProps {
+interface ButtonProps extends Omit<BaseButtonProps, "icon"> {
   onClick?: BaseButtonProps["onClick"];
-  label: React.ReactNode;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ onClick, label, ...rest }: ButtonProps, ref) => (
-    <BaseButton
-      ref={ref}
-      {...actionProps}
-      className="mr-6 justify-self-end after:absolute after:inset-0 xs:mr-9"
-      onClick={onClick}
-      {...rest}
-    >
+    <BaseButton ref={ref} {...actionProps} onClick={onClick} {...rest}>
       {label}
     </BaseButton>
   ),
@@ -75,16 +69,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 interface LinkProps {
   href: BaseLinkProps["href"];
   label: string;
-  icon?: IconType;
+  icon?: BaseIconButtonLinkProps["icon"];
+  children?: ReactNode;
 }
 
-const Link = ({ href, label, icon }: LinkProps) => (
-  <BaseLink
-    {...actionProps}
-    className="mr-6 justify-self-end after:absolute after:inset-0 xs:mr-9"
-    href={href}
-    icon={icon ?? actionProps.icon}
-  >
+const Link = ({ href, icon, label }: LinkProps) => (
+  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
     {label}
   </BaseLink>
 );
@@ -105,11 +95,11 @@ const Item = ({
   children,
 }: ItemProps) => {
   return (
-    <li className="group relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
+    <li className="group/item relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
       <div className="flex flex-col">
         <Heading
           level={headingAs}
-          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]:bg-focus group-has-[a:focus-visible,button:focus-visible]:text-black group-has-[a:hover,button:hover]:text-primary-600 dark:group-has-[a:hover,button:hover]:text-primary-200"
+          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black group-has-[a:hover,button:hover]/item:text-primary-600 lg:text-base dark:group-has-[a:hover,button:hover]/item:text-primary-200"
         >
           {title}
         </Heading>

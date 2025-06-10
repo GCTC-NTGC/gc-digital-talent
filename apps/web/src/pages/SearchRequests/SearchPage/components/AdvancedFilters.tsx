@@ -174,7 +174,7 @@ const AdvancedFilters = () => {
         </Heading>
         <Button
           mode="inline"
-          color="secondary"
+          color="primary"
           type="button"
           onClick={toggleOpenFilters}
         >

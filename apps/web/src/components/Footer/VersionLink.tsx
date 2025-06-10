@@ -16,7 +16,7 @@ const VersionLink = () => {
     url = `https://github.com/GCTC-NTGC/gc-digital-talent/commit/${COMMIT_HASH}`;
   }
 
-  if (!content) {
+  if (!content || !url) {
     return null;
   }
 
@@ -30,7 +30,7 @@ const VersionLink = () => {
         description: "Label for the specific version number of the site",
       })}
       {intl.formatMessage(commonMessages.dividingColon)}
-      <Link external fontSize="caption" href={url}>
+      <Link external size="sm" href={url}>
         {content}
       </Link>
     </span>
