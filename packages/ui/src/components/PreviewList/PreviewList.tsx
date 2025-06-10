@@ -68,7 +68,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 interface LinkProps {
   href: BaseLinkProps["href"];
   label: string;
-  icon: BaseIconButtonLinkProps["icon"];
+  icon?: BaseIconButtonLinkProps["icon"];
   children?: ReactNode;
 }
 
