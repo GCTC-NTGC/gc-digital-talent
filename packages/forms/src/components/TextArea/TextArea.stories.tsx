@@ -1,4 +1,4 @@
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { StoryFn } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

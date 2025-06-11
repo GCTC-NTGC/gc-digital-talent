@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react-vite";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import {
   fakeClassifications,

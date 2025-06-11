@@ -1,6 +1,6 @@
 import { StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";

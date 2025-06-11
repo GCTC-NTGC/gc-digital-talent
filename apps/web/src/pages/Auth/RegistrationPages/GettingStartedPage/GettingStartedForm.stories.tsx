@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react-vite";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { fakeLocalizedEnum } from "@gc-digital-talent/fake-data";
 import { Language, makeFragmentData } from "@gc-digital-talent/graphql";

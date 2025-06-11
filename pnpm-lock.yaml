@@ -181,9 +181,6 @@ importers:
       '@hydrogen-css/hydrogen':
         specifier: 2.1.0
         version: 2.1.0(typescript@5.8.3)
-      '@storybook/addon-actions':
-        specifier: ^9.0.8
-        version: 9.0.8
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -640,9 +637,6 @@ importers:
       '@gc-digital-talent/storybook-helpers':
         specifier: workspace:*
         version: link:../storybook-helpers
-      '@storybook/addon-actions':
-        specifier: ^8.6.14
-        version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -1158,9 +1152,6 @@ importers:
       '@gc-digital-talent/storybook-helpers':
         specifier: workspace:*
         version: link:../storybook-helpers
-      '@storybook/addon-actions':
-        specifier: ^8.6.14
-        version: 8.6.14(storybook@8.6.14(prettier@3.5.3))
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -3088,14 +3079,6 @@ packages:
     peerDependencies:
       storybook: ^8.6.14
 
-  '@storybook/addon-actions@8.6.14':
-    resolution: {integrity: sha512-mDQxylxGGCQSK7tJPkD144J8jWh9IU9ziJMHfB84PKpI/V5ZgqMDnpr2bssTrUaGDqU5e1/z8KcRF+Melhs9pQ==}
-    peerDependencies:
-      storybook: ^8.6.14
-
-  '@storybook/addon-actions@9.0.8':
-    resolution: {integrity: sha512-LFePu7PPnWN0Il/uoUpmA5T0J0C7d6haJIbg0pXrjxW2MQVSYXE4S4LSUz8fOImltBDV3xAl6tLPYHFj6VcrOA==}
-
   '@storybook/addon-designs@8.2.1':
     resolution: {integrity: sha512-orwihs1D5alhh4Qu3BSJKbSgQOdSagvRX/25m5fYZQAaqVErBY0lRR4vCAU/G/STkcdv+MHwIQ5U+0kX5Tm2+w==}
     peerDependencies:
@@ -3646,9 +3629,6 @@ packages:
 
   '@types/use-sync-external-store@0.0.6':
     resolution: {integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==}
-
-  '@types/uuid@9.0.8':
-    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -6753,10 +6733,6 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  polished@4.3.1:
-    resolution: {integrity: sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==}
-    engines: {node: '>=10'}
-
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
@@ -8072,10 +8048,6 @@ packages:
 
   util@0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
-
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    hasBin: true
 
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -10404,17 +10376,6 @@ snapshots:
       axe-core: 4.10.3
       storybook: 8.6.14(prettier@3.5.3)
 
-  '@storybook/addon-actions@8.6.14(storybook@8.6.14(prettier@3.5.3))':
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@types/uuid': 9.0.8
-      dequal: 2.0.3
-      polished: 4.3.1
-      storybook: 8.6.14(prettier@3.5.3)
-      uuid: 9.0.1
-
-  '@storybook/addon-actions@9.0.8': {}
-
   '@storybook/addon-designs@8.2.1(@storybook/blocks@8.6.14(react-dom@19.1.0(react@18.3.1))(react@18.3.1)(storybook@8.6.14(prettier@3.5.3)))(@storybook/components@8.6.14(storybook@8.6.14(prettier@3.5.3)))(@storybook/theming@8.6.14(storybook@8.6.14(prettier@3.5.3)))(react-dom@19.1.0(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@figspec/react': 1.0.4(react@18.3.1)
@@ -11007,8 +10968,6 @@ snapshots:
   '@types/trusted-types@2.0.7': {}
 
   '@types/use-sync-external-store@0.0.6': {}
-
-  '@types/uuid@9.0.8': {}
 
   '@types/ws@8.18.1':
     dependencies:
@@ -14643,10 +14602,6 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  polished@4.3.1:
-    dependencies:
-      '@babel/runtime': 7.27.1
-
   possible-typed-array-names@1.0.0: {}
 
   possible-typed-array-names@1.1.0: {}
@@ -16110,8 +16065,6 @@ snapshots:
       is-generator-function: 1.1.0
       is-typed-array: 1.1.15
       which-typed-array: 1.1.19
-
-  uuid@9.0.1: {}
 
   v8-compile-cache-lib@3.0.1:
     optional: true

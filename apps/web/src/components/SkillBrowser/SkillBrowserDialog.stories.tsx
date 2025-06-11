@@ -1,5 +1,5 @@
 import { StoryFn } from "@storybook/react-vite";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";

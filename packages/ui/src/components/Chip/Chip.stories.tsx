@@ -1,5 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react-vite";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

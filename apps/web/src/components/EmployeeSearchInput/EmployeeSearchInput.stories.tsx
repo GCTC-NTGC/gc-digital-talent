@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { within, userEvent } from "storybook/test";
 import { CombinedError } from "urql";
 

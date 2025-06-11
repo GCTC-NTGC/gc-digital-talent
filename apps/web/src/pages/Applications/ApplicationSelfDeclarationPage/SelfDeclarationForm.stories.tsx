@@ -1,5 +1,5 @@
 import { Meta, StoryFn } from "@storybook/react-vite";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
