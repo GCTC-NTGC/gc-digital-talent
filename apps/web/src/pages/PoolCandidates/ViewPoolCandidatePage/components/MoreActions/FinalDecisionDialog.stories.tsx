@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { Meta } from "@storybook/react-vite";
 
 import {
   fakePoolCandidates,
