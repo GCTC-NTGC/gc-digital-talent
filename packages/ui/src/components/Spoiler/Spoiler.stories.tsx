@@ -1,3 +1,4 @@
+import { StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
 import Spoiler from "./Spoiler";

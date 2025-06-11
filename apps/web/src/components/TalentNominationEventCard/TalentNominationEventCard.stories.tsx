@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/react-vite";
+import { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
