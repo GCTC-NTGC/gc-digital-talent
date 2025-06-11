@@ -47,7 +47,7 @@ const container = tv({
   defaultVariants: {
     base: "md",
     size: "sm",
-    center: false,
+    center: true,
   },
 });
 
@@ -76,7 +76,7 @@ function normalizeSize(size: SizeProp | undefined): ResponsiveSize {
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ center = false, size = "md", className, ...rest }, ref) => {
+  ({ center = true, size = "md", className, ...rest }, ref) => {
     const { xs, base, sm, md, lg, xl } = normalizeSize(size);
 
     return (
