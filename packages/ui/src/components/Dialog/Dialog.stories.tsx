@@ -45,4 +45,6 @@ const Template: StoryFn<typeof Dialog.Root> = () => (
   </Dialog.Root>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

@@ -130,74 +130,91 @@ const ControlledTemplate: StoryFn<ControlledProps> = ({
   );
 };
 
-export const Default = Template.bind({});
-Default.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
+export const Default = {
+  render: Template,
+
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
     },
   },
-};
-Default.args = {
-  type: "single",
-  collapsible: true,
-  children: <Text />,
-};
 
-export const Card = Template.bind({});
-Card.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
-    },
+  args: {
+    type: "single",
+    collapsible: true,
+    children: <Text />,
   },
 };
-Card.args = {
-  type: "single",
-  mode: "card",
-  collapsible: true,
-  children: <Text />,
+
+export const Card = {
+  render: Template,
+
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
+    },
+  },
+
+  args: {
+    type: "single",
+    mode: "card",
+    collapsible: true,
+    children: <Text />,
+  },
 };
 
-export const DefaultOpen = Template.bind({});
-DefaultOpen.args = {
-  defaultValue: "one",
-  type: "single",
-  collapsible: true,
-  children: <Text />,
+export const DefaultOpen = {
+  render: Template,
+
+  args: {
+    defaultValue: "one",
+    type: "single",
+    collapsible: true,
+    children: <Text />,
+  },
 };
 
-export const Nested = Template.bind({});
-Nested.args = {
-  type: "single",
-  mode: "card",
-  collapsible: true,
-  children: (
-    <>
-      <Text />
-      <Accordion.Root type="single" collapsible>
-        <Accordion.Item value="sub-one">
-          <Accordion.Trigger>Accordion Sub One</Accordion.Trigger>
-          <Accordion.Content>
-            <Text />
-          </Accordion.Content>
-        </Accordion.Item>
-        <Accordion.Item value="sub-two">
-          <Accordion.Trigger>Accordion Sub Two</Accordion.Trigger>
-          <Accordion.Content>
-            <Text />
-          </Accordion.Content>
-        </Accordion.Item>
-      </Accordion.Root>
-    </>
-  ),
+export const Nested = {
+  render: Template,
+
+  args: {
+    type: "single",
+    mode: "card",
+    collapsible: true,
+    children: (
+      <>
+        <Text />
+        <Accordion.Root type="single" collapsible>
+          <Accordion.Item value="sub-one">
+            <Accordion.Trigger>Accordion Sub One</Accordion.Trigger>
+            <Accordion.Content>
+              <Text />
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value="sub-two">
+            <Accordion.Trigger>Accordion Sub Two</Accordion.Trigger>
+            <Accordion.Content>
+              <Text />
+            </Accordion.Content>
+          </Accordion.Item>
+        </Accordion.Root>
+      </>
+    ),
+  },
 };
 
-export const Controlled = ControlledTemplate.bind({});
-Controlled.args = {
-  children: <Text />,
+export const Controlled = {
+  render: ControlledTemplate,
+
+  args: {
+    children: <Text />,
+  },
 };

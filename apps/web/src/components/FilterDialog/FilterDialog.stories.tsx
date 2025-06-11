@@ -72,14 +72,19 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  options: {
-    defaultValues: {
-      single: mockOptions[1].value,
-      multi: mockOptions.slice(2, 5).map((option) => option.value),
+export const Default = {
+  render: Template,
+
+  args: {
+    options: {
+      defaultValues: {
+        single: mockOptions[1].value,
+        multi: mockOptions.slice(2, 5).map((option) => option.value),
+      },
     },
   },
 };
 
-export const Null = Template.bind({});
+export const Null = {
+  render: Template,
+};

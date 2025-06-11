@@ -21,82 +21,94 @@ const TemplateInput: StoryFn<InputProps> = (args) => {
   );
 };
 
-export const TextInput = TemplateInput.bind({});
+export const TextInput = {
+  render: TemplateInput,
 
-TextInput.parameters = {
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
+    },
+  },
+
+  args: {
+    type: "text",
+    id: "firstName",
+    label: "First Name",
+    name: "firstName",
+    rules: {
+      required: "This field is required",
+      maxLength: { value: 50, message: "Too long!" },
+    },
+    context: "Additional context about this field.",
+  },
+};
+
+export const EmailInput = {
+  render: TemplateInput,
+
+  args: {
+    type: "email",
+    id: "email",
+    name: "email",
+    label: "Email",
+    rules: { required: false },
+  },
+};
+
+export const PasswordInput = {
+  render: TemplateInput,
+
+  args: {
+    type: "password",
+    id: "password",
+    name: "password",
+    label: "Password",
+    rules: { required: false },
+  },
+};
+
+export const TelephoneInput = {
+  render: TemplateInput,
+
+  args: {
+    type: "tel",
+    id: "telephone",
+    name: "telephone",
+    label: "Telephone",
+    rules: {
+      required: true,
     },
   },
 };
 
-TextInput.args = {
-  type: "text",
-  id: "firstName",
-  label: "First Name",
-  name: "firstName",
-  rules: {
-    required: "This field is required",
-    maxLength: { value: 50, message: "Too long!" },
-  },
-  context: "Additional context about this field.",
-};
+export const ElementLabelText = {
+  render: TemplateInput,
 
-export const EmailInput = TemplateInput.bind({});
-
-EmailInput.args = {
-  type: "email",
-  id: "email",
-  name: "email",
-  label: "Email",
-  rules: { required: false },
-};
-
-export const PasswordInput = TemplateInput.bind({});
-
-PasswordInput.args = {
-  type: "password",
-  id: "password",
-  name: "password",
-  label: "Password",
-  rules: { required: false },
-};
-
-export const TelephoneInput = TemplateInput.bind({});
-
-TelephoneInput.args = {
-  type: "tel",
-  id: "telephone",
-  name: "telephone",
-  label: "Telephone",
-  rules: {
-    required: true,
+  args: {
+    type: "text",
+    id: "firstName",
+    label: <span data-h2-font-weight="base(700)">First name</span>,
+    name: "firstNameElement",
+    rules: {
+      required: "This field is required",
+      maxLength: { value: 50, message: "Too long!" },
+    },
+    context: "Additional context about this field.",
   },
 };
 
-export const ElementLabelText = TemplateInput.bind({});
+export const TextInputReadOnly = {
+  render: TemplateInput,
 
-ElementLabelText.args = {
-  type: "text",
-  id: "firstName",
-  label: <span data-h2-font-weight="base(700)">First name</span>,
-  name: "firstNameElement",
-  rules: {
-    required: "This field is required",
-    maxLength: { value: 50, message: "Too long!" },
+  args: {
+    type: "text",
+    id: "firstName",
+    label: "First Name",
+    name: "firstName",
+    readOnly: true,
   },
-  context: "Additional context about this field.",
-};
-
-export const TextInputReadOnly = TemplateInput.bind({});
-
-TextInputReadOnly.args = {
-  type: "text",
-  id: "firstName",
-  label: "First Name",
-  name: "firstName",
-  readOnly: true,
 };

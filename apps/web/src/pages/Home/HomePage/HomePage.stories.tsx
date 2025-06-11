@@ -10,15 +10,18 @@ export default {
 
 const Template: StoryFn<typeof Home> = () => <Home defaultImage={0} />;
 
-export const Default = Template.bind({});
-Default.parameters = {
-  layout: "fullscreen",
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      "light mobile": allModes["light mobile"],
-      dark: allModes.dark,
-      french: allModes.french,
+export const Default = {
+  render: Template,
+
+  parameters: {
+    layout: "fullscreen",
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+        french: allModes.french,
+      },
     },
   },
 };

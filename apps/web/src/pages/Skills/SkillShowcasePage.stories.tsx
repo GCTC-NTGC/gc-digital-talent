@@ -16,50 +16,56 @@ const Template: StoryFn<typeof SkillShowcase> = (args) => {
   return <SkillShowcase {...args} />;
 };
 
-export const WithData = Template.bind({});
-WithData.args = {
-  topBehaviouralSkillsQuery: mockUserSkills
-    .slice(0, 5)
-    .map((userSkill, index) => ({
-      ...userSkill,
-      skill: {
-        ...mockSkills[index],
-        category: SkillCategory.Behavioural,
-      },
-    })) as UserSkillShowcaseFragment,
-  topTechnicalSkillsQuery: mockUserSkills
-    .slice(5, 15)
-    .map((userSkill, index) => ({
-      ...userSkill,
-      skill: {
-        ...mockSkills[index + 5],
-        category: SkillCategory.Technical,
-      },
-    })) as UserSkillShowcaseFragment,
-  improveBehaviouralSkillsQuery: mockUserSkills
-    .slice(15, 18)
-    .map((userSkill, index) => ({
-      ...userSkill,
-      skill: {
-        ...mockSkills[index + 15],
-        category: SkillCategory.Behavioural,
-      },
-    })) as UserSkillShowcaseFragment,
-  improveTechnicalSkillsQuery: mockUserSkills
-    .slice(18)
-    .map((userSkill, index) => ({
-      ...userSkill,
-      skill: {
-        ...mockSkills[index + 18],
-        category: SkillCategory.Technical,
-      },
-    })) as UserSkillShowcaseFragment,
+export const WithData = {
+  render: Template,
+
+  args: {
+    topBehaviouralSkillsQuery: mockUserSkills
+      .slice(0, 5)
+      .map((userSkill, index) => ({
+        ...userSkill,
+        skill: {
+          ...mockSkills[index],
+          category: SkillCategory.Behavioural,
+        },
+      })) as UserSkillShowcaseFragment,
+    topTechnicalSkillsQuery: mockUserSkills
+      .slice(5, 15)
+      .map((userSkill, index) => ({
+        ...userSkill,
+        skill: {
+          ...mockSkills[index + 5],
+          category: SkillCategory.Technical,
+        },
+      })) as UserSkillShowcaseFragment,
+    improveBehaviouralSkillsQuery: mockUserSkills
+      .slice(15, 18)
+      .map((userSkill, index) => ({
+        ...userSkill,
+        skill: {
+          ...mockSkills[index + 15],
+          category: SkillCategory.Behavioural,
+        },
+      })) as UserSkillShowcaseFragment,
+    improveTechnicalSkillsQuery: mockUserSkills
+      .slice(18)
+      .map((userSkill, index) => ({
+        ...userSkill,
+        skill: {
+          ...mockSkills[index + 18],
+          category: SkillCategory.Technical,
+        },
+      })) as UserSkillShowcaseFragment,
+  },
 };
 
-export const NoData = Template.bind({});
-NoData.args = {
-  topBehaviouralSkillsQuery: [],
-  topTechnicalSkillsQuery: [],
-  improveBehaviouralSkillsQuery: [],
-  improveTechnicalSkillsQuery: [],
+export const NoData = {
+  render: Template,
+
+  args: {
+    topBehaviouralSkillsQuery: [],
+    topTechnicalSkillsQuery: [],
+    improveBehaviouralSkillsQuery: [],
+    improveTechnicalSkillsQuery: [],
+  },
 };

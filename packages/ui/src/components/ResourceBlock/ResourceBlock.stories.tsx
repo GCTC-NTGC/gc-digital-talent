@@ -75,7 +75,11 @@ const Template: StoryFn<typeof ResourceBlock.Root> = (args) => (
     ))}
   </div>
 );
-export const Default = Template.bind({});
-Default.args = {
-  title: faker.lorem.words(5),
+
+export const Default = {
+  render: Template,
+
+  args: {
+    title: faker.lorem.words(5),
+  },
 };

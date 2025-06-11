@@ -42,12 +42,10 @@ export default {
   component: ApplicationCareerTimeline,
 } as Meta<typeof ApplicationCareerTimeline>;
 
-const Template: ApplicationCareerTimelineStory = (props) => (
-  <ApplicationCareerTimeline {...props} />
-);
+export const NoExperiences = {
+  args: noExperiencesProps,
+};
 
-export const NoExperiences = Template.bind({});
-NoExperiences.args = noExperiencesProps;
-
-export const HasExperiences = Template.bind({});
-HasExperiences.args = hasExperiencesProps;
+export const HasExperiences = {
+  args: hasExperiencesProps,
+};

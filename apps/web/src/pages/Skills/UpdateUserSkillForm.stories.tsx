@@ -44,35 +44,44 @@ const Template: StoryFn<typeof UpdateUserSkillForm> = (args) => {
   return <UpdateUserSkillForm {...args} />;
 };
 
-export const TechnicalSkill = Template.bind({});
-TechnicalSkill.args = {
-  skillQuery: makeFragmentData(
-    {
-      ...mockSkill,
-      category: toLocalizedEnum(SkillCategory.Technical),
-    },
-    UpdateUserSkillSkill_Fragment,
-  ),
+export const TechnicalSkill = {
+  render: Template,
+
+  args: {
+    skillQuery: makeFragmentData(
+      {
+        ...mockSkill,
+        category: toLocalizedEnum(SkillCategory.Technical),
+      },
+      UpdateUserSkillSkill_Fragment,
+    ),
+  },
 };
 
-export const BehaviouralSkill = Template.bind({});
-BehaviouralSkill.args = {
-  skillQuery: makeFragmentData(
-    {
-      ...mockSkill,
-      category: toLocalizedEnum(SkillCategory.Behavioural),
-    },
-    UpdateUserSkillSkill_Fragment,
-  ),
+export const BehaviouralSkill = {
+  render: Template,
+
+  args: {
+    skillQuery: makeFragmentData(
+      {
+        ...mockSkill,
+        category: toLocalizedEnum(SkillCategory.Behavioural),
+      },
+      UpdateUserSkillSkill_Fragment,
+    ),
+  },
 };
 
-export const WithValues = Template.bind({});
-WithValues.args = {
-  userSkillQuery: makeFragmentData(
-    {
-      ...mockUserSkill,
-      experiences: mockExperiences.slice(0, 2),
-    },
-    UpdateUserSkill_Fragment,
-  ),
+export const WithValues = {
+  render: Template,
+
+  args: {
+    userSkillQuery: makeFragmentData(
+      {
+        ...mockUserSkill,
+        experiences: mockExperiences.slice(0, 2),
+      },
+      UpdateUserSkill_Fragment,
+    ),
+  },
 };

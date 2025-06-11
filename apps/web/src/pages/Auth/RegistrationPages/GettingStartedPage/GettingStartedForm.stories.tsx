@@ -34,4 +34,6 @@ const Template: StoryFn<typeof GettingStartedForm> = () => {
   );
 };
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

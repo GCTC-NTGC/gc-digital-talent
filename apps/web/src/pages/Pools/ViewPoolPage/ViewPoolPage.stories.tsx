@@ -55,67 +55,82 @@ const Template: StoryFn<typeof ViewPool> = (args) => {
   return <ViewPool {...args} {...apiProps} />;
 };
 
-export const DraftCompleteProcess = Template.bind({});
-DraftCompleteProcess.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
-      isComplete: true,
-    },
-    ViewPool_Fragment,
-  ),
+export const DraftCompleteProcess = {
+  render: Template,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: null,
+        status: toLocalizedEnum(PoolStatus.Draft),
+        isComplete: true,
+      },
+      ViewPool_Fragment,
+    ),
+  },
 };
 
-export const DraftIncompleteProcess = Template.bind({});
-DraftIncompleteProcess.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
-      isComplete: false,
-    },
-    ViewPool_Fragment,
-  ),
+export const DraftIncompleteProcess = {
+  render: Template,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: null,
+        status: toLocalizedEnum(PoolStatus.Draft),
+        isComplete: false,
+      },
+      ViewPool_Fragment,
+    ),
+  },
 };
 
-export const PublishedProcess = Template.bind({});
-PublishedProcess.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Published),
-      closingDate: FAR_FUTURE_DATE,
-    },
-    ViewPool_Fragment,
-  ),
+export const PublishedProcess = {
+  render: Template,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: FAR_PAST_DATE,
+        status: toLocalizedEnum(PoolStatus.Published),
+        closingDate: FAR_FUTURE_DATE,
+      },
+      ViewPool_Fragment,
+    ),
+  },
 };
 
-export const ExpiredProcess = Template.bind({});
-ExpiredProcess.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Closed),
-      closingDate: FAR_PAST_DATE,
-    },
-    ViewPool_Fragment,
-  ),
+export const ExpiredProcess = {
+  render: Template,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: FAR_PAST_DATE,
+        status: toLocalizedEnum(PoolStatus.Closed),
+        closingDate: FAR_PAST_DATE,
+      },
+      ViewPool_Fragment,
+    ),
+  },
 };
 
-export const ArchivedProcess = Template.bind({});
-ArchivedProcess.args = {
-  poolQuery: makeFragmentData(
-    {
-      ...pool,
-      publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Archived),
-      closingDate: FAR_PAST_DATE,
-    },
-    ViewPool_Fragment,
-  ),
+export const ArchivedProcess = {
+  render: Template,
+
+  args: {
+    poolQuery: makeFragmentData(
+      {
+        ...pool,
+        publishedAt: FAR_PAST_DATE,
+        status: toLocalizedEnum(PoolStatus.Archived),
+        closingDate: FAR_PAST_DATE,
+      },
+      ViewPool_Fragment,
+    ),
+  },
 };

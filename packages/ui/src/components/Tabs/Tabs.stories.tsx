@@ -43,4 +43,6 @@ const Template: StoryFn<typeof Tabs.Root> = () => (
   </Tabs.Root>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

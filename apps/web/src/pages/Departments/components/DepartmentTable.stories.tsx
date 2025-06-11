@@ -22,8 +22,11 @@ const Template: StoryFn<typeof DepartmentTable> = (args) => {
   return <DepartmentTable departmentsQuery={departmentsQuery} title={title} />;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  departmentsQuery: departmentFragments,
-  title: "Departments",
+export const Default = {
+  render: Template,
+
+  args: {
+    departmentsQuery: departmentFragments,
+    title: "Departments",
+  },
 };

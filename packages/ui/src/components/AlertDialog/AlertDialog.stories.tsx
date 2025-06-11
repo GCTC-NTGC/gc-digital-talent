@@ -50,4 +50,6 @@ const Template: StoryFn<typeof AlertDialog.Root> = ({ defaultOpen }) => (
   </AlertDialog.Root>
 );
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};
