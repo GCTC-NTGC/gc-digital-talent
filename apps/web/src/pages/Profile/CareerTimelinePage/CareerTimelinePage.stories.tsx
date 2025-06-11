@@ -20,6 +20,8 @@ const CareerTimelineTemplate: StoryFn<typeof CareerTimeline> = (args) => {
   return <CareerTimeline {...args} />;
 };
 
+const mockExperiences = fakeExperiences(10);
+
 export const NoExperiences = {
   render: CareerTimelineTemplate,
 
@@ -45,5 +47,3 @@ export const NoExperiencesMissingSkills = {
 export const WithExperiencesMissingSkills = {
   render: CareerTimelineTemplate,
 };
-
-const mockExperiences = fakeExperiences(10);
