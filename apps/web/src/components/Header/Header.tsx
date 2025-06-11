@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <header className="border-b border-black/20 bg-white py-6 xs:py-4.5 dark:border-white/20 dark:bg-gray-700">
-      <Container size="lg">
+      <Container size="lg" center>
         <div className="grid items-center gap-3 xs:grid-cols-2 xs:gap-12">
           <div className="text-center xs:text-left">
             <a
