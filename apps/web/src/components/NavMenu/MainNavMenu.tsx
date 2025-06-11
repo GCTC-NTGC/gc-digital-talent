@@ -43,11 +43,15 @@ import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import navMenuMessages from "./messages";
 
+const borderItem = tv({
+  base: "sm:border-x sm:border-white/20 sm:px-4.5",
+});
+
 const homeItem = tv({
   base: "hidden sm:flex",
   variants: {
     hidden: {
-      true: "sm:border-r sm:border-black/20 sm:px-4.5 sm:dark:border-white/20",
+      true: "sm:border-r sm:border-white/20 sm:px-4.5",
     },
   },
 });
@@ -226,7 +230,7 @@ const MainNavMenu = () => {
                       </NavMenu.Item>
                       {showRoleSwitcher ? (
                         <>
-                          <NavMenu.Item className="sm:border-x sm:border-black/20 sm:px-4.5 sm:dark:border-white/20">
+                          <NavMenu.Item className={borderItem()}>
                             <NavMenu.Trigger
                               color={isSmallScreen ? "black" : "white"}
                               fixedColor={!isSmallScreen}
@@ -305,7 +309,7 @@ const MainNavMenu = () => {
 
                   <NavMenu.List className="flex flex-col sm:flex-row sm:gap-x-4.5">
                     {accountLinks && (
-                      <NavMenu.Item className="sm:border-x sm:border-black/20 sm:px-4.5 sm:dark:border-white/20">
+                      <NavMenu.Item className={borderItem()}>
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
                           fixedColor={!isSmallScreen}
