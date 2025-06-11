@@ -20,12 +20,6 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 "128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
-type LocalizedString {
-  en: String
-  fr: String
-  localized: String
-}
-
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -1459,6 +1453,12 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+    @field(resolver: "App\\GraphQL\\Queries\\LocalizedEnumOptions")
+    @deprecated(reason: "Replaced by localizedEnumOptions")
+  localizedEnumOptions(
+    enumName: String!
+      @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
+  ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
     orderBy: _
