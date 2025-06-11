@@ -181,21 +181,24 @@ const ReviewApplicationDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <PreviewList.Button>
-          {pool.name?.localized
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "<hidden>Application for </hidden>{poolName}",
-                  id: "LC1Rsg",
-                  description:
-                    "Text before application pool name in application preview list.",
-                },
-                {
-                  poolName: pool.name.localized,
-                },
-              )
-            : nullMessage}
-        </PreviewList.Button>
+        <PreviewList.Button
+          label={
+            pool.name?.localized
+              ? intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "<hidden>Application for </hidden>{poolName}",
+                    id: "LC1Rsg",
+                    description:
+                      "Text before application pool name in application preview list.",
+                  },
+                  {
+                    poolName: pool.name.localized,
+                  },
+                )
+              : nullMessage
+          }
+        />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header

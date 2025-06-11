@@ -8,6 +8,7 @@ import {
   PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -145,7 +146,7 @@ const CareerObjectivePreview = ({
         action={
           <CareerObjectiveDialog
             careerObjectiveDialogQuery={careerObjectivePreviewFragment}
-            trigger={<PreviewList.Button>{title}</PreviewList.Button>}
+            trigger={<PreviewList.Button label={nodeToString(title)} />}
           />
         }
         headingAs={headingAs}

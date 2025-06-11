@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
 import { ReactNode, useEffect, useRef } from "react";
+import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -40,6 +41,16 @@ const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
 
   return <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>;
 };
+
+const notificationItem = tv({
+  base: "flex",
+  variants: {
+    inDialog: {
+      true: "rounded-none p-3 has-focus-visible:shadow-[inset_calc(var(--spacing)*1.5)_0_0_0_var(--color-focus)]",
+      false: "has-focus-visible:ring-2 has-focus-visible:ring-focus",
+    },
+  },
+});
 
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
@@ -160,30 +171,12 @@ const NotificationItem = ({
 
   return (
     <li ref={itemRef}>
-      <Card
-        className={
-          inDialog
-            ? "flex rounded-none p-3 shadow-none has-focus-visible:inset-shadow"
-            : "has-focus-visible:outline-2 has-focus-visible:outline-focus"
-        }
-      >
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(x.5 1fr)"
-          data-h2-grid-template-rows="base(auto auto)"
-          data-h2-gap="base(x.25)"
-          data-h2-width="base(100%)"
-        >
-          <div
-            data-h2-font-size="base(copy)"
-            data-h2-grid-row="base(2)"
-            data-h2-margin="base(0 auto)"
-          >
+      <Card className={notificationItem({ inDialog })}>
+        <div className="grid w-full grid-cols-[calc(var(--spacing)*3)_1fr] grid-rows-[auto_auto] gap-1.5">
+          <div className="row-start-2 m-auto">
             {isUnread && (
               <svg
-                data-h2-color="base(tertiary)"
-                data-h2-height="base(x.25)"
-                data-h2-width="base(x.25)"
+                className="size-1.5 text-error"
                 viewBox="0 0 8 8"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -192,14 +185,7 @@ const NotificationItem = ({
               </svg>
             )}
           </div>
-          <div
-            data-h2-grid-row="base(2)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(flex-start)"
-            data-h2-gap="base(x.25)"
-            data-h2-justify-content="base(space-between)"
-            data-h2-width="base(100%)"
-          >
+          <div className="row-start-2 flex w-full items-start justify-between gap-1.5">
             {info.href ? (
               <LinkWrapper inDialog={inDialog}>
                 {info.download ? (
@@ -262,20 +248,12 @@ const NotificationItem = ({
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           </div>
-          <p
-            className="Notification__Date"
-            data-h2-font-size="base(caption)"
-            data-h2-color="base(black.light)"
-            data-h2-grid-column="base(2)"
-            data-h2-grid-row="base(1)"
-          >
+          <p className="col-start-2 row-start-1 text-sm/none text-gray-500 dark:text-gray-300">
             {createdAt}
           </p>
         </div>
       </Card>
-      {inDialog && (
-        <Separator orientation="horizontal" data-h2-margin="base(0)" />
-      )}
+      {inDialog && <Separator orientation="horizontal" space="none" />}
     </li>
   );
 };

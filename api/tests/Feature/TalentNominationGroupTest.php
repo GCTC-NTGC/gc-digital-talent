@@ -26,6 +26,8 @@ class TalentNominationGroupTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
+    protected $nominationEvent;
+
     protected function makeEmployee(string $userName)
     {
         return User::factory()
@@ -85,6 +87,10 @@ class TalentNominationGroupTest extends TestCase
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
 
+        $this->nominationEvent = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.far_future_datetime'),
+        ]);
     }
 
     public function testNominationCanCreateNewGroup()
@@ -127,6 +133,7 @@ class TalentNominationGroupTest extends TestCase
         $nomination1 = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
+                'talent_nomination_event_id' => $this->nominationEvent,
                 'submitter_id' => $nominator->id,
                 'nominator_id' => $nominator->id,
                 'nominee_id' => $nominee->id,
@@ -179,6 +186,7 @@ class TalentNominationGroupTest extends TestCase
         $nomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
                 'submitter_id' => $nominator->id,
                 'nominator_id' => $nominator->id,
                 'nominee_id' => $nominee->id,
@@ -236,7 +244,7 @@ class TalentNominationGroupTest extends TestCase
         $community = Community::factory()->create();
         $talentNominationEvent = TalentNominationEvent::factory()
             ->for($community)
-            ->create();
+            ->create(['close_date' => config('constants.far_future_datetime')]);
 
         $nominator = $this->makeEmployee('nominator');
         $nominee = $this->makeEmployee('nominee');
@@ -277,7 +285,7 @@ class TalentNominationGroupTest extends TestCase
 
         $talentNominationEvent = TalentNominationEvent::factory()
             ->for($community1)
-            ->create();
+            ->create(['close_date' => config('constants.far_future_datetime')]);
 
         $nominator = $this->makeEmployee('nominator');
         $nominee = $this->makeEmployee('nominee');

@@ -17,7 +17,7 @@ const FormChangeNotifyWell = ({
 
   return (
     <Well {...rest} color="warning" fontSize="caption">
-      <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
+      <Heading level={headingAs} size="h6" className="mt-0">
         {intl.formatMessage(commonMessages.important)}
       </Heading>
       <p>{intl.formatMessage(formMessages.candidateNotify)}</p>

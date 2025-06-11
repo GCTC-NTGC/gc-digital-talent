@@ -1,18 +1,19 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
 
-import { hrefToString, Link, LinkProps } from "@gc-digital-talent/ui";
+import {
+  Container,
+  hrefToString,
+  Link,
+  LinkProps,
+} from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import { CanadaLogo, CanadaLogoWhite } from "../Svg";
 import VersionLink from "./VersionLink";
 
-interface FooterProps {
-  width?: string;
-}
-
-const Footer = ({ width }: FooterProps) => {
+const Footer = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -61,39 +62,13 @@ const Footer = ({ width }: FooterProps) => {
     },
   ];
 
-  let footerWidth = {
-    "data-h2-wrapper": "base(center, large, x1) p-tablet(center, large, x2)",
-  };
-
-  if (width === "full") {
-    footerWidth = {
-      "data-h2-wrapper": "base(center, full, x1) p-tablet(center, full, x2)",
-    };
-  }
-
   return (
-    <footer
-      data-h2-background-color="base(foreground) base:dark(white)"
-      data-h2-border-top="base(1px solid black.20)"
-      data-h2-padding="base(x2, 0)"
-      data-h2-margin="base(auto, 0, 0, 0)"
-    >
-      <div {...footerWidth}>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr) laptop(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1) p-tablet(x2)"
-          data-h2-align-items="base(center)"
-        >
-          <div
-            data-h2-text-align="base(center) p-tablet(left)"
-            data-h2-grid-column="laptop(1 / 3)"
-          >
+    <footer className="mt-auto border-t border-black/20 bg-white py-12 dark:bg-black">
+      <Container center size="lg">
+        <div className="grid items-center gap-6 xs:grid-cols-2 xs:gap-12 md:grid-cols-3">
+          <div className="text-center xs:text-left md:col-start-1 md:col-end-3">
             <nav
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x1)"
-              data-h2-flex-direction="base(column) p-tablet(row)"
-              data-h2-flex-wrap="p-tablet(wrap)"
+              className="flex flex-col gap-6 xs:flex-row xs:flex-wrap"
               aria-label={intl.formatMessage({
                 defaultMessage: "Policy and feedback",
                 id: "xdojyj",
@@ -105,11 +80,8 @@ const Footer = ({ width }: FooterProps) => {
                 <Link key={hrefToString(props.href)} color="black" {...props} />
               ))}
             </nav>
-            <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
-              <p
-                data-h2-color="base(black.70)"
-                data-h2-font-size="base(caption)"
-              >
+            <div className="mt-12 mb-6 xs:mt-6 xs:mb-0">
+              <p className="text-sm text-black/70 dark:text-white/70">
                 <span>
                   {intl.formatMessage(
                     {
@@ -129,21 +101,15 @@ const Footer = ({ width }: FooterProps) => {
               </p>
             </div>
           </div>
-          <div data-h2-text-align="base(center) p-tablet(right)">
+          <div className="text-center xs:text-right">
             <a
               href={`https://www.canada.ca/${intl.locale}.html`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <CanadaLogo
-                data-h2-display="base(inline-block) base:dark(none)"
-                data-h2-max-width="base(x10)"
-              />
-              <CanadaLogoWhite
-                data-h2-display="base(none) base:dark(inline-block)"
-                data-h2-max-width="base(x10)"
-              />
-              <span data-h2-visually-hidden="base(invisible)">
+              <CanadaLogo className="inline-block max-w-60 dark:hidden" />
+              <CanadaLogoWhite className="hidden max-w-60 dark:inline-block" />
+              <span className="sr-only">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "m1eQrS",
@@ -154,7 +120,7 @@ const Footer = ({ width }: FooterProps) => {
             </a>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 };
