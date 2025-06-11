@@ -3,17 +3,12 @@ import { HTMLProps, ReactNode, forwardRef } from "react";
 interface LogoutButtonProps extends HTMLProps<HTMLButtonElement> {
   children: ReactNode;
 }
+
 const LogoutButton = forwardRef<HTMLButtonElement, LogoutButtonProps>(
   ({ children, ...rest }, forwardedRef) => (
     <button
-      data-h2-color="base(black) base:hover(primary) base:iap(primary) base:iap:dark(primary.lightest) base:iap:hover(primary.darker) base:iap:dark:hover(black)"
-      data-h2-font-size="base(normal)"
-      data-h2-text-decoration="base(underline)"
-      data-h2-padding="base(0)"
-      style={{
-        background: "none",
-      }}
       ref={forwardedRef}
+      className="bg-none p-0 text-base text-black underline hover:text-secondary iap:text-primary iap:hover:text-primary-600 iap:dark:text-primary-100 iap:dark:hover:text-white"
       {...rest}
       type="button"
     >
