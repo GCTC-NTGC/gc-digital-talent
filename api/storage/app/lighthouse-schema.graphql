@@ -1,359 +1,369 @@
-type LocalizedArmedForcesStatus {
+type LocalizedString {
+  en: String
+  fr: String
+  localized: String
+}
+
+interface LocalizedEnumOption {
+  label: LocalizedString!
+}
+
+type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
 }
 
-type LocalizedAssessmentDecision {
+type LocalizedAssessmentDecision implements LocalizedEnumOption {
   value: AssessmentDecision!
   label: LocalizedString!
 }
 
-type LocalizedAssessmentDecisionLevel {
+type LocalizedAssessmentDecisionLevel implements LocalizedEnumOption {
   value: AssessmentDecisionLevel!
   label: LocalizedString!
 }
 
-type LocalizedAssessmentResultJustification {
+type LocalizedAssessmentResultJustification implements LocalizedEnumOption {
   value: AssessmentResultJustification!
   label: LocalizedString!
 }
 
-type LocalizedAssessmentStepType {
+type LocalizedAssessmentStepType implements LocalizedEnumOption {
   value: AssessmentStepType!
   label: LocalizedString!
 }
 
-type LocalizedAwardedScope {
+type LocalizedAwardedScope implements LocalizedEnumOption {
   value: AwardedScope!
   label: LocalizedString!
 }
 
-type LocalizedAwardedTo {
+type LocalizedAwardedTo implements LocalizedEnumOption {
   value: AwardedTo!
   label: LocalizedString!
 }
 
-type LocalizedCSuiteRoleTitle {
+type LocalizedCSuiteRoleTitle implements LocalizedEnumOption {
   value: CSuiteRoleTitle!
   label: LocalizedString!
 }
 
-type LocalizedCafEmploymentType {
+type LocalizedCafEmploymentType implements LocalizedEnumOption {
   value: CafEmploymentType!
   label: LocalizedString!
 }
 
-type LocalizedCafForce {
+type LocalizedCafForce implements LocalizedEnumOption {
   value: CafForce!
   label: LocalizedString!
 }
 
-type LocalizedCafRank {
+type LocalizedCafRank implements LocalizedEnumOption {
   value: CafRank!
   label: LocalizedString!
 }
 
-type LocalizedCandidateExpiryFilter {
+type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   value: CandidateExpiryFilter!
   label: LocalizedString!
 }
 
-type LocalizedCandidateRemovalReason {
+type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
 }
 
-type LocalizedCandidateSuspendedFilter {
+type LocalizedCandidateSuspendedFilter implements LocalizedEnumOption {
   value: CandidateSuspendedFilter!
   label: LocalizedString!
 }
 
-type LocalizedCitizenshipStatus {
+type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   value: CitizenshipStatus!
   label: LocalizedString!
 }
 
-type LocalizedCourseFormat {
+type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
 }
 
-type LocalizedCourseLanguage {
+type LocalizedCourseLanguage implements LocalizedEnumOption {
   value: CourseLanguage!
   label: LocalizedString!
 }
 
-type LocalizedDeadlineStatus {
+type LocalizedDeadlineStatus implements LocalizedEnumOption {
   value: DeadlineStatus!
   label: LocalizedString!
 }
 
-type LocalizedDepartmentSize {
+type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
   label: LocalizedString!
 }
 
-type LocalizedEducationRequirementOption {
+type LocalizedEducationRequirementOption implements LocalizedEnumOption {
   value: EducationRequirementOption!
   label: LocalizedString!
 }
 
-type LocalizedEducationStatus {
+type LocalizedEducationStatus implements LocalizedEnumOption {
   value: EducationStatus!
   label: LocalizedString!
 }
 
-type LocalizedEducationType {
+type LocalizedEducationType implements LocalizedEnumOption {
   value: EducationType!
   label: LocalizedString!
 }
 
-type LocalizedEmploymentCategory {
+type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
 }
 
-type LocalizedEstimatedLanguageAbility {
+type LocalizedEstimatedLanguageAbility implements LocalizedEnumOption {
   value: EstimatedLanguageAbility!
   label: LocalizedString!
 }
 
-type LocalizedEvaluatedLanguageAbility {
+type LocalizedEvaluatedLanguageAbility implements LocalizedEnumOption {
   value: EvaluatedLanguageAbility!
   label: LocalizedString!
 }
 
-type LocalizedExecCoaching {
+type LocalizedExecCoaching implements LocalizedEnumOption {
   value: ExecCoaching!
   label: LocalizedString!
 }
 
-type LocalizedExternalRoleSeniority {
+type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
   value: ExternalRoleSeniority!
   label: LocalizedString!
 }
 
-type LocalizedExternalSizeOfOrganization {
+type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
   label: LocalizedString!
 }
 
-type LocalizedFinalDecision {
+type LocalizedFinalDecision implements LocalizedEnumOption {
   value: FinalDecision!
   label: LocalizedString!
 }
 
-type LocalizedFinanceChiefDuty {
+type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
   value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
-type LocalizedFinanceChiefRole {
+type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   value: FinanceChiefRole!
   label: LocalizedString!
 }
 
-type LocalizedGovContractorRoleSeniority {
+type LocalizedGovContractorRoleSeniority implements LocalizedEnumOption {
   value: GovContractorRoleSeniority!
   label: LocalizedString!
 }
 
-type LocalizedGovContractorType {
+type LocalizedGovContractorType implements LocalizedEnumOption {
   value: GovContractorType!
   label: LocalizedString!
 }
 
-type LocalizedGovEmployeeType {
+type LocalizedGovEmployeeType implements LocalizedEnumOption {
   value: GovEmployeeType!
   label: LocalizedString!
 }
 
-type LocalizedGovPositionType {
+type LocalizedGovPositionType implements LocalizedEnumOption {
   value: GovPositionType!
   label: LocalizedString!
 }
 
-type LocalizedIndigenousCommunity {
+type LocalizedIndigenousCommunity implements LocalizedEnumOption {
   value: IndigenousCommunity!
   label: LocalizedString!
 }
 
-type LocalizedLanguage {
+type LocalizedLanguage implements LocalizedEnumOption {
   value: Language!
   label: LocalizedString!
 }
 
-type LocalizedLanguageAbility {
+type LocalizedLanguageAbility implements LocalizedEnumOption {
   value: LanguageAbility!
   label: LocalizedString!
 }
 
-type LocalizedLearningOpportunitiesInterest {
+type LocalizedLearningOpportunitiesInterest implements LocalizedEnumOption {
   value: LearningOpportunitiesInterest!
   label: LocalizedString!
 }
 
-type LocalizedMentorship {
+type LocalizedMentorship implements LocalizedEnumOption {
   value: Mentorship!
   label: LocalizedString!
 }
 
-type LocalizedOperationalRequirement {
+type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
 }
 
-type LocalizedOrganizationTypeInterest {
+type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   value: OrganizationTypeInterest!
   label: LocalizedString!
 }
 
-type LocalizedPlacementType {
+type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
 }
 
-type LocalizedPoolAreaOfSelection {
+type LocalizedPoolAreaOfSelection implements LocalizedEnumOption {
   value: PoolAreaOfSelection!
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateSearchPositionType {
+type LocalizedPoolCandidateSearchPositionType implements LocalizedEnumOption {
   value: PoolCandidateSearchPositionType!
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateSearchRequestReason {
+type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
   value: PoolCandidateSearchRequestReason!
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateSearchStatus {
+type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
   value: PoolCandidateSearchStatus!
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateStatus {
+type LocalizedPoolCandidateStatus implements LocalizedEnumOption {
   value: PoolCandidateStatus!
   label: LocalizedString!
 }
 
-type LocalizedPoolLanguage {
+type LocalizedPoolLanguage implements LocalizedEnumOption {
   value: PoolLanguage!
   label: LocalizedString!
 }
 
-type LocalizedPoolOpportunityLength {
+type LocalizedPoolOpportunityLength implements LocalizedEnumOption {
   value: PoolOpportunityLength!
   label: LocalizedString!
 }
 
-type LocalizedPoolSelectionLimitation {
+type LocalizedPoolSelectionLimitation implements LocalizedEnumOption {
   value: PoolSelectionLimitation!
   label: LocalizedString!
 }
 
-type LocalizedPoolSkillType {
+type LocalizedPoolSkillType implements LocalizedEnumOption {
   value: PoolSkillType!
   label: LocalizedString!
 }
 
-type LocalizedPoolStatus {
+type LocalizedPoolStatus implements LocalizedEnumOption {
   value: PoolStatus!
   label: LocalizedString!
 }
 
-type LocalizedPositionDuration {
+type LocalizedPositionDuration implements LocalizedEnumOption {
   value: PositionDuration!
   label: LocalizedString!
 }
 
-type LocalizedPriorityWeight {
+type LocalizedPriorityWeight implements LocalizedEnumOption {
   value: PriorityWeight!
   label: LocalizedString!
 }
 
-type LocalizedProvinceOrTerritory {
+type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   value: ProvinceOrTerritory!
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup {
+type LocalizedPublishingGroup implements LocalizedEnumOption {
   value: PublishingGroup!
   label: LocalizedString!
 }
 
-type LocalizedSecurityStatus {
+type LocalizedSecurityStatus implements LocalizedEnumOption {
   value: SecurityStatus!
   label: LocalizedString!
 }
 
-type LocalizedSkillCategory {
+type LocalizedSkillCategory implements LocalizedEnumOption {
   value: SkillCategory!
   label: LocalizedString!
 }
 
-type LocalizedSkillLevel {
+type LocalizedSkillLevel implements LocalizedEnumOption {
   value: SkillLevel!
   label: LocalizedString!
 }
 
-type LocalizedSupervisoryStatus {
+type LocalizedSupervisoryStatus implements LocalizedEnumOption {
   value: SupervisoryStatus!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationEventStatus {
+type LocalizedTalentNominationEventStatus implements LocalizedEnumOption {
   value: TalentNominationEventStatus!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationGroupDecision {
+type LocalizedTalentNominationGroupDecision implements LocalizedEnumOption {
   value: TalentNominationGroupDecision!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationGroupStatus {
+type LocalizedTalentNominationGroupStatus implements LocalizedEnumOption {
   value: TalentNominationGroupStatus!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationLateralMovementOption {
+type LocalizedTalentNominationLateralMovementOption implements LocalizedEnumOption {
   value: TalentNominationLateralMovementOption!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationNomineeRelationshipToNominator {
+type LocalizedTalentNominationNomineeRelationshipToNominator implements LocalizedEnumOption {
   value: TalentNominationNomineeRelationshipToNominator!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationSubmitterRelationshipToNominator {
+type LocalizedTalentNominationSubmitterRelationshipToNominator implements LocalizedEnumOption {
   value: TalentNominationSubmitterRelationshipToNominator!
   label: LocalizedString!
 }
 
-type LocalizedTalentNominationUserReview {
+type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   value: TalentNominationUserReview!
   label: LocalizedString!
 }
 
-type LocalizedTargetRole {
+type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
 }
 
-type LocalizedTimeFrame {
+type LocalizedTimeFrame implements LocalizedEnumOption {
   value: TimeFrame!
   label: LocalizedString!
 }
 
-type LocalizedWorkExperienceGovEmployeeType {
+type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
   value: WorkExperienceGovEmployeeType!
   label: LocalizedString!
 }
 
-type LocalizedWorkRegion {
+type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
 }
@@ -395,7 +405,8 @@ type Query {
   talentNomination(id: UUID!): TalentNomination
   talentNominationGroup(id: UUID!): TalentNominationGroup
   trainingOpportunity(id: UUID!): TrainingOpportunity
-  localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
+  localizedEnumStrings(enumName: String!): [LocalizedEnumString!] @deprecated(reason: "Replaced by localizedEnumOptions")
+  localizedEnumOptions(enumName: String!): [LocalizedEnumOption!]
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -623,12 +634,6 @@ scalar JSON
 
 "128 bit universally unique identifier (UUID)"
 scalar UUID
-
-type LocalizedString {
-  en: String
-  fr: String
-  localized: String
-}
 
 type LocalizedEnumString {
   value: String!

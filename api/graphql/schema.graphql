@@ -20,12 +20,6 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 "128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
-type LocalizedString {
-  en: String
-  fr: String
-  localized: String
-}
-
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -1459,6 +1453,12 @@ type Query {
     enumName: String!
       @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
   ): [LocalizedEnumString!]
+    @field(resolver: "App\\GraphQL\\Queries\\LocalizedEnumOptions")
+    @deprecated(reason: "Replaced by localizedEnumOptions")
+  localizedEnumOptions(
+    enumName: String!
+      @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
+  ): [LocalizedEnumOption!]
   communityInterestsPaginated(
     where: CommunityInterestFilterInput
     orderBy: _
@@ -3132,9 +3132,11 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id")
 
-  #Talent nomination mutations
+  # Talent nomination mutations
   createTalentNomination(
-    talentNomination: CreateTalentNominationInput! @spread
+    talentNomination: CreateTalentNominationInput!
+      @spread
+      @rules(apply: ["App\\Rules\\TalentEventOpenForCreatingNominations"])
   ): TalentNomination
     @create
     @inject(context: "user.id", name: "submitter_id")
@@ -3142,11 +3144,13 @@ type Mutation {
     @canModel(ability: "create")
   updateTalentNomination(
     id: UUID!
+      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
     talentNomination: UpdateTalentNominationInput! @spread
   ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
-  submitTalentNomination(id: UUID!): TalentNomination
-    @guard
-    @canFind(ability: "update", find: "id")
+  submitTalentNomination(
+    id: UUID!
+      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
+  ): TalentNomination @guard @canFind(ability: "update", find: "id")
 
   #Talent nomination group mutations
   updateTalentNominationGroup(

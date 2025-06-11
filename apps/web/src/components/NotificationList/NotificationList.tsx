@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
+import { tv } from "tailwind-variants";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -11,6 +12,15 @@ import NotificationActions from "./NotificationActions";
 import NotificationListPage from "./NotificationListPage";
 import NotificationItem from "./NotificationItem";
 import NotificationPortal from "./NotificationPortal";
+
+const actions = tv({
+  base: "flex list-none flex-col p-0",
+  variants: {
+    inDialog: {
+      false: "gap-y-1.5",
+    },
+  },
+});
 
 const MaxNotificationPages_Query = graphql(/* GraphQL */ `
   query MaxNotificationPages($where: NotificationFilterInput) {
@@ -92,15 +102,7 @@ const NotificationList = ({
         onlyUnread={onlyUnread}
         inDialog={inDialog}
       />
-      <ul
-        data-h2-list-style="base(none)"
-        data-h2-padding="base(0)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        {...(!inDialog && {
-          "data-h2-gap": "base(x.25 0)",
-        })}
-      >
+      <ul className={actions({ inDialog })}>
         {liveNotifications.length > 0 ? (
           <>
             {liveNotifications.map((notification) => (

@@ -125,7 +125,7 @@ export const EmailVerification = ({
       .catch(() => {
         toast.error(
           <>
-            <p data-h2-font-weight="base(700)">
+            <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "The code entered was incorrect.",
                 id: "2xBxZ9",
@@ -171,19 +171,13 @@ export const EmailVerification = ({
   };
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-6">
       <Heading
         level="h2"
         size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0)"
         icon={CheckBadgeIcon}
         color="secondary"
-        data-h2-text-align="base(center) p-tablet(left)"
+        className="m-0 text-center font-normal xs:text-left"
       >
         {getTitle(emailType, intl)}
       </Heading>
@@ -217,22 +211,9 @@ export const EmailVerification = ({
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-          <div
-            data-h2-margin-top="base(x1)"
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="mt-6 flex flex-col items-center gap-6 xs:flex-row">
             {canRequestACode ? (
-              <div
-                data-h2-text-align="base(center)"
-                data-h2-order="base(1) p-tablet(2)"
-                data-h2-margin-left="p-tablet(auto)"
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column) p-tablet(row)"
-                data-h2-gap="p-tablet(0 1ch)"
-              >
+              <div className="order-1 flex flex-col text-center xs:order-2 xs:ml-auto xs:flex-row xs:gap-x-[1ch]">
                 {intl.formatMessage({
                   defaultMessage: "Didn’t receive a code?",
                   id: "MvD/iS",
@@ -253,14 +234,14 @@ export const EmailVerification = ({
                 </Button>
               </div>
             ) : null}
-            <Submit data-h2-order="base(2) p-tablet(1)" />
+            <Submit className="order-2 xs:order-1" />
             {onSkip ? (
               <Button
                 type="button"
                 color="primary"
                 mode="inline"
                 onClick={onSkip}
-                data-h2-order="base(2) p-tablet(1)"
+                className="order-2 xs:order-1"
               >
                 {intl.formatMessage({
                   defaultMessage: "Skip for now",
