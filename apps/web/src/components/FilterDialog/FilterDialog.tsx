@@ -104,7 +104,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         <Button
-          color="quaternary"
+          color="warning"
           type="button"
           block
           icon={AdjustmentsVerticalIcon}
@@ -140,7 +140,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               {children}
               <Dialog.Footer>
-                <Button type="submit" color="secondary" disabled={isSubmitting}>
+                <Button type="submit" color="primary" disabled={isSubmitting}>
                   {intl.formatMessage({
                     description:
                       "Submit button within the search filter dialog",

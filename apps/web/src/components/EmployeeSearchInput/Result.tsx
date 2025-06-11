@@ -58,13 +58,8 @@ const Result = ({ employee, id, searchMessageCase = "base" }: ResultProps) => {
   }
 
   return (
-    <div
-      id={id}
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
-      data-h2-gap="base(x1)"
-    >
-      <div data-h2-grid-column="p-tablet(span 2)">
+    <div id={id} className="grid gap-6 xs:grid-cols-2">
+      <div className="xs:col-span-2">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "We found a user with this email address",

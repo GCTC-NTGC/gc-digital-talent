@@ -31,7 +31,7 @@ const DirectiveBlock = () => {
           description: "Summary of the directive on digital talent",
         })}
       </p>
-      <Link href={paths.directive()} color="tertiary" mode="solid">
+      <Link href={paths.directive()} color="error" mode="solid">
         {intl.formatMessage({
           defaultMessage: "Learn more<hidden> about the directive</hidden>",
           id: "+cqG9n",

@@ -81,7 +81,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download
@@ -91,7 +90,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_gestionnaire_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -150,7 +148,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download
@@ -160,7 +157,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_RH_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -219,7 +215,6 @@ const Resources = () => {
                 <Link
                   mode="text"
                   data-h2-font-weight="base(bold)"
-                  color="secondary"
                   block
                   external
                   download
@@ -229,7 +224,6 @@ const Resources = () => {
                       : "/static/documents/Orientation_approvisionnement_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
-                  data-h2-justify-content="base(flex-start)"
                 >
                   {intl.formatMessage({
                     defaultMessage:

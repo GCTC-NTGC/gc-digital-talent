@@ -56,7 +56,7 @@ const NoResults = () => {
       <Separator space="sm" />
 
       <Button
-        color="secondary"
+        color="primary"
         type="submit"
         {...poolSubmitProps}
         value=""

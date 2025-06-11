@@ -212,7 +212,7 @@ const ChangeDateDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
+                <Button disabled={fetching} type="submit" color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({

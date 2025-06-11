@@ -182,7 +182,7 @@ const MoreActions = ({
           <Link
             href={paths.userProfile(poolCandidate.user.id)}
             icon={UserCircleIcon}
-            color="primary"
+            color="secondary"
             mode="inline"
           >
             {intl.formatMessage({
