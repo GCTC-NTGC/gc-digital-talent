@@ -1,5 +1,3 @@
-import { StoryFn } from "@storybook/react-vite";
-
 import Context from "./Context";
 
 export default {
