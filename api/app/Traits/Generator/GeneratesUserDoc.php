@@ -33,6 +33,7 @@ use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
+use App\Models\EmployeeProfile;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\UserSkill;
@@ -545,6 +546,7 @@ trait GeneratesUserDoc
             'currentClassification',
             'experiences',
             'userSkills',
+            'employeeProfile',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -560,7 +562,7 @@ trait GeneratesUserDoc
 
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
         $this->skillShowcase($section, $user, $headingRank + 1);
-
+        $this->gcEmployeeProfile($section, $user, $headingRank + 1);
         $section->addPageBreak();
     }
 
@@ -604,5 +606,239 @@ trait GeneratesUserDoc
                 }
             });
         }
+    }
+
+    /**
+     * Generate a users gc employee
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  User  $user  The user being generated
+     */
+    protected function gcEmployeeProfile(Section $section, User $user, $headingRank = 3)
+    {
+        // Only show if user has a verified work email
+        if (! $user->work_email) {
+            return;
+        }
+
+        $user->load([
+            'employeeProfile',
+            'employeeProfile.nextRoleCommunity',
+            'employeeProfile.careerObjectiveCommunity',
+            'employeeProfile.nextRoleClassification',
+            'employeeProfile.careerObjectiveClassification',
+            'employeeProfile.nextRoleWorkStreams',
+            'employeeProfile.careerObjectiveWorkStreams',
+            'employeeProfile.nextRoleDepartments',
+            'employeeProfile.careerObjectiveDepartments',
+        ]);
+
+        $profile = $user->employeeProfile;
+
+        if (! $profile) {
+            return;
+        }
+
+        $section->addTitle('GC employee profile', $headingRank);
+
+        // Career Development Preferences
+        $section->addTitle('Career development preferences', $headingRank + 1);
+
+        // Lateral Movement
+        $this->addLabelText($section, 'Interest in lateral movement',
+            $this->yesOrNo($profile->career_planning_lateral_move_interest));
+
+        if ($profile->career_planning_lateral_move_interest) {
+            $this->addLabelText($section, 'Target time frame for lateral movement',
+                $profile->career_planning_lateral_move_time_frame);
+
+            if (! empty($profile->career_planning_lateral_move_organization_type)) {
+                $section->addText('Types of organizations for lateral movement');
+                foreach ($profile->career_planning_lateral_move_organization_type as $type) {
+                    $section->addListItem($type);
+                }
+            }
+        }
+
+        // Promotion/Advancement
+        $this->addLabelText($section, 'Interest in promotion and advancement',
+            $this->yesOrNo($profile->career_planning_promotion_move_interest));
+
+        if ($profile->career_planning_promotion_move_interest) {
+            $this->addLabelText($section, 'Target time frame for promotion or advancement',
+                $profile->career_planning_promotion_move_time_frame);
+
+            if (! empty($profile->career_planning_promotion_move_organization_type)) {
+                $section->addText('Types of organizations promotion or advancement');
+                foreach ($profile->career_planning_promotion_move_organization_type as $type) {
+                    $section->addListItem($type);
+                }
+            }
+        }
+
+        // Learning Opportunities
+        if (! empty($profile->career_planning_learning_opportunities_interest)) {
+            $section->addText('Interest in learning opportunities');
+            foreach ($profile->career_planning_learning_opportunities_interest as $opportunity) {
+                $section->addListItem($opportunity);
+            }
+        }
+
+        // Retirement Eligibility
+        if ($profile->eligible_retirement_year_known && $profile->eligible_retirement_year) {
+            $this->addLabelText($section, 'Year of retirement eligibility',
+                $profile->eligible_retirement_year->format('Y'));
+        }
+
+        // Mentorship
+        $this->addLabelText($section, 'Mentorship status',
+            implode(', ', $profile->career_planning_mentorship_status ?? []));
+
+        if (! empty($profile->career_planning_mentorship_interest)) {
+            $section->addText('Interest in mentorship opportunities');
+            foreach ($profile->career_planning_mentorship_interest as $interest) {
+                $section->addListItem($interest);
+            }
+        }
+
+        // Executive Opportunities
+        $this->addLabelText($section, 'Interest in executive-level opportunities',
+            $this->yesOrNo($profile->career_planning_exec_interest));
+
+        $this->addLabelText($section, 'Executive coaching status',
+            implode(', ', $profile->career_planning_exec_coaching_status ?? []));
+
+        if (! empty($profile->career_planning_exec_coaching_interest)) {
+            $section->addText('Interest in executive coaching opportunities');
+            foreach ($profile->career_planning_exec_coaching_interest as $interest) {
+                $section->addListItem($interest);
+            }
+        }
+
+        // Next Role
+        $this->nextRoleSection($section, $profile, $headingRank + 1);
+
+        // Career Objective
+        $this->careerObjectiveSection($section, $profile, $headingRank + 1);
+
+        // Goals and Work Style
+        $this->goalsAndWorkStyle($section, $profile, $headingRank + 1);
+    }
+
+    protected function nextRoleSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
+    {
+        $section->addTitle('Next role', $headingRank);
+
+        // Target Classification
+        if ($profile->nextRoleClassification) {
+            $this->addLabelText($section, 'Target classification group',
+                $profile->nextRoleClassification->group);
+            $this->addLabelText($section, 'Target classification level',
+                $profile->nextRoleClassification->level);
+        }
+
+        // Target Role Type
+        $this->addLabelText($section, 'Target role',
+            $profile->next_role_target_role_other ?: $profile->next_role_target_role);
+
+        // Senior Management Status
+        $this->addLabelText($section, 'Senior management status',
+            $profile->next_role_is_c_suite_role ? 'This is a chief or deputy chief (C-suite) role.' : 'This is not a C-suite role.');
+
+        if ($profile->next_role_is_c_suite_role && $profile->next_role_c_suite_role_title) {
+            $this->addLabelText($section, 'C-suite role title', $profile->next_role_c_suite_role_title);
+        }
+
+        // Job Title
+        $this->addLabelText($section, 'Job title', $profile->next_role_job_title);
+
+        // Functional Community
+        $communityName = $profile->nextRoleCommunity ? $profile->nextRoleCommunity->name[$this->lang] :
+            ($profile->next_role_community_other ?: '');
+        $this->addLabelText($section, 'Desired functional community', $communityName);
+
+        // Work Streams
+        if ($profile->nextRoleWorkStreams->isNotEmpty()) {
+            $section->addText('Desired work streams');
+            foreach ($profile->nextRoleWorkStreams as $stream) {
+                $section->addListItem($stream->name[$this->lang]);
+            }
+        }
+
+        // Preferred Departments
+        if ($profile->nextRoleDepartments->isNotEmpty()) {
+            $section->addText('Preferred departments or agencies');
+            foreach ($profile->nextRoleDepartments as $dept) {
+                $section->addListItem($dept->name[$this->lang]);
+            }
+        }
+
+        // Additional Info
+        if ($profile->next_role_additional_information) {
+            $this->addLabelText($section, 'Additional information about your next role', $profile->next_role_additional_information);
+        }
+    }
+
+    protected function careerObjectiveSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
+    {
+        $section->addTitle('Career objective', $headingRank);
+
+        // Target Classification
+        if ($profile->careerObjectiveClassification) {
+            $this->addLabelText($section, 'Target classification group',
+                $profile->careerObjectiveClassification->group);
+            $this->addLabelText($section, 'Target classification level',
+                $profile->careerObjectiveClassification->level);
+        }
+
+        // Target Role Type
+        $this->addLabelText($section, 'Target role',
+            $profile->career_objective_target_role_other ?: $profile->career_objective_target_role);
+
+        // Senior Management Status
+        $this->addLabelText($section, 'Senior management status',
+            $profile->career_objective_is_c_suite_role ? 'This is a chief or deputy chief (C-suite) role.' : 'This is not a C-suite role.');
+
+        if ($profile->career_objective_is_c_suite_role && $profile->career_objective_c_suite_role_title) {
+            $this->addLabelText($section, 'C-suite role title', $profile->career_objective_c_suite_role_title);
+        }
+
+        // Job Title
+        $this->addLabelText($section, 'Job title', $profile->career_objective_job_title);
+
+        // Functional Community
+        $communityName = $profile->careerObjectiveCommunity ? $profile->careerObjectiveCommunity->name[$this->lang] :
+            ($profile->career_objective_community_other ?: '');
+        $this->addLabelText($section, 'Desired functional community', $communityName);
+
+        // Work Streams
+        if ($profile->careerObjectiveWorkStreams->isNotEmpty()) {
+            $section->addText('Desired work streams');
+            foreach ($profile->careerObjectiveWorkStreams as $stream) {
+                $section->addListItem($stream->name[$this->lang]);
+            }
+        }
+
+        // Preferred Departments or agencies
+        if ($profile->careerObjectiveDepartments->isNotEmpty()) {
+            $section->addText('Preferred departments or agencies');
+            foreach ($profile->careerObjectiveDepartments as $dept) {
+                $section->addListItem($dept->name[$this->lang]);
+            }
+        }
+
+        // Additional Info
+        if ($profile->career_objective_additional_information) {
+            $this->addLabelText($section, 'Additional information about your next role', $profile->career_objective_additional_information);
+        }
+    }
+
+    protected function goalsAndWorkStyle(Section $section, EmployeeProfile $profile, $headingRank = 4)
+    {
+        $section->addTitle('Goals and work style', $headingRank);
+
+        $this->addLabelText($section, 'About you', $profile->career_planning_about_you);
+        $this->addLabelText($section, 'Learning goals', $profile->career_planning_learning_goals);
+        $this->addLabelText($section, 'How you work best', $profile->career_planning_work_style);
     }
 }
