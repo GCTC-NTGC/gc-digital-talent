@@ -22,22 +22,19 @@ export default {
 
 const Template: StoryFn<typeof BrowsePools> = () => <BrowsePools />;
 
-export const Default = {
-  render: Template,
-
-  parameters: {
-    chromatic: { viewports: CHROMATIC_VIEWPORTS },
-    apiResponsesConfig: {
-      latency: {
-        min: 0,
-        max: 0,
-      },
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
+  apiResponsesConfig: {
+    latency: {
+      min: 0,
+      max: 0,
     },
-    apiResponses: {
-      BrowsePoolsPage: {
-        data: {
-          publishedPools: mockPools,
-        },
+  },
+  apiResponses: {
+    BrowsePoolsPage: {
+      data: {
+        publishedPools: mockPools,
       },
     },
   },

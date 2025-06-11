@@ -101,6 +101,4 @@ const Template: StoryFn<RequestFormProps> = (args) => {
   return <RequestForm {...args} />;
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

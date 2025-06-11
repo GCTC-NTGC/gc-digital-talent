@@ -38,10 +38,7 @@ const Template: StoryFn<typeof SearchRequestTable> = (args) => {
   return <SearchRequestTable title={title} />;
 };
 
-export const Default = {
-  render: Template,
-
-  args: {
-    title: "Search Requests",
-  },
+export const Default = Template.bind({});
+Default.args = {
+  title: "Search Requests",
 };

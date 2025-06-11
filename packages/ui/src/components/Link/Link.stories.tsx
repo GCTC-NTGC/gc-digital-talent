@@ -115,15 +115,10 @@ const Template: StoryFn<
   </div>
 );
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});
 
-export const NewTab = {
-  render: Template,
-
-  args: {
-    newTab: true,
-    external: true,
-  },
+export const NewTab = Template.bind({});
+NewTab.args = {
+  newTab: true,
+  external: true,
 };

@@ -30,14 +30,9 @@ const Template: StoryFn<typeof Heading> = (args) => (
   </>
 );
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});
 
-export const WithIcon = {
-  render: Template,
-
-  args: {
-    icon: AcademicCapIcon,
-  },
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  icon: AcademicCapIcon,
 };

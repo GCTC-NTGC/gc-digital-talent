@@ -48,27 +48,18 @@ const Template: StoryFn<typeof Chip> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-
-  args: {
-    onDismiss: undefined,
-  },
+export const Default = Template.bind({});
+Default.args = {
+  onDismiss: undefined,
 };
 
-export const Dismissible = {
-  render: Template,
-
-  args: {
-    onDismiss: () => action("dismiss")({}),
-  },
+export const Dismissible = Template.bind({});
+Dismissible.args = {
+  onDismiss: () => action("dismiss")({}),
 };
 
-export const WithIcon = {
-  render: Template,
-
-  args: {
-    icon: AcademicCapIcon,
-    onDismiss: () => action("dismiss")({}),
-  },
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  icon: AcademicCapIcon,
+  onDismiss: () => action("dismiss")({}),
 };

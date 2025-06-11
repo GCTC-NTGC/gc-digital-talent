@@ -41,6 +41,4 @@ const Template: StoryFn<typeof Well> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

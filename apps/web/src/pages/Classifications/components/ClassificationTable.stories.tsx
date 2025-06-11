@@ -27,11 +27,8 @@ const Template: StoryFn<typeof ClassificationTable> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-
-  args: {
-    classificationsQuery: classifications,
-    title: "Classifications",
-  },
+export const Default = Template.bind({});
+Default.args = {
+  classificationsQuery: classifications,
+  title: "Classifications",
 };

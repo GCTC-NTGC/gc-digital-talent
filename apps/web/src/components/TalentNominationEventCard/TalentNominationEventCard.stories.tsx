@@ -47,4 +47,8 @@ export default {
   },
 } as Meta;
 
-export const Default = {};
+const Template: StoryFn<typeof TalentNominationEventCard> = (args) => (
+  <TalentNominationEventCard {...args} />
+);
+
+export const Default = Template.bind({});

@@ -120,6 +120,4 @@ const Template: StoryFn<
   </div>
 );
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

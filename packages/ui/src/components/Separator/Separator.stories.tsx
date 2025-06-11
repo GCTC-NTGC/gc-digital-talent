@@ -30,6 +30,4 @@ const Template: StoryFn<typeof Separator> = () => (
   </div>
 );
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

@@ -94,43 +94,33 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-
-  args: {
-    id: uniqueId(),
-    label: "Departments",
-    name: "departments",
-    nullSelection: "Select an option",
-  },
-
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
-      },
+export const Default = Template.bind({});
+Default.args = {
+  id: uniqueId(),
+  label: "Departments",
+  name: "departments",
+  nullSelection: "Select an option",
+};
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
     },
   },
 };
 
-export const WithGroups = {
-  render: TemplateGroups,
-
-  args: {
-    ...Default.args,
-    label: "Groups",
-    name: "groups",
-  },
+export const WithGroups = TemplateGroups.bind({});
+WithGroups.args = {
+  ...Default.args,
+  label: "Groups",
+  name: "groups",
 };
 
-export const RequiredWithErrorAndContext = {
-  render: Template,
-
-  args: {
-    ...Default.args,
-    context: "We collect the above data for account purposes.",
-    rules: { required: "This must be accepted to continue." },
-  },
+export const RequiredWithErrorAndContext = Template.bind({});
+RequiredWithErrorAndContext.args = {
+  ...Default.args,
+  context: "We collect the above data for account purposes.",
+  rules: { required: "This must be accepted to continue." },
 };

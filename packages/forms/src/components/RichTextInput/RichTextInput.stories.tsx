@@ -72,83 +72,59 @@ const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
 
 faker.seed(0);
 
-export const Default = {
-  render: Template,
+export const Default = Template.bind({});
+
+export const DefaultValue = Template.bind({});
+DefaultValue.args = {
+  defaultValue: defaultContent,
 };
-
-export const DefaultValue = {
-  render: Template,
-
-  args: {
-    defaultValue: defaultContent,
-  },
-
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
-      },
+DefaultValue.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
     },
   },
 };
 
-export const Required = {
-  render: Template,
-
-  args: {
-    rules: {
-      required: "This field is required!",
-    },
+export const Required = Template.bind({});
+Required.args = {
+  rules: {
+    required: "This field is required!",
   },
 };
 
-export const ReadOnly = {
-  render: Template,
-
-  args: {
-    defaultValue: defaultContent,
-    readOnly: true,
-  },
+export const ReadOnly = Template.bind({});
+ReadOnly.args = {
+  defaultValue: defaultContent,
+  readOnly: true,
 };
 
-export const WordLimit = {
-  render: Template,
-
-  args: {
-    defaultValue: defaultContent,
-    wordLimit: 5,
-  },
+export const WordLimit = Template.bind({});
+WordLimit.args = {
+  defaultValue: defaultContent,
+  wordLimit: 5,
 };
 
-export const WithContext = {
-  render: Template,
-
-  args: {
-    context: "Only lists and links are available.",
-  },
+export const WithContext = Template.bind({});
+WithContext.args = {
+  context: "Only lists and links are available.",
 };
 
-export const LongContent = {
-  render: Template,
-
-  args: {
-    defaultValue: `
-    <p>${faker.lorem.paragraph(15)}</p>
-    <p>${faker.lorem.paragraph(14)}</p>
-    <p>${faker.lorem.paragraph(13)}</p>
-    <p>${faker.lorem.paragraph(12)}</p>
-    <p>${faker.lorem.paragraph(11)}</p>
-    `,
-  },
+export const LongContent = Template.bind({});
+LongContent.args = {
+  defaultValue: `
+  <p>${faker.lorem.paragraph(15)}</p>
+  <p>${faker.lorem.paragraph(14)}</p>
+  <p>${faker.lorem.paragraph(13)}</p>
+  <p>${faker.lorem.paragraph(12)}</p>
+  <p>${faker.lorem.paragraph(11)}</p>
+  `,
 };
 
-export const WithHeading = {
-  render: Template,
-
-  args: {
-    defaultValue: `<h3>A heading 3</h3>${defaultContent}`,
-    allowHeadings: true,
-  },
+export const WithHeading = Template.bind({});
+WithHeading.args = {
+  defaultValue: `<h3>A heading 3</h3>${defaultContent}`,
+  allowHeadings: true,
 };

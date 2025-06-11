@@ -17,17 +17,12 @@ const Template: StoryFn<typeof ApplicationProfile> = (args) => {
   return <ApplicationProfile {...args} />;
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});
 
-export const EmptyUser = {
-  render: Template,
-
-  args: {
-    application: {
-      ...fakeApplication,
-      user: { id: "" },
-    },
+export const EmptyUser = Template.bind({});
+EmptyUser.args = {
+  application: {
+    ...fakeApplication,
+    user: { id: "" },
   },
 };

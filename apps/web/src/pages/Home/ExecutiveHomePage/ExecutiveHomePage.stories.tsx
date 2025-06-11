@@ -22,24 +22,22 @@ export default {
   component: HomePage,
 };
 
-export const WithPools = {
-  parameters: defaultParameters,
+const Template: StoryFn<typeof HomePage> = (args) => <HomePage {...args} />;
 
-  args: {
-    pools: mockPools.map((pool) => ({
-      ...pool,
-      classification: {
-        ...classification,
-        group: "EX",
-      },
-    })),
-  },
+export const WithPools = Template.bind({});
+WithPools.parameters = defaultParameters;
+WithPools.args = {
+  pools: mockPools.map((pool) => ({
+    ...pool,
+    classification: {
+      ...classification,
+      group: "EX",
+    },
+  })),
 };
 
-export const NoPools = {
-  parameters: defaultParameters,
-
-  args: {
-    pools: [],
-  },
+export const NoPools = Template.bind({});
+NoPools.parameters = defaultParameters;
+NoPools.args = {
+  pools: [],
 };

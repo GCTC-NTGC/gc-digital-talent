@@ -116,71 +116,59 @@ const Template: StoryFn<StoryProps> = (args) => {
   );
 };
 
-export const Default = {
-  render: Template,
-  args: defaultArgs,
+export const Default = Template.bind({});
+Default.args = defaultArgs;
+
+export const WithoutLegend = Template.bind({});
+WithoutLegend.args = {
+  ...defaultArgs,
+  hideLegend: true,
 };
 
-export const WithoutLegend = {
-  render: Template,
-
-  args: {
-    ...defaultArgs,
-    hideLegend: true,
-  },
+export const WithDefaultValues = Template.bind({});
+WithDefaultValues.args = {
+  ...defaultArgs,
+  defaultValues: [
+    {
+      en: "Question 1 (EN)",
+      fr: "Question 1 (FR)",
+    },
+  ],
 };
 
-export const WithDefaultValues = {
-  render: Template,
-
-  args: {
-    ...defaultArgs,
-    defaultValues: [
-      {
-        en: "Question 1 (EN)",
-        fr: "Question 1 (FR)",
-      },
-    ],
-  },
+export const WithLockedItems = Template.bind({});
+WithLockedItems.args = {
+  ...defaultArgs,
+  moveDisabledIndexes: [1],
+  defaultValues: [
+    {
+      en: "Question 1 (EN)",
+      fr: "Question 1 (FR)",
+    },
+    {
+      en: "Question 2 (EN)",
+      fr: "Question 2 (FR)",
+    },
+    {
+      en: "Question 3 (EN)",
+      fr: "Question 3 (FR)",
+    },
+    {
+      en: "Question 4 (EN)",
+      fr: "Question 4 (FR)",
+    },
+    {
+      en: "Question 5 (EN)",
+      fr: "Question 5 (FR)",
+    },
+  ],
 };
-
-export const WithLockedItems = {
-  render: Template,
-
-  args: {
-    ...defaultArgs,
-    moveDisabledIndexes: [1],
-    defaultValues: [
-      {
-        en: "Question 1 (EN)",
-        fr: "Question 1 (FR)",
-      },
-      {
-        en: "Question 2 (EN)",
-        fr: "Question 2 (FR)",
-      },
-      {
-        en: "Question 3 (EN)",
-        fr: "Question 3 (FR)",
-      },
-      {
-        en: "Question 4 (EN)",
-        fr: "Question 4 (FR)",
-      },
-      {
-        en: "Question 5 (EN)",
-        fr: "Question 5 (FR)",
-      },
-    ],
-  },
-
-  parameters: {
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
-      },
+WithLockedItems.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
     },
   },
 };

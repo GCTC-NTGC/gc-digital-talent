@@ -26,16 +26,16 @@ export default {
   },
 } as Meta;
 
-export const Default = {};
+const Template: StoryFn<typeof PoolCard> = (args) => <PoolCard {...args} />;
 
-export const Null = {
-  args: {
-    poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
-  },
+export const Default = Template.bind({});
+
+export const Null = Template.bind({});
+Null.args = {
+  poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
 };
 
-export const WithoutWhoCanApply = {
-  args: {
-    poolQuery: makeFragmentData(poolWithoutWhoCanApply, PoolCard_Fragment),
-  },
+export const WithoutWhoCanApply = Template.bind({});
+WithoutWhoCanApply.args = {
+  poolQuery: makeFragmentData(poolWithoutWhoCanApply, PoolCard_Fragment),
 };

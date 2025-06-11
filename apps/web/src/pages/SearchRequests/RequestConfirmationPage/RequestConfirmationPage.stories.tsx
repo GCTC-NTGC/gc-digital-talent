@@ -20,6 +20,4 @@ const Template: StoryFn<typeof RequestConfirmationPage> = () => {
   return <RequestConfirmationPage />;
 };
 
-export const Default = {
-  render: Template,
-};
+export const Default = Template.bind({});

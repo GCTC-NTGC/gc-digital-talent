@@ -31,11 +31,8 @@ const Template: StoryFn<MissingLanguageRequirementsComponent> = (args) => {
   return <MissingLanguageRequirements user={user} pool={pool} />;
 };
 
-export const Default = {
-  render: Template,
-
-  args: {
-    user: unilingualUser,
-    pool: bilingualPool,
-  },
+export const Default = Template.bind({});
+Default.args = {
+  user: unilingualUser,
+  pool: bilingualPool,
 };
