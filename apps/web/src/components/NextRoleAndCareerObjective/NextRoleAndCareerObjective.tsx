@@ -60,7 +60,7 @@ const NextRoleAndCareerObjective = ({
             description: "Subtitle for next role and career objective section",
           })}
         >
-          <span data-h2-font-weight="base(400)">
+          <span className="font-normal">
             {intl.formatMessage({
               defaultMessage: "Next role and career objective",
               id: "QhFxW1",
@@ -89,7 +89,7 @@ const NextRoleAndCareerObjective = ({
               />
             )}
             {hasAllEmptyFieldsCareerObjective({ ...careerObjective }) ? (
-              <Well data-h2-padding-bottom="base(x1)">
+              <Well>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
