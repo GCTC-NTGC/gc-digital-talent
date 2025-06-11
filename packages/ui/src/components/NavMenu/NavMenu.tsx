@@ -11,6 +11,7 @@ import {
   useEffect,
 } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import { tv } from "tailwind-variants";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -61,16 +62,20 @@ const Trigger = forwardRef<
   </div>
 ));
 
+const content = tv({
+  base: "mt-6 sm:absolute sm:left-1/2 sm:mt-0 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600",
+});
+
 const Content = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Content
     ref={forwardedRef}
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
-    {...props}
+    className={content({ class: className })}
+    {...rest}
   />
 ));
 
@@ -83,13 +88,17 @@ const Viewport = forwardRef<
   </div>
 ));
 
+const list = tv({
+  base: "m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start",
+});
+
 const List = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.List>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ children, ...rest }, forwardedRef) => (
+>(({ children, className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
     ref={forwardedRef}
-    className="m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start"
+    className={list({ class: className })}
     {...rest}
   >
     {children}
