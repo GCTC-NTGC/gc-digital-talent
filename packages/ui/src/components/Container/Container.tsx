@@ -47,7 +47,7 @@ const container = tv({
   defaultVariants: {
     base: "md",
     size: "sm",
-    center: false,
+    center: true,
   },
 });
 
