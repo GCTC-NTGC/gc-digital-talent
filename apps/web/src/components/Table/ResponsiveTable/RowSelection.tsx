@@ -142,7 +142,7 @@ export const actionButtonStyles: Pick<
   ButtonProps,
   "mode" | "color" | "size" | "fixedColor"
 > = {
-  mode: "inline",
+  mode: "text",
   color: "white",
   size: "sm",
   fixedColor: true,

@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import { tv } from "tailwind-variants";
 
 import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
@@ -7,6 +8,29 @@ import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import useRoutes from "~/hooks/useRoutes";
 
 import { MarkAllNotificationsAsRead_Mutation } from "./mutations";
+
+const notificationActions = tv({
+  slots: {
+    base: "mb-6 flex gap-6",
+    all: "",
+    read: "",
+  },
+  variants: {
+    inDialog: {
+      true: {
+        base: "px-6",
+      },
+    },
+    onlyUnread: {
+      true: {
+        read: "font-bold",
+      },
+      false: {
+        all: "font-bold",
+      },
+    },
+  },
+});
 
 interface NotificationActionsProps {
   onlyUnread?: boolean;
@@ -22,6 +46,7 @@ const NotificationActions = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { announce } = useAnnouncer();
+  const { base, all, read } = notificationActions({ inDialog, onlyUnread });
 
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
@@ -54,22 +79,15 @@ const NotificationActions = ({
   };
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-gap="base(x1)"
-      data-h2-margin-bottom="base(x1)"
-      {...(inDialog && {
-        "data-h2-padding": "base(0 x1)",
-      })}
-    >
+    <div className={base()}>
       {!inDialog && (
         <>
           <Link
             color="black"
+            className={all()}
             href={paths.notifications()}
             {...(!onlyUnread && {
               "aria-current": "page",
-              "data-h2-font-weight": "base(700)",
             })}
             aria-label={intl.formatMessage({
               defaultMessage: "All notifications",
@@ -85,10 +103,10 @@ const NotificationActions = ({
           </Link>
           <Link
             color="black"
+            className={read()}
             href={`${paths.notifications()}?unread`}
             {...(onlyUnread && {
               "aria-current": "page",
-              "data-h2-font-weight": "base(700)",
             })}
             aria-label={intl.formatMessage({
               defaultMessage: "Unread notifications",
@@ -107,7 +125,7 @@ const NotificationActions = ({
       <Button
         mode="inline"
         color="primary"
-        data-h2-margin-left="base(auto)"
+        className="ml-auto"
         disabled={markingAllAsRead}
         onClick={handleMarkAllNotificationsAsRead}
       >
