@@ -50,7 +50,8 @@ const MetaData = (props: MetaDataProps) => {
 const actionProps = {
   color: "black",
   icon: MagnifyingGlassPlusIcon,
-  className: "after:absolute inset-0 justify-self-end mr-6 xs:mr-9",
+  className:
+    "after:content-[''] after:absolute after:inset-0 justify-self-end mr-6 xs:mr-9",
 } satisfies IconButtonProps;
 
 interface ButtonProps extends Omit<BaseButtonProps, "icon"> {
@@ -94,11 +95,11 @@ const Item = ({
   children,
 }: ItemProps) => {
   return (
-    <li className="group relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
+    <li className="group/item relative flex items-start justify-between gap-3 not-last:border-b not-last:border-b-gray-100 not-last:pb-6 first:border-t first:border-t-gray-100 first:pt-6 xs:items-center">
       <div className="flex flex-col">
         <Heading
           level={headingAs}
-          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]:bg-focus group-has-[a:focus-visible,button:focus-visible]:text-black group-has-[a:hover,button:hover]:text-primary-600 lg:text-base dark:group-has-[a:hover,button:hover]:text-primary-200"
+          className="m-0 mb-0.5 inline-block text-base font-bold underline group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black group-has-[a:hover,button:hover]/item:text-primary-600 lg:text-base dark:group-has-[a:hover,button:hover]/item:text-primary-200"
         >
           {title}
         </Heading>

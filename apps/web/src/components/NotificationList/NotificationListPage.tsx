@@ -122,10 +122,10 @@ const NotificationListPage = ({
         >
           <Well
             {...(inDialog && {
-              "data-h2-margin": "base(0 x1)",
+              className: "mx-6",
             })}
           >
-            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+            <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "You don't have any new notifications.",
                 id: "6cr+Qy",
@@ -146,7 +146,7 @@ const NotificationListPage = ({
       )}
       {isLastPage && data?.notifications.paginatorInfo.hasMorePages && (
         <NotificationPortal.Portal containerId={LOAD_MORE_ROOT_ID}>
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             <Link
               mode="solid"
               color="primary"

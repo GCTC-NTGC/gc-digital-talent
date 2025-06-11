@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 
-import styles from "./styles";
+import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
@@ -40,7 +40,8 @@ const NotificationLink = forwardRef<
       to={href}
       onClick={handleClick}
       data-notification-link
-      {...styles.link(isUnread, fetching)}
+      {...(fetching && { "aria-disabled": "true" })}
+      className={linkStyles({ isUnread, isDisabled: fetching })}
     >
       {children}
     </Link>
