@@ -1,0 +1,31 @@
+🩺 The doctor is checking the health of your Storybook..
+╭ Package storybook not found ───────────────────────────────────────────────────────────╮
+│                                                                                        │
+│   The storybook package was not found in your package.json.                            │
+│   Installing storybook as a direct dev dependency in your package.json is required.    │
+│                                                                                        │
+╰────────────────────────────────────────────────────────────────────────────────────────╯
+╭ Incompatible packages found ────────────────────────────────────────────────────────────────────────╮
+│                                                                                                     │
+│   You are currently using Storybook 8.6.14 but you have packages which are incompatible with it:    │
+│   - eslint-plugin-storybook@9.0.8 which depends on ^9.0.8                                           │
+│    Repo: https://github.com/storybookjs/storybook/code/lib/eslint-plugin#readme                     │
+│                                                                                                     │
+│                                                                                                     │
+│   Please consider updating your packages or contacting the maintainers for compatibility details.   │
+│   For more on Storybook 9 compatibility, see the linked GitHub issue:                               │
+│   https://github.com/storybookjs/storybook/issues/30944                                             │
+│                                                                                                     │
+│                                                                                                     │
+│   The version of storybook@8.6.14 is behind the following core packages:                            │
+│   - eslint-plugin-storybook@9.0.8                                                                   │
+│   Upgrade Storybook with:                                                                           │
+│   npx storybook@latest upgrade                                                                      │
+│                                                                                                     │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+You can always recheck the health of your project by running:
+npx storybook doctor
+
+Full logs are available in /Users/matt/gc-digital-talent/apps/web/doctor-storybook.log
+

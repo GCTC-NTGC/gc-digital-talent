@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { action } from "@storybook/addon-actions";
 import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
 import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";

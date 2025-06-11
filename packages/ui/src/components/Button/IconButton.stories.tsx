@@ -1,5 +1,5 @@
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
-import { StoryObj, Meta } from "@storybook/react";
+import { StoryObj, Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

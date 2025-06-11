@@ -1,6 +1,6 @@
 import { LazyMotion, MotionConfig, domAnimation } from "motion/react";
 import isChromatic from "chromatic/isChromatic";
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 
 const ReducedMotionDecorator = (Story: StoryFn) => (
   <LazyMotion features={domAnimation}>

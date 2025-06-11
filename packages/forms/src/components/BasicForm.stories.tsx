@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { ReactNode } from "react";

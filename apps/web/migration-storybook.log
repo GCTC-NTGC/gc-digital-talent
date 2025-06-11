@@ -1,0 +1,321 @@
+🔎 checking possible migrations..
+
+🔎 found a 'eslintPlugin' migration:
+╭ Automigration detected ─────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                 │
+│   We've detected you are not using the Storybook ESLint plugin.                                                                 │
+│                                                                                                                                 │
+│   In order to have the best experience with Storybook and follow best practices, we advise you to install                       │
+│   eslint-plugin-storybook.                                                                                                      │
+│                                                                                                                                 │
+│   We can set it up automatically for you.                                                                                       │
+│                                                                                                                                 │
+│   More info: https://storybook.js.org/docs/9/configure/integration/eslint-plugin                                                │
+│                                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'eslintPlugin' migration on your project? › (Y/n)✔ Do you want to run the 'eslintPlugin' migration on your project? … yes
+✅ Adding dependencies: eslint-plugin-storybook@9.0.8
+    Configuring Storybook ESLint plugin at /Users/matt/gc-digital-talent/apps/web/eslint.config.js
+✅ ran eslintPlugin migration
+
+🔎 found a 'consolidated-imports' migration:
+╭ Automigration detected ─────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                 │
+│   Found package.json files that contain consolidated or renamed Storybook packages that need to be updated:                     │
+│   - /Users/matt/gc-digital-talent/apps/web/package.json                                                                         │
+│   - /Users/matt/gc-digital-talent/packages/storybook-helpers/package.json                                                       │
+│                                                                                                                                 │
+│   We will automatically rename the following packages:                                                                          │
+│   - @storybook/test -> storybook/test                                                                                           │
+│   - @storybook/preview-api -> storybook/preview-api                                                                             │
+│   - @storybook/types -> storybook/internal/types                                                                                │
+│                                                                                                                                 │
+│   These packages have been renamed or consolidated into the main storybook package and should be removed.                       │
+│   The main storybook package will be added to devDependencies if not already present.                                           │
+│                                                                                                                                 │
+│   Would you like to:                                                                                                            │
+│   1. Update these package.json files                                                                                            │
+│   2. Scan your codebase and update any imports from these updated packages                                                      │
+│                                                                                                                                 │
+│   This will ensure your project is properly updated to use the new updated package structure and to use the latest package      │
+│   names.                                                                                                                        │
+│                                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'consolidated-imports' migration on your project? › (Y/n)✔ Do you want to run the 'consolidated-imports' migration on your project? … yes
+? Enter a custom glob pattern: › **/*.{mjs,cjs,js,jsx,ts,tsx,mdx}✔ Enter a custom glob pattern: … **/*.{mjs,cjs,js,jsx,ts,tsx,mdx}
+Scanning for affected files...
+Scanning 2237 files...
+Installing dependencies...
+
+✅ ran consolidated-imports migration
+
+🔎 found a 'renderer-to-framework' migration:
+╭ Automigration detected ─────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                 │
+│   As part of Storybook's evolution, we're moving from renderer-based to framework-based configuration.                          │
+│                                                                                                                                 │
+│   This migration will:                                                                                                          │
+│   1. Update your source files to use framework-specific imports                                                                 │
+│   2. Remove the renderer packages from your package.json                                                                        │
+│   3. Install the necessary framework dependencies                                                                               │
+│   Would you like to proceed with these changes?                                                                                 │
+│                                                                                                                                 │
+│   More info:                                                                                                                    │
+│   https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#moving-from-renderer-based-to-framework-based-configuration   │
+│                                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'renderer-to-framework' migration on your project? › (Y/n)✔ Do you want to run the 'renderer-to-framework' migration on your project? … yes
+? Enter a custom glob pattern to scan for story files (or press enter to use default): › **/*.{mjs,cjs,js,jsx,ts,tsx}✔ Enter a custom glob pattern to scan for story files (or press enter to use default): … **/*.{mjs,cjs,js,jsx,ts,tsx}
+
+Migrating @storybook/react to @storybook/react-vite
+Scanning 2237 files...
+Updating package.json files...
+Installing dependencies...
+
+✅ ran renderer-to-framework migration
+
+🔎 found a 'remove-essentials' migration:
+╭ Automigration detected ────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                        │
+│   We've detected that you have @storybook/addon-essentials installed.                                  │
+│                                                                                                        │
+│   In Storybook 9.0, all features from @storybook/addon-essentials (except docs)                        │
+│   have been moved into Storybook's core. You no longer need to install or configure them separately.   │
+│                                                                                                        │
+│   We'll remove @storybook/addon-essentials from your configuration and dependencies.                   │
+│                                                                                                        │
+│   We've detected the following addons that are now part of Storybook core:                             │
+│                                                                                                        │
+│           - @storybook/addon-actions                                                                   │
+│                                                                                                        │
+│           These will be removed as they are no longer needed.                                          │
+│                                                                                                        │
+│           We'll also need to update your code to use the new core addons.                              │
+│                                                                                                        │
+│   Since you were using the docs feature, we'll install @storybook/addon-docs                           │
+│   separately and add it to your configuration if it's not already present.                             │
+│                                                                                                        │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+? Do you want to run the 'remove-essentials' migration on your project? › (Y/n)✔ Do you want to run the 'remove-essentials' migration on your project? … yes
+Removing @storybook/addon-essentials...
+❌ error when running remove-essentials migration
+Error: Command failed with exit code 7: pnpm exec storybook remove @storybook/addon-essentials --config-dir .storybook
+An error occurred while removing dependencies.
+/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/bin/index.cjs:23
+  throw error;
+  ^
+
+HandledError: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials
+    at Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)
+    at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107
+    at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {
+  handled: true,
+  cause: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials
+      at makeError (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18187:67)
+      at handlePromise (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18805:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async Ai.executeCommand (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19254:15)
+      at async Ai.runRemoveDeps (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19823:5)
+      at async Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19115:9)
+      at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)
+      at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107
+      at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {
+    shortMessage: 'Command failed with exit code 1: pnpm remove @storybook/addon-essentials',
+    command: 'pnpm remove @storybook/addon-essentials',
+    escapedCommand: 'pnpm remove "@storybook/addon-essentials"',
+    exitCode: 1,
+    signal: undefined,
+    signalDescription: undefined,
+    stdout: undefined,
+    stderr: undefined,
+    cwd: '/Users/matt/gc-digital-talent/apps/web',
+    failed: true,
+    timedOut: false,
+    isCanceled: false,
+    killed: false
+  }
+}
+
+Node.js v20.11.0
+Uninstalling @storybook/addon-essentials
+ ERR_PNPM_CANNOT_REMOVE_MISSING_DEPS  Cannot remove '@storybook/addon-essentials': no such dependency found
+
+Available dependencies: @faker-js/faker, @formatjs/cli, @gc-digital-talent/eslint-config, @gc-digital-talent/fake-data, @gc-digital-talent/helpers, @gc-digital-talent/jest-helpers, @gc-digital-talent/jest-presets, @gc-digital-talent/storybook-helpers, @hydrogen-css/hydrogen, @storybook/addon-actions, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, @types/jest, @types/jest-axe, @types/lodash, @types/react, @types/react-dom, @vitejs/plugin-react, dotenv, eslint, eslint-plugin-storybook, jest, jest-axe, jest-diff, jest-fail-on-console, prettier, ts-jest, tsconfig, typescript, vite, vite-plugin-compression2, vite-plugin-html, @gc-digital-talent/app-insights, @gc-digital-talent/auth, @gc-digital-talent/client, @gc-digital-talent/date-helpers, @gc-digital-talent/env, @gc-digital-talent/forms, @gc-digital-talent/graphql, @gc-digital-talent/i18n, @gc-digital-talent/logger, @gc-digital-talent/storage, @gc-digital-talent/theme, @gc-digital-talent/toast, @gc-digital-talent/ui, @heroicons/react, @microsoft/applicationinsights-web, @tailwindcss/vite, @tanstack/react-table, date-fns, lodash, motion, react, react-dom, react-helmet-async, react-hook-form, react-intl, react-router, react-to-print, tailwind-variants, tailwindcss, urql
+Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials
+Error: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials
+    at Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)
+    at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107
+    at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12)
+    at makeError (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/storybook/dist/common/index.cjs:25224:67)
+    at handlePromise (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/storybook/dist/common/index.cjs:25842:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async ps.executeCommand (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/storybook/dist/common/index.cjs:26298:15)
+    at async Object.run (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/@storybook/cli/dist/bin/index.cjs:342:348)
+    at async runFixes (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/@storybook/cli/dist/bin/index.cjs:413:1798)
+    at async automigrate (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/@storybook/cli/dist/bin/index.cjs:411:1834)
+    at async doUpgrade (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/@storybook/cli/dist/bin/index.cjs:480:2517)
+    at async withTelemetry (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/storybook/dist/core-server/index.cjs:36122:12)
+    at async upgrade (/Users/matt/.npm/_npx/c20e0952e5abfa1b/node_modules/@storybook/cli/dist/bin/index.cjs:480:3048) {
+  shortMessage: 'Command failed with exit code 7: pnpm exec storybook remove @storybook/addon-essentials --config-dir .storybook',
+  command: 'pnpm exec storybook remove @storybook/addon-essentials --config-dir .storybook',
+  escapedCommand: 'pnpm exec storybook remove "@storybook/addon-essentials" --config-dir .storybook',
+  exitCode: 7,
+  signal: undefined,
+  signalDescription: undefined,
+  stdout: 'Uninstalling @storybook/addon-essentials\n' +
+    " ERR_PNPM_CANNOT_REMOVE_MISSING_DEPS  Cannot remove '@storybook/addon-essentials': no such dependency found\n" +
+    '\n' +
+    'Available dependencies: @faker-js/faker, @formatjs/cli, @gc-digital-talent/eslint-config, @gc-digital-talent/fake-data, @gc-digital-talent/helpers, @gc-digital-talent/jest-helpers, @gc-digital-talent/jest-presets, @gc-digital-talent/storybook-helpers, @hydrogen-css/hydrogen, @storybook/addon-actions, @testing-library/jest-dom, @testing-library/react, @testing-library/user-event, @types/jest, @types/jest-axe, @types/lodash, @types/react, @types/react-dom, @vitejs/plugin-react, dotenv, eslint, eslint-plugin-storybook, jest, jest-axe, jest-diff, jest-fail-on-console, prettier, ts-jest, tsconfig, typescript, vite, vite-plugin-compression2, vite-plugin-html, @gc-digital-talent/app-insights, @gc-digital-talent/auth, @gc-digital-talent/client, @gc-digital-talent/date-helpers, @gc-digital-talent/env, @gc-digital-talent/forms, @gc-digital-talent/graphql, @gc-digital-talent/i18n, @gc-digital-talent/logger, @gc-digital-talent/storage, @gc-digital-talent/theme, @gc-digital-talent/toast, @gc-digital-talent/ui, @heroicons/react, @microsoft/applicationinsights-web, @tailwindcss/vite, @tanstack/react-table, date-fns, lodash, motion, react, react-dom, react-helmet-async, react-hook-form, react-intl, react-router, react-to-print, tailwind-variants, tailwindcss, urql\n' +
+    'Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials\n' +
+    '\x1B[38;2;241;97;97mError: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials\x1B[39m\n' +
+    '    at Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)\n' +
+    '    at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107\n' +
+    '    at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12)',
+  stderr: 'An error occurred while removing dependencies.\n' +
+    '/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/bin/index.cjs:23\n' +
+    '  throw error;\n' +
+    '  ^\n' +
+    '\n' +
+    'HandledError: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials\n' +
+    '    at Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)\n' +
+    '    at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107\n' +
+    '    at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {\n' +
+    '  handled: true,\n' +
+    '  cause: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials\n' +
+    '      at makeError (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18187:67)\n' +
+    '      at handlePromise (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18805:16)\n' +
+    '      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '      at async Ai.executeCommand (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19254:15)\n' +
+    '      at async Ai.runRemoveDeps (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19823:5)\n' +
+    '      at async Ai.removeDependencies (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19115:9)\n' +
+    '      at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)\n' +
+    '      at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107\n' +
+    '      at async withTelemetry (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {\n' +
+    "    shortMessage: 'Command failed with exit code 1: pnpm remove @storybook/addon-essentials',\n" +
+    "    command: 'pnpm remove @storybook/addon-essentials',\n" +
+    `    escapedCommand: 'pnpm remove "@storybook/addon-essentials"',\n` +
+    '    exitCode: 1,\n' +
+    '    signal: undefined,\n' +
+    '    signalDescription: undefined,\n' +
+    '    stdout: undefined,\n' +
+    '    stderr: undefined,\n' +
+    "    cwd: '/Users/matt/gc-digital-talent/apps/web',\n" +
+    '    failed: true,\n' +
+    '    timedOut: false,\n' +
+    '    isCanceled: false,\n' +
+    '    killed: false\n' +
+    '  }\n' +
+    '}\n' +
+    '\n' +
+    'Node.js v20.11.0',
+  cwd: '/Users/matt/gc-digital-talent/apps/web',
+  failed: true,
+  timedOut: false,
+  isCanceled: false,
+  killed: false
+}
+
+
+╭ Migration check ran with failures ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                                 │
+│   Successful migrations:                                                                                                        │
+│                                                                                                                                 │
+│   eslintPlugin, consolidated-imports, renderer-to-framework                                                                     │
+│                                                                                                                                 │
+│   Failed migrations:                                                                                                            │
+│                                                                                                                                 │
+│   remove-essentials:                                                                                                            │
+│   Command failed with exit code 7: pnpm exec storybook remove @storybook/addon-essentials --config-dir .storybook               │
+│   An error occurred while removing dependencies.                                                                                │
+│   /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/bin/index.cjs:23                                           │
+│   throw error;                                                                                                                  │
+│   ^                                                                                                                             │
+│                                                                                                                                 │
+│   HandledError: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials                                 │
+│   at Ai.removeDependencies                                                                                                      │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)                          │
+│   at process.processTicksAndRejections (node:internal/process/task_queues:95:5)                                                 │
+│   at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)     │
+│   at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107                       │
+│   at async withTelemetry                                                                                                        │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {                   │
+│   handled: true,                                                                                                                │
+│   cause: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials                                        │
+│   at makeError (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18187:67)             │
+│   at handlePromise (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:18805:16)         │
+│   at process.processTicksAndRejections (node:internal/process/task_queues:95:5)                                                 │
+│   at async Ai.executeCommand                                                                                                    │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19254:15)                          │
+│   at async Ai.runRemoveDeps                                                                                                     │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19823:5)                           │
+│   at async Ai.removeDependencies                                                                                                │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19115:9)                           │
+│   at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)     │
+│   at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107                       │
+│   at async withTelemetry                                                                                                        │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12) {                   │
+│   shortMessage: 'Command failed with exit code 1: pnpm remove @storybook/addon-essentials',                                     │
+│   command: 'pnpm remove @storybook/addon-essentials',                                                                           │
+│   escapedCommand: 'pnpm remove "@storybook/addon-essentials"',                                                                  │
+│   exitCode: 1,                                                                                                                  │
+│   signal: undefined,                                                                                                            │
+│   signalDescription: undefined,                                                                                                 │
+│   stdout: undefined,                                                                                                            │
+│   stderr: undefined,                                                                                                            │
+│   cwd: '/Users/matt/gc-digital-talent/apps/web',                                                                                │
+│   failed: true,                                                                                                                 │
+│   timedOut: false,                                                                                                              │
+│   isCanceled: false,                                                                                                            │
+│   killed: false                                                                                                                 │
+│   }                                                                                                                             │
+│   }                                                                                                                             │
+│                                                                                                                                 │
+│   Node.js v20.11.0                                                                                                              │
+│   Uninstalling @storybook/addon-essentials                                                                                      │
+│   ERR_PNPM_CANNOT_REMOVE_MISSING_DEPS  Cannot remove '@storybook/addon-essentials': no such dependency found                    │
+│                                                                                                                                 │
+│   Available dependencies: @faker-js/faker, @formatjs/cli, @gc-digital-talent/eslint-config, @gc-digital-talent/fake-data,       │
+│   @gc-digital-talent/helpers, @gc-digital-talent/jest-helpers, @gc-digital-talent/jest-presets,                                 │
+│   @gc-digital-talent/storybook-helpers, @hydrogen-css/hydrogen, @storybook/addon-actions, @testing-library/jest-dom,            │
+│   @testing-library/react, @testing-library/user-event, @types/jest, @types/jest-axe, @types/lodash, @types/react,               │
+│   @types/react-dom, @vitejs/plugin-react, dotenv, eslint, eslint-plugin-storybook, jest, jest-axe, jest-diff,                   │
+│   jest-fail-on-console, prettier, ts-jest, tsconfig, typescript, vite, vite-plugin-compression2, vite-plugin-html,              │
+│   @gc-digital-talent/app-insights, @gc-digital-talent/auth, @gc-digital-talent/client, @gc-digital-talent/date-helpers,         │
+│   @gc-digital-talent/env, @gc-digital-talent/forms, @gc-digital-talent/graphql, @gc-digital-talent/i18n,                        │
+│   @gc-digital-talent/logger, @gc-digital-talent/storage, @gc-digital-talent/theme, @gc-digital-talent/toast,                    │
+│   @gc-digital-talent/ui, @heroicons/react, @microsoft/applicationinsights-web, @tailwindcss/vite, @tanstack/react-table,        │
+│   date-fns, lodash, motion, react, react-dom, react-helmet-async, react-hook-form, react-intl, react-router, react-to-print,    │
+│   tailwind-variants, tailwindcss, urql                                                                                          │
+│   Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials                                               │
+│   Error: Error: Command failed with exit code 1: pnpm remove @storybook/addon-essentials                                        │
+│   at Ai.removeDependencies                                                                                                      │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:19117:94)                          │
+│   at process.processTicksAndRejections (node:internal/process/task_queues:95:5)                                                 │
+│   at async removeAddon (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/common/index.cjs:20391:32)     │
+│   at async /Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/cli/dist/bin/index.cjs:664:5107                       │
+│   at async withTelemetry                                                                                                        │
+│   (/Users/matt/.npm/_npx/b5263ddf27476ba2/node_modules/@storybook/core/dist/core-server/index.cjs:35788:12)                     │
+│                                                                                                                                 │
+│   You can find the full logs in /Users/matt/gc-digital-talent/apps/web/migration-storybook.log                                  │
+│                                                                                                                                 │
+│   ─────────────────────────────────────────────────                                                                             │
+│                                                                                                                                 │
+│   If you'd like to run the migrations again, you can do so by running 'npx storybook automigrate'                               │
+│                                                                                                                                 │
+│   The automigrations try to migrate common patterns in your project, but might not contain everything needed to migrate to      │
+│   the latest version of Storybook.                                                                                              │
+│                                                                                                                                 │
+│   Please check the changelog and migration guide for manual migrations and more information:                                    │
+│   https://storybook.js.org/docs/migration-guide                                                                                 │
+│   And reach out on Discord if you need help: https://discord.gg/storybook                                                       │
+│                                                                                                                                 │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+

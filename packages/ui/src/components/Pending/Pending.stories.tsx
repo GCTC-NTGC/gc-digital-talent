@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StoryFn, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react-vite";
 import type { CombinedError } from "urql";
 import isChromatic from "chromatic/isChromatic";
 

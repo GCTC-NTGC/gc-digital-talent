@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { StoryFn, Meta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
 import {

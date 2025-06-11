@@ -1,5 +1,5 @@
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
-import { StoryFn, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react-vite";
 
 import Heading from "./Heading";
 

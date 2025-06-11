@@ -1,5 +1,5 @@
-import { useParameter } from "@storybook/preview-api";
-import { StoryFn } from "@storybook/react";
+import { useParameter } from "storybook/preview-api";
+import { StoryFn } from "@storybook/react-vite";
 
 import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";
 

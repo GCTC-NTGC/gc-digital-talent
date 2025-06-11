@@ -1,4 +1,4 @@
-import type { StoryFn } from "@storybook/react";
+import type { StoryFn } from "@storybook/react-vite";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData } from "@gc-digital-talent/graphql";

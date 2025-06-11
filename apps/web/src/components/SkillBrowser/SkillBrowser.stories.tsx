@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 import { action } from "@storybook/addon-actions";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
