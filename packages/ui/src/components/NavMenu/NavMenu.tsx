@@ -39,27 +39,32 @@ type TriggerProps = ComponentPropsWithoutRef<
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
->(({ children, mode, color, block = false, ...rest }, forwardedRef) => (
-  <div className="text-center sm:text-left">
-    <NavigationMenuPrimitive.Trigger
-      ref={forwardedRef}
-      asChild
-      onPointerMove={(event) => event.preventDefault()}
-      onPointerLeave={(event) => event.preventDefault()}
-      className="[&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
-      {...rest}
-    >
-      <Button
-        utilityIcon={ChevronDownIcon}
-        mode={mode}
-        color={color}
-        block={block}
+>(
+  (
+    { children, mode = "inline", color, block = false, ...rest },
+    forwardedRef,
+  ) => (
+    <div className="text-center sm:text-left">
+      <NavigationMenuPrimitive.Trigger
+        ref={forwardedRef}
+        asChild
+        onPointerMove={(event) => event.preventDefault()}
+        onPointerLeave={(event) => event.preventDefault()}
+        className="font-normal hover:text-primary-600 dark:hover:text-primary-200 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
+        {...rest}
       >
-        {children}
-      </Button>
-    </NavigationMenuPrimitive.Trigger>
-  </div>
-));
+        <Button
+          utilityIcon={ChevronDownIcon}
+          mode={mode}
+          color={color}
+          block={block}
+        >
+          {children}
+        </Button>
+      </NavigationMenuPrimitive.Trigger>
+    </div>
+  ),
+);
 
 const content = tv({
   base: "mt-6 sm:absolute sm:left-1/2 sm:mt-0 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600",
@@ -139,7 +144,7 @@ const useActiveLink = (
 };
 
 const navMenuLink = tv({
-  base: "text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
+  base: "font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
   variants: {
     isSmallScreen: {
       true: "",
@@ -227,7 +232,7 @@ const Link = forwardRef<
       type = "link",
       color,
       icon,
-      mode,
+      mode = "inline",
       ariaLabel,
       state,
       ...rest

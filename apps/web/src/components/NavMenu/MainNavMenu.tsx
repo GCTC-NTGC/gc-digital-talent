@@ -234,7 +234,6 @@ const MainNavMenu = () => {
                             <NavMenu.Trigger
                               color={isSmallScreen ? "black" : "white"}
                               fixedColor={!isSmallScreen}
-                              mode="text"
                               block={false}
                             >
                               {roleNames[navRole]}
@@ -268,7 +267,6 @@ const MainNavMenu = () => {
                           <NavMenu.Trigger
                             color={isSmallScreen ? "black" : "white"}
                             fixedColor={!isSmallScreen}
-                            mode="text"
                             block={false}
                           >
                             {intl.formatMessage({
@@ -288,7 +286,6 @@ const MainNavMenu = () => {
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
                           fixedColor={!isSmallScreen}
-                          mode="text"
                           block={false}
                         >
                           {intl.formatMessage({
@@ -313,7 +310,6 @@ const MainNavMenu = () => {
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
                           fixedColor={!isSmallScreen}
-                          mode="text"
                           block={false}
                         >
                           {intl.formatMessage({
