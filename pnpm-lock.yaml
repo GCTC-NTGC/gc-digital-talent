@@ -149,10 +149,10 @@ importers:
         version: 3.1.0(react@18.3.1)
       tailwind-variants:
         specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.8)
+        version: 1.0.0(tailwindcss@4.1.10)
       tailwindcss:
-        specifier: ^4.1.8
-        version: 4.1.8
+        specifier: ^4.1.10
+        version: 4.1.10
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.11.0))(react@18.3.1)
@@ -623,7 +623,7 @@ importers:
         version: 12.16.0(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
       tailwind-variants:
         specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.8)
+        version: 1.0.0(tailwindcss@4.1.10)
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.8.0
@@ -1162,7 +1162,7 @@ importers:
         version: 7.6.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tailwind-variants:
         specifier: ^1.0.0
-        version: 1.0.0(tailwindcss@4.1.8)
+        version: 1.0.0(tailwindcss@4.1.10)
       urql:
         specifier: ^4.2.1
         version: 4.2.1(@urql/core@5.1.0(graphql@16.11.0))(react@18.3.1)
@@ -7858,6 +7858,9 @@ packages:
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'
+
+  tailwindcss@4.1.10:
+    resolution: {integrity: sha512-P3nr6WkvKV/ONsTzj6Gb57sWPMX29EPNPopo7+FcpkQaNsrNpZ1pv8QmrYI2RqEKD7mlGqLnGovlcYnBK0IqUA==}
 
   tailwindcss@4.1.8:
     resolution: {integrity: sha512-kjeW8gjdxasbmFKpVGrGd5T4i40mV5J2Rasw48QARfYeQ8YS9x02ON9SFWax3Qf616rt4Cp3nVNIj6Hd1mP3og==}
@@ -16016,10 +16019,12 @@ snapshots:
 
   tailwind-merge@3.0.2: {}
 
-  tailwind-variants@1.0.0(tailwindcss@4.1.8):
+  tailwind-variants@1.0.0(tailwindcss@4.1.10):
     dependencies:
       tailwind-merge: 3.0.2
-      tailwindcss: 4.1.8
+      tailwindcss: 4.1.10
+
+  tailwindcss@4.1.10: {}
 
   tailwindcss@4.1.8: {}
 
