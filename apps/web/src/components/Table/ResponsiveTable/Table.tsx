@@ -74,7 +74,7 @@ const Body = (props: BodyProps) => (
 );
 
 const baseRow = tv({
-  base: "px-6 py-4.5 *:py-1.5 sm:py-0 sm:*:px-3 sm:*:first:p-3 sm:*:first:pl-6 sm:*:last:p-3 sm:*:last:pr-6",
+  base: "px-6 py-4.5 *:py-1.5 sm:py-0 sm:*:p-3 sm:*:first:pl-6 sm:*:last:pr-6",
 });
 
 const baseCell = tv({
@@ -109,7 +109,7 @@ type CellHTMLProps = DetailedHTMLProps<
 
 const headCell = tv({
   extend: baseCell,
-  base: "hidden bg-black/80 align-middle text-sm font-normal text-white sm:table-cell",
+  base: "hidden bg-black/80 align-middle text-sm/normal font-normal text-white sm:table-cell",
   variants: {
     preventShrink: {
       true: "min-w-48",
