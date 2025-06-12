@@ -9,9 +9,9 @@ const CloseButton = forwardRef<
 >((props, forwardedRef) => {
   const intl = useIntl();
   return (
-    <div data-h2-display="base(flex)" data-h2-justify-content="base(flex-end)">
+    <div className="flex justify-end">
       <Dialog.Close>
-        <Button ref={forwardedRef} {...props} color="primary">
+        <Button ref={forwardedRef} {...props} color="secondary">
           {intl.formatMessage({
             defaultMessage: "Close",
             id: "4p0QdF",

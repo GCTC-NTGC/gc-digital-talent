@@ -143,6 +143,10 @@
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
   },
+  "+eyXou": {
+    "defaultMessage": "Analyste ou économiste E C 4",
+    "description": "EC-04 classification aria label including titles"
+  },
   "+fIw4g": {
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
@@ -374,6 +378,10 @@
   "/lByjT": {
     "defaultMessage": "Qui peut postuler",
     "description": "Label for pool advertisement area of selection"
+  },
+  "/lD418": {
+    "defaultMessage": "Expert(e)-conseil E C 8",
+    "description": "EC-08 classification aria label including titles"
   },
   "/lVSP/": {
     "defaultMessage": "Voir toutes les notifications",
@@ -1547,6 +1555,10 @@
     "defaultMessage": "Information détaillée sur l'emploi",
     "description": "Title for a employment details of a pool advertisement"
   },
+  "50cRYz": {
+    "defaultMessage": "EC-04 : Analyste ou économiste",
+    "description": "EC-04 classification label including titles"
+  },
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
@@ -1847,6 +1859,10 @@
     "defaultMessage": "Bienvenue sur le formulaire de mise en candidature des talents. Ce formulaire vous permet de nommer une candidate ou un candidat pour des occasions d'avancement, de mutation latérale ou de perfectionnement propres à son domaine de travail.",
     "description": "Paragraph one, instructions on how to submit a nomination"
   },
+  "6aTPDo": {
+    "defaultMessage": "Analyste ou conseiller(ère) E C 5",
+    "description": "EC-05 classification aria label including titles"
+  },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
@@ -1966,6 +1982,10 @@
   "77AbwY": {
     "defaultMessage": "Apprenez comment fonctionnent les dates limites et ce que les candidates et candidats verront au moment de présenter une demande.",
     "description": "Subtitle for the pool closing date dialog"
+  },
+  "7ArOZ0": {
+    "defaultMessage": "Analyste de recherche E C 2",
+    "description": "EC-02 classification aria label including titles"
   },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
@@ -4215,6 +4235,10 @@
     "defaultMessage": "État du coaching des cadres",
     "description": "Label for an employee profile career development preference field"
   },
+  "I1be2q": {
+    "defaultMessage": "EC-05 : Analyste ou conseiller(ère)",
+    "description": "EC-05 classification label including titles"
+  },
   "I2CtZJ": {
     "defaultMessage": "Les commentaires ou les contributions seront supprimés s’ils :",
     "description": "Comments or contributions list title"
@@ -4718,6 +4742,10 @@
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
     "description": "A date at which data will expire, in the local time zone"
+  },
+  "KHU8DJ": {
+    "defaultMessage": "Conseiller(ère) ou économiste E C 6",
+    "description": "EC-06 classification aria label including titles"
   },
   "KHmf+e": {
     "defaultMessage": "Utilisez le bouton « Créez une classification » pour commencer.",
@@ -5478,6 +5506,10 @@
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
+  },
+  "Nn34yo": {
+    "defaultMessage": "Analyste E C 3",
+    "description": "EC-03 classification aria label including titles"
   },
   "NpznI5": {
     "defaultMessage": "Sauvegarder et ignorer la vérification",
@@ -8574,6 +8606,10 @@
     "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
     "description": "Text for fourth sign up -> mfa step."
   },
+  "d1B9ML": {
+    "defaultMessage": "EC-07 : Conseiller(ère) principal(e)",
+    "description": "EC-07 classification label including titles"
+  },
   "d1FYv4": {
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
@@ -9265,6 +9301,10 @@
   "fm2lKX": {
     "defaultMessage": "Province, territoire ou région",
     "description": "Label for current province or territory field"
+  },
+  "fnn7EU": {
+    "defaultMessage": "EC-08 : Expert(e)-conseil",
+    "description": "EC-08 classification label including titles"
   },
   "fo51DL": {
     "defaultMessage": "Créer un volet de travail",
@@ -11961,6 +12001,10 @@
     "defaultMessage": "Bienvenue",
     "description": "Link text for the application welcome page"
   },
+  "sfIItf": {
+    "defaultMessage": "EC-06 : Conseiller(ère) ou économiste",
+    "description": "EC-06 classification label including titles"
+  },
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"
@@ -12380,6 +12424,10 @@
   "uooR1r": {
     "defaultMessage": "« Je comprends que je fais partie d'une collectivité qui se fait confiance »",
     "description": "Signature list item on sign and submit page."
+  },
+  "uoxyKe": {
+    "defaultMessage": "EC-03 : Analyste",
+    "description": "EC-03 classification label including titles"
   },
   "uqI3Vf": {
     "defaultMessage": "Annulez et revenez aux ministères",
@@ -12813,6 +12861,10 @@
     "defaultMessage": "Conseillers en ressources humaines",
     "description": "Title for group-specific resource card"
   },
+  "x/gLpe": {
+    "defaultMessage": "EC-02 : Analyste de recherche",
+    "description": "EC-02 classification label including titles"
+  },
   "x0FRH/": {
     "defaultMessage": "Je n’ai pas de droit de priorité",
     "description": "affirm no entitlement"
@@ -13156,6 +13208,10 @@
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
     "description": "How it works, step 2 content sentence 1"
+  },
+  "yZMZmq": {
+    "defaultMessage": "Conseiller(ère) principal(e) E C 7",
+    "description": "EC-07 classification aria label including titles"
   },
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
