@@ -150,6 +150,7 @@ const CurrentPositionExperiences = ({
       {shareProfile && (
         <Separator data-h2-margin="base(0 0 x1 0)" space="none" />
       )}
+
       {shareProfile && !empty(data) && (
         <div data-h2-margin="base(0 x1.5)">
           <div
@@ -158,18 +159,13 @@ const CurrentPositionExperiences = ({
             data-h2-gap="base(x.5 0)"
           >
             {sorted.length === 0 && (
-              <>
-                <p
-                  data-h2-color="base(black.light)"
-                  data-h2-font-weight="base(bold)"
-                >
-                  {NullMessage}
-                </p>
+              <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
+                <p data-h2-font-weight="base(700)">{NullMessage}</p>
                 <p>
                   {NullMessageDescription}
                   {NullMessageDetails}
                 </p>
-              </>
+              </Well>
             )}
             {sorted.map((exp) => (
               <ExperienceCard
