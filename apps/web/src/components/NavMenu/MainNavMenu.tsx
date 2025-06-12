@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-elements */
 import FocusLock from "react-focus-lock";
-import { m, AnimatePresence, useReducedMotion } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import {
   useEffect,
   useState,
@@ -46,16 +46,6 @@ const MainNavMenu = () => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
-
-  const shouldReduceMotion = useReducedMotion();
-
-  const animConfig = shouldReduceMotion
-    ? {}
-    : {
-        initial: { transform: "translateY(0)" },
-        animate: { transform: "translateY(0)" },
-        exit: { transform: "translateY(0)" },
-      };
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
@@ -137,28 +127,26 @@ const MainNavMenu = () => {
   }, [isMenuOpen]);
 
   return (
-    <FocusLock returnFocus disabled={!showOverlay}>
-      <NavMenuProvider
-        open={isMenuOpen}
-        onOpenToggle={handleOpenToggle}
-        onOpenChange={setMenuOpen}
-      >
-        <AnimatePresence>
-          {showMenu ? (
-            <m.div
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-              data-h2-flex-item="base(content)"
-              data-h2-position="base(fixed) l-tablet(sticky)"
-              data-h2-top="l-tablet(-1px)"
-              data-h2-bottom="base(x3.5) l-tablet(auto)"
-              data-h2-right="base(x.75) l-tablet(auto)"
-              data-h2-left="base(x.75) l-tablet(auto)"
-              data-h2-width="l-tablet(100%)"
-              data-h2-z-index="base(7)"
-              data-h2-overflow-y="base(auto) l-tablet(initial)"
-              data-h2-max-height="base(85vh) l-tablet(none)"
-              {...animConfig}
-            >
+    <div
+      data-h2-flex-item="base(content)"
+      data-h2-position="base(fixed) l-tablet(sticky)"
+      data-h2-top="l-tablet(-1px)"
+      data-h2-bottom="base(x3.5) l-tablet(auto)"
+      data-h2-right="base(x.75) l-tablet(auto)"
+      data-h2-left="base(x.75) l-tablet(auto)"
+      data-h2-width="l-tablet(100%)"
+      data-h2-z-index="base(7)"
+      data-h2-overflow-y="base(auto) l-tablet(initial)"
+      data-h2-max-height="base(85vh) l-tablet(none)"
+    >
+      <FocusLock returnFocus disabled={!showOverlay}>
+        <NavMenuProvider
+          open={isMenuOpen}
+          onOpenToggle={handleOpenToggle}
+          onOpenChange={setMenuOpen}
+        >
+          <div data-h2-position="base(relative)" data-h2-z-index="base(10)">
+            {showMenu ? (
               <NavMenu.Root
                 onKeyDown={handleKeyDown}
                 aria-label={intl.formatMessage({
@@ -388,70 +376,70 @@ const MainNavMenu = () => {
                   </NavMenu.List>
                 </div>
               </NavMenu.Root>
-            </m.div>
-          ) : null}
-        </AnimatePresence>
-        <AnimatePresence>
-          {showOverlay && (
-            <m.div
-              onClick={() => setMenuOpen(false)}
-              data-h2-position="base(fixed)"
-              data-h2-location="base(0, 0, 0, 0)"
-              data-h2-background-color="base:all(black.light)"
-              data-h2-z-index="base(6)"
-              data-h2-overflow="base(auto)"
-              initial={{ opacity: 0.85 }}
-              animate={{ opacity: 0.85 }}
-              exit={{ opacity: 0.85 }}
-              transition={{ duration: 0.2 }}
-            />
-          )}
-        </AnimatePresence>
-      </NavMenuProvider>
-      {isSmallScreen && (
-        <div
-          data-h2-position="base(fixed)"
-          data-h2-bottom="base(x.75)"
-          data-h2-right="base(x.75)"
-          data-h2-z-index="base(10)"
-          data-h2-display="base(flex)"
-          data-h2-gap="base(x.5)"
-        >
-          <Button
-            color="black"
-            mode="solid"
-            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-            onClick={() => {
-              if (isNotificationDialogOpen) {
-                setNotificationDialogOpen(false);
-                setMenuOpen(true);
-              } else {
-                setMenuOpen(!isMenuOpen);
-              }
-            }}
+            ) : null}
+          </div>
+          <AnimatePresence>
+            {showOverlay && (
+              <m.div
+                onClick={() => setMenuOpen(false)}
+                data-h2-position="base(fixed)"
+                data-h2-location="base(0, 0, 0, 0)"
+                data-h2-background-color="base:all(black.light)"
+                data-h2-z-index="base(6)"
+                data-h2-overflow="base(auto)"
+                initial={{ opacity: 0.85 }}
+                animate={{ opacity: 0.85 }}
+                exit={{ opacity: 0.85 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+          </AnimatePresence>
+        </NavMenuProvider>
+        {isSmallScreen && (
+          <div
+            data-h2-position="base(fixed)"
+            data-h2-bottom="base(x.75)"
+            data-h2-right="base(x.75)"
+            data-h2-z-index="base(10)"
+            data-h2-display="base(flex)"
+            data-h2-gap="base(x.5)"
           >
-            {isMenuOpen
-              ? intl.formatMessage(uiMessages.closeMenu)
-              : intl.formatMessage(uiMessages.openMenu)}
-          </Button>
-          {loggedIn && (
-            <NotificationDialog
-              data-h2-display="l-tablet(none)"
+            <Button
               color="black"
-              open={isNotificationDialogOpen}
-              onOpenChange={() => {
-                if (isMenuOpen) {
-                  setMenuOpen(false);
-                  setNotificationDialogOpen(true);
+              mode="solid"
+              icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+              onClick={() => {
+                if (isNotificationDialogOpen) {
+                  setNotificationDialogOpen(false);
+                  setMenuOpen(true);
                 } else {
-                  setNotificationDialogOpen(!isNotificationDialogOpen);
+                  setMenuOpen(!isMenuOpen);
                 }
               }}
-            />
-          )}
-        </div>
-      )}
-    </FocusLock>
+            >
+              {isMenuOpen
+                ? intl.formatMessage(uiMessages.closeMenu)
+                : intl.formatMessage(uiMessages.openMenu)}
+            </Button>
+            {loggedIn && (
+              <NotificationDialog
+                data-h2-display="l-tablet(none)"
+                color="black"
+                open={isNotificationDialogOpen}
+                onOpenChange={() => {
+                  if (isMenuOpen) {
+                    setMenuOpen(false);
+                    setNotificationDialogOpen(true);
+                  } else {
+                    setNotificationDialogOpen(!isNotificationDialogOpen);
+                  }
+                }}
+              />
+            )}
+          </div>
+        )}
+      </FocusLock>
+    </div>
   );
 };
 
