@@ -365,8 +365,8 @@ export const ViewPool = ({
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "This process is <heavyPrimary>open</heavyPrimary> and accepting applications until <heavyPrimary>{closingDate}</heavyPrimary>.",
-                    id: "6c5+AE",
+                      "This process is <heavySecondary>open</heavySecondary> and accepting applications until <heavySecondary>{closingDate}</heavySecondary>.",
+                    id: "JlTf/G",
                     description:
                       "Message displayed to admins when a process is published",
                   },

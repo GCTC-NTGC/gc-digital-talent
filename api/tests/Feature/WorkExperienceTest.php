@@ -10,8 +10,8 @@ use App\Enums\GovPositionType;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Models\Classification;
 use App\Models\Department;
-use App\Models\Experience;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
@@ -175,7 +175,7 @@ class WorkExperienceTest extends TestCase
     // test that a created work experience of government type queries without issue
     public function testQueryingCreatedExperienceGovernment(): void
     {
-        Experience::truncate();
+        WorkExperience::truncate();
         $classification = Classification::factory()->create();
         $department = Department::factory()->create();
 

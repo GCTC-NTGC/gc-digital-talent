@@ -51,11 +51,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
     !careerObjectiveCommunity?.id && !!careerObjectiveCommunityOther;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr)) "
-    >
+    <div className="grid gap-6 sm:grid-cols-2">
       <FieldDisplay
         label={intl.formatMessage(
           employeeProfileMessages.targetClassificationGroup,
@@ -102,7 +98,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.community)}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {handleCommunity(
           careerObjectiveCommunity?.name?.localized,
@@ -113,7 +109,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
       {isCommunityOther ? (
         <FieldDisplay
           label={intl.formatMessage(messages.otherCommunity)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {careerObjectiveCommunityOther}
         </FieldDisplay>
@@ -123,7 +119,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
       careerObjectiveWorkStreams?.length ? (
         <FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.workStreams)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {careerObjectiveWorkStreams?.length ? (
             <Ul>
@@ -138,7 +134,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
       ) : null}
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.departments)}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {careerObjectiveDepartments?.length ? (
           <Ul>
@@ -154,7 +150,7 @@ const CareerObjective = ({ careerObjectiveQuery }: CareerObjectiveProps) => {
         label={intl.formatMessage(
           employeeProfileMessages.additionalInformationNextRole,
         )}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {careerObjectiveAdditionalInformation ?? notProvided}
       </FieldDisplay>

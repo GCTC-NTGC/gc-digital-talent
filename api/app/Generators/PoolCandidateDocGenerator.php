@@ -36,7 +36,11 @@ class PoolCandidateDocGenerator extends DocGenerator implements FileGeneratorInt
             'user' => [
                 'department',
                 'currentClassification',
-                'experiences' => ['userSkills' => ['skill']],
+                'awardExperiences' => ['userSkills' => ['skill']],
+                'communityExperiences' => ['userSkills' => ['skill']],
+                'educationExperiences' => ['userSkills' => ['skill']],
+                'personalExperiences' => ['userSkills' => ['skill']],
+                'workExperiences' => ['userSkills' => ['skill']],
                 'userSkills' => ['skill'],
             ],
             'screeningQuestionResponses' => ['screeningQuestion'],
