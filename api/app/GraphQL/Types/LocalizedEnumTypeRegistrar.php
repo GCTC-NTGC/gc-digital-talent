@@ -60,6 +60,13 @@ final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
                     }
                 }
 
+                if (is_object($parent) && $parent instanceof $enum) {
+                    switch ($info->fieldName) {
+                        case 'value': return $parent->name;
+                        case 'label': return $enum::localizedString($parent->name);
+                    }
+                }
+
                 return null;
             };
 
