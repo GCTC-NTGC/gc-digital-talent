@@ -9,23 +9,12 @@ interface CardProps {
 }
 
 const Card = ({ title, Icon, children }: CardProps) => (
-  <div data-h2-text-align="base(center)">
-    {Icon && (
-      <Icon
-        data-h2-width="base(x4)"
-        data-h2-display="base(inline-block)"
-        aria-hidden="true"
-      />
-    )}
-    <Heading
-      as="h4"
-      data-h2-color="base:all(white)"
-      data-h2-font-size="base(h3, 1)"
-      data-h2-margin="base(x1, 0, x1, 0)"
-    >
+  <div className="text-center">
+    {Icon && <Icon className="inline-block w-24" aria-hidden="true" />}
+    <Heading level="h4" size="h3" color="white" className="my-6">
       {title}
     </Heading>
-    <div data-h2-color="base:all(white)">{children}</div>
+    <div className="text-white">{children}</div>
   </div>
 );
 

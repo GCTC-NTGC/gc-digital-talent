@@ -62,7 +62,7 @@ const Loading = ({
       <div className={wrapper()}>
         <span className="sr-only">{children}</span>
         <m.span
-          className="absolute top-1/2 left-1/2 block size-6 -translate-1/2 transform rounded-full border-6 border-transparent border-t-secondary border-b-secondary"
+          className="absolute top-1/2 left-1/2 block size-6 -translate-1/2 transform rounded-full border-6 border-transparent border-t-secondary border-b-secondary iap:border-t-primary iap:border-b-primary"
           {...(!pause &&
             !shouldReduceMotion && {
               animate: {
