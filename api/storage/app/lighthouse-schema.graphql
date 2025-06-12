@@ -1025,17 +1025,17 @@ type PoolCandidate {
   user: User!
   expiryDate: Date
   category: PoolCandidateCategory
-  status: LocalizedPoolCandidateStatus
-  statusWeight: Int
-  notes: String
+  status: LocalizedPoolCandidateStatus @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  statusWeight: Int @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  notes: String @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
   archivedAt: DateTime
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
-  isBookmarked: Boolean
-  removedAt: DateTime
-  removalReason: LocalizedCandidateRemovalReason
-  removalReasonOther: String
+  isBookmarked: Boolean @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
+  removedAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  removalReason: LocalizedCandidateRemovalReason @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  removalReasonOther: String @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -1046,13 +1046,13 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   finalDecision: LocalizedFinalDecision
-  finalDecisionAt: DateTime
-  placedAt: DateTime
+  finalDecisionAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
+  placedAt: DateTime @deprecated(reason: "Favour fetching through PoolCandidateViewStatus grouping for performance")
   placedDepartment: Department
-  veteranVerification: ClaimVerificationResult
-  veteranVerificationExpiry: Date
-  priorityVerification: ClaimVerificationResult
-  priorityVerificationExpiry: Date
+  veteranVerification: ClaimVerificationResult @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
+  veteranVerificationExpiry: Date @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
+  priorityVerification: ClaimVerificationResult @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
+  priorityVerificationExpiry: Date @deprecated(reason: "Favour fetching through PoolCandidateViewNotes grouping for performance")
   viewNotes: PoolCandidateViewNotes
   viewStatus: PoolCandidateViewStatus
 }
