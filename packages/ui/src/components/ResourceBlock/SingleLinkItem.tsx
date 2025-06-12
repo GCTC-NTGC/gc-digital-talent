@@ -14,7 +14,7 @@ const Wrapper = ({ as, children }: WrapperProps) => {
   if (!as) return <>{children}</>;
 
   const Heading = as;
-  return <Heading data-h2-font-size="base(body)">{children}</Heading>;
+  return <Heading className="text-base">{children}</Heading>;
 };
 
 interface SingleLinkItemProps {
@@ -40,9 +40,7 @@ const SingleLinkItem = ({
         <Link
           href={href}
           color="black"
-          // yuck, style exception 😞
-          // TO DO: Should be able to remove the bang in #13562
-          className="font-bold!"
+          className="font-bold"
           // eslint-disable-next-line @typescript-eslint/no-deprecated
           utilityIcon={ArrowSmallRightIcon}
         >

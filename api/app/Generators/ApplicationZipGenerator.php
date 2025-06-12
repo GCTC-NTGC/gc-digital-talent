@@ -14,7 +14,11 @@ class ApplicationZipGenerator extends ZipGenerator implements FileGeneratorInter
     public function generate(): self
     {
         PoolCandidate::with([
-            'educationRequirementExperiences',
+            'educationRequirementAwardExperiences',
+            'educationRequirementCommunityExperiences',
+            'educationRequirementEducationExperiences',
+            'educationRequirementPersonalExperiences',
+            'educationRequirementWorkExperiences',
             'pool' => ['poolSkills', 'poolSkills.skill'],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],

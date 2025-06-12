@@ -64,7 +64,7 @@ const Template: StoryFn<typeof Stepper> = (args) => {
   const { label, steps, currentIndex } = args;
 
   return (
-    <div data-h2-max-width="base(18rem)">
+    <div className="max-w-72">
       <Stepper steps={steps} label={label} currentIndex={currentIndex} />
     </div>
   );

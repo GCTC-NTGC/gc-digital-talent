@@ -20,7 +20,7 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
   const readOnly = !editor?.isEditable;
 
   return (
-    <div className="flex justify-between gap-3 rounded-t border border-b-0 border-gray-700 bg-black p-3 pt-1.5 dark:border-gray">
+    <div className="flex justify-between gap-3 rounded-t-md border border-b-0 border-gray-700 bg-black p-3 pt-1.5 dark:border-gray">
       <div className="flex gap-3">
         <MenuButton
           active={editor?.isActive("bulletList") ?? false}

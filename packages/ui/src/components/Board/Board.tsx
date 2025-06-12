@@ -227,7 +227,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
           ref={forwardedRef}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          className="relative w-full rounded bg-gray-100 dark:bg-gray-700"
+          className="relative w-full rounded-md bg-gray-100 dark:bg-gray-700"
           {...rest}
         >
           <div
@@ -237,7 +237,7 @@ const Root = forwardRef<HTMLDivElement, RootProps>(
           >
             {children}
           </div>
-          <div className="pointer-events-none absolute inset-0 z-20 rounded inset-shadow" />
+          <div className="pointer-events-none absolute inset-0 z-20 rounded-md inset-shadow" />
         </div>
       </BoardProvider>
     );
@@ -249,7 +249,7 @@ const Column = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
     return (
       <div
         ref={forwardedRef}
-        className="Board__Column flex max-h-[calc(90vh-var(--spacing)*12)] min-h-72 w-full shrink-0 flex-col rounded bg-white shadow-lg xs:w-84 dark:bg-gray-600"
+        className="Board__Column flex max-h-[calc(90vh-var(--spacing)*12)] min-h-72 w-full shrink-0 flex-col rounded-md bg-white shadow-lg xs:w-84 dark:bg-gray-600"
         {...rest}
       >
         {children}
@@ -362,7 +362,7 @@ const ListItem = forwardRef<HTMLLIElement, HTMLProps<HTMLLIElement>>(
         onClick={ctx?.handleClickItem}
         {...rest}
       >
-        <div className="Board__Item__Wrapper rounded p-1 group-focus-visible/item:bg-secondary/30">
+        <div className="Board__Item__Wrapper rounded-md p-1 group-focus-visible/item:bg-secondary/30">
           {children}
         </div>
       </li>
