@@ -8,8 +8,8 @@ import { IconType } from "@gc-digital-talent/ui";
 
 const checkBtn = tv({
   slots: {
-    btn: "inline-flex cursor-pointer rounded border-none bg-transparent p-1.5",
-    icon: "rounded border bg-white p-0.5 dark:bg-gray-600",
+    btn: "inline-flex cursor-pointer rounded-md border-none bg-transparent p-1.5",
+    icon: "rounded-md border bg-white p-0.5 dark:bg-gray-600",
   },
   variants: {
     color: {

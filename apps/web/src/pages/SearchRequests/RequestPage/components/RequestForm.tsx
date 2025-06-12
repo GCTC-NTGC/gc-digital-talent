@@ -671,8 +671,8 @@ export const RequestForm = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <primary>{candidateCountNumber, plural, =0 {no candidates} one {# estimated candidate} other {# estimated candidates}}</primary>",
-                id: "JL6B1D",
+                  "Request for pool candidates: <secondary>{candidateCountNumber, plural, =0 {no candidates} one {# estimated candidate} other {# estimated candidates}}</secondary>",
+                id: "kexYOS",
                 description:
                   "Total estimated candidates message in summary of filters",
               },

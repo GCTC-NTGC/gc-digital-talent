@@ -11,18 +11,14 @@ import { ReactNode } from "react";
  *
  * @param text text to wrap.
  */
-const strong = (text: ReactNode) => (
-  <span data-h2-font-weight="base(700)">{text}</span>
-);
+const strong = (text: ReactNode) => <span className="font-bold">{text}</span>;
 
 /**
  * Wraps text in span to make invisible to sighted users
  * @param text text to wrap.
  */
 const hidden = (text: ReactNode) => (
-  <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
-    {text}
-  </span>
+  <span className="sr-only whitespace-pre">{text}</span>
 );
 
 /**
@@ -30,7 +26,7 @@ const hidden = (text: ReactNode) => (
  * @param text text to wrap.
  */
 const heavyPrimary = (text: ReactNode) => (
-  <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
+  <span className="font-bold text-primary-600 dark:text-primary-200">
     {text}
   </span>
 );
@@ -40,7 +36,7 @@ const heavyPrimary = (text: ReactNode) => (
  * @param text text to wrap.
  */
 const primary = (text: ReactNode) => (
-  <span data-h2-color="base(primary.darker)">{text}</span>
+  <span className="text-primary-600 dark:text-primary-200">{text}</span>
 );
 
 /**
@@ -48,7 +44,7 @@ const primary = (text: ReactNode) => (
  * @param text text to wrap.
  */
 const heavySecondary = (text: ReactNode) => (
-  <span data-h2-color="base(secondary.darker)" data-h2-font-weight="base(700)">
+  <span className="font-bold text-secondary-600 dark:text-secondary-200">
     {text}
   </span>
 );
@@ -58,7 +54,7 @@ const heavySecondary = (text: ReactNode) => (
  * @param text text to wrap.
  */
 const secondary = (text: ReactNode) => (
-  <span data-h2-color="base(secondary.darker)">{text}</span>
+  <span className="text-secondary-600 dark:text-secondary-200">{text}</span>
 );
 
 /**
@@ -66,9 +62,7 @@ const secondary = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const red = (text: ReactNode) => (
-  <span data-h2-color="base(error.darker) base:dark(error.lightest)">
-    {text}
-  </span>
+  <span className="text-error-600 dark:text-error-100">{text}</span>
 );
 
 /**
@@ -76,12 +70,7 @@ const red = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const heavyRed = (text: ReactNode) => (
-  <span
-    data-h2-color="base(error.darker) base:dark(error.lightest)"
-    data-h2-font-weight="base(700)"
-  >
-    {text}
-  </span>
+  <span className="font-bold text-error-600 dark:text-error-100">{text}</span>
 );
 
 /**
@@ -89,7 +78,7 @@ const heavyRed = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const warning = (text: ReactNode) => (
-  <span data-h2-color="base(warning.dark)">{text}</span>
+  <span className="text-warning-500 dark:text-warning-300">{text}</span>
 );
 
 /**
@@ -97,7 +86,7 @@ const warning = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const heavyWarning = (text: ReactNode) => (
-  <span data-h2-color="base(warning.darker)" data-h2-font-weight="base(700)">
+  <span className="font-bold text-warning-500 dark:text-warning-300">
     {text}
   </span>
 );
@@ -107,7 +96,7 @@ const heavyWarning = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const gray = (text: ReactNode) => (
-  <span data-h2-color="base(gray.dark)">{text}</span>
+  <span className="text-gray-500 dark:text-gray-300">{text}</span>
 );
 
 /**
@@ -115,7 +104,7 @@ const gray = (text: ReactNode) => (
  * @param text  text to wrap
  */
 const underline = (text: ReactNode) => (
-  <span data-h2-text-decoration="base(underline)">{text}</span>
+  <span className="underline">{text}</span>
 );
 
 /**
@@ -126,7 +115,7 @@ const underline = (text: ReactNode) => (
  * @param text text to wrap.
  */
 const emphasize = (text: ReactNode) => (
-  <strong data-h2-font-weight="base(700)">{text}</strong>
+  <strong className="font-bold">{text}</strong>
 );
 
 /**
@@ -147,9 +136,7 @@ const cite = (text: ReactNode) => <cite>{text}</cite>;
 /**
  * Used to add a stylized cursive font
  */
-const italic = (text: ReactNode) => (
-  <span data-h2-font-style="base(italic)">{text}</span>
-);
+const italic = (text: ReactNode) => <span className="italic">{text}</span>;
 
 export default {
   strong,
