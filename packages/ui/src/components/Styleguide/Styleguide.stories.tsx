@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ReactNode } from "react";
 
 import Heading from "../Heading";
+import Button from "../Button/Button";
 
 const meta: Meta = {};
 
@@ -177,9 +178,7 @@ export const Default: StoryObj = {
         Hover, focus, etc.
       </Heading>
 
-      <button className="rounded-md bg-primary px-4 py-2 transition duration-100 ease-in-out outline-none hover:bg-secondary focus-visible:bg-focus focus-visible:ring-4 focus-visible:ring-focus/60">
-        Focus me
-      </button>
+      <Button>Focus me</Button>
 
       <Heading level="h2" size="h4">
         Child selectors
