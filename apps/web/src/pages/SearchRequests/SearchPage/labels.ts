@@ -82,6 +82,41 @@ export const classificationLabels: Record<string, MessageDescriptor> =
       id: "g7zCg/",
       description: "AS-05 classification label including titles",
     },
+    "EC-02": {
+      defaultMessage: "EC-02: Research Analyst",
+      id: "x/gLpe",
+      description: "EC-02 classification label including titles",
+    },
+    "EC-03": {
+      defaultMessage: "EC-03: Analyst",
+      id: "uoxyKe",
+      description: "EC-03 classification label including titles",
+    },
+    "EC-04": {
+      defaultMessage: "EC-04: Analyst or Economist",
+      id: "50cRYz",
+      description: "EC-04 classification label including titles",
+    },
+    "EC-05": {
+      defaultMessage: "EC-05: Analyst or Advisor",
+      id: "I1be2q",
+      description: "EC-05 classification label including titles",
+    },
+    "EC-06": {
+      defaultMessage: "EC-06: Advisor or Economist",
+      id: "sfIItf",
+      description: "EC-06 classification label including titles",
+    },
+    "EC-07": {
+      defaultMessage: "EC-07: Senior Advisor",
+      id: "d1B9ML",
+      description: "EC-07 classification label including titles",
+    },
+    "EC-08": {
+      defaultMessage: "EC-08: Expert Advisor",
+      id: "fnn7EU",
+      description: "EC-08 classification label including titles",
+    },
   });
 
 export const classificationAriaLabels: Record<string, MessageDescriptor> =
@@ -165,5 +200,40 @@ export const classificationAriaLabels: Record<string, MessageDescriptor> =
       defaultMessage: "Senior Advisor or Analyst A S 5",
       id: "n9Q5yf",
       description: "AS-05 classification aria label including titles",
+    },
+    "EC-02": {
+      defaultMessage: "Research Analyst E C 2",
+      id: "7ArOZ0",
+      description: "EC-02 classification aria label including titles",
+    },
+    "EC-03": {
+      defaultMessage: "Analyst E C 3",
+      id: "Nn34yo",
+      description: "EC-03 classification aria label including titles",
+    },
+    "EC-04": {
+      defaultMessage: "Analyst or Economist E C 4",
+      id: "+eyXou",
+      description: "EC-04 classification aria label including titles",
+    },
+    "EC-05": {
+      defaultMessage: "Analyst or Advisor E C 5",
+      id: "6aTPDo",
+      description: "EC-05 classification aria label including titles",
+    },
+    "EC-06": {
+      defaultMessage: "Advisor or Economist E C 6",
+      id: "KHU8DJ",
+      description: "EC-06 classification aria label including titles",
+    },
+    "EC-07": {
+      defaultMessage: "Senior Advisor E C 7",
+      id: "yZMZmq",
+      description: "EC-07 classification aria label including titles",
+    },
+    "EC-08": {
+      defaultMessage: "Expert Advisor E C 8",
+      id: "/lD418",
+      description: "EC-08 classification aria label including titles",
     },
   });

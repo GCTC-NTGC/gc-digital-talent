@@ -63,7 +63,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="mt-auto border-t border-black/20 bg-white py-12 dark:bg-black">
+    <footer className="mt-auto border-t border-black/20 bg-white py-12 dark:bg-gray-700">
       <Container center size="lg">
         <div className="grid items-center gap-6 xs:grid-cols-2 xs:gap-12 md:grid-cols-3">
           <div className="text-center xs:text-left md:col-start-1 md:col-end-3">

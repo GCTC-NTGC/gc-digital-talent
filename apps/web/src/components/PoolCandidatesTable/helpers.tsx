@@ -65,10 +65,11 @@ export const priorityCell = (
 
   return (
     <span
-      {...(bold && {
-        "data-h2-color": "base(primary.darker)",
-        "data-h2-font-weight": "base(700)",
-      })}
+      className={
+        bold
+          ? "font-bold text-secondary-600 dark:text-secondary-200"
+          : undefined
+      }
     >
       {getLocalizedName(label, intl)}
     </span>
@@ -213,7 +214,7 @@ export const bookmarkCell = (
 
 export const bookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
-    data-h2-width="base(x1)"
+    className="size-6"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );

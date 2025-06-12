@@ -2,7 +2,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const well = tv({
-  base: "rounded border",
+  base: "rounded-md border",
   variants: {
     color: {
       primary:

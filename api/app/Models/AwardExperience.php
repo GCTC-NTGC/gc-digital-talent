@@ -2,16 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\MatchExperienceType;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class AwardExperience
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property string $title
  * @property string $issued_by
  * @property ?\Illuminate\Support\Carbon $awarded_date
@@ -24,20 +23,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AwardExperience extends Experience
 {
     use HasFactory;
+    use HasUuids;
     use SoftDeletes;
 
     /**
-     * The table associated with the model.
+     * The attributes that should be cast.
      *
-     * @var string
+     * @var array<string, string>
      */
-    protected $table = 'experiences';
-
-    /**
-     * Default values for attributes
-     */
-    protected $attributes = [
-        'experience_type' => AwardExperience::class,
+    protected $casts = [
+        'awarded_date' => 'date',
     ];
 
     protected static $hydrationFields = [
@@ -53,51 +48,15 @@ class AwardExperience extends Experience
         return $this->title;
     }
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
+    public function getExperienceType(): string
     {
-        static::addGlobalScope(new MatchExperienceType);
+        return AwardExperience::class;
     }
 
-    /**
-     * Interact with the experience's title
-     */
-    protected function title(): Attribute
+    public function getDateRange($lang = 'en'): string
     {
-        return $this->makeJsonPropertyStringAttribute('title');
-    }
+        $format = 'MMM Y';
 
-    /**
-     * Interact with the experience's issued by
-     */
-    protected function issuedBy(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('issued_by');
-    }
-
-    /**
-     * Interact with the experience's award date
-     */
-    protected function awardedDate(): Attribute
-    {
-        return $this->makeJsonPropertyDateAttribute('awarded_date');
-    }
-
-    /**
-     * Interact with the experience's awarded to
-     */
-    protected function awardedTo(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('awarded_to');
-    }
-
-    /**
-     * Interact with the experience's awarded scope
-     */
-    protected function awardedScope(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('awarded_scope');
+        return $this->awarded_date->locale($lang)->isoFormat($format);
     }
 }

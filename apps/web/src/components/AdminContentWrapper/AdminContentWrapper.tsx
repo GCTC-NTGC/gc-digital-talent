@@ -1,36 +1,37 @@
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
+import { Container } from "@gc-digital-talent/ui";
 interface AdminContentWrapperProps {
   table?: boolean;
   overflowScrollbar?: boolean;
   children: ReactNode;
 }
 
+const adminContentWrapper = tv({
+  base: "py-18",
+  variants: {
+    overflowScrollbar: {
+      true: "pb-18",
+    },
+    table: {
+      true: "px-6 sm:px-12",
+    },
+  },
+});
+
 const AdminContentWrapper = ({
   table,
   overflowScrollbar,
   children,
 }: AdminContentWrapperProps) => (
-  <div
-    {...(overflowScrollbar
-      ? {
-          "data-h2-padding": "base(0, 0, x3, 0)",
-        }
-      : {
-          "data-h2-padding": "base(x3, 0)",
-        })}
-    {...(table
-      ? {
-          "data-h2-wrapper":
-            "base(center, full, x1) p-tablet(center, full, x2)",
-        }
-      : {
-          "data-h2-wrapper":
-            "base(center, large, x1) p-tablet(center, large, x2)",
-        })}
+  <Container
+    className={adminContentWrapper({ overflowScrollbar, table })}
+    size={table ? "full" : "lg"}
+    center
   >
     {children}
-  </div>
+  </Container>
 );
 
 export default AdminContentWrapper;

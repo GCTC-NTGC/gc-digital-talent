@@ -42,7 +42,7 @@ const Template: StoryFn<ToggleSectionRootAndHeader> = (args) => {
         {headerText}
       </ToggleSection.Header>
 
-      <ToggleSection.Content data-h2-text-align="base(center)">
+      <ToggleSection.Content className="text-center">
         <ToggleSection.InitialContent>
           <p>The initial content.</p>
           <ToggleSection.Open>
@@ -74,7 +74,7 @@ const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
         {headerText}
       </ToggleSection.Header>
 
-      <ToggleSection.Content data-h2-text-align="base(center)">
+      <ToggleSection.Content className="text-center">
         <ToggleSection.InitialContent>
           <p>The initial content.</p>
           <ToggleSection.Open>
@@ -86,7 +86,7 @@ const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = (args) => {
               <Button mode="inline">Toggle nested content</Button>
             </ToggleSection.Trigger>
 
-            <ToggleSection.Content data-h2-text-align="base(center)">
+            <ToggleSection.Content className="text-center">
               <ToggleSection.InitialContent>
                 <p>The nested initial content.</p>
               </ToggleSection.InitialContent>
