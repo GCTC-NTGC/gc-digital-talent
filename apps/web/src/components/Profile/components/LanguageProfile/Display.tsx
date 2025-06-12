@@ -5,8 +5,8 @@ import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 import { getExamValidityOptions, getLabels } from "./utils";
 
@@ -43,7 +43,7 @@ const getBilingualEvaluation = (
 
 export interface DisplayProps {
   user: PartialUser & { bilingualEvaluation?: BilingualEvaluation };
-  context?: "admin" | "default" | "print";
+  context?: "admin" | "default";
 }
 
 const Display = ({
@@ -83,10 +83,7 @@ const Display = ({
   }
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      {...(context !== "print" && { "data-h2-gap": "base(x1)" })}
-    >
+    <div className="grid gap-6">
       <FieldDisplay
         hasError={
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
@@ -191,7 +188,7 @@ const Display = ({
             )}
         </>
       ) : (
-        <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+        <div className="grid gap-6">
           {lookingForBilingual && (
             <>
               <FieldDisplay
@@ -226,14 +223,7 @@ const Display = ({
                   >
                     {examValidity}
                   </FieldDisplay>
-                  <div
-                    data-h2-display="base(grid)"
-                    data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-                    data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-                    {...(context === "print" && {
-                      "data-h2-gap": "base(0, 0)",
-                    })}
-                  >
+                  <div className="grid gap-6 sm:grid-cols-3">
                     <FieldDisplay
                       label={labels.comprehensionLevel}
                       context={context}
