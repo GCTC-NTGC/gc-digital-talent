@@ -8,9 +8,9 @@ import { Button, Chip } from "@gc-digital-talent/ui";
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import { PartialUser } from "./types";
-import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 interface DisplayProps {
   user: PartialUser;
