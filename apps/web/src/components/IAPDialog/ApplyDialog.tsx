@@ -9,7 +9,7 @@ import { BasicDialogProps } from "./types";
 const mailAccessor = (chunks: ReactNode) => (
   <Link
     external
-    color="primary"
+    color="secondary"
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
   >
     {chunks}
@@ -57,7 +57,7 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage:
                 "We want to let you know that in the meantime, updates are being made on this site that will allow Indigenous peoples who are interested in joining the IT Apprenticeship Program to apply online.",
@@ -65,7 +65,7 @@ const ApplyDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Second paragraph for apply now dialog",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage:
                 "Thank you for your interest in this program. We look forward to hearing from you!",

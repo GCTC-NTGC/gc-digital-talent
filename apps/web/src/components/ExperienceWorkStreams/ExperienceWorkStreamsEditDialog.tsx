@@ -194,7 +194,7 @@ const ExperienceWorkStreamsEditDialog = ({
                 )}
               </div>
               <Dialog.Footer>
-                <Button type="submit" color="secondary">
+                <Button type="submit" color="primary">
                   {community
                     ? intl.formatMessage({
                         defaultMessage: "Update work streams",
@@ -210,7 +210,7 @@ const ExperienceWorkStreamsEditDialog = ({
                       })}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="quaternary">
+                  <Button mode="inline" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

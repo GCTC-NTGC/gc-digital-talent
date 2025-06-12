@@ -5,9 +5,8 @@ import { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
 import {
-  Button,
   Dialog,
-  HydrogenAttributes,
+  IconButton,
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -17,6 +16,8 @@ import {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+
+import { HydrogenAttributes } from "~/types/hydrogen";
 
 import { dialogMessages, formMessages } from "./messages";
 import { convertFormValuesToMutationInput, FormValues } from "./form";
@@ -100,13 +101,12 @@ const NominationGroupEvaluationDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button
+        <IconButton
           {...triggerButtonStyle}
           data-h2-margin-top="base(x.1)"
           icon={PencilSquareIcon}
-          mode={"icon_only"}
-          fontSize="h4"
-          aria-label={intl.formatMessage(dialogMessages.title)}
+          size="lg"
+          label={intl.formatMessage(dialogMessages.title)}
         />
       </Dialog.Trigger>
       <Dialog.Content>

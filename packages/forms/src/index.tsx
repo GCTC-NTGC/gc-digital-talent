@@ -57,10 +57,9 @@ import {
   flattenErrors,
   alphaSortOptions,
 } from "./utils";
-import { useInputStylesDeprecated } from "./hooks/useInputStyles";
 import useFieldState from "./hooks/useFieldState";
-import useFieldStateStyles from "./hooks/useFieldStateStyles";
 import useInputDescribedBy from "./hooks/useInputDescribedBy";
+import { inputStyles, inputStateStyles } from "./styles";
 import {
   Option,
   OptGroup,
@@ -139,11 +138,11 @@ export {
   matchStringCaseDiacriticInsensitive,
   countNumberOfWords,
   objectsToSortedOptions,
-  useInputStylesDeprecated as useCommonInputStyles,
   useInputDescribedBy,
   useFieldState,
-  useFieldStateStyles,
   htmlToRichTextJSON,
   flattenErrors,
   alphaSortOptions,
+  inputStyles,
+  inputStateStyles,
 };

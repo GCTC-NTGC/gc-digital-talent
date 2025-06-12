@@ -208,7 +208,7 @@ export const Component = () => {
                 data-h2-flex-shrink="base(0)"
               >
                 <Link
-                  color="secondary"
+                  color="primary"
                   mode="solid"
                   href={profileLink.href}
                   style={{ whiteSpace: "nowrap" }}
@@ -225,11 +225,7 @@ export const Component = () => {
           {...getFlourishStyles(false)}
         />
       </div>
-      <div
-        data-h2-background-color="base(white) base:dark(white)"
-        data-h2-color="base(black) base:dark(white)"
-        data-h2-padding="base(x3, 0)"
-      >
+      <div data-h2-background-color="base(white)" data-h2-padding="base(x3, 0)">
         <div
           data-h2-position="base(relative)"
           data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
@@ -240,7 +236,7 @@ export const Component = () => {
             data-h2-gap="base(x2) p-tablet(x3)"
           >
             <CardFlat
-              color="primary"
+              color="secondary"
               title={intl.formatMessage(
                 {
                   defaultMessage:
@@ -284,7 +280,7 @@ export const Component = () => {
               </p>
             </CardFlat>
             <CardFlat
-              color="primary"
+              color="secondary"
               title={intl.formatMessage({
                 defaultMessage: "Hire talent for your team",
                 id: "jTN0bg",

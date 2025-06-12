@@ -1,9 +1,7 @@
 import { useLocation, Link, LinkProps, Location } from "react-router";
 import { useState, useEffect, MouseEvent, KeyboardEvent } from "react";
 
-import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
-import { ButtonLinkProps } from "../../types";
-import getButtonStyles from "../../utils/button/getButtonStyles";
+import { BaseButtonLinkProps, btn } from "../../utils/btnStyles";
 
 type ClickEvent =
   | MouseEvent<HTMLAnchorElement | undefined>
@@ -25,14 +23,13 @@ const scrollToSection = (section: HTMLElement | null) => {
   }
 };
 
-export type ScrollToLinkProps = Omit<LinkProps, "to"> &
-  ButtonLinkProps & {
-    to: string;
-    onScrollTo?: ScrollLinkClickFunc;
-    external?: boolean;
-    newTab?: boolean;
-    disabled?: boolean;
-  };
+export interface ScrollToLinkProps
+  extends BaseButtonLinkProps,
+    Omit<LinkProps, "to" | "color"> {
+  to: string;
+  onScrollTo?: ScrollLinkClickFunc;
+  disabled?: boolean;
+}
 
 const ScrollToLink = ({
   to,
@@ -41,15 +38,24 @@ const ScrollToLink = ({
   color = "black",
   mode = "text",
   block = false,
-  fontSize = "body",
+  size = "md",
   icon,
   utilityIcon,
   disabled = false,
-  newTab = false,
+  className,
   ...rest
 }: ScrollToLinkProps) => {
   const { pathname, hash, search, state } = useLocation() as Location<unknown>;
   const [targetSection, setTargetSection] = useState<HTMLElement | null>(null);
+  const Icon = icon;
+  const UtilityIcon = utilityIcon;
+  const { base, leadingIcon, trailingIcon, label } = btn({
+    color,
+    block,
+    mode,
+    size,
+    disabled,
+  });
 
   useEffect(() => {
     if (hash && hash === `#${to}`) {
@@ -69,18 +75,6 @@ const ScrollToLink = ({
     }
   };
 
-  const content = (
-    <ButtonLinkContent
-      mode={mode}
-      icon={icon}
-      utilityIcon={utilityIcon}
-      newTab={newTab}
-      fontSize={fontSize}
-    >
-      {children}
-    </ButtonLinkContent>
-  );
-
   return (
     <Link
       to={{
@@ -91,11 +85,13 @@ const ScrollToLink = ({
       state={state}
       replace
       preventScrollReset={false}
-      {...getButtonStyles({ mode, color, block, disabled })}
+      className={base({ class: className })}
       {...rest}
       onClick={handleClick}
     >
-      {content}
+      {Icon && <Icon className={leadingIcon()} />}
+      <span className={label()}>{children}</span>
+      {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
     </Link>
   );
 };

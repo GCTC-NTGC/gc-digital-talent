@@ -253,7 +253,7 @@ export const ViewPool = ({
                   color={
                     pool.status?.value === PoolStatus.Published
                       ? "error"
-                      : "secondary"
+                      : "primary"
                   }
                   href={paths.poolUpdate(pool.id)}
                 >
@@ -267,7 +267,7 @@ export const ViewPool = ({
               )}
               <Link
                 mode="inline"
-                color="secondary"
+                color="primary"
                 href={
                   advertisementStatus === "submitted"
                     ? paths.pool(pool.id)
@@ -319,7 +319,7 @@ export const ViewPool = ({
             <ProcessCard.Footer>
               <Link
                 mode="inline"
-                color="secondary"
+                color="primary"
                 href={paths.assessmentPlanBuilder(pool.id)}
               >
                 {assessmentStatus === "submitted"
@@ -365,8 +365,8 @@ export const ViewPool = ({
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "This process is <heavyPrimary>open</heavyPrimary> and accepting applications until <heavyPrimary>{closingDate}</heavyPrimary>.",
-                    id: "6c5+AE",
+                      "This process is <heavySecondary>open</heavySecondary> and accepting applications until <heavySecondary>{closingDate}</heavySecondary>.",
+                    id: "JlTf/G",
                     description:
                       "Message displayed to admins when a process is published",
                   },

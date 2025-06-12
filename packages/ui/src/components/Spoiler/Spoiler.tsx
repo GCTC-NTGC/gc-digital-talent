@@ -29,7 +29,7 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
           <Collapsible.Content>{text}</Collapsible.Content>
         </div>
         <Collapsible.Trigger asChild>
-          <Button mode="inline" color="black" className="shrink-0">
+          <Button mode="text" color="black" className="shrink-0 font-bold">
             {!isOpen
               ? intl.formatMessage(uiMessages.readMore, {
                   context: linkSuffix,

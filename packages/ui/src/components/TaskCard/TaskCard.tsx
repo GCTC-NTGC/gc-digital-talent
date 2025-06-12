@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
-import { Color, IconType } from "../../types";
+import { IconType } from "../../types";
 import Link, { LinkProps } from "../Link";
 import { HeadingLevel } from "../Heading";
 
@@ -54,9 +54,9 @@ const TaskCardHeading = ({
 
 const root = tv({
   slots: {
-    base: "rounded bg-white shadow-xl dark:bg-gray-600",
+    base: "rounded-md bg-white shadow-xl dark:bg-gray-600",
     header:
-      "flex flex-col items-center gap-6 rounded-t border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
+      "flex flex-col items-center gap-6 rounded-t-md border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
   },
   variants: {
     headingColor: {
@@ -86,15 +86,6 @@ const root = tv({
 
 type RootVariants = VariantProps<typeof root>;
 
-// TO DO: Remove in #13562
-const compatColourMap = new Map<RootVariants["headingColor"], Color>([
-  ["primary", "secondary"],
-  ["secondary", "primary"],
-  ["success", "quinary"],
-  ["warning", "quaternary"],
-  ["error", "tertiary"],
-]);
-
 export interface RootProps extends RootVariants {
   icon?: IconType;
   title: ReactNode;
@@ -122,11 +113,7 @@ const Root = ({
           {title}
         </TaskCardHeading>
         {link ? (
-          <Link
-            color={compatColourMap.get(headingColor)}
-            href={link.href}
-            className="text-nowrap"
-          >
+          <Link color={headingColor} href={link.href} className="text-nowrap">
             {link.label}
           </Link>
         ) : null}

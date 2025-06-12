@@ -249,7 +249,7 @@ const ClaimVerificationDialog = ({
                 />
               )}
               <Dialog.Footer>
-                <Button type="submit" color="secondary" disabled={fetching}>
+                <Button type="submit" color="primary" disabled={fetching}>
                   {intl.formatMessage(formMessages.saveChanges)}
                 </Button>
                 <Dialog.Close>

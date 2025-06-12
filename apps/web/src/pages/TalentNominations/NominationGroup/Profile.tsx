@@ -103,7 +103,7 @@ const TalentNominationGroupProfile = ({
             })}
           </Heading>
           {shareProfile && (
-            <Button mode="inline" color="secondary" onClick={toggleSections}>
+            <Button mode="inline" color="primary" onClick={toggleSections}>
               {hasOpenSections
                 ? intl.formatMessage({
                     defaultMessage:

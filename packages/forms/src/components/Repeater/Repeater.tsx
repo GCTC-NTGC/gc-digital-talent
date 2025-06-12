@@ -261,40 +261,24 @@ const Root = ({
   const errorMessage = errors?.[name]?.root?.message as string;
 
   return (
-    <div
-      id={`${name}.root`}
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.25, 0)"
-      {...rest}
-    >
+    <div id={`${name}.root`} className="flex flex-col gap-y-1.5" {...rest}>
       <Link
         external
         href={`#${addId}`}
-        data-h2-visually-hidden="base(invisible)"
-        data-h2-position="base:focus-visible(static)"
-        data-h2-location="base:focus-visible(auto)"
-        data-h2-height="base:focus-visible(auto)"
-        data-h2-width="base:focus-visible(auto)"
+        className="sr-only focus-visible:not-sr-only"
       >
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
-      {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
+      {children && <div className="mb-3">{children}</div>}
       {hasError && (
         <Field.Error
           id={name}
-          data-h2-border-style="base(solid)"
-          data-h2-border-width="base(1px)"
-          data-h2-font-size="base(caption)"
-          data-h2-padding="base(x.5)"
-          data-h2-radius="base(rounded)"
-          data-h2-text-align="base(center)"
-          data-h2-margin-bottom="base(x.5)"
+          className="mb-3 rounded-md border p-3 text-center text-sm"
         >
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             {intl.formatMessage(formMessages.repeaterDefaultError)}
           </p>
-          {errorMessage && <p data-h2-margin-top="base(x.5)">{errorMessage}</p>}
+          {errorMessage && <p className="mt-3">{errorMessage}</p>}
         </Field.Error>
       )}
       {showAdd && (
@@ -304,7 +288,7 @@ const Root = ({
           type="button"
           mode="placeholder"
           block
-          color="secondary"
+          color="primary"
           onClick={onAdd}
         >
           {addText ?? intl.formatMessage(formMessages.repeaterAddItem)}

@@ -6,7 +6,6 @@ import {
   Field,
   useFieldState,
 } from "@gc-digital-talent/forms";
-import { HydrogenAttributes } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
@@ -14,15 +13,11 @@ import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 import { SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 
-interface WrapperProps
-  extends ComponentPropsWithoutRef<"div">,
-    HydrogenAttributes {}
-
 export interface EmployeeSearchInputProps
   extends Omit<ComponentPropsWithoutRef<"input">, "id" | "name">,
     Omit<CommonInputProps, "context"> {
   buttonLabel?: string;
-  wrapperProps?: WrapperProps;
+  wrapperProps?: ComponentPropsWithoutRef<"div">;
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
   employeeOption?: Maybe<EmployeeSearchResult>;

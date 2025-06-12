@@ -19,7 +19,7 @@ const Actions = ({ children }: ActionsProps) => (
   <div className="flex items-center justify-center gap-3">{children}</div>
 );
 
-const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
+const LockedIcon = () => <LockClosedIcon className="size-4.5" />;
 
 const DisabledAction = () => (
   <span
@@ -137,7 +137,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
               onClick={decrement}
               animation={!shouldReduceMotion ? "translate-up" : "none"}
               icon={ArrowUpIcon}
-              aria-label={intl.formatMessage(formMessages.repeaterMove, {
+              label={intl.formatMessage(formMessages.repeaterMove, {
                 from: position,
                 to: position - 1,
               })}
@@ -157,7 +157,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
               onClick={increment}
               animation={!shouldReduceMotion ? "translate-down" : "none"}
               icon={ArrowDownIcon}
-              aria-label={intl.formatMessage(formMessages.repeaterMove, {
+              label={intl.formatMessage(formMessages.repeaterMove, {
                 from: position,
                 to: position + 1,
               })}
@@ -170,7 +170,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
           {isEditDisabled && edit ? (
             <Edit
               disabled
-              aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+              label={intl.formatMessage(formMessages.repeaterEdit, {
                 index: position,
               })}
             />
@@ -180,7 +180,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
           {isRemoveDisabled && remove ? (
             <Remove
               disabled
-              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+              label={intl.formatMessage(formMessages.repeaterRemove, {
                 index: position,
               })}
             />

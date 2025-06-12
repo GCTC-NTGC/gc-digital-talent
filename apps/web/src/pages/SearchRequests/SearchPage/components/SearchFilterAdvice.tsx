@@ -36,7 +36,7 @@ const SearchFilterAdvice = ({ filters }: SearchFilterAdviceProps) => {
     return null;
   }
 
-  const linkProps: LinkProps = {
+  const linkProps: Omit<LinkProps, "href"> = {
     color: "primary",
     mode: "inline",
   };

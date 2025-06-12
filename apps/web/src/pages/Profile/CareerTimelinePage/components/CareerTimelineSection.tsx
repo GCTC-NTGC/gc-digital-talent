@@ -72,7 +72,7 @@ const CareerTimelineSection = ({
               href={paths.createExperience()}
               icon={PlusCircleIcon}
               mode="solid"
-              color="secondary"
+              color="primary"
             >
               {intl.formatMessage(experienceMessages.addNewExperience)}
             </Link>

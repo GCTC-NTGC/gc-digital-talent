@@ -46,6 +46,7 @@ const Actions = () => {
         <Button
           type="submit"
           mode="inline"
+          color="secondary"
           data-h2-margin-left="base(0) p-tablet(auto)"
           {...intentProps}
           onClick={() => setValue("intent", "save-draft")}
@@ -58,7 +59,7 @@ const Actions = () => {
         </Button>
         <Button
           type="submit"
-          color="secondary"
+          color="primary"
           {...intentProps}
           onClick={() => setValue("intent", "next-step")}
           utilityIcon={isLastStep ? undefined : ChevronDoubleRightIcon}

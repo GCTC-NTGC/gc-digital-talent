@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 
 import Heading from "../../Heading";
-import { CardColor } from "./types";
 import CardFlatRegularLink, {
   CardFlatRegularLinkProps,
 } from "./CardFlatRegularLink";
@@ -41,7 +40,7 @@ type LinkItemScrollTo = Omit<CardFlatScrollToLinkProps, "color"> & {
 
 const cardFlat = tv({
   slots: {
-    base: "flex flex-col border-l border-l-12 pl-6",
+    base: "flex flex-col border-l-12 pl-6",
     heading: "my-0",
     content: "mt-3 grow",
     linkWrapper: "mt-6 flex flex-wrap items-center gap-2",
@@ -72,16 +71,6 @@ const cardFlat = tv({
 
 type CardFlatVariants = VariantProps<typeof cardFlat>;
 
-// TO DO: Remove in #13562
-const compatColourMap = new Map<CardFlatVariants["color"], CardColor>([
-  ["primary", "secondary"],
-  ["secondary", "primary"],
-  ["success", "quinary"],
-  ["warning", "quaternary"],
-  ["error", "tertiary"],
-  ["black", "blackFixed"],
-]);
-
 export interface CardFlatProps
   extends Omit<CardFlatVariants, "color">,
     Required<Pick<CardFlatVariants, "color">> {
@@ -106,7 +95,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
               return (
                 <CardFlatRegularLink
                   key={String(link.naturalKey ?? hrefToString(link.href))}
-                  color={compatColourMap.get(color) ?? "primary"}
+                  color={color ?? "primary"}
                   {...link}
                 />
               );
@@ -115,7 +104,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
               return (
                 <CardFlatScrollToLink
                   key={link.naturalKey ?? link.to}
-                  color={compatColourMap.get(color) ?? "primary"}
+                  color={color ?? "primary"}
                   {...link}
                 />
               );

@@ -6,11 +6,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Maybe } from "@gc-digital-talent/graphql";
 
 const contactLink = (chunks: ReactNode) => (
-  <Link
-    color="secondary"
-    external
-    href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca"
-  >
+  <Link external href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca">
     {chunks}
   </Link>
 );
@@ -34,7 +30,7 @@ const SubmitForPublishingDialog = ({
     return (
       <Button
         mode="inline"
-        color="primary"
+        color="secondary"
         onClick={() => {
           toast.error(
             intl.formatMessage({
@@ -55,7 +51,7 @@ const SubmitForPublishingDialog = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button mode="inline" color="primary">
+        <Button mode="inline" color="secondary">
           {dialogTitle}
         </Button>
       </Dialog.Trigger>
@@ -94,7 +90,7 @@ const SubmitForPublishingDialog = ({
           </p>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button mode="inline" color="secondary">
+              <Button mode="inline" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close this dialog",
                   id: "n2bW9s",

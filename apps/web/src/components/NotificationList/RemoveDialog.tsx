@@ -85,7 +85,7 @@ const RemoveDialog = forwardRef<
             </Button>
           </AlertDialog.Action>
           <AlertDialog.Cancel>
-            <Button mode="inline" color="quaternary">
+            <Button mode="inline" color="warning">
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </AlertDialog.Cancel>

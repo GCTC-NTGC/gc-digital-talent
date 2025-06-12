@@ -17,7 +17,7 @@ const Trigger = forwardRef<
 ));
 
 const content = tv({
-  base: "rounded bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
+  base: "rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
 });
 
 const StyledContent = forwardRef<
@@ -25,7 +25,7 @@ const StyledContent = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >(({ className, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Content
-    className={content({ class: ["z-10", className] })}
+    className={content({ class: ["z-[9999]", className] })}
     ref={forwardedRef}
     {...rest}
   />
@@ -78,7 +78,7 @@ const SubContent = ({
 );
 
 const item = tv({
-  base: "transition-200 ease flex cursor-pointer items-center rounded bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
+  base: "transition-200 ease flex cursor-pointer items-center rounded-md bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
   variants: {
     color: {
       primary:
@@ -184,7 +184,7 @@ const ItemIndicator = forwardRef<
   ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.ItemIndicator
-    className="absolute left-0 inline-flex h-px w-1.5 items-center justify-center"
+    className="absolute left-4.5 inline-flex size-3 items-center justify-center"
     ref={forwardedRef}
     {...props}
   />
