@@ -14,7 +14,6 @@ import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SortButton from "./SortButton";
-import styles, { getCellStyles } from "./styles";
 import { AddDef } from "./types";
 import { getColumnHeader } from "./utils";
 
@@ -25,7 +24,7 @@ type WrapperProps = DetailedHTMLProps<
 
 const Wrapper = ({ children, ...rest }: WrapperProps) => (
   <div role="region" {...rest}>
-    <div className="overflow-x-auto overflow-y-hidden rounded-md shadow">
+    <div className="overflow-x-auto overflow-y-hidden rounded-md shadow-md">
       {children}
     </div>
   </div>
@@ -74,29 +73,32 @@ const Body = (props: BodyProps) => (
   />
 );
 
+const baseRow = tv({
+  base: "px-6 py-4.5 *:py-1.5 sm:py-0 sm:*:px-3 sm:*:first:p-3 sm:*:first:pl-6 sm:*:last:p-3 sm:*:last:pr-6",
+});
+
+const baseCell = tv({
+  base: "text-left",
+});
+
 type RowProps = DetailedHTMLProps<
   HTMLAttributes<HTMLTableRowElement>,
   HTMLTableRowElement
 >;
 
-const HeadRow = (props: RowProps) => (
-  <tr className="hidden sm:table-row" {...styles.row} {...props} />
-);
+const hr = tv({
+  extend: baseRow,
+  base: "hidden sm:table-row",
+});
 
-const Row = (props: RowProps) => (
-  <tr
-    role="row"
-    data-h2-display="base(flex) l-tablet(table-row)"
-    data-h2-background-color="base:selectors[:nth-child(even)](background.dark.50) base:dark:selectors[:nth-child(even)](white.3) base:selectors[:nth-child(odd)](foreground)"
-    data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.dark)"
-    data-h2-flex-direction="base(row)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-justify-content="base(space-between)"
-    data-h2-align-items="base(center)"
-    {...styles.row}
-    {...props}
-  />
-);
+const HeadRow = (props: RowProps) => <tr className={hr()} {...props} />;
+
+const tr = tv({
+  extend: baseRow,
+  base: "flex flex-row flex-wrap items-center justify-between border-gray-500 not-last:border-b odd:bg-white even:bg-gray-100/50 sm:table-row dark:border-gray-300 dark:odd:bg-gray-600 dark:even:bg-gray-700/50",
+});
+
+const Row = (props: RowProps) => <tr role="row" className={tr()} {...props} />;
 
 type AriaSort = "ascending" | "descending" | "none" | undefined;
 
@@ -104,6 +106,16 @@ type CellHTMLProps = DetailedHTMLProps<
   HTMLAttributes<HTMLTableCellElement>,
   HTMLTableCellElement
 >;
+
+const headCell = tv({
+  extend: baseCell,
+  base: "hidden bg-black/80 align-middle text-sm font-normal text-white sm:table-cell",
+  variants: {
+    preventShrink: {
+      true: "min-w-48",
+    },
+  },
+});
 
 type HeadCellProps<T> = {
   header: Header<T, unknown>;
@@ -123,20 +135,10 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
   return (
     <th
       role="columnheader"
-      data-h2-background-color="base(background.darkest) base:dark(white)"
-      data-h2-color="base:all(white)"
-      data-h2-display="base(none) l-tablet(table-cell)"
-      data-h2-font-size="base(caption)"
-      data-h2-vertical-align="base(middle)"
-      data-h2-font-weight="base(400)"
       {...(header.column.getCanSort() && {
         "aria-sort": ariaSort,
       })}
-      {...(!isRowSelect &&
-        !shouldShrink && {
-          "data-h2-min-width": "base(x8)",
-        })}
-      {...styles.cell}
+      className={headCell({ preventShrink: !isRowSelect && !shouldShrink })}
       {...rest}
     >
       {header.isPlaceholder ? null : (
@@ -148,6 +150,38 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
   );
 };
 
+const cellStyles = tv({
+  slots: {
+    base: "max-w-full text-left align-middle text-black sm:w-auto dark:text-white",
+    val: "inline",
+  },
+  variants: {
+    isRowTitle: {
+      true: {
+        base: "order-1 grow",
+        val: "text-lg font-bold text-primary-600 sm:font-normal sm:text-inherit lg:text-xl dark:text-primary-200 sm:dark:text-inherit",
+      },
+    },
+    shouldShrink: {
+      true: { base: "shrink-0 sm:w-auto" },
+    },
+    isRowSelect: {
+      true: {
+        base: "order-2 w-auto",
+      },
+    },
+  },
+  compoundVariants: [
+    {
+      isRowTitle: false,
+      isRowSelect: false,
+      class: {
+        base: "order-3 block sm:table-cell",
+      },
+    },
+  ],
+});
+
 type CellProps<T> = {
   cell: Cell<T, unknown>;
 } & CellHTMLProps;
@@ -157,11 +191,6 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   const isRowTitle = cell.column.columnDef.meta?.isRowTitle;
   const isRowSelect = cell.column.columnDef.meta?.isRowSelect;
   const shouldShrink = cell.column.columnDef.meta?.shrink;
-  const cellStyles = getCellStyles({
-    isRowTitle,
-    isRowSelect,
-    shouldShrink,
-  });
   const header = getColumnHeader(cell.column, "mobileHeader");
 
   // We don't want to show the "header" for row titles or selection cells
@@ -171,47 +200,42 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
     !isRowTitle &&
     !cell.column.columnDef.meta?.hideMobileHeader;
 
+  const { base, val } = cellStyles({ isRowTitle, isRowSelect, shouldShrink });
+
   return (
     <td
       // Seems like a false positive, cell is the implicit role for this element
       // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
       // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
       role="cell"
-      data-h2-vertical-align="base(middle)"
-      data-h2-max-width="base(100%) l-tablet(none)"
-      data-h2-color="base(black)"
-      {...cellStyles.td}
-      {...styles.cell}
+      className={base()}
       {...rest}
     >
       {showHeader && (
-        <span
-          data-h2-display="base(inline) l-tablet(none)"
-          data-h2-font-weight="base(700)"
-        >
+        <span className="inline font-bold sm:hidden">
           {header}
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}
         </span>
       )}
-      <span {...cellStyles.value}>
+      <span className={val()}>
         {flexRender(cell.column.columnDef.cell, cell.getContext())}
       </span>
     </td>
   );
 };
 
+const ctrl = tv({
+  base: "order-0 w-full sm:w-auto",
+});
+
 type ControlProps = DetailedHTMLProps<
   HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
-const Control = (props: ControlProps) => (
-  <div
-    data-h2-width="base(100%) l-tablet(auto)"
-    data-h2-order="base(0)"
-    {...props}
-  />
+const Control = ({ className, ...rest }: ControlProps) => (
+  <div className={ctrl({ class: className })} {...rest} />
 );
 
 interface AddActionProps {
@@ -220,11 +244,7 @@ interface AddActionProps {
 
 const AddAction = ({ add }: AddActionProps) =>
   add.linkProps || add.component ? (
-    <Control
-      data-h2-flex-shrink="base(1)"
-      data-h2-order="base(1)"
-      data-h2-margin-left="base(auto)"
-    >
+    <Control className="order-1 ml-auto shrink">
       {add.linkProps && (
         <Link
           icon={PlusCircleIcon}
@@ -247,15 +267,7 @@ interface ControlsProps {
 }
 
 const Controls = ({ children, add }: ControlsProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-align-items="base(flex-end)"
-    data-h2-gap="base(x.25)"
-    data-h2-margin-bottom="base(x1) l-tablet(x.25)"
-    data-h2-justify-content="base(flex-start)"
-    data-h2-font-size="base(caption)"
-    data-h2-flex-wrap="base(wrap)"
-  >
+  <div className="mb-6 flex flex-wrap items-end justify-start gap-1.5 text-sm sm:mb-1.5">
     {add && <AddAction add={add} />}
     {children}
   </div>
