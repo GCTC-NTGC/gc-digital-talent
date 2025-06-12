@@ -20,7 +20,7 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => {
           src={mode === "dark" ? desktopGraphicsDark1 : desktopGraphicsLight1}
           alt=""
         />
-        <Flourish className="abosolute inset-0 bottom-auto" />
+        <Flourish className="absolute inset-0 bottom-auto" />
       </div>
       <Container className="relative">
         <div className="py-18 xs:pt-35 xs:pb-24 sm:pt-42 sm:pb-36">
