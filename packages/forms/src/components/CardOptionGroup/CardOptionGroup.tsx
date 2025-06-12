@@ -12,7 +12,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 const cardOption = tv({
   slots: {
     label:
-      "flex cursor-pointer items-center gap-3 rounded border-2 border-transparent bg-white p-3 text-base shadow-lg peer-checked:border-black peer-checked:bg-gray-100 peer-checked:font-bold peer-focus-visible:bg-focus peer-focus-visible:text-black dark:bg-gray-600 dark:peer-checked:border-gray-100 dark:peer-checked:border-white dark:peer-checked:bg-gray-700 peer-focus-visible:[&_svg]:text-black",
+      "flex cursor-pointer items-center gap-3 rounded-md border-2 border-transparent bg-white p-3 text-base shadow-lg peer-checked:border-black peer-checked:bg-gray-100 peer-checked:font-bold peer-focus-visible:bg-focus peer-focus-visible:text-black dark:bg-gray-600 dark:peer-checked:border-gray-100 dark:peer-checked:border-white dark:peer-checked:bg-gray-700 peer-focus-visible:[&_svg]:text-black",
     icon: "size-6 text-black dark:text-white",
   },
   variants: {

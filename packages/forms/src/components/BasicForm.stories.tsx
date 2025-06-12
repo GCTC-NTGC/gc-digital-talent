@@ -27,13 +27,7 @@ export default {
 } as Meta<typeof BasicForm>;
 
 const FieldWrapper = ({ children }: { children: ReactNode }) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x1 0)"
-  >
-    {children}
-  </div>
+  <div className="flex flex-col gap-y-6">{children}</div>
 );
 
 const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {

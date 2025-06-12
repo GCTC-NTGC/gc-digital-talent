@@ -78,7 +78,7 @@ const Description = forwardRef<
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Description
-    data-h2-font-size="base(copy)"
+    className="text-base"
     ref={forwardedRef}
     {...props}
   />
