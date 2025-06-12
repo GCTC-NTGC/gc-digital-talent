@@ -83,7 +83,7 @@ const CommunitySpecificInfo = ({
             },
           )}
         >
-          <span data-h2-font-weight="base(400)">
+          <span className="font-normal">
             {intl.formatMessage({
               defaultMessage: "Community-specific information",
               id: "BPFC5k",

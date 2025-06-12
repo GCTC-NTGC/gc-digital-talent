@@ -261,7 +261,7 @@ const JobPlacementDialog = ({
             : {
                 color: "primary",
               })}
-          data-h2-text-align="base(left)"
+          className="text-left"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Placement: {placement}. Edit.",
@@ -292,7 +292,7 @@ const JobPlacementDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+              <div className="flex flex-col gap-y-6">
                 <RadioGroup
                   idPrefix="placementType"
                   name="placementType"

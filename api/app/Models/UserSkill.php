@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 /**
  * Class UserSkill
@@ -65,14 +67,13 @@ class UserSkill extends Model
         return $this->belongsTo(Skill::class, 'skill_id')->withTrashed();  // include soft deleted skills
     }
 
-    /** @return BelongsToMany<AwardExperience, $this> */
+    /** @return MorphToMany<AwardExperience, $this, MorphPivot, 'experience_skill'> */
     public function awardExperiences()
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             AwardExperience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
+            'experience',
+            'experience_skill'
         )
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
@@ -80,14 +81,13 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<CommunityExperience, $this> */
+    /** @return MorphToMany<CommunityExperience, $this, MorphPivot, 'experience_skill'> */
     public function communityExperiences()
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             CommunityExperience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
+            'experience',
+            'experience_skill'
         )
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
@@ -95,14 +95,13 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<EducationExperience, $this> */
+    /** @return MorphToMany<EducationExperience, $this, MorphPivot, 'experience_skill'> */
     public function educationExperiences()
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             EducationExperience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
+            'experience',
+            'experience_skill'
         )
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
@@ -110,14 +109,13 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<PersonalExperience, $this> */
+    /** @return MorphToMany<PersonalExperience, $this, MorphPivot, 'experience_skill'> */
     public function personalExperiences()
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             PersonalExperience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
+            'experience',
+            'experience_skill'
         )
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
@@ -125,14 +123,13 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<WorkExperience, $this> */
+    /** @return MorphToMany<WorkExperience, $this, MorphPivot, 'experience_skill'> */
     public function workExperiences()
     {
-        return $this->belongsToMany(
+        return $this->morphedByMany(
             WorkExperience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
+            'experience',
+            'experience_skill'
         )
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
@@ -140,18 +137,16 @@ class UserSkill extends Model
             ->as('experience_skill');
     }
 
-    /** @return BelongsToMany<Experience, $this> */
-    public function experiences(): BelongsToMany
+    /** @return Collection<string|int, Experience> */
+    public function getExperiencesAttribute()
     {
-        return $this->belongsToMany(
-            Experience::class,
-            'experience_skill',
-            'user_skill_id',
-            'experience_id'
-        )
-            ->withTimestamps()
-            ->withPivot(['details', 'deleted_at'])
-            ->wherePivotNull('deleted_at')
-            ->as('experience_skill');
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+
+        return $collection;
     }
 }

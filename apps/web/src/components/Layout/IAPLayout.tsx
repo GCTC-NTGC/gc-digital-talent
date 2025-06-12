@@ -80,12 +80,7 @@ export const Component = () => {
           <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-min-height="base(100vh)"
-            data-h2-margin="base(0)"
-          >
+          <div className="flex min-h-screen flex-col">
             <div>
               <Header />
               <SitewideBanner />
@@ -94,9 +89,7 @@ export const Component = () => {
             <main id="main">
               <Outlet />
             </main>
-            <div style={{ marginTop: "auto" }}>
-              <Footer />
-            </div>
+            <Footer />
           </div>
           <ScrollRestoration />
         </Fragment>

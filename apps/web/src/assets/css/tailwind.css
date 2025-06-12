@@ -85,6 +85,10 @@
   --gcdt-shadow-xl: 0 0.55rem 1rem -0.2rem rgba(0, 0, 0, 0.2);
   --gcdt-shadow-2xl: 0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, 0.2);
   --gcdt-shadow-focus: 0 0 0 0.25rem #6492ff;
+
+  --gcdt-gradient-main-linear:
+    to right, var(--gcdt-color-warning-400), var(--gcdt-color-success-400),
+    var(--gcdt-color-primary-400), var(--gcdt-color-error-400);
 }
 
 /**
@@ -125,6 +129,9 @@
   --gcdt-color-secondary-500: oklch(0.27 0.0975 272.48);
   --gcdt-color-secondary-600: oklch(0.22 0.0695 273.17);
   --gcdt-color-secondary-700: oklch(0.15 0.0382 275.88);
+
+  --gcdt-gradient-main-linear:
+    to right, var(--gcdt-color-secondary-400), var(--gcdt-color-primary-400);
 }
 
 /**
@@ -207,9 +214,8 @@
   --color-white: var(--gcdt-color-white);
 
   /** Gradient */
-  --gradient-main-linear:
-    to right, var(--color-warning), var(--color-success), var(--color-primary),
-    var(--color-error);
+  --gradient-main-linear: var(--gcdt-gradient-main-linear);
+
   /** Temp: Colours to match current palette */
   --color-compat-background: var(--gcdt-color-compat-background);
 
