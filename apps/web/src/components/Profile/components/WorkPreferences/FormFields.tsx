@@ -52,11 +52,7 @@ const FormFields = ({
   useDirtyFields("work");
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-row-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-6">
       <RadioGroup
         idPrefix="required-work-preferences"
         legend={labels.contractDuration}
@@ -99,16 +95,8 @@ const FormFields = ({
           ),
         }))}
       />
-      <Field.Fieldset
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
-        <Field.Legend
-          data-h2-font-size="base(h6)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin-bottom="base(x1)"
-        >
+      <Field.Fieldset className="flex flex-col gap-6">
+        <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
           {labels.currentLocation}
         </Field.Legend>
         <Select
@@ -136,16 +124,8 @@ const FormFields = ({
           }}
         />
       </Field.Fieldset>
-      <Field.Fieldset
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
-        <Field.Legend
-          data-h2-font-size="base(h6)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin-bottom="base(x1)"
-        >
+      <Field.Fieldset className="flex flex-col gap-6">
+        <Field.Legend className="mb-6 text-lg font-bold lg:text-xl">
           {labels.workLocationPreferences}
         </Field.Legend>
         <Checklist
