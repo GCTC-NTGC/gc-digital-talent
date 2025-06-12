@@ -17,6 +17,7 @@ import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
+import { uniqueId } from "~/utils/id";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -30,7 +31,7 @@ test.describe("Pool candidates", () => {
   let technicalSkill: Skill | undefined;
 
   test.beforeAll(async () => {
-    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    uniqueTestId = uniqueId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 

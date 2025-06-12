@@ -14,6 +14,7 @@ import { test, expect } from "~/fixtures";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
@@ -30,7 +31,7 @@ test.describe("Snapshot", () => {
   let technicalSkill: Skill | undefined;
 
   test.beforeAll(async () => {
-    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 

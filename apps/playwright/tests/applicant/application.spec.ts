@@ -18,6 +18,7 @@ import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
+import { uniqueId } from "~/utils/id";
 
 test.describe("Application", () => {
   let uniqueTestId: string;
@@ -36,7 +37,7 @@ test.describe("Application", () => {
   }
 
   test.beforeAll(async () => {
-    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    uniqueTestId = uniqueId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 

@@ -1,10 +1,11 @@
 import { test, expect } from "~/fixtures";
+import { uniqueId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
 test.describe("Registration", () => {
   test("New user goes to registration then profile", async ({ appPage }) => {
-    const uniqueTestId = Date.now().valueOf();
+    const uniqueTestId = uniqueId();
     await loginBySub(appPage.page, String(uniqueTestId), false);
     await appPage.page.goto("/en/applicant");
 
@@ -83,7 +84,7 @@ test.describe("Registration", () => {
   });
 
   test("Skip verification on getting started page", async ({ appPage }) => {
-    const uniqueTestId = Date.now().valueOf();
+    const uniqueTestId = uniqueId();
     await loginBySub(appPage.page, String(uniqueTestId), false);
     await appPage.page.goto("/en/applicant");
 

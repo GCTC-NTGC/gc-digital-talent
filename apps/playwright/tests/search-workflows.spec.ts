@@ -22,6 +22,7 @@ import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("Talent search", () => {
   let uniqueTestId: string;
@@ -38,7 +39,7 @@ test.describe("Talent search", () => {
   };
 
   test.beforeAll(async () => {
-    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     poolName = `Search pool ${uniqueTestId}`;
     const adminCtx = await graphql.newContext();

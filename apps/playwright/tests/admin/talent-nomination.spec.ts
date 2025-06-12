@@ -6,6 +6,7 @@ import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { getSkills } from "~/utils/skills";
+import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
@@ -13,7 +14,7 @@ test.describe("Talent nomination management", () => {
   test("Create a talent nomination", async ({ appPage }) => {
     // Prepare the test environment
     const adminCtx = await graphql.newContext();
-    const uniqueTestId = Date.now().valueOf();
+    const uniqueTestId = generateUniqueTestId();
     const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
     const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
 

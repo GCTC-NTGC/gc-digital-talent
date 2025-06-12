@@ -1,10 +1,11 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
+import { generateUniqueTestId } from "~/utils/id";
 
 const UPDATE_MUTATION = "UpdatePool";
 
 test("Create pool", async ({ appPage }) => {
-  const uniqueTestId = Date.now().valueOf();
+  const uniqueTestId = generateUniqueTestId();
   const PROCESS_TITLE = `Test process ${uniqueTestId}`;
   await loginBySub(appPage.page, "admin@test.com");
   await appPage.page.goto("/en/admin/pools");
