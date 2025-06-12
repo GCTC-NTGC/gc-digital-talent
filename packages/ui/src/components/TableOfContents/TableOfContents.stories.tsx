@@ -79,7 +79,7 @@ export const Default: StoryObj<typeof TableOfContents.Wrapper> = {
         </TableOfContents.List>
         <Button
           mode="solid"
-          color="secondary"
+          color="primary"
           block
           onClick={() => action("Button clicked")()}
         >

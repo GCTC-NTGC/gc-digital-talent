@@ -253,7 +253,7 @@ export const ViewPool = ({
                   color={
                     pool.status?.value === PoolStatus.Published
                       ? "error"
-                      : "secondary"
+                      : "primary"
                   }
                   href={paths.poolUpdate(pool.id)}
                 >
@@ -267,7 +267,7 @@ export const ViewPool = ({
               )}
               <Link
                 mode="inline"
-                color="secondary"
+                color="primary"
                 href={
                   advertisementStatus === "submitted"
                     ? paths.pool(pool.id)
@@ -319,7 +319,7 @@ export const ViewPool = ({
             <ProcessCard.Footer>
               <Link
                 mode="inline"
-                color="secondary"
+                color="primary"
                 href={paths.assessmentPlanBuilder(pool.id)}
               >
                 {assessmentStatus === "submitted"

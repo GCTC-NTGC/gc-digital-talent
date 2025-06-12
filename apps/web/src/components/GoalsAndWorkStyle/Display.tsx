@@ -32,11 +32,7 @@ const Display = ({ goalsAndWorkStyleQuery }: DisplayProps) => {
   );
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-overflow-wrap="base(anywhere)"
-    >
+    <div className="grid gap-6 wrap-anywhere">
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.aboutYou)}
       >

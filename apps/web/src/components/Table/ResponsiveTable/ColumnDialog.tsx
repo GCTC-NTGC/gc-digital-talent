@@ -38,7 +38,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button icon={TableCellsIcon} color="quaternary" type="button" block>
+        <Button icon={TableCellsIcon} color="warning" type="button" block>
           {intl.formatMessage(adminMessages.showHideColumns)}
         </Button>
       </Dialog.Trigger>

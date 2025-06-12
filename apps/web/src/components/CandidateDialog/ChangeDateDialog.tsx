@@ -132,15 +132,13 @@ const ChangeDateDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="black" mode="inline" data-h2-padding="base(0)">
-          <span data-h2-text-decoration="base(underline)">
-            {selectedCandidate?.expiryDate ??
-              intl.formatMessage({
-                defaultMessage: "Change date",
-                id: "DspBFX",
-                description: "Command to change a date",
-              })}
-          </span>
+        <Button color="black" mode="inline">
+          {selectedCandidate?.expiryDate ??
+            intl.formatMessage({
+              defaultMessage: "Change date",
+              id: "DspBFX",
+              description: "Command to change a date",
+            })}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -163,10 +161,10 @@ const ChangeDateDialog = ({
             })}
           </p>
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          <p data-h2-font-weight="base(800)">
+          <p className="font-bold">
             - {getFullNameHtml(firstName, lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "On the following pool:",
               id: "jIlwJ8",
@@ -174,7 +172,7 @@ const ChangeDateDialog = ({
                 "Second section of text on the change candidate expiry date dialog",
             })}
           </p>
-          <p data-h2-font-weight="base(800)">
+          <p className="font-bold">
             {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {"- "}
             {getShortPoolTitleHtml(intl, {
@@ -186,7 +184,7 @@ const ChangeDateDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Set an expiry date for this candidate on this pool:",
@@ -195,7 +193,7 @@ const ChangeDateDialog = ({
                     "Third section of text on the add user to pool dialog",
                 })}
               </p>
-              <div data-h2-margin="base(x.5, 0, x.125, 0)">
+              <div className="mt-3 mb-0.75">
                 <DateInput
                   id="changeDateDialog-expiryDate"
                   legend={intl.formatMessage({
@@ -214,7 +212,7 @@ const ChangeDateDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
+                <Button disabled={fetching} type="submit" color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({

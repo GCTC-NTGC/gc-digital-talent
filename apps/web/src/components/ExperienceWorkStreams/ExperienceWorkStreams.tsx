@@ -4,7 +4,7 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Heading, IconButton, Well } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -188,50 +188,42 @@ const ExperienceWorkStreams = ({
                         }
                         onUpdate={handleUpdate}
                         trigger={
-                          <Button
+                          <IconButton
                             type="button"
                             icon={PencilSquareIcon}
-                            mode="icon_only"
                             color="black"
-                          >
-                            <span data-h2-visually-hidden="base(invisible)">
-                              {intl.formatMessage(commonMessages.edit)}
-                            </span>
-                          </Button>
+                            label={intl.formatMessage(commonMessages.edit)}
+                          />
                         }
                       />
                       {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                       <span data-h2-color="base(black.light)" aria-hidden>
                         &bull;
                       </span>
-                      <Button
+                      <IconButton
                         type="button"
                         icon={TrashIcon}
-                        mode="icon_only"
                         color="black"
                         onClick={() =>
                           handleRemove(
                             currentWorkStreamsWithCommunity.community.id,
                           )
                         }
-                      >
-                        <span data-h2-visually-hidden="base(invisible)">
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "Remove<hidden> {communityName}</hidden>",
-                              id: "uTf8vH",
-                              description:
-                                "Title for to remove community from experience",
-                            },
-                            {
-                              communityName:
-                                currentWorkStreamsWithCommunity.community?.name
-                                  ?.localized,
-                            },
-                          )}
-                        </span>
-                      </Button>
+                        label={intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "Remove<hidden> {communityName}</hidden>",
+                            id: "uTf8vH",
+                            description:
+                              "Title for to remove community from experience",
+                          },
+                          {
+                            communityName:
+                              currentWorkStreamsWithCommunity.community?.name
+                                ?.localized,
+                          },
+                        )}
+                      />
                     </div>
                   </div>
                   <div
@@ -290,9 +282,8 @@ const ExperienceWorkStreams = ({
             <Button
               icon={PlusCircleIcon}
               mode="placeholder"
-              color="secondary"
-              data-h2-display="base(block)"
-              data-h2-width="base(100%)"
+              color="primary"
+              block
             >
               {intl.formatMessage({
                 defaultMessage: "Add work streams",

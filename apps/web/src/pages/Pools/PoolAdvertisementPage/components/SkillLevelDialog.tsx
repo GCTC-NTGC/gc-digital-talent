@@ -17,7 +17,7 @@ const SkillLevelDialog = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button color="secondary">
+        <Button color="primary">
           {intl.formatMessage({
             defaultMessage: "Learn more about skill levels",
             id: "RdmeZV",
@@ -108,7 +108,7 @@ const SkillLevelDialog = () => {
           </Ul>
           <Dialog.Footer>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Close",
                   id: "4p0QdF",

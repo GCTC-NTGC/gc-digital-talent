@@ -75,7 +75,7 @@ const OffPlatformProcessesDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="inline">
+        <Button color="secondary" mode="inline">
           {intl.formatMessage({
             defaultMessage: "Edit off-platform process information",
             id: "g17mQL",
@@ -145,7 +145,7 @@ const OffPlatformProcessesDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="secondary">
+                <Button disabled={fetching} type="submit" color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}

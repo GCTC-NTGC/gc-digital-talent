@@ -3,7 +3,7 @@ import { forwardRef, MouseEventHandler, ReactNode } from "react";
 import { Scalars } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 
-import styles from "./styles";
+import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
@@ -34,9 +34,12 @@ const NotificationButton = forwardRef<HTMLButtonElement, NotificationLinkProps>(
         ref={forwardedRef}
         onClick={handleClick}
         data-notification-link
-        data-h2-text-align="base(left)"
-        data-h2-background="base(none)"
-        {...styles.link(isUnread, fetching)}
+        {...(fetching && { "aria-disabled": "true" })}
+        className={linkStyles({
+          isUnread,
+          isDisabled: fetching,
+          class: "bg-none text-left",
+        })}
       >
         {children}
       </button>

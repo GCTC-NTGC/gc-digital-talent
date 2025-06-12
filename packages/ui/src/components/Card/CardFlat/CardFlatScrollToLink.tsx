@@ -2,12 +2,10 @@ import omit from "lodash/omit";
 import { ReactNode } from "react";
 
 import { ScrollToLink, type ScrollToLinkProps } from "../../Link";
-import { CardColor } from "./types";
 
 export interface CardFlatScrollToLinkProps
-  extends Omit<ScrollToLinkProps, "color" | "label"> {
+  extends Omit<ScrollToLinkProps, "label"> {
   label: ReactNode;
-  color: CardColor;
 }
 
 const CardFlatScrollToLink = (link: CardFlatScrollToLinkProps) => {
