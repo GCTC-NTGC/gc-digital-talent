@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
+import { tv } from "tailwind-variants";
 
 import {
   localizePath,
@@ -8,15 +9,22 @@ import {
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
+import { Container } from "@gc-digital-talent/ui";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
-interface HeaderProps {
-  width?: string;
-}
+const logo = tv({
+  base: "h-auto w-72",
+  variants: {
+    isDark: {
+      true: "hidden dark:block",
+      false: "block dark:hidden",
+    },
+  },
+});
 
-const Header = ({ width }: HeaderProps) => {
+const Header = () => {
   const intl = useIntl();
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
@@ -24,35 +32,13 @@ const Header = ({ width }: HeaderProps) => {
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
-  let headerWidth = {
-    "data-h2-wrapper": "base(center, large, x1) p-tablet(center, large, x2)",
-  };
-  if (width === "full") {
-    headerWidth = {
-      "data-h2-wrapper": "base(center, full, x1) p-tablet(center, full, x2)",
-    };
-  }
-
   const isSmallScreen = useIsSmallScreen(1080);
-  const logoSize = {
-    "data-h2-height": "base(auto)",
-    "data-h2-max-width": "base(x12)",
-  };
 
   return (
-    <header
-      data-h2-background-color="base(foreground) base:dark(white)"
-      data-h2-border-bottom="base(1px solid black.20)"
-      data-h2-padding="base(x1, 0) p-tablet(x.75, 0)"
-    >
-      <div {...headerWidth}>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
-          data-h2-gap="base(x.5) p-tablet(x2)"
-          data-h2-align-items="base(center)"
-        >
-          <div data-h2-text-align="base(center) p-tablet(left)">
+    <header className="border-b border-black/20 bg-white py-6 xs:py-4.5 dark:border-white/20 dark:bg-gray-700">
+      <Container size="lg" center>
+        <div className="grid items-center gap-3 xs:grid-cols-2 xs:gap-12">
+          <div className="text-center xs:text-left">
             <a
               href={`https://www.canada.ca/${locale}.html`}
               target="_blank"
@@ -60,28 +46,16 @@ const Header = ({ width }: HeaderProps) => {
             >
               {locale === "en" ? (
                 <>
-                  <GocLogoEn
-                    {...logoSize}
-                    data-h2-display="base(block) base:dark(none)"
-                  />
-                  <GocLogoWhiteEn
-                    {...logoSize}
-                    data-h2-display="base(none) base:dark(block)"
-                  />
+                  <GocLogoEn className={logo({ isDark: false })} />
+                  <GocLogoWhiteEn className={logo({ isDark: true })} />
                 </>
               ) : (
                 <>
-                  <GocLogoFr
-                    {...logoSize}
-                    data-h2-display="base(block) base:dark(none)"
-                  />
-                  <GocLogoWhiteFr
-                    {...logoSize}
-                    data-h2-display="base(none) base:dark(block)"
-                  />
+                  <GocLogoFr className={logo({ isDark: false })} />
+                  <GocLogoWhiteFr className={logo({ isDark: true })} />
                 </>
               )}
-              <span data-h2-visually-hidden="base(invisible)">
+              <span className="sr-only">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "gpcHeU",
@@ -92,23 +66,13 @@ const Header = ({ width }: HeaderProps) => {
             </a>
           </div>
           {!isSmallScreen && (
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column) p-tablet(row)"
-              data-h2-gap="base(x.5) p-tablet(x1)"
-              data-h2-align-items="base(center)"
-              data-h2-justify-content="base(center) p-tablet(flex-end)"
-              data-h2-text-align="base(center) p-tablet(left)"
-            >
+            <div className="flex flex-col items-center justify-center gap-3 text-center xs:flex-row xs:justify-end xs:gap-6 xs:text-left">
               <div>
                 <ThemeSwitcher />
               </div>
               <div>
                 <a
-                  data-h2-background-color="base:focus-visible(focus)"
-                  data-h2-outline="base(none)"
-                  data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
-                  data-h2-text-decoration="base(underline)"
+                  className="underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black dark:hover:text-primary-200"
                   href={languageTogglePath}
                   lang={changeToLang === "en" ? "en" : "fr"}
                 >
@@ -123,7 +87,7 @@ const Header = ({ width }: HeaderProps) => {
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

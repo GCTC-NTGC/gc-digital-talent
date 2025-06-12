@@ -321,7 +321,7 @@ const ExperienceSkillForm = ({
             <Button
               type="submit"
               mode="solid"
-              color="secondary"
+              color="primary"
               disabled={isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "connect")}

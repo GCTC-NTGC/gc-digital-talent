@@ -86,7 +86,7 @@ const CareerDevelopmentPreferences = ({
 
   return (
     <>
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay label={careerDevelopmentMessages.lateralMoveInterest}>
           {empty(lateralMoveInterest)
             ? notProvided
@@ -160,7 +160,7 @@ const CareerDevelopmentPreferences = ({
         )}
       </div>
       <Separator decorative space="sm" />
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay label={careerDevelopmentMessages.promotionMoveInterest}>
           {empty(promotionMoveInterest)
             ? notProvided
@@ -234,7 +234,7 @@ const CareerDevelopmentPreferences = ({
         )}
       </div>
       <Separator decorative space="sm" />
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay
           label={careerDevelopmentMessages.learningOpportunitiesInterest}
         >
@@ -273,7 +273,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
       </div>
       <Separator decorative space="sm" />
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay
           label={careerDevelopmentMessages.eligibleRetirementYearKnown}
         >
@@ -312,7 +312,7 @@ const CareerDevelopmentPreferences = ({
         )}
       </div>
       <Separator decorative space="sm" />
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay label={careerDevelopmentMessages.mentorshipStatus}>
           {mentorshipStatus
             ? intl.formatMessage(displayMentorshipStatus(mentorshipStatus))
@@ -340,7 +340,7 @@ const CareerDevelopmentPreferences = ({
         </FieldDisplay>
       </div>
       <Separator decorative space="sm" />
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+      <div className="grid gap-6">
         <FieldDisplay label={careerDevelopmentMessages.execInterest}>
           {empty(execInterest)
             ? notProvided

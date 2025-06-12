@@ -287,7 +287,7 @@ const ChangeStatusDialogForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(submitForm)}>
-        <p data-h2-margin="base(x1, 0, 0, 0)">
+        <p className="mt-6">
           {intl.formatMessage({
             defaultMessage: "Choose status:",
             id: "Zbk4zf",
@@ -295,7 +295,7 @@ const ChangeStatusDialogForm = ({
               "Third section of text on the change candidate status dialog",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+        <div className="mt-3 mb-0.75">
           <Select
             id="changeStatusDialog-status"
             name="status"
@@ -320,7 +320,7 @@ const ChangeStatusDialogForm = ({
             )}
           />
         </div>
-        <p data-h2-margin="base(x1, 0, 0, 0)">
+        <p className="mt-6">
           {intl.formatMessage({
             defaultMessage:
               "If you want this status to change across multiple pools, select them here:",
@@ -329,7 +329,7 @@ const ChangeStatusDialogForm = ({
               "Header for section to add additional pools to the change status operation",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, x.125, 0)">
+        <div className="mt-3 mb-0.75">
           <PoolFilterInput
             includeIds={userPoolIds}
             filterInput={{
@@ -344,7 +344,7 @@ const ChangeStatusDialogForm = ({
           />
         </div>
         <Dialog.Footer>
-          <Button disabled={fetching} type="submit" color="secondary">
+          <Button disabled={fetching} type="submit" color="primary">
             {fetching
               ? intl.formatMessage(commonMessages.saving)
               : intl.formatMessage({
@@ -391,27 +391,25 @@ const ChangeStatusDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="black" mode="inline" data-h2-padding="base(0)">
-          <span data-h2-text-decoration="base(underline)">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "{status}<hidden> Change status for {poolName}</hidden>",
-                id: "DG4c6M",
-                description:
-                  "Button to change a users status in a pool - located in the table on view-user page",
-              },
-              {
-                status: getLocalizedName(selectedCandidate.status?.label, intl),
-                poolName: getShortPoolTitleLabel(intl, {
-                  workStream: selectedCandidate.pool.workStream,
-                  name: selectedCandidate.pool.name,
-                  publishingGroup: selectedCandidate.pool.publishingGroup,
-                  classification: selectedCandidate.pool.classification,
-                }),
-              },
-            )}
-          </span>
+        <Button color="black" mode="inline">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "{status}<hidden> Change status for {poolName}</hidden>",
+              id: "DG4c6M",
+              description:
+                "Button to change a users status in a pool - located in the table on view-user page",
+            },
+            {
+              status: getLocalizedName(selectedCandidate.status?.label, intl),
+              poolName: getShortPoolTitleLabel(intl, {
+                workStream: selectedCandidate.pool.workStream,
+                name: selectedCandidate.pool.name,
+                publishingGroup: selectedCandidate.pool.publishingGroup,
+                classification: selectedCandidate.pool.classification,
+              }),
+            },
+          )}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -432,10 +430,10 @@ const ChangeStatusDialog = ({
             })}
           </p>
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "From the following pool:",
               id: "FUxE8S",
@@ -443,7 +441,7 @@ const ChangeStatusDialog = ({
                 "Second section of text on the change candidate status dialog",
             })}
           </p>
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
             {"- "}
             {getShortPoolTitleHtml(intl, {

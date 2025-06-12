@@ -141,7 +141,7 @@ const NextRolePreview = ({
         action={
           <NextRoleDialog
             nextRoleDialogQuery={nextRolePreviewFragment}
-            trigger={<PreviewList.Button label={title} />}
+            trigger={<PreviewList.Button>{title}</PreviewList.Button>}
           />
         }
         headingAs={headingAs}

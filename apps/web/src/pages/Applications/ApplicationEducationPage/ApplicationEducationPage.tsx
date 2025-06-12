@@ -401,7 +401,7 @@ const ApplicationEducation = ({
           >
             <Button
               type="submit"
-              color="secondary"
+              color="primary"
               value="continue"
               disabled={mutating || isSubmitting}
               {...actionProps}
@@ -414,7 +414,7 @@ const ApplicationEducation = ({
             <Button
               type="submit"
               mode="inline"
-              color="secondary"
+              color="primary"
               value="cancel"
               disabled={isSubmitting}
               {...actionProps}

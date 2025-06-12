@@ -113,7 +113,7 @@ const externalLinkAccessor = ({
   return (
     <Link
       href={href}
-      color="secondary"
+      color="primary"
       external
       {...(bold ? { "data-h2-font-weight": "base(700)" } : {})}
     >
@@ -546,7 +546,7 @@ export const Component = () => {
                                     intl,
                                   )}
                                   newTab
-                                  color="secondary"
+                                  color="primary"
                                   mode="solid"
                                 >
                                   {intl.formatMessage({

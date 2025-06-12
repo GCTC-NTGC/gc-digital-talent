@@ -17,7 +17,7 @@ const AnchorLink = ({ id, children }: AnchorLinkProps) => {
     <ScrollToLink
       data-is-toc-link // Used to find Table of Contents link elements in the Navigation component
       id={`toc-link-for-${id}`}
-      className="[transition:unset] after:sr-only after:font-bold [.active]:font-bold!"
+      className="inline [transition:unset] after:sr-only after:font-bold [.active]:font-bold"
       to={id}
       color="black"
       mode="text"

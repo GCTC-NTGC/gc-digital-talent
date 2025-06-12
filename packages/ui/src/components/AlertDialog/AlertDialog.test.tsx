@@ -29,7 +29,7 @@ const DefaultChildren = () => (
           <Button color="white">Cancel</Button>
         </AlertDialog.Cancel>
         <AlertDialog.Action>
-          <Button color="tertiary">Action</Button>
+          <Button>Action</Button>
         </AlertDialog.Action>
       </AlertDialog.Footer>
     </AlertDialog.Content>
