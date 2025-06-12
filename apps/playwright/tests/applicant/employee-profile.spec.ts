@@ -3,13 +3,16 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
 
 test.describe("Employee Profile", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
 
   test.beforeAll(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     await createUserWithRoles(adminCtx, {

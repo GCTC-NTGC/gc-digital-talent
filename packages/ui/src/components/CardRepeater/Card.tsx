@@ -19,7 +19,7 @@ const Actions = ({ children }: ActionsProps) => (
   <div className="flex items-center justify-center gap-3">{children}</div>
 );
 
-const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
+const LockedIcon = () => <LockClosedIcon className="size-4.5" />;
 
 const DisabledAction = () => (
   <span

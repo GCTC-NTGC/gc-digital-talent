@@ -2237,7 +2237,7 @@ input WorkExperienceInput {
   cafRank: CafRank
   classificationId: String
   departmentId: String
-  workStreamIds: [UUID!]
+  workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
@@ -2549,7 +2549,11 @@ input UpdateApplicationInput {
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   applicationId: ID
 }
 

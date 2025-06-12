@@ -9,6 +9,7 @@ import { getSkills } from "~/utils/skills";
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 import AppPage from "~/fixtures/AppPage";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("User information", () => {
   let adminCtx: GraphQLContext;
@@ -38,7 +39,7 @@ test.describe("User information", () => {
   };
 
   test.beforeAll(async () => {
-    uniqueTestId = Date.now().valueOf().toString();
+    uniqueTestId = generateUniqueTestId();
     const userName = `Playwright ${uniqueTestId}`;
     sub = `playwright.sub.${uniqueTestId}`;
 
