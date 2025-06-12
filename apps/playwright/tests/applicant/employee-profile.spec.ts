@@ -6,10 +6,12 @@ import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 
 test.describe("Employee Profile", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
 
   test.beforeAll(async () => {
+    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     await createUserWithRoles(adminCtx, {

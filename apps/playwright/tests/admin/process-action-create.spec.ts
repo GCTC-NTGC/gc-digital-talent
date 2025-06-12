@@ -3,10 +3,9 @@ import { loginBySub } from "~/utils/auth";
 
 const UPDATE_MUTATION = "UpdatePool";
 
-const uniqueTestId = Date.now().valueOf();
-const PROCESS_TITLE = `Test process ${uniqueTestId}`;
-
 test("Create pool", async ({ appPage }) => {
+  const uniqueTestId = Date.now().valueOf();
+  const PROCESS_TITLE = `Test process ${uniqueTestId}`;
   await loginBySub(appPage.page, "admin@test.com");
   await appPage.page.goto("/en/admin/pools");
   await appPage.waitForGraphqlResponse("PoolTable");

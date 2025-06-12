@@ -6,9 +6,8 @@ import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { me } from "~/utils/user";
 
-const uniqueTestId = Date.now().valueOf();
-
 test("Can edit work experience", async ({ appPage }) => {
+  const uniqueTestId = Date.now().valueOf();
   const role = `Test edit work experience (${uniqueTestId})`;
   const experiencePage = new ExperiencePage(appPage.page);
   await loginBySub(experiencePage.page, "applicant@test.com");

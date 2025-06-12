@@ -18,8 +18,8 @@ import { createAndPublishPool } from "~/utils/pools";
 import graphql from "~/utils/graphql";
 
 test.describe("IAP Application", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
   let pool: Pool;
 
   async function expectOnStep(page: Page, step: number) {
@@ -33,6 +33,8 @@ test.describe("IAP Application", () => {
   }
 
   test.beforeAll(async () => {
+    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     const createdUser = await createUserWithRoles(adminCtx, {

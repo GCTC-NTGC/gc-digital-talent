@@ -24,12 +24,14 @@ const LOCALIZED_STRING = {
 };
 
 test.describe("Snapshot", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
 
   test.beforeAll(async () => {
+    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {

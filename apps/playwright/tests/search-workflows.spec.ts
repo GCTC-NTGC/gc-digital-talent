@@ -24,9 +24,9 @@ import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Talent search", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
-  const poolName = `Search pool ${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
+  let poolName: string;
   let classification: Classification;
   let workStream: WorkStream;
   let skill: Skill | undefined;
@@ -38,6 +38,9 @@ test.describe("Talent search", () => {
   };
 
   test.beforeAll(async () => {
+    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    sub = `playwright.sub.${uniqueTestId}`;
+    poolName = `Search pool ${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {

@@ -20,8 +20,8 @@ import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 
 test.describe("Application", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
   let technicalSkills: Skill[];
   let user: User | undefined;
 
@@ -36,6 +36,8 @@ test.describe("Application", () => {
   }
 
   test.beforeAll(async () => {
+    uniqueTestId = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     user = await createUserWithRoles(adminCtx, {
