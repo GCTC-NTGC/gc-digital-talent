@@ -13,8 +13,10 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
       min: 0,
       max: 10,
     });
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     poolCandidate.viewNotes = { notes: poolCandidate.notes };
     poolCandidate.viewStatus = {
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       status: poolCandidate.status,
       placedDepartment: poolCandidate.placedDepartment,
     };

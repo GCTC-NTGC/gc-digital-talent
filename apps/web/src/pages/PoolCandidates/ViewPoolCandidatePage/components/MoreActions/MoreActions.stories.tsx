@@ -18,8 +18,10 @@ import MoreActions, { MoreActions_Fragment } from "./MoreActions";
 
 const poolCandidates = fakePoolCandidates(5);
 const fakeCandidate = poolCandidates[2];
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 fakeCandidate.viewNotes = { notes: fakeCandidate.notes };
 fakeCandidate.viewStatus = {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   status: fakeCandidate.status,
   placedDepartment: fakeCandidate.placedDepartment,
 };
