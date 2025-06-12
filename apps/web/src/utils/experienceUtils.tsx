@@ -530,7 +530,7 @@ export const isWorkExperience = (
 ): e is Omit<WorkExperience, "user"> => e.__typename === "WorkExperience";
 export const isGovWorkExperience = (
   e: SimpleAnyExperience,
-): e is Omit<WorkExperience, "user"> =>
+): boolean =>
   isWorkExperience(e) &&
   e.employmentCategory?.value === EmploymentCategory.GovernmentOfCanada;
 
