@@ -34,7 +34,7 @@ const DiversityEquityInclusion = ({
   return (
     <>
       <Heading
-        className="mt-0 mb-6 font-bold"
+        className="mt-0 mb-6 font-normal"
         icon={UsersIcon}
         color="primary"
         level={pool ? "h3" : "h2"}
