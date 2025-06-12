@@ -1,7 +1,7 @@
 import { Community, CreateCommunityInput } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { uniqueId } from "./id";
+import { generateUniqueTestId } from "./id";
 
 const Test_CommunitiesQueryDocument = /* GraphQL */ `
   query Test_Communities {
@@ -29,7 +29,7 @@ export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
     );
 };
 
-const uniqueTestId = uniqueId();
+const uniqueTestId = generateUniqueTestId();
 export const defaultCommunity: Partial<CreateCommunityInput> = {
   key: `playwright-test-community ${uniqueTestId}`,
   name: {

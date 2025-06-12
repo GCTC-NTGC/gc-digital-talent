@@ -4,11 +4,11 @@ import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
-import { uniqueId } from "~/utils/id";
+import { generateUniqueTestId } from "~/utils/id";
 import { me } from "~/utils/user";
 
 test("Can edit work experience", async ({ appPage }) => {
-  const uniqueTestId = uniqueId();
+  const uniqueTestId = generateUniqueTestId();
   const role = `Test edit work experience (${uniqueTestId})`;
   const experiencePage = new ExperiencePage(appPage.page);
   await loginBySub(experiencePage.page, "applicant@test.com");

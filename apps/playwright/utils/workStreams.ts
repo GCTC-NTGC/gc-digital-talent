@@ -2,7 +2,7 @@ import { CreateWorkStreamInput, WorkStream } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
-import { uniqueId } from "./id";
+import { generateUniqueTestId } from "./id";
 
 const Test_WorkStreamQueryDocument = /* GraphQL */ `
   query WorkStreams {
@@ -30,7 +30,7 @@ export const getWorkStreams: GraphQLRequestFunc<WorkStream[]> = async (ctx) => {
     );
 };
 
-const uniqueTestId = uniqueId();
+const uniqueTestId = generateUniqueTestId();
 export const defaultWorkStream: Partial<CreateWorkStreamInput> = {
   key: "playwright-test-work stream",
   name: {

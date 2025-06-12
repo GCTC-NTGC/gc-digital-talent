@@ -16,7 +16,7 @@ import ApplicationPage from "~/fixtures/ApplicationPage";
 import { createUserWithRoles } from "~/utils/user";
 import { createAndPublishPool } from "~/utils/pools";
 import graphql from "~/utils/graphql";
-import { uniqueId } from "~/utils/id";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("IAP Application", () => {
   let uniqueTestId: string;
@@ -34,7 +34,7 @@ test.describe("IAP Application", () => {
   }
 
   test.beforeAll(async () => {
-    uniqueTestId = uniqueId();
+    uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
