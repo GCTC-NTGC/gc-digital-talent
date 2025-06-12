@@ -8,6 +8,7 @@ import {
   TableHTMLAttributes,
   ReactNode,
 } from "react";
+import { tv } from "tailwind-variants";
 
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -24,12 +25,7 @@ type WrapperProps = DetailedHTMLProps<
 
 const Wrapper = ({ children, ...rest }: WrapperProps) => (
   <div role="region" {...rest}>
-    <div
-      data-h2-overflow-x="base(auto)"
-      data-h2-overflow-y="base(hidden)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(medium)"
-    >
+    <div className="overflow-x-auto overflow-y-hidden rounded-md shadow">
       {children}
     </div>
   </div>
@@ -43,10 +39,7 @@ type TableProps = DetailedHTMLProps<
 const Table = ({ children, ...rest }: TableProps) => (
   <table
     role="table"
-    data-h2-background-color="base(foreground)"
-    data-h2-border-collapse="base(collapse)"
-    data-h2-display="base(block) l-tablet(table)"
-    data-h2-width="base(100%)"
+    className="block w-full border-collapse bg-white sm:table dark:bg-gray-600"
     {...rest}
   >
     {children}
@@ -56,7 +49,7 @@ const Table = ({ children, ...rest }: TableProps) => (
 type CaptionProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
 const Caption = (props: CaptionProps) => (
-  <caption data-h2-visually-hidden="base(invisible)" {...props} />
+  <caption className="sr-only" {...props} />
 );
 
 type HeadProps = DetailedHTMLProps<
@@ -76,8 +69,7 @@ const Body = (props: BodyProps) => (
   // eslint-disable-next-line jsx-a11y/no-redundant-roles
   <tbody
     role="rowgroup"
-    data-h2-width="base(100%)"
-    data-h2-display="base(block) l-tablet(table-row-group)"
+    className="block w-full sm:table-row-group"
     {...props}
   />
 );
@@ -88,11 +80,7 @@ type RowProps = DetailedHTMLProps<
 >;
 
 const HeadRow = (props: RowProps) => (
-  <tr
-    data-h2-display="base(none) l-tablet(table-row)"
-    {...styles.row}
-    {...props}
-  />
+  <tr className="hidden sm:table-row" {...styles.row} {...props} />
 );
 
 const Row = (props: RowProps) => (

@@ -111,23 +111,18 @@ const SearchForm = <T,>({
   const allTableMsg = overrideAllTableMsg ?? defaultAllTableMsg;
 
   return (
-    <div data-h2-width="base(100%) laptop(auto)">
-      <Field.Label
-        htmlFor={id}
-        data-h2-display="base(inline-block)"
-        data-h2-margin-bottom="base(x.15)"
-      >
+    <div className="w-full md:w-auto">
+      <Field.Label htmlFor={id} className="mb-1 inline-block">
         {label}
       </Field.Label>
-      <div data-h2-display="base(flex)" data-h2-width="base(100%) laptop(auto)">
+      <div className="flex w-full md:w-auto">
         {showDropdown ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <Button
                 color="primary"
                 utilityIcon={ChevronDownIcon}
-                data-h2-radius="base(s 0 0 s)"
-                data-h2-flex-shrink="base(0)"
+                className="shrink-0 rounded-r-none"
               >
                 {intl.formatMessage(
                   {
@@ -162,17 +157,10 @@ const SearchForm = <T,>({
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         ) : null}
-        <div
-          data-h2-position="base(relative)"
-          data-h2-display="base(flex)"
-          data-h2-flex-grow="base(1)"
-        >
+        <div className="relative flex grow">
           <div
             aria-hidden
-            data-h2-position="base(absolute)"
-            data-h2-location="base(x.25, auto, x.25, x.25)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
+            className="absolute inset-1.5 right-auto flex items-center"
           />
           <input
             name="search"
