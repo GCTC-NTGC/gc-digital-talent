@@ -19,7 +19,7 @@ const LanguageInformationSection = ({
   const intl = useIntl();
   return (
     <Well>
-      {!hasAllEmptyFields(user) && <Display user={user} context="admin" />}
+      {!hasAllEmptyFields(user) && <Display user={user} />}
       {hasEmptyRequiredFields(user) && (
         <div data-h2-flex-item="base(1of1)">
           <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>

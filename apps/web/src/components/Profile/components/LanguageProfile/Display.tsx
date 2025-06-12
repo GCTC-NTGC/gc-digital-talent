@@ -43,7 +43,6 @@ const getBilingualEvaluation = (
 
 export interface DisplayProps {
   user: PartialUser & { bilingualEvaluation?: BilingualEvaluation };
-  context?: "admin" | "default";
 }
 
 const Display = ({
@@ -60,7 +59,6 @@ const Display = ({
     verbalLevel,
     bilingualEvaluation,
   },
-  context = "default",
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -89,7 +87,6 @@ const Display = ({
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
         }
         label={labels.consideredPositionLanguages}
-        context={context}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
           <Ul>
@@ -143,7 +140,6 @@ const Display = ({
               id: "43xNhn",
               description: "Language evaluation label",
             })}
-            context={context}
           >
             {bilingualEvaluation
               ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
@@ -159,7 +155,6 @@ const Display = ({
                 description:
                   "Second language level (reading, writing, oral interaction) label",
               })}
-              context={context}
             >
               {comprehensionLevel || writtenLevel || verbalLevel
                 ? getEvaluatedLanguageLevels(
@@ -179,7 +174,6 @@ const Display = ({
                   id: "IexFo4",
                   description: "Second language proficiency label",
                 })}
-                context={context}
               >
                 {estimatedLanguageAbility.label
                   ? getLocalizedName(estimatedLanguageAbility.label, intl)
@@ -191,18 +185,12 @@ const Display = ({
         <div className="grid gap-6">
           {lookingForBilingual && (
             <>
-              <FieldDisplay
-                label={labels.yourFirstOfficialLang}
-                context={context}
-              >
+              <FieldDisplay label={labels.yourFirstOfficialLang}>
                 {firstOfficialLanguage?.label
                   ? getLocalizedName(firstOfficialLanguage.label, intl)
                   : notProvided}
               </FieldDisplay>
-              <FieldDisplay
-                label={labels.estimatedLanguageAbility}
-                context={context}
-              >
+              <FieldDisplay label={labels.estimatedLanguageAbility}>
                 {estimatedLanguageAbility?.label
                   ? getLocalizedName(estimatedLanguageAbility.label, intl)
                   : notProvided}
@@ -211,33 +199,26 @@ const Display = ({
                 <>
                   <FieldDisplay
                     label={labels.secondLanguageExamCompletedBoundingBoxLabel}
-                    context={context}
                   >
                     {secondLanguageExamCompleted
                       ? labels.secondLanguageExamCompletedLabel
                       : notProvided}
                   </FieldDisplay>
-                  <FieldDisplay
-                    label={labels.secondLanguageExamValidityLabel}
-                    context={context}
-                  >
+                  <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
                     {examValidity}
                   </FieldDisplay>
                   <div className="grid gap-6 sm:grid-cols-3">
-                    <FieldDisplay
-                      label={labels.comprehensionLevel}
-                      context={context}
-                    >
+                    <FieldDisplay label={labels.comprehensionLevel}>
                       {comprehensionLevel?.label
                         ? getLocalizedName(comprehensionLevel.label, intl)
                         : notProvided}
                     </FieldDisplay>
-                    <FieldDisplay label={labels.writtenLevel} context={context}>
+                    <FieldDisplay label={labels.writtenLevel}>
                       {writtenLevel?.label
                         ? getLocalizedName(writtenLevel.label, intl)
                         : notProvided}
                     </FieldDisplay>
-                    <FieldDisplay label={labels.verbalLevel} context={context}>
+                    <FieldDisplay label={labels.verbalLevel}>
                       {verbalLevel?.label
                         ? getLocalizedName(verbalLevel.label, intl)
                         : notProvided}
