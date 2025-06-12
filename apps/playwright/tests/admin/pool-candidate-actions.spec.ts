@@ -17,6 +17,7 @@ import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
+import { generateUniqueTestId } from "~/utils/id";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -24,12 +25,14 @@ const LOCALIZED_STRING = {
 };
 
 test.describe("Pool candidates", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
 
   test.beforeAll(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
@@ -89,7 +92,7 @@ test.describe("Pool candidates", () => {
     const application = await createAndSubmitApplication(applicantCtx, {
       userId: applicant.id,
       poolId: createdPool.id,
-      experienceId: applicant?.experiences?.[0]?.id ?? "",
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
     });
 

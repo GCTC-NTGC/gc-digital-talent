@@ -38,7 +38,11 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('application_snapshot'), 1);
         $candidate = $this->candidate;
         $candidate->load([
-            'educationRequirementExperiences',
+            'educationRequirementAwardExperiences',
+            'educationRequirementCommunityExperiences',
+            'educationRequirementEducationExperiences',
+            'educationRequirementPersonalExperiences',
+            'educationRequirementWorkExperiences',
             'pool' => ['poolSkills' => ['skill']],
             'screeningQuestionResponses' => ['screeningQuestion'],
             'generalQuestionResponses' => ['generalQuestion'],

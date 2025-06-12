@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\MatchExperienceType;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
@@ -11,8 +10,8 @@ use Illuminate\Support\Facades\Lang;
 /**
  * Class EducationExperience
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property string $institution
  * @property string $area_of_study
  * @property string $thesis_title
@@ -27,20 +26,17 @@ use Illuminate\Support\Facades\Lang;
 class EducationExperience extends Experience
 {
     use HasFactory;
+    use HasUuids;
     use SoftDeletes;
 
     /**
-     * The table associated with the model.
+     * The attributes that should be cast.
      *
-     * @var string
+     * @var array<string, string>
      */
-    protected $table = 'experiences';
-
-    /**
-     * Default values for attributes
-     */
-    protected $attributes = [
-        'experience_type' => EducationExperience::class,
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
     ];
 
     protected static $hydrationFields = [
@@ -58,67 +54,18 @@ class EducationExperience extends Experience
         return sprintf('%s %s %s', $this->area_of_study, Lang::get('common.at', [], $lang), $this->institution);
     }
 
-    /**
-     * The "booted" method of the model.
-     */
-    protected static function booted(): void
+    public function getExperienceType(): string
     {
-        static::addGlobalScope(new MatchExperienceType);
+        return EducationExperience::class;
     }
 
-    /**
-     * Interact with the experience's institution
-     */
-    protected function institution(): Attribute
+    public function getDateRange($lang = 'en'): string
     {
-        return $this->makeJsonPropertyStringAttribute('institution');
-    }
+        $format = 'MMM Y';
 
-    /**
-     * Interact with the experience's area of study
-     */
-    protected function areaOfStudy(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('area_of_study');
-    }
+        $start = $this->start_date->locale($lang)->isoFormat($format);
+        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
 
-    /**
-     * Interact with the experience's thesis title
-     */
-    protected function thesisTitle(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('thesis_title');
-    }
-
-    /**
-     * Interact with the experience's start date
-     */
-    protected function startDate(): Attribute
-    {
-        return $this->makeJsonPropertyDateAttribute('start_date');
-    }
-
-    /**
-     * Interact with the experience's end date
-     */
-    protected function endDate(): Attribute
-    {
-        return $this->makeJsonPropertyDateAttribute('end_date');
-    }
-
-    /**
-     * Interact with the experience's type
-     */
-    protected function type(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('type');
-    }
-
-    /**
-     * Interact with the experience's status
-     */
-    protected function status(): Attribute
-    {
-        return $this->makeJsonPropertyStringAttribute('status');
+        return "$start - $end";
     }
 }
