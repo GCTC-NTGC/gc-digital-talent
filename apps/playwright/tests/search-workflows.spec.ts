@@ -22,11 +22,12 @@ import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("Talent search", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
-  const poolName = `Search pool ${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
+  let poolName: string;
   let classification: Classification;
   let workStream: WorkStream;
   let skill: Skill | undefined;
@@ -38,6 +39,9 @@ test.describe("Talent search", () => {
   };
 
   test.beforeAll(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.sub.${uniqueTestId}`;
+    poolName = `Search pool ${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
