@@ -254,6 +254,7 @@ class ExperienceTest extends TestCase
         $experienceSkill->experience_id = $experience->id;
         $experienceSkill->user_skill_id = $userSkill->id;
         $experienceSkill->details = 'some details';
+        $experienceSkill->experience_type = WorkExperience::class;
         $experienceSkill->save();
 
         // sanity check

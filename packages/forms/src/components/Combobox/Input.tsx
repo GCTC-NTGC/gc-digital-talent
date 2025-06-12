@@ -15,7 +15,7 @@ const layout = tv({
 
 const btn = tv({
   extend: layout,
-  base: "cursor-pointer rounded border-2 border-transparent bg-transparent outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700",
+  base: "cursor-pointer rounded-md border-2 border-transparent bg-transparent outline-none hover:bg-gray-100 focus-visible:border-primary dark:hover:bg-gray-700",
 });
 
 const icon = tv({

@@ -86,11 +86,7 @@ const ClassificationInput = ({
   }, [currentClassification, name, setValue]);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="l-tablet(4fr 1fr)"
-    >
+    <div className="grid gap-6 sm:grid-cols-[4fr_1fr]">
       <HiddenInput name={name} />
       <Combobox
         id={groupName}

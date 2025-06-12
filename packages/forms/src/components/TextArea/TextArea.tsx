@@ -10,7 +10,6 @@ import WordCounter from "../WordCounter";
 import type { CommonInputProps } from "../../types";
 import { countNumberOfWords } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
-import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
 export type TextAreaProps = DetailedHTMLProps<
@@ -25,6 +24,7 @@ export type TextAreaProps = DetailedHTMLProps<
   };
 
 const textArea = tv({
+  extend: inputStyles,
   base: "w-full resize-y",
   variants: {
     readonly: {
@@ -34,7 +34,6 @@ const textArea = tv({
       true: "pb-12",
     },
   },
-  extend: inputStyles,
 });
 
 const TextArea = ({
@@ -58,7 +57,6 @@ const TextArea = ({
     setValue,
   } = useFormContext();
   const intl = useIntl();
-  const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const fieldState = useFieldState(id, !trackUnsaved);
   const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
@@ -102,9 +100,12 @@ const TextArea = ({
           aria-describedby={ariaDescribedBy}
           aria-required={!!rules.required}
           aria-invalid={isInvalid}
-          className={textArea({ readonly: readOnly, wordLimit: !!wordLimit })}
+          className={textArea({
+            readonly: readOnly,
+            wordLimit: !!wordLimit,
+            state: fieldState,
+          })}
           rows={rows}
-          {...stateStyles}
           {...register(name, {
             ...rules,
             validate: {

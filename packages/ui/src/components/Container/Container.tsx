@@ -2,7 +2,7 @@ import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const container = tv({
-  base: "w-full px-6 xs:px-12",
+  base: "w-full px-6",
   variants: {
     center: {
       true: "mx-auto",
@@ -45,8 +45,8 @@ const container = tv({
     },
   },
   defaultVariants: {
-    base: "md",
-    size: "sm",
+    base: "lg",
+    size: "lg",
     center: true,
   },
 });
@@ -72,11 +72,11 @@ function normalizeSize(size: SizeProp | undefined): ResponsiveSize {
   if (typeof size === "string") {
     return { base: size };
   }
-  return { base: size?.base ?? "md", ...size };
+  return { base: size?.base ?? "lg", ...size };
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-  ({ center = true, size = "md", className, ...rest }, ref) => {
+  ({ center, size, className, ...rest }, ref) => {
     const { xs, base, sm, md, lg, xl } = normalizeSize(size);
 
     return (

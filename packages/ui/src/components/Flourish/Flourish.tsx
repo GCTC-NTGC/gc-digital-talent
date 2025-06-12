@@ -1,9 +1,5 @@
 const Flourish = () => (
-  <div
-    data-h2-background="base(main-linear)"
-    data-h2-display="base(block)"
-    data-h2-height="base(x1)"
-  />
+  <div className="block h-6 bg-linear-(--gradient-main-linear)" />
 );
 
 export default Flourish;
