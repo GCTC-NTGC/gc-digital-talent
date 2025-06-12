@@ -1,4 +1,4 @@
-import { Alert } from "@gc-digital-talent/ui";
+import { Alert, Container } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 interface BannerContentProps {
@@ -7,21 +7,13 @@ interface BannerContentProps {
 }
 
 const BannerContent = ({ title, message }: BannerContentProps) => (
-  <div
-    data-h2-background-color="base(foreground) base:dark(white)"
-    data-h2-padding="base(x1, 0)"
-  >
-    <div data-h2-wrapper="base(center, large, x1)">
-      <Alert.Root
-        type="warning"
-        live
-        data-h2-shadow="base(none)"
-        data-h2-margin="base(0, -x1, 0, -x1)"
-      >
+  <div className="bg-white py-6 dark:bg-gray-700">
+    <Container size="lg" className="xs:px-6" center>
+      <Alert.Root type="warning" live className="-mx-6 mb-0 shadow-none">
         <Alert.Title>{title}</Alert.Title>
         <RichTextRenderer node={htmlToRichTextJSON(message)} />
       </Alert.Root>
-    </div>
+    </Container>
   </div>
 );
 
