@@ -340,7 +340,7 @@ const AssessmentResultsTable = ({
           <span>
             {original.poolSkill ? (
               <>
-                <span data-h2-font-weight="base(bold)">
+                <span className="font-bold">
                   {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
                 </span>
                 <span>
@@ -348,7 +348,7 @@ const AssessmentResultsTable = ({
                 </span>
               </>
             ) : (
-              <span data-h2-font-weight="base(bold)">
+              <span className="font-bold">
                 {intl.formatMessage(processMessages.educationRequirement)}
               </span>
             )}

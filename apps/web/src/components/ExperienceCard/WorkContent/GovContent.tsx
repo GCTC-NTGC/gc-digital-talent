@@ -34,7 +34,7 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
@@ -42,7 +42,7 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.govEmploymentType}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {getLocalizedName(govEmploymentType.label, intl)}
         </ContentSection>
@@ -56,20 +56,16 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-        >
+        <div className="grid gap-6 sm:grid-cols-2">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
@@ -93,27 +89,23 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
-        >
+        <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.positionType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govPositionType?.label, intl)}
           </ContentSection>
@@ -135,20 +127,16 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
-        >
+        <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
@@ -172,34 +160,30 @@ const GovContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div
-          data-h2-display="base(grid)"
-          data-h2-gap="base(x1)"
-          data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
-        >
+        <div className="grid grid-cols-3 gap-6">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorRoleSeniority}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govContractorRoleSeniority?.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorType}
             headingLevel={headingLevel}
-            data-h2-border-right="l-tablet(1px solid gray.lighter)"
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govContractorType?.label, intl)}
           </ContentSection>
@@ -210,7 +194,7 @@ const GovContent = ({
             <ContentSection
               title={experienceFormLabels.contractorFirmAgencyName}
               headingLevel={headingLevel}
-              data-h2-border-right="l-tablet(1px solid gray.lighter)"
+              className="sm:border-r sm:border-gray-200 dark:border-gray-500"
             >
               {contractorFirmAgencyName ??
                 intl.formatMessage(commonMessages.notAvailable)}

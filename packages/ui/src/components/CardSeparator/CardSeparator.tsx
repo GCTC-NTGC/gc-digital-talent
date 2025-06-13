@@ -8,7 +8,7 @@ const CardSeparator = ({
   ...rest
 }: ComponentProps<typeof Separator>) => {
   return (
-    <div data-h2-margin="base(0 -x1)">
+    <div className="-mx-6">
       <Separator decorative orientation={orientation} space={space} {...rest} />
     </div>
   );

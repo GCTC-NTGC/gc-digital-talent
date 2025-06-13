@@ -6,6 +6,7 @@ import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { getSkills } from "~/utils/skills";
+import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
@@ -13,7 +14,7 @@ test.describe("Talent nomination management", () => {
   test("Create a talent nomination", async ({ appPage }) => {
     // Prepare the test environment
     const adminCtx = await graphql.newContext();
-    const uniqueTestId = Date.now().valueOf();
+    const uniqueTestId = generateUniqueTestId();
     const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
     const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
 
@@ -212,7 +213,9 @@ test.describe("Talent nomination management", () => {
       .getByRole("button", { name: /submit nomination/i })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
-    await appPage.waitForGraphqlResponse("NominateTalent");
+    await expect(
+      appPage.page.getByRole("heading", { name: /received your nomination/i }),
+    ).toBeVisible();
     await appPage.page
       .getByRole("link", { name: /return to your dashboard/i })
       .click();

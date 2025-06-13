@@ -6,11 +6,44 @@ import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
+import { tv } from "tailwind-variants";
 
 import { Button, ButtonProps, DropdownMenu } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
+
+const pagination = tv({
+  base: "flex flex-col items-center gap-y-6 text-sm sm:flex-row sm:gap-x-3 sm:gap-y-0",
+  variants: {
+    spacing: {
+      between: "justify-between",
+      start: "justify-start",
+      end: "justify-end",
+    },
+    color: {
+      black: "text-black dark:text-white",
+      white: "text-white dark:text-black",
+    },
+  },
+  defaultVariants: {
+    spacing: "between",
+  },
+});
+
+const icon = tv({
+  base: "size-4 align-middle",
+});
+
+const pageBtn = tv({
+  base: "",
+  variants: {
+    current: {
+      true: "underline",
+      false: "font-normal no-underline",
+    },
+  },
+});
 
 type ActiveColor = ButtonProps["color"];
 
@@ -86,43 +119,9 @@ const Pagination = ({
   const currentPageStartIndex = (currentPage - 1) * pageSize + 1;
   const currentPageSize = currentPage * pageSize;
 
-  const iconStyles = {
-    "data-h2-width": "base(1rem)",
-    "data-h2-height": "base(1rem)",
-    "data-h2-vertical-align": "base(middle)",
-  };
-
-  const fontColor =
-    color === "white"
-      ? {
-          "data-h2-color": "base(white)",
-        }
-      : {
-          "data-h2-color": "base(black)",
-        };
-
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-gap="base(x1 0) l-tablet(0 x.5)"
-      data-h2-font-size="base(caption)"
-      {...(spacing === "start" && {
-        "data-h2-justify-content": "base(flex-start)",
-      })}
-      {...(spacing === "end" && {
-        "data-h2-justify-content": "base(flex-end)",
-      })}
-      {...fontColor}
-      {...rest}
-    >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0, x.5)"
-      >
+    <div className={pagination({ color, spacing })} {...rest}>
+      <div className="flex items-center gap-x-3">
         <span>
           {intl.formatMessage(
             {
@@ -151,7 +150,7 @@ const Pagination = ({
                   size="sm"
                   color={color}
                   utilityIcon={ChevronDownIcon}
-                  data-h2-margin-top="base(-1px)"
+                  className="-mt-px"
                 >
                   {intl.formatMessage(
                     {
@@ -184,13 +183,7 @@ const Pagination = ({
         )}
       </div>
       <nav role="navigation" aria-label={ariaLabel}>
-        <ul
-          data-h2-display="base(flex)"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x.5)"
-          data-h2-list-style="base(none)"
-          data-h2-padding="base(0)"
-        >
+        <ul className="flex items-center gap-x-3">
           <li>
             <PageButton
               color={color}
@@ -202,7 +195,7 @@ const Pagination = ({
               })}
               onClick={() => onCurrentPageChange(1)}
             >
-              <ChevronDoubleLeftIcon {...iconStyles} />
+              <ChevronDoubleLeftIcon className={icon()} />
             </PageButton>
           </li>
           <li>
@@ -217,7 +210,7 @@ const Pagination = ({
                   "Aria label for previous page button in pagination nav",
               })}
             >
-              <ChevronLeftIcon {...iconStyles} />
+              <ChevronLeftIcon className={icon()} />
             </PageButton>
           </li>
 
@@ -236,12 +229,7 @@ const Pagination = ({
                   aria-current={current}
                   onClick={() => onCurrentPageChange(Number(pageNumber))}
                   color={current ? activeColor : color}
-                  {...(current && {
-                    "data-h2-text-decoration": "base(none)",
-                  })}
-                  {...(!current && {
-                    "data-h2-font-weight": "base(400)",
-                  })}
+                  className={pageBtn({ current })}
                   aria-label={intl.formatMessage(
                     {
                       defaultMessage: "Go to page {pageNumber}",
@@ -270,7 +258,7 @@ const Pagination = ({
                   "Aria label for next page button in pagination nav",
               })}
             >
-              <ChevronRightIcon {...iconStyles} />
+              <ChevronRightIcon className={icon()} />
             </PageButton>
           </li>
           <li>
@@ -284,7 +272,7 @@ const Pagination = ({
                 description: "Label for last page button in pagination nav",
               })}
             >
-              <ChevronDoubleRightIcon {...iconStyles} />
+              <ChevronDoubleRightIcon className={icon()} />
             </PageButton>
           </li>
         </ul>

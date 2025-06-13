@@ -53,7 +53,7 @@ const assessmentResult = tv({
   base: "flex w-full items-center gap-x-1.5 py-0.75",
   variants: {
     isBookmarked: {
-      true: "rounded bg-secondary-100 dark:bg-secondary-700",
+      true: "rounded-md bg-secondary-100 dark:bg-secondary-700",
     },
   },
 });

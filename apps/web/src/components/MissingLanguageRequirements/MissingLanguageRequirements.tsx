@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import {
   Chip,
@@ -16,8 +17,11 @@ import {
   PartialUser,
 } from "~/utils/languageUtils";
 
+const reqBlock = tv({ base: "flex gap-x-3 rounded-md p-6" });
+
 interface MissingLanguageRequirementsBlockProps {
   chipType: { color: ChipProps["color"] };
+  className?: string;
   /** Title for the block */
   title: ReactNode;
   /** Message displayed before language requirements that are missing from application */
@@ -37,29 +41,19 @@ const MissingLanguageRequirementsBlock = ({
   icon,
   missingLanguageRequirements,
   headingLevel = "h2",
+  className,
   ...rest
 }: MissingLanguageRequirementsBlockProps) => {
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      {...rest}
-    >
-      <span data-h2-margin="base(x.15, x1, 0, 0)">{icon}</span>
+    <div className={reqBlock({ class: className })} {...rest}>
+      {icon}
       <div>
-        <Heading
-          level={headingLevel}
-          size="h6"
-          data-h2-margin="base(0, 0, x.5, 0)"
-        >
+        <Heading level={headingLevel} size="h6" className="mt-0 mb-3">
           {title}
         </Heading>
         {missingLanguageRequirements.length ? (
           <>
-            <p data-h2-margin="base(x.5, 0, x.25, 0)">
-              {languageRequirementsBlurb}
-            </p>
+            <p className="mt-3 mb-1.5">{languageRequirementsBlurb}</p>
             <Chips>
               {missingLanguageRequirements.map((requirementName: string) => (
                 <Chip key={requirementName} color={chipType.color}>
@@ -93,9 +87,7 @@ const MissingLanguageRequirements = ({
 
   return missingLanguageRequirements.length ? (
     <MissingLanguageRequirementsBlock
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(medium)"
-      data-h2-margin="base(0, 0, x.5, 0)"
+      className="mb-3 bg-white shadow-md dark:bg-gray-600"
       chipType={{ color: "error" }}
       headingLevel={headingLevel}
       title={intl.formatMessage({
@@ -111,12 +103,7 @@ const MissingLanguageRequirements = ({
         description:
           "Text that appears when a user is missing a language requirement on their profile.",
       })}
-      icon={
-        <ExclamationTriangleIcon
-          style={{ width: "1.2rem" }}
-          data-h2-color="base(error)"
-        />
-      }
+      icon={<ExclamationTriangleIcon className="size-4.5 text-error" />}
       missingLanguageRequirements={missingLanguageRequirements}
     />
   ) : null;

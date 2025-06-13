@@ -382,51 +382,26 @@ const ExperienceCard = ({
   return (
     <div
       id={id ?? `experience-${experience.id}`}
-      data-h2-border-left="base(x.5 solid tertiary) base:iap(x.5 solid secondary) base:iap:dark(x.5 solid secondary.lighter)"
-      data-h2-padding="base(x1)"
-      data-h2-shadow="base(larger)"
-      data-h2-radius="base(0 rounded rounded 0)"
-      data-h2-background-color="base(foreground)"
+      className="rounded-r-md border-l-12 border-error bg-white p-6 shadow-lg dark:bg-gray-600 iap:border-secondary iap:dark:border-secondary-200"
     >
-      <div
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap) p-tablet(initial)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0 x1)"
-        data-h2-margin-bottom="base(x.5)"
-      >
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-x-6 xs:flex-nowrap">
         <Heading
           icon={Icon}
           level={headingLevel}
           size="h6"
           color="error"
-          data-h2-margin="base(0)"
-          data-h2-font-weight="base(400)"
+          className="m-0 font-normal"
         >
           <span>{titleHtml}</span>
         </Heading>
         {(showEdit || view) && (
-          <div
-            data-h2-display="base(block) p-tablet(initial)"
-            data-h2-width="base(100%) p-tablet(initial)"
-            data-h2-text-align="base(center) p-tablet(initial)"
-            data-h2-margin="base(x1 0 x.5 0) p-tablet(initial)"
-          >
+          <div className="mt-6 mb-3 block w-full text-center xs:m-0 xs:w-auto xs:text-left">
             {showEdit && edit}
             {view}
           </div>
         )}
       </div>
-      <p
-        data-h2-display="base(flex)"
-        data-h2-flex-wrap="base(wrap) p-tablet(initial)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(center) p-tablet(initial)"
-        data-h2-gap="base(0 x.5)"
-        data-h2-margin="base(x.25, 0, x1, 0)"
-        data-h2-color="base(black.light)"
-      >
+      <p className="mt-3 mb-6 flex flex-wrap items-center justify-center gap-x-3 text-gray-600 xs:flex-nowrap xs:justify-normal dark:text-gray-100">
         <span>{typeMessage}</span>
         {isWorkExperience(experience) &&
           experience.employmentCategory?.value ===
@@ -491,8 +466,7 @@ const ExperienceCard = ({
           <Heading
             level={contentHeadingLevel}
             size="h6"
-            data-h2-font-size="base(copy)"
-            data-h2-margin="base(x1 0 x.5 0)"
+            className="mt-6 mb-3 text-base"
           >
             {intl.formatMessage(
               {
@@ -513,14 +487,14 @@ const ExperienceCard = ({
         <Collapsible.Root
           open={isOpen}
           onOpenChange={setIsOpen}
-          data-h2-margin-top="base(x1)"
+          className="mt-6"
         >
           <Collapsible.Trigger asChild>
             <Button
               type="button"
               mode="inline"
               color="black"
-              data-h2-transform="base:children[.ExperienceCard__Chevron](rotate(0deg)) base:selectors[[data-state='open']]:children[.ExperienceCard__Chevron](rotate(90deg))"
+              className="group/collapse"
               aria-label={
                 isOpen
                   ? intl
@@ -547,16 +521,8 @@ const ExperienceCard = ({
                       .toString()
               }
             >
-              <span
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                data-h2-gap="base(0 x.25)"
-              >
-                <ChevronRightIcon
-                  data-h2-height="base(x1.25)"
-                  data-h2-width="base(x1.25)"
-                  className="ExperienceCard__Chevron"
-                />
+              <span className="flex items-center gap-x-1.5">
+                <ChevronRightIcon className="size-7.5 rotate-0 transition-transform duration-150 group-data-[state=open]/collapse:rotate-90" />
                 <span>
                   {isOpen
                     ? intl.formatMessage({
@@ -575,7 +541,7 @@ const ExperienceCard = ({
               </span>
             </Button>
           </Collapsible.Trigger>
-          <Collapsible.Content data-h2-padding-left="base(x1.5)">
+          <Collapsible.Content className="pl-9">
             <Separator space="sm" />
             {isAwardExperience(experience) && (
               <AwardContent
@@ -636,15 +602,12 @@ const ExperienceCard = ({
                       "Lead in text for list of skills linked to a specific experience",
                   })}
                 </ContentSection>
-                <div data-h2-margin-top="base(x1)">
+                <div className="mt-6">
                   {skills && skillCount ? (
                     <Ul space="sm">
                       {skills.map((skill) => (
                         <li key={skill.id}>
-                          <span
-                            data-h2-font-weight="base(700)"
-                            data-h2-display="base(block)"
-                          >
+                          <span className="block font-bold">
                             {getLocalizedName(skill.name, intl)}
                           </span>
                           <span>
@@ -655,8 +618,8 @@ const ExperienceCard = ({
                       ))}
                     </Ul>
                   ) : (
-                    <Well data-h2-margin-top>
-                      <p data-h2-text-align="base(center)">
+                    <Well>
+                      <p className="text-center">
                         {intl.formatMessage({
                           defaultMessage:
                             "No skills have been linked to this experience.",

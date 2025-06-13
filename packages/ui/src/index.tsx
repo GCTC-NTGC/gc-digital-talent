@@ -1,13 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import {
-  Color,
-  HeadingRank,
-  IconType,
-  IconProps,
-  ButtonLinkMode,
-  HydrogenAttributes,
-} from "./types";
+import { Color, HeadingRank, IconType, IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -60,7 +53,6 @@ import Ol from "./components/List/Ol";
 import Ul from "./components/List/Ul";
 import Loading, { type LoadingProps } from "./components/Loading";
 import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
-import { getNavLinkStyling } from "./components/NavMenu";
 import NavMenu from "./components/NavMenu/NavMenu";
 import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
@@ -107,7 +99,6 @@ export type {
   AlertProps,
   BreadcrumbsProps,
   ButtonProps,
-  ButtonLinkMode,
   CardFlatProps,
   CardProps,
   CTAButtonProps,
@@ -115,7 +106,6 @@ export type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
-  HydrogenAttributes,
   DownloadCsvProps,
   LinkProps,
   IconProps,
@@ -210,6 +200,5 @@ export {
   decrementHeadingRank,
   useCardRepeaterContext,
   useControllableState,
-  getNavLinkStyling,
   hrefToString,
 };

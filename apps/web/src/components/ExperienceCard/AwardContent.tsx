@@ -17,15 +17,11 @@ const AwardContent = ({
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
-    >
+    <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.awardedTo}
         headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {awardedTo?.label
           ? getLocalizedName(awardedTo.label, intl)
@@ -34,7 +30,7 @@ const AwardContent = ({
       <ContentSection
         title={experienceFormLabels.issuedBy}
         headingLevel={headingLevel}
-        data-h2-border-right="p-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

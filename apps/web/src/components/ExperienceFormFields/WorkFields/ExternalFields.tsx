@@ -60,12 +60,12 @@ const ExternalFields = ({
   return (
     <>
       {fetching ? (
-        <div data-h2-flex-item="base(1of1)">
+        <div className="col-span-2">
           <Loading inline />
         </div>
       ) : (
         <>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <Input
               id="organization"
               label={labels.organization}
@@ -86,7 +86,7 @@ const ExternalFields = ({
               </datalist>
             )}
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <Input
               id="team"
               label={labels.team}
@@ -95,7 +95,7 @@ const ExternalFields = ({
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="extSizeOfOrganization"
               name="extSizeOfOrganization"
@@ -104,7 +104,7 @@ const ExternalFields = ({
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="extRoleSeniority"
               name="extRoleSeniority"
@@ -113,7 +113,7 @@ const ExternalFields = ({
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             <DateInput
               id="startDate"
               legend={labels.startDate}
@@ -129,8 +129,8 @@ const ExternalFields = ({
               }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-            <div data-h2-margin-top="p-tablet(x1)">
+          <div>
+            <div className="mt-6">
               <Checkbox
                 boundingBox
                 boundingBoxLabel={labels.currentRole}
@@ -144,7 +144,7 @@ const ExternalFields = ({
               />
             </div>
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             {/* conditionally render the end-date based off the state attached to the checkbox input */}
             {!watchCurrentRole && (
               <DateInput

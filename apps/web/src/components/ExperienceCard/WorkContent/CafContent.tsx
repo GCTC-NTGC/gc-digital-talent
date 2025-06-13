@@ -21,7 +21,7 @@ const CafContent = ({
       <ContentSection
         title={experienceFormLabels.cafEmploymentType}
         headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafEmploymentType?.label, intl)}
       </ContentSection>
@@ -29,7 +29,7 @@ const CafContent = ({
       <ContentSection
         title={experienceFormLabels.cafRank}
         headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafRank?.label, intl)}
       </ContentSection>

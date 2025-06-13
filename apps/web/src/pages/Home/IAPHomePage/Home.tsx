@@ -50,7 +50,11 @@ import {
 } from "./components/Svg";
 
 const mailLink = (chunks: ReactNode) => (
-  <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
+  <Link
+    color="secondary"
+    external
+    href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
+  >
     {chunks}
   </Link>
 );
@@ -252,10 +256,8 @@ export const Home = ({ query }: HomeProps) => {
                   </div>
                   <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
                     <Heading
-                      data-h2-font-size="base(h3, 1)"
-                      data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
-                      data-h2-text-align="base(center) p-tablet(left)"
-                      data-h2-layer="base(1, relative)"
+                      size="h3"
+                      className="relative z-1 mt-36 mb-12 text-center xs:mt-6 xs:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -355,9 +357,8 @@ export const Home = ({ query }: HomeProps) => {
                   data-h2-order="p-tablet(1)"
                 >
                   <Heading
-                    data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
-                    data-h2-text-align="base(center) p-tablet(left)"
+                    size="h3"
+                    className="mt-24 mb-12 text-center xs:mt-6 xs:text-left"
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -463,9 +464,8 @@ export const Home = ({ query }: HomeProps) => {
                   data-h2-position="base(relative)"
                 >
                   <Heading
-                    data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
-                    data-h2-text-align="base(center) p-tablet(left)"
+                    size="h3"
+                    className="my-12 text-center xs:mt-6 xs:mb-12 xs:text-left"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Who is the program for?",
@@ -535,12 +535,7 @@ export const Home = ({ query }: HomeProps) => {
           }}
         >
           <div data-h2-wrapper="base(center, medium, x1) l-tablet(center, medium, x2)">
-            <Heading
-              light
-              data-h2-font-size="base(h2)"
-              data-h2-color="base:all(white)"
-              data-h2-text-align="base(center)"
-            >
+            <Heading size="h2" color="white" thin className="my-0 text-center">
               {intl.formatMessage({
                 defaultMessage: "What We’re Hearing",
                 id: "PvH5lJ",
@@ -593,11 +588,7 @@ export const Home = ({ query }: HomeProps) => {
                     data-h2-padding="base(x2) p-tablet(x3)"
                     data-h2-text-align="base(center) p-tablet(left)"
                   >
-                    <Heading
-                      light
-                      data-h2-color="base:all(white)"
-                      data-h2-font-size="base(h3, 1)"
-                    >
+                    <Heading size="h3" color="white" thin className="m-0">
                       <span data-h2-display="base(block)">
                         {intl.formatMessage({
                           defaultMessage:
@@ -670,10 +661,7 @@ export const Home = ({ query }: HomeProps) => {
               data-h2-margin="base(0, 0, x3, 0)"
             >
               <Banner>
-                <Heading
-                  data-h2-color="base:all(white)"
-                  data-h2-font-size="base(h3)"
-                >
+                <Heading size="h3" color="white" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "Coming Soon!",
                     id: "q5FQbu",
@@ -681,12 +669,7 @@ export const Home = ({ query }: HomeProps) => {
                   })}
                 </Heading>
               </Banner>
-              <Heading
-                light
-                data-h2-font-size="base(h2)"
-                data-h2-color="base:all(white)"
-                data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
-              >
+              <Heading size="h2" color="white" thin className="mb-18 xs:my-18">
                 {intl.formatMessage({
                   defaultMessage:
                     "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
@@ -694,11 +677,7 @@ export const Home = ({ query }: HomeProps) => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading
-                as="h3"
-                data-h2-font-size="base(h3)"
-                data-h2-color="base:all(white)"
-              >
+              <Heading level="h3" size="h3" color="white">
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -805,11 +784,7 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading
-                as="h3"
-                data-h2-font-size="base(h3)"
-                data-h2-color="base:all(white)"
-              >
+              <Heading level="h3" size="h3" color="white">
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",
@@ -953,11 +928,7 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
                       data-h2-color="base:all(white)"
                     >
-                      <Heading
-                        data-h2-font-size="base(h2)"
-                        data-h2-color="base:all(white)"
-                        light
-                      >
+                      <Heading size="h2" color="white" thin className="my-0">
                         {intl.formatMessage({
                           defaultMessage: "About the Indigenous Talent Portal",
                           id: "loDwKe",

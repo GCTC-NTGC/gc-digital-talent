@@ -21,14 +21,14 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.53.0",
     "@types/node": "^22.15.29",
     "axe-core": "^4.10.3",
     "dotenv": "^16.5.0",
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.2.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.33.1"
+    "typescript-eslint": "^8.34.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.10.2"

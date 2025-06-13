@@ -31,12 +31,7 @@ const ExperienceDetails = ({
 
   return (
     <>
-      <Heading
-        level="h3"
-        size="h4"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x3, 0, x1, 0)"
-      >
+      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Provide a few details",
           id: "jIMP76",
@@ -46,7 +41,7 @@ const ExperienceDetails = ({
       <div>
         {derivedType ? (
           <>
-            <p data-h2-margin="base(0, 0, x1, 0)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Provide a few standardized details about your experience to help managers better understand how it’s played a role in your career journey.",

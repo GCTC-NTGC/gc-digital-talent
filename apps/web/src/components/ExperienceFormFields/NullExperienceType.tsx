@@ -7,7 +7,7 @@ const NullExperienceType = () => {
 
   return (
     <Well>
-      <p data-h2-text-align="base(center)">
+      <p className="text-center">
         {intl.formatMessage({
           defaultMessage: "Please, select a type of experience to continue.",
           id: "nQbfnB",

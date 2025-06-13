@@ -35,7 +35,7 @@ const VerificationDialog = ({ children, btnProps }: BasicDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "At a later step of the application process, you may be asked to provide proof that you are Indigenous. Some of the ways to do this were included in the definition statement at the beginning of this application, including a Certificate of Indian Status card, an Inuit beneficiary card, a Métis citizenship card, a letter from an authorized representative of a recognized Indigenous community, in addition to an attestation form. For the purpose of inclusion, these measures are to ensure that this program remains available to Indigenous Peoples in Canada.",

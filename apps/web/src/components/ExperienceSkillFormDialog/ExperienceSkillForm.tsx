@@ -195,7 +195,7 @@ const ExperienceSkillForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <input type="hidden" {...methods.register("skill")} />
-        <Heading level="h2" size="h6" data-h2-margin="base(0 0 x1 0)">
+        <Heading level="h2" size="h6" className="mt-0 mb-6">
           {intl.formatMessage({
             defaultMessage: "Choose the experience you'd like to add",
             id: "dkYHTv",
@@ -222,7 +222,7 @@ const ExperienceSkillForm = ({
             label: getExperienceName(experienceOption, intl),
           }))}
         />
-        <Heading level="h2" size="h6" data-h2-margin="base(x2, 0, x.5, 0)">
+        <Heading level="h2" size="h6" className="mt-12 mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Describe how this skill applied to this experience",
@@ -238,12 +238,7 @@ const ExperienceSkillForm = ({
             description: "Instructions on how to describe a skill",
           })}
         </p>
-        <Heading
-          level="h3"
-          size="h6"
-          data-h2-font-size="base(copy)"
-          data-h2-margin-top="base(x.5)"
-        >
+        <Heading level="h3" size="h6" className="mt-3 text-base">
           {intl.formatMessage({
             defaultMessage: "How to best describe a skill experience",
             id: "1/Q9jX",
@@ -286,7 +281,7 @@ const ExperienceSkillForm = ({
         </Ul>
         {!selectedExperienceId ? (
           <Well>
-            <p data-h2-text-align="base(center)">
+            <p className="text-center">
               {intl.formatMessage({
                 defaultMessage: "Please select an experience to continue.",
                 id: "CYkH6C",
@@ -311,58 +306,50 @@ const ExperienceSkillForm = ({
           />
         )}
         <Dialog.Footer>
-          <div
-            data-h2-width="base(100%)"
-            data-h2-display="base(flex)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(row)"
-            data-h2-gap="base(x1)"
+          <Button
+            type="submit"
+            mode="solid"
+            color="secondary"
+            disabled={isSubmitting}
+            {...actionProps}
+            onClick={() => setValue("action", "connect")}
           >
+            {defaultValues.experience
+              ? intl.formatMessage({
+                  defaultMessage: "Update this experience",
+                  id: "AANjDd",
+                  description:
+                    "Button to submit the link experience to skill form",
+                })
+              : intl.formatMessage({
+                  defaultMessage: "Add this experience",
+                  id: "W+T8Mm",
+                  description:
+                    "Button to submit the link experience to skill form",
+                })}
+          </Button>
+          <Dialog.Close>
+            <Button type="button" mode="inline" color="warning">
+              {intl.formatMessage(formMessages.cancelGoBack)}
+            </Button>
+          </Dialog.Close>
+          {defaultValues.experience && (
             <Button
               type="submit"
-              mode="solid"
-              color="primary"
-              disabled={isSubmitting}
+              mode="inline"
+              color="error"
+              disabled={executing || isSubmitting}
               {...actionProps}
-              onClick={() => setValue("action", "connect")}
+              onClick={() => setValue("action", "remove")}
             >
-              {defaultValues.experience
-                ? intl.formatMessage({
-                    defaultMessage: "Update this experience",
-                    id: "AANjDd",
-                    description:
-                      "Button to submit the link experience to skill form",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Add this experience",
-                    id: "W+T8Mm",
-                    description:
-                      "Button to submit the link experience to skill form",
-                  })}
+              {intl.formatMessage({
+                defaultMessage: "Remove this experience",
+                id: "1G1iMu",
+                description:
+                  "Button to remove the link between experience and skill",
+              })}
             </Button>
-            <Dialog.Close>
-              <Button type="button" mode="inline" color="warning">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-            {defaultValues.experience && (
-              <Button
-                type="submit"
-                mode="inline"
-                color="error"
-                disabled={executing || isSubmitting}
-                {...actionProps}
-                onClick={() => setValue("action", "remove")}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Remove this experience",
-                  id: "1G1iMu",
-                  description:
-                    "Button to remove the link between experience and skill",
-                })}
-              </Button>
-            )}
-          </div>
+          )}
         </Dialog.Footer>
       </form>
     </FormProvider>
