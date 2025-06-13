@@ -127,18 +127,7 @@ const MainNavMenu = () => {
   }, [isMenuOpen]);
 
   return (
-    <div
-      data-h2-flex-item="base(content)"
-      data-h2-position="base(fixed) l-tablet(sticky)"
-      data-h2-top="l-tablet(-1px)"
-      data-h2-bottom="base(x3.5) l-tablet(auto)"
-      data-h2-right="base(x.75) l-tablet(auto)"
-      data-h2-left="base(x.75) l-tablet(auto)"
-      data-h2-width="l-tablet(100%)"
-      data-h2-z-index="base(7)"
-      data-h2-overflow-y="base(auto) l-tablet(initial)"
-      data-h2-max-height="base(85vh) l-tablet(none)"
-    >
+    <div className="fixed right-4.5 bottom-21 left-4.5 z-7 max-h-[85vh] overflow-y-auto md:sticky md:top-[-1px] md:right-auto md:bottom-auto md:left-auto md:max-h-none md:w-full md:overflow-y-visible">
       <FocusLock returnFocus disabled={!showOverlay}>
         <NavMenuProvider
           open={isMenuOpen}
