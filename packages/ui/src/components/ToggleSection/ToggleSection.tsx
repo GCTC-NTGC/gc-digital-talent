@@ -12,6 +12,7 @@ import {
   MouseEventHandler,
   ReactElement,
 } from "react";
+import { tv } from "tailwind-variants";
 
 import Heading, { HeadingProps } from "../Heading";
 import useControllableState from "../../hooks/useControllableState";
@@ -19,7 +20,6 @@ import {
   ToggleSectionProvider,
   useToggleSectionContext,
 } from "./ToggleSectionProvider";
-import { tv } from "tailwind-variants";
 
 // Names used for unique IDs
 const NAME = {
