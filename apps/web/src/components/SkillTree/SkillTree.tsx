@@ -99,10 +99,10 @@ const SkillTree = ({
   ) : null;
 
   return (
-    <TreeView.Root data-h2-margin="base(x1, 0, 0, 0)">
+    <TreeView.Root className="mt-6">
       <TreeView.Head>
         <Card>
-          <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
+          <Heading level={headingAs} size="h6" className="mt-0">
             {title}
           </Heading>
           {skill.description && (

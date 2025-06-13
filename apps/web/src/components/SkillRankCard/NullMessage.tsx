@@ -15,7 +15,7 @@ const NullMessage = ({ type, editable, editLink }: NullMessageProps) => {
   const intl = useIntl();
 
   return (
-    <Well data-h2-text-align="base(center)">
+    <Well className="text-center">
       {editable && editLink ? (
         <Link
           mode="inline"
