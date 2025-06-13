@@ -9,9 +9,12 @@ import {
 } from "@tanstack/react-table";
 import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
-import uniq from "lodash/uniq";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -658,7 +661,7 @@ const PoolCandidatesTable = ({
       return correspondingDataRow?.poolCandidate.user.id;
     });
 
-    return uniq(userIds.filter(notEmpty));
+    return uniqueItems(userIds.filter(notEmpty));
   };
 
   const handleCsvDownloadAll = () => {
