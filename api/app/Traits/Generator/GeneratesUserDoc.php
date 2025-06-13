@@ -654,12 +654,15 @@ trait GeneratesUserDoc
 
         if ($profile->career_planning_lateral_move_interest) {
             $this->addLabelText($section, 'Target time frame for lateral movement',
-                $profile->career_planning_lateral_move_time_frame);
+                $profile->career_planning_lateral_move_time_frame ?? '');
 
-            if (! empty($profile->career_planning_lateral_move_organization_type)) {
-                $section->addLabelText('Types of organizations for lateral movement');
-                foreach ($profile->career_planning_lateral_move_organization_type as $type) {
-                    $section->addListItem($type);
+            if (! empty($profile->career_planning_promotion_move_organization_type)) {
+                $section->addText('Types of organizations for lateral movement:');
+
+                foreach ($profile->career_planning_promotion_move_organization_type as $type) {
+                    if (! empty(trim($type))) {
+                        $section->addListItem($type);
+                    }
                 }
             }
         }
@@ -739,7 +742,7 @@ trait GeneratesUserDoc
 
         // Senior Management Status
         $this->addLabelText($section, 'Senior management status',
-            $profile->next_role_is_c_suite_role ? 'This is a chief or deputy chief (C-suite) role.' : '');
+            $profile->next_role_is_c_suite_role ?? '');
 
         if ($profile->next_role_is_c_suite_role) {
             $this->addLabelText($section, 'C-suite role title', $profile->next_role_c_suite_role_title ?? '');
@@ -792,7 +795,7 @@ trait GeneratesUserDoc
 
         // Senior Management Status
         $this->addLabelText($section, 'Senior management status',
-            $profile->career_objective_is_c_suite_role ? 'This is a chief or deputy chief (C-suite) role.' : '');
+            $profile->career_objective_is_c_suite_role ?? '');
 
         if ($profile->career_objective_is_c_suite_role && $profile->career_objective_c_suite_role_title) {
             $this->addLabelText($section, 'C-suite role title', $profile->career_objective_c_suite_role_title ?? '');
