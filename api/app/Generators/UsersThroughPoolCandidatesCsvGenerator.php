@@ -172,7 +172,7 @@ class UsersThroughPoolCandidatesCsvGenerator extends CsvGenerator implements Fil
         $query->whereAuthorizedToView(['userId' => $this->userId])->whereNotDraft();
 
         // Deduplicate pool candidate (users) in query
-        $query->distinct('user_id');
+        $query->distinct('user_id')->orderBy('user_id');
 
         return $query;
     }
