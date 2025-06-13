@@ -7,21 +7,21 @@ import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelect
 
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
-interface DownloadCandidateCsvButtonProps {
+interface DownloadAllCandidateTableCsvButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClick: (withROD?: boolean) => void;
+  onClickDownloadCandidates: () => void;
   onClickDownloadUsers: () => void;
 }
 
-const DownloadCandidateCsvButton = ({
+const DownloadAllCandidateTableCsvButton = ({
   inTable,
   isDownloading,
-  onClick,
+  onClickDownloadCandidates,
   onClickDownloadUsers,
   disabled,
-}: DownloadCandidateCsvButtonProps) => {
+}: DownloadAllCandidateTableCsvButtonProps) => {
   const intl = useIntl();
 
   return (
@@ -50,20 +50,14 @@ const DownloadCandidateCsvButton = ({
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
+        <DropdownMenu.Item
+          disabled={disabled}
+          onSelect={() => onClickDownloadCandidates()}
+        >
           {intl.formatMessage({
-            defaultMessage: "Download CSV without assessments",
-            id: "2cZySB",
-            description:
-              "Button label for download candidate csv without ROD data.",
-          })}
-        </DropdownMenu.Item>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
-          {intl.formatMessage({
-            defaultMessage: "Download CSV with assessments",
-            id: "C1jirU",
-            description:
-              "Button label for download candidate csv with ROD data.",
+            defaultMessage: "Download candidates CSV",
+            id: "EadMpr",
+            description: "Button label to download selected candidates CSV",
           })}
         </DropdownMenu.Item>
         <DropdownMenu.Item
@@ -82,4 +76,4 @@ const DownloadCandidateCsvButton = ({
   );
 };
 
-export default DownloadCandidateCsvButton;
+export default DownloadAllCandidateTableCsvButton;
