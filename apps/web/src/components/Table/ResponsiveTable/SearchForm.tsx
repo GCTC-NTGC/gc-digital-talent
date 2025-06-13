@@ -13,7 +13,7 @@ import { SearchFormProps, SearchColumn, SearchState } from "./types";
 
 const input = tv({
   extend: inputStyles,
-  base: "w-full sm:w-auto",
+  base: "w-full md:w-auto",
   variants: {
     showDropdown: {
       true: "rounded-l-none border-l-transparent",
