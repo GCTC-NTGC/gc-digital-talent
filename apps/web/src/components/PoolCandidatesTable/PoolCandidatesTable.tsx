@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-table";
 import { OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
+import uniq from "lodash/uniq";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -648,6 +649,18 @@ const PoolCandidatesTable = ({
     }
   };
 
+  // convert row IDs (pool candidate IDs) to user IDs
+  const rowIdsToUserIds = (rowIds: string[]): string[] => {
+    const userIds = rowIds.map((rowId) => {
+      const correspondingDataRow = filteredData.find(
+        (dataRow) => dataRow.id == rowId,
+      );
+      return correspondingDataRow?.poolCandidate.user.id;
+    });
+
+    return uniq(userIds.filter(notEmpty));
+  };
+
   const handleCsvDownloadAll = () => {
     downloadCsv({
       where: addSearchToPoolCandidateFilterInput(
@@ -692,14 +705,7 @@ const PoolCandidatesTable = ({
     }
   };
   const handleClickProfile = () => {
-    // convert pool candidate IDs to user IDs
-    const selectedUserIds = selectedRows
-      .map(
-        (selectedRowId) =>
-          filteredData.find((row) => row.id == selectedRowId)?.poolCandidate
-            .user.id,
-      )
-      .filter(notEmpty);
+    const selectedUserIds = rowIdsToUserIds(selectedRows);
 
     if (selectedUserIds.length === 1) {
       // single DOC file
@@ -723,14 +729,7 @@ const PoolCandidatesTable = ({
     }
   };
   const handleClickAnonymousProfile = () => {
-    // convert pool candidate IDs to user IDs
-    const selectedUserIds = selectedRows
-      .map(
-        (selectedRowId) =>
-          filteredData.find((row) => row.id == selectedRowId)?.poolCandidate
-            .user.id,
-      )
-      .filter(notEmpty);
+    const selectedUserIds = rowIdsToUserIds(selectedRows);
 
     if (selectedUserIds.length === 1) {
       // single DOC file
