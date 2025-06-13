@@ -5,12 +5,27 @@ import {
   ToastContainerProps,
 } from "react-toastify/unstyled";
 import { ComponentPropsWithoutRef } from "react";
+import { tv } from "tailwind-variants";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
-
-import closeButtonStyles from "./styles";
 
 import "react-toastify/ReactToastify.css";
 import "./toast.css";
+
+const closeBtn = tv({
+  base: "absolute top-6 right-6 z-[9] flex cursor-pointer items-center rounded-full bg-transparent text-black transition-colors ease-in outline-none focus-visible:bg-focus dark:text-white",
+  variants: {
+    type: {
+      default: "hover:bg-gray-100",
+      success:
+        "hover:bg-success-100 hover:text-success-700 dark:hover:bg-success-700 dark:hover:text-success-100",
+      warning:
+        "hover:bg-warning-100 hover:text-warning-700 dark:hover:bg-warning-700 dark:hover:text-warning-100",
+      info: "hover:bg-primary-100 hover:text-primary-700 dark:hover:bg-primary-700 dark:hover:text-primary-100",
+      error:
+        "hover:bg-error-100 hover:text-error-700 dark:hover:bg-error-700 dark:hover:text-error-100",
+    },
+  },
+});
 
 type CloseButtonProps = ComponentPropsWithoutRef<
   typeof ReactToastifyCloseButton
@@ -19,20 +34,11 @@ type CloseButtonProps = ComponentPropsWithoutRef<
 const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => (
   <button
     type="button"
-    data-h2-outline="base(none)"
-    data-h2-radius="base(9999px)"
-    data-h2-position="base(absolute)"
-    data-h2-display="base(flex)"
-    data-h2-align-items="base(center)"
-    data-h2-location="base(x1, x1, auto, auto)"
-    data-h2-cursor="base(pointer)"
-    data-h2-transition="base(all 100ms ease-in)"
-    data-h2-z-index="base(9)"
+    className={closeBtn({ type })}
     aria-label={ariaLabel}
-    {...closeButtonStyles[type]}
     onClick={closeToast}
   >
-    <XCircleIcon data-h2-width="base(x1)" data-h2-height="base(x1)" />
+    <XCircleIcon className="size-6" />
   </button>
 );
 

@@ -91,7 +91,7 @@ const Item = forwardRef<
 const trigger = tv({
   slots: {
     header: "flex items-start justify-between gap-3",
-    btn: "group/btn flex grow items-start gap-x-3 text-left outline-none",
+    btn: "group/btn flex grow cursor-pointer items-start gap-x-3 text-left outline-none",
     heading: "m-0 text-lg/none font-bold lg:text-xl/none",
     iconSize: "shrink-0",
     ctx: "flex items-center gap-x-3",

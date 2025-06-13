@@ -437,7 +437,7 @@ trait GeneratesUserDoc
                         $this->addLabelText(
                             $section,
                             $this->localize('experiences.supervised_employees_number'),
-                            $experience->supervised_employees_number
+                            Number::format($experience->supervised_employees_number, precision: 0, locale: App::getLocale()),
                         );
                     }
                     $this->addLabelText($section, $this->localize('experiences.budget_management'), $this->yesOrNo($experience->budget_management));
@@ -544,7 +544,11 @@ trait GeneratesUserDoc
         $user->loadMissing([
             'department',
             'currentClassification',
-            'experiences',
+            'awardExperiences',
+            'communityExperiences',
+            'educationExperiences',
+            'personalExperiences',
+            'workExperiences',
             'userSkills',
             'employeeProfile',
         ]);

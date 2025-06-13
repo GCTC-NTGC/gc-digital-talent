@@ -119,12 +119,17 @@ type User {
     @hasMany(scopes: ["whereAuthorizedToView"])
     @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience] @belongsToMany # All experiences that a user owns
-  awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
-  communityExperiences: [CommunityExperience] @belongsToMany # Community experiences that a user owns
-  educationExperiences: [EducationExperience] @belongsToMany # Education experiences that a user owns
-  personalExperiences: [PersonalExperience] @belongsToMany # Personal experiences that a user owns
-  workExperiences: [WorkExperience] @belongsToMany # Work experiences that a user owns
+  experiences: [Experience]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
+  awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
+  communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
+  educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
+  personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
+  workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -502,6 +507,34 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
+# group fields together that repeat use of viewNotes()
+type PoolCandidateViewNotes {
+  notes: String
+  isBookmarked: Boolean @rename(attribute: "is_bookmarked")
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
+# group fields together that repeat use of viewStatus()
+type PoolCandidateViewStatus {
+  status: LocalizedPoolCandidateStatus
+    @rename(attribute: "pool_candidate_status")
+  statusWeight: Int @rename(attribute: "status_weight")
+  removedAt: DateTime @rename(attribute: "removed_at")
+  removalReason: LocalizedCandidateRemovalReason
+    @rename(attribute: "removal_reason")
+  removalReasonOther: String @rename(attribute: "removal_reason_other")
+  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
+  placedAt: DateTime @rename(attribute: "placed_at")
+  placedDepartment: Department @belongsTo
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -513,10 +546,20 @@ type PoolCandidate {
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
   statusWeight: Int
     @rename(attribute: "status_weight")
     @canRoot(ability: "viewStatus")
-  notes: String @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
+  notes: String
+    @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
@@ -524,15 +567,27 @@ type PoolCandidate {
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
     @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
   removedAt: DateTime
     @rename(attribute: "removed_at")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
   removalReasonOther: String
     @rename(attribute: "removal_reason_other")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -541,7 +596,12 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: LocalizedEducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  educationRequirementExperiences: [Experience] @belongsToMany
+  educationRequirementExperiences: [Experience]
+    @with(relation: "educationRequirementAwardExperiences")
+    @with(relation: "educationRequirementCommunityExperiences")
+    @with(relation: "educationRequirementEducationExperiences")
+    @with(relation: "educationRequirementPersonalExperiences")
+    @with(relation: "educationRequirementWorkExperiences")
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -553,24 +613,46 @@ type PoolCandidate {
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
   placedAt: DateTime
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewStatus grouping for performance"
+    )
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
     @rename(attribute: "veteran_verification")
     @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
   veteranVerificationExpiry: Date
     @rename(attribute: "veteran_verification_expiry")
     @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
   priorityVerification: ClaimVerificationResult
     @rename(attribute: "priority_verification")
     @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
+    @deprecated(
+      reason: "Favour fetching through PoolCandidateViewNotes grouping for performance"
+    )
+
+  # fields grouped by permission
+  viewNotes: PoolCandidateViewNotes @self @canRoot(ability: "viewNotes")
+  viewStatus: PoolCandidateViewStatus @self @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
@@ -908,7 +990,12 @@ type UserSkill {
   topSkillsRank: Int @rename(attribute: "top_skills_rank")
   improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
   # Experiences
-  experiences: [Experience!] @belongsToMany
+  experiences: [Experience!]
+    @with(relation: "awardExperiences")
+    @with(relation: "communityExperiences")
+    @with(relation: "educationExperiences")
+    @with(relation: "personalExperiences")
+    @with(relation: "workExperiences") # All experiences that a user owns
 }
 
 type SkillKeywords {
@@ -919,7 +1006,7 @@ type SkillKeywords {
 interface Experience {
   id: ID!
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -935,7 +1022,7 @@ type WorkExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -963,15 +1050,16 @@ type WorkExperience implements Experience {
   classification: Classification @with(relation: "classification")
   department: Department @with(relation: "department")
   workStreams: [WorkStream!] @with(relation: "workStreams")
-  supervisoryPosition: Boolean
-  supervisedEmployees: Boolean
+  supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
+  supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
   supervisedEmployeesNumber: Int
-  budgetManagement: Boolean
-  annualBudgetAllocation: Int
-  seniorManagementStatus: Boolean
+    @rename(attribute: "supervised_employees_number")
+  budgetManagement: Boolean @rename(attribute: "budget_management")
+  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
-  otherCSuiteRoleTitle: String
+  otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -981,7 +1069,7 @@ type PersonalExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -996,7 +1084,7 @@ type CommunityExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -1013,7 +1101,7 @@ type EducationExperience implements Experience {
   type: LocalizedEducationType
   status: LocalizedEducationStatus
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -1028,7 +1116,7 @@ type AwardExperience implements Experience {
   awardedTo: LocalizedAwardedTo @rename(attribute: "awarded_to")
   awardedScope: LocalizedAwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: [Skill!] @hasMany
+  skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -2309,7 +2397,7 @@ input WorkExperienceInput {
   cafRank: CafRank @rename(attribute: "caf_rank")
   classificationId: String @rename(attribute: "classification_id")
   departmentId: String @rename(attribute: "department_id")
-  workStreamIds: [UUID!] @rename(attribute: "work_stream_ids")
+  workStreams: WorkStreamBelongsToMany
   supervisoryPosition: Boolean @rename(attribute: "supervisory_position")
   supervisedEmployees: Boolean @rename(attribute: "supervised_employees")
   supervisedEmployeesNumber: Int
@@ -2659,7 +2747,11 @@ input UpdateApplicationInput {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
-  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 
   # Used to validate essential skills
   applicationId: ID

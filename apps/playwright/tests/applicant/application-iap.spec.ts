@@ -16,10 +16,11 @@ import ApplicationPage from "~/fixtures/ApplicationPage";
 import { createUserWithRoles } from "~/utils/user";
 import { createAndPublishPool } from "~/utils/pools";
 import graphql from "~/utils/graphql";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("IAP Application", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const sub = `playwright.sub.${uniqueTestId}`;
+  let uniqueTestId: string;
+  let sub: string;
   let pool: Pool;
 
   async function expectOnStep(page: Page, step: number) {
@@ -33,6 +34,8 @@ test.describe("IAP Application", () => {
   }
 
   test.beforeAll(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
     const createdUser = await createUserWithRoles(adminCtx, {

@@ -301,6 +301,10 @@ class TalentNominationReceivedTest extends TestCase
     // listener for the event sends one notification if the submitter and nominator are the same
     public function testListenerForSubmitterAndNominatorSame(): void
     {
+        if (empty(config('notify.client.apiKey'))) {
+            $this->markTestSkipped('No API key set');
+        }
+
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);
@@ -335,6 +339,10 @@ class TalentNominationReceivedTest extends TestCase
     // handler for the event fires two notification if the submitter and nominator are different
     public function testListenerForSubmitterAndNominatorDifferent(): void
     {
+        if (empty(config('notify.client.apiKey'))) {
+            $this->markTestSkipped('No API key set');
+        }
+
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
         $nominator = TalentNominationReceivedTest::makeGovEmployee('nominator');
 
@@ -381,6 +389,10 @@ class TalentNominationReceivedTest extends TestCase
     // listener for the event sends one notification if the submitter and nominator are the same, fallback nominator
     public function testListenerForSubmitterAndNominatorSameWithFallbackNominator(): void
     {
+        if (empty(config('notify.client.apiKey'))) {
+            $this->markTestSkipped('No API key set');
+        }
+
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);
@@ -417,6 +429,10 @@ class TalentNominationReceivedTest extends TestCase
     // handler for the event fires two notification if the submitter and nominator are different
     public function testListenerForSubmitterAndNominatorDifferentWithFallbackNominator(): void
     {
+        if (empty(config('notify.client.apiKey'))) {
+            $this->markTestSkipped('No API key set');
+        }
+
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);

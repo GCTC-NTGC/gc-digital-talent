@@ -1,9 +1,11 @@
-const Flourish = () => (
-  <div
-    data-h2-background="base(main-linear)"
-    data-h2-display="base(block)"
-    data-h2-height="base(x1)"
-  />
+import { tv } from "tailwind-variants";
+
+const flourish = tv({
+  base: "block h-6 bg-linear-(--gradient-main-linear)",
+});
+
+const Flourish = ({ className }: { className?: string }) => (
+  <div className={flourish({ class: className })} />
 );
 
 export default Flourish;

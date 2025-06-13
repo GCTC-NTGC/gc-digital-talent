@@ -24,7 +24,7 @@ const SkillShowcaseSection = ({
 
   return (
     <>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate's broader skillset and where they might be interested in learning new skills.",
@@ -39,12 +39,7 @@ const SkillShowcaseSection = ({
           description: "Heading for a users top skills",
         })}
       </Heading>
-      <div
-        data-h2-margin="base(x2 0 x3 0)"
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-        data-h2-gap="base(x.5)"
-      >
+      <div className="mt-12 mb-18 grid gap-3 sm:grid-cols-2">
         <SkillRankCard
           type="top"
           userSkills={topBehaviouralSkillsRanking}
@@ -83,12 +78,7 @@ const SkillShowcaseSection = ({
           description: "Heading for a users skills they would like to improve",
         })}
       </Heading>
-      <div
-        data-h2-margin="base(x2 0 x3 0)"
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-        data-h2-gap="base(x.5)"
-      >
+      <div className="mt-12 mb-18 grid gap-3 sm:grid-cols-2">
         <SkillRankCard
           type="improve"
           userSkills={improveBehaviouralSkillsRanking}

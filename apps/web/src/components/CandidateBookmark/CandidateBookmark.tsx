@@ -12,7 +12,9 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Bookmark on PoolCandidate {
     id
-    isBookmarked
+    viewNotes {
+      isBookmarked
+    }
     user {
       id
       firstName
@@ -44,7 +46,7 @@ const CandidateBookmark = ({
   const candidate = getFragment(PoolCandidate_BookmarkFragment, candidateQuery);
   const [isBookmarked, setIsBookmarked] = useControllableState<boolean>({
     controlledProp: bookmarked,
-    defaultValue: candidate.isBookmarked ?? undefined,
+    defaultValue: candidate.viewNotes?.isBookmarked ?? undefined,
     onChange: onBookmarkChange,
   });
   // const candidate = getFragment(PoolCandidate_BookmarkFragment, query);

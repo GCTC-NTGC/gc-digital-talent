@@ -196,8 +196,8 @@ class TriggerGovernmentExperienceVerifyEmailTest extends TestCase
             'gov_position_type' => GovPositionType::ACTING->name,
             'classification_id' => $this->classification->id,
             'department_id' => $this->department->id,
-            'startDate' => config('constants.past_date'),
-            'endDate' => config('constants.past_date'),
+            'start_date' => config('constants.past_date'),
+            'end_date' => config('constants.past_date'),
         ]);
 
         // no notifications sent

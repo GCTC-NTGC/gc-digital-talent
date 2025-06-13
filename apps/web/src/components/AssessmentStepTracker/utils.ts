@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
+// at the top as auto-format breaks the eslint ignore
 import { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";

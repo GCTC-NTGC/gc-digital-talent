@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use App\Traits\HydratesSnapshot;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -19,57 +16,23 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $user_id
- * @property mixed $properties
- * @property \Illuminate\Support\Carbon $start_date
- * @property ?\Illuminate\Support\Carbon $end_date
- * @property ?\Illuminate\Support\Carbon $awarded_date
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  */
-class Experience extends Model
+abstract class Experience extends Model
 {
     use HasRelationships;
     use HydratesSnapshot;
-    use SoftDeletes;
 
     protected $keyType = 'string';
 
     protected static $hydrationFields;
 
-    /**
-     * Create a new concrete model instance that is existing, based on the type field.
-     *
-     * @param  mixed  $attributes
-     * @param  string|null  $connection
-     * @return static
-     */
-    public function newFromBuilder($attributes = [], $connection = null)
-    {
-        /** @disregard Even though it is typed as an array, it is actually a class */
-        $model = $this->newInstanceFromType(((object) $attributes)->experience_type);
+    abstract public function getTitle(): string;
 
-        $model->exists = true;
+    abstract public function getExperienceType(): string;
 
-        $model->setRawAttributes((array) $attributes, true);
-
-        $model->setConnection($connection ?: $this->getConnectionName());
-
-        $model->fireModelEvent('retrieved', false);
-
-        return $model;
-    }
-
-    /**
-     * Determine our model instance based on the type field.
-     *
-     *
-     * @return mixed
-     */
-    private function newInstanceFromType(string $type)
-    {
-        // we're storing the actual class name in the type field so no adjustments are needed
-        return new $type;
-    }
+    abstract public function getDateRange($lang = 'en'): string;
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
@@ -77,10 +40,10 @@ class Experience extends Model
         return $this->belongsTo(User::class);
     }
 
-    /** @return BelongsToMany<UserSkill, $this> */
-    public function userSkills(): BelongsToMany
+    /** @return MorphToMany<UserSkill, $this, MorphPivot, 'experience_skill'> */
+    public function userSkills(): MorphToMany
     {
-        return $this->belongsToMany(UserSkill::class, 'experience_skill', 'experience_id')
+        return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
             ->wherePivotNull('deleted_at')
@@ -214,157 +177,6 @@ class Experience extends Model
                 $user->searchable();
             }
         });
-    }
-
-    public function getDateRange($lang = 'en'): string
-    {
-        $format = 'MMM Y';
-        if ($this->attributes['experience_type'] === AwardExperience::class) {
-            return $this->awarded_date->locale($lang)->isoFormat($format);
-        }
-
-        $start = $this->start_date->locale($lang)->isoFormat($format);
-        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
-
-        return "$start - $end";
-    }
-
-    protected static function getJsonPropertyDate(array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (isset($properties->$propertyName) && ! empty($properties->$propertyName)) {
-            return Carbon::parse($properties->$propertyName);
-        }
-
-        return null;
-    }
-
-    protected static function setJsonPropertyDate(mixed $value, ?array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (! empty($value)) {
-            $properties->$propertyName = Carbon::parse($value)->toDateString();
-        } else {
-            $properties->$propertyName = null;
-        }
-
-        return ['properties' => json_encode($properties)];
-    }
-
-    protected function makeJsonPropertyDateAttribute(string $propertyName): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
-            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
-        );
-    }
-
-    protected static function getJsonPropertyString(array $attributes, string $propertyName)
-    {
-
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (isset($properties->$propertyName)) {
-            return strval($properties->$propertyName);
-        }
-
-        return null;
-    }
-
-    protected static function setJsonPropertyString(mixed $value, array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        $properties->$propertyName = ! is_null($value) ? strval($value) : $value;
-
-        return ['properties' => json_encode($properties)];
-    }
-
-    protected function makeJsonPropertyStringAttribute(string $propertyName): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
-            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyString($value, $attributes, $propertyName)
-        );
-    }
-
-    protected static function getJsonPropertyBoolean(array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (isset($properties->$propertyName)) {
-            return $properties->$propertyName;
-        }
-
-        return null;
-    }
-
-    protected static function setJsonPropertyBoolean(mixed $value, array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        $properties->$propertyName = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-
-        return ['properties' => json_encode($properties)];
-    }
-
-    protected function makeJsonPropertyBooleanAttribute(string $propertyName): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyBoolean($attributes, $propertyName),
-            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyBoolean($value, $attributes, $propertyName)
-        );
-    }
-
-    protected static function getJsonPropertyNumber(array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (isset($properties->$propertyName)) {
-            return (int) $properties->$propertyName;
-        }
-
-        return null;
-    }
-
-    protected static function setJsonPropertyNumber(mixed $value, array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        $properties->$propertyName = filter_var($value, FILTER_VALIDATE_INT);
-
-        return ['properties' => json_encode($properties)];
-    }
-
-    protected function makeJsonPropertyNumberAttribute(string $propertyName): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, mixed $attributes) => $this::getJsonPropertyNumber($attributes, $propertyName),
-            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyNumber($value, $attributes, $propertyName)
-        );
-    }
-
-    protected static function getJsonPropertyArray(array $attributes, string $propertyName)
-    {
-
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (isset($properties->$propertyName)) {
-            return $properties->$propertyName;
-        }
-
-        return null;
-    }
-
-    protected static function setJsonPropertyArray(mixed $value, array $attributes, string $propertyName)
-    {
-        $properties = json_decode($attributes['properties'] ?? '{}');
-        if (is_array($value)) {
-            $properties->$propertyName = array_unique($value);
-        }
-
-        return ['properties' => json_encode($properties)];
-    }
-
-    protected function makeJsonPropertyArrayAttribute(string $propertyName): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyArray($attributes, $propertyName),
-            set: fn (mixed $value, ?array $attributes = []) => $this::setJsonPropertyArray($value, $attributes, $propertyName)
-        );
     }
 
     /**

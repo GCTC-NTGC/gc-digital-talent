@@ -20,7 +20,7 @@ export default {
 
 const AllTemplate: StoryFn<typeof ToggleGroup.Root> = (args) => {
   return (
-    <div data-h2-padding="base(x2)">
+    <div className="p-12">
       <ToggleGroup.Root {...args}>
         <ToggleGroup.Item value="one">One</ToggleGroup.Item>
         <ToggleGroup.Item value="two">Two</ToggleGroup.Item>
@@ -34,7 +34,7 @@ const Template: StoryFn<typeof ToggleGroup.Root> = (args) => {
   const { children, ...rest } = args;
 
   return (
-    <div data-h2-padding="base(x2)">
+    <div className="p-12">
       <ToggleGroup.Root {...rest}>{children}</ToggleGroup.Root>
     </div>
   );
