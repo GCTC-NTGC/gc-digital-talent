@@ -315,7 +315,12 @@ export const HomePage = ({ pools }: HomePageProps) => {
           </CTALink>
         </div>
       </SkewedImageContainer>
-      <FlourishContainer show={["bottom"]} skew={false} size="sm">
+      <FlourishContainer
+        show={["bottom"]}
+        skew={false}
+        size="sm"
+        className="-mt-20 bg-gray-100 pt-20 dark:bg-gray-700"
+      >
         <Heading
           level="h2"
           size="h3"
@@ -483,7 +488,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         </p>
         <DirectiveBlock />
       </FlourishContainer>
-      <Flourish />
+      <Flourish className="relative z-40" />
     </>
   );
 };

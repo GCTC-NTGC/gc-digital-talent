@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Flourish from "../Flourish";
+import Flourish from "../Flourish/Flourish";
 import Crumb from "./Crumb";
 
 export interface BreadcrumbsProps {
