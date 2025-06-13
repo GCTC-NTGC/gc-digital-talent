@@ -120,7 +120,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
     mode = "navTabs";
   }
 
-  const { wrapper, content, breadcrumbs, tabs } = hero({ mode });
+  const { wrapper, content, breadcrumbs, tabs } = hero({ mode, centered });
 
   return (
     <>
