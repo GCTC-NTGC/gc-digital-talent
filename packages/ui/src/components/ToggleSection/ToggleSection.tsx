@@ -12,6 +12,7 @@ import {
   MouseEventHandler,
   ReactElement,
 } from "react";
+import { tv } from "tailwind-variants";
 
 import Heading, { HeadingProps } from "../Heading";
 import useControllableState from "../../hooks/useControllableState";
@@ -248,6 +249,10 @@ const Close = forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
   },
 );
 
+const header = tv({
+  base: "my-0 grow",
+});
+
 interface HeaderProps extends HeadingProps {
   /** The toggle for the component (appears on right side of header) */
   toggle?: ReactElement<typeof Toggle>;
@@ -257,10 +262,14 @@ interface HeaderProps extends HeadingProps {
  * A styled header for the section
  */
 const Header = forwardRef<HTMLHeadingElement, HeaderProps>(
-  ({ toggle, ...headingProps }, forwardedRef) => {
+  ({ toggle, className, ...headingProps }, forwardedRef) => {
     return (
       <div className="flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
-        <Heading ref={forwardedRef} className="my-0 grow" {...headingProps} />
+        <Heading
+          ref={forwardedRef}
+          className={header({ class: className })}
+          {...headingProps}
+        />
         <div className="shrink">{toggle}</div>
       </div>
     );
