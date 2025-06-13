@@ -73,7 +73,7 @@ const RecruitmentProcesses = ({
             description: "Subtitle for recruitment processes section",
           })}
         >
-          <span data-h2-font-weight="base(400)">
+          <span className="font-normal">
             {intl.formatMessage(recruitmentProcessesTitle, {
               numOfProcesses: recruitmentProcessesFiltered.length,
             })}
