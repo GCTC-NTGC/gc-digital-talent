@@ -4,6 +4,7 @@ import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/20/solid/ChatBubbleBottomCenterIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Container } from "@gc-digital-talent/ui";
 
 import browseHeroImg from "~/assets/img/browse_header.webp";
 
@@ -160,17 +161,11 @@ export const OverlapWithContent = TemplateWithContent.bind({});
 OverlapWithContent.args = {
   overlap: true,
   children: (
-    <div
-      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      data-h2-background-color="base(foreground)"
-      data-h2-radius="base(rounded)"
-      data-h2-padding="base(x2, x1)"
-      data-h2-shadow="base(s)"
-      data-h2-height="base(30vh)"
+    <Container
+      className="h-64 rounded-md bg-white px-6 py-12 shadow-sm dark:bg-gray-600"
+      size="lg"
     >
-      <p data-h2-font-size="base(h4)" data-h2-text-align="base(center)">
-        Replace Me
-      </p>
-    </div>
+      <p className="text-center text-2xl lg:text-3xl">Replace Me</p>
+    </Container>
   ),
 };

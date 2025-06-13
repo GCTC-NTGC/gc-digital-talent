@@ -44,7 +44,7 @@ const WorkContent = ({
         <ContentSection
           title={experienceFormLabels.team}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>

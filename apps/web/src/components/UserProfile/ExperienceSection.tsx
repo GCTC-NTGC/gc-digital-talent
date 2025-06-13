@@ -118,7 +118,7 @@ const ExperienceSection = ({
         ))}
       </Tabs.List>
       <Tabs.Content value="0">
-        <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
+        <p className="mb-3 text-right">
           <Button mode="inline" onClick={toggleAllExpanded}>
             {intl.formatMessage(
               hasExpanded
@@ -127,11 +127,7 @@ const ExperienceSection = ({
             )}
           </Button>
         </p>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {sortedByDate.map((experience) => (
             <ExperienceCard
               headingLevel={headingLevel}
