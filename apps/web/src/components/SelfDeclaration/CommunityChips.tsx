@@ -35,7 +35,7 @@ const CommunityChips = ({
     .filter(notEmpty);
 
   return communitiesWithLabels.length > 0 ? (
-    <Chips data-h2-margin-bottom="base(x1)">
+    <Chips className="mb-6">
       {communitiesWithLabels.map(({ community, label }) => {
         return (
           <Chip
