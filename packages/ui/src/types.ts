@@ -31,15 +31,3 @@ export type IconProps = PropsWithoutRef<SVGProps<SVGSVGElement>> & {
 export type IconType =
   | ElementType<IconProps>
   | ForwardRefExoticComponent<IconProps>;
-
-type HydrogenAttributeKey = `data-h2-${string}`;
-
-export type HydrogenAttributes = Record<HydrogenAttributeKey, unknown>;
-
-export type ButtonLinkMode =
-  | "solid"
-  | "inline"
-  | "cta"
-  | "text"
-  | "placeholder"
-  | "icon_only";

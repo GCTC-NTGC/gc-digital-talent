@@ -5,13 +5,14 @@ import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { me } from "~/utils/user";
 import { createPool, updatePool } from "~/utils/pools";
+import { generateUniqueTestId } from "~/utils/id";
 
 test.describe("Process permissions", () => {
   let poolName: string;
   let pool: Pool;
 
   test.beforeAll(async () => {
-    const uniqueTestId = Date.now().valueOf();
+    const uniqueTestId = generateUniqueTestId();
     poolName = `pool auth test ${uniqueTestId}`;
 
     const adminCtx = await graphql.newContext();

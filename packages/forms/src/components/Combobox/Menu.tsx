@@ -140,7 +140,7 @@ const Item = forwardRef<HTMLLIElement, ItemProps>(
 );
 
 const list = tv({
-  base: "m-0 max-h-80 list-none overflow-x-visible overflow-y-auto rounded py-0.5",
+  base: "m-0 max-h-80 list-none overflow-x-visible overflow-y-auto rounded-md py-0.5",
   variants: {
     isOpen: {
       true: "",
@@ -173,7 +173,7 @@ const Empty = ({ fetching }: EmptyProps) => {
   const intl = useIntl();
 
   return (
-    <p className="flex cursor-pointer items-center gap-x-3 rounded px-3 py-1.5">
+    <p className="flex cursor-pointer items-center gap-x-3 rounded-md px-3 py-1.5">
       {fetching ? (
         <Fetching />
       ) : (

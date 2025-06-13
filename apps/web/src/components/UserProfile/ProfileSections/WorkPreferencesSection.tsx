@@ -15,6 +15,8 @@ import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
+import { styles } from "./styles";
+
 interface WorkPreferencesSectionProps {
   user: Pick<
     User,
@@ -37,6 +39,7 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
     locationPreferences,
     locationExemptions,
   } = user;
+  const { well, label, value } = styles();
   const acceptedRequirements = unpackMaybes(
     acceptedOperationalRequirements,
   ).map((requirement) => requirement.value);
@@ -48,91 +51,79 @@ const WorkPreferencesSection = ({ user }: WorkPreferencesSectionProps) => {
     : "";
 
   return (
-    <Well>
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {positionDuration &&
-          positionDuration.includes(PositionDuration.Temporary) && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <Ul className="mb-6">
-                <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </Ul>
-            </div>
-          )}
-
-        {positionDuration &&
-          !positionDuration.includes(PositionDuration.Temporary) && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
-              <Ul className="mb-6">
-                <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
-              </Ul>
-            </div>
-          )}
-
-        <div data-h2-flex-item="base(1of1)">
-          <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
-          <Ul unStyled space="md">
-            {OperationalRequirements.map((requirement) => (
-              <li key={requirement}>
-                <BoolCheckIcon
-                  value={acceptedRequirements.includes(requirement)}
-                >
-                  {intl.formatMessage(
-                    getOperationalRequirement(requirement, "firstPersonNoBold"),
-                  )}
-                </BoolCheckIcon>
-              </li>
-            ))}
-          </Ul>
-        </div>
-        <div data-h2-flex-item="base(1of1)">
-          <p>
-            <span data-h2-display="base(block)">
-              {intl.formatMessage(profileMessages.currentLocation)}
-            </span>
-            <span data-h2-font-weight="base(700)">
-              {formatLocation({
-                city: currentCity,
-                region: currentProvince,
-                intl,
-              })}
-            </span>
-          </p>
-        </div>
-        <div data-h2-flex-item="base(1of1)">
-          <p>
-            <span data-h2-display="base(block)">
-              {intl.formatMessage({
-                defaultMessage: "Work location",
-                id: "JO2yLA",
-                description: "Work Location label, followed by colon",
-              })}
-            </span>
-            <span data-h2-font-weight="base(700)">{regionPreferences}</span>
-          </p>
-        </div>
-        {!!locationExemptions && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span data-h2-display="base(block)">
-                {intl.formatMessage({
-                  defaultMessage: "Work location exceptions",
-                  id: "OpKC2i",
-                  description: "Work location exceptions label",
-                })}
-              </span>
-              <span data-h2-font-weight="base(700)">{locationExemptions}</span>
-            </p>
+    <Well className={well()}>
+      {positionDuration &&
+        positionDuration.includes(PositionDuration.Temporary) && (
+          <div>
+            <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
+            <Ul className="mb-6">
+              <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
+            </Ul>
           </div>
         )}
 
-        {hasAllEmptyFields(user) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
+      {positionDuration &&
+        !positionDuration.includes(PositionDuration.Temporary) && (
+          <div>
+            <p>{intl.formatMessage(profileMessages.contractDuration)}</p>
+            <Ul className="mb-6">
+              <li>{intl.formatMessage(profileMessages.anyDuration)}</li>
+            </Ul>
           </div>
         )}
+
+      <div>
+        <p>{intl.formatMessage(profileMessages.acceptableRequirements)}</p>
+        <Ul unStyled space="md">
+          {OperationalRequirements.map((requirement) => (
+            <li key={requirement}>
+              <BoolCheckIcon value={acceptedRequirements.includes(requirement)}>
+                {intl.formatMessage(
+                  getOperationalRequirement(requirement, "firstPersonNoBold"),
+                )}
+              </BoolCheckIcon>
+            </li>
+          ))}
+        </Ul>
       </div>
+      <p>
+        <span className={label()}>
+          {intl.formatMessage(profileMessages.currentLocation)}
+        </span>
+        <span className={value()}>
+          {formatLocation({
+            city: currentCity,
+            region: currentProvince,
+            intl,
+          })}
+        </span>
+      </p>
+      <p>
+        <span className={label()}>
+          {intl.formatMessage({
+            defaultMessage: "Work location",
+            id: "JO2yLA",
+            description: "Work Location label, followed by colon",
+          })}
+        </span>
+        <span className={value()}>{regionPreferences}</span>
+      </p>
+      {!!locationExemptions && (
+        <p>
+          <span className={label()}>
+            {intl.formatMessage({
+              defaultMessage: "Work location exceptions",
+              id: "OpKC2i",
+              description: "Work location exceptions label",
+            })}
+          </span>
+          <span className={value()}>{locationExemptions}</span>
+        </p>
+      )}
+
+      {hasAllEmptyFields(user) && (
+        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
+      )}
     </Well>
   );
 };

@@ -11,6 +11,7 @@ import {
   TableOfContents,
   HeadingRank,
   incrementHeadingRank,
+  Container,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { AdminUserProfileUserFragment } from "@gc-digital-talent/graphql";
@@ -42,8 +43,8 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
 
   return (
-    <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
-      <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
+    <Container>
+      <TableOfContents.Wrapper className="mt-18">
         <TableOfContents.Navigation>
           <TableOfContents.List>
             <TableOfContents.ListItem>
@@ -96,7 +97,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={UserIcon}
-              data-h2-margin="base(0 0 x1 0)"
+              className="mt-0 mb-6"
             >
               {intl.formatMessage(navigationMessages.aboutMe)}
             </TableOfContents.Heading>
@@ -106,7 +107,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={UserCircleIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
             </TableOfContents.Heading>
@@ -116,7 +117,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={ChatBubbleLeftRightIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.languageInformation)}
             </TableOfContents.Heading>
@@ -126,7 +127,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BuildingLibraryIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.governmentInformation)}
             </TableOfContents.Heading>
@@ -136,7 +137,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={HandThumbUpIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.workPreferences)}
             </TableOfContents.Heading>
@@ -148,7 +149,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BoltIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.careerTimeline)}
             </TableOfContents.Heading>
@@ -161,7 +162,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BoltIcon}
-              data-h2-margin="base(x1.5 0 x1 0)"
+              className="mt-9 mb-6"
             >
               {intl.formatMessage(navigationMessages.skillShowcase)}
             </TableOfContents.Heading>
@@ -183,7 +184,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
           </TableOfContents.Section>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
-    </div>
+    </Container>
   );
 };
 

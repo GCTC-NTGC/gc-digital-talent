@@ -54,9 +54,9 @@ const TaskCardHeading = ({
 
 const root = tv({
   slots: {
-    base: "rounded bg-white shadow-xl dark:bg-gray-600",
+    base: "rounded-md bg-white shadow-xl dark:bg-gray-600",
     header:
-      "flex flex-col items-center gap-6 rounded-t border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
+      "flex flex-col items-center gap-6 rounded-t-md border-b p-6 xs:flex-row xs:gap-12 xs:px-9",
   },
   variants: {
     headingColor: {
