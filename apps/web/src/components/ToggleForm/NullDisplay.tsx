@@ -12,11 +12,11 @@ interface NullDisplayProps {
 const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
   const intl = useIntl();
   return (
-    <Well className="item-center flex flex-col gap-y-3 p-6 text-center">
+    <Well className="text-center">
       {title ? (
-        <p className="font-bold">{title}</p>
+        <p className="mb-3 font-bold">{title}</p>
       ) : (
-        <p className="font-bold">
+        <p className="mb-3 font-bold">
           {optional
             ? intl.formatMessage({
                 defaultMessage: "This information is optional.",
