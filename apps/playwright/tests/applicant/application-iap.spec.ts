@@ -33,7 +33,7 @@ test.describe("IAP Application", () => {
     ).toBeHidden();
   }
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
