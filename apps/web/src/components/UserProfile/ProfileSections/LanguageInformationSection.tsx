@@ -21,9 +21,7 @@ const LanguageInformationSection = ({
     <Well>
       {!hasAllEmptyFields(user) && <Display user={user} context="admin" />}
       {hasEmptyRequiredFields(user) && (
-        <div data-h2-flex-item="base(1of1)">
-          <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-        </div>
+        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       )}
     </Well>
   );
