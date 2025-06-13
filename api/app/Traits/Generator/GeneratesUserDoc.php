@@ -314,11 +314,25 @@ trait GeneratesUserDoc
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
-            $section->addTitle($experience->getTitle($this->lang), $headingRank);
+            $degreeType = match ($experience->type) {
+                'MASTERS_DEGREE' => "Master's degree",
+                'BACHELORS_DEGREE' => "Bachelor's degree",
+                'PHD' => 'PhD',
+                'DOCTORATE' => 'Doctorate',
+                'ASSOCIATES_DEGREE' => "Associate's degree",
+                default => ucwords(strtolower(str_replace('_', ' ', $experience->type))),
+            };
+
+            $title = $degreeType
+                ? $degreeType.' in '.$experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution
+                : $experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution;
+
+            $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
             $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
             $this->addLabelText($section, $this->localize('experiences.thesis_title'), $experience->thesis_title);
+            $this->addLabelText($section, $this->localize('experiences.additional_details'), $experience->details);
         }
 
         if ($type === PersonalExperience::class) {
