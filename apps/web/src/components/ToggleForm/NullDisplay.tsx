@@ -12,7 +12,7 @@ interface NullDisplayProps {
 const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
   const intl = useIntl();
   return (
-    <Well className="item-center flex flex-col gap-y-3 p-6">
+    <Well className="item-center flex flex-col gap-y-3 p-6 text-center">
       {title ? (
         <p className="font-bold">{title}</p>
       ) : (
@@ -30,7 +30,7 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
               })}
         </p>
       )}
-      <p className="text-center font-normal">
+      <p className="font-normal">
         {content ??
           intl.formatMessage({
             defaultMessage: `Use the "Edit" button to get started.`,
