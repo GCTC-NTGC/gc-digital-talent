@@ -921,8 +921,9 @@ const PoolCandidatesTable = ({
                     downloadingDoc ||
                     downloadingAsyncFile
                   }
-                  isDownloading={downloadingCsv}
+                  isDownloading={downloadingCsv || downloadingUsersCsv}
                   onClick={handleCsvDownload}
+                  onClickDownloadUsers={handleUsersCsvDownload}
                 />
               ),
             }
