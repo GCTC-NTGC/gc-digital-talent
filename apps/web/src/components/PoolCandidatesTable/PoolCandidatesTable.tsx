@@ -77,6 +77,7 @@ import {
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadUsersDocButton from "../DownloadButton/DownloadUsersDocButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
+import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
@@ -298,6 +299,15 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadUsersThruPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersThruPoolCandidatesCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+  ) {
+    downloadUsersThruPoolCandidatesCsv(ids: $ids, where: $where)
+  }
+`);
+
 const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
   mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
     downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
@@ -371,6 +381,10 @@ const PoolCandidatesTable = ({
 
   const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
     DownloadPoolCandidatesCsv_Mutation,
+  );
+
+  const [{ fetching: downloadingUsersCsv }, downloadUsers] = useMutation(
+    DownloadUsersThruPoolCandidatesCsv_Mutation,
   );
 
   const [{ fetching: downloadingZip }, downloadZip] = useMutation(
@@ -514,6 +528,12 @@ const PoolCandidatesTable = ({
 
   const handleCsvDownload = (withROD?: boolean) => {
     downloadCsv({ ids: selectedRows, withROD })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
+
+  const handleUsersCsvDownload = () => {
+    downloadUsers({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -908,8 +928,20 @@ const PoolCandidatesTable = ({
             }
           : {
               enable: true,
-              onClick: () => handleCsvDownload(),
-              downloading: downloadingCsv,
+              component: (
+                <DownloadAllCandidateTableCsvButton
+                  inTable
+                  disabled={
+                    !hasSelectedRows ||
+                    downloadingZip ||
+                    downloadingDoc ||
+                    downloadingAsyncFile
+                  }
+                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  onClickDownloadCandidates={handleCsvDownload}
+                  onClickDownloadUsers={handleUsersCsvDownload}
+                />
+              ),
             },
         doc: {
           enable: true,
