@@ -29,7 +29,7 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
 
 import {
@@ -449,11 +449,12 @@ const UserTable = ({ title }: UserTableProps) => {
         doc: {
           enable: true,
           component: (
-            <DownloadUsersDocButton
+            <DownloadDocxButton
               inTable
               disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
               isDownloading={downloadingZip || downloadingDoc}
-              onClick={handleDocDownload}
+              onClickProfile={() => handleDocDownload(false)}
+              onClickAnonymousProfile={() => handleDocDownload(true)}
             />
           ),
         },
