@@ -47,7 +47,7 @@ const TalentNominationEventCard = ({
 
   return (
     <>
-      <Card className="relative flex flex-col p-7.5 pt-6">
+      <Card className="relative flex flex-col p-9 pt-6">
         <Heading level="h6" className="order-2 font-bold">
           {talentNominationEvent.name.localized}
         </Heading>
