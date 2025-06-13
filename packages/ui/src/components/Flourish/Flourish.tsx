@@ -4,7 +4,7 @@ const flourish = tv({
   base: "block h-6 bg-linear-(--gradient-main-linear)",
 });
 
-const Flourish = ({ className }: { className: string }) => (
+const Flourish = ({ className }: { className?: string }) => (
   <div className={flourish({ class: className })} />
 );
 
