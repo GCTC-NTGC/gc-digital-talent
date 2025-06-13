@@ -127,7 +127,7 @@ const MainNavMenu = () => {
   }, [isMenuOpen]);
 
   return (
-    <div className="fixed right-4.5 bottom-21 left-4.5 z-7 max-h-[85vh] overflow-y-auto md:sticky md:top-[-1px] md:right-auto md:bottom-auto md:left-auto md:max-h-none md:w-full md:overflow-y-visible">
+    <div className="fixed right-4.5 bottom-21 left-4.5 z-7 max-h-[85vh] overflow-y-auto sm:sticky sm:top-[-1px] sm:right-auto sm:bottom-auto sm:left-auto sm:max-h-none sm:w-full sm:overflow-y-visible">
       <FocusLock returnFocus disabled={!showOverlay}>
         <NavMenuProvider
           open={isMenuOpen}
