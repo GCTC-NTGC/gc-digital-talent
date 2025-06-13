@@ -379,7 +379,7 @@ const ManagerHomePage = () => {
         </div>
         <DirectiveBlock />
       </FlourishContainer>
-      <Flourish />
+      <Flourish className="relative z-40" />
     </>
   );
 };
