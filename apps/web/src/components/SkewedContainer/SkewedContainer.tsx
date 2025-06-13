@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
+import { Container, Flourish } from "@gc-digital-talent/ui";
 
 import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
 import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.webp";
@@ -12,41 +13,20 @@ interface SkewedContainerProps {
 const SkewedContainer = ({ children }: SkewedContainerProps) => {
   const { mode } = useTheme();
   return (
-    <div data-h2-margin="base(-3%, 0, 0, 0)" data-h2-layer="base(2, relative)">
-      <div
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
-        data-h2-background-color="base(background)"
-        data-h2-position="base(absolute)"
-        data-h2-transform="base(skewY(-3deg))"
-        data-h2-overflow="base(hidden)"
-      >
+    <div className="relative z-[2] -mt-[3%]">
+      <div className="absolute h-full w-full -skew-y-3 overflow-hidden bg-gray-100 dark:bg-gray-700">
         <img
-          data-h2-position="base(absolute)"
-          data-h2-location="base(0, 0, auto, auto)"
-          data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
-          data-h2-height="base(auto)"
-          data-h2-width="base(250%) l-tablet(40%)"
-          data-h2-max-width="base(initial)"
+          className="absolute top-0 right-0 h-auto w-[250%] translate-x-[32%] -translate-y-[52%] skew-3 sm:w-2/5 sm:translate-0"
           src={mode === "dark" ? desktopGraphicsDark1 : desktopGraphicsLight1}
           alt=""
         />
-        <div
-          data-h2-background="base(main-linear)"
-          data-h2-location="base(0, 0, auto, 0)"
-          data-h2-display="base(block)"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
-        />
+        <Flourish className="absolute inset-0 bottom-auto" />
       </div>
-      <div
-        data-h2-position="base(relative)"
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      >
-        <div data-h2-padding="base(x3, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
+      <Container className="relative">
+        <div className="py-18 xs:pt-35 xs:pb-24 sm:pt-42 sm:pb-36">
           {children}
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
