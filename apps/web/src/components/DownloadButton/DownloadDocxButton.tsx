@@ -11,13 +11,17 @@ interface DownloadDocxButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClick: (anonymous: boolean) => void;
+  onClickApplication: () => void;
+  onClickProfile: () => void;
+  onClickAnonymousProfile: () => void;
 }
 
 const DownloadDocxButton = ({
   inTable,
   isDownloading,
-  onClick,
+  onClickApplication,
+  onClickProfile,
+  onClickAnonymousProfile,
   disabled,
 }: DownloadDocxButtonProps) => {
   const intl = useIntl();
@@ -40,25 +44,37 @@ const DownloadDocxButton = ({
               })}
         >
           {intl.formatMessage({
-            defaultMessage: "Download profile",
-            id: "ekazTc",
-            description: "Button text to download pool candidate profiles",
+            defaultMessage: "Download DOCX",
+            id: "j357Vx",
+            description: "Button text to download DOCX files",
           })}
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(false)}>
+        <DropdownMenu.Item disabled={disabled} onSelect={onClickApplication}>
           {intl.formatMessage({
-            defaultMessage: "Download with all information",
-            id: "i0N7DM",
-            description: "Button label for download user profile.",
+            defaultMessage: "Download application",
+            id: "3uD9Sb",
+            description:
+              "Button label for downloading an application snapshots",
           })}
         </DropdownMenu.Item>
-        <DropdownMenu.Item disabled={disabled} onSelect={() => onClick(true)}>
+        <DropdownMenu.Item disabled={disabled} onSelect={onClickProfile}>
           {intl.formatMessage({
-            defaultMessage: "Download without contact information",
-            id: "hRtj0w",
-            description: "Button label for download user anonymous profile.",
+            defaultMessage: "Download profile",
+            id: "lVOZ5k",
+            description: "Button label for downloading user profiles",
+          })}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item
+          disabled={disabled}
+          onSelect={onClickAnonymousProfile}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Download profile without contact information",
+            id: "wZP4RN",
+            description:
+              "Button label for downloading anonymized user profiles",
           })}
         </DropdownMenu.Item>
       </DropdownMenu.Content>

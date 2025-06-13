@@ -418,15 +418,31 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadPoolCandidatesZip_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidatesZip($ids: [UUID!]!, $anonymous: Boolean!) {
-    downloadPoolCandidatesZip(ids: $ids, anonymous: $anonymous)
+// single user profile
+const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUserDoc($id: UUID!, $anonymous: Boolean!) {
+    downloadUserDoc(id: $id, anonymous: $anonymous)
   }
 `);
 
-const DownloadSinglePoolCandidateDoc_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadPoolCandidateDoc($id: UUID!, $anonymous: Boolean!) {
-    downloadPoolCandidateDoc(id: $id, anonymous: $anonymous)
+// multiple user profiles
+const DownloadUsersZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersZip($ids: [UUID!]!, $anonymous: Boolean!) {
+    downloadUsersZip(ids: $ids, anonymous: $anonymous)
+  }
+`);
+
+// single application snapshot
+const DownloadApplicationDoc_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationDoc($id: UUID!) {
+    downloadApplicationDoc(id: $id)
+  }
+`);
+
+// multiple application snapshots
+const DownloadApplicationsZip_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadApplicationsZip($ids: [UUID!]!) {
+    downloadApplicationsZip(ids: $ids)
   }
 `);
 
@@ -493,16 +509,30 @@ const PoolCandidatesTable = ({
     DownloadPoolCandidatesCsv_Mutation,
   );
 
-  const [{ fetching: downloadingZip }, downloadZip] = useMutation(
-    DownloadPoolCandidatesZip_Mutation,
+  const [{ fetching: downloadingUserDoc }, downloadUserDoc] = useMutation(
+    DownloadUserDoc_Mutation,
   );
 
-  const [{ fetching: downloadingDoc }, downloadDoc] = useMutation(
-    DownloadSinglePoolCandidateDoc_Mutation,
+  const [{ fetching: downloadingUsersZip }, downloadUsersZip] = useMutation(
+    DownloadUsersZip_Mutation,
   );
+
+  const [{ fetching: downloadingApplicationDoc }, downloadApplicationDoc] =
+    useMutation(DownloadApplicationDoc_Mutation);
+
+  const [{ fetching: downloadingApplicationsZip }, downloadApplicationsZip] =
+    useMutation(DownloadApplicationsZip_Mutation);
 
   const [{ fetching: downloadingAsyncFile }, executeAsyncDownload] =
     useAsyncFileDownload();
+
+  const downloadingAnyFile =
+    downloadingCsv ||
+    downloadingUserDoc ||
+    downloadingUsersZip ||
+    downloadingApplicationDoc ||
+    downloadingApplicationsZip ||
+    downloadingAsyncFile;
 
   const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
@@ -637,16 +667,17 @@ const PoolCandidatesTable = ({
       .catch(handleDownloadError);
   };
 
-  const handleDocDownload = (anonymous: boolean) => {
+  const handleClickApplication = () => {
     if (selectedRows.length === 1) {
-      downloadDoc({ id: selectedRows[0], anonymous })
-        .then(async (res) => {
-          if (res?.data?.downloadPoolCandidateDoc) {
+      // single DOC file
+      downloadApplicationDoc({ id: selectedRows[0] })
+        .then(async (result) => {
+          if (result.data?.downloadApplicationDoc) {
             await executeAsyncDownload({
               url: apiRoutes.userGeneratedFile(
-                res.data.downloadPoolCandidateDoc,
+                result.data.downloadApplicationDoc,
               ),
-              fileName: res.data.downloadPoolCandidateDoc,
+              fileName: result.data.downloadApplicationDoc,
             });
           } else {
             handleDownloadError();
@@ -654,10 +685,70 @@ const PoolCandidatesTable = ({
         })
         .catch(handleDownloadError);
     } else {
-      downloadZip({
-        ids: selectedRows,
-        anonymous,
-      })
+      // ZIP file with multiple DOCs
+      downloadApplicationsZip({ ids: selectedRows })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
+  };
+  const handleClickProfile = () => {
+    // convert pool candidate IDs to user IDs
+    const selectedUserIds = selectedRows
+      .map(
+        (selectedRowId) =>
+          filteredData.find((row) => row.id == selectedRowId)?.poolCandidate
+            .user.id,
+      )
+      .filter(notEmpty);
+
+    if (selectedUserIds.length === 1) {
+      // single DOC file
+      downloadUserDoc({ id: selectedUserIds[0], anonymous: false })
+        .then(async (result) => {
+          if (result.data?.downloadUserDoc) {
+            await executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(result.data.downloadUserDoc),
+              fileName: result.data.downloadUserDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      // ZIP file with multiple DOCs
+      downloadUsersZip({ ids: selectedUserIds, anonymous: false })
+        .then((res) => handleDownloadRes(!!res.data))
+        .catch(handleDownloadError);
+    }
+  };
+  const handleClickAnonymousProfile = () => {
+    // convert pool candidate IDs to user IDs
+    const selectedUserIds = selectedRows
+      .map(
+        (selectedRowId) =>
+          filteredData.find((row) => row.id == selectedRowId)?.poolCandidate
+            .user.id,
+      )
+      .filter(notEmpty);
+
+    if (selectedUserIds.length === 1) {
+      // single DOC file
+      downloadUserDoc({ id: selectedUserIds[0], anonymous: true })
+        .then(async (result) => {
+          if (result.data?.downloadUserDoc) {
+            await executeAsyncDownload({
+              url: apiRoutes.userGeneratedFile(result.data.downloadUserDoc),
+              fileName: result.data.downloadUserDoc,
+            });
+          } else {
+            handleDownloadError();
+          }
+        })
+        .catch(handleDownloadError);
+    } else {
+      // ZIP file with multiple DOCs
+      downloadUsersZip({ ids: selectedUserIds, anonymous: true })
         .then((res) => handleDownloadRes(!!res.data))
         .catch(handleDownloadError);
     }
@@ -1005,12 +1096,7 @@ const PoolCandidatesTable = ({
               component: (
                 <DownloadCandidateCsvButton
                   inTable
-                  disabled={
-                    !hasSelectedRows ||
-                    downloadingZip ||
-                    downloadingDoc ||
-                    downloadingAsyncFile
-                  }
+                  disabled={!hasSelectedRows || downloadingAnyFile}
                   isDownloading={downloadingCsv}
                   onClick={handleCsvDownload}
                 />
@@ -1026,14 +1112,16 @@ const PoolCandidatesTable = ({
           component: (
             <DownloadDocxButton
               inTable
-              disabled={
-                !hasSelectedRows ||
-                downloadingZip ||
-                downloadingDoc ||
-                downloadingAsyncFile
+              disabled={!hasSelectedRows || downloadingAnyFile}
+              isDownloading={
+                downloadingUserDoc ||
+                downloadingUsersZip ||
+                downloadingApplicationDoc ||
+                downloadingApplicationsZip
               }
-              isDownloading={downloadingZip}
-              onClick={handleDocDownload}
+              onClickApplication={handleClickApplication}
+              onClickProfile={handleClickProfile}
+              onClickAnonymousProfile={handleClickAnonymousProfile}
             />
           ),
         },
