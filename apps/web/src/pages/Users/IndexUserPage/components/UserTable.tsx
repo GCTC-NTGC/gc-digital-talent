@@ -453,7 +453,8 @@ const UserTable = ({ title }: UserTableProps) => {
               inTable
               disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
               isDownloading={downloadingZip || downloadingDoc}
-              onClick={handleDocDownload}
+              onClickProfile={() => handleDocDownload(false)}
+              onClickAnonymousProfile={() => handleDocDownload(true)}
             />
           ),
         },

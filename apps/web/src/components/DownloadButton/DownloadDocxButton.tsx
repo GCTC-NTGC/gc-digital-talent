@@ -2,6 +2,7 @@ import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useIntl } from "react-intl";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { empty } from "@gc-digital-talent/helpers";
 
 import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
 
@@ -11,9 +12,9 @@ interface DownloadDocxButtonProps {
   inTable?: boolean;
   disabled?: boolean;
   isDownloading?: boolean;
-  onClickApplication: () => void;
-  onClickProfile: () => void;
-  onClickAnonymousProfile: () => void;
+  onClickApplication?: () => void;
+  onClickProfile?: () => void;
+  onClickAnonymousProfile?: () => void;
 }
 
 const DownloadDocxButton = ({
@@ -51,32 +52,38 @@ const DownloadDocxButton = ({
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" collisionPadding={2}>
-        <DropdownMenu.Item disabled={disabled} onSelect={onClickApplication}>
-          {intl.formatMessage({
-            defaultMessage: "Download application",
-            id: "3uD9Sb",
-            description:
-              "Button label for downloading an application snapshots",
-          })}
-        </DropdownMenu.Item>
-        <DropdownMenu.Item disabled={disabled} onSelect={onClickProfile}>
-          {intl.formatMessage({
-            defaultMessage: "Download profile",
-            id: "lVOZ5k",
-            description: "Button label for downloading user profiles",
-          })}
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          disabled={disabled}
-          onSelect={onClickAnonymousProfile}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download profile without contact information",
-            id: "wZP4RN",
-            description:
-              "Button label for downloading anonymized user profiles",
-          })}
-        </DropdownMenu.Item>
+        {!empty(onClickApplication) ? (
+          <DropdownMenu.Item disabled={disabled} onSelect={onClickApplication}>
+            {intl.formatMessage({
+              defaultMessage: "Download application",
+              id: "3uD9Sb",
+              description:
+                "Button label for downloading an application snapshots",
+            })}
+          </DropdownMenu.Item>
+        ) : null}
+        {!empty(onClickProfile) ? (
+          <DropdownMenu.Item disabled={disabled} onSelect={onClickProfile}>
+            {intl.formatMessage({
+              defaultMessage: "Download profile",
+              id: "lVOZ5k",
+              description: "Button label for downloading user profiles",
+            })}
+          </DropdownMenu.Item>
+        ) : null}
+        {!empty(onClickAnonymousProfile) ? (
+          <DropdownMenu.Item
+            disabled={disabled}
+            onSelect={onClickAnonymousProfile}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Download profile without contact information",
+              id: "wZP4RN",
+              description:
+                "Button label for downloading anonymized user profiles",
+            })}
+          </DropdownMenu.Item>
+        ) : null}
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

@@ -313,7 +313,8 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
       >
         <DownloadDocxButton
           disabled={downloadingDoc}
-          onClick={handleDocDownload}
+          onClickProfile={() => handleDocDownload(false)}
+          onClickAnonymousProfile={() => handleDocDownload(true)}
           isDownloading={downloadingDoc}
         />
       </div>
