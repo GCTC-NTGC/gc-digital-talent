@@ -159,7 +159,7 @@ const CurrentPositionExperiences = ({
             data-h2-gap="base(x.5 0)"
           >
             {sorted.length === 0 && (
-              <Well data-h2-margin="base(0 x1.5 x1.75 x1.5)" color="error">
+              <Well className="mx-9 mb-10.5" color="error">
                 <p data-h2-font-weight="base(700)">{NullMessage}</p>
                 <p>
                   {NullMessageDescription}
