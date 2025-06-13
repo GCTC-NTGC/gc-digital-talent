@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -77,6 +78,7 @@ class TalentNomination extends Model
             'submitted_steps' => 'array',
             'submitted_at' => 'datetime',
             'lateral_movement_options' => 'array',
+            'submitter_relationship_to_nominator' => TalentNominationSubmitterRelationshipToNominator::class,
         ];
     }
 
