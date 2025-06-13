@@ -20,7 +20,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
     <Link
       href={editPath}
       mode="solid"
-      data-h2-padding="base(x.5)"
+      className="p-3"
       color="primary"
       aria-label={intl.formatMessage(
         {
@@ -32,11 +32,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
       )}
       state={{ from: currentUrl }}
     >
-      <PencilIcon
-        data-h2-display="base(block)"
-        data-h2-height="base(x.75)"
-        data-h2-width="base(x.75)"
-      />
+      <PencilIcon className="block size-4.5" />
     </Link>
   );
 };

@@ -52,13 +52,8 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
               {intl.formatMessage(adminMessages.showHideTableColumns)}
             </Field.Legend>
             <Field.BoundingBox>
-              <div data-h2-margin="base(x.125, 0)">
-                <Field.Label
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(flex-start)"
-                  data-h2-gap="base(0 x.25)"
-                  data-h2-font-weight="base(400)"
-                >
+              <div className="my-0.75">
+                <Field.Label className="flex items-start gap-x-1.5 font-normal">
                   <input
                     ref={allColumnsRef}
                     {...{
@@ -77,7 +72,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                 .map((column) => {
                   const header = getColumnHeader(column, "columnDialogHeader");
                   return (
-                    <div key={column.id} data-h2-margin="base(x.125, 0)">
+                    <div key={column.id} className="my-0.75">
                       <label>
                         <input
                           {...{

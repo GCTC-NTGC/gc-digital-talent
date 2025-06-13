@@ -5,8 +5,19 @@ import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import ArrowsUpDownIcon from "@heroicons/react/20/solid/ArrowsUpDownIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { ReactNode, useId } from "react";
+import { tv } from "tailwind-variants";
 
 import { Button } from "@gc-digital-talent/ui";
+
+const sortBtn = tv({
+  base: "text-left",
+  variants: {
+    sortDirection: {
+      true: "font-bold",
+      false: "font-normal",
+    },
+  },
+});
 
 interface SortButtonProps<T> {
   column: Column<T, unknown>;
@@ -44,18 +55,13 @@ const SortButton = <T,>({
       size="sm"
       fixedColor
       onClick={column.getToggleSortingHandler()}
-      data-h2-font-weight={sortDirection ? "base(700)" : "base(400)"}
-      data-h2-text-decoration={
-        !sortDirection
-          ? "base(underline) base:hover(none)"
-          : "base(none) base:hover(underline)"
-      }
-      data-h2-text-align="base(left)"
+      noUnderline={!!sortDirection}
+      className={sortBtn({ sortDirection: !!sortDirection })}
       disabled={locked}
       icon={locked ? LockClosedIcon : icon}
     >
       {sortDirection && (
-        <span data-h2-visually-hidden="base(invisible)">
+        <span className="sr-only">
           {sortDirection === "asc"
             ? intl.formatMessage({
                 defaultMessage: "Ascending",

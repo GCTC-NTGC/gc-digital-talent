@@ -3,12 +3,23 @@ import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
+import { tv } from "tailwind-variants";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { inputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
 import { SearchFormProps, SearchColumn, SearchState } from "./types";
+
+const input = tv({
+  extend: inputStyles,
+  base: "w-full md:w-auto",
+  variants: {
+    showDropdown: {
+      true: "rounded-l-none border-l-transparent",
+    },
+  },
+});
 
 /**
  * Search form
@@ -110,23 +121,18 @@ const SearchForm = <T,>({
   const allTableMsg = overrideAllTableMsg ?? defaultAllTableMsg;
 
   return (
-    <div data-h2-width="base(100%) laptop(auto)">
-      <Field.Label
-        htmlFor={id}
-        data-h2-display="base(inline-block)"
-        data-h2-margin-bottom="base(x.15)"
-      >
+    <div className="order-0 w-full md:w-auto">
+      <Field.Label htmlFor={id} className="mb-1 inline-block">
         {label}
       </Field.Label>
-      <div data-h2-display="base(flex)" data-h2-width="base(100%) laptop(auto)">
+      <div className="flex w-full md:w-auto">
         {showDropdown ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <Button
                 color="primary"
                 utilityIcon={ChevronDownIcon}
-                data-h2-radius="base(s 0 0 s)"
-                data-h2-flex-shrink="base(0)"
+                className="shrink-0 rounded-r-none"
               >
                 {intl.formatMessage(
                   {
@@ -161,17 +167,10 @@ const SearchForm = <T,>({
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         ) : null}
-        <div
-          data-h2-position="base(relative)"
-          data-h2-display="base(flex)"
-          data-h2-flex-grow="base(1)"
-        >
+        <div className="relative flex grow">
           <div
             aria-hidden
-            data-h2-position="base(absolute)"
-            data-h2-location="base(x.25, auto, x.25, x.25)"
-            data-h2-display="base(flex)"
-            data-h2-align-items="base(center)"
+            className="absolute inset-1.5 right-auto flex items-center"
           />
           <input
             name="search"
@@ -180,29 +179,11 @@ const SearchForm = <T,>({
             ref={searchRef}
             onChange={debouncedChangeHandler}
             defaultValue={state?.term}
-            className={inputStyles()}
-            data-h2-background-color="base(foreground)"
-            data-h2-border-color="base(gray) base:focus-visible(focus)"
-            data-h2-margin-left="base(0)"
-            data-h2-padding="base(x.5 x1.5 x.5 x.5)"
-            data-h2-width="base(100%) laptop(auto)"
-            {...(showDropdown
-              ? {
-                  "data-h2-radius": "base(0, s, s, 0)",
-                  "data-h2-border-left-color": "laptop(transparent)",
-                }
-              : {
-                  "data-h2-radius": "base(s)",
-                })}
+            className={input({ showDropdown: !!showDropdown })}
             {...inputProps}
           />
           {searchTerm && (
-            <div
-              data-h2-position="base(absolute)"
-              data-h2-location="base(x.25, x.25, x.25, auto)"
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(stretch)"
-            >
+            <div className="absolute inset-3 left-auto flex items-stretch">
               <ResetButton onClick={handleReset} />
             </div>
           )}

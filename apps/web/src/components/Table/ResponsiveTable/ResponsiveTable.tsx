@@ -378,10 +378,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         <NullMessage {...(nullStateMessage ? { ...nullStateMessage } : {})} />
       ) : (
         <>
-          <Table.Wrapper
-            data-h2-position="base(relative)"
-            aria-labelledby={captionId}
-          >
+          <Table.Wrapper className="relative" aria-labelledby={captionId}>
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
               <Table.Head>
@@ -414,14 +411,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 }}
               />
             )}
-            {isLoading && (
-              <Loading
-                data-h2-radius="base(s)"
-                data-h2-position="base(absolute)"
-                data-h2-margin="base(0)"
-                data-h2-location="base(0, 0, 0, 0)"
-              />
-            )}
+            {isLoading && <Loading className="absolute inset-0 m-0 rounded" />}
           </Table.Wrapper>
           {paginationAdjusted && (
             <TablePagination
@@ -433,7 +423,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         </>
       )}
       {canSort && (
-        <span id={`sortHint-${id}`} data-h2-display="base(none)">
+        <span id={`sortHint-${id}`} className="hidden">
           {intl.formatMessage({
             defaultMessage: "Sort",
             id: "LwruRb",

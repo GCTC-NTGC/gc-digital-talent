@@ -20,6 +20,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { tv } from "tailwind-variants";
 
 import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
 import {
@@ -88,21 +89,23 @@ type DivHTMLProps = DetailedHTMLProps<
   HTMLDivElement
 >;
 
+const column = tv({
+  base: "flex flex-col items-start gap-3 sm:flex-row sm:items-center",
+});
+
 /**
  * Layout column for the row selection footer
  *
  * @param DivHTMLProps
  * @returns JSX.Element
  */
-const Column = (props: DivHTMLProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-align-items="base(flex-start) l-tablet(center)"
-    data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-    {...props}
-  />
+const Column = ({ className, ...rest }: DivHTMLProps) => (
+  <div className={column({ class: className })} {...rest} />
 );
+
+const section = tv({
+  base: "flex items-center gap-x-1.5",
+});
 
 /**
  * Layout section for the row selection footer
@@ -110,13 +113,8 @@ const Column = (props: DivHTMLProps) => (
  * @param DivHTMLProps
  * @returns JSX.Element
  */
-const Section = (props: DivHTMLProps) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-align-items="base(center)"
-    data-h2-gap="base(0 x.25)"
-    {...props}
-  />
+const Section = ({ className, ...rest }: DivHTMLProps) => (
+  <div className={section({ class: className })} {...rest} />
 );
 
 type BulletProps = DetailedHTMLProps<
@@ -132,7 +130,7 @@ type BulletProps = DetailedHTMLProps<
  */
 const Bullet = (props: Omit<BulletProps, "children">) => (
   // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-  <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
+  <span aria-hidden className="hidden sm:block" {...props}>
     &bull;
   </span>
 );
@@ -184,7 +182,7 @@ const DownloadAllButton = ({ download }: DownloadAllButtonProps) => {
         {...actionButtonStyles}
         onClick={download.onClick}
         disabled={download.downloading}
-        data-h2-font-weight="base(400)"
+        className="font-normal"
         {...(download.downloading && {
           icon: SpinnerIcon,
         })}
@@ -230,40 +228,15 @@ const Actions = ({
   };
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-align-items="base(center) l-tablet(flex-start)"
-      data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-      data-h2-padding="base(x.5, x1)"
-      data-h2-background-color="base(background.darkest) base:dark(white)"
-      data-h2-color="base:all(white)"
-      data-h2-position="base(sticky)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-left="base(0)"
-    >
+    <div className="sticky left-0 flex flex-col items-center justify-between gap-y-3 bg-gray-700 px-6 py-3 text-white sm:flex-row sm:items-start sm:gap-x-3 sm:gap-y-0">
       {rowSelect && (
         <Column>
           {isLoading ? (
-            <Loading
-              inline
-              data-h2-margin="base(0)"
-              data-h2-location="base(auto, auto, auto, auto)"
-            />
+            <Loading inline className="inset-auto m-0" />
           ) : (
-            <Section
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(center)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-              data-h2-font-size="base(caption)"
-            >
+            <Section className="flex flex-col items-center justify-between gap-y-3 text-sm sm:flex-row sm:gap-x-3 sm:gap-y-0">
               <Section>
-                <CheckCircleIcon
-                  data-h2-width="base(1em)"
-                  data-h2-height="base(1em)"
-                />
+                <CheckCircleIcon className="size-4" />
                 <span>
                   {intl.formatMessage(
                     {
@@ -279,22 +252,13 @@ const Actions = ({
                   )}
                 </span>
               </Section>
-              <span data-h2-display="base(none) l-tablet(block)">
-                <Bullet data-h2-display="base(none) l-tablet(block)" />
-              </span>
-              <span
-                data-h2-position="base(relative)"
-                data-h2-align-items="base(center)"
-              >
+              <Bullet />
+              <span className="relative items-center">
                 <Button
-                  data-h2-font-weight="base(400)"
-                  data-h2-position="base(relative)"
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(center)"
                   onClick={onClear}
                   color="white"
                   size="sm"
-                  mode="inline"
+                  mode="text"
                   fixedColor
                 >
                   {intl.formatMessage({
@@ -305,16 +269,10 @@ const Actions = ({
                 </Button>
               </span>
               {(download?.csv?.enable || download?.doc?.enable) && (
-                <span
-                  data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
-                >
+                <span className="flex items-center gap-x-1.5 sm:gap-x-3">
                   {download?.csv?.enable && (
                     <>
-                      <span data-h2-display="base(none) l-tablet(block)">
-                        <Bullet data-h2-display="base(none) l-tablet(block)" />
-                      </span>
+                      <Bullet />
                       {download.csv.component ?? (
                         <Button
                           {...actionButtonStyles}
@@ -324,7 +282,6 @@ const Actions = ({
                               : handleNoRowsSelected
                           }
                           disabled={download.csv.downloading}
-                          data-h2-font-weight="base(400)"
                           {...(download.csv.downloading && {
                             icon: SpinnerIcon,
                           })}
@@ -342,9 +299,7 @@ const Actions = ({
 
                   {download?.doc?.enable && (
                     <>
-                      <span data-h2-display="base(none) l-tablet(block)">
-                        <Bullet data-h2-display="base(none) l-tablet(block)" />
-                      </span>
+                      <Bullet />
                       {download.doc.component ?? (
                         <Button
                           {...actionButtonStyles}
@@ -354,7 +309,6 @@ const Actions = ({
                               : handleNoRowsSelected
                           }
                           disabled={download.doc.downloading}
-                          data-h2-font-weight="base(400)"
                           {...(download.doc.downloading && {
                             icon: SpinnerIcon,
                           })}
