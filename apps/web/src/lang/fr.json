@@ -1275,6 +1275,10 @@
     "defaultMessage": "Cette page concerne uniquement les fonctionnaires du gouvernement du Canada ci dessous.",
     "description": "About to list employee types"
   },
+  "3uD9Sb": {
+    "defaultMessage": "Télécharger la demande d’emploi",
+    "description": "Button label for downloading an application snapshots"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -9054,10 +9058,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
   },
-  "ekazTc": {
-    "defaultMessage": "Télécharger le profil",
-    "description": "Button text to download pool candidate profiles"
-  },
   "elMgS2": {
     "defaultMessage": "Poste actuel",
     "description": "Heading for current position"
@@ -9745,10 +9745,6 @@
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
   },
-  "hRtj0w": {
-    "defaultMessage": "Télécharger sans les coordonnées",
-    "description": "Button label for download user anonymous profile."
-  },
   "hRzk4m": {
     "defaultMessage": "Numéro de priorité",
     "description": "Priority number label"
@@ -9848,10 +9844,6 @@
   "i0K4Sb": {
     "defaultMessage": "Postes en anglais uniquement",
     "description": "Message for the english positions option"
-  },
-  "i0N7DM": {
-    "defaultMessage": "Télécharger les renseignements complets",
-    "description": "Button label for download user profile."
   },
   "i131l/": {
     "defaultMessage": "Détails de base",
@@ -10064,6 +10056,10 @@
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "j357Vx": {
+    "defaultMessage": "Télécharger DOCX",
+    "description": "Button text to download DOCX files"
   },
   "j3OROA": {
     "defaultMessage": "Les techniciens (<abbreviation>IT-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
@@ -10572,6 +10568,10 @@
   "lSSz6L": {
     "defaultMessage": "Gérer {notificationName}",
     "description": "Button text for managing a notification"
+  },
+  "lVOZ5k": {
+    "defaultMessage": "Télécharger le profil",
+    "description": "Button label for downloading user profiles"
   },
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
@@ -12792,6 +12792,10 @@
   "wZKKk1": {
     "defaultMessage": "{candidateCount, plural, =0 {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} one {Il y a actuellement environ <strong><testId>#</testId></strong> candidat qui répond à vos critères.} other {Il y a actuellement environ <strong><testId>#</testId></strong> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
+  },
+  "wZP4RN": {
+    "defaultMessage": "Télécharger le profil sans coordonnées",
+    "description": "Button label for downloading anonymized user profiles"
   },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
