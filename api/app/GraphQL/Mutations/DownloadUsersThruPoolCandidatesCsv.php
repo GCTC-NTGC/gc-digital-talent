@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Generators\UsersThroughPoolCandidatesCsvGenerator;
+use App\Generators\UsersThruPoolCandidatesCsvGenerator;
 use App\Jobs\GenerateUserFile;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +27,7 @@ final class DownloadUsersThruPoolCandidatesCsv
         $filters = $args['where'] ?? null;
 
         try {
-            $generator = new UsersThroughPoolCandidatesCsvGenerator(
+            $generator = new UsersThruPoolCandidatesCsvGenerator(
                 fileName: sprintf('%s_%s', __('filename.users'), date('Y-m-d_His')),
                 dir: $user->id,
                 lang: App::getLocale(),
