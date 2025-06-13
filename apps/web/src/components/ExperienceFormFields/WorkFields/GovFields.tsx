@@ -296,12 +296,12 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   return (
     <>
       {fetching ? (
-        <div data-h2-flex-item="base(1of1)">
+        <div className="col-span-2">
           <Loading inline />
         </div>
       ) : (
         <>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <Select
               id="department"
               label={intl.formatMessage(commonMessages.department)}
@@ -311,7 +311,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <Input
               id="team"
               label={labels.team}
@@ -320,7 +320,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="govEmploymentType"
               name="govEmploymentType"
@@ -331,7 +331,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
           </div>
           {watchGovEmploymentType ===
             WorkExperienceGovEmployeeType.Indeterminate && (
-            <div data-h2-flex-item="base(1of1)">
+            <div className="col-span-2">
               <RadioGroup
                 idPrefix="govPositionType"
                 name="govPositionType"
@@ -344,7 +344,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
           {watchGovEmploymentType ===
             WorkExperienceGovEmployeeType.Contractor && (
             <>
-              <div data-h2-flex-item="base(1of1)">
+              <div className="col-span-2">
                 <RadioGroup
                   idPrefix="govContractorRoleSeniority"
                   name="govContractorRoleSeniority"
@@ -358,7 +358,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   }}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1)">
+              <div className="col-span-2">
                 <RadioGroup
                   idPrefix="govContractorType"
                   name="govContractorType"
@@ -372,7 +372,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
             </>
           )}
           {watchGovContractorType === GovContractorType.FirmOrAgency && (
-            <div data-h2-flex-item="base(1of1)">
+            <div className="col-span-2">
               <Input
                 id="contractorFirmAgencyName"
                 name="contractorFirmAgencyName"
@@ -387,7 +387,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               WorkExperienceGovEmployeeType.Indeterminate ||
             watchGovEmploymentType === WorkExperienceGovEmployeeType.Term) && (
             <>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div>
                 <Select
                   id="classificationGroup"
                   label={labels.classificationGroup}
@@ -401,7 +401,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   options={groupOptions}
                 />
               </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <div>
                 <Select
                   id="classificationLevel"
                   label={labels.classificationLevel}
@@ -418,7 +418,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               </div>
             </>
           )}
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             <DateInput
               id="startDate"
               legend={labels.startDate}
@@ -434,8 +434,8 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-            <div data-h2-margin-top="p-tablet(x1)">
+          <div>
+            <div className="mt-6">
               <Checkbox
                 boundingBox
                 boundingBoxLabel={labels.currentRole}
@@ -449,7 +449,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               />
             </div>
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             {expectedEndDate ? (
               <DateInput
                 id="endDate"
@@ -508,7 +508,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
               </>
             )}
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <Checkbox
               boundingBox
               boundingBoxLabel={labels.supervisoryPosition}
@@ -524,7 +524,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
           </div>
           {watchSupervisoryPosition && (
             <>
-              <div data-h2-flex-item="base(1of1)">
+              <div className="col-span-2">
                 <Checkbox
                   boundingBox
                   boundingBoxLabel={labels.supervisedEmployees}
@@ -538,7 +538,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 />
               </div>
               {watchSupervisedEmployees && (
-                <div data-h2-flex-item="base(1of1)">
+                <div className="col-span-2">
                   <Input
                     id="supervisedEmployeesNumber"
                     name="supervisedEmployeesNumber"
@@ -560,7 +560,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   />
                 </div>
               )}
-              <div data-h2-flex-item="base(1of1)">
+              <div className="col-span-2">
                 <Checkbox
                   boundingBox
                   boundingBoxLabel={labels.budgetManagement}
@@ -575,7 +575,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 />
               </div>
               {watchBudgetManagement && (
-                <div data-h2-flex-item="base(1of1)">
+                <div className="col-span-2">
                   <Input
                     id="annualBudgetAllocation"
                     name="annualBudgetAllocation"
@@ -597,7 +597,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   />
                 </div>
               )}
-              <div data-h2-flex-item="base(1of1)">
+              <div className="col-span-2">
                 <Checkbox
                   boundingBox
                   boundingBoxLabel={labels.seniorManagementStatus}
@@ -612,7 +612,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 />
               </div>
               {watchSeniorManagementStatus && (
-                <div data-h2-flex-item="base(1of1)">
+                <div className="col-span-2">
                   <Select
                     id="cSuiteRoleTitle"
                     name="cSuiteRoleTitle"
@@ -632,7 +632,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 </div>
               )}
               {watchCSuiteRoleTitle === CSuiteRoleTitle.Other && (
-                <div data-h2-flex-item="base(1of1)">
+                <div className="col-span-2">
                   <Input
                     id="otherCSuiteRoleTitle"
                     name="otherCSuiteRoleTitle"
