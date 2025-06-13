@@ -341,7 +341,7 @@ export const ApplicationCareerTimeline = ({
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
-        <div>
+        <div className="mb-4">
           <Link
             mode="inline"
             href={paths.applicationCareerTimelineAdd(application.id)}
