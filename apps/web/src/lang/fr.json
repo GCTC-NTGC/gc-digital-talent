@@ -12794,7 +12794,7 @@
     "description": "Message for total estimated candidates box next to search form."
   },
   "wZP4RN": {
-    "defaultMessage": "Télécharger le profil sans coordonnées",
+    "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading anonymized user profiles"
   },
   "wdFBSc": {
