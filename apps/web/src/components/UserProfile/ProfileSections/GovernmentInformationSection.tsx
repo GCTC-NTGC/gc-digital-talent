@@ -119,13 +119,7 @@ const GovernmentInformationSection = ({
                   description: "Work email label",
                 })}
               </span>
-              <span
-                className={value()}
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(row)"
-                data-h2-gap="base(x0.5)"
-                data-h2-align-items="base(end)"
-              >
+              <span className={value({ class: "flex items-end gap-x-3" })}>
                 <span>{workEmail}</span>
                 {isWorkEmailVerified ? (
                   <Chip color="success">
