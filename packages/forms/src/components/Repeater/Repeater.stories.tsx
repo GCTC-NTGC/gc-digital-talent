@@ -107,7 +107,7 @@ const Template: StoryFn<StoryProps> = (args) => {
           },
         }}
       >
-        <div data-h2-margin-bottom="base(x1)">
+        <div className="mb-6">
           <Fields name={name} {...fieldProps} />
         </div>
         <Submit />

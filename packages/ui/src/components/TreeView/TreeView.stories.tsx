@@ -19,24 +19,19 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
     <TreeView.Root>
       <TreeView.Head>
         <Card>
-          <Heading level="h2" data-h2-margin-top="base(0)">
+          <Heading level="h2" className="mt-0">
             Heading
           </Heading>
           <p>Subtitle</p>
         </Card>
       </TreeView.Head>
       <TreeView.Item noBranch>
-        <Alert.Root type="warning" data-h2-margin="base(0, 0)">
+        <Alert.Root type="warning" className="m-0">
           <Alert.Title>Error/Warning: {faker.lorem.sentences(1)}</Alert.Title>
         </Alert.Root>
       </TreeView.Item>
       <TreeView.Item>
-        <Accordion.Root
-          type="single"
-          mode="card"
-          collapsible
-          data-h2-margin="base(0, 0)"
-        >
+        <Accordion.Root type="single" mode="card" collapsible className="m-0">
           <Accordion.Item value="one">
             <Accordion.Trigger>Accordion Title</Accordion.Trigger>
             <Accordion.Content>
@@ -47,7 +42,7 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
       </TreeView.Item>
       <TreeView.Item>
         <Card>
-          <Heading level="h3" data-h2-margin-top="base(0)">
+          <Heading level="h3" className="mt-0">
             Card title
           </Heading>
           <p>{faker.lorem.sentences(4)}</p>

@@ -2,11 +2,7 @@ import type { StoryFn } from "@storybook/react-vite";
 
 export default function ContainerDecorator(Story: StoryFn) {
   return (
-    <div
-      data-h2-color="base(black)"
-      data-h2-background="base(background)"
-      data-h2-font-family="base(sans)"
-    >
+    <div className="bg-gray-100 font-sans text-black dark:bg-gray-700 dark:text-white">
       <Story />
     </div>
   );

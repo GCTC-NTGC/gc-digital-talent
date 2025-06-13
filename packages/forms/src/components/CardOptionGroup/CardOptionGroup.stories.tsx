@@ -36,9 +36,7 @@ const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
         {...args}
         rules={{ required: "This field is required" }}
       />
-      <p data-h2-margin-top="base(x1)">
-        <Submit />
-      </p>
+      <Submit className="mt-6" />
     </Form>
   );
 };

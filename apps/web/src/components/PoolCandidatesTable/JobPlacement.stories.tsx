@@ -34,16 +34,20 @@ const departments = fakeDepartments();
 const placedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
-    placedDepartment: departments[0],
+    viewStatus: {
+      status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
+      placedDepartment: departments[0],
+    },
   },
   JobPlacementDialog_Fragment,
 );
 const notPlacedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
-    placedDepartment: departments[0],
+    viewStatus: {
+      status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
+      placedDepartment: departments[0],
+    },
   },
   JobPlacementDialog_Fragment,
 );

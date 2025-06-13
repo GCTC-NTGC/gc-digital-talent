@@ -20,11 +20,7 @@ export default {
 } as Meta;
 
 const Template: StoryFn = () => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column)"
-    data-h2-gap="base(x1 0)"
-  >
+  <div className="flex flex-col gap-y-6">
     <CardFlat
       title="Primary"
       color="primary"

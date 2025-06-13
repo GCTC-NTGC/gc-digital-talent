@@ -27,7 +27,7 @@ const AlertContext = createContext<AlertContextValue | undefined>(undefined);
 
 const alert = tv({
   slots: {
-    base: "relative mb-6 flex flex-col overflow-hidden rounded border-3 bg-white text-black shadow-lg xs:flex-row dark:bg-gray-600 dark:text-white",
+    base: "relative mb-6 flex flex-col overflow-hidden rounded-md border-3 bg-white text-black shadow-lg xs:flex-row dark:bg-gray-600 dark:text-white",
     iconWrapper: "relative flex shrink-0 items-start p-6 xs:py-3",
     triangle:
       "xs:absolute xs:top-6 xs:bottom-0 xs:left-full xs:h-0 xs:w-0 xs:border-[10px] xs:border-r-0",

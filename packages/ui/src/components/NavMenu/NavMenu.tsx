@@ -11,6 +11,7 @@ import {
   useEffect,
 } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -19,7 +20,6 @@ import OurIconLink, {
   IconLinkProps as BaseIconLinkProps,
 } from "../Link/IconLink";
 import { useNavMenuContext } from "./NavMenuProvider";
-import { linkStyleMapDesktop, linkStyleMapMobile, NavMenuType } from "./utils";
 import Button, { ButtonProps } from "../Button";
 
 const Root = forwardRef<
@@ -69,7 +69,7 @@ const Content = forwardRef<
     ref={forwardedRef}
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
+    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded-md sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
     {...props}
   />
 ));
@@ -130,12 +130,37 @@ const useActiveLink = (
   return { isActive };
 };
 
-type IconLinkProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Link
-> &
-  BaseIconLinkProps & {
-    type?: NavMenuType;
-  };
+const navMenuLink = tv({
+  base: "text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
+  variants: {
+    isSmallScreen: {
+      true: "",
+      false: "",
+    },
+    type: {
+      link: "",
+      subMenuLink: "",
+    },
+  },
+  compoundVariants: [
+    {
+      isSmallScreen: false,
+      type: "link",
+      class:
+        "text-white hover:text-primary-200 data-active:text-primary-200 hover:data-[icon=true]:text-primary-700 dark:data-active:text-primary-100 dark:hover:data-[icon=true]:text-primary-100",
+    },
+  ],
+});
+
+type NavMenuLinkTypeVariant = Pick<VariantProps<typeof navMenuLink>, "type">;
+
+interface IconLinkProps
+  extends NavMenuLinkTypeVariant,
+    Omit<
+      ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
+      "type" | "color" | "href"
+    >,
+    Pick<BaseIconLinkProps, "href" | "icon" | "color" | "label"> {}
 
 const IconLink = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Link>,
@@ -145,9 +170,6 @@ const IconLink = forwardRef<
   const { isActive } = useActiveLink(href, !!icon, linkRef.current);
   const isSmallScreen = useIsSmallScreen(1080);
   const navContext = useNavMenuContext();
-  const linkColor = isSmallScreen
-    ? linkStyleMapMobile.get(type)
-    : linkStyleMapDesktop.get(type);
 
   return (
     <NavigationMenuPrimitive.Link
@@ -166,22 +188,22 @@ const IconLink = forwardRef<
         ref={linkRef}
         href={href}
         icon={icon}
-        className="data-active:font-bold data-active:[&_span]:no-underline"
-        {...linkColor}
-        {...rest}
+        className={navMenuLink({
+          isSmallScreen,
+          type,
+        })}
       />
     </NavigationMenuPrimitive.Link>
   );
 });
 
 interface LinkProps
-  extends Pick<BaseLinkProps, "color" | "icon" | "mode">,
+  extends NavMenuLinkTypeVariant,
+    Pick<BaseLinkProps, "color" | "icon" | "mode" | "href">,
     Omit<
       ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>,
-      "color"
+      "color" | "href" | "type"
     > {
-  href: string;
-  type?: NavMenuType;
   ariaLabel?: string;
   state?: BaseLinkProps["state"];
 }
@@ -209,10 +231,6 @@ const Link = forwardRef<
     const isSmallScreen = useIsSmallScreen(1080);
     const navContext = useNavMenuContext();
 
-    const linkColor = isSmallScreen
-      ? linkStyleMapMobile.get(type)
-      : linkStyleMapDesktop.get(type);
-
     return (
       <NavigationMenuPrimitive.Link
         ref={forwardedRef}
@@ -234,8 +252,10 @@ const Link = forwardRef<
           // Comes from react-router
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           state={state}
-          className="data-active:font-bold data-active:[&_span]:no-underline"
-          {...linkColor}
+          className={navMenuLink({
+            isSmallScreen,
+            type,
+          })}
           aria-label={ariaLabel}
         >
           {children}

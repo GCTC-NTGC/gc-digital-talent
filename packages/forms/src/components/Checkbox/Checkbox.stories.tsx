@@ -14,7 +14,7 @@ export default {
 const Template: StoryFn<CheckboxProps> = (args) => (
   <Form onSubmit={action("Submit Form")}>
     <Checkbox {...args} />
-    <Submit data-h2-margin-top="base(x1)" />
+    <Submit className="mt-6" />
   </Form>
 );
 
@@ -49,9 +49,7 @@ WithBoundingBox.args = {
 WithElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
-  label: (
-    <span data-h2-background-color="base(error.lighter)">Red Selection</span>
-  ),
+  label: <span className="text-error-200">Red Selection</span>,
 };
 
 WithLongText.args = {

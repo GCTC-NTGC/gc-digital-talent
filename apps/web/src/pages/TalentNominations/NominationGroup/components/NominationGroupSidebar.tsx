@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import {
-  Accordion,
-  Card,
-  Heading,
-  HydrogenAttributes,
-  Separator,
-} from "@gc-digital-talent/ui";
+import { Accordion, Card, Heading, Separator } from "@gc-digital-talent/ui";
 import {
   FragmentType,
   getFragment,
@@ -21,6 +15,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
+import { HydrogenAttributes } from "~/types/hydrogen";
 
 import NominatedForList from "./NominatedForList";
 import NominatorList from "./NominatorList";

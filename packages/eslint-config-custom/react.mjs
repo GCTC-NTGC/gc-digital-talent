@@ -49,6 +49,7 @@ export default [
             "strong",
             "hidden",
             "primary",
+            "secondary",
             "red",
             "heavyPrimary",
             "heavyRed",

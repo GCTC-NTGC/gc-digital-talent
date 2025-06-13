@@ -17,7 +17,8 @@
   "dependencies": {
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "tailwind-variants": "^1.0.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",

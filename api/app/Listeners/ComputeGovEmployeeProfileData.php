@@ -41,17 +41,17 @@ class ComputeGovEmployeeProfileData
         }
 
         $currentExperiences = WorkExperience::where('user_id', $user->id)
-            ->whereIn('properties->employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
-            ->whereNotIn('properties->gov_employment_type', [
+            ->whereIn('employment_category', [EmploymentCategory::GOVERNMENT_OF_CANADA->name, EmploymentCategory::CANADIAN_ARMED_FORCES->name])
+            ->whereNotIn('gov_employment_type', [
                 WorkExperienceGovEmployeeType::STUDENT->name,
                 WorkExperienceGovEmployeeType::CASUAL->name,
                 WorkExperienceGovEmployeeType::CONTRACTOR->name,
             ])
             ->where(function (Builder $query) {
-                $query->whereNull('properties->end_date')
-                    ->orWhere('properties->end_date', '>=', now());
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>=', now());
             })
-            ->orderBy('properties->start_date', 'DESC')
+            ->orderBy('start_date', 'DESC')
             ->get();
 
         if (! $currentExperiences->count()) {

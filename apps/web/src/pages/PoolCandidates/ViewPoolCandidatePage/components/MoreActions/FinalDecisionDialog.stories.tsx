@@ -103,6 +103,7 @@ const candidateAssessmentResults: AssessmentResult[] = [
 const poolCandidate = makeFragmentData(
   {
     id: fakedCandidate.id,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     status: fakedCandidate.status,
     expiryDate: fakedCandidate.expiryDate,
     pool: fakedPool,

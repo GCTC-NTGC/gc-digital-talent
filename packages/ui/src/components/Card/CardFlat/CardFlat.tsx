@@ -40,7 +40,7 @@ type LinkItemScrollTo = Omit<CardFlatScrollToLinkProps, "color"> & {
 
 const cardFlat = tv({
   slots: {
-    base: "flex flex-col border-l border-l-12 pl-6",
+    base: "flex flex-col border-l-12 pl-6",
     heading: "my-0",
     content: "mt-3 grow",
     linkWrapper: "mt-6 flex flex-wrap items-center gap-2",

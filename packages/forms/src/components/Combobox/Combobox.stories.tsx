@@ -76,7 +76,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
         fetching={isSearching}
         options={mockSearch ? filteredOptions : options}
       />
-      <Submit data-h2-margin-top="base(x1)" />
+      <Submit className="mt-6" />
     </BasicForm>
   );
 };
