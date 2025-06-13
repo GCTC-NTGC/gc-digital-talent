@@ -109,7 +109,7 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
             />
           </div>
           <div>
-            <div data-h2-margin-top="p-tablet(x1)">
+            <div className="sm:mt-6">
               <Checkbox
                 boundingBox
                 boundingBoxLabel={labels.currentRole}

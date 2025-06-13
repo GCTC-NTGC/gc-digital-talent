@@ -30,7 +30,7 @@ const AwardContent = ({
       <ContentSection
         title={experienceFormLabels.issuedBy}
         headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
