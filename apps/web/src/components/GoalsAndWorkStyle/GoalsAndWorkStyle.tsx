@@ -38,7 +38,7 @@ const GoalsAndWorkStyle = ({
             description: "Subtitle for goals and work style section",
           })}
         >
-          <span className="font-bold">
+          <span className="font-normal">
             {intl.formatMessage({
               defaultMessage: "Goals and work style",
               id: "GDCKBX",
