@@ -47,11 +47,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
   const isCommunityOther = !nextRoleCommunity?.id && !!nextRoleCommunityOther;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr)) "
-    >
+    <div className="grid gap-6 sm:grid-cols-2">
       <FieldDisplay
         label={intl.formatMessage(
           employeeProfileMessages.targetClassificationGroup,
@@ -98,7 +94,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.community)}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {handleCommunity(
           nextRoleCommunity?.name?.localized,
@@ -109,7 +105,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
       {isCommunityOther ? (
         <FieldDisplay
           label={intl.formatMessage(messages.otherCommunity)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {nextRoleCommunityOther}
         </FieldDisplay>
@@ -118,7 +114,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
       {nextRoleCommunity?.workStreams?.length || nextRoleWorkStreams?.length ? (
         <FieldDisplay
           label={intl.formatMessage(employeeProfileMessages.workStreams)}
-          data-h2-grid-column="l-tablet(span 2)"
+          className="sm:col-span-2"
         >
           {nextRoleWorkStreams?.length ? (
             <Ul>
@@ -133,7 +129,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
       ) : null}
       <FieldDisplay
         label={intl.formatMessage(employeeProfileMessages.departments)}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {nextRoleDepartments?.length ? (
           <Ul>
@@ -149,7 +145,7 @@ const NextRole = ({ nextRoleQuery }: NextRoleProps) => {
         label={intl.formatMessage(
           employeeProfileMessages.additionalInformationNextRole,
         )}
-        data-h2-grid-column="l-tablet(span 2)"
+        className="sm:col-span-2"
       >
         {nextRoleAdditionalInformation ?? notProvided}
       </FieldDisplay>
