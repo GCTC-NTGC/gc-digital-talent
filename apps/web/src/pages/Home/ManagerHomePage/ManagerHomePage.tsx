@@ -243,7 +243,12 @@ const ManagerHomePage = () => {
           </CTALink>
         </div>
       </SkewedImageContainer>
-      <FlourishContainer show={["bottom"]} size="sm" skew={false}>
+      <FlourishContainer
+        show={["bottom"]}
+        size="sm"
+        skew={false}
+        className="-mt-20 bg-gray-100 pt-20 dark:bg-gray-700"
+      >
         <Heading
           level="h2"
           size="h3"

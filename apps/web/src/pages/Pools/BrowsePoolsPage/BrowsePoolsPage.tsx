@@ -143,6 +143,7 @@ export const Component = () => {
         data-h2-border-bottom="base(1px solid black.50)"
         data-h2-position="base(relative)"
         data-h2-padding="base(x3, 0)"
+        className="overflow-hidden"
       >
         <img
           alt=""

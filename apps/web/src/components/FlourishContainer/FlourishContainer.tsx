@@ -14,7 +14,9 @@ type Size = "sm" | "lg";
 
 const flourishContainer = tv({
   slots: {
-    layout: "absolute h-full w-full overflow-hidden bg-white dark:bg-gray-700",
+    wrapper: "relative z-[3]",
+    layout:
+      "absolute h-full w-full overflow-hidden bg-gray-100 dark:bg-gray-700",
     topImg: "top-0 right-0",
     bottomImg: "bottom-0 left-0",
   },
@@ -45,6 +47,7 @@ const flourishContainer = tv({
 
 interface FlourishContainerProps {
   children: ReactNode;
+  className?: string;
   show?: Side[];
   size?: Size;
   skew?: boolean;
@@ -55,11 +58,15 @@ const FlourishContainer = ({
   show = ["top", "bottom"],
   size = "lg",
   skew = true,
+  className,
 }: FlourishContainerProps) => {
   const { mode } = useTheme();
-  const { layout, topImg, bottomImg } = flourishContainer({ skew, size });
+  const { wrapper, layout, topImg, bottomImg } = flourishContainer({
+    skew,
+    size,
+  });
   return (
-    <div className="relative z-[3]">
+    <div className={wrapper({ class: className })}>
       <div className={layout()}>
         {show.includes("top") && (
           <img
