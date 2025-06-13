@@ -21,11 +21,7 @@ export default {
 };
 
 const Template: StoryFn<typeof MainNavMenu> = () => (
-  <div
-    data-h2-position="base(relative)"
-    data-h2-width="base(90vw) l-tablet(97vw)"
-    data-h2-height="base(95vh)"
-  >
+  <div className="relative h-screen w-full">
     <MainNavMenu />
   </div>
 );
