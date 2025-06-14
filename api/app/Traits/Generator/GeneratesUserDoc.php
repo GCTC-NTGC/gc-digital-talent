@@ -11,6 +11,7 @@ use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
 use App\Enums\EducationStatus;
+use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExecCoaching;
@@ -319,18 +320,19 @@ trait GeneratesUserDoc
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
-            $degreeType = match ($experience->type) {
-                'MASTERS_DEGREE' => "Master's degree",
-                'BACHELORS_DEGREE' => "Bachelor's degree",
-                'PHD' => 'PhD',
-                'DOCTORATE' => 'Doctorate',
-                'ASSOCIATES_DEGREE' => "Associate's degree",
-                default => ucwords(strtolower(str_replace('_', ' ', $experience->type))),
-            };
+            $degreeType = $experience->type ? $this->localizeEnum($experience->type, EducationType::class) : null;
+            $titleComponents = [];
+            if ($degreeType) {
+                $titleComponents[] = $degreeType;
+            }
+            if ($experience->area_of_study) {
+                $titleComponents[] = ($degreeType ? 'in ' : '').$experience->area_of_study;
+            }
+            if ($experience->institution) {
+                $titleComponents[] = 'from '.$experience->institution;
+            }
 
-            $title = $degreeType
-                ? $degreeType.' in '.$experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution
-                : $experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution;
+            $title = implode(' ', $titleComponents);
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
