@@ -13,6 +13,7 @@ use App\Enums\CSuiteRoleTitle;
 use App\Enums\EducationStatus;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
+use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
@@ -21,10 +22,14 @@ use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
+use App\Enums\Mentorship;
 use App\Enums\OperationalRequirement;
+use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
+use App\Enums\TargetRole;
+use App\Enums\TimeFrame;
 use App\Enums\WorkExperienceGovEmployeeType;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
@@ -326,7 +331,6 @@ trait GeneratesUserDoc
             $title = $degreeType
                 ? $degreeType.' in '.$experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution
                 : $experience->area_of_study.' '.Lang::get('common.at', [], $this->lang).' '.$experience->institution;
-
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('experiences.area_of_study'), $experience->area_of_study);
@@ -667,16 +671,17 @@ trait GeneratesUserDoc
             $this->yesOrNo($profile->career_planning_lateral_move_interest));
 
         if ($profile->career_planning_lateral_move_interest) {
-            $this->addLabelText($section, 'Target time frame for lateral movement',
-                $profile->career_planning_lateral_move_time_frame ?? '');
+            $this->addLabelText($section, 'Target time frame',
+                $this->localizeEnum($profile->career_planning_lateral_move_time_frame, TimeFrame::class)
+            );
 
             if (! empty($profile->career_planning_promotion_move_organization_type)) {
                 $section->addText('Types of organizations for lateral movement:');
 
                 foreach ($profile->career_planning_promotion_move_organization_type as $type) {
-                    if (! empty(trim($type))) {
-                        $section->addListItem($type);
-                    }
+                    $section->addListItem(
+                        $this->localizeEnum($type, OrganizationTypeInterest::class)
+                    );
                 }
             }
         }
@@ -687,12 +692,12 @@ trait GeneratesUserDoc
 
         if ($profile->career_planning_promotion_move_interest) {
             $this->addLabelText($section, 'Target time frame for promotion or advancement',
-                $profile->career_planning_promotion_move_time_frame);
+                $this->localizeEnum($profile->career_planning_promotion_move_time_frame, TimeFrame::class));
 
             if (! empty($profile->career_planning_promotion_move_organization_type)) {
                 $section->addLabelText('Types of organizations promotion or advancement');
                 foreach ($profile->career_planning_promotion_move_organization_type as $type) {
-                    $section->addListItem($type);
+                    $section->addListItem($this->localizeEnum($type, OrganizationTypeInterest::class));
                 }
             }
         }
@@ -714,7 +719,7 @@ trait GeneratesUserDoc
         if (! empty($profile->career_planning_mentorship_interest)) {
             $section->addLabelText('Interest in mentorship opportunities');
             foreach ($profile->career_planning_mentorship_interest as $interest) {
-                $section->addListItem($interest);
+                $section->addListItem($this->localizeEnum($interest, Mentorship::class));
             }
         }
 
@@ -723,12 +728,16 @@ trait GeneratesUserDoc
             $this->yesOrNo($profile->career_planning_exec_interest));
 
         $this->addLabelText($section, 'Executive coaching status',
-            implode(', ', $profile->career_planning_exec_coaching_status ?? []));
+            implode(', ', array_map(
+                fn ($status) => $this->localizeEnum($status, ExecCoaching::class),
+                $profile->career_planning_exec_coaching_status ?? []
+            ))
+        );
 
         if (! empty($profile->career_planning_exec_coaching_interest)) {
             $section->addLabelText('Interest in executive coaching opportunities');
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
-                $section->addListItem($interest);
+                $section->addListItem($this->localizeEnum($interest, ExecCoaching::class));
             }
         }
 
@@ -752,13 +761,14 @@ trait GeneratesUserDoc
 
         // Target Role Type
         $this->addLabelText($section, 'Target role',
-            $profile->next_role_target_role_other ?: $profile->next_role_target_role);
+            $this->localizeEnum($profile->next_role_target_role, TargetRole::class) ?:
+        $profile->next_role_target_role_other);
 
         // Senior Management Status
         $this->addLabelText($section, 'Senior management status',
             $profile->next_role_is_c_suite_role ?? '');
 
-        if ($profile->next_role_is_c_suite_role) {
+        if ($profile->next_role_is_c_suite_role === true) {
             $this->addLabelText($section, 'C-suite role title', $profile->next_role_c_suite_role_title ?? '');
         }
 
@@ -804,15 +814,15 @@ trait GeneratesUserDoc
 
         // Target Role Type
         $this->addLabelText($section, 'Target role',
-            $profile->career_objective_target_role_other ?: ($profile->career_objective_target_role ?? '')
-        );
+            $this->localizeEnum($profile->career_objective_target_role, TargetRole::class) ?:
+        $profile->career_objective_target_role_other);
 
         // Senior Management Status
         $this->addLabelText($section, 'Senior management status',
             $profile->career_objective_is_c_suite_role ?? '');
 
-        if ($profile->career_objective_is_c_suite_role && $profile->career_objective_c_suite_role_title) {
-            $this->addLabelText($section, 'C-suite role title', $profile->career_objective_c_suite_role_title ?? '');
+        if ($profile->career_objective_is_c_suite_role === true) {
+            $this->addLabelText($section, 'C-suite role title', $this->localizeEnum($profile->career_objective_c_suite_role_title, CSuiteRoleTitle::class) ?? '');
         }
 
         // Job Title
