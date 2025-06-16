@@ -41,6 +41,7 @@ const Head = ({ children }: TreeViewHeadProps) => <div>{children}</div>;
 
 interface TreeViewRootProps {
   children: ReactNode;
+  className?: string;
 }
 
 /**

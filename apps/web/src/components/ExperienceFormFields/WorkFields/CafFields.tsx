@@ -56,12 +56,12 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
   return (
     <>
       {fetching ? (
-        <div data-h2-flex-item="base(1of1)">
+        <div className="col-span-2">
           <Loading inline />
         </div>
       ) : (
         <>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="cafEmploymentType"
               name="cafEmploymentType"
@@ -70,7 +70,7 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="cafForce"
               name="cafForce"
@@ -83,7 +83,7 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1)">
+          <div className="col-span-2">
             <RadioGroup
               idPrefix="cafRank"
               name="cafRank"
@@ -92,7 +92,7 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             <DateInput
               id="startDate"
               legend={labels.startDate}
@@ -108,8 +108,8 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
               }}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-            <div data-h2-margin-top="p-tablet(x1)">
+          <div>
+            <div className="sm:mt-6">
               <Checkbox
                 boundingBox
                 boundingBoxLabel={labels.currentRole}
@@ -123,7 +123,7 @@ const CafFields = ({ labels }: SubExperienceFormProps) => {
               />
             </div>
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             {/* conditionally render the end-date based off the state attached to the checkbox input */}
             {!watchCurrentRole && (
               <DateInput

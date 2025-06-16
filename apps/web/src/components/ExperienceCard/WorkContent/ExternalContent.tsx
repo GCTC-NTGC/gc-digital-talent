@@ -21,20 +21,16 @@ const ExternalContent = ({
       <ContentSection
         title={experienceFormLabels.team}
         headingLevel={headingLevel}
-        data-h2-border-right="l-tablet(1px solid gray.lighter)"
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {division ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <Separator space="sm" decorative />
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-      >
+      <div className="grid gap-6 sm:grid-cols-2">
         <ContentSection
           title={experienceFormLabels.extSizeOfOrganization}
           headingLevel={headingLevel}
-          data-h2-border-right="l-tablet(1px solid gray.lighter)"
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {getLocalizedName(extSizeOfOrganization?.label, intl)}
         </ContentSection>

@@ -13,8 +13,7 @@ import {
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
-
-import FieldDisplay from "../FieldDisplay";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 type PartialUser = Pick<
   User,
@@ -85,7 +84,6 @@ const Display = ({
         type="button"
         mode="inline"
         color="error"
-        data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
       >
         {intl.formatMessage({
@@ -98,11 +96,7 @@ const Display = ({
   );
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
-      data-h2-gap="base(x1)"
-    >
+    <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
       <FieldDisplay
         hasError={!firstName}
         label={intl.formatMessage({
@@ -123,18 +117,10 @@ const Display = ({
       >
         {lastName ?? notProvided}
       </FieldDisplay>
-      <div
-        data-h2-grid-column-start="p-tablet(1)"
-        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
-        data-h2-gap="base(x0.5)"
-        data-h2-align-items="base(end)"
-      >
+      <div className="flex items-end gap-x-3 xs:col-span-2 sm:col-span-3">
         <FieldDisplay
           hasError={!email}
           label={intl.formatMessage(commonMessages.email)}
-          data-h2-margin="base(0 0 x.15 0)" // line up with chip
         >
           {email ?? notProvided}
         </FieldDisplay>
@@ -198,8 +184,7 @@ const Display = ({
       <FieldDisplay
         hasError={empty(armedForcesStatus)}
         label={intl.formatMessage(profileMessages.veteranStatus)}
-        data-h2-grid-column-start="p-tablet(1)"
-        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+        className="xs:col-span-2 sm:col-span-3"
       >
         {armedForcesStatus?.value
           ? intl.formatMessage(
@@ -214,8 +199,7 @@ const Display = ({
           id: "4v9y7U",
           description: "Citizenship status label",
         })}
-        data-h2-grid-column-start="p-tablet(1)"
-        data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+        className="xs:col-span-2 sm:col-span-3"
       >
         {citizenship?.value
           ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))

@@ -32,19 +32,12 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
   } as const;
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5 0)"
-    >
+    <div className="flex flex-col gap-y-3">
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (
           <Card key={id}>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-justify-content="base(space-between)"
-            >
-              <p data-h2-font-weight="base(700)">
+            <div className="flex justify-between">
+              <p className="font-bold">
                 {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
                 {index + 1}. {name[locale]}
               </p>
@@ -73,7 +66,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
                 })}
               </Button>
             </div>
-            <div data-h2-margin="base(x.5 0)">
+            <div className="my-3">
               <input
                 type="hidden"
                 {...register(`skills.${index}.skillId` as const, {
