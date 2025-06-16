@@ -186,7 +186,7 @@ const MainNavMenu = () => {
                 <Container
                   center
                   size={{ sm: "lg" }}
-                  className="items-center px-0 sm:flex sm:justify-between sm:px-12"
+                  className="items-center px-0 sm:flex sm:justify-between sm:px-6"
                 >
                   <div className="mx-6 flex items-center justify-between sm:m-0 sm:hidden">
                     <NavMenu.IconLink
