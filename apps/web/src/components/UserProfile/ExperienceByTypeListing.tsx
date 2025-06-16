@@ -46,20 +46,12 @@ const ExperienceByType = ({
 
   return (
     <div>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-padding="base(0, 0, x.5, 0)"
-      >
-        <span data-h2-margin="base(x.125, x.5, 0, 0)">{icon}</span>
-        <p data-h2-font-size="base(h5, 1)">{title}</p>
+      <div className="flex items-center pb-3">
+        <span className="mt-0.75">{icon}</span>
+        <p className="text-xl/none lg:text-2xl/none">{title}</p>
       </div>
       <div>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {experiences?.map((experience) => (
             <ExperienceCard
               key={experience.id}
@@ -149,7 +141,7 @@ const ExperienceByTypeListing = ({
 
   return (
     <>
-      <p data-h2-text-align="base(right)">
+      <p className="text-right">
         <Button mode="inline" onClick={toggleAllExpanded}>
           {intl.formatMessage(
             hasExpanded
@@ -175,7 +167,7 @@ const ExperienceByTypeListing = ({
         />
       ) : null}
       {communityExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        <div className="mt-12">
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Community experiences",
@@ -193,7 +185,7 @@ const ExperienceByTypeListing = ({
         </div>
       ) : null}
       {workExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        <div className="mt-12">
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
@@ -210,7 +202,7 @@ const ExperienceByTypeListing = ({
         </div>
       ) : null}
       {educationExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        <div className="mt-12">
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Education experiences",
@@ -228,7 +220,7 @@ const ExperienceByTypeListing = ({
         </div>
       ) : null}
       {awardExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        <div className="mt-12">
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Award experiences",

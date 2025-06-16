@@ -2,45 +2,46 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
+import { tv, VariantProps } from "tailwind-variants";
 
 import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success" | "warning" | "optional";
-export type StatusColor =
-  | "black"
-  | "error"
-  | "success"
-  | "warning"
-  | "secondary";
 type Layout = "compact" | "hero";
 
-const iconColorMap: Record<StatusColor, Record<string, string>> = {
-  black: {
-    "data-h2-color": "base(black.light)",
+const statusItem = tv({
+  slots: {
+    base: "flex justify-between gap-1",
+    icon: "ease mt-1 size-4.5 shrink-0 transition-colors duration-200",
   },
-  error: {
-    "data-h2-color": "base(error.dark)",
+  variants: {
+    layout: {
+      hero: {
+        base: "border-gray-200 not-first:border-t dark:border-gray-600",
+      },
+      compact: {},
+    },
+    color: {
+      black: {
+        icon: "text-gray-600 dark:text-gray-200",
+      },
+      error: {
+        icon: "text-error-500 dark:text-error-300",
+      },
+      success: {
+        icon: "text-success-500 dark:text-success-300",
+      },
+      warning: {
+        icon: "text-warning-500 dark:text-warning-300",
+      },
+      primary: {
+        icon: "text-primary-500 dark:text-primary-300",
+      },
+    },
   },
-  success: {
-    "data-h2-color": "base(success.dark)",
-  },
-  warning: {
-    "data-h2-color": "base(warning.dark)",
-  },
-  secondary: {
-    "data-h2-color": "base(secondary.dark)",
-  },
-};
+});
 
-const layoutStyleMap: Record<Layout, Record<string, string>> = {
-  hero: {
-    "data-h2-border-top":
-      "base:selectors[:not(:first-child)](1px solid gray.lighter)",
-    "data-h2-margin-top": "base:selectors[:not(:first-child)](x.5)",
-    "data-h2-padding-top": "base:selectors[:not(:first-child)](x.5)",
-  },
-  compact: {},
-};
+type StatusVariants = Pick<VariantProps<typeof statusItem>, "color">;
 
 // could be a regular link, a scroll link, or just a regular span
 const StatusItemTitle = ({
@@ -52,8 +53,9 @@ const StatusItemTitle = ({
 }: {
   href?: string;
   scrollTo?: string;
+  className?: string;
   children?: React.ReactElement;
-  color?: StatusColor;
+  color?: StatusVariants["color"];
 }) => {
   if (href) {
     return (
@@ -83,10 +85,10 @@ const StatusItemTitle = ({
 
 interface StatusItemProps {
   title: string;
-  titleColor?: StatusColor;
+  titleColor?: StatusVariants["color"];
   status?: Status;
   icon?: IconType;
-  iconColor?: StatusColor;
+  iconColor?: StatusVariants["color"];
   href?: string;
   scrollTo?: string;
   hiddenContextPrefix?: string;
@@ -132,7 +134,7 @@ const StatusItem = ({
   const combinedTitle = (
     <>
       {hiddenContextPrefix ? (
-        <span data-h2-visually-hidden="base(invisible)">
+        <span className="sr-only">
           {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
           {`${hiddenContextPrefix} - `}
         </span>
@@ -144,41 +146,28 @@ const StatusItem = ({
   let effectiveIconColor = iconColor;
   switch (status) {
     case "optional":
-      effectiveIconColor = "secondary";
+      effectiveIconColor = "primary";
       break;
     default:
       effectiveIconColor = status ?? iconColor;
   }
   const effectiveTitleColor = status === "error" ? "error" : titleColor;
 
+  const { base, icon: iconStyles } = statusItem({
+    layout,
+    color: effectiveIconColor,
+  });
+
   return (
-    <Wrapper
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-gap="base(x.15)"
-      {...layoutStyleMap[layout]}
-    >
-      <span
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
-        data-h2-gap="base(x0.5)"
-      >
-        {Icon && (
-          <Icon
-            data-h2-height="base(x.75)"
-            data-h2-width="base(x.75)"
-            data-h2-min-width="base(x.75)"
-            data-h2-margin-top="base(x.15)"
-            data-h2-transition="base(color .2s ease)"
-            {...iconColorMap[effectiveIconColor]}
-          />
-        )}
+    <Wrapper className={base()}>
+      <span className="flex gap-3">
+        {Icon && <Icon className={iconStyles()} />}
 
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
-          data-h2-text-align="base(left)"
           color={effectiveTitleColor}
+          className="text-left"
         >
           {combinedTitle}
         </StatusItemTitle>

@@ -535,6 +535,10 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
+  "0P591/": {
+    "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
+    "description": "Instruction if nominee is no longer a Government of Canada employee"
+  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajoutez une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -1354,6 +1358,10 @@
   "4DfNUW": {
     "defaultMessage": "Si vous soumettez un billet après la date limite de dépôt des demandes, nous ne serons pas en mesure de vous aider et votre demande ne sera pas acceptée.",
     "description": "Text explaining the average time spent on applications"
+  },
+  "4Ect9u": {
+    "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
+    "description": "Instruction to contact nominator or submitter for follow up"
   },
   "4EkI/1": {
     "defaultMessage": "Description (français)",
@@ -8886,6 +8894,10 @@
     "defaultMessage": "Rôles et structures numériques des cadres",
     "description": "Heading for the directives digital executive roles and structures component"
   },
+  "e0M7vj": {
+    "defaultMessage": "Si la personne candidate est toujours membre du personnel du gouvernement du Canada, elle devra mettre à jour son expérience professionnelle sur la plateforme.",
+    "description": "Instruction if nominee is still a Government of Canada employee"
+  },
   "e0v7Fl": {
     "defaultMessage": "Options d'avancement",
     "description": "Title for advancement options section in nominations details step"
@@ -9041,6 +9053,10 @@
   "efBMD2": {
     "defaultMessage": "Gestion des comptes",
     "description": "Title for the account management."
+  },
+  "eg8/kP": {
+    "defaultMessage": "Le profil de la personne candidate n'indique pas de poste actuel au sein du gouvernement du Canada.",
+    "description": "Description for the message displayed when there is no government experience for the current position"
   },
   "egLb65": {
     "defaultMessage": "Continuez",
@@ -10280,6 +10296,10 @@
   "jz/FoH": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
+  },
+  "k/V+39": {
+    "defaultMessage": "Aucune expérience gouvernementale actuelle trouvée",
+    "description": "Message displayed when there is no government experience for the current position"
   },
   "k1HxPf": {
     "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",

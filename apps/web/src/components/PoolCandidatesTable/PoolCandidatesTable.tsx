@@ -27,9 +27,9 @@ import {
   PoolCandidateSearchInput,
   Pool,
   Maybe,
-  PoolCandidateWithSkillCount,
   PublishingGroup,
   FragmentType,
+  CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
@@ -82,7 +82,11 @@ import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBo
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
 
-const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
+type CandidatesTableCandidatesPaginatedQueryDataType =
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
+
+const columnHelper =
+  createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
 
 const CandidatesTable_Query = graphql(/* GraphQL */ `
   query CandidatesTable_Query {
@@ -179,6 +183,25 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialog
           id
           ...PoolCandidate_Bookmark
+          viewNotes {
+            notes
+          }
+          viewStatus {
+            status {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            placedDepartment {
+              id
+              name {
+                en
+                fr
+              }
+            }
+          }
           category {
             weight
             value
@@ -206,6 +229,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
+            publishingGroup {
+              value
+              label {
+                en
+                fr
+              }
+            }
           }
           finalDecision {
             value
@@ -224,7 +254,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             email
             firstName
             lastName
-            telephone
             preferredLang {
               value
               label {
@@ -232,20 +261,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
-            preferredLanguageForInterview {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            preferredLanguageForExam {
-              value
-              label {
-                en
-                fr
-              }
-            }
+            lookingForEnglish
+            lookingForFrench
+            lookingForBilingual
             currentCity
             currentProvince {
               value
@@ -254,147 +272,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
-            citizenship {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            armedForcesStatus {
-              value
-              label {
-                en
-                fr
-              }
-            }
-
-            # Language
-            lookingForEnglish
-            lookingForFrench
-            lookingForBilingual
-            firstOfficialLanguage {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            secondLanguageExamCompleted
-            secondLanguageExamValidity
-            comprehensionLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            writtenLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            verbalLevel {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            estimatedLanguageAbility {
-              value
-              label {
-                en
-                fr
-              }
-            }
-
-            # Gov info
-            isGovEmployee
-            govEmployeeType {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            currentClassification {
-              id
-              group
-              level
-              name {
-                en
-                fr
-              }
-            }
-            department {
-              id
-              departmentNumber
-              name {
-                en
-                fr
-              }
-            }
-            hasPriorityEntitlement
-            priorityNumber
-
-            # Employment equity
-            isWoman
-            isVisibleMinority
-            hasDisability
-            indigenousCommunities {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            indigenousDeclarationSignature
-
-            # Applicant info
-            hasDiploma
-            locationPreferences {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            locationExemptions
-            acceptedOperationalRequirements {
-              value
-              label {
-                en
-                fr
-              }
-            }
-            positionDuration
-            priorityWeight
-            priority {
-              value
-              label {
-                en
-                fr
-              }
-            }
-          }
-          isBookmarked
-          expiryDate
-          status {
-            value
-            label {
-              en
-              fr
-            }
           }
           submittedAt
-          notes
-          archivedAt
           suspendedAt
-          priorityVerification
-          veteranVerification
         }
         skillCount
       }
@@ -622,10 +502,11 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const filteredData: PoolCandidateWithSkillCount[] = useMemo(() => {
-    const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
-    return poolCandidates.filter(notEmpty);
-  }, [data?.poolCandidatesPaginated.data]);
+  const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
+    useMemo(() => {
+      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
+      return poolCandidates.filter(notEmpty);
+    }, [data?.poolCandidatesPaginated.data]);
 
   const candidateIdsFromFilterData = filteredData.map(
     (iterator) => iterator.poolCandidate.id,
@@ -866,7 +747,8 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { viewStatus } }) =>
+        getLocalizedName(viewStatus?.status?.label, intl),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
@@ -880,7 +762,8 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { viewStatus } }) =>
+        getLocalizedName(viewStatus?.status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -898,7 +781,11 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
+        getLocalizedName(
+          row.poolCandidate.viewStatus?.placedDepartment?.name,
+          intl,
+          true,
+        ),
       {
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
@@ -918,22 +805,25 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidacyStatus),
       },
     ),
-    columnHelper.accessor(({ poolCandidate: { notes } }) => notes, {
-      id: "notes",
-      header: intl.formatMessage(adminMessages.notes),
-      sortingFn: normalizedText,
-      cell: ({
-        row: {
-          original: { poolCandidate },
-        },
-      }) =>
-        notesCell(
-          intl,
-          poolCandidate.notes,
-          poolCandidate.user.firstName,
-          poolCandidate.user.lastName,
-        ),
-    }),
+    columnHelper.accessor(
+      ({ poolCandidate: { viewNotes } }) => viewNotes?.notes,
+      {
+        id: "notes",
+        header: intl.formatMessage(adminMessages.notes),
+        sortingFn: normalizedText,
+        cell: ({
+          row: {
+            original: { poolCandidate },
+          },
+        }) =>
+          notesCell(
+            intl,
+            poolCandidate.viewNotes?.notes,
+            poolCandidate.user.firstName,
+            poolCandidate.user.lastName,
+          ),
+      },
+    ),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         getLocalizedName(user.preferredLang?.label, intl),
@@ -1022,13 +912,13 @@ const PoolCandidatesTable = ({
         }) => cells.date(submittedAt, intl),
       },
     ),
-  ] as ColumnDef<PoolCandidateWithSkillCount>[];
+  ] as ColumnDef<CandidatesTableCandidatesPaginatedQueryDataType>[];
 
   const hiddenColumnIds = ["candidacyStatus", "notes"];
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
-    <Table<PoolCandidateWithSkillCount>
+    <Table<CandidatesTableCandidatesPaginatedQueryDataType>
       caption={title}
       data={filteredData}
       columns={columns}

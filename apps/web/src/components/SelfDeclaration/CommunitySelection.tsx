@@ -41,14 +41,7 @@ interface MetisSectionProps {
 }
 
 const Row = ({ children }: RowProps) => (
-  <div
-    data-h2-display="base(grid)"
-    data-h2-grid-template-columns="base(repeat(4, 1fr))"
-    data-h2-align-items="base(center)"
-    data-h2-gap="base(0 x1)"
-  >
-    {children}
-  </div>
+  <div className="grid grid-cols-4 items-center gap-x-6">{children}</div>
 );
 
 const FirstNationSection = ({
@@ -60,7 +53,7 @@ const FirstNationSection = ({
 }: FirstNationSectionProps) => (
   <>
     <Row>
-      <div data-h2-grid-column="base(span 3)">
+      <div className="col-span-3">
         <Checkbox
           id="firstNations"
           name="communities"
@@ -76,7 +69,7 @@ const FirstNationSection = ({
           aria-describedby={customAlertId}
         />
         {formState.errors.firstNationsCustom && (
-          <Field.Error id={customAlertId} data-h2-margin-top="base(x.25)">
+          <Field.Error id={customAlertId} className="mt-1.5">
             <ErrorMessage errors={formState.errors} name="firstNationsCustom" />
           </Field.Error>
         )}
@@ -87,7 +80,7 @@ const FirstNationSection = ({
     </Row>
     {communitiesValue.includes("firstNations") && (
       <Row>
-        <div data-h2-grid-column="base(span 3)">
+        <div className="col-span-3">
           <RadioGroup
             idPrefix="firstNationsStatus"
             name="isStatus"
@@ -128,7 +121,7 @@ const FirstNationSection = ({
 
 const InukSection = ({ labels, intl }: InukSectionProps) => (
   <Row>
-    <div data-h2-grid-column="base(span 3)">
+    <div className="col-span-3">
       <Checklist
         idPrefix="inuk"
         id="inuk"
@@ -155,7 +148,7 @@ const InukSection = ({ labels, intl }: InukSectionProps) => (
 
 const MetisSection = ({ labels, intl }: MetisSectionProps) => (
   <Row>
-    <div data-h2-grid-column="base(span 3)">
+    <div className="col-span-3">
       <Checklist
         idPrefix="metis"
         id="metis"
@@ -231,11 +224,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-gap="base(x1 0)"
-        data-h2-flex-direction="base(column)"
-      >
+      <div className="flex flex-col gap-y-6">
         {locale === "fr" ? (
           <>
             <InukSection labels={labels} intl={intl} />
@@ -262,7 +251,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
           </>
         )}
         <Row>
-          <div data-h2-grid-column="base(span 3)">
+          <div className="col-span-3">
             <Checklist
               idPrefix="other"
               id="other"

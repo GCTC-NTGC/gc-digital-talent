@@ -18,13 +18,7 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
 
   return (
     <Well>
-      <Heading
-        level="h3"
-        size="h6"
-        data-h2-font-size="base(copy)"
-        data-h2-font-weight="base(700)"
-        data-h2-margin-top="base(0)"
-      >
+      <Heading level="h3" size="h6" className="mt-0 text-base font-bold">
         {intl.formatMessage(
           {
             defaultMessage: "{skill} is defined as:",

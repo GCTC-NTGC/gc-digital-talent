@@ -129,8 +129,8 @@ const ApplicantFilters = ({
         });
 
   return (
-    <section data-h2-flex-grid="base(flex-start, x2, x.5)">
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+    <section className="grid gap-6 xs:grid-cols-2">
+      <div>
         <div>
           <FilterBlock
             title={intl.formatMessage(talentRequestMessages.community)}
@@ -205,7 +205,7 @@ const ApplicantFilters = ({
           />
         </div>
       </div>
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+      <div>
         <div>
           <FilterBlock
             title={intl.formatMessage(commonMessages.workingLanguageAbility)}
@@ -362,10 +362,10 @@ const SearchRequestFilters = ({
     : intl.formatMessage(commonMessages.anyLanguage);
 
   return (
-    <section data-h2-radius="base(s)">
+    <section>
       <div>
-        <div data-h2-flex-grid="base(flex-start, 0, x1) p-tablet(flex-start, x2, 0)">
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+        <div className="grid gap-6 xs:grid-cols-2">
+          <div>
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Pool requested",
@@ -409,7 +409,7 @@ const SearchRequestFilters = ({
               content={educationLevel}
             />
           </div>
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+          <div>
             <div>
               <FilterBlock
                 title={intl.formatMessage(

@@ -18,6 +18,13 @@ import MoreActions, { MoreActions_Fragment } from "./MoreActions";
 
 const poolCandidates = fakePoolCandidates(5);
 const fakeCandidate = poolCandidates[2];
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+fakeCandidate.viewNotes = { notes: fakeCandidate.notes };
+fakeCandidate.viewStatus = {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  status: fakeCandidate.status,
+  placedDepartment: fakeCandidate.placedDepartment,
+};
 
 const profileSnapshot: User = {
   id: fakeCandidate.user.id,
@@ -26,7 +33,11 @@ fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 const getData = (status: PoolCandidateStatus) =>
   makeFragmentData(
-    { ...fakeCandidate, status: toLocalizedEnum(status) },
+    {
+      ...fakeCandidate,
+      viewStatus: { status: toLocalizedEnum(status) },
+      status: toLocalizedEnum(status),
+    },
     MoreActions_Fragment,
   );
 

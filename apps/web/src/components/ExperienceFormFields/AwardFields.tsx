@@ -47,86 +47,78 @@ const AwardFields = ({
   const [{ data }] = useQuery({ query: AwardOptions_Query });
 
   return (
-    <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        <div
-          data-h2-flex-item="base(1of1) p-tablet(1of2)"
-          data-h2-align-self="base(flex-end)"
-        >
-          <Input
-            id="awardTitle"
-            label={labels.awardTitle}
-            name="awardTitle"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Select
-            id="awardedTo"
-            label={labels.awardedTo}
-            name="awardedTo"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={localizedEnumToOptions(
-              sortAwardedTo(data?.awardedTo),
-              intl,
-            )}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="issuedBy"
-            label={labels.issuedBy}
-            name="issuedBy"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            list={
-              organizationSuggestions.length
-                ? "organizationSuggestions"
-                : undefined
-            }
-          />
-          {organizationSuggestions.length > 0 && (
-            <datalist id="organizationSuggestions">
-              {organizationSuggestions.map((suggestion) => {
-                return <option key={suggestion} value={suggestion}></option>;
-              })}
-            </datalist>
+    <div className="grid gap-6 xs:grid-cols-2">
+      <div className="self-end">
+        <Input
+          id="awardTitle"
+          label={labels.awardTitle}
+          name="awardTitle"
+          type="text"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
+      </div>
+      <div>
+        <Select
+          id="awardedTo"
+          label={labels.awardedTo}
+          name="awardedTo"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          options={localizedEnumToOptions(sortAwardedTo(data?.awardedTo), intl)}
+        />
+      </div>
+      <div>
+        <Input
+          id="issuedBy"
+          label={labels.issuedBy}
+          name="issuedBy"
+          type="text"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+          list={
+            organizationSuggestions.length
+              ? "organizationSuggestions"
+              : undefined
+          }
+        />
+        {organizationSuggestions.length > 0 && (
+          <datalist id="organizationSuggestions">
+            {organizationSuggestions.map((suggestion) => {
+              return <option key={suggestion} value={suggestion}></option>;
+            })}
+          </datalist>
+        )}
+      </div>
+      <div>
+        <Select
+          id="awardedScope"
+          label={labels.awardedScope}
+          name="awardedScope"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          options={localizedEnumToOptions(
+            sortAwardedScope(data?.awardedScopes),
+            intl,
           )}
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Select
-            id="awardedScope"
-            label={labels.awardedScope}
-            name="awardedScope"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={localizedEnumToOptions(
-              sortAwardedScope(data?.awardedScopes),
-              intl,
-            )}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1)">
-          <DateInput
-            id="awardedDate"
-            legend={labels.awardedDate}
-            name="awardedDate"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
-          />
-        </div>
+        />
+      </div>
+      <div className="xs:col-span-2">
+        <DateInput
+          id="awardedDate"
+          legend={labels.awardedDate}
+          name="awardedDate"
+          show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            max: {
+              value: strToFormDate(todayDate.toISOString()),
+              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+            },
+          }}
+        />
       </div>
     </div>
   );

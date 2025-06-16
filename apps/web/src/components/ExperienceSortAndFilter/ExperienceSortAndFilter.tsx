@@ -100,7 +100,7 @@ const ExperienceSortAndFilter = ({
 
   return (
     <FormProvider {...methods}>
-      <div data-h2-flex-item="base(1of1) p-tablet(content)">
+      <div className="flex items-center gap-x-3">
         <Select
           id="sortBy"
           label={intl.formatMessage({
@@ -113,8 +113,6 @@ const ExperienceSortAndFilter = ({
           options={sortOptions}
           trackUnsaved={false}
         />
-      </div>
-      <div data-h2-flex-item="base(1of1) p-tablet(content)">
         <Select
           id="filterBy"
           label={intl.formatMessage({
