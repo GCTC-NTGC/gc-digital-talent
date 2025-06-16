@@ -5,6 +5,9 @@ import { ReactNode } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
+
+import FieldDisplay from "../FieldDisplay/FieldDisplay";
+
 interface FilterBlockProps {
   title: string;
   content?: Maybe<string | ReactNode> | Maybe<string[]>;
@@ -19,7 +22,7 @@ const FilterBlockContent = ({
 
   if (isEmpty(content)) {
     return (
-      <Ul data-h2-color="base(black)">
+      <Ul>
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -34,7 +37,7 @@ const FilterBlockContent = ({
   return (
     <div>
       {Array.isArray(content) && content.length > 0 ? (
-        <Ul data-h2-color="base(black)">
+        <Ul>
           {content.map((text) => (
             <li key={uniqueId()}>{text}</li>
           ))}
@@ -48,16 +51,9 @@ const FilterBlockContent = ({
 
 const FilterBlock = ({ title, content }: FilterBlockProps) => {
   return (
-    <div data-h2-padding="base(0, 0, x1, 0)">
-      <p
-        data-h2-display="base(block) p-tablet(inline)"
-        data-h2-padding="base(0, x.125, 0, 0)"
-        data-h2-font-weight="base(600)"
-      >
-        <span data-h2-display="base(inline)">{title}</span>
-      </p>
+    <FieldDisplay label={title} className="mb-6">
       <FilterBlockContent content={content} />
-    </div>
+    </FieldDisplay>
   );
 };
 

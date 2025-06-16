@@ -19,7 +19,7 @@ const LanguageInformationSection = ({
   const intl = useIntl();
   return (
     <Well>
-      {!hasAllEmptyFields(user) && <Display user={user} context="admin" />}
+      {!hasAllEmptyFields(user) && <Display user={user} />}
       {hasEmptyRequiredFields(user) && (
         <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       )}

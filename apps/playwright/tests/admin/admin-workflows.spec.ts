@@ -36,7 +36,7 @@ test.describe("Admin workflows", () => {
     await appPage.page.getByRole("link", { name: /user profile/i }).click();
     await appPage.waitForGraphqlResponse("AdminUserProfile");
     await expect(
-      appPage.page.getByRole("button", { name: /download profile/i }),
+      appPage.page.getByRole("button", { name: /download docx/i }),
     ).toBeVisible();
   });
 

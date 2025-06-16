@@ -5,8 +5,8 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 const NullDisplay = () => {
   const intl = useIntl();
   return (
-    <div data-h2-text-align="base(center)">
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+    <div className="text-center">
+      <p className="mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage:
             "This section asks whether you are currently a Government of Canada employee and other related questions.",

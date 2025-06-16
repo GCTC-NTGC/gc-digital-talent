@@ -160,11 +160,7 @@ const FormFields = ({
   ]);
 
   return (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1 0)"
-    >
+    <div className="flex flex-col gap-y-6">
       <RadioGroup
         idPrefix="govEmployeeYesNo"
         legend={labels.govEmployeeYesNo}
@@ -239,14 +235,8 @@ const FormFields = ({
                 "Text blurb, asking about classification and level in the government info form",
             })}
           </p>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
-            <div
-              data-h2-padding="p-tablet(0, x2, 0, 0)"
-              data-h2-width="base(100%)"
-            >
+          <div className="flex flex-col xs:flex-row">
+            <div className="w-full sm:mb-12">
               <Select
                 id="currentClassificationGroup"
                 label={labels.currentClassificationGroup}
@@ -332,8 +322,8 @@ const FormFields = ({
           },
         ]}
       />
-      <Well id="priority-description" data-h2-padding="base(x.5)">
-        <p data-h2-font-size="base(caption)">
+      <Well id="priority-description" fontSize="caption">
+        <p>
           {intl.formatMessage(
             {
               defaultMessage:

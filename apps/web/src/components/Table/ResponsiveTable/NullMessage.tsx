@@ -24,11 +24,11 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
   const intl = useIntl();
 
   return (
-    <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-      <Heading data-h2-margin="base(0)" data-h2-font-size="base(copy)">
+    <Well className="my-6 text-center">
+      <Heading className="m-0 text-base lg:text-base">
         {title ?? intl.formatMessage(tableMessages.noItemsTitle)}
       </Heading>
-      {description && <p data-h2-margin-top="base(x1)">{description}</p>}
+      {description && <p className="mt-6">{description}</p>}
     </Well>
   );
 };

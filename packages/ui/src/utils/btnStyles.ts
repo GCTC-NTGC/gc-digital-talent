@@ -321,7 +321,7 @@ export interface BaseButtonLinkProps extends ButtonLinkVariants {
 
 export const iconBtn = tv({
   slots: {
-    base: "group/iconBtn inline-block rounded-full border-0 bg-transparent p-1 leading-none transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
+    base: "group/iconBtn inline-block cursor-pointer rounded-full border-0 bg-transparent p-1 leading-none transition-colors duration-200 ease-linear outline-none focus-visible:bg-focus focus-visible:text-black",
     icon: "align-middle",
   },
   variants: {
