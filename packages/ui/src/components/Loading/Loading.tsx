@@ -45,6 +45,7 @@ const Loading = ({
   pause = false,
   live,
   children,
+  className,
   ...rest
 }: LoadingProps) => {
   const shouldReduceMotion = useReducedMotion();
@@ -56,7 +57,7 @@ const Loading = ({
       {...(live && {
         "aria-live": live,
       })}
-      className={base()}
+      className={base({ class: className })}
       {...rest}
     >
       <div className={wrapper()}>
