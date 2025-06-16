@@ -163,11 +163,12 @@ const cellStyles = tv({
       },
     },
     shouldShrink: {
-      true: { base: "shrink-0 sm:w-auto" },
+      true: { base: "w-auto shrink-0 sm:w-auto" },
+      false: { base: "w-full" },
     },
     isRowSelect: {
       true: {
-        base: "order-2 w-auto",
+        base: "order-2 w-auto shrink-0",
       },
     },
   },
@@ -178,6 +179,11 @@ const cellStyles = tv({
       class: {
         base: "order-3 block sm:table-cell",
       },
+    },
+    {
+      isRowTitle: true,
+      shouldShrink: false,
+      class: { base: "w-auto" },
     },
   ],
 });
