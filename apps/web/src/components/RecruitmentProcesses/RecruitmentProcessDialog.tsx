@@ -123,14 +123,10 @@ const RecruitmentProcessDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(repeat(1, 1fr)) p-tablet(repeat(2, 1fr))"
-            data-h2-gap="base(x1)"
-          >
+          <div className="grid gap-6 xs:grid-cols-2">
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.jobTitle)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.name?.localized ?? nullMessage}
             </FieldDisplay>
@@ -163,7 +159,7 @@ const RecruitmentProcessDialog = ({
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.department)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.department?.name.localized}
             </FieldDisplay>
@@ -185,20 +181,16 @@ const RecruitmentProcessDialog = ({
                   })
                 : nullMessage}
             </FieldDisplay>
-            <Separator
-              decorative
-              data-h2-grid-column="p-tablet(span 2)"
-              data-h2-margin="base(0)"
-            />
+            <Separator decorative className="m-0 xs:col-span-2" />
             <FieldDisplay
               label={intl.formatMessage(commonMessages.employmentLength)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.opportunityLength?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(talentRequestMessages.workLocation)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.isRemote
                 ? intl.formatMessage(commonMessages.remote)
@@ -206,13 +198,13 @@ const RecruitmentProcessDialog = ({
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(commonMessages.securityClearance)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool.securityClearance?.label.localized}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(processMessages.processNumber)}
-              data-h2-grid-column="p-tablet(span 2)"
+              className="xs:col-span-2"
             >
               {pool?.processNumber ?? nullMessage}
             </FieldDisplay>
