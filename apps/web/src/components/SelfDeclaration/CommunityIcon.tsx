@@ -1,5 +1,6 @@
 import { AnimatePresence, m } from "motion/react";
 import { useFormContext } from "react-hook-form";
+import { tv } from "tailwind-variants";
 
 import firstNationsOn from "~/assets/img/first-nations-true.webp";
 import firstNationsOff from "~/assets/img/first-nations-false.webp";
@@ -15,6 +16,10 @@ import otherOff from "~/assets/img/other-false.webp";
 import otherOffDark from "~/assets/img/other-false-dark.webp";
 
 import { partOfCommunity } from "./utils";
+
+const icon = tv({
+  base: "absolute inset-0 size-full",
+});
 
 const getCommunityIcon = (community: string): [string, string, string] => {
   if (community === "first-nations") {
@@ -45,10 +50,6 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   const [iconOn, iconOff, iconOffDark] = getCommunityIcon(community);
 
   const styles = {
-    "data-h2-location": "base(0)",
-    "data-h2-position": "base(absolute)",
-    "data-h2-width": "base(100%)",
-    "data-h2-height": "base(100%)",
     // Fade animation
     initial: { opacity: 0 },
     exit: { opacity: 0 },
@@ -56,13 +57,8 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   };
 
   return (
-    <div data-h2-width="base(100%)">
-      <div
-        data-h2-position="base(relative)"
-        data-h2-width="base(100%)"
-        data-h2-height="base(0)"
-        data-h2-padding="base(0, 0, 100%, 0)"
-      >
+    <div className="w-full">
+      <div className="relative h-0 w-full pb-[100%]">
         <AnimatePresence>
           {isOn ? (
             <m.img {...styles} alt="" key={`${community}-true`} src={iconOn} />
@@ -70,14 +66,14 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
             <>
               <m.img
                 {...styles}
-                data-h2-display="base(block) base:dark(none)"
+                className={icon({ class: "block dark:hidden" })}
                 alt=""
                 key={`${community}-false`}
                 src={iconOff}
               />
               <m.img
                 {...styles}
-                data-h2-display="base(none) base:dark(block)"
+                className={icon({ class: "hidden dark:block" })}
                 alt=""
                 key={`${community}-false-dark`}
                 src={iconOffDark}

@@ -34,8 +34,7 @@ const DiversityEquityInclusion = ({
   return (
     <>
       <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
+        className="mt-0 mb-6 font-normal"
         icon={UsersIcon}
         color="primary"
         level={pool ? "h3" : "h2"}
@@ -99,7 +98,7 @@ const DiversityEquityInclusion = ({
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-padding-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "While the language around these categories is being updated, the Government of Canada will sometimes use these categories in hiring to ensure that it is meeting its employment equity goals.",
@@ -108,7 +107,7 @@ const DiversityEquityInclusion = ({
                   "Description of how the Government of Canada uses employment equity categories in hiring.",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "The four equity groups are women, Aboriginal (Indigenous) peoples, persons with disabilities, and visible minorities.",
@@ -117,10 +116,7 @@ const DiversityEquityInclusion = ({
                   "Second paragraph for employment equity information.",
               })}
             </p>
-            <p
-              data-h2-margin-bottom="base(x0.5)"
-              data-h2-font-weight="base(700)"
-            >
+            <p className="mb-3 font-bold">
               {intl.formatMessage({
                 defaultMessage: "How will this data be used?",
                 id: "ttRVSp",
@@ -157,7 +153,7 @@ const DiversityEquityInclusion = ({
                 })}
               </li>
             </Ul>
-            <p data-h2-margin="base(x.5 0)">
+            <p className="my-3">
               {intl.formatMessage({
                 defaultMessage:
                   "If you do not want to share this information on this platform, <strong>there is no obligation</strong> to do so.",

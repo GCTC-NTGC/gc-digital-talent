@@ -47,44 +47,23 @@ const TalentNominationEventCard = ({
 
   return (
     <>
-      <Card
-        data-h2-padding="base(x1 x1.5 x1.5 x1.5)"
-        data-h2-position="base(relative)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-      >
-        <Heading
-          level="h6"
-          data-h2-font-weight="base(700)"
-          data-h2-order="base(2)"
-        >
+      <Card className="relative flex flex-col p-9 pt-6">
+        <Heading level="h6" className="order-2 font-bold">
           {talentNominationEvent.name.localized}
         </Heading>
-        <div
-          data-h2-order="base(1)"
-          data-h2-filter="base(drop-shadow(0 2px 2px rgba(0, 0, 0, .2))) base:dark(drop-shadow(0 2px 2px rgba(0, 0, 0, .5)))"
-        >
+        <div className="order-1 drop-shadow-(--ribbon-shadow)">
           <div
-            data-h2-background="base(primary.lightest) base:dark(primary.lightest)"
-            data-h2-border-radius="base(rounded 0 0 rounded)"
-            data-h2-clip-path="base(polygon(0% 0%, 100% 0%, calc(100% - 1rem) 50%, 100% 100%, 0% 100%))"
-            data-h2-color="base(black) base:dark(primary.darkest)"
-            data-h2-display="base(inline-block)"
-            data-h2-font-size="base(caption)"
-            data-h2-font-weight="base(700)"
-            data-h2-line-height="base(x.175)"
-            data-h2-margin="base(0 0 0 -x1.75)"
-            data-h2-padding="base(x.175 x1.5 x.175 x1.75)"
-            data-h2-position="base(relative)"
+            className="relative -ml-10.5 inline-block rounded-l-md bg-secondary-100 py-1 pr-9 pl-10.5 text-sm/normal font-bold text-black dark:text-secondary-700"
+            style={{
+              clipPath:
+                "polygon(0% 0%, 100% 0%, calc(100% - 1rem) 50%, 100% 100%, 0% 100%)",
+            }}
           >
             {talentNominationEvent.community?.name?.localized}
           </div>
         </div>
-        <div data-h2-order="base(3)">
-          <p
-            data-h2-margin-bottom="base(x.5)"
-            data-h2-color="base(black.light)"
-          >
+        <div className="order-3">
+          <p className="mb-3 text-gray-600 dark:text-gray-200">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -109,15 +88,8 @@ const TalentNominationEventCard = ({
               },
             )}
           </p>
-          <p data-h2-margin-bottom="base(x1)">
-            {talentNominationEvent.description?.localized}
-          </p>
-          <div
-            data-h2-align-items="base(center)"
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x1)"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-          >
+          <p className="mb-6">{talentNominationEvent.description?.localized}</p>
+          <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Link
               mode="solid"
               color="primary"

@@ -96,11 +96,7 @@ const SearchRequestFilterDialog = ({
       {...{ onSubmit, resetValues }}
       options={{ defaultValues: initialValues }}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-        data-h2-gap="base(x1)"
-      >
+      <div className="grid gap-6 xs:grid-cols-2">
         <Combobox
           id="status"
           name="status"

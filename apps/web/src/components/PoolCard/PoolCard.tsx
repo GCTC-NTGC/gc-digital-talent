@@ -3,6 +3,7 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
+import { tv } from "tailwind-variants";
 
 import {
   Heading,
@@ -167,6 +168,16 @@ const deriveWhoCanApplyString = (
   return null;
 };
 
+const flag = tv({
+  base: "absolute bottom-0 size-0 translate-y-6 border-t-[calc(var(--spacing)*18)] border-b-[calc(var(--spacing)*9)] border-transparent",
+  variants: {
+    side: {
+      left: "left-0 border-l-[calc(var(--spacing)*18)] border-l-primary",
+      right: "right-0 border-r-[calc(var(--spacing)*18)] border-r-primary",
+    },
+  },
+});
+
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
@@ -197,36 +208,11 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   });
 
   return (
-    <Card
-      data-h2-margin-top="base(x1)"
-      data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
-      data-h2-position="base(relative)"
-    >
-      <div
-        data-h2-background-color="base(secondary)"
-        data-h2-position="base(absolute) base:selectors[::before](absolute) base:selectors[::after](absolute)"
-        data-h2-location="base(-x.25, auto, auto, x1) p-tablet(-x.25, auto, auto, x1.5) base:selectors[::before](auto, auto, 0px, 0px) base:selectors[::after](auto, 0px, 0px, auto)"
-        data-h2-radius="base(rounded, rounded, 0px, 0px)"
-        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[::after](0px)"
-        data-h2-width="base(x3.5) base:selectors[::before](0px) base:selectors[::after](0px)"
-        data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
-        data-h2-display="base:selectors[::before](block) base:selectors[::after](block)"
-        data-h2-border-top="base:selectors[::before](x3 solid transparent) base:selectors[::after](x3 solid transparent)"
-        data-h2-border-bottom="base:selectors[::before](x1.5 solid transparent) base:selectors[::after](x1.5 solid transparent)"
-        data-h2-border-left="base:selectors[::before](x3 solid secondary)"
-        data-h2-border-right="base:selectors[::after](x3 solid secondary)"
-        data-h2-transform="base:selectors[::before](translate(0, 1.5rem)) base:selectors[::after](translate(0, 1.5rem))"
-      >
-        <span
-          data-h2-color="base:all(black) base:iap(white)"
-          data-h2-font-weight="base(700)"
-          data-h2-font-size="base(h5, 1)"
-          data-h2-layer="base(2)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(auto, auto, x1.25, 50%)"
-          data-h2-transform="base(translate(-50%, 0px))"
-          data-h2-white-space="base:children[*](nowrap)"
-        >
+    <Card className="relative mt-6 p-6 xs:p-12 xs:pl-39">
+      <div className="absolute -top-1.5 left-6 h-27 w-21 rounded-t-md bg-primary xs:left-9">
+        <span aria-hidden className={flag({ side: "left" })} />
+        <span aria-hidden className={flag({ side: "right" })} />
+        <span className="absolute bottom-7.5 left-1/2 z-[2] -translate-x-1/2 text-xl font-bold text-black *:whitespace-nowrap lg:text-2xl iap:text-white">
           {classificationAbbr || (
             <abbr title={intl.formatMessage(commonMessages.notAvailable)}>
               <span
@@ -239,19 +225,11 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
         </span>
       </div>
       <div>
-        <div
-          data-h2-display="base(block) p-tablet(flex)"
-          data-h2-gap="base(x1.5)"
-        >
+        <div className="gap-7.5 xs:flex">
           <Heading
             level={headingLevel}
             size="h5"
-            data-h2-font-weight="base(700)"
-            data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
-            data-h2-padding-left="base(x4.5) p-tablet(0)"
-            data-h2-hyphens="base(auto)"
-            data-h2-max-width="p-tablet(75%)"
-            data-h2-min-height="base(x4.5) p-tablet(auto)"
+            className="mt-0 mb-6 min-h-27 pl-27 font-bold hyphens-auto xs:mb-0 xs:min-h-auto xs:max-w-3/4 xs:pl-0"
           >
             {getShortPoolTitleHtml(intl, {
               workStream: pool.workStream,
@@ -260,20 +238,9 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
               classification: pool.classification,
             })}
           </Heading>
-          <div
-            data-h2-background-color="base(secondary)"
-            data-h2-display="base(none) p-tablet(block)"
-            data-h2-height="base(x.25)"
-            data-h2-width="base(100%)"
-            data-h2-margin-top="base(x.5)"
-            data-h2-flex="base(1)"
-          />
+          <div className="mt-3 hidden h-1.5 w-full flex-1 bg-primary xs:block" />
         </div>
-        <div
-          data-h2-display="base(block) l-tablet(flex)"
-          data-h2-gap="base(x2)"
-          data-h2-margin-top="base(x1) base:children[>p](x1) l-tablet:children[>p](0px)"
-        >
+        <div className="mt-6 gap-12 sm:flex [&>p]:mt-6 sm:[&>p]:mt-0">
           <IconLabel
             icon={CalendarIcon}
             label={
@@ -332,8 +299,8 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             {salaryRange ?? intl.formatMessage(commonMessages.notAvailable)}
           </IconLabel>
         </div>
-        <div data-h2-margin-top="base(x1)">
-          <div data-h2-margin-bottom="base(x.25)">
+        <div className="mt-6">
+          <div className="mb-1.5">
             <IconLabel
               icon={BoltIcon}
               label={
@@ -359,7 +326,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             </p>
           )}
         </div>
-        <div data-h2-margin-top="base(x1.5)">
+        <div className="mt-7.5">
           {pool.id && (
             <Link color="primary" mode="solid" href={paths.pool(pool.id)}>
               <span>
