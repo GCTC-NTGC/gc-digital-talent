@@ -82,4 +82,14 @@ class DepartmentPolicy
     {
         return $user->isAbleTo('delete-any-department');
     }
+
+    /**
+     * Determine whether the user can archive and un-archive the department. Reuses deletion permissions
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function archiveAndUnarchive(User $user)
+    {
+        return $user->isAbleTo('delete-any-department');
+    }
 }
