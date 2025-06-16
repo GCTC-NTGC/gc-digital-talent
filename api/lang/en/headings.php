@@ -34,7 +34,7 @@ return [
     'department' => 'Department',
     'employee_type' => 'Employment type',
     'work_email' => 'Work email',
-    'classification' => 'Current classification',
+    'classification' => 'Current classification (substantive)',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',
@@ -118,4 +118,6 @@ return [
     'decision_details' => 'Decision details',
     'decision_notes' => 'Decision notes',
     'final_decision' => 'Final decision',
+    'digital_talent_processes' => 'GC Digital Talent processes',
+    'off_platform_processes' => 'Off-platform processes (not verified)',
 ];

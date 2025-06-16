@@ -22,6 +22,7 @@ use App\Models\User;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
@@ -42,12 +43,12 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'citizenship',
         'interested_in_languages',
         'first_official_language',
+        'estimated_language_ability',
         'second_language_exam_completed',
         'second_language_exam_validity',
         'comprehension_level',
         'writing_level',
         'oral_interaction_level',
-        'estimated_language_ability',
         'government_employee',
         'department',
         'employee_type',
@@ -106,6 +107,9 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
         'career_planning_about_you',
         'career_planning_learning_goals',
         'career_planning_work_style',
+
+        'digital_talent_processes',
+        'off_platform_processes',
     ];
 
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
@@ -152,6 +156,16 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     return $department->name[$this->lang] ?? '';
                 });
 
+                $appliedPools = $user->poolCandidates->map(function ($candidate) {
+                    return $candidate->pool->classification->displayName
+                            .' - '
+                            .($candidate->pool->name[$this->lang] ?? '')
+                            .' - '
+                            .$candidate->pool->process_number
+                            .' - '
+                            .($candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang));
+                });
+
                 $values = [
                     $user->first_name, // First name
                     $user->last_name, // Last name
@@ -159,12 +173,12 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
                     $this->lookingForLanguages($user),
                     $this->localizeEnum($user->first_official_language, Language::class),
-                    is_null($user->second_language_exam_completed) ? '' : $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
+                    $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
+                    $user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
                     $this->yesOrNo($user->second_language_exam_validity),
                     $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                    $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
                     $this->yesOrNo($user->computed_is_gov_employee), // Government employee
                     $department->name[$this->lang] ?? '', // Department
                     $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
@@ -176,10 +190,10 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
                     $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
                     $user->location_exemptions, // Location exemptions
-                    $this->yesOrNo($user->is_woman), // Woman
+                    $user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
                     $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
-                    $this->yesOrNo($user->is_visible_minority), // Visible minority
-                    $this->yesOrNo($user->has_disability), // Disability
+                    $user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
+                    $user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
                     $userSkills->join(', '),
                     // new columns
                     $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest), // Career planning - Lateral move interest
@@ -218,6 +232,8 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $employeeProfile->career_planning_about_you, // Career planning - About you
                     $employeeProfile->career_planning_learning_goals, // Career planning - Learning goals
                     $employeeProfile->career_planning_work_style, // Career planning - Work style
+                    $appliedPools->join(', '), // Digital talent processes
+                    $user->off_platform_recruitment_processes, // Off-platform processes
                 ];
 
                 // 1 is added to the key to account for the header row
@@ -266,6 +282,11 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
             'employeeProfile.careerObjectiveWorkStreams',
             'employeeProfile.nextRoleDepartments',
             'employeeProfile.careerObjectiveDepartments',
+            'poolCandidates' => function ($query) {
+                $query->whereAuthorizedToView(['userId' => $this->userId]);
+            },
+            'poolCandidates.pool',
+            'poolCandidates.pool.classification',
         ]);
 
         $this->applyFilters($query, [
