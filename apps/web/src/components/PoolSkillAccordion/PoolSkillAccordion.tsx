@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { tv } from "tailwind-variants";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import {
@@ -13,6 +14,16 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 
+const context = tv({
+  base: "font-bold",
+  variants: {
+    required: {
+      true: "text-secondary-600 dark:text-secondary-200",
+      false: "text-primary-600 dark:text-primary-200",
+    },
+  },
+});
+
 interface ContextProps {
   required: boolean;
 }
@@ -21,14 +32,7 @@ const Context = ({ required }: ContextProps) => {
   const intl = useIntl();
 
   return (
-    <span
-      data-h2-font-weight="base(700)"
-      {...(required
-        ? {
-            "data-h2-color": "base(primary.darker)",
-          }
-        : { "data-h2-color": "base(secondary.darker)" })}
-    >
+    <span className={context({ required })}>
       {required
         ? intl.formatMessage({
             defaultMessage: "Required",
@@ -51,15 +55,7 @@ const AccordionSubtitle = ({
   skillLevelItem,
   screeningTime,
 }: AccordionSubtitleProps) => (
-  <span
-    data-h2-align-items="base(flex-start) p-tablet(center)"
-    data-h2-color="base(black.light)"
-    data-h2-font-size="base(caption)"
-    data-h2-margin-top="base(x.5)"
-    data-h2-display="base(flex)"
-    data-h2-flex-direction="base(column) p-tablet(row)"
-    data-h2-gap="base(x.5)"
-  >
+  <span className="mt-3 flex flex-col items-start gap-3 text-sm text-gray-600 xs:flex-row xs:items-center dark:text-gray-200">
     {isSkillLevelAvailable && (
       <>
         <span>{skillLevelItem}</span>
@@ -68,7 +64,7 @@ const AccordionSubtitle = ({
     {screeningTime && (
       <>
         {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-        <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
+        <span className="hidden xs:inline">&bull;</span>
         <span>{screeningTime}</span>
       </>
     )}
@@ -160,8 +156,8 @@ const PoolSkillAccordion = ({
       </Accordion.Trigger>
       <Accordion.Content>
         {poolSkill.skill.description && (
-          <p data-h2-margin-bottom="base(x1)">
-            <span data-h2-font-weight="base(700)">
+          <p className="mb-6">
+            <span className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Skill definition",
                 id: "N44sQc",
@@ -173,7 +169,7 @@ const PoolSkillAccordion = ({
         )}
         {poolSkill.requiredLevel && (
           <p>
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Level definition",
                 id: "fqa45V",

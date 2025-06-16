@@ -10,8 +10,6 @@ export type FieldLabels = Record<string, ReactNode>;
 
 export type FieldState = "unset" | "invalid" | "dirty";
 
-export type StyleRecord = Record<string, string>;
-
 export type HTMLInputProps = Omit<
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "capture" | "type"

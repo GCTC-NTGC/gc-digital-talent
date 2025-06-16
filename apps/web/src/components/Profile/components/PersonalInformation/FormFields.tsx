@@ -46,12 +46,7 @@ const FormFields = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr)"
-        data-h2-gap="base(x1)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 grid gap-6 sm:grid-cols-2">
         <Input
           id="firstName"
           name="firstName"
@@ -90,12 +85,7 @@ const FormFields = ({
           }}
         />
       </div>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 grid gap-6 sm:grid-cols-3">
         <RadioGroup
           id="preferredLang"
           legend={labels.preferredLang}
@@ -121,7 +111,7 @@ const FormFields = ({
           items={languageOptions}
         />
       </div>
-      <div data-h2-margin-bottom="base(x1)">
+      <div className="mb-6">
         <RadioGroup
           idPrefix="armedForcesStatus"
           legend={labels.armedForcesStatus}
@@ -134,7 +124,7 @@ const FormFields = ({
           }))}
         />
       </div>
-      <div data-h2-margin-bottom="base(x1)">
+      <div className="mb-6">
         <RadioGroup
           idPrefix="citizenship"
           legend={labels.citizenship}

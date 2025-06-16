@@ -12,8 +12,8 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 
 interface DisplayProps {
@@ -45,7 +45,7 @@ const Display = ({
   );
 
   return (
-    <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+    <div className="grid gap-6">
       <FieldDisplay
         hasError={empty(positionDuration)}
         label={labels.contractDuration}

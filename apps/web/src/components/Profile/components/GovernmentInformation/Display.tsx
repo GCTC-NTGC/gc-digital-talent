@@ -8,8 +8,8 @@ import { Button, Chip } from "@gc-digital-talent/ui";
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 
 interface DisplayProps {
@@ -86,7 +86,6 @@ const Display = ({
         type="button"
         mode="inline"
         color="error"
-        data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
       >
         {intl.formatMessage({
@@ -99,7 +98,7 @@ const Display = ({
   );
 
   return (
-    <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+    <div className="flex flex-col gap-y-6">
       <FieldDisplay
         hasError={empty(isGovEmployee)}
         label={intl.formatMessage({
@@ -138,12 +137,7 @@ const Display = ({
                 )
               : notProvided}
           </FieldDisplay>
-          <div
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(row)"
-            data-h2-gap="base(x0.5)"
-            data-h2-align-items="base(end)"
-          >
+          <div className="flex items-end gap-3">
             <FieldDisplay
               hasError={!workEmail}
               label={intl.formatMessage({
@@ -151,7 +145,6 @@ const Display = ({
                 id: "tj9Dz3",
                 description: "Work email label",
               })}
-              data-h2-margin="base(0 0 x.15 0)" // line up with chip
             >
               {workEmail ?? notProvided}
             </FieldDisplay>

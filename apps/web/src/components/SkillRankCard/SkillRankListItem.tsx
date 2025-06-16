@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { Fragment, ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -26,12 +27,16 @@ const SkillLink = ({ id, children }: SkillLinkProps) => {
       href={`${paths.editUserSkill(id ?? "")}?${searchParams.toString()}`}
       mode="text"
       color="black"
-      data-h2-text-align="base(left)"
+      className="text-left"
     >
       {children}
     </Link>
   );
 };
+
+const suffix = tv({
+  base: "shrink-0 text-sm/loose text-gray-600 dark:text-gray-200",
+});
 
 interface SkillRankListItemProps {
   userSkill: Pick<UserSkill, "skill" | "skillLevel">;
@@ -48,32 +53,19 @@ const SkillRankListItem = ({
   const NameWrapper = editable ? SkillLink : Fragment;
 
   return (
-    <li data-h2-margin-bottom="base(x.25)">
-      <span
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(flex-start)"
-        data-h2-gap="base(x.5 x.25)"
-        data-h2-justify-content="base(space-between)"
-      >
+    <li>
+      <span className="flex items-start justify-between gap-x-1.5 gap-y-3">
         <NameWrapper {...(editable && { id: skill.id })}>
           {getLocalizedName(skill.name, intl)}
         </NameWrapper>
         {skillLevel ? (
-          <span
-            data-h2-font-size="base(caption, calc(var(--h2-line-height-body) + .4))"
-            data-h2-color="base(black.light)"
-            data-h2-flex-shrink="base(0)"
-          >
+          <span className={suffix()}>
             {intl.formatMessage(
               getSkillLevelName(skillLevel, skill.category.value),
             )}
           </span>
         ) : (
-          <span
-            data-h2-font-size="base(caption, calc(var(--h2-line-height-body) + .4))"
-            data-h2-color="base(black.light)"
-            data-h2-flex-shrink="base(0)"
-          >
+          <span className={suffix()}>
             {intl.formatMessage(commonMessages.unspecified)}
           </span>
         )}

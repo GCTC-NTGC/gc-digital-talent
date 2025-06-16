@@ -78,12 +78,7 @@ const SkillBrowser = ({
   const familyOptions = getFamilyOptions(skills, intl);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-margin-bottom="base(x1)"
-      data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-    >
+    <div className="mb-6 grid gap-6 sm:grid-cols-3">
       <Select
         id={inputNames.family}
         name={inputNames.family}
@@ -101,7 +96,7 @@ const SkillBrowser = ({
           })),
         ]}
       />
-      <div data-h2-grid-column="l-tablet(span 2)">
+      <div className="sm:col-span-2">
         <Combobox
           id="skill"
           name={name}

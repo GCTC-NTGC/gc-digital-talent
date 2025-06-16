@@ -30,8 +30,12 @@ const Root = forwardRef<
 const List = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.List>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ children, ...rest }, forwardedRef) => (
-  <NavigationMenuPrimitive.List ref={forwardedRef} className={list()} {...rest}>
+>(({ children, className, ...rest }, forwardedRef) => (
+  <NavigationMenuPrimitive.List
+    ref={forwardedRef}
+    className={list({ class: className })}
+    {...rest}
+  >
     {children}
   </NavigationMenuPrimitive.List>
 ));
