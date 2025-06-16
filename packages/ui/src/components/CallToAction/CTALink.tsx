@@ -41,7 +41,7 @@ const CTALink = ({
   const Icon = icon;
   const { base, icon: iconStyles, text } = cta({ color, block });
   return (
-    <BaseLink className={base({ class: className })} {...rest}>
+    <BaseLink className={base({ class: className })} newTab={newTab} {...rest}>
       <span className={iconStyles()}>
         <Icon className="h-auto w-5" />
       </span>
