@@ -698,6 +698,7 @@ type Department {
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
+  archivedAt: DateTime @rename(attribute: "archived_at")
 }
 
 type WorkStream {
@@ -2975,6 +2976,8 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+
+  # Department mutations
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard
@@ -2987,6 +2990,12 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  archiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive", find: "id")
+  unarchiveDepartment(id: ID!): Department
+    @guard
+    @canFind(ability: "archiveAndUnarchive", find: "id")
 
   # SearchRequest mutations
   createPoolCandidateSearchRequest(

@@ -529,6 +529,8 @@ type Mutation {
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
+  archiveDepartment(id: ID!): Department
+  unarchiveDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
@@ -1095,6 +1097,7 @@ type Department {
   isScience: Boolean
   isRegulatory: Boolean
   pools: [Pool]
+  archivedAt: DateTime
 }
 
 type WorkStream {
