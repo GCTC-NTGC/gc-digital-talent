@@ -28,4 +28,8 @@ return [
     'essential_skills' => 'Compétences essentielles',
     'nonessential_skills' => 'Compétences constituant un atout',
     'work_streams' => 'Volets de travail',
+    'in' => 'à',
+    'from' => 'de',
+    'featured_skills' => 'Compétences mises en évidence',
+    'skill_showcase_text' => 'La vitrine de compétences permet aux utilisateurs de présenter des listes qui mettent en valeur leurs points forts, leurs points faibles ainsi que leurs occasions de développement. Ces listes offrent un aperçu global de leurs compétences et indiquent les domaines dans lesquels ils souhaitent progresser ou acquérir de nouvelles compétences.',
 ];

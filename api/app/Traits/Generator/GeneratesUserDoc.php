@@ -23,6 +23,7 @@ use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
+use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
@@ -115,16 +116,16 @@ trait GeneratesUserDoc
             $section->addText($this->localizeHeading('interested_in_languages'), $this->strong);
 
             if ($user->looking_for_english) {
-                $section->addListItem($this->localize('language.en').'-'.$this->localize('only positions'));
+                $section->addListItem($this->localize('language.en_only'));
 
             }
 
             if ($user->looking_for_french) {
-                $section->addListItem($this->localize('language.fr').'-'.$this->localize('only positions'));
+                $section->addListItem($this->localize('language.fr_only'));
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('common.bilingual').' '.$this->localize('positions'));
+                $section->addListItem($this->localize('language.bilingual'));
             }
         }
 
@@ -326,10 +327,11 @@ trait GeneratesUserDoc
                 $titleComponents[] = $degreeType;
             }
             if ($experience->area_of_study) {
-                $titleComponents[] = ($degreeType ? 'in ' : '').$experience->area_of_study;
+                $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '').
+                                    $experience->area_of_study;
             }
             if ($experience->institution) {
-                $titleComponents[] = 'from '.$experience->institution;
+                $titleComponents[] = $this->localize('common.from').' '.$experience->institution;
             }
 
             $title = implode(' ', $titleComponents);
@@ -517,7 +519,7 @@ trait GeneratesUserDoc
             $experience->load(['userSkills' => ['skill']]);
 
             if ($experience->userSkills->count() > 0) {
-                $section->addText('Featured skills:');
+                $section->addText($this->localize('common.featured_skills'));
             }
 
             $experience->userSkills->each(function ($userSkill) use ($section) {
@@ -541,7 +543,7 @@ trait GeneratesUserDoc
     {
         $section->addTitle($this->localizeHeading('skill_showcase'), $headingRank);
         $subHeadingRank = $headingRank + 2;
-        $section->addText('The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate\'s broader skillset and where they might be interested in learning new skills.');
+        $section->addText($this->localize('common.skill_showcase_text'));
 
         if ($user->topBehaviouralSkillsRanking->count() > 0 || $user->topTechnicalSkillsRanking->count() > 0) {
             $section->addTitle($this->localizeHeading('top_skills'), $headingRank + 1);
@@ -663,22 +665,22 @@ trait GeneratesUserDoc
             return;
         }
 
-        $section->addTitle('GC employee profile', $headingRank);
+        $section->addTitle($this->localize('gc_employee.profile_title'), $headingRank);
 
         // Career Development Preferences
-        $section->addTitle('Career development preferences', $headingRank + 1);
+        $section->addTitle($this->localize('gc_employee.career_preferences'), $headingRank + 1);
 
         // Lateral Movement
-        $this->addLabelText($section, 'Interest in lateral movement',
+        $this->addLabelText($section, $this->localize('gc_employee.lateral_movement_interest'),
             $this->yesOrNo($profile->career_planning_lateral_move_interest));
 
         if ($profile->career_planning_lateral_move_interest) {
-            $this->addLabelText($section, 'Target time frame',
+            $this->addLabelText($section, $this->localize('gc_employee.target_time_frame'),
                 $this->localizeEnum($profile->career_planning_lateral_move_time_frame, TimeFrame::class)
             );
 
             if (! empty($profile->career_planning_promotion_move_organization_type)) {
-                $section->addText('Types of organizations for lateral movement:');
+                $section->addText($this->localize('gc_employee.org_types_lateral'));
 
                 foreach ($profile->career_planning_promotion_move_organization_type as $type) {
                     $section->addListItem(
@@ -689,47 +691,60 @@ trait GeneratesUserDoc
         }
 
         // Promotion/Advancement
-        $this->addLabelText($section, 'Interest in promotion and advancement',
+        $this->addLabelText($section, $this->localize('gc_employee.promotion_interest'),
             $this->yesOrNo($profile->career_planning_promotion_move_interest));
 
         if ($profile->career_planning_promotion_move_interest) {
-            $this->addLabelText($section, 'Target time frame for promotion or advancement',
+            $this->addLabelText($section, $this->localize('gc_employee.target_time_frame_promotion'),
                 $this->localizeEnum($profile->career_planning_promotion_move_time_frame, TimeFrame::class));
+        }
+        if (! empty($profile->career_planning_promotion_move_organization_type)) {
+            $section->addText($this->localize('gc_employee.org_types_promotion'));
 
-            if (! empty($profile->career_planning_promotion_move_organization_type)) {
-                $section->addLabelText('Types of organizations promotion or advancement');
-                foreach ($profile->career_planning_promotion_move_organization_type as $type) {
-                    $section->addListItem($this->localizeEnum($type, OrganizationTypeInterest::class));
-                }
+            foreach ($profile->career_planning_promotion_move_organization_type as $type) {
+                $section->addListItem(
+                    $this->localizeEnum($type, OrganizationTypeInterest::class)
+                );
             }
         }
 
         // Learning Opportunities
-        $this->addLabelText($section, 'Interest in learning opportunities',
-            ! empty($profile->career_planning_learning_opportunities_interest) ?? '');
+        $section->addText($this->localize('gc_employee.learning_interest'));
+        if (! empty($profile->career_planning_learning_opportunities_interest)) {
+            foreach ($profile->career_planning_learning_opportunities_interest as $interest) {
+                $section->addListItem(
+                    $this->localizeEnum($interest, LearningOpportunitiesInterest::class)
+                );
+            }
+        }
 
         // Retirement Eligibility
         if ($profile->eligible_retirement_year_known && $profile->eligible_retirement_year) {
-            $this->addLabelText($section, 'Year of retirement eligibility',
+            $this->addLabelText($section, $this->localize('gc_employee.retirement_year'),
                 $profile->eligible_retirement_year->format('Y'));
         }
 
         // Mentorship
-        $this->addLabelText($section, 'Mentorship status',
-            implode(', ', $profile->career_planning_mentorship_status ?? []));
-
+        $this->addLabelText(
+            $section,
+            $this->localize('gc_employee.mentorship_status'),
+            implode(', ', array_map(
+                fn ($status) => $this->localizeEnum($status, Mentorship::class),
+                $profile->career_planning_mentorship_status ?? []
+            ))
+        );
         if (! empty($profile->career_planning_mentorship_interest)) {
-            $section->addLabelText('Interest in mentorship opportunities');
+            $section->addText($this->localize('gc_employee.mentorship_interest'));
             foreach ($profile->career_planning_mentorship_interest as $interest) {
                 $section->addListItem($this->localizeEnum($interest, Mentorship::class));
             }
         }
 
         // Executive Opportunities
-        $this->addLabelText($section, 'Interest in executive-level opportunities',
+        $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest));
 
-        $this->addLabelText($section, 'Executive coaching status',
+        $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
             implode(', ', array_map(
                 fn ($status) => $this->localizeEnum($status, ExecCoaching::class),
                 $profile->career_planning_exec_coaching_status ?? []
@@ -737,7 +752,7 @@ trait GeneratesUserDoc
         );
 
         if (! empty($profile->career_planning_exec_coaching_interest)) {
-            $section->addLabelText('Interest in executive coaching opportunities');
+            $section->addLabelText($this->localize('gc_employee.exec_coaching_interest'));
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
                 $section->addListItem($this->localizeEnum($interest, ExecCoaching::class));
             }
@@ -755,35 +770,34 @@ trait GeneratesUserDoc
 
     protected function nextRoleSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
     {
-        $section->addTitle('Next role', $headingRank);
+        $section->addTitle($this->localize('gc_employee.next_role'), $headingRank);
 
         // Target Classification
-        $this->addLabelText($section, 'Target classification group', $profile->nextRoleClassification?->group ?? '');
-        $this->addLabelText($section, 'Target classification level', $profile->nextRoleClassification?->level ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->nextRoleClassification?->group ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->nextRoleClassification?->level ?? '');
 
         // Target Role Type
-        $this->addLabelText($section, 'Target role',
+        $this->addLabelText($section, $this->localize('gc_employee.target_role'),
             $this->localizeEnum($profile->next_role_target_role, TargetRole::class) ?:
         $profile->next_role_target_role_other);
 
         // Senior Management Status
-        $this->addLabelText($section, 'Senior management status',
+        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
             $profile->next_role_is_c_suite_role ?? '');
-
         if ($profile->next_role_is_c_suite_role === true) {
-            $this->addLabelText($section, 'C-suite role title', $profile->next_role_c_suite_role_title ?? '');
+            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'), $this->localizeEnum($profile->next_role_c_suite_role_title, CSuiteRoleTitle::class));
         }
 
         // Job Title
-        $this->addLabelText($section, 'Job title', $profile->next_role_job_title ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->next_role_job_title ?? '');
 
         // Functional Community
         $communityName = $profile->nextRoleCommunity?->name[$this->lang] ??
             ($profile->next_role_community_other ?? '');
-        $this->addLabelText($section, 'Desired functional community', $communityName);
+        $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
-        $this->addLabelText($section, 'Desired work streams', '');
+        $this->addLabelText($section, $this->localize('gc_employee.desired_work_streams'), '');
         if ($profile->nextRoleWorkStreams->isNotEmpty()) {
             foreach ($profile->nextRoleWorkStreams as $stream) {
                 $section->addListItem($stream->name[$this->lang] ?? '');
@@ -791,7 +805,7 @@ trait GeneratesUserDoc
         }
 
         // Preferred Departments
-        $this->addLabelText($section, 'Preferred departments or agencies', '');
+        $this->addLabelText($section, $this->localize('gc_employee.preferred_departments'), '');
         if ($profile->nextRoleDepartments->isNotEmpty()) {
             foreach ($profile->nextRoleDepartments as $dept) {
                 $section->addListItem($dept->name[$this->lang] ?? '');
@@ -800,42 +814,40 @@ trait GeneratesUserDoc
 
         // Additional Info
         $this->addLabelText(
-            $section,
-            'Additional information',
-            $profile->next_role_additional_information ?? ''
+            $section, $this->localize('gc_employee.additional_info'), $profile->next_role_additional_information ?? ''
         );
     }
 
     protected function careerObjectiveSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
     {
-        $section->addTitle('Career objective', $headingRank);
+        $section->addTitle($this->localize('gc_employee.career_objective'), $headingRank);
 
         // Target Classification
-        $this->addLabelText($section, 'Target classification group', $profile->careerObjectiveClassification?->group ?? '');
-        $this->addLabelText($section, 'Target classification level', $profile->careerObjectiveClassification?->level ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->careerObjectiveClassification?->group ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->careerObjectiveClassification?->level ?? '');
 
         // Target Role Type
-        $this->addLabelText($section, 'Target role',
+        $this->addLabelText($section, $this->localize('gc_employee.target_role'),
             $this->localizeEnum($profile->career_objective_target_role, TargetRole::class) ?:
         $profile->career_objective_target_role_other);
 
         // Senior Management Status
-        $this->addLabelText($section, 'Senior management status',
+        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
             $profile->career_objective_is_c_suite_role ?? '');
 
         if ($profile->career_objective_is_c_suite_role === true) {
-            $this->addLabelText($section, 'C-suite role title', $this->localizeEnum($profile->career_objective_c_suite_role_title, CSuiteRoleTitle::class) ?? '');
+            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'), $this->localizeEnum($profile->career_objective_c_suite_role_title, CSuiteRoleTitle::class) ?? '');
         }
 
         // Job Title
-        $this->addLabelText($section, 'Job title', $profile->career_objective_job_title ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->career_objective_job_title ?? '');
 
         // Functional Community
         $communityName = $profile->careerObjectiveCommunity?->name[$this->lang] ?? $profile->career_objective_community_other ?? '';
-        $this->addLabelText($section, 'Desired functional community', $communityName);
+        $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
-        $this->addLabelText($section, 'Desired work streams', '');
+        $this->addLabelText($section, $this->localize('gc_employee.desired_work_streams'), '');
         if ($profile->careerObjectiveWorkStreams->isNotEmpty()) {
             foreach ($profile->careerObjectiveWorkStreams as $stream) {
                 $section->addListItem($stream->name[$this->lang] ?? '');
@@ -843,7 +855,7 @@ trait GeneratesUserDoc
         }
 
         // Preferred Departments or agencies
-        $this->addLabelText($section, 'Preferred departments or agencies', '');
+        $this->addLabelText($section, $this->localize('gc_employee.preferred_departments'), '');
         if ($profile->careerObjectiveDepartments->isNotEmpty()) {
             foreach ($profile->careerObjectiveDepartments as $dept) {
                 $section->addListItem($dept->name[$this->lang] ?? '');
@@ -851,17 +863,17 @@ trait GeneratesUserDoc
         }
 
         // Additional Info
-        $this->addLabelText($section, 'Additional information',
+        $this->addLabelText($section, $this->localize('gc_employee.additional_info'),
             $profile->career_objective_additional_information ?? ''
         );
     }
 
     protected function goalsAndWorkStyle(Section $section, EmployeeProfile $profile, $headingRank = 4)
     {
-        $section->addTitle('Goals and work style', $headingRank);
+        $section->addTitle($this->localize('gc_employee.goals_work_style'), $headingRank);
 
-        $this->addLabelText($section, 'About', $profile->career_planning_about_you ?? '');
-        $this->addLabelText($section, 'Learning goals', $profile->career_planning_learning_goals ?? '');
-        $this->addLabelText($section, 'How I work best', $profile->career_planning_work_style ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.about'), $profile->career_planning_about_you ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.learning_goals'), $profile->career_planning_learning_goals ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.work_style'), $profile->career_planning_work_style ?? '');
     }
 }
