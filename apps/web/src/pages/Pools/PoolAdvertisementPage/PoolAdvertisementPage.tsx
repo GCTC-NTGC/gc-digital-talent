@@ -72,7 +72,6 @@ import {
 } from "~/types/classificationGroup";
 
 import Text from "./components/Text";
-import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
@@ -84,6 +83,7 @@ import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
 import SalaryRangeDialog from "./components/SalaryRangeDialog";
 import SecurityClearanceDialog from "./components/SecurityClearanceDialog";
+import DataRow from "~/components/DataRow/DataRow";
 
 interface SectionContent {
   id: string;
