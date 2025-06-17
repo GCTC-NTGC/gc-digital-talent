@@ -15,7 +15,8 @@ final class ArchiveDepartment
         /** @var Department|null $department */
         $department = Department::find($args['id']);
         if ($department) {
-            $department->update(['archived_at' => Carbon::now()]);
+            $department->archived_at = Carbon::now();
+            $department->save();
         }
 
         return $department;

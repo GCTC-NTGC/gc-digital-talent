@@ -14,7 +14,8 @@ final class UnarchiveDepartment
         /** @var Department|null $department */
         $department = Department::find($args['id']);
         if ($department) {
-            $department->update(['archived_at' => null]);
+            $department->archived_at = null;
+            $department->save();
         }
 
         return $department;
