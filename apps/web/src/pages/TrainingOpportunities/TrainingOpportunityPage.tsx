@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
-import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
 
 import {
   Card,
@@ -151,21 +150,6 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
           description: "Subtitle for training opportunity single page",
         })}
         crumbs={crumbs}
-        buttonLinks={[
-          {
-            icon: ArrowTopRightOnSquareIcon,
-            text: intl.formatMessage({
-              defaultMessage: "Apply now",
-              id: "PH68o/",
-              description:
-                "Label for apply now button in instructor led training",
-            }),
-            url: trainingOpportunity.applicationUrl?.localized ?? "",
-            color: "primary",
-            external: true,
-            newTab: true,
-          },
-        ]}
       />
       <Container>
         <Heading
@@ -220,6 +204,25 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
             }
             value={trainingOpportunity?.courseFormat?.label.localized}
           />
+          <DataRow
+            label={""}
+            value={
+              <Link
+                href={trainingOpportunity.applicationUrl?.localized ?? ""}
+                color="primary"
+                mode="solid"
+                external
+                newTab
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Apply now",
+                  id: "PH68o/",
+                  description:
+                    "Label for apply now button in instructor led training",
+                })}
+              </Link>
+            }
+          />
         </Card>
         {trainingOpportunity?.description?.localized ? (
           <>
@@ -241,7 +244,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
         ) : null}
         <Link
           href={trainingOpportunity.applicationUrl?.localized ?? ""}
-          color="primary"
+          color="secondary"
           mode="solid"
           external
           newTab
