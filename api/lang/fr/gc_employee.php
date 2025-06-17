@@ -12,7 +12,7 @@ return [
     'org_types_promotion' => 'Intérêt pour les possibilités d\'apprentissage',
     'learning_interest' => 'Intérêt pour les possibilités d\'apprentissage ',
     'retirement_year' => 'Année d\'admissibilité à la retraite',
-    'mentorship_status' => 'État du mentorat ',
+    'mentorship_status' => 'État du mentorat',
     'mentorship_interest' => 'Intérêt pour les possibilités de mentorat',
     'exec_interest' => 'Intérêt pour des postes au niveau de la direction',
     'exec_coaching_status' => 'État du coaching des cadres',
@@ -36,7 +36,7 @@ return [
 
     // Goals and Work Style
     'goals_work_style' => 'Objectifs et style de travail',
-    'about' => 'Objectifs et style de travail',
+    'about' => 'À propos de vous',
     'learning_goals' => 'Vos objectifs d\'apprentissage',
     'work_style' => 'Comment vous travaillez le mieux',
 ];
