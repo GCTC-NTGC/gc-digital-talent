@@ -39,7 +39,7 @@ import processMessages from "~/messages/processMessages";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
-import DownloadUsersDocButton from "~/components/DownloadButton/DownloadUsersDocButton";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
@@ -266,14 +266,15 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    if (selectedRows.length === 1) {
+    const uniqueIds = removeDuplicateIds(selectedRows);
+    if (uniqueIds.length === 1) {
       downloadDoc({
-        id: selectedRows[0].split("-userId#")[1],
+        id: uniqueIds[0],
         anonymous,
       });
     } else {
       downloadZip({
-        ids: removeDuplicateIds(selectedRows),
+        ids: uniqueIds,
         anonymous,
       });
     }
@@ -656,7 +657,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         doc: {
           enable: true,
           component: (
-            <DownloadUsersDocButton
+            <DownloadDocxButton
               inTable
               disabled={
                 !hasSelectedRows ||
@@ -667,7 +668,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
               isDownloading={
                 downloadingZip || downloadingDoc || downloadingAllCsv
               }
-              onClick={handleDocDownload}
+              onClickProfile={() => handleDocDownload(false)}
+              onClickAnonymousProfile={() => handleDocDownload(true)}
             />
           ),
         },

@@ -237,11 +237,7 @@ const ConsideredLanguages = ({
                 "Text requesting language levels given from bilingual evaluation in language information form",
             })}
           </p>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-            data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-          >
+          <div className="grid gap-6 sm:grid-cols-3">
             <RadioGroup
               idPrefix="comprehensionLevel"
               legend={labels.comprehensionLevel}

@@ -1,6 +1,6 @@
 /* eslint-disable react/forbid-elements */
 import FocusLock from "react-focus-lock";
-import { m, AnimatePresence } from "motion/react";
+import { m, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   useEffect,
   useState,
@@ -12,6 +12,7 @@ import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import { useIntl } from "react-intl";
 import HomeIcon from "@heroicons/react/24/solid/HomeIcon";
+import { tv } from "tailwind-variants";
 
 import { notEmpty, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
@@ -26,6 +27,7 @@ import {
   NavMenu,
   Separator,
   NavMenuProvider,
+  Container,
 } from "@gc-digital-talent/ui";
 import {
   ROLE_NAME,
@@ -41,11 +43,42 @@ import useMainNavLinks from "./useMainNavLinks";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import navMenuMessages from "./messages";
 
+const borderItem = tv({
+  base: "sm:border-x sm:border-white/20 sm:px-4.5",
+});
+
+const homeItem = tv({
+  base: "hidden sm:flex",
+  variants: {
+    hidden: {
+      true: "sm:border-r sm:border-white/20 sm:px-4.5",
+    },
+  },
+});
+
+const MenuSeparator = () => (
+  <Separator
+    decorative
+    space="none"
+    className="my-6 bg-black/20 sm:hidden dark:bg-black/50"
+  />
+);
+
 const MainNavMenu = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen(1080);
+
+  const shouldReduceMotion = useReducedMotion();
+
+  const animConfig = shouldReduceMotion
+    ? {}
+    : {
+        initial: { transform: "translateY(0)" },
+        animate: { transform: "translateY(0)" },
+        exit: { transform: "translateY(0)" },
+      };
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
@@ -127,15 +160,19 @@ const MainNavMenu = () => {
   }, [isMenuOpen]);
 
   return (
-    <div className="fixed right-4.5 bottom-21 left-4.5 z-7 max-h-[85vh] overflow-y-auto sm:sticky sm:top-[-1px] sm:right-auto sm:bottom-auto sm:left-auto sm:max-h-none sm:w-full sm:overflow-y-visible">
-      <FocusLock returnFocus disabled={!showOverlay}>
-        <NavMenuProvider
-          open={isMenuOpen}
-          onOpenToggle={handleOpenToggle}
-          onOpenChange={setMenuOpen}
-        >
-          <div data-h2-position="base(relative)" data-h2-z-index="base(10)">
-            {showMenu ? (
+    <FocusLock returnFocus disabled={!showOverlay}>
+      <NavMenuProvider
+        open={isMenuOpen}
+        onOpenToggle={handleOpenToggle}
+        onOpenChange={setMenuOpen}
+      >
+        <AnimatePresence>
+          {showMenu ? (
+            <m.div
+              className="fixed right-4.5 bottom-21 left-4.5 z-10 max-h-[85vh] overflow-y-auto sm:sticky sm:top-0 sm:right-auto sm:bottom-auto sm:left-auto sm:w-full sm:overflow-y-visible md:max-h-none"
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              {...animConfig}
+            >
               <NavMenu.Root
                 onKeyDown={handleKeyDown}
                 aria-label={intl.formatMessage({
@@ -144,47 +181,29 @@ const MainNavMenu = () => {
                   description: "Label for the main navigation",
                 })}
                 data-state={isMenuOpen ? "open" : "closed"}
-                data-h2-background-color="base(foreground) l-tablet:all(black.9)"
-                data-h2-radius="base(rounded) l-tablet(initial)"
-                data-h2-padding="base(1px 0) l-tablet(x1 0)"
+                className="rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700 sm:py-6 dark:bg-gray-600 sm:dark:bg-gray-700"
               >
-                <div
-                  data-h2-wrapper="l-tablet(center, large, x2)"
-                  data-h2-display="l-tablet(flex)"
-                  data-h2-justify-content="l-tablet(space-between)"
-                  data-h2-align-items="base(center)"
+                <Container
+                  center
+                  size={{ sm: "lg" }}
+                  className="items-center px-0 sm:flex sm:justify-between sm:px-6"
                 >
-                  <div
-                    data-h2-display="base(flex) l-tablet(none)"
-                    data-h2-justify-content="base(space-between)"
-                    data-h2-align-items="base(center)"
-                    data-h2-margin="base(x1 x1 0 x1) l-tablet(0)"
-                  >
-                    <div data-h2-flex="base(1) l-tablet(auto)">
-                      <NavMenu.IconLink
-                        ref={homeLinkRef}
-                        href={paths.home()}
-                        icon={HomeIcon}
-                        label={intl.formatMessage(navigationMessages.home)}
-                      />
-                    </div>
+                  <div className="mx-6 flex items-center justify-between sm:m-0 sm:hidden">
+                    <NavMenu.IconLink
+                      ref={homeLinkRef}
+                      href={paths.home()}
+                      icon={HomeIcon}
+                      label={intl.formatMessage(navigationMessages.home)}
+                    />
 
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-flex="base(2) l-tablet(auto)"
-                      data-h2-justify-content="base(center) l-tablet(initial)"
-                    >
+                    <div className="flex justify-center sm:flex-auto sm:justify-normal">
                       <ThemeSwitcher />
                     </div>
+
                     <a
-                      data-h2-background-color="base:focus-visible(focus)"
-                      data-h2-outline="base(none)"
-                      data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
-                      data-h2-text-decoration="base(underline)"
+                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-secondary-200"
                       href={languageTogglePath}
                       lang={changeToLang === "en" ? "en" : "fr"}
-                      data-h2-flex="base(1) l-tablet(auto)"
-                      data-h2-text-align="base(right)"
                     >
                       {intl.formatMessage({
                         defaultMessage:
@@ -194,54 +213,32 @@ const MainNavMenu = () => {
                       })}
                     </a>
                   </div>
-                  <Separator
-                    space="none"
-                    data-h2-display="l-tablet(none)"
-                    data-h2-margin="base(x1 0) l-tablet(0)"
-                    data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
-                  />
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-flex-direction="base(column) l-tablet(row)"
-                    data-h2-align-items="base(center)"
-                  >
-                    <NavMenu.List
-                      data-h2-flex-direction="base(column) l-tablet(row)"
-                      data-h2-align-items="base(center)"
-                    >
+
+                  <MenuSeparator />
+
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4.5">
+                    <NavMenu.List className="flex flex-col sm:flex-row sm:items-center sm:gap-x-4.5">
                       <NavMenu.Item
-                        data-h2-display="base(none) l-tablet(flex)"
-                        {...((!loggedIn ||
-                          onlyHasApplicantRole ||
-                          usefulRoleAssignments.length === 0) && {
-                          "data-h2-border-right":
-                            "base(none) l-tablet:all(1px solid black.light)",
-                          "data-h2-padding": "base(0) l-tablet(0 x.75)",
-                          "data-h2-margin-right": "base(0) l-tablet(x.75)",
+                        className={homeItem({
+                          hidden:
+                            !loggedIn ||
+                            onlyHasApplicantRole ||
+                            usefulRoleAssignments.length === 0,
                         })}
                       >
                         {homeLink}
                       </NavMenu.Item>
                       {showRoleSwitcher ? (
                         <>
-                          <NavMenu.Item
-                            data-h2-border-right="base(none) l-tablet:all(1px solid black.light)"
-                            data-h2-border-left="base(0) l-tablet:all(1px solid black.light)"
-                            data-h2-padding="base(0) l-tablet(0 x.75)"
-                            data-h2-margin-right="base(0) l-tablet(x.75)"
-                          >
+                          <NavMenu.Item className={borderItem()}>
                             <NavMenu.Trigger
                               color={isSmallScreen ? "black" : "white"}
                               fixedColor={!isSmallScreen}
-                              mode="text"
                               block={false}
                             >
                               {roleNames[navRole]}
                             </NavMenu.Trigger>
-                            <NavMenu.Content
-                              data-h2-left="base(auto) l-tablet(-25%)"
-                              data-h2-width="base(auto) l-tablet(150%)"
-                            >
+                            <NavMenu.Content>
                               <NavMenu.List>
                                 {roleLinks.map((roleLink) => (
                                   <NavMenu.Item key={roleLink.name}>
@@ -260,22 +257,16 @@ const MainNavMenu = () => {
                         </>
                       ) : null}
                     </NavMenu.List>
-                    {showRoleSwitcher && (
-                      <Separator
-                        space="none"
-                        data-h2-display="l-tablet(none)"
-                        data-h2-margin="base(x1 0) l-tablet(0)"
-                        data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
-                      />
-                    )}
-                    <NavMenu.List data-h2-flex-direction="base(column) l-tablet(row)">
+
+                    {showRoleSwitcher && <MenuSeparator />}
+
+                    <NavMenu.List className="flex flex-col sm:flex-row">
                       {mainLinks}
                       {systemSettings && (
                         <NavMenu.Item>
                           <NavMenu.Trigger
                             color={isSmallScreen ? "black" : "white"}
                             fixedColor={!isSmallScreen}
-                            mode="text"
                             block={false}
                           >
                             {intl.formatMessage({
@@ -285,19 +276,16 @@ const MainNavMenu = () => {
                                 "Nav menu trigger for system settings links sub menu",
                             })}
                           </NavMenu.Trigger>
-                          <NavMenu.Content
-                            data-h2-width="base(150%)"
-                            data-h2-left="base(-25%)"
-                          >
+                          <NavMenu.Content>
                             <NavMenu.List>{systemSettings}</NavMenu.List>
                           </NavMenu.Content>
                         </NavMenu.Item>
                       )}
+
                       <NavMenu.Item>
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
                           fixedColor={!isSmallScreen}
-                          mode="text"
                           block={false}
                         >
                           {intl.formatMessage({
@@ -307,33 +295,21 @@ const MainNavMenu = () => {
                               "Nav menu trigger for resource links sub menu",
                           })}
                         </NavMenu.Trigger>
-                        <NavMenu.Content
-                          data-h2-left="base(auto) l-tablet(-50%)"
-                          data-h2-width="base(auto) l-tablet(200%)"
-                        >
+                        <NavMenu.Content>
                           <NavMenu.List>{resourceLinks}</NavMenu.List>
                         </NavMenu.Content>
                       </NavMenu.Item>
                     </NavMenu.List>
                   </div>
-                  <Separator
-                    space="sm"
-                    data-h2-display="l-tablet(none)"
-                    data-h2-background-color="base(black.darkest.2) base:dark(black.darkest.5)"
-                  />
-                  <NavMenu.List
-                    data-h2-flex-direction="base(column) l-tablet(row)"
-                    data-h2-margin-bottom="base(x1) l-tablet(0)"
-                  >
+
+                  <MenuSeparator />
+
+                  <NavMenu.List className="flex flex-col sm:flex-row sm:gap-x-4.5">
                     {accountLinks && (
-                      <NavMenu.Item
-                        data-h2-border-right="l-tablet:all(1px solid black.light)"
-                        data-h2-padding-right="l-tablet(x.75)"
-                      >
+                      <NavMenu.Item className={borderItem()}>
                         <NavMenu.Trigger
                           color={isSmallScreen ? "black" : "white"}
                           fixedColor={!isSmallScreen}
-                          mode="text"
                           block={false}
                         >
                           {intl.formatMessage({
@@ -343,17 +319,15 @@ const MainNavMenu = () => {
                               "Nav menu trigger for account links sub menu",
                           })}
                         </NavMenu.Trigger>
-                        <NavMenu.Content
-                          data-h2-left="base(auto) l-tablet(-25%)"
-                          data-h2-width="base(auto) l-tablet(150%)"
-                        >
+                        <NavMenu.Content>
                           <NavMenu.List>{accountLinks}</NavMenu.List>
                         </NavMenu.Content>
                       </NavMenu.Item>
                     )}
+
                     {loggedIn && (
                       <>
-                        <NavMenu.Item data-h2-display="base(none) l-tablet(inline-flex)">
+                        <NavMenu.Item className="hidden sm:inline-flex">
                           <NotificationDialog
                             open={isNotificationDialogOpen}
                             onOpenChange={setNotificationDialogOpen}
@@ -363,72 +337,60 @@ const MainNavMenu = () => {
                     )}
                     {authLinks}
                   </NavMenu.List>
-                </div>
+                </Container>
               </NavMenu.Root>
-            ) : null}
-          </div>
-          <AnimatePresence>
-            {showOverlay && (
-              <m.div
-                onClick={() => setMenuOpen(false)}
-                data-h2-position="base(fixed)"
-                data-h2-location="base(0, 0, 0, 0)"
-                data-h2-background-color="base:all(black.light)"
-                data-h2-z-index="base(6)"
-                data-h2-overflow="base(auto)"
-                initial={{ opacity: 0.85 }}
-                animate={{ opacity: 0.85 }}
-                exit={{ opacity: 0.85 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
-          </AnimatePresence>
-        </NavMenuProvider>
-        {isSmallScreen && (
-          <div
-            data-h2-position="base(fixed)"
-            data-h2-bottom="base(x.75)"
-            data-h2-right="base(x.75)"
-            data-h2-z-index="base(10)"
-            data-h2-display="base(flex)"
-            data-h2-gap="base(x.5)"
+            </m.div>
+          ) : null}
+        </AnimatePresence>
+        <AnimatePresence>
+          {showOverlay && (
+            <m.div
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-[6] overflow-auto bg-gray-700"
+              initial={{ opacity: 0.85 }}
+              animate={{ opacity: 0.85 }}
+              exit={{ opacity: 0.85 }}
+              transition={{ duration: 0.2 }}
+            />
+          )}
+        </AnimatePresence>
+      </NavMenuProvider>
+      {isSmallScreen && (
+        <div className="fixed right-4.5 bottom-4.5 z-10 flex gap-3">
+          <Button
+            color="black"
+            mode="solid"
+            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+            onClick={() => {
+              if (isNotificationDialogOpen) {
+                setNotificationDialogOpen(false);
+                setMenuOpen(true);
+              } else {
+                setMenuOpen(!isMenuOpen);
+              }
+            }}
           >
-            <Button
+            {isMenuOpen
+              ? intl.formatMessage(uiMessages.closeMenu)
+              : intl.formatMessage(uiMessages.openMenu)}
+          </Button>
+          {loggedIn && (
+            <NotificationDialog
               color="black"
-              mode="solid"
-              icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-              onClick={() => {
-                if (isNotificationDialogOpen) {
-                  setNotificationDialogOpen(false);
-                  setMenuOpen(true);
+              open={isNotificationDialogOpen}
+              onOpenChange={() => {
+                if (isMenuOpen) {
+                  setMenuOpen(false);
+                  setNotificationDialogOpen(true);
                 } else {
-                  setMenuOpen(!isMenuOpen);
+                  setNotificationDialogOpen(!isNotificationDialogOpen);
                 }
               }}
-            >
-              {isMenuOpen
-                ? intl.formatMessage(uiMessages.closeMenu)
-                : intl.formatMessage(uiMessages.openMenu)}
-            </Button>
-            {loggedIn && (
-              <NotificationDialog
-                data-h2-display="l-tablet(none)"
-                color="black"
-                open={isNotificationDialogOpen}
-                onOpenChange={() => {
-                  if (isMenuOpen) {
-                    setMenuOpen(false);
-                    setNotificationDialogOpen(true);
-                  } else {
-                    setNotificationDialogOpen(!isNotificationDialogOpen);
-                  }
-                }}
-              />
-            )}
-          </div>
-        )}
-      </FocusLock>
-    </div>
+            />
+          )}
+        </div>
+      )}
+    </FocusLock>
   );
 };
 

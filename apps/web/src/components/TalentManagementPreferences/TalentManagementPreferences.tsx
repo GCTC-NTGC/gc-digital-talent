@@ -57,7 +57,7 @@ const TalentManagementPreferences = ({
             description: "Subtitle for talent management preferences section",
           })}
         >
-          <span data-h2-font-weight="base(400)">
+          <span className="font-normal">
             {intl.formatMessage({
               defaultMessage: "Talent management preferences",
               id: "IKaWRI",

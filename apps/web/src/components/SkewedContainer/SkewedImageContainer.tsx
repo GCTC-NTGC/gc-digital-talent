@@ -1,5 +1,7 @@
 import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
+import { Container, Flourish } from "@gc-digital-talent/ui";
+
 interface SkewedImageContainerProps {
   children: ReactNode;
   imgSrc: string;
@@ -13,51 +15,23 @@ const SkewedImageContainer = ({
   imgProps,
 }: SkewedImageContainerProps) => {
   return (
-    <div data-h2-layer="base(4, relative)">
-      <div
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
-        data-h2-background-color="base(#000)"
-        data-h2-position="base(absolute)"
-        data-h2-transform="base(skewY(-3deg))"
-        data-h2-overflow="base(hidden)"
-      >
+    <div className="relative z-[4]">
+      <div className="absolute h-full w-full -skew-y-3 overflow-hidden bg-black">
         <div
-          data-h2-position="base(absolute)"
-          data-h2-transform="base(skewY(3deg))"
-          data-h2-top="base(-3rem)"
-          data-h2-height="base(calc(100% + 3rem))"
-          data-h2-width="base(100%)"
-          data-h2-background-repeat="base(no-repeat)"
-          data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) l-tablet(auto 110%)"
+          className="absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-size-[auto_50vh] bg-no-repeat xs:bg-size-[auto_60vh] sm:bg-size-[auto_110%]"
           {...imgProps}
           style={{
             backgroundImage: `url('${imgSrc}')`,
           }}
         />
-        <div
-          data-h2-background="base(main-linear)"
-          data-h2-location="base(0, 0, auto, 0)"
-          data-h2-display="base(block)"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
-        />
-        <div
-          data-h2-background="base(main-linear)"
-          data-h2-location="base(auto, 0, 0, 0)"
-          data-h2-display="base(block)"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
-        />
+        <Flourish className="absolute inset-0 bottom-auto" />
+        <Flourish className="absolute inset-0 top-auto" />
       </div>
-      <div
-        data-h2-position="base(relative)"
-        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
-      >
-        <div data-h2-padding="base(x4, 0, 50vh, 0) p-tablet(x5, 0, 60vh, 0) l-tablet(x7, 0, x6, 0)">
+      <Container className="relative">
+        <div className="pt-24 pb-[50vh] xs:pt-30 xs:pb-[60vh] sm:pt-42 sm:pb-36">
           {children}
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

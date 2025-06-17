@@ -59,9 +59,7 @@ const Display = ({
                     return (
                       <li
                         key={community.value}
-                        data-h2-display="base(flex)"
-                        data-h2-align-items="base(center)"
-                        data-h2-gap="base(0, x.25)"
+                        className="flex items-center gap-x-1.5"
                       >
                         <CommunityIcon community={community.value} />
                         <span>{getLocalizedName(community.label, intl)}</span>

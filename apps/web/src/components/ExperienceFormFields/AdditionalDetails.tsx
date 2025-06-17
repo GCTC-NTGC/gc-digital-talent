@@ -33,12 +33,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
 
   return (
     <>
-      <Heading
-        level="h3"
-        size="h4"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x3, 0, x1, 0)"
-      >
+      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Highlight additional details",
           id: "6v+j79",
@@ -48,7 +43,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
       <div>
         {derivedType ? (
           <>
-            <p data-h2-margin="base(0, 0, x1, 0)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",

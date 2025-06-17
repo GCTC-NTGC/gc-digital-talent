@@ -66,7 +66,7 @@ const WorkStreamContent = ({
       >
         <Ul>
           {workStreamsByCommunity.map((item) => (
-            <li key={item.community.id} data-h2-font-weight="base(bold)">
+            <li key={item.community.id} className="font-bold">
               {item.community.name?.localized ?? na}
               <Ul unStyled className="mb-3 font-normal" space="md">
                 {item.workStreams.map((workStream) => (
