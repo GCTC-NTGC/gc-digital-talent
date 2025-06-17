@@ -32,3 +32,20 @@ export const SIZE_SORT_ORDER = [
   DepartmentSize.Large,
   null,
 ];
+
+export function departmentStatusAccessor(
+  archivedAt: string | null | undefined,
+  intl: IntlShape,
+) {
+  return archivedAt
+    ? intl.formatMessage({
+        defaultMessage: "Archived",
+        id: "MiyFrV",
+        description: "Status is archived",
+      })
+    : intl.formatMessage({
+        defaultMessage: "Published",
+        id: "FBSOkb",
+        description: "Title displayed on the Pool table published at column",
+      });
+}
