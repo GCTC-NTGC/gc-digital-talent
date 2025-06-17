@@ -116,16 +116,16 @@ trait GeneratesUserDoc
             $section->addText($this->localizeHeading('interested_in_languages'), $this->strong);
 
             if ($user->looking_for_english) {
-                $section->addListItem($this->localize('language.en_only'));
+                $section->addListItem($this->localize('common.en_only'));
 
             }
 
             if ($user->looking_for_french) {
-                $section->addListItem($this->localize('language.fr_only'));
+                $section->addListItem($this->localize('common.fr_only'));
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('language.bilingual'));
+                $section->addListItem($this->localize('common.bilingual'));
             }
         }
 
