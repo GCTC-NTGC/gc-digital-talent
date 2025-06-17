@@ -204,6 +204,14 @@ const ViewDepartmentPage = () => {
         description: "Nav tab label for department information",
       }),
     },
+    {
+      url: routes.departmentAdvancedTools(departmentId),
+      label: intl.formatMessage({
+        defaultMessage: "Advanced tools",
+        id: "C6P305",
+        description: "Nav tab label to access advanced tools ",
+      }),
+    },
   ];
 
   return (
