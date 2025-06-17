@@ -175,7 +175,7 @@ const NotificationDialog = ({
   color,
 }: NotificationDialog) => {
   const intl = useIntl();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
 
   useEffect(() => {
     if (open) {

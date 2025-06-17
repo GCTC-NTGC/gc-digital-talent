@@ -181,7 +181,7 @@ const IconLink = forwardRef<
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const { isActive } = useActiveLink(href, !!icon, linkRef.current);
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
   return (
@@ -241,7 +241,7 @@ const Link = forwardRef<
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
     const { isActive } = useActiveLink(href, !!icon, linkRef.current);
-    const isSmallScreen = useIsSmallScreen(1080);
+    const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 
     return (

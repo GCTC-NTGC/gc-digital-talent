@@ -68,7 +68,7 @@ const MainNavMenu = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
