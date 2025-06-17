@@ -59,7 +59,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <span className={alignment()}>
           {Icon && <Icon className={leadingIcon()} />}
-          <span className={label()}>{children}</span>
+          {children && <span className={label()}>{children}</span>}
           {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
           {counter && <Counter count={counter} className={counterStyles()} />}
         </span>
