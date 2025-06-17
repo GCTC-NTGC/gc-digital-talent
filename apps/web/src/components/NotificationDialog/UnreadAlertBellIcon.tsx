@@ -2,7 +2,7 @@ import { IconProps } from "@gc-digital-talent/ui";
 
 const UnreadBellAlertIcon = (props: IconProps) => (
   <svg
-    data-h2-fill="base:children[.dot](tertiary)"
+    className="[&_.dot]:text-error"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 20 20"
