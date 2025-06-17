@@ -32,7 +32,7 @@ const Header = () => {
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
 
   return (
     <header className="border-b border-black/20 bg-white py-6 xs:py-4.5 dark:border-white/20 dark:bg-gray-700">
