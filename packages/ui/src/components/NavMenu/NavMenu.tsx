@@ -39,38 +39,47 @@ type TriggerProps = ComponentPropsWithoutRef<
 const Trigger = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Trigger>,
   TriggerProps
->(({ children, mode, color, block = false, ...rest }, forwardedRef) => (
-  <div className="text-center sm:text-left">
-    <NavigationMenuPrimitive.Trigger
-      ref={forwardedRef}
-      asChild
-      onPointerMove={(event) => event.preventDefault()}
-      onPointerLeave={(event) => event.preventDefault()}
-      className="[&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
-      {...rest}
-    >
-      <Button
-        utilityIcon={ChevronDownIcon}
-        mode={mode}
-        color={color}
-        block={block}
+>(
+  (
+    { children, mode = "inline", color, block = false, ...rest },
+    forwardedRef,
+  ) => (
+    <div className="text-center sm:text-left">
+      <NavigationMenuPrimitive.Trigger
+        ref={forwardedRef}
+        asChild
+        onPointerMove={(event) => event.preventDefault()}
+        onPointerLeave={(event) => event.preventDefault()}
+        className="font-normal hover:text-primary-600 dark:hover:text-primary-200 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
+        {...rest}
       >
-        {children}
-      </Button>
-    </NavigationMenuPrimitive.Trigger>
-  </div>
-));
+        <Button
+          utilityIcon={ChevronDownIcon}
+          mode={mode}
+          color={color}
+          block={block}
+        >
+          {children}
+        </Button>
+      </NavigationMenuPrimitive.Trigger>
+    </div>
+  ),
+);
+
+const content = tv({
+  base: "mt-6 sm:absolute sm:left-1/2 sm:mt-0 sm:min-w-3xs sm:-translate-x-1/2 sm:rounded sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600",
+});
 
 const Content = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.Content>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Content
     ref={forwardedRef}
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    className="mt-6 sm:absolute sm:-left-1/4 sm:mt-0 sm:w-[150%] sm:rounded-md sm:bg-white sm:px-3 sm:py-1.5 sm:shadow dark:sm:bg-gray-600"
-    {...props}
+    className={content({ class: className })}
+    {...rest}
   />
 ));
 
@@ -83,13 +92,17 @@ const Viewport = forwardRef<
   </div>
 ));
 
+const list = tv({
+  base: "m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start",
+});
+
 const List = forwardRef<
   ElementRef<typeof NavigationMenuPrimitive.List>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
->(({ children, ...rest }, forwardedRef) => (
+>(({ children, className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
     ref={forwardedRef}
-    className="m-0 flex list-none flex-col items-center gap-4.5 p-0 sm:items-start"
+    className={list({ class: className })}
     {...rest}
   >
     {children}
@@ -131,7 +144,7 @@ const useActiveLink = (
 };
 
 const navMenuLink = tv({
-  base: "text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
+  base: "font-normal text-black hover:text-primary-600 focus-visible:text-black data-active:font-bold data-active:text-primary-600 dark:text-white dark:hover:text-primary-200 dark:data-active:text-primary-100 data-active:[&_span]:no-underline",
   variants: {
     isSmallScreen: {
       true: "",
@@ -168,7 +181,7 @@ const IconLink = forwardRef<
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const { isActive } = useActiveLink(href, !!icon, linkRef.current);
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
   return (
@@ -219,7 +232,7 @@ const Link = forwardRef<
       type = "link",
       color,
       icon,
-      mode,
+      mode = "inline",
       ariaLabel,
       state,
       ...rest
@@ -228,7 +241,7 @@ const Link = forwardRef<
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
     const { isActive } = useActiveLink(href, !!icon, linkRef.current);
-    const isSmallScreen = useIsSmallScreen(1080);
+    const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 
     return (

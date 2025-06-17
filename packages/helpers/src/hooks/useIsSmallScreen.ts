@@ -1,22 +1,39 @@
-import { useLayoutEffect, useState } from "react";
-import debounce from "lodash/debounce";
+import { useEffect, useState } from "react";
 
-const useIsSmallScreen = (threshold = 768, wait = 250) => {
-  const [isSmallScreen, setSmallScreen] = useState(
-    window.innerWidth < threshold,
+type Breakpoint = "xs" | "sm" | "md" | "lg";
+
+const breakpoints: Record<Breakpoint, string> = {
+  xs: "48rem",
+  sm: "67.5rem",
+  md: "80rem",
+  lg: "100rem",
+};
+
+export function useIsSmallScreen(threshold: Breakpoint): boolean;
+export function useIsSmallScreen(threshold: string): boolean;
+export function useIsSmallScreen(threshold: string): boolean {
+  const value = breakpoints[threshold as Breakpoint] ?? threshold;
+  const query = `(max-width: ${value})`;
+
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    typeof window !== "undefined" ? window.matchMedia(query).matches : false,
   );
 
-  useLayoutEffect(() => {
-    const updateSize = (): void => {
-      setSmallScreen(window.innerWidth < threshold);
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mql = window.matchMedia(query);
+    const handler = () => setIsSmallScreen(mql.matches);
+
+    mql.addEventListener("change", handler);
+    setIsSmallScreen(mql.matches);
+
+    return () => {
+      mql.removeEventListener("change", handler);
     };
-
-    window.addEventListener("resize", debounce(updateSize, wait));
-
-    return (): void => window.removeEventListener("resize", updateSize);
-  }, [threshold, wait]);
+  }, [query]);
 
   return isSmallScreen;
-};
+}
 
 export default useIsSmallScreen;
