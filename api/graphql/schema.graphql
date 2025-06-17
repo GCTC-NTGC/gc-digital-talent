@@ -3341,6 +3341,10 @@ type Mutation {
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard
+  downloadUsersThruPoolCandidatesCsv(
+    ids: [UUID!]
+    where: PoolCandidateSearchInput
+  ): Boolean! @guard
 
   # ZIP file downloads
   downloadApplicationsZip(ids: [UUID!]!): Boolean! @guard

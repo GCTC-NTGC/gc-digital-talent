@@ -3599,6 +3599,10 @@
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
   },
+  "EadMpr": {
+    "defaultMessage": "Télécharger CSV candidat(e)s",
+    "description": "Button label to download selected candidates CSV"
+  },
   "EbG039": {
     "defaultMessage": "Chef de file du numérique E X 4",
     "description": "EX-04 classification aria label including titles"
@@ -7193,6 +7197,10 @@
   "Vw7bLe": {
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
+  },
+  "Vyao8B": {
+    "defaultMessage": "Télécharger CSV utilisateur(trice)s",
+    "description": "Button label to download users associated with selected candidates as CSV"
   },
   "Vz719J": {
     "defaultMessage": "Apprenez-en davantage sur la façon dont Talents numériques du GC traite de la vie privée des utilisateurs et utilisatrices.",

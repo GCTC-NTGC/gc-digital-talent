@@ -81,6 +81,7 @@ import {
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateCsvButton from "../DownloadButton/DownloadCandidateCsvButton";
+import DownloadAllCandidateTableCsvButton from "../DownloadButton/DownloadAllCandidateTableCsvButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
@@ -302,6 +303,15 @@ const DownloadPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadUsersThruPoolCandidatesCsv_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUsersThruPoolCandidatesCsv(
+    $ids: [UUID!]
+    $where: PoolCandidateSearchInput
+  ) {
+    downloadUsersThruPoolCandidatesCsv(ids: $ids, where: $where)
+  }
+`);
+
 // single user profile
 const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `
   mutation DownloadUserDoc($id: UUID!, $anonymous: Boolean!) {
@@ -391,6 +401,10 @@ const PoolCandidatesTable = ({
 
   const [{ fetching: downloadingCsv }, downloadCsv] = useMutation(
     DownloadPoolCandidatesCsv_Mutation,
+  );
+
+  const [{ fetching: downloadingUsersCsv }, downloadUsers] = useMutation(
+    DownloadUsersThruPoolCandidatesCsv_Mutation,
   );
 
   const [{ fetching: downloadingUserDoc }, downloadUserDoc] = useMutation(
@@ -560,6 +574,12 @@ const PoolCandidatesTable = ({
 
   const handleCsvDownload = (withROD?: boolean) => {
     downloadCsv({ ids: selectedRows, withROD })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
+
+  const handleUsersCsvDownload = () => {
+    downloadUsers({ ids: selectedRows })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -989,15 +1009,23 @@ const PoolCandidatesTable = ({
                 <DownloadCandidateCsvButton
                   inTable
                   disabled={!hasSelectedRows || downloadingAnyFile}
-                  isDownloading={downloadingCsv}
+                  isDownloading={downloadingCsv || downloadingUsersCsv}
                   onClick={handleCsvDownload}
+                  onClickDownloadUsers={handleUsersCsvDownload}
                 />
               ),
             }
           : {
               enable: true,
-              onClick: () => handleCsvDownload(),
-              downloading: downloadingCsv,
+              component: (
+                <DownloadAllCandidateTableCsvButton
+                  inTable
+                  disabled={!hasSelectedRows || downloadingAnyFile}
+                  isDownloading={downloadingCsv || downloadingUsersCsv}
+                  onClickDownloadCandidates={handleCsvDownload}
+                  onClickDownloadUsers={handleUsersCsvDownload}
+                />
+              ),
             },
         doc: {
           enable: true,
