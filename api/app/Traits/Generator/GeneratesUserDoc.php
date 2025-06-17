@@ -720,7 +720,7 @@ trait GeneratesUserDoc
         // Retirement Eligibility
         if ($profile->eligible_retirement_year_known && $profile->eligible_retirement_year) {
             $this->addLabelText($section, $this->localize('gc_employee.retirement_year'),
-                $profile->eligible_retirement_year?->format('Y'));
+                $profile->eligible_retirement_year->format('Y'));
         }
 
         // Mentorship
@@ -783,8 +783,7 @@ trait GeneratesUserDoc
 
         // Target Role Type
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->next_role_target_role, TargetRole::class) ?:
-        $profile->next_role_target_role_other);
+            $this->localizeEnum($profile->next_role_target_role, TargetRole::class));
 
         // Senior Management Status
         $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
@@ -839,8 +838,7 @@ trait GeneratesUserDoc
 
         // Target Role Type
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
-            $this->localizeEnum($profile->career_objective_target_role, TargetRole::class) ?:
-        $profile->career_objective_target_role_other);
+            $this->localizeEnum($profile->career_objective_target_role, TargetRole::class));
 
         // Senior Management Status
         $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
