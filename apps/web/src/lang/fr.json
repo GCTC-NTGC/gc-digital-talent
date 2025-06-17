@@ -2019,6 +2019,10 @@
     "defaultMessage": "Téléchargez le guide de mise en œuvre pour les responsables de l’approvisionnement",
     "description": "Aria label for download guidance for procurement officers plain text link."
   },
+  "7L19hE": {
+    "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
+    "description": "Subtitle for training opportunity single page"
+  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
