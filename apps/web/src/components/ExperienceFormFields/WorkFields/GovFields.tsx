@@ -36,7 +36,7 @@ import { splitAndJoin } from "~/utils/nameUtils";
 
 const GovFieldOptions_Query = graphql(/* GraphQL */ `
   query GovFieldOptions {
-    departments {
+    departments(where: {}) {
       id
       name {
         en

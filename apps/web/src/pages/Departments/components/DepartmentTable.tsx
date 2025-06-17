@@ -181,15 +181,20 @@ export const DepartmentTable = ({
 };
 
 const Departments_Query = graphql(/* GraphQL */ `
-  query Departments {
-    departments {
+  query Departments($where: DepartmentFilterInput!) {
+    departments(where: $where) {
       ...DepartmentTableRow
     }
   }
 `);
 
 const DepartmentTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({ query: Departments_Query });
+  const [{ data, fetching, error }] = useQuery({
+    query: Departments_Query,
+    variables: {
+      where: { withArchived: true },
+    },
+  });
 
   return (
     <Pending fetching={fetching} error={error}>

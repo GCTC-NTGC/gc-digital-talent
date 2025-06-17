@@ -86,7 +86,7 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    departments {
+    departments(where: {}) {
       id
       name {
         localized

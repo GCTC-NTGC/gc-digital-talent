@@ -501,7 +501,7 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
     pool(id: $id) {
       ...ViewPool
     }
-    departments {
+    departments(where: {}) {
       ...DuplicatePoolDepartment
     }
   }

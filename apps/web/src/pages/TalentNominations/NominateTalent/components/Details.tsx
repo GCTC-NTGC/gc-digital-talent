@@ -64,7 +64,7 @@ const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
     classifications {
       ...ClassificationInput
     }
-    departments {
+    departments(where: {}) {
       id
       name {
         localized
