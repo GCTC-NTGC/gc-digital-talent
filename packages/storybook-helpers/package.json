@@ -16,7 +16,7 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.1.0",
-    "chromatic": "^12.2.0",
+    "chromatic": "^13.0.0",
     "graphql": "^16.11.0",
     "lodash": "^4.17.21",
     "motion": "^12.17.0",
