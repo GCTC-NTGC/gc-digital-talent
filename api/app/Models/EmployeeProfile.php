@@ -69,6 +69,14 @@ class EmployeeProfile extends Model
         'eligible_retirement_year' => 'date',
     ];
 
+    protected $fillable = [
+        'career_planning_lateral_move_interest',
+        'career_planning_lateral_move_time_frame',
+        'eligible_retirement_year_known',
+        'eligible_retirement_year',
+        'career_planning_exec_interest',
+    ];
+
     /** @return BelongsTo<Community, $this> */
     public function nextRoleCommunity(): BelongsTo
     {

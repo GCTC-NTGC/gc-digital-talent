@@ -773,8 +773,8 @@ trait GeneratesUserDoc
         $section->addTitle($this->localize('gc_employee.next_role'), $headingRank);
 
         // Target Classification
-        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->nextRoleClassification?->group ?? '');
-        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->nextRoleClassification?->level ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->nextRoleClassification->group ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->nextRoleClassification->level ?? '');
 
         // Target Role Type
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
@@ -792,8 +792,8 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->next_role_job_title ?? '');
 
         // Functional Community
-        $communityName = $profile->nextRoleCommunity?->name[$this->lang] ??
-            ($profile->next_role_community_other ?? '');
+        $communityName = $profile->careerObjectiveCommunity?->name[$this->lang] ??
+            $profile->career_objective_community_other;
         $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
@@ -823,8 +823,8 @@ trait GeneratesUserDoc
         $section->addTitle($this->localize('gc_employee.career_objective'), $headingRank);
 
         // Target Classification
-        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->careerObjectiveClassification?->group ?? '');
-        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->careerObjectiveClassification?->level ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_group'), $profile->careerObjectiveClassification->group ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.target_class_level'), $profile->careerObjectiveClassification->level ?? '');
 
         // Target Role Type
         $this->addLabelText($section, $this->localize('gc_employee.target_role'),
