@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'profile_title' => 'Profil d\’employée ou employé du GC',
+    'profile_title' => 'Profil d’employée ou employé du GC',
     // Career Preferences
     'career_preferences' => 'Préférences en matière de développement de carrière',
     'lateral_movement_interest' => 'Intérêt pour la mutation latérale',
     'target_time_frame' => 'Délai cible pour une mutation latérale',
     'org_types_lateral' => 'Types d\'organisations que vous envisageriez pour une mutation latérale',
     'promotion_interest' => 'Intérêt pour la promotion et l\'avancement',
-    'target_time_frame_promotion' => 'Target time frame for promotion or advancement',
+    'target_time_frame_promotion' => 'Délai cible pour la promotion ou l\'avancement',
     'org_types_promotion' => 'Intérêt pour les possibilités d\'apprentissage',
     'learning_interest' => 'Intérêt pour les possibilités d\'apprentissage ',
     'retirement_year' => 'Année d\'admissibilité à la retraite',

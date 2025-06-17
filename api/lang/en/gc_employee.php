@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'profile_title' => 'GC Employee Profile',
+    'profile_title' => 'GC employee profile',
     // Career Preferences
     'career_preferences' => 'Career development preferences',
     'lateral_movement_interest' => 'Interest in lateral movement',
