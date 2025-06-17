@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'en' => 'English-only positions',
-    'fr' => 'French-only positions',
+    'en' => 'English',
+    'fr' => 'French',
 
     // position types
     'en_only' => 'English-only positions',
