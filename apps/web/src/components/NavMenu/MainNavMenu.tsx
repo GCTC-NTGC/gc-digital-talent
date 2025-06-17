@@ -167,7 +167,7 @@ const MainNavMenu = () => {
                   description: "Label for the main navigation",
                 })}
                 data-state={isMenuOpen ? "open" : "closed"}
-                className="bg-opacity-90 sm:bg-opacity-90 dark:bg-opacity-90 sm:dark:bg-opacity-90 rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700 sm:py-6 dark:bg-gray-600 sm:dark:bg-gray-700"
+                className="rounded-md bg-white py-6 sm:rounded-none sm:bg-gray-700/90 sm:py-6 dark:bg-gray-600/90 sm:dark:bg-gray-700/90"
               >
                 <Container
                   center
