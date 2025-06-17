@@ -98,6 +98,39 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
     ],
   });
 
+  let trainingDateLabel = intl.formatMessage({
+    defaultMessage: "Training date",
+    id: "yd+VEB",
+    description: "Label for training date meta data",
+  });
+  let trainingDateValue;
+
+  if (trainingOpportunity.trainingStart) {
+    trainingDateValue = formatDate({
+      date: parseDateTimeUtc(trainingOpportunity.trainingStart),
+      formatString: "MMMM d, yyyy",
+      intl,
+    });
+  }
+
+  if (trainingOpportunity.trainingStart && trainingOpportunity.trainingEnd) {
+    trainingDateLabel = intl.formatMessage({
+      defaultMessage: "Training dates",
+      id: "yK0vlP",
+      description: "Label for training dates meta data",
+    });
+
+    trainingDateValue = `${formatDate({
+      date: parseDateTimeUtc(trainingOpportunity.trainingStart),
+      formatString: "MMMM d, yyyy",
+      intl,
+    })} - ${formatDate({
+      date: parseDateTimeUtc(trainingOpportunity.trainingEnd),
+      formatString: "MMMM d, yyyy",
+      intl,
+    })}`;
+  }
+
   return (
     <>
       <SEO
@@ -160,7 +193,7 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
                     date: parseDateTimeUtc(
                       trainingOpportunity?.registrationDeadline,
                     ),
-                    formatString: "PPP",
+                    formatString: "MMMM d, yyyy",
                     intl,
                   })
                 : intl.formatMessage(commonMessages.notFound)
@@ -168,33 +201,10 @@ const TrainingOpportunityPage = ({ query }: TrainingOpportunityProps) => {
           />
           <DataRow
             label={
-              intl.formatMessage(formLabels.trainingStartDate) +
+              trainingDateLabel +
               intl.formatMessage(commonMessages.dividingColon)
             }
-            value={
-              trainingOpportunity?.trainingStart
-                ? formatDate({
-                    date: parseDateTimeUtc(trainingOpportunity?.trainingStart),
-                    formatString: "PPP",
-                    intl,
-                  })
-                : intl.formatMessage(commonMessages.notFound)
-            }
-          />
-          <DataRow
-            label={
-              intl.formatMessage(formLabels.trainingEndDate) +
-              intl.formatMessage(commonMessages.dividingColon)
-            }
-            value={
-              trainingOpportunity?.trainingEnd
-                ? formatDate({
-                    date: parseDateTimeUtc(trainingOpportunity?.trainingEnd),
-                    formatString: "PPP",
-                    intl,
-                  })
-                : intl.formatMessage(commonMessages.notFound)
-            }
+            value={trainingDateValue}
           />
           <DataRow
             label={
