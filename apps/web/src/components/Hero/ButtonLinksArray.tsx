@@ -17,8 +17,6 @@ export interface ButtonLinkType {
   text: string;
   url: string;
   color: CTALinkProps["color"];
-  external?: boolean;
-  newTab?: boolean;
 }
 
 interface ButtonLinksArrayProps {
@@ -31,10 +29,10 @@ const ButtonLinksArray = ({
   centered,
 }: ButtonLinksArrayProps) => (
   <ul className={list({ centered })}>
-    {buttonLinkArray.map(({ text, url, ...rest }) => (
-      <li key={url}>
-        <CTALink href={url} {...rest}>
-          {text}
+    {buttonLinkArray.map((element) => (
+      <li key={element.url}>
+        <CTALink color={element.color} href={element.url} icon={element.icon}>
+          {element.text}
         </CTALink>
       </li>
     ))}
