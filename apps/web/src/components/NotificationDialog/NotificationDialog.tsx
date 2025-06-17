@@ -236,12 +236,12 @@ const NotificationDialog = ({
             />
           ) : (
             <IconButton
-              color={isSmallScreen ? "black" : "secondary"}
+              color={isSmallScreen ? "black" : "primary"}
               icon={
                 notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm
               }
               label={buttonLabel}
-              className="text-white hover:text-primary-200 data-active:text-secondary-200 dark:data-active:text-primary-100"
+              className="hover:text-primary-200 data-active:text-primary-200 sm:text-white dark:data-active:text-primary-100 sm:dark:text-white"
             />
           )}
         </DialogPrimitive.Trigger>
