@@ -2998,10 +2998,10 @@ type Mutation {
     @canFind(ability: "delete", find: "id")
   archiveDepartment(id: ID!): Department
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(ability: "archiveAndUnarchive")
   unarchiveDepartment(id: ID!): Department
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(ability: "archiveAndUnarchive")
 
   # SearchRequest mutations
   createPoolCandidateSearchRequest(
