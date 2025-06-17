@@ -786,10 +786,14 @@ trait GeneratesUserDoc
             $this->localizeEnum($profile->next_role_target_role, TargetRole::class));
 
         // Senior Management Status
-        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
-            $profile->next_role_is_c_suite_role ?? '');
+        $managementStatus = $profile->next_role_is_c_suite_role === true
+            ? $this->localize('gc_employee.senior_management_true') : ($profile->next_role_is_c_suite_role === false
+                ? $this->localize('gc_employee.senior_management_false') : '');
+
+        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'), $managementStatus);
         if ($profile->next_role_is_c_suite_role === true) {
-            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'), $this->localizeEnum($profile->next_role_c_suite_role_title, CSuiteRoleTitle::class));
+            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'),
+                $this->localizeEnum($profile->next_role_c_suite_role_title, CSuiteRoleTitle::class));
         }
 
         // Job Title
@@ -841,11 +845,14 @@ trait GeneratesUserDoc
             $this->localizeEnum($profile->career_objective_target_role, TargetRole::class));
 
         // Senior Management Status
-        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'),
-            $profile->career_objective_is_c_suite_role ?? '');
+        $managementStatus = $profile->next_role_is_c_suite_role === true
+        ? $this->localize('gc_employee.senior_management_true') : ($profile->next_role_is_c_suite_role === false
+            ? $this->localize('gc_employee.senior_management_false') : '');
 
-        if ($profile->career_objective_is_c_suite_role === true) {
-            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'), $this->localizeEnum($profile->career_objective_c_suite_role_title, CSuiteRoleTitle::class) ?? '');
+        $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'), $managementStatus);
+        if ($profile->next_role_is_c_suite_role === true) {
+            $this->addLabelText($section, $this->localize('gc_employee.c_suite_title'),
+                $this->localizeEnum($profile->next_role_c_suite_role_title, CSuiteRoleTitle::class));
         }
 
         // Job Title

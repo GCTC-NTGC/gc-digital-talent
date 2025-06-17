@@ -24,6 +24,8 @@ return [
     'target_class_level' => 'Niveau de classification visé',
     'target_role' => 'Type de poste visé',
     'senior_management_status' => 'Statut de cadre supérieur',
+    'senior_management_true' => 'Il s\'agissait d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
+    'senior_management_false' => 'Il ne s\'agissait pas d\'un rôle de dirigeant(e) ou d\'adjoint(e) au (à la) dirigeant(e) (cadre supérieur).',
     'c_suite_title' => 'Titre du rôle de cadre supérieur',
     'job_title' => 'Titre du poste',
     'desired_community' => 'Collectivité fonctionnelle souhaitée',
