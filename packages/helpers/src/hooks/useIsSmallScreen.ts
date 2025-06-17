@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export type Breakpoint = "xs" | "sm" | "md" | "lg";
+type Breakpoint = "xs" | "sm" | "md" | "lg";
 
 const breakpoints: Record<Breakpoint, string> = {
   xs: "48rem",
