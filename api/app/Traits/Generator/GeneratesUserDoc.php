@@ -640,12 +640,17 @@ trait GeneratesUserDoc
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
      */
-    protected function gcEmployeeProfile(Section $section, User $user, $headingRank = 3)
+    protected function gcEmployeeProfile(Section $section, User $user, int $headingRank = 3)
     {
+
         // Only show if user has a verified work email
         if (! $user->work_email) {
             return;
         }
+        if (! $user->employeeProfile || ! ($user->employeeProfile instanceof EmployeeProfile)) {
+            return;
+        }
+        $profile = $user->employeeProfile;
 
         $user->load([
             'employeeProfile',
@@ -659,12 +664,6 @@ trait GeneratesUserDoc
             'employeeProfile.careerObjectiveDepartments',
         ]);
 
-        $profile = $user->employeeProfile;
-
-        if (! $profile) {
-            return;
-        }
-
         $section->addTitle($this->localize('gc_employee.profile_title'), $headingRank);
 
         // Career Development Preferences
@@ -672,11 +671,11 @@ trait GeneratesUserDoc
 
         // Lateral Movement
         $this->addLabelText($section, $this->localize('gc_employee.lateral_movement_interest'),
-            $this->yesOrNo($profile->career_planning_lateral_move_interest));
+            $this->yesOrNo($profile->career_planning_lateral_move_interest ?? false));
 
         if ($profile->career_planning_lateral_move_interest) {
             $this->addLabelText($section, $this->localize('gc_employee.target_time_frame'),
-                $this->localizeEnum($profile->career_planning_lateral_move_time_frame, TimeFrame::class)
+                $this->localizeEnum($profile->career_planning_lateral_move_time_frame ?? '', TimeFrame::class)
             );
 
             if (! empty($profile->career_planning_promotion_move_organization_type)) {
@@ -692,11 +691,11 @@ trait GeneratesUserDoc
 
         // Promotion/Advancement
         $this->addLabelText($section, $this->localize('gc_employee.promotion_interest'),
-            $this->yesOrNo($profile->career_planning_promotion_move_interest));
+            $this->yesOrNo($profile->career_planning_promotion_move_interest ?? false));
 
         if ($profile->career_planning_promotion_move_interest) {
             $this->addLabelText($section, $this->localize('gc_employee.target_time_frame_promotion'),
-                $this->localizeEnum($profile->career_planning_promotion_move_time_frame, TimeFrame::class));
+                $this->localizeEnum($profile->career_planning_promotion_move_time_frame ?? '', TimeFrame::class));
         }
         if (! empty($profile->career_planning_promotion_move_organization_type)) {
             $section->addText($this->localize('gc_employee.org_types_promotion'));
@@ -721,7 +720,7 @@ trait GeneratesUserDoc
         // Retirement Eligibility
         if ($profile->eligible_retirement_year_known && $profile->eligible_retirement_year) {
             $this->addLabelText($section, $this->localize('gc_employee.retirement_year'),
-                $profile->eligible_retirement_year->format('Y'));
+                $profile->eligible_retirement_year?->format('Y'));
         }
 
         // Mentorship
@@ -742,7 +741,7 @@ trait GeneratesUserDoc
 
         // Executive Opportunities
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
-            $this->yesOrNo($profile->career_planning_exec_interest));
+            $this->yesOrNo($profile->career_planning_exec_interest ?? false));
 
         $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
             implode(', ', array_map(
@@ -752,7 +751,7 @@ trait GeneratesUserDoc
         );
 
         if (! empty($profile->career_planning_exec_coaching_interest)) {
-            $section->addLabelText($this->localize('gc_employee.exec_coaching_interest'));
+            $section->addText($this->localize('gc_employee.exec_coaching_interest'));
             foreach ($profile->career_planning_exec_coaching_interest as $interest) {
                 $section->addListItem($this->localizeEnum($interest, ExecCoaching::class));
             }
@@ -768,6 +767,12 @@ trait GeneratesUserDoc
         $this->goalsAndWorkStyle($section, $profile, $headingRank + 1);
     }
 
+    /**
+     * Generate a users goals and work style
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  EmployeeProfile  $profile  The employee profile being generated
+     */
     protected function nextRoleSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
     {
         $section->addTitle($this->localize('gc_employee.next_role'), $headingRank);
@@ -818,6 +823,12 @@ trait GeneratesUserDoc
         );
     }
 
+    /**
+     * Generate a users career objective
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  EmployeeProfile  $profile  The employee profile being generated
+     */
     protected function careerObjectiveSection(Section $section, EmployeeProfile $profile, $headingRank = 4)
     {
         $section->addTitle($this->localize('gc_employee.career_objective'), $headingRank);
@@ -843,7 +854,7 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.job_title'), $profile->career_objective_job_title ?? '');
 
         // Functional Community
-        $communityName = $profile->careerObjectiveCommunity?->name[$this->lang] ?? $profile->career_objective_community_other ?? '';
+        $communityName = $profile->careerObjectiveCommunity->name[$this->lang] ?? $profile->career_objective_community_other ?? '';
         $this->addLabelText($section, $this->localize('gc_employee.desired_community'), $communityName);
 
         // Work Streams
@@ -868,7 +879,13 @@ trait GeneratesUserDoc
         );
     }
 
-    protected function goalsAndWorkStyle(Section $section, EmployeeProfile $profile, $headingRank = 4)
+    /**
+     * Generate a users goals and work style
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  EmployeeProfile  $profile  The employee profile being generated
+     */
+    protected function goalsAndWorkStyle(Section $section, EmployeeProfile $profile, int $headingRank = 4)
     {
         $section->addTitle($this->localize('gc_employee.goals_work_style'), $headingRank);
 
