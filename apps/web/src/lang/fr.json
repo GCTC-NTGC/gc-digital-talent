@@ -4303,6 +4303,10 @@
     "defaultMessage": "<strong>{title}</strong> à {organization}",
     "description": "Title at organization, HTML"
   },
+  "IFTwDy": {
+    "defaultMessage": "Description du cours",
+    "description": "Heading for section course description"
+  },
   "IH+bPG": {
     "defaultMessage": "Reçue",
     "description": "Status label for a submitted (but not reviewed) application"
@@ -13264,6 +13268,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yjZ5Lz": {
+    "defaultMessage": "Informations sur le cours",
+    "description": "Heading for section course details"
   },
   "yl3eY6": {
     "defaultMessage": "Lieu (français)",
