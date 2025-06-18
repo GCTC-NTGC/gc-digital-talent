@@ -379,7 +379,7 @@ type Pool implements HasRoleAssignments {
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   name: LocalizedString
-  classification: Classification @belongsTo
+  classification: Classification @belongsTo @cache
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
@@ -404,7 +404,7 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "security_clearance")
   language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
-  workStream: WorkStream @belongsTo
+  workStream: WorkStream @belongsTo @cache
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: LocalizedPublishingGroup
     @rename(attribute: "publishing_group")
@@ -523,6 +523,7 @@ type PoolCandidateViewNotes {
 
 # group fields together that repeat use of viewStatus()
 type PoolCandidateViewStatus {
+  id: ID!
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -532,13 +533,13 @@ type PoolCandidateViewStatus {
   removalReasonOther: String @rename(attribute: "removal_reason_other")
   finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
   placedAt: DateTime @rename(attribute: "placed_at")
-  placedDepartment: Department @belongsTo
+  placedDepartment: Department @belongsTo @cache
 }
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @canResolved(ability: "view")
-  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
+  pool: Pool! @belongsTo @canResolved(ability: "view") @cache
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view") @cache
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -651,8 +652,14 @@ type PoolCandidate {
     )
 
   # fields grouped by permission
-  viewNotes: PoolCandidateViewNotes @self @canRoot(ability: "viewNotes")
-  viewStatus: PoolCandidateViewStatus @self @canRoot(ability: "viewStatus")
+  viewNotes: PoolCandidateViewNotes
+    @self
+    @canRoot(ability: "viewNotes")
+    @with(relation: "pool")
+  viewStatus: PoolCandidateViewStatus
+    @self
+    @canRoot(ability: "viewStatus")
+    @with(relation: "pool")
 }
 
 type PoolCandidateWithSkillCount {

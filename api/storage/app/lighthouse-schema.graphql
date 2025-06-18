@@ -1008,6 +1008,7 @@ type PoolCandidateViewNotes {
 }
 
 type PoolCandidateViewStatus {
+  id: ID!
   status: LocalizedPoolCandidateStatus
   statusWeight: Int
   removedAt: DateTime
