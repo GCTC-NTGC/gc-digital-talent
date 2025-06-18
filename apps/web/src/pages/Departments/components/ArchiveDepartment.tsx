@@ -101,8 +101,9 @@ const ArchiveDialog = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Write the department's full name to confirm this action.",
-                id: "21X3ox",
-                description: "Sentence explaining how to archive a department",
+                id: "ICKgvh",
+                description:
+                  "Sentence explaining how to archive/restore a department",
               })}
             </p>
             <FormProvider {...methods}>
@@ -114,9 +115,8 @@ const ArchiveDialog = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage: "Department name",
-                      id: "v/2ntL",
-                      description:
-                        "Label for the department name input in the archive department dialog",
+                      id: "4Nx4Xn",
+                      description: "Label for the department name input",
                     })}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
