@@ -72,13 +72,13 @@ export const AdvancedToolsDepartment = ({
       {department.archivedAt ? (
         <RestoreDepartment
           departmentId={department.id}
-          departmentNameLocalized={department.name.localized ?? ""}
+          departmentNameLocalized={department.name.localized}
           archivedAt={department.archivedAt}
         />
       ) : (
         <ArchiveDepartment
           departmentId={department.id}
-          departmentNameLocalized={department.name.localized ?? ""}
+          departmentNameLocalized={department.name.localized}
         />
       )}
     </>

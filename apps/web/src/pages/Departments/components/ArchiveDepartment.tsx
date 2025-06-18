@@ -20,7 +20,7 @@ const ArchiveDepartment_Mutation = graphql(/* GraphQL */ `
 
 interface ArchiveDepartmentProps {
   departmentId: string;
-  departmentNameLocalized: string;
+  departmentNameLocalized: string | null | undefined;
 }
 
 interface FormValues {
@@ -171,6 +171,10 @@ export const ArchiveDepartment = ({
   departmentNameLocalized,
 }: ArchiveDepartmentProps) => {
   const intl = useIntl();
+
+  if (!departmentNameLocalized) {
+    return null;
+  }
 
   return (
     <>

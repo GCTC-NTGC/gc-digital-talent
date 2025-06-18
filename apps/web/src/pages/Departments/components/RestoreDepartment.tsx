@@ -21,7 +21,7 @@ const UnarchiveDepartment_Mutation = graphql(/* GraphQL */ `
 
 interface RestoreDepartmentProps {
   departmentId: string;
-  departmentNameLocalized: string;
+  departmentNameLocalized: string | null | undefined;
 }
 
 interface FormValues {
@@ -179,6 +179,10 @@ export const RestoreDepartment = ({
     formatString: "yyyy-MM-dd",
     intl,
   });
+
+  if (!departmentNameLocalized) {
+    return null;
+  }
 
   return (
     <>
