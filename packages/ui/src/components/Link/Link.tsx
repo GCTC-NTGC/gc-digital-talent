@@ -55,7 +55,7 @@ const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
       >
         <span className={alignment()}>
           {Icon && <Icon className={leadingIcon()} />}
-          <span className={label()}>{children}</span>
+          {children && <span className={label()}>{children}</span>}
           {UtilityIcon && <UtilityIcon className={trailingIcon()} />}
           {newTab && (
             <ArrowTopRightOnSquareIcon
