@@ -589,7 +589,6 @@ trait GeneratesUserDoc
         $this->experiences($section, $user->experiences, true, $headingRank + 1);
         $this->skillShowcase($section, $user, $headingRank + 1);
         $this->gcEmployeeProfile($section, $user, $headingRank + 1);
-        $section->addPageBreak();
     }
 
     /**
