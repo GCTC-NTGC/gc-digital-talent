@@ -139,8 +139,8 @@ const AdvancedToolsDepartmentPage = () => {
       url: routes.departmentAdvancedTools(departmentId),
       label: intl.formatMessage({
         defaultMessage: "Advanced tools",
-        id: "KoKXUw",
-        description: "Heading for making major changes to a user",
+        id: "C6P305",
+        description: "Nav tab label to access advanced tools ",
       }),
     },
   ];
