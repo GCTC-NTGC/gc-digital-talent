@@ -29,15 +29,20 @@ class PoolCandidatesCsvTest extends TestCase
             ->asAdmin()
             ->create();
 
+        $targetUser = User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->create();
+
         $application1 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
+            ->create(['user_id' => $targetUser->id]);
 
         $application2 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
+            ->create(['user_id' => $targetUser->id]);
 
         // act
         $fileName = sprintf('%s_%s', __('filename.candidates_rod'), date('Y-m-d_His'));

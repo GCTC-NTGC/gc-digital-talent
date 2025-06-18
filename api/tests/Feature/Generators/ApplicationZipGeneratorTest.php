@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Generators\ApplicationZipGenerator;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -18,7 +17,6 @@ class ApplicationZipGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
     }
 
@@ -31,15 +29,20 @@ class ApplicationZipGeneratorTest extends TestCase
             ->asAdmin()
             ->create();
 
+        $targetUser = User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->create();
+
         $application1 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
+            ->create(['user_id' => $targetUser->id]);
 
         $application2 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
+            ->create(['user_id' => $targetUser->id]);
 
         // act
         $fileName = sprintf('%s_%s', __('filename.candidates'), date('Y-m-d_His'));

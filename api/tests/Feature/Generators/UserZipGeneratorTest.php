@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Generators\UserZipGenerator;
 use App\Models\User;
-use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -17,7 +16,6 @@ class UserZipGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
     }
 
@@ -32,10 +30,12 @@ class UserZipGeneratorTest extends TestCase
 
         $targetUser1 = User::factory()
             ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         $targetUser2 = User::factory()
             ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         // act

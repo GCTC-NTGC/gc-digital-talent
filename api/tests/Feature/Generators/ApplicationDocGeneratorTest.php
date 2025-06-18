@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Generators\ApplicationDocGenerator;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -18,7 +17,6 @@ class ApplicationDocGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
     }
 
@@ -31,11 +29,15 @@ class ApplicationDocGeneratorTest extends TestCase
             ->asAdmin()
             ->create();
 
+        $targetUser = User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->create();
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
-
+            ->create(['user_id' => $targetUser->id]);
         // act
         $generator = new ApplicationDocGenerator(
             candidate: $application,

@@ -30,10 +30,12 @@ class UserCsvGeneratorTest extends TestCase
 
         $targetUser1 = User::factory()
             ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         $targetUser2 = User::factory()
             ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         // act

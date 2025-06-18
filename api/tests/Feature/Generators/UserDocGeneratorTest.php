@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Generators\UserDocGenerator;
 use App\Models\User;
-use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -17,7 +16,6 @@ class UserDocGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->seed(ClassificationSeeder::class);
         $this->seed(RolePermissionSeeder::class);
     }
 
@@ -32,6 +30,7 @@ class UserDocGeneratorTest extends TestCase
 
         $targetUser = User::factory()
             ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         // act

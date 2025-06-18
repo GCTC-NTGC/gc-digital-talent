@@ -29,15 +29,25 @@ class UsersThruPoolCandidatesCsvGeneratorTest extends TestCase
             ->asAdmin()
             ->create();
 
+        $targetUser1 = User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->create();
+
         $application1 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
+            ->create(['user_id' => $targetUser1->id]);
+
+        $targetUser2 = User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
             ->create();
 
         $application2 = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create();
+            ->create(['user_id' => $targetUser2->id]);
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
