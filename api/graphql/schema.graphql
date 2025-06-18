@@ -652,14 +652,8 @@ type PoolCandidate {
     )
 
   # fields grouped by permission
-  viewNotes: PoolCandidateViewNotes
-    @self
-    @canRoot(ability: "viewNotes")
-    @with(relation: "pool")
-  viewStatus: PoolCandidateViewStatus
-    @self
-    @canRoot(ability: "viewStatus")
-    @with(relation: "pool")
+  viewNotes: PoolCandidateViewNotes @self @canRoot(ability: "viewNotes")
+  viewStatus: PoolCandidateViewStatus @self @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
