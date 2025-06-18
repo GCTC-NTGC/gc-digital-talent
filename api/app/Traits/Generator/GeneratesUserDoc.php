@@ -748,7 +748,7 @@ trait GeneratesUserDoc
                 ? $this->localize('gc_employee.coaching_others')
                 : ($profile->career_planning_exec_coaching_status
                     ? $this->localize('gc_employee.have_coach')
-                    : ($profile->career_planning_exec_coaching_learning_status
+                    : ($profile->career_planning_exec_coaching_status
                         ? $this->localize('gc_employee.coaching_and_learning')
                         : $this->localize('gc_employee.not_participating')
                     )
