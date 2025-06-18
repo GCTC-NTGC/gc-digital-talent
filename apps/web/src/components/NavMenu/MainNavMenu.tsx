@@ -51,7 +51,7 @@ const homeItem = tv({
   base: "hidden sm:flex",
   variants: {
     hidden: {
-      true: "sm:border-r sm:border-white/20 sm:px-4.5",
+      true: "sm:border-r sm:border-white/20 sm:pr-4.5",
     },
   },
 });
@@ -68,7 +68,7 @@ const MainNavMenu = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const isSmallScreen = useIsSmallScreen(1080);
+  const isSmallScreen = useIsSmallScreen("sm");
 
   const shouldReduceMotion = useReducedMotion();
 

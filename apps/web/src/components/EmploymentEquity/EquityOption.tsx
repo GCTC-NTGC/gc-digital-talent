@@ -69,7 +69,7 @@ const EquityOption = ({
   return (
     <Card>
       <p className="mb-6 font-bold">{title}</p>
-      {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
+      {description && <p className="pb-6">{description}</p>}
       <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
         <Button
           type="button"

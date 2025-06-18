@@ -192,7 +192,7 @@ const GovernmentInformationSection = ({
             </span>
           </p>
           {hasPriorityEntitlement && (
-            <div data-h2-flex-item="base(1of1)">
+            <div>
               <p>
                 <span className={label()}>
                   {intl.formatMessage({
