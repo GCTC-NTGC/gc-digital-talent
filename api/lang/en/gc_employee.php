@@ -16,7 +16,14 @@ return [
     'mentorship_interest' => 'Interest in mentorship opportunities',
     'exec_interest' => 'Interest in executive-level opportunities',
     'exec_coaching_status' => 'Executive coaching status',
+    'coaching_others' => 'I\'m currently coaching someone else.',
+    'has_coach' => 'I currently have an executive coach.',
+    'coaching_and_learning' => 'I\'m participating as both a coach and learner.',
+    'not_participating' => 'I\'m not participating in an executive coaching program.',
+    'not_provided' => 'Not provided',
     'exec_coaching_interest' => 'Interest in executive coaching opportunities',
+    'interested_coaching' => 'I\'m interested in coaching another employee.',
+    'interested_receiving' => 'I\'m interested in receiving executive coaching.',
 
     // Next Role Section
     'next_role' => 'Next role',

@@ -16,7 +16,14 @@ return [
     'mentorship_interest' => 'Intérêt pour les possibilités de mentorat',
     'exec_interest' => 'Intérêt pour des postes au niveau de la direction',
     'exec_coaching_status' => 'État du coaching des cadres',
+    'coaching_others' => 'Je suis actuellement en train de coacher quelqu\'un d\'autre.',
+    'has_coach' => 'J\'ai actuellement un ou une coach.',
+    'coaching_and_learning' => 'Je participe à la fois en tant que coach et en tant qu\'apprenant.',
+    'not_participating' => 'Je ne participe à aucun programme de coaching des cadres.',
+    'not_provided' => 'Renseignements manquants',
     'exec_coaching_interest' => 'Intérêt pour le coaching des cadres',
+    'interested_coaching' => 'Je n\'ai pas envie de coacher quelqu\'un d\'autre.',
+    'interested_receiving' => 'Je souhaite bénéficier du coaching des cadres.',
 
     // Next Role Section
     'next_role' => 'Prochain type de poste',

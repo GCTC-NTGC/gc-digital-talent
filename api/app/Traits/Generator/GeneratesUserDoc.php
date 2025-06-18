@@ -14,7 +14,6 @@ use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
-use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\GovContractorRoleSeniority;
@@ -742,19 +741,24 @@ trait GeneratesUserDoc
         $this->addLabelText($section, $this->localize('gc_employee.exec_interest'),
             $this->yesOrNo($profile->career_planning_exec_interest ?? false));
 
-        $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_status'),
-            implode(', ', array_map(
-                fn ($status) => $this->localizeEnum($status, ExecCoaching::class),
-                $profile->career_planning_exec_coaching_status ?? []
-            ))
+        $this->addLabelText(
+            $section,
+            $this->localize('gc_employee.exec_coaching_status'),
+            $profile->career_planning_exec_interest
+                ? $this->localize('gc_employee.coaching_others')
+                : ($profile->career_planning_exec_coaching_status
+                    ? $this->localize('gc_employee.have_coach')
+                    : ($profile->career_planning_exec_coaching_learning_status
+                        ? $this->localize('gc_employee.coaching_and_learning')
+                        : $this->localize('gc_employee.not_participating')
+                    )
+                )
         );
 
-        if (! empty($profile->career_planning_exec_coaching_interest)) {
-            $section->addText($this->localize('gc_employee.exec_coaching_interest'));
-            foreach ($profile->career_planning_exec_coaching_interest as $interest) {
-                $section->addListItem($this->localizeEnum($interest, ExecCoaching::class));
-            }
-        }
+        $this->addLabelText($section, $this->localize('gc_employee.exec_coaching_interest'),
+            $profile->career_planning_exec_coaching_interest ? $this->localize('gc_employee.interested_receiving')
+                    : $this->localize('gc_employee.interested_coaching')
+        );
 
         // Next Role
         $this->nextRoleSection($section, $profile, $headingRank + 1);
