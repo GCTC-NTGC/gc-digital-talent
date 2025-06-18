@@ -39,11 +39,11 @@ const ArchiveDialog = ({
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
   const [{ fetching }, executeMutation] = useMutation(
     ArchiveDepartment_Mutation,
   );
-  const requestMutation = async (id: string) => {
+
+  const archiveMutation = async (id: string) => {
     const result = await executeMutation({ id });
     if (result.data?.archiveDepartment) {
       return result.data.archiveDepartment;
@@ -51,7 +51,7 @@ const ArchiveDialog = ({
     return Promise.reject(new Error(result.error?.toString()));
   };
   const submitHandler = async () => {
-    return requestMutation(departmentId).then(() => {
+    return archiveMutation(departmentId).then(() => {
       setOpen(false);
       toast.success(
         intl.formatMessage({
@@ -66,10 +66,7 @@ const ArchiveDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <div
-          data-h2-display="base(flex)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-        >
+        <div className="flex justify-center sm:justify-start">
           <Button icon={ArchiveBoxXMarkIcon} color="error">
             {intl.formatMessage({
               defaultMessage: "Archive department",
@@ -129,9 +126,9 @@ const ArchiveDialog = ({
                           {
                             defaultMessage:
                               "Value must match the department's full name: {name}",
-                            id: "OYuhDu",
+                            id: "mWr4O0",
                             description:
-                              "Placeholder text for department name input in the archive department dialog",
+                              "Validation text for department name input",
                           },
                           { name: departmentNameLocalized },
                         ),
@@ -177,16 +174,8 @@ export const ArchiveDepartment = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
-      >
-        <Heading
-          level="h2"
-          color="secondary"
-          data-h2-margin="base(0, 0, x1.5, 0)"
-          data-h2-font-weight="base(400)"
-        >
+      <div className="flex justify-center sm:justify-start">
+        <Heading level="h2" color="secondary" className="mt-0 mb-7 font-bold">
           {intl.formatMessage({
             defaultMessage: "Archive department",
             id: "v8putB",
@@ -194,7 +183,7 @@ export const ArchiveDepartment = ({
           })}
         </Heading>
       </div>
-      <p>
+      <p className="mb-7">
         {intl.formatMessage({
           defaultMessage:
             "Archiving this department will remove it as a selectable option across the platform. Anything that already uses it will remain unchanged.",
