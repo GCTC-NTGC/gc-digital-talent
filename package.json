@@ -28,10 +28,10 @@
     "lint:fix": "turbo run lint:fix",
     "prettier": "turbo run prettier",
     "prettier:fix": "turbo run prettier:fix",
-    "storybook": "pnpm --filter @gc-digital-talent/web run storybook",
-    "storybook:design-system": "pnpm --filter @gc-digital-talent/web run storybook:design-system",
-    "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
-    "build-storybook": "pnpm --filter @gc-digital-talent/web run build-storybook",
+    "storybook": "storybook dev -p 6006",
+    "storybook:design-system": "SB_APP=design storybook dev -p 6006",
+    "storybook:web": "SB_APP=web storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "test": "turbo run test",
     "watch": "turbo run watch --filter @gc-digital-talent/web --filter @gc-digital-talent/graphql",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",
@@ -42,6 +42,9 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
+    "@gc-digital-talent/i18n": "workspace:*",
+    "@gc-digital-talent/storybook-helpers": "workspace:*",
+    "@gc-digital-talent/toast": "workspace:*",
     "@hydrogen-css/hydrogen": "2.1.0",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "turbo": "^2.5.4"

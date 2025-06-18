@@ -8,6 +8,15 @@ importers:
 
   .:
     devDependencies:
+      '@gc-digital-talent/i18n':
+        specifier: workspace:*
+        version: link:packages/i18n
+      '@gc-digital-talent/storybook-helpers':
+        specifier: workspace:*
+        version: link:packages/storybook-helpers
+      '@gc-digital-talent/toast':
+        specifier: workspace:*
+        version: link:packages/toast
       '@hydrogen-css/hydrogen':
         specifier: 2.1.0
         version: 2.1.0(typescript@5.8.3)
