@@ -249,7 +249,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                                 $this->RODData[$step->id]['education'][] = [
                                     'candidate' => $currentCandidate,
                                     'decision' => is_null($result->assessment_decision) ?
-                                        Lang::get('common.not_sure', [], $this->lang) :
+                                        Lang::get('common.pending_second_opinion', [], $this->lang) :
                                         $this->localizeEnum($result->assessment_decision, AssessmentDecision::class),
                                     'details' => $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class),
                                     'notes' => is_null($result->skill_decision_notes) ? null : $this->sanitizeString($result->skill_decision_notes),
@@ -268,7 +268,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                                 $this->RODData[$step->id][$poolSkill->id][] = [
                                     'candidate' => $currentCandidate,
                                     'decision' => is_null($result->assessment_decision) ?
-                                        Lang::get('common.not_sure', [], $this->lang) :
+                                        Lang::get('common.pending_second_opinion', [], $this->lang) :
                                         $this->localizeEnum($result->assessment_decision, AssessmentDecision::class),
                                     'details' => is_null($result->assessment_decision_level) ?
                                         $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class) :

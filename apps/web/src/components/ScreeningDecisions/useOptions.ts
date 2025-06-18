@@ -82,7 +82,7 @@ const useOptions = (
 
   const assessmentDecisionItems: CardOption[] = [
     {
-      label: intl.formatMessage(commonMessages.notSure),
+      label: intl.formatMessage(commonMessages.pendingSecondOpinion),
       selectedIcon: SolidExclamationTriangleIcon,
       selectedIconColor: "warning",
       unselectedIcon: OutlineExclamationTriangleIcon,
