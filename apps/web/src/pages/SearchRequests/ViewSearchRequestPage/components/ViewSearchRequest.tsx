@@ -12,6 +12,7 @@ import {
   Heading,
   Link,
   Separator,
+  Container,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
@@ -556,27 +557,29 @@ export const ViewSearchRequest = ({
             </div>
           </div>
         </div>
-        <div>
-          <Heading level="h2" size="h4">
+      </AdminContentWrapper>
+      <Container size="full">
+        <Heading level="h2" size="h4">
+          {intl.formatMessage({
+            defaultMessage: "Candidate results",
+            id: "bQ4iDW",
+            description:
+              "Heading for the candidate results section of the single search request view.",
+          })}
+        </Heading>
+        {abstractFilter ? (
+          <SingleSearchRequestTableApi filter={abstractFilter} />
+        ) : (
+          <>
             {intl.formatMessage({
-              defaultMessage: "Candidate results",
-              id: "bQ4iDW",
-              description:
-                "Heading for the candidate results section of the single search request view.",
+              defaultMessage: "Request doesn't include a filter!",
+              id: "hmacO5",
+              description: "Null state for a request not including a filter.",
             })}
-          </Heading>
-          {abstractFilter ? (
-            <SingleSearchRequestTableApi filter={abstractFilter} />
-          ) : (
-            <>
-              {intl.formatMessage({
-                defaultMessage: "Request doesn't include a filter!",
-                id: "hmacO5",
-                description: "Null state for a request not including a filter.",
-              })}
-            </>
-          )}
-        </div>
+          </>
+        )}
+      </Container>
+      <AdminContentWrapper>
         <UpdateSearchRequest initialSearchRequest={searchRequest} />
       </AdminContentWrapper>
     </>
