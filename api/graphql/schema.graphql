@@ -523,7 +523,7 @@ type PoolCandidateViewNotes {
 
 # group fields together that repeat use of viewStatus()
 type PoolCandidateViewStatus {
-  id: ID!
+  id: ID @cacheKey
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
@@ -543,7 +543,7 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
-  category: PoolCandidateCategory @with(relation: "user")
+  category: PoolCandidateCategory @with(relation: "user") @cache
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
