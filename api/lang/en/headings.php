@@ -120,6 +120,6 @@ return [
     'final_decision' => 'Final decision',
     'digital_talent_processes' => 'GC Digital Talent processes',
     'off_platform_processes' => 'Off-platform processes (not verified)',
-    'process_id' => 'Process ID',
-    'process_title' => 'Process title',
+    'process_number' => 'Process number',
+    'process_name' => 'Process name',
 ];

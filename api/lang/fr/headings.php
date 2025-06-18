@@ -122,4 +122,6 @@ return [
     'final_decision' => 'Décision finale',
     'digital_talent_processes' => 'Processus de Talents numériques du GC',
     'off_platform_processes' => 'Processus hors plateforme (non verifiés)',
+    'process_number' => 'Numéro de processus',
+    'process_name' => 'Nom du processus',
 ];

@@ -175,7 +175,7 @@ class UserCsvGenerator extends CsvGenerator implements FileGeneratorInterface
                     $this->localizeEnum($user->first_official_language, Language::class),
                     $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
                     $user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
-                    $this->yesOrNo($user->second_language_exam_validity),
+                    is_null($user->second_language_exam_validity) ? '' : $this->yesOrNo($user->second_language_exam_validity), // Bilingual exam validity
                     $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level

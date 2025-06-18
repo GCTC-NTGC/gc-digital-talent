@@ -66,8 +66,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
     ];
 
     protected array $headerLocaleKeys = [
-        'process_id',
-        'process_title',
+        'process_number',
+        'process_name',
         'first_name',
         'last_name',
         'status',
@@ -151,8 +151,8 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                 })->flatten()->unique()->toArray();
 
                 $values = [
-                    $candidate->pool->process_number, // Process ID
-                    $candidate->pool->name[$this->lang] ?? '', // Process title
+                    $candidate->pool->process_number, // Process number
+                    $candidate->pool->name[$this->lang] ?? '', // Process name
                     $candidate->user->first_name, // First name
                     $candidate->user->last_name, // Last name
                     $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
@@ -173,7 +173,7 @@ class PoolCandidateCsvGenerator extends CsvGenerator implements FileGeneratorInt
                     $this->localizeEnum($candidate->user->first_official_language, Language::class),
                     $this->localizeEnum($candidate->user->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
                     $candidate->user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
-                    $this->yesOrNo($candidate->user->second_language_exam_validity),
+                    is_null($candidate->user->second_language_exam_validity) ? '' : $this->yesOrNo($candidate->user->second_language_exam_validity), // Bilingual exam validity
                     $this->localizeEnum($candidate->user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($candidate->user->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($candidate->user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
