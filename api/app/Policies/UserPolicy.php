@@ -42,7 +42,7 @@ class UserPolicy
         }
 
         // Get all profile teams
-        $roleTeams = $user->rolesTeams()->pluck('id')->toArray();
+        $roleTeams = $user->rolesTeams()->pluck('teams.id')->toArray();
         $sharedProfileTeams = $this->teamsUserHasSharedProfileWith($model);
         $hasTeamPermission = $this->applicantHasAppliedToPoolInTeams($model, $roleTeams);
 
