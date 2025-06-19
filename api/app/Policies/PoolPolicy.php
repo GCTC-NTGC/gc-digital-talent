@@ -45,7 +45,7 @@ class PoolPolicy
 
         // Check permissions for team and community.
         $teamPermission = $pool->team && $user->isAbleTo('view-team-draftPool', $pool->team);
-        $communityPermission = $pool->community->team && $user->isAbleTo('view-team-draftPool', $pool->community->team);
+        $communityPermission = $pool->community?->team && $user->isAbleTo('view-team-draftPool', $pool->community?->team);
 
         // Return true if the user has permissions for either team or community.
         return $teamPermission || $communityPermission;
