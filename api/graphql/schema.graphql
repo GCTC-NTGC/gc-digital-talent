@@ -523,7 +523,6 @@ type PoolCandidateViewNotes {
 
 # group fields together that repeat use of viewStatus()
 type PoolCandidateViewStatus {
-  id: ID
   status: LocalizedPoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
   statusWeight: Int @rename(attribute: "status_weight")
