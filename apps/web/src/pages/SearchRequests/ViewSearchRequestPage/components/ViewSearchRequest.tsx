@@ -23,7 +23,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
@@ -478,7 +477,7 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <AdminContentWrapper>
+      <Container>
         {wasEmpty && (
           <p data-h2-margin="base(0 0 x1 0)">
             {intl.formatMessage({
@@ -557,7 +556,7 @@ export const ViewSearchRequest = ({
             </div>
           </div>
         </div>
-      </AdminContentWrapper>
+      </Container>
       <Container size="full">
         <Heading level="h2" size="h4" className="mt-0">
           {intl.formatMessage({
@@ -579,9 +578,9 @@ export const ViewSearchRequest = ({
           </>
         )}
       </Container>
-      <AdminContentWrapper>
+      <Container>
         <UpdateSearchRequest initialSearchRequest={searchRequest} />
-      </AdminContentWrapper>
+      </Container>
     </>
   );
 };
